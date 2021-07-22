@@ -9,15 +9,13 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  final _startBloc = StartBloc(UnStartState());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Start'),
       ),
-      body: StartScreen(startBloc: _startBloc),
+      body: StartScreen(),
     );
   }
 }

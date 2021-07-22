@@ -2,17 +2,26 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
+import 'package:inker_studio/domain/services/session/session_db_service.dart';
 import 'package:inker_studio/ui/start/index.dart';
 
 class StartBloc extends Bloc<StartEvent, StartState> {
-  StartBloc(StartState initialState) : super(initialState);
+  StartBloc(StartState initialState, this.sessionDbService)
+      : super(initialState);
+
+  final SessionDbService sessionDbService;
 
   @override
   Stream<StartState> mapEventToState(
     StartEvent event,
   ) async* {
     try {
-      yield* event.applyAsync(currentState: state, bloc: this);
+      print('event: $event');
+      if (event is UnStartEvent) {
+        yield UnStartState();
+      } else if (event is LoadStartEvent) {
+        // yiel
+      }
     } catch (_, stackTrace) {
       developer.log('$_', name: 'StartBloc', error: _, stackTrace: stackTrace);
       yield state;
