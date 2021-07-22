@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/ui/start/index.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({
-    required StartBloc startBloc,
     Key? key,
-  })  : _startBloc = startBloc,
-        super(key: key);
-
-  final StartBloc _startBloc;
+  }) : super(key: key);
 
   @override
   StartScreenState createState() {
@@ -23,7 +21,6 @@ class StartScreenState extends State<StartScreen> {
   @override
   void initState() {
     super.initState();
-    _load();
   }
 
   @override
@@ -33,51 +30,65 @@ class StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StartBloc, StartState>(
-        bloc: widget._startBloc,
-        builder: (
-          BuildContext context,
-          StartState currentState,
-        ) {
-          if (currentState is UnStartState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (currentState is ErrorStartState) {
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(currentState.errorMessage),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    child: Text('reload'),
-                    onPressed: _load,
-                  ),
-                ),
-              ],
-            ));
-          }
-          if (currentState is InStartState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(currentState.hello),
-                ],
-              ),
-            );
-          }
+    return BlocProvider(
+      create: (context) => StartBloc(UnStartState(), context.read()),
+      child: BlocBuilder<StartBloc, StartState>(builder: (
+        BuildContext context,
+        StartState currentState,
+      ) {
+        // TODO: DEJAR DE USAR DE ESTA FORMA BLOC POR LA XUXA PORQUE SE INICIA COMO 3 VECES
+        print('currentState: $currentState');
+        if (currentState is UnStartState) {
+          final user = new User(
+              email: 'adsada',
+              fullname: 'asdada',
+              id: 1,
+              profileThumbnail: null,
+              userType: 'asdad',
+              userTypeId: 2,
+              username: 'asda');
+
+          context
+              .read<StartBloc>()
+              .sessionDbService
+              .newSession(Session(user, 'asddsadad', 'expireIn'));
           return Center(
             child: CircularProgressIndicator(),
           );
-        });
-  }
-
-  void _load() {
-    widget._startBloc.add(LoadStartEvent());
+        }
+        if (currentState is ErrorStartState) {
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(currentState.errorMessage),
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  child: Text('reload'),
+                  onPressed: () {
+                    context.read<StartBloc>().add(LoadStartEvent());
+                  },
+                ),
+              ),
+            ],
+          ));
+        }
+        if (currentState is InStartState) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(currentState.hello),
+              ],
+            ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
+    );
   }
 }
