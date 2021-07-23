@@ -7,7 +7,9 @@ part of 'session.dart';
 // **************************************************************************
 
 Session _$SessionFromJson(Map<String, dynamic> json) => Session(
-      User.fromJson(json['user'] as Map<String, dynamic>),
+      json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
       json['accessToken'] as String,
       json['expireIn'] as String,
     );

@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
-import 'package:inker_studio/domain/services/session/session_db_service.dart';
+import 'package:inker_studio/domain/services/session/session_service.dart';
 import 'package:inker_studio/ui/start/index.dart';
 
 class StartBloc extends Bloc<StartEvent, StartState> {
   StartBloc(StartState initialState, this.sessionDbService)
       : super(initialState);
 
-  final SessionDbService sessionDbService;
+  final LocalSessionService sessionDbService;
 
   @override
   Stream<StartState> mapEventToState(

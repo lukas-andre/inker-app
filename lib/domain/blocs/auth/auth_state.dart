@@ -1,10 +1,22 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState extends Equatable {
-  const AuthState();
-  
+class AuthState extends Equatable {
+  const AuthState._({
+    this.status = AuthStatus.unknown,
+    this.session = Session.empty,
+  });
+
+  const AuthState.unknown() : this._();
+
+  const AuthState.authenticated(Session session)
+      : this._(status: AuthStatus.authenticated, session: session);
+
+  const AuthState.unauthenticated()
+      : this._(status: AuthStatus.unauthenticated);
+
+  final AuthStatus status;
+  final Session session;
+
   @override
   List<Object> get props => [];
 }
-
-class AuthInitial extends AuthState {}

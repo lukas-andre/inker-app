@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
               AppThemeCubit(context.read())..init(),
           child: BlocBuilder<AppThemeCubit, bool>(builder: (context, snapshot) {
             return MaterialApp(
-                title: 'Material App',
-                theme: snapshot ? ThemeData.dark() : ThemeData.light(),
-                home: StartPage());
+              theme: snapshot ? ThemeData.dark() : ThemeData.light(),
+              home: StartPage(),
+              debugShowCheckedModeBanner: false,
+            );
           }),
         ));
   }

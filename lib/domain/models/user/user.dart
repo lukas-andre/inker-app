@@ -24,13 +24,13 @@ class User extends Equatable {
     required this.profileThumbnail,
   });
 
-  int id;
-  String email;
-  String username;
-  String fullname;
-  String userType;
-  int userTypeId;
-  dynamic profileThumbnail;
+  final int id;
+  final String email;
+  final String username;
+  final String fullname;
+  final String userType;
+  final int userTypeId;
+  final dynamic profileThumbnail;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
