@@ -10,13 +10,16 @@ Session sessionFromJson(String str) => Session.fromJson(json.decode(str));
 
 String sessionToJson(Session data) => json.encode(data.toJson());
 
+// TODO: AGREGAR CREATED_AT Y UPDATED_AT A ESTO
 @JsonSerializable()
 class Session extends Equatable {
-  final User user;
+  static const empty = Session(null, '', '');
+
+  final User? user;
   final String accessToken;
   final String expireIn;
 
-  Session(this.user, this.accessToken, this.expireIn);
+  const Session(this.user, this.accessToken, this.expireIn);
 
   factory Session.fromJson(Map<String, dynamic> json) =>
       _$SessionFromJson(json);
