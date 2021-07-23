@@ -8,6 +8,7 @@ import 'package:inker_studio/domain/services/session/session_service.dart';
 
 List<RepositoryProvider> buildProviders() {
   return [
+    // TODO: AGREGAR NUEVAS DEPENDENCIAS COMO USER Y _NO SE CUAL MAS XD
     RepositoryProvider<AuthService>(create: (_) => AuthServiceImpl(_.read())),
     RepositoryProvider<LocalStorage>(create: (_) => LocalStorageImpl()),
     RepositoryProvider<LocalSessionService>(
