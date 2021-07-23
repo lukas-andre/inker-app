@@ -27,7 +27,10 @@ class _AppViewState extends State<AppView> {
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
             return BlocListener<AuthBloc, AuthState>(
-                listener: (context, state) {});
+                listener: (context, state) {
+              // TODO: TERMINAR ESTO
+              // switch(state.status)
+            });
           },
         );
       }),
