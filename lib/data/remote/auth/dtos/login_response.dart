@@ -2,8 +2,9 @@
 //
 //     final loginResponse = loginResponseFromJson(jsonString);
 
-import 'dart:convert';
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert' show json;
+import 'package:equatable/equatable.dart' show Equatable;
+import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
 part 'login_response.g.dart';
 
@@ -13,7 +14,7 @@ LoginResponse loginResponseFromJson(String str) =>
 String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class LoginResponse {
+class LoginResponse extends Equatable {
   LoginResponse({
     required this.id,
     required this.email,
@@ -24,38 +25,61 @@ class LoginResponse {
     required this.profileThumbnail,
     required this.permision,
     required this.accessToken,
-    required this.expireIn,
+    required this.expiresIn,
   });
 
-  int id;
-  String email;
-  String username;
-  String fullname;
-  String userType;
-  int userTypeId;
-  dynamic profileThumbnail;
-  List<Permision> permision;
-  String accessToken;
-  String expireIn;
+  final int id;
+  final String email;
+  final String username;
+  final String fullname;
+  final String userType;
+  final int userTypeId;
+  final dynamic profileThumbnail;
+  final List<Permision> permision;
+  final String accessToken;
+  final String expiresIn;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        email,
+        username,
+        fullname,
+        userType,
+        userTypeId,
+        profileThumbnail,
+        permision,
+        accessToken,
+        expiresIn,
+      ];
+
+  @override
+  bool get stringify => true;
 }
 
 @JsonSerializable()
-class Permision {
+class Permision extends Equatable {
   Permision({
     required this.c,
     required this.a,
   });
 
-  String c;
-  String a;
+  final String c;
+  final String a;
 
   factory Permision.fromJson(Map<String, dynamic> json) =>
       _$PermisionFromJson(json);
 
   Map<String, dynamic> toJson() => _$PermisionToJson(this);
+
+  @override
+  List<Object?> get props => [c, a];
+
+  @override
+  bool get stringify => true;
 }

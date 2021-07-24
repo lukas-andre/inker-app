@@ -1,8 +1,8 @@
 import 'dart:developer' as developer;
-import 'dart:async';
+import 'dart:async' show StreamSubscription;
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:bloc/bloc.dart' show Bloc;
+import 'package:equatable/equatable.dart' show Equatable;
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
@@ -12,6 +12,8 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  static const String className = 'Authbloc';
+
   AuthBloc(
       {required AuthService authService,
       required LocalSessionService sessionService})
@@ -30,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    developer.log('AuthBloc mapEventToState > envent: $event');
+    developer.log('event: $event', name: '$className::mapEventToState');
     if (event is AuthStatusChanged) {
       yield await _mapAuthStatusChangedToState(event);
     } else if (event is AuthLogoutRequested) {
@@ -62,9 +64,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<Session?> _tryGetSession() async {
-    developer.log('AuthBloc _tryGetSession');
+    developer.log('_tryGetSession called', name: className);
     try {
       final session = await _sessionService.getSession();
+      developer.log('session: $session', name: className);
       return session;
     } on Exception {
       return null;

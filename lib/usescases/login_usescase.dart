@@ -1,9 +1,13 @@
+import 'dart:developer' as developer;
+
 import 'package:inker_studio/data/remote/auth/dtos/login_request.dart';
 import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 
 class LoginUsesCase {
+  static const className = 'LoginUsesCase';
+
   final AuthService authService;
   final LocalStorage localStorage;
 
@@ -15,9 +19,12 @@ class LoginUsesCase {
       LoginResponse loginResponse = await this
           .authService
           .logIn(LoginRequest(identifier, password, loginType));
-      // this.localStorage.
+      developer.log('login response: $loginResponse', name: className);
+      // TODO: Manejar respuesta
+
       return true;
-    } catch (e) {
+    } catch (e, stackTrace) {
+      developer.log('$e', error: e, stackTrace: stackTrace);
       return false;
     }
   }

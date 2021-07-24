@@ -2,10 +2,10 @@
 //
 //     final user = userFromJson(jsonString);
 
-import 'dart:convert';
+import 'dart:convert' show json;
 
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart' show Equatable;
+import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
 part 'user.g.dart';
 

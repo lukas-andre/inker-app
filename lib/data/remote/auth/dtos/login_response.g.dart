@@ -19,7 +19,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
           .map((e) => Permision.fromJson(e as Map<String, dynamic>))
           .toList(),
       accessToken: json['accessToken'] as String,
-      expireIn: json['expireIn'] as String,
+      expiresIn: json['expiresIn'] as String,
     );
 
 Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
@@ -33,7 +33,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'profileThumbnail': instance.profileThumbnail,
       'permision': instance.permision,
       'accessToken': instance.accessToken,
-      'expireIn': instance.expireIn,
+      'expiresIn': instance.expiresIn,
     };
 
 Permision _$PermisionFromJson(Map<String, dynamic> json) => Permision(

@@ -1,12 +1,10 @@
-import 'dart:async';
+import 'dart:developer' as developer;
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:formz/formz.dart';
-import 'package:inker_studio/data/remote/auth/dtos/login_request.dart';
+import 'package:bloc/bloc.dart' show Bloc;
+import 'package:equatable/equatable.dart' show Equatable;
+import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
 import 'package:inker_studio/domain/models/login/password.dart';
 import 'package:inker_studio/domain/models/login/username.dart';
-import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/usescases/login_usescase.dart';
 
 part 'login_event.dart';
@@ -64,7 +62,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
         await _loginUseCase.execute(
-            state.username.value, state.password.value, 'CUSTOMER');
+            state.username.value, state.password.value, 'EMAIL');
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
