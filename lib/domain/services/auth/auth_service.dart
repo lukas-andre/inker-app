@@ -3,9 +3,12 @@ import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 
 abstract class AuthService {
   Stream<AuthStatus> get status;
-  Future<dynamic> login(LoginRequest request);
+  AuthStatus get statusValue;
+
+  Future<dynamic> logIn(LoginRequest request);
+
   // TODO: VER SI LLEVA ALGUN PARAMETRO
-  Future<dynamic> logut();
-  Future<bool> checkIfValidToken(String token);
+  Future<dynamic> logOut();
+  bool checkIfValidToken(String token);
   void dispose();
 }

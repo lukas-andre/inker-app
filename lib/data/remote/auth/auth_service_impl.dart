@@ -11,31 +11,37 @@ import 'dtos/login_request.dart';
 
 class AuthServiceImpl extends AuthService {
   final _streamController = new StreamController<AuthStatus>();
+  AuthStatus _statusValue = AuthStatus.unknown;
 
   AuthServiceImpl(this.localSessionService);
   final LocalSessionService localSessionService;
+
+  @override
+  AuthStatus get statusValue => _statusValue;
 
   @override
   Stream<AuthStatus> get status async* {
     developer.log(
         'AuthService: get status start - stream: ${_streamController.stream}');
 
-    String token = await localSessionService.getSessionToken();
+    String? token = await localSessionService.getSessionToken();
     developer.log('token: $token');
 
-    bool keepConection = await this.checkIfValidToken(token);
+    bool keepConection = this.checkIfValidToken(token);
 
     if (keepConection) {
       yield AuthStatus.authenticated;
+      _statusValue = AuthStatus.authenticated;
     } else {
       yield AuthStatus.unauthenticated;
+      _statusValue = AuthStatus.unauthenticated;
     }
 
     yield* _streamController.stream;
   }
 
   @override
-  Future login(LoginRequest request) {
+  Future logIn(LoginRequest request) {
     throw UnimplementedError();
   }
 
@@ -45,7 +51,7 @@ class AuthServiceImpl extends AuthService {
   // de vez cuando mandar un evento para reintar el logout
   //
   @override
-  Future<bool> logut() {
+  Future<bool> logOut() {
     // TODO: implement logut
     Future.delayed(Duration(seconds: 1));
     throw UnimplementedError();
@@ -54,7 +60,12 @@ class AuthServiceImpl extends AuthService {
   void dispose() => _streamController.close();
 
   @override
-  Future<bool> checkIfValidToken(String token) async {
-    return JwtDecoder.isExpired(token);
+  checkIfValidToken(String token) {
+    try {
+      return JwtDecoder.isExpired(token);
+    } catch (e) {
+      developer.log('checkIfValidToken error: $e');
+      return false;
+    }
   }
 }
