@@ -1,46 +1,69 @@
-import 'dart:io';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'dart:developer' as developer;
+import 'dart:io' show Directory;
 
-class DatabaseService {
+import 'package:path/path.dart' show join;
+import 'package:path_provider/path_provider.dart'
+    show getApplicationDocumentsDirectory;
+
+import 'package:sqflite/sqflite.dart'
+    show Database, openDatabase, Sqflite, ConflictAlgorithm;
+
+class DatabaseServiceImpl {
+  static const String className = 'DatabaseService';
+  static const String sessionDatabaseName = 'Session';
+
   static Database? _database;
-  static final String sessionDatabaseName = 'Session';
 
-  static final DatabaseService instance = DatabaseService._();
+  static final DatabaseServiceImpl instance = DatabaseServiceImpl._();
 
-  DatabaseService._();
+  DatabaseServiceImpl._();
 
   Future<Database> get database async {
-    print('database: $_database');
+    developer.log('database: $_database', name: '$className::database');
 
     if (_database != null) {
       return _database!;
     }
+    developer.log('initializing database...', name: '$className::database');
 
     _database = await initDB();
+    developer.log('database: $_database', name: '$className::database');
 
     return _database!;
   }
 
   _onCreate(Database db, int version) async {
-    print('_onCreate');
+    developer.log('db: $db version: $version', name: '$className::_onCreate');
+
+    final createSessionTableQuery = _getSessionCreateTableQuery();
+    developer.log('createSessionTableQuery: $createSessionTableQuery',
+        name: '$className::_onCreate');
+
     await db.execute('''
+      $createSessionTableQuery
+    ''');
+  }
+
+  String _getSessionCreateTableQuery() {
+    return '''
       CREATE TABLE $sessionDatabaseName(
         id INTEGER PRIMARY KEY,
         user TEXT,
         accessToken TEXT,
-        expireIn TEXT
+        expireIn TEXT,
+        createdAt TEXT
       );
-    ''');
+    ''';
   }
 
   _onUpdate(Database db, int oldVersion, int newVersion) async {
-    print('_onUpdate');
+    developer.log('db: $db oldVersion: $oldVersion newVersion: $newVersion',
+        name: '$className::_onUpdate');
+
     // WARNING: NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
-    // await db.execute('''
-    //   DROP TABLE IF EXISTS Scans
-    // ''');
+    await db.execute('''
+      DROP TABLE IF EXISTS $sessionDatabaseName
+    ''');
     await _onCreate(db, newVersion);
   }
 
@@ -49,7 +72,7 @@ class DatabaseService {
     final path = join(documentsDirectory.path, 'Master.db');
 
     final db = await openDatabase(path,
-        version: 6, onOpen: (db) {}, onCreate: _onCreate, onUpgrade: _onUpdate);
+        version: 9, onOpen: (db) {}, onCreate: _onCreate, onUpgrade: _onUpdate);
     Sqflite.devSetDebugModeOn(true);
     return db;
   }

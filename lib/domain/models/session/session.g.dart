@@ -12,10 +12,14 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
           : User.fromJson(json['user'] as Map<String, dynamic>),
       json['accessToken'] as String,
       json['expireIn'] as String,
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'user': instance.user,
       'accessToken': instance.accessToken,
       'expireIn': instance.expireIn,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };
