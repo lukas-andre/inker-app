@@ -16,12 +16,12 @@ class AuthServiceImpl extends AuthService {
   static const String className = 'AuthService';
 
   final HttpClientConfig _httpConfig;
-  final _streamController = new StreamController<AuthStatus>();
+  final _streamController = StreamController<AuthStatus>();
 
   AuthStatus _statusValue = AuthStatus.unknown;
 
   AuthServiceImpl(this._localSessionService)
-      : _httpConfig = new HttpClientConfig(
+      : _httpConfig = HttpClientConfig(
             baseUrl: HttpClientConfig.baseStgUrl, basePath: 'auth'),
         super();
 
@@ -38,7 +38,7 @@ class AuthServiceImpl extends AuthService {
     String? token = await _localSessionService.getSessionToken();
     developer.log('token: $token', name: '$className::status');
 
-    bool keepConection = this.checkIfValidToken(token);
+    bool keepConection = checkIfValidToken(token);
     developer.log('keepConection: $keepConection', name: '$className::status');
 
     if (keepConection) {
@@ -75,10 +75,11 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<bool> logOut() {
     // TODO: implement logut
-    Future.delayed(Duration(seconds: 1));
+    Future.delayed(const Duration(seconds: 1));
     throw UnimplementedError();
   }
 
+  @override
   void dispose() => _streamController.close();
 
   @override

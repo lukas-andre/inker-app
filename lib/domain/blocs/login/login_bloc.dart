@@ -11,6 +11,7 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  static const className = 'LoginBloc';
   LoginBloc({
     required LoginUsesCase loginUseCase,
   })  : _loginUseCase = loginUseCase,
@@ -22,6 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
+    developer.log('event $event', name: '$className::event');
     if (event is LoginUsernameChanged) {
       yield _mapUsernameChangedToState(event, state);
     } else if (event is LoginPasswordChanged) {

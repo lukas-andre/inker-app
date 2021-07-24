@@ -17,15 +17,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
       {required AuthService authService,
       required LocalSessionService sessionService})
-      : this._authService = authService,
-        this._sessionService = sessionService,
-        super(AuthState.unknown()) {
+      : _authService = authService,
+        _sessionService = sessionService,
+        super(const AuthState.unknown()) {
     _authStatusSubscription = authService.status.listen(
       (status) => add(AuthStatusChanged(status)),
     );
   }
-  AuthService _authService;
-  LocalSessionService _sessionService;
+  final AuthService _authService;
+  final LocalSessionService _sessionService;
 
   late StreamSubscription<AuthStatus> _authStatusSubscription;
   @override

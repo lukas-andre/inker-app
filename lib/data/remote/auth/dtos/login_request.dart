@@ -16,7 +16,7 @@ class LoginRequest extends Equatable {
   final String password;
   final String loginType;
 
-  LoginRequest(this.identifier, this.password, this.loginType);
+  const LoginRequest(this.identifier, this.password, this.loginType);
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestFromJson(json);

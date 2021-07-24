@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
 import 'dart:convert' show json;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
@@ -15,7 +11,7 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 @JsonSerializable()
 class LoginResponse extends Equatable {
-  LoginResponse({
+  const LoginResponse({
     required this.id,
     required this.email,
     required this.username,
@@ -64,7 +60,7 @@ class LoginResponse extends Equatable {
 
 @JsonSerializable()
 class Permision extends Equatable {
-  Permision({
+  const Permision({
     required this.c,
     required this.a,
   });

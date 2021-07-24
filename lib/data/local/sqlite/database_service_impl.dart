@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer' as developer;
 import 'dart:io' show Directory;
 
@@ -60,7 +62,7 @@ class DatabaseServiceImpl {
     developer.log('db: $db oldVersion: $oldVersion newVersion: $newVersion',
         name: '$className::_onUpdate');
 
-    // WARNING: NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
+    // ! NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
     await db.execute('''
       DROP TABLE IF EXISTS $sessionDatabaseName
     ''');
@@ -73,6 +75,8 @@ class DatabaseServiceImpl {
 
     final db = await openDatabase(path,
         version: 9, onOpen: (db) {}, onCreate: _onCreate, onUpgrade: _onUpdate);
+    // ! Remove for production
+    // TODO: asda
     Sqflite.devSetDebugModeOn(true);
     return db;
   }
