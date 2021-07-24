@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/ui/auth/login_page.dart';
+import 'package:inker_studio/ui/customer/home/home_page.dart';
+import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 
 class AppView extends StatefulWidget {
@@ -15,7 +19,7 @@ class _AppViewState extends State<AppView> {
 
   // ignore: todo
   // TODO: Googlear porque se hace esto
-  NavigatorState get navigator => _navigatorKey.currentState!;
+  NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +30,35 @@ class _AppViewState extends State<AppView> {
           navigatorKey: _navigatorKey,
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
-            return BlocListener<AuthBloc, AuthState>(
-                listener: (context, state) {
-              // TODO: TERMINAR ESTO
-              // switch(state.status)
-            });
+            print('context: $context');
+            return BlocProvider(
+              create: (context) => AuthBloc(
+                  authService: context.read(), sessionService: context.read()),
+              child: BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    print('state: $state');
+                    switch (state.status) {
+                      case AuthStatus.authenticated:
+                        // ignore: todo
+                        // TODO: Verify if is a artist or customer session and redirect to correspond page
+                        _navigator.pushAndRemoveUntil<void>(
+                          HomePage.route(),
+                          (route) => false,
+                        );
+                        break;
+                      case AuthStatus.unknown:
+                      case AuthStatus.unauthenticated:
+                        _navigator.pushAndRemoveUntil<void>(
+                          LoginPage.route(),
+                          (route) => false,
+                        );
+                        break;
+                    }
+                  },
+                  child: child),
+            );
           },
+          onGenerateRoute: (_) => SplashPage.route(),
         );
       }),
     );

@@ -14,7 +14,7 @@ class LoginUsesCase {
     try {
       LoginResponse loginResponse = await this
           .authService
-          .login(LoginRequest(identifier, password, loginType));
+          .logIn(LoginRequest(identifier, password, loginType));
       // this.localStorage.
       return true;
     } catch (e) {
