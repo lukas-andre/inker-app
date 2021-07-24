@@ -4,8 +4,10 @@ import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/auth/login_form.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => LoginPage());
+    return MaterialPageRoute<void>(builder: (_) => const LoginPage());
   }
 
   @override
@@ -16,7 +18,7 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: BlocProvider(
           create: (context) => LoginBloc(loginUseCase: context.read()),
-          child: LoginForm(),
+          child: const LoginForm(),
         ),
       ),
     );

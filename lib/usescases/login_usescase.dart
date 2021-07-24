@@ -16,8 +16,7 @@ class LoginUsesCase {
   Future<bool> execute(
       String identifier, String password, String loginType) async {
     try {
-      LoginResponse loginResponse = await this
-          .authService
+      LoginResponse loginResponse = await authService
           .logIn(LoginRequest(identifier, password, loginType));
       developer.log('login response: $loginResponse', name: className);
       // TODO: Manejar respuesta

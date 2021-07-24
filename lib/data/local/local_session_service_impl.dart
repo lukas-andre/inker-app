@@ -8,7 +8,6 @@ import 'package:inker_studio/domain/services/session/session_service.dart';
 class LocalSessionServiceImpl extends LocalSessionService {
   static const className = 'LocalSessionServiceImpl';
 
-  // TODO: PROBAR;
   @override
   Future<Session> newSession(Session session) async {
     // TODO: Considerar un soft delete, pero en un futuro.
@@ -66,11 +65,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
     Map<String, Object?> sessionMap = Map.of(result.first);
     developer.log('sessionMap.user: ${sessionMap['user']}',
         name: '$className::getSession');
-    developer.log(
-        'sessionMap.user.toString(): ${sessionMap['user'].toString()}',
-        name: '$className::getSession');
 
-    sessionMap['user'] = userFromJson(sessionMap['user'].toString()).toJson();
+    sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
     return Session.fromJson(sessionMap);
   }

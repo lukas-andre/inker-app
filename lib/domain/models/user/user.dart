@@ -14,7 +14,7 @@ String userToJson(User data) => json.encode(data.toJson());
 
 @JsonSerializable()
 class User extends Equatable {
-  User({
+  const User({
     required this.id,
     required this.email,
     required this.username,
