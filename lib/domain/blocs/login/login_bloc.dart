@@ -71,11 +71,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final session = await _loginUseCase.execute(
             state.username.value, state.password.value, LoginType.email);
         dev.log('session: $session', className);
+
         if (session == null) {
           yield state.copyWith(status: FormzStatus.submissionFailure);
         }
 
         _authBloc.add(AuthNewSession(session!));
+
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
