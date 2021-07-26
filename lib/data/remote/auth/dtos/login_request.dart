@@ -16,7 +16,10 @@ class LoginRequest extends Equatable {
   final String password;
   final String loginType;
 
-  const LoginRequest(this.identifier, this.password, this.loginType);
+  const LoginRequest(
+      {required this.identifier,
+      required this.password,
+      required this.loginType});
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestFromJson(json);
@@ -24,7 +27,6 @@ class LoginRequest extends Equatable {
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [identifier, password, loginType];
 
   @override

@@ -1,18 +1,19 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/utils/dev.dart' show dev;
 
 class LoginForm extends StatelessWidget {
+  static const String className = 'LoginForm';
+
   const LoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        developer.log('Form status: ${state.status}');
+        dev.log('Form status: ${state.status}', className);
         if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/auth/login_form.dart';
 
@@ -17,7 +18,8 @@ class LoginPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: BlocProvider(
-          create: (context) => LoginBloc(loginUseCase: context.read()),
+          create: (context) => LoginBloc(
+              loginUseCase: context.read(), authBloc: context.read<AuthBloc>()),
           child: const LoginForm(),
         ),
       ),

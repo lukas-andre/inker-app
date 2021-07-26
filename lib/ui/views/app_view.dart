@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
@@ -8,6 +6,7 @@ import 'package:inker_studio/ui/auth/login_page.dart';
 import 'package:inker_studio/ui/customer/home/home_page.dart';
 import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 class AppView extends StatefulWidget {
   const AppView({Key? key}) : super(key: key);
@@ -17,6 +16,7 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  static const String className = 'AppView';
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   // TODO: Googlear porque se hace esto
@@ -31,14 +31,14 @@ class _AppViewState extends State<AppView> {
           navigatorKey: _navigatorKey,
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
-            developer.log('context: $context');
-            developer.inspect(context);
             return BlocProvider(
               create: (context) => AuthBloc(
                   authService: context.read(), sessionService: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    developer.log('state: $state');
+                    dev.log(
+                        'state: $state', className, 'AuthBloc::BlocListener');
+                    dev.inspect(state);
                     switch (state.status) {
                       case AuthStatus.authenticated:
                         // TODO: Verify if is a artist or customer session and redirect to correspond page
