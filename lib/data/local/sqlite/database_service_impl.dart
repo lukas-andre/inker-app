@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:developer' as developer;
 import 'dart:io' show Directory;
 
 import 'package:path/path.dart' show join;
@@ -9,6 +8,8 @@ import 'package:path_provider/path_provider.dart'
 
 import 'package:sqflite/sqflite.dart'
     show Database, openDatabase, Sqflite, ConflictAlgorithm;
+
+import 'package:inker_studio/utils/dev.dart' show dev;
 
 class DatabaseServiceImpl {
   static const String className = 'DatabaseService';
@@ -21,25 +22,25 @@ class DatabaseServiceImpl {
   DatabaseServiceImpl._();
 
   Future<Database> get database async {
-    developer.log('database: $_database', name: '$className::database');
+    dev.log('database: $_database', className, 'database');
 
     if (_database != null) {
       return _database!;
     }
-    developer.log('initializing database...', name: '$className::database');
+    dev.log('initializing database...', className, 'database');
 
     _database = await initDB();
-    developer.log('database: $_database', name: '$className::database');
+    dev.log('database: $_database', className, 'database');
 
     return _database!;
   }
 
   _onCreate(Database db, int version) async {
-    developer.log('db: $db version: $version', name: '$className::_onCreate');
+    dev.log('db: $db version: $version', className, '_onCreate');
 
     final createSessionTableQuery = _getSessionCreateTableQuery();
-    developer.log('createSessionTableQuery: $createSessionTableQuery',
-        name: '$className::_onCreate');
+    dev.log('createSessionTableQuery: $createSessionTableQuery', className,
+        '_onCreate');
 
     await db.execute('''
       $createSessionTableQuery
@@ -59,8 +60,8 @@ class DatabaseServiceImpl {
   }
 
   _onUpdate(Database db, int oldVersion, int newVersion) async {
-    developer.log('db: $db oldVersion: $oldVersion newVersion: $newVersion',
-        name: '$className::_onUpdate');
+    dev.log('db: $db oldVersion: $oldVersion newVersion: $newVersion',
+        className, '_onUpdate');
 
     // ! NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
     await db.execute('''
@@ -76,7 +77,6 @@ class DatabaseServiceImpl {
     final db = await openDatabase(path,
         version: 9, onOpen: (db) {}, onCreate: _onCreate, onUpgrade: _onUpdate);
     // ! Remove for production
-    // TODO: asda
     Sqflite.devSetDebugModeOn(true);
     return db;
   }

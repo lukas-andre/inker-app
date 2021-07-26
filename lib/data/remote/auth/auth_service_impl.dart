@@ -1,8 +1,8 @@
-import 'dart:developer' as developer;
 import 'dart:async' show StreamController;
 
 import 'package:inker_studio/config/base_client.dart';
 import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
+import 'package:inker_studio/utils/dev.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,14 +32,13 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Stream<AuthStatus> get status async* {
-    developer.log('get status start - status: $statusValue',
-        name: '$className::status');
+    dev.log('get status start - status: $statusValue', className, 'status');
 
     String? token = await _localSessionService.getSessionToken();
-    developer.log('token: $token', name: '$className::status');
+    dev.log('token: $token', className, 'status');
 
     bool keepConection = checkIfValidToken(token);
-    developer.log('keepConection: $keepConection', name: '$className::status');
+    dev.log('keepConection: $keepConection', className, 'status');
 
     if (keepConection) {
       yield AuthStatus.authenticated;
@@ -56,9 +55,10 @@ class AuthServiceImpl extends AuthService {
   Future<LoginResponse> logIn(LoginRequest request) async {
     var url = _httpConfig.url('login');
     var response = await http.post(url, body: request.toJson());
-    developer.log('Response status: ${response.statusCode}',
-        name: '$className::login');
-    developer.log('Response body: ${response.body}', name: '$className::login');
+
+    dev.log('Response status: ${response.statusCode}', className, 'login');
+    dev.log('Response body: ${response.body}', className, 'login');
+    dev.inspect(response);
 
     if (response.statusCode == 200) {
       return loginResponseFromJson(response.body);
@@ -87,12 +87,9 @@ class AuthServiceImpl extends AuthService {
     if (token == null) return false;
 
     try {
-      return JwtDecoder.isExpired(token);
+      return JwtDecoder.isExpired('asdsafadsa');
     } catch (e, stackTrace) {
-      developer.log('checkIfValidToken error: $e',
-          name: '$className::checkIfValidToken',
-          stackTrace: stackTrace,
-          error: e.toString());
+      dev.logError(e, stackTrace);
       return false;
     }
   }

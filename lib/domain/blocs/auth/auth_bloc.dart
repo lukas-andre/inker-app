@@ -1,4 +1,3 @@
-import 'dart:developer' as developer;
 import 'dart:async' show StreamSubscription;
 
 import 'package:bloc/bloc.dart' show Bloc;
@@ -7,12 +6,13 @@ import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
+import 'package:inker_studio/utils/dev.dart' show dev;
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  static const String className = 'Authbloc';
+  static const String className = 'AuthBloc';
 
   AuthBloc(
       {required AuthService authService,
@@ -32,9 +32,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    developer.log('event: $event', name: '$className::mapEventToState');
+    dev.log('event: $event', className, 'mapEventToState');
+    dev.inspect(event);
+
     if (event is AuthStatusChanged) {
       yield await _mapAuthStatusChangedToState(event);
+    } else if (event is AuthNewSession) {
+      dev.log('AuthNewSession', className);
+      yield await _newSession(event);
     } else if (event is AuthLogoutRequested) {
       _authService.logOut();
     }
@@ -64,13 +69,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<Session?> _tryGetSession() async {
-    developer.log('_tryGetSession called', name: className);
+    dev.log('_tryGetSession called', className, '_tryGetSession');
     try {
       final session = await _sessionService.getSession();
-      developer.log('session: $session', name: className);
+      dev.log('session: $session', className, '_tryGetSession');
       return session;
-    } on Exception {
+    } on Exception catch (_, stackTrace) {
+      dev.logError(_, stackTrace);
       return null;
     }
+  }
+
+  Future<AuthState> _newSession(AuthNewSession event) async {
+    return AuthState.authenticated(event.session);
   }
 }

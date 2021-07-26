@@ -17,3 +17,12 @@ class AuthStatusChanged extends AuthEvent {
 }
 
 class AuthLogoutRequested extends AuthEvent {}
+
+class AuthNewSession extends AuthEvent {
+  const AuthNewSession(this.session);
+
+  final Session session;
+
+  @override
+  List<Object> get props => [session];
+}

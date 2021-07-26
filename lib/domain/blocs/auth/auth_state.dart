@@ -18,7 +18,7 @@ class AuthState extends Equatable {
   final Session session;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status, session];
 
   @override
   bool get stringify => true;
