@@ -1,14 +1,15 @@
 import 'dart:async' show StreamController;
 
-import 'package:inker_studio/config/base_client.dart';
-import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
-import 'package:inker_studio/utils/dev.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
+import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/config/base_client.dart';
+import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 import 'dtos/login_request.dart';
 
@@ -34,7 +35,7 @@ class AuthServiceImpl extends AuthService {
   Stream<AuthStatus> get status async* {
     dev.log('get status start - status: $statusValue', className, 'status');
 
-    String? token = await _localSessionService.getSessionToken();
+    String? token = await _localSessionService.getActiveSessionToken();
     dev.log('token: $token', className, 'status');
 
     bool keepConection = checkIfValidToken(token);
@@ -52,13 +53,10 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  Future<LoginResponse> logIn(LoginRequest request) async {
+  Future<LoginResponse> login(LoginRequest request) async {
     var url = _httpConfig.url('login');
     var response = await http.post(url, body: request.toJson());
-
-    dev.log('Response status: ${response.statusCode}', className, 'login');
-    dev.log('Response body: ${response.body}', className, 'login');
-    dev.inspect(response);
+    dev.inspect(response, 'response');
 
     if (response.statusCode == 200) {
       return loginResponseFromJson(response.body);
@@ -73,24 +71,23 @@ class AuthServiceImpl extends AuthService {
   // de vez cuando mandar un evento para reintar el logout
   //
   @override
-  Future<bool> logOut() {
-    // TODO: implement logut
-    Future.delayed(const Duration(seconds: 1));
-    throw UnimplementedError();
+  Future<bool> logout(Session session) async {
+    await _localSessionService.logout(session);
+    return true;
   }
-
-  @override
-  void dispose() => _streamController.close();
 
   @override
   bool checkIfValidToken(String? token) {
     if (token == null) return false;
 
     try {
-      return JwtDecoder.isExpired('asdsafadsa');
+      return JwtDecoder.isExpired(token);
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
       return false;
     }
   }
+
+  @override
+  void dispose() => _streamController.close();
 }

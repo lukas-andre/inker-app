@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
+
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
 import 'package:inker_studio/domain/models/login/password.dart';
 import 'package:inker_studio/domain/models/login/username.dart';
 import 'package:inker_studio/usescases/login_usescase.dart';
-import 'package:inker_studio/utils/dev.dart' show dev;
+import 'package:inker_studio/utils/dev.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -70,7 +71,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final session = await _loginUseCase.execute(
             state.username.value, state.password.value, LoginType.email);
-        dev.log('session: $session', className);
 
         if (session == null) {
           yield state.copyWith(status: FormzStatus.submissionFailure);

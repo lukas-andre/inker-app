@@ -1,20 +1,22 @@
 import 'dart:developer' as developer;
 
+// import 'package:sentry_flutter/sentry_flutter.dart';
+
 class Developer {
   final className = 'Developer';
 
-  void log(String message, String context, [String? method]) {
-    var contex = context;
+  void log(String message, String className, [String? method]) {
+    var _className = className;
 
     if (method != null) {
-      contex = '$contex::$method';
+      _className = '$className::$method';
     }
-    developer.log(message, name: contex, time: DateTime.now());
+    developer.log(message, name: _className, time: DateTime.now());
   }
 
-  void inspect(dynamic object) {
+  void inspect(dynamic object, [String? message]) {
     log(
-      object.toString(),
+      [message, object.toString()].join(' '),
       className,
       'inspect',
     );
@@ -25,7 +27,11 @@ class Developer {
     developer.debugger(when: when, message: message);
   }
 
-  void logError(Object error, StackTrace stackTrace) {
+  Future<void> logError(error, StackTrace stackTrace) async {
+    // await Sentry.captureException(
+    //   error,
+    //   stackTrace: stackTrace,
+    // );
     developer.log('$error',
         error: error.toString(), stackTrace: stackTrace, time: DateTime.now());
   }
