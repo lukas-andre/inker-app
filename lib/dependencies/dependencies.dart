@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
 import 'package:inker_studio/usescases/login_usescase.dart';
+import 'package:inker_studio/usescases/logout_usecase.dart';
 
 List<RepositoryProvider> buildProviders() {
   return [
@@ -17,5 +18,7 @@ List<RepositoryProvider> buildProviders() {
         create: (context) => AuthServiceImpl(context.read())),
     RepositoryProvider<LoginUsesCase>(
         create: (context) => LoginUsesCase(context.read(), context.read())),
+    RepositoryProvider<LogoutUseCase>(
+        create: (context) => LogoutUseCase(context.read())),
   ];
 }

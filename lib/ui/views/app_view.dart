@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/auth/login_page.dart';
-import 'package:inker_studio/ui/customer/home/home_page.dart';
+import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -33,19 +37,17 @@ class _AppViewState extends State<AppView> {
           builder: (context, child) {
             return BlocProvider(
               create: (context) => AuthBloc(
-                  authService: context.read(), sessionService: context.read()),
+                  authService: context.read(),
+                  sessionService: context.read(),
+                  logoutUseCase: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
                     dev.log(
                         'state: $state', className, 'AuthBloc::BlocListener');
-                    dev.inspect(state);
+                    dev.inspect(state, 'auth:state');
                     switch (state.status) {
                       case AuthStatus.authenticated:
-                        // TODO: Verify if is a artist or customer session and redirect to correspond page
-                        _navigator.pushAndRemoveUntil<void>(
-                          HomePage.route(),
-                          (route) => false,
-                        );
+                        navigateToUserTypePage(state.session);
                         break;
                       case AuthStatus.unknown:
                       case AuthStatus.unauthenticated:
@@ -63,5 +65,21 @@ class _AppViewState extends State<AppView> {
         );
       }),
     );
+  }
+
+  void navigateToUserTypePage(Session session) {
+    final userType = session.user!.userType;
+    dev.log('userType: $userType', className);
+    if (userType == UserType.customer) {
+      _navigator.pushAndRemoveUntil<void>(
+        CustomerHomePage.route(),
+        (route) => false,
+      );
+    } else if (userType == UserType.customer) {
+      _navigator.pushAndRemoveUntil<void>(
+        ArtistHomePage.route(),
+        (route) => false,
+      );
+    }
   }
 }

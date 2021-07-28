@@ -4,7 +4,7 @@ import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
-import 'package:inker_studio/utils/dev.dart' show dev;
+import 'package:inker_studio/utils/dev.dart';
 
 class LoginUsesCase {
   static const className = 'LoginUsesCase';
@@ -17,22 +17,25 @@ class LoginUsesCase {
   Future<Session?> execute(
       String identifier, String password, String loginType) async {
     try {
-      LoginResponse loginResponse = await _authService.logIn(LoginRequest(
+      LoginResponse loginResponse = await _authService.login(LoginRequest(
           identifier: identifier, password: password, loginType: loginType));
       dev.log('login response: $loginResponse', className);
 
       final user = _getUserFromLoginResponse(loginResponse);
+      final session = _getSessionFromUserAndResponse(user, loginResponse);
 
-      var session = Session(user, loginResponse.accessToken,
-          loginResponse.expiresIn, DateTime.now());
-
-      session = await _localSessionStorage.newSession(session);
-
-      return session;
+      return await _localSessionStorage.newSession(session);
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
       return null;
     }
+  }
+
+  Session _getSessionFromUserAndResponse(
+      User user, LoginResponse loginResponse) {
+    final sessionType = user.userType; //* Handle this better in the future
+    return Session(
+        user, sessionType, loginResponse.accessToken, loginResponse.expiresIn);
   }
 
   User _getUserFromLoginResponse(LoginResponse loginResponse) {

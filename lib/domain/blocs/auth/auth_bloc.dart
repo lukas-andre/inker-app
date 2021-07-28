@@ -2,11 +2,13 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
+
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
-import 'package:inker_studio/utils/dev.dart' show dev;
+import 'package:inker_studio/usescases/logout_usecase.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -16,16 +18,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(
       {required AuthService authService,
-      required LocalSessionService sessionService})
+      required LocalSessionService sessionService,
+      required LogoutUseCase logoutUseCase})
       : _authService = authService,
         _sessionService = sessionService,
+        _logoutUseCase = logoutUseCase,
         super(const AuthState.unknown()) {
-    _authStatusSubscription = authService.status.listen(
-      (status) => add(AuthStatusChanged(status)),
+    _authStatusSubscription = _authService.status.listen(
+      (status) async => add(AuthStatusChanged(status)),
     );
   }
   final AuthService _authService;
   final LocalSessionService _sessionService;
+  final LogoutUseCase _logoutUseCase;
 
   late StreamSubscription<AuthStatus> _authStatusSubscription;
   @override
@@ -33,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthEvent event,
   ) async* {
     dev.log('event: $event', className, 'mapEventToState');
-    dev.inspect(event);
+    // dev.inspect(event, 'auth:event');
 
     if (event is AuthStatusChanged) {
       yield await _mapAuthStatusChangedToState(event);
@@ -41,7 +46,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       dev.log('AuthNewSession', className);
       yield await _newSession(event);
     } else if (event is AuthLogoutRequested) {
-      _authService.logOut();
+      await _logoutUseCase.execute(event.session);
+      yield const AuthState.unauthenticated();
     }
   }
 
@@ -71,7 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<Session?> _tryGetSession() async {
     dev.log('_tryGetSession called', className, '_tryGetSession');
     try {
-      final session = await _sessionService.getSession();
+      final session = await _sessionService.tryGetActiveSession();
       dev.log('session: $session', className, '_tryGetSession');
       return session;
     } on Exception catch (_, stackTrace) {

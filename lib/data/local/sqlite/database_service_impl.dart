@@ -9,7 +9,8 @@ import 'package:path_provider/path_provider.dart'
 import 'package:sqflite/sqflite.dart'
     show Database, openDatabase, Sqflite, ConflictAlgorithm;
 
-import 'package:inker_studio/utils/dev.dart' show dev;
+import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/timestamp_column_helper.dart';
 
 class DatabaseServiceImpl {
   static const String className = 'DatabaseService';
@@ -22,7 +23,7 @@ class DatabaseServiceImpl {
   DatabaseServiceImpl._();
 
   Future<Database> get database async {
-    dev.log('database: $_database', className, 'database');
+    dev.log('get database: $_database', className, 'database');
 
     if (_database != null) {
       return _database!;
@@ -39,8 +40,6 @@ class DatabaseServiceImpl {
     dev.log('db: $db version: $version', className, '_onCreate');
 
     final createSessionTableQuery = _getSessionCreateTableQuery();
-    dev.log('createSessionTableQuery: $createSessionTableQuery', className,
-        '_onCreate');
 
     await db.execute('''
       $createSessionTableQuery
@@ -53,8 +52,11 @@ class DatabaseServiceImpl {
         id INTEGER PRIMARY KEY,
         user TEXT,
         accessToken TEXT,
+        sessionType TEXT,
         expireIn TEXT,
-        createdAt TEXT
+        isActive INTEGER,
+        createdAt TEXT,
+        updatedAt TEXT
       );
     ''';
   }
@@ -72,12 +74,15 @@ class DatabaseServiceImpl {
 
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    // ! Remove for production
     final path = join(documentsDirectory.path, 'Master.db');
 
-    final db = await openDatabase(path,
-        version: 9, onOpen: (db) {}, onCreate: _onCreate, onUpgrade: _onUpdate);
-    // ! Remove for production
     Sqflite.devSetDebugModeOn(true);
+    final db = await openDatabase(path,
+        version: 14,
+        onOpen: (db) {},
+        onCreate: _onCreate,
+        onUpgrade: _onUpdate);
     return db;
   }
 
@@ -92,22 +97,21 @@ class DatabaseServiceImpl {
       int? limit,
       int? offset}) async {
     final db = await database;
-    final result = await db.query(table,
+    return await db.query(table,
         columns: columns,
         where: where,
+        whereArgs: whereArgs,
         groupBy: groupBy,
         having: having,
         orderBy: orderBy,
         limit: limit,
         offset: offset,
         distinct: distinct);
-    return result;
   }
 
   Future<dynamic> rawQuery(String sql, [List<Object?>? arguments]) async {
     final db = await database;
-    final result = await db.rawQuery(sql, arguments);
-    return result;
+    return await db.rawQuery(sql, arguments);
   }
 
   Future<int> insert(
@@ -117,12 +121,14 @@ class DatabaseServiceImpl {
     ConflictAlgorithm? conflictAlgorithm,
   }) async {
     final db = await database;
-    final result = await db.insert(databaseName, data,
+
+    data = TimestampColumnHelper.setColumns(data, true);
+
+    return await db.insert(databaseName, data,
         nullColumnHack: nullColumnHack, conflictAlgorithm: conflictAlgorithm);
-    return result;
   }
 
-  Future<dynamic> update(
+  Future<int> update(
     String databaseName,
     Map<String, dynamic> values, {
     String? where,
@@ -130,22 +136,21 @@ class DatabaseServiceImpl {
     ConflictAlgorithm? conflictAlgorithm,
   }) async {
     final db = await database;
-    final result = await db.update(databaseName, values,
+
+    values = TimestampColumnHelper.setColumns(values, false);
+
+    return await db.update(databaseName, values,
         where: where,
         whereArgs: whereArgs,
         conflictAlgorithm: conflictAlgorithm);
-
-    return result;
   }
 
-  Future<dynamic> delete(
+  Future<int> delete(
     String databaseName, {
     String? where,
     List<Object?>? whereArgs,
   }) async {
     final db = await database;
-    final result =
-        await db.delete(databaseName, where: where, whereArgs: whereArgs);
-    return result;
+    return await db.delete(databaseName, where: where, whereArgs: whereArgs);
   }
 }

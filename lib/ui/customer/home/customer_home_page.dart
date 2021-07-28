@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class CustomerHomePage extends StatelessWidget {
+  const CustomerHomePage({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const HomePage());
+    return MaterialPageRoute<void>(builder: (_) => const CustomerHomePage());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(title: const Text('Customer Home')),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
             Builder(
               builder: (context) {
                 final userId = context.select(
-                  (AuthBloc bloc) => bloc.state.session.user!.id,
+                  (AuthBloc bloc) => bloc.state.session.user?.id,
                 );
                 return Text('UserID: $userId');
               },
@@ -28,7 +28,8 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Logout'),
               onPressed: () {
-                context.read<AuthBloc>().add(AuthLogoutRequested());
+                context.read<AuthBloc>().add(AuthLogoutRequested(
+                    context.read<AuthBloc>().state.session));
               },
             ),
           ],
