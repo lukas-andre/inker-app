@@ -23,7 +23,6 @@ class _AppViewState extends State<AppView> {
   static const String className = 'AppView';
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  // TODO: Googlear porque se hace esto
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
@@ -42,9 +41,6 @@ class _AppViewState extends State<AppView> {
                   logoutUseCase: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    dev.log(
-                        'state: $state', className, 'AuthBloc::BlocListener');
-                    dev.inspect(state, 'auth:state');
                     switch (state.status) {
                       case AuthStatus.authenticated:
                         navigateToUserTypePage(state.session);
@@ -69,7 +65,7 @@ class _AppViewState extends State<AppView> {
 
   void navigateToUserTypePage(Session session) {
     final userType = session.user!.userType;
-    dev.log('userType: $userType', className);
+    dev.log('userType: $userType', className, 'navigateToUserTypePage');
     if (userType == UserType.customer) {
       _navigator.pushAndRemoveUntil<void>(
         CustomerHomePage.route(),
