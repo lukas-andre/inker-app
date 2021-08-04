@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/ui/auth/create_user/create_user_by_type_page.dart';
 import 'package:inker_studio/utils/dev.dart' show dev;
 
 class LoginForm extends StatelessWidget {
@@ -32,10 +33,25 @@ class LoginForm extends StatelessWidget {
             _PasswordInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _LoginButton(),
+            const Padding(padding: EdgeInsets.all(12)),
+            const _CreateAccountButton(),
           ],
         ),
       ),
     );
+  }
+}
+
+class _CreateAccountButton extends StatelessWidget {
+  const _CreateAccountButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          Navigator.of(context).push<void>(CreateUserByTypePage.route());
+        },
+        child: const Text('Create Account'));
   }
 }
 
