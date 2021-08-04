@@ -41,18 +41,7 @@ class _AppViewState extends State<AppView> {
                   logoutUseCase: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    switch (state.status) {
-                      case AuthStatus.authenticated:
-                        navigateToUserTypePage(state.session);
-                        break;
-                      case AuthStatus.unknown:
-                      case AuthStatus.unauthenticated:
-                        _navigator.pushAndRemoveUntil<void>(
-                          LoginPage.route(),
-                          (route) => false,
-                        );
-                        break;
-                    }
+                    _navigateByAuthStatus(state);
                   },
                   child: child),
             );
@@ -63,7 +52,22 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  void navigateToUserTypePage(Session session) {
+  void _navigateByAuthStatus(AuthState state) {
+    switch (state.status) {
+      case AuthStatus.authenticated:
+        _navigateToUserTypePage(state.session);
+        break;
+      case AuthStatus.unknown:
+      case AuthStatus.unauthenticated:
+        _navigator.pushAndRemoveUntil<void>(
+          LoginPage.route(),
+          (route) => false,
+        );
+        break;
+    }
+  }
+
+  void _navigateToUserTypePage(Session session) {
     final userType = session.user!.userType;
     dev.log('userType: $userType', className, 'navigateToUserTypePage');
     if (userType == UserType.customer) {
