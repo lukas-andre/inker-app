@@ -75,7 +75,7 @@ class _AppViewState extends State<AppView> {
         CustomerHomePage.route(),
         (route) => false,
       );
-    } else if (userType == UserType.customer) {
+    } else if (userType == UserType.artist) {
       _navigator.pushAndRemoveUntil<void>(
         ArtistHomePage.route(),
         (route) => false,

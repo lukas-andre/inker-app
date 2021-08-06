@@ -6,7 +6,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
 import 'package:inker_studio/domain/models/login/password.dart';
 import 'package:inker_studio/domain/models/login/username.dart';
-import 'package:inker_studio/usescases/login_usescase.dart';
+import 'package:inker_studio/domain/usescases/auth/login_usescase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 part 'login_event.dart';
@@ -74,9 +74,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         if (session == null) {
           yield state.copyWith(status: FormzStatus.submissionFailure);
+          return;
         }
 
-        _authBloc.add(AuthNewSession(session!));
+        _authBloc.add(AuthNewSession(session));
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {

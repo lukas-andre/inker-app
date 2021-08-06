@@ -2,6 +2,7 @@
 
 import 'dart:io' show Directory;
 
+import 'package:inker_studio/domain/services/sqlite/database_service.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
@@ -12,7 +13,7 @@ import 'package:sqflite/sqflite.dart'
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/timestamp_column_helper.dart';
 
-class DatabaseServiceImpl {
+class DatabaseServiceImpl implements DatabaseService {
   static const String className = 'DatabaseService';
   static const String sessionDatabaseName = 'Session';
 
@@ -22,6 +23,7 @@ class DatabaseServiceImpl {
 
   DatabaseServiceImpl._();
 
+  @override
   Future<Database> get database async {
     dev.log('get database: $_database', className, 'database');
 
@@ -72,6 +74,7 @@ class DatabaseServiceImpl {
     await _onCreate(db, newVersion);
   }
 
+  @override
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     // ! Remove for production
@@ -86,6 +89,7 @@ class DatabaseServiceImpl {
     return db;
   }
 
+  @override
   Future<List<Map<String, Object?>>> query(String table,
       {bool? distinct,
       List<String>? columns,
@@ -109,11 +113,13 @@ class DatabaseServiceImpl {
         distinct: distinct);
   }
 
+  @override
   Future<dynamic> rawQuery(String sql, [List<Object?>? arguments]) async {
     final db = await database;
     return await db.rawQuery(sql, arguments);
   }
 
+  @override
   Future<int> insert(
     String databaseName,
     Map<String, dynamic> data, {
@@ -128,6 +134,7 @@ class DatabaseServiceImpl {
         nullColumnHack: nullColumnHack, conflictAlgorithm: conflictAlgorithm);
   }
 
+  @override
   Future<int> update(
     String databaseName,
     Map<String, dynamic> values, {
@@ -145,6 +152,7 @@ class DatabaseServiceImpl {
         conflictAlgorithm: conflictAlgorithm);
   }
 
+  @override
   Future<int> delete(
     String databaseName, {
     String? where,

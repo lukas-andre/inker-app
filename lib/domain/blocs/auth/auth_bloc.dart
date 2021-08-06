@@ -7,7 +7,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
-import 'package:inker_studio/usescases/logout_usecase.dart';
+import 'package:inker_studio/domain/usescases/auth/logout_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 part 'auth_event.dart';
