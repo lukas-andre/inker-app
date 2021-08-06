@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/ui/auth/create_user/create_customer_page.dart';
 
 class CreateUserByTypePage extends StatelessWidget {
   const CreateUserByTypePage({Key? key}) : super(key: key);
@@ -10,31 +11,32 @@ class CreateUserByTypePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var butttonStyle = TextButton.styleFrom(
+        primary: Colors.blue,
+        onSurface: Colors.red,
+        elevation: 0.1,
+        backgroundColor: Colors.white60,
+        minimumSize: const Size(300.0, 150.0));
     return Scaffold(
       appBar: AppBar(title: const Text('Create User By Type')),
       body: Align(
         alignment: const Alignment(0, -1 / 3),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.blue,
-                onSurface: Colors.red,
-              ),
-              onPressed: null,
-              child: const Text('TextButton 1'),
+              style: butttonStyle,
+              onPressed: () {},
+              child: const Text('Artist'),
             ),
-            const Padding(padding: EdgeInsets.all(12)),
             TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.blue,
-                onSurface: Colors.red,
-              ),
-              onPressed: null,
-              child: const Text('TextButton 2'),
+              style: butttonStyle,
+              onPressed: () {
+                Navigator.of(context).push<void>(CreateCustomerPage.route());
+              },
+              child: const Text('Customer'),
             ),
-            const Padding(padding: EdgeInsets.all(12)),
           ],
         ),
       ),

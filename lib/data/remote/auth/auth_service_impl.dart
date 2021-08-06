@@ -23,7 +23,7 @@ class AuthServiceImpl extends AuthService {
 
   AuthServiceImpl(this._localSessionService)
       : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseStgUrl, basePath: 'auth'),
+            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'auth'),
         super();
 
   final LocalSessionService _localSessionService;
@@ -54,8 +54,8 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Future<LoginResponse> login(LoginRequest request) async {
-    var url = _httpConfig.url('login');
-    var response = await http.post(url, body: request.toJson());
+    final url = _httpConfig.url('login');
+    final response = await http.post(url, body: request.toJson());
     dev.inspect(response, 'response');
 
     if (response.statusCode == 200) {
