@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
+import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/models/login/email.dart';
 import 'package:inker_studio/domain/models/login/name.dart';
 import 'package:inker_studio/domain/models/login/password.dart';
@@ -71,6 +73,7 @@ class CustomerCreationBloc
         firstName: firstName,
         status: Formz.validate([
           firstName,
+          state.username,
           state.lastName,
           state.email,
           state.password,
@@ -87,6 +90,7 @@ class CustomerCreationBloc
         status: Formz.validate([
           lastName,
           state.firstName,
+          state.username,
           state.email,
           state.password,
           state.repeatPassword,
@@ -114,6 +118,8 @@ class CustomerCreationBloc
       CustomerCreationRepeatedPasswordChanged event,
       CustomerCreationState state) {
     final repeteadPassword = Password.dirty(event.repeteadPassword);
+    dev.log('state: $state', className);
+    dev.log('repeteadPassword: $repeteadPassword', className);
     return state.copyWith(
         repeatPassword: repeteadPassword,
         status: Formz.validate([
@@ -173,9 +179,24 @@ class CustomerCreationBloc
           phoneNumber: state.phoneNumber.value,
         );
         dev.log('$customer', className, '_mapCustomerCreationSubmittedToState');
+        yield state.copyWith(status: FormzStatus.submissionSuccess);
+      } on UserAlreadyExistsException {
+        yield state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'User ${state.email.value} already exists');
+      } on InternalServerException {
+        yield state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'Problems with the server');
+      } on JsonParseException {
+        yield state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'Invalid server response');
       } catch (e, stackTrace) {
         dev.logError(e, stackTrace);
-        yield state.copyWith(status: FormzStatus.submissionFailure);
+        yield state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'Bad server response');
       }
     }
   }

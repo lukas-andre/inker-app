@@ -9,9 +9,11 @@ class CustomerCreationState extends Equatable {
       this.password = const Password.pure(),
       this.repeatPassword = const Password.pure(),
       this.email = const Email.pure(),
-      this.phoneNumber = const PhoneNumber.pure()});
+      this.phoneNumber = const PhoneNumber.pure(),
+      this.errorMessage});
 
   final FormzStatus status;
+  final String? errorMessage;
   final Username username;
   final Name firstName;
   final Name lastName;
@@ -29,6 +31,7 @@ class CustomerCreationState extends Equatable {
     Password? repeatPassword,
     Email? email,
     PhoneNumber? phoneNumber,
+    String? errorMessage,
   }) {
     return CustomerCreationState(
       status: status ?? this.status,
@@ -39,10 +42,20 @@ class CustomerCreationState extends Equatable {
       repeatPassword: repeatPassword ?? this.repeatPassword,
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object> get props =>
-      [status, username, password, repeatPassword, email, phoneNumber];
+  List<Object?> get props => [
+        status,
+        username,
+        firstName,
+        lastName,
+        password,
+        repeatPassword,
+        email,
+        phoneNumber,
+        errorMessage
+      ];
 }
