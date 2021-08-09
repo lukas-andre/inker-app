@@ -1,0 +1,1 @@
+class JsonParseException implements Exception {}

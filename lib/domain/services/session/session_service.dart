@@ -7,7 +7,7 @@ abstract class LocalSessionService {
 
   Future<Session?> getSession(String sessionType);
 
-  Future<Session> updateSession(Map<String, dynamic> session);
+  Future<Session?> updateSession(Map<String, dynamic> session);
 
   Future<void> removeOldSession(Session session);
 

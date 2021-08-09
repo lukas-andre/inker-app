@@ -2,7 +2,6 @@ import 'package:inker_studio/data/local/sqlite/database_service_impl.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
-import 'package:inker_studio/utils/dev.dart';
 
 class LocalSessionServiceImpl extends LocalSessionService {
   static const className = 'LocalSessionServiceImpl';
@@ -11,21 +10,13 @@ class LocalSessionServiceImpl extends LocalSessionService {
   Future<Session> newSession(Session session) async {
     removeOldSession(session);
 
-    dev.log('session: ${session.toString()}', className, 'newSession');
-
     final sessionTableMap = _mapSessionToSessionTableSchema(session);
     sessionTableMap['isActive'] = 1;
 
-    dev.log('sessionTableMap: ${sessionTableMap.toString()}', className,
-        'newSession');
-
-    final result = await DatabaseServiceImpl.instance
+    await DatabaseServiceImpl.instance
         .insert(DatabaseServiceImpl.sessionDatabaseName, sessionTableMap);
 
-    dev.log('result $result', className, 'newSession');
-
     final createdSession = await getSession(session.sessionType);
-    dev.log('createdSession $createdSession', className, 'newSession');
 
     return createdSession!;
   }
@@ -39,10 +30,11 @@ class LocalSessionServiceImpl extends LocalSessionService {
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType]));
 
-    if (result.isEmpty) return null;
+    if (result.isEmpty) {
+      return null;
+    }
 
     final Map<String, Object?> sessionMap = result.first;
-    dev.log('sessionMap: $sessionMap', className, 'getSessionToken');
 
     return sessionMap['accessToken'] as String;
   }
@@ -51,9 +43,9 @@ class LocalSessionServiceImpl extends LocalSessionService {
   Future<Session?> getSession(String sessionType) async {
     final sessionMap = await _getSessionMap(sessionType);
 
-    if (sessionMap == null) return null;
-
-    dev.log('sessionMap.user: ${sessionMap['user']}', className, 'getSession');
+    if (sessionMap == null) {
+      return null;
+    }
 
     sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
@@ -68,51 +60,34 @@ class LocalSessionServiceImpl extends LocalSessionService {
             whereArgs: [1, sessionType],
             orderBy: 'updatedAt DESC'));
 
-    dev.log('result: $result', className, 'getSession');
-
     return result.isEmpty ? null : Map.of(result.first);
   }
 
-  Map<String, dynamic> _mapSessionToSessionTableSchema(Session session,
-      {bool isNew = true}) {
-    dev.log('session: $session', className, 'mapSessionToSessionTableSchema');
-
+  Map<String, dynamic> _mapSessionToSessionTableSchema(Session session) {
     var sessionMap = session.toJson();
-    dev.log('sessionMap: ${sessionMap.toString()}', className,
-        'mapSessionToSessionTableSchema');
 
     sessionMap['user'] =
         session.user != null ? userToJson(session.user!) : null;
-
-    dev.inspect(sessionMap, 'sessionMap');
 
     return sessionMap;
   }
 
   @override
   Future<void> removeOldSession(Session session) async {
-    // TODO: Considerar un soft delete, pero en un futuro.
-    final result = await DatabaseServiceImpl.instance.delete(
+    await DatabaseServiceImpl.instance.delete(
         DatabaseServiceImpl.sessionDatabaseName,
         where: 'isActive = ? AND sessionType = ?',
         whereArgs: [1, session.sessionType]);
-    dev.log('result: $result', className, 'removeSession');
   }
 
   @override
-  Future<Session> updateSession(Map<String, dynamic> session) async {
-    final result = await DatabaseServiceImpl.instance.update(
+  Future<Session?> updateSession(Map<String, dynamic> session) async {
+    await DatabaseServiceImpl.instance.update(
         DatabaseServiceImpl.sessionDatabaseName, session,
-        where: 'isActive = ? AND sessionType = ?',
-        whereArgs: [session['isActive'], session['sessionType']]);
+        where: 'id = ? AND sessionType = ?',
+        whereArgs: [session['id'], session['sessionType']]);
 
-    dev.log(
-      'result: $result',
-      className,
-      'removeSession',
-    );
-
-    return (await getSession(session['sessionType']))!;
+    return (await getSession(session['sessionType']));
   }
 
   @override
@@ -124,26 +99,21 @@ class LocalSessionServiceImpl extends LocalSessionService {
             where: 'isActive = ?',
             whereArgs: [1],
             orderBy: 'createdAt DESC'));
-    dev.log('result: $result', className, 'getActiveSessionToken');
 
-    final List<Map<String, Object?>> result2 = (await DatabaseServiceImpl
-        .instance
-        .query(DatabaseServiceImpl.sessionDatabaseName));
-    dev.log('result2: $result2', className, 'getActiveSessionToken');
-
-    if (result.isEmpty) return null;
+    if (result.isEmpty) {
+      return null;
+    }
 
     final Map<String, Object?> sessionMap = result.first;
-    dev.log('sessionMap: $sessionMap', className, 'getActiveSessionToken');
 
     return sessionMap['accessToken'] as String;
   }
 
   @override
   Future<void> logout(Session session) async {
-    final sessionMap = _mapSessionToSessionTableSchema(session, isNew: false);
-    sessionMap['isActive'] = 0;
-    await updateSession(sessionMap);
+    final sessionMap = await _getSessionMap(session.sessionType);
+    sessionMap?['isActive'] = 0;
+    await updateSession(sessionMap!);
   }
 
   @override
@@ -152,12 +122,13 @@ class LocalSessionServiceImpl extends LocalSessionService {
         .instance
         .query(DatabaseServiceImpl.sessionDatabaseName,
             where: 'isActive = ?', whereArgs: [1], orderBy: 'createdAt DESC'));
-    dev.log('result: $result', className, 'getActiveSessionToken');
 
-    if (result.isEmpty) return null;
+    if (result.isEmpty) {
+      return null;
+    }
 
-    final Map<String, Object?> sessionMap = result.first;
-    dev.log('sessionMap: $sessionMap', className, 'getActiveSessionToken');
+    final Map<String, Object?> sessionMap = Map.of(result.first);
+    sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
     return Session.fromJson(sessionMap);
   }

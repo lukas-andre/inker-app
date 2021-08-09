@@ -33,9 +33,9 @@ class CreateCustomerResponse extends Equatable {
   final String lastName;
   final String contactPhoneNumber;
   final String contactEmail;
-  final dynamic shortDescription;
-  final dynamic profileThumbnail;
-  final dynamic follows;
+  final String? shortDescription;
+  final String? profileThumbnail;
+  final String? follows;
   final int id;
   final DateTime createdAt;
   final DateTime updatedAt;

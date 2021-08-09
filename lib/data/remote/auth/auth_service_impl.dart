@@ -7,7 +7,7 @@ import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
-import 'package:inker_studio/config/base_client.dart';
+import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -81,7 +81,7 @@ class AuthServiceImpl extends AuthService {
     if (token == null) return false;
 
     try {
-      return JwtDecoder.isExpired(token);
+      return !(JwtDecoder.isExpired(token));
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
       return false;

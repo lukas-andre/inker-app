@@ -18,8 +18,12 @@ class CreateCustomerForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Create Account Failure')),
+              SnackBar(content: Text(state.errorMessage!)),
             );
+        } else if (state.status.isSubmissionSuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(content: Text('Customer created !')));
         }
       },
       child: Align(
@@ -136,9 +140,12 @@ class FirstNameInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('createCustomerForm_firstNameInput_textField'),
-          onChanged: (firstName) => context
-              .read<CustomerCreationBloc>()
-              .add(CustomerCreationFirstNameChanged(firstName)),
+          onChanged: (firstName) {
+            context
+                .read<CustomerCreationBloc>()
+                .add(CustomerCreationFirstNameChanged(firstName));
+            dev.log(firstName, 'FirtNameInput');
+          },
           decoration: InputDecoration(
             labelText: 'first name',
             errorText: state.firstName.invalid ? 'invalid first name' : null,
@@ -200,7 +207,11 @@ class _CreateUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerCreationBloc, CustomerCreationState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) {
+        dev.log('prev: $previous', '_CreateUserButton', 'buildWhen');
+        dev.log('current: $current', '_CreateUserButton', 'buildWhen');
+        return previous.status != current.status;
+      },
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
@@ -224,28 +235,21 @@ class _LoadDataForTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerCreationBloc, CustomerCreationState>(
-      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('createCustomerForm_continue_raisedButton_test'),
-                child: const Text('Load Data'),
-                onPressed: () {
-                  final bloc = context.read<CustomerCreationBloc>();
-                  bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
-                  bloc.add(const CustomerCreationUsernameChanged(
-                      'noname_eter33344'));
-                  bloc.add(const CustomerCreationLastNameChanged('Diaz'));
-                  bloc.add(
-                      const CustomerCreationEmailChanged('lucas@henrydz.com'));
-                  bloc.add(
-                      const CustomerCreationPhoneNumberChanged('+56987654321'));
-                  bloc.add(const CustomerCreationPasswordChanged('1qaz2wsx'));
-                  bloc.add(const CustomerCreationRepeatedPasswordChanged(
-                      '1qaz2wsx'));
-                },
-              );
+        return ElevatedButton(
+          key: const Key('createCustomerForm_continue_raisedButton_test'),
+          child: const Text('Load Data'),
+          onPressed: () {
+            final bloc = context.read<CustomerCreationBloc>();
+            bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
+            bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
+            bloc.add(const CustomerCreationUsernameChanged('noname_eter1328'));
+            bloc.add(const CustomerCreationEmailChanged('lucas@henrydz8.com'));
+            bloc.add(const CustomerCreationPhoneNumberChanged('+56987654321'));
+            bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
+            bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));
+          },
+        );
       },
     );
   }
