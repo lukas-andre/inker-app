@@ -207,11 +207,7 @@ class _CreateUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerCreationBloc, CustomerCreationState>(
-      buildWhen: (previous, current) {
-        dev.log('prev: $previous', '_CreateUserButton', 'buildWhen');
-        dev.log('current: $current', '_CreateUserButton', 'buildWhen');
-        return previous.status != current.status;
-      },
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
@@ -243,8 +239,8 @@ class _LoadDataForTest extends StatelessWidget {
             final bloc = context.read<CustomerCreationBloc>();
             bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
             bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
-            bloc.add(const CustomerCreationUsernameChanged('noname_eter1328'));
-            bloc.add(const CustomerCreationEmailChanged('lucas@henrydz8.com'));
+            bloc.add(const CustomerCreationUsernameChanged('noname132899979'));
+            bloc.add(const CustomerCreationEmailChanged('lucas@henr99799.com'));
             bloc.add(const CustomerCreationPhoneNumberChanged('+56987654321'));
             bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
             bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));

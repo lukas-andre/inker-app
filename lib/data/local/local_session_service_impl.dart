@@ -1,4 +1,5 @@
 import 'package:inker_studio/data/local/sqlite/database_service_impl.dart';
+import 'package:inker_studio/data/local/sqlite/tables/session_table.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/session/session_service.dart';
@@ -14,7 +15,7 @@ class LocalSessionServiceImpl extends LocalSessionService {
     sessionTableMap['isActive'] = 1;
 
     await DatabaseServiceImpl.instance
-        .insert(DatabaseServiceImpl.sessionDatabaseName, sessionTableMap);
+        .insert(SessionTable.name, sessionTableMap);
 
     final createdSession = await getSession(session.sessionType);
 
@@ -23,9 +24,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<String?> getSessionToken(String sessionType) async {
-    final List<Map<String, Object?>> result = (await DatabaseServiceImpl
-        .instance
-        .query(DatabaseServiceImpl.sessionDatabaseName,
+    final List<Map<String, Object?>> result =
+        (await DatabaseServiceImpl.instance.query(SessionTable.name,
             columns: ['accessToken'],
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType]));
@@ -53,9 +53,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
   }
 
   Future<Map<String, Object?>?> _getSessionMap(String sessionType) async {
-    final List<Map<String, Object?>> result = (await DatabaseServiceImpl
-        .instance
-        .query(DatabaseServiceImpl.sessionDatabaseName,
+    final List<Map<String, Object?>> result =
+        (await DatabaseServiceImpl.instance.query(SessionTable.name,
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType],
             orderBy: 'updatedAt DESC'));
@@ -74,16 +73,14 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<void> removeOldSession(Session session) async {
-    await DatabaseServiceImpl.instance.delete(
-        DatabaseServiceImpl.sessionDatabaseName,
+    await DatabaseServiceImpl.instance.delete(SessionTable.name,
         where: 'isActive = ? AND sessionType = ?',
         whereArgs: [1, session.sessionType]);
   }
 
   @override
   Future<Session?> updateSession(Map<String, dynamic> session) async {
-    await DatabaseServiceImpl.instance.update(
-        DatabaseServiceImpl.sessionDatabaseName, session,
+    await DatabaseServiceImpl.instance.update(SessionTable.name, session,
         where: 'id = ? AND sessionType = ?',
         whereArgs: [session['id'], session['sessionType']]);
 
@@ -92,9 +89,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<String?> getActiveSessionToken() async {
-    final List<Map<String, Object?>> result = (await DatabaseServiceImpl
-        .instance
-        .query(DatabaseServiceImpl.sessionDatabaseName,
+    final List<Map<String, Object?>> result =
+        (await DatabaseServiceImpl.instance.query(SessionTable.name,
             columns: ['accessToken'],
             where: 'isActive = ?',
             whereArgs: [1],
@@ -118,9 +114,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<Session?> tryGetActiveSession() async {
-    final List<Map<String, Object?>> result = (await DatabaseServiceImpl
-        .instance
-        .query(DatabaseServiceImpl.sessionDatabaseName,
+    final List<Map<String, Object?>> result =
+        (await DatabaseServiceImpl.instance.query(SessionTable.name,
             where: 'isActive = ?', whereArgs: [1], orderBy: 'createdAt DESC'));
 
     if (result.isEmpty) {

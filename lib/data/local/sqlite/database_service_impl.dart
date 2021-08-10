@@ -2,6 +2,8 @@
 
 import 'dart:io' show Directory;
 
+import 'package:inker_studio/data/local/sqlite/tables/customer_table.dart';
+import 'package:inker_studio/data/local/sqlite/tables/session_table.dart';
 import 'package:inker_studio/domain/services/sqlite/database_service.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
@@ -15,7 +17,7 @@ import 'package:inker_studio/utils/timestamp_column_helper.dart';
 
 class DatabaseServiceImpl implements DatabaseService {
   static const String className = 'DatabaseService';
-  static const String sessionDatabaseName = 'Session';
+  static const String sessionDatabaseName = SessionTable.name;
 
   static Database? _database;
 
@@ -41,26 +43,12 @@ class DatabaseServiceImpl implements DatabaseService {
   _onCreate(Database db, int version) async {
     dev.log('db: $db version: $version', className, '_onCreate');
 
-    final createSessionTableQuery = _getSessionCreateTableQuery();
-
-    await db.execute('''
-      $createSessionTableQuery
-    ''');
-  }
-
-  String _getSessionCreateTableQuery() {
-    return '''
-      CREATE TABLE $sessionDatabaseName(
-        id INTEGER PRIMARY KEY,
-        user TEXT,
-        accessToken TEXT,
-        sessionType TEXT,
-        expireIn TEXT,
-        isActive INTEGER,
-        createdAt TEXT,
-        updatedAt TEXT
-      );
-    ''';
+    for (final String query in [
+      SessionTable.createTableQuery,
+      CustomerTable.createTableQuery
+    ]) {
+      await db.execute(query);
+    }
   }
 
   _onUpdate(Database db, int oldVersion, int newVersion) async {
@@ -69,7 +57,11 @@ class DatabaseServiceImpl implements DatabaseService {
 
     // ! NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
     await db.execute('''
-      DROP TABLE IF EXISTS $sessionDatabaseName
+      DROP TABLE IF EXISTS ${SessionTable.name}
+    ''');
+
+    await db.execute('''
+      DROP TABLE IF EXISTS ${CustomerTable.name}
     ''');
     await _onCreate(db, newVersion);
   }
@@ -82,7 +74,7 @@ class DatabaseServiceImpl implements DatabaseService {
 
     Sqflite.devSetDebugModeOn(true);
     final db = await openDatabase(path,
-        version: 14,
+        version: 18,
         onOpen: (db) {},
         onCreate: _onCreate,
         onUpgrade: _onUpdate);

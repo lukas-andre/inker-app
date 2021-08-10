@@ -1,26 +1,26 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/data/remote/customer/dtos/create_customer_response.dart';
-import 'package:inker_studio/data/remote/customer/dtos/create_customer_request.dart';
+import 'package:inker_studio/data/http/customer/dtos/create_customer_response.dart';
+import 'package:inker_studio/data/http/customer/dtos/create_customer_request.dart';
 import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
-import 'package:inker_studio/domain/services/customer/customer_service.dart';
+import 'package:inker_studio/domain/services/customer/http_customer_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
-class CustomerServiceImpl implements CustomerService {
-  static const String className = 'AuthService';
+class HttpCustomerServiceImpl implements HttpCustomerService {
+  static const String className = 'HttpCustomerServiceImpl';
   final HttpClientConfig _httpConfig;
 
-  CustomerServiceImpl()
+  HttpCustomerServiceImpl()
       : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'users'),
+            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'customer'),
         super();
 
   @override
   Future<CreateCustomerResponse> createCustomerUser(
       CreateCustomerRequest request) async {
-    final url = _httpConfig.url();
+    final url = _httpConfig.url(basePath: 'users');
     dev.inspect(url, 'url');
 
     final response = await http.post(url, body: request.toJson());
