@@ -8,7 +8,7 @@ import 'package:inker_studio/domain/services/session/session_service.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
+import 'package:inker_studio/data/http/auth/dtos/login_response.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 import 'dtos/login_request.dart';
@@ -54,7 +54,7 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Future<LoginResponse> login(LoginRequest request) async {
-    final url = _httpConfig.url('login');
+    final url = _httpConfig.url(path: 'login');
     final response = await http.post(url, body: request.toJson());
     dev.inspect(response, 'response');
 

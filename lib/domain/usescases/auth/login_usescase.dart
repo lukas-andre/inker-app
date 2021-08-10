@@ -1,5 +1,5 @@
-import 'package:inker_studio/data/remote/auth/dtos/login_request.dart';
-import 'package:inker_studio/data/remote/auth/dtos/login_response.dart';
+import 'package:inker_studio/data/http/auth/dtos/login_request.dart';
+import 'package:inker_studio/data/http/auth/dtos/login_response.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
@@ -12,7 +12,11 @@ class LoginUsesCase {
   final AuthService _authService;
   final LocalSessionService _localSessionStorage;
 
-  LoginUsesCase(this._authService, this._localSessionStorage);
+  LoginUsesCase(
+      {required AuthService authService,
+      required LocalSessionService localSession})
+      : _authService = authService,
+        _localSessionStorage = localSession;
 
   Future<Session?> execute(
       String identifier, String password, String loginType) async {
