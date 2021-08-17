@@ -1,36 +1,41 @@
 part of 'customer_creation_bloc.dart';
 
 class CustomerCreationState extends Equatable {
-  const CustomerCreationState(
-      {this.status = FormzStatus.pure,
-      this.username = const Username.pure(),
-      this.firstName = const Name.pure(),
-      this.lastName = const Name.pure(),
-      this.password = const Password.pure(),
-      this.repeatPassword = const Password.pure(),
-      this.email = const Email.pure(),
-      this.phoneNumber = const PhoneNumber.pure(),
-      this.errorMessage});
+  const CustomerCreationState({
+    this.status = FormzStatus.pure,
+    this.username = const UsernameInput.pure(),
+    this.firstName = const NameInput.pure(),
+    this.lastName = const NameInput.pure(),
+    this.password = const PasswordInput.pure(),
+    this.repeatPassword = const PasswordInput.pure(),
+    this.email = const EmailInput.pure(),
+    this.phoneNumber = const PhoneNumberInput.pure(),
+    this.errorMessage,
+    this.initialCountry = 'CL',
+    this.isoCode = 'CL',
+  });
 
   final FormzStatus status;
   final String? errorMessage;
-  final Username username;
-  final Name firstName;
-  final Name lastName;
-  final Password password;
-  final Password repeatPassword;
-  final Email email;
-  final PhoneNumber phoneNumber;
+  final UsernameInput username;
+  final NameInput firstName;
+  final NameInput lastName;
+  final PasswordInput password;
+  final PasswordInput repeatPassword;
+  final EmailInput email;
+  final PhoneNumberInput phoneNumber;
+  final String initialCountry;
+  final String isoCode;
 
   CustomerCreationState copyWith({
     FormzStatus? status,
-    Username? username,
-    Name? firstName,
-    Name? lastName,
-    Password? password,
-    Password? repeatPassword,
-    Email? email,
-    PhoneNumber? phoneNumber,
+    UsernameInput? username,
+    NameInput? firstName,
+    NameInput? lastName,
+    PasswordInput? password,
+    PasswordInput? repeatPassword,
+    EmailInput? email,
+    PhoneNumberInput? phoneNumber,
     String? errorMessage,
   }) {
     return CustomerCreationState(

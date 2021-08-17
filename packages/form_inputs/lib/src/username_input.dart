@@ -2,9 +2,9 @@ import 'package:formz/formz.dart' show FormzInput;
 
 enum UsernameValidationError { empty }
 
-class Username extends FormzInput<String, UsernameValidationError> {
-  const Username.pure() : super.pure('');
-  const Username.dirty([String value = '']) : super.dirty(value);
+class UsernameInput extends FormzInput<String, UsernameValidationError> {
+  const UsernameInput.pure() : super.pure('');
+  const UsernameInput.dirty([String value = '']) : super.dirty(value);
 
   @override
   UsernameValidationError? validator(String? value) {

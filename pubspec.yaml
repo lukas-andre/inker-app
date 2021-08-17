@@ -28,12 +28,15 @@ dependencies:
   flutter_bloc: ^7.1.0
   formz: ^0.4.0
   http: ^0.13.3
+  intl_phone_number_input: ^0.7.0+2
   json_annotation: ^4.1.0
   jwt_decoder: ^2.0.1
   path_provider: ^2.0.2
   sentry_flutter: ^5.1.0
   shared_preferences: ^2.0.6
   sqflite: ^2.0.0+3
+  form_inputs:
+    path: packages/form_inputs
 
 dev_dependencies:
   flutter_test:
