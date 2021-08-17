@@ -5,13 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
-import 'package:inker_studio/domain/models/login/email.dart';
-import 'package:inker_studio/domain/models/login/name.dart';
-import 'package:inker_studio/domain/models/login/password.dart';
-import 'package:inker_studio/domain/models/login/phone_number.dart';
-import 'package:inker_studio/domain/models/login/username.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:form_inputs/form_inputs.dart';
 
 part 'customer_creation_event.dart';
 part 'customer_creation_state.dart';
@@ -52,7 +48,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapUsernameChangedToState(
       CustomerCreationUsernameChanged event, CustomerCreationState state) {
-    final username = Username.dirty(event.username);
+    final username = UsernameInput.dirty(event.username);
     return state.copyWith(
         username: username,
         status: Formz.validate([
@@ -68,7 +64,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapFirstNameChangedToState(
       CustomerCreationFirstNameChanged event, CustomerCreationState state) {
-    final firstName = Name.dirty(event.firstName);
+    final firstName = NameInput.dirty(event.firstName);
     return state.copyWith(
         firstName: firstName,
         status: Formz.validate([
@@ -84,7 +80,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapLastNameChangedToState(
       CustomerCreationLastNameChanged event, CustomerCreationState state) {
-    final lastName = Name.dirty(event.lastName);
+    final lastName = NameInput.dirty(event.lastName);
     return state.copyWith(
         lastName: lastName,
         status: Formz.validate([
@@ -100,7 +96,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapPasswordChangedToState(
       CustomerCreationPasswordChanged event, CustomerCreationState state) {
-    final password = Password.dirty(event.password);
+    final password = PasswordInput.dirty(event.password);
     return state.copyWith(
         password: password,
         status: Formz.validate([
@@ -117,7 +113,7 @@ class CustomerCreationBloc
   CustomerCreationState _mapRepeatedPasswordChangedToState(
       CustomerCreationRepeatedPasswordChanged event,
       CustomerCreationState state) {
-    final repeteadPassword = Password.dirty(event.repeteadPassword);
+    final repeteadPassword = PasswordInput.dirty(event.repeteadPassword);
     dev.log('state: $state', className);
     dev.log('repeteadPassword: $repeteadPassword', className);
     return state.copyWith(
@@ -135,7 +131,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapEmailChangedToState(
       CustomerCreationEmailChanged event, CustomerCreationState state) {
-    final email = Email.dirty(event.email);
+    final email = EmailInput.dirty(event.email);
     return state.copyWith(
         email: email,
         status: Formz.validate([
@@ -151,7 +147,7 @@ class CustomerCreationBloc
 
   CustomerCreationState _mapPhoneNumberChangedToState(
       CustomerCreationPhoneNumberChanged event, CustomerCreationState state) {
-    final phoneNumber = PhoneNumber.dirty(event.phoneNumber);
+    final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
     return state.copyWith(
         phoneNumber: phoneNumber,
         status: Formz.validate([

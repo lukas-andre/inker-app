@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'package:formz/formz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/creation/customer_creation_bloc.dart';
+import 'package:inker_studio/ui/create_users/create_customer/text_fields/text_fields.dart';
+import 'package:inker_studio/utils/dev.dart';
+
+class CreateCustomerForm extends StatelessWidget {
+  static const String className = 'CreateCustomerForm';
+
+  const CreateCustomerForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<CustomerCreationBloc, CustomerCreationState>(
+      listener: (context, state) {
+        dev.log('Form status: ${state.status}', className);
+        if (state.status.isSubmissionFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(state.errorMessage!)),
+            );
+        } else if (state.status.isSubmissionSuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(content: Text('Customer created !')));
+
+          // Navigator.of(context).push();
+        }
+      },
+      child: Align(
+        alignment: const Alignment(0, -1 / 3),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _NamesRow(),
+            const Padding(padding: EdgeInsets.all(12)),
+            const EmailTextField(),
+            const Padding(padding: EdgeInsets.all(12)),
+            const UsernameTextField(),
+            const Padding(padding: EdgeInsets.all(12)),
+            PhoneNumberTextField(),
+            const Padding(padding: EdgeInsets.all(12)),
+            const PasswordTextField(),
+            const Padding(padding: EdgeInsets.all(12)),
+            _CreateUserButton(),
+            const Padding(padding: EdgeInsets.all(12)),
+            _LoadDataForTest(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NamesRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: const [
+        Expanded(child: FirstNameTextField()),
+        Expanded(child: LastNameTextField())
+      ],
+    );
+  }
+}
+
+class _CreateUserButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CustomerCreationBloc, CustomerCreationState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return state.status.isSubmissionInProgress
+            ? const CircularProgressIndicator()
+            : ElevatedButton(
+                key: const Key('createCustomerForm_continue_raisedButton'),
+                child: const Text('CustomerCreation'),
+                onPressed: state.status.isValidated
+                    ? () {
+                        context
+                            .read<CustomerCreationBloc>()
+                            .add(const CustomerCreationSubmitted());
+                      }
+                    : null,
+              );
+      },
+    );
+  }
+}
+
+class _LoadDataForTest extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CustomerCreationBloc, CustomerCreationState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          key: const Key('createCustomerForm_continue_raisedButton_test'),
+          child: const Text('Load Data'),
+          onPressed: () {
+            final bloc = context.read<CustomerCreationBloc>();
+            bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
+            bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
+            bloc.add(const CustomerCreationUsernameChanged('noname132899979'));
+            bloc.add(const CustomerCreationEmailChanged('lucas@henr99799.com'));
+            bloc.add(const CustomerCreationPhoneNumberChanged('+56987654321'));
+            bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
+            bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));
+          },
+        );
+      },
+    );
+  }
+}

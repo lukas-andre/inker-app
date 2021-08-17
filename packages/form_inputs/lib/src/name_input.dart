@@ -2,9 +2,9 @@ import 'package:formz/formz.dart' show FormzInput;
 
 enum NameValidationError { empty }
 
-class Name extends FormzInput<String, NameValidationError> {
-  const Name.pure() : super.pure('');
-  const Name.dirty([String value = '']) : super.dirty(value);
+class NameInput extends FormzInput<String, NameValidationError> {
+  const NameInput.pure() : super.pure('');
+  const NameInput.dirty([String value = '']) : super.dirty(value);
 
   @override
   NameValidationError? validator(String? value) {

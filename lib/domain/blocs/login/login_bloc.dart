@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
 
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
-import 'package:inker_studio/domain/models/login/password.dart';
-import 'package:inker_studio/domain/models/login/username.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usescase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -43,7 +42,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginUsernameChanged event,
     LoginState state,
   ) {
-    final username = Username.dirty(event.username);
+    final username = UsernameInput.dirty(event.username);
     return state.copyWith(
       username: username,
       status: Formz.validate([state.password, username]),
@@ -54,7 +53,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginPasswordChanged event,
     LoginState state,
   ) {
-    final password = Password.dirty(event.password);
+    final password = PasswordInput.dirty(event.password);
     return state.copyWith(
       password: password,
       status: Formz.validate([password, state.username]),

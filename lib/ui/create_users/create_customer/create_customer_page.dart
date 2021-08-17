@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/creation/customer_creation_bloc.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
-import 'package:inker_studio/ui/auth/create_user/create_customer_form.dart';
+
+import 'create_customer_form.dart';
 
 class CreateCustomerPage extends StatelessWidget {
   const CreateCustomerPage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class CreateCustomerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Create Account')),
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(12),

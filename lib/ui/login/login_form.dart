@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
-import 'package:inker_studio/ui/auth/create_user/create_user_by_type_page.dart';
-import 'package:inker_studio/utils/dev.dart' show dev;
+import 'package:inker_studio/ui/create_users/create_user_by_type_page.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 class LoginForm extends StatelessWidget {
   static const String className = 'LoginForm';
