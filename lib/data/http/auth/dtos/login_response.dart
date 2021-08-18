@@ -1,4 +1,5 @@
 import 'dart:convert' show json;
+
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
@@ -19,7 +20,7 @@ class LoginResponse extends Equatable {
     required this.userType,
     required this.userTypeId,
     required this.profileThumbnail,
-    required this.permision,
+    required this.permission,
     required this.accessToken,
     required this.expiresIn,
   });
@@ -31,7 +32,7 @@ class LoginResponse extends Equatable {
   final String userType;
   final int userTypeId;
   final dynamic profileThumbnail;
-  final List<Permision> permision;
+  final List<Permision> permission;
   final String accessToken;
   final String expiresIn;
 
@@ -49,7 +50,7 @@ class LoginResponse extends Equatable {
         userType,
         userTypeId,
         profileThumbnail,
-        permision,
+        permission,
         accessToken,
         expiresIn,
       ];
