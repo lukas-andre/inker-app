@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/ui/create_users/create_customer/create_customer_page.dart';
+
+import 'create_customer/create_customer_page.dart';
 
 class CreateUserByTypePage extends StatelessWidget {
   const CreateUserByTypePage({Key? key}) : super(key: key);

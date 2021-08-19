@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/data/local/local_customer_service_impl.dart';
-import 'package:inker_studio/data/local/local_storage_impl.dart';
-import 'package:inker_studio/data/local/local_session_service_impl.dart';
+import 'package:inker_studio/data/http/account_verification/http_account_verification_service_impl.dart';
 import 'package:inker_studio/data/http/auth/auth_service_impl.dart';
 import 'package:inker_studio/data/http/customer/http_customer_service_impl.dart';
+import 'package:inker_studio/data/local/local_customer_service_impl.dart';
+import 'package:inker_studio/data/local/local_session_service_impl.dart';
+import 'package:inker_studio/data/local/local_storage_impl.dart';
+import 'package:inker_studio/domain/services/account_verification/account_verification_service.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/customer/http_customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
@@ -16,6 +18,8 @@ import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.d
 List<RepositoryProvider> buildProviders() {
   return [
     RepositoryProvider<LocalStorage>(create: (_) => LocalStorageImpl()),
+    RepositoryProvider<AccountVerificationService>(
+        create: (_) => HttpAccountVerificationServiceImpl()),
     RepositoryProvider<LocalCustomerService>(
         create: (_) => LocalCustomerServiceImpl()),
     RepositoryProvider<HttpCustomerService>(

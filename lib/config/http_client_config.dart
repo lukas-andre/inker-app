@@ -1,17 +1,30 @@
 class HttpClientConfig {
-  static const String baseStgUrl = 'https://inker-back.herokuapp.com';
-  static const String baseLocalUrl = 'http://b84bf8dd6702.ngrok.io';
+  static const String baseStgUrl = 'inker-back.herokuapp.com';
+  static const String baseLocalUrl = '27b81803d19d.ngrok.io';
 
-  final String baseUrl;
-  final String basePath;
+  final String _baseUrl;
+  final String _basePath;
 
-  HttpClientConfig({required this.baseUrl, required this.basePath});
+  HttpClientConfig({required String baseUrl, required String basePath})
+      : _baseUrl = baseUrl,
+        _basePath = basePath;
 
-  Uri url({String? path, String? basePath}) {
-    basePath ??= this.basePath;
+  Uri url({String? basePath, String? path, Map<String, dynamic>? queryParams}) {
+    final urlBasePath = basePath ?? _basePath;
 
-    return path == null
-        ? Uri.parse('$baseUrl/$basePath')
-        : Uri.parse('$baseUrl/$basePath/$path');
+    final finalPath =
+        path == null ? urlBasePath : [urlBasePath, path].join('/');
+
+    return Uri.http(_baseUrl, finalPath, queryParams);
+  }
+
+  Uri surl(
+      {String? basePath, String? path, Map<String, dynamic>? queryParams}) {
+    final urlBasePath = basePath ?? _basePath;
+
+    final finalPath =
+        path != null ? urlBasePath : [urlBasePath, path].join('/');
+
+    return Uri.https(_baseUrl, finalPath, queryParams);
   }
 }
