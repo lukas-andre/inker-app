@@ -27,8 +27,8 @@ class LocalCustomerServiceImpl extends LocalCustomerService {
 
   @override
   Future<Customer?> getCustomer() async {
-    final queryResult =
-        await DatabaseServiceImpl.instance.query(CustomerTable.name, limit: 1);
+    final queryResult = await DatabaseServiceImpl.instance
+        .query(CustomerTable.name, limit: 1, orderBy: 'createdAt DESC');
 
     if (queryResult.isEmpty) {
       return null;

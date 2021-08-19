@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/customer/creation/customer_creation_bloc.dart';
-import 'package:inker_studio/ui/create_users/create_customer/text_fields/text_fields.dart';
+import 'package:inker_studio/ui/account_verification/account_verification_page.dart';
+import 'package:inker_studio/ui/create_account/create_customer/text_fields/text_fields.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class CreateCustomerForm extends StatelessWidget {
@@ -26,7 +27,7 @@ class CreateCustomerForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(const SnackBar(content: Text('Customer created !')));
 
-          // Navigator.of(context).push();
+          Navigator.of(context).push(AccountVerificationPage.route());
         }
       },
       child: Align(
@@ -102,9 +103,11 @@ class _LoadDataForTest extends StatelessWidget {
             final bloc = context.read<CustomerCreationBloc>();
             bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
             bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
-            bloc.add(const CustomerCreationUsernameChanged('noname132899979'));
-            bloc.add(const CustomerCreationEmailChanged('lucas@henr99799.com'));
-            bloc.add(const CustomerCreationPhoneNumberChanged('+56987654321'));
+            bloc.add(const CustomerCreationUsernameChanged(
+                'noname1328912391929211111'));
+            bloc.add(const CustomerCreationEmailChanged(
+                'lucas@henr99712319291111.com'));
+            bloc.add(const CustomerCreationPhoneNumberChanged('+56964484712'));
             bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
             bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));
           },
