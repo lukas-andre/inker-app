@@ -1,3 +1,3 @@
 abstract class AccountVerificationService {
-  Future<dynamic> sendSMS(int userId, String phoneNumber);
+  Future<bool> sendSMS(int userId, String phoneNumber);
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/services/account_verification/account_verification_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -30,7 +31,7 @@ class AccountVerificationBloc
     if (event is AccountVerificationCreationSuccedEvent) {
       yield await _mapCreationSuccedEventToState(event, state);
     } else if (event is AccountVerificationSendSMS) {
-      yield await _mapSendSMSEventToState(event, state);
+      yield* _mapSendSMSEventToState(event, state);
     } else if (event is AccountVerificationSendEmail) {
       yield _mapSendEmailToState(event, state);
     } else if (event is AccountVerificationFailedEvent) {
@@ -59,12 +60,30 @@ class AccountVerificationBloc
     return newState;
   }
 
-  Future<AccountVerificationState> _mapSendSMSEventToState(
-      AccountVerificationSendSMS event, AccountVerificationState state) async {
+  Stream<AccountVerificationState> _mapSendSMSEventToState(
+      AccountVerificationSendSMS event, AccountVerificationState state) async* {
     // TODO: add try catch and manage bad request exception and other exceptions
-    await _accountVerificationService.sendSMS(
-        state.userId!, state.phoneNumber!);
-    return state;
+    try {
+      yield state.copyWith(
+        accountVerificationStatus: AccountVerificationStatus.smsSent,
+      );
+      await _accountVerificationService.sendSMS(
+          state.userId!, state.phoneNumber!);
+
+      yield state.copyWith(
+        accountVerificationStatus: AccountVerificationStatus.smsSentOk,
+      );
+    } on MaxSMSTriesException {
+      yield state.copyWith(
+          accountVerificationStatus: AccountVerificationStatus.smsSentFailure,
+          errorMessage:
+              'Max sms tries reached. Please try again other day uwu'); // TODO: change this message pls
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      yield state.copyWith(
+          accountVerificationStatus: AccountVerificationStatus.smsSentFailure,
+          errorMessage: 'Bad server response');
+    }
   }
 
   AccountVerificationState _mapSendEmailToState(

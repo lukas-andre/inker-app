@@ -1,6 +1,15 @@
 part of 'account_verification_bloc.dart';
 
-enum AccountVerificationStatus { initial, created, sucess, failure }
+enum AccountVerificationStatus {
+  initial,
+  created,
+  smsSent,
+  smsSentOk,
+  smsSentFailure,
+  emailSent,
+  emailSentOk,
+  emailSentFailure,
+}
 
 class AccountVerificationState extends Equatable {
   const AccountVerificationState(
@@ -29,6 +38,7 @@ class AccountVerificationState extends Equatable {
       userId,
       phoneNumber,
       verificationCode,
+      errorMessage
     ];
   }
 
@@ -39,6 +49,7 @@ class AccountVerificationState extends Equatable {
     String? email,
     String? phoneNumber,
     String? verificationCode,
+    String? errorMessage,
   }) {
     return AccountVerificationState(
       accountVerificationStatus:
@@ -48,6 +59,7 @@ class AccountVerificationState extends Equatable {
       userId: userId ?? this.userId,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       verificationCode: verificationCode ?? this.verificationCode,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
