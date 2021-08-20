@@ -103,10 +103,9 @@ class _LoadDataForTest extends StatelessWidget {
             final bloc = context.read<CustomerCreationBloc>();
             bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
             bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
-            bloc.add(const CustomerCreationUsernameChanged(
-                'noname1328912391929211111'));
-            bloc.add(const CustomerCreationEmailChanged(
-                'lucas@henr99712319291111.com'));
+            bloc.add(const CustomerCreationUsernameChanged('noname131151'));
+            bloc.add(
+                const CustomerCreationEmailChanged('lucas@henr7514112.com'));
             bloc.add(const CustomerCreationPhoneNumberChanged('+56964484712'));
             bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
             bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
+import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/services/account_verification/account_verification_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -23,7 +23,7 @@ class HttpAccountVerificationServiceImpl implements AccountVerificationService {
         super();
 
   @override
-  Future sendSMS(int userId, String phoneNumber) async {
+  Future<bool> sendSMS(int userId, String phoneNumber) async {
     final url = _httpConfig.url(
         path: '$userId/send-verification-code',
         queryParams: {
@@ -37,12 +37,11 @@ class HttpAccountVerificationServiceImpl implements AccountVerificationService {
     dev.log(response.statusCode.toString(), 'sendSMS.statusCode response');
 
     if (response.statusCode == HttpStatus.ok) {
-      // TODO: think what to return
       return true;
     }
 
     if (response.statusCode == HttpStatus.badRequest) {
-      throw BadRequestException();
+      throw MaxSMSTriesException();
     }
 
     if (response.statusCode >= HttpStatus.internalServerError) {

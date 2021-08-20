@@ -1,0 +1,1 @@
+class MaxSMSTriesException implements Exception {}
