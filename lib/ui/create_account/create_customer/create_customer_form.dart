@@ -77,7 +77,7 @@ class _CreateUserButton extends StatelessWidget {
             ? const CircularProgressIndicator()
             : ElevatedButton(
                 key: const Key('createCustomerForm_continue_raisedButton'),
-                child: const Text('CustomerCreation'),
+                child: const Text('Create Customer'),
                 onPressed: state.status.isValidated
                     ? () {
                         context
@@ -103,9 +103,9 @@ class _LoadDataForTest extends StatelessWidget {
             final bloc = context.read<CustomerCreationBloc>();
             bloc.add(const CustomerCreationFirstNameChanged('Lucas'));
             bloc.add(const CustomerCreationLastNameChanged('Henry Diaz'));
-            bloc.add(const CustomerCreationUsernameChanged('noname131151'));
+            bloc.add(const CustomerCreationUsernameChanged('noname1521112'));
             bloc.add(
-                const CustomerCreationEmailChanged('lucas@henr7514112.com'));
+                const CustomerCreationEmailChanged('lucas@hotmail21112.com'));
             bloc.add(const CustomerCreationPhoneNumberChanged('+56964484712'));
             bloc.add(const CustomerCreationPasswordChanged('1qaz2pwsx'));
             bloc.add(const CustomerCreationRepeatedPasswordChanged('1qaz2wsx'));

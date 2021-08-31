@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "552111998838",
+    "project_id": "inker-5ff7d",
+    "storage_bucket": "inker-5ff7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552111998838:android:192acb2943b6d793479c57",
+        "android_client_info": {
+          "package_name": "com.example.inker_studio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552111998838-t0seb1675nopcjecpo5hbruml32mnhj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbWONRCMDfnWi94rJ8CDH6XlYmwMdR-eQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552111998838-t0seb1675nopcjecpo5hbruml32mnhj1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "552111998838-rfvtnee14m9kued8a8qntkovrvlshnt4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.inkerStudio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

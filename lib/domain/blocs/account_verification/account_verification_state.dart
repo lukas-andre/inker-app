@@ -6,9 +6,15 @@ enum AccountVerificationStatus {
   smsSent,
   smsSentOk,
   smsSentFailure,
+  smsVerifciationFailure,
+  smsVerifciationOk,
+  smsVerificationInProcess,
   emailSent,
   emailSentOk,
   emailSentFailure,
+  emailVerificationInProcess,
+  emailVerifciationFailure,
+  emailVerifciationOk,
 }
 
 class AccountVerificationState extends Equatable {

@@ -1,0 +1,1 @@
+class HashNotFoundException implements Exception {}

@@ -28,6 +28,16 @@ class AccountVerificationSendEmail extends AccountVerificationEvent {
   List<Object?> get props => [];
 }
 
+class AccountVerificationValidateVerificationCode
+    extends AccountVerificationEvent {
+  const AccountVerificationValidateVerificationCode(this.code);
+
+  final String code;
+
+  @override
+  List<Object?> get props => [];
+}
+
 class AccountVerificationSuccessEvent extends AccountVerificationEvent {
   const AccountVerificationSuccessEvent();
 
