@@ -15,6 +15,7 @@ class AccountVerificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Account Verification')),
+      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => AccountVerificationBloc(
             localCustomerService: context.read(),
