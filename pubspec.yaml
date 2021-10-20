@@ -27,7 +27,7 @@ dependencies:
   firebase_core: ^1.5.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.1.0
+  flutter_bloc: ^7.3.0
   flutter_verification_code: ^1.0.4
   formz: ^0.4.0
   form_inputs:

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_account.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
@@ -14,6 +13,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dev.log('context: $context', className);
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         dev.log('Form status: ${state.status}', className);
@@ -38,21 +38,23 @@ class LoginForm extends StatelessWidget {
             const Padding(padding: EdgeInsets.all(12)),
             const _CreateAccountButton(),
             const Padding(padding: EdgeInsets.all(12)),
-            FutureBuilder(
-              future: GoogleAuthService.initializeFirebase(context: context),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error initializing Firebase');
-                } else if (snapshot.connectionState == ConnectionState.done) {
-                  return const GoogleSignInButton();
-                }
-                return CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).primaryColor,
-                  ),
-                );
-              },
-            ),
+            const GoogleSignInButton(),
+            // FutureBuilder(
+            //   future: GoogleAuthService.initializeFirebase(context: context),
+            //   builder: (context, snapshot) {
+            //     dev.log('snapshot: $snapshot', className);
+            //     if (snapshot.hasError) {
+            //       return const Text('Error initializing Firebase');
+            //     } else if (snapshot.connectionState == ConnectionState.done) {
+            //       return const GoogleSignInButton();
+            //     }
+            //     return CircularProgressIndicator(
+            //       valueColor: AlwaysStoppedAnimation<Color>(
+            //         Theme.of(context).primaryColor,
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

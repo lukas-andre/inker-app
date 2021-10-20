@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
-import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class GoogleSignInButton extends StatefulWidget {
@@ -32,6 +31,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 ),
               ),
               onPressed: () async {
+                // TODO: CREAR UN GOOGLE AUTH SERVICE Y HACERLO PACKAGE
                 await GoogleAuthService.initializeFirebase(context: context);
                 setState(() {
                   _isSigningIn = true;
@@ -47,8 +47,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
 
                 if (user != null) {
                   dev.log('user2 $user', 'google signup');
-                  Navigator.of(context)
-                      .pushReplacement(CustomerHomePage.route());
+                  // Navigator.of(context)
+                  //     .pushReplacement(CustomerHomePage.route());
                 }
               },
               child: Padding(

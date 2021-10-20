@@ -7,13 +7,16 @@ import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class GoogleAuthService {
+  static String className = 'GoogleAuthService';
+
   static Future<FirebaseApp> initializeFirebase({
     required BuildContext context,
   }) async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
 
     User? user = FirebaseAuth.instance.currentUser;
-
+    // TODO: MEJORAR ESTO Y OCUPAR BLOC PARA MENEJAR EL ESTADO
+    dev.log('user $user: ', className);
     if (user != null) {
       Navigator.of(context).pushReplacement(CustomerHomePage.route());
     }

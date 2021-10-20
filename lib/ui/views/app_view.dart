@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
@@ -41,6 +40,7 @@ class _AppViewState extends State<AppView> {
                   logoutUseCase: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
+                    dev.log('state: $state', className);
                     _navigateByAuthStatus(state);
                   },
                   child: child),
@@ -59,6 +59,7 @@ class _AppViewState extends State<AppView> {
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
+        dev.log('entre', className);
         _navigator.pushAndRemoveUntil<void>(
           LoginPage.route(),
           (route) => false,

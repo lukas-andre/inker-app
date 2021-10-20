@@ -2,7 +2,6 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
-
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
@@ -47,6 +46,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield await _newSession(event);
     } else if (event is AuthLogoutRequested) {
       await _logoutUseCase.execute(event.session);
+      dev.log('yied logout', '');
+      yield const AuthState.unknown();
+
       yield const AuthState.unauthenticated();
     }
   }
