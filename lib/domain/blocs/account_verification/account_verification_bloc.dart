@@ -105,6 +105,7 @@ class AccountVerificationBloc
     return state;
   }
 
+  /// TODO: AGREGAR MAXIMO INTENTOS DE VALIDACION DE HASH
   Stream<AccountVerificationState>
       _mapAccountVerificationValidateVerificationCodeToState(
           AccountVerificationValidateVerificationCode event,

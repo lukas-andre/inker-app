@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/http/account_verification/http_account_verification_service_impl.dart';
 import 'package:inker_studio/data/http/auth/auth_service_impl.dart';
 import 'package:inker_studio/data/http/customer/http_customer_service_impl.dart';
@@ -17,6 +18,7 @@ import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.d
 
 List<RepositoryProvider> buildProviders() {
   return [
+    RepositoryProvider<GoogleAuthService>(create: (_) => GoogleAuthService()),
     RepositoryProvider<LocalStorage>(create: (_) => LocalStorageImpl()),
     RepositoryProvider<AccountVerificationService>(
         create: (_) => HttpAccountVerificationServiceImpl()),

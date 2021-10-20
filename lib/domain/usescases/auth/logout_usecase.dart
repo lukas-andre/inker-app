@@ -9,6 +9,7 @@ class LogoutUseCase {
   final AuthService _authService;
   final LocalSessionService _sessionService;
 
+// TODO: ADD GOOGLE AUTH SERVICE PARA HACER LOGOUT
   LogoutUseCase(
       {required AuthService authService,
       required LocalSessionService sessionService})
@@ -24,7 +25,7 @@ class LogoutUseCase {
         return null;
       }
 
-      await _authService.logout(currentSession!);
+      // await _authService.logout(currentSession!);
 
       return null;
     } catch (e, stackTrace) {

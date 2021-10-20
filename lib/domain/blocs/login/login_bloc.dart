@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
-
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usescase.dart';
