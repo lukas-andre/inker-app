@@ -41,7 +41,7 @@ class _AppViewState extends State<AppView> {
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
                     dev.log('state: $state', className);
-                    _navigateByAuthStatus(state);
+                    //_navigateByAuthStatus(state);
                   },
                   child: child),
             );
