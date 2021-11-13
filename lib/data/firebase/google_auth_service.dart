@@ -7,6 +7,7 @@ import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class GoogleAuthService {
+  bool isInitialized = false;
   static String className = 'GoogleAuthService';
 
   static Future<FirebaseApp> initializeFirebase({

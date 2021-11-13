@@ -26,6 +26,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _authStatusSubscription = _authService.status.listen(
       (status) async => add(AuthStatusChanged(status)),
     );
+
+    // final user = GoogleAuthService.getCurrectUser();
+    // if (user == null) {
+    //   add(const AuthStatusChanged(AuthStatus.unknown));
+    // } else {
+    //   add(const AuthStatusChanged(AuthStatus.authenticated));
+    // }
   }
   final AuthService _authService;
   final LocalSessionService _sessionService;
