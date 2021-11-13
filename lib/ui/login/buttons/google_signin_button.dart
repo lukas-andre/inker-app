@@ -41,15 +41,15 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                     await GoogleAuthService.signInWithGoogle(context: context);
                 dev.log('user1 $user', 'google signup');
 
-                setState(() {
-                  _isSigningIn = false;
-                });
-
                 if (user != null) {
                   dev.log('user2 $user', 'google signup');
                   // Navigator.of(context)
                   //     .pushReplacement(CustomerHomePage.route());
                 }
+
+                setState(() {
+                  _isSigningIn = false;
+                });
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),

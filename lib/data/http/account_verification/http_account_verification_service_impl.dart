@@ -29,10 +29,10 @@ class HttpAccountVerificationServiceImpl implements AccountVerificationService {
   @override
   Future<bool> sendSMS(int userId, String phoneNumber) async {
     final url = _httpConfig.url(
-        path: '$userId/send-verification-code',
+        path: '$userId/send-account-verification-code',
         queryParams: {
           'phoneNumber': phoneNumber,
-          'type': SendVerificationCodeType.sms
+          'notificationType': SendVerificationCodeType.sms
         });
     dev.log(url.toString(), 'url');
 
@@ -61,8 +61,10 @@ class HttpAccountVerificationServiceImpl implements AccountVerificationService {
   @override
   Future<bool> validateVerificationCode(int userId, String code) async {
     final url = _httpConfig.url(
-        path: '$userId/validate-verification-code/$code',
-        queryParams: {'type': SendVerificationCodeType.sms});
+        path: '$userId/validate-account-verification-code/$code',
+        queryParams: {
+          'notificaitonType': SendVerificationCodeType.sms,
+        });
     dev.log(url.toString(), 'url');
 
     final response = await http.post(url);
