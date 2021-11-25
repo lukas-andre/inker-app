@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const _isDarkMode = 'isDarkMode';
 
-class LocalStorageImpl extends LocalStorage {
+class SharedPreferencesStorage extends LocalStorage {
   @override
   Future<bool> isDarkMode() async {
     final sp = await SharedPreferences.getInstance();

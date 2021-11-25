@@ -37,7 +37,8 @@ class _AppViewState extends State<AppView> {
               create: (context) => AuthBloc(
                   authService: context.read(),
                   sessionService: context.read(),
-                  logoutUseCase: context.read()),
+                  logoutUseCase: context.read(),
+                  googleAuthService: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
                     dev.log('state: $state', className);

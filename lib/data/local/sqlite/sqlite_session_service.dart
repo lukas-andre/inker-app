@@ -1,11 +1,13 @@
-import 'package:inker_studio/data/local/sqlite/database_service_impl.dart';
-import 'package:inker_studio/data/local/sqlite/tables/session_table.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:inker_studio/data/local/sqlite/core/sqlite_service.dart';
+import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/domain/models/session/session_type.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
-import 'package:inker_studio/domain/services/session/session_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 
-class LocalSessionServiceImpl extends LocalSessionService {
-  static const className = 'LocalSessionServiceImpl';
+class SqliteSessionService extends LocalSessionService {
+  static const className = 'SqliteSessionService';
 
   @override
   Future<Session> newSession(Session session) async {
@@ -14,8 +16,7 @@ class LocalSessionServiceImpl extends LocalSessionService {
     final sessionTableMap = _mapSessionToSessionTableSchema(session);
     sessionTableMap['isActive'] = 1;
 
-    await DatabaseServiceImpl.instance
-        .insert(SessionTable.name, sessionTableMap);
+    await SqliteService.instance.insert(SessionTable.name, sessionTableMap);
 
     final createdSession = await getSession(session.sessionType);
 
@@ -24,8 +25,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<String?> getSessionToken(String sessionType) async {
-    final List<Map<String, Object?>> result =
-        (await DatabaseServiceImpl.instance.query(SessionTable.name,
+    final List<Map<String, Object?>> result = (await SqliteService.instance
+        .query(SessionTable.name,
             columns: ['accessToken'],
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType]));
@@ -53,8 +54,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
   }
 
   Future<Map<String, Object?>?> _getSessionMap(String sessionType) async {
-    final List<Map<String, Object?>> result =
-        (await DatabaseServiceImpl.instance.query(SessionTable.name,
+    final List<Map<String, Object?>> result = (await SqliteService.instance
+        .query(SessionTable.name,
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType],
             orderBy: 'updatedAt DESC'));
@@ -73,14 +74,14 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<void> removeOldSession(Session session) async {
-    await DatabaseServiceImpl.instance.delete(SessionTable.name,
+    await SqliteService.instance.delete(SessionTable.name,
         where: 'isActive = ? AND sessionType = ?',
         whereArgs: [1, session.sessionType]);
   }
 
   @override
   Future<Session?> updateSession(Map<String, dynamic> session) async {
-    await DatabaseServiceImpl.instance.update(SessionTable.name, session,
+    await SqliteService.instance.update(SessionTable.name, session,
         where: 'id = ? AND sessionType = ?',
         whereArgs: [session['id'], session['sessionType']]);
 
@@ -89,8 +90,8 @@ class LocalSessionServiceImpl extends LocalSessionService {
 
   @override
   Future<String?> getActiveSessionToken() async {
-    final List<Map<String, Object?>> result =
-        (await DatabaseServiceImpl.instance.query(SessionTable.name,
+    final List<Map<String, Object?>> result = (await SqliteService.instance
+        .query(SessionTable.name,
             columns: ['accessToken'],
             where: 'isActive = ?',
             whereArgs: [1],
@@ -108,14 +109,14 @@ class LocalSessionServiceImpl extends LocalSessionService {
   @override
   Future<void> logout(Session session) async {
     final sessionMap = await _getSessionMap(session.sessionType);
-    sessionMap?['isActive'] = 0;
-    await updateSession(sessionMap!);
+    sessionMap!['isActive'] = 0;
+    await updateSession(sessionMap);
   }
 
   @override
   Future<Session?> tryGetActiveSession() async {
-    final List<Map<String, Object?>> result =
-        (await DatabaseServiceImpl.instance.query(SessionTable.name,
+    final List<Map<String, Object?>> result = (await SqliteService.instance
+        .query(SessionTable.name,
             where: 'isActive = ?', whereArgs: [1], orderBy: 'createdAt DESC'));
 
     if (result.isEmpty) {
@@ -126,5 +127,20 @@ class LocalSessionServiceImpl extends LocalSessionService {
     sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
     return Session.fromJson(sessionMap);
+  }
+
+  @override
+  Future<Session?> newGoogleSession(firebase_auth.User? googleUser) async {
+    User user = User(
+      id: googleUser.hashCode,
+      uid: googleUser!.uid,
+      fullname: googleUser.displayName,
+      email: googleUser.email,
+      profileThumbnail: googleUser.photoURL,
+    );
+
+    Session session = Session(user, SessionType.google, user.uid!, '');
+
+    return await newSession(session);
   }
 }

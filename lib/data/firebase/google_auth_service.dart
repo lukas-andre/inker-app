@@ -1,39 +1,43 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
+import 'package:inker_studio/domain/models/user/user.dart' as local_model;
 import 'package:inker_studio/utils/dev.dart';
 
 class GoogleAuthService {
-  bool isInitialized = false;
-  static String className = 'GoogleAuthService';
+  final String className = 'GoogleAuthService';
 
-  static Future<FirebaseApp> initializeFirebase({
-    required BuildContext context,
-  }) async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
+  GoogleAuthService({
+    firebase_auth.FirebaseAuth? firebaseAuth,
+    GoogleSignIn? googleSignIn,
+  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
-    User? user = FirebaseAuth.instance.currentUser;
-    // TODO: MEJORAR ESTO Y OCUPAR BLOC PARA MENEJAR EL ESTADO
-    dev.log('user $user: ', className);
-    if (user != null) {
-      Navigator.of(context).pushReplacement(CustomerHomePage.route());
-    }
+  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-    return firebaseApp;
+  /// Stream of [User] which will emit the current user when
+  /// the authentication state changes.
+  ///
+  /// Emits [User.empty] if the user is not authenticated.
+  Stream<local_model.User> get firebaseUser {
+    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+      dev.log('firebaseUser $firebaseUser', className);
+      final user =
+          firebaseUser == null ? local_model.User.empty : firebaseUser.toUser;
+      return user;
+    });
   }
 
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
+  Future<User?> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleSignInAccount;
-
     try {
-      googleSignInAccount = await googleSignIn.signIn();
+      googleSignInAccount = await _googleSignIn.signIn();
     } catch (error, stackTrace) {
       dev.logError(error, stackTrace);
     }
@@ -54,32 +58,32 @@ class GoogleAuthService {
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            GoogleAuthService.customSnackBar(
-              content:
-                  'The account already exists with a different credential.',
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   customSnackBar(
+          //     content:
+          //         'The account already exists with a different credential.',
+          //   ),
+          // );
         } else if (e.code == 'invalid-credential') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            GoogleAuthService.customSnackBar(
-              content: 'Error occurred while accessing credentials. Try again.',
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   customSnackBar(
+          //     content: 'Error occurred while accessing credentials. Try again.',
+          //   ),
+          // );
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          GoogleAuthService.customSnackBar(
-            content: 'Error occurred using Google Sign-In. Try again.',
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   customSnackBar(
+        //     content: 'Error occurred using Google Sign-In. Try again.',
+        //   ),
+        // );
       }
     }
 
     return user;
   }
 
-  static Future<void> signOut({required BuildContext context}) async {
+  Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
@@ -88,21 +92,24 @@ class GoogleAuthService {
       }
       await FirebaseAuth.instance.signOut();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        GoogleAuthService.customSnackBar(
-          content: 'Error signing out. Try again.',
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   customSnackBar(
+      //     content: 'Error signing out. Try again.',
+      //   ),
+      // );
     }
   }
+}
 
-  static SnackBar customSnackBar({required String content}) {
-    return SnackBar(
-      backgroundColor: Colors.black,
-      content: Text(
-        content,
-        style: const TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
-      ),
-    );
+extension on firebase_auth.User {
+  local_model.User get toUser {
+    dev.log('metadata $metadata', 'GoogleAuthSer');
+    return local_model.User(
+        id: hashCode,
+        uid: uid,
+        email: email,
+        fullname: displayName,
+        profileThumbnail: photoURL,
+        username: displayName);
   }
 }

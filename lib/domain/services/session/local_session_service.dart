@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:inker_studio/domain/models/session/session.dart';
 
 abstract class LocalSessionService {
@@ -16,4 +17,6 @@ abstract class LocalSessionService {
   Future<String?> getActiveSessionToken();
 
   Future<Session?> tryGetActiveSession();
+
+  Future<Session?> newGoogleSession(firebase_auth.User? googleUser);
 }

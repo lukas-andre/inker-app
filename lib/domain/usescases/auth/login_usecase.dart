@@ -1,18 +1,18 @@
-import 'package:inker_studio/data/http/auth/dtos/login_request.dart';
-import 'package:inker_studio/data/http/auth/dtos/login_response.dart';
+import 'package:inker_studio/data/api/auth/dtos/login_request.dart';
+import 'package:inker_studio/data/api/auth/dtos/login_response.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
-import 'package:inker_studio/domain/services/session/session_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
-class LoginUsesCase {
+class LoginUseCase {
   static const className = 'LoginUsesCase';
 
   final AuthService _authService;
   final LocalSessionService _localSessionStorage;
 
-  LoginUsesCase(
+  LoginUseCase(
       {required AuthService authService,
       required LocalSessionService localSession})
       : _authService = authService,
@@ -39,7 +39,7 @@ class LoginUsesCase {
       User user, LoginResponse loginResponse) {
     final sessionType = user.userType; //* Handle this better in the future
     return Session(
-        user, sessionType, loginResponse.accessToken, loginResponse.expiresIn);
+        user, sessionType!, loginResponse.accessToken, loginResponse.expiresIn);
   }
 
   User _getUserFromLoginResponse(LoginResponse loginResponse) {

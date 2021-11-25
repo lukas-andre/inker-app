@@ -1,5 +1,5 @@
-import 'package:inker_studio/data/http/auth/dtos/login_request.dart';
-import 'package:inker_studio/data/http/auth/dtos/login_response.dart';
+import 'package:inker_studio/data/api/auth/dtos/login_request.dart';
+import 'package:inker_studio/data/api/auth/dtos/login_response.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 

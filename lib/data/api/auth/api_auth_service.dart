@@ -1,27 +1,26 @@
 import 'dart:async' show StreamController;
 
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:inker_studio/domain/services/auth/auth_service.dart';
-import 'package:inker_studio/domain/services/session/session_service.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/data/http/auth/dtos/login_response.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/domain/services/auth/auth_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'dtos/login_request.dart';
+import 'dtos/login_response.dart';
 
-class AuthServiceImpl extends AuthService {
-  static const String className = 'AuthService';
+class ApiAuthService extends AuthService {
+  static const String className = 'ApiAuthService';
 
   final HttpClientConfig _httpConfig;
   final _streamController = StreamController<AuthStatus>();
 
   AuthStatus _statusValue = AuthStatus.unknown;
 
-  AuthServiceImpl(this._localSessionService)
+  ApiAuthService(this._localSessionService)
       : _httpConfig = HttpClientConfig(
             baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'auth'),
         super();
@@ -35,6 +34,7 @@ class AuthServiceImpl extends AuthService {
   Stream<AuthStatus> get status async* {
     dev.log('get status start - status: $statusValue', className, 'status');
 
+// GET ACTIVE SESSION IF IS GOOGLE, GET CURRENTUSER AND AUTHENTICATE !
     String? token = await _localSessionService.getActiveSessionToken();
     dev.log('token: $token', className, 'status');
 

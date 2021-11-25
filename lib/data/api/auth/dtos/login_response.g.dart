@@ -15,7 +15,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       userType: json['userType'] as String,
       userTypeId: json['userTypeId'] as int,
       profileThumbnail: json['profileThumbnail'],
-      permission: (json['permision'] as List<dynamic>)
+      permission: (json['permission'] as List<dynamic>)
           .map((e) => Permision.fromJson(e as Map<String, dynamic>))
           .toList(),
       accessToken: json['accessToken'] as String,
@@ -31,7 +31,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'userType': instance.userType,
       'userTypeId': instance.userTypeId,
       'profileThumbnail': instance.profileThumbnail,
-      'permision': instance.permission,
+      'permission': instance.permission,
       'accessToken': instance.accessToken,
       'expiresIn': instance.expiresIn,
     };

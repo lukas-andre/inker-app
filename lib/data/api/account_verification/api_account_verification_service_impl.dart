@@ -16,12 +16,12 @@ class SendVerificationCodeType {
   static String email = 'EMAIL';
 }
 
-class HttpAccountVerificationServiceImpl implements AccountVerificationService {
-  static const String className = 'HttpAccountVerificationServiceImpl';
+class ApiAccountVerificationService implements AccountVerificationService {
+  static const String className = 'ApiAccountVerificationService';
 
   final HttpClientConfig _httpConfig;
 
-  HttpAccountVerificationServiceImpl()
+  ApiAccountVerificationService()
       : _httpConfig = HttpClientConfig(
             baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'users'),
         super();

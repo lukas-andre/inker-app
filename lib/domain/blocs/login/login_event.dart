@@ -28,3 +28,11 @@ class LoginPasswordChanged extends LoginEvent {
 class LoginSubmitted extends LoginEvent {
   const LoginSubmitted();
 }
+
+class SignInWithGooglePressed extends LoginEvent {
+  const SignInWithGooglePressed();
+}
+
+class CraeteCustomerUserPressedInGoogleSinginFlow extends LoginEvent {
+  const CraeteCustomerUserPressedInGoogleSinginFlow();
+}

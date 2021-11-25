@@ -2,10 +2,11 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
-import 'package:inker_studio/domain/services/session/session_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/usescases/auth/logout_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -18,7 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
       {required AuthService authService,
       required LocalSessionService sessionService,
-      required LogoutUseCase logoutUseCase})
+      required LogoutUseCase logoutUseCase,
+      required GoogleAuthService googleAuthService})
       : _authService = authService,
         _sessionService = sessionService,
         _logoutUseCase = logoutUseCase,
