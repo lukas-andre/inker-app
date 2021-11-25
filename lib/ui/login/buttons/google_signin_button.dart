@@ -1,81 +1,62 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:inker_studio/data/firebase/google_auth_service.dart';
-import 'package:inker_studio/utils/dev.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 
-class GoogleSignInButton extends StatefulWidget {
+class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
 
   @override
-  _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
-}
-
-class _GoogleSignInButtonState extends State<GoogleSignInButton> {
-  bool _isSigningIn = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
-          ? const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          : OutlinedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: state.status == FormzStatus.submissionInProgress
+              ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                )
+              : OutlinedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                  ),
+                  onPressed: () async {
+                    context
+                        .read<LoginBloc>()
+                        .add(const SignInWithGooglePressed());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Image(
+                          image: AssetImage('assets/google_logo.png'),
+                          height: 35.0,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Sign in with Google',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              onPressed: () async {
-                // TODO: CREAR UN GOOGLE AUTH SERVICE Y HACERLO PACKAGE
-                await GoogleAuthService.initializeFirebase(context: context);
-                setState(() {
-                  _isSigningIn = true;
-                });
-
-                User? user =
-                    await GoogleAuthService.signInWithGoogle(context: context);
-                dev.log('user1 $user', 'google signup');
-
-                if (user != null) {
-                  dev.log('user2 $user', 'google signup');
-                  // Navigator.of(context)
-                  //     .pushReplacement(CustomerHomePage.route());
-                }
-
-                setState(() {
-                  _isSigningIn = false;
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Image(
-                      image: AssetImage('assets/google_logo.png'),
-                      height: 35.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Sign in with Google',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+        );
+      },
     );
   }
 }

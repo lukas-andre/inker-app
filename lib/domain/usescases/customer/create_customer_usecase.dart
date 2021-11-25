@@ -1,6 +1,6 @@
-import 'package:inker_studio/data/http/customer/dtos/create_customer_request.dart';
+import 'package:inker_studio/data/api/customer/dtos/create_customer_request.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
-import 'package:inker_studio/domain/services/customer/http_customer_service.dart';
+import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -9,12 +9,12 @@ class CreateCustomerUseCase {
   final String _userType = 'CUSTOMER';
 
   CreateCustomerUseCase(
-      {required HttpCustomerService httpCustomerService,
+      {required CustomerService httpCustomerService,
       required LocalCustomerService localCustomerService})
       : _httpCustomerService = httpCustomerService,
         _localCustomerService = localCustomerService;
 
-  final HttpCustomerService _httpCustomerService;
+  final CustomerService _httpCustomerService;
   final LocalCustomerService _localCustomerService;
 
   Future<Customer?> execute({

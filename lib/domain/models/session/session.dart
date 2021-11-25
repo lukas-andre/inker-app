@@ -1,8 +1,8 @@
 import 'dart:convert' show json;
 
 import 'package:equatable/equatable.dart' show Equatable;
-import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
 part 'session.g.dart';
 
@@ -12,7 +12,7 @@ String sessionToJson(Session data) => json.encode(data.toJson());
 
 @JsonSerializable()
 class Session extends Equatable {
-  static const empty = Session(null, '', '', '', null, null);
+  static const empty = Session(User.empty, '', '', '', null, null);
 
   final User? user;
   final String sessionType;

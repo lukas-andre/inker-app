@@ -2,28 +2,26 @@
 
 import 'dart:io' show Directory;
 
-import 'package:inker_studio/data/local/sqlite/tables/customer_table.dart';
-import 'package:inker_studio/data/local/sqlite/tables/session_table.dart';
+import 'package:inker_studio/data/local/sqlite/core/tables/customer_table.dart';
+import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
 import 'package:inker_studio/domain/services/sqlite/database_service.dart';
+import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/timestamp_column_helper.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
-
 import 'package:sqflite/sqflite.dart'
     show Database, openDatabase, Sqflite, ConflictAlgorithm;
 
-import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/timestamp_column_helper.dart';
-
-class DatabaseServiceImpl implements DatabaseService {
-  static const String className = 'DatabaseService';
+class SqliteService implements DatabaseService {
+  static const String className = 'SqliteService';
   static const String sessionDatabaseName = SessionTable.name;
 
   static Database? _database;
 
-  static final DatabaseServiceImpl instance = DatabaseServiceImpl._();
+  static final SqliteService instance = SqliteService._();
 
-  DatabaseServiceImpl._();
+  SqliteService._();
 
   @override
   Future<Database> get database async {
@@ -69,9 +67,9 @@ class DatabaseServiceImpl implements DatabaseService {
   @override
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    // ! Remove for production
     final path = join(documentsDirectory.path, 'Master.db');
 
+    // ! Remove for production
     Sqflite.devSetDebugModeOn(true);
     final db = await openDatabase(path,
         version: 18,

@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
-import 'package:inker_studio/domain/usescases/auth/login_usescase.dart';
+import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
+import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 part 'login_event.dart';
@@ -14,13 +16,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const className = 'LoginBloc';
 
   LoginBloc({
-    required LoginUsesCase loginUseCase,
+    required LoginUseCase loginUseCase,
+    required GoogleSingInUsecase googleSingInUsecase,
     required AuthBloc authBloc,
   })  : _loginUseCase = loginUseCase,
         _authBloc = authBloc,
+        _googleSingInUsecase = googleSingInUsecase,
         super(const LoginState());
 
-  final LoginUsesCase _loginUseCase;
+  final LoginUseCase _loginUseCase;
+  final GoogleSingInUsecase _googleSingInUsecase;
   final AuthBloc _authBloc;
 
   @override
@@ -34,6 +39,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield _mapPasswordChangedToState(event, state);
     } else if (event is LoginSubmitted) {
       yield* _mapLoginSubmittedToState(event, state);
+    } else if (event is SignInWithGooglePressed) {
+      yield* _mapSignInWithGoogleToState(event, state);
+    } else if (event is CraeteCustomerUserPressedInGoogleSinginFlow) {
+      yield* _mapCraeteCustomerUserPressedInGoogleSinginFlowToState(
+        event,
+        state,
+      );
     }
   }
 
@@ -82,5 +94,37 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }
+  }
+
+  Stream<LoginState> _mapSignInWithGoogleToState(
+    SignInWithGooglePressed event,
+    LoginState state,
+  ) async* {
+    // TODO: Ver que hacer si es el estado no es valido
+    yield state.copyWith(status: FormzStatus.submissionInProgress);
+    try {
+      final result = await _googleSingInUsecase.execute();
+
+      if (result!.session != null) {
+        _authBloc.add(AuthNewSession(result.session!));
+        yield state.copyWith(status: FormzStatus.submissionSuccess);
+      }
+
+      if (result.googleUser != null) {
+        yield state.copyWith(
+            status: FormzStatus.submissionInProgress,
+            isNewUser: true,
+            googleUser: result.googleUser);
+      }
+    } on SignUpWithGoogleFailure catch (_) {
+      yield state.copyWith(status: FormzStatus.submissionFailure);
+    } on Exception catch (_) {
+      yield state.copyWith(status: FormzStatus.submissionFailure);
+    }
+  }
+
+  _mapCraeteCustomerUserPressedInGoogleSinginFlowToState(
+      CraeteCustomerUserPressedInGoogleSinginFlow event, LoginState state) {
+    throw Error();
   }
 }

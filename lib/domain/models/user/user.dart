@@ -16,23 +16,35 @@ String userToJson(User data) => json.encode(data.toJson());
 class User extends Equatable {
   const User({
     required this.id,
-    required this.email,
-    required this.username,
-    required this.fullname,
-    required this.userType,
-    required this.userTypeId,
-    required this.profileThumbnail,
+    this.uid,
+    this.email,
+    this.username,
+    this.fullname,
+    this.userType,
+    this.userTypeId,
+    this.profileThumbnail,
   });
 
   final int id;
-  final String email;
-  final String username;
-  final String fullname;
-  final String userType;
-  final int userTypeId;
+  final String? uid;
+  final String? email;
+  final String? username;
+  final String? fullname;
+  final String? userType;
+  final int? userTypeId;
   final dynamic profileThumbnail;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  static const empty = User(
+    id: -1,
+  );
+
+  /// Convenience getter to determine whether the current user is empty.
+  bool get isEmpty => this == User.empty;
+
+  /// Convenience getter to determine whether the current user is not empty.
+  bool get isNotEmpty => this != User.empty;
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
