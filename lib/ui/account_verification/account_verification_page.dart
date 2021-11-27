@@ -4,9 +4,8 @@ import 'package:inker_studio/domain/blocs/account_verification/account_verificat
 import 'package:inker_studio/ui/account_verification/account_verification_body.dart';
 
 class AccountVerificationPage extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(
-        builder: (_) => const AccountVerificationPage());
+  static Page page() {
+    return const MaterialPage<void>(child: AccountVerificationPage());
   }
 
   const AccountVerificationPage({Key? key}) : super(key: key);

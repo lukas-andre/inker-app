@@ -1,1 +1,1 @@
-class CanNotActivateUserException implements Exception {}
+class CanNotActivateUser implements Exception {}

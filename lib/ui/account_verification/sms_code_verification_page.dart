@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
-import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class SMSCodeVerificationPage extends StatelessWidget {
@@ -38,8 +37,8 @@ class SMSCodeVerificationPage extends StatelessWidget {
                   const SnackBar(content: Text('User verified!')),
                 );
 
-              Navigator.of(context)
-                  .pushAndRemoveUntil(LoginPage.route(), (route) => false);
+              // Navigator.of(context)
+              //     .pushAndRemoveUntil(LoginPage.route(), (route) => false);
             }
           },
           child: BlocBuilder<AccountVerificationBloc, AccountVerificationState>(
