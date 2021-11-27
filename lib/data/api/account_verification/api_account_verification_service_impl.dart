@@ -82,13 +82,13 @@ class ApiAccountVerificationService implements AccountVerificationService {
   Exception _handleValidateVerificationCodeErrors(http.Response response) {
     switch (response.statusCode) {
       case HttpStatus.notFound:
-        return HashNotFoundException();
+        return HashNotFound();
       case HttpStatus.notAcceptable:
-        return UserNotFoundException();
+        return UserNotFound();
       case HttpStatus.unprocessableEntity:
-        return CanNotActivateUserException();
+        return CanNotActivateUser();
       case HttpStatus.conflict:
-        return InvalidVerificationCodeException();
+        return InvalidVerificationCode();
       case HttpStatus.internalServerError:
         return InternalServerException();
       default:

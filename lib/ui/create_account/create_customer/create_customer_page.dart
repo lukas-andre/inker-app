@@ -12,6 +12,10 @@ class CreateCustomerPage extends StatelessWidget {
     return MaterialPageRoute<void>(builder: (_) => const CreateCustomerPage());
   }
 
+  static Page page() {
+    return const MaterialPage<void>(child: CreateCustomerPage());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,7 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
-import 'package:inker_studio/data/firebase/google_auth_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
@@ -16,12 +16,11 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   static const String className = 'AuthBloc';
 
-  AuthBloc(
-      {required AuthService authService,
-      required LocalSessionService sessionService,
-      required LogoutUseCase logoutUseCase,
-      required GoogleAuthService googleAuthService})
-      : _authService = authService,
+  AuthBloc({
+    required AuthService authService,
+    required LogoutUseCase logoutUseCase,
+    required LocalSessionService sessionService,
+  })  : _authService = authService,
         _sessionService = sessionService,
         _logoutUseCase = logoutUseCase,
         super(const AuthState.unknown()) {
@@ -29,38 +28,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (status) async => add(AuthStatusChanged(status)),
     );
 
-    // final user = GoogleAuthService.getCurrectUser();
-    // if (user == null) {
-    //   add(const AuthStatusChanged(AuthStatus.unknown));
-    // } else {
-    //   add(const AuthStatusChanged(AuthStatus.authenticated));
-    // }
+    on<AuthStatusChanged>(
+        (event, emit) => _mapAuthStatusChangedToState(event, emit));
+    on<AuthNewSession>((event, emit) => _newSession(event, emit));
+    on<AuthLogoutRequested>((event, emit) async {
+      try {
+        await _logoutUseCase.execute(event.session);
+        emit(const AuthState.unauthenticated());
+      } catch (e) {
+        emit(const AuthState.unknown());
+      }
+    });
   }
+
   final AuthService _authService;
   final LocalSessionService _sessionService;
   final LogoutUseCase _logoutUseCase;
 
   late StreamSubscription<AuthStatus> _authStatusSubscription;
-  @override
-  Stream<AuthState> mapEventToState(
-    AuthEvent event,
-  ) async* {
-    dev.log('event: $event', className, 'mapEventToState');
-    // dev.inspect(event, 'auth:event');
-
-    if (event is AuthStatusChanged) {
-      yield await _mapAuthStatusChangedToState(event);
-    } else if (event is AuthNewSession) {
-      dev.log('AuthNewSession', className);
-      yield await _newSession(event);
-    } else if (event is AuthLogoutRequested) {
-      await _logoutUseCase.execute(event.session);
-      dev.log('yied logout', '');
-      yield const AuthState.unknown();
-
-      yield const AuthState.unauthenticated();
-    }
-  }
 
   @override
   Future<void> close() {
@@ -69,19 +54,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return super.close();
   }
 
-  Future<AuthState> _mapAuthStatusChangedToState(
+  Future<void> _mapAuthStatusChangedToState(
     AuthStatusChanged event,
+    Emitter<AuthState> emit,
   ) async {
     switch (event.status) {
       case AuthStatus.unauthenticated:
-        return const AuthState.unauthenticated();
+        emit(const AuthState.unauthenticated());
+        break;
       case AuthStatus.authenticated:
         final session = await _tryGetSession();
-        return session != null
-            ? AuthState.authenticated(session)
-            : const AuthState.unauthenticated();
+        session != null
+            ? emit(AuthState.authenticated(session))
+            : emit(const AuthState.unauthenticated());
+        break;
       default:
-        return const AuthState.unknown();
+        emit(const AuthState.unknown());
+        break;
     }
   }
 
@@ -97,7 +86,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<AuthState> _newSession(AuthNewSession event) async {
-    return AuthState.authenticated(event.session);
+  Future<void> _newSession(
+      AuthNewSession event, Emitter<AuthState> emit) async {
+    emit(AuthState.authenticated(event.session));
   }
 }

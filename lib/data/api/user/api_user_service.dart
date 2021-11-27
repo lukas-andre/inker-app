@@ -2,12 +2,18 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/domain/errors/remote/http_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/response_utils.dart';
 
 import 'dtos/get_user_by_socia_media_response.dart';
+
+class UserServiceError extends Error {}
+
+class NotFoundResource extends Error {}
 
 class ApiUserService extends UserService {
   static const String className = 'ApiUserService';
@@ -34,25 +40,28 @@ class ApiUserService extends UserService {
     dev.inspect(url, 'url');
 
     final response = await http.get(url);
-    dev.inspect(response.body, 'getUserBySocialMediaAndEmail response.body');
-    dev.log(response.statusCode.toString(),
-        'getUserBySocialMediaAndEmail.statusCode response');
+
+    dev.inspect(response, 'getUserBySocialMediaAndEmail response');
+    dev.log('response ${response.statusCode}', className);
 
     if (response.statusCode == HttpStatus.notFound) {
+      dev.log('response status ${response.statusCode}', 'if');
+      if (ResponseUtils.resourceNotFound(response.body)) {
+        throw ResourceNotFound();
+      }
+
       return null;
-    }
-
-    if (response.statusCode >= HttpStatus.internalServerError) {
+    } else if (response.statusCode >= HttpStatus.internalServerError) {
       throw InternalServerException();
-    }
-
-    if (response.statusCode == HttpStatus.created) {
+    } else if (response.statusCode == HttpStatus.created) {
       try {
         return getUserBySocialMediaResponseFromJson(response.body);
       } catch (e, stackTrace) {
         dev.logError(e, stackTrace);
         throw JsonParseException();
       }
+    } else {
+      throw HttpException();
     }
   }
 }

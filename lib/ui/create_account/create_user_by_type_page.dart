@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
-
-import 'create_customer/create_customer_page.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 
 class CreateUserByTypePage extends StatelessWidget {
   const CreateUserByTypePage({Key? key}) : super(key: key);
@@ -10,6 +10,10 @@ class CreateUserByTypePage extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
         builder: (_) => const CreateUserByTypePage());
+  }
+
+  static Page page() {
+    return const MaterialPage<void>(child: CreateUserByTypePage());
   }
   // TODO: HACER QUE ESCUCHE A LOGIN BLOC Y VER SI VIENE DE UN SOCIAL MEDIA O FLUJO DE LOGIN LOCAL,
   // TODO: SI VIENE DE UN SOCIAL MEDIA, DEBE GATILLAR EL EVENTO DE CREAR USUARIO DE ACUERDO AL TIPO
@@ -23,14 +27,36 @@ class CreateUserByTypePage extends StatelessWidget {
         elevation: 0.1,
         backgroundColor: Colors.white60,
         minimumSize: const Size(300.0, 150.0));
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {
-        return Scaffold(
+
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.newUserType == NewUserType.google &&
+            state.userTypeToCreate == UserType.customer) {
+          BlocProvider.of<LoginBloc>(context)
+              .add(const CreateCustomerWithGoogleSignInInfo());
+        }
+
+        if (state.newUserType == NewUserType.inker &&
+            state.userTypeToCreate == UserType.customer) {
+          BlocProvider.of<LoginBloc>(context)
+              .add(const CreateCustomerWithInkerFormInfo());
+        }
+      },
+      child: WillPopScope(
+        onWillPop: () async {
+          if (context.read<LoginBloc>().state.status ==
+              FormzStatus.submissionInProgress) {
+            BlocProvider.of<LoginBloc>(context).add(
+                const CreateUserByTypeBackButtonPressedInGoogleSinginFlow());
+            return true;
+          }
+          return false;
+        },
+        child: Scaffold(
           appBar: AppBar(title: const Text('Create User By Type')),
           body: Align(
             alignment: const Alignment(0, -1 / 3),
             child: Column(
-              // mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
@@ -41,26 +67,16 @@ class CreateUserByTypePage extends StatelessWidget {
                 TextButton(
                   style: butttonStyle,
                   onPressed: () {
-                    if (!state.isNewUser &&
-                        state.newUserType == NewUserType.unknown) {
-                      Navigator.of(context)
-                          .push<void>(CreateCustomerPage.route());
-                    }
-
-                    if (state.isNewUser &&
-                        state.newUserType == NewUserType.google) {
-                      BlocProvider.of<LoginBloc>(context).add(
-                        const CraeteCustomerUserPressedInGoogleSinginFlow(),
-                      );
-                    }
+                    BlocProvider.of<LoginBloc>(context)
+                        .add(const CreateCustomerUserPressed());
                   },
                   child: const Text('Customer'),
                 ),
               ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

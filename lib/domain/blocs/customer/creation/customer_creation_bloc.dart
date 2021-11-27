@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:form_inputs/form_inputs.dart';
 
 part 'customer_creation_event.dart';
 part 'customer_creation_state.dart';
@@ -18,38 +18,31 @@ class CustomerCreationBloc
 
   CustomerCreationBloc({required createCustomerUseCase})
       : _createCustomerUseCase = createCustomerUseCase,
-        super(const CustomerCreationState());
-  final CreateCustomerUseCase _createCustomerUseCase;
-
-  @override
-  Stream<CustomerCreationState> mapEventToState(
-    CustomerCreationEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
-    dev.log('event $event', className, 'event');
-    if (event is CustomerCreationUsernameChanged) {
-      yield _mapUsernameChangedToState(event, state);
-    } else if (event is CustomerCreationFirstNameChanged) {
-      yield _mapFirstNameChangedToState(event, state);
-    } else if (event is CustomerCreationLastNameChanged) {
-      yield _mapLastNameChangedToState(event, state);
-    } else if (event is CustomerCreationPasswordChanged) {
-      yield _mapPasswordChangedToState(event, state);
-    } else if (event is CustomerCreationRepeatedPasswordChanged) {
-      yield _mapRepeatedPasswordChangedToState(event, state);
-    } else if (event is CustomerCreationEmailChanged) {
-      yield _mapEmailChangedToState(event, state);
-    } else if (event is CustomerCreationPhoneNumberChanged) {
-      yield _mapPhoneNumberChangedToState(event, state);
-    } else if (event is CustomerCreationSubmitted) {
-      yield* _mapCustomerCreationSubmittedToState(event, state);
-    }
+        super(const CustomerCreationState()) {
+    on<CustomerCreationUsernameChanged>(
+        (event, emit) => _mapUsernameChangedToState(event, emit));
+    on<CustomerCreationLastNameChanged>(
+        (event, emit) => _mapLastNameChangedToState(event, emit));
+    on<CustomerCreationFirstNameChanged>(
+        (event, emit) => _mapFirstNameChangedToState(event, emit));
+    on<CustomerCreationEmailChanged>(
+        (event, emit) => _mapEmailChangedToState(event, emit));
+    on<CustomerCreationPasswordChanged>(
+        (event, emit) => _mapPasswordChangedToState(event, emit));
+    on<CustomerCreationRepeatedPasswordChanged>(
+        (event, emit) => _mapRepeatedPasswordChangedToState(event, emit));
+    on<CustomerCreationPhoneNumberChanged>(
+        (event, emit) => _mapPhoneNumberChangedToState(event, emit));
+    on<CustomerCreationSubmitted>(
+        (event, emit) => _mapCustomerCreationSubmittedToState(event, emit));
   }
 
-  CustomerCreationState _mapUsernameChangedToState(
-      CustomerCreationUsernameChanged event, CustomerCreationState state) {
+  final CreateCustomerUseCase _createCustomerUseCase;
+
+  void _mapUsernameChangedToState(CustomerCreationUsernameChanged event,
+      Emitter<CustomerCreationState> emit) {
     final username = UsernameInput.dirty(event.username);
-    return state.copyWith(
+    emit(state.copyWith(
         username: username,
         status: Formz.validate([
           username,
@@ -59,13 +52,13 @@ class CustomerCreationBloc
           state.password,
           state.repeatPassword,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapFirstNameChangedToState(
-      CustomerCreationFirstNameChanged event, CustomerCreationState state) {
+  void _mapFirstNameChangedToState(CustomerCreationFirstNameChanged event,
+      Emitter<CustomerCreationState> emit) {
     final firstName = NameInput.dirty(event.firstName);
-    return state.copyWith(
+    emit(state.copyWith(
         firstName: firstName,
         status: Formz.validate([
           firstName,
@@ -75,13 +68,14 @@ class CustomerCreationBloc
           state.password,
           state.repeatPassword,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapLastNameChangedToState(
-      CustomerCreationLastNameChanged event, CustomerCreationState state) {
+  void _mapLastNameChangedToState(CustomerCreationLastNameChanged event,
+      Emitter<CustomerCreationState> emit) {
     final lastName = NameInput.dirty(event.lastName);
-    return state.copyWith(
+
+    emit(state.copyWith(
         lastName: lastName,
         status: Formz.validate([
           lastName,
@@ -91,13 +85,13 @@ class CustomerCreationBloc
           state.password,
           state.repeatPassword,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapPasswordChangedToState(
-      CustomerCreationPasswordChanged event, CustomerCreationState state) {
+  void _mapPasswordChangedToState(CustomerCreationPasswordChanged event,
+      Emitter<CustomerCreationState> emit) {
     final password = PasswordInput.dirty(event.password);
-    return state.copyWith(
+    emit(state.copyWith(
         password: password,
         status: Formz.validate([
           password,
@@ -107,16 +101,16 @@ class CustomerCreationBloc
           state.email,
           state.repeatPassword,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapRepeatedPasswordChangedToState(
+  void _mapRepeatedPasswordChangedToState(
       CustomerCreationRepeatedPasswordChanged event,
-      CustomerCreationState state) {
+      Emitter<CustomerCreationState> emit) {
     final repeteadPassword = PasswordInput.dirty(event.repeteadPassword);
     dev.log('state: $state', className);
     dev.log('repeteadPassword: $repeteadPassword', className);
-    return state.copyWith(
+    emit(state.copyWith(
         repeatPassword: repeteadPassword,
         status: Formz.validate([
           repeteadPassword,
@@ -126,13 +120,13 @@ class CustomerCreationBloc
           state.email,
           state.password,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapEmailChangedToState(
-      CustomerCreationEmailChanged event, CustomerCreationState state) {
+  void _mapEmailChangedToState(
+      CustomerCreationEmailChanged event, Emitter<CustomerCreationState> emit) {
     final email = EmailInput.dirty(event.email);
-    return state.copyWith(
+    emit(state.copyWith(
         email: email,
         status: Formz.validate([
           email,
@@ -142,13 +136,13 @@ class CustomerCreationBloc
           state.password,
           state.repeatPassword,
           state.phoneNumber
-        ]));
+        ])));
   }
 
-  CustomerCreationState _mapPhoneNumberChangedToState(
-      CustomerCreationPhoneNumberChanged event, CustomerCreationState state) {
+  void _mapPhoneNumberChangedToState(CustomerCreationPhoneNumberChanged event,
+      Emitter<CustomerCreationState> emit) {
     final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
-    return state.copyWith(
+    emit(state.copyWith(
         phoneNumber: phoneNumber,
         status: Formz.validate([
           phoneNumber,
@@ -158,13 +152,14 @@ class CustomerCreationBloc
           state.password,
           state.repeatPassword,
           state.email
-        ]));
+        ])));
   }
 
-  Stream<CustomerCreationState> _mapCustomerCreationSubmittedToState(
-      CustomerCreationSubmitted event, CustomerCreationState state) async* {
+  Future<void> _mapCustomerCreationSubmittedToState(
+      CustomerCreationSubmitted event,
+      Emitter<CustomerCreationState> emit) async {
     if (state.status.isValidated) {
-      yield state.copyWith(status: FormzStatus.submissionInProgress);
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
         final customer = await _createCustomerUseCase.execute(
           username: state.username.value,
@@ -175,24 +170,24 @@ class CustomerCreationBloc
           phoneNumber: state.phoneNumber.value,
         );
         dev.log('$customer', className, '_mapCustomerCreationSubmittedToState');
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } on UserAlreadyExistsException {
-        yield state.copyWith(
+        emit(state.copyWith(
             status: FormzStatus.submissionFailure,
-            errorMessage: 'User ${state.email.value} already exists');
+            errorMessage: 'User ${state.email.value} already exists'));
       } on InternalServerException {
-        yield state.copyWith(
+        emit(state.copyWith(
             status: FormzStatus.submissionFailure,
-            errorMessage: 'Problems with the server');
+            errorMessage: 'Problems with the server'));
       } on JsonParseException {
-        yield state.copyWith(
+        emit(state.copyWith(
             status: FormzStatus.submissionFailure,
-            errorMessage: 'Invalid server response');
+            errorMessage: 'Invalid server response'));
       } catch (e, stackTrace) {
         dev.logError(e, stackTrace);
-        yield state.copyWith(
+        emit(state.copyWith(
             status: FormzStatus.submissionFailure,
-            errorMessage: 'Bad server response');
+            errorMessage: 'Bad server response'));
       }
     }
   }

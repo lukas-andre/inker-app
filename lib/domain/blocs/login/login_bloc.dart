@@ -1,13 +1,16 @@
 import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
+import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/errors/remote/http_exception.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
-import 'package:inker_studio/utils/dev.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -22,109 +25,144 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   })  : _loginUseCase = loginUseCase,
         _authBloc = authBloc,
         _googleSingInUsecase = googleSingInUsecase,
-        super(const LoginState());
+        super(const LoginState()) {
+    on<LoginUsernameChanged>(
+        (event, emit) => _mapUsernameChangedToState(event, emit));
+    on<LoginPasswordChanged>(
+        (event, emit) => _mapPasswordChangedToState(event, emit));
+    on<LoginSubmitted>((event, emit) => _mapLoginSubmittedToState(event, emit));
+    on<SignInWithGooglePressed>(
+        (event, emit) => _mapSignInWithGoogleToState(event, emit));
+    on<CreateCustomerUserPressed>(
+        (event, emit) => _mapCreateCustomerUserPressedToState(event, emit));
+    on<CreateUserByTypeBackButtonPressedInGoogleSinginFlow>((event, emit) =>
+        _mapCreateUserByTypeBackButtonPressedInGoogleSinginFlowToState(
+            event, emit));
+    on<CreateCustomerWithInkerFormInfo>((event, emit) =>
+        _mapCreateCustomerWithInkerFormInfoToState(event, emit));
+    on<CreateCustomerWithGoogleSignInInfo>((event, emit) =>
+        _mapCreateCustomerWithGoogleSignInInfoToState(event, emit));
+  }
 
   final LoginUseCase _loginUseCase;
   final GoogleSingInUsecase _googleSingInUsecase;
   final AuthBloc _authBloc;
 
-  @override
-  Stream<LoginState> mapEventToState(
-    LoginEvent event,
-  ) async* {
-    dev.log('event $event', className, 'event');
-    if (event is LoginUsernameChanged) {
-      yield _mapUsernameChangedToState(event, state);
-    } else if (event is LoginPasswordChanged) {
-      yield _mapPasswordChangedToState(event, state);
-    } else if (event is LoginSubmitted) {
-      yield* _mapLoginSubmittedToState(event, state);
-    } else if (event is SignInWithGooglePressed) {
-      yield* _mapSignInWithGoogleToState(event, state);
-    } else if (event is CraeteCustomerUserPressedInGoogleSinginFlow) {
-      yield* _mapCraeteCustomerUserPressedInGoogleSinginFlowToState(
-        event,
-        state,
-      );
-    }
-  }
-
-  LoginState _mapUsernameChangedToState(
+  void _mapUsernameChangedToState(
     LoginUsernameChanged event,
-    LoginState state,
+    Emitter<LoginState> emit,
   ) {
     final username = UsernameInput.dirty(event.username);
-    return state.copyWith(
+    emit(state.copyWith(
       username: username,
       status: Formz.validate([state.password, username]),
-    );
+    ));
   }
 
-  LoginState _mapPasswordChangedToState(
+  void _mapPasswordChangedToState(
     LoginPasswordChanged event,
-    LoginState state,
+    Emitter<LoginState> emit,
   ) {
     final password = PasswordInput.dirty(event.password);
-    return state.copyWith(
+    emit(state.copyWith(
       password: password,
       status: Formz.validate([password, state.username]),
-    );
+    ));
   }
 
-  Stream<LoginState> _mapLoginSubmittedToState(
+  Future<void> _mapLoginSubmittedToState(
     LoginSubmitted event,
-    LoginState state,
-  ) async* {
-    // TODO: Ver que hacer si es el estado no es valido
+    Emitter<LoginState> emit,
+  ) async {
     if (state.status.isValidated) {
-      yield state.copyWith(status: FormzStatus.submissionInProgress);
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
         final session = await _loginUseCase.execute(
             state.username.value, state.password.value, LoginType.email);
 
         if (session == null) {
-          yield state.copyWith(status: FormzStatus.submissionFailure);
+          emit(state.copyWith(status: FormzStatus.submissionFailure));
           return;
         }
 
         _authBloc.add(AuthNewSession(session));
 
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } on Exception catch (_) {
-        yield state.copyWith(status: FormzStatus.submissionFailure);
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     }
   }
 
-  Stream<LoginState> _mapSignInWithGoogleToState(
+  Future<void> _mapSignInWithGoogleToState(
     SignInWithGooglePressed event,
-    LoginState state,
-  ) async* {
-    // TODO: Ver que hacer si es el estado no es valido
-    yield state.copyWith(status: FormzStatus.submissionInProgress);
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       final result = await _googleSingInUsecase.execute();
 
-      if (result!.session != null) {
-        _authBloc.add(AuthNewSession(result.session!));
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+      switch (result.flowStatus) {
+        case GoogleLoginFlowStatus.error:
+          emit(state.copyWith(
+              status: FormzStatus.submissionFailure,
+              errorMessage: result.message));
+          break;
+        case GoogleLoginFlowStatus.partial:
+          emit(state.copyWith(
+              status: FormzStatus.submissionInProgress,
+              infoMessage: result.message,
+              newUserType: NewUserType.google));
+          break;
+        case GoogleLoginFlowStatus.success:
+          emit(
+            state.copyWith(
+              status: FormzStatus.submissionInProgress,
+              googleUser: result.googleUser,
+              newUserType: NewUserType.google,
+            ),
+          );
+          _authBloc.add(AuthNewSession(result.session!));
+          break;
+        case GoogleLoginFlowStatus.inital:
+          break;
       }
-
-      if (result.googleUser != null) {
-        yield state.copyWith(
-            status: FormzStatus.submissionInProgress,
-            isNewUser: true,
-            googleUser: result.googleUser);
-      }
-    } on SignUpWithGoogleFailure catch (_) {
-      yield state.copyWith(status: FormzStatus.submissionFailure);
+    } on GoogleAuthServiceException catch (error) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, errorMessage: error.message));
+    } on HttpException catch (_) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Error with Inker remote service'));
     } on Exception catch (_) {
-      yield state.copyWith(status: FormzStatus.submissionFailure);
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Not Catched Error :o'));
     }
   }
 
-  _mapCraeteCustomerUserPressedInGoogleSinginFlowToState(
-      CraeteCustomerUserPressedInGoogleSinginFlow event, LoginState state) {
-    throw Error();
+  Future<void> _mapCreateCustomerUserPressedToState(
+    CreateCustomerUserPressed event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(
+      userTypeToCreate: UserType.customer,
+    ));
+  }
+
+  _mapCreateUserByTypeBackButtonPressedInGoogleSinginFlowToState(
+      CreateUserByTypeBackButtonPressedInGoogleSinginFlow event,
+      Emitter<LoginState> emit) {
+    emit(const LoginState());
+  }
+
+  _mapCreateCustomerWithInkerFormInfoToState(
+      CreateCustomerWithInkerFormInfo event, Emitter<LoginState> emit) {
+    throw UnimplementedError();
+  }
+
+  _mapCreateCustomerWithGoogleSignInInfoToState(
+      CreateCustomerWithGoogleSignInInfo event, Emitter<LoginState> emit) {
+    throw UnimplementedError();
   }
 }

@@ -1,1 +1,1 @@
-class HashNotFoundException implements Exception {}
+class HashNotFound implements Exception {}

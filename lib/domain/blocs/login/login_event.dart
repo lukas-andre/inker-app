@@ -33,6 +33,18 @@ class SignInWithGooglePressed extends LoginEvent {
   const SignInWithGooglePressed();
 }
 
-class CraeteCustomerUserPressedInGoogleSinginFlow extends LoginEvent {
-  const CraeteCustomerUserPressedInGoogleSinginFlow();
+class CreateCustomerUserPressed extends LoginEvent {
+  const CreateCustomerUserPressed();
+}
+
+class CreateUserByTypeBackButtonPressedInGoogleSinginFlow extends LoginEvent {
+  const CreateUserByTypeBackButtonPressedInGoogleSinginFlow();
+}
+
+class CreateCustomerWithGoogleSignInInfo extends LoginEvent {
+  const CreateCustomerWithGoogleSignInInfo();
+}
+
+class CreateCustomerWithInkerFormInfo extends LoginEvent {
+  const CreateCustomerWithInkerFormInfo();
 }

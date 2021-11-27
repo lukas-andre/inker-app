@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/customer/creation/customer_creation_bloc.dart';
-import 'package:inker_studio/ui/account_verification/account_verification_page.dart';
 import 'package:inker_studio/ui/create_account/create_customer/text_fields/text_fields.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -27,7 +26,7 @@ class CreateCustomerForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(const SnackBar(content: Text('Customer created !')));
 
-          Navigator.of(context).push(AccountVerificationPage.route());
+          // Navigator.of(context).push(AccountVerificationPage.route());
         }
       },
       child: Align(

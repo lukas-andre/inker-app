@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
-import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class AppView extends StatefulWidget {
   const AppView({Key? key}) : super(key: key);
@@ -19,7 +18,6 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  static const String className = 'AppView';
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
@@ -36,13 +34,11 @@ class _AppViewState extends State<AppView> {
             return BlocProvider(
               create: (context) => AuthBloc(
                   authService: context.read(),
-                  sessionService: context.read(),
                   logoutUseCase: context.read(),
-                  googleAuthService: context.read()),
+                  sessionService: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    dev.log('state: $state', className);
-                    _navigateByAuthStatus(state);
+                    _navigateByAuthStatus(context, state);
                   },
                   child: child),
             );
@@ -53,35 +49,24 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  void _navigateByAuthStatus(AuthState state) {
+  void _navigateByAuthStatus(BuildContext context, AuthState state) {
     switch (state.status) {
       case AuthStatus.authenticated:
-        _navigateToUserTypePage(state.session);
+        final String userType = state.session.user!.userType!;
+        if (userType == UserType.customer) {
+          NoContextNavigator.pushAndRemoveUntil(
+              _navigator, const CustomerHomePage());
+        }
+
+        if (userType == UserType.artist) {
+          NoContextNavigator.pushAndRemoveUntil(
+              _navigator, const ArtistHomePage());
+        }
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
-        dev.log('entre', className);
-        _navigator.pushAndRemoveUntil<void>(
-          LoginPage.route(),
-          (route) => false,
-        );
+        NoContextNavigator.push(_navigator, const LoginPage());
         break;
-    }
-  }
-
-  void _navigateToUserTypePage(Session session) {
-    final userType = session.user!.userType;
-    dev.log('userType: $userType', className, 'navigateToUserTypePage');
-    if (userType == UserType.customer) {
-      _navigator.pushAndRemoveUntil<void>(
-        CustomerHomePage.route(),
-        (route) => false,
-      );
-    } else if (userType == UserType.artist) {
-      _navigator.pushAndRemoveUntil<void>(
-        ArtistHomePage.route(),
-        (route) => false,
-      );
     }
   }
 }

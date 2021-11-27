@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 
 class ArtistHomePage extends StatelessWidget {
   const ArtistHomePage({Key? key}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const ArtistHomePage());
+  static Page page() {
+    return const MaterialPage<void>(child: ArtistHomePage());
   }
 
   @override

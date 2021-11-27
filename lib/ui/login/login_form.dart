@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
-import 'package:inker_studio/ui/create_account/create_account.dart';
+import 'package:inker_studio/ui/create_account/create_user.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
+import 'package:inker_studio/ui/login/login.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class LoginForm extends StatelessWidget {
   static const String className = 'LoginForm';
 
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({Key? key, bloc}) : super(key: key);
+
+  static Page page() {
+    return const MaterialPage<void>(child: LoginForm());
+  }
 
   @override
   Widget build(BuildContext context) {
     dev.log('context: $context', className);
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         dev.log('Form status: ${state.status}', className);
@@ -21,8 +28,21 @@ class LoginForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Authentication Failure')),
+              SnackBar(content: Text(state.errorMessage!)),
             );
+          InkerNavigator.pushAndRemoveUntil(context, const LoginPage());
+        }
+
+        if (state.infoMessage != null) {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(state.infoMessage!)),
+            );
+        }
+
+        if (state.status.isSubmissionInProgress && state.infoMessage != null) {
+          BlocNavigator.push<LoginBloc>(context, const CreateUserByTypePage());
         }
       },
       child: Align(
@@ -39,22 +59,6 @@ class LoginForm extends StatelessWidget {
             const _CreateAccountButton(),
             const Padding(padding: EdgeInsets.all(12)),
             const GoogleSignInButton(),
-            // FutureBuilder(
-            //   future: GoogleAuthService.initializeFirebase(context: context),
-            //   builder: (context, snapshot) {
-            //     dev.log('snapshot: $snapshot', className);
-            //     if (snapshot.hasError) {
-            //       return const Text('Error initializing Firebase');
-            //     } else if (snapshot.connectionState == ConnectionState.done) {
-            //       return const GoogleSignInButton();
-            //     }
-            //     return CircularProgressIndicator(
-            //       valueColor: AlwaysStoppedAnimation<Color>(
-            //         Theme.of(context).primaryColor,
-            //       ),
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),
@@ -69,7 +73,7 @@ class _CreateAccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          Navigator.of(context).push<void>(CreateUserByTypePage.route());
+          BlocNavigator.push<LoginBloc>(context, const CreateUserByTypePage());
         },
         child: const Text('Create Account'));
   }
