@@ -7,6 +7,7 @@ import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/ui/login/login.dart';
+import 'package:inker_studio/ui/onboarding/onboarding_page.dart';
 import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -41,7 +42,7 @@ class _AppViewState extends State<AppView> {
               child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
                     dev.log('state: $state', className);
-                    //_navigateByAuthStatus(state);
+                    _navigateByAuthStatus(state);
                   },
                   child: child),
             );
@@ -57,13 +58,22 @@ class _AppViewState extends State<AppView> {
       case AuthStatus.authenticated:
         _navigateToUserTypePage(state.session);
         break;
-      case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
+      _navigator.pushAndRemoveUntil<void>(
+          OnboardingPage.route(),
+          (route) => false,
+        );
+        break;
+      /*case AuthStatus.unauthenticated:
         dev.log('entre', className);
         _navigator.pushAndRemoveUntil<void>(
           LoginPage.route(),
           (route) => false,
         );
+        break;
+        */
+      case AuthStatus.unknown:
+        // TODO: Handle this case.
         break;
     }
   }

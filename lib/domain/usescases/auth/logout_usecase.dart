@@ -6,6 +6,7 @@ import 'package:inker_studio/utils/dev.dart';
 class LogoutUseCase {
   static const className = 'LogoutUsesCase';
 
+  // ignore: unused_field
   final AuthService _authService;
   final LocalSessionService _sessionService;
 
