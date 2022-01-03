@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/onboarding/onboarding_bloc.dart';
+import 'package:inker_studio/ui/create_account/create_account_by_type_page.dart';
+import 'package:inker_studio/ui/login/login_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({Key? key}) : super(key: key);
@@ -18,9 +20,7 @@ class OnboardingPage extends StatelessWidget {
         child: BlocListener<OnboardingBloc, OnboardingState>(
           listener: (context, state) {
             // TODO: implement listener
-            if(state.skiped){
-              
-            }
+            if (state.skiped) {}
           },
           child: BlocBuilder<OnboardingBloc, OnboardingState>(
             builder: (context, state) {
@@ -51,13 +51,17 @@ class OnboardingPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
-                                        width: 45,
+                                        height: 20,
+                                        width: 60,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(15),
                                             color: Colors.red),
-                                        child: Text(state
-                                            .onboardingPages[index].position)),
+                                        child: Center(
+                                            child: Text(
+                                          state.onboardingPages[index].position,
+                                          style: TextStyle(color: Colors.white),
+                                        ))),
                                   ],
                                 ),
                               ),
@@ -95,13 +99,15 @@ class OnboardingPage extends StatelessWidget {
                                                       color:
                                                           state.selectedPageIndex ==
                                                                   index
-                                                              ? Colors.blue
+                                                              ? Color.fromRGBO(
+                                                                  95,
+                                                                  37,
+                                                                  254,
+                                                                  1)
                                                               : Colors.grey,
                                                       shape: BoxShape.circle),
                                                 ),
-                                              )
-                                              )
-                                              ),
+                                              ))),
                                 ),
                                 height: 40,
                               ),
@@ -113,42 +119,122 @@ class OnboardingPage extends StatelessWidget {
                                         shape: BoxShape.circle,
                                         gradient: RadialGradient(
                                           colors: [
-                                            Color.fromRGBO(84, 82, 110, 1)
+                                            Color.fromRGBO(84, 82, 110, .5)
                                           ],
                                           radius: 1,
                                           stops: [0.5],
                                         )),
                                     child: Container(
-                                      
                                         child: Image.asset(
-                                          state
-                                            .onboardingPages[index]
-                                            .imageAsset,
-                                            fit: BoxFit.fill,
-                                            )
-                                            )
-                                            ),
+                                      state.onboardingPages[index].imageAsset,
+                                      fit: BoxFit.fill,
+                                    ))),
                               ),
                             ],
                           ),
                         );
                       }),
-                  Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            BlocProvider.of<OnboardingBloc>(context)
-                                .add(const OnboardingButtonSkipPressed());
-                          },
-                          child: const Text(
-                            'Saltar',
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                  AnimatedOpacity(
+                    curve: Curves.fastOutSlowIn,
+                    opacity:
+                        state.onboardingPages[state.selectedPageIndex].registro
+                            ? 1.0
+                            : 0.0,
+                    duration: const Duration(milliseconds: 1000),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Center(
+                              child: TextButton(
+                                  onPressed: () {
+                                    if (state
+                                        .onboardingPages[
+                                            state.selectedPageIndex]
+                                        .registro) {
+                                      Navigator.of(context).push<void>(CreateUserByTypePage.route());
+
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Color.fromRGBO(35, 36, 52, 1),
+                                        borderRadius:
+                                            BorderRadius.circular(14.0)),
+                                    width: 387,
+                                    height: 60,
+                                    child: const Center(
+                                        child: Text(
+                                      "Registrarme",
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    )),
+                                  )),
+                            ),
+                            Center(
+                              child: TextButton(
+                                  onPressed: () {
+                                    if (state
+                                        .onboardingPages[
+                                            state.selectedPageIndex]
+                                        .registro) {
+                                      Navigator.of(context).push<void>(LoginPage.route());
+                                      
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(116, 80, 255, 1),
+                                      borderRadius: BorderRadius.circular(
+                                        14.0,
+                                      ),
+                                    ),
+                                    width: 387,
+                                    height: 60,
+                                    child: Center(
+                                        child: Text(
+                                      "Iniciar Sesion",
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  )),
+                            ),
+                            Container(
+                              height: 30,
+                            )
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: state.onboardingPages[state.selectedPageIndex]
+                            .isVisibleSkip
+                        ? 1.0
+                        : 0.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              BlocProvider.of<OnboardingBloc>(context)
+                                  .add(const OnboardingButtonSkipPressed());
+                              if (state.onboardingPages[state.selectedPageIndex]
+                                  .isVisibleSkip) {
+                                Navigator.pushNamed(context, 'login');
+                              }
+                            },
+                            child: const Text(
+                              'Saltar',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -20,3 +20,6 @@ class OnboardingPageChanged extends OnboardingEvent{
 class OnboardingButtonSkipPressed extends OnboardingEvent{
   const OnboardingButtonSkipPressed();
 }
+class OnboardingRegistro extends OnboardingEvent{
+   bool? registro;
+}

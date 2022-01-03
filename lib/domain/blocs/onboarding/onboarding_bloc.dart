@@ -17,5 +17,6 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     on<OnboardingButtonSkipPressed>((event, emit){
       emit(state.copyWith(skiped: true));
     });
+    
   }
 }

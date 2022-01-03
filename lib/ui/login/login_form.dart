@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_account.dart';
+import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
+import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginForm extends StatelessWidget {
   static const String className = 'LoginForm';
@@ -30,13 +34,13 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const _loginText(),
             _UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _LoginButton(),
             const Padding(padding: EdgeInsets.all(12)),
-            const _CreateAccountButton(),
             const Padding(padding: EdgeInsets.all(12)),
             const GoogleSignInButton(),
             // FutureBuilder(
@@ -62,18 +66,40 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-class _CreateAccountButton extends StatelessWidget {
-  const _CreateAccountButton({Key? key}) : super(key: key);
+class _loginText extends StatelessWidget {
+  const _loginText({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {
-          Navigator.of(context).push<void>(CreateUserByTypePage.route());
-        },
-        child: const Text('Create Account'));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Login",
+            style: TextStyle(color: Colors.white, fontSize: 50),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text("Descubre todos los beneficios de formar parte de Inker",
+              style: TextStyle(color: Colors.white, fontSize: 18)),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 }
+
+
+
+
+
 
 class _UsernameInput extends StatelessWidget {
   @override
@@ -81,13 +107,23 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_usernameInput_textField'),
-          onChanged: (username) =>
-              context.read<LoginBloc>().add(LoginUsernameChanged(username)),
-          decoration: InputDecoration(
-            labelText: 'username',
-            errorText: state.username.invalid ? 'invalid username' : null,
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Color.fromRGBO(38, 38, 57, .9),
+          ),
+          child: TextField(
+            style: const TextStyle(color: Colors.white),
+            key: const Key('loginForm_usernameInput_textField'),
+            onChanged: (username) =>
+                context.read<LoginBloc>().add(LoginUsernameChanged(username)),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(15.0),
+              labelStyle:
+                  const TextStyle(color: Color.fromRGBO(119, 126, 145, 1)),
+              labelText: 'Teléfono, correo electrónico o usuario',
+              errorText: state.username.invalid ? 'invalid username' : null,
+            ),
           ),
         );
       },
@@ -101,14 +137,24 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
-          onChanged: (password) =>
-              context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'password',
-            errorText: state.password.invalid ? 'invalid password' : null,
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Color.fromRGBO(38, 38, 57, .9),
+          ),
+          child: TextField(
+            style: const TextStyle(color: Colors.white),
+            key: const Key('loginForm_passwordInput_textField'),
+            onChanged: (password) =>
+                context.read<LoginBloc>().add(LoginPasswordChanged(password)),
+            obscureText: true,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(15.0),
+              labelStyle:
+                  const TextStyle(color: Color.fromRGBO(119, 126, 145, 1)),
+              labelText: 'Contraseña',
+              errorText: state.password.invalid ? 'invalid password' : null,
+            ),
           ),
         );
       },
@@ -124,14 +170,49 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('loginForm_continue_raisedButton'),
-                child: const Text('Login'),
-                onPressed: state.status.isValidated
-                    ? () {
-                        context.read<LoginBloc>().add(const LoginSubmitted());
-                      }
-                    : null,
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Olvide mi contraseña",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                  Container(
+                      width: 130,
+                      height: 46,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color.fromRGBO(116, 80, 255, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Center(
+                          child: Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {},
+                                child: Expanded(
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        'Iniciar sesión',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                ],
               );
       },
     );

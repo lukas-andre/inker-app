@@ -15,8 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
+      
+      
       providers: buildProviders(),
-      child: const AppView(),
+      child: const AppView(
+        
+
+      ),
     );
   }
 }

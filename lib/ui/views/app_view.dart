@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
+import 'package:inker_studio/ui/create_account/create_account_by_type_page.dart';
 import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
 import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/ui/onboarding/onboarding_page.dart';
@@ -31,7 +32,12 @@ class _AppViewState extends State<AppView> {
       create: (context) => AppThemeCubit(context.read())..init(),
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
+          routes: {
+            'login'    : ( _ ) => LoginPage(),
+            'register' : ( _ ) => CreateUserByTypePage()
+          },
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
             return BlocProvider(

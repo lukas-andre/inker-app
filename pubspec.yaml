@@ -41,6 +41,8 @@ dependencies:
   sentry_flutter: ^5.1.0
   shared_preferences: ^2.0.6
   sqflite: ^2.0.0+3
+  flutter_svg: ^1.0.0
+  modal_bottom_sheet: ^2.0.0
 
 
 dev_dependencies:
