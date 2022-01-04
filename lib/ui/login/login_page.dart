@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_account_by_type_page.dart';
@@ -139,6 +140,7 @@ class _formFirstPage extends StatelessWidget {
                 ),
               ],
             ),
+            Image.asset('assets/PNG/Grupoprogess1.png'),
             Text(
               "Que gusto que quieras registrarte con nosotros",
               style: TextStyle(fontSize: 25, color: Colors.white),
@@ -294,6 +296,7 @@ class _formSecondPage extends StatelessWidget {
                   )
                 ],
               ),
+              Image.asset('assets/PNG/Grupoprogess2.png'),
               Text(
                 "Requerimos tus datos para registrarte como artista",
                 style: TextStyle(fontSize: 25, color: Colors.white),
@@ -363,7 +366,14 @@ class _formSecondPage extends StatelessWidget {
                       Container(
                           child: Center(
                               child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showCupertinoModalBottomSheet(
+                                  expand: true,
+                                  isDismissible: true,
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) => _formThirdPage());
+                            },
                             child: Text(
                               "Siguiente",
                               style: TextStyle(color: Colors.white),
@@ -379,6 +389,338 @@ class _formSecondPage extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _formThirdPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        height: 628,
+        color: Color.fromRGBO(38, 40, 54, 1),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: SvgPicture.asset('assets/SVG/Trazado10548.svg'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
+                        'assets/SVG/Icon ionic-ios-close-circle.svg'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
+              Image.asset('assets/PNG/Grupoprogess3.png'),
+              Text(
+                "Crea tu nueva cuenta para empezar a postear",
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+              Text(
+                  "Estas a unos pasos de formar parte de esta gran comunidad 🔥",
+                  style: TextStyle(fontSize: 15, color: Colors.white)),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color.fromRGBO(119, 126, 145, 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Email",
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color.fromRGBO(119, 126, 145, 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Telefono",
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color.fromRGBO(119, 126, 145, 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Contraseña",
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none,
+                                  suffixIcon: Icon(Icons.visibility_off)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color.fromRGBO(119, 126, 145, 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Confirmar Contraseña",
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none,
+                                  suffixIcon: Icon(Icons.visibility_off)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                          child: Center(
+                              child: TextButton(
+                            onPressed: () {
+                              showCupertinoModalBottomSheet(
+                                  expand: true,
+                                  isDismissible: true,
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) => _formFourthPage());
+                            },
+                            child: Text(
+                              "Siguiente",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                          width: 384,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(116, 80, 255, 1),
+                              borderRadius: BorderRadius.circular(15)))
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _formFourthPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        color: Color.fromRGBO(38, 40, 54, 1),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: SvgPicture.asset('assets/SVG/Trazado10548.svg'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    IconButton(
+                      icon: SvgPicture.asset(
+                          'assets/SVG/Icon ionic-ios-close-circle.svg'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Image.asset('assets/PNG/Grupoprogess4.png'),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Verifica tu cuenta mediante tu numero telefónico",
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                    "Se envío un código a tu numero telefónico 442 3890469 , revisa tu bandeja de mensajes",
+                    style: TextStyle(fontSize: 15, color: Colors.white)),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Aun no he recibido ningún código,",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "volver a enviar",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: VerificationCode(
+                      underlineWidth: 130,
+                      //underlineUnfocusedColor: Color.fromRGBO(119, 126, 145, 1),
+                      itemSize: 80,
+                      keyboardType: TextInputType.number,
+                      length: 4,
+                      autofocus: true,
+                      onCompleted: (String value) {
+                        print(value);
+                      },
+                      onEditing: (bool value) {},
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    child: Center(
+                        child: TextButton(
+                      onPressed: () {
+                        showCupertinoModalBottomSheet(
+                            expand: true,
+                            isDismissible: true,
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => _formComplete());
+                      },
+                      child: Text(
+                        "Verificar número",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+                    width: 384,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(116, 80, 255, 1),
+                        borderRadius: BorderRadius.circular(15)))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _formComplete extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        height: 628,
+        color: Color.fromRGBO(38, 40, 54, 1),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 100,
+            top: 100,
+          ),
+          child: Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Stack(
+                    children: [
+                      Image.asset('assets/PNG/Grupo 257.png'),
+                      Image.asset('assets/PNG/Rocket_perspective_matte.png')
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/PNG/Elipse 103.png'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset('assets/PNG/Elipse 103.png'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset('assets/PNG/Elipse 103.png'),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, right: 50),
+                  child: Text(
+                    'Estamos creando tu feed por favor espera un momento…',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
