@@ -1,8 +1,14 @@
-class CustomerTable {
-  static const String name = 'Customer';
+import 'package:inker_studio/data/local/sqlite/core/tables/sqlite_table.dart';
 
-  static const String createTableQuery = '''
-      CREATE TABLE $name(
+final SqliteTable customerTable = CustomerTable();
+
+class CustomerTable implements SqliteTable {
+  static const String _name = 'Customer';
+
+  @override
+  String getCreateTableQuery() {
+    return '''
+      CREATE TABLE ${getName()}(
         id INTEGER PRIMARY KEY,
         userId INTEGER,
         firstName TEXT,
@@ -17,4 +23,10 @@ class CustomerTable {
         updatedAt TEXT
       );
     ''';
+  }
+
+  @override
+  String getName() {
+    return _name;
+  }
 }

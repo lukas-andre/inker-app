@@ -1,7 +1,6 @@
 class HttpClientConfig {
   static const String baseStgUrl = 'inker-back.herokuapp.com';
-  static const String baseLocalUrl =
-      '1740-2800-150-125-edd-38-7056-e05a-19f0.ngrok.io';
+  static const String baseLocalUrl = '61b3-181-43-200-52.ngrok.io';
 
   final String _baseUrl;
   final String _basePath;

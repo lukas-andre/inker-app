@@ -11,24 +11,26 @@ CreateCustomerRequest createCustomerRequestFromJson(String str) =>
 String createCustomerRequestToJson(CreateCustomerRequest data) =>
     json.encode(data.toJson());
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class CreateCustomerRequest extends Equatable {
   final String password;
   final String userType;
   final String username;
   final String email;
-  final String phoneNumber;
+  final String? phoneNumber;
   final String firstName;
-  final String lastName;
+  final String? lastName;
+  final String socialMediaType;
 
   const CreateCustomerRequest(
       {required this.password,
       required this.userType,
       required this.username,
       required this.email,
-      required this.phoneNumber,
+      this.phoneNumber,
       required this.firstName,
-      required this.lastName});
+      this.lastName,
+      required this.socialMediaType});
 
   factory CreateCustomerRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateCustomerRequestFromJson(json);
@@ -36,8 +38,16 @@ class CreateCustomerRequest extends Equatable {
   Map<String, dynamic> toJson() => _$CreateCustomerRequestToJson(this);
 
   @override
-  List<Object?> get props =>
-      [username, password, userType, email, phoneNumber, firstName, lastName];
+  List<Object?> get props => [
+        username,
+        password,
+        userType,
+        email,
+        phoneNumber,
+        firstName,
+        lastName,
+        socialMediaType
+      ];
 
   @override
   bool get stringify => true;

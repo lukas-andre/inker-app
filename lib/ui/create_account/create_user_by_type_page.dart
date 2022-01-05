@@ -44,10 +44,10 @@ class CreateUserByTypePage extends StatelessWidget {
       },
       child: WillPopScope(
         onWillPop: () async {
-          if (context.read<LoginBloc>().state.status ==
-              FormzStatus.submissionInProgress) {
-            BlocProvider.of<LoginBloc>(context).add(
-                const CreateUserByTypeBackButtonPressedInGoogleSinginFlow());
+          final state = context.read<LoginBloc>().state;
+          if (state.status.isSubmissionInProgress) {
+            BlocProvider.of<LoginBloc>(context)
+                .add(const CreateUserByTypeBackButtonPressed());
             return true;
           }
           return false;
@@ -61,14 +61,31 @@ class CreateUserByTypePage extends StatelessWidget {
               children: [
                 TextButton(
                   style: butttonStyle,
-                  onPressed: () {},
+                  onPressed: () {
+                    if (context.read<LoginBloc>().state.newUserType ==
+                        NewUserType.google) {
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(const CreateArtistWithGoogleSignInInfo());
+                    } else {
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(const CreateArtistUserPressed());
+                    }
+                  },
                   child: const Text('Artist'),
                 ),
                 TextButton(
                   style: butttonStyle,
                   onPressed: () {
-                    BlocProvider.of<LoginBloc>(context)
-                        .add(const CreateCustomerUserPressed());
+                    if (context.read<LoginBloc>().state.newUserType ==
+                        NewUserType.google) {
+                      context
+                          .read<LoginBloc>()
+                          .add(const CreateCustomerWithGoogleSignInInfo());
+                    } else {
+                      context
+                          .read<LoginBloc>()
+                          .add(const CreateCustomerUserPressed());
+                    }
                   },
                   child: const Text('Customer'),
                 ),

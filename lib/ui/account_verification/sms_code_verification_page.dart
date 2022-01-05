@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/ui/login/login_page.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class SMSCodeVerificationPage extends StatelessWidget {
@@ -21,7 +23,6 @@ class SMSCodeVerificationPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: BlocListener<AccountVerificationBloc, AccountVerificationState>(
           listener: (context, state) {
-            // TODO: implement listener
             if (state.accountVerificationStatus ==
                 AccountVerificationStatus.smsVerifciationFailure) {
               ScaffoldMessenger.of(context)
@@ -37,8 +38,7 @@ class SMSCodeVerificationPage extends StatelessWidget {
                   const SnackBar(content: Text('User verified!')),
                 );
 
-              // Navigator.of(context)
-              //     .pushAndRemoveUntil(LoginPage.route(), (route) => false);
+              InkerNavigator.pushAndRemoveUntil(context, const LoginPage());
             }
           },
           child: BlocBuilder<AccountVerificationBloc, AccountVerificationState>(

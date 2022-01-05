@@ -41,7 +41,9 @@ List<RepositoryProvider> buildProviders() {
             authService: context.read(), localSession: context.read())),
     RepositoryProvider<LogoutUseCase>(
         create: (context) => LogoutUseCase(
-            authService: context.read(), sessionService: context.read())),
+            authService: context.read(),
+            sessionService: context.read(),
+            googleAuthService: context.read())),
     RepositoryProvider<CreateCustomerUseCase>(
         create: (context) => CreateCustomerUseCase(
             httpCustomerService: context.read(),

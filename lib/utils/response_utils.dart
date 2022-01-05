@@ -18,6 +18,7 @@ class ResponseUtils {
       final json = jsonDecode(body);
       return json['message'] == null ? true : false;
     } catch (error, stackTrace) {
+      dev.log('error o k $error', 'at ResponseUtils.resourceNotFound');
       dev.logError(error, stackTrace);
       return true;
     }

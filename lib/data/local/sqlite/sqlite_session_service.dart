@@ -16,7 +16,8 @@ class SqliteSessionService extends LocalSessionService {
     final sessionTableMap = _mapSessionToSessionTableSchema(session);
     sessionTableMap['isActive'] = 1;
 
-    await SqliteService.instance.insert(SessionTable.name, sessionTableMap);
+    await SqliteService.instance
+        .insert(sessionTable.getName(), sessionTableMap);
 
     final createdSession = await getSession(session.sessionType);
 
@@ -26,7 +27,7 @@ class SqliteSessionService extends LocalSessionService {
   @override
   Future<String?> getSessionToken(String sessionType) async {
     final List<Map<String, Object?>> result = (await SqliteService.instance
-        .query(SessionTable.name,
+        .query(sessionTable.getName(),
             columns: ['accessToken'],
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType]));
@@ -55,7 +56,7 @@ class SqliteSessionService extends LocalSessionService {
 
   Future<Map<String, Object?>?> _getSessionMap(String sessionType) async {
     final List<Map<String, Object?>> result = (await SqliteService.instance
-        .query(SessionTable.name,
+        .query(sessionTable.getName(),
             where: 'isActive = ? AND sessionType = ?',
             whereArgs: [1, sessionType],
             orderBy: 'updatedAt DESC'));
@@ -74,14 +75,14 @@ class SqliteSessionService extends LocalSessionService {
 
   @override
   Future<void> removeOldSession(Session session) async {
-    await SqliteService.instance.delete(SessionTable.name,
+    await SqliteService.instance.delete(sessionTable.getName(),
         where: 'isActive = ? AND sessionType = ?',
         whereArgs: [1, session.sessionType]);
   }
 
   @override
   Future<Session?> updateSession(Map<String, dynamic> session) async {
-    await SqliteService.instance.update(SessionTable.name, session,
+    await SqliteService.instance.update(sessionTable.getName(), session,
         where: 'id = ? AND sessionType = ?',
         whereArgs: [session['id'], session['sessionType']]);
 
@@ -91,7 +92,7 @@ class SqliteSessionService extends LocalSessionService {
   @override
   Future<String?> getActiveSessionToken() async {
     final List<Map<String, Object?>> result = (await SqliteService.instance
-        .query(SessionTable.name,
+        .query(sessionTable.getName(),
             columns: ['accessToken'],
             where: 'isActive = ?',
             whereArgs: [1],
@@ -116,7 +117,7 @@ class SqliteSessionService extends LocalSessionService {
   @override
   Future<Session?> tryGetActiveSession() async {
     final List<Map<String, Object?>> result = (await SqliteService.instance
-        .query(SessionTable.name,
+        .query(sessionTable.getName(),
             where: 'isActive = ?', whereArgs: [1], orderBy: 'createdAt DESC'));
 
     if (result.isEmpty) {

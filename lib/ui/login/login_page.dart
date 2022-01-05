@@ -23,7 +23,8 @@ class LoginPage extends StatelessWidget {
           create: (context) => LoginBloc(
               authBloc: context.read(),
               loginUseCase: context.read(),
-              googleSingInUsecase: context.read()),
+              googleSingInUsecase: context.read(),
+              createCustomerUseCase: context.read()),
           child: const LoginForm(),
         ),
       ),

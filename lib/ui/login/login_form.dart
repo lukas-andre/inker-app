@@ -4,7 +4,6 @@ import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_user.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
-import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -22,6 +21,9 @@ class LoginForm extends StatelessWidget {
     dev.log('context: $context', className);
 
     return BlocListener<LoginBloc, LoginState>(
+      listenWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.newUserType != current.newUserType,
       listener: (context, state) {
         dev.log('Form status: ${state.status}', className);
         if (state.status.isSubmissionFailure) {
@@ -30,18 +32,15 @@ class LoginForm extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text(state.errorMessage!)),
             );
-          InkerNavigator.pushAndRemoveUntil(context, const LoginPage());
+          context.read<LoginBloc>().add(const LoginClearMessages());
         }
 
-        if (state.infoMessage != null) {
+        if (state.status.isSubmissionInProgress && state.infoMessage != null) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(
               SnackBar(content: Text(state.infoMessage!)),
             );
-        }
-
-        if (state.status.isSubmissionInProgress && state.infoMessage != null) {
           BlocNavigator.push<LoginBloc>(context, const CreateUserByTypePage());
         }
       },

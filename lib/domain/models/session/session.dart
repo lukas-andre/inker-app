@@ -35,4 +35,22 @@ class Session extends Equatable {
 
   @override
   bool get stringify => true;
+
+  Session copyWith({
+    User? user,
+    String? sessionType,
+    String? accessToken,
+    String? expireIn,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Session(
+      user ?? this.user,
+      sessionType ?? this.sessionType,
+      accessToken ?? this.accessToken,
+      expireIn ?? this.expireIn,
+      createdAt ?? this.createdAt,
+      updatedAt ?? this.updatedAt,
+    );
+  }
 }
