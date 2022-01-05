@@ -20,14 +20,15 @@ class CreateCustomerUseCase {
   Future<Customer?> execute({
     required String username,
     required String firstName,
-    required String lastName,
+    String? lastName,
     required String email,
-    required String phoneNumber,
+    String? phoneNumber,
     required String password,
+    required String socialMediaType,
   }) async {
     CreateCustomerRequest createCustomerRequest =
-        _mapParamsToCreateCustomerRequest(
-            username, email, password, firstName, lastName, phoneNumber);
+        _mapParamsToCreateCustomerRequest(username, email, password, firstName,
+            lastName, phoneNumber, socialMediaType);
 
     try {
       final createCustomerUserResponse =
@@ -52,16 +53,17 @@ class CreateCustomerUseCase {
       String email,
       String password,
       String firstName,
-      String lastName,
-      String phoneNumber) {
+      String? lastName,
+      String? phoneNumber,
+      String socialMediaType) {
     return CreateCustomerRequest(
-      username: username,
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      userType: _userType,
-    );
+        username: username,
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        userType: _userType,
+        socialMediaType: socialMediaType);
   }
 }

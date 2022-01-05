@@ -6,6 +6,7 @@ import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
+import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -162,13 +163,13 @@ class CustomerCreationBloc
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
         final customer = await _createCustomerUseCase.execute(
-          username: state.username.value,
-          firstName: state.firstName.value,
-          lastName: state.lastName.value,
-          password: state.password.value,
-          email: state.email.value,
-          phoneNumber: state.phoneNumber.value,
-        );
+            username: state.username.value,
+            firstName: state.firstName.value,
+            lastName: state.lastName.value,
+            password: state.password.value,
+            email: state.email.value,
+            phoneNumber: state.phoneNumber.value,
+            socialMediaType: SocialMediaType.inker);
         dev.log('$customer', className, '_mapCustomerCreationSubmittedToState');
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } on UserAlreadyExistsException {

@@ -23,8 +23,10 @@ class ApiCustomerService implements CustomerService {
       CreateCustomerRequest request) async {
     final url = _httpConfig.url(basePath: 'users');
     dev.inspect(url, 'url');
-
+    dev.log(request.toString(), className);
     final response = await http.post(url, body: request.toJson());
+    dev.log(response.toString(), className);
+
     dev.inspect(response.body, 'createCustomerUser response.body');
     dev.log(response.statusCode.toString(),
         'createCustomerUser.statusCode response');

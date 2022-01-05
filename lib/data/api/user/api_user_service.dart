@@ -35,8 +35,8 @@ class ApiUserService extends UserService {
   Future<GetUserBySocialMediaResponse?> getUserBySocialMediaAndEmail(
       String socialMedia, String email) async {
     final url = _httpConfig.url(
-        basePath: 'users',
-        queryParams: {'socialMedia': socialMedia, 'email': email});
+        path: 'social-media',
+        queryParams: {'type': socialMedia, 'email': email});
     dev.inspect(url, 'url');
 
     final response = await http.get(url);
@@ -47,13 +47,14 @@ class ApiUserService extends UserService {
     if (response.statusCode == HttpStatus.notFound) {
       dev.log('response status ${response.statusCode}', 'if');
       if (ResponseUtils.resourceNotFound(response.body)) {
+        dev.log('response body ${response.body}', 'responseUtils');
         throw ResourceNotFound();
       }
 
       return null;
     } else if (response.statusCode >= HttpStatus.internalServerError) {
       throw InternalServerException();
-    } else if (response.statusCode == HttpStatus.created) {
+    } else if (response.statusCode == HttpStatus.ok) {
       try {
         return getUserBySocialMediaResponseFromJson(response.body);
       } catch (e, stackTrace) {

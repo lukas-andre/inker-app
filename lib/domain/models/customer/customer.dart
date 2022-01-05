@@ -13,32 +13,32 @@ String createCustomerToJson(Customer data) => json.encode(data.toJson());
 @JsonSerializable()
 class Customer extends Equatable {
   const Customer({
+    required this.id,
     required this.userId,
     required this.firstName,
-    required this.lastName,
-    required this.contactPhoneNumber,
     required this.contactEmail,
-    required this.shortDescription,
-    required this.profileThumbnail,
-    required this.follows,
-    required this.id,
+    required this.rating,
+    this.lastName,
+    this.contactPhoneNumber,
+    this.shortDescription,
+    this.profileThumbnail,
+    this.follows,
     required this.createdAt,
     required this.updatedAt,
-    required this.rating,
   });
 
+  final int id;
   final int userId;
   final String firstName;
-  final String lastName;
-  final String contactPhoneNumber;
   final String contactEmail;
+  final int rating;
+  final String? lastName;
+  final String? contactPhoneNumber;
   final String? shortDescription;
   final String? profileThumbnail;
   final String? follows;
-  final int id;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int rating;
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);

@@ -13,7 +13,7 @@ class SqliteCustomerService extends LocalCustomerService {
 
     try {
       final int result = await SqliteService.instance
-          .insert(CustomerTable.name, customer.toJson());
+          .insert(customerTable.getName(), customer.toJson());
       dev.log('result $result', className, 'saveCustomer');
 
       savedCustomer = await getCustomer();
@@ -28,7 +28,7 @@ class SqliteCustomerService extends LocalCustomerService {
   @override
   Future<Customer?> getCustomer() async {
     final queryResult = await SqliteService.instance
-        .query(CustomerTable.name, limit: 1, orderBy: 'createdAt DESC');
+        .query(customerTable.getName(), limit: 1, orderBy: 'createdAt DESC');
 
     if (queryResult.isEmpty) {
       return null;

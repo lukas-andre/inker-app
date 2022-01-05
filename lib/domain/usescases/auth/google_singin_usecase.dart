@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 enum GoogleLoginFlowStatus {
   success,
@@ -53,6 +54,9 @@ class GoogleSingInUsecase {
 
     existingUser = await _userApiService.getUserBySocialMediaAndEmail(
         SocialMediaType.google, googleUser.email!);
+
+    dev.log('whaaaaat wea entre de nuevo', 'GoogleSingInUsecase');
+
     if (existingUser == null) {
       return GooglesSingInResult(
         googleUser: googleUser,
@@ -61,10 +65,8 @@ class GoogleSingInUsecase {
       );
     }
 
-    session = await _localSessionService.newGoogleSession(googleUser);
+    // session = await _localSessionService.newGoogleSession(googleUser);
     return GooglesSingInResult(
-        session: session,
-        googleUser: googleUser,
-        flowStatus: GoogleLoginFlowStatus.success);
+        googleUser: googleUser, flowStatus: GoogleLoginFlowStatus.success);
   }
 }

@@ -15,7 +15,11 @@ import 'package:sqflite/sqflite.dart'
 
 class SqliteService implements DatabaseService {
   static const String className = 'SqliteService';
-  static const String sessionDatabaseName = SessionTable.name;
+
+  static final databaseTables = [
+    sessionTable,
+    customerTable,
+  ];
 
   static Database? _database;
 
@@ -41,12 +45,7 @@ class SqliteService implements DatabaseService {
   _onCreate(Database db, int version) async {
     dev.log('db: $db version: $version', className, '_onCreate');
 
-    for (final String query in [
-      SessionTable.createTableQuery,
-      CustomerTable.createTableQuery
-    ]) {
-      await db.execute(query);
-    }
+    await _createDatabaseTables(db);
   }
 
   _onUpdate(Database db, int oldVersion, int newVersion) async {
@@ -54,14 +53,24 @@ class SqliteService implements DatabaseService {
         className, '_onUpdate');
 
     // ! NUNCA HACER ESTO EN PRODUCCION, SE BORRARAN TODOS LOS DATOS
-    await db.execute('''
-      DROP TABLE IF EXISTS ${SessionTable.name}
-    ''');
+    await _dropDatabaseTables(db);
 
-    await db.execute('''
-      DROP TABLE IF EXISTS ${CustomerTable.name}
-    ''');
     await _onCreate(db, newVersion);
+  }
+
+  Future<void> _createDatabaseTables(Database db) async {
+    for (final String query in databaseTables
+        .map((table) => table.getCreateTableQuery())
+        .toList()) {
+      await db.execute(query);
+    }
+  }
+
+  Future<void> _dropDatabaseTables(Database db) async {
+    for (final String tableName
+        in databaseTables.map((table) => table.getName()).toList()) {
+      await db.execute('DROP TABLE IF EXISTS $tableName');
+    }
   }
 
   @override
@@ -72,7 +81,7 @@ class SqliteService implements DatabaseService {
     // ! Remove for production
     Sqflite.devSetDebugModeOn(true);
     final db = await openDatabase(path,
-        version: 18,
+        version: 22,
         onOpen: (db) {},
         onCreate: _onCreate,
         onUpgrade: _onUpdate);

@@ -11,8 +11,8 @@ CreateCustomerResponse _$CreateCustomerResponseFromJson(
     CreateCustomerResponse(
       userId: json['userId'] as int,
       firstName: json['firstName'] as String,
-      lastName: json['lastName'] as String,
-      contactPhoneNumber: json['contactPhoneNumber'] as String,
+      lastName: json['lastName'] as String?,
+      contactPhoneNumber: json['contactPhoneNumber'] as String?,
       contactEmail: json['contactEmail'] as String,
       shortDescription: json['shortDescription'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,

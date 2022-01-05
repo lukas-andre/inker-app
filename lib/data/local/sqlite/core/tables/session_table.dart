@@ -1,8 +1,14 @@
-class SessionTable {
-  static const String name = 'Session';
+import 'package:inker_studio/data/local/sqlite/core/tables/sqlite_table.dart';
 
-  static const String createTableQuery = '''
-      CREATE TABLE $name(
+final SqliteTable sessionTable = SessionTable();
+
+class SessionTable implements SqliteTable {
+  final String _name = 'Session';
+
+  @override
+  String getCreateTableQuery() {
+    return '''
+      CREATE TABLE ${getName()}(
         id INTEGER PRIMARY KEY,
         user TEXT,
         accessToken TEXT,
@@ -13,4 +19,10 @@ class SessionTable {
         updatedAt TEXT
       );
     ''';
+  }
+
+  @override
+  String getName() {
+    return _name;
+  }
 }

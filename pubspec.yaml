@@ -25,18 +25,17 @@ dependencies:
   equatable: ^2.0.3
   firebase_auth: ^3.0.2
   firebase_core: ^1.5.0
-  flow_builder: ^0.0.6
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.0
-  flutter_verification_code: ^1.0.4
+  flutter_bloc: ^8.0.1
+  flutter_verification_code: ^1.1.0
   formz: ^0.4.0
   form_inputs:
     path: packages/form_inputs
-  google_sign_in: ^5.0.7
-  http: ^0.13.3
+  google_sign_in: ^5.2.1
+  http: ^0.13.4
   intl_phone_number_input: ^0.7.0+2
-  json_annotation: ^4.1.0
+  json_annotation: ^4.4.0
   jwt_decoder: ^2.0.1
   path_provider: ^2.0.2
   sentry_flutter: ^5.1.0
@@ -47,9 +46,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.0
-  json_serializable: ^5.0.0
+  json_serializable: ^6.1.0
   flutter_lints: ^1.0.4
   lints: ^1.0.1
+  analyzer: ^2.8.0 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

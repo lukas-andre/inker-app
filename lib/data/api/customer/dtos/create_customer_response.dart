@@ -16,12 +16,12 @@ class CreateCustomerResponse extends Equatable {
   const CreateCustomerResponse({
     required this.userId,
     required this.firstName,
-    required this.lastName,
-    required this.contactPhoneNumber,
+    this.lastName,
+    this.contactPhoneNumber,
     required this.contactEmail,
-    required this.shortDescription,
-    required this.profileThumbnail,
-    required this.follows,
+    this.shortDescription,
+    this.profileThumbnail,
+    this.follows,
     required this.id,
     required this.createdAt,
     required this.updatedAt,
@@ -30,8 +30,8 @@ class CreateCustomerResponse extends Equatable {
 
   final int userId;
   final String firstName;
-  final String lastName;
-  final String contactPhoneNumber;
+  final String? lastName;
+  final String? contactPhoneNumber;
   final String contactEmail;
   final String? shortDescription;
   final String? profileThumbnail;
