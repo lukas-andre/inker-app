@@ -30,7 +30,8 @@ class AccountVerificationBody extends StatelessWidget {
               const SnackBar(content: Text('SMS sent ok!')),
             );
 
-          InkerNavigator.push(context, const SMSCodeVerificationPage());
+          BlocNavigator.push<AccountVerificationBloc>(
+              context, const SMSCodeVerificationPage());
         }
       },
       child: Align(

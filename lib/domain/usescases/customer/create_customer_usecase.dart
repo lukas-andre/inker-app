@@ -1,4 +1,5 @@
 import 'package:inker_studio/data/api/customer/dtos/create_customer_request.dart';
+import 'package:inker_studio/data/api/customer/dtos/create_customer_response.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
@@ -36,7 +37,8 @@ class CreateCustomerUseCase {
       dev.log('Create customer user response $createCustomerUserResponse',
           className);
 
-      final customer = Customer.fromJson(createCustomerUserResponse.toJson());
+      final Customer customer =
+          _mapCreateCustomerResponseToCustomer(createCustomerUserResponse);
 
       final localCustomer = await _localCustomerService.saveCustomer(customer);
       dev.log('localCustomer: $localCustomer', className);
@@ -46,6 +48,21 @@ class CreateCustomerUseCase {
       dev.logError(e, stackTrace);
       rethrow;
     }
+  }
+
+  Customer _mapCreateCustomerResponseToCustomer(
+      CreateCustomerResponse createCustomerUserResponse) {
+    return Customer(
+        id: createCustomerUserResponse.id,
+        userId: createCustomerUserResponse.userId,
+        contactEmail: createCustomerUserResponse.contactEmail,
+        firstName: createCustomerUserResponse.firstName,
+        lastName: createCustomerUserResponse.lastName,
+        follows: createCustomerUserResponse.follows,
+        contactPhoneNumber: createCustomerUserResponse.contactPhoneNumber,
+        profileThumbnail: createCustomerUserResponse.profileThumbnail,
+        shortDescription: createCustomerUserResponse.shortDescription,
+        rating: createCustomerUserResponse.rating);
   }
 
   CreateCustomerRequest _mapParamsToCreateCustomerRequest(

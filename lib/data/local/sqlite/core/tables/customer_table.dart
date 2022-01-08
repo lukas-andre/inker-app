@@ -19,8 +19,8 @@ class CustomerTable implements SqliteTable {
         profileThumbnail TEXT,
         follows TEXT,
         rating INTEGER,
-        createdAt TEXT,
-        updatedAt TEXT
+        createdAt INTEGER,
+        updatedAt INTEGER
       );
     ''';
   }

@@ -3,7 +3,6 @@ import 'package:inker_studio/data/api/user/dtos/get_user_by_socia_media_response
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
-import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -29,18 +28,15 @@ class GooglesSingInResult {
 }
 
 class GoogleSingInUsecase {
-  GoogleSingInUsecase(GoogleAuthService googleAuthService,
-      LocalSessionService localSessionService, UserService userService)
+  GoogleSingInUsecase(
+      GoogleAuthService googleAuthService, UserService userService)
       : _googleAuthService = googleAuthService,
-        _localSessionService = localSessionService,
         _userApiService = userService;
 
   final GoogleAuthService _googleAuthService;
-  final LocalSessionService _localSessionService;
   final UserService _userApiService;
 
   Future<GooglesSingInResult> execute() async {
-    Session? session;
     final googleUser = await _googleAuthService.signInWithGoogle();
 
     if (googleUser == null) {

@@ -33,7 +33,7 @@ class ApiCustomerService implements CustomerService {
 
     if (response.statusCode == HttpStatus.created) {
       try {
-        return createCustomerResponseFromJson(response.body);
+        return CreateCustomerResponse.fromJson(response.body);
       } catch (e, stackTrace) {
         dev.logError(e, stackTrace);
         throw JsonParseException();

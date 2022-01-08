@@ -34,8 +34,8 @@ List<RepositoryProvider> buildProviders() {
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
     RepositoryProvider<GoogleSingInUsecase>(
-        create: (context) => GoogleSingInUsecase(
-            context.read(), context.read(), context.read())),
+        create: (context) =>
+            GoogleSingInUsecase(context.read(), context.read())),
     RepositoryProvider<LoginUseCase>(
         create: (context) => LoginUseCase(
             authService: context.read(), localSession: context.read())),

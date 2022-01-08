@@ -1,6 +1,6 @@
 class TimestampColumnHelper {
   static T setColumns<T>(dynamic entity, bool isNew) {
-    final now = DateTime.now().toIso8601String();
+    final now = DateTime.now().millisecondsSinceEpoch;
     if (isNew) {
       entity['createdAt'] = now;
     }

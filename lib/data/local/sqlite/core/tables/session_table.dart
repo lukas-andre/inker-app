@@ -15,8 +15,8 @@ class SessionTable implements SqliteTable {
         sessionType TEXT,
         expireIn TEXT,
         isActive INTEGER,
-        createdAt TEXT,
-        updatedAt TEXT
+        createdAt INTEGER,
+        updatedAt INTEGER
       );
     ''';
   }

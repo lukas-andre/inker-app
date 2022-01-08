@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
 import 'package:inker_studio/ui/create_account/create_user.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
@@ -43,6 +45,11 @@ class LoginForm extends StatelessWidget {
             );
           BlocNavigator.push<LoginBloc>(context, const CreateUserByTypePage());
         }
+
+        if (state.userTypeToCreate == UserType.customer &&
+            state.newUserType == NewUserType.inker) {
+          BlocNavigator.push<LoginBloc>(context, const CreateCustomerPage());
+        }
       },
       child: Align(
         alignment: const Alignment(0, -1 / 3),
@@ -72,6 +79,9 @@ class _CreateAccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
+          context
+              .read<LoginBloc>()
+              .add(const CreateAccountWithInkerInfoPressed());
           BlocNavigator.push<LoginBloc>(context, const CreateUserByTypePage());
         },
         child: const Text('Create Account'));
