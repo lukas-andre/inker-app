@@ -63,7 +63,7 @@ class ApiAccountVerificationService implements AccountVerificationService {
     final url = _httpConfig.url(
         path: '$userId/validate-account-verification-code/$code',
         queryParams: {
-          'notificaitonType': SendVerificationCodeType.sms,
+          'notificationType': SendVerificationCodeType.sms,
         });
     dev.log(url.toString(), 'url');
 

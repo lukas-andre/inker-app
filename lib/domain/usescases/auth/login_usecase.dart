@@ -37,9 +37,12 @@ class LoginUseCase {
 
   Session _getSessionFromUserAndResponse(
       User user, LoginResponse loginResponse) {
-    final sessionType = user.userType; //* Handle this better in the future
+    final sessionType = user.userType!; //* Handle this better in the future
     return Session(
-        user, sessionType!, loginResponse.accessToken, loginResponse.expiresIn);
+        user: user,
+        sessionType: sessionType,
+        accessToken: loginResponse.accessToken,
+        expireIn: loginResponse.expiresIn);
   }
 
   User _getUserFromLoginResponse(LoginResponse loginResponse) {

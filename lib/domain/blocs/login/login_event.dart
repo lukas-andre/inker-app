@@ -33,8 +33,8 @@ class SignInWithGooglePressed extends LoginEvent {
   const SignInWithGooglePressed();
 }
 
-class CreateCustomerUserPressed extends LoginEvent {
-  const CreateCustomerUserPressed();
+class CreateAccountWithInkerInfoPressed extends LoginEvent {
+  const CreateAccountWithInkerInfoPressed();
 }
 
 class CreateArtistUserPressed extends LoginEvent {

@@ -81,7 +81,7 @@ class SqliteService implements DatabaseService {
     // ! Remove for production
     Sqflite.devSetDebugModeOn(true);
     final db = await openDatabase(path,
-        version: 22,
+        version: 25,
         onOpen: (db) {},
         onCreate: _onCreate,
         onUpgrade: _onUpdate);

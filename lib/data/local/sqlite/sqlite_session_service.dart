@@ -51,7 +51,7 @@ class SqliteSessionService extends LocalSessionService {
 
     sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
-    return Session.fromJson(sessionMap);
+    return Session.fromMap(sessionMap);
   }
 
   Future<Map<String, Object?>?> _getSessionMap(String sessionType) async {
@@ -65,7 +65,7 @@ class SqliteSessionService extends LocalSessionService {
   }
 
   Map<String, dynamic> _mapSessionToSessionTableSchema(Session session) {
-    var sessionMap = session.toJson();
+    var sessionMap = session.toMap();
 
     sessionMap['user'] =
         session.user != null ? userToJson(session.user!) : null;
@@ -127,7 +127,7 @@ class SqliteSessionService extends LocalSessionService {
     final Map<String, Object?> sessionMap = Map.of(result.first);
     sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
 
-    return Session.fromJson(sessionMap);
+    return Session.fromMap(sessionMap);
   }
 
   @override
@@ -140,7 +140,11 @@ class SqliteSessionService extends LocalSessionService {
       profileThumbnail: googleUser.photoURL,
     );
 
-    Session session = Session(user, SessionType.google, user.uid!, '');
+    final Session session = Session(
+        user: user,
+        sessionType: SessionType.google,
+        accessToken: user.uid!,
+        expireIn: '');
 
     return await newSession(session);
   }

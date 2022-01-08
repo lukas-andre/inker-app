@@ -43,12 +43,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginPasswordChanged>(
         (event, emit) => _mapPasswordChangedToState(event, emit));
     on<LoginSubmitted>((event, emit) => _mapLoginSubmittedToState(event, emit));
+    on<CreateAccountWithInkerInfoPressed>((event, emit) =>
+        _mapCreateAccountWithInkerInfoPressedToState(event, emit));
     on<SignInWithGooglePressed>(
         (event, emit) => _mapSignInWithGoogleToState(event, emit));
 
-    // TODO: MOVE TO CUSTOMER_CREATION_BLOC
-    on<CreateCustomerUserPressed>(
-        (event, emit) => _mapCreateCustomerUserPressedToState(event, emit));
     // TODO: MOVE TO CUSTOMER_CREATION_BLOC
     on<CreateUserByTypeBackButtonPressed>((event, emit) =>
         _mapCreateUserByTypeBackButtonPressedToState(event, emit));
@@ -179,15 +178,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Future<void> _mapCreateCustomerUserPressedToState(
-    CreateCustomerUserPressed event,
-    Emitter<LoginState> emit,
-  ) async {
-    emit(state.copyWith(
-      userTypeToCreate: UserType.customer,
-    ));
-  }
-
   _mapCreateUserByTypeBackButtonPressedToState(
       CreateUserByTypeBackButtonPressed event, Emitter<LoginState> emit) {
     emit(const LoginState());
@@ -195,7 +185,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   _mapCreateCustomerWithInkerFormInfoToState(
       CreateCustomerWithInkerFormInfo event, Emitter<LoginState> emit) {
-    throw UnimplementedError();
+    emit(state.copyWith(
+        userTypeToCreate: UserType.customer, newUserType: NewUserType.inker));
   }
 
   _mapCreateCustomerWithGoogleSignInInfoToState(
@@ -262,5 +253,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   _mapLoginErrorMessageEmmitedToState(
       LoginClearMessages event, Emitter<LoginState> emit) {
     emit(state.copyWith(errorMessage: null, infoMessage: null));
+  }
+
+  _mapCreateAccountWithInkerInfoPressedToState(
+      CreateAccountWithInkerInfoPressed event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+      newUserType: NewUserType.inker,
+    ));
   }
 }

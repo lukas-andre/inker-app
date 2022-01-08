@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 class CreateUserByTypePage extends StatelessWidget {
   const CreateUserByTypePage({Key? key}) : super(key: key);
@@ -30,27 +32,23 @@ class CreateUserByTypePage extends StatelessWidget {
 
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.newUserType == NewUserType.google &&
-            state.userTypeToCreate == UserType.customer) {
-          BlocProvider.of<LoginBloc>(context)
-              .add(const CreateCustomerWithGoogleSignInInfo());
-        }
+        // if (state.newUserType == NewUserType.google &&
+        //     state.userTypeToCreate == UserType.customer) {
+        //   BlocProvider.of<LoginBloc>(context)
+        //       .add(const CreateCustomerWithGoogleSignInInfo());
+        // }
 
         if (state.newUserType == NewUserType.inker &&
             state.userTypeToCreate == UserType.customer) {
-          BlocProvider.of<LoginBloc>(context)
-              .add(const CreateCustomerWithInkerFormInfo());
+          BlocNavigator.push<LoginBloc>(context, const CreateCustomerPage());
         }
       },
       child: WillPopScope(
         onWillPop: () async {
-          final state = context.read<LoginBloc>().state;
-          if (state.status.isSubmissionInProgress) {
-            BlocProvider.of<LoginBloc>(context)
-                .add(const CreateUserByTypeBackButtonPressed());
-            return true;
-          }
-          return false;
+          BlocProvider.of<LoginBloc>(context)
+              .add(const CreateUserByTypeBackButtonPressed());
+
+          return true;
         },
         child: Scaffold(
           appBar: AppBar(title: const Text('Create User By Type')),
@@ -60,6 +58,7 @@ class CreateUserByTypePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
+                  child: const Text('Artist'),
                   style: butttonStyle,
                   onPressed: () {
                     if (context.read<LoginBloc>().state.newUserType ==
@@ -67,27 +66,31 @@ class CreateUserByTypePage extends StatelessWidget {
                       BlocProvider.of<LoginBloc>(context)
                           .add(const CreateArtistWithGoogleSignInInfo());
                     } else {
+                      // BlocNavigator.push(contex: ));
                       BlocProvider.of<LoginBloc>(context)
                           .add(const CreateArtistUserPressed());
                     }
                   },
-                  child: const Text('Artist'),
                 ),
                 TextButton(
+                  child: const Text('Customer'),
                   style: butttonStyle,
                   onPressed: () {
+                    final state = context.read<LoginBloc>().state;
+                    dev.log(state.toString(), 'debug');
+
+                    if (state.newUserType == NewUserType.inker) {
+                      BlocNavigator.push<LoginBloc>(
+                          context, const CreateCustomerPage());
+                    }
+
                     if (context.read<LoginBloc>().state.newUserType ==
                         NewUserType.google) {
                       context
                           .read<LoginBloc>()
                           .add(const CreateCustomerWithGoogleSignInInfo());
-                    } else {
-                      context
-                          .read<LoginBloc>()
-                          .add(const CreateCustomerUserPressed());
                     }
                   },
-                  child: const Text('Customer'),
                 ),
               ],
             ),
