@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
@@ -28,17 +30,19 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (context) => AppThemeCubit(context.read())..init(),
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          
           navigatorKey: _navigatorKey,
           routes: {
             'login'    : ( _ ) => LoginPage(),
             'register' : ( _ ) => CreateUserByTypePage()
           },
-          theme: themeState ? ThemeData.dark() : ThemeData.light(),
+          theme:  ThemeData(fontFamily: 'Nexa'),
           builder: (context, child) {
             return BlocProvider(
               create: (context) => AuthBloc(

@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
             child: TextButton(
               child: const Text(
                 "Registrarme",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, ),
               ),
               onPressed: () => showBarModalBottomSheet(
                 expand: true,
@@ -113,7 +113,7 @@ class _formFirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 628,
-      color: Color.fromRGBO(38, 40, 54, 1),
+      color: Color.fromRGBO(38, 40, 54  , 1),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -122,15 +122,9 @@ class _formFirstPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  icon: SvgPicture.asset(
-                      'assets/SVG/Icon ionic-ios-close-circle.svg'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+              
                 IconButton(
                   icon: SvgPicture.asset(
                       'assets/SVG/Icon ionic-ios-close-circle.svg'),
@@ -148,10 +142,16 @@ class _formFirstPage extends StatelessWidget {
             Text("Cuéntanos, como te gustaría registrarte?",
                 style: TextStyle(fontSize: 15, color: Colors.white)),
             Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0),
+              color: Color.fromRGBO(45, 47, 60 ,1)),
+
+              
+              
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
-                  style: butttonStyle,
+                  
+                  
                   onPressed: () {
                     //_controller.nextPage(duration: _kDuration, curve: _kCurve);
                     showCupertinoModalBottomSheet(
@@ -166,6 +166,7 @@ class _formFirstPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
+                          
                           width: 199,
                           height: 80,
                           child: Row(
@@ -185,7 +186,7 @@ class _formFirstPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Soy Artista ',
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: 20, color: Colors.white),
                                   ),
                                   SvgPicture.asset(
                                       'assets/SVG/Icon feather-chevron-right.svg'),
@@ -194,7 +195,7 @@ class _formFirstPage extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text("Si eres barbero o tatuador"),
+                              child: Text("Si eres barbero o tatuador", style: TextStyle(color: Colors.white),),
                             )
                           ],
                         ),
@@ -205,10 +206,11 @@ class _formFirstPage extends StatelessWidget {
               ),
             ),
             Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0),
+              color: Color.fromRGBO(45, 47, 60 ,1)),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
-                  style: butttonStyle,
                   onPressed: () {
                     Navigator.of(context)
                         .push<void>(CreateCustomerPage.route());
@@ -237,7 +239,7 @@ class _formFirstPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Soy espectador ',
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: 20, color: Colors.white),
                                   ),
                                   SvgPicture.asset(
                                       'assets/SVG/Icon feather-chevron-right.svg'),
@@ -247,7 +249,7 @@ class _formFirstPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                  "Si eres cliente o quieres buscar negocios"),
+                                  "Si eres cliente o quieres buscar negocios", style: TextStyle(color: Colors.white),),
                             )
                           ],
                         ),
@@ -270,7 +272,7 @@ class _formSecondPage extends StatelessWidget {
     return Material(
       child: Container(
         height: 628,
-        color: Color.fromRGBO(38, 40, 54, 1),
+        color: Color.fromRGBO(38, 40, 54  , 1),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -312,16 +314,22 @@ class _formSecondPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
+                           height: 68,
+
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Nombre",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none),
+                            child: Padding(
+                            padding: const EdgeInsets.only(left: 16),                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Nombre",
+                                                                        labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    fillColor: Colors.white,
+                                    border: InputBorder.none),
+                              ),
                             ),
                           ),
                         ),
@@ -329,16 +337,22 @@ class _formSecondPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
+                           height: 68,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Apellido",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: "Apellido",
+                                                                        labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    fillColor: Colors.white,
+                                    border: InputBorder.none),
+                              ),
                             ),
                           ),
                         ),
@@ -346,16 +360,26 @@ class _formSecondPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
+                          height: 68,
                           decoration: BoxDecoration(
+                              
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Nombre Artista",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+
+                                    labelText: "Nombre Artista",
+                                    fillColor: Colors.white,
+                                                                        labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    border: InputBorder.none,
+                                    suffixIcon: Icon(Icons.info_outlined, color: Colors.white),
+                                    ),
+                              ),
                             ),
                           ),
                         ),
@@ -446,14 +470,19 @@ class _formThirdPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Email",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Email",
+                                                                        labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    fillColor: Colors.white,
+                                    border: InputBorder.none),
+                              ),
                             ),
                           ),
                         ),
@@ -463,14 +492,19 @@ class _formThirdPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Telefono",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Telefono",
+                                                                        labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    fillColor: Colors.white,
+                                    border: InputBorder.none),
+                              ),
                             ),
                           ),
                         ),
@@ -480,15 +514,20 @@ class _formThirdPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Contraseña",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  suffixIcon: Icon(Icons.visibility_off)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Contraseña",
+                                    fillColor: Colors.white,
+                                    labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+
+                                    border: InputBorder.none,
+                                    suffixIcon: Icon(Icons.visibility_off)),
+                              ),
                             ),
                           ),
                         ),
@@ -498,22 +537,24 @@ class _formThirdPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(119, 126, 145, 1)),
+                              color: Color.fromRGBO(119, 126, 145, .3)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: "Confirmar Contraseña",
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  suffixIcon: Icon(Icons.visibility_off)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Confirmar Contraseña",
+                                    labelStyle: TextStyle(color: Color.fromRGBO(119, 126, 145,1)),
+                                    fillColor: Colors.white,
+                                    border: InputBorder.none,
+                                    suffixIcon: Icon(Icons.visibility_off)),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
+                      
                       Container(
                           child: Center(
                               child: TextButton(
@@ -603,13 +644,13 @@ class _formFourthPage extends StatelessWidget {
                   children: [
                     Text(
                       "Aun no he recibido ningún código,",
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     TextButton(
                       onPressed: () {},
                       child: Text(
                         "volver a enviar",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 14),
                       ),
                     )
                   ],
@@ -667,14 +708,34 @@ class _formFourthPage extends StatelessWidget {
   }
 }
 
-class _formComplete extends StatelessWidget {
+class _formComplete extends StatefulWidget {
+  @override
+  State<_formComplete> createState() => _formCompleteState();
+}
+
+class _formCompleteState extends State<_formComplete> with SingleTickerProviderStateMixin{
+
+  late final AnimationController _controller = AnimationController(vsync: this,
+  duration: const Duration(seconds: 2),)..repeat(reverse: true);
+
+  late final Animation<Offset> _animation = Tween<Offset>(
+    begin: Offset.zero, end: Offset(0, 0.08),
+  ).animate(_controller);
+  @override
+  void dispose(){
+    _controller.dispose();  
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
         height: 628,
-        color: Color.fromRGBO(38, 40, 54, 1),
+        color: Color.fromRGBO(9, 4, 23, 1),
         child: Padding(
+          
           padding: const EdgeInsets.only(
             bottom: 100,
             top: 100,
@@ -684,11 +745,19 @@ class _formComplete extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Stack(
-                    children: [
-                      Image.asset('assets/PNG/Grupo 257.png'),
-                      Image.asset('assets/PNG/Rocket_perspective_matte.png')
-                    ],
+                  child: AnimatedContainer(
+                    curve: Curves.fastOutSlowIn,
+                    duration: Duration(seconds: 2),
+                    child: Stack(
+                      children: [
+                        SlideTransition(
+                          position: _animation,
+                          child: Image.asset('assets/PNG/Grupo 257.png')),
+                        SlideTransition(
+                          position: _animation,
+                          child: Image.asset('assets/PNG/Rocket_perspective_matte.png'))
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

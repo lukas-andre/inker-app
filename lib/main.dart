@@ -16,10 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       
-      
       providers: buildProviders(),
       child: const AppView(
-        
 
       ),
     );

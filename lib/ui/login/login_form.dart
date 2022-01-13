@@ -5,6 +5,7 @@ import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_account.dart';
 import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
+import 'package:inker_studio/ui/forgot_password/forgot_password.dart';
 import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
 import 'package:inker_studio/ui/login/login.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -38,6 +39,7 @@ class LoginForm extends StatelessWidget {
             _UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
+            SizedBox(height: 40 ,),
             const Padding(padding: EdgeInsets.all(12)),
             _LoginButton(),
             const Padding(padding: EdgeInsets.all(12)),
@@ -174,7 +176,11 @@ class _LoginButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () => showBarModalBottomSheet(
+                expand: true,
+                context: context,
+                builder: (context) => ForgotPassword(),
+              ),
                       child: Text(
                         "Olvide mi contraseña",
                         style: TextStyle(color: Colors.white),
