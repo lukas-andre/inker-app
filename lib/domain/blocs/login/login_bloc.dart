@@ -47,6 +47,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _mapCreateAccountWithInkerInfoPressedToState(event, emit));
     on<SignInWithGooglePressed>(
         (event, emit) => _mapSignInWithGoogleToState(event, emit));
+    on<CreateArtistUserPressed>(
+        (event, emit) => _mapCreateArtistUserPressedToState(event, emit));
 
     // TODO: MOVE TO CUSTOMER_CREATION_BLOC
     on<CreateUserByTypeBackButtonPressed>((event, emit) =>
@@ -259,6 +261,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       CreateAccountWithInkerInfoPressed event, Emitter<LoginState> emit) {
     emit(state.copyWith(
       newUserType: NewUserType.inker,
+    ));
+  }
+
+  _mapCreateArtistUserPressedToState(
+      CreateArtistUserPressed event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+      newUserType: NewUserType.inker,
+      userTypeToCreate: UserType.artist,
     ));
   }
 }

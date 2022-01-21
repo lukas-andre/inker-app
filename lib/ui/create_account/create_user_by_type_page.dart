@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -23,6 +22,8 @@ class CreateUserByTypePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+
     var butttonStyle = TextButton.styleFrom(
         primary: Colors.blue,
         onSurface: Colors.red,
@@ -30,73 +31,83 @@ class CreateUserByTypePage extends StatelessWidget {
         backgroundColor: Colors.white60,
         minimumSize: const Size(300.0, 150.0));
 
-    return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
-        // if (state.newUserType == NewUserType.google &&
-        //     state.userTypeToCreate == UserType.customer) {
-        //   BlocProvider.of<LoginBloc>(context)
-        //       .add(const CreateCustomerWithGoogleSignInInfo());
-        // }
+    return WillPopScope(
+      onWillPop: () async {
+        loginBloc.add(const CreateUserByTypeBackButtonPressed());
 
-        if (state.newUserType == NewUserType.inker &&
-            state.userTypeToCreate == UserType.customer) {
-          BlocNavigator.push<LoginBloc>(context, const CreateCustomerPage());
-        }
+        return true;
       },
-      child: WillPopScope(
-        onWillPop: () async {
-          BlocProvider.of<LoginBloc>(context)
-              .add(const CreateUserByTypeBackButtonPressed());
-
-          return true;
-        },
-        child: Scaffold(
-          appBar: AppBar(title: const Text('Create User By Type')),
-          body: Align(
-            alignment: const Alignment(0, -1 / 3),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                  child: const Text('Artist'),
-                  style: butttonStyle,
-                  onPressed: () {
-                    if (context.read<LoginBloc>().state.newUserType ==
-                        NewUserType.google) {
-                      BlocProvider.of<LoginBloc>(context)
-                          .add(const CreateArtistWithGoogleSignInInfo());
-                    } else {
-                      // BlocNavigator.push(contex: ));
-                      BlocProvider.of<LoginBloc>(context)
-                          .add(const CreateArtistUserPressed());
-                    }
-                  },
-                ),
-                TextButton(
-                  child: const Text('Customer'),
-                  style: butttonStyle,
-                  onPressed: () {
-                    final state = context.read<LoginBloc>().state;
-                    dev.log(state.toString(), 'debug');
-
-                    if (state.newUserType == NewUserType.inker) {
-                      BlocNavigator.push<LoginBloc>(
-                          context, const CreateCustomerPage());
-                    }
-
-                    if (context.read<LoginBloc>().state.newUserType ==
-                        NewUserType.google) {
-                      context
-                          .read<LoginBloc>()
-                          .add(const CreateCustomerWithGoogleSignInInfo());
-                    }
-                  },
-                ),
-              ],
-            ),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Create User By Type')),
+        body: Align(
+          alignment: const Alignment(0, -1 / 3),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _CreateArtistButton(butttonStyle: butttonStyle),
+              _CreateCustomerButton(butttonStyle: butttonStyle),
+            ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _CreateArtistButton extends StatelessWidget {
+  const _CreateArtistButton({
+    Key? key,
+    required this.butttonStyle,
+  }) : super(key: key);
+
+  final ButtonStyle butttonStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+
+    return TextButton(
+      child: const Text('Artist'),
+      style: butttonStyle,
+      onPressed: () {
+        if (loginBloc.state.newUserType == NewUserType.google) {
+          loginBloc.add(const CreateArtistWithGoogleSignInInfo());
+        } else {
+          loginBloc.add(const CreateArtistUserPressed());
+          // TODO
+          // BlocNavigator.push<LoginBloc>(context, CreateArtistPage);
+        }
+      },
+    );
+  }
+}
+
+class _CreateCustomerButton extends StatelessWidget {
+  const _CreateCustomerButton({
+    Key? key,
+    required this.butttonStyle,
+  }) : super(key: key);
+
+  final ButtonStyle butttonStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+
+    return TextButton(
+      child: const Text('Customer'),
+      style: butttonStyle,
+      onPressed: () {
+        dev.log(loginBloc.state.toString(), 'debug');
+
+        if (loginBloc.state.newUserType == NewUserType.inker) {
+          BlocNavigator.push<LoginBloc>(context, const CreateCustomerPage());
+        }
+
+        if (loginBloc.state.newUserType == NewUserType.google) {
+          loginBloc.add(const CreateCustomerWithGoogleSignInInfo());
+        }
+      },
     );
   }
 }
