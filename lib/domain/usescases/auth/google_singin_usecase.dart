@@ -61,7 +61,6 @@ class GoogleSingInUsecase {
       );
     }
 
-    // session = await _localSessionService.newGoogleSession(googleUser);
     return GooglesSingInResult(
         googleUser: googleUser, flowStatus: GoogleLoginFlowStatus.success);
   }
