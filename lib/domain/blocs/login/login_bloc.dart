@@ -1,15 +1,14 @@
-import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
+import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
-import 'package:inker_studio/domain/errors/remote/resource_not_found.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
 import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
@@ -109,8 +108,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _authBloc.add(AuthNewSession(session));
 
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      } on InvalidCredentialsException catch (_) {
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'Invalid username or password'));
       } on Exception catch (_) {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            errorMessage: 'Something went wrong'));
       }
     }
   }
