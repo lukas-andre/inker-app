@@ -21,8 +21,7 @@ class ApiUserService extends UserService {
   final HttpClientConfig _httpConfig;
 
   ApiUserService()
-      : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'users'),
+      : _httpConfig = HttpClientConfig(basePath: 'users'),
         super();
 
   @override
