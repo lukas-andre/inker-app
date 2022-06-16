@@ -32,11 +32,13 @@ class LoginForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage!)),
+              SnackBar(
+                  content: Text(state.errorMessage ?? 'Something went wrong')),
             );
           context.read<LoginBloc>().add(const LoginClearMessages());
         }
 
+        // Change to status.creatingUserByType
         if (state.status.isSubmissionInProgress && state.infoMessage != null) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
