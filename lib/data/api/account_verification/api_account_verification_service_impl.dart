@@ -22,8 +22,7 @@ class ApiAccountVerificationService implements AccountVerificationService {
   final HttpClientConfig _httpConfig;
 
   ApiAccountVerificationService()
-      : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'users'),
+      : _httpConfig = HttpClientConfig(basePath: 'users'),
         super();
 
   @override
