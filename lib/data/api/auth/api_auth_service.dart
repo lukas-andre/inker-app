@@ -1,4 +1,5 @@
 import 'dart:async' show StreamController;
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
@@ -12,6 +13,8 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'dtos/login_request.dart';
 import 'dtos/login_response.dart';
 
+class InvalidCredentialsException implements Exception {}
+
 class ApiAuthService extends AuthService {
   static const String className = 'ApiAuthService';
 
@@ -21,8 +24,7 @@ class ApiAuthService extends AuthService {
   AuthStatus _statusValue = AuthStatus.unknown;
 
   ApiAuthService(this._localSessionService)
-      : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'auth'),
+      : _httpConfig = HttpClientConfig(basePath: 'auth'),
         super();
 
   final LocalSessionService _localSessionService;
@@ -58,8 +60,12 @@ class ApiAuthService extends AuthService {
     final response = await http.post(url, body: request.toJson());
     dev.inspect(response, 'response');
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == HttpStatus.ok) {
       return loginResponseFromJson(response.body);
+    }
+
+    if (response.statusCode == HttpStatus.conflict) {
+      throw InvalidCredentialsException();
     }
 
     throw Exception('error in login identifier ${request.identifier}');
