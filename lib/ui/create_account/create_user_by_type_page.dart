@@ -75,7 +75,7 @@ class _CreateArtistButton extends StatelessWidget {
         } else {
           loginBloc.add(const CreateArtistUserPressed());
           // TODO
-          // BlocNavigator.push<LoginBloc>(context, CreateArtistPage);
+          // BlocNavigator.push<LoginBloc>(context, const CreateArtistPage());
         }
       },
     );

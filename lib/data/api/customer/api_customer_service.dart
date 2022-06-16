@@ -14,8 +14,7 @@ class ApiCustomerService implements CustomerService {
   final HttpClientConfig _httpConfig;
 
   ApiCustomerService()
-      : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'customer'),
+      : _httpConfig = HttpClientConfig(basePath: 'customer'),
         super();
 
   @override
