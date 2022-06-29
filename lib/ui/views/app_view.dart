@@ -5,7 +5,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
-import 'package:inker_studio/ui/login/login.dart';
+import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/splash/splah_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
@@ -28,6 +28,7 @@ class _AppViewState extends State<AppView> {
       create: (context) => AppThemeCubit(context.read())..init(),
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
@@ -37,8 +38,8 @@ class _AppViewState extends State<AppView> {
                   logoutUseCase: context.read(),
                   sessionService: context.read()),
               child: BlocListener<AuthBloc, AuthState>(
-                  listener: (context, state) {
-                    _navigateByAuthStatus(context, state);
+                  listener: (context, state) async {
+                    await _navigateByAuthStatus(context, state);
                   },
                   child: child),
             );
@@ -49,7 +50,9 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  void _navigateByAuthStatus(BuildContext context, AuthState state) {
+  Future<void> _navigateByAuthStatus(
+      BuildContext context, AuthState state) async {
+    await Future.delayed(const Duration(seconds: 1));
     switch (state.status) {
       case AuthStatus.authenticated:
         final String userType = state.session.user!.userType!;
@@ -65,7 +68,8 @@ class _AppViewState extends State<AppView> {
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
-        NoContextNavigator.push(_navigator, const LoginPage());
+        // NoContextNavigator.push(_navigator, const LoginPage());
+        NoContextNavigator.push(_navigator, const OnBoardingPage());
         break;
     }
   }
