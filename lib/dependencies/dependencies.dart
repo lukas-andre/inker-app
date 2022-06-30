@@ -33,9 +33,9 @@ List<RepositoryProvider> buildProviders() {
         create: (_) => SqliteSessionService()),
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
-    RepositoryProvider<GoogleSingInUsecase>(
+    RepositoryProvider<GoogleSingInUseCase>(
         create: (context) =>
-            GoogleSingInUsecase(context.read(), context.read())),
+            GoogleSingInUseCase(context.read(), context.read())),
     RepositoryProvider<LoginUseCase>(
         create: (context) => LoginUseCase(
             authService: context.read(), localSession: context.read())),

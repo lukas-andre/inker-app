@@ -29,12 +29,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({
     required LoginUseCase loginUseCase,
-    required GoogleSingInUsecase googleSingInUsecase,
+    required GoogleSingInUseCase googleSingInUseCase,
     required CreateCustomerUseCase createCustomerUseCase,
     required AuthBloc authBloc,
   })  : _loginUseCase = loginUseCase,
         _authBloc = authBloc,
-        _googleSingInUsecase = googleSingInUsecase,
+        _googleSingInUsecase = googleSingInUseCase,
         _createCustomerUseCase = createCustomerUseCase,
         super(const LoginState()) {
     on<LoginUsernameChanged>(
@@ -60,11 +60,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _mapCreateCustomerWithGoogleSignInInfoToState(event, emit));
 
     on<LoginClearMessages>(
-        (event, emit) => _mapLoginErrorMessageEmmitedToState(event, emit));
+        (event, emit) => _mapLoginErrorMessageEmittedToState(event, emit));
   }
 
   final LoginUseCase _loginUseCase;
-  final GoogleSingInUsecase _googleSingInUsecase;
+  final GoogleSingInUseCase _googleSingInUsecase;
   final AuthBloc _authBloc;
   final CreateCustomerUseCase _createCustomerUseCase;
 
@@ -163,7 +163,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ),
           );
           break;
-        case GoogleLoginFlowStatus.inital:
+        case GoogleLoginFlowStatus.initial:
           break;
       }
     } on GoogleAuthServiceException catch (error) {
@@ -257,7 +257,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  _mapLoginErrorMessageEmmitedToState(
+  _mapLoginErrorMessageEmittedToState(
       LoginClearMessages event, Emitter<LoginState> emit) {
     emit(state.copyWith(errorMessage: null, infoMessage: null));
   }
