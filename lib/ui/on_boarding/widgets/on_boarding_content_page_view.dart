@@ -49,16 +49,23 @@ class OnBoardingContentPageView extends StatelessWidget {
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                         fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        height: 1.2,
+                        fontFamily: 'Poppins'),
                   ),
                 ),
                 Container(
                     padding:
-                        const EdgeInsets.only(top: 20, left: 39, right: 39),
+                        const EdgeInsets.only(top: 15, left: 39, right: 39),
                     child: Text(
                       content.description,
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          height: 1.2,
+                          fontWeight: FontWeight.w400),
                     ))
               ],
             ),
