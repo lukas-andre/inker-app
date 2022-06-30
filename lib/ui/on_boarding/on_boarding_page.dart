@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/ui/create_account/create_user_by_type_page.dart';
-import 'package:inker_studio/ui/login/login_page2.dart';
+import 'package:inker_studio/ui/login2/login_page2.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_content_page_view.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/fixed_components.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_background.dart';
