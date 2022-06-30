@@ -30,7 +30,7 @@ class OnBoardingPageNumberIndicator extends StatelessWidget {
                     style: const TextStyle(
                         color: Colors.white,
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w500),
                   ),
                 )),
           ),
