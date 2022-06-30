@@ -39,8 +39,9 @@ class SplashPage extends StatelessWidget {
                         'Inker',
                         style: TextStyle(
                             fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
