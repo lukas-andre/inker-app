@@ -14,7 +14,7 @@ class CustomDotsIndicator extends StatelessWidget {
         return Expanded(
           child: Container(
             padding: const EdgeInsets.only(
-              top: 223,
+              top: 227,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 39),
