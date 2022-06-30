@@ -1,4 +1,4 @@
-import 'package:inker_studio/data/api/user/dtos/get_user_by_socia_media_response.dart';
+import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 
 abstract class UserService {

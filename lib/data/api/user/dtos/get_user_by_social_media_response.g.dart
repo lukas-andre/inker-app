@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_user_by_socia_media_response.dart';
+part of 'get_user_by_social_media_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

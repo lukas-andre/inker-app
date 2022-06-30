@@ -9,7 +9,7 @@ import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/response_utils.dart';
 
-import 'dtos/get_user_by_socia_media_response.dart';
+import 'dtos/get_user_by_social_media_response.dart';
 
 class UserServiceError extends Error {}
 
