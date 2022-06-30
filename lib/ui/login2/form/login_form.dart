@@ -19,9 +19,7 @@ class LoginForm extends StatelessWidget {
               LoginFormHeader(),
             ],
           ),
-          const RowSpacer(
-            space: 20,
-          ),
+          const RowSpacer(space: 20),
           Row(
             children: const [LoginDescription()],
           ),
