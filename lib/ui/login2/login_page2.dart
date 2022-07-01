@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/ui/login2/widgets/login_layout.dart';
+import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 class LoginPage2 extends StatelessWidget {
   const LoginPage2({Key? key}) : super(key: key);
@@ -29,11 +32,33 @@ class LoginPage2 extends StatelessWidget {
               loginUseCase: context.read(),
               googleSingInUseCase: context.read(),
               createCustomerUseCase: context.read()),
-          child: Stack(
-            children: const [
-              LoginBackground(),
-              LoginLayout(),
-            ],
+          child: BlocListener<LoginBloc, LoginState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              dev.log('listener', 'LoginState');
+              if (state.userStatus == UserStatus.inactive &&
+                  state.status == FormzStatus.submissionFailure) {
+                final snackBar = customSnackBar(
+                    content: 'Lo sentimos tu usuario esta inactivo 😭',
+                    duration: const Duration(days: 365),
+                    action: SnackBarAction(
+                      label: 'Activar',
+                      disabledTextColor: Colors.white,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        //Do whatever you want
+                      },
+                    ));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
+            child: Stack(
+              children: const [
+                LoginBackground(),
+                LoginLayout(),
+              ],
+            ),
           ),
         ),
       ),

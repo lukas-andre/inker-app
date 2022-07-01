@@ -31,7 +31,7 @@ class LoginUseCase {
       return await _localSessionStorage.newSession(session);
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
-      return null;
+      rethrow;
     }
   }
 
