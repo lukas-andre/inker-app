@@ -43,6 +43,7 @@ dependencies:
       url: https://github.com/AbdOoSaed/intl_phone_number_input
   json_annotation: ^4.4.0
   jwt_decoder: ^2.0.1
+  modal_bottom_sheet: ^2.1.0
   path_provider: ^2.0.2
   permission_handler: ^8.3.0
   shared_preferences: ^2.0.6

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -5,6 +7,7 @@ import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/ui/login2/widgets/login_layout.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginPage2 extends StatelessWidget {
   const LoginPage2({Key? key}) : super(key: key);
@@ -22,30 +25,37 @@ class LoginPage2 extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocProvider(
-          create: (context) => LoginBloc(
-              authBloc: context.read(),
-              loginUseCase: context.read(),
-              googleSingInUseCase: context.read(),
-              createCustomerUseCase: context.read()),
-          child: BlocListener<LoginBloc, LoginState>(
-            listenWhen: (previous, current) =>
-                previous.status != current.status,
-            listener: (context, state) {
-              if (state.userStatus == UserStatus.inactive &&
-                  state.status == FormzStatus.submissionFailure) {
-                final snackBar = _getUserInactiveSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            },
-            child: Stack(
-              children: const [
-                LoginBackground(),
-                LoginLayout(),
-              ],
-            ),
+      child: Platform.isIOS
+          ? CupertinoScaffold(
+              body: _scaffold(),
+            )
+          : _scaffold(),
+    );
+  }
+
+  Scaffold _scaffold() {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: BlocProvider(
+        create: (context) => LoginBloc(
+            authBloc: context.read(),
+            loginUseCase: context.read(),
+            googleSingInUseCase: context.read(),
+            createCustomerUseCase: context.read()),
+        child: BlocListener<LoginBloc, LoginState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.userStatus == UserStatus.inactive &&
+                state.status == FormzStatus.submissionFailure) {
+              final snackBar = _getUserInactiveSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          child: Stack(
+            children: const [
+              LoginBackground(),
+              LoginLayout(),
+            ],
           ),
         ),
       ),
