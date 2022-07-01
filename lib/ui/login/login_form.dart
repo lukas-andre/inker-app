@@ -5,7 +5,7 @@ import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/create_account/create_customer/create_customer_page.dart';
 import 'package:inker_studio/ui/create_account/create_user.dart';
-import 'package:inker_studio/ui/login/buttons/google_signin_button.dart';
+import 'package:inker_studio/ui/login/buttons/google_singin_button.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/dev.dart';
 

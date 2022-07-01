@@ -94,6 +94,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
+    dev.log(event.toString(), '_mapLoginSubmittedToState');
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
@@ -107,12 +108,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         _authBloc.add(AuthNewSession(session));
 
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          userStatus: UserStatus.active,
+        ));
       } on InvalidCredentialsException catch (_) {
         emit(state.copyWith(
             status: FormzStatus.submissionFailure,
             errorMessage: 'Invalid username or password'));
+      } on UserIsNotActiveException catch (_) {
+        dev.log('User is not active', 'user');
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            userStatus: UserStatus.inactive,
+            errorMessage: 'User is not active'));
       } on Exception catch (_) {
+        dev.log('asdsa', 'asdsa');
         emit(state.copyWith(
             status: FormzStatus.submissionFailure,
             errorMessage: 'Something went wrong'));
