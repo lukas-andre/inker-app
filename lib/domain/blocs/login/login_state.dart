@@ -4,6 +4,8 @@ enum NewUserType { google, facebook, apple, inker, unknown }
 
 enum UserStatus { inactive, unknown, active }
 
+enum LoginStatus { invalidCredentials, unknown, ok, unknownError }
+
 class LoginState extends Equatable {
   const LoginState(
       {this.status = FormzStatus.pure,
@@ -14,6 +16,7 @@ class LoginState extends Equatable {
       this.errorMessage,
       this.infoMessage,
       this.userTypeToCreate,
+      this.loginStatus = LoginStatus.unknown,
       this.userStatus = UserStatus.unknown});
 
   final FormzStatus status;
@@ -25,6 +28,7 @@ class LoginState extends Equatable {
   final String? infoMessage;
   final String? userTypeToCreate;
   final UserStatus userStatus;
+  final LoginStatus loginStatus;
 
   LoginState copyWith({
     FormzStatus? status,
@@ -37,6 +41,7 @@ class LoginState extends Equatable {
     String? userTypeToCreate,
     firebase_auth.User? googleUser,
     UserStatus? userStatus,
+    LoginStatus? loginStatus,
   }) {
     return LoginState(
       status: status ?? this.status,
@@ -48,6 +53,7 @@ class LoginState extends Equatable {
       infoMessage: infoMessage ?? this.infoMessage,
       userTypeToCreate: userTypeToCreate ?? this.userTypeToCreate,
       userStatus: userStatus ?? this.userStatus,
+      loginStatus: loginStatus ?? this.loginStatus,
     );
   }
 
@@ -60,7 +66,8 @@ class LoginState extends Equatable {
         googleUser,
         errorMessage,
         infoMessage,
-        userStatus
+        userStatus,
+        loginStatus
       ];
 
   @override
