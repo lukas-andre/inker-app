@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inker_studio/ui/login2/form/inputs/styles.dart';
+import 'package:inker_studio/utils/forms/styles.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput({
@@ -12,6 +12,8 @@ class CustomInput extends StatelessWidget {
     this.inputFormatters,
     this.suffixIcon,
     this.obscureText,
+    this.verticalPadding,
+    this.horizontalPadding,
   }) : super(key: key);
 
   final void Function(String) onChanged;
@@ -21,12 +23,19 @@ class CustomInput extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Widget? suffixIcon;
   final bool? obscureText;
+  final double? verticalPadding;
+  final double? horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding =
+        this.horizontalPadding ?? MediaQuery.of(context).size.width * 0.05;
+    final verticalPadding =
+        this.verticalPadding ?? MediaQuery.of(context).size.height * 0.02;
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding, vertical: verticalPadding),
         child: TextField(
           key: key,
           style: const TextStyle(color: Colors.white),

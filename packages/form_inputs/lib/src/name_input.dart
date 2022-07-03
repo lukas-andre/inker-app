@@ -1,4 +1,5 @@
 import 'package:formz/formz.dart' show FormzInput;
+import 'package:inker_studio/utils/dev.dart';
 
 enum NameValidationError { empty }
 
@@ -8,6 +9,7 @@ class NameInput extends FormzInput<String, NameValidationError> {
 
   @override
   NameValidationError? validator(String? value) {
-    return value?.isNotEmpty == true ? null : NameValidationError.empty;
+    dev.log(value ?? value!, 'NameInput.validator');
+    return value.isNotEmpty == true ? null : NameValidationError.empty;
   }
 }

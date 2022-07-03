@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/domain/cubits/login/hide_password_cubit.dart';
-import 'package:inker_studio/ui/login2/form/inputs/custom_input.dart';
+import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class PasswordInput extends StatelessWidget {
   const PasswordInput({Key? key}) : super(key: key);
@@ -16,6 +16,8 @@ class PasswordInput extends StatelessWidget {
           return BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
               return CustomInput(
+                horizontalPadding: 5,
+                verticalPadding: 16,
                 key: const Key('loginForm_passwordInput_textField'),
                 label: 'Contraseña',
                 obscureText: cubit is HidePasswordVisible ? false : true,
