@@ -6,10 +6,6 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc() : super(const RegisterState()) {
-    on<RegisterEventBackPressed>((event, emit) {
-      // TODO: implement event handler
-    });
-
     on<RegisterEventArtistSelected>(
         (event, emit) => _mapRegisterEventArtistSelected(event, emit));
 
