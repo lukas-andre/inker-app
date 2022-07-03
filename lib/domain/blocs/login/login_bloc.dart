@@ -48,7 +48,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (event, emit) => _mapSignInWithGoogleToState(event, emit));
     on<CreateArtistUserPressed>(
         (event, emit) => _mapCreateArtistUserPressedToState(event, emit));
-
     // TODO: MOVE TO CUSTOMER_CREATION_BLOC
     on<CreateUserByTypeBackButtonPressed>((event, emit) =>
         _mapCreateUserByTypeBackButtonPressedToState(event, emit));
@@ -115,17 +114,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } on InvalidCredentialsException catch (_) {
         emit(state.copyWith(
             status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.invalidCredentials,
             errorMessage: 'Invalid username or password'));
       } on UserIsNotActiveException catch (_) {
         dev.log('User is not active', 'user');
         emit(state.copyWith(
             status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.ok,
             userStatus: UserStatus.inactive,
             errorMessage: 'User is not active'));
       } on Exception catch (_) {
-        dev.log('asdsa', 'asdsa');
         emit(state.copyWith(
             status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.unknownError,
             errorMessage: 'Something went wrong'));
       }
     }
@@ -270,7 +271,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   _mapLoginErrorMessageEmittedToState(
       LoginClearMessages event, Emitter<LoginState> emit) {
-    emit(state.copyWith(errorMessage: null, infoMessage: null));
+    emit(state.copyWith(
+        errorMessage: null,
+        infoMessage: null,
+        loginStatus: LoginStatus.unknown,
+        userStatus: UserStatus.unknown));
   }
 
   _mapCreateAccountWithInkerInfoPressedToState(

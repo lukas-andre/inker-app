@@ -18,10 +18,13 @@ class LoginHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Image.asset(
-              'assets/icons/back.png',
+              child: GestureDetector(
+            onTap: () => {Navigator.pop(context)},
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Image.asset(
+                'assets/icons/back.png',
+              ),
             ),
           )),
           Expanded(
@@ -40,7 +43,6 @@ class LoginHeader extends StatelessWidget {
             },
             child: Container(
               padding: const EdgeInsets.only(right: 27),
-              // margin: const EdgeInsets.only(left: 100),
               child: const Text(
                 'Registrarme',
                 textAlign: TextAlign.end,

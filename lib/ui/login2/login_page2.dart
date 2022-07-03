@@ -45,10 +45,23 @@ class LoginPage2 extends StatelessWidget {
         child: BlocListener<LoginBloc, LoginState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
-            if (state.userStatus == UserStatus.inactive &&
-                state.status == FormzStatus.submissionFailure) {
-              final snackBar = _getUserInactiveSnackBar();
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            if (state.status == FormzStatus.submissionFailure) {
+              if (state.loginStatus == LoginStatus.invalidCredentials) {
+                final snackBar = _getInvalidCredentialsSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
+              if (state.userStatus == UserStatus.inactive) {
+                final snackBar = _getUserInactiveSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
+              if (state.loginStatus == LoginStatus.unknownError) {
+                final snackBar = _getUnknownErrorSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
+              context.read<LoginBloc>().add(const LoginClearMessages());
             }
           },
           child: Stack(
@@ -68,6 +81,34 @@ class LoginPage2 extends StatelessWidget {
         duration: const Duration(days: 365),
         action: SnackBarAction(
           label: 'Activar',
+          disabledTextColor: Colors.white,
+          textColor: Colors.white,
+          onPressed: () {
+            //Do whatever you want
+          },
+        ));
+  }
+
+  SnackBar _getInvalidCredentialsSnackBar() {
+    return customSnackBar(
+        content: 'Correo o contraseña incorrectos',
+        duration: const Duration(seconds: 4),
+        action: SnackBarAction(
+          label: 'OK',
+          disabledTextColor: Colors.white,
+          textColor: Colors.white,
+          onPressed: () {
+            //Do whatever you want
+          },
+        ));
+  }
+
+  SnackBar _getUnknownErrorSnackBar() {
+    return customSnackBar(
+        content: 'Correo o contraseña incorrectos 😭',
+        duration: const Duration(seconds: 4),
+        action: SnackBarAction(
+          label: 'OK',
           disabledTextColor: Colors.white,
           textColor: Colors.white,
           onPressed: () {
