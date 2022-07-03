@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_last_name_input.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_name_input.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_username_input.dart';
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
@@ -88,7 +90,7 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
         context: context,
         onTop: true,
         content: 'Hay campos inválidos, por favor revisa los campos 🙏',
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: 'Vale 👌',
           disabledTextColor: Colors.white,
@@ -199,94 +201,6 @@ class RegisterArtistLayout extends StatelessWidget {
           children: const [RegisterArtistUsernameInput()],
         ),
       ],
-    );
-  }
-}
-
-class RegisterArtistNameInput extends StatelessWidget {
-  const RegisterArtistNameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.firstName.value != current.form.firstName.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.firstName.valid || state.form.firstName.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : 'Nombre ${state.form.firstName.error?.name}',
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistNameChanged(value),
-                  );
-            },
-            label: 'Nombre');
-      },
-    );
-  }
-}
-
-class RegisterArtistLastNameInput extends StatelessWidget {
-  const RegisterArtistLastNameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.lastName.value != current.form.lastName.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.lastName.valid || state.form.lastName.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : 'Apellido ${state.form.lastName.error?.name}',
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistLastNameChanged(value),
-                  );
-            },
-            label: 'Apellido');
-      },
-    );
-  }
-}
-
-class RegisterArtistUsernameInput extends StatelessWidget {
-  const RegisterArtistUsernameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.username.value != current.form.username.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.username.valid || state.form.username.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : state.form.username.error?.name,
-            suffixIcon: const Tooltip(
-              message: 'Este sera el nombre que se verá en tu perfil',
-              child: Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Icon(Icons.info_rounded, color: Colors.grey),
-              ),
-            ),
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistUsernameChanged(value),
-                  );
-            },
-            label: 'Nombre artístico');
-      },
     );
   }
 }

@@ -3,18 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:inker_studio/utils/forms/styles.dart';
 
 class CustomInput extends StatelessWidget {
-  const CustomInput({
-    Key? key,
-    required this.onChanged,
-    required this.label,
-    this.valid,
-    this.errorMessage,
-    this.inputFormatters,
-    this.suffixIcon,
-    this.obscureText,
-    this.verticalPadding,
-    this.horizontalPadding,
-  }) : super(key: key);
+  const CustomInput(
+      {Key? key,
+      required this.onChanged,
+      required this.label,
+      this.valid,
+      this.errorMessage,
+      this.inputFormatters,
+      this.suffixIcon,
+      this.obscureText,
+      this.verticalPadding,
+      this.horizontalPadding,
+      this.controller})
+      : super(key: key);
 
   final void Function(String) onChanged;
   final String label;
@@ -25,7 +26,7 @@ class CustomInput extends StatelessWidget {
   final bool? obscureText;
   final double? verticalPadding;
   final double? horizontalPadding;
-
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     final horizontalPadding =
@@ -37,6 +38,7 @@ class CustomInput extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding, vertical: verticalPadding),
         child: TextField(
+          controller: controller,
           key: key,
           style: const TextStyle(color: Colors.white),
           inputFormatters: inputFormatters ?? [],
@@ -44,6 +46,7 @@ class CustomInput extends StatelessWidget {
           onChanged: onChanged,
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
+            errorMaxLines: 3,
             errorText: valid == false ? errorMessage : null,
             errorBorder: valid == false
                 ? OutlineInputBorder(
@@ -51,6 +54,7 @@ class CustomInput extends StatelessWidget {
                     borderSide: const BorderSide(color: Colors.red),
                   )
                 : null,
+            errorStyle: const TextStyle(fontFamily: 'Poppins'),
             contentPadding: inputContentPadding,
             label: Text(
               label,
