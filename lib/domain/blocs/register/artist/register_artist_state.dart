@@ -1,6 +1,6 @@
 part of 'register_artist_bloc.dart';
 
-class RegisterArtistForm with FormzMixin {
+class RegisterArtistForm extends Equatable with FormzMixin {
   RegisterArtistForm({
     this.username = const UsernameInput.pure(),
     this.firstName = const NameInput.pure(),
@@ -54,6 +54,21 @@ class RegisterArtistForm with FormzMixin {
       location: location ?? this.location,
     );
   }
+
+  @override
+  List<Object> get props => [
+        firstName,
+        lastName,
+        username,
+        email,
+        phoneNumber,
+        password,
+        confirmedPassword,
+        location
+      ];
+
+  @override
+  bool get stringify => true;
 }
 
 class RegisterArtistState extends Equatable {

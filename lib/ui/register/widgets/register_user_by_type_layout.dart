@@ -23,9 +23,9 @@ class RegisterUserByTypeLayout extends StatelessWidget {
         BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
             return Row(
-              children: [
+              children: const [
                 RegisterProgressIndicator(
-                  progress: state.initialProgress,
+                  progress: 1 / 4,
                 )
               ],
             );

@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage1 extends StatelessWidget {
@@ -28,27 +31,72 @@ class RegisterArtistPage1 extends StatelessWidget {
             }
           },
           child: Stack(
-            children: [
-              const LoginBackground(),
-              const RegisterArtistLayout(),
-              RegisterActionButton(
-                  text: 'Siguiente',
-                  onPressed: () {
-                    if (Platform.isIOS) {
-                      showCupertinoModalBottomSheet(
-                          context: context,
-                          builder: (context) => const RegisterArtistPage1());
-                    } else {
-                      showMaterialModalBottomSheet(
-                          context: context,
-                          builder: (context) => const RegisterArtistPage1());
-                    }
-                  }),
+            children: const [
+              LoginBackground(),
+              RegisterArtistLayout(),
+              RegisterArtistPage1NextButton(),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class RegisterArtistPage1NextButton extends StatelessWidget {
+  const RegisterArtistPage1NextButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.form.firstName != current.form.firstName ||
+          previous.form.lastName != current.form.lastName ||
+          previous.form.username != current.form.username,
+      builder: (context, state) {
+        return RegisterActionButton(
+            text: 'Siguiente',
+            onPressed: () {
+              if (state.form.firstName.valid &&
+                  state.form.lastName.valid &&
+                  state.form.username.valid) {
+                if (Platform.isIOS) {
+                  showCupertinoModalBottomSheet(
+                      context: context,
+                      builder: (context) => const RegisterArtistPage2());
+                } else {
+                  showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => const RegisterArtistPage2());
+                }
+                context.read<RegisterArtistBloc>().add(
+                      const RegisterArtistNextPagePressed(1),
+                    );
+              } else {
+                final snackBar = _getInvalidFormSnackBar(context);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            });
+      },
+    );
+  }
+
+  SnackBar _getInvalidFormSnackBar(context) {
+    return customSnackBar(
+        context: context,
+        onTop: true,
+        content: 'Hay campos inválidos, por favor revisa los campos 🙏',
+        duration: const Duration(seconds: 2),
+        action: SnackBarAction(
+          label: 'Vale 👌',
+          disabledTextColor: Colors.white,
+          textColor: Colors.white,
+          onPressed: () {
+            //Do whatever you want
+          },
+        ));
   }
 }
 
@@ -163,8 +211,14 @@ class RegisterArtistNameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.form.firstName.value != current.form.firstName.value,
       builder: (context, state) {
         return CustomInput(
+            valid: state.form.firstName.valid || state.form.firstName.pure,
+            errorMessage: state.form.username.valid
+                ? null
+                : 'Nombre ${state.form.firstName.error?.name}',
             onChanged: (value) {
               context.read<RegisterArtistBloc>().add(
                     RegisterArtistNameChanged(value),
@@ -184,8 +238,14 @@ class RegisterArtistLastNameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
+            valid: state.form.lastName.valid || state.form.lastName.pure,
+            errorMessage: state.form.username.valid
+                ? null
+                : 'Apellido ${state.form.lastName.error?.name}',
             onChanged: (value) {
               context.read<RegisterArtistBloc>().add(
                     RegisterArtistLastNameChanged(value),
@@ -205,10 +265,16 @@ class RegisterArtistUsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.form.username.value != current.form.username.value,
       builder: (context, state) {
         return CustomInput(
+            valid: state.form.username.valid || state.form.username.pure,
+            errorMessage: state.form.username.valid
+                ? null
+                : state.form.username.error?.name,
             suffixIcon: const Tooltip(
-              message: 'Este sera el nombre que se vera en tu perfil',
+              message: 'Este sera el nombre que se verá en tu perfil',
               child: Padding(
                 padding: EdgeInsets.only(right: 15),
                 child: Icon(Icons.info_rounded, color: Colors.grey),
