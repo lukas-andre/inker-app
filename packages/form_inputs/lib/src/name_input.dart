@@ -1,7 +1,21 @@
 import 'package:formz/formz.dart' show FormzInput;
 import 'package:inker_studio/utils/dev.dart';
 
-enum NameValidationError { empty, invalid }
+enum NameValidationError {
+  empty,
+  invalid;
+
+  String? get displayName {
+    switch (this) {
+      case NameValidationError.empty:
+        return 'no puede estar vacío';
+      case NameValidationError.invalid:
+        return 'no es valido, solo se permiten letras.';
+      default:
+        return null;
+    }
+  }
+}
 
 class NameInput extends FormzInput<String, NameValidationError> {
   const NameInput.pure() : super.pure('');
@@ -20,19 +34,6 @@ class NameInput extends FormzInput<String, NameValidationError> {
       return NameValidationError.invalid;
     } else {
       return null;
-    }
-  }
-}
-
-extension NameErrorExplanation on NameValidationError {
-  String? get name {
-    switch (this) {
-      case NameValidationError.empty:
-        return 'no puede estar vacío';
-      case NameValidationError.invalid:
-        return 'no es valido, solo se permiten letras.';
-      default:
-        return null;
     }
   }
 }
