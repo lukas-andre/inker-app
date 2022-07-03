@@ -68,7 +68,6 @@ class _AppViewState extends State<AppView> {
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
-        // NoContextNavigator.push(_navigator, const LoginPage());
         NoContextNavigator.push(_navigator, const OnBoardingPage());
         break;
     }
