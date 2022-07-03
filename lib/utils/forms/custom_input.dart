@@ -31,7 +31,7 @@ class CustomInput extends StatelessWidget {
     final horizontalPadding =
         this.horizontalPadding ?? MediaQuery.of(context).size.width * 0.05;
     final verticalPadding =
-        this.verticalPadding ?? MediaQuery.of(context).size.height * 0.02;
+        this.verticalPadding ?? MediaQuery.of(context).size.height * 0.01;
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -44,7 +44,13 @@ class CustomInput extends StatelessWidget {
           onChanged: onChanged,
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
-            // errorText: valid ? null : errorMessage,
+            errorText: valid == false ? errorMessage : null,
+            errorBorder: valid == false
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.red),
+                  )
+                : null,
             contentPadding: inputContentPadding,
             label: Text(
               label,
@@ -62,8 +68,9 @@ class CustomInput extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Color(0xff777E91),
+                borderSide: BorderSide(
+                  // color: Color(0xff777E91),
+                  color: valid == false ? Colors.red : const Color(0xff777E91),
                 )),
           ),
         ),
