@@ -12,8 +12,8 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
       _mapOnBoardingMoveToIndexToState(event, emit);
     });
 
-    on<OnBoardingNextOrFoward>((event, emit) {
-      _mapOnBoardingNextOrFowardToState(event, emit);
+    on<OnBoardingNextOrForward>((event, emit) {
+      _mapOnBoardingNextOrForwardToState(event, emit);
     });
 
     on<OnBoardingSkipPressed>((event, emit) {
@@ -25,6 +25,8 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
     on<OnBoardingSignInPressed>((event, emit) {
       _mapOnBoardingSignInPressedToState(event, emit);
     });
+    on<OnBoardingClearRedirect>(
+        (event, emit) => _mapOnBoardingClearRedirectToState(event, emit));
   }
 
   void _mapOnBoardingMoveToIndexToState(
@@ -37,8 +39,8 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
     emit(state.copyWith(page: event.index));
   }
 
-  void _mapOnBoardingNextOrFowardToState(
-      OnBoardingNextOrFoward event, Emitter<OnBoardingState> emit) {
+  void _mapOnBoardingNextOrForwardToState(
+      OnBoardingNextOrForward event, Emitter<OnBoardingState> emit) {
     emit(state.copyWith(
       page: event.index,
     ));
@@ -61,5 +63,10 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
   void _mapOnBoardingSignInPressedToState(
       OnBoardingSignInPressed event, Emitter<OnBoardingState> emit) {
     emit(state.copyWith(redirectTo: OnBoardingRedirectTo.loginPage));
+  }
+
+  void _mapOnBoardingClearRedirectToState(
+      OnBoardingClearRedirect event, Emitter<OnBoardingState> emit) {
+    emit(state.copyWith(redirectTo: OnBoardingRedirectTo.none));
   }
 }
