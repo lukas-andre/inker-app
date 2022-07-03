@@ -21,13 +21,6 @@ class RegisterEventCustomerSelected extends RegisterEvent {
   List<Object> get props => [];
 }
 
-class RegisterEventBackPressed extends RegisterEvent {
-  const RegisterEventBackPressed();
-
-  @override
-  List<Object> get props => [];
-}
-
 class RegisterEventUpdateProgress extends RegisterEvent {
   final double progress;
 

@@ -42,7 +42,7 @@ class OnBoardingPage extends StatelessWidget {
                       context: context,
                       builder: (context) => const RegisterUserByTypePage());
                 } else {
-                  showModalBottomSheet(
+                  showMaterialModalBottomSheet(
                       context: context,
                       builder: (context) => const RegisterUserByTypePage());
                 }
