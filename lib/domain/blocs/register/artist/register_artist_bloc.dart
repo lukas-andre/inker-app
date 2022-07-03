@@ -16,6 +16,9 @@ class RegisterArtistBloc
     on<RegisterArtistLastNameChanged>((event, emit) {
       _mapRegisterArtistLastNameChangedToState(emit, event);
     });
+    on<RegisterArtistUsernameChanged>((event, emit) {
+      _mapRegisterArtistUsernameChangedToState(emit, event);
+    });
     on<RegisterArtistEmailChanged>((event, emit) {
       _mapRegisterArtistEmailChangedToState(emit, event);
     });
@@ -31,6 +34,9 @@ class RegisterArtistBloc
     on<RegisterArtistLocationChanged>((event, emit) {
       _mapRegisterArtistLocationChangedToState(emit, event);
     });
+    on<RegisterArtistNextPagePressed>((event, emit) {
+      _mapRegisterArtistNextPagePressedToState(emit, event);
+    });
   }
 
   void _mapRegisterArtistNameChangedToState(
@@ -43,6 +49,12 @@ class RegisterArtistBloc
       Emitter<RegisterArtistState> emit, RegisterArtistLastNameChanged event) {
     final lastName = NameInput.dirty(event.name);
     emit(state.copyWith(form: state.form.copyWith(lastName: lastName)));
+  }
+
+  void _mapRegisterArtistUsernameChangedToState(
+      Emitter<RegisterArtistState> emit, RegisterArtistUsernameChanged event) {
+    final username = UsernameInput.dirty(event.username);
+    emit(state.copyWith(form: state.form.copyWith(username: username)));
   }
 
   void _mapRegisterArtistEmailChangedToState(
@@ -77,5 +89,12 @@ class RegisterArtistBloc
       Emitter<RegisterArtistState> emit, RegisterArtistLocationChanged event) {
     final location = LocationInput.dirty(event.location);
     emit(state.copyWith(form: state.form.copyWith(location: location)));
+  }
+
+  void _mapRegisterArtistNextPagePressedToState(
+      Emitter<RegisterArtistState> emit, RegisterArtistNextPagePressed event) {
+    emit(state.copyWith(
+      pageIndex: event.page,
+    ));
   }
 }

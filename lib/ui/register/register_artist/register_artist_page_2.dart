@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
-import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
@@ -14,8 +12,8 @@ import 'package:inker_studio/utils/forms/custom_input.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RegisterArtistPage1 extends StatelessWidget {
-  const RegisterArtistPage1({Key? key}) : super(key: key);
+class RegisterArtistPage2 extends StatelessWidget {
+  const RegisterArtistPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +31,8 @@ class RegisterArtistPage1 extends StatelessWidget {
           child: Stack(
             children: const [
               LoginBackground(),
-              RegisterArtistLayout(),
-              RegisterArtistPage1NextButton(),
+              RegisterArtistPage2Layout(),
+              RegisterArtistPage2NextButton(),
             ],
           ),
         ),
@@ -43,8 +41,8 @@ class RegisterArtistPage1 extends StatelessWidget {
   }
 }
 
-class RegisterArtistPage1NextButton extends StatelessWidget {
-  const RegisterArtistPage1NextButton({
+class RegisterArtistPage2NextButton extends StatelessWidget {
+  const RegisterArtistPage2NextButton({
     Key? key,
   }) : super(key: key);
 
@@ -52,9 +50,10 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
-          previous.form.firstName != current.form.firstName ||
-          previous.form.lastName != current.form.lastName ||
-          previous.form.username != current.form.username,
+          previous.form.email != current.form.email ||
+          previous.form.phoneNumber != current.form.phoneNumber ||
+          previous.form.password != current.form.password ||
+          previous.form.confirmedPassword != current.form.confirmedPassword,
       builder: (context, state) {
         return RegisterActionButton(
             text: 'Siguiente',
@@ -87,8 +86,8 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
     return customSnackBar(
         context: context,
         onTop: true,
-        content: 'Hay campos inválidos, por favor revisa los campos 🙏',
-        duration: const Duration(seconds: 2),
+        content: 'Hay campos invalidos, por favor revisa los campos 🙏',
+        duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'Vale 👌',
           disabledTextColor: Colors.white,
@@ -153,8 +152,8 @@ class RegisterActionButton extends StatelessWidget {
   }
 }
 
-class RegisterArtistLayout extends StatelessWidget {
-  const RegisterArtistLayout({Key? key}) : super(key: key);
+class RegisterArtistPage2Layout extends StatelessWidget {
+  const RegisterArtistPage2Layout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -167,9 +166,9 @@ class RegisterArtistLayout extends StatelessWidget {
         BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
           builder: (context, state) {
             return Row(
-              children: [
+              children: const [
                 RegisterProgressIndicator(
-                  progress: state.initialProgress,
+                  progress: 2 / 3,
                 )
               ],
             );
@@ -178,7 +177,7 @@ class RegisterArtistLayout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Requerimos tus datos para registrarte como artista',
+              text: 'Crea tu nueva cuenta para empezar a postear',
             )
           ],
         ),
@@ -186,107 +185,22 @@ class RegisterArtistLayout extends StatelessWidget {
           children: const [
             RegisterCustomSubTitle(
                 text:
-                    'Introduce tus datos personales para poder continuar tu registro.')
+                    'Estas a unos pasos de formar parte de esta gran comunidad.')
           ],
         ),
         Row(
-          children: const [RegisterArtistNameInput()],
+          children: const [RegisterArtistEmailInput()],
         ),
         Row(
-          children: const [RegisterArtistLastNameInput()],
+          children: const [RegisterArtistPhoneNumberInput()],
         ),
         Row(
-          children: const [RegisterArtistUsernameInput()],
+          children: const [RegisterArtistPasswordInput()],
+        ),
+        Row(
+          children: const [RegisterArtistConfirmPasswordInput()],
         ),
       ],
-    );
-  }
-}
-
-class RegisterArtistNameInput extends StatelessWidget {
-  const RegisterArtistNameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.firstName.value != current.form.firstName.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.firstName.valid || state.form.firstName.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : 'Nombre ${state.form.firstName.error?.name}',
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistNameChanged(value),
-                  );
-            },
-            label: 'Nombre');
-      },
-    );
-  }
-}
-
-class RegisterArtistLastNameInput extends StatelessWidget {
-  const RegisterArtistLastNameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.lastName.value != current.form.lastName.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.lastName.valid || state.form.lastName.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : 'Apellido ${state.form.lastName.error?.name}',
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistLastNameChanged(value),
-                  );
-            },
-            label: 'Apellido');
-      },
-    );
-  }
-}
-
-class RegisterArtistUsernameInput extends StatelessWidget {
-  const RegisterArtistUsernameInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      buildWhen: (previous, current) =>
-          previous.form.username.value != current.form.username.value,
-      builder: (context, state) {
-        return CustomInput(
-            valid: state.form.username.valid || state.form.username.pure,
-            errorMessage: state.form.username.valid
-                ? null
-                : state.form.username.error?.name,
-            suffixIcon: const Tooltip(
-              message: 'Este sera el nombre que se verá en tu perfil',
-              child: Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Icon(Icons.info_rounded, color: Colors.grey),
-              ),
-            ),
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistUsernameChanged(value),
-                  );
-            },
-            label: 'Nombre artístico');
-      },
     );
   }
 }

@@ -80,5 +80,9 @@ class RegisterArtistLocationChanged extends RegisterArtistEvent {
 }
 
 class RegisterArtistNextPagePressed extends RegisterArtistEvent {
-  const RegisterArtistNextPagePressed();
+  final int page;
+  const RegisterArtistNextPagePressed(this.page);
+
+  @override
+  List<Object> get props => [page];
 }
