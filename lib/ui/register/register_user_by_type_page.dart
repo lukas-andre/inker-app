@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterUserByTypePage extends StatelessWidget {
   const RegisterUserByTypePage({Key? key}) : super(key: key);
@@ -68,7 +71,7 @@ class RegisterCustomerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RegisterUserByTypeButton(
       text: 'Soy espectador',
-      helper: 'Si eres barbero o tatuador',
+      helper: 'Si eres cliente o quieres buscar negocios',
       onTap: () {},
       iconPath: 'assets/icons/message_perspective_matte.png',
     );
@@ -80,10 +83,22 @@ class RegisterArtistButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Bloc registerBloc = context.read<RegisterBloc>();
     return RegisterUserByTypeButton(
       text: 'Soy artista',
       helper: 'Si eres barbero o tatuador',
-      onTap: () {},
+      onTap: () {
+        // registerBloc.add(const CreateAccountWithInkerInfoPressed());
+        if (Platform.isIOS) {
+          showCupertinoModalBottomSheet(
+              context: context,
+              builder: (context) => const RegisterUserByTypePage());
+        } else {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) => const RegisterUserByTypePage());
+        }
+      },
       iconPath: 'assets/icons/color_palette.png',
     );
   }
@@ -112,7 +127,7 @@ class RegisterUserByTypeButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.88,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xff2d2f3c),
+          color: const Color(0x80262836),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -139,7 +154,7 @@ class RegisterUserByTypeButton extends StatelessWidget {
                           icon: SvgPicture.asset(
                             'assets/icons/svg/angle-right-solid.svg',
                             color: Colors.white,
-                            height: 25,
+                            height: 20,
                           ))
                     ],
                   ),
@@ -162,7 +177,7 @@ class RegisterUserByTypeButton extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: onTap,
                   icon: Image.asset(
                     iconPath,
                   )),

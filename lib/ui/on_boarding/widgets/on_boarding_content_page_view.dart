@@ -16,7 +16,7 @@ class OnBoardingContentPageView extends StatelessWidget {
         itemCount: state.contents.length,
         controller: state.pageController,
         onPageChanged: (index) =>
-            context.read<OnBoardingBloc>().add(OnBoardingNextOrFoward(index)),
+            context.read<OnBoardingBloc>().add(OnBoardingNextOrForward(index)),
         itemBuilder: (context, index) {
           return _page(state.contents[index]);
         },
