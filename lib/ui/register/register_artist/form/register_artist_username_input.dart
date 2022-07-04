@@ -21,7 +21,7 @@ class RegisterArtistUsernameInput extends StatelessWidget {
             valid: state.form.username.valid || state.form.username.pure,
             errorMessage: state.form.username.valid
                 ? null
-                : state.form.username.error?.displayName,
+                : state.form.username.error?.message,
             suffixIcon: state.form.username.value.isNotEmpty
                 ? ClearInput(
                     onTap: () {

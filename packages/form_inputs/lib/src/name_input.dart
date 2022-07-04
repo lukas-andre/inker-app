@@ -5,7 +5,7 @@ enum NameValidationError {
   empty,
   invalid;
 
-  String? get displayName {
+  String? get message {
     switch (this) {
       case NameValidationError.empty:
         return 'no puede estar vacío';
