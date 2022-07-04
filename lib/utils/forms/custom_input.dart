@@ -59,7 +59,10 @@ class CustomInput extends StatelessWidget {
             label: Text(
               label,
               textAlign: TextAlign.left,
-              style: const TextStyle(color: Color(0xff777E91), fontSize: 16),
+              style: const TextStyle(
+                  color: Color(0xff777E91),
+                  fontSize: 16,
+                  fontFamily: 'Poppins'),
             ),
             filled: true,
             fillColor: inputBackgroundColor,

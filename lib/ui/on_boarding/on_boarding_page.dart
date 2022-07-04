@@ -25,40 +25,37 @@ class OnBoardingPage extends StatelessWidget {
 
   Scaffold _scaffold() {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => OnBoardingBloc(),
-        child: BlocListener<OnBoardingBloc, OnBoardingState>(
-          listenWhen: (previous, current) =>
-              previous.redirectTo != current.redirectTo,
-          listener: (context, state) {
-            Bloc onboardingBloc = context.read<OnBoardingBloc>();
-            switch (state.redirectTo) {
-              case OnBoardingRedirectTo.loginPage:
-                InkerNavigator.push(context, const LoginPage2());
-                break;
-              case OnBoardingRedirectTo.registerPage:
-                if (Platform.isIOS) {
-                  CupertinoScaffold.showCupertinoModalBottomSheet(
-                      context: context,
-                      builder: (context) => const RegisterUserByTypePage());
-                } else {
-                  showMaterialModalBottomSheet(
-                      context: context,
-                      builder: (context) => const RegisterUserByTypePage());
-                }
-                break;
-              case OnBoardingRedirectTo.none:
-                break;
-            }
-            onboardingBloc.add(const OnBoardingClearRedirect());
-          },
-          child: Stack(
-            children: const [
-              OnBoardingBackground(),
-              OnBoardingContentPageView(),
-              FixedComponents(),
-            ],
-          ),
+      body: BlocListener<OnBoardingBloc, OnBoardingState>(
+        listenWhen: (previous, current) =>
+            previous.redirectTo != current.redirectTo,
+        listener: (context, state) {
+          Bloc onboardingBloc = context.read<OnBoardingBloc>();
+          switch (state.redirectTo) {
+            case OnBoardingRedirectTo.loginPage:
+              InkerNavigator.push(context, const LoginPage2());
+              break;
+            case OnBoardingRedirectTo.registerPage:
+              if (Platform.isIOS) {
+                CupertinoScaffold.showCupertinoModalBottomSheet(
+                    context: context,
+                    builder: (context) => const RegisterUserByTypePage());
+              } else {
+                showMaterialModalBottomSheet(
+                    context: context,
+                    builder: (context) => const RegisterUserByTypePage());
+              }
+              break;
+            case OnBoardingRedirectTo.none:
+              break;
+          }
+          onboardingBloc.add(const OnBoardingClearRedirect());
+        },
+        child: Stack(
+          children: const [
+            OnBoardingBackground(),
+            OnBoardingContentPageView(),
+            FixedComponents(),
+          ],
         ),
       ),
     );
