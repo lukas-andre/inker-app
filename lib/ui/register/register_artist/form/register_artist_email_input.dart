@@ -5,14 +5,13 @@ import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class RegisterArtistEmailInput extends StatelessWidget {
-  const RegisterArtistEmailInput({
+  RegisterArtistEmailInput({
     Key? key,
   }) : super(key: key);
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
-
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.email.value != current.form.email.value,

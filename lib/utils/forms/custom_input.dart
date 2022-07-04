@@ -27,6 +27,7 @@ class CustomInput extends StatelessWidget {
   final double? verticalPadding;
   final double? horizontalPadding;
   final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
     final horizontalPadding =
@@ -56,13 +57,11 @@ class CustomInput extends StatelessWidget {
                 : null,
             errorStyle: const TextStyle(fontFamily: 'Poppins'),
             contentPadding: inputContentPadding,
-            label: Text(
-              label,
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                  color: Color(0xff777E91),
-                  fontSize: 16,
-                  fontFamily: 'Poppins'),
+            label: Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.003),
+              child:
+                  Text(label, textAlign: TextAlign.left, style: labelTextStyle),
             ),
             filled: true,
             fillColor: inputBackgroundColor,
@@ -76,7 +75,6 @@ class CustomInput extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(
-                  // color: Color(0xff777E91),
                   color: valid == false ? Colors.red : const Color(0xff777E91),
                 )),
           ),
