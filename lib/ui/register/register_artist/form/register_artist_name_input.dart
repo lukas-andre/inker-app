@@ -31,7 +31,7 @@ class RegisterArtistNameInput extends StatelessWidget {
             valid: state.form.firstName.valid || state.form.firstName.pure,
             errorMessage: state.form.firstName.valid
                 ? null
-                : 'Nombre ${state.form.firstName.error?.displayName}',
+                : 'Nombre ${state.form.firstName.error?.message}',
             onChanged: (value) {
               context.read<RegisterArtistBloc>().add(
                     RegisterArtistNameChanged(value),

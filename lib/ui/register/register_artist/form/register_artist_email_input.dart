@@ -24,14 +24,14 @@ class RegisterArtistEmailInput extends StatelessWidget {
                     onTap: () {
                       controller.clear();
                       context.read<RegisterArtistBloc>().add(
-                            const RegisterArtistLastNameChanged(''),
+                            const RegisterArtistEmailChanged(''),
                           );
                     },
                   )
                 : null,
             valid: state.form.email.valid || state.form.email.pure,
             errorMessage:
-                state.form.email.valid ? null : state.form.email.error?.name,
+                state.form.email.valid ? null : state.form.email.error?.message,
             onChanged: (value) {
               context.read<RegisterArtistBloc>().add(
                     RegisterArtistEmailChanged(value),

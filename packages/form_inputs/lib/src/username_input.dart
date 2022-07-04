@@ -5,7 +5,7 @@ enum UsernameValidationError {
   invalid,
   minLength;
 
-  String? get displayName {
+  String? get message {
     switch (this) {
       case UsernameValidationError.empty:
         return 'Nombre artistico no puede estar vacio.';

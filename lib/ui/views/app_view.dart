@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
@@ -24,25 +27,37 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppThemeCubit(context.read())..init(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppThemeCubit(context.read())..init(),
+        ),
+        BlocProvider(
+            create: (context) => AuthBloc(
+                authService: context.read(),
+                logoutUseCase: context.read(),
+                sessionService: context.read())),
+        BlocProvider(
+          create: (context) => OnBoardingBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RegisterArtistBloc(),
+        ),
+      ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
           builder: (context, child) {
-            return BlocProvider(
-              create: (context) => AuthBloc(
-                  authService: context.read(),
-                  logoutUseCase: context.read(),
-                  sessionService: context.read()),
-              child: BlocListener<AuthBloc, AuthState>(
-                  listener: (context, state) async {
-                    await _navigateByAuthStatus(context, state);
-                  },
-                  child: child),
-            );
+            return BlocListener<AuthBloc, AuthState>(
+                listener: (context, state) async {
+                  await _navigateByAuthStatus(context, state);
+                },
+                child: child);
           },
           onGenerateRoute: (_) => SplashPage.route(),
         );
