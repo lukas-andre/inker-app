@@ -204,27 +204,6 @@ class RegisterArtistLayout extends StatelessWidget {
   }
 }
 
-class RegisterArtistPhoneNumberInput extends StatelessWidget {
-  const RegisterArtistPhoneNumberInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      builder: (context, state) {
-        return CustomInput(
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistPhoneNumberChanged(value),
-                  );
-            },
-            label: 'Teléfono');
-      },
-    );
-  }
-}
-
 class RegisterArtistPasswordInput extends StatelessWidget {
   const RegisterArtistPasswordInput({
     Key? key,

@@ -44,7 +44,7 @@ class RegisterArtistEmailChanged extends RegisterArtistEvent {
 }
 
 class RegisterArtistPhoneNumberChanged extends RegisterArtistEvent {
-  final String phoneNumber;
+  final PhoneNumber phoneNumber;
 
   const RegisterArtistPhoneNumberChanged(this.phoneNumber);
 
