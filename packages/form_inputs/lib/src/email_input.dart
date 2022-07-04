@@ -1,6 +1,18 @@
 import 'package:formz/formz.dart' show FormzInput;
 
-enum EmailValidationError { empty, invalid }
+enum EmailValidationError {
+  empty,
+  invalid;
+
+  String get message {
+    switch (this) {
+      case EmailValidationError.empty:
+        return 'El correo no puede estar vacio.';
+      case EmailValidationError.invalid:
+        return 'El correo no es valido.';
+    }
+  }
+}
 
 class EmailInput extends FormzInput<String, EmailValidationError> {
   const EmailInput.pure() : super.pure('');
@@ -8,9 +20,8 @@ class EmailInput extends FormzInput<String, EmailValidationError> {
 
   @override
   EmailValidationError? validator(String? value) {
-    // TODO: improve email validator
-    // https://www.regexpal.com/?fam=104027
-    String namePattern = r'/^([a-z0-9_.+-]+)@([da-z.-]+).([a-z.]{2,6})$/';
+    String namePattern =
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
     RegExp regExp = RegExp(namePattern, caseSensitive: false);
 
     if (value == null || value.isEmpty) {

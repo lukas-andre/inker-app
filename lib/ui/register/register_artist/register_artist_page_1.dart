@@ -21,24 +21,21 @@ class RegisterArtistPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterArtistBloc(),
-      child: Scaffold(
-        body: GestureDetector(
-          onTap: () {
-            final currentFocus = FocusScope.of(context);
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          final currentFocus = FocusScope.of(context);
 
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          child: Stack(
-            children: const [
-              LoginBackground(),
-              RegisterArtistLayout(),
-              RegisterArtistPage1NextButton(),
-            ],
-          ),
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Stack(
+          children: const [
+            LoginBackground(),
+            RegisterArtistLayout(),
+            RegisterArtistPage1NextButton(),
+          ],
         ),
       ),
     );
@@ -65,6 +62,8 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
                   state.form.lastName.valid &&
                   state.form.username.valid) {
                 if (Platform.isIOS) {
+                  // Navigator.of(context).push(MaterialWithModalsPageRoute(
+                  //     builder: (context) => const RegisterArtistPage2()));
                   showCupertinoModalBottomSheet(
                       context: context,
                       builder: (context) => const RegisterArtistPage2());
@@ -201,27 +200,6 @@ class RegisterArtistLayout extends StatelessWidget {
           children: const [RegisterArtistUsernameInput()],
         ),
       ],
-    );
-  }
-}
-
-class RegisterArtistEmailInput extends StatelessWidget {
-  const RegisterArtistEmailInput({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      builder: (context, state) {
-        return CustomInput(
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistEmailChanged(value),
-                  );
-            },
-            label: 'Email');
-      },
     );
   }
 }
