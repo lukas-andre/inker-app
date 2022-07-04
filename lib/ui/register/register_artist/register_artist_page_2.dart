@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_email_input.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_phone_number_input.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage2 extends StatelessWidget {
@@ -34,10 +33,10 @@ class RegisterArtistPage2 extends StatelessWidget {
           }
         },
         child: Stack(
-          children: [
-            const LoginBackground(),
+          children: const [
+            LoginBackground(),
             RegisterArtistPage2Layout(),
-            const RegisterArtistPage2NextButton(),
+            RegisterArtistPage2NextButton(),
           ],
         ),
       ),
@@ -157,11 +156,7 @@ class RegisterActionButton extends StatelessWidget {
 }
 
 class RegisterArtistPage2Layout extends StatelessWidget {
-  RegisterArtistPage2Layout({Key? key}) : super(key: key);
-
-  final TextEditingController controller = TextEditingController();
-  final String initialCountry = 'CL';
-  final PhoneNumber number = PhoneNumber(isoCode: 'CL');
+  const RegisterArtistPage2Layout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -197,114 +192,11 @@ class RegisterArtistPage2Layout extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [RegisterArtistEmailInput()],
+          children: [RegisterArtistEmailInput()],
         ),
-        // Row(
-        //   children: const [RegisterArtistPhoneNumberInput()],
-        // ),
         Row(
           children: [
-            Expanded(
-              child: Container(
-                // padding: EdgeInsets.symmetric(
-                //     horizontal: MediaQuery.of(context).size.width * 0.05,
-                //     vertical: MediaQuery.of(context).size.height * 0.01),
-                padding: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.05,
-                    left: MediaQuery.of(context).size.width * 0.07,
-                    top: MediaQuery.of(context).size.height * 0.01,
-                    bottom: MediaQuery.of(context).size.height * 0.01),
-                child: InternationalPhoneNumberInput(
-                  cursorColor: const Color(0xff777E91),
-                  countries: const ['CL', 'PE', 'AR', 'BR', 'BO', 'MX'],
-                  textStyle: const TextStyle(color: Colors.white),
-                  inputDecoration: InputDecoration(
-                    errorMaxLines: 3,
-                    // errorText: valid == false ? errorMessage : null,
-                    // errorBorder: valid == false
-                    //     ? OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(15),
-                    //         borderSide: const BorderSide(color: Colors.red),
-                    //       )
-                    //     : null,
-                    errorStyle: const TextStyle(fontFamily: 'Poppins'),
-                    contentPadding: inputContentPadding,
-                    label: const Text(
-                      'Teléfono',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color(0xff777E91),
-                          fontSize: 16,
-                          fontFamily: 'Poppins'),
-                    ),
-                    filled: true,
-                    fillColor: inputBackgroundColor,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                          color: Color(0xff777E91), style: BorderStyle.none),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Color(0xff777E91),
-                          // color: valid == false
-                          //     ? Colors.red
-                          //     : const Color(0xff777E91),
-                        )),
-                  ),
-                  onInputChanged: (PhoneNumber number) {
-                    print(number.phoneNumber);
-                  },
-                  onInputValidated: (bool value) {
-                    print(value);
-                  },
-                  selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: const TextStyle(
-                      color: Colors.white, fontFamily: 'Poppins'),
-                  initialValue: number,
-                  textFieldController: controller,
-                  formatInput: false,
-                  keyboardType: const TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  inputBorder: const OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
-                  },
-                  spaceBetweenSelectorAndTextField: 0,
-                  searchBoxDecoration: InputDecoration(
-                    errorMaxLines: 3,
-                    label: const Text(
-                      'Nombre de tu pais',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color(0xff777E91),
-                          fontSize: 16,
-                          fontFamily: 'Poppins'),
-                    ),
-                    filled: true,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    // focusColor: Colors.red,
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                          color: Color(0xff777E91), style: BorderStyle.none),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Color(0xff777E91),
-                        )),
-                  ),
-                ),
-              ),
-            ),
+            RegisterArtistPhoneNumberInput(),
           ],
         ),
         Row(
@@ -318,26 +210,26 @@ class RegisterArtistPage2Layout extends StatelessWidget {
   }
 }
 
-class RegisterArtistPhoneNumberInput extends StatelessWidget {
-  const RegisterArtistPhoneNumberInput({
-    Key? key,
-  }) : super(key: key);
+// class RegisterArtistPhoneNumberInput extends StatelessWidget {
+//   const RegisterArtistPhoneNumberInput({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-      builder: (context, state) {
-        return CustomInput(
-            onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistPhoneNumberChanged(value),
-                  );
-            },
-            label: 'Teléfono');
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+//       builder: (context, state) {
+//         return CustomInput(
+//             onChanged: (value) {
+//               context.read<RegisterArtistBloc>().add(
+//                     RegisterArtistPhoneNumberChanged(value),
+//                   );
+//             },
+//             label: 'Teléfono');
+//       },
+//     );
+//   }
+// }
 
 class RegisterArtistPasswordInput extends StatelessWidget {
   const RegisterArtistPasswordInput({
