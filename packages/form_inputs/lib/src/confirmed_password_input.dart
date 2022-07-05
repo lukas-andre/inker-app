@@ -2,7 +2,18 @@ import 'package:formz/formz.dart';
 
 enum ConfirmedPasswordValidationError {
   invalid,
-  mismatch,
+  mismatch;
+
+  String? get message {
+    switch (this) {
+      case ConfirmedPasswordValidationError.invalid:
+        return 'La contraseña no es valida.';
+      case ConfirmedPasswordValidationError.mismatch:
+        return 'Las contraseñas no coinciden.';
+      default:
+        return null;
+    }
+  }
 }
 
 class ConfirmedPasswordInput

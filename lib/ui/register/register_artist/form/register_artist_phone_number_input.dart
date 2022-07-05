@@ -39,7 +39,7 @@ class RegisterArtistPhoneNumberInput extends StatelessWidget {
             'VE',
             'UY'
           ],
-          suffixIcon: state.form.email.value.isNotEmpty
+          suffixIcon: state.form.phoneNumber.value.phoneNumber.isNotEmpty
               ? ClearInput(
                   onTap: () {
                     controller.clear();

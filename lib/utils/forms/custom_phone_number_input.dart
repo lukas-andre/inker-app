@@ -45,7 +45,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
       contentPadding: inputContentPadding,
       label: Padding(
           padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.003),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.0035),
           child: Text(label, textAlign: TextAlign.left, style: labelTextStyle)),
       filled: true,
       fillColor: inputBackgroundColor,
@@ -62,7 +62,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(
             right: MediaQuery.of(context).size.width * 0.05,
-            left: MediaQuery.of(context).size.width * 0.07,
+            left: MediaQuery.of(context).size.width * 0.06,
             top: MediaQuery.of(context).size.height * 0.01,
             bottom: MediaQuery.of(context).size.height * 0.01),
         child: InternationalPhoneNumberInput(
@@ -75,9 +75,11 @@ class CustomPhoneNumberInput extends StatelessWidget {
           autoValidateMode: AutovalidateMode.disabled,
           keyboardType: const TextInputType.numberWithOptions(
               signed: true, decimal: true),
-          selectorConfig: const SelectorConfig(
-            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-          ),
+          selectorConfig: SelectorConfig(
+              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+              leadingPadding: MediaQuery.of(context).size.height * 0.03,
+              useEmoji: false,
+              setSelectorButtonAsPrefixIcon: true),
           selectorTextStyle: const TextStyle(
               color: Colors.white, fontFamily: 'Poppins', fontSize: 16),
           inputDecoration: inputDecoration,
