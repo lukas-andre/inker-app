@@ -14,6 +14,8 @@ class RegisterArtistPasswordInput extends StatelessWidget {
     return BlocProvider(
       create: (context) => HidePasswordCubit(),
       child: BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+        buildWhen: (previous, current) =>
+            previous.form.password.value != current.form.password.value,
         builder: (context, state) {
           return BlocBuilder<HidePasswordCubit, HidePasswordState>(
             builder: (context, cubit) {

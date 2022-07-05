@@ -10,7 +10,7 @@ class RegisterCustomSubTitle extends StatelessWidget {
     return Expanded(
         child: Container(
             margin: EdgeInsets.fromLTRB(
-                MediaQuery.of(context).size.width * 0.06, 15, 20, 20),
+                MediaQuery.of(context).size.width * 0.06, 5, 20, 20),
             child: Text(
               text,
               textAlign: TextAlign.left,

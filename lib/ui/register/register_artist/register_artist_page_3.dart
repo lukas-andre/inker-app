@@ -53,17 +53,14 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
-          previous.form.email != current.form.email ||
-          previous.form.phoneNumber != current.form.phoneNumber ||
           previous.form.password != current.form.password ||
           previous.form.confirmedPassword != current.form.confirmedPassword,
       builder: (context, state) {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              if (state.form.firstName.valid &&
-                  state.form.lastName.valid &&
-                  state.form.username.valid) {
+              if (state.form.password.valid &&
+                  state.form.confirmedPassword.valid) {
                 if (Platform.isIOS) {
                   showCupertinoModalBottomSheet(
                       context: context,
@@ -129,7 +126,7 @@ class RegisterArtistPage3Layout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Crea tu contraseña 🔐, para poder acceder a Inker',
+              text: 'Crea tu contraseña para poder acceder a Inker 🔐 ',
             )
           ],
         ),

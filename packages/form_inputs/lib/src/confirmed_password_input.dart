@@ -1,13 +1,13 @@
 import 'package:formz/formz.dart';
 
 enum ConfirmedPasswordValidationError {
-  invalid,
+  empty,
   mismatch;
 
   String? get message {
     switch (this) {
-      case ConfirmedPasswordValidationError.invalid:
-        return 'La contraseña no es valida.';
+      case ConfirmedPasswordValidationError.empty:
+        return 'La contraseña no puede estar vacia.';
       case ConfirmedPasswordValidationError.mismatch:
         return 'Las contraseñas no coinciden.';
       default:
@@ -29,7 +29,7 @@ class ConfirmedPasswordInput
   @override
   ConfirmedPasswordValidationError? validator(String value) {
     if (value.isEmpty) {
-      return ConfirmedPasswordValidationError.invalid;
+      return ConfirmedPasswordValidationError.empty;
     }
     return password == value ? null : ConfirmedPasswordValidationError.mismatch;
   }
