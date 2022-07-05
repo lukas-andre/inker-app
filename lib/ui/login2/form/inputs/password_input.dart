@@ -38,8 +38,8 @@ class PasswordInput extends StatelessWidget {
                 onChanged: (value) {
                   context.read<LoginBloc>().add(LoginPasswordChanged(value));
                 },
-                valid: state.password.valid,
-                errorMessage: 'Bad password',
+                // valid: state.password.valid,
+                // errorMessage: 'Bad password',
               );
             },
           );
