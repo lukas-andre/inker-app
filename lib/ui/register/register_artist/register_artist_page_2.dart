@@ -55,9 +55,7 @@ class RegisterArtistPage2NextButton extends StatelessWidget {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.email != current.form.email ||
-          previous.form.phoneNumber != current.form.phoneNumber ||
-          previous.form.password != current.form.password ||
-          previous.form.confirmedPassword != current.form.confirmedPassword,
+          previous.form.phoneNumber != current.form.phoneNumber,
       builder: (context, state) {
         return RegisterActionButton(
             text: 'Siguiente',
@@ -112,7 +110,7 @@ class RegisterArtistPage2Layout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Completa tus datos de contacto empezar a postear',
+              text: 'Completa tus datos de contacto 📞',
             )
           ],
         ),

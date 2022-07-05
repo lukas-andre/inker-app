@@ -73,7 +73,11 @@ class RegisterArtistBloc
   void _mapRegisterArtistPasswordChangedToState(
       Emitter<RegisterArtistState> emit, RegisterArtistPasswordChanged event) {
     final password = PasswordInput.dirty(event.password);
-    emit(state.copyWith(form: state.form.copyWith(password: password)));
+    final confirmedPassword = ConfirmedPasswordInput.dirty(
+        password: event.password, value: state.form.confirmedPassword.value);
+    emit(state.copyWith(
+        form: state.form.copyWith(
+            password: password, confirmedPassword: confirmedPassword)));
   }
 
   void _mapRegisterArtistConfirmedPasswordChangedToState(
