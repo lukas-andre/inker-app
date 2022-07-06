@@ -26,6 +26,13 @@ class HttpClientConfig {
     final finalPath =
         path != null ? urlBasePath : [urlBasePath, path].join('/');
 
-    return Uri.https(_baseUrl, finalPath, queryParams);
+    return Uri.https(urlBasePath, finalPath, queryParams);
+  }
+
+  Uri https(
+      {required String basePath,
+      required String path,
+      Map<String, dynamic>? queryParams}) {
+    return Uri.https(basePath, [basePath, path].join('/'), queryParams);
   }
 }

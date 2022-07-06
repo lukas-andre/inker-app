@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_email_input.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_phone_number_input.dart';
-import 'package:inker_studio/ui/register/register_artist/register_artist_page_3.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_input.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
@@ -15,11 +13,11 @@ import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dar
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RegisterArtistPage2 extends StatelessWidget {
-  const RegisterArtistPage2({Key? key}) : super(key: key);
+class RegisterArtistPage4 extends StatelessWidget {
+  const RegisterArtistPage4({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const RegisterArtistPage2());
+    return MaterialPageRoute<void>(builder: (_) => const RegisterArtistPage4());
   }
 
   @override
@@ -36,8 +34,8 @@ class RegisterArtistPage2 extends StatelessWidget {
         child: Stack(
           children: const [
             LoginBackground(),
-            RegisterArtistPage2Layout(),
-            RegisterArtistPage2NextButton(),
+            RegisterArtistPage4Layout(),
+            RegisterArtistPage4NextButton(),
           ],
         ),
       ),
@@ -45,8 +43,8 @@ class RegisterArtistPage2 extends StatelessWidget {
   }
 }
 
-class RegisterArtistPage2NextButton extends StatelessWidget {
-  const RegisterArtistPage2NextButton({
+class RegisterArtistPage4NextButton extends StatelessWidget {
+  const RegisterArtistPage4NextButton({
     Key? key,
   }) : super(key: key);
 
@@ -54,24 +52,25 @@ class RegisterArtistPage2NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
-          previous.form.email != current.form.email ||
-          previous.form.phoneNumber != current.form.phoneNumber,
+          previous.form.password != current.form.password ||
+          previous.form.confirmedPassword != current.form.confirmedPassword,
       builder: (context, state) {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              if (state.form.email.valid && state.form.phoneNumber.valid) {
+              if (state.form.password.valid &&
+                  state.form.confirmedPassword.valid) {
                 if (Platform.isIOS) {
                   showCupertinoModalBottomSheet(
                       context: context,
-                      builder: (context) => const RegisterArtistPage3());
+                      builder: (context) => const RegisterArtistPage4());
                 } else {
                   showMaterialModalBottomSheet(
                       context: context,
-                      builder: (context) => const RegisterArtistPage3());
+                      builder: (context) => const RegisterArtistPage4());
                 }
                 context.read<RegisterArtistBloc>().add(
-                      const RegisterArtistNextPagePressed(2),
+                      const RegisterArtistNextPagePressed(4),
                     );
               } else {
                 final snackBar = getInvalidFormSnackBar(context);
@@ -83,8 +82,8 @@ class RegisterArtistPage2NextButton extends StatelessWidget {
   }
 }
 
-class RegisterArtistPage2Layout extends StatelessWidget {
-  const RegisterArtistPage2Layout({Key? key}) : super(key: key);
+class RegisterArtistPage4Layout extends StatelessWidget {
+  const RegisterArtistPage4Layout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +100,7 @@ class RegisterArtistPage2Layout extends StatelessWidget {
             return Row(
               children: const [
                 RegisterProgressIndicator(
-                  progress: 2 / 5,
+                  progress: 4 / 5,
                 )
               ],
             );
@@ -110,7 +109,7 @@ class RegisterArtistPage2Layout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Completa tus datos de contacto 📞',
+              text: 'Ingresa la dirección de tu estudio o local',
             )
           ],
         ),
@@ -118,16 +117,11 @@ class RegisterArtistPage2Layout extends StatelessWidget {
           children: const [
             RegisterCustomSubTitle(
                 text:
-                    'Estas a unos pasos de formar parte de esta gran comunidad.')
+                    'De esta forma nuestros usuarios cercanos a ti podran ver tu encontrarte de manera rapida y facil.'),
           ],
         ),
         Row(
-          children: [RegisterArtistEmailInput()],
-        ),
-        Row(
-          children: [
-            RegisterArtistPhoneNumberInput(),
-          ],
+          children: const [RegisterArtistAddressInput()],
         ),
       ],
     );
