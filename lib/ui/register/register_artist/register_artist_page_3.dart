@@ -6,12 +6,13 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_confirm_password_input.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_password_input.dart';
+import 'package:inker_studio/ui/register/register_artist/register_artist_page_4.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
-import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
+import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage3 extends StatelessWidget {
@@ -64,38 +65,22 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
                 if (Platform.isIOS) {
                   showCupertinoModalBottomSheet(
                       context: context,
-                      builder: (context) => const RegisterArtistPage3());
+                      builder: (context) => const RegisterArtistPage4());
                 } else {
                   showMaterialModalBottomSheet(
                       context: context,
-                      builder: (context) => const RegisterArtistPage3());
+                      builder: (context) => const RegisterArtistPage4());
                 }
                 context.read<RegisterArtistBloc>().add(
-                      const RegisterArtistNextPagePressed(1),
+                      const RegisterArtistNextPagePressed(3),
                     );
               } else {
-                final snackBar = _getInvalidFormSnackBar(context);
+                final snackBar = getInvalidFormSnackBar(context);
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             });
       },
     );
-  }
-
-  SnackBar _getInvalidFormSnackBar(context) {
-    return customSnackBar(
-        context: context,
-        onTop: true,
-        content: 'Hay campos invalidos, por favor revisa los campos 🙏',
-        duration: const Duration(seconds: 4),
-        action: SnackBarAction(
-          label: 'Vale 👌',
-          disabledTextColor: Colors.white,
-          textColor: Colors.white,
-          onPressed: () {
-            //Do whatever you want
-          },
-        ));
   }
 }
 
@@ -117,7 +102,7 @@ class RegisterArtistPage3Layout extends StatelessWidget {
             return Row(
               children: const [
                 RegisterProgressIndicator(
-                  progress: 3 / 4,
+                  progress: 3 / 5,
                 )
               ],
             );

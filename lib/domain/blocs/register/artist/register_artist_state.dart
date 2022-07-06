@@ -74,14 +74,18 @@ class RegisterArtistForm extends Equatable with FormzMixin {
 class RegisterArtistState extends Equatable {
   const RegisterArtistState(
       {this.pageIndex = 0,
-      this.initialProgress = 0.4,
+      this.initialProgress = 0.2,
       this.progress = 0.4,
+      this.autoCompleteAddressResult,
+      required this.searchOnChange,
       required this.form});
 
   final int pageIndex;
   final double initialProgress;
   final double progress;
   final RegisterArtistForm form;
+  final BehaviorSubject<String> searchOnChange;
+  final List<Prediction>? autoCompleteAddressResult;
 
   @override
   List<Object> get props => [pageIndex, initialProgress, progress, form];
@@ -94,12 +98,17 @@ class RegisterArtistState extends Equatable {
     double? initialProgress,
     double? progress,
     RegisterArtistForm? form,
+    BehaviorSubject<String>? searchOnChange,
+    List<Prediction>? autoCompleteAddressResult,
   }) {
     return RegisterArtistState(
       pageIndex: pageIndex ?? this.pageIndex,
       initialProgress: initialProgress ?? this.initialProgress,
       progress: progress ?? this.progress,
       form: form ?? this.form,
+      searchOnChange: searchOnChange ?? this.searchOnChange,
+      autoCompleteAddressResult:
+          autoCompleteAddressResult ?? this.autoCompleteAddressResult,
     );
   }
 }
