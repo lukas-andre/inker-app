@@ -86,3 +86,12 @@ class RegisterArtistNextPagePressed extends RegisterArtistEvent {
   @override
   List<Object> get props => [page];
 }
+
+class RegisterArtistAutoCompleteChanged extends RegisterArtistEvent {
+  final List<Prediction> predictions;
+
+  const RegisterArtistAutoCompleteChanged(this.predictions);
+
+  @override
+  List<Object> get props => [predictions];
+}

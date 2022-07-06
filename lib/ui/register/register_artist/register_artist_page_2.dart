@@ -101,7 +101,7 @@ class RegisterArtistPage2Layout extends StatelessWidget {
             return Row(
               children: const [
                 RegisterProgressIndicator(
-                  progress: 2 / 4,
+                  progress: 2 / 5,
                 )
               ],
             );
