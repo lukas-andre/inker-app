@@ -18,7 +18,6 @@ class RegisterArtistButton extends StatelessWidget {
       text: 'Soy artista',
       helper: 'Si eres barbero o tatuador',
       onTap: () {
-        // registerBloc.add(const CreateAccountWithInkerInfoPressed());
         if (Platform.isIOS) {
           showCupertinoModalBottomSheet(
               context: context,
