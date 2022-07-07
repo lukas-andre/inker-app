@@ -16,6 +16,8 @@ import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dar
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+// TODO: TODAS SON IGUALES SOLO CAMBIAN LAS VALIDACIONES, LAS ROWS,
+// EL PROGRESS, Y LOS TITULOS, POR LO QUE SE PUEDE AUTOMATIZAR
 class RegisterArtistPage1 extends StatelessWidget {
   const RegisterArtistPage1({Key? key}) : super(key: key);
 
