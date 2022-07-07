@@ -58,6 +58,9 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
+              showCupertinoModalBottomSheet(
+                  context: context,
+                  builder: (context) => const RegisterArtistPage2());
               if (state.form.firstName.valid &&
                   state.form.lastName.valid &&
                   state.form.username.valid) {
