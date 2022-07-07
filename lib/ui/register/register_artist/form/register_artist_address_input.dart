@@ -36,7 +36,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
             ),
             inputFormatters: [
               FilteringTextInputFormatter.allow(
-                RegExp('[A-Za-z0-9 ]'),
+                RegExp('[A-Za-z0-9 ñÑ]'),
               ),
             ],
             decoration: InputDecoration(
