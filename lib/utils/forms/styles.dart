@@ -19,4 +19,7 @@ OutlineInputBorder focusedBorder = OutlineInputBorder(
     ));
 
 TextStyle labelTextStyle = const TextStyle(
-    color: Color(0xff777E91), fontSize: 16, fontFamily: 'Poppins');
+  color: Color(0xff777E91),
+  fontSize: 16,
+  fontFamily: 'Poppins',
+);

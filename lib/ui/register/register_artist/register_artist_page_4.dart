@@ -10,6 +10,7 @@ import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
+
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -95,16 +96,12 @@ class RegisterArtistPage4Layout extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: const [CloseRegisterButton()],
         ),
-        BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-          builder: (context, state) {
-            return Row(
-              children: const [
-                RegisterProgressIndicator(
-                  progress: 4 / 5,
-                )
-              ],
-            );
-          },
+        Row(
+          children: const [
+            RegisterProgressIndicator(
+              progress: 4 / 5,
+            )
+          ],
         ),
         Row(
           children: const [
@@ -121,8 +118,8 @@ class RegisterArtistPage4Layout extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [RegisterArtistAddressInput()],
-        ),
+          children: [RegisterArtistAddressInput()],
+        )
       ],
     );
   }
