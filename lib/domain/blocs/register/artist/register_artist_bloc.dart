@@ -42,9 +42,6 @@ class RegisterArtistBloc
     on<RegisterArtistNextPagePressed>((event, emit) {
       _mapRegisterArtistNextPagePressedToState(emit, event);
     });
-    on<RegisterArtistAutoCompleteChanged>((event, emit) {
-      _mapRegisterArtistAutoCompleteChangedToState(emit, event);
-    });
   }
 
   void _mapRegisterArtistNameChangedToState(
@@ -111,14 +108,6 @@ class RegisterArtistBloc
       Emitter<RegisterArtistState> emit, RegisterArtistNextPagePressed event) {
     emit(state.copyWith(
       pageIndex: event.page,
-    ));
-  }
-
-  void _mapRegisterArtistAutoCompleteChangedToState(
-      Emitter<RegisterArtistState> emit,
-      RegisterArtistAutoCompleteChanged event) {
-    emit(state.copyWith(
-      autoCompleteAddressResult: event.predictions,
     ));
   }
 }
