@@ -60,6 +60,9 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
+              showCupertinoModalBottomSheet(
+                  context: context,
+                  builder: (context) => const RegisterArtistPage4());
               if (state.form.password.valid &&
                   state.form.confirmedPassword.valid) {
                 if (Platform.isIOS) {
