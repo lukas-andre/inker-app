@@ -4,7 +4,6 @@ import 'package:formz/formz.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
-import 'package:inker_studio/utils/dev.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'register_artist_event.dart';
@@ -15,9 +14,7 @@ class RegisterArtistBloc
   final PlacesService placesService;
 
   RegisterArtistBloc({required this.placesService})
-      : super(RegisterArtistState(
-            form: RegisterArtistForm(),
-            searchOnChange: BehaviorSubject<String>())) {
+      : super(RegisterArtistState(form: RegisterArtistForm())) {
     on<RegisterArtistNameChanged>((event, emit) {
       _mapRegisterArtistNameChangedToState(emit, event);
     });
@@ -48,20 +45,6 @@ class RegisterArtistBloc
     on<RegisterArtistAutoCompleteChanged>((event, emit) {
       _mapRegisterArtistAutoCompleteChangedToState(emit, event);
     });
-
-    state.searchOnChange
-        .debounceTime(const Duration(seconds: 1))
-        .listen(_searchOnChange);
-  }
-
-  void _searchOnChange(queryString) async {
-    dev.log(queryString, 'debounce');
-    if (queryString.isEmpty) {
-    } else {
-      final autoCompleteResult =
-          await placesService.getAutoComplete(queryString);
-      add(RegisterArtistAutoCompleteChanged(autoCompleteResult));
-    }
   }
 
   void _mapRegisterArtistNameChangedToState(
@@ -120,8 +103,6 @@ class RegisterArtistBloc
 
   void _mapRegisterArtistLocationChangedToState(
       Emitter<RegisterArtistState> emit, RegisterArtistLocationChanged event) {
-    state.searchOnChange.add(event.location);
-
     final location = LocationInput.dirty(event.location);
     emit(state.copyWith(form: state.form.copyWith(location: location)));
   }

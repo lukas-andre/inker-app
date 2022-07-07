@@ -71,7 +71,7 @@ class RegisterArtistConfirmedPasswordChanged extends RegisterArtistEvent {
 }
 
 class RegisterArtistLocationChanged extends RegisterArtistEvent {
-  final String location;
+  final Location location;
 
   const RegisterArtistLocationChanged(this.location);
 
