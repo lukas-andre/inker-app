@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'register_artist_event.dart';
 part 'register_artist_state.dart';
@@ -41,6 +39,12 @@ class RegisterArtistBloc
     });
     on<RegisterArtistNextPagePressed>((event, emit) {
       _mapRegisterArtistNextPagePressedToState(emit, event);
+    });
+    on<RegisterArtistAddressTypeChanged>((event, emit) {
+      _mapRegisterArtistAddressTypeChangedToState(emit, event);
+    });
+    on<RegisterArtistAddressExtraChanged>((event, emit) {
+      _mapRegisterArtistAddressExtraChangedToState(emit, event);
     });
   }
 
@@ -108,6 +112,36 @@ class RegisterArtistBloc
       Emitter<RegisterArtistState> emit, RegisterArtistNextPagePressed event) {
     emit(state.copyWith(
       pageIndex: event.page,
+    ));
+  }
+
+  void _mapRegisterArtistAddressTypeChangedToState(
+      Emitter<RegisterArtistState> emit,
+      RegisterArtistAddressTypeChanged event) {
+    final List<AddressTypeOption> addressTypeOptions =
+        List.from(state.addressTypeOption);
+    for (var i = 0; i < state.addressTypeOption.length; i++) {
+      addressTypeOptions[i] = i == event.index
+          ? state.addressTypeOption[i]
+              .copyWith(type: state.addressTypeOption[i].type, isSelected: true)
+          : state.addressTypeOption[i].copyWith(
+              type: state.addressTypeOption[i].type, isSelected: false);
+    }
+    emit(state.copyWith(
+      addressTypeOption: addressTypeOptions,
+    ));
+  }
+
+  void _mapRegisterArtistAddressExtraChangedToState(
+      Emitter<RegisterArtistState> emit,
+      RegisterArtistAddressExtraChanged event) {
+    final addressExtra =
+        AddressExtraInput.dirty(addressType: event.type, value: event.extra);
+
+    emit(state.copyWith(
+      form: state.form.copyWith(
+        addressExtra: addressExtra,
+      ),
     ));
   }
 }
