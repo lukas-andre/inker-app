@@ -10,6 +10,7 @@ class RegisterArtistForm extends Equatable with FormzMixin {
     this.password = const PasswordInput.pure(),
     this.confirmedPassword = const ConfirmedPasswordInput.pure(),
     this.location = const LocationInput.pure(),
+    this.addressExtra = const AddressExtraInput.pure(),
   });
 
   final NameInput firstName;
@@ -20,6 +21,7 @@ class RegisterArtistForm extends Equatable with FormzMixin {
   final PasswordInput password;
   final ConfirmedPasswordInput confirmedPassword;
   final LocationInput location;
+  final AddressExtraInput addressExtra;
 
   @override
   List<FormzInput> get inputs => [
@@ -30,7 +32,8 @@ class RegisterArtistForm extends Equatable with FormzMixin {
         phoneNumber,
         password,
         confirmedPassword,
-        location
+        location,
+        addressExtra
       ];
 
   RegisterArtistForm copyWith({
@@ -42,6 +45,7 @@ class RegisterArtistForm extends Equatable with FormzMixin {
     PasswordInput? password,
     ConfirmedPasswordInput? confirmedPassword,
     LocationInput? location,
+    AddressExtraInput? addressExtra,
   }) {
     return RegisterArtistForm(
       firstName: firstName ?? this.firstName,
@@ -52,6 +56,7 @@ class RegisterArtistForm extends Equatable with FormzMixin {
       password: password ?? this.password,
       confirmedPassword: confirmedPassword ?? this.confirmedPassword,
       location: location ?? this.location,
+      addressExtra: addressExtra ?? this.addressExtra,
     );
   }
 
@@ -64,11 +69,55 @@ class RegisterArtistForm extends Equatable with FormzMixin {
         phoneNumber,
         password,
         confirmedPassword,
-        location
+        location,
+        addressExtra
       ];
 
   @override
   bool get stringify => true;
+}
+
+enum AddressType {
+  house,
+  apartment,
+  none;
+
+  String? get displayName {
+    switch (this) {
+      case AddressType.house:
+        return 'Casa 🏠';
+      case AddressType.apartment:
+        return 'Departamento 🏢';
+      default:
+        return null;
+    }
+  }
+}
+
+class AddressTypeOption extends Equatable {
+  final AddressType type;
+  final bool isSelected;
+
+  const AddressTypeOption({
+    required this.type,
+    required this.isSelected,
+  });
+
+  @override
+  List<Object?> get props => [type, isSelected];
+
+  @override
+  bool get stringify => true;
+
+  AddressTypeOption copyWith({
+    required AddressType type,
+    required bool isSelected,
+  }) {
+    return AddressTypeOption(
+      type: type,
+      isSelected: isSelected,
+    );
+  }
 }
 
 class RegisterArtistState extends Equatable {
@@ -76,15 +125,21 @@ class RegisterArtistState extends Equatable {
       {this.pageIndex = 0,
       this.initialProgress = 0.2,
       this.progress = 0.4,
+      this.addressTypeOption = const [
+        AddressTypeOption(type: AddressType.house, isSelected: true),
+        AddressTypeOption(type: AddressType.apartment, isSelected: false),
+      ],
       required this.form});
 
   final int pageIndex;
   final double initialProgress;
   final double progress;
   final RegisterArtistForm form;
+  final List<AddressTypeOption> addressTypeOption;
 
   @override
-  List<Object> get props => [pageIndex, initialProgress, progress, form];
+  List<Object> get props =>
+      [pageIndex, initialProgress, progress, form, addressTypeOption];
 
   @override
   bool get stringify => true;
@@ -94,14 +149,14 @@ class RegisterArtistState extends Equatable {
     double? initialProgress,
     double? progress,
     RegisterArtistForm? form,
-    BehaviorSubject<String>? searchOnChange,
-    List<Prediction>? autoCompleteAddressResult,
+    List<AddressTypeOption>? addressTypeOption,
   }) {
     return RegisterArtistState(
       pageIndex: pageIndex ?? this.pageIndex,
       initialProgress: initialProgress ?? this.initialProgress,
       progress: progress ?? this.progress,
       form: form ?? this.form,
+      addressTypeOption: addressTypeOption ?? this.addressTypeOption,
     );
   }
 }
