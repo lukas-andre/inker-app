@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_extra_input.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_input.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_type_input.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
@@ -53,14 +55,13 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
-          previous.form.password != current.form.password ||
-          previous.form.confirmedPassword != current.form.confirmedPassword,
+          previous.form.location != current.form.location ||
+          previous.form.addressExtra != current.form.addressExtra,
       builder: (context, state) {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              if (state.form.password.valid &&
-                  state.form.confirmedPassword.valid) {
+              if (state.form.location.valid && state.form.addressExtra.valid) {
                 if (Platform.isIOS) {
                   showCupertinoModalBottomSheet(
                       context: context,
@@ -88,39 +89,71 @@ class RegisterArtistPage4Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const ScrollPhysics(parent: PageScrollPhysics()),
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [CloseRegisterButton()],
-        ),
-        Row(
-          children: const [
-            RegisterProgressIndicator(
-              progress: 4 / 5,
+    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.addressTypeOption != current.addressTypeOption,
+      builder: (context, state) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: const [CloseRegisterButton()],
+            ),
+            Row(
+              children: const [
+                RegisterProgressIndicator(
+                  progress: 4 / 5,
+                )
+              ],
+            ),
+            Row(
+              children: const [
+                RegisterCustomTitle(
+                  text: 'Ingresa la dirección de tu estudio o local',
+                )
+              ],
+            ),
+            Row(
+              children: const [
+                RegisterCustomSubTitle(
+                    text:
+                        'De esta forma nuestros usuarios cercanos a ti podran ver tu encontrarte de manera rapida y facil.'),
+              ],
+            ),
+            Row(
+              children: [RegisterArtistAddressInput()],
+            ),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              switchInCurve: Curves.easeInSine,
+              switchOutCurve: Curves.easeOutSine,
+              child: (state.addressTypeOption
+                              .where((element) => element.isSelected)
+                              .first)
+                          .type ==
+                      AddressType.apartment
+                  ? Row(
+                      children: [
+                        RegisterArtistAddressExtraInput(),
+                      ],
+                    )
+                  : const SizedBox(),
+            ),
+            Row(
+              children: const [
+                RegisterCustomSubTitle(
+                  text: 'Detalle de la dirección',
+                ),
+              ],
+            ),
+            Row(
+              children: const [
+                RegisterArtistAddressTypeInput(),
+              ],
             )
           ],
-        ),
-        Row(
-          children: const [
-            RegisterCustomTitle(
-              text: 'Ingresa la dirección de tu estudio o local',
-            )
-          ],
-        ),
-        Row(
-          children: const [
-            RegisterCustomSubTitle(
-                text:
-                    'De esta forma nuestros usuarios cercanos a ti podran ver tu encontrarte de manera rapida y facil.'),
-          ],
-        ),
-        Row(
-          children: [RegisterArtistAddressInput()],
-        )
-      ],
+        );
+      },
     );
   }
 }

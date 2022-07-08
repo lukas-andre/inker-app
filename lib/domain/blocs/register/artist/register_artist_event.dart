@@ -86,3 +86,20 @@ class RegisterArtistNextPagePressed extends RegisterArtistEvent {
   @override
   List<Object> get props => [page];
 }
+
+class RegisterArtistAddressTypeChanged extends RegisterArtistEvent {
+  final int index;
+  const RegisterArtistAddressTypeChanged(this.index);
+
+  @override
+  List<Object> get props => [index];
+}
+
+class RegisterArtistAddressExtraChanged extends RegisterArtistEvent {
+  final String extra;
+  final AddressType type;
+  const RegisterArtistAddressExtraChanged(this.extra, this.type);
+
+  @override
+  List<Object> get props => [extra];
+}
