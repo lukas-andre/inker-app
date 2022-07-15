@@ -60,9 +60,9 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              showCupertinoModalBottomSheet(
-                  context: context,
-                  builder: (context) => const RegisterArtistPage2());
+              // showCupertinoModalBottomSheet(
+              //     context: context,
+              //     builder: (context) => const RegisterArtistPage2());
               if (state.form.firstName.valid &&
                   state.form.lastName.valid &&
                   state.form.username.valid) {
@@ -99,16 +99,12 @@ class RegisterArtistLayout extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: const [CloseRegisterButton()],
         ),
-        BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-          builder: (context, state) {
-            return Row(
-              children: [
-                RegisterProgressIndicator(
-                  progress: state.initialProgress,
-                )
-              ],
-            );
-          },
+        Row(
+          children: const [
+            RegisterProgressIndicator(
+              progress: 1 / 5,
+            )
+          ],
         ),
         Row(
           children: const [
@@ -125,13 +121,13 @@ class RegisterArtistLayout extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [RegisterArtistNameInput()],
+          children: [RegisterArtistNameInput()],
         ),
         Row(
-          children: const [RegisterArtistLastNameInput()],
+          children: [RegisterArtistLastNameInput()],
         ),
         Row(
-          children: const [RegisterArtistUsernameInput()],
+          children: [RegisterArtistUsernameInput()],
         ),
       ],
     );

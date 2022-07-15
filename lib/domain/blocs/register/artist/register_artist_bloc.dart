@@ -2,7 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
+import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
+import 'package:inker_studio/domain/errors/remote/un_processable_exception.dart';
+import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
+import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
+import 'package:inker_studio/utils/dev.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'register_artist_event.dart';
 part 'register_artist_state.dart';
@@ -10,42 +18,39 @@ part 'register_artist_state.dart';
 class RegisterArtistBloc
     extends Bloc<RegisterArtistEvent, RegisterArtistState> {
   final PlacesService placesService;
+  final CreateUserUseCase _createUserUseCase;
 
-  RegisterArtistBloc({required this.placesService})
-      : super(RegisterArtistState(form: RegisterArtistForm())) {
-    on<RegisterArtistNameChanged>((event, emit) {
-      _mapRegisterArtistNameChangedToState(emit, event);
-    });
-    on<RegisterArtistLastNameChanged>((event, emit) {
-      _mapRegisterArtistLastNameChangedToState(emit, event);
-    });
-    on<RegisterArtistUsernameChanged>((event, emit) {
-      _mapRegisterArtistUsernameChangedToState(emit, event);
-    });
-    on<RegisterArtistEmailChanged>((event, emit) {
-      _mapRegisterArtistEmailChangedToState(emit, event);
-    });
-    on<RegisterArtistPhoneNumberChanged>((event, emit) {
-      _mapRegisterArtistPhoneNumberChangedToState(emit, event);
-    });
-    on<RegisterArtistPasswordChanged>((event, emit) {
-      _mapRegisterArtistPasswordChangedToState(emit, event);
-    });
-    on<RegisterArtistConfirmedPasswordChanged>((event, emit) {
-      _mapRegisterArtistConfirmedPasswordChangedToState(emit, event);
-    });
-    on<RegisterArtistLocationChanged>((event, emit) {
-      _mapRegisterArtistLocationChangedToState(emit, event);
-    });
-    on<RegisterArtistNextPagePressed>((event, emit) {
-      _mapRegisterArtistNextPagePressedToState(emit, event);
-    });
-    on<RegisterArtistAddressTypeChanged>((event, emit) {
-      _mapRegisterArtistAddressTypeChangedToState(emit, event);
-    });
-    on<RegisterArtistAddressExtraChanged>((event, emit) {
-      _mapRegisterArtistAddressExtraChangedToState(emit, event);
-    });
+  RegisterArtistBloc(
+      {required this.placesService,
+      required CreateUserUseCase createUserUseCase})
+      : _createUserUseCase = createUserUseCase,
+        super(RegisterArtistState(form: RegisterArtistForm())) {
+    on<RegisterArtistNameChanged>(
+        (event, emit) => _mapRegisterArtistNameChangedToState(emit, event));
+    on<RegisterArtistLastNameChanged>(
+        (event, emit) => _mapRegisterArtistLastNameChangedToState(emit, event));
+    on<RegisterArtistUsernameChanged>(
+        (event, emit) => _mapRegisterArtistUsernameChangedToState(emit, event));
+    on<RegisterArtistEmailChanged>(
+        (event, emit) => _mapRegisterArtistEmailChangedToState(emit, event));
+    on<RegisterArtistPhoneNumberChanged>((event, emit) =>
+        _mapRegisterArtistPhoneNumberChangedToState(emit, event));
+    on<RegisterArtistPasswordChanged>(
+        (event, emit) => _mapRegisterArtistPasswordChangedToState(emit, event));
+    on<RegisterArtistConfirmedPasswordChanged>((event, emit) =>
+        _mapRegisterArtistConfirmedPasswordChangedToState(emit, event));
+    on<RegisterArtistLocationChanged>(
+        (event, emit) => _mapRegisterArtistLocationChangedToState(emit, event));
+    on<RegisterArtistNextPagePressed>(
+        (event, emit) => _mapRegisterArtistNextPagePressedToState(emit, event));
+    on<RegisterArtistAddressTypeChanged>((event, emit) =>
+        _mapRegisterArtistAddressTypeChangedToState(emit, event));
+    on<RegisterArtistAddressExtraChanged>((event, emit) =>
+        _mapRegisterArtistAddressExtraChangedToState(emit, event));
+    on<RegisterArtistRegisterPressed>(
+        (event, emit) => _mapRegisterArtistRegisterPressedToState(emit, event));
+    on<RegisterArtistClearState>(
+        (event, emit) => _mapRegisterArtistClearStateToState(emit, event));
   }
 
   void _mapRegisterArtistNameChangedToState(
@@ -143,5 +148,48 @@ class RegisterArtistBloc
         addressExtra: addressExtra,
       ),
     ));
+  }
+
+  Future<void> _mapRegisterArtistRegisterPressedToState(
+      Emitter<RegisterArtistState> emit,
+      RegisterArtistRegisterPressed event) async {
+    emit(state.copyWith(
+      registerState: RegisterState.submitted,
+    ));
+    String? errorMessage;
+    try {
+      final response =
+          await _createUserUseCase.execute(state, UserTypeEnum.artist);
+      dev.log('response: $response', 'RegisterArtistBloc');
+      emit(state.copyWith(
+        registerState: RegisterState.ok,
+      ));
+    } on DetailsNotFound {
+      errorMessage = 'We have problems registering your address. 😔';
+    } on BadRequest catch (e) {
+      if (e is ArtistAlreadyExistsException) {
+        errorMessage = 'This artist already exists. 😔';
+      } else if (e is UserAlreadyExistsException) {
+        errorMessage = 'This user already exists. 😔';
+      } else {
+        errorMessage = 'We have problems registering your account. 😔';
+      }
+    } on UnprocessableEntity {
+      errorMessage = 'We have problems creating your account. 😔';
+    } catch (e) {
+      errorMessage = 'We have problems creating your account.😔';
+    }
+
+    if (errorMessage != null && state.registerState != RegisterState.ok) {
+      emit(state.copyWith(
+        registerState: RegisterState.error,
+        errorMessage: errorMessage,
+      ));
+    }
+  }
+
+  _mapRegisterArtistClearStateToState(
+      Emitter<RegisterArtistState> emit, RegisterArtistClearState event) {
+    emit(state.copyWith(registerState: RegisterState.initial));
   }
 }

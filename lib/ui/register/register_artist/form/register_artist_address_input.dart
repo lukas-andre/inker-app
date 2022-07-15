@@ -19,6 +19,13 @@ class RegisterArtistAddressInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _typeAheadController.text = context
+        .read<RegisterArtistBloc>()
+        .state
+        .form
+        .location
+        .value
+        .description;
     return Expanded(
         child: Container(
       padding: EdgeInsets.symmetric(

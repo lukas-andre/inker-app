@@ -5,19 +5,21 @@ import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class RegisterArtistUsernameInput extends StatelessWidget {
-  const RegisterArtistUsernameInput({
+  RegisterArtistUsernameInput({
     Key? key,
   }) : super(key: key);
+  final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
+    _texEditingController.text =
+        context.read<RegisterArtistBloc>().state.form.username.value;
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.username.value != current.form.username.value,
       builder: (context, state) {
         return CustomInput(
-            controller: controller,
+            controller: _texEditingController,
             valid: state.form.username.valid || state.form.username.pure,
             errorMessage: state.form.username.valid
                 ? null
@@ -25,7 +27,7 @@ class RegisterArtistUsernameInput extends StatelessWidget {
             suffixIcon: state.form.username.value.isNotEmpty
                 ? ClearInput(
                     onTap: () {
-                      controller.clear();
+                      _texEditingController.clear();
                       context.read<RegisterArtistBloc>().add(
                             const RegisterArtistUsernameChanged(''),
                           );

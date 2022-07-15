@@ -7,11 +7,19 @@ import 'package:inker_studio/utils/forms/custom_phone_number_input.dart';
 
 class RegisterArtistPhoneNumberInput extends StatelessWidget {
   RegisterArtistPhoneNumberInput({Key? key}) : super(key: key);
-
-  final TextEditingController controller = TextEditingController();
+  final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final phoneNumber =
+        context.read<RegisterArtistBloc>().state.form.phoneNumber;
+
+    if (phoneNumber.value.phoneNumber.isNotEmpty) {
+      String rawPhoneNumber =
+          phoneNumber.value.phoneNumber.split(phoneNumber.value.dialCode).last;
+      _texEditingController.text = rawPhoneNumber;
+    }
+
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.phoneNumber.value != current.form.phoneNumber.value,
@@ -27,7 +35,7 @@ class RegisterArtistPhoneNumberInput extends StatelessWidget {
                       isoCode: number.isoCode!)),
                 );
           },
-          controller: controller,
+          controller: _texEditingController,
           countries: const [
             'CL',
             'AR',
@@ -42,7 +50,7 @@ class RegisterArtistPhoneNumberInput extends StatelessWidget {
           suffixIcon: state.form.phoneNumber.value.phoneNumber.isNotEmpty
               ? ClearInput(
                   onTap: () {
-                    controller.clear();
+                    _texEditingController.clear();
                     context.read<RegisterArtistBloc>().add(
                           const RegisterArtistPhoneNumberChanged(PhoneNumber(
                               dialCode: '', phoneNumber: '', isoCode: '')),

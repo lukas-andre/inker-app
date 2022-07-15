@@ -78,16 +78,30 @@ class RegisterArtistForm extends Equatable with FormzMixin {
 }
 
 enum AddressType {
-  house,
+  @JsonValue('HOME')
+  home,
+  @JsonValue('DEPARTMENT')
   apartment,
+  @JsonValue('OFFICE')
+  office,
+  @JsonValue('STUDIO')
+  studio,
+  @JsonValue('OTHER')
+  other,
   none;
 
   String? get displayName {
     switch (this) {
-      case AddressType.house:
+      case AddressType.home:
         return 'Casa 🏠';
       case AddressType.apartment:
         return 'Departamento 🏢';
+      case AddressType.office:
+        return 'Oficina 🏢';
+      case AddressType.studio:
+        return 'Estudio 🏢';
+      case AddressType.other:
+        return 'Otro 🏢';
       default:
         return null;
     }
@@ -120,15 +134,24 @@ class AddressTypeOption extends Equatable {
   }
 }
 
+enum RegisterState {
+  initial,
+  submitted,
+  ok,
+  error,
+}
+
 class RegisterArtistState extends Equatable {
   const RegisterArtistState(
       {this.pageIndex = 0,
       this.initialProgress = 0.2,
       this.progress = 0.4,
       this.addressTypeOption = const [
-        AddressTypeOption(type: AddressType.house, isSelected: true),
+        AddressTypeOption(type: AddressType.home, isSelected: true),
         AddressTypeOption(type: AddressType.apartment, isSelected: false),
       ],
+      this.registerState = RegisterState.initial,
+      this.errorMessage,
       required this.form});
 
   final int pageIndex;
@@ -136,13 +159,25 @@ class RegisterArtistState extends Equatable {
   final double progress;
   final RegisterArtistForm form;
   final List<AddressTypeOption> addressTypeOption;
+  final RegisterState registerState;
+  final String? errorMessage;
 
   @override
-  List<Object> get props =>
-      [pageIndex, initialProgress, progress, form, addressTypeOption];
+  List<Object?> get props => [
+        pageIndex,
+        initialProgress,
+        progress,
+        form,
+        addressTypeOption,
+        registerState,
+        errorMessage
+      ];
 
   @override
   bool get stringify => true;
+
+  AddressType get addressType =>
+      addressTypeOption.firstWhere((option) => option.isSelected).type;
 
   RegisterArtistState copyWith({
     int? pageIndex,
@@ -150,6 +185,8 @@ class RegisterArtistState extends Equatable {
     double? progress,
     RegisterArtistForm? form,
     List<AddressTypeOption>? addressTypeOption,
+    RegisterState? registerState,
+    String? errorMessage,
   }) {
     return RegisterArtistState(
       pageIndex: pageIndex ?? this.pageIndex,
@@ -157,6 +194,8 @@ class RegisterArtistState extends Equatable {
       progress: progress ?? this.progress,
       form: form ?? this.form,
       addressTypeOption: addressTypeOption ?? this.addressTypeOption,
+      registerState: registerState ?? this.registerState,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
