@@ -103,3 +103,17 @@ class RegisterArtistAddressExtraChanged extends RegisterArtistEvent {
   @override
   List<Object> get props => [extra];
 }
+
+class RegisterArtistRegisterPressed extends RegisterArtistEvent {
+  const RegisterArtistRegisterPressed();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterArtistClearState extends RegisterArtistEvent {
+  const RegisterArtistClearState();
+
+  @override
+  List<Object> get props => [];
+}

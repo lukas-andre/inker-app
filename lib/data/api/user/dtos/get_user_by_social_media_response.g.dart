@@ -6,8 +6,7 @@ part of 'get_user_by_social_media_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetUserBySocialMediaResponse _$GetUserBySocialMediaResponseFromJson(
-        Map<String, dynamic> json) =>
+GetUserBySocialMediaResponse _$GetUserBySocialMediaResponseFromJson(Map json) =>
     GetUserBySocialMediaResponse(
       email: json['email'] as String,
       username: json['username'] as String,

@@ -66,6 +66,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
             top: MediaQuery.of(context).size.height * 0.01,
             bottom: MediaQuery.of(context).size.height * 0.01),
         child: InternationalPhoneNumberInput(
+          formatInput: true,
           initialValue: number ?? PhoneNumber(isoCode: 'CL'),
           countries: countries ?? ['CL'],
           cursorColor: const Color(0xff777E91),

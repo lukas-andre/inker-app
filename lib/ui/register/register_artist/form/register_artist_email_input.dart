@@ -8,20 +8,22 @@ class RegisterArtistEmailInput extends StatelessWidget {
   RegisterArtistEmailInput({
     Key? key,
   }) : super(key: key);
-  final controller = TextEditingController();
+  final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _texEditingController.text =
+        context.read<RegisterArtistBloc>().state.form.email.value;
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.email.value != current.form.email.value,
       builder: (context, state) {
         return CustomInput(
-            controller: controller,
+            controller: _texEditingController,
             suffixIcon: state.form.email.value.isNotEmpty
                 ? ClearInput(
                     onTap: () {
-                      controller.clear();
+                      _texEditingController.clear();
                       context.read<RegisterArtistBloc>().add(
                             const RegisterArtistEmailChanged(''),
                           );
