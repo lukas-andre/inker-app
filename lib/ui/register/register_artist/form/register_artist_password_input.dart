@@ -5,12 +5,15 @@ import 'package:inker_studio/domain/cubits/login/hide_password_cubit.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class RegisterArtistPasswordInput extends StatelessWidget {
-  const RegisterArtistPasswordInput({
+  RegisterArtistPasswordInput({
     Key? key,
   }) : super(key: key);
+  final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _texEditingController.text =
+        context.read<RegisterArtistBloc>().state.form.password.value;
     return BlocProvider(
       create: (context) => HidePasswordCubit(),
       child: BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
@@ -20,6 +23,7 @@ class RegisterArtistPasswordInput extends StatelessWidget {
           return BlocBuilder<HidePasswordCubit, HidePasswordState>(
             builder: (context, cubit) {
               return CustomInput(
+                  controller: _texEditingController,
                   obscureText: cubit is HidePasswordVisible ? false : true,
                   onChanged: (value) {
                     context.read<RegisterArtistBloc>().add(

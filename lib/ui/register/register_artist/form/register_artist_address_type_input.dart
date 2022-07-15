@@ -25,8 +25,7 @@ class RegisterArtistAddressTypeInput extends StatelessWidget {
                   previous.addressTypeOption != current.addressTypeOption,
               builder: (context, state) => GestureDetector(
                 onTap: () {
-                  if (state.addressTypeOption[index].type ==
-                      AddressType.house) {
+                  if (state.addressTypeOption[index].type == AddressType.home) {
                     context.read<RegisterArtistBloc>().add(
                           RegisterArtistAddressExtraChanged(
                               '', state.addressTypeOption[index].type),

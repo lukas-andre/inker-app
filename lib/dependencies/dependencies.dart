@@ -20,6 +20,7 @@ import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/logout_usecase.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
+import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
 
 List<RepositoryProvider> buildProviders() {
   return [
@@ -51,5 +52,9 @@ List<RepositoryProvider> buildProviders() {
         create: (context) => CreateCustomerUseCase(
             httpCustomerService: context.read(),
             localCustomerService: context.read())),
+    RepositoryProvider<CreateUserUseCase>(
+      create: (context) => CreateUserUseCase(
+          gcpPlacesService: context.read(), userService: context.read()),
+    ),
   ];
 }

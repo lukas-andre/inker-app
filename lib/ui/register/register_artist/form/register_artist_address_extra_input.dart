@@ -13,7 +13,7 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
   RegisterArtistAddressExtraInput({
     Key? key,
   }) : super(key: key);
-  final TextEditingController controller = TextEditingController();
+  final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
           previous.form.addressExtra.value != current.form.addressExtra.value,
       builder: (context, state) {
         return CustomInput(
-            controller: controller,
+            controller: _texEditingController,
             suffixIcon: state.form.email.value.isNotEmpty
                 ? ClearInput(
                     onTap: () {
-                      controller.clear();
+                      _texEditingController.clear();
                       context.read<RegisterArtistBloc>().add(
                             const RegisterArtistEmailChanged(''),
                           );

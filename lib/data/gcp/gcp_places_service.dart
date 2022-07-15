@@ -1,5 +1,6 @@
 import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
+import 'package:inker_studio/data/gcp/dto/place_details_response.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
@@ -80,8 +81,34 @@ class GcpPlacesService implements PlacesService {
   }
 
   @override
-  Future getPlaceDetails(String id) {
-    // TODO: implement getPlaceDetails
-    throw UnimplementedError();
+  Future<PlaceDetailsResult?> getPlaceDetails(String id) async {
+    final uri =
+        Uri.https('maps.googleapis.com', '/maps/api/place/details/json', {
+      'key': apiKey,
+      'language': lang,
+      'fields': 'formatted_address,name,geometry,address_component',
+      'sessiontoken': sessionToken,
+      'place_id': id,
+    });
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final details = PlaceDetailsResponse.fromRawJson(response.body);
+      if (details.status == 'OK') {
+        return details.result;
+      }
+
+      if (details.status == 'ZERO_RESULTS') {
+        return null;
+      }
+
+      if (details.status == 'REQUEST_DENIED') {
+        throw Exception('Invalid API key');
+      }
+
+      throw Exception('Error getting auto complete results');
+    }
+    throw Exception('Error getting auto complete results');
   }
 }
