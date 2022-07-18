@@ -26,6 +26,7 @@ class RegisterArtistPage4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           final currentFocus = FocusScope.of(context);
@@ -170,11 +171,7 @@ class RegisterArtistPage4Layout extends StatelessWidget {
               duration: const Duration(milliseconds: 500),
               switchInCurve: Curves.easeInSine,
               switchOutCurve: Curves.easeOutSine,
-              child: (state.addressTypeOption
-                              .where((element) => element.isSelected)
-                              .first)
-                          .type ==
-                      AddressType.apartment
+              child: state.addressType == AddressType.apartment
                   ? Row(
                       children: [
                         RegisterArtistAddressExtraInput(),

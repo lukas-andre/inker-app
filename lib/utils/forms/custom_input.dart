@@ -17,6 +17,7 @@ class CustomInput extends StatelessWidget {
       this.controller,
       this.withFlex = true,
       this.focusNode,
+      this.keyboardType,
       this.onTap})
       : super(key: key);
 
@@ -32,6 +33,7 @@ class CustomInput extends StatelessWidget {
   final TextEditingController? controller;
   final bool withFlex;
   final FocusNode? focusNode;
+  final TextInputType? keyboardType;
   final void Function()? onTap;
 
   @override
@@ -54,6 +56,7 @@ class CustomInput extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding, vertical: verticalPadding),
       child: TextField(
+        keyboardType: keyboardType,
         focusNode: focusNode,
         onTap: onTap,
         controller: controller,

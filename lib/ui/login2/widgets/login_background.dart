@@ -11,7 +11,10 @@ class LoginBackground extends StatelessWidget {
       children: [
         Expanded(
             child: Container(
-          color: const Color(0xff141D3C),
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xff141D3C), width: 3),
+              color: const Color(0xff141D3C)),
+          // color: const Color(0xff141D3C),
         ))
       ],
     );

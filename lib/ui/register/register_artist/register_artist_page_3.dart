@@ -25,6 +25,7 @@ class RegisterArtistPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           final currentFocus = FocusScope.of(context);

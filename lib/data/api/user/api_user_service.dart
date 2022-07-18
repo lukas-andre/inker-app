@@ -70,7 +70,7 @@ class ApiUserService extends UserService {
 
   @override
   Future<CreateUserResponse> create(CreateUserRequest user) async {
-    final url = _httpConfig.url(basePath: 'users');
+    final url = _httpConfig.surl(basePath: 'users');
     final body = createUserRequestToJson(user);
     try {
       final response =
