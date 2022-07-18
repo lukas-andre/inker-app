@@ -99,16 +99,12 @@ class RegisterArtistPage2Layout extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: const [CloseRegisterButton()],
         ),
-        BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-          builder: (context, state) {
-            return Row(
-              children: const [
-                RegisterProgressIndicator(
-                  progress: 2 / 5,
-                )
-              ],
-            );
-          },
+        Row(
+          children: const [
+            RegisterProgressIndicator(
+              progress: 2 / 5,
+            )
+          ],
         ),
         Row(
           children: const [

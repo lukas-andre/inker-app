@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
@@ -19,7 +20,8 @@ class RegisterArtistBloc
     extends Bloc<RegisterArtistEvent, RegisterArtistState> {
   final PlacesService placesService;
   final CreateUserUseCase _createUserUseCase;
-
+  final ScrollController _scrollController =
+      ScrollController(keepScrollOffset: false);
   RegisterArtistBloc(
       {required this.placesService,
       required CreateUserUseCase createUserUseCase})
@@ -51,7 +53,19 @@ class RegisterArtistBloc
         (event, emit) => _mapRegisterArtistRegisterPressedToState(emit, event));
     on<RegisterArtistClearState>(
         (event, emit) => _mapRegisterArtistClearStateToState(emit, event));
+    on<RegisterArtistClearPartialForm>((event, emit) =>
+        _mapRegisterArtistClearPartialFormToState(emit, event));
   }
+
+  final FocusNode _nameNode = FocusNode();
+  final FocusNode _lastNameNode = FocusNode();
+  final FocusNode _usernameNode = FocusNode();
+
+  FocusNode get nameFocusNode => _nameNode;
+  FocusNode get lastNameFocusNode => _lastNameNode;
+  FocusNode get usernameFocusNode => _usernameNode;
+
+  ScrollController get scrollController => _scrollController;
 
   void _mapRegisterArtistNameChangedToState(
       Emitter<RegisterArtistState> emit, RegisterArtistNameChanged event) {
@@ -118,6 +132,9 @@ class RegisterArtistBloc
     emit(state.copyWith(
       pageIndex: event.page,
     ));
+    if (event.page == 1) {
+      emit(state.copyWith(partialFormStatus: PartialFormStatus.submitted));
+    }
   }
 
   void _mapRegisterArtistAddressTypeChangedToState(
@@ -191,5 +208,12 @@ class RegisterArtistBloc
   _mapRegisterArtistClearStateToState(
       Emitter<RegisterArtistState> emit, RegisterArtistClearState event) {
     emit(state.copyWith(registerState: RegisterState.initial));
+  }
+
+  _mapRegisterArtistClearPartialFormToState(
+      Emitter<RegisterArtistState> emit, RegisterArtistClearPartialForm event) {
+    emit(state.copyWith(
+      partialFormStatus: PartialFormStatus.initial,
+    ));
   }
 }

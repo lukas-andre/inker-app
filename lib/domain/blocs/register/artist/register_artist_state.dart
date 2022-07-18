@@ -141,6 +141,13 @@ enum RegisterState {
   error,
 }
 
+enum PartialFormStatus {
+  initial,
+  submitted,
+  ok,
+  error,
+}
+
 class RegisterArtistState extends Equatable {
   const RegisterArtistState(
       {this.pageIndex = 0,
@@ -151,6 +158,7 @@ class RegisterArtistState extends Equatable {
         AddressTypeOption(type: AddressType.apartment, isSelected: false),
       ],
       this.registerState = RegisterState.initial,
+      this.partialFormStatus = PartialFormStatus.initial,
       this.errorMessage,
       required this.form});
 
@@ -161,6 +169,7 @@ class RegisterArtistState extends Equatable {
   final List<AddressTypeOption> addressTypeOption;
   final RegisterState registerState;
   final String? errorMessage;
+  final PartialFormStatus partialFormStatus;
 
   @override
   List<Object?> get props => [
@@ -170,7 +179,8 @@ class RegisterArtistState extends Equatable {
         form,
         addressTypeOption,
         registerState,
-        errorMessage
+        errorMessage,
+        partialFormStatus
       ];
 
   @override
@@ -187,6 +197,7 @@ class RegisterArtistState extends Equatable {
     List<AddressTypeOption>? addressTypeOption,
     RegisterState? registerState,
     String? errorMessage,
+    PartialFormStatus? partialFormStatus,
   }) {
     return RegisterArtistState(
       pageIndex: pageIndex ?? this.pageIndex,
@@ -196,6 +207,7 @@ class RegisterArtistState extends Equatable {
       addressTypeOption: addressTypeOption ?? this.addressTypeOption,
       registerState: registerState ?? this.registerState,
       errorMessage: errorMessage ?? this.errorMessage,
+      partialFormStatus: partialFormStatus ?? this.partialFormStatus,
     );
   }
 }
