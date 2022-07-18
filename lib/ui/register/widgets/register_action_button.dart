@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterActionButton extends StatelessWidget {
@@ -22,17 +21,16 @@ class RegisterActionButton extends StatelessWidget {
             child: SizedBox(
               height: 40,
               width: MediaQuery.of(context).size.width * 0.85,
-              child: const Center(
-                child: CupertinoActivityIndicator(),
-                // child: Text(
-                //   text,
-                //   textAlign: TextAlign.center,
-                //   style: const TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 16,
-                //       fontFamily: 'Poppins',
-                //       fontWeight: FontWeight.w400),
-                // ),
+              child: Center(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ),
             style: ButtonStyle(

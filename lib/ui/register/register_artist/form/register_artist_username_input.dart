@@ -12,13 +12,16 @@ class RegisterArtistUsernameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _texEditingController.text =
-        context.read<RegisterArtistBloc>().state.form.username.value;
+    final bloc = context.read<RegisterArtistBloc>();
+    _texEditingController.text = bloc.state.form.username.value;
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.username.value != current.form.username.value,
       builder: (context, state) {
         return CustomInput(
+            verticalPadding: 0,
+            focusNode: bloc.usernameFocusNode,
+            withFlex: false,
             controller: _texEditingController,
             valid: state.form.username.valid || state.form.username.pure,
             errorMessage: state.form.username.valid

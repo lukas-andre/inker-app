@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_1.dart';
 import 'package:inker_studio/ui/register/register_user_by_type_page.dart';
 import 'package:inker_studio/ui/register/widgets/register_user_by_type_button.dart';
@@ -13,7 +11,6 @@ class RegisterArtistButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Bloc registerBloc = context.read<RegisterBloc>();
     return RegisterUserByTypeButton(
       text: 'Soy artista',
       helper: 'Si eres barbero o tatuador',

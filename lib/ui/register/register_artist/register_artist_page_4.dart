@@ -11,6 +11,7 @@ import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
+import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
@@ -80,6 +81,8 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.registerState.index != current.registerState.index,
         builder: (context, state) {
+          dev.log('RegisterArtistPage4NextButton state: $state',
+              'RegisterArtistPage4NextButton');
           if (state.registerState == RegisterState.submitted) {
             return const CupertinoActivityIndicator(
               color: CupertinoColors.systemGrey,
