@@ -89,39 +89,6 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
                 );
           },
         ));
-    // return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
-    //   buildWhen: (previous, current) =>
-    //       previous.form.firstName != current.form.firstName ||
-    //       previous.form.lastName != current.form.lastName ||
-    //       previous.form.username != current.form.username,
-    //   builder: (context, state) {
-    //     return RegisterActionButton(
-    //         text: 'Siguiente',
-    //         onPressed: () {
-    //           nextButtonPressed(state, context);
-    //         });
-    //   },
-    // );
-  }
-}
-
-void nextButtonPressed(RegisterArtistState state, BuildContext context) {
-  if (state.form.firstName.valid &&
-      state.form.lastName.valid &&
-      state.form.username.valid) {
-    if (Platform.isIOS) {
-      showCupertinoModalBottomSheet(
-          context: context, builder: (context) => const RegisterArtistPage2());
-    } else {
-      showMaterialModalBottomSheet(
-          context: context, builder: (context) => const RegisterArtistPage2());
-    }
-    context.read<RegisterArtistBloc>().add(
-          const RegisterArtistNextPagePressed(1),
-        );
-  } else {
-    final snackBar = getInvalidFormSnackBar(context);
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 

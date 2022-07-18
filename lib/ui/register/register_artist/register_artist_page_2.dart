@@ -25,6 +25,7 @@ class RegisterArtistPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           final currentFocus = FocusScope.of(context);
@@ -60,9 +61,6 @@ class RegisterArtistPage2NextButton extends StatelessWidget {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              // showCupertinoModalBottomSheet(
-              //     context: context,
-              //     builder: (context) => const RegisterArtistPage3());
               if (state.form.email.valid && state.form.phoneNumber.valid) {
                 if (Platform.isIOS) {
                   showCupertinoModalBottomSheet(
