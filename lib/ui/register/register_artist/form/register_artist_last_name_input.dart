@@ -12,13 +12,17 @@ class RegisterArtistLastNameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _texEditingController.text =
-        context.read<RegisterArtistBloc>().state.form.lastName.value;
+    final bloc = context.read<RegisterArtistBloc>();
+    _texEditingController.text = bloc.state.form.lastName.value;
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
+            verticalPadding: 0,
+            focusNode: bloc.lastNameFocusNode,
+            withFlex: false,
+            onTap: () {},
             controller: _texEditingController,
             suffixIcon: state.form.lastName.value.isNotEmpty
                 ? ClearInput(

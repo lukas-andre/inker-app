@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_artist_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_customer_button.dart';
@@ -14,40 +12,38 @@ class RegisterUserByTypeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [CloseRegisterButton()],
-        ),
-        BlocBuilder<RegisterBloc, RegisterState>(
-          builder: (context, state) {
-            return Row(
-              children: const [
-                RegisterProgressIndicator(
-                  progress: 1 / 4,
-                )
-              ],
-            );
-          },
-        ),
-        Row(
-          children: const [RegisterUserByTypeTitle()],
-        ),
-        Row(
-          children: const [RegisterUserByTypeSubTitle()],
-        ),
-        const RowSpacer(space: 40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [RegisterArtistButton()],
-        ),
-        const RowSpacer(space: 40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [RegisterCustomerButton()],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [CloseRegisterButton()],
+          ),
+          Row(
+            children: const [
+              RegisterProgressIndicator(
+                progress: 1 / 4,
+              )
+            ],
+          ),
+          Row(
+            children: const [RegisterUserByTypeTitle()],
+          ),
+          Row(
+            children: const [RegisterUserByTypeSubTitle()],
+          ),
+          const RowSpacer(space: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [RegisterArtistButton()],
+          ),
+          const RowSpacer(space: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [RegisterCustomerButton()],
+          ),
+        ],
+      ),
     );
   }
 }
