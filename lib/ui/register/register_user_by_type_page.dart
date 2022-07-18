@@ -13,6 +13,7 @@ class RegisterUserByTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(
         children: const [LoginBackground(), RegisterUserByTypeLayout()],
       ),

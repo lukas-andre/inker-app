@@ -87,6 +87,13 @@ class RegisterArtistNextPagePressed extends RegisterArtistEvent {
   List<Object> get props => [page];
 }
 
+class RegisterArtistClearPartialForm extends RegisterArtistEvent {
+  const RegisterArtistClearPartialForm();
+
+  @override
+  List<Object> get props => [];
+}
+
 class RegisterArtistAddressTypeChanged extends RegisterArtistEvent {
   final int index;
   const RegisterArtistAddressTypeChanged(this.index);
