@@ -19,6 +19,7 @@ class RegisterArtistEmailInput extends StatelessWidget {
           previous.form.email.value != current.form.email.value,
       builder: (context, state) {
         return CustomInput(
+            keyboardType: TextInputType.emailAddress,
             controller: _texEditingController,
             suffixIcon: state.form.email.value.isNotEmpty
                 ? ClearInput(
