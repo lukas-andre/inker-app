@@ -63,6 +63,7 @@ class ArtistInfo {
 class Address {
   Address({
     required this.address1,
+    required this.shortAddress1,
     required this.address2,
     this.address3,
     required this.addressType,
@@ -75,6 +76,7 @@ class Address {
   });
 
   final String address1;
+  final String shortAddress1;
   final String address2;
   final String? address3;
   final AddressType addressType;

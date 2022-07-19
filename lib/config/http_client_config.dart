@@ -1,6 +1,6 @@
 class HttpClientConfig {
   // static const String baseStgUrl = 'api.inkerapp.com';
-  static const String baseStgUrl = '94cb-181-43-36-40.sa.ngrok.io';
+  static const String baseStgUrl = '623b-181-43-36-40.sa.ngrok.io';
 
   final String _baseUrl;
   final String _basePath;
