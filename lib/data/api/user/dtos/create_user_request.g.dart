@@ -67,6 +67,7 @@ Map<String, dynamic> _$ArtistInfoToJson(ArtistInfo instance) =>
 
 Address _$AddressFromJson(Map json) => Address(
       address1: json['address1'] as String,
+      shortAddress1: json['shortAddress1'] as String,
       address2: json['address2'] as String,
       address3: json['address3'] as String?,
       addressType: $enumDecode(_$AddressTypeEnumMap, json['addressType']),
@@ -82,6 +83,7 @@ Address _$AddressFromJson(Map json) => Address(
 Map<String, dynamic> _$AddressToJson(Address instance) {
   final val = <String, dynamic>{
     'address1': instance.address1,
+    'shortAddress1': instance.shortAddress1,
     'address2': instance.address2,
   };
 
