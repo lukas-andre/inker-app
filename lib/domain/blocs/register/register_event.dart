@@ -29,3 +29,12 @@ class RegisterEventUpdateProgress extends RegisterEvent {
   @override
   List<Object> get props => [progress];
 }
+
+class RegisterEventSetCreatedUserId extends RegisterEvent {
+  final String userId;
+
+  const RegisterEventSetCreatedUserId(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}

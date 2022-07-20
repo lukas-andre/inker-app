@@ -11,11 +11,22 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     on<RegisterEventCustomerSelected>(
         (event, emit) => _mapRegisterEventCustomerSelected(event, emit));
+    on<RegisterEventSetCreatedUserId>(
+        (event, emit) => _mapRegisterEventSetCreatedUserId(event, emit));
   }
 
   _mapRegisterEventArtistSelected(
-      RegisterEventArtistSelected event, Emitter<RegisterState> emit) {}
+      RegisterEventArtistSelected event, Emitter<RegisterState> emit) {
+    throw UnimplementedError();
+  }
 
   _mapRegisterEventCustomerSelected(
-      RegisterEventCustomerSelected event, Emitter<RegisterState> emit) {}
+      RegisterEventCustomerSelected event, Emitter<RegisterState> emit) {
+    throw UnimplementedError();
+  }
+
+  _mapRegisterEventSetCreatedUserId(
+      RegisterEventSetCreatedUserId event, Emitter<RegisterState> emit) {
+    emit(state.copyWith(createdUserId: event.userId));
+  }
 }
