@@ -34,9 +34,9 @@ class OnBoardingPage extends StatelessWidget {
           switch (state.redirectTo) {
             case OnBoardingRedirectTo.loginPage:
               // InkerNavigator.push(context, const LoginPage2());
-              context.read<VerificationBloc>().add(
-                  const VerificationSetContactInfoEvent(
-                      email: 'dumy@email.cl', phoneNumber: '+56912345678'));
+              context
+                  .read<VerificationBloc>()
+                  .add(const VerificationSetContactInfoEvent());
               showModalBottomSheet(context, const VerificationPage());
               break;
             case OnBoardingRedirectTo.registerPage:
