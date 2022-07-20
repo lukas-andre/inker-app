@@ -176,6 +176,17 @@ class RegisterArtistBloc
   Future<void> _mapRegisterArtistRegisterPressedToState(
       Emitter<RegisterArtistState> emit,
       RegisterArtistRegisterPressed event) async {
+    final alreadyCreated = await _localStorage.getCreatedUserInfo();
+    if (alreadyCreated != null) {
+      // TODO: Just for now we are using AND phone number to check if the user is already created.
+      // In production we should use the email and phoneNumber unique.
+      if (alreadyCreated.email == state.form.email.value &&
+          alreadyCreated.phoneNumber ==
+              state.form.phoneNumber.value.phoneNumber) {
+        emit(state.copyWith(registerState: RegisterState.ok));
+      }
+    }
+
     emit(state.copyWith(
       registerState: RegisterState.submitted,
     ));
@@ -208,7 +219,8 @@ class RegisterArtistBloc
       }
     } on UnprocessableEntity {
       errorMessage = 'We have problems creating your account. 😔';
-    } catch (e) {
+    } catch (error, stackTrace) {
+      dev.logError(error, stackTrace);
       errorMessage = 'We have problems creating your account.😔';
     }
 

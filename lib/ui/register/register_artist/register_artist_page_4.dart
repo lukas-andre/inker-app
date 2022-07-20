@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_extra_input.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_input.dart';
@@ -11,10 +14,12 @@ import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
+import 'package:inker_studio/ui/verification/verification_page.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage4 extends StatelessWidget {
   const RegisterArtistPage4({Key? key}) : super(key: key);
@@ -70,6 +75,21 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
               content: 'Tu usuario ha sido creado! 🥳',
               duration: const Duration(seconds: 4));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          if (Platform.isIOS) {
+            context
+                .read<VerificationBloc>()
+                .add(const VerificationSendSMSEvent());
+            showCupertinoModalBottomSheet(
+                context: context,
+                builder: (context) => const VerificationPage());
+          } else {
+            context
+                .read<VerificationBloc>()
+                .add(const VerificationSendSMSEvent());
+            showMaterialModalBottomSheet(
+                context: context,
+                builder: (context) => const VerificationPage());
+          }
         }
 
         if (state.registerState != RegisterState.submitted) {
@@ -103,18 +123,6 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
                       context.read<RegisterArtistBloc>().add(
                             const RegisterArtistRegisterPressed(),
                           );
-                      // if (Platform.isIOS) {
-                      //   showCupertinoModalBottomSheet(
-                      //       context: context,
-                      //       builder: (context) => const RegisterArtistPage4());
-                      // } else {
-                      //   showMaterialModalBottomSheet(
-                      //       context: context,
-                      //       builder: (context) => const RegisterArtistPage4());
-                      // }
-                      // context.read<RegisterArtistBloc>().add(
-                      //       const RegisterArtistNextPagePressed(4),
-                      //     );
                     } else {
                       final snackBar = getInvalidFormSnackBar(context);
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);

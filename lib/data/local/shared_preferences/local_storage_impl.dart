@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const _isDarkMode = 'isDarkMode';
 const createdUserId = 'createdUserId';
+const userIsCreated = 'userIsCreated';
 
 class SharedPreferencesStorage extends LocalStorage {
   @override
@@ -34,5 +35,17 @@ class SharedPreferencesStorage extends LocalStorage {
   Future<bool> setCreatedUserInfo(RegisteredUserInfo createdUser) async {
     final sp = await SharedPreferences.getInstance();
     return sp.setString(createdUserId, createdUserToJson(createdUser));
+  }
+
+  @override
+  Future<bool> getUserIsCreated() async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.getBool(userIsCreated) ?? false;
+  }
+
+  @override
+  Future<bool> setUserIsCreated(bool isCreated) async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.setBool(userIsCreated, isCreated);
   }
 }

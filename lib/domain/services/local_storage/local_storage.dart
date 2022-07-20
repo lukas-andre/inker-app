@@ -7,4 +7,7 @@ abstract class LocalStorage {
 
   Future<bool> setCreatedUserInfo(RegisteredUserInfo createdUser);
   Future<RegisteredUserInfo?> getCreatedUserInfo();
+
+  Future<bool> setUserIsCreated(bool isCreated);
+  Future<bool> getUserIsCreated();
 }
