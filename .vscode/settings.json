@@ -27,6 +27,7 @@
         "sessiontoken",
         "singin",
         "sqflite",
+        "surl",
         "typeahead",
         "unfocus",
         "usecase",

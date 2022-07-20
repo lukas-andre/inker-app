@@ -2,8 +2,13 @@ part of 'verification_bloc.dart';
 
 enum AccountVerificationStatus {
   initial,
+  ready,
   sentSMS,
+  sentSMSFailed,
+  sendedSMS,
   sentEmail,
+  sentEmailFailed,
+  sendedEmail,
   validated,
   failed,
 }
@@ -23,46 +28,60 @@ enum AccountVerificationType {
 }
 
 class VerificationState extends Equatable {
-  const VerificationState({
-    this.phoneNumber,
-    this.email,
-    this.lastTimeSent,
-    this.accountVerificationStatus = AccountVerificationStatus.initial,
-    this.accountVerificationType = AccountVerificationType.sms,
-  });
+  const VerificationState(
+      {this.lastTimeSent,
+      this.pin,
+      this.accountVerificationStatus = AccountVerificationStatus.initial,
+      this.accountVerificationType = AccountVerificationType.sms,
+      this.tries = 0,
+      this.maxTries = 4,
+      this.verificationStatusMessage});
 
-  final String? phoneNumber;
-  final String? email;
+  final String? pin;
+
+  final int tries;
+  final int maxTries;
 
   final DateTime? lastTimeSent;
   final AccountVerificationStatus? accountVerificationStatus;
+  final String? verificationStatusMessage;
   final AccountVerificationType? accountVerificationType;
 
+  bool get isPinCompleted => pin?.length == 4;
+  bool get maxTriesReached => tries >= maxTries;
+
   VerificationState copyWith({
-    String? phoneNumber,
-    String? email,
+    String? pin,
     DateTime? lastTimeSent,
     AccountVerificationStatus? accountVerificationStatus,
+    String? verificationStatusMessage,
     AccountVerificationType? accountVerificationType,
+    int? tries,
+    int? maxTries,
   }) {
     return VerificationState(
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      email: email ?? this.email,
+      pin: pin ?? this.pin,
       lastTimeSent: lastTimeSent ?? this.lastTimeSent,
       accountVerificationStatus:
           accountVerificationStatus ?? this.accountVerificationStatus,
+      verificationStatusMessage:
+          verificationStatusMessage ?? this.verificationStatusMessage,
       accountVerificationType:
           accountVerificationType ?? this.accountVerificationType,
+      tries: tries ?? this.tries,
+      maxTries: maxTries ?? this.maxTries,
     );
   }
 
   @override
   List<Object?> get props => [
-        phoneNumber,
-        email,
+        pin,
         lastTimeSent,
         accountVerificationStatus,
+        verificationStatusMessage,
         accountVerificationType,
+        tries,
+        maxTries,
       ];
 
   @override

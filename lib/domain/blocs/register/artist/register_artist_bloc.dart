@@ -7,7 +7,9 @@ import 'package:inker_studio/domain/errors/artist/artist_already_exists_exceptio
 import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
 import 'package:inker_studio/domain/errors/remote/un_processable_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
+import 'package:inker_studio/domain/models/user/registered_user_info.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -20,12 +22,14 @@ class RegisterArtistBloc
     extends Bloc<RegisterArtistEvent, RegisterArtistState> {
   final PlacesService placesService;
   final CreateUserUseCase _createUserUseCase;
-  final ScrollController _scrollController =
-      ScrollController(keepScrollOffset: false);
+  final LocalStorage _localStorage;
+
   RegisterArtistBloc(
       {required this.placesService,
-      required CreateUserUseCase createUserUseCase})
+      required CreateUserUseCase createUserUseCase,
+      required LocalStorage localStorage})
       : _createUserUseCase = createUserUseCase,
+        _localStorage = localStorage,
         super(RegisterArtistState(form: RegisterArtistForm())) {
     on<RegisterArtistNameChanged>(
         (event, emit) => _mapRegisterArtistNameChangedToState(emit, event));
@@ -56,6 +60,8 @@ class RegisterArtistBloc
     on<RegisterArtistClearPartialForm>((event, emit) =>
         _mapRegisterArtistClearPartialFormToState(emit, event));
   }
+  final ScrollController _scrollController =
+      ScrollController(keepScrollOffset: false);
 
   final FocusNode _nameNode = FocusNode();
   final FocusNode _lastNameNode = FocusNode();
@@ -174,10 +180,19 @@ class RegisterArtistBloc
       registerState: RegisterState.submitted,
     ));
     String? errorMessage;
+
     try {
       final response =
           await _createUserUseCase.execute(state, UserTypeEnum.artist);
+
       dev.log('response: $response', 'RegisterArtistBloc');
+
+      await _localStorage.setCreatedUserInfo(RegisteredUserInfo(
+          userId: response!.id,
+          userType: UserTypeEnum.artist,
+          email: state.form.email.value,
+          phoneNumber: state.form.phoneNumber.value.phoneNumber));
+
       emit(state.copyWith(
         registerState: RegisterState.ok,
       ));
