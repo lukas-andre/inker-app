@@ -37,6 +37,9 @@ class OnBoardingPage extends StatelessWidget {
               context
                   .read<VerificationBloc>()
                   .add(const VerificationSetContactInfoEvent());
+              context
+                  .read<VerificationBloc>()
+                  .add(const VerificationSendSMSEvent());
               showModalBottomSheet(context, const VerificationPage());
               break;
             case OnBoardingRedirectTo.registerPage:

@@ -87,7 +87,7 @@ class CreateUserUseCase {
         userType,
         address1!,
         shortAddress1!,
-        address2!,
+        address2 ?? '0000',
         address3,
         city!,
         region!,
