@@ -7,7 +7,6 @@ import 'package:inker_studio/data/api/user/dtos/create_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
 import 'package:inker_studio/data/api/user/errors/errors.dart';
 import 'package:inker_studio/domain/errors/account_verification/hash_not_found_exception.dart';
-import 'package:inker_studio/domain/errors/account_verification/invalid_verification_code_exception.dart';
 import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
 import 'package:inker_studio/domain/errors/remote/conflict_exception.dart';
@@ -135,7 +134,7 @@ class ApiUserService extends UserService {
       NotificationType notificationType) async {
     final url = _httpConfig.surl(
         basePath: 'users',
-        path: '/$userId/send-account-verification-code',
+        path: '$userId/send-account-verification-code',
         queryParams: {
           'phoneNumber': phoneNumber,
           'notificationType': notificationType.name
@@ -185,7 +184,7 @@ class ApiUserService extends UserService {
       String userId, String code, NotificationType notificationType) async {
     final url = _httpConfig.surl(
         basePath: 'users',
-        path: '/$userId/validate-account-verification-code/$code',
+        path: '$userId/validate-account-verification-code/$code',
         queryParams: {'notificationType': notificationType.name});
     try {
       final response = await http.post(url);
@@ -220,7 +219,7 @@ class ApiUserService extends UserService {
         throw UnprocessableEntity();
       } else if (response.statusCode == HttpStatus.conflict) {
         if (response.body.contains(invalidVerificationCode)) {
-          throw InvalidVerificationCode();
+          return false;
         }
         throw ConflictException();
       } else if (response.statusCode >= HttpStatus.internalServerError) {

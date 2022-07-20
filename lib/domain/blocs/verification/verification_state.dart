@@ -3,13 +3,15 @@ part of 'verification_bloc.dart';
 enum AccountVerificationStatus {
   initial,
   ready,
+  userAlreadyVerified,
   sentSMS,
   sentSMSFailed,
   sendedSMS,
   sentEmail,
   sentEmailFailed,
   sendedEmail,
-  validated,
+  invalidCode,
+  activated,
   failed,
 }
 
