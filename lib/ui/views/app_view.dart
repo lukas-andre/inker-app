@@ -46,9 +46,13 @@ class _AppViewState extends State<AppView> {
         ),
         BlocProvider(
           create: (context) => RegisterArtistBloc(
-              placesService: context.read(), createUserUseCase: context.read()),
+              placesService: context.read(),
+              createUserUseCase: context.read(),
+              localStorage: context.read()),
         ),
-        BlocProvider(create: (context) => VerificationBloc())
+        BlocProvider(
+            create: (context) => VerificationBloc(
+                userService: context.read(), localStorage: context.read())),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
