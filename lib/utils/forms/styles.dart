@@ -23,3 +23,9 @@ TextStyle labelTextStyle = const TextStyle(
   fontSize: 16,
   fontFamily: 'Poppins',
 );
+
+TextStyle hintTextStyle = const TextStyle(
+  color: Color(0xff777E91),
+  fontSize: 15,
+  fontFamily: 'Poppins',
+);

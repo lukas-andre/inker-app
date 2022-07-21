@@ -11,20 +11,21 @@ SnackBar customSnackBar(
     Duration? duration,
     SnackBarBehavior? snackBarBehavior}) {
   return SnackBar(
-      content: Text(
-        content,
-        style: TextStyle(
-            fontFamily: 'Poppins', fontSize: fontSize, color: textColor),
-      ),
-      dismissDirection: DismissDirection.horizontal,
-      backgroundColor: backgroundColor,
-      behavior: SnackBarBehavior.floating,
-      duration: duration ?? const Duration(seconds: 3),
-      action: action,
-      margin: onTop != null && context != null
-          ? EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.79,
-              left: 10,
-              right: 10)
-          : null);
+    content: Text(
+      content,
+      style: TextStyle(
+          fontFamily: 'Poppins', fontSize: fontSize, color: textColor),
+    ),
+    dismissDirection: DismissDirection.horizontal,
+    backgroundColor: backgroundColor,
+    behavior: SnackBarBehavior.floating,
+    duration: duration ?? const Duration(seconds: 2),
+    action: action,
+    margin: onTop != null && context != null
+        ? EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * 0.79,
+            left: 10,
+            right: 10)
+        : null,
+  );
 }

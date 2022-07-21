@@ -37,10 +37,11 @@ class VerificationState extends Equatable {
       this.accountVerificationType = AccountVerificationType.sms,
       this.tries = 0,
       this.maxTries = 4,
+      this.isVerifying = false,
       this.verificationStatusMessage});
 
   final String? pin;
-
+  final bool isVerifying;
   final int tries;
   final int maxTries;
 
@@ -60,6 +61,7 @@ class VerificationState extends Equatable {
     AccountVerificationType? accountVerificationType,
     int? tries,
     int? maxTries,
+    bool? isVerifying,
   }) {
     return VerificationState(
       pin: pin ?? this.pin,
@@ -72,6 +74,7 @@ class VerificationState extends Equatable {
           accountVerificationType ?? this.accountVerificationType,
       tries: tries ?? this.tries,
       maxTries: maxTries ?? this.maxTries,
+      isVerifying: isVerifying ?? this.isVerifying,
     );
   }
 
@@ -84,6 +87,7 @@ class VerificationState extends Equatable {
         accountVerificationType,
         tries,
         maxTries,
+        isVerifying,
       ];
 
   @override

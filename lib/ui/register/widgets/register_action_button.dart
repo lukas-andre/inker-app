@@ -1,11 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterActionButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
+  final bool isLoading;
   const RegisterActionButton(
-      {Key? key, required this.text, required this.onPressed})
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      this.isLoading = false})
       : super(key: key);
+
+  Widget _loadingIndicator() {
+    return const CupertinoActivityIndicator(
+      color: CupertinoColors.white,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +33,17 @@ class RegisterActionButton extends StatelessWidget {
               height: 40,
               width: MediaQuery.of(context).size.width * 0.85,
               child: Center(
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400),
-                ),
+                child: isLoading
+                    ? _loadingIndicator()
+                    : Text(
+                        text,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400),
+                      ),
               ),
             ),
             style: ButtonStyle(

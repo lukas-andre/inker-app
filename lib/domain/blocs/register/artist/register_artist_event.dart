@@ -124,3 +124,10 @@ class RegisterArtistClearState extends RegisterArtistEvent {
   @override
   List<Object> get props => [];
 }
+
+class RegisterArtistClearForm extends RegisterArtistEvent {
+  const RegisterArtistClearForm();
+
+  @override
+  List<Object> get props => [];
+}

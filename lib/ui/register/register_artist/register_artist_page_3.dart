@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
@@ -9,11 +7,12 @@ import 'package:inker_studio/ui/register/register_artist/form/register_artist_pa
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_4.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
+import 'package:inker_studio/ui/register/widgets/register_back_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
+import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage3 extends StatelessWidget {
   const RegisterArtistPage3({Key? key}) : super(key: key);
@@ -61,20 +60,10 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
         return RegisterActionButton(
             text: 'Siguiente',
             onPressed: () {
-              // showCupertinoModalBottomSheet(
-              //     context: context,
-              //     builder: (context) => const RegisterArtistPage4());
               if (state.form.password.valid &&
                   state.form.confirmedPassword.valid) {
-                if (Platform.isIOS) {
-                  showCupertinoModalBottomSheet(
-                      context: context,
-                      builder: (context) => const RegisterArtistPage4());
-                } else {
-                  showMaterialModalBottomSheet(
-                      context: context,
-                      builder: (context) => const RegisterArtistPage4());
-                }
+                openModalBottomSheet(
+                    context: context, page: const RegisterArtistPage4());
                 context.read<RegisterArtistBloc>().add(
                       const RegisterArtistNextPagePressed(3),
                     );
@@ -93,13 +82,16 @@ class RegisterArtistPage3Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const ScrollPhysics(parent: PageScrollPhysics()),
+    return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [CloseRegisterButton()],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            RegisterBackButton(),
+            CloseRegisterButton(
+              index: 3,
+            )
+          ],
         ),
         BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
           builder: (context, state) {

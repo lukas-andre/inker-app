@@ -18,7 +18,9 @@ class RegisterArtistUsernameInput extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.form.username.value != current.form.username.value,
       builder: (context, state) {
+        var label = 'Nombre artístico';
         return CustomInput(
+            hint: '$label. ej: Juanart',
             verticalPadding: 0,
             focusNode: bloc.usernameFocusNode,
             withFlex: false,
@@ -48,7 +50,7 @@ class RegisterArtistUsernameInput extends StatelessWidget {
                     RegisterArtistUsernameChanged(value),
                   );
             },
-            label: 'Nombre artístico');
+            label: label);
       },
     );
   }
