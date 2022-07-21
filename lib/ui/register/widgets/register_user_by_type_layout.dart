@@ -17,7 +17,11 @@ class RegisterUserByTypeLayout extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [CloseRegisterButton()],
+            children: const [
+              CloseRegisterButton(
+                index: 0,
+              )
+            ],
           ),
           Row(
             children: const [

@@ -6,7 +6,7 @@ SnackBar getInvalidFormSnackBar(context) {
       context: context,
       onTop: true,
       content: 'Hay campos invalidos o sin completar ⚠️',
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 2),
       action: SnackBarAction(
         label: 'Vale 👌',
         disabledTextColor: Colors.white,

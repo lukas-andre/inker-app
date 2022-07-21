@@ -32,6 +32,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
         ((event, emit) => _mapVerificationSendSMSEventToState(event, emit)));
     on<VerificationSendEmailEvent>(
         ((event, emit) => _mapVerificationSendEmailEventToState(event, emit)));
+    on<VerificationResetEvent>(
+        ((event, emit) => _mapVerificationResetEventToState(event, emit)));
   }
 
   final UserService _userService;
@@ -69,10 +71,15 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
       return;
     }
     try {
+      emit(state.copyWith(
+        isVerifying: true,
+      ));
       final verificationResult =
           await _userService.verifyAccountVerificationCode(
               createdUser.userId.toString(), event.pin, NotificationType.phone);
-
+      emit(state.copyWith(
+        isVerifying: false,
+      ));
       if (!verificationResult) {
         emit(state.copyWith(
             verificationStatusMessage:
@@ -101,6 +108,9 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
           verificationStatusMessage: 'Error al verificar el usuario',
           accountVerificationStatus: AccountVerificationStatus.failed));
     }
+    emit(state.copyWith(
+      isVerifying: false,
+    ));
   }
 
   _mapVerificationPinChangedEventToState(
@@ -167,5 +177,10 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
   _mapVerificationSendEmailEventToState(
       VerificationSendEmailEvent event, Emitter<VerificationState> emit) {
     throw UnimplementedError();
+  }
+
+  _mapVerificationResetEventToState(
+      VerificationResetEvent event, Emitter<VerificationState> emit) {
+    emit(const VerificationState());
   }
 }
