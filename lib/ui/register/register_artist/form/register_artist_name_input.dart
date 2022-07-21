@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
@@ -20,16 +19,10 @@ class RegisterArtistNameInput extends StatelessWidget {
           previous.form.firstName.value != current.form.firstName.value,
       builder: (context, state) {
         return CustomInput(
+            hint: 'Nombre. ej: Juano',
             verticalPadding: 0,
             withFlex: false,
             focusNode: bloc.nameFocusNode,
-            onTap: () {
-              dev.log('onTap', 'RegisterArtistNameInput');
-              // context.read<RegisterArtistBloc>().scrollController.animateTo(
-              //     MediaQuery.of(context).size.width,
-              //     duration: const Duration(milliseconds: 300),
-              //     curve: Curves.easeIn);
-            },
             controller: _texEditingController,
             suffixIcon: state.form.firstName.value.isNotEmpty
                 ? ClearInput(

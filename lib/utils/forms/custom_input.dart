@@ -7,6 +7,7 @@ class CustomInput extends StatelessWidget {
       {Key? key,
       required this.onChanged,
       required this.label,
+      this.hint,
       this.valid,
       this.errorMessage,
       this.inputFormatters,
@@ -23,6 +24,7 @@ class CustomInput extends StatelessWidget {
 
   final void Function(String) onChanged;
   final String label;
+  final String? hint;
   final bool? valid;
   final String? errorMessage;
   final List<TextInputFormatter>? inputFormatters;
@@ -67,6 +69,8 @@ class CustomInput extends StatelessWidget {
         onChanged: onChanged,
         obscureText: obscureText ?? false,
         decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: labelTextStyle,
           errorMaxLines: 3,
           errorText: valid == false ? errorMessage : null,
           errorBorder: valid == false

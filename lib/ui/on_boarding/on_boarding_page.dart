@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
-import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
+import 'package:inker_studio/ui/login2/login_page2.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_content_page_view.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/fixed_components.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_background.dart';
 import 'package:inker_studio/ui/register/register_user_by_type_page.dart';
-import 'package:inker_studio/ui/verification/verification_page.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
+import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -30,33 +31,20 @@ class OnBoardingPage extends StatelessWidget {
         listenWhen: (previous, current) =>
             previous.redirectTo != current.redirectTo,
         listener: (context, state) {
-          Bloc onboardingBloc = context.read<OnBoardingBloc>();
           switch (state.redirectTo) {
             case OnBoardingRedirectTo.loginPage:
-              // InkerNavigator.push(context, const LoginPage2());
-              context
-                  .read<VerificationBloc>()
-                  .add(const VerificationSetContactInfoEvent());
-              context
-                  .read<VerificationBloc>()
-                  .add(const VerificationSendSMSEvent());
-              showModalBottomSheet(context, const VerificationPage());
+              InkerNavigator.push(context, const LoginPage2());
               break;
             case OnBoardingRedirectTo.registerPage:
-              if (Platform.isIOS) {
-                CupertinoScaffold.showCupertinoModalBottomSheet(
-                    context: context,
-                    builder: (context) => const RegisterUserByTypePage());
-              } else {
-                showMaterialModalBottomSheet(
-                    context: context,
-                    builder: (context) => const RegisterUserByTypePage());
-              }
+              openModalBottomSheet(
+                  context: context,
+                  page: const RegisterUserByTypePage(),
+                  isRoot: true);
               break;
             case OnBoardingRedirectTo.none:
               break;
           }
-          onboardingBloc.add(const OnBoardingClearRedirect());
+          context.read<OnBoardingBloc>().add(const OnBoardingClearRedirect());
         },
         child: Stack(
           children: const [
@@ -67,15 +55,5 @@ class OnBoardingPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void showModalBottomSheet(BuildContext context, Widget page) {
-    if (Platform.isIOS) {
-      CupertinoScaffold.showCupertinoModalBottomSheet(
-          context: context, builder: (context) => page);
-    } else {
-      showMaterialModalBottomSheet(
-          context: context, builder: (context) => page);
-    }
   }
 }

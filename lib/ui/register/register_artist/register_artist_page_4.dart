@@ -1,8 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
@@ -11,15 +9,15 @@ import 'package:inker_studio/ui/register/register_artist/form/register_artist_ad
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_type_input.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
+import 'package:inker_studio/ui/register/widgets/register_back_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/ui/verification/verification_page.dart';
-import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RegisterArtistPage4 extends StatelessWidget {
   const RegisterArtistPage4({Key? key}) : super(key: key);
@@ -59,75 +57,68 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RegisterArtistBloc registerArtistBloc =
+        BlocProvider.of<RegisterArtistBloc>(context);
+    VerificationBloc verificationBloc =
+        BlocProvider.of<VerificationBloc>(context);
     return BlocListener<RegisterArtistBloc, RegisterArtistState>(
       listenWhen: (previous, current) =>
           previous.registerState != current.registerState,
       listener: (context, state) {
-        if (state.registerState == RegisterState.error) {
-          final snackBar = customSnackBar(
-              content: state.errorMessage ?? 'Error',
-              duration: const Duration(seconds: 4));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-
-        if (state.registerState == RegisterState.ok) {
-          final snackBar = customSnackBar(
-              content: 'Tu usuario ha sido creado! 🥳',
-              duration: const Duration(seconds: 4));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          if (Platform.isIOS) {
-            context
-                .read<VerificationBloc>()
-                .add(const VerificationSendSMSEvent());
-            showCupertinoModalBottomSheet(
+        switch (state.registerState) {
+          case RegisterState.ok:
+            final snackBar = customSnackBar(
+                content: 'Tu usuario ha sido creado! 🥳',
+                duration: const Duration(seconds: 4));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            verificationBloc.add(const VerificationSendSMSEvent());
+            openModalBottomSheet(
                 context: context,
-                builder: (context) => const VerificationPage());
-          } else {
-            context
-                .read<VerificationBloc>()
-                .add(const VerificationSendSMSEvent());
-            showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => const VerificationPage());
-          }
-        }
+                page: const VerificationPage(),
+                enableDrag: false);
+            registerArtistBloc.add(const RegisterArtistClearForm());
+            break;
+          case RegisterState.error:
+            final snackBar = customSnackBar(
+                content: state.errorMessage ?? 'Error',
+                duration: const Duration(seconds: 4));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            break;
 
-        if (state.registerState != RegisterState.submitted) {
-          context
-              .read<RegisterArtistBloc>()
-              .add(const RegisterArtistClearState());
+          case RegisterState.initial:
+            registerArtistBloc.add(const RegisterArtistClearState());
+            break;
+          case RegisterState.submitted:
+            // TODO: Handle this case.
+            break;
         }
       },
       child: BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
         buildWhen: (previous, current) =>
             previous.registerState.index != current.registerState.index,
         builder: (context, state) {
-          dev.log('RegisterArtistPage4NextButton state: $state',
-              'RegisterArtistPage4NextButton');
-          if (state.registerState == RegisterState.submitted) {
-            return const CupertinoActivityIndicator(
-              color: CupertinoColors.systemGrey,
-            );
-          }
-
           return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
             buildWhen: (previous, current) =>
                 previous.form.location != current.form.location ||
-                previous.form.addressExtra != current.form.addressExtra,
+                previous.form.addressExtra != current.form.addressExtra ||
+                previous.registerState.index != current.registerState.index,
             builder: (context, state) {
               return RegisterActionButton(
-                  text: 'Registrarme',
-                  onPressed: () {
-                    if (state.form.location.valid &&
-                        state.form.addressExtra.valid) {
-                      context.read<RegisterArtistBloc>().add(
-                            const RegisterArtistRegisterPressed(),
-                          );
-                    } else {
-                      final snackBar = getInvalidFormSnackBar(context);
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                  });
+                text: 'Registrarme',
+                onPressed: () {
+                  if (state.form.location.valid &&
+                      state.form.addressExtra.valid &&
+                      state.form.status == FormzStatus.valid) {
+                    registerArtistBloc.add(
+                      const RegisterArtistRegisterPressed(),
+                    );
+                  } else {
+                    final snackBar = getInvalidFormSnackBar(context);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                isLoading: state.registerState == RegisterState.submitted,
+              );
             },
           );
         },
@@ -148,8 +139,13 @@ class RegisterArtistPage4Layout extends StatelessWidget {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [CloseRegisterButton()],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                RegisterBackButton(),
+                CloseRegisterButton(
+                  index: 4,
+                )
+              ],
             ),
             Row(
               children: const [
