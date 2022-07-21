@@ -57,61 +57,108 @@ class VerificationPageNextButton extends StatelessWidget {
     return BlocListener<VerificationBloc, VerificationState>(
       listenWhen: (previous, current) =>
           previous.accountVerificationStatus?.index !=
-          current.accountVerificationType?.index,
+          current.accountVerificationStatus?.index,
       listener: (context, state) {
-        if (state.accountVerificationStatus ==
-            AccountVerificationStatus.userAlreadyVerified) {
-          InkerNavigator.pushAndRemoveUntil(
-            context,
-            const OnBoardingPage(),
-          );
-
-          InkerNavigator.push(context, const LoginPage2());
-
-          final snackBar = customSnackBar(
-              content:
-                  state.verificationStatusMessage ?? 'User already verified');
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else if (state.accountVerificationStatus ==
-            AccountVerificationStatus.activated) {
-          final snackBar = customSnackBar(
-              content:
-                  state.verificationStatusMessage ?? 'User already verified');
-          InkerNavigator.pushAndRemoveUntil(
-            context,
-            const OnBoardingPage(),
-          );
-
-          InkerNavigator.push(context, const LoginPage2());
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          final snackBar = customSnackBar(
-              content: state.verificationStatusMessage ??
-                  'Verification failed, please try again');
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        switch (state.accountVerificationStatus) {
+          case AccountVerificationStatus.initial:
+          case AccountVerificationStatus.ready:
+          case AccountVerificationStatus.sentSMS:
+          case AccountVerificationStatus.sentEmail:
+          case AccountVerificationStatus.sendedSMS:
+          case AccountVerificationStatus.sendedEmail:
+            // TODO: Handle this case.
+            break;
+          case AccountVerificationStatus.userAlreadyVerified:
+            _handleUserAlreadyVerified(context, state);
+            break;
+          case AccountVerificationStatus.activated:
+            handleActivatedUser(state, context);
+            break;
+          case AccountVerificationStatus.sentSMSFailed:
+          case AccountVerificationStatus.sentEmailFailed:
+            _handleNotificationFailed(context);
+            break;
+          case AccountVerificationStatus.invalidCode:
+            _handleInvalidCode(context);
+            break;
+          case AccountVerificationStatus.failed:
+            _handleVerificationFailed(context);
+            break;
+          default:
+            break;
         }
       },
       child: BlocBuilder<VerificationBloc, VerificationState>(
         buildWhen: (previous, current) =>
             previous.accountVerificationType !=
                 current.accountVerificationType ||
-            previous.pin != current.pin,
+            previous.pin != current.pin ||
+            previous.isVerifying != current.isVerifying,
         builder: (context, state) {
           return RegisterActionButton(
-              text: 'Verificar ${state.accountVerificationType?.name}',
-              onPressed: () {
-                if (state.isPinCompleted) {
-                  context
-                      .read<VerificationBloc>()
-                      .add(const VerificationButtonPressedEvent());
-                } else {
-                  final snackBar = getInvalidFormSnackBar(context);
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              });
+            text: 'Verificar ${state.accountVerificationType?.name}',
+            onPressed: () {
+              if (state.isPinCompleted) {
+                context
+                    .read<VerificationBloc>()
+                    .add(const VerificationButtonPressedEvent());
+              } else {
+                final snackBar = getInvalidFormSnackBar(context);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
+            isLoading: state.isVerifying,
+          );
         },
       ),
     );
+  }
+
+  void _handleVerificationFailed(BuildContext context) {
+    final snackBar =
+        customSnackBar(content: 'We were unable to verify your account');
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _handleInvalidCode(BuildContext context) {
+    final snackBar = customSnackBar(content: 'Invalid verification code');
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _handleNotificationFailed(BuildContext context) {
+    final snackBar =
+        customSnackBar(content: 'Error sending verification code :( ');
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void handleActivatedUser(VerificationState state, BuildContext context) {
+    if (state.isVerifying) {
+      context.read<VerificationBloc>().add(const VerificationResetEvent());
+    }
+    final snackBar = customSnackBar(
+        content: state.verificationStatusMessage ?? 'User already verified');
+
+    InkerNavigator.pushAndRemoveUntil(
+      context,
+      const OnBoardingPage(),
+    );
+
+    InkerNavigator.push(context, const LoginPage2());
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _handleUserAlreadyVerified(
+      BuildContext context, VerificationState state) {
+    InkerNavigator.pushAndRemoveUntil(
+      context,
+      const OnBoardingPage(),
+    );
+
+    InkerNavigator.push(context, const LoginPage2());
+
+    final snackBar = customSnackBar(
+        content: state.verificationStatusMessage ?? 'User already verified');
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 
@@ -121,13 +168,15 @@ class VerificationLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     VerificationBloc bloc = context.read<VerificationBloc>();
-    return ListView(
-      shrinkWrap: true,
-      physics: const ScrollPhysics(parent: PageScrollPhysics()),
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [CloseRegisterButton()],
+          children: const [
+            CloseRegisterButton(
+              toPage: LoginPage2(),
+            )
+          ],
         ),
         Row(
           children: const [
@@ -139,7 +188,7 @@ class VerificationLayout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Verifica tu cuenta mediante tu numero telefónico',
+              text: 'Se ha enviado un código de verificación a tu celular',
             )
           ],
         ),
@@ -147,7 +196,7 @@ class VerificationLayout extends StatelessWidget {
           children: const [
             RegisterCustomSubTitle(
                 text:
-                    'Se enviará un código de verificación a tu número telefónico, revisa tu bandeja de mensajes.'),
+                    'Verifica tu cuenta mediante tu numero telefónico, revisa tu bandeja de mensajes.'),
           ],
         ),
         Row(

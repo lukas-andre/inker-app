@@ -21,6 +21,13 @@ class VerificationClearEvent extends VerificationEvent {
   List<Object?> get props => [];
 }
 
+class VerificationResetEvent extends VerificationEvent {
+  const VerificationResetEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class VerificationSendSMSEvent extends VerificationEvent {
   const VerificationSendSMSEvent();
 

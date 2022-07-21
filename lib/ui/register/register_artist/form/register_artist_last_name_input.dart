@@ -19,6 +19,7 @@ class RegisterArtistLastNameInput extends StatelessWidget {
           previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
+            hint: 'Apellido. ej: Goodman',
             verticalPadding: 0,
             focusNode: bloc.lastNameFocusNode,
             withFlex: false,

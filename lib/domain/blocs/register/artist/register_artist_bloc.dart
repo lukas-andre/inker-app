@@ -59,6 +59,8 @@ class RegisterArtistBloc
         (event, emit) => _mapRegisterArtistClearStateToState(emit, event));
     on<RegisterArtistClearPartialForm>((event, emit) =>
         _mapRegisterArtistClearPartialFormToState(emit, event));
+    on<RegisterArtistClearForm>(
+        (event, emit) => _mapRegisterArtistClearFormToState(emit, event));
   }
   final ScrollController _scrollController =
       ScrollController(keepScrollOffset: false);
@@ -242,5 +244,10 @@ class RegisterArtistBloc
     emit(state.copyWith(
       partialFormStatus: PartialFormStatus.initial,
     ));
+  }
+
+  _mapRegisterArtistClearFormToState(
+      Emitter<RegisterArtistState> emit, RegisterArtistClearForm event) {
+    emit(RegisterArtistState(form: RegisterArtistForm()));
   }
 }
