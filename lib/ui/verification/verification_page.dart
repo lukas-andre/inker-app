@@ -76,24 +76,27 @@ class VerificationPageNextButton extends StatelessWidget {
             break;
           case AccountVerificationStatus.sentSMSFailed:
           case AccountVerificationStatus.sentEmailFailed:
-            _handleNotificationFailed(context);
+            _handleNotificationFailed(context, state.verificationStatusMessage);
             break;
           case AccountVerificationStatus.invalidCode:
-            _handleInvalidCode(context);
+            _handleInvalidCode(context, state.verificationStatusMessage);
             break;
           case AccountVerificationStatus.failed:
-            _handleVerificationFailed(context);
+            _handleVerificationFailed(context, state.verificationStatusMessage);
             break;
           default:
             break;
         }
+        context.read<VerificationBloc>().add(const VerificationClearEvent());
       },
       child: BlocBuilder<VerificationBloc, VerificationState>(
         buildWhen: (previous, current) =>
             previous.accountVerificationType !=
                 current.accountVerificationType ||
             previous.pin != current.pin ||
-            previous.isVerifying != current.isVerifying,
+            previous.isVerifying != current.isVerifying ||
+            previous.accountVerificationStatus?.index !=
+                current.accountVerificationStatus?.index,
         builder: (context, state) {
           return RegisterActionButton(
             text: 'Verificar ${state.accountVerificationType?.name}',
@@ -101,7 +104,7 @@ class VerificationPageNextButton extends StatelessWidget {
               if (state.isPinCompleted) {
                 context
                     .read<VerificationBloc>()
-                    .add(const VerificationButtonPressedEvent());
+                    .add(VerificationPinCompletedEvent(state.pin ?? ''));
               } else {
                 final snackBar = getInvalidFormSnackBar(context);
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -114,20 +117,21 @@ class VerificationPageNextButton extends StatelessWidget {
     );
   }
 
-  void _handleVerificationFailed(BuildContext context) {
-    final snackBar =
-        customSnackBar(content: 'We were unable to verify your account');
+  void _handleVerificationFailed(BuildContext context, String? message) {
+    final snackBar = customSnackBar(
+        content: message ?? 'We were unable to verify your account');
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void _handleInvalidCode(BuildContext context) {
-    final snackBar = customSnackBar(content: 'Invalid verification code');
+  void _handleInvalidCode(BuildContext context, String? message) {
+    final snackBar =
+        customSnackBar(content: message ?? 'Invalid verification code');
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void _handleNotificationFailed(BuildContext context) {
-    final snackBar =
-        customSnackBar(content: 'Error sending verification code :( ');
+  void _handleNotificationFailed(BuildContext context, String? message) {
+    final snackBar = customSnackBar(
+        content: message ?? 'Error sending verification code :( ');
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
