@@ -16,8 +16,8 @@ class OnBoardingMoveToIndex extends OnBoardingEvent {
   List<Object> get props => [index];
 }
 
-class OnBoardingNextOrFoward extends OnBoardingEvent {
-  const OnBoardingNextOrFoward(this.index);
+class OnBoardingNextOrForward extends OnBoardingEvent {
+  const OnBoardingNextOrForward(this.index);
 
   final int index;
 
@@ -35,4 +35,8 @@ class OnBoardingRegisterPressed extends OnBoardingEvent {
 
 class OnBoardingSignInPressed extends OnBoardingEvent {
   const OnBoardingSignInPressed();
+}
+
+class OnBoardingClearRedirect extends OnBoardingEvent {
+  const OnBoardingClearRedirect();
 }

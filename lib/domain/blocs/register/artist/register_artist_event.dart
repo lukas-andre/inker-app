@@ -1,0 +1,133 @@
+part of 'register_artist_bloc.dart';
+
+abstract class RegisterArtistEvent extends Equatable {
+  const RegisterArtistEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterArtistNameChanged extends RegisterArtistEvent {
+  final String name;
+
+  const RegisterArtistNameChanged(this.name);
+
+  @override
+  List<Object> get props => [name];
+}
+
+class RegisterArtistLastNameChanged extends RegisterArtistEvent {
+  final String name;
+
+  const RegisterArtistLastNameChanged(this.name);
+
+  @override
+  List<Object> get props => [name];
+}
+
+class RegisterArtistUsernameChanged extends RegisterArtistEvent {
+  final String username;
+
+  const RegisterArtistUsernameChanged(this.username);
+
+  @override
+  List<Object> get props => [username];
+}
+
+class RegisterArtistEmailChanged extends RegisterArtistEvent {
+  final String email;
+
+  const RegisterArtistEmailChanged(this.email);
+
+  @override
+  List<Object> get props => [email];
+}
+
+class RegisterArtistPhoneNumberChanged extends RegisterArtistEvent {
+  final PhoneNumber phoneNumber;
+
+  const RegisterArtistPhoneNumberChanged(this.phoneNumber);
+
+  @override
+  List<Object> get props => [phoneNumber];
+}
+
+class RegisterArtistPasswordChanged extends RegisterArtistEvent {
+  final String password;
+
+  const RegisterArtistPasswordChanged(this.password);
+
+  @override
+  List<Object> get props => [password];
+}
+
+class RegisterArtistConfirmedPasswordChanged extends RegisterArtistEvent {
+  final String password;
+
+  const RegisterArtistConfirmedPasswordChanged(this.password);
+
+  @override
+  List<Object> get props => [password];
+}
+
+class RegisterArtistLocationChanged extends RegisterArtistEvent {
+  final Location location;
+
+  const RegisterArtistLocationChanged(this.location);
+
+  @override
+  List<Object> get props => [location];
+}
+
+class RegisterArtistNextPagePressed extends RegisterArtistEvent {
+  final int page;
+  const RegisterArtistNextPagePressed(this.page);
+
+  @override
+  List<Object> get props => [page];
+}
+
+class RegisterArtistClearPartialForm extends RegisterArtistEvent {
+  const RegisterArtistClearPartialForm();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterArtistAddressTypeChanged extends RegisterArtistEvent {
+  final int index;
+  const RegisterArtistAddressTypeChanged(this.index);
+
+  @override
+  List<Object> get props => [index];
+}
+
+class RegisterArtistAddressExtraChanged extends RegisterArtistEvent {
+  final String extra;
+  final AddressType type;
+  const RegisterArtistAddressExtraChanged(this.extra, this.type);
+
+  @override
+  List<Object> get props => [extra];
+}
+
+class RegisterArtistRegisterPressed extends RegisterArtistEvent {
+  const RegisterArtistRegisterPressed();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterArtistClearState extends RegisterArtistEvent {
+  const RegisterArtistClearState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterArtistClearForm extends RegisterArtistEvent {
+  const RegisterArtistClearForm();
+
+  @override
+  List<Object> get props => [];
+}

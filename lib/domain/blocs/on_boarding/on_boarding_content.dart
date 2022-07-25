@@ -32,9 +32,9 @@ class OnBoardingContent extends Equatable {
         bottomPosition,
         leftPosition,
         height,
-        page1,
-        page2,
-        page3
+        // page1,
+        // page2,
+        // page3
       ];
 
   @override

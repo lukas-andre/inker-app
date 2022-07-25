@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
-part 'get_user_by_socia_media_response.g.dart';
+part 'get_user_by_social_media_response.g.dart';
 
 GetUserBySocialMediaResponse getUserBySocialMediaResponseFromJson(String str) =>
     GetUserBySocialMediaResponse.fromJson(json.decode(str));
