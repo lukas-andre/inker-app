@@ -26,8 +26,6 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
         _mapVerificationPinCompletedEventToState(event, emit)));
     on<VerificationPinChangedEvent>(
         ((event, emit) => _mapVerificationPinChangedEventToState(event, emit)));
-    on<VerificationButtonPressedEvent>(((event, emit) =>
-        _mapVerificationButtonPressedEventToState(event, emit)));
     on<VerificationSendSMSEvent>(
         ((event, emit) => _mapVerificationSendSMSEventToState(event, emit)));
     on<VerificationSendEmailEvent>(
@@ -116,12 +114,6 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
   _mapVerificationPinChangedEventToState(
       VerificationPinChangedEvent event, Emitter<VerificationState> emit) {
     emit(state.copyWith(pin: event.code));
-  }
-
-  _mapVerificationButtonPressedEventToState(
-      VerificationButtonPressedEvent event, Emitter<VerificationState> emit) {
-    emit(state.copyWith(
-        accountVerificationStatus: AccountVerificationStatus.sentSMS));
   }
 
   _mapVerificationSendSMSEventToState(

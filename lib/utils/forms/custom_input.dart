@@ -53,10 +53,13 @@ class CustomInput extends StatelessWidget {
 
   Container _container(
       double horizontalPadding, double verticalPadding, BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
       width: withFlex ? null : MediaQuery.of(context).size.width * 0.9,
-      padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding, vertical: verticalPadding),
+      padding: EdgeInsets.only(
+          right: horizontalPadding,
+          left: horizontalPadding,
+          top: MediaQuery.of(context).size.height * 0.01),
       child: TextField(
         keyboardType: keyboardType,
         focusNode: focusNode,
