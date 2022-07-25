@@ -1,14 +1,36 @@
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart' show FormzInput;
 
 enum LocationValidationError { empty }
 
-class LocationInput extends FormzInput<String, LocationValidationError> {
-  const LocationInput.pure() : super.pure('');
-  const LocationInput.dirty([String value = '']) : super.dirty(value);
+class Location extends Equatable {
+  const Location({
+    required this.placeId,
+    required this.description,
+  });
+  final String placeId;
+  final String description;
 
   @override
-  LocationValidationError? validator(String? value) {
+  List<Object?> get props => [placeId, description];
+
+  @override
+  bool get stringify => true;
+}
+
+class LocationInput extends FormzInput<Location, LocationValidationError> {
+  const LocationInput.pure()
+      : super.pure(const Location(description: '', placeId: ''));
+  const LocationInput.dirty(
+      [Location value = const Location(description: '', placeId: '')])
+      : super.dirty(value);
+
+  @override
+  LocationValidationError? validator(Location? value) {
     // TODO: improve location validator
-    return value?.isNotEmpty == true ? null : LocationValidationError.empty;
+    if (value != null && (value.placeId == '' || value.description == '')) {
+      return LocationValidationError.empty;
+    }
+    return null;
   }
 }

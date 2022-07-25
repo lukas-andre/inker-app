@@ -27,7 +27,10 @@ class OnBoardingPageNumberIndicator extends StatelessWidget {
                   child: Text(
                     '${state.pageNumber} de 3',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500),
                   ),
                 )),
           ),

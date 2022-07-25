@@ -1,6 +1,6 @@
 class HttpClientConfig {
-  static const String baseStgUrl = 'api.inkerapp.com';
-  static const String baseLocalUrl = 'e547-181-43-217-116.ngrok.io';
+  // static const String baseStgUrl = 'api.inkerapp.com';
+  static const String baseStgUrl = '3532-181-43-36-40.sa.ngrok.io';
 
   final String _baseUrl;
   final String _basePath;
@@ -24,8 +24,15 @@ class HttpClientConfig {
     final urlBasePath = basePath ?? _basePath;
 
     final finalPath =
-        path != null ? urlBasePath : [urlBasePath, path].join('/');
+        path == null ? urlBasePath : [urlBasePath, path].join('/');
 
     return Uri.https(_baseUrl, finalPath, queryParams);
+  }
+
+  Uri https(
+      {required String basePath,
+      required String path,
+      Map<String, dynamic>? queryParams}) {
+    return Uri.https(basePath, [basePath, path].join('/'), queryParams);
   }
 }
