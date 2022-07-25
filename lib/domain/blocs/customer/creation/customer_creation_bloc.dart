@@ -32,8 +32,8 @@ class CustomerCreationBloc
         (event, emit) => _mapPasswordChangedToState(event, emit));
     on<CustomerCreationRepeatedPasswordChanged>(
         (event, emit) => _mapRepeatedPasswordChangedToState(event, emit));
-    on<CustomerCreationPhoneNumberChanged>(
-        (event, emit) => _mapPhoneNumberChangedToState(event, emit));
+    // on<CustomerCreationPhoneNumberChanged>(
+    //     (event, emit) => _mapPhoneNumberChangedToState(event, emit));
     on<CustomerCreationSubmitted>(
         (event, emit) => _mapCustomerCreationSubmittedToState(event, emit));
   }
@@ -140,21 +140,21 @@ class CustomerCreationBloc
         ])));
   }
 
-  void _mapPhoneNumberChangedToState(CustomerCreationPhoneNumberChanged event,
-      Emitter<CustomerCreationState> emit) {
-    final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
-    emit(state.copyWith(
-        phoneNumber: phoneNumber,
-        status: Formz.validate([
-          phoneNumber,
-          state.username,
-          state.firstName,
-          state.lastName,
-          state.password,
-          state.repeatPassword,
-          state.email
-        ])));
-  }
+  // void _mapPhoneNumberChangedToState(CustomerCreationPhoneNumberChanged event,
+  //     Emitter<CustomerCreationState> emit) {
+  //   final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
+  //   emit(state.copyWith(
+  //       phoneNumber: phoneNumber,
+  //       status: Formz.validate([
+  //         phoneNumber,
+  //         state.username,
+  //         state.firstName,
+  //         state.lastName,
+  //         state.password,
+  //         state.repeatPassword,
+  //         state.email
+  //       ])));
+  // }
 
   Future<void> _mapCustomerCreationSubmittedToState(
       CustomerCreationSubmitted event,
@@ -168,7 +168,7 @@ class CustomerCreationBloc
             lastName: state.lastName.value,
             password: state.password.value,
             email: state.email.value,
-            phoneNumber: state.phoneNumber.value,
+            phoneNumber: state.phoneNumber.value.phoneNumber,
             socialMediaType: SocialMediaType.inker);
         dev.log('$customer', className, '_mapCustomerCreationSubmittedToState');
         emit(state.copyWith(status: FormzStatus.submissionSuccess));

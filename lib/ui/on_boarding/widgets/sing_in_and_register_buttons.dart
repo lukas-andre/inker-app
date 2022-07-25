@@ -31,7 +31,10 @@ class SingInAndRegisterButton extends StatelessWidget {
                     onPressed: () {
                       onboardingBloc.add(const OnBoardingRegisterPressed());
                     },
-                    child: const Text('Registrarme'),
+                    child: const Text(
+                      'Registrarme',
+                      style: TextStyle(fontFamily: 'Poppins'),
+                    ),
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         primary: const Color(0xffffffff),
@@ -46,7 +49,10 @@ class SingInAndRegisterButton extends StatelessWidget {
                     onPressed: () {
                       onboardingBloc.add(const OnBoardingSignInPressed());
                     },
-                    child: const Text('Iniciar sesión'),
+                    child: const Text(
+                      'Iniciar sesión',
+                      style: TextStyle(fontFamily: 'Poppins'),
+                    ),
                     style: TextButton.styleFrom(
                         shape: const StadiumBorder(),
                         primary: const Color(0xffffffff),

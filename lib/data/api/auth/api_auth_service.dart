@@ -15,6 +15,8 @@ import 'dtos/login_response.dart';
 
 class InvalidCredentialsException implements Exception {}
 
+class UserIsNotActiveException implements Exception {}
+
 class ApiAuthService extends AuthService {
   static const String className = 'ApiAuthService';
 
@@ -40,10 +42,10 @@ class ApiAuthService extends AuthService {
     String? token = await _localSessionService.getActiveSessionToken();
     dev.log('token: $token', className, 'status');
 
-    bool keepConection = checkIfValidToken(token);
-    dev.log('keepConection: $keepConection', className, 'status');
+    bool keepConnection = checkIfValidToken(token);
+    dev.log('keepConfection: $keepConnection', className, 'status');
 
-    if (keepConection) {
+    if (keepConnection) {
       yield AuthStatus.authenticated;
       _statusValue = AuthStatus.authenticated;
     } else {
@@ -66,6 +68,12 @@ class ApiAuthService extends AuthService {
 
     if (response.statusCode == HttpStatus.conflict) {
       throw InvalidCredentialsException();
+    }
+
+    if (response.statusCode == HttpStatus.badRequest) {
+      if (response.body.contains('User is not active')) {
+        throw UserIsNotActiveException();
+      }
     }
 
     throw Exception('error in login identifier ${request.identifier}');

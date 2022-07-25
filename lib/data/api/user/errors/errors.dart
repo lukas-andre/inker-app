@@ -1,0 +1,14 @@
+const userAlreadyExists = 'User already exists';
+const artistAlreadyExists = 'Artist already exists';
+const rolesDoesNotExists = 'Role does not exists';
+const problemsSavingArtist = 'Problems saving artist';
+const problemsSavingAgendaForUser = 'Problems saving agenda for user';
+const troubleSavingLocation = 'Trouble saving location';
+const userAlreadyVerified = 'User already verified';
+const maxSmsAttemptsReached = 'Max sms attempts reached';
+const problemCreatingVerificationHash = 'Problem creating verification hash';
+const userNotAccepted = 'User not accepted';
+const userIdPipeFailed = 'User id pipe failed';
+const hashNotFoundForUserId = 'Hash not found for userId';
+const invalidVerificationCode = 'Invalid verification code';
+const errorActivatingUser = 'Error activating user';
