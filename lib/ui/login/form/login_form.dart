@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/ui/login2/form/actions_buttons.dart';
-import 'package:inker_studio/ui/login2/form/inputs/identifier_input.dart';
-import 'package:inker_studio/ui/login2/form/inputs/password_input.dart';
+import 'package:inker_studio/ui/login/form/actions_buttons.dart';
+import 'package:inker_studio/ui/login/form/inputs/identifier_input.dart';
+import 'package:inker_studio/ui/login/form/inputs/password_input.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 
 class LoginForm extends StatelessWidget {

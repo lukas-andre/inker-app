@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/ui/login2/form/login_form.dart';
-import 'package:inker_studio/ui/login2/widgets/login_header.dart';
-import 'package:inker_studio/ui/login2/widgets/social_button.dart';
+import 'package:inker_studio/ui/login/form/login_form.dart';
+import 'package:inker_studio/ui/login/widgets/login_header.dart';
+import 'package:inker_studio/ui/login/widgets/social_button.dart';
 
 class LoginLayout extends StatelessWidget {
   const LoginLayout({
