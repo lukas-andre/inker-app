@@ -32,8 +32,8 @@ class ArtistCreationBloc
         (event, emit) => _mapPasswordChangedToState(event, emit));
     on<ArtistCreationRepeatedPasswordChanged>(
         (event, emit) => _mapRepeatedPasswordChangedToState(event, emit));
-    on<ArtistCreationPhoneNumberChanged>(
-        (event, emit) => _mapPhoneNumberChangedToState(event, emit));
+    // on<ArtistCreationPhoneNumberChanged>(
+    //     (event, emit) => _mapPhoneNumberChangedToState(event, emit));
     on<ArtistCreationSubmitted>(
         (event, emit) => _mapArtistCreationSubmittedToState(event, emit));
   }
@@ -92,13 +92,13 @@ class ArtistCreationBloc
     ));
   }
 
-  void _mapPhoneNumberChangedToState(ArtistCreationPhoneNumberChanged event,
-      Emitter<ArtistCreationState> emit) {
-    final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
-    emit(state.copyWith(
-      formState: state.formState.copyWith(phoneNumber: phoneNumber),
-    ));
-  }
+  // void _mapPhoneNumberChangedToState(ArtistCreationPhoneNumberChanged event,
+  //     Emitter<ArtistCreationState> emit) {
+  //   final phoneNumber = PhoneNumberInput.dirty(event.phoneNumber);
+  //   emit(state.copyWith(
+  //     formState: state.formState.copyWith(phoneNumber: phoneNumber),
+  //   ));
+  // }
 
   Future<void> _mapArtistCreationSubmittedToState(
       ArtistCreationSubmitted event, Emitter<ArtistCreationState> emit) async {

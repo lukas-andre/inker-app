@@ -4,6 +4,7 @@ import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
+import 'package:inker_studio/data/gcp/gcp_places_service.dart';
 import 'package:inker_studio/data/local/shared_preferences/local_storage_impl.dart';
 import 'package:inker_studio/data/local/sqlite/sqlite_customer_service.dart';
 import 'package:inker_studio/data/local/sqlite/sqlite_session_service.dart';
@@ -12,16 +13,19 @@ import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
+import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/logout_usecase.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
+import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
 
 List<RepositoryProvider> buildProviders() {
   return [
     RepositoryProvider<GoogleAuthService>(create: (_) => GoogleAuthService()),
+    RepositoryProvider<PlacesService>(create: (_) => GcpPlacesService()),
     RepositoryProvider<LocalStorage>(create: (_) => SharedPreferencesStorage()),
     RepositoryProvider<AccountVerificationService>(
         create: (_) => ApiAccountVerificationService()),
@@ -33,9 +37,9 @@ List<RepositoryProvider> buildProviders() {
         create: (_) => SqliteSessionService()),
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
-    RepositoryProvider<GoogleSingInUsecase>(
+    RepositoryProvider<GoogleSingInUseCase>(
         create: (context) =>
-            GoogleSingInUsecase(context.read(), context.read())),
+            GoogleSingInUseCase(context.read(), context.read())),
     RepositoryProvider<LoginUseCase>(
         create: (context) => LoginUseCase(
             authService: context.read(), localSession: context.read())),
@@ -48,5 +52,9 @@ List<RepositoryProvider> buildProviders() {
         create: (context) => CreateCustomerUseCase(
             httpCustomerService: context.read(),
             localCustomerService: context.read())),
+    RepositoryProvider<CreateUserUseCase>(
+      create: (context) => CreateUserUseCase(
+          gcpPlacesService: context.read(), userService: context.read()),
+    ),
   ];
 }

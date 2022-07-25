@@ -20,7 +20,7 @@ class OnBoardingSkipButton extends StatelessWidget {
           opacity: state.contents[state.page].showSkipButton ? 1 : 0,
           duration: const Duration(milliseconds: 500),
           child: Padding(
-            padding: const EdgeInsets.only(top: 25, right: 20),
+            padding: const EdgeInsets.only(top: 23, right: 20),
             child: GestureDetector(
               onTap: () => state.contents[state.page].showSkipButton
                   ? onboardingBloc.add(const OnBoardingSkipPressed())
@@ -28,9 +28,9 @@ class OnBoardingSkipButton extends StatelessWidget {
               child: const Text('Saltar',
                   textAlign: TextAlign.end,
                   style: TextStyle(
-                    fontSize: 17.0,
-                    color: Color(0x6bFFFFFF),
-                  )),
+                      fontSize: 17.0,
+                      color: Color(0x6bFFFFFF),
+                      fontFamily: 'Poppins')),
             ),
           ),
         );

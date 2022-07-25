@@ -1,50 +1,67 @@
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart' show FormzInput;
 
 enum PhoneNumberValidationError {
   empty,
   invalidIsoCode,
-  invalidPhoneNumber,
+  invalidPhoneNumber;
+
+  String? get message {
+    switch (this) {
+      case PhoneNumberValidationError.empty:
+        return 'El numero de telefono no puede estar vacio.';
+      case PhoneNumberValidationError.invalidIsoCode:
+        return 'El codigo de pais no es valido.';
+      case PhoneNumberValidationError.invalidPhoneNumber:
+        return 'El numero de telefono no es valido.';
+      default:
+        return null;
+    }
+  }
 }
 
-class PhoneNumberInput extends FormzInput<String, PhoneNumberValidationError> {
-  const PhoneNumberInput.pure() : super.pure('');
-  const PhoneNumberInput.dirty([String value = '']) : super.dirty(value);
+class PhoneNumber extends Equatable {
+  const PhoneNumber(
+      {required this.isoCode,
+      required this.phoneNumber,
+      required this.dialCode});
+
+  final String phoneNumber;
+  final String isoCode;
+  final String dialCode;
+
+  const PhoneNumber.pure()
+      : isoCode = '',
+        phoneNumber = '',
+        dialCode = '';
 
   @override
-  PhoneNumberValidationError? validator(String? value) {
-    // TODO: fix this validation
-    // dev.inspect(value);
+  List<Object?> get props => [isoCode, phoneNumber, dialCode];
 
-    // final valueSplit = value!.split('+56');
-    // dev.inspect(valueSplit);
+  @override
+  bool get stringify => true;
+}
 
-    // final rawNumber = valueSplit.last;
-    // dev.inspect(rawNumber);
+class PhoneNumberInput
+    extends FormzInput<PhoneNumber, PhoneNumberValidationError> {
+  const PhoneNumberInput.pure() : super.pure(const PhoneNumber.pure());
+  const PhoneNumberInput.dirty([PhoneNumber value = const PhoneNumber.pure()])
+      : super.dirty(value);
 
-    // final isoCode = valueSplit.first;
-    // final isoCodeSplit = isoCode.split('+');
-    // dev.inspect(isoCode);
-    // dev.inspect(isoCodeSplit);
+  @override
+  PhoneNumberValidationError? validator(PhoneNumber value) {
+    if (value.phoneNumber.isEmpty) {
+      return PhoneNumberValidationError.empty;
+    }
 
-    // final plusSign = isoCodeSplit.first;
-    // final number = isoCodeSplit.last;
-    // dev.inspect(plusSign);
-    // dev.inspect(number);
+    if (!RegExp(r'^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$')
+        .hasMatch(value.phoneNumber)) {
+      return PhoneNumberValidationError.invalidPhoneNumber;
+    }
 
-    // if ((number.length <= 3 && number.isNotEmpty) &&
-    //     int.tryParse(number) != null) {
-    //   return PhoneNumberValidationError.invalidIsoCode;
-    // }
-
-    // if (int.tryParse(rawNumber) != null) {
-    //   return PhoneNumberValidationError.invalidPhoneNumber;
-    // }
-
-    final valueSplit = value!.split('+56');
+    final valueSplit = value.phoneNumber.split(value.dialCode);
 
     final rawNumber = valueSplit.last;
-    return rawNumber.isNotEmpty == true
-        ? null
-        : PhoneNumberValidationError.empty;
+    return rawNumber.isNotEmpty ? null : PhoneNumberValidationError.empty;
   }
 }

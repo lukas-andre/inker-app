@@ -2,6 +2,10 @@ part of 'login_bloc.dart';
 
 enum NewUserType { google, facebook, apple, inker, unknown }
 
+enum UserStatus { inactive, unknown, active }
+
+enum LoginStatus { invalidCredentials, unknown, ok, unknownError }
+
 class LoginState extends Equatable {
   const LoginState(
       {this.status = FormzStatus.pure,
@@ -11,7 +15,9 @@ class LoginState extends Equatable {
       this.googleUser,
       this.errorMessage,
       this.infoMessage,
-      this.userTypeToCreate});
+      this.userTypeToCreate,
+      this.loginStatus = LoginStatus.unknown,
+      this.userStatus = UserStatus.unknown});
 
   final FormzStatus status;
   final UsernameInput username;
@@ -21,6 +27,8 @@ class LoginState extends Equatable {
   final String? errorMessage;
   final String? infoMessage;
   final String? userTypeToCreate;
+  final UserStatus userStatus;
+  final LoginStatus loginStatus;
 
   LoginState copyWith({
     FormzStatus? status,
@@ -32,6 +40,8 @@ class LoginState extends Equatable {
     String? infoMessage,
     String? userTypeToCreate,
     firebase_auth.User? googleUser,
+    UserStatus? userStatus,
+    LoginStatus? loginStatus,
   }) {
     return LoginState(
       status: status ?? this.status,
@@ -42,6 +52,8 @@ class LoginState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       infoMessage: infoMessage ?? this.infoMessage,
       userTypeToCreate: userTypeToCreate ?? this.userTypeToCreate,
+      userStatus: userStatus ?? this.userStatus,
+      loginStatus: loginStatus ?? this.loginStatus,
     );
   }
 
@@ -53,7 +65,9 @@ class LoginState extends Equatable {
         newUserType,
         googleUser,
         errorMessage,
-        infoMessage
+        infoMessage,
+        userStatus,
+        loginStatus
       ];
 
   @override
