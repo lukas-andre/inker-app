@@ -17,6 +17,8 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _texEditingController.text =
+        context.read<RegisterArtistBloc>().state.form.addressExtra.value;
     return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
       buildWhen: (previous, current) =>
           previous.form.addressExtra.value != current.form.addressExtra.value,

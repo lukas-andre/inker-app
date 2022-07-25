@@ -31,12 +31,9 @@ class InkerNavigator {
         context, MaterialPageRoute(builder: (_) => page), (route) => false);
   }
 
-  static pushAndRemoveUntil2<T>(BuildContext context, page, T predicate) {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => page),
-        (Route<dynamic> route) => route is T);
-  }
+  // static pushAndRemoveUntil2<T>(BuildContext context, page, T predicate) {
+  //   Navigator.p
+  // }
 }
 
 class NoContextNavigator {
