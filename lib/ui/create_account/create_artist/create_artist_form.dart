@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/artist/creation/artist_creation_bloc.dart';
-import 'package:inker_studio/ui/account_verification/account_verification_page.dart';
 import 'package:inker_studio/ui/create_account/create_artist/form_fields/fields.dart';
-import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class CreateArtistForm extends StatelessWidget {
   static const String className = 'CreateArtistForm';
@@ -26,7 +24,7 @@ class CreateArtistForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(const SnackBar(content: Text('Artist created !')));
 
-          InkerNavigator.push(context, const AccountVerificationPage());
+          // InkerNavigator.push(context, const AccountVerificationPage());
         }
       },
       child: Align(

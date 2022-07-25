@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
-import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_extra_input.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_input.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_type_input.dart';
@@ -17,7 +17,6 @@ import 'package:inker_studio/ui/verification/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class RegisterArtistPage4 extends StatelessWidget {
@@ -60,8 +59,8 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     RegisterArtistBloc registerArtistBloc =
         BlocProvider.of<RegisterArtistBloc>(context);
-    VerificationBloc verificationBloc =
-        BlocProvider.of<VerificationBloc>(context);
+    AccountVerificationBloc verificationBloc =
+        BlocProvider.of<AccountVerificationBloc>(context);
     return BlocListener<RegisterArtistBloc, RegisterArtistState>(
       listenWhen: (previous, current) =>
           previous.registerState != current.registerState,
