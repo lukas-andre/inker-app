@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_last_name_input.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_name_input.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_username_input.dart';
+import 'package:inker_studio/ui/register/register_artist/form/register_artist_form_page_1.dart';
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
@@ -15,7 +13,6 @@ import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 // TODO: TODAS SON IGUALES SOLO CAMBIAN LAS VALIDACIONES, LAS ROWS,
 // EL PROGRESS, Y LOS TITULOS, POR LO QUE SE PUEDE AUTOMATIZAR
@@ -110,140 +107,19 @@ class RegisterArtistLayout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Requerimos tus datos para registrarte como artista',
+              text: 'Completa tus Datos personales ℹ️',
             )
           ],
         ),
+        const RegisterArtistFormPage1(),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             RegisterCustomSubTitle(
                 text:
                     'Introduce tus datos personales para poder continuar tu registro.')
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 20),
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: KeyboardActions(
-            config: _buildKeyboardActionsConfig(context),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              controller: context.read<RegisterArtistBloc>().scrollController,
-              children: [
-                RegisterArtistNameInput(),
-                RegisterArtistLastNameInput(),
-                RegisterArtistUsernameInput(),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
-    final bloc = context.read<RegisterArtistBloc>();
-    final widthPosition = MediaQuery.of(context).size.width * 0.9;
-    return KeyboardActionsConfig(
-      keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-      keyboardBarColor: Colors.grey[200],
-      nextFocus: false,
-      actions: [
-        KeyboardActionsItem(
-          focusNode: bloc.nameFocusNode,
-          displayDoneButton: false,
-          toolbarAlignment: MainAxisAlignment.spaceBetween,
-          toolbarButtons: [
-            (node) {
-              return const KeyBoardActionBackButton(
-                isActive: false,
-              );
-            },
-            (node) {
-              return GestureDetector(
-                onTap: () {
-                  bloc.scrollController.animateTo(widthPosition,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
-                  FocusScope.of(context).unfocus();
-                  Future.delayed(const Duration(milliseconds: 500),
-                      () => bloc.lastNameFocusNode.requestFocus());
-                },
-                child: const KeyBoardActionNextButton(),
-              );
-            }
-          ],
-        ),
-        KeyboardActionsItem(
-            focusNode: bloc.lastNameFocusNode,
-            displayDoneButton: false,
-            toolbarAlignment: MainAxisAlignment.spaceBetween,
-            toolbarButtons: [
-              (node) {
-                return GestureDetector(
-                  onTap: () {
-                    bloc.scrollController.animateTo(0.0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut);
-                    FocusScope.of(context).unfocus();
-                    Future.delayed(const Duration(milliseconds: 500),
-                        () => bloc.nameFocusNode.requestFocus());
-                  },
-                  child: const KeyBoardActionBackButton(
-                    isActive: true,
-                  ),
-                );
-              },
-              (node) {
-                return GestureDetector(
-                  onTap: () {
-                    bloc.scrollController.animateTo(widthPosition * 2,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut);
-                    FocusScope.of(context).unfocus();
-                    Future.delayed(const Duration(milliseconds: 500),
-                        () => bloc.usernameFocusNode.requestFocus());
-                  },
-                  child: const KeyBoardActionNextButton(),
-                );
-              }
-            ]),
-        KeyboardActionsItem(
-            focusNode: bloc.usernameFocusNode,
-            displayDoneButton: false,
-            toolbarAlignment: MainAxisAlignment.spaceBetween,
-            toolbarButtons: [
-              (node) {
-                return GestureDetector(
-                  onTap: () {
-                    bloc.scrollController.animateTo(widthPosition,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut);
-                    FocusScope.of(context).unfocus();
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      bloc.lastNameFocusNode.requestFocus();
-                    });
-                  },
-                  child: const KeyBoardActionBackButton(
-                    isActive: true,
-                  ),
-                );
-              },
-              (node) {
-                return GestureDetector(
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    context.read<RegisterArtistBloc>().add(
-                          const RegisterArtistNextPagePressed(1),
-                        );
-                  },
-                  child: const KeyBoardActionNextButton(
-                    isActive: true,
-                    isFinal: true,
-                  ),
-                );
-              }
-            ]),
       ],
     );
   }

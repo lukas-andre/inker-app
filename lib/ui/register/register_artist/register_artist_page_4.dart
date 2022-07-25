@@ -4,9 +4,9 @@ import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
 import 'package:inker_studio/ui/login2/widgets/login_background.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_extra_input.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_input.dart';
-import 'package:inker_studio/ui/register/register_artist/form/register_artist_address_type_input.dart';
+import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_extra_input.dart';
+import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_input.dart';
+import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_type_input.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_back_button.dart';
@@ -15,6 +15,7 @@ import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/ui/verification/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
+import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
@@ -162,13 +163,6 @@ class RegisterArtistPage4Layout extends StatelessWidget {
               ],
             ),
             Row(
-              children: const [
-                RegisterCustomSubTitle(
-                    text:
-                        'De esta forma nuestros usuarios cercanos a ti podran ver tu encontrarte de manera rapida y facil.'),
-              ],
-            ),
-            Row(
               children: [RegisterArtistAddressInput()],
             ),
             AnimatedSwitcher(
@@ -194,7 +188,16 @@ class RegisterArtistPage4Layout extends StatelessWidget {
               children: const [
                 RegisterArtistAddressTypeInput(),
               ],
-            )
+            ),
+            RowSpacer(space: MediaQuery.of(context).size.height * 0.04),
+            Row(
+              children: const [
+                RegisterCustomSubTitle(
+                    fontSize: 15,
+                    text:
+                        'De esta forma nuestros usuarios cercanos a ti podran ver tu encontrarte de manera rapida y facil.'),
+              ],
+            ),
           ],
         );
       },
