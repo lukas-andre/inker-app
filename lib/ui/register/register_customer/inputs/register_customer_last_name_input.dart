@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
-class RegisterArtistLastNameInput extends StatelessWidget {
-  RegisterArtistLastNameInput({
+class RegisterCustomerLastNameInput extends StatelessWidget {
+  RegisterCustomerLastNameInput({
     Key? key,
   }) : super(key: key);
   final _texEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<RegisterArtistBloc>();
+    final bloc = context.read<RegisterCustomerBloc>();
     _texEditingController.text = bloc.state.form.lastName.value;
-    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+    return BlocBuilder<RegisterCustomerBloc, RegisterCustomerState>(
       buildWhen: (previous, current) =>
           previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
             hint: 'Apellido. ej: Goodman',
             verticalPadding: 0,
-            focusNode: bloc.lastNameFocusNode,
             withFlex: false,
             onTap: () {},
             controller: _texEditingController,
@@ -29,8 +28,8 @@ class RegisterArtistLastNameInput extends StatelessWidget {
                 ? ClearInput(
                     onTap: () {
                       _texEditingController.clear();
-                      context.read<RegisterArtistBloc>().add(
-                            const RegisterArtistLastNameChanged(''),
+                      context.read<RegisterCustomerBloc>().add(
+                            const RegisterCustomerLastNameChanged(''),
                           );
                     },
                   )
@@ -40,8 +39,8 @@ class RegisterArtistLastNameInput extends StatelessWidget {
                 ? null
                 : 'Apellido ${state.form.lastName.error?.message}',
             onChanged: (value) {
-              context.read<RegisterArtistBloc>().add(
-                    RegisterArtistLastNameChanged(value),
+              context.read<RegisterCustomerBloc>().add(
+                    RegisterCustomerLastNameChanged(value),
                   );
             },
             label: 'Apellido');

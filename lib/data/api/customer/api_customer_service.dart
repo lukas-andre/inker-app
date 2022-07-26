@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/api/customer/dtos/create_customer_request.dart';
 import 'package:inker_studio/data/api/customer/dtos/create_customer_response.dart';
-import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
+import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -17,6 +17,7 @@ class ApiCustomerService implements CustomerService {
       : _httpConfig = HttpClientConfig(basePath: 'customer'),
         super();
 
+// TODO: BORRAR ESTO!, ESTO YA LO HACE EL USER SERVICE
   @override
   Future<CreateCustomerResponse> createCustomerUser(
       CreateCustomerRequest request) async {
