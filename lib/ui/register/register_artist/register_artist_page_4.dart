@@ -66,7 +66,7 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
           previous.registerState != current.registerState,
       listener: (context, state) {
         switch (state.registerState) {
-          case RegisterState.ok:
+          case RegisterArtistStatus.ok:
             final snackBar = customSnackBar(
                 content: 'Tu usuario ha sido creado! 🥳',
                 duration: const Duration(seconds: 4));
@@ -78,17 +78,17 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
                 enableDrag: false);
             registerArtistBloc.add(const RegisterArtistClearForm());
             break;
-          case RegisterState.error:
+          case RegisterArtistStatus.error:
             final snackBar = customSnackBar(
                 content: state.errorMessage ?? 'Error',
                 duration: const Duration(seconds: 4));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             break;
 
-          case RegisterState.initial:
+          case RegisterArtistStatus.initial:
             registerArtistBloc.add(const RegisterArtistClearState());
             break;
-          case RegisterState.submitted:
+          case RegisterArtistStatus.submitted:
             // TODO: Handle this case.
             break;
         }
@@ -117,7 +117,8 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
-                isLoading: state.registerState == RegisterState.submitted,
+                isLoading:
+                    state.registerState == RegisterArtistStatus.submitted,
               );
             },
           );

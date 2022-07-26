@@ -7,13 +7,6 @@ abstract class AccountVerificationEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class VerificationSetContactInfoEvent extends AccountVerificationEvent {
-  const VerificationSetContactInfoEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class VerificationClearEvent extends AccountVerificationEvent {
   const VerificationClearEvent();
 
