@@ -3,8 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:inker_studio/domain/errors/user/activating_user_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_already_verified_exception.dart';
 import 'package:inker_studio/domain/models/notifications/notification_types.dart';
-import 'package:inker_studio/domain/models/user/registered_user_info.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -21,8 +19,6 @@ class AccountVerificationBloc
         super(const AccountVerificationState()) {
     on<VerificationClearEvent>(
         ((event, emit) => _mapVerificationClearEventToState(event, emit)));
-    on<VerificationSetContactInfoEvent>(((event, emit) =>
-        _mapVerificationSetContactInfoEventToState(event, emit)));
     on<VerificationPinCompletedEvent>(((event, emit) =>
         _mapVerificationPinCompletedEventToState(event, emit)));
     on<VerificationPinChangedEvent>(
@@ -43,19 +39,6 @@ class AccountVerificationBloc
         verificationStatusMessage: null,
         accountVerificationStatus: AccountVerificationStatus.ready,
         accountVerificationType: AccountVerificationType.sms));
-  }
-
-  // TODO: REMOVE THIS METHOD AND EVENT
-  _mapVerificationSetContactInfoEventToState(
-      VerificationSetContactInfoEvent event,
-      Emitter<AccountVerificationState> emit) async {
-    await _localStorage.setCreatedUserInfo(const RegisteredUserInfo(
-        userId: 175,
-        userType: UserTypeEnum.artist,
-        phoneNumber: '+56964484712',
-        email: 'lucas.henrydz@gmail.com'));
-    emit(state.copyWith(
-        accountVerificationStatus: AccountVerificationStatus.ready));
   }
 
   Future<void> _mapVerificationPinCompletedEventToState(

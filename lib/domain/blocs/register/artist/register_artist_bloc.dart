@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
 import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
 import 'package:inker_studio/domain/errors/remote/un_processable_exception.dart';
@@ -185,29 +186,29 @@ class RegisterArtistBloc
       if (alreadyCreated.email == state.form.email.value &&
           alreadyCreated.phoneNumber ==
               state.form.phoneNumber.value.phoneNumber) {
-        emit(state.copyWith(registerState: RegisterState.ok));
+        emit(state.copyWith(registerState: RegisterArtistStatus.ok));
       }
     }
 
     emit(state.copyWith(
-      registerState: RegisterState.submitted,
+      registerState: RegisterArtistStatus.submitted,
     ));
     String? errorMessage;
 
     try {
       final response =
-          await _createUserUseCase.execute(state, UserTypeEnum.artist);
+          await _createUserUseCase.execute(state) as CreateArtistUserResponse;
 
       dev.log('response: $response', 'RegisterArtistBloc');
 
       await _localStorage.setCreatedUserInfo(RegisteredUserInfo(
-          userId: response!.id,
+          userId: response.id,
           userType: UserTypeEnum.artist,
           email: state.form.email.value,
           phoneNumber: state.form.phoneNumber.value.phoneNumber));
 
       emit(state.copyWith(
-        registerState: RegisterState.ok,
+        registerState: RegisterArtistStatus.ok,
       ));
     } on DetailsNotFound {
       errorMessage = 'We have problems registering your address. 😔';
@@ -226,9 +227,10 @@ class RegisterArtistBloc
       errorMessage = 'We have problems creating your account.😔';
     }
 
-    if (errorMessage != null && state.registerState != RegisterState.ok) {
+    if (errorMessage != null &&
+        state.registerState != RegisterArtistStatus.ok) {
       emit(state.copyWith(
-        registerState: RegisterState.error,
+        registerState: RegisterArtistStatus.error,
         errorMessage: errorMessage,
       ));
     }
@@ -236,7 +238,7 @@ class RegisterArtistBloc
 
   _mapRegisterArtistClearStateToState(
       Emitter<RegisterArtistState> emit, RegisterArtistClearState event) {
-    emit(state.copyWith(registerState: RegisterState.initial));
+    emit(state.copyWith(registerState: RegisterArtistStatus.initial));
   }
 
   _mapRegisterArtistClearPartialFormToState(

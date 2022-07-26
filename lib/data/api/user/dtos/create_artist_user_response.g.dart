@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_user_response.dart';
+part of 'create_artist_user_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateUserResponse _$CreateUserResponseFromJson(Map json) => CreateUserResponse(
+CreateArtistUserResponse _$CreateArtistUserResponseFromJson(Map json) =>
+    CreateArtistUserResponse(
       userId: json['userId'] as int,
       username: json['username'] as String,
       firstName: json['firstName'] as String,
@@ -21,7 +22,8 @@ CreateUserResponse _$CreateUserResponseFromJson(Map json) => CreateUserResponse(
           Contact.fromJson(Map<String, dynamic>.from(json['contact'] as Map)),
     );
 
-Map<String, dynamic> _$CreateUserResponseToJson(CreateUserResponse instance) {
+Map<String, dynamic> _$CreateArtistUserResponseToJson(
+    CreateArtistUserResponse instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'userId': instance.userId,

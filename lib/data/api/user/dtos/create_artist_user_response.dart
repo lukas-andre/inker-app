@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'create_user_response.g.dart';
+part 'create_artist_user_response.g.dart';
 
-CreateUserResponse createUserResponseFromJson(String str) =>
-    CreateUserResponse.fromJson(json.decode(str));
-String createUserResponseToJson(CreateUserResponse data) =>
+CreateArtistUserResponse createArtistUserResponseFromJson(String str) =>
+    CreateArtistUserResponse.fromJson(json.decode(str));
+String createArtistUserResponseToJson(CreateArtistUserResponse data) =>
     json.encode(data.toJson());
 
 @JsonSerializable()
-class CreateUserResponse {
-  CreateUserResponse({
+class CreateArtistUserResponse {
+  CreateArtistUserResponse({
     required this.userId,
     required this.username,
     required this.firstName,
@@ -37,10 +37,10 @@ class CreateUserResponse {
   final Contact contact;
   final int rating;
 
-  factory CreateUserResponse.fromJson(Map<String, dynamic> json) =>
-      _$CreateUserResponseFromJson(json);
+  factory CreateArtistUserResponse.fromJson(Map<String, dynamic> json) =>
+      _$CreateArtistUserResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CreateUserResponseToJson(this);
+  Map<String, dynamic> toJson() => _$CreateArtistUserResponseToJson(this);
 }
 
 @JsonSerializable()
