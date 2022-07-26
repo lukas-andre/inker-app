@@ -36,7 +36,7 @@ class RegisterArtistLastNameInput extends StatelessWidget {
                   )
                 : null,
             valid: state.form.lastName.valid || state.form.lastName.pure,
-            errorMessage: state.form.username.valid
+            errorMessage: state.form.lastName.valid
                 ? null
                 : 'Apellido ${state.form.lastName.error?.message}',
             onChanged: (value) {

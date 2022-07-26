@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
@@ -46,6 +47,12 @@ class _AppViewState extends State<AppView> {
         ),
         BlocProvider(
           create: (context) => RegisterArtistBloc(
+              placesService: context.read(),
+              createUserUseCase: context.read(),
+              localStorage: context.read()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterCustomerBloc(
               placesService: context.read(),
               createUserUseCase: context.read(),
               localStorage: context.read()),
