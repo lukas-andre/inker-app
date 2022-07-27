@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
   SnackBar _getUserInactiveSnackBar() {
     return customSnackBar(
         content: 'Lo sentimos tu usuario esta inactivo 😭',
-        duration: const Duration(days: 365),
+        duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: 'Activar',
           disabledTextColor: Colors.white,

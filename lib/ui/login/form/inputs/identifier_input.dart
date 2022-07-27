@@ -12,12 +12,13 @@ class IdentifierInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return CustomInput(
+          keyboardType: TextInputType.emailAddress,
           horizontalPadding: 5,
           verticalPadding: 16,
           key: const Key('loginForm_usernameInput_textField'),
           label: 'Teléfono, correo electrónico o usuario',
           onChanged: (value) {
-            context.read<LoginBloc>().add(LoginUsernameChanged(value));
+            context.read<LoginBloc>().add(LoginIdentifierChanged(value));
           },
           inputFormatters: [LowerCaseTextFormatter()],
         );
