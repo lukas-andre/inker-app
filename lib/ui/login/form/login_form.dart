@@ -11,7 +11,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-      margin: const EdgeInsets.fromLTRB(19, 120, 19, 150),
+      margin: const EdgeInsets.fromLTRB(19, 85, 19, 150),
       child: Column(
         children: [
           Row(

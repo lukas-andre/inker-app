@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterCustomerEmailInput extends StatelessWidget {
   RegisterCustomerEmailInput({
@@ -19,6 +20,7 @@ class RegisterCustomerEmailInput extends StatelessWidget {
           previous.form.email.value != current.form.email.value,
       builder: (context, state) {
         return CustomInput(
+            inputFormatters: [TrimTextFormatter()],
             keyboardType: TextInputType.emailAddress,
             controller: _texEditingController,
             suffixIcon: state.form.email.value.isNotEmpty
@@ -36,7 +38,7 @@ class RegisterCustomerEmailInput extends StatelessWidget {
                 state.form.email.valid ? null : state.form.email.error?.message,
             onChanged: (value) {
               context.read<RegisterCustomerBloc>().add(
-                    RegisterCustomerEmailChanged(value),
+                    RegisterCustomerEmailChanged(value.trim()),
                   );
             },
             label: 'Email');

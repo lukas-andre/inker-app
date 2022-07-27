@@ -136,7 +136,7 @@ class RegisterCustomerBloc
       dev.log('response: $response', 'RegisterCustomerBloc');
 
       await _localStorage.setCreatedUserInfo(RegisteredUserInfo(
-          userId: response.id,
+          userId: response.userId,
           userType: UserTypeEnum.customer,
           email: state.form.email.value,
           phoneNumber: state.form.phoneNumber.value.phoneNumber));
