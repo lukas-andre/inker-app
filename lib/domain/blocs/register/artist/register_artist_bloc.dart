@@ -202,7 +202,7 @@ class RegisterArtistBloc
       dev.log('response: $response', 'RegisterArtistBloc');
 
       await _localStorage.setCreatedUserInfo(RegisteredUserInfo(
-          userId: response.id,
+          userId: response.userId,
           userType: UserTypeEnum.artist,
           email: state.form.email.value,
           phoneNumber: state.form.phoneNumber.value.phoneNumber));

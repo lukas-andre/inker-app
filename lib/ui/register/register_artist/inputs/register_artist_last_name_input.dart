@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/utils/forms/capitalize_text_formatter.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistLastNameInput extends StatelessWidget {
   RegisterArtistLastNameInput({
@@ -19,6 +21,7 @@ class RegisterArtistLastNameInput extends StatelessWidget {
           previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
+            inputFormatters: [TrimTextFormatter(), CapitalizeTextFormatter()],
             hint: 'Apellido. ej: Goodman',
             verticalPadding: 0,
             focusNode: bloc.lastNameFocusNode,

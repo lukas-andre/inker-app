@@ -8,6 +8,7 @@ import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistAddressExtraInput extends StatelessWidget {
   RegisterArtistAddressExtraInput({
@@ -24,13 +25,15 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
           previous.form.addressExtra.value != current.form.addressExtra.value,
       builder: (context, state) {
         return CustomInput(
+            inputFormatters: [TrimTextFormatter()],
             controller: _texEditingController,
             suffixIcon: state.form.email.value.isNotEmpty
                 ? ClearInput(
                     onTap: () {
                       _texEditingController.clear();
                       context.read<RegisterArtistBloc>().add(
-                            const RegisterArtistEmailChanged(''),
+                            RegisterArtistAddressExtraChanged(
+                                '', state.addressType),
                           );
                     },
                   )

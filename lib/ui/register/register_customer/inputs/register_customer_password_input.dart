@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/cubits/login/hide_password_cubit.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterCustomerPasswordInput extends StatelessWidget {
   RegisterCustomerPasswordInput({
@@ -23,11 +24,12 @@ class RegisterCustomerPasswordInput extends StatelessWidget {
           return BlocBuilder<HidePasswordCubit, HidePasswordState>(
             builder: (context, cubit) {
               return CustomInput(
+                  inputFormatters: [TrimTextFormatter()],
                   controller: _texEditingController,
                   obscureText: cubit is HidePasswordVisible ? false : true,
                   onChanged: (value) {
                     context.read<RegisterCustomerBloc>().add(
-                          RegisterCustomerPasswordChanged(value),
+                          RegisterCustomerPasswordChanged(value.trim()),
                         );
                   },
                   suffixIcon: GestureDetector(
