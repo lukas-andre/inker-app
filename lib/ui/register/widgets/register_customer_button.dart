@@ -15,7 +15,7 @@ class RegisterCustomerButton extends StatelessWidget {
         openModalBottomSheet(
             context: context, page: const RegisterCustomerPage1());
       },
-      iconPath: 'assets/icons/message_perspective_matte.png',
+      iconPath: 'assets/icons/message-perspective-matte.png',
     );
   }
 }

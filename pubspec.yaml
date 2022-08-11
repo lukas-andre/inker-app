@@ -79,6 +79,7 @@ flutter:
     - assets/onboarding/page_2/
     - assets/onboarding/page_3/
     - assets/icons/
+    - assets/icons/bottom_nav/
     - assets/icons/svg/
   fonts:
     - family: Poppins
