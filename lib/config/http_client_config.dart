@@ -1,13 +1,17 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final inkerURL = dotenv.env['INKER_API_URL']!;
+
 class HttpClientConfig {
   // static const String baseStgUrl = 'api.inkerapp.com';
-  static const String baseStgUrl = '3532-181-43-36-40.sa.ngrok.io';
+  static const String baseStgUrl = '';
 
-  final String _baseUrl;
+  late final String _baseUrl;
   final String _basePath;
 
   HttpClientConfig(
       {String baseUrl = HttpClientConfig.baseStgUrl, required String basePath})
-      : _baseUrl = baseUrl,
+      : _baseUrl = baseUrl == '' ? inkerURL : baseUrl,
         _basePath = basePath;
 
   Uri url({String? basePath, String? path, Map<String, dynamic>? queryParams}) {
