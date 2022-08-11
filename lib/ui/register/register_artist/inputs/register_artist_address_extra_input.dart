@@ -8,6 +8,7 @@ import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/styles.dart';
 import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistAddressExtraInput extends StatelessWidget {
@@ -57,7 +58,7 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
   SuggestionsBoxDecoration suggestionBoxDecoration(BuildContext context) =>
       SuggestionsBoxDecoration(
         elevation: 0,
-        color: const Color(0xff141D3C),
+        color: primaryColor,
         clipBehavior: Clip.hardEdge,
         borderRadius:
             BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
