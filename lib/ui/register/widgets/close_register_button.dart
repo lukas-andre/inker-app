@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +20,7 @@ class CloseRegisterButton extends StatelessWidget {
     RegisterArtistBloc _bloc = BlocProvider.of<RegisterArtistBloc>(context);
 
     return Container(
-      padding: const EdgeInsets.only(right: 22, top: 22),
+      padding: EdgeInsets.only(right: 22, top: Platform.isIOS ? 22 : 40),
       child: Center(
           child: IconButton(
               onPressed: () async {
@@ -44,31 +46,57 @@ class CloseRegisterButton extends StatelessWidget {
                   }
 
                   bool shouldClose = true;
-                  await showCupertinoDialog(
+
+                  await showDialog(
                       context: context,
-                      builder: (context) => CupertinoAlertDialog(
-                            title: const Text('Quieres cerrar el formulario?'),
-                            content: const Text(
-                                'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
-                            actions: <Widget>[
-                              CupertinoDialogAction(
-                                child: const Text('Sí'),
-                                isDestructiveAction: true,
-                                onPressed: () {
-                                  shouldClose = true;
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              CupertinoDialogAction(
-                                isDefaultAction: true,
-                                child: const Text('No'),
-                                onPressed: () {
-                                  shouldClose = false;
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ));
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Quieres cerrar el formulario?'),
+                          content: const Text(
+                              'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('No'),
+                              onPressed: () {
+                                shouldClose = false;
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                shouldClose = true;
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                  // await showCupertinoDialog(
+                  //     context: context,
+                  //     builder: (context) => CupertinoAlertDialog(
+                  //           title: const Text('Quieres cerrar el formulario?'),
+                  //           content: const Text(
+                  //               'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                  //           actions: <Widget>[
+                  //             CupertinoDialogAction(
+                  //               child: const Text('Sí'),
+                  //               isDestructiveAction: true,
+                  //               onPressed: () {
+                  //                 shouldClose = true;
+                  //                 Navigator.of(context).pop();
+                  //               },
+                  //             ),
+                  //             CupertinoDialogAction(
+                  //               isDefaultAction: true,
+                  //               child: const Text('No'),
+                  //               onPressed: () {
+                  //                 shouldClose = false;
+                  //                 Navigator.of(context).pop();
+                  //               },
+                  //             ),
+                  //           ],
+                  //         ));
 
                   if (shouldClose) {
                     for (int i = 0; i < index! + 1; i++) {
@@ -87,5 +115,62 @@ class CloseRegisterButton extends StatelessWidget {
                 // height: 50,
               ))),
     );
+  }
+
+  Future<bool> _onCloseRegisterButtonPressed(BuildContext context) async {
+    bool shouldClose = true;
+    Platform.isIOS
+        ? await showCupertinoDialog(
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+                  title: const Text('Quieres cerrar el formulario?'),
+                  content: const Text(
+                      'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      child: const Text('Sí'),
+                      isDestructiveAction: true,
+                      onPressed: () {
+                        shouldClose = true;
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      child: const Text('No'),
+                      onPressed: () {
+                        shouldClose = false;
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ))
+        : await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Quieres cerrar el formulario?'),
+                content: const Text(
+                    'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('No'),
+                    onPressed: () {
+                      shouldClose = false;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      shouldClose = true;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+
+    return shouldClose;
   }
 }

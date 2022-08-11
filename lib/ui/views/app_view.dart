@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
+import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
-import 'package:inker_studio/ui/customer/home/customer_home_page.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
@@ -60,6 +61,7 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
             create: (context) => AccountVerificationBloc(
                 userService: context.read(), localStorage: context.read())),
+        BlocProvider(create: (context) => CustomerAppBloc()),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
@@ -87,7 +89,7 @@ class _AppViewState extends State<AppView> {
         final String userType = state.session.user!.userType!;
         if (userType == UserType.customer) {
           NoContextNavigator.pushAndRemoveUntil(
-              _navigator, const CustomerHomePage());
+              _navigator, const CustomerAppPage());
         }
 
         if (userType == UserType.artist) {
