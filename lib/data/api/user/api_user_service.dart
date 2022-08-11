@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/user/dtos/create_customer_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
-import 'package:inker_studio/data/api/user/dtos/create_user_response.dart';
+import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
 import 'package:inker_studio/data/api/user/errors/errors.dart';
 import 'package:inker_studio/domain/errors/account_verification/hash_not_found_exception.dart';
 import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
+import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/conflict_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_conflict_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_exception.dart';
@@ -24,6 +26,7 @@ import 'package:inker_studio/domain/errors/user/user_id_pipe_failed_exception.da
 import 'package:inker_studio/domain/errors/user/user_not_accepted_exception.dart';
 import 'package:inker_studio/domain/models/notifications/notification_types.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/utils/api/content_type.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -79,7 +82,7 @@ class ApiUserService extends UserService {
   }
 
   @override
-  Future<CreateUserResponse> create(CreateUserRequest user) async {
+  Future<dynamic> create(CreateUserRequest user) async {
     final url = _httpConfig.surl(basePath: 'users');
     final body = createUserRequestToJson(user);
     try {
@@ -88,6 +91,13 @@ class ApiUserService extends UserService {
       dev.inspect(response, 'createUser response');
       dev.log('response ${response.statusCode}', className);
 
+      if (response.statusCode == HttpStatus.notFound) {
+        if (ResponseUtils.resourceNotFound(response.body)) {
+          dev.log('response body ${response.body}', 'responseUtils');
+          throw ResourceNotFound();
+        }
+        throw HttpNotFound();
+      }
       if (response.statusCode == HttpStatus.conflict) {
         if (response.body.contains('Role not exists')) {
           throw RoleNotExistsException();
@@ -99,6 +109,8 @@ class ApiUserService extends UserService {
           throw UserAlreadyExistsException();
         } else if (response.body.contains('Artist already exists')) {
           throw ArtistAlreadyExistsException();
+        } else if (response.body.contains('Customer already exists')) {
+          throw CustomerAlreadyExistsException();
         } else {
           throw BadRequest();
         }
@@ -114,7 +126,9 @@ class ApiUserService extends UserService {
         }
       } else if (response.statusCode == HttpStatus.created) {
         try {
-          return createUserResponseFromJson(response.body);
+          return user.userType == UserTypeEnum.artist
+              ? createArtistUserResponseFromJson(response.body)
+              : createCustomerUserResponseFromJson(response.body);
         } catch (e, stackTrace) {
           dev.logError(e, stackTrace);
           throw JsonParseException();

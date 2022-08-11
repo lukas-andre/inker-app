@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_form_page_1.dart';
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
@@ -107,7 +107,7 @@ class RegisterArtistLayout extends StatelessWidget {
         Row(
           children: const [
             RegisterCustomTitle(
-              text: 'Completa tus Datos personales ℹ️',
+              text: 'Completa tus datos personales ℹ️',
             )
           ],
         ),

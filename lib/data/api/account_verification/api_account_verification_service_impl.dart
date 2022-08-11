@@ -16,6 +16,7 @@ class SendVerificationCodeType {
   static String email = 'EMAIL';
 }
 
+// TODO: BORRAR ESTO O REEMPLAZARLO POR UN SERVICE QUE SE ENCARGA DE LAS NOTIFICACIONES
 class ApiAccountVerificationService implements AccountVerificationService {
   static const String className = 'ApiAccountVerificationService';
 
