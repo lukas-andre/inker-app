@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
-import 'package:inker_studio/ui/login2/login_page2.dart';
-import 'package:inker_studio/ui/login2/widgets/login_background.dart';
+import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/ui/login/login_page.dart';
+import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
@@ -54,7 +54,7 @@ class VerificationPageNextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<VerificationBloc, VerificationState>(
+    return BlocListener<AccountVerificationBloc, AccountVerificationState>(
       listenWhen: (previous, current) =>
           previous.accountVerificationStatus?.index !=
           current.accountVerificationStatus?.index,
@@ -87,9 +87,11 @@ class VerificationPageNextButton extends StatelessWidget {
           default:
             break;
         }
-        context.read<VerificationBloc>().add(const VerificationClearEvent());
+        context
+            .read<AccountVerificationBloc>()
+            .add(const VerificationClearEvent());
       },
-      child: BlocBuilder<VerificationBloc, VerificationState>(
+      child: BlocBuilder<AccountVerificationBloc, AccountVerificationState>(
         buildWhen: (previous, current) =>
             previous.accountVerificationType !=
                 current.accountVerificationType ||
@@ -103,7 +105,7 @@ class VerificationPageNextButton extends StatelessWidget {
             onPressed: () {
               if (state.isPinCompleted) {
                 context
-                    .read<VerificationBloc>()
+                    .read<AccountVerificationBloc>()
                     .add(VerificationPinCompletedEvent(state.pin ?? ''));
               } else {
                 final snackBar = getInvalidFormSnackBar(context);
@@ -135,9 +137,12 @@ class VerificationPageNextButton extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void handleActivatedUser(VerificationState state, BuildContext context) {
+  void handleActivatedUser(
+      AccountVerificationState state, BuildContext context) {
     if (state.isVerifying) {
-      context.read<VerificationBloc>().add(const VerificationResetEvent());
+      context
+          .read<AccountVerificationBloc>()
+          .add(const VerificationResetEvent());
     }
     final snackBar = customSnackBar(
         content: state.verificationStatusMessage ?? 'User already verified');
@@ -147,18 +152,18 @@ class VerificationPageNextButton extends StatelessWidget {
       const OnBoardingPage(),
     );
 
-    InkerNavigator.push(context, const LoginPage2());
+    InkerNavigator.push(context, const LoginPage());
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _handleUserAlreadyVerified(
-      BuildContext context, VerificationState state) {
+      BuildContext context, AccountVerificationState state) {
     InkerNavigator.pushAndRemoveUntil(
       context,
       const OnBoardingPage(),
     );
 
-    InkerNavigator.push(context, const LoginPage2());
+    InkerNavigator.push(context, const LoginPage());
 
     final snackBar = customSnackBar(
         content: state.verificationStatusMessage ?? 'User already verified');
@@ -171,14 +176,14 @@ class VerificationLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    VerificationBloc bloc = context.read<VerificationBloc>();
+    AccountVerificationBloc bloc = context.read<AccountVerificationBloc>();
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: const [
             CloseRegisterButton(
-              toPage: LoginPage2(),
+              toPage: LoginPage(),
             )
           ],
         ),

@@ -9,7 +9,7 @@ enum LoginStatus { invalidCredentials, unknown, ok, unknownError }
 class LoginState extends Equatable {
   const LoginState(
       {this.status = FormzStatus.pure,
-      this.username = const UsernameInput.pure(),
+      this.identifier = const IdentifierInput.pure(),
       this.password = const PasswordInput.pure(),
       this.newUserType = NewUserType.unknown,
       this.googleUser,
@@ -20,7 +20,7 @@ class LoginState extends Equatable {
       this.userStatus = UserStatus.unknown});
 
   final FormzStatus status;
-  final UsernameInput username;
+  final IdentifierInput identifier;
   final PasswordInput password;
   final NewUserType newUserType;
   final firebase_auth.User? googleUser;
@@ -32,7 +32,7 @@ class LoginState extends Equatable {
 
   LoginState copyWith({
     FormzStatus? status,
-    UsernameInput? username,
+    IdentifierInput? identifier,
     PasswordInput? password,
     bool? isNewUser,
     NewUserType? newUserType,
@@ -45,7 +45,7 @@ class LoginState extends Equatable {
   }) {
     return LoginState(
       status: status ?? this.status,
-      username: username ?? this.username,
+      identifier: identifier ?? this.identifier,
       password: password ?? this.password,
       newUserType: newUserType ?? this.newUserType,
       googleUser: googleUser ?? this.googleUser,
@@ -60,7 +60,7 @@ class LoginState extends Equatable {
   @override
   List<Object?> get props => [
         status,
-        username,
+        identifier,
         password,
         newUserType,
         googleUser,

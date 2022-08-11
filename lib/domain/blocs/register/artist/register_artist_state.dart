@@ -134,7 +134,7 @@ class AddressTypeOption extends Equatable {
   }
 }
 
-enum RegisterState {
+enum RegisterArtistStatus {
   initial,
   submitted,
   ok,
@@ -157,7 +157,7 @@ class RegisterArtistState extends Equatable {
         AddressTypeOption(type: AddressType.home, isSelected: true),
         AddressTypeOption(type: AddressType.apartment, isSelected: false),
       ],
-      this.registerState = RegisterState.initial,
+      this.registerState = RegisterArtistStatus.initial,
       this.partialFormStatus = PartialFormStatus.initial,
       this.errorMessage,
       required this.form});
@@ -167,7 +167,7 @@ class RegisterArtistState extends Equatable {
   final double progress;
   final RegisterArtistForm form;
   final List<AddressTypeOption> addressTypeOption;
-  final RegisterState registerState;
+  final RegisterArtistStatus registerState;
   final String? errorMessage;
   final PartialFormStatus partialFormStatus;
 
@@ -195,7 +195,7 @@ class RegisterArtistState extends Equatable {
     double? progress,
     RegisterArtistForm? form,
     List<AddressTypeOption>? addressTypeOption,
-    RegisterState? registerState,
+    RegisterArtistStatus? registerState,
     String? errorMessage,
     PartialFormStatus? partialFormStatus,
   }) {
