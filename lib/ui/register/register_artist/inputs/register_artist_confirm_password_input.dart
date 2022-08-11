@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/cubits/login/hide_password_cubit.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistConfirmPasswordInput extends StatelessWidget {
   RegisterArtistConfirmPasswordInput({
@@ -25,6 +26,7 @@ class RegisterArtistConfirmPasswordInput extends StatelessWidget {
           return BlocBuilder<HidePasswordCubit, HidePasswordState>(
             builder: (context, cubit) {
               return CustomInput(
+                  inputFormatters: [TrimTextFormatter()],
                   controller: _texEditingController,
                   obscureText: cubit is HidePasswordVisible ? false : true,
                   onChanged: (value) {

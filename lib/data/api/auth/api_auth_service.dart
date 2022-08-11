@@ -58,7 +58,7 @@ class ApiAuthService extends AuthService {
 
   @override
   Future<LoginResponse> login(LoginRequest request) async {
-    final url = _httpConfig.url(path: 'login');
+    final url = _httpConfig.surl(path: 'login');
     final response = await http.post(url, body: request.toJson());
     dev.inspect(response, 'response');
 
