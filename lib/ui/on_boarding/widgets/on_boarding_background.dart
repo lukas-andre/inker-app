@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:inker_studio/utils/forms/styles.dart';
 
 class OnBoardingBackground extends StatelessWidget {
   const OnBoardingBackground({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class OnBoardingBackground extends StatelessWidget {
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 40.0),
       child: Container(
-        color: const Color(0xFF141D3C),
+        color: primaryColor,
         alignment: Alignment.center,
       ),
     );

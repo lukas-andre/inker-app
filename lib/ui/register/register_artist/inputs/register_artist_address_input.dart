@@ -101,7 +101,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
   SuggestionsBoxDecoration suggestionBoxDecoration(BuildContext context) =>
       SuggestionsBoxDecoration(
         elevation: 0,
-        color: const Color(0xff141D3C),
+        color: primaryColor,
         clipBehavior: Clip.hardEdge,
         borderRadius:
             BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),

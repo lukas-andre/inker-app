@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/utils/forms/styles.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
 
 class SplashPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFF141D3C),
+        color: primaryColor,
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
