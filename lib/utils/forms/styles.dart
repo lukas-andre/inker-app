@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 EdgeInsetsGeometry inputContentPadding =
     const EdgeInsets.only(left: 28, top: 40);
 
+Color primaryColor = const Color(0xFF141D3C);
+
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();
 
