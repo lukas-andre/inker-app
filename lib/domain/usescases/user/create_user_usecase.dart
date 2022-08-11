@@ -1,9 +1,11 @@
 import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
-import 'package:inker_studio/data/api/user/dtos/create_user_response.dart';
+import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
+import 'package:inker_studio/utils/random.dart';
 
 class DetailsNotFound implements Exception {}
 
@@ -17,17 +19,40 @@ class CreateUserUseCase {
       : _userService = userService,
         _gcpPlacesService = gcpPlacesService;
 
-  Future<CreateUserResponse?> execute(
-      RegisterArtistState state, UserTypeEnum userType) async {
-    if (userType == UserTypeEnum.artist) {
-      final createUserResponse = await _handleArtistRegister(state, userType);
+  Future<dynamic> execute(dynamic state) async {
+    if (state is RegisterArtistState) {
+      final createUserResponse = await _handleArtistRegister(state);
       return createUserResponse;
     }
-    return null;
+
+    if (state is RegisterCustomerState) {
+      final createUserResponse = await _handleCustomerRegister(state);
+      return createUserResponse;
+    }
+
+    throw ArgumentError.value(state, 'CreateUserUseCase',
+        'only register artist or customer state is allowed');
   }
 
-  Future<CreateUserResponse> _handleArtistRegister(
-      RegisterArtistState state, UserTypeEnum userType) async {
+  Future<dynamic> _handleCustomerRegister(RegisterCustomerState state) async {
+    final form = state.form;
+    final createUserResponse = await _userService.create(CreateUserRequest(
+        username:
+            '${form.lastName.value}-${form.firstName.value}-${inkerRandom()}',
+        email: form.email.value,
+        password: form.password.value,
+        phoneNumberDetails: PhoneNumberDetails(
+            countryCode: form.phoneNumber.value.isoCode,
+            number: form.phoneNumber.value.phoneNumber,
+            dialCode: form.phoneNumber.value.dialCode),
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        userType: UserTypeEnum.customer));
+    return createUserResponse;
+  }
+
+  Future<CreateArtistUserResponse> _handleArtistRegister(
+      RegisterArtistState state) async {
     // TODO: verify if details is already searched and stored in the database
     final details = await _gcpPlacesService
         .getPlaceDetails(state.form.location.value.placeId);
@@ -84,7 +109,7 @@ class CreateUserUseCase {
     );
     final createUserResponse = await _userService.create(mapStateToRequest(
         state,
-        userType,
+        UserTypeEnum.artist,
         address1!,
         shortAddress1!,
         address2 ?? '0000',
