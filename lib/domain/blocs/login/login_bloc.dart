@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:formz/formz.dart' show Formz, FormzStatus, FormzStatusX;
+import 'package:formz/formz.dart' show Formz, FormzStatus;
 import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
-import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
+import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
 import 'package:inker_studio/domain/models/login/login_type.dart';
 import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
@@ -37,7 +37,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _googleSingInUsecase = googleSingInUseCase,
         _createCustomerUseCase = createCustomerUseCase,
         super(const LoginState()) {
-    on<LoginUsernameChanged>(
+    on<LoginIdentifierChanged>(
         (event, emit) => _mapUsernameChangedToState(event, emit));
     on<LoginPasswordChanged>(
         (event, emit) => _mapPasswordChangedToState(event, emit));
@@ -68,12 +68,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final CreateCustomerUseCase _createCustomerUseCase;
 
   void _mapUsernameChangedToState(
-    LoginUsernameChanged event,
+    LoginIdentifierChanged event,
     Emitter<LoginState> emit,
   ) {
-    final username = UsernameInput.dirty(event.username);
+    final username = IdentifierInput.dirty(event.identifier);
     emit(state.copyWith(
-      username: username,
+      identifier: username,
       status: Formz.validate([state.password, username]),
     ));
   }
@@ -85,7 +85,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final password = PasswordInput.dirty(event.password);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([password, state.username]),
+      status: Formz.validate([password, state.identifier]),
     ));
   }
 
@@ -94,11 +94,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     dev.log(event.toString(), '_mapLoginSubmittedToState');
-    if (state.status.isValidated) {
+    if (state.password.valid && state.identifier.valid) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
+        // TODO: add regex to validate if is a email or a username or a phone number
         final session = await _loginUseCase.execute(
-            state.username.value, state.password.value, LoginType.email);
+            state.identifier.value, state.password.value, LoginType.email);
 
         if (session == null) {
           emit(state.copyWith(status: FormzStatus.submissionFailure));

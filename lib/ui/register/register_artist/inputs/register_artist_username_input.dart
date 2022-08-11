@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistUsernameInput extends StatelessWidget {
   RegisterArtistUsernameInput({
@@ -20,6 +21,7 @@ class RegisterArtistUsernameInput extends StatelessWidget {
       builder: (context, state) {
         var label = 'Nombre artístico';
         return CustomInput(
+            inputFormatters: [TrimTextFormatter()],
             hint: '$label. ej: Juanart',
             verticalPadding: 0,
             focusNode: bloc.usernameFocusNode,

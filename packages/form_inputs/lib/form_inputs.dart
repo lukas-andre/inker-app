@@ -8,3 +8,4 @@ export './src/phone_number_input.dart';
 export './src/username_input.dart';
 export './src/confirmed_password_input.dart';
 export './src/address_extra_input.dart';
+export './src/identifier_input.dart';
