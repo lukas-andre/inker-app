@@ -11,9 +11,9 @@ class GoogleAuthServiceException implements Exception {
   GoogleAuthServiceException(this.message);
 }
 
-class GoogleErrorOccurredWhileAccessingCredrentialsTryAgain
+class GoogleErrorOccurredWhileAccessingCredentialsTryAgain
     extends GoogleAuthServiceException {
-  GoogleErrorOccurredWhileAccessingCredrentialsTryAgain()
+  GoogleErrorOccurredWhileAccessingCredentialsTryAgain()
       : super('Error occurred while accessing credentials. Try again.');
 }
 
@@ -87,7 +87,7 @@ class GoogleAuthService {
         if (e.code == 'account-exists-with-different-credential') {
           throw GoogleTheAccountAlreadyExistsWithDifferentCredential();
         } else if (e.code == 'invalid-credential') {
-          throw GoogleErrorOccurredWhileAccessingCredrentialsTryAgain();
+          throw GoogleErrorOccurredWhileAccessingCredentialsTryAgain();
         }
       } catch (e) {
         throw ErrorOccurredUsingGoogleSignInTryAgain();

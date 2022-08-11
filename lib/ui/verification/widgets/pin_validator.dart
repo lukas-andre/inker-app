@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/verification/verification_bloc.dart';
+import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/utils/forms/styles.dart';
 import 'package:pinput/pinput.dart';
 
@@ -12,7 +12,7 @@ class PinValidator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<VerificationBloc>(context);
+    final bloc = BlocProvider.of<AccountVerificationBloc>(context);
     const length = 4;
     const borderColor = Color(0xff777E91);
     const errorColor = Color.fromARGB(255, 235, 0, 43);
@@ -37,7 +37,7 @@ class PinValidator extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) => SizedBox(
         height: 72,
         width: MediaQuery.of(context).size.width * 0.8,
-        child: BlocBuilder<VerificationBloc, VerificationState>(
+        child: BlocBuilder<AccountVerificationBloc, AccountVerificationState>(
           buildWhen: (previous, current) => previous.pin != current.pin,
           builder: (context, state) {
             return Pinput(
