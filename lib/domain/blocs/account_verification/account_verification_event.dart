@@ -7,46 +7,54 @@ abstract class AccountVerificationEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class AccountVerificationCreationSuccedEvent extends AccountVerificationEvent {
-  const AccountVerificationCreationSuccedEvent();
+class VerificationClearEvent extends AccountVerificationEvent {
+  const VerificationClearEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class AccountVerificationSendSMS extends AccountVerificationEvent {
-  const AccountVerificationSendSMS();
+class VerificationResetEvent extends AccountVerificationEvent {
+  const VerificationResetEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class AccountVerificationSendEmail extends AccountVerificationEvent {
-  const AccountVerificationSendEmail();
+class VerificationSendSMSEvent extends AccountVerificationEvent {
+  const VerificationSendSMSEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class AccountVerificationValidateVerificationCode
-    extends AccountVerificationEvent {
-  const AccountVerificationValidateVerificationCode(this.code);
+class VerificationSendEmailEvent extends AccountVerificationEvent {
+  const VerificationSendEmailEvent();
 
+  @override
+  List<Object?> get props => [];
+}
+
+class VerificationPinCompletedEvent extends AccountVerificationEvent {
+  final String pin;
+
+  const VerificationPinCompletedEvent(this.pin);
+
+  @override
+  List<Object?> get props => [pin];
+}
+
+class VerificationPinChangedEvent extends AccountVerificationEvent {
   final String code;
 
-  @override
-  List<Object?> get props => [];
-}
-
-class AccountVerificationSuccessEvent extends AccountVerificationEvent {
-  const AccountVerificationSuccessEvent();
+  const VerificationPinChangedEvent(this.code);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [code];
 }
 
-class AccountVerificationFailedEvent extends AccountVerificationEvent {
-  const AccountVerificationFailedEvent();
+class VerificationButtonPressedEvent extends AccountVerificationEvent {
+  const VerificationButtonPressedEvent();
 
   @override
   List<Object?> get props => [];
