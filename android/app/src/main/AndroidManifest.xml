@@ -12,7 +12,7 @@
         android:label="inker_studio"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD_dhE7Rbm2SkQ2Us4eykCthmyzpBOqCr4"/>
+            android:value="AIzaSyAyuAW4Ed3qipZLw9b0VTCRJH60NiSu_PM"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
