@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/map_view.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/button_current_location.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class MapPage extends StatefulWidget {
@@ -24,20 +25,29 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocationBloc, LocationState>(
-      builder: (context, state) {
-        if (state.lastKnownLocation == null) {
-          return Center(
-            child: InkerProgressIndicator(
-              color: secondaryColor,
-            ),
-          );
-        }
+    return Scaffold(
+      body: BlocBuilder<LocationBloc, LocationState>(
+        builder: (context, state) {
+          if (state.lastKnownLocation == null) {
+            return Center(
+              child: InkerProgressIndicator(
+                color: secondaryColor,
+              ),
+            );
+          }
 
-        return Stack(
-          children: [MapView(initialLocation: state.lastKnownLocation!)],
-        );
-      },
+          return Stack(
+            children: [MapView(initialLocation: state.lastKnownLocation!)],
+          );
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
+          ButtonCurrentLocation(),
+        ],
+      ),
     );
   }
 

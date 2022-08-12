@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class CustomPhoneNumberInput extends StatelessWidget {

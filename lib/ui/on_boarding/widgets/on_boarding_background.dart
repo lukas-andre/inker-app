@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class OnBoardingBackground extends StatelessWidget {
   const OnBoardingBackground({Key? key}) : super(key: key);
