@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GpsAccessScreen extends StatelessWidget {
   const GpsAccessScreen({Key? key}) : super(key: key);

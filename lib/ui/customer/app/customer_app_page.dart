@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerAppPage extends StatefulWidget {
   const CustomerAppPage({Key? key}) : super(key: key);
