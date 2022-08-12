@@ -4,7 +4,7 @@ EdgeInsetsGeometry inputContentPadding =
     const EdgeInsets.only(left: 28, top: 40);
 
 Color primaryColor = const Color(0xFF141D3C);
-
+Color secondaryColor = const Color(0xff7450ff);
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();
 
