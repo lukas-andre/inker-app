@@ -9,7 +9,7 @@ import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressInput extends StatelessWidget {
   RegisterArtistAddressInput({

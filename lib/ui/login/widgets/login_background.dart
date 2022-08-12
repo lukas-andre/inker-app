@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/forms/styles.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class LoginBackground extends StatelessWidget {
   const LoginBackground({
