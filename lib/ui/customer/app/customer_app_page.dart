@@ -13,6 +13,8 @@ class CustomerAppPage extends StatefulWidget {
 }
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
+  late CustomerAppBloc customerAppBloc;
+
   List<Widget> pageWidgets = [
     const Text('One'),
     const LoadingMapPage(),
@@ -22,12 +24,19 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<CustomerAppBloc, CustomerAppState>(
         buildWhen: (previous, current) => previous.index != current.index,
         builder: (context, state) {
-          return Center(child: pageWidgets[state.index]);
+          return SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: pageWidgets[state.index]);
         },
       ),
       bottomNavigationBar: BlocBuilder<CustomerAppBloc, CustomerAppState>(
@@ -40,6 +49,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
               highlightColor: Colors.transparent,
             ),
             child: BottomNavigationBar(
+              elevation: 0,
               backgroundColor: primaryColor,
               unselectedItemColor: Colors.white60,
               selectedLabelStyle: TextStyleTheme.copyWith(

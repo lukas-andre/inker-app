@@ -18,5 +18,8 @@ final exploreSelectedIcon =
 final exploreIcon = getImage('assets/icons/bottom_nav/explore.png');
 
 Image getImage(String path) {
-  return Image.asset(path, width: 21);
+  return Image.asset(
+    path,
+    width: 21,
+  );
 }
