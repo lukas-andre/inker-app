@@ -11,3 +11,11 @@ class OnInitMapEvent extends MapEvent {
   final GoogleMapController mapController;
   const OnInitMapEvent(this.mapController);
 }
+
+class OnFollowLocationButtonPressedEvent extends MapEvent {
+  const OnFollowLocationButtonPressedEvent();
+}
+
+class OnStopFollowingLocation extends MapEvent {
+  const OnStopFollowingLocation();
+}

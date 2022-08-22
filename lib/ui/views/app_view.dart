@@ -4,9 +4,10 @@ import 'package:inker_studio/domain/blocs/account_verification/account_verificat
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
-import 'package:inker_studio/domain/blocs/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
@@ -37,7 +38,8 @@ class _AppViewState extends State<AppView> {
       providers: [
         BlocProvider(create: (context) => GpsBloc(), lazy: false),
         BlocProvider(create: (context) => LocationBloc()),
-        BlocProvider(create: (context) => MapBloc()),
+        BlocProvider(
+            create: (context) => MapBloc(locationBloc: context.read())),
         BlocProvider(
           create: (context) => AppThemeCubit(context.read())..init(),
         ),
@@ -68,6 +70,7 @@ class _AppViewState extends State<AppView> {
             create: (context) => AccountVerificationBloc(
                 userService: context.read(), localStorage: context.read())),
         BlocProvider(create: (context) => CustomerAppBloc()),
+        BlocProvider(create: (context) => ExplorerPageBloc()),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
-import 'package:inker_studio/domain/blocs/map/map_bloc.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
