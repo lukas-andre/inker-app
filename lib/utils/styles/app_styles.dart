@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 EdgeInsetsGeometry inputContentPadding =
     const EdgeInsets.only(left: 28, top: 40);
 
-Color primaryColor = const Color.fromARGB(255, 54, 55, 58);
+Color primaryColor = const Color(0xFF141D3C);
 Color secondaryColor = const Color(0xff7450ff);
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();
 
+Color explorerSecondaryColor = const Color(0xFF1F223C);
 OutlineInputBorder inputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(15),
   borderSide:
