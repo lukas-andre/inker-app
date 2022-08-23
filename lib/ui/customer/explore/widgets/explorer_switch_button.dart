@@ -3,12 +3,12 @@ import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
-class ExplorerSwitch extends StatelessWidget {
+class ExplorerSwitchButton extends StatelessWidget {
   final String? text;
   final ExplorerView selectedView;
   final ExplorerView view;
   final void Function()? onTap;
-  const ExplorerSwitch(
+  const ExplorerSwitchButton(
       {Key? key,
       this.text,
       required this.selectedView,

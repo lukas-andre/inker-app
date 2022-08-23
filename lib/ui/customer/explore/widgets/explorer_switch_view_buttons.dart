@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_button.dart';
 
-class ExplorerSwitchViews extends StatelessWidget {
-  const ExplorerSwitchViews({Key? key}) : super(key: key);
+class ExplorerSwitchViewButtons extends StatelessWidget {
+  const ExplorerSwitchViewButtons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ExplorerSwitchViews extends StatelessWidget {
             SizedBox(
               width: size.width * 0.5,
             ),
-            ExplorerSwitch(
+            ExplorerSwitchButton(
                 view: ExplorerView.list,
                 onTap: () => explorerPageBloc.add(
                     const ExplorerPageEventViewChanged(
@@ -29,7 +29,7 @@ class ExplorerSwitchViews extends StatelessWidget {
             SizedBox(
               width: size.width * 0.04,
             ),
-            ExplorerSwitch(
+            ExplorerSwitchButton(
                 view: ExplorerView.map,
                 onTap: () => explorerPageBloc.add(
                     const ExplorerPageEventViewChanged(view: ExplorerView.map)),
