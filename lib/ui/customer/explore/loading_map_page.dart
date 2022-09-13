@@ -4,8 +4,8 @@ import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/gps_access_page.dart';
 import 'package:inker_studio/ui/customer/explore/explorer_page.dart';
 
-class LoadingMapPage extends StatelessWidget {
-  const LoadingMapPage({Key? key}) : super(key: key);
+class BuildMapPage extends StatelessWidget {
+  const BuildMapPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

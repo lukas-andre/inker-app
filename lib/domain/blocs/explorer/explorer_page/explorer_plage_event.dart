@@ -14,3 +14,10 @@ class ExplorerPageEventViewChanged extends ExplorerPageEvent {
   @override
   List<Object> get props => [view];
 }
+
+class ExplorerPageFetchArtists extends ExplorerPageEvent {
+  final LatLng location;
+  const ExplorerPageFetchArtists({required this.location});
+  @override
+  List<Object> get props => [location];
+}

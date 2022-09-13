@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/data/gcp/dto/place_details_response.dart';
@@ -41,11 +44,14 @@ class GcpPlacesService implements PlacesService {
 
   //https://developers.google.com/maps/faq#languagesupport
   final lang = 'es-419';
-  final apiKey = 'AIzaSyAyuAW4Ed3qipZLw9b0VTCRJH60NiSu_PM';
+  late String? apiKey;
   String sessionToken = const Uuid().v4();
 
   GcpPlacesService()
       : _httpConfig = HttpClientConfig(basePath: ''),
+        apiKey = Platform.isIOS
+            ? dotenv.env['GOOGLE_PLACES_KEY_IOS']
+            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'],
         super();
 
   @override

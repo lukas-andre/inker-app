@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 final inkerURL = dotenv.env['INKER_API_URL']!;
 
 class HttpClientConfig {
-  // static const String baseStgUrl = 'api.inkerapp.com';
   static const String baseStgUrl = '';
 
   late final String _baseUrl;
