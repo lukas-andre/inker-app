@@ -7,12 +7,29 @@ enum ExplorerView {
 
 class ExplorerPageState extends Equatable {
   final ExplorerView view;
-  const ExplorerPageState({required this.view});
+  final bool isLoading;
+  final bool firstLoad;
+  final List<FindArtistByLocationResponse> artistFounded;
 
-  ExplorerPageState copyWith({ExplorerView? view}) {
-    return ExplorerPageState(view: view ?? this.view);
+  const ExplorerPageState(
+      {required this.view,
+      required this.isLoading,
+      required this.firstLoad,
+      artistFounded})
+      : artistFounded = artistFounded ?? const [];
+
+  ExplorerPageState copyWith(
+      {ExplorerView? view,
+      bool? isLoading,
+      bool? firstLoad,
+      List<FindArtistByLocationResponse>? artistFounded}) {
+    return ExplorerPageState(
+        view: view ?? this.view,
+        isLoading: isLoading ?? this.isLoading,
+        firstLoad: firstLoad ?? this.firstLoad,
+        artistFounded: artistFounded ?? this.artistFounded);
   }
 
   @override
-  List<Object> get props => [view];
+  List<Object> get props => [view, isLoading, firstLoad, artistFounded];
 }

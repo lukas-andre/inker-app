@@ -70,7 +70,10 @@ class _AppViewState extends State<AppView> {
             create: (context) => AccountVerificationBloc(
                 userService: context.read(), localStorage: context.read())),
         BlocProvider(create: (context) => CustomerAppBloc()),
-        BlocProvider(create: (context) => ExplorerPageBloc()),
+        BlocProvider(
+            create: (context) => ExplorerPageBloc(
+                  locationService: context.read(),
+                )),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         return MaterialApp(
