@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
+import 'package:google_maps_flutter/google_maps_flutter.dart'
+    show LatLng, Marker;
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
@@ -20,12 +21,14 @@ class ExplorerPage extends StatefulWidget {
 
 class _ExplorerPageState extends State<ExplorerPage> {
   late LocationBloc locationBloc;
+  late ExplorerPageBloc explorerPageBloc;
 
   @override
   void initState() {
     super.initState();
     locationBloc = context.read<LocationBloc>();
     locationBloc.startFollowingUser();
+    explorerPageBloc = context.read<ExplorerPageBloc>();
   }
 
   @override
@@ -35,7 +38,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
         return GestureDetector(
           onTap: (() => FocusScope.of(context).unfocus()),
           child: Scaffold(
+            backgroundColor: primaryColor,
             body: BlocBuilder<LocationBloc, LocationState>(
+              buildWhen: (previous, current) =>
+                  previous.lastKnownLocation == null &&
+                  current.lastKnownLocation != null,
               builder: (context, locationState) {
                 if (locationState.lastKnownLocation == null) {
                   return Center(
@@ -46,7 +53,33 @@ class _ExplorerPageState extends State<ExplorerPage> {
                 }
 
                 return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
+                  buildWhen: (previous, current) =>
+                      previous.view != current.view ||
+                      previous.isLoading != current.isLoading,
                   builder: (context, state) {
+                    if (state.firstLoad && !state.isLoading) {
+                      context.read<ExplorerPageBloc>().add(
+                          ExplorerPageFetchArtists(
+                              location: locationState.lastKnownLocation!));
+                    }
+
+                    if (state.isLoading) {
+                      return Center(
+                        child: InkerProgressIndicator(
+                          color: secondaryColor,
+                        ),
+                      );
+                    }
+
+                    if (state.artistFounded.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No artist found',
+                          style: TextStyle(color: secondaryColor),
+                        ),
+                      );
+                    }
+
                     return Stack(children: [
                       ExplorerViewByType(
                           view: state.view,
@@ -55,13 +88,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     ]);
                   },
                 );
-
-                // return Stack(
-                //   children: [
-                //     ExplorerMapView(initialLocation: state.lastKnownLocation!),
-                //     const SearchBar(),
-                //   ],
-                // );
               },
             ),
             floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
@@ -98,10 +124,12 @@ class ExplorerViewByType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return view == ExplorerView.list
-        ? const ExplorerListView()
-        : ExplorerMapView(
-            initialLocation: lastLocation,
-          );
+    return IndexedStack(
+      index: view == ExplorerView.list ? 0 : 1,
+      children: [
+        const ExplorerListView(),
+        ExplorerMapView(initialLocation: lastLocation),
+      ],
+    );
   }
 }

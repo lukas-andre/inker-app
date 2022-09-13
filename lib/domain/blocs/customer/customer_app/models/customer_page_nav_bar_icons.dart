@@ -14,8 +14,8 @@ class CustomerPageNavBarIcons extends Equatable {
 }
 
 class PageNavBarIcon extends Equatable {
-  final Widget icon;
-  final Widget selectedIcon;
+  final dynamic icon;
+  final dynamic selectedIcon;
   final String? title;
   final int index;
   const PageNavBarIcon(
@@ -31,27 +31,28 @@ class PageNavBarIcon extends Equatable {
   bool get stringify => true;
 }
 
-CustomerPageNavBarIcons kCustomerPageNavBarIcons = CustomerPageNavBarIcons(
+CustomerPageNavBarIcons kCustomerPageNavBarIcons =
+    const CustomerPageNavBarIcons(
   icons: [
     PageNavBarIcon(
-      icon: feedIcon,
-      selectedIcon: feedSelectedIcon,
+      icon: ImageIcon(feedIcon),
+      selectedIcon: ImageIcon(feedSelectedIcon),
       title: 'Novedades',
       index: 0,
     ),
     PageNavBarIcon(
-      icon: exploreIcon,
-      selectedIcon: exploreSelectedIcon,
+      icon: ImageIcon(exploreIcon),
+      selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
       index: 1,
     ),
     PageNavBarIcon(
-      icon: bookMarkIcon,
-      selectedIcon: bookMarkSelectedIcon,
+      icon: ImageIcon(bookMarkIcon),
+      selectedIcon: ImageIcon(bookMarkSelectedIcon),
       title: 'Guardados',
       index: 2,
     ),
-    const PageNavBarIcon(
+    PageNavBarIcon(
       icon: Icon(
         Icons.account_circle_outlined,
         size: 25,

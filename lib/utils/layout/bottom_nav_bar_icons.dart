@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 
-final bookMarkSelectedIcon = Image.asset(
+const bookMarkSelectedIcon = AssetImage(
   'assets/icons/bottom_nav/bookmark-selected.png',
-  width: 16.5,
 );
-final bookMarkIcon = Image.asset(
+const bookMarkIcon = AssetImage(
   'assets/icons/bottom_nav/bookmark.png',
-  width: 16.5,
 );
-final clockSelectedIcon =
-    getImage('assets/icons/bottom_nav/clock-selected.png');
-final clockIcon = getImage('assets/icons/bottom_nav/clock.png');
-final feedSelectedIcon = getImage('assets/icons/bottom_nav/feed-selected.png');
-final feedIcon = getImage('assets/icons/bottom_nav/feed.png');
-final exploreSelectedIcon =
-    getImage('assets/icons/bottom_nav/explore-selected.png');
-final exploreIcon = getImage('assets/icons/bottom_nav/explore.png');
-
-Image getImage(String path) {
-  return Image.asset(
-    path,
-    width: 21,
-  );
-}
+const clockSelectedIcon =
+    AssetImage('assets/icons/bottom_nav/clock-selected.png');
+const clockIcon = AssetImage('assets/icons/bottom_nav/clock.png');
+const feedSelectedIcon =
+    AssetImage('assets/icons/bottom_nav/feed-selected.png');
+const feedIcon = AssetImage('assets/icons/bottom_nav/feed.png');
+const exploreSelectedIcon =
+    AssetImage('assets/icons/bottom_nav/explore-selected.png');
+const exploreIcon = AssetImage('assets/icons/bottom_nav/explore.png');

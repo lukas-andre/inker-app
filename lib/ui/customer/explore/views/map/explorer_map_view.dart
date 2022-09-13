@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 
 class ExplorerMapView extends StatelessWidget {
@@ -11,7 +12,8 @@ class ExplorerMapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mapBloc = context.read<MapBloc>();
+    final MapBloc mapBloc = context.read<MapBloc>();
+    final ExplorerPageBloc explorerPageBloc = context.read<ExplorerPageBloc>();
 
     final CameraPosition initialCameraPosition =
         CameraPosition(target: initialLocation, zoom: 15);
@@ -25,7 +27,7 @@ class ExplorerMapView extends StatelessWidget {
               mapBloc.add(const OnStopFollowingLocation()),
           child: GoogleMap(
             initialCameraPosition: initialCameraPosition,
-            // liteModeEnabled: true,
+            markers: explorerPageBloc.markers,
             compassEnabled: true,
             myLocationEnabled: true,
             zoomControlsEnabled: false,

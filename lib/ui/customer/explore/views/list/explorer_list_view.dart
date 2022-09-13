@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -49,25 +52,78 @@ class ExplorerResultList extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Container(
-            decoration: BoxDecoration(color: primaryColor),
-            child: GridView.custom(
-              gridDelegate: SliverWovenGridDelegate.count(
-                crossAxisCount: 2,
-                pattern: [
-                  const WovenGridTile(4.5 / 7,
-                      crossAxisRatio: 0.9,
-                      alignment: AlignmentDirectional.center),
-                  const WovenGridTile(5 / 7,
-                      crossAxisRatio: 0.9,
-                      alignment: AlignmentDirectional.center),
-                ],
-              ),
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) => Container(
-                    color: Colors.white, child: Center(child: Text('$index'))),
-              ),
-            )));
+    return Expanded(child: BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
+      builder: (context, state) {
+        final size = MediaQuery.of(context).size;
+        if (state.isLoading) {
+          return const InkerProgressIndicator();
+        }
+        return GridView.count(
+          crossAxisCount: 2,
+          padding: const EdgeInsets.all(10),
+          childAspectRatio: 0.65,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 10,
+          children: List.generate(
+              state.artistFounded.length,
+              (index) => SizedBox(
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Expanded(
+                                flex: 6,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.network(
+                                    state.artistFounded[index].artist!
+                                        .studioPhoto!,
+                                    fit: BoxFit.cover,
+                                    width: size.width,
+                                  ),
+                                )),
+                            Container(
+                                padding: const EdgeInsets.only(top: 3),
+                                width: size.width,
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      minRadius: 15,
+                                      backgroundImage: NetworkImage(state
+                                              .artistFounded[index]
+                                              .artist!
+                                              .profileThumbnail ??
+                                          'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg'),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              '@${state.artistFounded[index].artist!.username!}',
+                                              style: TextStyleTheme.copyWith(
+                                                  fontSize: 12,
+                                                  color: Colors.white)),
+                                          Text(
+                                              '${(state.artistFounded[index].distance! * 1000).toInt()} mt',
+                                              style: TextStyleTheme.copyWith(
+                                                  fontSize: 12,
+                                                  color: Colors.white)),
+                                        ]),
+                                  ],
+                                )),
+                          ],
+                        )
+                      ],
+                    ),
+                  )),
+        );
+      },
+    ));
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/account_verification/api_account_verification_service_impl.dart';
 import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
+import 'package:inker_studio/data/api/location/api_location_service.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/gcp/gcp_places_service.dart';
@@ -13,6 +14,7 @@ import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
+import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
@@ -27,6 +29,7 @@ List<RepositoryProvider> buildProviders() {
     RepositoryProvider<GoogleAuthService>(create: (_) => GoogleAuthService()),
     RepositoryProvider<PlacesService>(create: (_) => GcpPlacesService()),
     RepositoryProvider<LocalStorage>(create: (_) => SharedPreferencesStorage()),
+    RepositoryProvider<LocationService>(create: (_) => ApiLocationService()),
     RepositoryProvider<AccountVerificationService>(
         create: (_) => ApiAccountVerificationService()),
     RepositoryProvider<UserService>(create: (_) => ApiUserService()),
