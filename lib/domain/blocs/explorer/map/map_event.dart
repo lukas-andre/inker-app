@@ -19,3 +19,13 @@ class OnFollowLocationButtonPressedEvent extends MapEvent {
 class OnStopFollowingLocation extends MapEvent {
   const OnStopFollowingLocation();
 }
+
+class OnAddMarkersEvent extends MapEvent {
+  final Set<Marker> markers;
+  const OnAddMarkersEvent(this.markers);
+}
+
+class OnMarkerSelectedEvent extends MapEvent {
+  final MarkerId marker;
+  const OnMarkerSelectedEvent(this.marker);
+}

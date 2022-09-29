@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
