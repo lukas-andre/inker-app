@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show LatLng, Marker;
-import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
@@ -78,14 +78,14 @@ class _ExplorerPageState extends State<ExplorerPage> {
                           style: TextStyle(color: secondaryColor),
                         ),
                       );
+                    } else {
+                      return Stack(children: [
+                        ExplorerViewByType(
+                            view: state.view,
+                            lastLocation: locationState.lastKnownLocation!),
+                        const ExplorerSwitchViewButtons()
+                      ]);
                     }
-
-                    return Stack(children: [
-                      ExplorerViewByType(
-                          view: state.view,
-                          lastLocation: locationState.lastKnownLocation!),
-                      const ExplorerSwitchViewButtons()
-                    ]);
                   },
                 );
               },
@@ -126,9 +126,9 @@ class ExplorerViewByType extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndexedStack(
       index: view == ExplorerView.list ? 0 : 1,
-      children: [
-        const ExplorerListView(),
-        ExplorerMapView(initialLocation: lastLocation),
+      children: const [
+        ExplorerListView(),
+        ExplorerMapView(),
       ],
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_plage_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 

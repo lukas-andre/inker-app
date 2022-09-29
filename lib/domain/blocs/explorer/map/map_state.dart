@@ -4,19 +4,30 @@ class MapState extends Equatable {
   // TODO: ADD zoom
   final bool isFollowingUser;
   final bool isMapInitialized;
+  final Set<Marker> markers;
+  final MarkerId? selectedMarker;
 
-  const MapState({this.isFollowingUser = true, this.isMapInitialized = false});
+  const MapState(
+      {this.isFollowingUser = true,
+      this.isMapInitialized = false,
+      this.selectedMarker,
+      this.markers = const {}});
 
   MapState copyWith({
     bool? isFollowingUser,
     bool? isMapInitialized,
+    Set<Marker>? markers,
+    MarkerId? selectedMarker,
   }) {
     return MapState(
       isFollowingUser: isFollowingUser ?? this.isFollowingUser,
       isMapInitialized: isMapInitialized ?? this.isMapInitialized,
+      markers: markers ?? this.markers,
+      selectedMarker: selectedMarker ?? this.selectedMarker,
     );
   }
 
   @override
-  List<Object> get props => [isMapInitialized, isFollowingUser];
+  List<Object?> get props =>
+      [isMapInitialized, isFollowingUser, markers, selectedMarker];
 }

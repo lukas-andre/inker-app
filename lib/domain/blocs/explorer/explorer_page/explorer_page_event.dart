@@ -1,4 +1,4 @@
-part of 'explorer_plage_bloc.dart';
+part of 'explorer_page_bloc.dart';
 
 abstract class ExplorerPageEvent extends Equatable {
   const ExplorerPageEvent();
