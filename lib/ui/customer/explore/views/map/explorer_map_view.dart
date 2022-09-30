@@ -17,15 +17,17 @@ class ExplorerMapView extends StatelessWidget {
     final MapBloc mapBloc = context.read<MapBloc>();
 
     final CameraPosition initialCameraPosition =
-        CameraPosition(target: initialLocation, zoom: 15);
+        CameraPosition(target: initialLocation, zoom: 10);
 
     final size = MediaQuery.of(context).size;
     // return const TestMarkerScreen2();
+
     return BlocBuilder<MapBloc, MapState>(
       buildWhen: (previous, current) =>
           previous.selectedMarker != current.selectedMarker ||
           previous.markers != current.markers,
       builder: (context, state) {
+        final markers = state.markers.entries.map((e) => e.key).toSet();
         return SizedBox(
             width: size.width,
             height: size.height,
@@ -34,7 +36,9 @@ class ExplorerMapView extends StatelessWidget {
                   mapBloc.add(const OnStopFollowingLocation()),
               child: GoogleMap(
                 initialCameraPosition: initialCameraPosition,
-                markers: state.markers,
+                // onCameraMove: (cameraPosition) =>
+                //     mapBloc.add(const OnStopFollowingLocation()),
+                markers: markers,
                 compassEnabled: true,
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,

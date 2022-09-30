@@ -21,11 +21,14 @@ class OnStopFollowingLocation extends MapEvent {
 }
 
 class OnAddMarkersEvent extends MapEvent {
-  final Set<Marker> markers;
+  final Map<Marker, FindArtistByLocationResponse> markers;
   const OnAddMarkersEvent(this.markers);
 }
 
 class OnMarkerSelectedEvent extends MapEvent {
   final MarkerId marker;
-  const OnMarkerSelectedEvent(this.marker);
+
+  const OnMarkerSelectedEvent({
+    required this.marker,
+  });
 }
