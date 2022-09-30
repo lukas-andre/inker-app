@@ -4,7 +4,7 @@ class MapState extends Equatable {
   // TODO: ADD zoom
   final bool isFollowingUser;
   final bool isMapInitialized;
-  final Set<Marker> markers;
+  final Map<Marker, FindArtistByLocationResponse> markers;
   final MarkerId? selectedMarker;
 
   const MapState(
@@ -16,7 +16,7 @@ class MapState extends Equatable {
   MapState copyWith({
     bool? isFollowingUser,
     bool? isMapInitialized,
-    Set<Marker>? markers,
+    Map<Marker, FindArtistByLocationResponse>? markers,
     MarkerId? selectedMarker,
   }) {
     return MapState(

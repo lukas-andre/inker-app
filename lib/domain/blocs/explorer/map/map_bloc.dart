@@ -1,20 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show
-        BitmapDescriptor,
         CameraPosition,
         CameraUpdate,
         GoogleMapController,
         LatLng,
         Marker,
         MarkerId;
+import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
-import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/layout/widgets_to_marker.dart';
+import 'package:inker_studio/utils/layout/get_ui_image_from_network.dart';
 import 'package:inker_studio/utils/styles/map_style.dart';
 
 part 'map_event.dart';
@@ -49,7 +47,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   void moveCamera(LatLng position) {
     final CameraPosition cameraPosition = CameraPosition(
       target: position,
-      zoom: 15,
+      zoom: 14.4746,
     );
     final cameraUpdate = CameraUpdate.newCameraPosition(cameraPosition);
     _mapController?.animateCamera(cameraUpdate);
@@ -81,28 +79,24 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   Future<void> _onMarkerSelectedEvent(
       OnMarkerSelectedEvent event, Emitter<MapState> emit) async {
-    Set<Marker> markers = {};
-
-    for (int i = 0; i < state.markers.length; i++) {
-      BitmapDescriptor icon;
-      if (event.marker == state.markers.toList()[i].markerId) {
-        icon = await getEndCustomMarker('8', 'selected');
-      } else {
-        icon = await getStartCustomMarker('5', 'destination');
-      }
-
-      final markerId = state.markers.toList()[i].markerId;
-      markers.add(Marker(
-          markerId: markerId,
-          position: state.markers.toList()[i].position,
+    final Map<Marker, FindArtistByLocationResponse> newMarkers = {};
+    for (var element in state.markers.entries) {
+      final isSelected = element.key.markerId == event.marker;
+      final icon = await MarkerHelper.getArtistMarkerIcon(
+          element.value.artist!, isSelected);
+      final marker = Marker(
+          markerId: element.key.markerId,
+          position: element.key.position,
+          consumeTapEvents: true,
           onTap: () => {
-                dev.log('marker tapped', 'ExplorerPageBloc'),
-                dev.log('markerId: ${markerId.value}', 'ExplorerPageBloc'),
-                add(OnMarkerSelectedEvent(markerId))
+                add(OnMarkerSelectedEvent(
+                  marker: element.key.markerId,
+                ))
               },
-          icon: icon));
-    }
+          icon: icon);
 
-    emit(state.copyWith(selectedMarker: event.marker, markers: markers));
+      newMarkers[marker] = element.value;
+    }
+    emit(state.copyWith(selectedMarker: event.marker, markers: newMarkers));
   }
 }
