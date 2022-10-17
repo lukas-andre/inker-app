@@ -12,6 +12,9 @@ part 'account_verification_state.dart';
 
 class AccountVerificationBloc
     extends Bloc<AccountVerificationEvent, AccountVerificationState> {
+  final UserService _userService;
+  final LocalStorage _localStorage;
+
   AccountVerificationBloc(
       {required UserService userService, required LocalStorage localStorage})
       : _userService = userService,
@@ -31,8 +34,6 @@ class AccountVerificationBloc
         ((event, emit) => _mapVerificationResetEventToState(event, emit)));
   }
 
-  final UserService _userService;
-  final LocalStorage _localStorage;
   _mapVerificationClearEventToState(
       VerificationClearEvent event, Emitter<AccountVerificationState> emit) {
     emit(state.copyWith(

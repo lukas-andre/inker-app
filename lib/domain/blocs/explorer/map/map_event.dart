@@ -16,8 +16,8 @@ class OnFollowLocationButtonPressedEvent extends MapEvent {
   const OnFollowLocationButtonPressedEvent();
 }
 
-class OnStopFollowingLocation extends MapEvent {
-  const OnStopFollowingLocation();
+class OnStopFollowingLocationEvent extends MapEvent {
+  const OnStopFollowingLocationEvent();
 }
 
 class OnAddMarkersEvent extends MapEvent {
@@ -26,9 +26,21 @@ class OnAddMarkersEvent extends MapEvent {
 }
 
 class OnMarkerSelectedEvent extends MapEvent {
-  final MarkerId marker;
+  final MarkerId selectedMarkerId;
+  final MarkerId? previousSelectedMarkerId;
 
   const OnMarkerSelectedEvent({
-    required this.marker,
+    required this.selectedMarkerId,
+    required this.previousSelectedMarkerId,
   });
+}
+
+class DeselectAllMarkerEvent extends MapEvent {
+  final bool closeDragSheet;
+  const DeselectAllMarkerEvent({required this.closeDragSheet});
+}
+
+class OnMapDraggableScrollableNotificationEvent extends MapEvent {
+  final DraggableScrollableNotification notification;
+  const OnMapDraggableScrollableNotificationEvent(this.notification);
 }
