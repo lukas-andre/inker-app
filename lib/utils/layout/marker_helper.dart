@@ -11,7 +11,7 @@ import 'package:inker_studio/utils/layout/widgets_to_marker.dart'
     show WidgetToMarker;
 
 class MarkerHelper {
-  static Future<ui.Image> imageFromNetwork(String path) async {
+  static Future<ui.Image> getImageFromNetwork(String path) async {
     var completer = Completer<ImageInfo>();
     var img = NetworkImage(path);
     img
@@ -23,7 +23,7 @@ class MarkerHelper {
     return imageInfo.image;
   }
 
-  static String imageLinkFromArtist(Artist artist) {
+  static String getArtistProfileLink(Artist artist) {
     final imageLink = artist.profileThumbnail == null
         ? 'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg'
         : artist.profileThumbnail!;
@@ -32,8 +32,8 @@ class MarkerHelper {
 
   static Future<BitmapDescriptor> getArtistMarkerIcon(
       Artist artist, bool isSelected) async {
-    String imageLink = MarkerHelper.imageLinkFromArtist(artist);
-    final image = await MarkerHelper.imageFromNetwork(imageLink);
+    final imageLink = MarkerHelper.getArtistProfileLink(artist);
+    final image = await MarkerHelper.getImageFromNetwork(imageLink);
     final marker = await WidgetToMarker.getArtistMarker(
         artistName: artist.username!,
         isOpen: true,

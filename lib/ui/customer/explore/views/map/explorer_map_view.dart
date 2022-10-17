@@ -33,11 +33,11 @@ class ExplorerMapView extends StatelessWidget {
             height: size.height,
             child: Listener(
               onPointerMove: (event) =>
-                  mapBloc.add(const OnStopFollowingLocation()),
+                  mapBloc.add(const OnStopFollowingLocationEvent()),
               child: GoogleMap(
                 initialCameraPosition: initialCameraPosition,
-                // onCameraMove: (cameraPosition) =>
-                //     mapBloc.add(const OnStopFollowingLocation()),
+                onTap: (argument) => mapBloc.add(const DeselectAllMarkerEvent(
+                    closeDragSheet: true)), // deselect marker
                 markers: markers,
                 compassEnabled: true,
                 myLocationEnabled: true,

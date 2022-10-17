@@ -51,22 +51,6 @@ class OnBoardingPage extends StatelessWidget {
             OnBoardingBackground(),
             OnBoardingContentPageView(),
             FixedComponents(),
-            // SingleChildScrollView(
-            //   child: Column(
-            //     children: [
-            //       Image.network(
-            //           'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture.jpeg'),
-            //       Image.network(
-            //           'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture_small.jpeg'),
-            //       Image.network(
-            //           'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture_tiny.jpeg'),
-            //     ],
-            //     // child: Image.network(
-            //     //   'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture.jpeg',
-            //     //   scale: 0.5,
-            //     // ),
-            //   ),
-            // )
           ],
         ),
       ),

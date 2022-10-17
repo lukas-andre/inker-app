@@ -15,11 +15,19 @@ class CustomerAppPage extends StatefulWidget {
 class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 1;
   static const List<Widget> _pageWidgets = <Widget>[
-    Text('One'),
+    Center(
+      child: Text('One'),
+    ),
     BuildMapPage(),
-    Text('Three'),
-    Text('Four'),
-    Text('Five')
+    Center(
+      child: Text('Three'),
+    ),
+    Center(
+      child: Text('Four'),
+    ),
+    Center(
+      child: Text('Five'),
+    ),
   ];
 
   @override
