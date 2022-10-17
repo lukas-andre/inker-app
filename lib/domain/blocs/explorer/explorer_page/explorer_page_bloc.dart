@@ -6,7 +6,8 @@ import 'package:inker_studio/data/api/location/dtos/findArtistByLocationRequest.
 import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
-import 'package:inker_studio/utils/layout/get_ui_image_from_network.dart';
+import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/layout/marker_helper.dart';
 
 part 'explorer_page_event.dart';
 part 'explorer_page_state.dart';
@@ -40,11 +41,11 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
             artistFounded[i].lng!,
           ),
           consumeTapEvents: true,
-          onTap: () => {
-                _mapBloc.add(OnMarkerSelectedEvent(
-                  marker: markerId,
-                ))
-              },
+          onTap: () {
+            dev.log('Marker selected: $markerId', 'MapBloc');
+            _mapBloc.add(OnMarkerSelectedEvent(
+                selectedMarkerId: markerId, previousSelectedMarkerId: null));
+          },
           icon: icon);
 
       markersMap[marker] = artistFounded[i];

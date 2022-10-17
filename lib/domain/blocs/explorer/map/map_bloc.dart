@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show
         CameraPosition,
@@ -12,7 +13,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'
         MarkerId;
 import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
-import 'package:inker_studio/utils/layout/get_ui_image_from_network.dart';
+import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/layout/marker_helper.dart';
 import 'package:inker_studio/utils/styles/map_style.dart';
 
 part 'map_event.dart';
@@ -22,13 +24,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final LocationBloc locationBloc;
   StreamSubscription<LocationState>? _locationStateSubscription;
   GoogleMapController? _mapController;
+  DraggableScrollableController draggableScrollableController =
+      DraggableScrollableController();
 
   MapBloc({required this.locationBloc}) : super(const MapState()) {
     on<OnInitMapEvent>(_onInitMap);
     on<OnFollowLocationButtonPressedEvent>(_onFollowLocationButtonPressed);
-    on<OnStopFollowingLocation>(_onStopFollowingLocation);
+    on<OnStopFollowingLocationEvent>(_onStopFollowingLocation);
     on<OnAddMarkersEvent>(_onAddMarkersEvent);
     on<OnMarkerSelectedEvent>(_onMarkerSelectedEvent);
+    on<DeselectAllMarkerEvent>(_onDeselectAllMarkerEvent);
+    on<OnMapDraggableScrollableNotificationEvent>(
+        _onMapDraggableScrollableNotificationEvent);
 
     _locationStateSubscription = locationBloc.stream.listen((locationState) {
       if (!state.isFollowingUser) return;
@@ -63,8 +70,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   FutureOr<void> _onStopFollowingLocation(
-      OnStopFollowingLocation event, Emitter<MapState> emit) {
+      OnStopFollowingLocationEvent event, Emitter<MapState> emit) {
     emit(state.copyWith(isFollowingUser: false));
+  }
+
+  void _onAddMarkersEvent(OnAddMarkersEvent event, Emitter<MapState> emit) {
+    emit(state.copyWith(markers: event.markers));
   }
 
   @override
@@ -73,30 +84,157 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     return super.close();
   }
 
-  void _onAddMarkersEvent(OnAddMarkersEvent event, Emitter<MapState> emit) {
-    emit(state.copyWith(markers: event.markers));
-  }
-
   Future<void> _onMarkerSelectedEvent(
       OnMarkerSelectedEvent event, Emitter<MapState> emit) async {
     final Map<Marker, FindArtistByLocationResponse> newMarkers = {};
     for (var element in state.markers.entries) {
-      final isSelected = element.key.markerId == event.marker;
-      final icon = await MarkerHelper.getArtistMarkerIcon(
-          element.value.artist!, isSelected);
+      final isSelected =
+          element.key.markerId.value == event.selectedMarkerId.value;
+
+      if (isFirstTimeSelected(isSelected, event)) {
+        await handleFirstTimeSelected(event, newMarkers, emit);
+        return;
+      }
+
+      final isPreviousSelected =
+          element.key.markerId.value == event.previousSelectedMarkerId?.value;
+
+      if (isSelected == isPreviousSelected) {
+        newMarkers[element.key] = element.value;
+        continue;
+      }
+
+      if (isSelected) {
+        Marker marker = await _getMarker(element, isSelected);
+        newMarkers[marker] = element.value;
+        continue;
+      }
+
+      if (isPreviousSelected) {
+        Marker marker = await _getMarker(element, isSelected);
+        newMarkers[marker] = element.value;
+        continue;
+      }
+
+      newMarkers[element.key] = element.value;
+    }
+
+    emit(state.copyWith(
+        selectedMarker: event.selectedMarkerId, markers: newMarkers));
+
+    await openDraggableSheet(emit);
+  }
+
+  Future<Marker> _getMarker(
+      MapEntry<Marker, FindArtistByLocationResponse> element,
+      bool isSelected) async {
+    final icon = await MarkerHelper.getArtistMarkerIcon(
+        element.value.artist!, isSelected);
+
+    final marker = Marker(
+        markerId: element.key.markerId,
+        position: element.key.position,
+        consumeTapEvents: true,
+        onTap: () {
+          dev.log('Marker selected: ${element.key.markerId.value}', 'MapBloc');
+          add(OnMarkerSelectedEvent(
+            previousSelectedMarkerId: state.selectedMarker!,
+            selectedMarkerId: element.key.markerId,
+          ));
+        },
+        icon: icon);
+
+    return marker;
+  }
+
+  Future<void> handleFirstTimeSelected(
+      OnMarkerSelectedEvent event,
+      Map<Marker, FindArtistByLocationResponse> newMarkers,
+      Emitter<MapState> emit) async {
+    for (var element in state.markers.entries) {
+      final isSelected =
+          element.key.markerId.value == event.selectedMarkerId.value;
+
+      Marker marker = await _getMarker(element, isSelected);
+
+      newMarkers[marker] = element.value;
+      continue;
+    }
+
+    emit(state.copyWith(
+        markers: newMarkers,
+        selectedMarker: event.selectedMarkerId,
+        isFollowingUser: false));
+
+    await openDraggableSheet(emit);
+  }
+
+  bool isFirstTimeSelected(bool isSelected, OnMarkerSelectedEvent event) =>
+      isSelected && event.previousSelectedMarkerId == null;
+
+  Future<void> _onDeselectAllMarkerEvent(
+      DeselectAllMarkerEvent event, Emitter<MapState> emit) async {
+    if (state.selectedMarker == null) return;
+
+    final Map<Marker, FindArtistByLocationResponse> newMarkers = {};
+
+    for (var element in state.markers.entries) {
+      final isSelected =
+          element.key.markerId.value == state.selectedMarker!.value;
+
+      if (!isSelected) {
+        newMarkers[element.key] = element.value;
+        continue;
+      }
+
+      final icon =
+          await MarkerHelper.getArtistMarkerIcon(element.value.artist!, false);
+
       final marker = Marker(
           markerId: element.key.markerId,
           position: element.key.position,
           consumeTapEvents: true,
-          onTap: () => {
-                add(OnMarkerSelectedEvent(
-                  marker: element.key.markerId,
-                ))
-              },
+          onTap: () {
+            dev.log(
+                'Marker selected: ${element.key.markerId.value}', 'MapBloc');
+            add(OnMarkerSelectedEvent(
+              selectedMarkerId: element.key.markerId,
+              previousSelectedMarkerId: null,
+            ));
+          },
           icon: icon);
 
       newMarkers[marker] = element.value;
     }
-    emit(state.copyWith(selectedMarker: event.marker, markers: newMarkers));
+
+    emit(state.copyWith(selectedMarker: null, markers: newMarkers));
+
+    if (event.closeDragSheet) {
+      await closeDraggableSheet(emit);
+    }
+  }
+
+  Future<void> openDraggableSheet(Emitter<MapState> emit) async {
+    return draggableScrollableController
+        .animateTo(0.4,
+            duration: const Duration(milliseconds: 500), curve: Curves.easeOut)
+        .whenComplete(() => emit(state.copyWith(isDragSheetOpen: true)));
+  }
+
+  Future<void> closeDraggableSheet(Emitter<MapState> emit) async {
+    return draggableScrollableController
+        .animateTo(0.0,
+            duration: const Duration(milliseconds: 500), curve: Curves.easeOut)
+        .whenComplete(() => emit(state.copyWith(isDragSheetOpen: false)));
+  }
+
+  void _onMapDraggableScrollableNotificationEvent(
+      OnMapDraggableScrollableNotificationEvent event, Emitter<MapState> emit) {
+    if (event.notification.extent < 0.1 &&
+        state.isDragSheetOpen &&
+        state.selectedMarker != null) {
+      add(const DeselectAllMarkerEvent(closeDragSheet: false));
+      emit(state.copyWith(isDragSheetOpen: false));
+    }
   }
 }

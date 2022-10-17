@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show LatLng, Marker;
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
-import 'package:inker_studio/ui/customer/explore/views/map/widgets/button_current_location.dart';
-import 'package:inker_studio/ui/customer/explore/views/map/widgets/button_follow_location.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_view_buttons.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/pannel.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
@@ -33,6 +33,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mapBloc = context.read<MapBloc>();
+
     return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
       builder: (context, state) {
         return GestureDetector(
@@ -57,12 +59,14 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       previous.view != current.view ||
                       previous.isLoading != current.isLoading,
                   builder: (context, state) {
+                    // TODO: THIS IS INIT STATE
                     if (state.firstLoad && !state.isLoading) {
                       context.read<ExplorerPageBloc>().add(
                           ExplorerPageFetchArtists(
                               location: locationState.lastKnownLocation!));
                     }
 
+                    // TODO: THIS IS LOADING STATE
                     if (state.isLoading) {
                       return Center(
                         child: InkerProgressIndicator(
@@ -71,6 +75,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       );
                     }
 
+                    // THIS IS EMPTY ARTIST STATE
                     if (state.artistFounded.isEmpty) {
                       return Center(
                         child: Text(
@@ -79,11 +84,48 @@ class _ExplorerPageState extends State<ExplorerPage> {
                         ),
                       );
                     } else {
+                      // THIS IS ARTIST FOUND STATE
                       return Stack(children: [
                         ExplorerViewByType(
                             view: state.view,
                             lastLocation: locationState.lastKnownLocation!),
-                        const ExplorerSwitchViewButtons()
+                        const ExplorerSwitchViewButtons(),
+                        BlocBuilder<MapBloc, MapState>(
+                            buildWhen: (previous, current) =>
+                                previous.selectedMarker !=
+                                current.selectedMarker,
+                            builder: (context, state) {
+                              return NotificationListener<
+                                  DraggableScrollableNotification>(
+                                onNotification: (notification) {
+                                  mapBloc.add(
+                                      OnMapDraggableScrollableNotificationEvent(
+                                          notification));
+                                  return true;
+                                },
+                                child: DraggableScrollableSheet(
+                                  snap: true,
+                                  snapSizes: const [0.0, 0.4, 0.9],
+                                  maxChildSize: 0.9,
+                                  controller:
+                                      mapBloc.draggableScrollableController,
+                                  initialChildSize: 0.0,
+                                  minChildSize: 0.0,
+                                  builder: (BuildContext context,
+                                      ScrollController scrollController) {
+                                    return BlocBuilder<MapBloc, MapState>(
+                                      builder: (context, state) {
+                                        return SingleChildScrollView(
+                                          controller: scrollController,
+                                          child:
+                                              const CustomScrollViewContent(),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            })
                       ]);
                     }
                   },
@@ -91,16 +133,17 @@ class _ExplorerPageState extends State<ExplorerPage> {
               },
             ),
             floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            floatingActionButton: state.view == ExplorerView.list
-                ? null
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      ButtonCurrentLocation(),
-                      ButtonFollowLocation()
-                    ],
-                  ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startDocked,
+            // floatingActionButton: state.view == ExplorerView.list
+            //     ? null
+            //     : Column(
+            //         mainAxisAlignment: MainAxisAlignment.end,
+            //         children: const [
+            //           ButtonCurrentLocation(),
+            //           ButtonFollowLocation()
+            //         ],
+            //       ),
           ),
         );
       },
