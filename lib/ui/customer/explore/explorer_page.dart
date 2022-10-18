@@ -8,7 +8,7 @@ import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_view_buttons.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/pannel.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/panel.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
@@ -90,42 +90,69 @@ class _ExplorerPageState extends State<ExplorerPage> {
                             view: state.view,
                             lastLocation: locationState.lastKnownLocation!),
                         const ExplorerSwitchViewButtons(),
-                        BlocBuilder<MapBloc, MapState>(
-                            buildWhen: (previous, current) =>
-                                previous.selectedMarker !=
-                                current.selectedMarker,
-                            builder: (context, state) {
-                              return NotificationListener<
-                                  DraggableScrollableNotification>(
-                                onNotification: (notification) {
-                                  mapBloc.add(
-                                      OnMapDraggableScrollableNotificationEvent(
-                                          notification));
-                                  return true;
+                        NotificationListener<DraggableScrollableNotification>(
+                          onNotification: (notification) {
+                            mapBloc.add(
+                                OnMapDraggableScrollableNotificationEvent(
+                                    notification));
+                            return true;
+                          },
+                          child: DraggableScrollableSheet(
+                            snap: true,
+                            snapSizes: const [0.0, 0.4, 0.9],
+                            maxChildSize: 0.9,
+                            controller: mapBloc.draggableScrollableController,
+                            initialChildSize: 0.0,
+                            minChildSize: 0.0,
+                            builder: (BuildContext context,
+                                ScrollController scrollController) {
+                              return BlocBuilder<MapBloc, MapState>(
+                                builder: (context, state) {
+                                  return SingleChildScrollView(
+                                    controller: scrollController,
+                                    child: const CustomScrollViewContent(),
+                                  );
                                 },
-                                child: DraggableScrollableSheet(
-                                  snap: true,
-                                  snapSizes: const [0.0, 0.4, 0.9],
-                                  maxChildSize: 0.9,
-                                  controller:
-                                      mapBloc.draggableScrollableController,
-                                  initialChildSize: 0.0,
-                                  minChildSize: 0.0,
-                                  builder: (BuildContext context,
-                                      ScrollController scrollController) {
-                                    return BlocBuilder<MapBloc, MapState>(
-                                      builder: (context, state) {
-                                        return SingleChildScrollView(
-                                          controller: scrollController,
-                                          child:
-                                              const CustomScrollViewContent(),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
                               );
-                            })
+                            },
+                          ),
+                        ),
+                        // BlocBuilder<MapBloc, MapState>(
+                        //     buildWhen: (previous, current) =>
+                        //         previous.selectedMarker !=
+                        //         current.selectedMarker,
+                        //     builder: (context, state) {
+                        //       return NotificationListener<
+                        //           DraggableScrollableNotification>(
+                        //         onNotification: (notification) {
+                        //           mapBloc.add(
+                        //               OnMapDraggableScrollableNotificationEvent(
+                        //                   notification));
+                        //           return true;
+                        //         },
+                        //         child: DraggableScrollableSheet(
+                        //           snap: true,
+                        //           snapSizes: const [0.0, 0.4, 0.9],
+                        //           maxChildSize: 0.9,
+                        //           controller:
+                        //               mapBloc.draggableScrollableController,
+                        //           initialChildSize: 0.0,
+                        //           minChildSize: 0.0,
+                        //           builder: (BuildContext context,
+                        //               ScrollController scrollController) {
+                        //             return BlocBuilder<MapBloc, MapState>(
+                        //               builder: (context, state) {
+                        //                 return SingleChildScrollView(
+                        //                   controller: scrollController,
+                        //                   child:
+                        //                       const CustomScrollViewContent(),
+                        //                 );
+                        //               },
+                        //             );
+                        //           },
+                        //         ),
+                        //       );
+                        //     })
                       ]);
                     }
                   },
