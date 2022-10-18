@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_button.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 
@@ -25,6 +26,9 @@ class ExplorerSwitchViewButtons extends StatelessWidget {
                 onTap: () {
                   explorerPageBloc.add(const ExplorerPageEventViewChanged(
                       view: ExplorerView.list));
+                  context
+                      .read<MapBloc>()
+                      .add(const DeselectAllMarkerEvent(closeDragSheet: true));
                   OverlayStyle.setWhite();
                 },
                 selectedView: state.view,
