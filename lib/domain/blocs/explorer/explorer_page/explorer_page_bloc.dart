@@ -21,7 +21,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
       : _locationService = locationService,
         _mapBloc = mapBloc,
         super(const ExplorerPageState(
-            view: ExplorerView.map, isLoading: false, firstLoad: true)) {
+            view: ExplorerView.list, isLoading: false, firstLoad: true)) {
     on<ExplorerPageEventViewChanged>(_explorerPageEventViewChangedToState);
     on<ExplorerPageFetchArtists>(_explorerPageFetchArtistsToState);
   }
