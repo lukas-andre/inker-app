@@ -45,6 +45,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
   }
 
+  Artist? get selectedArtist {
+    if (state.selectedMarker == null) return null;
+
+    return state.markers.entries
+        .firstWhere((element) => element.key.markerId == state.selectedMarker)
+        .value
+        .artist;
+  }
+
   void _onInitMap(OnInitMapEvent event, Emitter<MapState> emit) {
     _mapController = event.mapController;
     _mapController?.setMapStyle(jsonEncode(kInkerMapTheme));
@@ -93,6 +102,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       if (isFirstTimeSelected(isSelected, event)) {
         await handleFirstTimeSelected(event, newMarkers, emit);
+
         return;
       }
 
@@ -101,18 +111,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       if (isSelected == isPreviousSelected) {
         newMarkers[element.key] = element.value;
+
         continue;
       }
 
       if (isSelected) {
         Marker marker = await _getMarker(element, isSelected);
         newMarkers[marker] = element.value;
+
         continue;
       }
 
       if (isPreviousSelected) {
         Marker marker = await _getMarker(element, isSelected);
         newMarkers[marker] = element.value;
+
         continue;
       }
 
@@ -141,6 +154,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             previousSelectedMarkerId: state.selectedMarker!,
             selectedMarkerId: element.key.markerId,
           ));
+          moveCamera(element.key.position);
         },
         icon: icon);
 
@@ -156,8 +170,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           element.key.markerId.value == event.selectedMarkerId.value;
 
       Marker marker = await _getMarker(element, isSelected);
-
       newMarkers[marker] = element.value;
+
       continue;
     }
 
@@ -201,6 +215,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               selectedMarkerId: element.key.markerId,
               previousSelectedMarkerId: null,
             ));
+            moveCamera(element.key.position);
           },
           icon: icon);
 
@@ -233,8 +248,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     if (event.notification.extent < 0.1 &&
         state.isDragSheetOpen &&
         state.selectedMarker != null) {
-      add(const DeselectAllMarkerEvent(closeDragSheet: false));
       emit(state.copyWith(isDragSheetOpen: false));
+      add(const DeselectAllMarkerEvent(closeDragSheet: false));
     }
   }
 }
