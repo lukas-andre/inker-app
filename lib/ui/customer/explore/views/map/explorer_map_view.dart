@@ -33,7 +33,7 @@ class ExplorerMapView extends StatelessWidget {
             height: size.height,
             child: Listener(
               onPointerMove: (event) =>
-                  mapBloc.add(const OnStopFollowingLocationEvent()),
+                  mapBloc.add(const StopFollowingLocationEvent()),
               child: GoogleMap(
                 initialCameraPosition: initialCameraPosition,
                 onTap: (argument) => mapBloc.add(const DeselectAllMarkerEvent(
@@ -44,7 +44,7 @@ class ExplorerMapView extends StatelessWidget {
                 zoomControlsEnabled: false,
                 myLocationButtonEnabled: false,
                 onMapCreated: ((controller) =>
-                    mapBloc.add(OnInitMapEvent(controller))),
+                    mapBloc.add(InitMapEvent(controller))),
               ),
             ));
       },
