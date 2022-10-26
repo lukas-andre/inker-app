@@ -7,29 +7,29 @@ abstract class MapEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OnInitMapEvent extends MapEvent {
+class InitMapEvent extends MapEvent {
   final GoogleMapController mapController;
-  const OnInitMapEvent(this.mapController);
+  const InitMapEvent(this.mapController);
 }
 
-class OnFollowLocationButtonPressedEvent extends MapEvent {
-  const OnFollowLocationButtonPressedEvent();
+class FollowLocationButtonPressedEvent extends MapEvent {
+  const FollowLocationButtonPressedEvent();
 }
 
-class OnStopFollowingLocationEvent extends MapEvent {
-  const OnStopFollowingLocationEvent();
+class StopFollowingLocationEvent extends MapEvent {
+  const StopFollowingLocationEvent();
 }
 
-class OnAddMarkersEvent extends MapEvent {
+class AddMarkersEvent extends MapEvent {
   final Map<Marker, FindArtistByLocationResponse> markers;
-  const OnAddMarkersEvent(this.markers);
+  const AddMarkersEvent(this.markers);
 }
 
-class OnMarkerSelectedEvent extends MapEvent {
+class MarkerSelectedEvent extends MapEvent {
   final MarkerId selectedMarkerId;
   final MarkerId? previousSelectedMarkerId;
 
-  const OnMarkerSelectedEvent({
+  const MarkerSelectedEvent({
     required this.selectedMarkerId,
     required this.previousSelectedMarkerId,
   });
@@ -40,7 +40,7 @@ class DeselectAllMarkerEvent extends MapEvent {
   const DeselectAllMarkerEvent({required this.closeDragSheet});
 }
 
-class OnMapDraggableScrollableNotificationEvent extends MapEvent {
+class MapDraggableScrollableNotificationEvent extends MapEvent {
   final DraggableScrollableNotification notification;
-  const OnMapDraggableScrollableNotificationEvent(this.notification);
+  const MapDraggableScrollableNotificationEvent(this.notification);
 }

@@ -24,7 +24,7 @@ class ButtonFollowLocation extends StatelessWidget {
                 color: primaryColor,
               ),
               onPressed: () {
-                mapBloc.add(const OnFollowLocationButtonPressedEvent());
+                mapBloc.add(const FollowLocationButtonPressedEvent());
               },
             );
           },

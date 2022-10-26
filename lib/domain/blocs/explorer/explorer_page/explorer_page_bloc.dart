@@ -34,24 +34,23 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
           artistFounded[i].artist!, false);
 
       final markerId = MarkerId(artistFounded[i].artistId.toString());
+      final position = LatLng(artistFounded[i].lat!, artistFounded[i].lng!);
       final marker = Marker(
           markerId: markerId,
-          position: LatLng(
-            artistFounded[i].lat!,
-            artistFounded[i].lng!,
-          ),
+          position: position,
           consumeTapEvents: true,
           onTap: () {
             dev.log('Marker selected: $markerId', 'MapBloc');
-            _mapBloc.add(OnMarkerSelectedEvent(
+            _mapBloc.add(MarkerSelectedEvent(
                 selectedMarkerId: markerId, previousSelectedMarkerId: null));
+            _mapBloc.moveCamera(position);
           },
           icon: icon);
 
       markersMap[marker] = artistFounded[i];
     }
 
-    _mapBloc.add(OnAddMarkersEvent(markersMap));
+    _mapBloc.add(AddMarkersEvent(markersMap));
   }
 
   void _explorerPageEventViewChangedToState(
