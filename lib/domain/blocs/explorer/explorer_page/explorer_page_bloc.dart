@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:inker_studio/data/api/location/dtos/findArtistByLocationRequest.dart';
-import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_request.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -70,7 +70,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
     try {
       final response = await _locationService.getArtistByLocation(
           FindArtistByLocationRequest(
-              range: 1,
+              range: 1.5,
               lat: event.location.latitude,
               lng: event.location.longitude));
       if (state.firstLoad) {

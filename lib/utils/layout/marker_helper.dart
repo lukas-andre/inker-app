@@ -5,7 +5,7 @@ import 'package:flutter/material.dart'
     show ImageInfo, NetworkImage, ImageConfiguration, ImageStreamListener;
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show BitmapDescriptor;
-import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart'
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart'
     show Artist;
 import 'package:inker_studio/utils/layout/widgets_to_marker.dart'
     show WidgetToMarker;

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'findArtistByLocationRequest.g.dart';
+part 'find_artist_by_location_request.g.dart';
 
 FindArtistByLocationRequest findArtistByLocationRequestFromJson(String str) =>
     FindArtistByLocationRequest.fromJson(json.decode(str));

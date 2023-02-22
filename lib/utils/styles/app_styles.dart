@@ -7,6 +7,8 @@ Color primaryColor = const Color(0xFF141D3C);
 Color secondaryColor = const Color(0xff7450ff);
 Color tertiaryColor = const Color(0xff686D90);
 Color quaternaryColor = const Color(0xffF2F2F2);
+Color yellowColor = const Color(0xffFDD22E);
+Color greyColor = const Color(0xFF707070);
 
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();

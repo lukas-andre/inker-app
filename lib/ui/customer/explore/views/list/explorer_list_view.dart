@@ -77,7 +77,8 @@ class ExplorerResultList extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(25),
                                   child: Image.network(
                                     state.artistFounded[index].artist!
-                                        .studioPhoto!,
+                                            .studioPhoto ??
+                                        imageList[index],
                                     fit: BoxFit.cover,
                                     width: size.width,
                                   ),

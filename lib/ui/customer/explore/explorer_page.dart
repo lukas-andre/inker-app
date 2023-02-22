@@ -7,7 +7,7 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/draggable_info_sheet.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_sheet.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_view_buttons.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -90,7 +90,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                             view: state.view,
                             lastLocation: locationState.lastKnownLocation!),
                         const ExplorerSwitchViewButtons(),
-                        const DraggableInfoSheet(),
+                        const DraggableArtistInfoSheet(),
                       ]);
                     }
                   },

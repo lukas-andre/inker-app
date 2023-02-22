@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/data/api/location/dtos/findArtistByLocationRequest.dart';
-import 'package:inker_studio/data/api/location/dtos/findArtistByLocationResponse.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_request.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/data/api/location/errors/errors.dart';
 import 'package:inker_studio/domain/errors/location/find_artist_by_location_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
