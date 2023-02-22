@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'findArtistByLocationRequest.dart';
+part of 'find_artist_by_location_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -49,7 +49,7 @@ class ArtistMarkerPainter extends CustomPainter {
 
     final artistNamePainter = TextPainter(
         text: textSpan,
-        maxLines: 2,
+        maxLines: 1,
         ellipsis: '...',
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center);

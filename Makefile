@@ -2,7 +2,7 @@
 .PHONY: json-builder
 json:
 	@echo "Building json-builder"
-	flutter pub run build_runner build --delete-conflicting-outputs
+	flutter pub run build_runner build
 
 
 .PHONY: back

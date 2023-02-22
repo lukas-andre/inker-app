@@ -8,6 +8,7 @@ linter:
 analyzer:
   errors:
     todo: ignore
+    invalid_annotation_target: ignore
   exclude:
     - 'packages/*'
 # Additional information about this file can be found at
