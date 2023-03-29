@@ -46,32 +46,29 @@ class DraggableArtistReviewSheetBloc extends Bloc<
       event.when(
         started: (() => {}),
         loadReviews: (artistId) => _loadReviews(artistId, emit),
-        reviewsLoading: () => emit(ReviewsLoading(
-            reviewReactions: state.reviewReactions,
-            customerReactions: state.customerReactions,
-            reviews: state.reviews)),
         clearReviews: () => _configureReviewSheet(emit),
         refreshReviews: () => _refreshReviews(emit),
-        setReviewReactions: (reviewReactions, customerReactions, reviews) {
-          emit(ReviewSheetConfigured(
-              reviewReactions: reviewReactions,
-              customerReactions: customerReactions,
-              reviews: reviews));
-        },
         reviewLiked: (reviewId, customerId) =>
             _updateReviewReaction(reviewId, customerId, true, false, emit),
         reviewDisliked: (reviewId, customerId) =>
             _updateReviewReaction(reviewId, customerId, false, false, emit),
-        reviewLikeRemoved: (int reviewId, int customerId) {
-          _updateReviewReaction(reviewId, customerId, true, true, emit);
-        },
-        reviewDislikedRemoved: (int reviewId, int customerId) {
-          _updateReviewReaction(reviewId, customerId, false, true, emit);
-        },
-        switchReviewReaction:
-            (int reviewId, int customerId, bool liked, bool disliked) {
-          _switchReviewReaction(reviewId, customerId, liked, disliked, emit);
-        },
+        reviewLikeRemoved: (int reviewId, int customerId) =>
+            _updateReviewReaction(reviewId, customerId, true, true, emit),
+        reviewDislikedRemoved: (int reviewId, int customerId) =>
+            _updateReviewReaction(reviewId, customerId, false, true, emit),
+        switchReviewReaction: (int reviewId, int customerId, bool liked,
+                bool disliked) =>
+            _updateReviewReaction(reviewId, customerId, liked, disliked, emit,
+                switchReaction: true),
+        reviewsLoading: () => emit(ReviewsLoading(
+            reviewReactions: state.reviewReactions,
+            customerReactions: state.customerReactions,
+            reviews: state.reviews)),
+        setReviewReactions: (reviewReactions, customerReactions, reviews) =>
+            emit(ReviewSheetConfigured(
+                reviewReactions: reviewReactions,
+                customerReactions: customerReactions,
+                reviews: reviews)),
         refreshReviewsError: (errorMessage) => emit(
             DraggableArtistReviewSheetState.refreshReviewsError(
                 reviewReactions: state.reviewReactions,
@@ -192,20 +189,16 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     });
   }
 
-  Future<void> _updateReviewReaction(
-      int reviewId,
-      int customerId,
-      bool like,
-      bool remove,
-      // bool switchReaction,
-      Emitter<DraggableArtistReviewSheetState> emit) async {
+  Future<void> _updateReviewReaction(int reviewId, int customerId, bool like,
+      bool remove, Emitter<DraggableArtistReviewSheetState> emit,
+      {bool switchReaction = false}) async {
     Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
     Map<int, Reaction> customerReactions = Map.from(state.customerReactions);
 
-    _updateReactions(
-        reviewReactions, customerReactions, reviewId, like, remove);
-    _updateCustomerReaction(customerReactions, reviewId, like, remove);
-
+    _updateReactions(reviewReactions, customerReactions, reviewId, like, remove,
+        switchReaction);
+    _updateCustomerReaction(customerReactions, reviewId, like, remove,
+        switchReaction: switchReaction);
     emit(ReviewReaction(
       reviewReactions: reviewReactions,
       customerReactions: customerReactions,
@@ -233,6 +226,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     int reviewId,
     bool like,
     bool remove,
+    bool switchReaction,
   ) {
     if (reviewReactions.containsKey(reviewId)) {
       Reactions reactions = reviewReactions[reviewId]!;
@@ -244,15 +238,22 @@ class DraggableArtistReviewSheetBloc extends Bloc<
         bool removeLike = remove && like;
         bool removeDislike = remove && !like;
 
-        likeChange = (like && !removeLike) ? 1 : (removeLike ? -1 : 0);
-        dislikeChange =
-            (!like && !removeDislike) ? 1 : (removeDislike ? -1 : 0);
-
-        if (like && !remove && currentReaction.disliked) dislikeChange = -1;
-        if (!like && !remove && currentReaction.liked) likeChange = -1;
+        if (switchReaction) {
+          likeChange = like ? 1 : -1;
+          dislikeChange = like ? -1 : 1;
+        } else {
+          likeChange = like && !currentReaction.liked && !removeLike
+              ? 1
+              : (removeLike ? -1 : 0);
+          dislikeChange = !like && !currentReaction.disliked && !removeDislike
+              ? 1
+              : (removeDislike ? -1 : 0);
+        }
       } else {
-        likeChange = like ? 1 : 0;
-        dislikeChange = !like ? 1 : 0;
+        if (!switchReaction) {
+          likeChange = like ? 1 : 0;
+          dislikeChange = !like ? 1 : 0;
+        }
       }
 
       reactions = Reactions(
@@ -263,15 +264,56 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     }
   }
 
-  void _updateCustomerReaction(Map<int, Reaction> customerReactions,
-      int reviewId, bool like, bool remove) {
+  void _updateCustomerReaction(
+    Map<int, Reaction> customerReactions,
+    int reviewId,
+    bool like,
+    bool remove, {
+    bool switchReaction = false,
+  }) {
     if (customerReactions.containsKey(reviewId)) {
-      Reaction reaction = customerReactions[reviewId]!;
-      reaction = Reaction(liked: like && !remove, disliked: !like && !remove);
-      customerReactions[reviewId] = reaction;
+      Reaction currentReaction = customerReactions[reviewId]!;
+      Reaction updatedReaction;
+
+      if (switchReaction) {
+        updatedReaction = Reaction(
+          liked: like,
+          disliked: !like,
+        );
+      } else {
+        bool removeLike = remove && like;
+        bool removeDislike = remove && !like;
+
+        if (like && !currentReaction.liked) {
+          updatedReaction = Reaction(
+            liked: !removeLike,
+            disliked: false,
+          );
+        } else if (!like && !currentReaction.disliked) {
+          updatedReaction = Reaction(
+            liked: false,
+            disliked: !removeDislike,
+          );
+        } else {
+          updatedReaction = Reaction(
+            liked: currentReaction.liked && removeLike
+                ? false
+                : currentReaction.liked,
+            disliked: currentReaction.disliked && removeDislike
+                ? false
+                : currentReaction.disliked,
+          );
+        }
+      }
+
+      customerReactions[reviewId] = updatedReaction;
     } else {
-      customerReactions[reviewId] =
-          Reaction(liked: like && !remove, disliked: !like && !remove);
+      if (!switchReaction) {
+        customerReactions[reviewId] = Reaction(
+          liked: like && !remove,
+          disliked: !like && !remove,
+        );
+      }
     }
   }
 
@@ -285,67 +327,5 @@ class DraggableArtistReviewSheetBloc extends Bloc<
         errorMessage: errorMessage,
         reviews: state.reviews,
         customerReactions: customerReactions));
-  }
-
-  _switchReviewReaction(int reviewId, int customerId, bool liked, bool disliked,
-      Emitter<DraggableArtistReviewSheetState> emit) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-
-    if (liked) {
-      if (reviewReactions.containsKey(reviewId)) {
-        Reactions reactions = reviewReactions[reviewId]!;
-        reactions = Reactions(
-            likes: reactions.likes + 1, dislikes: reactions.dislikes - 1);
-        reviewReactions[reviewId] = reactions;
-      }
-    }
-
-    if (disliked) {
-      if (reviewReactions.containsKey(reviewId)) {
-        Reactions reactions = reviewReactions[reviewId]!;
-        reactions = Reactions(
-            likes: reactions.likes - 1, dislikes: reactions.dislikes + 1);
-        reviewReactions[reviewId] = reactions;
-      }
-    }
-
-    Map<int, Reaction> customerReaction = Map.from(state.customerReactions);
-    if (customerReaction.containsKey(reviewId)) {
-      Reaction reaction = customerReaction[reviewId]!;
-      reaction = Reaction(liked: liked, disliked: disliked);
-      customerReaction[reviewId] = reaction;
-    }
-
-    String? errorsMessage;
-
-    // This is for update the UI immediately
-    emit(SwitchReviewReaction(
-      reviews: state.reviews,
-      reviewReactions: reviewReactions,
-      customerReactions: customerReaction,
-    ));
-
-    try {
-      final token = await _localSessionService.getActiveSessionToken() ?? '';
-
-      await _reviewService.reactToReview(
-          customerId: customerId,
-          reviewId: reviewId,
-          like: liked,
-          token: token);
-    } on HttpNotFound {
-      errorsMessage = 'Error while reacting to review';
-    } catch (e) {
-      errorsMessage = 'Error while reacting to review';
-      dev.log('Error: $e', '_reviewLikeRemoved');
-    }
-
-    if (errorsMessage != null) {
-      emit(SwitchReviewReactionError(
-          reviews: state.reviews,
-          reviewReactions: reviewReactions,
-          errorMessage: errorsMessage,
-          customerReactions: state.customerReactions));
-    }
   }
 }
