@@ -2693,6 +2693,15 @@ mixin _$DraggableArtistReviewSheetState {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -2764,6 +2773,15 @@ mixin _$DraggableArtistReviewSheetState {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -2839,6 +2857,15 @@ mixin _$DraggableArtistReviewSheetState {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -2880,6 +2907,8 @@ mixin _$DraggableArtistReviewSheetState {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -2902,6 +2931,8 @@ mixin _$DraggableArtistReviewSheetState {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -2924,6 +2955,8 @@ mixin _$DraggableArtistReviewSheetState {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -3137,6 +3170,15 @@ class _$DraggableArtistReviewSheetStateInitial
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -3211,6 +3253,15 @@ class _$DraggableArtistReviewSheetStateInitial
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -3289,6 +3340,15 @@ class _$DraggableArtistReviewSheetStateInitial
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -3336,6 +3396,8 @@ class _$DraggableArtistReviewSheetStateInitial
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -3361,6 +3423,8 @@ class _$DraggableArtistReviewSheetStateInitial
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -3386,6 +3450,8 @@ class _$DraggableArtistReviewSheetStateInitial
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -3564,6 +3630,15 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -3638,6 +3713,15 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -3716,6 +3800,15 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -3763,6 +3856,8 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -3788,6 +3883,8 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -3813,6 +3910,8 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -3987,6 +4086,15 @@ class _$LikeReview implements LikeReview {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -4061,6 +4169,15 @@ class _$LikeReview implements LikeReview {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -4139,6 +4256,15 @@ class _$LikeReview implements LikeReview {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -4186,6 +4312,8 @@ class _$LikeReview implements LikeReview {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -4211,6 +4339,8 @@ class _$LikeReview implements LikeReview {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -4236,6 +4366,8 @@ class _$LikeReview implements LikeReview {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -4421,6 +4553,15 @@ class _$LikeReviewError implements LikeReviewError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -4496,6 +4637,15 @@ class _$LikeReviewError implements LikeReviewError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -4575,6 +4725,15 @@ class _$LikeReviewError implements LikeReviewError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -4623,6 +4782,8 @@ class _$LikeReviewError implements LikeReviewError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -4648,6 +4809,8 @@ class _$LikeReviewError implements LikeReviewError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -4673,6 +4836,8 @@ class _$LikeReviewError implements LikeReviewError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -4848,6 +5013,15 @@ class _$DislikeReview implements DislikeReview {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -4922,6 +5096,15 @@ class _$DislikeReview implements DislikeReview {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -5000,6 +5183,15 @@ class _$DislikeReview implements DislikeReview {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -5047,6 +5239,8 @@ class _$DislikeReview implements DislikeReview {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -5072,6 +5266,8 @@ class _$DislikeReview implements DislikeReview {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -5097,6 +5293,8 @@ class _$DislikeReview implements DislikeReview {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -5283,6 +5481,15 @@ class _$DislikeReviewError implements DislikeReviewError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -5358,6 +5565,15 @@ class _$DislikeReviewError implements DislikeReviewError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -5437,6 +5653,15 @@ class _$DislikeReviewError implements DislikeReviewError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -5485,6 +5710,8 @@ class _$DislikeReviewError implements DislikeReviewError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -5510,6 +5737,8 @@ class _$DislikeReviewError implements DislikeReviewError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -5535,6 +5764,8 @@ class _$DislikeReviewError implements DislikeReviewError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -5710,6 +5941,15 @@ class _$LikeRemoved implements LikeRemoved {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -5784,6 +6024,15 @@ class _$LikeRemoved implements LikeRemoved {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -5862,6 +6111,15 @@ class _$LikeRemoved implements LikeRemoved {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -5909,6 +6167,8 @@ class _$LikeRemoved implements LikeRemoved {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -5934,6 +6194,8 @@ class _$LikeRemoved implements LikeRemoved {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -5959,6 +6221,8 @@ class _$LikeRemoved implements LikeRemoved {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -6144,6 +6408,15 @@ class _$LikeRemovedError implements LikeRemovedError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -6219,6 +6492,15 @@ class _$LikeRemovedError implements LikeRemovedError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -6298,6 +6580,15 @@ class _$LikeRemovedError implements LikeRemovedError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -6346,6 +6637,8 @@ class _$LikeRemovedError implements LikeRemovedError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -6371,6 +6664,8 @@ class _$LikeRemovedError implements LikeRemovedError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -6396,6 +6691,8 @@ class _$LikeRemovedError implements LikeRemovedError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -6571,6 +6868,15 @@ class _$DislikeRemoved implements DislikeRemoved {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -6645,6 +6951,15 @@ class _$DislikeRemoved implements DislikeRemoved {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -6723,6 +7038,15 @@ class _$DislikeRemoved implements DislikeRemoved {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -6770,6 +7094,8 @@ class _$DislikeRemoved implements DislikeRemoved {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -6795,6 +7121,8 @@ class _$DislikeRemoved implements DislikeRemoved {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -6820,6 +7148,8 @@ class _$DislikeRemoved implements DislikeRemoved {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -7006,6 +7336,15 @@ class _$DislikeRemovedError implements DislikeRemovedError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -7081,6 +7420,15 @@ class _$DislikeRemovedError implements DislikeRemovedError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -7160,6 +7508,15 @@ class _$DislikeRemovedError implements DislikeRemovedError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -7208,6 +7565,8 @@ class _$DislikeRemovedError implements DislikeRemovedError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -7233,6 +7592,8 @@ class _$DislikeRemovedError implements DislikeRemovedError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -7258,6 +7619,8 @@ class _$DislikeRemovedError implements DislikeRemovedError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -7292,6 +7655,934 @@ abstract class DislikeRemovedError implements DraggableArtistReviewSheetState {
   @override
   @JsonKey(ignore: true)
   _$$DislikeRemovedErrorCopyWith<_$DislikeRemovedError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReviewReactionCopyWith<$Res>
+    implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
+  factory _$$ReviewReactionCopyWith(
+          _$ReviewReaction value, $Res Function(_$ReviewReaction) then) =
+      __$$ReviewReactionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Map<int, Reactions> reviewReactions,
+      Map<int, Reaction> customerReactions,
+      List<ReviewItem> reviews});
+}
+
+/// @nodoc
+class __$$ReviewReactionCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$ReviewReaction> implements _$$ReviewReactionCopyWith<$Res> {
+  __$$ReviewReactionCopyWithImpl(
+      _$ReviewReaction _value, $Res Function(_$ReviewReaction) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewReactions = null,
+    Object? customerReactions = null,
+    Object? reviews = null,
+  }) {
+    return _then(_$ReviewReaction(
+      reviewReactions: null == reviewReactions
+          ? _value.reviewReactions
+          : reviewReactions // ignore: cast_nullable_to_non_nullable
+              as Map<int, Reactions>,
+      customerReactions: null == customerReactions
+          ? _value.customerReactions
+          : customerReactions // ignore: cast_nullable_to_non_nullable
+              as Map<int, Reaction>,
+      reviews: null == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewItem>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReviewReaction implements ReviewReaction {
+  const _$ReviewReaction(
+      {required this.reviewReactions,
+      required this.customerReactions,
+      required this.reviews});
+
+  @override
+  final Map<int, Reactions> reviewReactions;
+  @override
+  final Map<int, Reaction> customerReactions;
+  @override
+  final List<ReviewItem> reviews;
+
+  @override
+  String toString() {
+    return 'DraggableArtistReviewSheetState.reviewReaction(reviewReactions: $reviewReactions, customerReactions: $customerReactions, reviews: $reviews)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReviewReaction &&
+            const DeepCollectionEquality()
+                .equals(other.reviewReactions, reviewReactions) &&
+            const DeepCollectionEquality()
+                .equals(other.customerReactions, customerReactions) &&
+            const DeepCollectionEquality().equals(other.reviews, reviews));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(reviewReactions),
+      const DeepCollectionEquality().hash(customerReactions),
+      const DeepCollectionEquality().hash(reviews));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReviewReactionCopyWith<_$ReviewReaction> get copyWith =>
+      __$$ReviewReactionCopyWithImpl<_$ReviewReaction>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        initial,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        configured,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        likeReview,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        likeReviewError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        dislikeReview,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        dislikeReviewError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        likeRemoved,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        likeRemovedError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        dislikeRemoved,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        dislikeRemovedError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        switchReviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        switchReviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        refreshReviews,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        refreshReviewsError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewsLoading,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewsLoaded,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        clearedReviews,
+  }) {
+    return reviewReaction(reviewReactions, customerReactions, reviews);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        initial,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        configured,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeReview,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeReviewError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeReview,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeReviewError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeRemoved,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeRemoved,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        switchReviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        switchReviewReactionError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        refreshReviews,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        refreshReviewsError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoading,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoaded,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        clearedReviews,
+  }) {
+    return reviewReaction?.call(reviewReactions, customerReactions, reviews);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        initial,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        configured,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeReview,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeReviewError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeReview,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeReviewError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeRemoved,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeRemovedError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeRemoved,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeRemovedError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        switchReviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        switchReviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        refreshReviews,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        refreshReviewsError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoading,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoaded,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        clearedReviews,
+    required TResult orElse(),
+  }) {
+    if (reviewReaction != null) {
+      return reviewReaction(reviewReactions, customerReactions, reviews);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DraggableArtistReviewSheetStateInitial value)
+        initial,
+    required TResult Function(ReviewSheetConfigured value) configured,
+    required TResult Function(LikeReview value) likeReview,
+    required TResult Function(LikeReviewError value) likeReviewError,
+    required TResult Function(DislikeReview value) dislikeReview,
+    required TResult Function(DislikeReviewError value) dislikeReviewError,
+    required TResult Function(LikeRemoved value) likeRemoved,
+    required TResult Function(LikeRemovedError value) likeRemovedError,
+    required TResult Function(DislikeRemoved value) dislikeRemoved,
+    required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
+    required TResult Function(SwitchReviewReaction value) switchReviewReaction,
+    required TResult Function(SwitchReviewReactionError value)
+        switchReviewReactionError,
+    required TResult Function(RefreshReviews value) refreshReviews,
+    required TResult Function(RefreshReviewsError value) refreshReviewsError,
+    required TResult Function(ReviewsLoading value) reviewsLoading,
+    required TResult Function(ReviewsLoaded value) reviewsLoaded,
+    required TResult Function(ClearedReviews value) clearedReviews,
+  }) {
+    return reviewReaction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DraggableArtistReviewSheetStateInitial value)? initial,
+    TResult? Function(ReviewSheetConfigured value)? configured,
+    TResult? Function(LikeReview value)? likeReview,
+    TResult? Function(LikeReviewError value)? likeReviewError,
+    TResult? Function(DislikeReview value)? dislikeReview,
+    TResult? Function(DislikeReviewError value)? dislikeReviewError,
+    TResult? Function(LikeRemoved value)? likeRemoved,
+    TResult? Function(LikeRemovedError value)? likeRemovedError,
+    TResult? Function(DislikeRemoved value)? dislikeRemoved,
+    TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
+    TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
+    TResult? Function(SwitchReviewReactionError value)?
+        switchReviewReactionError,
+    TResult? Function(RefreshReviews value)? refreshReviews,
+    TResult? Function(RefreshReviewsError value)? refreshReviewsError,
+    TResult? Function(ReviewsLoading value)? reviewsLoading,
+    TResult? Function(ReviewsLoaded value)? reviewsLoaded,
+    TResult? Function(ClearedReviews value)? clearedReviews,
+  }) {
+    return reviewReaction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DraggableArtistReviewSheetStateInitial value)? initial,
+    TResult Function(ReviewSheetConfigured value)? configured,
+    TResult Function(LikeReview value)? likeReview,
+    TResult Function(LikeReviewError value)? likeReviewError,
+    TResult Function(DislikeReview value)? dislikeReview,
+    TResult Function(DislikeReviewError value)? dislikeReviewError,
+    TResult Function(LikeRemoved value)? likeRemoved,
+    TResult Function(LikeRemovedError value)? likeRemovedError,
+    TResult Function(DislikeRemoved value)? dislikeRemoved,
+    TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
+    TResult Function(SwitchReviewReaction value)? switchReviewReaction,
+    TResult Function(SwitchReviewReactionError value)?
+        switchReviewReactionError,
+    TResult Function(RefreshReviews value)? refreshReviews,
+    TResult Function(RefreshReviewsError value)? refreshReviewsError,
+    TResult Function(ReviewsLoading value)? reviewsLoading,
+    TResult Function(ReviewsLoaded value)? reviewsLoaded,
+    TResult Function(ClearedReviews value)? clearedReviews,
+    required TResult orElse(),
+  }) {
+    if (reviewReaction != null) {
+      return reviewReaction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReviewReaction implements DraggableArtistReviewSheetState {
+  const factory ReviewReaction(
+      {required final Map<int, Reactions> reviewReactions,
+      required final Map<int, Reaction> customerReactions,
+      required final List<ReviewItem> reviews}) = _$ReviewReaction;
+
+  @override
+  Map<int, Reactions> get reviewReactions;
+  @override
+  Map<int, Reaction> get customerReactions;
+  @override
+  List<ReviewItem> get reviews;
+  @override
+  @JsonKey(ignore: true)
+  _$$ReviewReactionCopyWith<_$ReviewReaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReviewReactionErrorCopyWith<$Res>
+    implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
+  factory _$$ReviewReactionErrorCopyWith(_$ReviewReactionError value,
+          $Res Function(_$ReviewReactionError) then) =
+      __$$ReviewReactionErrorCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Map<int, Reactions> reviewReactions,
+      Map<int, Reaction> customerReactions,
+      List<ReviewItem> reviews,
+      String errorMessage});
+}
+
+/// @nodoc
+class __$$ReviewReactionErrorCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$ReviewReactionError> implements _$$ReviewReactionErrorCopyWith<$Res> {
+  __$$ReviewReactionErrorCopyWithImpl(
+      _$ReviewReactionError _value, $Res Function(_$ReviewReactionError) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewReactions = null,
+    Object? customerReactions = null,
+    Object? reviews = null,
+    Object? errorMessage = null,
+  }) {
+    return _then(_$ReviewReactionError(
+      reviewReactions: null == reviewReactions
+          ? _value.reviewReactions
+          : reviewReactions // ignore: cast_nullable_to_non_nullable
+              as Map<int, Reactions>,
+      customerReactions: null == customerReactions
+          ? _value.customerReactions
+          : customerReactions // ignore: cast_nullable_to_non_nullable
+              as Map<int, Reaction>,
+      reviews: null == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewItem>,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReviewReactionError implements ReviewReactionError {
+  const _$ReviewReactionError(
+      {required this.reviewReactions,
+      required this.customerReactions,
+      required this.reviews,
+      required this.errorMessage});
+
+  @override
+  final Map<int, Reactions> reviewReactions;
+  @override
+  final Map<int, Reaction> customerReactions;
+  @override
+  final List<ReviewItem> reviews;
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'DraggableArtistReviewSheetState.reviewReactionError(reviewReactions: $reviewReactions, customerReactions: $customerReactions, reviews: $reviews, errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReviewReactionError &&
+            const DeepCollectionEquality()
+                .equals(other.reviewReactions, reviewReactions) &&
+            const DeepCollectionEquality()
+                .equals(other.customerReactions, customerReactions) &&
+            const DeepCollectionEquality().equals(other.reviews, reviews) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(reviewReactions),
+      const DeepCollectionEquality().hash(customerReactions),
+      const DeepCollectionEquality().hash(reviews),
+      errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReviewReactionErrorCopyWith<_$ReviewReactionError> get copyWith =>
+      __$$ReviewReactionErrorCopyWithImpl<_$ReviewReactionError>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        initial,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        configured,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        likeReview,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        likeReviewError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        dislikeReview,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        dislikeReviewError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        likeRemoved,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        likeRemovedError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        dislikeRemoved,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        dislikeRemovedError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        switchReviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        switchReviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        refreshReviews,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        refreshReviewsError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewsLoading,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewsLoaded,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        clearedReviews,
+  }) {
+    return reviewReactionError(
+        reviewReactions, customerReactions, reviews, errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        initial,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        configured,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeReview,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeReviewError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeReview,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeReviewError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeRemoved,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeRemoved,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        switchReviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        switchReviewReactionError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        refreshReviews,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        refreshReviewsError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoading,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoaded,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        clearedReviews,
+  }) {
+    return reviewReactionError?.call(
+        reviewReactions, customerReactions, reviews, errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        initial,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        configured,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeReview,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeReviewError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeReview,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeReviewError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        likeRemoved,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        likeRemovedError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        dislikeRemoved,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        dislikeRemovedError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        switchReviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        switchReviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        refreshReviews,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        refreshReviewsError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoading,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewsLoaded,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        clearedReviews,
+    required TResult orElse(),
+  }) {
+    if (reviewReactionError != null) {
+      return reviewReactionError(
+          reviewReactions, customerReactions, reviews, errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DraggableArtistReviewSheetStateInitial value)
+        initial,
+    required TResult Function(ReviewSheetConfigured value) configured,
+    required TResult Function(LikeReview value) likeReview,
+    required TResult Function(LikeReviewError value) likeReviewError,
+    required TResult Function(DislikeReview value) dislikeReview,
+    required TResult Function(DislikeReviewError value) dislikeReviewError,
+    required TResult Function(LikeRemoved value) likeRemoved,
+    required TResult Function(LikeRemovedError value) likeRemovedError,
+    required TResult Function(DislikeRemoved value) dislikeRemoved,
+    required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
+    required TResult Function(SwitchReviewReaction value) switchReviewReaction,
+    required TResult Function(SwitchReviewReactionError value)
+        switchReviewReactionError,
+    required TResult Function(RefreshReviews value) refreshReviews,
+    required TResult Function(RefreshReviewsError value) refreshReviewsError,
+    required TResult Function(ReviewsLoading value) reviewsLoading,
+    required TResult Function(ReviewsLoaded value) reviewsLoaded,
+    required TResult Function(ClearedReviews value) clearedReviews,
+  }) {
+    return reviewReactionError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DraggableArtistReviewSheetStateInitial value)? initial,
+    TResult? Function(ReviewSheetConfigured value)? configured,
+    TResult? Function(LikeReview value)? likeReview,
+    TResult? Function(LikeReviewError value)? likeReviewError,
+    TResult? Function(DislikeReview value)? dislikeReview,
+    TResult? Function(DislikeReviewError value)? dislikeReviewError,
+    TResult? Function(LikeRemoved value)? likeRemoved,
+    TResult? Function(LikeRemovedError value)? likeRemovedError,
+    TResult? Function(DislikeRemoved value)? dislikeRemoved,
+    TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
+    TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
+    TResult? Function(SwitchReviewReactionError value)?
+        switchReviewReactionError,
+    TResult? Function(RefreshReviews value)? refreshReviews,
+    TResult? Function(RefreshReviewsError value)? refreshReviewsError,
+    TResult? Function(ReviewsLoading value)? reviewsLoading,
+    TResult? Function(ReviewsLoaded value)? reviewsLoaded,
+    TResult? Function(ClearedReviews value)? clearedReviews,
+  }) {
+    return reviewReactionError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DraggableArtistReviewSheetStateInitial value)? initial,
+    TResult Function(ReviewSheetConfigured value)? configured,
+    TResult Function(LikeReview value)? likeReview,
+    TResult Function(LikeReviewError value)? likeReviewError,
+    TResult Function(DislikeReview value)? dislikeReview,
+    TResult Function(DislikeReviewError value)? dislikeReviewError,
+    TResult Function(LikeRemoved value)? likeRemoved,
+    TResult Function(LikeRemovedError value)? likeRemovedError,
+    TResult Function(DislikeRemoved value)? dislikeRemoved,
+    TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
+    TResult Function(SwitchReviewReaction value)? switchReviewReaction,
+    TResult Function(SwitchReviewReactionError value)?
+        switchReviewReactionError,
+    TResult Function(RefreshReviews value)? refreshReviews,
+    TResult Function(RefreshReviewsError value)? refreshReviewsError,
+    TResult Function(ReviewsLoading value)? reviewsLoading,
+    TResult Function(ReviewsLoaded value)? reviewsLoaded,
+    TResult Function(ClearedReviews value)? clearedReviews,
+    required TResult orElse(),
+  }) {
+    if (reviewReactionError != null) {
+      return reviewReactionError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReviewReactionError implements DraggableArtistReviewSheetState {
+  const factory ReviewReactionError(
+      {required final Map<int, Reactions> reviewReactions,
+      required final Map<int, Reaction> customerReactions,
+      required final List<ReviewItem> reviews,
+      required final String errorMessage}) = _$ReviewReactionError;
+
+  @override
+  Map<int, Reactions> get reviewReactions;
+  @override
+  Map<int, Reaction> get customerReactions;
+  @override
+  List<ReviewItem> get reviews;
+  String get errorMessage;
+  @override
+  @JsonKey(ignore: true)
+  _$$ReviewReactionErrorCopyWith<_$ReviewReactionError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -7435,6 +8726,15 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -7509,6 +8809,15 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -7588,6 +8897,15 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -7635,6 +8953,8 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -7660,6 +8980,8 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -7685,6 +9007,8 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -7873,6 +9197,15 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -7948,6 +9281,15 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -8027,6 +9369,15 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -8075,6 +9426,8 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -8100,6 +9453,8 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -8125,6 +9480,8 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -8301,6 +9658,15 @@ class _$RefreshReviews implements RefreshReviews {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -8375,6 +9741,15 @@ class _$RefreshReviews implements RefreshReviews {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -8453,6 +9828,15 @@ class _$RefreshReviews implements RefreshReviews {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -8500,6 +9884,8 @@ class _$RefreshReviews implements RefreshReviews {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -8525,6 +9911,8 @@ class _$RefreshReviews implements RefreshReviews {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -8550,6 +9938,8 @@ class _$RefreshReviews implements RefreshReviews {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -8736,6 +10126,15 @@ class _$RefreshReviewsError implements RefreshReviewsError {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -8811,6 +10210,15 @@ class _$RefreshReviewsError implements RefreshReviewsError {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -8890,6 +10298,15 @@ class _$RefreshReviewsError implements RefreshReviewsError {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -8938,6 +10355,8 @@ class _$RefreshReviewsError implements RefreshReviewsError {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -8963,6 +10382,8 @@ class _$RefreshReviewsError implements RefreshReviewsError {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -8988,6 +10409,8 @@ class _$RefreshReviewsError implements RefreshReviewsError {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -9163,6 +10586,15 @@ class _$ReviewsLoading implements ReviewsLoading {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -9237,6 +10669,15 @@ class _$ReviewsLoading implements ReviewsLoading {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -9315,6 +10756,15 @@ class _$ReviewsLoading implements ReviewsLoading {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -9362,6 +10812,8 @@ class _$ReviewsLoading implements ReviewsLoading {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -9387,6 +10839,8 @@ class _$ReviewsLoading implements ReviewsLoading {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -9412,6 +10866,8 @@ class _$ReviewsLoading implements ReviewsLoading {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -9585,6 +11041,15 @@ class _$ReviewsLoaded implements ReviewsLoaded {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -9659,6 +11124,15 @@ class _$ReviewsLoaded implements ReviewsLoaded {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -9737,6 +11211,15 @@ class _$ReviewsLoaded implements ReviewsLoaded {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -9784,6 +11267,8 @@ class _$ReviewsLoaded implements ReviewsLoaded {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -9809,6 +11294,8 @@ class _$ReviewsLoaded implements ReviewsLoaded {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -9834,6 +11321,8 @@ class _$ReviewsLoaded implements ReviewsLoaded {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -10007,6 +11496,15 @@ class _$ClearedReviews implements ClearedReviews {
         dislikeRemovedError,
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        reviewReaction,
+    required TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)
+        reviewReactionError,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         switchReviewReaction,
     required TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -10081,6 +11579,15 @@ class _$ClearedReviews implements ClearedReviews {
             List<ReviewItem> reviews,
             String errorMessage)?
         dislikeRemovedError,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult? Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
@@ -10159,6 +11666,15 @@ class _$ClearedReviews implements ClearedReviews {
         dislikeRemovedError,
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        reviewReaction,
+    TResult Function(
+            Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions,
+            List<ReviewItem> reviews,
+            String errorMessage)?
+        reviewReactionError,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         switchReviewReaction,
     TResult Function(
             Map<int, Reactions> reviewReactions,
@@ -10206,6 +11722,8 @@ class _$ClearedReviews implements ClearedReviews {
     required TResult Function(LikeRemovedError value) likeRemovedError,
     required TResult Function(DislikeRemoved value) dislikeRemoved,
     required TResult Function(DislikeRemovedError value) dislikeRemovedError,
+    required TResult Function(ReviewReaction value) reviewReaction,
+    required TResult Function(ReviewReactionError value) reviewReactionError,
     required TResult Function(SwitchReviewReaction value) switchReviewReaction,
     required TResult Function(SwitchReviewReactionError value)
         switchReviewReactionError,
@@ -10231,6 +11749,8 @@ class _$ClearedReviews implements ClearedReviews {
     TResult? Function(LikeRemovedError value)? likeRemovedError,
     TResult? Function(DislikeRemoved value)? dislikeRemoved,
     TResult? Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult? Function(ReviewReaction value)? reviewReaction,
+    TResult? Function(ReviewReactionError value)? reviewReactionError,
     TResult? Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult? Function(SwitchReviewReactionError value)?
         switchReviewReactionError,
@@ -10256,6 +11776,8 @@ class _$ClearedReviews implements ClearedReviews {
     TResult Function(LikeRemovedError value)? likeRemovedError,
     TResult Function(DislikeRemoved value)? dislikeRemoved,
     TResult Function(DislikeRemovedError value)? dislikeRemovedError,
+    TResult Function(ReviewReaction value)? reviewReaction,
+    TResult Function(ReviewReactionError value)? reviewReactionError,
     TResult Function(SwitchReviewReaction value)? switchReviewReaction,
     TResult Function(SwitchReviewReactionError value)?
         switchReviewReactionError,

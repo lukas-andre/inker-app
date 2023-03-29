@@ -57,6 +57,17 @@ class DraggableArtistReviewSheetState with _$DraggableArtistReviewSheetState {
       required List<ReviewItem> reviews,
       required String errorMessage}) = DislikeRemovedError;
 
+  const factory DraggableArtistReviewSheetState.reviewReaction(
+      {required Map<int, Reactions> reviewReactions,
+      required Map<int, Reaction> customerReactions,
+      required List<ReviewItem> reviews}) = ReviewReaction;
+
+  const factory DraggableArtistReviewSheetState.reviewReactionError(
+      {required Map<int, Reactions> reviewReactions,
+      required Map<int, Reaction> customerReactions,
+      required List<ReviewItem> reviews,
+      required String errorMessage}) = ReviewReactionError;
+
   const factory DraggableArtistReviewSheetState.switchReviewReaction({
     required Map<int, Reactions> reviewReactions,
     required Map<int, Reaction> customerReactions,
