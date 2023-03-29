@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
@@ -74,11 +75,19 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
             create: (context) => ExplorerPageBloc(
                   mapBloc: context.read(),
+                  localSessionService: context.read(),
                   locationService: context.read(),
                 )),
         BlocProvider(
             create: (context) => DraggableArtistInfoSheetBloc(
                   mapBloc: context.read(),
+                )),
+        BlocProvider(
+            lazy: false,
+            create: (context) => DraggableArtistReviewSheetBloc(
+                  mapBloc: context.read(),
+                  reviewService: context.read(),
+                  localSessionService: context.read(),
                 ))
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {

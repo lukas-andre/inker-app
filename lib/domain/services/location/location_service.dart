@@ -3,5 +3,5 @@ import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_resp
 
 abstract class LocationService {
   Future<List<FindArtistByLocationResponse>> getArtistByLocation(
-      FindArtistByLocationRequest request);
+      String token, FindArtistByLocationRequest request);
 }

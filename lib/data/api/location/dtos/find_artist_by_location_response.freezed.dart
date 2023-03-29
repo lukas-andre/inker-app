@@ -517,9 +517,9 @@ mixin _$Artist {
   String? get username => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
-  dynamic? get studioPhoto => throw _privateConstructorUsedError;
-  dynamic? get shortDescription => throw _privateConstructorUsedError;
-  dynamic? get profileThumbnail => throw _privateConstructorUsedError;
+  String? get studioPhoto => throw _privateConstructorUsedError;
+  String? get shortDescription => throw _privateConstructorUsedError;
+  String? get profileThumbnail => throw _privateConstructorUsedError;
   int? get rating => throw _privateConstructorUsedError;
   List<ReviewElement>? get reviews => throw _privateConstructorUsedError;
   Review? get review => throw _privateConstructorUsedError;
@@ -541,9 +541,9 @@ abstract class $ArtistCopyWith<$Res> {
       String? username,
       String? firstName,
       String? lastName,
-      dynamic? studioPhoto,
-      dynamic? shortDescription,
-      dynamic? profileThumbnail,
+      String? studioPhoto,
+      String? shortDescription,
+      String? profileThumbnail,
       int? rating,
       List<ReviewElement>? reviews,
       Review? review,
@@ -571,9 +571,9 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? studioPhoto = null,
-    Object? shortDescription = null,
-    Object? profileThumbnail = null,
+    Object? studioPhoto = freezed,
+    Object? shortDescription = freezed,
+    Object? profileThumbnail = freezed,
     Object? rating = freezed,
     Object? reviews = freezed,
     Object? review = freezed,
@@ -600,18 +600,18 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      studioPhoto: null == studioPhoto
+      studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
-      shortDescription: null == shortDescription
+              as String?,
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
-      profileThumbnail: null == profileThumbnail
+              as String?,
+      profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as String?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -668,9 +668,9 @@ abstract class _$$_ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       String? username,
       String? firstName,
       String? lastName,
-      dynamic? studioPhoto,
-      dynamic? shortDescription,
-      dynamic? profileThumbnail,
+      String? studioPhoto,
+      String? shortDescription,
+      String? profileThumbnail,
       int? rating,
       List<ReviewElement>? reviews,
       Review? review,
@@ -697,9 +697,9 @@ class __$$_ArtistCopyWithImpl<$Res>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? studioPhoto = null,
-    Object? shortDescription = null,
-    Object? profileThumbnail = null,
+    Object? studioPhoto = freezed,
+    Object? shortDescription = freezed,
+    Object? profileThumbnail = freezed,
     Object? rating = freezed,
     Object? reviews = freezed,
     Object? review = freezed,
@@ -726,18 +726,18 @@ class __$$_ArtistCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      studioPhoto: null == studioPhoto
+      studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
-      shortDescription: null == shortDescription
+              as String?,
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
-      profileThumbnail: null == profileThumbnail
+              as String?,
+      profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as String?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -791,11 +791,11 @@ class _$_Artist implements _Artist {
   @override
   final String? lastName;
   @override
-  final dynamic? studioPhoto;
+  final String? studioPhoto;
   @override
-  final dynamic? shortDescription;
+  final String? shortDescription;
   @override
-  final dynamic? profileThumbnail;
+  final String? profileThumbnail;
   @override
   final int? rating;
   final List<ReviewElement>? _reviews;
@@ -836,12 +836,12 @@ class _$_Artist implements _Artist {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            const DeepCollectionEquality()
-                .equals(other.studioPhoto, studioPhoto) &&
-            const DeepCollectionEquality()
-                .equals(other.shortDescription, shortDescription) &&
-            const DeepCollectionEquality()
-                .equals(other.profileThumbnail, profileThumbnail) &&
+            (identical(other.studioPhoto, studioPhoto) ||
+                other.studioPhoto == studioPhoto) &&
+            (identical(other.shortDescription, shortDescription) ||
+                other.shortDescription == shortDescription) &&
+            (identical(other.profileThumbnail, profileThumbnail) ||
+                other.profileThumbnail == profileThumbnail) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.review, review) || other.review == review) &&
@@ -858,9 +858,9 @@ class _$_Artist implements _Artist {
       username,
       firstName,
       lastName,
-      const DeepCollectionEquality().hash(studioPhoto),
-      const DeepCollectionEquality().hash(shortDescription),
-      const DeepCollectionEquality().hash(profileThumbnail),
+      studioPhoto,
+      shortDescription,
+      profileThumbnail,
       rating,
       const DeepCollectionEquality().hash(_reviews),
       review,
@@ -887,9 +887,9 @@ abstract class _Artist implements Artist {
       final String? username,
       final String? firstName,
       final String? lastName,
-      final dynamic? studioPhoto,
-      final dynamic? shortDescription,
-      final dynamic? profileThumbnail,
+      final String? studioPhoto,
+      final String? shortDescription,
+      final String? profileThumbnail,
       final int? rating,
       final List<ReviewElement>? reviews,
       final Review? review,
@@ -908,11 +908,11 @@ abstract class _Artist implements Artist {
   @override
   String? get lastName;
   @override
-  dynamic? get studioPhoto;
+  String? get studioPhoto;
   @override
-  dynamic? get shortDescription;
+  String? get shortDescription;
   @override
-  dynamic? get profileThumbnail;
+  String? get profileThumbnail;
   @override
   int? get rating;
   @override
@@ -1984,16 +1984,19 @@ ReviewElement _$ReviewElementFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ReviewElement {
+  int? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   int? get artistId => throw _privateConstructorUsedError;
   int? get eventId => throw _privateConstructorUsedError;
   int? get value => throw _privateConstructorUsedError;
-  dynamic? get header => throw _privateConstructorUsedError;
+  String? get header => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   ReviewReactions? get reviewReactions => throw _privateConstructorUsedError;
   int? get createdBy => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   bool? get isRated => throw _privateConstructorUsedError;
+  CustomerReactionDetail? get customerReactionDetail =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2008,18 +2011,21 @@ abstract class $ReviewElementCopyWith<$Res> {
       _$ReviewElementCopyWithImpl<$Res, ReviewElement>;
   @useResult
   $Res call(
-      {DateTime? createdAt,
+      {int? id,
+      DateTime? createdAt,
       int? artistId,
       int? eventId,
       int? value,
-      dynamic? header,
+      String? header,
       String? content,
       ReviewReactions? reviewReactions,
       int? createdBy,
       String? displayName,
-      bool? isRated});
+      bool? isRated,
+      CustomerReactionDetail? customerReactionDetail});
 
   $ReviewReactionsCopyWith<$Res>? get reviewReactions;
+  $CustomerReactionDetailCopyWith<$Res>? get customerReactionDetail;
 }
 
 /// @nodoc
@@ -2035,18 +2041,24 @@ class _$ReviewElementCopyWithImpl<$Res, $Val extends ReviewElement>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? createdAt = freezed,
     Object? artistId = freezed,
     Object? eventId = freezed,
     Object? value = freezed,
-    Object? header = null,
+    Object? header = freezed,
     Object? content = freezed,
     Object? reviewReactions = freezed,
     Object? createdBy = freezed,
     Object? displayName = freezed,
     Object? isRated = freezed,
+    Object? customerReactionDetail = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -2063,10 +2075,10 @@ class _$ReviewElementCopyWithImpl<$Res, $Val extends ReviewElement>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int?,
-      header: null == header
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as String?,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -2087,6 +2099,10 @@ class _$ReviewElementCopyWithImpl<$Res, $Val extends ReviewElement>
           ? _value.isRated
           : isRated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      customerReactionDetail: freezed == customerReactionDetail
+          ? _value.customerReactionDetail
+          : customerReactionDetail // ignore: cast_nullable_to_non_nullable
+              as CustomerReactionDetail?,
     ) as $Val);
   }
 
@@ -2101,6 +2117,19 @@ class _$ReviewElementCopyWithImpl<$Res, $Val extends ReviewElement>
       return _then(_value.copyWith(reviewReactions: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerReactionDetailCopyWith<$Res>? get customerReactionDetail {
+    if (_value.customerReactionDetail == null) {
+      return null;
+    }
+
+    return $CustomerReactionDetailCopyWith<$Res>(_value.customerReactionDetail!,
+        (value) {
+      return _then(_value.copyWith(customerReactionDetail: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -2112,19 +2141,23 @@ abstract class _$$_ReviewElementCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DateTime? createdAt,
+      {int? id,
+      DateTime? createdAt,
       int? artistId,
       int? eventId,
       int? value,
-      dynamic? header,
+      String? header,
       String? content,
       ReviewReactions? reviewReactions,
       int? createdBy,
       String? displayName,
-      bool? isRated});
+      bool? isRated,
+      CustomerReactionDetail? customerReactionDetail});
 
   @override
   $ReviewReactionsCopyWith<$Res>? get reviewReactions;
+  @override
+  $CustomerReactionDetailCopyWith<$Res>? get customerReactionDetail;
 }
 
 /// @nodoc
@@ -2138,18 +2171,24 @@ class __$$_ReviewElementCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? createdAt = freezed,
     Object? artistId = freezed,
     Object? eventId = freezed,
     Object? value = freezed,
-    Object? header = null,
+    Object? header = freezed,
     Object? content = freezed,
     Object? reviewReactions = freezed,
     Object? createdBy = freezed,
     Object? displayName = freezed,
     Object? isRated = freezed,
+    Object? customerReactionDetail = freezed,
   }) {
     return _then(_$_ReviewElement(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -2166,10 +2205,10 @@ class __$$_ReviewElementCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int?,
-      header: null == header
+      header: freezed == header
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as String?,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -2190,6 +2229,10 @@ class __$$_ReviewElementCopyWithImpl<$Res>
           ? _value.isRated
           : isRated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      customerReactionDetail: freezed == customerReactionDetail
+          ? _value.customerReactionDetail
+          : customerReactionDetail // ignore: cast_nullable_to_non_nullable
+              as CustomerReactionDetail?,
     ));
   }
 }
@@ -2198,7 +2241,8 @@ class __$$_ReviewElementCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ReviewElement implements _ReviewElement {
   const _$_ReviewElement(
-      {this.createdAt,
+      {this.id,
+      this.createdAt,
       this.artistId,
       this.eventId,
       this.value,
@@ -2207,11 +2251,14 @@ class _$_ReviewElement implements _ReviewElement {
       this.reviewReactions,
       this.createdBy,
       this.displayName,
-      this.isRated});
+      this.isRated,
+      this.customerReactionDetail});
 
   factory _$_ReviewElement.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewElementFromJson(json);
 
+  @override
+  final int? id;
   @override
   final DateTime? createdAt;
   @override
@@ -2221,7 +2268,7 @@ class _$_ReviewElement implements _ReviewElement {
   @override
   final int? value;
   @override
-  final dynamic? header;
+  final String? header;
   @override
   final String? content;
   @override
@@ -2232,10 +2279,12 @@ class _$_ReviewElement implements _ReviewElement {
   final String? displayName;
   @override
   final bool? isRated;
+  @override
+  final CustomerReactionDetail? customerReactionDetail;
 
   @override
   String toString() {
-    return 'ReviewElement(createdAt: $createdAt, artistId: $artistId, eventId: $eventId, value: $value, header: $header, content: $content, reviewReactions: $reviewReactions, createdBy: $createdBy, displayName: $displayName, isRated: $isRated)';
+    return 'ReviewElement(id: $id, createdAt: $createdAt, artistId: $artistId, eventId: $eventId, value: $value, header: $header, content: $content, reviewReactions: $reviewReactions, createdBy: $createdBy, displayName: $displayName, isRated: $isRated, customerReactionDetail: $customerReactionDetail)';
   }
 
   @override
@@ -2243,13 +2292,14 @@ class _$_ReviewElement implements _ReviewElement {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReviewElement &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.value, value) || other.value == value) &&
-            const DeepCollectionEquality().equals(other.header, header) &&
+            (identical(other.header, header) || other.header == header) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.reviewReactions, reviewReactions) ||
                 other.reviewReactions == reviewReactions) &&
@@ -2257,23 +2307,27 @@ class _$_ReviewElement implements _ReviewElement {
                 other.createdBy == createdBy) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
-            (identical(other.isRated, isRated) || other.isRated == isRated));
+            (identical(other.isRated, isRated) || other.isRated == isRated) &&
+            (identical(other.customerReactionDetail, customerReactionDetail) ||
+                other.customerReactionDetail == customerReactionDetail));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       createdAt,
       artistId,
       eventId,
       value,
-      const DeepCollectionEquality().hash(header),
+      header,
       content,
       reviewReactions,
       createdBy,
       displayName,
-      isRated);
+      isRated,
+      customerReactionDetail);
 
   @JsonKey(ignore: true)
   @override
@@ -2291,20 +2345,24 @@ class _$_ReviewElement implements _ReviewElement {
 
 abstract class _ReviewElement implements ReviewElement {
   const factory _ReviewElement(
-      {final DateTime? createdAt,
+      {final int? id,
+      final DateTime? createdAt,
       final int? artistId,
       final int? eventId,
       final int? value,
-      final dynamic? header,
+      final String? header,
       final String? content,
       final ReviewReactions? reviewReactions,
       final int? createdBy,
       final String? displayName,
-      final bool? isRated}) = _$_ReviewElement;
+      final bool? isRated,
+      final CustomerReactionDetail? customerReactionDetail}) = _$_ReviewElement;
 
   factory _ReviewElement.fromJson(Map<String, dynamic> json) =
       _$_ReviewElement.fromJson;
 
+  @override
+  int? get id;
   @override
   DateTime? get createdAt;
   @override
@@ -2314,7 +2372,7 @@ abstract class _ReviewElement implements ReviewElement {
   @override
   int? get value;
   @override
-  dynamic? get header;
+  String? get header;
   @override
   String? get content;
   @override
@@ -2326,8 +2384,189 @@ abstract class _ReviewElement implements ReviewElement {
   @override
   bool? get isRated;
   @override
+  CustomerReactionDetail? get customerReactionDetail;
+  @override
   @JsonKey(ignore: true)
   _$$_ReviewElementCopyWith<_$_ReviewElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CustomerReactionDetail _$CustomerReactionDetailFromJson(
+    Map<String, dynamic> json) {
+  return _CustomerReactionDetail.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CustomerReactionDetail {
+  int? get reviewReactionId => throw _privateConstructorUsedError;
+  bool? get liked => throw _privateConstructorUsedError;
+  bool? get disliked => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CustomerReactionDetailCopyWith<CustomerReactionDetail> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CustomerReactionDetailCopyWith<$Res> {
+  factory $CustomerReactionDetailCopyWith(CustomerReactionDetail value,
+          $Res Function(CustomerReactionDetail) then) =
+      _$CustomerReactionDetailCopyWithImpl<$Res, CustomerReactionDetail>;
+  @useResult
+  $Res call({int? reviewReactionId, bool? liked, bool? disliked});
+}
+
+/// @nodoc
+class _$CustomerReactionDetailCopyWithImpl<$Res,
+        $Val extends CustomerReactionDetail>
+    implements $CustomerReactionDetailCopyWith<$Res> {
+  _$CustomerReactionDetailCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewReactionId = freezed,
+    Object? liked = freezed,
+    Object? disliked = freezed,
+  }) {
+    return _then(_value.copyWith(
+      reviewReactionId: freezed == reviewReactionId
+          ? _value.reviewReactionId
+          : reviewReactionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      liked: freezed == liked
+          ? _value.liked
+          : liked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      disliked: freezed == disliked
+          ? _value.disliked
+          : disliked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_CustomerReactionDetailCopyWith<$Res>
+    implements $CustomerReactionDetailCopyWith<$Res> {
+  factory _$$_CustomerReactionDetailCopyWith(_$_CustomerReactionDetail value,
+          $Res Function(_$_CustomerReactionDetail) then) =
+      __$$_CustomerReactionDetailCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? reviewReactionId, bool? liked, bool? disliked});
+}
+
+/// @nodoc
+class __$$_CustomerReactionDetailCopyWithImpl<$Res>
+    extends _$CustomerReactionDetailCopyWithImpl<$Res,
+        _$_CustomerReactionDetail>
+    implements _$$_CustomerReactionDetailCopyWith<$Res> {
+  __$$_CustomerReactionDetailCopyWithImpl(_$_CustomerReactionDetail _value,
+      $Res Function(_$_CustomerReactionDetail) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewReactionId = freezed,
+    Object? liked = freezed,
+    Object? disliked = freezed,
+  }) {
+    return _then(_$_CustomerReactionDetail(
+      reviewReactionId: freezed == reviewReactionId
+          ? _value.reviewReactionId
+          : reviewReactionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      liked: freezed == liked
+          ? _value.liked
+          : liked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      disliked: freezed == disliked
+          ? _value.disliked
+          : disliked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CustomerReactionDetail implements _CustomerReactionDetail {
+  const _$_CustomerReactionDetail(
+      {this.reviewReactionId, this.liked, this.disliked});
+
+  factory _$_CustomerReactionDetail.fromJson(Map<String, dynamic> json) =>
+      _$$_CustomerReactionDetailFromJson(json);
+
+  @override
+  final int? reviewReactionId;
+  @override
+  final bool? liked;
+  @override
+  final bool? disliked;
+
+  @override
+  String toString() {
+    return 'CustomerReactionDetail(reviewReactionId: $reviewReactionId, liked: $liked, disliked: $disliked)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CustomerReactionDetail &&
+            (identical(other.reviewReactionId, reviewReactionId) ||
+                other.reviewReactionId == reviewReactionId) &&
+            (identical(other.liked, liked) || other.liked == liked) &&
+            (identical(other.disliked, disliked) ||
+                other.disliked == disliked));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, reviewReactionId, liked, disliked);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CustomerReactionDetailCopyWith<_$_CustomerReactionDetail> get copyWith =>
+      __$$_CustomerReactionDetailCopyWithImpl<_$_CustomerReactionDetail>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CustomerReactionDetailToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CustomerReactionDetail implements CustomerReactionDetail {
+  const factory _CustomerReactionDetail(
+      {final int? reviewReactionId,
+      final bool? liked,
+      final bool? disliked}) = _$_CustomerReactionDetail;
+
+  factory _CustomerReactionDetail.fromJson(Map<String, dynamic> json) =
+      _$_CustomerReactionDetail.fromJson;
+
+  @override
+  int? get reviewReactionId;
+  @override
+  bool? get liked;
+  @override
+  bool? get disliked;
+  @override
+  @JsonKey(ignore: true)
+  _$$_CustomerReactionDetailCopyWith<_$_CustomerReactionDetail> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
