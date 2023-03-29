@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/models/reviewed_map.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
+import 'package:inker_studio/domain/models/helpers/paginator.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -16,22 +17,19 @@ part 'draggable_artist_review_sheet_bloc.freezed.dart';
 
 class DraggableArtistReviewSheetBloc extends Bloc<
     DraggableArtistReviewSheetEvent, DraggableArtistReviewSheetState> {
-  final MapBloc _mapBloc;
   final ReviewService _reviewService;
   final LocalSessionService _localSessionService;
   final Stream<MapState> _mapBlocStream;
 
-  final int _limit = 3;
-  int _page = 1;
-  int? _totalPages;
+  final Paginator _paginator = Paginator(limit: 3);
+
   int? _currentArtistId;
 
   DraggableArtistReviewSheetBloc(
       {required MapBloc mapBloc,
       required ReviewService reviewService,
       required LocalSessionService localSessionService})
-      : _mapBloc = mapBloc,
-        _reviewService = reviewService,
+      : _reviewService = reviewService,
         _localSessionService = localSessionService,
         _mapBlocStream = mapBloc.stream,
         super(const DraggableArtistReviewSheetStateInitial()) {
@@ -61,14 +59,14 @@ class DraggableArtistReviewSheetBloc extends Bloc<
               reviews: reviews));
         },
         reviewLiked: (reviewId, customerId) =>
-            _reviewLiked(reviewId, customerId, emit),
+            _updateReviewReaction(reviewId, customerId, true, false, emit),
         reviewDisliked: (reviewId, customerId) =>
-            _reviewDisliked(reviewId, customerId, emit),
+            _updateReviewReaction(reviewId, customerId, false, false, emit),
         reviewLikeRemoved: (int reviewId, int customerId) {
-          _reviewLikeRemoved(reviewId, customerId, emit);
+          _updateReviewReaction(reviewId, customerId, true, true, emit);
         },
         reviewDislikedRemoved: (int reviewId, int customerId) {
-          _reviewDislikedRemoved(reviewId, customerId, emit);
+          _updateReviewReaction(reviewId, customerId, false, true, emit);
         },
         switchReviewReaction:
             (int reviewId, int customerId, bool liked, bool disliked) {
@@ -86,27 +84,47 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
   Future<void> _configureReviewSheet(
       Emitter<DraggableArtistReviewSheetState> emit) async {
-    _page = 1;
-    _totalPages = null;
+    _paginator.reset();
     emit(const DraggableArtistReviewSheetStateInitial());
   }
 
   Future<void> _loadReviews(
-      int artistId, Emitter<DraggableArtistReviewSheetState> emit) async {
+    int artistId,
+    Emitter<DraggableArtistReviewSheetState> emit,
+  ) async {
     _currentArtistId = artistId;
 
-    if (state is ReviewSheetConfigured) {
+    if (state is ReviewSheetConfigured || state is ReviewsLoading) {
       return;
     }
 
-    if (state is ReviewsLoading) {
+    _paginator.reset();
+
+    await _fetchReviews(emit, artistId);
+  }
+
+  Future<void> _refreshReviews(
+    Emitter<DraggableArtistReviewSheetState> emit,
+  ) async {
+    if (_paginator.shouldSkip() || state is ReviewsLoading) {
       return;
+    }
+
+    await _fetchReviews(emit, _currentArtistId);
+  }
+
+  Future<void> _fetchReviews(
+    Emitter<DraggableArtistReviewSheetState> emit,
+    int? artistId,
+  ) async {
+    if (artistId == null) {
+      add(const DraggableArtistReviewSheetEvent.refreshReviewsError(
+          errorMessage: 'Artist id is null'));
     }
 
     add(const DraggableArtistReviewSheetEvent.reviewsLoading());
 
-    _page = 1;
-    _totalPages = null;
+    await Future.delayed(const Duration(milliseconds: 200));
 
     final token = await _localSessionService.getSessionToken(UserType.customer);
 
@@ -118,301 +136,155 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
     try {
       final reviews = await _reviewService.getReviews(
-          artistId: artistId, page: _page, limit: _limit, token: token);
+        artistId: artistId!,
+        page: _paginator.page,
+        limit: _paginator.limit,
+        token: token,
+      );
 
-      _totalPages ??= reviews.meta?.totalPages;
+      _paginator.updateTotalPages(reviews.meta?.totalPages);
 
-      final reviewsMap = <int, Reactions>{};
-      final customerReactions = <int, Reaction>{};
+      final reviewReactions = {...state.reviewReactions};
+      final customerReactions = {...state.customerReactions};
 
-      reviews.items?.forEach((review) {
-        reviewsMap[review.id!] = Reactions(
-            likes: review.reviewReactions!.likes!,
-            dislikes: review.reviewReactions!.dislikes!);
+      _configureReviews(
+        reviews: reviews.items,
+        reviewReactions: reviewReactions,
+        customerReactions: customerReactions,
+      );
 
-        if (review.customerReactionDetail != null) {
-          customerReactions[review.id!] = Reaction(
-            liked: review.customerReactionDetail?.liked ?? false,
-            disliked: review.customerReactionDetail?.disliked ?? false,
-          );
-        }
-      });
-
-      add(DraggableArtistReviewSheetEvent.setReviewReactions(
-          reviewReactions: reviewsMap,
+      add(
+        DraggableArtistReviewSheetEvent.setReviewReactions(
+          reviewReactions: reviewReactions,
           customerReactions: customerReactions,
-          reviews: reviews.items ?? []));
+          reviews: [...state.reviews, ...reviews.items ?? []],
+        ),
+      );
 
-      _page++;
+      _paginator.incrementPage();
     } catch (e) {
-      add(DraggableArtistReviewSheetEvent.refreshReviewsError(
-          errorMessage: e.toString()));
+      add(
+        DraggableArtistReviewSheetEvent.refreshReviewsError(
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 
-  Future<void> _refreshReviews(
-      Emitter<DraggableArtistReviewSheetState> emit) async {
-    if (_totalPages != null && _page > _totalPages!) {
-      return;
-    }
+  void _configureReviews({
+    List<ReviewItem>? reviews,
+    required Map<int, Reactions> reviewReactions,
+    required Map<int, Reaction> customerReactions,
+  }) {
+    reviews?.forEach((review) {
+      final id = review.id!;
+      reviewReactions[id] = Reactions(
+        likes: review.reviewReactions!.likes!,
+        dislikes: review.reviewReactions!.dislikes!,
+      );
 
-    if (state is ReviewsLoading) {
-      return;
-    }
-
-    add(const DraggableArtistReviewSheetEvent.reviewsLoading());
-
-    // This is a hack to avoid multiple requests
-    await Future.delayed(const Duration(milliseconds: 300));
-
-    final token = await _localSessionService.getSessionToken(UserType.customer);
-
-    if (token == null) {
-      emit(RefreshReviewsError(
-          errorMessage: 'Token is null',
-          reviewReactions: state.reviewReactions,
-          customerReactions: state.customerReactions,
-          reviews: state.reviews));
-      return;
-    }
-
-    final artistId = _mapBloc.selectedArtist?.id;
-
-    if (artistId == null) {
-      emit(RefreshReviewsError(
-          errorMessage: 'Artist id is null',
-          reviewReactions: state.reviewReactions,
-          customerReactions: state.customerReactions,
-          reviews: state.reviews));
-      return;
-    }
-
-    try {
-      final reviews = await _reviewService.getReviews(
-          artistId: artistId, page: _page, limit: _limit, token: token);
-
-      _totalPages ??= reviews.meta?.totalPages;
-
-      final reviewsMap = <int, Reactions>{};
-      final customerReactions = <int, Reaction>{};
-
-      reviews.items?.forEach((review) {
-        reviewsMap[review.id!] = Reactions(
-            likes: review.reviewReactions!.likes!,
-            dislikes: review.reviewReactions!.dislikes!);
-
-        if (review.customerReactionDetail != null) {
-          customerReactions[review.id!] = Reaction(
-            liked: review.customerReactionDetail?.liked ?? false,
-            disliked: review.customerReactionDetail?.disliked ?? false,
-          );
-        }
-      });
-
-      add(DraggableArtistReviewSheetEvent.setReviewReactions(
-          reviewReactions: {...state.reviewReactions, ...reviewsMap},
-          customerReactions: {...state.customerReactions, ...customerReactions},
-          reviews: [...state.reviews, ...reviews.items ?? []]));
-
-      _page++;
-    } catch (e) {
-      add(DraggableArtistReviewSheetEvent.refreshReviewsError(
-          errorMessage: e.toString()));
-    }
+      if (review.customerReactionDetail != null) {
+        customerReactions[id] = Reaction(
+          liked: review.customerReactionDetail?.liked ?? false,
+          disliked: review.customerReactionDetail?.disliked ?? false,
+        );
+      }
+    });
   }
 
-  Future<void> _reviewLiked(int reviewId, int customerId,
+  Future<void> _updateReviewReaction(
+      int reviewId,
+      int customerId,
+      bool like,
+      bool remove,
+      // bool switchReaction,
       Emitter<DraggableArtistReviewSheetState> emit) async {
     Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
+    Map<int, Reaction> customerReactions = Map.from(state.customerReactions);
+
+    _updateReactions(
+        reviewReactions, customerReactions, reviewId, like, remove);
+    _updateCustomerReaction(customerReactions, reviewId, like, remove);
+
+    emit(ReviewReaction(
+      reviewReactions: reviewReactions,
+      customerReactions: customerReactions,
+      reviews: state.reviews,
+    ));
+
+    try {
+      final token = await _localSessionService.getActiveSessionToken() ?? '';
+
+      await _reviewService.reactToReview(
+          customerId: customerId, reviewId: reviewId, like: like, token: token);
+    } on HttpNotFound {
+      _emitReactionError(emit, reviewReactions, customerReactions,
+          'Error while reacting to review');
+    } catch (e) {
+      dev.log('Error: $e', '_updateReviewReaction');
+      _emitReactionError(emit, reviewReactions, customerReactions,
+          'Error while reacting to review');
+    }
+  }
+
+  void _updateReactions(
+    Map<int, Reactions> reviewReactions,
+    Map<int, Reaction> customerReactions,
+    int reviewId,
+    bool like,
+    bool remove,
+  ) {
     if (reviewReactions.containsKey(reviewId)) {
       Reactions reactions = reviewReactions[reviewId]!;
-      reactions =
-          Reactions(likes: reactions.likes + 1, dislikes: reactions.dislikes);
+      int likeChange = 0;
+      int dislikeChange = 0;
+
+      if (customerReactions.containsKey(reviewId)) {
+        Reaction currentReaction = customerReactions[reviewId]!;
+        bool removeLike = remove && like;
+        bool removeDislike = remove && !like;
+
+        likeChange = (like && !removeLike) ? 1 : (removeLike ? -1 : 0);
+        dislikeChange =
+            (!like && !removeDislike) ? 1 : (removeDislike ? -1 : 0);
+
+        if (like && !remove && currentReaction.disliked) dislikeChange = -1;
+        if (!like && !remove && currentReaction.liked) likeChange = -1;
+      } else {
+        likeChange = like ? 1 : 0;
+        dislikeChange = !like ? 1 : 0;
+      }
+
+      reactions = Reactions(
+        likes: reactions.likes + likeChange,
+        dislikes: reactions.dislikes + dislikeChange,
+      );
       reviewReactions[reviewId] = reactions;
     }
+  }
 
-    Map<int, Reaction> customerReaction = Map.from(state.customerReactions);
-    if (customerReaction.containsKey(reviewId)) {
-      Reaction reaction = customerReaction[reviewId]!;
-      reaction = Reaction(liked: true, disliked: false);
-      customerReaction[reviewId] = reaction;
+  void _updateCustomerReaction(Map<int, Reaction> customerReactions,
+      int reviewId, bool like, bool remove) {
+    if (customerReactions.containsKey(reviewId)) {
+      Reaction reaction = customerReactions[reviewId]!;
+      reaction = Reaction(liked: like && !remove, disliked: !like && !remove);
+      customerReactions[reviewId] = reaction;
     } else {
-      customerReaction[reviewId] = Reaction(liked: true, disliked: false);
-    }
-
-    // This is for update the UI immediately
-    emit(LikeReview(
-        reviewReactions: reviewReactions,
-        customerReactions: customerReaction,
-        reviews: state.reviews));
-
-    String? errorsMessage;
-
-    try {
-      final token = await _localSessionService.getActiveSessionToken() ?? '';
-
-      await _reviewService.reactToReview(
-          customerId: customerId, reviewId: reviewId, like: true, token: token);
-    } on HttpNotFound {
-      errorsMessage = 'Error while reacting to review';
-    } catch (e) {
-      errorsMessage = 'Error while reacting to review';
-      dev.log('Error: $e', '_reviewLiked');
-    }
-
-    if (errorsMessage != null) {
-      emit(LikeReviewError(
-          reviewReactions: reviewReactions,
-          errorMessage: errorsMessage,
-          reviews: state.reviews,
-          customerReactions: state.customerReactions));
+      customerReactions[reviewId] =
+          Reaction(liked: like && !remove, disliked: !like && !remove);
     }
   }
 
-  Future<void> _reviewLikeRemoved(int reviewId, int customerId,
-      Emitter<DraggableArtistReviewSheetState> emit) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-    if (reviewReactions.containsKey(reviewId)) {
-      Reactions reactions = reviewReactions[reviewId]!;
-      reactions =
-          Reactions(likes: reactions.likes - 1, dislikes: reactions.dislikes);
-      reviewReactions[reviewId] = reactions;
-    }
-
-    Map<int, Reaction> customerReaction = Map.from(state.customerReactions);
-    if (customerReaction.containsKey(reviewId)) {
-      Reaction reaction = customerReaction[reviewId]!;
-      reaction = Reaction(liked: false, disliked: reaction.disliked);
-      customerReaction[reviewId] = reaction;
-    }
-
-    String? errorsMessage;
-
-    // This is for update the UI immediately
-    emit(LikeRemoved(
-        reviews: state.reviews,
+  void _emitReactionError(
+      Emitter<DraggableArtistReviewSheetState> emit,
+      Map<int, Reactions> reviewReactions,
+      Map<int, Reaction> customerReactions,
+      String errorMessage) {
+    emit(ReviewReactionError(
         reviewReactions: reviewReactions,
-        customerReactions: customerReaction));
-
-    try {
-      final token = await _localSessionService.getActiveSessionToken() ?? '';
-
-      await _reviewService.reactToReview(
-          customerId: customerId, reviewId: reviewId, like: true, token: token);
-    } on HttpNotFound {
-      errorsMessage = 'Error while reacting to review';
-    } catch (e) {
-      errorsMessage = 'Error while reacting to review';
-      dev.log('Error: $e', '_reviewLikeRemoved');
-    }
-
-    if (errorsMessage != null) {
-      emit(LikeRemovedError(
-          reviews: state.reviews,
-          reviewReactions: reviewReactions,
-          errorMessage: errorsMessage,
-          customerReactions: state.customerReactions));
-    }
-  }
-
-  Future<void> _reviewDisliked(int reviewId, int customerId,
-      Emitter<DraggableArtistReviewSheetState> emit) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-    if (reviewReactions.containsKey(reviewId)) {
-      Reactions reactions = reviewReactions[reviewId]!;
-      reactions =
-          Reactions(likes: reactions.likes, dislikes: reactions.dislikes + 1);
-      reviewReactions[reviewId] = reactions;
-    }
-
-    Map<int, Reaction> customerReaction = Map.from(state.customerReactions);
-    if (customerReaction.containsKey(reviewId)) {
-      Reaction reaction = customerReaction[reviewId]!;
-      reaction = Reaction(liked: false, disliked: true);
-      customerReaction[reviewId] = reaction;
-    } else {
-      customerReaction[reviewId] = Reaction(liked: false, disliked: true);
-    }
-
-    // This is for update the UI immediately
-    emit(DislikeReview(
+        errorMessage: errorMessage,
         reviews: state.reviews,
-        reviewReactions: reviewReactions,
-        customerReactions: customerReaction));
-
-    String? errorsMessage;
-
-    try {
-      final token = await _localSessionService.getActiveSessionToken() ?? '';
-
-      await _reviewService.reactToReview(
-          customerId: customerId,
-          reviewId: reviewId,
-          like: false,
-          token: token);
-    } on HttpNotFound {
-      errorsMessage = 'Error while reacting to review';
-    } catch (e) {
-      errorsMessage = 'Error while reacting to review';
-      dev.log('Error: $e', '_reviewLiked');
-    }
-
-    if (errorsMessage != null) {
-      emit(DislikeReviewError(
-          reviews: state.reviews,
-          reviewReactions: reviewReactions,
-          errorMessage: errorsMessage,
-          customerReactions: state.customerReactions));
-    }
-  }
-
-  Future<void> _reviewDislikedRemoved(int reviewId, int customerId,
-      Emitter<DraggableArtistReviewSheetState> emit) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-    if (reviewReactions.containsKey(reviewId)) {
-      Reactions reactions = reviewReactions[reviewId]!;
-      reactions =
-          Reactions(likes: reactions.likes, dislikes: reactions.dislikes - 1);
-      reviewReactions[reviewId] = reactions;
-    }
-
-    Map<int, Reaction> customerReaction = Map.from(state.customerReactions);
-    if (customerReaction.containsKey(reviewId)) {
-      Reaction reaction = customerReaction[reviewId]!;
-      reaction = Reaction(liked: reaction.liked, disliked: false);
-      customerReaction[reviewId] = reaction;
-    }
-
-    String? errorsMessage;
-
-    // This is for update the UI immediately
-    emit(DislikeRemoved(
-        reviews: state.reviews,
-        reviewReactions: reviewReactions,
-        customerReactions: customerReaction));
-
-    try {
-      final token = await _localSessionService.getActiveSessionToken() ?? '';
-
-      await _reviewService.reactToReview(
-          customerId: customerId,
-          reviewId: reviewId,
-          like: false,
-          token: token);
-    } on HttpNotFound {
-      errorsMessage = 'Error while reacting to review';
-    } catch (e) {
-      errorsMessage = 'Error while reacting to review';
-      dev.log('Error: $e', '_reviewLikeRemoved');
-    }
-
-    if (errorsMessage != null) {
-      emit(DislikeRemovedError(
-          reviews: state.reviews,
-          reviewReactions: reviewReactions,
-          errorMessage: errorsMessage,
-          customerReactions: state.customerReactions));
-    }
+        customerReactions: customerReactions));
   }
 
   _switchReviewReaction(int reviewId, int customerId, bool liked, bool disliked,
