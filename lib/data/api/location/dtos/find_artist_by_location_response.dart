@@ -46,9 +46,9 @@ class Artist with _$Artist {
     String? username,
     String? firstName,
     String? lastName,
-    dynamic? studioPhoto,
-    dynamic? shortDescription,
-    dynamic? profileThumbnail,
+    String? studioPhoto,
+    String? shortDescription,
+    String? profileThumbnail,
     int? rating,
     List<ReviewElement>? reviews,
     Review? review,
@@ -126,21 +126,34 @@ class Review with _$Review {
 
 @freezed
 class ReviewElement with _$ReviewElement {
-  const factory ReviewElement({
-    DateTime? createdAt,
-    int? artistId,
-    int? eventId,
-    int? value,
-    dynamic? header,
-    String? content,
-    ReviewReactions? reviewReactions,
-    int? createdBy,
-    String? displayName,
-    bool? isRated,
-  }) = _ReviewElement;
+  const factory ReviewElement(
+      {int? id,
+      DateTime? createdAt,
+      int? artistId,
+      int? eventId,
+      int? value,
+      String? header,
+      String? content,
+      ReviewReactions? reviewReactions,
+      int? createdBy,
+      String? displayName,
+      bool? isRated,
+      CustomerReactionDetail? customerReactionDetail}) = _ReviewElement;
 
   factory ReviewElement.fromJson(Map<String, dynamic> json) =>
       _$ReviewElementFromJson(json);
+}
+
+@freezed
+class CustomerReactionDetail with _$CustomerReactionDetail {
+  const factory CustomerReactionDetail({
+    int? reviewReactionId,
+    bool? liked,
+    bool? disliked,
+  }) = _CustomerReactionDetail;
+
+  factory CustomerReactionDetail.fromJson(Map<String, dynamic> json) =>
+      _$CustomerReactionDetailFromJson(json);
 }
 
 @freezed

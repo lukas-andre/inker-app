@@ -6,6 +6,7 @@ import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_requ
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/layout/marker_helper.dart';
 
@@ -15,10 +16,14 @@ part 'explorer_page_state.dart';
 class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
   final MapBloc _mapBloc;
   final LocationService _locationService;
+  final LocalSessionService _localSessionService;
 
-  ExplorerPageBloc(
-      {required LocationService locationService, required MapBloc mapBloc})
-      : _locationService = locationService,
+  ExplorerPageBloc({
+    required MapBloc mapBloc,
+    required LocationService locationService,
+    required LocalSessionService localSessionService,
+  })  : _locationService = locationService,
+        _localSessionService = localSessionService,
         _mapBloc = mapBloc,
         super(const ExplorerPageState(
             view: ExplorerView.list, isLoading: false, firstLoad: true)) {
@@ -68,7 +73,9 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
     }
     emit(state.copyWith(isLoading: true));
     try {
+      final token = await _localSessionService.getActiveSessionToken() ?? '';
       final response = await _locationService.getArtistByLocation(
+          token,
           FindArtistByLocationRequest(
               range: 1.5,
               lat: event.location.latitude,

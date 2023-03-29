@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_bottom_bar.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_divider.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_rating_content.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggin_sheet_handler.dart';
+import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/dragging_sheet_handler.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -18,7 +19,13 @@ class DraggableArtistInfoContent extends StatelessWidget {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         final mapBloc = context.read<MapBloc>();
+        final draggableArtistInfoSheetBloc =
+            context.read<DraggableArtistInfoSheetBloc>();
+        final draggableArtistReviewSheetBloc =
+            context.read<DraggableArtistReviewSheetBloc>();
+
         final selectedArtist = mapBloc.selectedArtist;
+
         return Column(
           children: <Widget>[
             const SizedBox(height: 12),
@@ -35,10 +42,13 @@ class DraggableArtistInfoContent extends StatelessWidget {
             const SizedBox(height: 16),
             selectedArtist?.review != null
                 ? GestureDetector(
-                    onTap: () => {
-                      context.read<DraggableArtistInfoSheetBloc>().add(
+                    onTap: () {
+                      draggableArtistInfoSheetBloc.add(
                           const DraggableArtistInfoSheetEvent.changeView(
-                              DraggableArtistInfoSheetView.reviews))
+                              DraggableArtistInfoSheetView.reviews));
+                      draggableArtistReviewSheetBloc.add(
+                          DraggableArtistReviewSheetEvent.loadReviews(
+                              artistId: selectedArtist!.id!));
                     },
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

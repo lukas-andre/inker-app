@@ -3,6 +3,7 @@ import 'package:inker_studio/data/api/account_verification/api_account_verificat
 import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
 import 'package:inker_studio/data/api/location/api_location_service.dart';
+import 'package:inker_studio/data/api/review/api_review_service.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/gcp/gcp_places_service.dart';
@@ -16,6 +17,7 @@ import 'package:inker_studio/domain/services/customer/local_customer_service.dar
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
+import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
@@ -40,6 +42,7 @@ List<RepositoryProvider> buildProviders() {
         create: (_) => SqliteSessionService()),
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
+    RepositoryProvider<ReviewService>(create: (_) => ApiReviewService()),
     RepositoryProvider<GoogleSingInUseCase>(
         create: (context) =>
             GoogleSingInUseCase(context.read(), context.read())),
