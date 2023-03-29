@@ -66,9 +66,9 @@ _$_Artist _$$_ArtistFromJson(Map json) => _$_Artist(
       username: json['username'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
-      studioPhoto: json['studioPhoto'],
-      shortDescription: json['shortDescription'],
-      profileThumbnail: json['profileThumbnail'],
+      studioPhoto: json['studioPhoto'] as String?,
+      shortDescription: json['shortDescription'] as String?,
+      profileThumbnail: json['profileThumbnail'] as String?,
       rating: json['rating'] as int?,
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) =>
@@ -237,13 +237,14 @@ Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) {
 }
 
 _$_ReviewElement _$$_ReviewElementFromJson(Map json) => _$_ReviewElement(
+      id: json['id'] as int?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       artistId: json['artistId'] as int?,
       eventId: json['eventId'] as int?,
       value: json['value'] as int?,
-      header: json['header'],
+      header: json['header'] as String?,
       content: json['content'] as String?,
       reviewReactions: json['reviewReactions'] == null
           ? null
@@ -252,6 +253,10 @@ _$_ReviewElement _$$_ReviewElementFromJson(Map json) => _$_ReviewElement(
       createdBy: json['createdBy'] as int?,
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
+      customerReactionDetail: json['customerReactionDetail'] == null
+          ? null
+          : CustomerReactionDetail.fromJson(
+              Map<String, dynamic>.from(json['customerReactionDetail'] as Map)),
     );
 
 Map<String, dynamic> _$$_ReviewElementToJson(_$_ReviewElement instance) {
@@ -263,6 +268,7 @@ Map<String, dynamic> _$$_ReviewElementToJson(_$_ReviewElement instance) {
     }
   }
 
+  writeNotNull('id', instance.id);
   writeNotNull('createdAt', instance.createdAt?.toIso8601String());
   writeNotNull('artistId', instance.artistId);
   writeNotNull('eventId', instance.eventId);
@@ -273,6 +279,31 @@ Map<String, dynamic> _$$_ReviewElementToJson(_$_ReviewElement instance) {
   writeNotNull('createdBy', instance.createdBy);
   writeNotNull('displayName', instance.displayName);
   writeNotNull('isRated', instance.isRated);
+  writeNotNull(
+      'customerReactionDetail', instance.customerReactionDetail?.toJson());
+  return val;
+}
+
+_$_CustomerReactionDetail _$$_CustomerReactionDetailFromJson(Map json) =>
+    _$_CustomerReactionDetail(
+      reviewReactionId: json['reviewReactionId'] as int?,
+      liked: json['liked'] as bool?,
+      disliked: json['disliked'] as bool?,
+    );
+
+Map<String, dynamic> _$$_CustomerReactionDetailToJson(
+    _$_CustomerReactionDetail instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('reviewReactionId', instance.reviewReactionId);
+  writeNotNull('liked', instance.liked);
+  writeNotNull('disliked', instance.disliked);
   return val;
 }
 

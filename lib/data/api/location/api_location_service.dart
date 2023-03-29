@@ -24,12 +24,16 @@ class ApiLocationService implements LocationService {
 
   @override
   Future<List<FindArtistByLocationResponse>> getArtistByLocation(
-      FindArtistByLocationRequest request) async {
+      String token, FindArtistByLocationRequest request) async {
     final url = _httpConfig.surl(path: 'artist');
     try {
       final body = findArtistByLocationRequestToJson(request);
-      final response =
-          await http.post(url, body: body, headers: acceptApplicationJson);
+      final response = await http.post(url, body: body, headers: {
+        ...acceptApplicationJson,
+        ...{
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        }
+      });
       dev.inspect(response, 'getArtistByLocation response');
       if (response.statusCode == HttpStatus.ok) {
         try {
