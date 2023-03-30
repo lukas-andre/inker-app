@@ -20,6 +20,8 @@ import 'package:inker_studio/utils/styles/map_style.dart';
 part 'map_event.dart';
 part 'map_state.dart';
 
+const double kCameraPositionZoom = 14.4746;
+
 class MapBloc extends Bloc<MapEvent, MapState> {
   final LocationBloc _locationBloc;
   GoogleMapController? _mapController;
@@ -39,22 +41,31 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<DeselectAllMarkerEvent>(_onDeselectAllMarkerEvent);
     on<MapDraggableScrollableNotificationEvent>(
         _onMapDraggableScrollableNotificationEvent);
-
-    _locationStateSubscription = locationBloc.stream.listen((locationState) {
-      if (!state.isFollowingUser) return;
-      if (locationState.lastKnownLocation == null) return;
-
-      moveCamera(locationState.lastKnownLocation!);
-    });
   }
 
   Artist? get selectedArtist {
     if (state.selectedMarker == null) return null;
 
+    //TODO: add this refactors
+    // state.markers[state.selectedMarker!];
+
     return state.markers.entries
         .firstWhere((element) => element.key.markerId == state.selectedMarker)
         .value
         .artist;
+  }
+
+  LatLng get selectedArtistLocation {
+    if (state.selectedMarker == null) return const LatLng(0, 0);
+
+    //TODO: add this refactors
+    // state.markers[state.selectedMarker!];
+
+    FindArtistByLocationResponse location = state.markers.entries
+        .firstWhere((element) => element.key.markerId == state.selectedMarker)
+        .value;
+
+    return LatLng(location.lat!, location.lng!);
   }
 
   bool isFirstTimeSelected(bool isSelected, MarkerSelectedEvent event) =>
@@ -63,7 +74,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   void moveCamera(LatLng position) {
     final CameraPosition cameraPosition = CameraPosition(
       target: position,
-      zoom: 14.4746,
+      zoom: kCameraPositionZoom,
     );
     final cameraUpdate = CameraUpdate.newCameraPosition(cameraPosition);
     _mapController?.animateCamera(cameraUpdate);
@@ -147,7 +158,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     final marker = Marker(
         markerId: element.key.markerId,
         position: element.key.position,
-        consumeTapEvents: true,
+        consumeTapEvents: false,
         onTap: () {
           dev.log('Marker selected: ${element.key.markerId.value}', 'MapBloc');
           add(MarkerSelectedEvent(
@@ -205,7 +216,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final marker = Marker(
           markerId: element.key.markerId,
           position: element.key.position,
-          consumeTapEvents: true,
+          consumeTapEvents: false,
           onTap: () {
             dev.log(
                 'Marker selected: ${element.key.markerId.value}', 'MapBloc');

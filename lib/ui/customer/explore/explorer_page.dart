@@ -132,12 +132,15 @@ class ExplorerViewByType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IndexedStack(
-      index: view == ExplorerView.list ? 0 : 1,
-      children: const [
-        ExplorerListView(),
-        ExplorerMapView(),
-      ],
-    );
+    // return IndexedStack(
+    //   index: view == ExplorerView.list ? 0 : 1,
+    //   children: const [
+    //     ExplorerListView(),
+    //     ExplorerMapView(),
+    //   ],
+    // );
+    return view == ExplorerView.list
+        ? const ExplorerListView()
+        : const ExplorerMapView();
   }
 }

@@ -11,16 +11,19 @@ class ExplorerMapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng initialLocation =
-        context.read<LocationBloc>().state.lastKnownLocation!;
-
     final MapBloc mapBloc = context.read<MapBloc>();
 
-    final CameraPosition initialCameraPosition =
-        CameraPosition(target: initialLocation, zoom: 10);
-
     final size = MediaQuery.of(context).size;
+
     // return const TestMarkerScreen2();
+
+    final LatLng initialLocation =
+        context.read<LocationBloc>().state.myLocationHistory.last;
+
+    final CameraPosition initialCameraPosition = CameraPosition(
+      target: initialLocation,
+      zoom: kCameraPositionZoom,
+    );
 
     return BlocBuilder<MapBloc, MapState>(
       buildWhen: (previous, current) =>
