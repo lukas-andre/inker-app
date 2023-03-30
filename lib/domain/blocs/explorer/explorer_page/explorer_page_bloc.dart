@@ -43,7 +43,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
       final marker = Marker(
           markerId: markerId,
           position: position,
-          consumeTapEvents: true,
+          consumeTapEvents: false,
           onTap: () {
             dev.log('Marker selected: $markerId', 'MapBloc');
             _mapBloc.add(MarkerSelectedEvent(

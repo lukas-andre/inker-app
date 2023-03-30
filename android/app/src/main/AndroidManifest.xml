@@ -37,6 +37,30 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+            <queries>
+                <!-- If your app checks for SMS support -->
+                <intent>
+                    <action android:name="android.intent.action.VIEW" />
+                    <data android:scheme="sms" />
+                </intent>
+                <!-- If your app checks for call support -->
+                <intent>
+                    <action android:name="android.intent.action.VIEW" />
+                    <data android:scheme="tel" />
+                </intent>
+                <!-- If your app requires Google Maps support -->
+                <intent>
+                    <action android:name="android.intent.action.VIEW" />
+                    <data android:scheme="geo" />
+                    <data android:scheme="google.navigation" />
+                </intent>
+                <!-- If your app requires Waze support -->
+                <intent>
+                    <action android:name="android.intent.action.VIEW" />
+                    <data android:scheme="waze" />
+                </intent>
+            </queries>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
