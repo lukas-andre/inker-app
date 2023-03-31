@@ -2,29 +2,37 @@ part of 'login_bloc.dart';
 
 enum NewUserType { google, facebook, apple, inker, unknown }
 
+enum UserStatus { inactive, unknown, active }
+
+enum LoginStatus { invalidCredentials, unknown, ok, unknownError }
+
 class LoginState extends Equatable {
   const LoginState(
       {this.status = FormzStatus.pure,
-      this.username = const UsernameInput.pure(),
+      this.identifier = const IdentifierInput.pure(),
       this.password = const PasswordInput.pure(),
       this.newUserType = NewUserType.unknown,
       this.googleUser,
       this.errorMessage,
       this.infoMessage,
-      this.userTypeToCreate});
+      this.userTypeToCreate,
+      this.loginStatus = LoginStatus.unknown,
+      this.userStatus = UserStatus.unknown});
 
   final FormzStatus status;
-  final UsernameInput username;
+  final IdentifierInput identifier;
   final PasswordInput password;
   final NewUserType newUserType;
   final firebase_auth.User? googleUser;
   final String? errorMessage;
   final String? infoMessage;
   final String? userTypeToCreate;
+  final UserStatus userStatus;
+  final LoginStatus loginStatus;
 
   LoginState copyWith({
     FormzStatus? status,
-    UsernameInput? username,
+    IdentifierInput? identifier,
     PasswordInput? password,
     bool? isNewUser,
     NewUserType? newUserType,
@@ -32,28 +40,34 @@ class LoginState extends Equatable {
     String? infoMessage,
     String? userTypeToCreate,
     firebase_auth.User? googleUser,
+    UserStatus? userStatus,
+    LoginStatus? loginStatus,
   }) {
     return LoginState(
       status: status ?? this.status,
-      username: username ?? this.username,
+      identifier: identifier ?? this.identifier,
       password: password ?? this.password,
       newUserType: newUserType ?? this.newUserType,
       googleUser: googleUser ?? this.googleUser,
       errorMessage: errorMessage ?? this.errorMessage,
       infoMessage: infoMessage ?? this.infoMessage,
       userTypeToCreate: userTypeToCreate ?? this.userTypeToCreate,
+      userStatus: userStatus ?? this.userStatus,
+      loginStatus: loginStatus ?? this.loginStatus,
     );
   }
 
   @override
   List<Object?> get props => [
         status,
-        username,
+        identifier,
         password,
         newUserType,
         googleUser,
         errorMessage,
-        infoMessage
+        infoMessage,
+        userStatus,
+        loginStatus
       ];
 
   @override

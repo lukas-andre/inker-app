@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
+import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
+
+class ExplorerMapView extends StatelessWidget {
+  const ExplorerMapView({Key? key}) : super(key: key);
+  final testImage =
+      'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture.png';
+
+  @override
+  Widget build(BuildContext context) {
+    final MapBloc mapBloc = context.read<MapBloc>();
+
+    final size = MediaQuery.of(context).size;
+
+    // return const TestMarkerScreen2();
+
+    final LatLng initialLocation =
+        context.read<LocationBloc>().state.myLocationHistory.last;
+
+    final CameraPosition initialCameraPosition = CameraPosition(
+      target: initialLocation,
+      zoom: kCameraPositionZoom,
+    );
+
+    return BlocBuilder<MapBloc, MapState>(
+      buildWhen: (previous, current) =>
+          previous.selectedMarker != current.selectedMarker ||
+          previous.markers != current.markers,
+      builder: (context, state) {
+        final markers = state.markers.entries.map((e) => e.key).toSet();
+        return SizedBox(
+            width: size.width,
+            height: size.height,
+            child: Listener(
+              onPointerMove: (event) =>
+                  mapBloc.add(const StopFollowingLocationEvent()),
+              child: GoogleMap(
+                initialCameraPosition: initialCameraPosition,
+                onTap: (argument) => mapBloc.add(const DeselectAllMarkerEvent(
+                    closeDragSheet: true)), // deselect marker
+                markers: markers,
+                compassEnabled: false,
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                myLocationButtonEnabled: false,
+                onMapCreated: ((controller) =>
+                    mapBloc.add(InitMapEvent(controller))),
+              ),
+            ));
+      },
+    );
+  }
+}

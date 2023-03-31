@@ -2,14 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Always and when in use!</string>
-    <key>NSLocationUsageDescription</key>
-    <string>Older devices need location.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sms</string>
+		<string>tel</string>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+		<string>waze</string>
+		<string>maps</string>
+	    <string>iosamap</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -46,6 +50,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Always and when in use!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location when in the background.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Older devices need location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
