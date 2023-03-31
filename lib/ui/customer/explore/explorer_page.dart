@@ -22,6 +22,7 @@ class ExplorerPage extends StatefulWidget {
 class _ExplorerPageState extends State<ExplorerPage> {
   late LocationBloc locationBloc;
   late ExplorerPageBloc explorerPageBloc;
+  late MapBloc mapBloc;
 
   @override
   void initState() {
@@ -29,12 +30,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
     locationBloc = context.read<LocationBloc>();
     locationBloc.startFollowingUser();
     explorerPageBloc = context.read<ExplorerPageBloc>();
+    mapBloc = context.read<MapBloc>();
   }
 
   @override
   Widget build(BuildContext context) {
-    final mapBloc = context.read<MapBloc>();
-
     return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
       builder: (context, state) {
         return GestureDetector(
@@ -118,6 +118,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   @override
   void dispose() {
     locationBloc.stopFollowingUser();
+    mapBloc.add(const DeselectAllMarkerEvent(closeDragSheet: false));
     super.dispose();
   }
 }
@@ -132,13 +133,6 @@ class ExplorerViewByType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return IndexedStack(
-    //   index: view == ExplorerView.list ? 0 : 1,
-    //   children: const [
-    //     ExplorerListView(),
-    //     ExplorerMapView(),
-    //   ],
-    // );
     return view == ExplorerView.list
         ? const ExplorerListView()
         : const ExplorerMapView();

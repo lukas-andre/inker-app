@@ -265,6 +265,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   @override
   Future<void> close() {
     _locationStateSubscription?.cancel();
+    _mapController?.dispose();
     return super.close();
   }
 }
