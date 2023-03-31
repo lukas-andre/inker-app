@@ -2,72 +2,93 @@ part of 'account_verification_bloc.dart';
 
 enum AccountVerificationStatus {
   initial,
-  created,
-  smsSent,
-  smsSentOk,
-  smsSentFailure,
-  smsVerifciationFailure,
-  smsVerifciationOk,
-  smsVerificationInProcess,
-  emailSent,
-  emailSentOk,
-  emailSentFailure,
-  emailVerificationInProcess,
-  emailVerifciationFailure,
-  emailVerifciationOk,
+  ready,
+  userAlreadyVerified,
+  sentSMS,
+  sentSMSFailed,
+  sendedSMS,
+  sentEmail,
+  sentEmailFailed,
+  sendedEmail,
+  invalidCode,
+  activated,
+  failed,
+}
+
+enum AccountVerificationType {
+  sms,
+  email;
+
+  String? get name {
+    switch (this) {
+      case AccountVerificationType.sms:
+        return 'número';
+      case AccountVerificationType.email:
+        return 'correo';
+    }
+  }
 }
 
 class AccountVerificationState extends Equatable {
   const AccountVerificationState(
-      {this.accountVerificationStatus = AccountVerificationStatus.initial,
-      this.firstName = '',
-      this.email = '',
-      this.userId,
-      this.phoneNumber = '',
-      this.verificationCode = '',
-      this.errorMessage = ''});
+      {this.lastTimeSent,
+      this.pin,
+      this.accountVerificationStatus = AccountVerificationStatus.initial,
+      this.accountVerificationType = AccountVerificationType.sms,
+      this.tries = 0,
+      this.maxTries = 4,
+      this.isVerifying = false,
+      this.verificationStatusMessage});
 
-  final AccountVerificationStatus accountVerificationStatus;
-  final String firstName;
-  final String? email;
-  final int? userId;
-  final String? phoneNumber;
-  final String? verificationCode;
-  final String? errorMessage;
+  final String? pin;
+  final bool isVerifying;
+  final int tries;
+  final int maxTries;
 
-  @override
-  List<Object?> get props {
-    return [
-      accountVerificationStatus,
-      firstName,
-      email,
-      userId,
-      phoneNumber,
-      verificationCode,
-      errorMessage
-    ];
-  }
+  final DateTime? lastTimeSent;
+  final AccountVerificationStatus? accountVerificationStatus;
+  final String? verificationStatusMessage;
+  final AccountVerificationType? accountVerificationType;
+
+  bool get isPinCompleted => pin?.length == 4;
+  bool get maxTriesReached => tries >= maxTries;
 
   AccountVerificationState copyWith({
+    String? pin,
+    DateTime? lastTimeSent,
     AccountVerificationStatus? accountVerificationStatus,
-    String? firstName,
-    int? userId,
-    String? email,
-    String? phoneNumber,
-    String? verificationCode,
-    String? errorMessage,
+    String? verificationStatusMessage,
+    AccountVerificationType? accountVerificationType,
+    int? tries,
+    int? maxTries,
+    bool? isVerifying,
   }) {
     return AccountVerificationState(
+      pin: pin ?? this.pin,
+      lastTimeSent: lastTimeSent ?? this.lastTimeSent,
       accountVerificationStatus:
           accountVerificationStatus ?? this.accountVerificationStatus,
-      firstName: firstName ?? this.firstName,
-      email: email ?? this.email,
-      userId: userId ?? this.userId,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      verificationCode: verificationCode ?? this.verificationCode,
-      errorMessage: errorMessage ?? this.errorMessage,
+      verificationStatusMessage:
+          verificationStatusMessage ?? this.verificationStatusMessage,
+      accountVerificationType:
+          accountVerificationType ?? this.accountVerificationType,
+      tries: tries ?? this.tries,
+      maxTries: maxTries ?? this.maxTries,
+      isVerifying: isVerifying ?? this.isVerifying,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        pin,
+        lastTimeSent,
+        accountVerificationStatus,
+        verificationStatusMessage,
+        accountVerificationType,
+        tries,
+        maxTries,
+        isVerifying,
+      ];
 
   @override
   bool get stringify => true;

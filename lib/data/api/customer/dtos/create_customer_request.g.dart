@@ -6,8 +6,7 @@ part of 'create_customer_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateCustomerRequest _$CreateCustomerRequestFromJson(
-        Map<String, dynamic> json) =>
+CreateCustomerRequest _$CreateCustomerRequestFromJson(Map json) =>
     CreateCustomerRequest(
       password: json['password'] as String,
       userType: json['userType'] as String,

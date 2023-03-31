@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:inker_studio/data/api/user/dtos/get_user_by_socia_media_response.dart';
+import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/domain/models/login/social_media_type.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
@@ -10,7 +10,7 @@ enum GoogleLoginFlowStatus {
   success,
   partial,
   error,
-  inital,
+  initial,
 }
 
 class GooglesSingInResult {
@@ -23,12 +23,12 @@ class GooglesSingInResult {
     this.session,
     this.googleUser,
     this.message,
-    this.flowStatus = GoogleLoginFlowStatus.inital,
+    this.flowStatus = GoogleLoginFlowStatus.initial,
   });
 }
 
-class GoogleSingInUsecase {
-  GoogleSingInUsecase(
+class GoogleSingInUseCase {
+  GoogleSingInUseCase(
       GoogleAuthService googleAuthService, UserService userService)
       : _googleAuthService = googleAuthService,
         _userApiService = userService;
@@ -61,7 +61,6 @@ class GoogleSingInUsecase {
       );
     }
 
-    // session = await _localSessionService.newGoogleSession(googleUser);
     return GooglesSingInResult(
         googleUser: googleUser, flowStatus: GoogleLoginFlowStatus.success);
   }

@@ -16,14 +16,14 @@ class SendVerificationCodeType {
   static String email = 'EMAIL';
 }
 
+// TODO: BORRAR ESTO O REEMPLAZARLO POR UN SERVICE QUE SE ENCARGA DE LAS NOTIFICACIONES
 class ApiAccountVerificationService implements AccountVerificationService {
   static const String className = 'ApiAccountVerificationService';
 
   final HttpClientConfig _httpConfig;
 
   ApiAccountVerificationService()
-      : _httpConfig = HttpClientConfig(
-            baseUrl: HttpClientConfig.baseLocalUrl, basePath: 'users'),
+      : _httpConfig = HttpClientConfig(basePath: 'users'),
         super();
 
   @override
