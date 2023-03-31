@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_extra_input.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_address_input.dart';
@@ -145,6 +146,7 @@ class RegisterArtistPage4Layout extends StatelessWidget {
                 RegisterBackButton(),
                 CloseRegisterButton(
                   index: 4,
+                  userType: UserType.artist,
                 )
               ],
             ),

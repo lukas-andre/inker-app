@@ -27,6 +27,7 @@ class OnBoardingPage extends StatelessWidget {
   Scaffold _scaffold() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       body: BlocListener<OnBoardingBloc, OnBoardingState>(
         listenWhen: (previous, current) =>
             previous.redirectTo != current.redirectTo,

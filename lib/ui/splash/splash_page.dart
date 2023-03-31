@@ -12,6 +12,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       body: Container(
         color: primaryColor,
         alignment: Alignment.center,

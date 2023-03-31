@@ -42,7 +42,7 @@ class ExplorerMapView extends StatelessWidget {
                 onTap: (argument) => mapBloc.add(const DeselectAllMarkerEvent(
                     closeDragSheet: true)), // deselect marker
                 markers: markers,
-                compassEnabled: true,
+                compassEnabled: false,
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 myLocationButtonEnabled: false,
