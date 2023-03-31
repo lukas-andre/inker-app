@@ -6,8 +6,7 @@ part of 'login_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
-    LoginResponse(
+LoginResponse _$LoginResponseFromJson(Map json) => LoginResponse(
       id: json['id'] as int,
       email: json['email'] as String,
       username: json['username'] as String,
@@ -16,27 +15,36 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       userTypeId: json['userTypeId'] as int,
       profileThumbnail: json['profileThumbnail'],
       permission: (json['permission'] as List<dynamic>)
-          .map((e) => Permision.fromJson(e as Map<String, dynamic>))
+          .map((e) => Permision.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
       accessToken: json['accessToken'] as String,
       expiresIn: json['expiresIn'] as String,
     );
 
-Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'email': instance.email,
-      'username': instance.username,
-      'fullname': instance.fullname,
-      'userType': instance.userType,
-      'userTypeId': instance.userTypeId,
-      'profileThumbnail': instance.profileThumbnail,
-      'permission': instance.permission,
-      'accessToken': instance.accessToken,
-      'expiresIn': instance.expiresIn,
-    };
+Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'email': instance.email,
+    'username': instance.username,
+    'fullname': instance.fullname,
+    'userType': instance.userType,
+    'userTypeId': instance.userTypeId,
+  };
 
-Permision _$PermisionFromJson(Map<String, dynamic> json) => Permision(
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('profileThumbnail', instance.profileThumbnail);
+  val['permission'] = instance.permission.map((e) => e.toJson()).toList();
+  val['accessToken'] = instance.accessToken;
+  val['expiresIn'] = instance.expiresIn;
+  return val;
+}
+
+Permision _$PermisionFromJson(Map json) => Permision(
       c: json['c'] as String,
       a: json['a'] as String,
     );
