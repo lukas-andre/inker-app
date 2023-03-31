@@ -20,6 +20,7 @@ import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
+import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class AppView extends StatefulWidget {
@@ -91,6 +92,7 @@ class _AppViewState extends State<AppView> {
                 ))
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
+        OverlayStyle.setWhite();
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,

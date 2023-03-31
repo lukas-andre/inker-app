@@ -77,7 +77,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
       final response = await _locationService.getArtistByLocation(
           token,
           FindArtistByLocationRequest(
-              range: 1.5,
+              range: 5.0,
               lat: event.location.latitude,
               lng: event.location.longitude));
       if (state.firstLoad) {

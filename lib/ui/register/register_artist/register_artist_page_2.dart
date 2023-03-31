@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_email_input.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_phone_number_input.dart';
@@ -89,6 +90,7 @@ class RegisterArtistPage2Layout extends StatelessWidget {
             RegisterBackButton(),
             CloseRegisterButton(
               index: 2,
+              userType: UserType.artist,
             )
           ],
         ),

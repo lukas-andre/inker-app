@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_customer/inputs/register_customer_confirm_password_input.dart';
 import 'package:inker_studio/ui/register/register_customer/inputs/register_customer_password_input.dart';
@@ -141,6 +142,7 @@ class RegisterCustomerPage3Layout extends StatelessWidget {
             RegisterBackButton(),
             CloseRegisterButton(
               index: 3,
+              userType: UserType.customer,
             )
           ],
         ),

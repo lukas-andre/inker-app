@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_contact_button.dart';
@@ -118,49 +119,33 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
     }
     // Show the navigation options as an alert dialog on Android
     else {
-      showDialog(
+      showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Cómo llegar'),
-            content: SingleChildScrollView(
-              child: ListBody(
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Wrap(
                 children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.directions_car),
-                    title: const Text('Apple Maps'),
-                    onTap: () {
-                      // launchMaps('apple');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.directions_car),
-                    title: const Text('Google Maps'),
-                    onTap: () {
-                      // launchMaps('google');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.directions_car),
-                    title: const Text('Waze'),
-                    onTap: () {
-                      // launchMaps('waze');
-                      Navigator.pop(context);
-                    },
-                  ),
+                  for (var map in availableMaps)
+                    ListTile(
+                      onTap: () {
+                        map.showDirections(
+                          destination:
+                              Coords(location.latitude, location.longitude),
+                          destinationTitle: locationName,
+                        );
+                        Navigator.pop(context);
+                      },
+                      title: Text(map.mapName),
+                      leading: SvgPicture.asset(
+                        map.icon,
+                        height: 30.0,
+                        width: 30.0,
+                      ),
+                    ),
                 ],
               ),
             ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Cancelar'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
           );
         },
       );
