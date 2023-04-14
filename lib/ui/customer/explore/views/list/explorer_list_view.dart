@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -73,14 +75,23 @@ class ExplorerResultList extends StatelessWidget {
                           children: [
                             Expanded(
                                 flex: 6,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                    state.artistFounded[index].artist!
-                                            .studioPhoto ??
-                                        imageList[index],
-                                    fit: BoxFit.cover,
-                                    width: size.width,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    InkerNavigator.push(
+                                        context,
+                                        ArtistProfilePage(
+                                            artist: state
+                                                .artistFounded[index].artist!));
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                      state.artistFounded[index].artist!
+                                              .studioPhoto ??
+                                          imageList[index],
+                                      fit: BoxFit.cover,
+                                      width: size.width,
+                                    ),
                                   ),
                                 )),
                             Container(

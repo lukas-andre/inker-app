@@ -10,6 +10,8 @@ class Paginator {
 
   bool shouldSkip() => _totalPages != null && _page > _totalPages!;
 
+  bool hasMoreData() => _totalPages == null || _page <= _totalPages!;
+
   void reset() {
     _page = 1;
     _totalPages = null;

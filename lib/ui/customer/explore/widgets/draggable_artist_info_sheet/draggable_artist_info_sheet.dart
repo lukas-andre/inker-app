@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_bottom_bar.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_content.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_review_sheet/draggable_artist_review_sheet.dart';
-import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoSheet extends StatelessWidget {
@@ -61,9 +60,6 @@ class DraggableArtistInfoSheet extends StatelessWidget {
                                           .add(
                                               const DraggableArtistReviewSheetEvent
                                                   .refreshReviews());
-                                      dev.log(
-                                          'notification is ScrollEndNotification ${notification.metrics}',
-                                          'DraggableArtistInfoSheetEnd');
                                     }
                                   }
                                 },

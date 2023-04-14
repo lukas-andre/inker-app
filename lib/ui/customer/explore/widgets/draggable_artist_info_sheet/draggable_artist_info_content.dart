@@ -7,7 +7,9 @@ import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_s
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_divider.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_rating_content.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/dragging_sheet_handler.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -168,12 +170,18 @@ class DraggableInfoBody extends StatelessWidget {
                   ),
                 ],
               ),
-              CircleAvatar(
-                radius: 36,
-                backgroundColor: Colors.white,
+              GestureDetector(
+                onTap: () {
+                  InkerNavigator.push(context,
+                      ArtistProfilePage(artist: mapBloc.selectedArtist!));
+                },
                 child: CircleAvatar(
-                  radius: 34,
-                  backgroundImage: NetworkImage(profileImageLink),
+                  radius: 36,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 34,
+                    backgroundImage: NetworkImage(profileImageLink),
+                  ),
                 ),
               ),
               // const SizedBox(width: 8),
