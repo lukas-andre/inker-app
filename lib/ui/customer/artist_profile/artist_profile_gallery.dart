@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistGallery extends StatelessWidget {
-  final List<RecentWork> works;
+  final List<WorkItem> works;
 
   const ArtistGallery({Key? key, required this.works}) : super(key: key);
 
@@ -15,8 +17,16 @@ class ArtistGallery extends StatelessWidget {
     return images;
   }
 
-  void _showImageModal(
-      BuildContext context, List<ImageProvider<Object>> images) {
+  List<String> _buildUrls(WorkEvidence? workEvidence) {
+    final List<String> urls = [];
+    for (var metadata in workEvidence?.metadata ?? []) {
+      urls.add(metadata.url);
+    }
+    return urls;
+  }
+
+  void _showImageModal(BuildContext context, List<ImageProvider<Object>> images,
+      List<String> urls) {
     if (images.isNotEmpty) {
       final PageController _pageController = PageController();
       showModalBottomSheet(
@@ -54,9 +64,18 @@ class ArtistGallery extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Container(
                               alignment: Alignment.center,
-                              child: Image(
-                                image: images[index],
+                              // child: Image(
+                              //   image: images[index],
+                              //   fit: BoxFit.scaleDown,
+                              // ),
+                              child: CachedNetworkImage(
+                                imageUrl: urls[index],
                                 fit: BoxFit.scaleDown,
+                                placeholder: (context, url) => const Center(
+                                  child: InkerProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                               ),
                             );
                           },
@@ -125,7 +144,7 @@ class ArtistGallery extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: works.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
         childAspectRatio: 1.0,
@@ -133,17 +152,23 @@ class ArtistGallery extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final work = works[index];
         final images = _buildImages(work.workEvidence);
+        final urls = _buildUrls(work.workEvidence);
 
         return GestureDetector(
-          onTap: () => _showImageModal(context, images),
+          onTap: () => _showImageModal(context, images, urls),
           child: Stack(
             children: [
               Positioned.fill(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    work.workEvidence?.metadata?.first.url ?? '',
+                  child: CachedNetworkImage(
+                    imageUrl: work.workEvidence?.metadata?.first.url ?? '',
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: InkerProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ),
@@ -153,7 +178,7 @@ class ArtistGallery extends StatelessWidget {
                   bottom: 8,
                   right: 8,
                   child: GestureDetector(
-                    onTap: () => _showImageModal(context, images),
+                    onTap: () => _showImageModal(context, images, urls),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 4,

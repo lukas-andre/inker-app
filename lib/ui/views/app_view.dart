@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artust_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
@@ -92,12 +93,17 @@ class _AppViewState extends State<AppView> {
                   reviewService: context.read(),
                   localSessionService: context.read(),
                 )),
-        BlocProvider(create: (context) => ArtistProfileBloc()),
+        BlocProvider(
+            create: (context) => ArtistProfileBloc(
+                  agendaService: context.read(),
+                  sessionService: context.read(),
+                )),
         BlocProvider(
             create: (context) => ArtistReviewsBloc(
                   localSessionService: context.read(),
                   reviewService: context.read(),
                 )),
+        BlocProvider(create: (context) => ArtistBioCubitCubit()),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         OverlayStyle.setWhite();

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
@@ -85,12 +86,27 @@ class ExplorerResultList extends StatelessWidget {
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(
-                                      state.artistFounded[index].artist!
-                                              .studioPhoto ??
+                                    // child: Image.network(
+                                    //   state.artistFounded[index].artist!
+                                    //           .studioPhoto ??
+                                    //       imageList[index],
+                                    //   fit: BoxFit.cover,
+                                    //   width: size.width,
+                                    // ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: state.artistFounded[index]
+                                              .artist!.studioPhoto ??
                                           imageList[index],
                                       fit: BoxFit.cover,
                                       width: size.width,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                        child: InkerProgressIndicator(
+                                          radius: 10,
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
                                     ),
                                   ),
                                 )),

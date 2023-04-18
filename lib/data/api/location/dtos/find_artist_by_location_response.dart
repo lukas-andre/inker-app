@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final findArtistByLocationResponse = findArtistByLocationResponseFromJson(jsonString);
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
@@ -46,13 +50,13 @@ class Artist with _$Artist {
     String? username,
     String? firstName,
     String? lastName,
-    String? studioPhoto,
+    dynamic? studioPhoto,
     String? shortDescription,
-    String? profileThumbnail,
+    dynamic? profileThumbnail,
     int? rating,
-    List<ReviewElement>? reviews,
     Review? review,
-    List<RecentWork>? recentWorks,
+    int? followers,
+    bool? isFollowedByUser,
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
@@ -71,48 +75,6 @@ class Contact with _$Contact {
 }
 
 @freezed
-class RecentWork with _$RecentWork {
-  const factory RecentWork({
-    String? title,
-    int? customerId,
-    WorkEvidence? workEvidence,
-    int? agendaId,
-    int? eventId,
-    int? artistId,
-  }) = _RecentWork;
-
-  factory RecentWork.fromJson(Map<String, dynamic> json) =>
-      _$RecentWorkFromJson(json);
-}
-
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    int? count,
-    List<MultimediaMetadata>? metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) =>
-      _$WorkEvidenceFromJson(json);
-}
-
-@freezed
-class MultimediaMetadata with _$MultimediaMetadata {
-  const factory MultimediaMetadata({
-    String? url,
-    int? size,
-    String? type,
-    String? encoding,
-    int? position,
-    String? fieldname,
-    String? originalname,
-  }) = _MultimediaMetadata;
-
-  factory MultimediaMetadata.fromJson(Map<String, dynamic> json) =>
-      _$MultimediaMetadataFromJson(json);
-}
-
-@freezed
 class Review with _$Review {
   const factory Review({
     int? artistId,
@@ -122,47 +84,4 @@ class Review with _$Review {
   }) = _Review;
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
-}
-
-@freezed
-class ReviewElement with _$ReviewElement {
-  const factory ReviewElement(
-      {int? id,
-      DateTime? createdAt,
-      int? artistId,
-      int? eventId,
-      int? value,
-      String? header,
-      String? content,
-      ReviewReactions? reviewReactions,
-      int? createdBy,
-      String? displayName,
-      bool? isRated,
-      CustomerReactionDetail? customerReactionDetail}) = _ReviewElement;
-
-  factory ReviewElement.fromJson(Map<String, dynamic> json) =>
-      _$ReviewElementFromJson(json);
-}
-
-@freezed
-class CustomerReactionDetail with _$CustomerReactionDetail {
-  const factory CustomerReactionDetail({
-    int? reviewReactionId,
-    bool? liked,
-    bool? disliked,
-  }) = _CustomerReactionDetail;
-
-  factory CustomerReactionDetail.fromJson(Map<String, dynamic> json) =>
-      _$CustomerReactionDetailFromJson(json);
-}
-
-@freezed
-class ReviewReactions with _$ReviewReactions {
-  const factory ReviewReactions({
-    int? likes,
-    int? dislikes,
-  }) = _ReviewReactions;
-
-  factory ReviewReactions.fromJson(Map<String, dynamic> json) =>
-      _$ReviewReactionsFromJson(json);
 }

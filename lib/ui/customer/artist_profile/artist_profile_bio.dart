@@ -6,7 +6,11 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 class ArtistProfileBio extends StatefulWidget {
   final Artist artist;
 
-  const ArtistProfileBio({Key? key, required this.artist}) : super(key: key);
+  final Function(double) onToggleDescription;
+
+  const ArtistProfileBio(
+      {Key? key, required this.artist, required this.onToggleDescription})
+      : super(key: key);
 
   @override
   _ArtistProfileBioState createState() => _ArtistProfileBioState();
@@ -14,6 +18,26 @@ class ArtistProfileBio extends StatefulWidget {
 
 class _ArtistProfileBioState extends State<ArtistProfileBio> {
   bool _showFullDescription = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _showFullDescription = false;
+      widget.onToggleDescription(_calculateDescriptionHeight(false));
+    });
+  }
+
+  double _calculateDescriptionHeight(bool showFullDescription) {
+    final shortDescription = widget.artist.shortDescription ?? '';
+    final expandedDescriptionHeight =
+        (shortDescription.length / 40).ceil() * 40.0;
+    const initialDescriptionHeight = 20.0;
+
+    return showFullDescription
+        ? expandedDescriptionHeight
+        : initialDescriptionHeight;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +101,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               setState(() {
                 _showFullDescription = false;
               });
+              widget.onToggleDescription(_calculateDescriptionHeight(false));
             },
             child: const Text(
               'Ver menos',
@@ -106,6 +131,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               setState(() {
                 _showFullDescription = true;
               });
+              widget.onToggleDescription(_calculateDescriptionHeight(true));
             },
             child: const Text(
               'Ver más',

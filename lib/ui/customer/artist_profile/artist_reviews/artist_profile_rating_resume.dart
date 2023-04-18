@@ -14,11 +14,8 @@ class ArtistProfileRatingResume extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
       builder: (context, state) {
-        final artistProfileBloc = context.read<ArtistProfileBloc>();
-        final selectedArtist = artistProfileBloc.state.maybeWhen(
-          configured: (artistProfileState) => artistProfileState,
-          orElse: () => null,
-        );
+        // final artistProfileBloc = context.read<ArtistProfileBloc>();
+        final selectedArtist = state.artist;
 
         final review = selectedArtist?.review;
 

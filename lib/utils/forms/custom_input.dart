@@ -65,6 +65,10 @@ class CustomInput extends StatelessWidget {
         onTap: onTap,
         controller: controller,
         key: key,
+        autofillHints: const [
+          AutofillHints.email,
+          AutofillHints.telephoneNumber
+        ],
         style: const TextStyle(color: Colors.white),
         inputFormatters: inputFormatters ?? [],
         cursorColor: const Color(0xff777E91),

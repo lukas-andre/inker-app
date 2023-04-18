@@ -27,7 +27,7 @@ class SocialMediaSingInOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(flex: 8, child: Container()),
+        Expanded(flex: 7, child: Container()),
         Expanded(
             flex: 2,
             child: Column(children: [
