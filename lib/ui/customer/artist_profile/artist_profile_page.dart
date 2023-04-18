@@ -1,13 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artust_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfilePage extends StatefulWidget {
@@ -39,36 +43,86 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     super.initState();
   }
 
+  void _onToggleDescription(double descriptionHeight) {
+    double bioHeight =
+        descriptionHeight + 150; // Add additional height for other contents
+    double expandedHeight =
+        max(380, bioHeight); // Ensuring a minimum height of 400
+    context.read<ArtistBioCubitCubit>().updateExpandedHeight(expandedHeight);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: _buildAppBar(context),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              _buildAvatar(),
-              const SizedBox(height: 12),
-              ArtistProfileBio(artist: widget._artist),
-              const SizedBox(height: 12),
-              _buildBioInfoRow(context),
-              const SizedBox(height: 12),
-              _buildActions(),
-              const SizedBox(height: 12),
-              Divider(color: tertiaryColor),
-              const SizedBox(height: 12),
-              ArtistGallery(
-                works: widget._artist.recentWorks ?? [],
-              )
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: CustomScrollView(
+          slivers: [
+            _buildSliverAppBar(context),
+            _buildSliverContent(context),
+          ],
         ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildSliverAppBar(BuildContext context) {
+    double expandedHeight = context.watch<ArtistBioCubitCubit>().state;
+
+    return SliverAppBar(
+      automaticallyImplyLeading: false,
+      pinned: true,
+      floating: false,
+      snap: false,
+      backgroundColor: primaryColor,
+      expandedHeight: expandedHeight,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Column(
+          children: [
+            const SizedBox(height: 12),
+            _buildAvatar(),
+            const SizedBox(height: 12),
+            ArtistProfileBio(
+                artist: widget._artist,
+                onToggleDescription: _onToggleDescription),
+            const SizedBox(height: 12),
+            _buildBioInfoRow(context),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: Container(
+          color: primaryColor,
+          child: _buildActions(context),
+        ),
+      ),
+    );
+  }
+
+  SliverList _buildSliverContent(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        [
+          BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Divider(color: tertiaryColor),
+                  const SizedBox(height: 12),
+                  state is ArtistProfileStateLoadingWorks
+                      ? const InkerProgressIndicator()
+                      : ArtistGallery(
+                          works: state.works?.items ?? [],
+                        ),
+                ],
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -85,6 +139,10 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
         ),
         onPressed: () {
           Navigator.of(context).pop();
+          context
+              .read<ArtistProfileBloc>()
+              .add(const ArtistProfileEvent.started());
+          // context.read<ArtistBioCubitCubit>().resetExpandedHeight();
         },
       ),
       backgroundColor: primaryColor,
@@ -150,59 +208,82 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
   }
 
   Widget _buildBioInfoRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          // '${_artist.followers} seguidores',
-          '0 seguidores',
-          style: TextStyleTheme.copyWith(
-            fontSize: 16,
-            color: Colors.white,
+    return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
+      buildWhen: (previous, current) => current is! ArtistProfileStateInitial,
+      builder: (context, state) {
+        final followersText =
+            state.artist?.followers == 1 ? ' seguidor' : ' seguidores';
+        final followers = state.artist?.followers ?? '0';
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                followers.toString() + followersText,
+                style: TextStyleTheme.copyWith(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 5),
+              // Text(
+              //   // '${_artist.following} seguidos',
+              //   '0 seguidos',
+              //   style: TextStyleTheme.copyWith(
+              //     fontSize: 16,
+              //     color: Colors.white,
+              //   ),
+              // ),
+              TextButton(
+                onPressed: () {
+                  InkerNavigator.push(
+                      context,
+                      ArtistProfileReviewsPage(
+                        artistId: widget._artist.id!,
+                      ));
+                },
+                child: Text('Opiniones',
+                    style: TextStyleTheme.copyWith(
+                        fontSize: 16, color: Colors.white)),
+              ),
+            ],
           ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          // '${_artist.following} seguidos',
-          '0 seguidos',
-          style: TextStyleTheme.copyWith(
-            fontSize: 16,
-            color: Colors.white,
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            InkerNavigator.push(
-                context,
-                ArtistProfileReviewsPage(
-                  artistId: widget._artist.id!,
-                ));
-          },
-          child: Text('Opiniones',
-              style:
-                  TextStyleTheme.copyWith(fontSize: 16, color: Colors.white)),
-        ),
-      ],
+        );
+      },
     );
   }
 
-  Widget _buildActions() {
+  Widget _buildActions(BuildContext context) {
+    final artist = context.watch<ArtistProfileBloc>().state.artist;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           flex: 3,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Seguir',
-              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 13),
-            ),
-            style: ElevatedButton.styleFrom(
-              shape: const StadiumBorder(),
-              primary: const Color(0x00131527),
-            ),
-          ),
+          child: artist == null
+              ? Container()
+              : ElevatedButton(
+                  onPressed: () {
+                    artist.isFollowedByUser!
+                        ? context
+                            .read<ArtistProfileBloc>()
+                            .add(const ArtistProfileEvent.unFollow())
+                        : context
+                            .read<ArtistProfileBloc>()
+                            .add(const ArtistProfileEvent.follow());
+                  },
+                  child: Text(
+                    artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
+                    style: TextStyleTheme.copyWith(
+                        color: Colors.white, fontSize: 13),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    primary: const Color(0x00131527),
+                  ),
+                ),
         ),
         const SizedBox(width: 10),
         Expanded(
