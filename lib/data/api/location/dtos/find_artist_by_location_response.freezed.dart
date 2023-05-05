@@ -524,6 +524,8 @@ mixin _$Artist {
   Review? get review => throw _privateConstructorUsedError;
   int? get followers => throw _privateConstructorUsedError;
   bool? get isFollowedByUser => throw _privateConstructorUsedError;
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -547,7 +549,9 @@ abstract class $ArtistCopyWith<$Res> {
       int? rating,
       Review? review,
       int? followers,
-      bool? isFollowedByUser});
+      bool? isFollowedByUser,
+      String? distanceUnit,
+      double? distance});
 
   $ContactCopyWith<$Res>? get contact;
   $ReviewCopyWith<$Res>? get review;
@@ -578,6 +582,8 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? review = freezed,
     Object? followers = freezed,
     Object? isFollowedByUser = freezed,
+    Object? distanceUnit = freezed,
+    Object? distance = freezed,
   }) {
     return _then(_value.copyWith(
       contact: freezed == contact
@@ -628,6 +634,14 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.isFollowedByUser
           : isFollowedByUser // ignore: cast_nullable_to_non_nullable
               as bool?,
+      distanceUnit: freezed == distanceUnit
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distance: freezed == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 
@@ -674,7 +688,9 @@ abstract class _$$_ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       int? rating,
       Review? review,
       int? followers,
-      bool? isFollowedByUser});
+      bool? isFollowedByUser,
+      String? distanceUnit,
+      double? distance});
 
   @override
   $ContactCopyWith<$Res>? get contact;
@@ -704,6 +720,8 @@ class __$$_ArtistCopyWithImpl<$Res>
     Object? review = freezed,
     Object? followers = freezed,
     Object? isFollowedByUser = freezed,
+    Object? distanceUnit = freezed,
+    Object? distance = freezed,
   }) {
     return _then(_$_Artist(
       contact: freezed == contact
@@ -754,6 +772,14 @@ class __$$_ArtistCopyWithImpl<$Res>
           ? _value.isFollowedByUser
           : isFollowedByUser // ignore: cast_nullable_to_non_nullable
               as bool?,
+      distanceUnit: freezed == distanceUnit
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distance: freezed == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -773,7 +799,9 @@ class _$_Artist implements _Artist {
       this.rating,
       this.review,
       this.followers,
-      this.isFollowedByUser});
+      this.isFollowedByUser,
+      this.distanceUnit,
+      this.distance});
 
   factory _$_Artist.fromJson(Map<String, dynamic> json) =>
       _$$_ArtistFromJson(json);
@@ -802,10 +830,14 @@ class _$_Artist implements _Artist {
   final int? followers;
   @override
   final bool? isFollowedByUser;
+  @override
+  final String? distanceUnit;
+  @override
+  final double? distance;
 
   @override
   String toString() {
-    return 'Artist(contact: $contact, id: $id, username: $username, firstName: $firstName, lastName: $lastName, studioPhoto: $studioPhoto, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, rating: $rating, review: $review, followers: $followers, isFollowedByUser: $isFollowedByUser)';
+    return 'Artist(contact: $contact, id: $id, username: $username, firstName: $firstName, lastName: $lastName, studioPhoto: $studioPhoto, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, rating: $rating, review: $review, followers: $followers, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance)';
   }
 
   @override
@@ -832,7 +864,11 @@ class _$_Artist implements _Artist {
             (identical(other.followers, followers) ||
                 other.followers == followers) &&
             (identical(other.isFollowedByUser, isFollowedByUser) ||
-                other.isFollowedByUser == isFollowedByUser));
+                other.isFollowedByUser == isFollowedByUser) &&
+            (identical(other.distanceUnit, distanceUnit) ||
+                other.distanceUnit == distanceUnit) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance));
   }
 
   @JsonKey(ignore: true)
@@ -850,7 +886,9 @@ class _$_Artist implements _Artist {
       rating,
       review,
       followers,
-      isFollowedByUser);
+      isFollowedByUser,
+      distanceUnit,
+      distance);
 
   @JsonKey(ignore: true)
   @override
@@ -879,7 +917,9 @@ abstract class _Artist implements Artist {
       final int? rating,
       final Review? review,
       final int? followers,
-      final bool? isFollowedByUser}) = _$_Artist;
+      final bool? isFollowedByUser,
+      final String? distanceUnit,
+      final double? distance}) = _$_Artist;
 
   factory _Artist.fromJson(Map<String, dynamic> json) = _$_Artist.fromJson;
 
@@ -907,6 +947,10 @@ abstract class _Artist implements Artist {
   int? get followers;
   @override
   bool? get isFollowedByUser;
+  @override
+  String? get distanceUnit;
+  @override
+  double? get distance;
   @override
   @JsonKey(ignore: true)
   _$$_ArtistCopyWith<_$_Artist> get copyWith =>
