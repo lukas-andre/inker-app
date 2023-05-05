@@ -3,13 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
-import 'package:inker_studio/domain/blocs/artist/artust_bio_cubit/artist_bio_cubit.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
-import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -47,7 +46,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     double bioHeight =
         descriptionHeight + 150; // Add additional height for other contents
     double expandedHeight =
-        max(380, bioHeight); // Ensuring a minimum height of 400
+        max(360, bioHeight); // Ensuring a minimum height of 400
     context.read<ArtistBioCubitCubit>().updateExpandedHeight(expandedHeight);
   }
 
@@ -88,8 +87,8 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                 artist: widget._artist,
                 onToggleDescription: _onToggleDescription),
             const SizedBox(height: 12),
-            _buildBioInfoRow(context),
-            const SizedBox(height: 12),
+            // _buildBioInfoRow(context),
+            // const SizedBox(height: 12),
           ],
         ),
       ),
@@ -142,7 +141,6 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
           context
               .read<ArtistProfileBloc>()
               .add(const ArtistProfileEvent.started());
-          // context.read<ArtistBioCubitCubit>().resetExpandedHeight();
         },
       ),
       backgroundColor: primaryColor,
@@ -161,18 +159,26 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch, // Añadido
       children: [
-        Align(
-          alignment: Alignment.centerLeft, // Añadido
-          child: Stack(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    widget._artist.profileThumbnail ?? defaultProfileImageLink),
-                radius: 50,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft, // Añadido
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        widget._artist.profileThumbnail ??
+                            defaultProfileImageLink),
+                    radius: 50,
+                  ),
+                  _buildReviewAvatar(),
+                ],
               ),
-              _buildReviewAvatar(),
-            ],
-          ),
+            ),
+            const ArtistProfileBioInfoRow(),
+          ],
         ),
       ],
     );
@@ -207,52 +213,52 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     );
   }
 
-  Widget _buildBioInfoRow(BuildContext context) {
-    return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
-      buildWhen: (previous, current) => current is! ArtistProfileStateInitial,
-      builder: (context, state) {
-        final followersText =
-            state.artist?.followers == 1 ? ' seguidor' : ' seguidores';
-        final followers = state.artist?.followers ?? '0';
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                followers.toString() + followersText,
-                style: TextStyleTheme.copyWith(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 5),
-              // Text(
-              //   // '${_artist.following} seguidos',
-              //   '0 seguidos',
-              //   style: TextStyleTheme.copyWith(
-              //     fontSize: 16,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              TextButton(
-                onPressed: () {
-                  InkerNavigator.push(
-                      context,
-                      ArtistProfileReviewsPage(
-                        artistId: widget._artist.id!,
-                      ));
-                },
-                child: Text('Opiniones',
-                    style: TextStyleTheme.copyWith(
-                        fontSize: 16, color: Colors.white)),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // Widget _buildBioInfoRow(BuildContext context) {
+  //   return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
+  //     buildWhen: (previous, current) => current is! ArtistProfileStateInitial,
+  //     builder: (context, state) {
+  //       final followersText =
+  //           state.artist?.followers == 1 ? ' seguidor' : ' seguidores';
+  //       final followers = state.artist?.followers ?? '0';
+  //       return Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 16),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               followers.toString() + followersText,
+  //               style: TextStyleTheme.copyWith(
+  //                 fontSize: 16,
+  //                 color: Colors.white,
+  //               ),
+  //             ),
+  //             const SizedBox(height: 5),
+  //             // Text(
+  //             //   // '${_artist.following} seguidos',
+  //             //   '0 seguidos',
+  //             //   style: TextStyleTheme.copyWith(
+  //             //     fontSize: 16,
+  //             //     color: Colors.white,
+  //             //   ),
+  //             // ),
+  //             TextButton(
+  //               onPressed: () {
+  //                 InkerNavigator.push(
+  //                     context,
+  //                     ArtistProfileReviewsPage(
+  //                       artistId: widget._artist.id!,
+  //                     ));
+  //               },
+  //               child: Text('Opiniones',
+  //                   style: TextStyleTheme.copyWith(
+  //                       fontSize: 16, color: Colors.white)),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget _buildActions(BuildContext context) {
     final artist = context.watch<ArtistProfileBloc>().state.artist;

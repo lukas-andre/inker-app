@@ -52,20 +52,36 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
           style: TextStyleTheme.copyWith(fontSize: 24, color: Colors.white),
         ),
         const SizedBox(height: 10),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.email, size: 16, color: Colors.white),
-            const SizedBox(width: 5),
-            Text(
-              widget.artist.contact?.email ?? '',
-              style: TextStyleTheme.copyWith(fontSize: 16, color: Colors.white),
+            Row(
+              children: [
+                const Icon(Icons.email, size: 16, color: Colors.white),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text(
+                    widget.artist.contact?.email ?? '',
+                    style: TextStyleTheme.copyWith(
+                        fontSize: 16, color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 20),
-            const Icon(Icons.phone, size: 16, color: Colors.white),
-            const SizedBox(width: 5),
-            Text(
-              widget.artist.contact?.phone ?? '',
-              style: TextStyleTheme.copyWith(fontSize: 16, color: Colors.white),
+            Row(
+              children: [
+                const Icon(Icons.phone, size: 16, color: Colors.white),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text(
+                    widget.artist.contact?.phone ?? '',
+                    style: TextStyleTheme.copyWith(
+                        fontSize: 16, color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

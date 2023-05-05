@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
@@ -55,10 +55,10 @@ class ExplorerResultList extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
+    return Expanded(child: BlocBuilder<ArtistsListBloc, ArtistsListState>(
       builder: (context, state) {
         final size = MediaQuery.of(context).size;
-        if (state.isLoading) {
+        if (state is ArtistsListStateInitial) {
           return const InkerProgressIndicator();
         }
         return GridView.count(
@@ -68,7 +68,7 @@ class ExplorerResultList extends StatelessWidget {
           crossAxisSpacing: 15,
           mainAxisSpacing: 10,
           children: List.generate(
-              state.artistFounded.length,
+              state.artists.length,
               (index) => SizedBox(
                     child: Stack(
                       children: [
@@ -81,8 +81,7 @@ class ExplorerResultList extends StatelessWidget {
                                     InkerNavigator.push(
                                         context,
                                         ArtistProfilePage(
-                                            artist: state
-                                                .artistFounded[index].artist!));
+                                            artist: state.artists[index]));
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
@@ -94,9 +93,9 @@ class ExplorerResultList extends StatelessWidget {
                                     //   width: size.width,
                                     // ),
                                     child: CachedNetworkImage(
-                                      imageUrl: state.artistFounded[index]
-                                              .artist!.studioPhoto ??
-                                          imageList[index],
+                                      imageUrl:
+                                          state.artists[index].studioPhoto ??
+                                              imageList[index],
                                       fit: BoxFit.cover,
                                       width: size.width,
                                       placeholder: (context, url) =>
@@ -120,8 +119,7 @@ class ExplorerResultList extends StatelessWidget {
                                     CircleAvatar(
                                       minRadius: 15,
                                       backgroundImage: NetworkImage(state
-                                              .artistFounded[index]
-                                              .artist!
+                                              .artists[index]
                                               .profileThumbnail ??
                                           'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg'),
                                     ),
@@ -133,12 +131,12 @@ class ExplorerResultList extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                              '@${state.artistFounded[index].artist!.username!}',
+                                              '@${state.artists[index].username!}',
                                               style: TextStyleTheme.copyWith(
                                                   fontSize: 12,
                                                   color: Colors.white)),
                                           Text(
-                                              '${(state.artistFounded[index].distance! * 1000).toInt()} mt',
+                                              '${(state.artists[index].distance! * 1000).toInt()} mt',
                                               style: TextStyleTheme.copyWith(
                                                   fontSize: 12,
                                                   color: Colors.white)),

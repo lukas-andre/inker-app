@@ -75,6 +75,8 @@ _$_Artist _$$_ArtistFromJson(Map json) => _$_Artist(
           : Review.fromJson(Map<String, dynamic>.from(json['review'] as Map)),
       followers: json['followers'] as int?,
       isFollowedByUser: json['isFollowedByUser'] as bool?,
+      distanceUnit: json['distanceUnit'] as String?,
+      distance: (json['distance'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$_ArtistToJson(_$_Artist instance) {
@@ -98,6 +100,8 @@ Map<String, dynamic> _$$_ArtistToJson(_$_Artist instance) {
   writeNotNull('review', instance.review?.toJson());
   writeNotNull('followers', instance.followers);
   writeNotNull('isFollowedByUser', instance.isFollowedByUser);
+  writeNotNull('distanceUnit', instance.distanceUnit);
+  writeNotNull('distance', instance.distance);
   return val;
 }
 

@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_request.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -15,6 +16,7 @@ part 'explorer_page_state.dart';
 
 class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
   final MapBloc _mapBloc;
+  final ArtistsListBloc _artistsListBloc;
   final LocationService _locationService;
   final LocalSessionService _localSessionService;
 
@@ -22,9 +24,11 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
     required MapBloc mapBloc,
     required LocationService locationService,
     required LocalSessionService localSessionService,
+    required ArtistsListBloc artistsListBloc,
   })  : _locationService = locationService,
         _localSessionService = localSessionService,
         _mapBloc = mapBloc,
+        _artistsListBloc = artistsListBloc,
         super(const ExplorerPageState(
             view: ExplorerView.list, isLoading: false, firstLoad: true)) {
     on<ExplorerPageEventViewChanged>(_explorerPageEventViewChangedToState);
@@ -85,6 +89,13 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
       }
 
       emit(state.copyWith(isLoading: false, artistFounded: response));
+
+      _artistsListBloc.add(ArtistsListEvent.addArtists(
+          artists: response
+              .map((e) => e.artist!
+                  .copyWith(distance: e.distance, distanceUnit: e.distanceUnit))
+              .toList()));
+
       await drawMarkers(response);
     } catch (e) {
       emit(state.copyWith(isLoading: false, firstLoad: false));
