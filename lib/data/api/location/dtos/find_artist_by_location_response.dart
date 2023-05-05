@@ -57,6 +57,8 @@ class Artist with _$Artist {
     Review? review,
     int? followers,
     bool? isFollowedByUser,
+    String? distanceUnit,
+    double? distance,
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);

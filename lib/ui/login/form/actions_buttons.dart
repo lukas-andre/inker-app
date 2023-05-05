@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ActionsButtons extends StatelessWidget {
   const ActionsButtons({Key? key}) : super(key: key);
@@ -57,15 +58,21 @@ class SignInButton extends StatelessWidget {
                 child: SizedBox(
                     height: 55,
                     child: Center(
-                        child: CircularProgressIndicator(
-                      color: Color(0xffff076a),
-                    ))))
+                      child: InkerProgressIndicator(),
+                    )))
             : SizedBox(
                 height: 55,
                 child: TextButton(
                   style: initSessionButtonStyle,
                   onPressed: () {
                     dev.log('pressed', 'singinButton');
+                    final currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus &&
+                        currentFocus.hasFocus) {
+                      currentFocus.unfocus();
+                    }
+
                     context.read<LoginBloc>().add(const LoginSubmitted());
                   },
                   child: Row(
