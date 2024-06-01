@@ -31,81 +31,81 @@ class RegisterArtistAddressInput extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.05,
           vertical: MediaQuery.of(context).size.height * 0.01),
-      child: TypeAheadField(
-        textFieldConfiguration: TextFieldConfiguration(
-            controller: _typeAheadController,
-            autofocus: false,
-            cursorColor: const Color(0xff777E91),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: 'Poppins',
-            ),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                RegExp('[A-Za-z0-9 ñÑ]'),
-              ),
-            ],
-            decoration: InputDecoration(
-              suffixIcon: ClearInput(
-                onTap: () {
-                  _typeAheadController.clear();
-                  context.read<RegisterArtistBloc>().add(
-                        const RegisterArtistLocationChanged(
-                            Location(placeId: '', description: '')),
-                      );
-                },
-              ),
-              contentPadding: inputContentPadding,
-              hintText: 'Ej. Vicuña Mackenna 744',
-              hintStyle: labelTextStyle,
-              filled: true,
-              fillColor: inputBackgroundColor,
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                    color: Color(0xff777E91), style: BorderStyle.none),
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: const BorderSide(
-                    color: Color(0xff777E91),
-                  )),
-            )),
-        minCharsForSuggestions: 4,
-        keepSuggestionsOnLoading: false,
-        suggestionsBoxDecoration: suggestionBoxDecoration(context),
-        debounceDuration: const Duration(seconds: 1),
-        suggestionsCallback: (pattern) async {
-          return context
-              .read<RegisterArtistBloc>()
-              .placesService
-              .getAutoComplete(pattern);
-        },
-        itemBuilder: _itemBuilder,
-        noItemsFoundBuilder: _noItemsFoundBuilder,
-        loadingBuilder: _loadingBuilder,
-        onSuggestionSelected: (Prediction suggestion) {
-          _typeAheadController.text = suggestion.description;
-          context.read<RegisterArtistBloc>().add(
-                RegisterArtistLocationChanged(Location(
-                    description: suggestion.description,
-                    placeId: suggestion.placeId)),
-              );
-        },
-      ),
+      //   child: TypeAheadField(
+      //     textFieldConfiguration: TextField(
+      //         controller: _typeAheadController,
+      //         autofocus: false,
+      //         cursorColor: const Color(0xff777E91),
+      //         style: const TextStyle(
+      //           color: Colors.white,
+      //           fontSize: 16,
+      //           fontFamily: 'Poppins',
+      //         ),
+      //         inputFormatters: [
+      //           FilteringTextInputFormatter.allow(
+      //             RegExp('[A-Za-z0-9 ñÑ]'),
+      //           ),
+      //         ],
+      //         decoration: InputDecoration(
+      //           suffixIcon: ClearInput(
+      //             onTap: () {
+      //               _typeAheadController.clear();
+      //               context.read<RegisterArtistBloc>().add(
+      //                     const RegisterArtistLocationChanged(
+      //                         Location(placeId: '', description: '')),
+      //                   );
+      //             },
+      //           ),
+      //           contentPadding: inputContentPadding,
+      //           hintText: 'Ej. Vicuña Mackenna 744',
+      //           hintStyle: labelTextStyle,
+      //           filled: true,
+      //           fillColor: inputBackgroundColor,
+      //           floatingLabelBehavior: FloatingLabelBehavior.never,
+      //           border: OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(15),
+      //             borderSide: const BorderSide(
+      //                 color: Color(0xff777E91), style: BorderStyle.none),
+      //           ),
+      //           focusedBorder: OutlineInputBorder(
+      //               borderRadius: BorderRadius.circular(15),
+      //               borderSide: const BorderSide(
+      //                 color: Color(0xff777E91),
+      //               )),
+      //         )),
+      //     minCharsForSuggestions: 4,
+      //     keepSuggestionsOnLoading: false,
+      //     suggestionsBoxDecoration: suggestionBoxDecoration(context),
+      //     debounceDuration: const Duration(seconds: 1),
+      //     suggestionsCallback: (pattern) async {
+      //       return context
+      //           .read<RegisterArtistBloc>()
+      //           .placesService
+      //           .getAutoComplete(pattern);
+      //     },
+      //     itemBuilder: _itemBuilder,
+      //     noItemsFoundBuilder: _noItemsFoundBuilder,
+      //     loadingBuilder: _loadingBuilder,
+      //     onSuggestionSelected: (Prediction suggestion) {
+      //       _typeAheadController.text = suggestion.description;
+      //       context.read<RegisterArtistBloc>().add(
+      //             RegisterArtistLocationChanged(Location(
+      //                 description: suggestion.description,
+      //                 placeId: suggestion.placeId)),
+      //           );
+      //     },
+      //   ),
     ));
   }
 
-  SuggestionsBoxDecoration suggestionBoxDecoration(BuildContext context) =>
-      SuggestionsBoxDecoration(
-        elevation: 0,
-        color: primaryColor,
-        clipBehavior: Clip.hardEdge,
-        borderRadius:
-            BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
-      );
+  // SuggestionsBoxDecoration suggestionBoxDecoration(BuildContext context) =>
+  //     SuggestionsBoxDecoration(
+  //       elevation: 0,
+  //       color: primaryColor,
+  //       clipBehavior: Clip.hardEdge,
+  //       borderRadius:
+  //           BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
+  //     );
 
   Widget _itemBuilder(context, Prediction suggestion) => ListTile(
         title: Text(suggestion.description,

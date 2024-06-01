@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistAddressExtraInput extends StatelessWidget {
@@ -55,14 +53,14 @@ class RegisterArtistAddressExtraInput extends StatelessWidget {
     );
   }
 
-  SuggestionsBoxDecoration suggestionBoxDecoration(BuildContext context) =>
-      SuggestionsBoxDecoration(
-        elevation: 0,
-        color: primaryColor,
-        clipBehavior: Clip.hardEdge,
-        borderRadius:
-            BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
-      );
+  // SuggestionsBox suggestionBoxDecoration(BuildContext context) =>
+  //     SuggestionsBox(
+  //       elevation: 0,
+  //       color: primaryColor,
+  //       clipBehavior: Clip.hardEdge,
+  //       borderRadius:
+  //           BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
+  //     );
 
   Widget _itemBuilder(context, Prediction suggestion) => ListTile(
         title: Text(suggestion.description,
