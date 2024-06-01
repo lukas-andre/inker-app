@@ -36,8 +36,8 @@ class SingInAndRegisterButton extends StatelessWidget {
                       style: TextStyle(fontFamily: 'Poppins'),
                     ),
                     style: TextButton.styleFrom(
+                        foregroundColor: const Color(0xffffffff),
                         shape: const StadiumBorder(),
-                        primary: const Color(0xffffffff),
                         backgroundColor: const Color(0xff232434),
                         minimumSize: const Size(300, 50),
                         maximumSize: const Size(387, 60)),
@@ -54,8 +54,8 @@ class SingInAndRegisterButton extends StatelessWidget {
                       style: TextStyle(fontFamily: 'Poppins'),
                     ),
                     style: TextButton.styleFrom(
+                        foregroundColor: const Color(0xffffffff),
                         shape: const StadiumBorder(),
-                        primary: const Color(0xffffffff),
                         backgroundColor: const Color(0xff7450FF),
                         minimumSize: const Size(300, 50),
                         maximumSize: const Size(387, 60)),
