@@ -287,7 +287,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                   ),
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
-                    primary: const Color(0x00131527),
+                    backgroundColor: const Color(0x00131527),
                   ),
                 ),
         ),
@@ -301,7 +301,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                     TextStyleTheme.copyWith(color: Colors.white, fontSize: 13)),
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
-              primary: const Color(0x00131527),
+              backgroundColor: const Color(0x00131527),
             ),
           ),
         ),
@@ -316,7 +316,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
             ),
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
-              primary: secondaryColor,
+              backgroundColor: secondaryColor,
             ),
           ),
         ),
