@@ -65,6 +65,7 @@ dependencies:
   shared_preferences: ^2.0.6
   simple_animations: ^5.0.2
   sqflite: ^2.0.0+3
+  table_calendar: ^3.0.8
   transparent_image: ^2.0.0
   uuid: ^3.0.6
 
