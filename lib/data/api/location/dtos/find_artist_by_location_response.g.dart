@@ -6,11 +6,11 @@ part of 'find_artist_by_location_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_FindArtistByLocationResponse _$$_FindArtistByLocationResponseFromJson(
+_$FindArtistByLocationResponseImpl _$$FindArtistByLocationResponseImplFromJson(
         Map json) =>
-    _$_FindArtistByLocationResponse(
-      id: json['id'] as int?,
-      artistId: json['artistId'] as int?,
+    _$FindArtistByLocationResponseImpl(
+      id: (json['id'] as num?)?.toInt(),
+      artistId: (json['artistId'] as num?)?.toInt(),
       name: json['name'] as String?,
       country: json['country'] as String?,
       address1: json['address1'] as String?,
@@ -29,8 +29,8 @@ _$_FindArtistByLocationResponse _$$_FindArtistByLocationResponseFromJson(
           : Artist.fromJson(Map<String, dynamic>.from(json['artist'] as Map)),
     );
 
-Map<String, dynamic> _$$_FindArtistByLocationResponseToJson(
-    _$_FindArtistByLocationResponse instance) {
+Map<String, dynamic> _$$FindArtistByLocationResponseImplToJson(
+    _$FindArtistByLocationResponseImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -58,28 +58,28 @@ Map<String, dynamic> _$$_FindArtistByLocationResponseToJson(
   return val;
 }
 
-_$_Artist _$$_ArtistFromJson(Map json) => _$_Artist(
+_$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
       contact: json['contact'] == null
           ? null
           : Contact.fromJson(Map<String, dynamic>.from(json['contact'] as Map)),
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       username: json['username'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       studioPhoto: json['studioPhoto'],
       shortDescription: json['shortDescription'] as String?,
       profileThumbnail: json['profileThumbnail'],
-      rating: json['rating'] as int?,
+      rating: (json['rating'] as num?)?.toInt(),
       review: json['review'] == null
           ? null
           : Review.fromJson(Map<String, dynamic>.from(json['review'] as Map)),
-      followers: json['followers'] as int?,
+      followers: (json['followers'] as num?)?.toInt(),
       isFollowedByUser: json['isFollowedByUser'] as bool?,
       distanceUnit: json['distanceUnit'] as String?,
       distance: (json['distance'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$_ArtistToJson(_$_Artist instance) {
+Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -105,13 +105,13 @@ Map<String, dynamic> _$$_ArtistToJson(_$_Artist instance) {
   return val;
 }
 
-_$_Contact _$$_ContactFromJson(Map json) => _$_Contact(
+_$ContactImpl _$$ContactImplFromJson(Map json) => _$ContactImpl(
       phone: json['phone'] as String?,
       email: json['email'] as String?,
       country: json['country'] as String?,
     );
 
-Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
+Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -126,16 +126,16 @@ Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
   return val;
 }
 
-_$_Review _$$_ReviewFromJson(Map json) => _$_Review(
-      artistId: json['artistId'] as int?,
+_$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
+      artistId: (json['artistId'] as num?)?.toInt(),
       value: (json['value'] as num?)?.toDouble(),
       detail: (json['detail'] as Map?)?.map(
-        (k, e) => MapEntry(k as String, e as int),
+        (k, e) => MapEntry(k as String, (e as num).toInt()),
       ),
-      count: json['count'] as int?,
+      count: (json['count'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) {
+Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
