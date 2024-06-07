@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
@@ -77,6 +78,7 @@ class _AppViewState extends State<AppView> {
             create: (context) => AccountVerificationBloc(
                 userService: context.read(), localStorage: context.read())),
         BlocProvider(create: (context) => CustomerAppBloc()),
+        BlocProvider(create: (context) => ArtistAppBloc()),
         BlocProvider(create: (context) => ArtistsListBloc()),
         BlocProvider(
             create: (context) => ExplorerPageBloc(
@@ -141,7 +143,7 @@ class _AppViewState extends State<AppView> {
 
         if (userType == UserType.artist) {
           NoContextNavigator.pushAndRemoveUntil(
-              _navigator, const ArtistHomePage());
+              _navigator, const ArtistAppPage());
         }
         break;
       case AuthStatus.unknown:
