@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'artist_profile_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'artist_profile_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistProfileEvent {
@@ -105,24 +105,25 @@ class _$ArtistProfileEventCopyWithImpl<$Res, $Val extends ArtistProfileEvent>
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res> {
-  factory _$$_StartedCopyWith(
-          _$_Started value, $Res Function(_$_Started) then) =
-      __$$_StartedCopyWithImpl<$Res>;
+abstract class _$$StartedImplCopyWith<$Res> {
+  factory _$$StartedImplCopyWith(
+          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
+      __$$StartedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartedCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_Started>
-    implements _$$_StartedCopyWith<$Res> {
-  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
+class __$$StartedImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$StartedImpl>
+    implements _$$StartedImplCopyWith<$Res> {
+  __$$StartedImplCopyWithImpl(
+      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Started implements _Started {
-  const _$_Started();
+class _$StartedImpl implements _Started {
+  const _$StartedImpl();
 
   @override
   String toString() {
@@ -130,9 +131,9 @@ class _$_Started implements _Started {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Started);
+        (other.runtimeType == runtimeType && other is _$StartedImpl);
   }
 
   @override
@@ -232,14 +233,14 @@ class _$_Started implements _Started {
 }
 
 abstract class _Started implements ArtistProfileEvent {
-  const factory _Started() = _$_Started;
+  const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetArtistCopyWith<$Res> {
-  factory _$$_SetArtistCopyWith(
-          _$_SetArtist value, $Res Function(_$_SetArtist) then) =
-      __$$_SetArtistCopyWithImpl<$Res>;
+abstract class _$$SetArtistImplCopyWith<$Res> {
+  factory _$$SetArtistImplCopyWith(
+          _$SetArtistImpl value, $Res Function(_$SetArtistImpl) then) =
+      __$$SetArtistImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Artist artist});
 
@@ -247,11 +248,11 @@ abstract class _$$_SetArtistCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SetArtistCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_SetArtist>
-    implements _$$_SetArtistCopyWith<$Res> {
-  __$$_SetArtistCopyWithImpl(
-      _$_SetArtist _value, $Res Function(_$_SetArtist) _then)
+class __$$SetArtistImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$SetArtistImpl>
+    implements _$$SetArtistImplCopyWith<$Res> {
+  __$$SetArtistImplCopyWithImpl(
+      _$SetArtistImpl _value, $Res Function(_$SetArtistImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -259,7 +260,7 @@ class __$$_SetArtistCopyWithImpl<$Res>
   $Res call({
     Object? artist = null,
   }) {
-    return _then(_$_SetArtist(
+    return _then(_$SetArtistImpl(
       null == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -278,8 +279,8 @@ class __$$_SetArtistCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetArtist implements _SetArtist {
-  const _$_SetArtist(this.artist);
+class _$SetArtistImpl implements _SetArtist {
+  const _$SetArtistImpl(this.artist);
 
   @override
   final Artist artist;
@@ -290,10 +291,10 @@ class _$_SetArtist implements _SetArtist {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetArtist &&
+            other is _$SetArtistImpl &&
             (identical(other.artist, artist) || other.artist == artist));
   }
 
@@ -303,8 +304,8 @@ class _$_SetArtist implements _SetArtist {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetArtistCopyWith<_$_SetArtist> get copyWith =>
-      __$$_SetArtistCopyWithImpl<_$_SetArtist>(this, _$identity);
+  _$$SetArtistImplCopyWith<_$SetArtistImpl> get copyWith =>
+      __$$SetArtistImplCopyWithImpl<_$SetArtistImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -400,34 +401,34 @@ class _$_SetArtist implements _SetArtist {
 }
 
 abstract class _SetArtist implements ArtistProfileEvent {
-  const factory _SetArtist(final Artist artist) = _$_SetArtist;
+  const factory _SetArtist(final Artist artist) = _$SetArtistImpl;
 
   Artist get artist;
   @JsonKey(ignore: true)
-  _$$_SetArtistCopyWith<_$_SetArtist> get copyWith =>
+  _$$SetArtistImplCopyWith<_$SetArtistImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadingWorksCopyWith<$Res> {
-  factory _$$_LoadingWorksCopyWith(
-          _$_LoadingWorks value, $Res Function(_$_LoadingWorks) then) =
-      __$$_LoadingWorksCopyWithImpl<$Res>;
+abstract class _$$LoadingWorksImplCopyWith<$Res> {
+  factory _$$LoadingWorksImplCopyWith(
+          _$LoadingWorksImpl value, $Res Function(_$LoadingWorksImpl) then) =
+      __$$LoadingWorksImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingWorksCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_LoadingWorks>
-    implements _$$_LoadingWorksCopyWith<$Res> {
-  __$$_LoadingWorksCopyWithImpl(
-      _$_LoadingWorks _value, $Res Function(_$_LoadingWorks) _then)
+class __$$LoadingWorksImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$LoadingWorksImpl>
+    implements _$$LoadingWorksImplCopyWith<$Res> {
+  __$$LoadingWorksImplCopyWithImpl(
+      _$LoadingWorksImpl _value, $Res Function(_$LoadingWorksImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LoadingWorks implements _LoadingWorks {
-  const _$_LoadingWorks();
+class _$LoadingWorksImpl implements _LoadingWorks {
+  const _$LoadingWorksImpl();
 
   @override
   String toString() {
@@ -435,9 +436,9 @@ class _$_LoadingWorks implements _LoadingWorks {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadingWorks);
+        (other.runtimeType == runtimeType && other is _$LoadingWorksImpl);
   }
 
   @override
@@ -537,14 +538,14 @@ class _$_LoadingWorks implements _LoadingWorks {
 }
 
 abstract class _LoadingWorks implements ArtistProfileEvent {
-  const factory _LoadingWorks() = _$_LoadingWorks;
+  const factory _LoadingWorks() = _$LoadingWorksImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadedWorksCopyWith<$Res> {
-  factory _$$_LoadedWorksCopyWith(
-          _$_LoadedWorks value, $Res Function(_$_LoadedWorks) then) =
-      __$$_LoadedWorksCopyWithImpl<$Res>;
+abstract class _$$LoadedWorksImplCopyWith<$Res> {
+  factory _$$LoadedWorksImplCopyWith(
+          _$LoadedWorksImpl value, $Res Function(_$LoadedWorksImpl) then) =
+      __$$LoadedWorksImplCopyWithImpl<$Res>;
   @useResult
   $Res call({GetArtistWorksResponse works});
 
@@ -552,11 +553,11 @@ abstract class _$$_LoadedWorksCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadedWorksCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_LoadedWorks>
-    implements _$$_LoadedWorksCopyWith<$Res> {
-  __$$_LoadedWorksCopyWithImpl(
-      _$_LoadedWorks _value, $Res Function(_$_LoadedWorks) _then)
+class __$$LoadedWorksImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$LoadedWorksImpl>
+    implements _$$LoadedWorksImplCopyWith<$Res> {
+  __$$LoadedWorksImplCopyWithImpl(
+      _$LoadedWorksImpl _value, $Res Function(_$LoadedWorksImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -564,7 +565,7 @@ class __$$_LoadedWorksCopyWithImpl<$Res>
   $Res call({
     Object? works = null,
   }) {
-    return _then(_$_LoadedWorks(
+    return _then(_$LoadedWorksImpl(
       null == works
           ? _value.works
           : works // ignore: cast_nullable_to_non_nullable
@@ -583,8 +584,8 @@ class __$$_LoadedWorksCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadedWorks implements _LoadedWorks {
-  const _$_LoadedWorks(this.works);
+class _$LoadedWorksImpl implements _LoadedWorks {
+  const _$LoadedWorksImpl(this.works);
 
   @override
   final GetArtistWorksResponse works;
@@ -595,10 +596,10 @@ class _$_LoadedWorks implements _LoadedWorks {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadedWorks &&
+            other is _$LoadedWorksImpl &&
             (identical(other.works, works) || other.works == works));
   }
 
@@ -608,8 +609,8 @@ class _$_LoadedWorks implements _LoadedWorks {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadedWorksCopyWith<_$_LoadedWorks> get copyWith =>
-      __$$_LoadedWorksCopyWithImpl<_$_LoadedWorks>(this, _$identity);
+  _$$LoadedWorksImplCopyWith<_$LoadedWorksImpl> get copyWith =>
+      __$$LoadedWorksImplCopyWithImpl<_$LoadedWorksImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -706,29 +707,29 @@ class _$_LoadedWorks implements _LoadedWorks {
 
 abstract class _LoadedWorks implements ArtistProfileEvent {
   const factory _LoadedWorks(final GetArtistWorksResponse works) =
-      _$_LoadedWorks;
+      _$LoadedWorksImpl;
 
   GetArtistWorksResponse get works;
   @JsonKey(ignore: true)
-  _$$_LoadedWorksCopyWith<_$_LoadedWorks> get copyWith =>
+  _$$LoadedWorksImplCopyWith<_$LoadedWorksImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadWorksErrorCopyWith<$Res> {
-  factory _$$_LoadWorksErrorCopyWith(
-          _$_LoadWorksError value, $Res Function(_$_LoadWorksError) then) =
-      __$$_LoadWorksErrorCopyWithImpl<$Res>;
+abstract class _$$LoadWorksErrorImplCopyWith<$Res> {
+  factory _$$LoadWorksErrorImplCopyWith(_$LoadWorksErrorImpl value,
+          $Res Function(_$LoadWorksErrorImpl) then) =
+      __$$LoadWorksErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$_LoadWorksErrorCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_LoadWorksError>
-    implements _$$_LoadWorksErrorCopyWith<$Res> {
-  __$$_LoadWorksErrorCopyWithImpl(
-      _$_LoadWorksError _value, $Res Function(_$_LoadWorksError) _then)
+class __$$LoadWorksErrorImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$LoadWorksErrorImpl>
+    implements _$$LoadWorksErrorImplCopyWith<$Res> {
+  __$$LoadWorksErrorImplCopyWithImpl(
+      _$LoadWorksErrorImpl _value, $Res Function(_$LoadWorksErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -736,7 +737,7 @@ class __$$_LoadWorksErrorCopyWithImpl<$Res>
   $Res call({
     Object? message = null,
   }) {
-    return _then(_$_LoadWorksError(
+    return _then(_$LoadWorksErrorImpl(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -747,8 +748,8 @@ class __$$_LoadWorksErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadWorksError implements _LoadWorksError {
-  const _$_LoadWorksError(this.message);
+class _$LoadWorksErrorImpl implements _LoadWorksError {
+  const _$LoadWorksErrorImpl(this.message);
 
   @override
   final String message;
@@ -759,10 +760,10 @@ class _$_LoadWorksError implements _LoadWorksError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadWorksError &&
+            other is _$LoadWorksErrorImpl &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -772,8 +773,9 @@ class _$_LoadWorksError implements _LoadWorksError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadWorksErrorCopyWith<_$_LoadWorksError> get copyWith =>
-      __$$_LoadWorksErrorCopyWithImpl<_$_LoadWorksError>(this, _$identity);
+  _$$LoadWorksErrorImplCopyWith<_$LoadWorksErrorImpl> get copyWith =>
+      __$$LoadWorksErrorImplCopyWithImpl<_$LoadWorksErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -869,32 +871,34 @@ class _$_LoadWorksError implements _LoadWorksError {
 }
 
 abstract class _LoadWorksError implements ArtistProfileEvent {
-  const factory _LoadWorksError(final String message) = _$_LoadWorksError;
+  const factory _LoadWorksError(final String message) = _$LoadWorksErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$_LoadWorksErrorCopyWith<_$_LoadWorksError> get copyWith =>
+  _$$LoadWorksErrorImplCopyWith<_$LoadWorksErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FollowCopyWith<$Res> {
-  factory _$$_FollowCopyWith(_$_Follow value, $Res Function(_$_Follow) then) =
-      __$$_FollowCopyWithImpl<$Res>;
+abstract class _$$FollowImplCopyWith<$Res> {
+  factory _$$FollowImplCopyWith(
+          _$FollowImpl value, $Res Function(_$FollowImpl) then) =
+      __$$FollowImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_FollowCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_Follow>
-    implements _$$_FollowCopyWith<$Res> {
-  __$$_FollowCopyWithImpl(_$_Follow _value, $Res Function(_$_Follow) _then)
+class __$$FollowImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$FollowImpl>
+    implements _$$FollowImplCopyWith<$Res> {
+  __$$FollowImplCopyWithImpl(
+      _$FollowImpl _value, $Res Function(_$FollowImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Follow implements _Follow {
-  const _$_Follow();
+class _$FollowImpl implements _Follow {
+  const _$FollowImpl();
 
   @override
   String toString() {
@@ -902,9 +906,9 @@ class _$_Follow implements _Follow {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Follow);
+        (other.runtimeType == runtimeType && other is _$FollowImpl);
   }
 
   @override
@@ -1004,29 +1008,29 @@ class _$_Follow implements _Follow {
 }
 
 abstract class _Follow implements ArtistProfileEvent {
-  const factory _Follow() = _$_Follow;
+  const factory _Follow() = _$FollowImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnFollowCopyWith<$Res> {
-  factory _$$_UnFollowCopyWith(
-          _$_UnFollow value, $Res Function(_$_UnFollow) then) =
-      __$$_UnFollowCopyWithImpl<$Res>;
+abstract class _$$UnFollowImplCopyWith<$Res> {
+  factory _$$UnFollowImplCopyWith(
+          _$UnFollowImpl value, $Res Function(_$UnFollowImpl) then) =
+      __$$UnFollowImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnFollowCopyWithImpl<$Res>
-    extends _$ArtistProfileEventCopyWithImpl<$Res, _$_UnFollow>
-    implements _$$_UnFollowCopyWith<$Res> {
-  __$$_UnFollowCopyWithImpl(
-      _$_UnFollow _value, $Res Function(_$_UnFollow) _then)
+class __$$UnFollowImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$UnFollowImpl>
+    implements _$$UnFollowImplCopyWith<$Res> {
+  __$$UnFollowImplCopyWithImpl(
+      _$UnFollowImpl _value, $Res Function(_$UnFollowImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnFollow implements _UnFollow {
-  const _$_UnFollow();
+class _$UnFollowImpl implements _UnFollow {
+  const _$UnFollowImpl();
 
   @override
   String toString() {
@@ -1034,9 +1038,9 @@ class _$_UnFollow implements _UnFollow {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_UnFollow);
+        (other.runtimeType == runtimeType && other is _$UnFollowImpl);
   }
 
   @override
@@ -1136,7 +1140,7 @@ class _$_UnFollow implements _UnFollow {
 }
 
 abstract class _UnFollow implements ArtistProfileEvent {
-  const factory _UnFollow() = _$_UnFollow;
+  const factory _UnFollow() = _$UnFollowImpl;
 }
 
 /// @nodoc
@@ -1303,12 +1307,12 @@ class _$ArtistProfileStateCopyWithImpl<$Res, $Val extends ArtistProfileState>
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateInitialCopyWith<$Res>
+abstract class _$$ArtistProfileStateInitialImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateInitialCopyWith(
-          _$ArtistProfileStateInitial value,
-          $Res Function(_$ArtistProfileStateInitial) then) =
-      __$$ArtistProfileStateInitialCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateInitialImplCopyWith(
+          _$ArtistProfileStateInitialImpl value,
+          $Res Function(_$ArtistProfileStateInitialImpl) then) =
+      __$$ArtistProfileStateInitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -1320,11 +1324,13 @@ abstract class _$$ArtistProfileStateInitialCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateInitialCopyWithImpl<$Res>
-    extends _$ArtistProfileStateCopyWithImpl<$Res, _$ArtistProfileStateInitial>
-    implements _$$ArtistProfileStateInitialCopyWith<$Res> {
-  __$$ArtistProfileStateInitialCopyWithImpl(_$ArtistProfileStateInitial _value,
-      $Res Function(_$ArtistProfileStateInitial) _then)
+class __$$ArtistProfileStateInitialImplCopyWithImpl<$Res>
+    extends _$ArtistProfileStateCopyWithImpl<$Res,
+        _$ArtistProfileStateInitialImpl>
+    implements _$$ArtistProfileStateInitialImplCopyWith<$Res> {
+  __$$ArtistProfileStateInitialImplCopyWithImpl(
+      _$ArtistProfileStateInitialImpl _value,
+      $Res Function(_$ArtistProfileStateInitialImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1333,7 +1339,7 @@ class __$$ArtistProfileStateInitialCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateInitial(
+    return _then(_$ArtistProfileStateInitialImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -1348,8 +1354,9 @@ class __$$ArtistProfileStateInitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateInitial implements ArtistProfileStateInitial {
-  const _$ArtistProfileStateInitial({this.artist = null, this.works = null});
+class _$ArtistProfileStateInitialImpl implements ArtistProfileStateInitial {
+  const _$ArtistProfileStateInitialImpl(
+      {this.artist = null, this.works = null});
 
   @override
   @JsonKey()
@@ -1364,10 +1371,10 @@ class _$ArtistProfileStateInitial implements ArtistProfileStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateInitial &&
+            other is _$ArtistProfileStateInitialImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -1378,9 +1385,9 @@ class _$ArtistProfileStateInitial implements ArtistProfileStateInitial {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateInitialCopyWith<_$ArtistProfileStateInitial>
-      get copyWith => __$$ArtistProfileStateInitialCopyWithImpl<
-          _$ArtistProfileStateInitial>(this, _$identity);
+  _$$ArtistProfileStateInitialImplCopyWith<_$ArtistProfileStateInitialImpl>
+      get copyWith => __$$ArtistProfileStateInitialImplCopyWithImpl<
+          _$ArtistProfileStateInitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1498,7 +1505,7 @@ class _$ArtistProfileStateInitial implements ArtistProfileStateInitial {
 abstract class ArtistProfileStateInitial implements ArtistProfileState {
   const factory ArtistProfileStateInitial(
       {final Artist? artist,
-      final GetArtistWorksResponse? works}) = _$ArtistProfileStateInitial;
+      final GetArtistWorksResponse? works}) = _$ArtistProfileStateInitialImpl;
 
   @override
   Artist? get artist;
@@ -1506,17 +1513,17 @@ abstract class ArtistProfileStateInitial implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateInitialCopyWith<_$ArtistProfileStateInitial>
+  _$$ArtistProfileStateInitialImplCopyWith<_$ArtistProfileStateInitialImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateConfiguredCopyWith<$Res>
+abstract class _$$ArtistProfileStateConfiguredImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateConfiguredCopyWith(
-          _$ArtistProfileStateConfigured value,
-          $Res Function(_$ArtistProfileStateConfigured) then) =
-      __$$ArtistProfileStateConfiguredCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateConfiguredImplCopyWith(
+          _$ArtistProfileStateConfiguredImpl value,
+          $Res Function(_$ArtistProfileStateConfiguredImpl) then) =
+      __$$ArtistProfileStateConfiguredImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -1528,13 +1535,13 @@ abstract class _$$ArtistProfileStateConfiguredCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateConfiguredCopyWithImpl<$Res>
+class __$$ArtistProfileStateConfiguredImplCopyWithImpl<$Res>
     extends _$ArtistProfileStateCopyWithImpl<$Res,
-        _$ArtistProfileStateConfigured>
-    implements _$$ArtistProfileStateConfiguredCopyWith<$Res> {
-  __$$ArtistProfileStateConfiguredCopyWithImpl(
-      _$ArtistProfileStateConfigured _value,
-      $Res Function(_$ArtistProfileStateConfigured) _then)
+        _$ArtistProfileStateConfiguredImpl>
+    implements _$$ArtistProfileStateConfiguredImplCopyWith<$Res> {
+  __$$ArtistProfileStateConfiguredImplCopyWithImpl(
+      _$ArtistProfileStateConfiguredImpl _value,
+      $Res Function(_$ArtistProfileStateConfiguredImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1543,7 +1550,7 @@ class __$$ArtistProfileStateConfiguredCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateConfigured(
+    return _then(_$ArtistProfileStateConfiguredImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -1558,8 +1565,9 @@ class __$$ArtistProfileStateConfiguredCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateConfigured implements ArtistProfileStateConfigured {
-  const _$ArtistProfileStateConfigured(
+class _$ArtistProfileStateConfiguredImpl
+    implements ArtistProfileStateConfigured {
+  const _$ArtistProfileStateConfiguredImpl(
       {required this.artist, this.works = null});
 
   @override
@@ -1574,10 +1582,10 @@ class _$ArtistProfileStateConfigured implements ArtistProfileStateConfigured {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateConfigured &&
+            other is _$ArtistProfileStateConfiguredImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -1588,9 +1596,10 @@ class _$ArtistProfileStateConfigured implements ArtistProfileStateConfigured {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateConfiguredCopyWith<_$ArtistProfileStateConfigured>
-      get copyWith => __$$ArtistProfileStateConfiguredCopyWithImpl<
-          _$ArtistProfileStateConfigured>(this, _$identity);
+  _$$ArtistProfileStateConfiguredImplCopyWith<
+          _$ArtistProfileStateConfiguredImpl>
+      get copyWith => __$$ArtistProfileStateConfiguredImplCopyWithImpl<
+          _$ArtistProfileStateConfiguredImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1707,8 +1716,9 @@ class _$ArtistProfileStateConfigured implements ArtistProfileStateConfigured {
 
 abstract class ArtistProfileStateConfigured implements ArtistProfileState {
   const factory ArtistProfileStateConfigured(
-      {required final Artist? artist,
-      final GetArtistWorksResponse? works}) = _$ArtistProfileStateConfigured;
+          {required final Artist? artist,
+          final GetArtistWorksResponse? works}) =
+      _$ArtistProfileStateConfiguredImpl;
 
   @override
   Artist? get artist;
@@ -1716,17 +1726,18 @@ abstract class ArtistProfileStateConfigured implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateConfiguredCopyWith<_$ArtistProfileStateConfigured>
+  _$$ArtistProfileStateConfiguredImplCopyWith<
+          _$ArtistProfileStateConfiguredImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateLoadingWorksCopyWith<$Res>
+abstract class _$$ArtistProfileStateLoadingWorksImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateLoadingWorksCopyWith(
-          _$ArtistProfileStateLoadingWorks value,
-          $Res Function(_$ArtistProfileStateLoadingWorks) then) =
-      __$$ArtistProfileStateLoadingWorksCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateLoadingWorksImplCopyWith(
+          _$ArtistProfileStateLoadingWorksImpl value,
+          $Res Function(_$ArtistProfileStateLoadingWorksImpl) then) =
+      __$$ArtistProfileStateLoadingWorksImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -1738,13 +1749,13 @@ abstract class _$$ArtistProfileStateLoadingWorksCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateLoadingWorksCopyWithImpl<$Res>
+class __$$ArtistProfileStateLoadingWorksImplCopyWithImpl<$Res>
     extends _$ArtistProfileStateCopyWithImpl<$Res,
-        _$ArtistProfileStateLoadingWorks>
-    implements _$$ArtistProfileStateLoadingWorksCopyWith<$Res> {
-  __$$ArtistProfileStateLoadingWorksCopyWithImpl(
-      _$ArtistProfileStateLoadingWorks _value,
-      $Res Function(_$ArtistProfileStateLoadingWorks) _then)
+        _$ArtistProfileStateLoadingWorksImpl>
+    implements _$$ArtistProfileStateLoadingWorksImplCopyWith<$Res> {
+  __$$ArtistProfileStateLoadingWorksImplCopyWithImpl(
+      _$ArtistProfileStateLoadingWorksImpl _value,
+      $Res Function(_$ArtistProfileStateLoadingWorksImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1753,7 +1764,7 @@ class __$$ArtistProfileStateLoadingWorksCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateLoadingWorks(
+    return _then(_$ArtistProfileStateLoadingWorksImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -1768,9 +1779,9 @@ class __$$ArtistProfileStateLoadingWorksCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateLoadingWorks
+class _$ArtistProfileStateLoadingWorksImpl
     implements ArtistProfileStateLoadingWorks {
-  const _$ArtistProfileStateLoadingWorks(
+  const _$ArtistProfileStateLoadingWorksImpl(
       {required this.artist, this.works = null});
 
   @override
@@ -1785,10 +1796,10 @@ class _$ArtistProfileStateLoadingWorks
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateLoadingWorks &&
+            other is _$ArtistProfileStateLoadingWorksImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -1799,9 +1810,10 @@ class _$ArtistProfileStateLoadingWorks
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateLoadingWorksCopyWith<_$ArtistProfileStateLoadingWorks>
-      get copyWith => __$$ArtistProfileStateLoadingWorksCopyWithImpl<
-          _$ArtistProfileStateLoadingWorks>(this, _$identity);
+  _$$ArtistProfileStateLoadingWorksImplCopyWith<
+          _$ArtistProfileStateLoadingWorksImpl>
+      get copyWith => __$$ArtistProfileStateLoadingWorksImplCopyWithImpl<
+          _$ArtistProfileStateLoadingWorksImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1918,8 +1930,9 @@ class _$ArtistProfileStateLoadingWorks
 
 abstract class ArtistProfileStateLoadingWorks implements ArtistProfileState {
   const factory ArtistProfileStateLoadingWorks(
-      {required final Artist? artist,
-      final GetArtistWorksResponse? works}) = _$ArtistProfileStateLoadingWorks;
+          {required final Artist? artist,
+          final GetArtistWorksResponse? works}) =
+      _$ArtistProfileStateLoadingWorksImpl;
 
   @override
   Artist? get artist;
@@ -1927,17 +1940,18 @@ abstract class ArtistProfileStateLoadingWorks implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateLoadingWorksCopyWith<_$ArtistProfileStateLoadingWorks>
+  _$$ArtistProfileStateLoadingWorksImplCopyWith<
+          _$ArtistProfileStateLoadingWorksImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateLoadedWorksCopyWith<$Res>
+abstract class _$$ArtistProfileStateLoadedWorksImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateLoadedWorksCopyWith(
-          _$ArtistProfileStateLoadedWorks value,
-          $Res Function(_$ArtistProfileStateLoadedWorks) then) =
-      __$$ArtistProfileStateLoadedWorksCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateLoadedWorksImplCopyWith(
+          _$ArtistProfileStateLoadedWorksImpl value,
+          $Res Function(_$ArtistProfileStateLoadedWorksImpl) then) =
+      __$$ArtistProfileStateLoadedWorksImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -1949,13 +1963,13 @@ abstract class _$$ArtistProfileStateLoadedWorksCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateLoadedWorksCopyWithImpl<$Res>
+class __$$ArtistProfileStateLoadedWorksImplCopyWithImpl<$Res>
     extends _$ArtistProfileStateCopyWithImpl<$Res,
-        _$ArtistProfileStateLoadedWorks>
-    implements _$$ArtistProfileStateLoadedWorksCopyWith<$Res> {
-  __$$ArtistProfileStateLoadedWorksCopyWithImpl(
-      _$ArtistProfileStateLoadedWorks _value,
-      $Res Function(_$ArtistProfileStateLoadedWorks) _then)
+        _$ArtistProfileStateLoadedWorksImpl>
+    implements _$$ArtistProfileStateLoadedWorksImplCopyWith<$Res> {
+  __$$ArtistProfileStateLoadedWorksImplCopyWithImpl(
+      _$ArtistProfileStateLoadedWorksImpl _value,
+      $Res Function(_$ArtistProfileStateLoadedWorksImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1964,7 +1978,7 @@ class __$$ArtistProfileStateLoadedWorksCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateLoadedWorks(
+    return _then(_$ArtistProfileStateLoadedWorksImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -1979,8 +1993,9 @@ class __$$ArtistProfileStateLoadedWorksCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateLoadedWorks implements ArtistProfileStateLoadedWorks {
-  const _$ArtistProfileStateLoadedWorks(
+class _$ArtistProfileStateLoadedWorksImpl
+    implements ArtistProfileStateLoadedWorks {
+  const _$ArtistProfileStateLoadedWorksImpl(
       {required this.artist, required this.works});
 
   @override
@@ -1994,10 +2009,10 @@ class _$ArtistProfileStateLoadedWorks implements ArtistProfileStateLoadedWorks {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateLoadedWorks &&
+            other is _$ArtistProfileStateLoadedWorksImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -2008,9 +2023,10 @@ class _$ArtistProfileStateLoadedWorks implements ArtistProfileStateLoadedWorks {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateLoadedWorksCopyWith<_$ArtistProfileStateLoadedWorks>
-      get copyWith => __$$ArtistProfileStateLoadedWorksCopyWithImpl<
-          _$ArtistProfileStateLoadedWorks>(this, _$identity);
+  _$$ArtistProfileStateLoadedWorksImplCopyWith<
+          _$ArtistProfileStateLoadedWorksImpl>
+      get copyWith => __$$ArtistProfileStateLoadedWorksImplCopyWithImpl<
+          _$ArtistProfileStateLoadedWorksImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2129,7 +2145,7 @@ abstract class ArtistProfileStateLoadedWorks implements ArtistProfileState {
   const factory ArtistProfileStateLoadedWorks(
           {required final Artist? artist,
           required final GetArtistWorksResponse? works}) =
-      _$ArtistProfileStateLoadedWorks;
+      _$ArtistProfileStateLoadedWorksImpl;
 
   @override
   Artist? get artist;
@@ -2137,17 +2153,18 @@ abstract class ArtistProfileStateLoadedWorks implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateLoadedWorksCopyWith<_$ArtistProfileStateLoadedWorks>
+  _$$ArtistProfileStateLoadedWorksImplCopyWith<
+          _$ArtistProfileStateLoadedWorksImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateLoadWorksErrorCopyWith<$Res>
+abstract class _$$ArtistProfileStateLoadWorksErrorImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateLoadWorksErrorCopyWith(
-          _$ArtistProfileStateLoadWorksError value,
-          $Res Function(_$ArtistProfileStateLoadWorksError) then) =
-      __$$ArtistProfileStateLoadWorksErrorCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateLoadWorksErrorImplCopyWith(
+          _$ArtistProfileStateLoadWorksErrorImpl value,
+          $Res Function(_$ArtistProfileStateLoadWorksErrorImpl) then) =
+      __$$ArtistProfileStateLoadWorksErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works, String message});
@@ -2159,13 +2176,13 @@ abstract class _$$ArtistProfileStateLoadWorksErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateLoadWorksErrorCopyWithImpl<$Res>
+class __$$ArtistProfileStateLoadWorksErrorImplCopyWithImpl<$Res>
     extends _$ArtistProfileStateCopyWithImpl<$Res,
-        _$ArtistProfileStateLoadWorksError>
-    implements _$$ArtistProfileStateLoadWorksErrorCopyWith<$Res> {
-  __$$ArtistProfileStateLoadWorksErrorCopyWithImpl(
-      _$ArtistProfileStateLoadWorksError _value,
-      $Res Function(_$ArtistProfileStateLoadWorksError) _then)
+        _$ArtistProfileStateLoadWorksErrorImpl>
+    implements _$$ArtistProfileStateLoadWorksErrorImplCopyWith<$Res> {
+  __$$ArtistProfileStateLoadWorksErrorImplCopyWithImpl(
+      _$ArtistProfileStateLoadWorksErrorImpl _value,
+      $Res Function(_$ArtistProfileStateLoadWorksErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2175,7 +2192,7 @@ class __$$ArtistProfileStateLoadWorksErrorCopyWithImpl<$Res>
     Object? works = freezed,
     Object? message = null,
   }) {
-    return _then(_$ArtistProfileStateLoadWorksError(
+    return _then(_$ArtistProfileStateLoadWorksErrorImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -2194,9 +2211,9 @@ class __$$ArtistProfileStateLoadWorksErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateLoadWorksError
+class _$ArtistProfileStateLoadWorksErrorImpl
     implements ArtistProfileStateLoadWorksError {
-  const _$ArtistProfileStateLoadWorksError(
+  const _$ArtistProfileStateLoadWorksErrorImpl(
       {required this.artist, required this.works, required this.message});
 
   @override
@@ -2212,10 +2229,10 @@ class _$ArtistProfileStateLoadWorksError
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateLoadWorksError &&
+            other is _$ArtistProfileStateLoadWorksErrorImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works) &&
             (identical(other.message, message) || other.message == message));
@@ -2227,10 +2244,10 @@ class _$ArtistProfileStateLoadWorksError
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateLoadWorksErrorCopyWith<
-          _$ArtistProfileStateLoadWorksError>
-      get copyWith => __$$ArtistProfileStateLoadWorksErrorCopyWithImpl<
-          _$ArtistProfileStateLoadWorksError>(this, _$identity);
+  _$$ArtistProfileStateLoadWorksErrorImplCopyWith<
+          _$ArtistProfileStateLoadWorksErrorImpl>
+      get copyWith => __$$ArtistProfileStateLoadWorksErrorImplCopyWithImpl<
+          _$ArtistProfileStateLoadWorksErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2349,7 +2366,7 @@ abstract class ArtistProfileStateLoadWorksError implements ArtistProfileState {
   const factory ArtistProfileStateLoadWorksError(
       {required final Artist? artist,
       required final GetArtistWorksResponse? works,
-      required final String message}) = _$ArtistProfileStateLoadWorksError;
+      required final String message}) = _$ArtistProfileStateLoadWorksErrorImpl;
 
   @override
   Artist? get artist;
@@ -2358,18 +2375,18 @@ abstract class ArtistProfileStateLoadWorksError implements ArtistProfileState {
   String get message;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateLoadWorksErrorCopyWith<
-          _$ArtistProfileStateLoadWorksError>
+  _$$ArtistProfileStateLoadWorksErrorImplCopyWith<
+          _$ArtistProfileStateLoadWorksErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateFollowedCopyWith<$Res>
+abstract class _$$ArtistProfileStateFollowedImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateFollowedCopyWith(
-          _$ArtistProfileStateFollowed value,
-          $Res Function(_$ArtistProfileStateFollowed) then) =
-      __$$ArtistProfileStateFollowedCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateFollowedImplCopyWith(
+          _$ArtistProfileStateFollowedImpl value,
+          $Res Function(_$ArtistProfileStateFollowedImpl) then) =
+      __$$ArtistProfileStateFollowedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -2381,12 +2398,13 @@ abstract class _$$ArtistProfileStateFollowedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateFollowedCopyWithImpl<$Res>
-    extends _$ArtistProfileStateCopyWithImpl<$Res, _$ArtistProfileStateFollowed>
-    implements _$$ArtistProfileStateFollowedCopyWith<$Res> {
-  __$$ArtistProfileStateFollowedCopyWithImpl(
-      _$ArtistProfileStateFollowed _value,
-      $Res Function(_$ArtistProfileStateFollowed) _then)
+class __$$ArtistProfileStateFollowedImplCopyWithImpl<$Res>
+    extends _$ArtistProfileStateCopyWithImpl<$Res,
+        _$ArtistProfileStateFollowedImpl>
+    implements _$$ArtistProfileStateFollowedImplCopyWith<$Res> {
+  __$$ArtistProfileStateFollowedImplCopyWithImpl(
+      _$ArtistProfileStateFollowedImpl _value,
+      $Res Function(_$ArtistProfileStateFollowedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2395,7 +2413,7 @@ class __$$ArtistProfileStateFollowedCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateFollowed(
+    return _then(_$ArtistProfileStateFollowedImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -2410,8 +2428,8 @@ class __$$ArtistProfileStateFollowedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateFollowed implements ArtistProfileStateFollowed {
-  const _$ArtistProfileStateFollowed(
+class _$ArtistProfileStateFollowedImpl implements ArtistProfileStateFollowed {
+  const _$ArtistProfileStateFollowedImpl(
       {required this.artist, required this.works});
 
   @override
@@ -2425,10 +2443,10 @@ class _$ArtistProfileStateFollowed implements ArtistProfileStateFollowed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateFollowed &&
+            other is _$ArtistProfileStateFollowedImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -2439,9 +2457,9 @@ class _$ArtistProfileStateFollowed implements ArtistProfileStateFollowed {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateFollowedCopyWith<_$ArtistProfileStateFollowed>
-      get copyWith => __$$ArtistProfileStateFollowedCopyWithImpl<
-          _$ArtistProfileStateFollowed>(this, _$identity);
+  _$$ArtistProfileStateFollowedImplCopyWith<_$ArtistProfileStateFollowedImpl>
+      get copyWith => __$$ArtistProfileStateFollowedImplCopyWithImpl<
+          _$ArtistProfileStateFollowedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2560,7 +2578,7 @@ abstract class ArtistProfileStateFollowed implements ArtistProfileState {
   const factory ArtistProfileStateFollowed(
           {required final Artist? artist,
           required final GetArtistWorksResponse? works}) =
-      _$ArtistProfileStateFollowed;
+      _$ArtistProfileStateFollowedImpl;
 
   @override
   Artist? get artist;
@@ -2568,17 +2586,17 @@ abstract class ArtistProfileStateFollowed implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateFollowedCopyWith<_$ArtistProfileStateFollowed>
+  _$$ArtistProfileStateFollowedImplCopyWith<_$ArtistProfileStateFollowedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistProfileStateUnFollowedCopyWith<$Res>
+abstract class _$$ArtistProfileStateUnFollowedImplCopyWith<$Res>
     implements $ArtistProfileStateCopyWith<$Res> {
-  factory _$$ArtistProfileStateUnFollowedCopyWith(
-          _$ArtistProfileStateUnFollowed value,
-          $Res Function(_$ArtistProfileStateUnFollowed) then) =
-      __$$ArtistProfileStateUnFollowedCopyWithImpl<$Res>;
+  factory _$$ArtistProfileStateUnFollowedImplCopyWith(
+          _$ArtistProfileStateUnFollowedImpl value,
+          $Res Function(_$ArtistProfileStateUnFollowedImpl) then) =
+      __$$ArtistProfileStateUnFollowedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Artist? artist, GetArtistWorksResponse? works});
@@ -2590,13 +2608,13 @@ abstract class _$$ArtistProfileStateUnFollowedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistProfileStateUnFollowedCopyWithImpl<$Res>
+class __$$ArtistProfileStateUnFollowedImplCopyWithImpl<$Res>
     extends _$ArtistProfileStateCopyWithImpl<$Res,
-        _$ArtistProfileStateUnFollowed>
-    implements _$$ArtistProfileStateUnFollowedCopyWith<$Res> {
-  __$$ArtistProfileStateUnFollowedCopyWithImpl(
-      _$ArtistProfileStateUnFollowed _value,
-      $Res Function(_$ArtistProfileStateUnFollowed) _then)
+        _$ArtistProfileStateUnFollowedImpl>
+    implements _$$ArtistProfileStateUnFollowedImplCopyWith<$Res> {
+  __$$ArtistProfileStateUnFollowedImplCopyWithImpl(
+      _$ArtistProfileStateUnFollowedImpl _value,
+      $Res Function(_$ArtistProfileStateUnFollowedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2605,7 +2623,7 @@ class __$$ArtistProfileStateUnFollowedCopyWithImpl<$Res>
     Object? artist = freezed,
     Object? works = freezed,
   }) {
-    return _then(_$ArtistProfileStateUnFollowed(
+    return _then(_$ArtistProfileStateUnFollowedImpl(
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -2620,8 +2638,9 @@ class __$$ArtistProfileStateUnFollowedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistProfileStateUnFollowed implements ArtistProfileStateUnFollowed {
-  const _$ArtistProfileStateUnFollowed(
+class _$ArtistProfileStateUnFollowedImpl
+    implements ArtistProfileStateUnFollowed {
+  const _$ArtistProfileStateUnFollowedImpl(
       {required this.artist, required this.works});
 
   @override
@@ -2635,10 +2654,10 @@ class _$ArtistProfileStateUnFollowed implements ArtistProfileStateUnFollowed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistProfileStateUnFollowed &&
+            other is _$ArtistProfileStateUnFollowedImpl &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.works, works) || other.works == works));
   }
@@ -2649,9 +2668,10 @@ class _$ArtistProfileStateUnFollowed implements ArtistProfileStateUnFollowed {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistProfileStateUnFollowedCopyWith<_$ArtistProfileStateUnFollowed>
-      get copyWith => __$$ArtistProfileStateUnFollowedCopyWithImpl<
-          _$ArtistProfileStateUnFollowed>(this, _$identity);
+  _$$ArtistProfileStateUnFollowedImplCopyWith<
+          _$ArtistProfileStateUnFollowedImpl>
+      get copyWith => __$$ArtistProfileStateUnFollowedImplCopyWithImpl<
+          _$ArtistProfileStateUnFollowedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2770,7 +2790,7 @@ abstract class ArtistProfileStateUnFollowed implements ArtistProfileState {
   const factory ArtistProfileStateUnFollowed(
           {required final Artist? artist,
           required final GetArtistWorksResponse? works}) =
-      _$ArtistProfileStateUnFollowed;
+      _$ArtistProfileStateUnFollowedImpl;
 
   @override
   Artist? get artist;
@@ -2778,6 +2798,7 @@ abstract class ArtistProfileStateUnFollowed implements ArtistProfileState {
   GetArtistWorksResponse? get works;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistProfileStateUnFollowedCopyWith<_$ArtistProfileStateUnFollowed>
+  _$$ArtistProfileStateUnFollowedImplCopyWith<
+          _$ArtistProfileStateUnFollowedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

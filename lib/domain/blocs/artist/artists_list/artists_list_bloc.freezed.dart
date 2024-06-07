@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'artists_list_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'artists_list_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistsListEvent {
@@ -81,24 +81,25 @@ class _$ArtistsListEventCopyWithImpl<$Res, $Val extends ArtistsListEvent>
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res> {
-  factory _$$_StartedCopyWith(
-          _$_Started value, $Res Function(_$_Started) then) =
-      __$$_StartedCopyWithImpl<$Res>;
+abstract class _$$StartedImplCopyWith<$Res> {
+  factory _$$StartedImplCopyWith(
+          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
+      __$$StartedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartedCopyWithImpl<$Res>
-    extends _$ArtistsListEventCopyWithImpl<$Res, _$_Started>
-    implements _$$_StartedCopyWith<$Res> {
-  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
+class __$$StartedImplCopyWithImpl<$Res>
+    extends _$ArtistsListEventCopyWithImpl<$Res, _$StartedImpl>
+    implements _$$StartedImplCopyWith<$Res> {
+  __$$StartedImplCopyWithImpl(
+      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Started implements _Started {
-  const _$_Started();
+class _$StartedImpl implements _Started {
+  const _$StartedImpl();
 
   @override
   String toString() {
@@ -106,9 +107,9 @@ class _$_Started implements _Started {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Started);
+        (other.runtimeType == runtimeType && other is _$StartedImpl);
   }
 
   @override
@@ -184,24 +185,24 @@ class _$_Started implements _Started {
 }
 
 abstract class _Started implements ArtistsListEvent {
-  const factory _Started() = _$_Started;
+  const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$_AddArtistsCopyWith<$Res> {
-  factory _$$_AddArtistsCopyWith(
-          _$_AddArtists value, $Res Function(_$_AddArtists) then) =
-      __$$_AddArtistsCopyWithImpl<$Res>;
+abstract class _$$AddArtistsImplCopyWith<$Res> {
+  factory _$$AddArtistsImplCopyWith(
+          _$AddArtistsImpl value, $Res Function(_$AddArtistsImpl) then) =
+      __$$AddArtistsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Artist> artists});
 }
 
 /// @nodoc
-class __$$_AddArtistsCopyWithImpl<$Res>
-    extends _$ArtistsListEventCopyWithImpl<$Res, _$_AddArtists>
-    implements _$$_AddArtistsCopyWith<$Res> {
-  __$$_AddArtistsCopyWithImpl(
-      _$_AddArtists _value, $Res Function(_$_AddArtists) _then)
+class __$$AddArtistsImplCopyWithImpl<$Res>
+    extends _$ArtistsListEventCopyWithImpl<$Res, _$AddArtistsImpl>
+    implements _$$AddArtistsImplCopyWith<$Res> {
+  __$$AddArtistsImplCopyWithImpl(
+      _$AddArtistsImpl _value, $Res Function(_$AddArtistsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -209,7 +210,7 @@ class __$$_AddArtistsCopyWithImpl<$Res>
   $Res call({
     Object? artists = null,
   }) {
-    return _then(_$_AddArtists(
+    return _then(_$AddArtistsImpl(
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -220,13 +221,14 @@ class __$$_AddArtistsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddArtists implements _AddArtists {
-  const _$_AddArtists({required final List<Artist> artists})
+class _$AddArtistsImpl implements _AddArtists {
+  const _$AddArtistsImpl({required final List<Artist> artists})
       : _artists = artists;
 
   final List<Artist> _artists;
   @override
   List<Artist> get artists {
+    if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
   }
@@ -237,10 +239,10 @@ class _$_AddArtists implements _AddArtists {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddArtists &&
+            other is _$AddArtistsImpl &&
             const DeepCollectionEquality().equals(other._artists, _artists));
   }
 
@@ -251,8 +253,8 @@ class _$_AddArtists implements _AddArtists {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddArtistsCopyWith<_$_AddArtists> get copyWith =>
-      __$$_AddArtistsCopyWithImpl<_$_AddArtists>(this, _$identity);
+  _$$AddArtistsImplCopyWith<_$AddArtistsImpl> get copyWith =>
+      __$$AddArtistsImplCopyWithImpl<_$AddArtistsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -325,34 +327,34 @@ class _$_AddArtists implements _AddArtists {
 
 abstract class _AddArtists implements ArtistsListEvent {
   const factory _AddArtists({required final List<Artist> artists}) =
-      _$_AddArtists;
+      _$AddArtistsImpl;
 
   List<Artist> get artists;
   @JsonKey(ignore: true)
-  _$$_AddArtistsCopyWith<_$_AddArtists> get copyWith =>
+  _$$AddArtistsImplCopyWith<_$AddArtistsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ClearArtistsCopyWith<$Res> {
-  factory _$$_ClearArtistsCopyWith(
-          _$_ClearArtists value, $Res Function(_$_ClearArtists) then) =
-      __$$_ClearArtistsCopyWithImpl<$Res>;
+abstract class _$$ClearArtistsImplCopyWith<$Res> {
+  factory _$$ClearArtistsImplCopyWith(
+          _$ClearArtistsImpl value, $Res Function(_$ClearArtistsImpl) then) =
+      __$$ClearArtistsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ClearArtistsCopyWithImpl<$Res>
-    extends _$ArtistsListEventCopyWithImpl<$Res, _$_ClearArtists>
-    implements _$$_ClearArtistsCopyWith<$Res> {
-  __$$_ClearArtistsCopyWithImpl(
-      _$_ClearArtists _value, $Res Function(_$_ClearArtists) _then)
+class __$$ClearArtistsImplCopyWithImpl<$Res>
+    extends _$ArtistsListEventCopyWithImpl<$Res, _$ClearArtistsImpl>
+    implements _$$ClearArtistsImplCopyWith<$Res> {
+  __$$ClearArtistsImplCopyWithImpl(
+      _$ClearArtistsImpl _value, $Res Function(_$ClearArtistsImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ClearArtists implements _ClearArtists {
-  const _$_ClearArtists();
+class _$ClearArtistsImpl implements _ClearArtists {
+  const _$ClearArtistsImpl();
 
   @override
   String toString() {
@@ -360,9 +362,9 @@ class _$_ClearArtists implements _ClearArtists {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ClearArtists);
+        (other.runtimeType == runtimeType && other is _$ClearArtistsImpl);
   }
 
   @override
@@ -438,7 +440,7 @@ class _$_ClearArtists implements _ClearArtists {
 }
 
 abstract class _ClearArtists implements ArtistsListEvent {
-  const factory _ClearArtists() = _$_ClearArtists;
+  const factory _ClearArtists() = _$ClearArtistsImpl;
 }
 
 /// @nodoc
@@ -522,22 +524,24 @@ class _$ArtistsListStateCopyWithImpl<$Res, $Val extends ArtistsListState>
 }
 
 /// @nodoc
-abstract class _$$ArtistsListStateInitialCopyWith<$Res>
+abstract class _$$ArtistsListStateInitialImplCopyWith<$Res>
     implements $ArtistsListStateCopyWith<$Res> {
-  factory _$$ArtistsListStateInitialCopyWith(_$ArtistsListStateInitial value,
-          $Res Function(_$ArtistsListStateInitial) then) =
-      __$$ArtistsListStateInitialCopyWithImpl<$Res>;
+  factory _$$ArtistsListStateInitialImplCopyWith(
+          _$ArtistsListStateInitialImpl value,
+          $Res Function(_$ArtistsListStateInitialImpl) then) =
+      __$$ArtistsListStateInitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Artist> artists});
 }
 
 /// @nodoc
-class __$$ArtistsListStateInitialCopyWithImpl<$Res>
-    extends _$ArtistsListStateCopyWithImpl<$Res, _$ArtistsListStateInitial>
-    implements _$$ArtistsListStateInitialCopyWith<$Res> {
-  __$$ArtistsListStateInitialCopyWithImpl(_$ArtistsListStateInitial _value,
-      $Res Function(_$ArtistsListStateInitial) _then)
+class __$$ArtistsListStateInitialImplCopyWithImpl<$Res>
+    extends _$ArtistsListStateCopyWithImpl<$Res, _$ArtistsListStateInitialImpl>
+    implements _$$ArtistsListStateInitialImplCopyWith<$Res> {
+  __$$ArtistsListStateInitialImplCopyWithImpl(
+      _$ArtistsListStateInitialImpl _value,
+      $Res Function(_$ArtistsListStateInitialImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -545,7 +549,7 @@ class __$$ArtistsListStateInitialCopyWithImpl<$Res>
   $Res call({
     Object? artists = null,
   }) {
-    return _then(_$ArtistsListStateInitial(
+    return _then(_$ArtistsListStateInitialImpl(
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -556,14 +560,15 @@ class __$$ArtistsListStateInitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistsListStateInitial implements ArtistsListStateInitial {
-  const _$ArtistsListStateInitial({final List<Artist> artists = const []})
+class _$ArtistsListStateInitialImpl implements ArtistsListStateInitial {
+  const _$ArtistsListStateInitialImpl({final List<Artist> artists = const []})
       : _artists = artists;
 
   final List<Artist> _artists;
   @override
   @JsonKey()
   List<Artist> get artists {
+    if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
   }
@@ -574,10 +579,10 @@ class _$ArtistsListStateInitial implements ArtistsListStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistsListStateInitial &&
+            other is _$ArtistsListStateInitialImpl &&
             const DeepCollectionEquality().equals(other._artists, _artists));
   }
 
@@ -588,9 +593,9 @@ class _$ArtistsListStateInitial implements ArtistsListStateInitial {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistsListStateInitialCopyWith<_$ArtistsListStateInitial> get copyWith =>
-      __$$ArtistsListStateInitialCopyWithImpl<_$ArtistsListStateInitial>(
-          this, _$identity);
+  _$$ArtistsListStateInitialImplCopyWith<_$ArtistsListStateInitialImpl>
+      get copyWith => __$$ArtistsListStateInitialImplCopyWithImpl<
+          _$ArtistsListStateInitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -657,33 +662,35 @@ class _$ArtistsListStateInitial implements ArtistsListStateInitial {
 
 abstract class ArtistsListStateInitial implements ArtistsListState {
   const factory ArtistsListStateInitial({final List<Artist> artists}) =
-      _$ArtistsListStateInitial;
+      _$ArtistsListStateInitialImpl;
 
   @override
   List<Artist> get artists;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistsListStateInitialCopyWith<_$ArtistsListStateInitial> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistsListStateInitialImplCopyWith<_$ArtistsListStateInitialImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistsListStateLoadedCopyWith<$Res>
+abstract class _$$ArtistsListStateLoadedImplCopyWith<$Res>
     implements $ArtistsListStateCopyWith<$Res> {
-  factory _$$ArtistsListStateLoadedCopyWith(_$ArtistsListStateLoaded value,
-          $Res Function(_$ArtistsListStateLoaded) then) =
-      __$$ArtistsListStateLoadedCopyWithImpl<$Res>;
+  factory _$$ArtistsListStateLoadedImplCopyWith(
+          _$ArtistsListStateLoadedImpl value,
+          $Res Function(_$ArtistsListStateLoadedImpl) then) =
+      __$$ArtistsListStateLoadedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Artist> artists});
 }
 
 /// @nodoc
-class __$$ArtistsListStateLoadedCopyWithImpl<$Res>
-    extends _$ArtistsListStateCopyWithImpl<$Res, _$ArtistsListStateLoaded>
-    implements _$$ArtistsListStateLoadedCopyWith<$Res> {
-  __$$ArtistsListStateLoadedCopyWithImpl(_$ArtistsListStateLoaded _value,
-      $Res Function(_$ArtistsListStateLoaded) _then)
+class __$$ArtistsListStateLoadedImplCopyWithImpl<$Res>
+    extends _$ArtistsListStateCopyWithImpl<$Res, _$ArtistsListStateLoadedImpl>
+    implements _$$ArtistsListStateLoadedImplCopyWith<$Res> {
+  __$$ArtistsListStateLoadedImplCopyWithImpl(
+      _$ArtistsListStateLoadedImpl _value,
+      $Res Function(_$ArtistsListStateLoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -691,7 +698,7 @@ class __$$ArtistsListStateLoadedCopyWithImpl<$Res>
   $Res call({
     Object? artists = null,
   }) {
-    return _then(_$ArtistsListStateLoaded(
+    return _then(_$ArtistsListStateLoadedImpl(
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -702,14 +709,15 @@ class __$$ArtistsListStateLoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistsListStateLoaded implements ArtistsListStateLoaded {
-  const _$ArtistsListStateLoaded({final List<Artist> artists = const []})
+class _$ArtistsListStateLoadedImpl implements ArtistsListStateLoaded {
+  const _$ArtistsListStateLoadedImpl({final List<Artist> artists = const []})
       : _artists = artists;
 
   final List<Artist> _artists;
   @override
   @JsonKey()
   List<Artist> get artists {
+    if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
   }
@@ -720,10 +728,10 @@ class _$ArtistsListStateLoaded implements ArtistsListStateLoaded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistsListStateLoaded &&
+            other is _$ArtistsListStateLoadedImpl &&
             const DeepCollectionEquality().equals(other._artists, _artists));
   }
 
@@ -734,9 +742,9 @@ class _$ArtistsListStateLoaded implements ArtistsListStateLoaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistsListStateLoadedCopyWith<_$ArtistsListStateLoaded> get copyWith =>
-      __$$ArtistsListStateLoadedCopyWithImpl<_$ArtistsListStateLoaded>(
-          this, _$identity);
+  _$$ArtistsListStateLoadedImplCopyWith<_$ArtistsListStateLoadedImpl>
+      get copyWith => __$$ArtistsListStateLoadedImplCopyWithImpl<
+          _$ArtistsListStateLoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -803,12 +811,12 @@ class _$ArtistsListStateLoaded implements ArtistsListStateLoaded {
 
 abstract class ArtistsListStateLoaded implements ArtistsListState {
   const factory ArtistsListStateLoaded({final List<Artist> artists}) =
-      _$ArtistsListStateLoaded;
+      _$ArtistsListStateLoadedImpl;
 
   @override
   List<Artist> get artists;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistsListStateLoadedCopyWith<_$ArtistsListStateLoaded> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistsListStateLoadedImplCopyWith<_$ArtistsListStateLoadedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

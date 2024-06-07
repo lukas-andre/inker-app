@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'artist_reviews_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'artist_reviews_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistReviewsEvent {
@@ -148,25 +148,25 @@ class _$ArtistReviewsEventCopyWithImpl<$Res, $Val extends ArtistReviewsEvent>
 }
 
 /// @nodoc
-abstract class _$$_InitialEventCopyWith<$Res> {
-  factory _$$_InitialEventCopyWith(
-          _$_InitialEvent value, $Res Function(_$_InitialEvent) then) =
-      __$$_InitialEventCopyWithImpl<$Res>;
+abstract class _$$InitialEventImplCopyWith<$Res> {
+  factory _$$InitialEventImplCopyWith(
+          _$InitialEventImpl value, $Res Function(_$InitialEventImpl) then) =
+      __$$InitialEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_InitialEvent>
-    implements _$$_InitialEventCopyWith<$Res> {
-  __$$_InitialEventCopyWithImpl(
-      _$_InitialEvent _value, $Res Function(_$_InitialEvent) _then)
+class __$$InitialEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$InitialEventImpl>
+    implements _$$InitialEventImplCopyWith<$Res> {
+  __$$InitialEventImplCopyWithImpl(
+      _$InitialEventImpl _value, $Res Function(_$InitialEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_InitialEvent implements _InitialEvent {
-  const _$_InitialEvent();
+class _$InitialEventImpl implements _InitialEvent {
+  const _$InitialEventImpl();
 
   @override
   String toString() {
@@ -174,9 +174,9 @@ class _$_InitialEvent implements _InitialEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InitialEvent);
+        (other.runtimeType == runtimeType && other is _$InitialEventImpl);
   }
 
   @override
@@ -319,29 +319,29 @@ class _$_InitialEvent implements _InitialEvent {
 }
 
 abstract class _InitialEvent implements ArtistReviewsEvent {
-  const factory _InitialEvent() = _$_InitialEvent;
+  const factory _InitialEvent() = _$InitialEventImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadingEventCopyWith<$Res> {
-  factory _$$_LoadingEventCopyWith(
-          _$_LoadingEvent value, $Res Function(_$_LoadingEvent) then) =
-      __$$_LoadingEventCopyWithImpl<$Res>;
+abstract class _$$LoadingEventImplCopyWith<$Res> {
+  factory _$$LoadingEventImplCopyWith(
+          _$LoadingEventImpl value, $Res Function(_$LoadingEventImpl) then) =
+      __$$LoadingEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_LoadingEvent>
-    implements _$$_LoadingEventCopyWith<$Res> {
-  __$$_LoadingEventCopyWithImpl(
-      _$_LoadingEvent _value, $Res Function(_$_LoadingEvent) _then)
+class __$$LoadingEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$LoadingEventImpl>
+    implements _$$LoadingEventImplCopyWith<$Res> {
+  __$$LoadingEventImplCopyWithImpl(
+      _$LoadingEventImpl _value, $Res Function(_$LoadingEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LoadingEvent implements _LoadingEvent {
-  const _$_LoadingEvent();
+class _$LoadingEventImpl implements _LoadingEvent {
+  const _$LoadingEventImpl();
 
   @override
   String toString() {
@@ -349,9 +349,9 @@ class _$_LoadingEvent implements _LoadingEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadingEvent);
+        (other.runtimeType == runtimeType && other is _$LoadingEventImpl);
   }
 
   @override
@@ -494,24 +494,24 @@ class _$_LoadingEvent implements _LoadingEvent {
 }
 
 abstract class _LoadingEvent implements ArtistReviewsEvent {
-  const factory _LoadingEvent() = _$_LoadingEvent;
+  const factory _LoadingEvent() = _$LoadingEventImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadReviewsEventCopyWith<$Res> {
-  factory _$$_LoadReviewsEventCopyWith(
-          _$_LoadReviewsEvent value, $Res Function(_$_LoadReviewsEvent) then) =
-      __$$_LoadReviewsEventCopyWithImpl<$Res>;
+abstract class _$$LoadReviewsEventImplCopyWith<$Res> {
+  factory _$$LoadReviewsEventImplCopyWith(_$LoadReviewsEventImpl value,
+          $Res Function(_$LoadReviewsEventImpl) then) =
+      __$$LoadReviewsEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int artistId});
 }
 
 /// @nodoc
-class __$$_LoadReviewsEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_LoadReviewsEvent>
-    implements _$$_LoadReviewsEventCopyWith<$Res> {
-  __$$_LoadReviewsEventCopyWithImpl(
-      _$_LoadReviewsEvent _value, $Res Function(_$_LoadReviewsEvent) _then)
+class __$$LoadReviewsEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$LoadReviewsEventImpl>
+    implements _$$LoadReviewsEventImplCopyWith<$Res> {
+  __$$LoadReviewsEventImplCopyWithImpl(_$LoadReviewsEventImpl _value,
+      $Res Function(_$LoadReviewsEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -519,7 +519,7 @@ class __$$_LoadReviewsEventCopyWithImpl<$Res>
   $Res call({
     Object? artistId = null,
   }) {
-    return _then(_$_LoadReviewsEvent(
+    return _then(_$LoadReviewsEventImpl(
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
@@ -530,8 +530,8 @@ class __$$_LoadReviewsEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadReviewsEvent implements _LoadReviewsEvent {
-  const _$_LoadReviewsEvent(this.artistId);
+class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
+  const _$LoadReviewsEventImpl(this.artistId);
 
   @override
   final int artistId;
@@ -542,10 +542,10 @@ class _$_LoadReviewsEvent implements _LoadReviewsEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadReviewsEvent &&
+            other is _$LoadReviewsEventImpl &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId));
   }
@@ -556,8 +556,9 @@ class _$_LoadReviewsEvent implements _LoadReviewsEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadReviewsEventCopyWith<_$_LoadReviewsEvent> get copyWith =>
-      __$$_LoadReviewsEventCopyWithImpl<_$_LoadReviewsEvent>(this, _$identity);
+  _$$LoadReviewsEventImplCopyWith<_$LoadReviewsEventImpl> get copyWith =>
+      __$$LoadReviewsEventImplCopyWithImpl<_$LoadReviewsEventImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -696,19 +697,20 @@ class _$_LoadReviewsEvent implements _LoadReviewsEvent {
 }
 
 abstract class _LoadReviewsEvent implements ArtistReviewsEvent {
-  const factory _LoadReviewsEvent(final int artistId) = _$_LoadReviewsEvent;
+  const factory _LoadReviewsEvent(final int artistId) = _$LoadReviewsEventImpl;
 
   int get artistId;
   @JsonKey(ignore: true)
-  _$$_LoadReviewsEventCopyWith<_$_LoadReviewsEvent> get copyWith =>
+  _$$LoadReviewsEventImplCopyWith<_$LoadReviewsEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadReviewsSuccessEventCopyWith<$Res> {
-  factory _$$_LoadReviewsSuccessEventCopyWith(_$_LoadReviewsSuccessEvent value,
-          $Res Function(_$_LoadReviewsSuccessEvent) then) =
-      __$$_LoadReviewsSuccessEventCopyWithImpl<$Res>;
+abstract class _$$LoadReviewsSuccessEventImplCopyWith<$Res> {
+  factory _$$LoadReviewsSuccessEventImplCopyWith(
+          _$LoadReviewsSuccessEventImpl value,
+          $Res Function(_$LoadReviewsSuccessEventImpl) then) =
+      __$$LoadReviewsSuccessEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {Map<int, Reactions> reviewReactions,
@@ -717,11 +719,13 @@ abstract class _$$_LoadReviewsSuccessEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadReviewsSuccessEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_LoadReviewsSuccessEvent>
-    implements _$$_LoadReviewsSuccessEventCopyWith<$Res> {
-  __$$_LoadReviewsSuccessEventCopyWithImpl(_$_LoadReviewsSuccessEvent _value,
-      $Res Function(_$_LoadReviewsSuccessEvent) _then)
+class __$$LoadReviewsSuccessEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res,
+        _$LoadReviewsSuccessEventImpl>
+    implements _$$LoadReviewsSuccessEventImplCopyWith<$Res> {
+  __$$LoadReviewsSuccessEventImplCopyWithImpl(
+      _$LoadReviewsSuccessEventImpl _value,
+      $Res Function(_$LoadReviewsSuccessEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -731,7 +735,7 @@ class __$$_LoadReviewsSuccessEventCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$_LoadReviewsSuccessEvent(
+    return _then(_$LoadReviewsSuccessEventImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -750,8 +754,8 @@ class __$$_LoadReviewsSuccessEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
-  const _$_LoadReviewsSuccessEvent(
+class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
+  const _$LoadReviewsSuccessEventImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -762,6 +766,7 @@ class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -769,6 +774,8 @@ class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -776,6 +783,7 @@ class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -786,10 +794,10 @@ class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadReviewsSuccessEvent &&
+            other is _$LoadReviewsSuccessEventImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -807,10 +815,9 @@ class _$_LoadReviewsSuccessEvent implements _LoadReviewsSuccessEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadReviewsSuccessEventCopyWith<_$_LoadReviewsSuccessEvent>
-      get copyWith =>
-          __$$_LoadReviewsSuccessEventCopyWithImpl<_$_LoadReviewsSuccessEvent>(
-              this, _$identity);
+  _$$LoadReviewsSuccessEventImplCopyWith<_$LoadReviewsSuccessEventImpl>
+      get copyWith => __$$LoadReviewsSuccessEventImplCopyWithImpl<
+          _$LoadReviewsSuccessEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -953,31 +960,32 @@ abstract class _LoadReviewsSuccessEvent implements ArtistReviewsEvent {
   const factory _LoadReviewsSuccessEvent(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$_LoadReviewsSuccessEvent;
+      required final List<ReviewItem> reviews}) = _$LoadReviewsSuccessEventImpl;
 
   Map<int, Reactions> get reviewReactions;
   Map<int, Reaction> get customerReactions;
   List<ReviewItem> get reviews;
   @JsonKey(ignore: true)
-  _$$_LoadReviewsSuccessEventCopyWith<_$_LoadReviewsSuccessEvent>
+  _$$LoadReviewsSuccessEventImplCopyWith<_$LoadReviewsSuccessEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadReviewsErrorEventCopyWith<$Res> {
-  factory _$$_LoadReviewsErrorEventCopyWith(_$_LoadReviewsErrorEvent value,
-          $Res Function(_$_LoadReviewsErrorEvent) then) =
-      __$$_LoadReviewsErrorEventCopyWithImpl<$Res>;
+abstract class _$$LoadReviewsErrorEventImplCopyWith<$Res> {
+  factory _$$LoadReviewsErrorEventImplCopyWith(
+          _$LoadReviewsErrorEventImpl value,
+          $Res Function(_$LoadReviewsErrorEventImpl) then) =
+      __$$LoadReviewsErrorEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$_LoadReviewsErrorEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_LoadReviewsErrorEvent>
-    implements _$$_LoadReviewsErrorEventCopyWith<$Res> {
-  __$$_LoadReviewsErrorEventCopyWithImpl(_$_LoadReviewsErrorEvent _value,
-      $Res Function(_$_LoadReviewsErrorEvent) _then)
+class __$$LoadReviewsErrorEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$LoadReviewsErrorEventImpl>
+    implements _$$LoadReviewsErrorEventImplCopyWith<$Res> {
+  __$$LoadReviewsErrorEventImplCopyWithImpl(_$LoadReviewsErrorEventImpl _value,
+      $Res Function(_$LoadReviewsErrorEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -985,7 +993,7 @@ class __$$_LoadReviewsErrorEventCopyWithImpl<$Res>
   $Res call({
     Object? message = null,
   }) {
-    return _then(_$_LoadReviewsErrorEvent(
+    return _then(_$LoadReviewsErrorEventImpl(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -996,8 +1004,8 @@ class __$$_LoadReviewsErrorEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadReviewsErrorEvent implements _LoadReviewsErrorEvent {
-  const _$_LoadReviewsErrorEvent(this.message);
+class _$LoadReviewsErrorEventImpl implements _LoadReviewsErrorEvent {
+  const _$LoadReviewsErrorEventImpl(this.message);
 
   @override
   final String message;
@@ -1008,10 +1016,10 @@ class _$_LoadReviewsErrorEvent implements _LoadReviewsErrorEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadReviewsErrorEvent &&
+            other is _$LoadReviewsErrorEventImpl &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -1021,9 +1029,9 @@ class _$_LoadReviewsErrorEvent implements _LoadReviewsErrorEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadReviewsErrorEventCopyWith<_$_LoadReviewsErrorEvent> get copyWith =>
-      __$$_LoadReviewsErrorEventCopyWithImpl<_$_LoadReviewsErrorEvent>(
-          this, _$identity);
+  _$$LoadReviewsErrorEventImplCopyWith<_$LoadReviewsErrorEventImpl>
+      get copyWith => __$$LoadReviewsErrorEventImplCopyWithImpl<
+          _$LoadReviewsErrorEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1163,34 +1171,34 @@ class _$_LoadReviewsErrorEvent implements _LoadReviewsErrorEvent {
 
 abstract class _LoadReviewsErrorEvent implements ArtistReviewsEvent {
   const factory _LoadReviewsErrorEvent(final String message) =
-      _$_LoadReviewsErrorEvent;
+      _$LoadReviewsErrorEventImpl;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$_LoadReviewsErrorEventCopyWith<_$_LoadReviewsErrorEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LoadReviewsErrorEventImplCopyWith<_$LoadReviewsErrorEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadMoreReviewsEventCopyWith<$Res> {
-  factory _$$_LoadMoreReviewsEventCopyWith(_$_LoadMoreReviewsEvent value,
-          $Res Function(_$_LoadMoreReviewsEvent) then) =
-      __$$_LoadMoreReviewsEventCopyWithImpl<$Res>;
+abstract class _$$LoadMoreReviewsEventImplCopyWith<$Res> {
+  factory _$$LoadMoreReviewsEventImplCopyWith(_$LoadMoreReviewsEventImpl value,
+          $Res Function(_$LoadMoreReviewsEventImpl) then) =
+      __$$LoadMoreReviewsEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadMoreReviewsEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_LoadMoreReviewsEvent>
-    implements _$$_LoadMoreReviewsEventCopyWith<$Res> {
-  __$$_LoadMoreReviewsEventCopyWithImpl(_$_LoadMoreReviewsEvent _value,
-      $Res Function(_$_LoadMoreReviewsEvent) _then)
+class __$$LoadMoreReviewsEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$LoadMoreReviewsEventImpl>
+    implements _$$LoadMoreReviewsEventImplCopyWith<$Res> {
+  __$$LoadMoreReviewsEventImplCopyWithImpl(_$LoadMoreReviewsEventImpl _value,
+      $Res Function(_$LoadMoreReviewsEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LoadMoreReviewsEvent implements _LoadMoreReviewsEvent {
-  const _$_LoadMoreReviewsEvent();
+class _$LoadMoreReviewsEventImpl implements _LoadMoreReviewsEvent {
+  const _$LoadMoreReviewsEventImpl();
 
   @override
   String toString() {
@@ -1198,9 +1206,10 @@ class _$_LoadMoreReviewsEvent implements _LoadMoreReviewsEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadMoreReviewsEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadMoreReviewsEventImpl);
   }
 
   @override
@@ -1343,29 +1352,29 @@ class _$_LoadMoreReviewsEvent implements _LoadMoreReviewsEvent {
 }
 
 abstract class _LoadMoreReviewsEvent implements ArtistReviewsEvent {
-  const factory _LoadMoreReviewsEvent() = _$_LoadMoreReviewsEvent;
+  const factory _LoadMoreReviewsEvent() = _$LoadMoreReviewsEventImpl;
 }
 
 /// @nodoc
-abstract class _$$_NoMoreDataEventCopyWith<$Res> {
-  factory _$$_NoMoreDataEventCopyWith(
-          _$_NoMoreDataEvent value, $Res Function(_$_NoMoreDataEvent) then) =
-      __$$_NoMoreDataEventCopyWithImpl<$Res>;
+abstract class _$$NoMoreDataEventImplCopyWith<$Res> {
+  factory _$$NoMoreDataEventImplCopyWith(_$NoMoreDataEventImpl value,
+          $Res Function(_$NoMoreDataEventImpl) then) =
+      __$$NoMoreDataEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_NoMoreDataEventCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_NoMoreDataEvent>
-    implements _$$_NoMoreDataEventCopyWith<$Res> {
-  __$$_NoMoreDataEventCopyWithImpl(
-      _$_NoMoreDataEvent _value, $Res Function(_$_NoMoreDataEvent) _then)
+class __$$NoMoreDataEventImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$NoMoreDataEventImpl>
+    implements _$$NoMoreDataEventImplCopyWith<$Res> {
+  __$$NoMoreDataEventImplCopyWithImpl(
+      _$NoMoreDataEventImpl _value, $Res Function(_$NoMoreDataEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_NoMoreDataEvent implements _NoMoreDataEvent {
-  const _$_NoMoreDataEvent();
+class _$NoMoreDataEventImpl implements _NoMoreDataEvent {
+  const _$NoMoreDataEventImpl();
 
   @override
   String toString() {
@@ -1373,9 +1382,9 @@ class _$_NoMoreDataEvent implements _NoMoreDataEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NoMoreDataEvent);
+        (other.runtimeType == runtimeType && other is _$NoMoreDataEventImpl);
   }
 
   @override
@@ -1518,24 +1527,24 @@ class _$_NoMoreDataEvent implements _NoMoreDataEvent {
 }
 
 abstract class _NoMoreDataEvent implements ArtistReviewsEvent {
-  const factory _NoMoreDataEvent() = _$_NoMoreDataEvent;
+  const factory _NoMoreDataEvent() = _$NoMoreDataEventImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReviewLikedCopyWith<$Res> {
-  factory _$$_ReviewLikedCopyWith(
-          _$_ReviewLiked value, $Res Function(_$_ReviewLiked) then) =
-      __$$_ReviewLikedCopyWithImpl<$Res>;
+abstract class _$$ReviewLikedImplCopyWith<$Res> {
+  factory _$$ReviewLikedImplCopyWith(
+          _$ReviewLikedImpl value, $Res Function(_$ReviewLikedImpl) then) =
+      __$$ReviewLikedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewLikedCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_ReviewLiked>
-    implements _$$_ReviewLikedCopyWith<$Res> {
-  __$$_ReviewLikedCopyWithImpl(
-      _$_ReviewLiked _value, $Res Function(_$_ReviewLiked) _then)
+class __$$ReviewLikedImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$ReviewLikedImpl>
+    implements _$$ReviewLikedImplCopyWith<$Res> {
+  __$$ReviewLikedImplCopyWithImpl(
+      _$ReviewLikedImpl _value, $Res Function(_$ReviewLikedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1544,7 +1553,7 @@ class __$$_ReviewLikedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewLiked(
+    return _then(_$ReviewLikedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1559,8 +1568,8 @@ class __$$_ReviewLikedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewLiked implements _ReviewLiked {
-  const _$_ReviewLiked({required this.reviewId, required this.customerId});
+class _$ReviewLikedImpl implements _ReviewLiked {
+  const _$ReviewLikedImpl({required this.reviewId, required this.customerId});
 
   @override
   final int reviewId;
@@ -1573,10 +1582,10 @@ class _$_ReviewLiked implements _ReviewLiked {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewLiked &&
+            other is _$ReviewLikedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -1589,8 +1598,8 @@ class _$_ReviewLiked implements _ReviewLiked {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewLikedCopyWith<_$_ReviewLiked> get copyWith =>
-      __$$_ReviewLikedCopyWithImpl<_$_ReviewLiked>(this, _$identity);
+  _$$ReviewLikedImplCopyWith<_$ReviewLikedImpl> get copyWith =>
+      __$$ReviewLikedImplCopyWithImpl<_$ReviewLikedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1731,30 +1740,30 @@ class _$_ReviewLiked implements _ReviewLiked {
 abstract class _ReviewLiked implements ArtistReviewsEvent {
   const factory _ReviewLiked(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewLiked;
+      required final int customerId}) = _$ReviewLikedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewLikedCopyWith<_$_ReviewLiked> get copyWith =>
+  _$$ReviewLikedImplCopyWith<_$ReviewLikedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewDislikedCopyWith<$Res> {
-  factory _$$_ReviewDislikedCopyWith(
-          _$_ReviewDisliked value, $Res Function(_$_ReviewDisliked) then) =
-      __$$_ReviewDislikedCopyWithImpl<$Res>;
+abstract class _$$ReviewDislikedImplCopyWith<$Res> {
+  factory _$$ReviewDislikedImplCopyWith(_$ReviewDislikedImpl value,
+          $Res Function(_$ReviewDislikedImpl) then) =
+      __$$ReviewDislikedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewDislikedCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_ReviewDisliked>
-    implements _$$_ReviewDislikedCopyWith<$Res> {
-  __$$_ReviewDislikedCopyWithImpl(
-      _$_ReviewDisliked _value, $Res Function(_$_ReviewDisliked) _then)
+class __$$ReviewDislikedImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$ReviewDislikedImpl>
+    implements _$$ReviewDislikedImplCopyWith<$Res> {
+  __$$ReviewDislikedImplCopyWithImpl(
+      _$ReviewDislikedImpl _value, $Res Function(_$ReviewDislikedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1763,7 +1772,7 @@ class __$$_ReviewDislikedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewDisliked(
+    return _then(_$ReviewDislikedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1778,8 +1787,9 @@ class __$$_ReviewDislikedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewDisliked implements _ReviewDisliked {
-  const _$_ReviewDisliked({required this.reviewId, required this.customerId});
+class _$ReviewDislikedImpl implements _ReviewDisliked {
+  const _$ReviewDislikedImpl(
+      {required this.reviewId, required this.customerId});
 
   @override
   final int reviewId;
@@ -1792,10 +1802,10 @@ class _$_ReviewDisliked implements _ReviewDisliked {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewDisliked &&
+            other is _$ReviewDislikedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -1808,8 +1818,9 @@ class _$_ReviewDisliked implements _ReviewDisliked {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewDislikedCopyWith<_$_ReviewDisliked> get copyWith =>
-      __$$_ReviewDislikedCopyWithImpl<_$_ReviewDisliked>(this, _$identity);
+  _$$ReviewDislikedImplCopyWith<_$ReviewDislikedImpl> get copyWith =>
+      __$$ReviewDislikedImplCopyWithImpl<_$ReviewDislikedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1950,30 +1961,30 @@ class _$_ReviewDisliked implements _ReviewDisliked {
 abstract class _ReviewDisliked implements ArtistReviewsEvent {
   const factory _ReviewDisliked(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewDisliked;
+      required final int customerId}) = _$ReviewDislikedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewDislikedCopyWith<_$_ReviewDisliked> get copyWith =>
+  _$$ReviewDislikedImplCopyWith<_$ReviewDislikedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewLikeRemovedCopyWith<$Res> {
-  factory _$$_ReviewLikeRemovedCopyWith(_$_ReviewLikeRemoved value,
-          $Res Function(_$_ReviewLikeRemoved) then) =
-      __$$_ReviewLikeRemovedCopyWithImpl<$Res>;
+abstract class _$$ReviewLikeRemovedImplCopyWith<$Res> {
+  factory _$$ReviewLikeRemovedImplCopyWith(_$ReviewLikeRemovedImpl value,
+          $Res Function(_$ReviewLikeRemovedImpl) then) =
+      __$$ReviewLikeRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewLikeRemovedCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_ReviewLikeRemoved>
-    implements _$$_ReviewLikeRemovedCopyWith<$Res> {
-  __$$_ReviewLikeRemovedCopyWithImpl(
-      _$_ReviewLikeRemoved _value, $Res Function(_$_ReviewLikeRemoved) _then)
+class __$$ReviewLikeRemovedImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$ReviewLikeRemovedImpl>
+    implements _$$ReviewLikeRemovedImplCopyWith<$Res> {
+  __$$ReviewLikeRemovedImplCopyWithImpl(_$ReviewLikeRemovedImpl _value,
+      $Res Function(_$ReviewLikeRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1982,7 +1993,7 @@ class __$$_ReviewLikeRemovedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewLikeRemoved(
+    return _then(_$ReviewLikeRemovedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1997,8 +2008,8 @@ class __$$_ReviewLikeRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
-  const _$_ReviewLikeRemoved(
+class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
+  const _$ReviewLikeRemovedImpl(
       {required this.reviewId, required this.customerId});
 
   @override
@@ -2012,10 +2023,10 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewLikeRemoved &&
+            other is _$ReviewLikeRemovedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -2028,8 +2039,8 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewLikeRemovedCopyWith<_$_ReviewLikeRemoved> get copyWith =>
-      __$$_ReviewLikeRemovedCopyWithImpl<_$_ReviewLikeRemoved>(
+  _$$ReviewLikeRemovedImplCopyWith<_$ReviewLikeRemovedImpl> get copyWith =>
+      __$$ReviewLikeRemovedImplCopyWithImpl<_$ReviewLikeRemovedImpl>(
           this, _$identity);
 
   @override
@@ -2171,30 +2182,31 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
 abstract class _ReviewLikeRemoved implements ArtistReviewsEvent {
   const factory _ReviewLikeRemoved(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewLikeRemoved;
+      required final int customerId}) = _$ReviewLikeRemovedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewLikeRemovedCopyWith<_$_ReviewLikeRemoved> get copyWith =>
+  _$$ReviewLikeRemovedImplCopyWith<_$ReviewLikeRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewDislikedRemovedCopyWith<$Res> {
-  factory _$$_ReviewDislikedRemovedCopyWith(_$_ReviewDislikedRemoved value,
-          $Res Function(_$_ReviewDislikedRemoved) then) =
-      __$$_ReviewDislikedRemovedCopyWithImpl<$Res>;
+abstract class _$$ReviewDislikedRemovedImplCopyWith<$Res> {
+  factory _$$ReviewDislikedRemovedImplCopyWith(
+          _$ReviewDislikedRemovedImpl value,
+          $Res Function(_$ReviewDislikedRemovedImpl) then) =
+      __$$ReviewDislikedRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_ReviewDislikedRemoved>
-    implements _$$_ReviewDislikedRemovedCopyWith<$Res> {
-  __$$_ReviewDislikedRemovedCopyWithImpl(_$_ReviewDislikedRemoved _value,
-      $Res Function(_$_ReviewDislikedRemoved) _then)
+class __$$ReviewDislikedRemovedImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$ReviewDislikedRemovedImpl>
+    implements _$$ReviewDislikedRemovedImplCopyWith<$Res> {
+  __$$ReviewDislikedRemovedImplCopyWithImpl(_$ReviewDislikedRemovedImpl _value,
+      $Res Function(_$ReviewDislikedRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2203,7 +2215,7 @@ class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewDislikedRemoved(
+    return _then(_$ReviewDislikedRemovedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -2218,8 +2230,8 @@ class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
-  const _$_ReviewDislikedRemoved(
+class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
+  const _$ReviewDislikedRemovedImpl(
       {required this.reviewId, required this.customerId});
 
   @override
@@ -2233,10 +2245,10 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewDislikedRemoved &&
+            other is _$ReviewDislikedRemovedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -2249,9 +2261,9 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewDislikedRemovedCopyWith<_$_ReviewDislikedRemoved> get copyWith =>
-      __$$_ReviewDislikedRemovedCopyWithImpl<_$_ReviewDislikedRemoved>(
-          this, _$identity);
+  _$$ReviewDislikedRemovedImplCopyWith<_$ReviewDislikedRemovedImpl>
+      get copyWith => __$$ReviewDislikedRemovedImplCopyWithImpl<
+          _$ReviewDislikedRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2392,30 +2404,30 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
 abstract class _ReviewDislikedRemoved implements ArtistReviewsEvent {
   const factory _ReviewDislikedRemoved(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewDislikedRemoved;
+      required final int customerId}) = _$ReviewDislikedRemovedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewDislikedRemovedCopyWith<_$_ReviewDislikedRemoved> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ReviewDislikedRemovedImplCopyWith<_$ReviewDislikedRemovedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SwitchReviewReactionCopyWith<$Res> {
-  factory _$$_SwitchReviewReactionCopyWith(_$_SwitchReviewReaction value,
-          $Res Function(_$_SwitchReviewReaction) then) =
-      __$$_SwitchReviewReactionCopyWithImpl<$Res>;
+abstract class _$$SwitchReviewReactionImplCopyWith<$Res> {
+  factory _$$SwitchReviewReactionImplCopyWith(_$SwitchReviewReactionImpl value,
+          $Res Function(_$SwitchReviewReactionImpl) then) =
+      __$$SwitchReviewReactionImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId, bool liked, bool disliked});
 }
 
 /// @nodoc
-class __$$_SwitchReviewReactionCopyWithImpl<$Res>
-    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$_SwitchReviewReaction>
-    implements _$$_SwitchReviewReactionCopyWith<$Res> {
-  __$$_SwitchReviewReactionCopyWithImpl(_$_SwitchReviewReaction _value,
-      $Res Function(_$_SwitchReviewReaction) _then)
+class __$$SwitchReviewReactionImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsEventCopyWithImpl<$Res, _$SwitchReviewReactionImpl>
+    implements _$$SwitchReviewReactionImplCopyWith<$Res> {
+  __$$SwitchReviewReactionImplCopyWithImpl(_$SwitchReviewReactionImpl _value,
+      $Res Function(_$SwitchReviewReactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2426,7 +2438,7 @@ class __$$_SwitchReviewReactionCopyWithImpl<$Res>
     Object? liked = null,
     Object? disliked = null,
   }) {
-    return _then(_$_SwitchReviewReaction(
+    return _then(_$SwitchReviewReactionImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -2449,8 +2461,8 @@ class __$$_SwitchReviewReactionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SwitchReviewReaction implements _SwitchReviewReaction {
-  const _$_SwitchReviewReaction(
+class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
+  const _$SwitchReviewReactionImpl(
       {required this.reviewId,
       required this.customerId,
       required this.liked,
@@ -2471,10 +2483,10 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SwitchReviewReaction &&
+            other is _$SwitchReviewReactionImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -2491,9 +2503,10 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SwitchReviewReactionCopyWith<_$_SwitchReviewReaction> get copyWith =>
-      __$$_SwitchReviewReactionCopyWithImpl<_$_SwitchReviewReaction>(
-          this, _$identity);
+  _$$SwitchReviewReactionImplCopyWith<_$SwitchReviewReactionImpl>
+      get copyWith =>
+          __$$SwitchReviewReactionImplCopyWithImpl<_$SwitchReviewReactionImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2636,15 +2649,15 @@ abstract class _SwitchReviewReaction implements ArtistReviewsEvent {
       {required final int reviewId,
       required final int customerId,
       required final bool liked,
-      required final bool disliked}) = _$_SwitchReviewReaction;
+      required final bool disliked}) = _$SwitchReviewReactionImpl;
 
   int get reviewId;
   int get customerId;
   bool get liked;
   bool get disliked;
   @JsonKey(ignore: true)
-  _$$_SwitchReviewReactionCopyWith<_$_SwitchReviewReaction> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SwitchReviewReactionImplCopyWith<_$SwitchReviewReactionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2825,11 +2838,11 @@ class _$ArtistReviewsStateCopyWithImpl<$Res, $Val extends ArtistReviewsState>
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsInitialCopyWith<$Res>
+abstract class _$$ArtistReviewsInitialImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsInitialCopyWith(_$ArtistReviewsInitial value,
-          $Res Function(_$ArtistReviewsInitial) then) =
-      __$$ArtistReviewsInitialCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsInitialImplCopyWith(_$ArtistReviewsInitialImpl value,
+          $Res Function(_$ArtistReviewsInitialImpl) then) =
+      __$$ArtistReviewsInitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2839,11 +2852,11 @@ abstract class _$$ArtistReviewsInitialCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsInitialCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsInitial>
-    implements _$$ArtistReviewsInitialCopyWith<$Res> {
-  __$$ArtistReviewsInitialCopyWithImpl(_$ArtistReviewsInitial _value,
-      $Res Function(_$ArtistReviewsInitial) _then)
+class __$$ArtistReviewsInitialImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsInitialImpl>
+    implements _$$ArtistReviewsInitialImplCopyWith<$Res> {
+  __$$ArtistReviewsInitialImplCopyWithImpl(_$ArtistReviewsInitialImpl _value,
+      $Res Function(_$ArtistReviewsInitialImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2853,7 +2866,7 @@ class __$$ArtistReviewsInitialCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsInitial(
+    return _then(_$ArtistReviewsInitialImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -2872,8 +2885,8 @@ class __$$ArtistReviewsInitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsInitial implements ArtistReviewsInitial {
-  const _$ArtistReviewsInitial(
+class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
+  const _$ArtistReviewsInitialImpl(
       {final Map<int, Reactions> reviewReactions = const {},
       final Map<int, Reaction> customerReactions = const {},
       final List<ReviewItem> reviews = const []})
@@ -2885,6 +2898,7 @@ class _$ArtistReviewsInitial implements ArtistReviewsInitial {
   @override
   @JsonKey()
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -2893,6 +2907,8 @@ class _$ArtistReviewsInitial implements ArtistReviewsInitial {
   @override
   @JsonKey()
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -2901,6 +2917,7 @@ class _$ArtistReviewsInitial implements ArtistReviewsInitial {
   @override
   @JsonKey()
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -2911,10 +2928,10 @@ class _$ArtistReviewsInitial implements ArtistReviewsInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsInitial &&
+            other is _$ArtistReviewsInitialImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -2932,9 +2949,10 @@ class _$ArtistReviewsInitial implements ArtistReviewsInitial {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsInitialCopyWith<_$ArtistReviewsInitial> get copyWith =>
-      __$$ArtistReviewsInitialCopyWithImpl<_$ArtistReviewsInitial>(
-          this, _$identity);
+  _$$ArtistReviewsInitialImplCopyWith<_$ArtistReviewsInitialImpl>
+      get copyWith =>
+          __$$ArtistReviewsInitialImplCopyWithImpl<_$ArtistReviewsInitialImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3084,7 +3102,7 @@ abstract class ArtistReviewsInitial implements ArtistReviewsState {
   const factory ArtistReviewsInitial(
       {final Map<int, Reactions> reviewReactions,
       final Map<int, Reaction> customerReactions,
-      final List<ReviewItem> reviews}) = _$ArtistReviewsInitial;
+      final List<ReviewItem> reviews}) = _$ArtistReviewsInitialImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3094,16 +3112,16 @@ abstract class ArtistReviewsInitial implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsInitialCopyWith<_$ArtistReviewsInitial> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistReviewsInitialImplCopyWith<_$ArtistReviewsInitialImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsLoadingCopyWith<$Res>
+abstract class _$$ArtistReviewsLoadingImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsLoadingCopyWith(_$ArtistReviewsLoading value,
-          $Res Function(_$ArtistReviewsLoading) then) =
-      __$$ArtistReviewsLoadingCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsLoadingImplCopyWith(_$ArtistReviewsLoadingImpl value,
+          $Res Function(_$ArtistReviewsLoadingImpl) then) =
+      __$$ArtistReviewsLoadingImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3113,11 +3131,11 @@ abstract class _$$ArtistReviewsLoadingCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsLoadingCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsLoading>
-    implements _$$ArtistReviewsLoadingCopyWith<$Res> {
-  __$$ArtistReviewsLoadingCopyWithImpl(_$ArtistReviewsLoading _value,
-      $Res Function(_$ArtistReviewsLoading) _then)
+class __$$ArtistReviewsLoadingImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsLoadingImpl>
+    implements _$$ArtistReviewsLoadingImplCopyWith<$Res> {
+  __$$ArtistReviewsLoadingImplCopyWithImpl(_$ArtistReviewsLoadingImpl _value,
+      $Res Function(_$ArtistReviewsLoadingImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3127,7 +3145,7 @@ class __$$ArtistReviewsLoadingCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsLoading(
+    return _then(_$ArtistReviewsLoadingImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3146,8 +3164,8 @@ class __$$ArtistReviewsLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsLoading implements ArtistReviewsLoading {
-  const _$ArtistReviewsLoading(
+class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
+  const _$ArtistReviewsLoadingImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -3158,6 +3176,7 @@ class _$ArtistReviewsLoading implements ArtistReviewsLoading {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -3165,6 +3184,8 @@ class _$ArtistReviewsLoading implements ArtistReviewsLoading {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -3172,6 +3193,7 @@ class _$ArtistReviewsLoading implements ArtistReviewsLoading {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -3182,10 +3204,10 @@ class _$ArtistReviewsLoading implements ArtistReviewsLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsLoading &&
+            other is _$ArtistReviewsLoadingImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -3203,9 +3225,10 @@ class _$ArtistReviewsLoading implements ArtistReviewsLoading {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsLoadingCopyWith<_$ArtistReviewsLoading> get copyWith =>
-      __$$ArtistReviewsLoadingCopyWithImpl<_$ArtistReviewsLoading>(
-          this, _$identity);
+  _$$ArtistReviewsLoadingImplCopyWith<_$ArtistReviewsLoadingImpl>
+      get copyWith =>
+          __$$ArtistReviewsLoadingImplCopyWithImpl<_$ArtistReviewsLoadingImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3355,7 +3378,7 @@ abstract class ArtistReviewsLoading implements ArtistReviewsState {
   const factory ArtistReviewsLoading(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoading;
+      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadingImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3365,16 +3388,16 @@ abstract class ArtistReviewsLoading implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsLoadingCopyWith<_$ArtistReviewsLoading> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistReviewsLoadingImplCopyWith<_$ArtistReviewsLoadingImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsLoadedCopyWith<$Res>
+abstract class _$$ArtistReviewsLoadedImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsLoadedCopyWith(_$ArtistReviewsLoaded value,
-          $Res Function(_$ArtistReviewsLoaded) then) =
-      __$$ArtistReviewsLoadedCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsLoadedImplCopyWith(_$ArtistReviewsLoadedImpl value,
+          $Res Function(_$ArtistReviewsLoadedImpl) then) =
+      __$$ArtistReviewsLoadedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3384,11 +3407,11 @@ abstract class _$$ArtistReviewsLoadedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsLoadedCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsLoaded>
-    implements _$$ArtistReviewsLoadedCopyWith<$Res> {
-  __$$ArtistReviewsLoadedCopyWithImpl(
-      _$ArtistReviewsLoaded _value, $Res Function(_$ArtistReviewsLoaded) _then)
+class __$$ArtistReviewsLoadedImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsLoadedImpl>
+    implements _$$ArtistReviewsLoadedImplCopyWith<$Res> {
+  __$$ArtistReviewsLoadedImplCopyWithImpl(_$ArtistReviewsLoadedImpl _value,
+      $Res Function(_$ArtistReviewsLoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3398,7 +3421,7 @@ class __$$ArtistReviewsLoadedCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsLoaded(
+    return _then(_$ArtistReviewsLoadedImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3417,8 +3440,8 @@ class __$$ArtistReviewsLoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
-  const _$ArtistReviewsLoaded(
+class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
+  const _$ArtistReviewsLoadedImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -3429,6 +3452,7 @@ class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -3436,6 +3460,8 @@ class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -3443,6 +3469,7 @@ class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -3453,10 +3480,10 @@ class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsLoaded &&
+            other is _$ArtistReviewsLoadedImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -3474,8 +3501,8 @@ class _$ArtistReviewsLoaded implements ArtistReviewsLoaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsLoadedCopyWith<_$ArtistReviewsLoaded> get copyWith =>
-      __$$ArtistReviewsLoadedCopyWithImpl<_$ArtistReviewsLoaded>(
+  _$$ArtistReviewsLoadedImplCopyWith<_$ArtistReviewsLoadedImpl> get copyWith =>
+      __$$ArtistReviewsLoadedImplCopyWithImpl<_$ArtistReviewsLoadedImpl>(
           this, _$identity);
 
   @override
@@ -3626,7 +3653,7 @@ abstract class ArtistReviewsLoaded implements ArtistReviewsState {
   const factory ArtistReviewsLoaded(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoaded;
+      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadedImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3636,16 +3663,16 @@ abstract class ArtistReviewsLoaded implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsLoadedCopyWith<_$ArtistReviewsLoaded> get copyWith =>
+  _$$ArtistReviewsLoadedImplCopyWith<_$ArtistReviewsLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsErrorCopyWith<$Res>
+abstract class _$$ArtistReviewsErrorImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsErrorCopyWith(_$ArtistReviewsError value,
-          $Res Function(_$ArtistReviewsError) then) =
-      __$$ArtistReviewsErrorCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsErrorImplCopyWith(_$ArtistReviewsErrorImpl value,
+          $Res Function(_$ArtistReviewsErrorImpl) then) =
+      __$$ArtistReviewsErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3656,11 +3683,11 @@ abstract class _$$ArtistReviewsErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsErrorCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsError>
-    implements _$$ArtistReviewsErrorCopyWith<$Res> {
-  __$$ArtistReviewsErrorCopyWithImpl(
-      _$ArtistReviewsError _value, $Res Function(_$ArtistReviewsError) _then)
+class __$$ArtistReviewsErrorImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsErrorImpl>
+    implements _$$ArtistReviewsErrorImplCopyWith<$Res> {
+  __$$ArtistReviewsErrorImplCopyWithImpl(_$ArtistReviewsErrorImpl _value,
+      $Res Function(_$ArtistReviewsErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3671,7 +3698,7 @@ class __$$ArtistReviewsErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? message = null,
   }) {
-    return _then(_$ArtistReviewsError(
+    return _then(_$ArtistReviewsErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3694,8 +3721,8 @@ class __$$ArtistReviewsErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsError implements ArtistReviewsError {
-  const _$ArtistReviewsError(
+class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
+  const _$ArtistReviewsErrorImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
@@ -3707,6 +3734,7 @@ class _$ArtistReviewsError implements ArtistReviewsError {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -3714,6 +3742,8 @@ class _$ArtistReviewsError implements ArtistReviewsError {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -3721,6 +3751,7 @@ class _$ArtistReviewsError implements ArtistReviewsError {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -3734,10 +3765,10 @@ class _$ArtistReviewsError implements ArtistReviewsError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsError &&
+            other is _$ArtistReviewsErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -3757,8 +3788,8 @@ class _$ArtistReviewsError implements ArtistReviewsError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsErrorCopyWith<_$ArtistReviewsError> get copyWith =>
-      __$$ArtistReviewsErrorCopyWithImpl<_$ArtistReviewsError>(
+  _$$ArtistReviewsErrorImplCopyWith<_$ArtistReviewsErrorImpl> get copyWith =>
+      __$$ArtistReviewsErrorImplCopyWithImpl<_$ArtistReviewsErrorImpl>(
           this, _$identity);
 
   @override
@@ -3910,7 +3941,7 @@ abstract class ArtistReviewsError implements ArtistReviewsState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String message}) = _$ArtistReviewsError;
+      required final String message}) = _$ArtistReviewsErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3921,16 +3952,16 @@ abstract class ArtistReviewsError implements ArtistReviewsState {
   String get message;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsErrorCopyWith<_$ArtistReviewsError> get copyWith =>
+  _$$ArtistReviewsErrorImplCopyWith<_$ArtistReviewsErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsNoDataCopyWith<$Res>
+abstract class _$$ArtistReviewsNoDataImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsNoDataCopyWith(_$ArtistReviewsNoData value,
-          $Res Function(_$ArtistReviewsNoData) then) =
-      __$$ArtistReviewsNoDataCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsNoDataImplCopyWith(_$ArtistReviewsNoDataImpl value,
+          $Res Function(_$ArtistReviewsNoDataImpl) then) =
+      __$$ArtistReviewsNoDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3940,11 +3971,11 @@ abstract class _$$ArtistReviewsNoDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsNoDataCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsNoData>
-    implements _$$ArtistReviewsNoDataCopyWith<$Res> {
-  __$$ArtistReviewsNoDataCopyWithImpl(
-      _$ArtistReviewsNoData _value, $Res Function(_$ArtistReviewsNoData) _then)
+class __$$ArtistReviewsNoDataImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsNoDataImpl>
+    implements _$$ArtistReviewsNoDataImplCopyWith<$Res> {
+  __$$ArtistReviewsNoDataImplCopyWithImpl(_$ArtistReviewsNoDataImpl _value,
+      $Res Function(_$ArtistReviewsNoDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3954,7 +3985,7 @@ class __$$ArtistReviewsNoDataCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsNoData(
+    return _then(_$ArtistReviewsNoDataImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3973,8 +4004,8 @@ class __$$ArtistReviewsNoDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsNoData implements ArtistReviewsNoData {
-  const _$ArtistReviewsNoData(
+class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
+  const _$ArtistReviewsNoDataImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -3985,6 +4016,7 @@ class _$ArtistReviewsNoData implements ArtistReviewsNoData {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -3992,6 +4024,8 @@ class _$ArtistReviewsNoData implements ArtistReviewsNoData {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -3999,6 +4033,7 @@ class _$ArtistReviewsNoData implements ArtistReviewsNoData {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -4009,10 +4044,10 @@ class _$ArtistReviewsNoData implements ArtistReviewsNoData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsNoData &&
+            other is _$ArtistReviewsNoDataImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -4030,8 +4065,8 @@ class _$ArtistReviewsNoData implements ArtistReviewsNoData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsNoDataCopyWith<_$ArtistReviewsNoData> get copyWith =>
-      __$$ArtistReviewsNoDataCopyWithImpl<_$ArtistReviewsNoData>(
+  _$$ArtistReviewsNoDataImplCopyWith<_$ArtistReviewsNoDataImpl> get copyWith =>
+      __$$ArtistReviewsNoDataImplCopyWithImpl<_$ArtistReviewsNoDataImpl>(
           this, _$identity);
 
   @override
@@ -4182,7 +4217,7 @@ abstract class ArtistReviewsNoData implements ArtistReviewsState {
   const factory ArtistReviewsNoData(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ArtistReviewsNoData;
+      required final List<ReviewItem> reviews}) = _$ArtistReviewsNoDataImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -4192,16 +4227,17 @@ abstract class ArtistReviewsNoData implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsNoDataCopyWith<_$ArtistReviewsNoData> get copyWith =>
+  _$$ArtistReviewsNoDataImplCopyWith<_$ArtistReviewsNoDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsLoadedMoreCopyWith<$Res>
+abstract class _$$ArtistReviewsLoadedMoreImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsLoadedMoreCopyWith(_$ArtistReviewsLoadedMore value,
-          $Res Function(_$ArtistReviewsLoadedMore) then) =
-      __$$ArtistReviewsLoadedMoreCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsLoadedMoreImplCopyWith(
+          _$ArtistReviewsLoadedMoreImpl value,
+          $Res Function(_$ArtistReviewsLoadedMoreImpl) then) =
+      __$$ArtistReviewsLoadedMoreImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4211,11 +4247,13 @@ abstract class _$$ArtistReviewsLoadedMoreCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsLoadedMoreCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsLoadedMore>
-    implements _$$ArtistReviewsLoadedMoreCopyWith<$Res> {
-  __$$ArtistReviewsLoadedMoreCopyWithImpl(_$ArtistReviewsLoadedMore _value,
-      $Res Function(_$ArtistReviewsLoadedMore) _then)
+class __$$ArtistReviewsLoadedMoreImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res,
+        _$ArtistReviewsLoadedMoreImpl>
+    implements _$$ArtistReviewsLoadedMoreImplCopyWith<$Res> {
+  __$$ArtistReviewsLoadedMoreImplCopyWithImpl(
+      _$ArtistReviewsLoadedMoreImpl _value,
+      $Res Function(_$ArtistReviewsLoadedMoreImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4225,7 +4263,7 @@ class __$$ArtistReviewsLoadedMoreCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsLoadedMore(
+    return _then(_$ArtistReviewsLoadedMoreImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -4244,8 +4282,8 @@ class __$$ArtistReviewsLoadedMoreCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
-  const _$ArtistReviewsLoadedMore(
+class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
+  const _$ArtistReviewsLoadedMoreImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -4256,6 +4294,7 @@ class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -4263,6 +4302,8 @@ class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -4270,6 +4311,7 @@ class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -4280,10 +4322,10 @@ class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsLoadedMore &&
+            other is _$ArtistReviewsLoadedMoreImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -4301,9 +4343,9 @@ class _$ArtistReviewsLoadedMore implements ArtistReviewsLoadedMore {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsLoadedMoreCopyWith<_$ArtistReviewsLoadedMore> get copyWith =>
-      __$$ArtistReviewsLoadedMoreCopyWithImpl<_$ArtistReviewsLoadedMore>(
-          this, _$identity);
+  _$$ArtistReviewsLoadedMoreImplCopyWith<_$ArtistReviewsLoadedMoreImpl>
+      get copyWith => __$$ArtistReviewsLoadedMoreImplCopyWithImpl<
+          _$ArtistReviewsLoadedMoreImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4453,7 +4495,7 @@ abstract class ArtistReviewsLoadedMore implements ArtistReviewsState {
   const factory ArtistReviewsLoadedMore(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadedMore;
+      required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadedMoreImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -4463,16 +4505,17 @@ abstract class ArtistReviewsLoadedMore implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsLoadedMoreCopyWith<_$ArtistReviewsLoadedMore> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistReviewsLoadedMoreImplCopyWith<_$ArtistReviewsLoadedMoreImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ArtistReviewsNoMoreDataCopyWith<$Res>
+abstract class _$$ArtistReviewsNoMoreDataImplCopyWith<$Res>
     implements $ArtistReviewsStateCopyWith<$Res> {
-  factory _$$ArtistReviewsNoMoreDataCopyWith(_$ArtistReviewsNoMoreData value,
-          $Res Function(_$ArtistReviewsNoMoreData) then) =
-      __$$ArtistReviewsNoMoreDataCopyWithImpl<$Res>;
+  factory _$$ArtistReviewsNoMoreDataImplCopyWith(
+          _$ArtistReviewsNoMoreDataImpl value,
+          $Res Function(_$ArtistReviewsNoMoreDataImpl) then) =
+      __$$ArtistReviewsNoMoreDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4482,11 +4525,13 @@ abstract class _$$ArtistReviewsNoMoreDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistReviewsNoMoreDataCopyWithImpl<$Res>
-    extends _$ArtistReviewsStateCopyWithImpl<$Res, _$ArtistReviewsNoMoreData>
-    implements _$$ArtistReviewsNoMoreDataCopyWith<$Res> {
-  __$$ArtistReviewsNoMoreDataCopyWithImpl(_$ArtistReviewsNoMoreData _value,
-      $Res Function(_$ArtistReviewsNoMoreData) _then)
+class __$$ArtistReviewsNoMoreDataImplCopyWithImpl<$Res>
+    extends _$ArtistReviewsStateCopyWithImpl<$Res,
+        _$ArtistReviewsNoMoreDataImpl>
+    implements _$$ArtistReviewsNoMoreDataImplCopyWith<$Res> {
+  __$$ArtistReviewsNoMoreDataImplCopyWithImpl(
+      _$ArtistReviewsNoMoreDataImpl _value,
+      $Res Function(_$ArtistReviewsNoMoreDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4496,7 +4541,7 @@ class __$$ArtistReviewsNoMoreDataCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ArtistReviewsNoMoreData(
+    return _then(_$ArtistReviewsNoMoreDataImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -4515,8 +4560,8 @@ class __$$ArtistReviewsNoMoreDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
-  const _$ArtistReviewsNoMoreData(
+class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
+  const _$ArtistReviewsNoMoreDataImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -4527,6 +4572,7 @@ class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -4534,6 +4580,8 @@ class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -4541,6 +4589,7 @@ class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -4551,10 +4600,10 @@ class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistReviewsNoMoreData &&
+            other is _$ArtistReviewsNoMoreDataImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -4572,9 +4621,9 @@ class _$ArtistReviewsNoMoreData implements ArtistReviewsNoMoreData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistReviewsNoMoreDataCopyWith<_$ArtistReviewsNoMoreData> get copyWith =>
-      __$$ArtistReviewsNoMoreDataCopyWithImpl<_$ArtistReviewsNoMoreData>(
-          this, _$identity);
+  _$$ArtistReviewsNoMoreDataImplCopyWith<_$ArtistReviewsNoMoreDataImpl>
+      get copyWith => __$$ArtistReviewsNoMoreDataImplCopyWithImpl<
+          _$ArtistReviewsNoMoreDataImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4724,7 +4773,7 @@ abstract class ArtistReviewsNoMoreData implements ArtistReviewsState {
   const factory ArtistReviewsNoMoreData(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ArtistReviewsNoMoreData;
+      required final List<ReviewItem> reviews}) = _$ArtistReviewsNoMoreDataImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -4734,6 +4783,6 @@ abstract class ArtistReviewsNoMoreData implements ArtistReviewsState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistReviewsNoMoreDataCopyWith<_$ArtistReviewsNoMoreData> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ArtistReviewsNoMoreDataImplCopyWith<_$ArtistReviewsNoMoreDataImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

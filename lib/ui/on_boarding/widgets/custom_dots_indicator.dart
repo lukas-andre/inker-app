@@ -20,7 +20,7 @@ class CustomDotsIndicator extends StatelessWidget {
               padding: const EdgeInsets.only(left: 39),
               child: DotsIndicator(
                 dotsCount: state.contents.length,
-                position: state.page.toDouble(),
+                position: state.page,
                 mainAxisAlignment: MainAxisAlignment.start,
                 onTap: (index) {
                   context

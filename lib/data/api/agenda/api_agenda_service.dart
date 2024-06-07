@@ -78,4 +78,10 @@ class ApiAgendaService extends AgendaService {
   @override
   // TODO: implement statusValue
   get statusValue => throw UnimplementedError();
+
+  @override
+  Future getEvents(String token) {
+    // TODO: implement getEvents
+    throw UnimplementedError();
+  }
 }

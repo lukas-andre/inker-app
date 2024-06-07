@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'find_artist_by_location_response.dart';
 
@@ -12,7 +12,7 @@ part of 'find_artist_by_location_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 FindArtistByLocationResponse _$FindArtistByLocationResponseFromJson(
     Map<String, dynamic> json) {
@@ -186,12 +186,12 @@ class _$FindArtistByLocationResponseCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_FindArtistByLocationResponseCopyWith<$Res>
+abstract class _$$FindArtistByLocationResponseImplCopyWith<$Res>
     implements $FindArtistByLocationResponseCopyWith<$Res> {
-  factory _$$_FindArtistByLocationResponseCopyWith(
-          _$_FindArtistByLocationResponse value,
-          $Res Function(_$_FindArtistByLocationResponse) then) =
-      __$$_FindArtistByLocationResponseCopyWithImpl<$Res>;
+  factory _$$FindArtistByLocationResponseImplCopyWith(
+          _$FindArtistByLocationResponseImpl value,
+          $Res Function(_$FindArtistByLocationResponseImpl) then) =
+      __$$FindArtistByLocationResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -217,13 +217,13 @@ abstract class _$$_FindArtistByLocationResponseCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FindArtistByLocationResponseCopyWithImpl<$Res>
+class __$$FindArtistByLocationResponseImplCopyWithImpl<$Res>
     extends _$FindArtistByLocationResponseCopyWithImpl<$Res,
-        _$_FindArtistByLocationResponse>
-    implements _$$_FindArtistByLocationResponseCopyWith<$Res> {
-  __$$_FindArtistByLocationResponseCopyWithImpl(
-      _$_FindArtistByLocationResponse _value,
-      $Res Function(_$_FindArtistByLocationResponse) _then)
+        _$FindArtistByLocationResponseImpl>
+    implements _$$FindArtistByLocationResponseImplCopyWith<$Res> {
+  __$$FindArtistByLocationResponseImplCopyWithImpl(
+      _$FindArtistByLocationResponseImpl _value,
+      $Res Function(_$FindArtistByLocationResponseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -246,7 +246,7 @@ class __$$_FindArtistByLocationResponseCopyWithImpl<$Res>
     Object? distance = freezed,
     Object? artist = freezed,
   }) {
-    return _then(_$_FindArtistByLocationResponse(
+    return _then(_$FindArtistByLocationResponseImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -317,8 +317,9 @@ class __$$_FindArtistByLocationResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FindArtistByLocationResponse implements _FindArtistByLocationResponse {
-  const _$_FindArtistByLocationResponse(
+class _$FindArtistByLocationResponseImpl
+    implements _FindArtistByLocationResponse {
+  const _$FindArtistByLocationResponseImpl(
       {this.id,
       this.artistId,
       this.name,
@@ -336,8 +337,9 @@ class _$_FindArtistByLocationResponse implements _FindArtistByLocationResponse {
       this.distance,
       this.artist});
 
-  factory _$_FindArtistByLocationResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_FindArtistByLocationResponseFromJson(json);
+  factory _$FindArtistByLocationResponseImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$FindArtistByLocationResponseImplFromJson(json);
 
   @override
   final int? id;
@@ -378,10 +380,10 @@ class _$_FindArtistByLocationResponse implements _FindArtistByLocationResponse {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FindArtistByLocationResponse &&
+            other is _$FindArtistByLocationResponseImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
@@ -433,13 +435,14 @@ class _$_FindArtistByLocationResponse implements _FindArtistByLocationResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FindArtistByLocationResponseCopyWith<_$_FindArtistByLocationResponse>
-      get copyWith => __$$_FindArtistByLocationResponseCopyWithImpl<
-          _$_FindArtistByLocationResponse>(this, _$identity);
+  _$$FindArtistByLocationResponseImplCopyWith<
+          _$FindArtistByLocationResponseImpl>
+      get copyWith => __$$FindArtistByLocationResponseImplCopyWithImpl<
+          _$FindArtistByLocationResponseImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FindArtistByLocationResponseToJson(
+    return _$$FindArtistByLocationResponseImplToJson(
       this,
     );
   }
@@ -463,10 +466,10 @@ abstract class _FindArtistByLocationResponse
       final String? googlePlaceId,
       final String? distanceUnit,
       final double? distance,
-      final Artist? artist}) = _$_FindArtistByLocationResponse;
+      final Artist? artist}) = _$FindArtistByLocationResponseImpl;
 
   factory _FindArtistByLocationResponse.fromJson(Map<String, dynamic> json) =
-      _$_FindArtistByLocationResponse.fromJson;
+      _$FindArtistByLocationResponseImpl.fromJson;
 
   @override
   int? get id;
@@ -502,7 +505,8 @@ abstract class _FindArtistByLocationResponse
   Artist? get artist;
   @override
   @JsonKey(ignore: true)
-  _$$_FindArtistByLocationResponseCopyWith<_$_FindArtistByLocationResponse>
+  _$$FindArtistByLocationResponseImplCopyWith<
+          _$FindArtistByLocationResponseImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -575,9 +579,9 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? studioPhoto = null,
+    Object? studioPhoto = freezed,
     Object? shortDescription = freezed,
-    Object? profileThumbnail = null,
+    Object? profileThumbnail = freezed,
     Object? rating = freezed,
     Object? review = freezed,
     Object? followers = freezed,
@@ -606,7 +610,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      studioPhoto: null == studioPhoto
+      studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
               as dynamic?,
@@ -614,7 +618,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileThumbnail: null == profileThumbnail
+      profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
               as dynamic?,
@@ -671,9 +675,10 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
 }
 
 /// @nodoc
-abstract class _$$_ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
-  factory _$$_ArtistCopyWith(_$_Artist value, $Res Function(_$_Artist) then) =
-      __$$_ArtistCopyWithImpl<$Res>;
+abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
+  factory _$$ArtistImplCopyWith(
+          _$ArtistImpl value, $Res Function(_$ArtistImpl) then) =
+      __$$ArtistImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -699,10 +704,11 @@ abstract class _$$_ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ArtistCopyWithImpl<$Res>
-    extends _$ArtistCopyWithImpl<$Res, _$_Artist>
-    implements _$$_ArtistCopyWith<$Res> {
-  __$$_ArtistCopyWithImpl(_$_Artist _value, $Res Function(_$_Artist) _then)
+class __$$ArtistImplCopyWithImpl<$Res>
+    extends _$ArtistCopyWithImpl<$Res, _$ArtistImpl>
+    implements _$$ArtistImplCopyWith<$Res> {
+  __$$ArtistImplCopyWithImpl(
+      _$ArtistImpl _value, $Res Function(_$ArtistImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -713,9 +719,9 @@ class __$$_ArtistCopyWithImpl<$Res>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? studioPhoto = null,
+    Object? studioPhoto = freezed,
     Object? shortDescription = freezed,
-    Object? profileThumbnail = null,
+    Object? profileThumbnail = freezed,
     Object? rating = freezed,
     Object? review = freezed,
     Object? followers = freezed,
@@ -723,7 +729,7 @@ class __$$_ArtistCopyWithImpl<$Res>
     Object? distanceUnit = freezed,
     Object? distance = freezed,
   }) {
-    return _then(_$_Artist(
+    return _then(_$ArtistImpl(
       contact: freezed == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -744,7 +750,7 @@ class __$$_ArtistCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      studioPhoto: null == studioPhoto
+      studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
               as dynamic?,
@@ -752,7 +758,7 @@ class __$$_ArtistCopyWithImpl<$Res>
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileThumbnail: null == profileThumbnail
+      profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
               as dynamic?,
@@ -786,8 +792,8 @@ class __$$_ArtistCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Artist implements _Artist {
-  const _$_Artist(
+class _$ArtistImpl implements _Artist {
+  const _$ArtistImpl(
       {this.contact,
       this.id,
       this.username,
@@ -803,8 +809,8 @@ class _$_Artist implements _Artist {
       this.distanceUnit,
       this.distance});
 
-  factory _$_Artist.fromJson(Map<String, dynamic> json) =>
-      _$$_ArtistFromJson(json);
+  factory _$ArtistImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ArtistImplFromJson(json);
 
   @override
   final Contact? contact;
@@ -841,10 +847,10 @@ class _$_Artist implements _Artist {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Artist &&
+            other is _$ArtistImpl &&
             (identical(other.contact, contact) || other.contact == contact) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
@@ -893,12 +899,12 @@ class _$_Artist implements _Artist {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArtistCopyWith<_$_Artist> get copyWith =>
-      __$$_ArtistCopyWithImpl<_$_Artist>(this, _$identity);
+  _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>
+      __$$ArtistImplCopyWithImpl<_$ArtistImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ArtistToJson(
+    return _$$ArtistImplToJson(
       this,
     );
   }
@@ -919,9 +925,9 @@ abstract class _Artist implements Artist {
       final int? followers,
       final bool? isFollowedByUser,
       final String? distanceUnit,
-      final double? distance}) = _$_Artist;
+      final double? distance}) = _$ArtistImpl;
 
-  factory _Artist.fromJson(Map<String, dynamic> json) = _$_Artist.fromJson;
+  factory _Artist.fromJson(Map<String, dynamic> json) = _$ArtistImpl.fromJson;
 
   @override
   Contact? get contact;
@@ -953,7 +959,7 @@ abstract class _Artist implements Artist {
   double? get distance;
   @override
   @JsonKey(ignore: true)
-  _$$_ArtistCopyWith<_$_Artist> get copyWith =>
+  _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1015,20 +1021,21 @@ class _$ContactCopyWithImpl<$Res, $Val extends Contact>
 }
 
 /// @nodoc
-abstract class _$$_ContactCopyWith<$Res> implements $ContactCopyWith<$Res> {
-  factory _$$_ContactCopyWith(
-          _$_Contact value, $Res Function(_$_Contact) then) =
-      __$$_ContactCopyWithImpl<$Res>;
+abstract class _$$ContactImplCopyWith<$Res> implements $ContactCopyWith<$Res> {
+  factory _$$ContactImplCopyWith(
+          _$ContactImpl value, $Res Function(_$ContactImpl) then) =
+      __$$ContactImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? phone, String? email, String? country});
 }
 
 /// @nodoc
-class __$$_ContactCopyWithImpl<$Res>
-    extends _$ContactCopyWithImpl<$Res, _$_Contact>
-    implements _$$_ContactCopyWith<$Res> {
-  __$$_ContactCopyWithImpl(_$_Contact _value, $Res Function(_$_Contact) _then)
+class __$$ContactImplCopyWithImpl<$Res>
+    extends _$ContactCopyWithImpl<$Res, _$ContactImpl>
+    implements _$$ContactImplCopyWith<$Res> {
+  __$$ContactImplCopyWithImpl(
+      _$ContactImpl _value, $Res Function(_$ContactImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1038,7 +1045,7 @@ class __$$_ContactCopyWithImpl<$Res>
     Object? email = freezed,
     Object? country = freezed,
   }) {
-    return _then(_$_Contact(
+    return _then(_$ContactImpl(
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -1057,11 +1064,11 @@ class __$$_ContactCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Contact implements _Contact {
-  const _$_Contact({this.phone, this.email, this.country});
+class _$ContactImpl implements _Contact {
+  const _$ContactImpl({this.phone, this.email, this.country});
 
-  factory _$_Contact.fromJson(Map<String, dynamic> json) =>
-      _$$_ContactFromJson(json);
+  factory _$ContactImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ContactImplFromJson(json);
 
   @override
   final String? phone;
@@ -1076,10 +1083,10 @@ class _$_Contact implements _Contact {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Contact &&
+            other is _$ContactImpl &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.country, country) || other.country == country));
@@ -1092,12 +1099,12 @@ class _$_Contact implements _Contact {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ContactCopyWith<_$_Contact> get copyWith =>
-      __$$_ContactCopyWithImpl<_$_Contact>(this, _$identity);
+  _$$ContactImplCopyWith<_$ContactImpl> get copyWith =>
+      __$$ContactImplCopyWithImpl<_$ContactImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ContactToJson(
+    return _$$ContactImplToJson(
       this,
     );
   }
@@ -1107,9 +1114,9 @@ abstract class _Contact implements Contact {
   const factory _Contact(
       {final String? phone,
       final String? email,
-      final String? country}) = _$_Contact;
+      final String? country}) = _$ContactImpl;
 
-  factory _Contact.fromJson(Map<String, dynamic> json) = _$_Contact.fromJson;
+  factory _Contact.fromJson(Map<String, dynamic> json) = _$ContactImpl.fromJson;
 
   @override
   String? get phone;
@@ -1119,7 +1126,7 @@ abstract class _Contact implements Contact {
   String? get country;
   @override
   @JsonKey(ignore: true)
-  _$$_ContactCopyWith<_$_Contact> get copyWith =>
+  _$$ContactImplCopyWith<_$ContactImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1188,9 +1195,10 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
 }
 
 /// @nodoc
-abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
-  factory _$$_ReviewCopyWith(_$_Review value, $Res Function(_$_Review) then) =
-      __$$_ReviewCopyWithImpl<$Res>;
+abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
+  factory _$$ReviewImplCopyWith(
+          _$ReviewImpl value, $Res Function(_$ReviewImpl) then) =
+      __$$ReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1198,10 +1206,11 @@ abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReviewCopyWithImpl<$Res>
-    extends _$ReviewCopyWithImpl<$Res, _$_Review>
-    implements _$$_ReviewCopyWith<$Res> {
-  __$$_ReviewCopyWithImpl(_$_Review _value, $Res Function(_$_Review) _then)
+class __$$ReviewImplCopyWithImpl<$Res>
+    extends _$ReviewCopyWithImpl<$Res, _$ReviewImpl>
+    implements _$$ReviewImplCopyWith<$Res> {
+  __$$ReviewImplCopyWithImpl(
+      _$ReviewImpl _value, $Res Function(_$ReviewImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1212,7 +1221,7 @@ class __$$_ReviewCopyWithImpl<$Res>
     Object? detail = freezed,
     Object? count = freezed,
   }) {
-    return _then(_$_Review(
+    return _then(_$ReviewImpl(
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
@@ -1235,13 +1244,13 @@ class __$$_ReviewCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Review implements _Review {
-  const _$_Review(
+class _$ReviewImpl implements _Review {
+  const _$ReviewImpl(
       {this.artistId, this.value, final Map<String, int>? detail, this.count})
       : _detail = detail;
 
-  factory _$_Review.fromJson(Map<String, dynamic> json) =>
-      _$$_ReviewFromJson(json);
+  factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReviewImplFromJson(json);
 
   @override
   final int? artistId;
@@ -1252,6 +1261,7 @@ class _$_Review implements _Review {
   Map<String, int>? get detail {
     final value = _detail;
     if (value == null) return null;
+    if (_detail is EqualUnmodifiableMapView) return _detail;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -1265,10 +1275,10 @@ class _$_Review implements _Review {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Review &&
+            other is _$ReviewImpl &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
             (identical(other.value, value) || other.value == value) &&
@@ -1284,12 +1294,12 @@ class _$_Review implements _Review {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewCopyWith<_$_Review> get copyWith =>
-      __$$_ReviewCopyWithImpl<_$_Review>(this, _$identity);
+  _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>
+      __$$ReviewImplCopyWithImpl<_$ReviewImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewToJson(
+    return _$$ReviewImplToJson(
       this,
     );
   }
@@ -1300,9 +1310,9 @@ abstract class _Review implements Review {
       {final int? artistId,
       final double? value,
       final Map<String, int>? detail,
-      final int? count}) = _$_Review;
+      final int? count}) = _$ReviewImpl;
 
-  factory _Review.fromJson(Map<String, dynamic> json) = _$_Review.fromJson;
+  factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
   int? get artistId;
@@ -1314,6 +1324,6 @@ abstract class _Review implements Review {
   int? get count;
   @override
   @JsonKey(ignore: true)
-  _$$_ReviewCopyWith<_$_Review> get copyWith =>
+  _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

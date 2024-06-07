@@ -6,8 +6,8 @@ part of 'get_artist_works_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GetArtistWorksResponse _$$_GetArtistWorksResponseFromJson(Map json) =>
-    _$_GetArtistWorksResponse(
+_$GetArtistWorksResponseImpl _$$GetArtistWorksResponseImplFromJson(Map json) =>
+    _$GetArtistWorksResponseImpl(
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => WorkItem.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
@@ -16,8 +16,8 @@ _$_GetArtistWorksResponse _$$_GetArtistWorksResponseFromJson(Map json) =>
           : Meta.fromJson(Map<String, dynamic>.from(json['meta'] as Map)),
     );
 
-Map<String, dynamic> _$$_GetArtistWorksResponseToJson(
-    _$_GetArtistWorksResponse instance) {
+Map<String, dynamic> _$$GetArtistWorksResponseImplToJson(
+    _$GetArtistWorksResponseImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -31,15 +31,15 @@ Map<String, dynamic> _$$_GetArtistWorksResponseToJson(
   return val;
 }
 
-_$_WorkItem _$$_WorkItemFromJson(Map json) => _$_WorkItem(
-      id: json['id'] as int?,
+_$WorkItemImpl _$$WorkItemImplFromJson(Map json) => _$WorkItemImpl(
+      id: (json['id'] as num?)?.toInt(),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      customerId: json['customerId'] as int?,
+      customerId: (json['customerId'] as num?)?.toInt(),
       title: json['title'] as String?,
       start: json['start'] == null
           ? null
@@ -59,7 +59,7 @@ _$_WorkItem _$$_WorkItemFromJson(Map json) => _$_WorkItem(
           : Review.fromJson(Map<String, dynamic>.from(json['review'] as Map)),
     );
 
-Map<String, dynamic> _$$_WorkItemToJson(_$_WorkItem instance) {
+Map<String, dynamic> _$$WorkItemImplToJson(_$WorkItemImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -85,24 +85,24 @@ Map<String, dynamic> _$$_WorkItemToJson(_$_WorkItem instance) {
   return val;
 }
 
-_$_Review _$$_ReviewFromJson(Map json) => _$_Review(
-      id: json['id'] as int?,
+_$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
+      id: (json['id'] as num?)?.toInt(),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      artistId: json['artistId'] as int?,
-      eventId: json['eventId'] as int?,
-      value: json['value'] as int?,
+      artistId: (json['artistId'] as num?)?.toInt(),
+      eventId: (json['eventId'] as num?)?.toInt(),
+      value: (json['value'] as num?)?.toInt(),
       header: json['header'] as String?,
       content: json['content'] as String?,
       reviewReactions: json['reviewReactions'] == null
           ? null
           : ReviewReactions.fromJson(
               Map<String, dynamic>.from(json['reviewReactions'] as Map)),
-      createdBy: json['createdBy'] as int?,
+      createdBy: (json['createdBy'] as num?)?.toInt(),
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
       customerReviewDetail: json['customerReviewDetail'] == null
@@ -111,7 +111,7 @@ _$_Review _$$_ReviewFromJson(Map json) => _$_Review(
               Map<String, dynamic>.from(json['customerReviewDetail'] as Map)),
     );
 
-Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) {
+Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -136,15 +136,15 @@ Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) {
   return val;
 }
 
-_$_CustomerReviewDetail _$$_CustomerReviewDetailFromJson(Map json) =>
-    _$_CustomerReviewDetail(
-      reviewReactionId: json['reviewReactionId'] as int?,
+_$CustomerReviewDetailImpl _$$CustomerReviewDetailImplFromJson(Map json) =>
+    _$CustomerReviewDetailImpl(
+      reviewReactionId: (json['reviewReactionId'] as num?)?.toInt(),
       liked: json['liked'] as bool?,
       disliked: json['disliked'] as bool?,
     );
 
-Map<String, dynamic> _$$_CustomerReviewDetailToJson(
-    _$_CustomerReviewDetail instance) {
+Map<String, dynamic> _$$CustomerReviewDetailImplToJson(
+    _$CustomerReviewDetailImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -159,13 +159,15 @@ Map<String, dynamic> _$$_CustomerReviewDetailToJson(
   return val;
 }
 
-_$_ReviewReactions _$$_ReviewReactionsFromJson(Map json) => _$_ReviewReactions(
-      likes: json['likes'] as int?,
-      dislikes: json['dislikes'] as int?,
-      offs: json['offs'] as int?,
+_$ReviewReactionsImpl _$$ReviewReactionsImplFromJson(Map json) =>
+    _$ReviewReactionsImpl(
+      likes: (json['likes'] as num?)?.toInt(),
+      dislikes: (json['dislikes'] as num?)?.toInt(),
+      offs: (json['offs'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_ReviewReactionsToJson(_$_ReviewReactions instance) {
+Map<String, dynamic> _$$ReviewReactionsImplToJson(
+    _$ReviewReactionsImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -180,14 +182,14 @@ Map<String, dynamic> _$$_ReviewReactionsToJson(_$_ReviewReactions instance) {
   return val;
 }
 
-_$_WorkEvidence _$$_WorkEvidenceFromJson(Map json) => _$_WorkEvidence(
-      count: json['count'] as int?,
+_$WorkEvidenceImpl _$$WorkEvidenceImplFromJson(Map json) => _$WorkEvidenceImpl(
+      count: (json['count'] as num?)?.toInt(),
       metadata: (json['metadata'] as List<dynamic>?)
           ?.map((e) => Metadatum.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
     );
 
-Map<String, dynamic> _$$_WorkEvidenceToJson(_$_WorkEvidence instance) {
+Map<String, dynamic> _$$WorkEvidenceImplToJson(_$WorkEvidenceImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -201,17 +203,17 @@ Map<String, dynamic> _$$_WorkEvidenceToJson(_$_WorkEvidence instance) {
   return val;
 }
 
-_$_Metadatum _$$_MetadatumFromJson(Map json) => _$_Metadatum(
+_$MetadatumImpl _$$MetadatumImplFromJson(Map json) => _$MetadatumImpl(
       url: json['url'] as String?,
-      size: json['size'] as int?,
+      size: (json['size'] as num?)?.toInt(),
       type: json['type'] as String?,
       encoding: json['encoding'] as String?,
-      position: json['position'] as int?,
+      position: (json['position'] as num?)?.toInt(),
       fieldname: json['fieldname'] as String?,
       originalname: json['originalname'] as String?,
     );
 
-Map<String, dynamic> _$$_MetadatumToJson(_$_Metadatum instance) {
+Map<String, dynamic> _$$MetadatumImplToJson(_$MetadatumImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -230,15 +232,15 @@ Map<String, dynamic> _$$_MetadatumToJson(_$_Metadatum instance) {
   return val;
 }
 
-_$_Meta _$$_MetaFromJson(Map json) => _$_Meta(
-      totalItems: json['totalItems'] as int?,
-      itemCount: json['itemCount'] as int?,
-      itemsPerPage: json['itemsPerPage'] as int?,
-      totalPages: json['totalPages'] as int?,
-      currentPage: json['currentPage'] as int?,
+_$MetaImpl _$$MetaImplFromJson(Map json) => _$MetaImpl(
+      totalItems: (json['totalItems'] as num?)?.toInt(),
+      itemCount: (json['itemCount'] as num?)?.toInt(),
+      itemsPerPage: (json['itemsPerPage'] as num?)?.toInt(),
+      totalPages: (json['totalPages'] as num?)?.toInt(),
+      currentPage: (json['currentPage'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_MetaToJson(_$_Meta instance) {
+Map<String, dynamic> _$$MetaImplToJson(_$MetaImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
