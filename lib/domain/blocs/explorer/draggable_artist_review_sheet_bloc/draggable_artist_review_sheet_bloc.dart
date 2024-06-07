@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/review/dtos/get_reviews_response.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/models/review_reaction_map.dart';
@@ -36,7 +36,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     _mapBlocStream.listen((mapBlocsState) {
       if (state is ReviewSheetConfigured &&
           _currentArtistId != mapBloc.selectedArtist!.id) {
-        add(const DraggableArtistReviewSheetEvent.clearReviews());
+        add(const DraggableArtistReviewSheetEvent.draggableClearReviews());
         add(DraggableArtistReviewSheetEvent.loadReviews(
             artistId: mapBloc.selectedArtist!.id!));
       }
@@ -46,18 +46,18 @@ class DraggableArtistReviewSheetBloc extends Bloc<
       event.when(
         started: (() => {}),
         loadReviews: (artistId) => _loadReviews(artistId, emit),
-        clearReviews: () => _configureReviewSheet(emit),
-        refreshReviews: () => _refreshReviews(emit),
-        reviewLiked: (reviewId, customerId) =>
+        draggableClearReviews: () => _configureReviewSheet(emit),
+        draggableRefreshReviews: () => _refreshReviews(emit),
+        draggableReviewLiked: (reviewId, customerId) =>
             _updateReviewReaction(reviewId, customerId, true, false, emit),
-        reviewDisliked: (reviewId, customerId) =>
+        draggableReviewDisliked: (reviewId, customerId) =>
             _updateReviewReaction(reviewId, customerId, false, false, emit),
-        reviewLikeRemoved: (int reviewId, int customerId) =>
+        draggableReviewLikeRemoved: (int reviewId, int customerId) =>
             _updateReviewReaction(reviewId, customerId, true, true, emit),
         reviewDislikedRemoved: (int reviewId, int customerId) =>
             _updateReviewReaction(reviewId, customerId, false, true, emit),
-        switchReviewReaction: (int reviewId, int customerId, bool liked,
-                bool disliked) =>
+        draggableSwitchReviewReaction: (int reviewId, int customerId,
+                bool liked, bool disliked) =>
             _updateReviewReaction(reviewId, customerId, liked, disliked, emit,
                 switchReaction: true),
         reviewsLoading: () => emit(ReviewsLoading(
@@ -69,7 +69,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
                 reviewReactions: reviewReactions,
                 customerReactions: customerReactions,
                 reviews: reviews)),
-        refreshReviewsError: (errorMessage) => emit(
+        draggableRefreshReviewsError: (errorMessage) => emit(
             DraggableArtistReviewSheetState.refreshReviewsError(
                 reviewReactions: state.reviewReactions,
                 customerReactions: state.customerReactions,
@@ -115,7 +115,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     int? artistId,
   ) async {
     if (artistId == null) {
-      add(const DraggableArtistReviewSheetEvent.refreshReviewsError(
+      add(const DraggableArtistReviewSheetEvent.draggableRefreshReviewsError(
           errorMessage: 'Artist id is null'));
     }
 
@@ -126,7 +126,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     final token = await _localSessionService.getSessionToken(UserType.customer);
 
     if (token == null) {
-      add(const DraggableArtistReviewSheetEvent.refreshReviewsError(
+      add(const DraggableArtistReviewSheetEvent.draggableRefreshReviewsError(
           errorMessage: 'Token is null'));
       return;
     }
@@ -161,7 +161,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
       _paginator.incrementPage();
     } catch (e) {
       add(
-        DraggableArtistReviewSheetEvent.refreshReviewsError(
+        DraggableArtistReviewSheetEvent.draggableRefreshReviewsError(
           errorMessage: e.toString(),
         ),
       );
