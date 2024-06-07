@@ -59,7 +59,7 @@ class DraggableArtistInfoSheet extends StatelessWidget {
                                               DraggableArtistReviewSheetBloc>()
                                           .add(
                                               const DraggableArtistReviewSheetEvent
-                                                  .refreshReviews());
+                                                  .draggableRefreshReviews());
                                     }
                                   }
                                 },
