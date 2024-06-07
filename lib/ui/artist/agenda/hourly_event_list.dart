@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-
-class Event {
-  final String title;
-  final DateTime startTime;
-  final DateTime endTime;
-
-  const Event(this.title, this.startTime, this.endTime);
-
-  @override
-  String toString() => title;
-}
+import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 
 class HourlyEventList extends StatelessWidget {
-  final List<Event> events;
+  final List<ArtistAgendaEventDetails> events;
 
-  const HourlyEventList({Key? key, required this.events}) : super(key: key);
+  const HourlyEventList({super.key, required this.events});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +13,8 @@ class HourlyEventList extends StatelessWidget {
       itemBuilder: (context, index) {
         final hour = index;
         final hourEvents = events.where((event) =>
-            event.startTime.hour == hour ||
-            (event.startTime.hour < hour && event.endTime.hour > hour));
+            event.startDate.hour == hour ||
+            (event.startDate.hour < hour && event.endDate.hour > hour));
         return SizedBox(
           height: 60.0,
           child: Stack(
@@ -49,9 +39,9 @@ class HourlyEventList extends StatelessWidget {
                 ),
               ),
               ...hourEvents.map((event) {
-                final startMinute = event.startTime.minute;
+                final startMinute = event.startDate.minute;
                 final durationMinutes =
-                    event.endTime.difference(event.startTime).inMinutes;
+                    event.endDate.difference(event.startDate).inMinutes;
                 return Positioned(
                   top: (startMinute / 60.0) * 60.0,
                   left: 100.0,

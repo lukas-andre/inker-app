@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'get_reviews_response.dart';
 
@@ -12,7 +12,7 @@ part of 'get_reviews_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GetReviewsResponse _$GetReviewsResponseFromJson(Map<String, dynamic> json) {
   return _GetReviewsResponse.fromJson(json);
@@ -82,11 +82,11 @@ class _$GetReviewsResponseCopyWithImpl<$Res, $Val extends GetReviewsResponse>
 }
 
 /// @nodoc
-abstract class _$$_GetReviewsResponseCopyWith<$Res>
+abstract class _$$GetReviewsResponseImplCopyWith<$Res>
     implements $GetReviewsResponseCopyWith<$Res> {
-  factory _$$_GetReviewsResponseCopyWith(_$_GetReviewsResponse value,
-          $Res Function(_$_GetReviewsResponse) then) =
-      __$$_GetReviewsResponseCopyWithImpl<$Res>;
+  factory _$$GetReviewsResponseImplCopyWith(_$GetReviewsResponseImpl value,
+          $Res Function(_$GetReviewsResponseImpl) then) =
+      __$$GetReviewsResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<ReviewItem>? items, Meta? meta});
@@ -96,11 +96,11 @@ abstract class _$$_GetReviewsResponseCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GetReviewsResponseCopyWithImpl<$Res>
-    extends _$GetReviewsResponseCopyWithImpl<$Res, _$_GetReviewsResponse>
-    implements _$$_GetReviewsResponseCopyWith<$Res> {
-  __$$_GetReviewsResponseCopyWithImpl(
-      _$_GetReviewsResponse _value, $Res Function(_$_GetReviewsResponse) _then)
+class __$$GetReviewsResponseImplCopyWithImpl<$Res>
+    extends _$GetReviewsResponseCopyWithImpl<$Res, _$GetReviewsResponseImpl>
+    implements _$$GetReviewsResponseImplCopyWith<$Res> {
+  __$$GetReviewsResponseImplCopyWithImpl(_$GetReviewsResponseImpl _value,
+      $Res Function(_$GetReviewsResponseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_GetReviewsResponseCopyWithImpl<$Res>
     Object? items = freezed,
     Object? meta = freezed,
   }) {
-    return _then(_$_GetReviewsResponse(
+    return _then(_$GetReviewsResponseImpl(
       items: freezed == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -124,18 +124,19 @@ class __$$_GetReviewsResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GetReviewsResponse implements _GetReviewsResponse {
-  const _$_GetReviewsResponse({final List<ReviewItem>? items, this.meta})
+class _$GetReviewsResponseImpl implements _GetReviewsResponse {
+  const _$GetReviewsResponseImpl({final List<ReviewItem>? items, this.meta})
       : _items = items;
 
-  factory _$_GetReviewsResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_GetReviewsResponseFromJson(json);
+  factory _$GetReviewsResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GetReviewsResponseImplFromJson(json);
 
   final List<ReviewItem>? _items;
   @override
   List<ReviewItem>? get items {
     final value = _items;
     if (value == null) return null;
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -149,10 +150,10 @@ class _$_GetReviewsResponse implements _GetReviewsResponse {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GetReviewsResponse &&
+            other is _$GetReviewsResponseImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.meta, meta) || other.meta == meta));
   }
@@ -165,13 +166,13 @@ class _$_GetReviewsResponse implements _GetReviewsResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GetReviewsResponseCopyWith<_$_GetReviewsResponse> get copyWith =>
-      __$$_GetReviewsResponseCopyWithImpl<_$_GetReviewsResponse>(
+  _$$GetReviewsResponseImplCopyWith<_$GetReviewsResponseImpl> get copyWith =>
+      __$$GetReviewsResponseImplCopyWithImpl<_$GetReviewsResponseImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GetReviewsResponseToJson(
+    return _$$GetReviewsResponseImplToJson(
       this,
     );
   }
@@ -180,10 +181,10 @@ class _$_GetReviewsResponse implements _GetReviewsResponse {
 abstract class _GetReviewsResponse implements GetReviewsResponse {
   const factory _GetReviewsResponse(
       {final List<ReviewItem>? items,
-      final Meta? meta}) = _$_GetReviewsResponse;
+      final Meta? meta}) = _$GetReviewsResponseImpl;
 
   factory _GetReviewsResponse.fromJson(Map<String, dynamic> json) =
-      _$_GetReviewsResponse.fromJson;
+      _$GetReviewsResponseImpl.fromJson;
 
   @override
   List<ReviewItem>? get items;
@@ -191,7 +192,7 @@ abstract class _GetReviewsResponse implements GetReviewsResponse {
   Meta? get meta;
   @override
   @JsonKey(ignore: true)
-  _$$_GetReviewsResponseCopyWith<_$_GetReviewsResponse> get copyWith =>
+  _$$GetReviewsResponseImplCopyWith<_$GetReviewsResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -270,9 +271,10 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
 }
 
 /// @nodoc
-abstract class _$$_MetaCopyWith<$Res> implements $MetaCopyWith<$Res> {
-  factory _$$_MetaCopyWith(_$_Meta value, $Res Function(_$_Meta) then) =
-      __$$_MetaCopyWithImpl<$Res>;
+abstract class _$$MetaImplCopyWith<$Res> implements $MetaCopyWith<$Res> {
+  factory _$$MetaImplCopyWith(
+          _$MetaImpl value, $Res Function(_$MetaImpl) then) =
+      __$$MetaImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -284,9 +286,10 @@ abstract class _$$_MetaCopyWith<$Res> implements $MetaCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_MetaCopyWithImpl<$Res> extends _$MetaCopyWithImpl<$Res, _$_Meta>
-    implements _$$_MetaCopyWith<$Res> {
-  __$$_MetaCopyWithImpl(_$_Meta _value, $Res Function(_$_Meta) _then)
+class __$$MetaImplCopyWithImpl<$Res>
+    extends _$MetaCopyWithImpl<$Res, _$MetaImpl>
+    implements _$$MetaImplCopyWith<$Res> {
+  __$$MetaImplCopyWithImpl(_$MetaImpl _value, $Res Function(_$MetaImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -298,7 +301,7 @@ class __$$_MetaCopyWithImpl<$Res> extends _$MetaCopyWithImpl<$Res, _$_Meta>
     Object? totalPages = freezed,
     Object? currentPage = freezed,
   }) {
-    return _then(_$_Meta(
+    return _then(_$MetaImpl(
       totalItems: freezed == totalItems
           ? _value.totalItems
           : totalItems // ignore: cast_nullable_to_non_nullable
@@ -325,15 +328,16 @@ class __$$_MetaCopyWithImpl<$Res> extends _$MetaCopyWithImpl<$Res, _$_Meta>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Meta implements _Meta {
-  const _$_Meta(
+class _$MetaImpl implements _Meta {
+  const _$MetaImpl(
       {this.totalItems,
       this.itemCount,
       this.itemsPerPage,
       this.totalPages,
       this.currentPage});
 
-  factory _$_Meta.fromJson(Map<String, dynamic> json) => _$$_MetaFromJson(json);
+  factory _$MetaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MetaImplFromJson(json);
 
   @override
   final int? totalItems;
@@ -352,10 +356,10 @@ class _$_Meta implements _Meta {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Meta &&
+            other is _$MetaImpl &&
             (identical(other.totalItems, totalItems) ||
                 other.totalItems == totalItems) &&
             (identical(other.itemCount, itemCount) ||
@@ -376,12 +380,12 @@ class _$_Meta implements _Meta {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MetaCopyWith<_$_Meta> get copyWith =>
-      __$$_MetaCopyWithImpl<_$_Meta>(this, _$identity);
+  _$$MetaImplCopyWith<_$MetaImpl> get copyWith =>
+      __$$MetaImplCopyWithImpl<_$MetaImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MetaToJson(
+    return _$$MetaImplToJson(
       this,
     );
   }
@@ -393,9 +397,9 @@ abstract class _Meta implements Meta {
       final int? itemCount,
       final int? itemsPerPage,
       final int? totalPages,
-      final int? currentPage}) = _$_Meta;
+      final int? currentPage}) = _$MetaImpl;
 
-  factory _Meta.fromJson(Map<String, dynamic> json) = _$_Meta.fromJson;
+  factory _Meta.fromJson(Map<String, dynamic> json) = _$MetaImpl.fromJson;
 
   @override
   int? get totalItems;
@@ -409,7 +413,8 @@ abstract class _Meta implements Meta {
   int? get currentPage;
   @override
   @JsonKey(ignore: true)
-  _$$_MetaCopyWith<_$_Meta> get copyWith => throw _privateConstructorUsedError;
+  _$$MetaImplCopyWith<_$MetaImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 ReviewItem _$ReviewItemFromJson(Map<String, dynamic> json) {
@@ -567,11 +572,11 @@ class _$ReviewItemCopyWithImpl<$Res, $Val extends ReviewItem>
 }
 
 /// @nodoc
-abstract class _$$_ReviewItemCopyWith<$Res>
+abstract class _$$ReviewItemImplCopyWith<$Res>
     implements $ReviewItemCopyWith<$Res> {
-  factory _$$_ReviewItemCopyWith(
-          _$_ReviewItem value, $Res Function(_$_ReviewItem) then) =
-      __$$_ReviewItemCopyWithImpl<$Res>;
+  factory _$$ReviewItemImplCopyWith(
+          _$ReviewItemImpl value, $Res Function(_$ReviewItemImpl) then) =
+      __$$ReviewItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -595,11 +600,11 @@ abstract class _$$_ReviewItemCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ReviewItemCopyWithImpl<$Res>
-    extends _$ReviewItemCopyWithImpl<$Res, _$_ReviewItem>
-    implements _$$_ReviewItemCopyWith<$Res> {
-  __$$_ReviewItemCopyWithImpl(
-      _$_ReviewItem _value, $Res Function(_$_ReviewItem) _then)
+class __$$ReviewItemImplCopyWithImpl<$Res>
+    extends _$ReviewItemCopyWithImpl<$Res, _$ReviewItemImpl>
+    implements _$$ReviewItemImplCopyWith<$Res> {
+  __$$ReviewItemImplCopyWithImpl(
+      _$ReviewItemImpl _value, $Res Function(_$ReviewItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -618,7 +623,7 @@ class __$$_ReviewItemCopyWithImpl<$Res>
     Object? isRated = freezed,
     Object? customerReactionDetail = freezed,
   }) {
-    return _then(_$_ReviewItem(
+    return _then(_$ReviewItemImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -673,8 +678,8 @@ class __$$_ReviewItemCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ReviewItem implements _ReviewItem {
-  const _$_ReviewItem(
+class _$ReviewItemImpl implements _ReviewItem {
+  const _$ReviewItemImpl(
       {this.id,
       this.createdAt,
       this.artistId,
@@ -688,8 +693,8 @@ class _$_ReviewItem implements _ReviewItem {
       this.isRated,
       this.customerReactionDetail});
 
-  factory _$_ReviewItem.fromJson(Map<String, dynamic> json) =>
-      _$$_ReviewItemFromJson(json);
+  factory _$ReviewItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReviewItemImplFromJson(json);
 
   @override
   final int? id;
@@ -722,10 +727,10 @@ class _$_ReviewItem implements _ReviewItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewItem &&
+            other is _$ReviewItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -766,12 +771,12 @@ class _$_ReviewItem implements _ReviewItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewItemCopyWith<_$_ReviewItem> get copyWith =>
-      __$$_ReviewItemCopyWithImpl<_$_ReviewItem>(this, _$identity);
+  _$$ReviewItemImplCopyWith<_$ReviewItemImpl> get copyWith =>
+      __$$ReviewItemImplCopyWithImpl<_$ReviewItemImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewItemToJson(
+    return _$$ReviewItemImplToJson(
       this,
     );
   }
@@ -790,10 +795,10 @@ abstract class _ReviewItem implements ReviewItem {
       final int? createdBy,
       final String? displayName,
       final bool? isRated,
-      final CustomerReactionDetail? customerReactionDetail}) = _$_ReviewItem;
+      final CustomerReactionDetail? customerReactionDetail}) = _$ReviewItemImpl;
 
   factory _ReviewItem.fromJson(Map<String, dynamic> json) =
-      _$_ReviewItem.fromJson;
+      _$ReviewItemImpl.fromJson;
 
   @override
   int? get id;
@@ -821,7 +826,7 @@ abstract class _ReviewItem implements ReviewItem {
   CustomerReactionDetail? get customerReactionDetail;
   @override
   @JsonKey(ignore: true)
-  _$$_ReviewItemCopyWith<_$_ReviewItem> get copyWith =>
+  _$$ReviewItemImplCopyWith<_$ReviewItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -887,23 +892,25 @@ class _$CustomerReactionDetailCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CustomerReactionDetailCopyWith<$Res>
+abstract class _$$CustomerReactionDetailImplCopyWith<$Res>
     implements $CustomerReactionDetailCopyWith<$Res> {
-  factory _$$_CustomerReactionDetailCopyWith(_$_CustomerReactionDetail value,
-          $Res Function(_$_CustomerReactionDetail) then) =
-      __$$_CustomerReactionDetailCopyWithImpl<$Res>;
+  factory _$$CustomerReactionDetailImplCopyWith(
+          _$CustomerReactionDetailImpl value,
+          $Res Function(_$CustomerReactionDetailImpl) then) =
+      __$$CustomerReactionDetailImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int? reviewReactionId, bool? liked, bool? disliked});
 }
 
 /// @nodoc
-class __$$_CustomerReactionDetailCopyWithImpl<$Res>
+class __$$CustomerReactionDetailImplCopyWithImpl<$Res>
     extends _$CustomerReactionDetailCopyWithImpl<$Res,
-        _$_CustomerReactionDetail>
-    implements _$$_CustomerReactionDetailCopyWith<$Res> {
-  __$$_CustomerReactionDetailCopyWithImpl(_$_CustomerReactionDetail _value,
-      $Res Function(_$_CustomerReactionDetail) _then)
+        _$CustomerReactionDetailImpl>
+    implements _$$CustomerReactionDetailImplCopyWith<$Res> {
+  __$$CustomerReactionDetailImplCopyWithImpl(
+      _$CustomerReactionDetailImpl _value,
+      $Res Function(_$CustomerReactionDetailImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -913,7 +920,7 @@ class __$$_CustomerReactionDetailCopyWithImpl<$Res>
     Object? liked = freezed,
     Object? disliked = freezed,
   }) {
-    return _then(_$_CustomerReactionDetail(
+    return _then(_$CustomerReactionDetailImpl(
       reviewReactionId: freezed == reviewReactionId
           ? _value.reviewReactionId
           : reviewReactionId // ignore: cast_nullable_to_non_nullable
@@ -932,12 +939,12 @@ class __$$_CustomerReactionDetailCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CustomerReactionDetail implements _CustomerReactionDetail {
-  const _$_CustomerReactionDetail(
+class _$CustomerReactionDetailImpl implements _CustomerReactionDetail {
+  const _$CustomerReactionDetailImpl(
       {this.reviewReactionId, this.liked, this.disliked});
 
-  factory _$_CustomerReactionDetail.fromJson(Map<String, dynamic> json) =>
-      _$$_CustomerReactionDetailFromJson(json);
+  factory _$CustomerReactionDetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CustomerReactionDetailImplFromJson(json);
 
   @override
   final int? reviewReactionId;
@@ -952,10 +959,10 @@ class _$_CustomerReactionDetail implements _CustomerReactionDetail {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CustomerReactionDetail &&
+            other is _$CustomerReactionDetailImpl &&
             (identical(other.reviewReactionId, reviewReactionId) ||
                 other.reviewReactionId == reviewReactionId) &&
             (identical(other.liked, liked) || other.liked == liked) &&
@@ -971,13 +978,13 @@ class _$_CustomerReactionDetail implements _CustomerReactionDetail {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CustomerReactionDetailCopyWith<_$_CustomerReactionDetail> get copyWith =>
-      __$$_CustomerReactionDetailCopyWithImpl<_$_CustomerReactionDetail>(
-          this, _$identity);
+  _$$CustomerReactionDetailImplCopyWith<_$CustomerReactionDetailImpl>
+      get copyWith => __$$CustomerReactionDetailImplCopyWithImpl<
+          _$CustomerReactionDetailImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CustomerReactionDetailToJson(
+    return _$$CustomerReactionDetailImplToJson(
       this,
     );
   }
@@ -987,10 +994,10 @@ abstract class _CustomerReactionDetail implements CustomerReactionDetail {
   const factory _CustomerReactionDetail(
       {final int? reviewReactionId,
       final bool? liked,
-      final bool? disliked}) = _$_CustomerReactionDetail;
+      final bool? disliked}) = _$CustomerReactionDetailImpl;
 
   factory _CustomerReactionDetail.fromJson(Map<String, dynamic> json) =
-      _$_CustomerReactionDetail.fromJson;
+      _$CustomerReactionDetailImpl.fromJson;
 
   @override
   int? get reviewReactionId;
@@ -1000,8 +1007,8 @@ abstract class _CustomerReactionDetail implements CustomerReactionDetail {
   bool? get disliked;
   @override
   @JsonKey(ignore: true)
-  _$$_CustomerReactionDetailCopyWith<_$_CustomerReactionDetail> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CustomerReactionDetailImplCopyWith<_$CustomerReactionDetailImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 ReviewReactions _$ReviewReactionsFromJson(Map<String, dynamic> json) {
@@ -1064,22 +1071,22 @@ class _$ReviewReactionsCopyWithImpl<$Res, $Val extends ReviewReactions>
 }
 
 /// @nodoc
-abstract class _$$_ReviewReactionsCopyWith<$Res>
+abstract class _$$ReviewReactionsImplCopyWith<$Res>
     implements $ReviewReactionsCopyWith<$Res> {
-  factory _$$_ReviewReactionsCopyWith(
-          _$_ReviewReactions value, $Res Function(_$_ReviewReactions) then) =
-      __$$_ReviewReactionsCopyWithImpl<$Res>;
+  factory _$$ReviewReactionsImplCopyWith(_$ReviewReactionsImpl value,
+          $Res Function(_$ReviewReactionsImpl) then) =
+      __$$ReviewReactionsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int? likes, int? dislikes, int? offs});
 }
 
 /// @nodoc
-class __$$_ReviewReactionsCopyWithImpl<$Res>
-    extends _$ReviewReactionsCopyWithImpl<$Res, _$_ReviewReactions>
-    implements _$$_ReviewReactionsCopyWith<$Res> {
-  __$$_ReviewReactionsCopyWithImpl(
-      _$_ReviewReactions _value, $Res Function(_$_ReviewReactions) _then)
+class __$$ReviewReactionsImplCopyWithImpl<$Res>
+    extends _$ReviewReactionsCopyWithImpl<$Res, _$ReviewReactionsImpl>
+    implements _$$ReviewReactionsImplCopyWith<$Res> {
+  __$$ReviewReactionsImplCopyWithImpl(
+      _$ReviewReactionsImpl _value, $Res Function(_$ReviewReactionsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1089,7 +1096,7 @@ class __$$_ReviewReactionsCopyWithImpl<$Res>
     Object? dislikes = freezed,
     Object? offs = freezed,
   }) {
-    return _then(_$_ReviewReactions(
+    return _then(_$ReviewReactionsImpl(
       likes: freezed == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -1108,11 +1115,11 @@ class __$$_ReviewReactionsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ReviewReactions implements _ReviewReactions {
-  const _$_ReviewReactions({this.likes, this.dislikes, this.offs});
+class _$ReviewReactionsImpl implements _ReviewReactions {
+  const _$ReviewReactionsImpl({this.likes, this.dislikes, this.offs});
 
-  factory _$_ReviewReactions.fromJson(Map<String, dynamic> json) =>
-      _$$_ReviewReactionsFromJson(json);
+  factory _$ReviewReactionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReviewReactionsImplFromJson(json);
 
   @override
   final int? likes;
@@ -1127,10 +1134,10 @@ class _$_ReviewReactions implements _ReviewReactions {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewReactions &&
+            other is _$ReviewReactionsImpl &&
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.dislikes, dislikes) ||
                 other.dislikes == dislikes) &&
@@ -1144,12 +1151,13 @@ class _$_ReviewReactions implements _ReviewReactions {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewReactionsCopyWith<_$_ReviewReactions> get copyWith =>
-      __$$_ReviewReactionsCopyWithImpl<_$_ReviewReactions>(this, _$identity);
+  _$$ReviewReactionsImplCopyWith<_$ReviewReactionsImpl> get copyWith =>
+      __$$ReviewReactionsImplCopyWithImpl<_$ReviewReactionsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewReactionsToJson(
+    return _$$ReviewReactionsImplToJson(
       this,
     );
   }
@@ -1159,10 +1167,10 @@ abstract class _ReviewReactions implements ReviewReactions {
   const factory _ReviewReactions(
       {final int? likes,
       final int? dislikes,
-      final int? offs}) = _$_ReviewReactions;
+      final int? offs}) = _$ReviewReactionsImpl;
 
   factory _ReviewReactions.fromJson(Map<String, dynamic> json) =
-      _$_ReviewReactions.fromJson;
+      _$ReviewReactionsImpl.fromJson;
 
   @override
   int? get likes;
@@ -1172,6 +1180,6 @@ abstract class _ReviewReactions implements ReviewReactions {
   int? get offs;
   @override
   @JsonKey(ignore: true)
-  _$$_ReviewReactionsCopyWith<_$_ReviewReactions> get copyWith =>
+  _$$ReviewReactionsImplCopyWith<_$ReviewReactionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

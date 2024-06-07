@@ -6,8 +6,8 @@ part of 'get_reviews_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GetReviewsResponse _$$_GetReviewsResponseFromJson(Map json) =>
-    _$_GetReviewsResponse(
+_$GetReviewsResponseImpl _$$GetReviewsResponseImplFromJson(Map json) =>
+    _$GetReviewsResponseImpl(
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => ReviewItem.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
@@ -16,8 +16,8 @@ _$_GetReviewsResponse _$$_GetReviewsResponseFromJson(Map json) =>
           : Meta.fromJson(Map<String, dynamic>.from(json['meta'] as Map)),
     );
 
-Map<String, dynamic> _$$_GetReviewsResponseToJson(
-    _$_GetReviewsResponse instance) {
+Map<String, dynamic> _$$GetReviewsResponseImplToJson(
+    _$GetReviewsResponseImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -31,15 +31,15 @@ Map<String, dynamic> _$$_GetReviewsResponseToJson(
   return val;
 }
 
-_$_Meta _$$_MetaFromJson(Map json) => _$_Meta(
-      totalItems: json['totalItems'] as int?,
-      itemCount: json['itemCount'] as int?,
-      itemsPerPage: json['itemsPerPage'] as int?,
-      totalPages: json['totalPages'] as int?,
-      currentPage: json['currentPage'] as int?,
+_$MetaImpl _$$MetaImplFromJson(Map json) => _$MetaImpl(
+      totalItems: (json['totalItems'] as num?)?.toInt(),
+      itemCount: (json['itemCount'] as num?)?.toInt(),
+      itemsPerPage: (json['itemsPerPage'] as num?)?.toInt(),
+      totalPages: (json['totalPages'] as num?)?.toInt(),
+      currentPage: (json['currentPage'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_MetaToJson(_$_Meta instance) {
+Map<String, dynamic> _$$MetaImplToJson(_$MetaImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -56,21 +56,21 @@ Map<String, dynamic> _$$_MetaToJson(_$_Meta instance) {
   return val;
 }
 
-_$_ReviewItem _$$_ReviewItemFromJson(Map json) => _$_ReviewItem(
-      id: json['id'] as int?,
+_$ReviewItemImpl _$$ReviewItemImplFromJson(Map json) => _$ReviewItemImpl(
+      id: (json['id'] as num?)?.toInt(),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
-      artistId: json['artistId'] as int?,
-      eventId: json['eventId'] as int?,
-      value: json['value'] as int?,
+      artistId: (json['artistId'] as num?)?.toInt(),
+      eventId: (json['eventId'] as num?)?.toInt(),
+      value: (json['value'] as num?)?.toInt(),
       header: json['header'] as String?,
       content: json['content'] as String?,
       reviewReactions: json['reviewReactions'] == null
           ? null
           : ReviewReactions.fromJson(
               Map<String, dynamic>.from(json['reviewReactions'] as Map)),
-      createdBy: json['createdBy'] as int?,
+      createdBy: (json['createdBy'] as num?)?.toInt(),
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
       customerReactionDetail: json['customerReactionDetail'] == null
@@ -79,7 +79,7 @@ _$_ReviewItem _$$_ReviewItemFromJson(Map json) => _$_ReviewItem(
               Map<String, dynamic>.from(json['customerReactionDetail'] as Map)),
     );
 
-Map<String, dynamic> _$$_ReviewItemToJson(_$_ReviewItem instance) {
+Map<String, dynamic> _$$ReviewItemImplToJson(_$ReviewItemImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -104,15 +104,15 @@ Map<String, dynamic> _$$_ReviewItemToJson(_$_ReviewItem instance) {
   return val;
 }
 
-_$_CustomerReactionDetail _$$_CustomerReactionDetailFromJson(Map json) =>
-    _$_CustomerReactionDetail(
-      reviewReactionId: json['reviewReactionId'] as int?,
+_$CustomerReactionDetailImpl _$$CustomerReactionDetailImplFromJson(Map json) =>
+    _$CustomerReactionDetailImpl(
+      reviewReactionId: (json['reviewReactionId'] as num?)?.toInt(),
       liked: json['liked'] as bool?,
       disliked: json['disliked'] as bool?,
     );
 
-Map<String, dynamic> _$$_CustomerReactionDetailToJson(
-    _$_CustomerReactionDetail instance) {
+Map<String, dynamic> _$$CustomerReactionDetailImplToJson(
+    _$CustomerReactionDetailImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -127,13 +127,15 @@ Map<String, dynamic> _$$_CustomerReactionDetailToJson(
   return val;
 }
 
-_$_ReviewReactions _$$_ReviewReactionsFromJson(Map json) => _$_ReviewReactions(
-      likes: json['likes'] as int?,
-      dislikes: json['dislikes'] as int?,
-      offs: json['offs'] as int?,
+_$ReviewReactionsImpl _$$ReviewReactionsImplFromJson(Map json) =>
+    _$ReviewReactionsImpl(
+      likes: (json['likes'] as num?)?.toInt(),
+      dislikes: (json['dislikes'] as num?)?.toInt(),
+      offs: (json['offs'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_ReviewReactionsToJson(_$_ReviewReactions instance) {
+Map<String, dynamic> _$$ReviewReactionsImplToJson(
+    _$ReviewReactionsImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
