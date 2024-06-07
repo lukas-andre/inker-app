@@ -14,7 +14,8 @@
         {
             "name": "inker_studio",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug"
         },
         {
             "name": "inker_studio (profile mode)",

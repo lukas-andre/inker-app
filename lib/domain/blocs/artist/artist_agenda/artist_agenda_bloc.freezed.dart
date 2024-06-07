@@ -19,35 +19,40 @@ mixin _$ArtistAgendaEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +65,7 @@ mixin _$ArtistAgendaEvent {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +77,7 @@ mixin _$ArtistAgendaEvent {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,6 +89,7 @@ mixin _$ArtistAgendaEvent {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,18 +131,12 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
+class _$StartedImpl implements _Started {
   const _$StartedImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.started()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ArtistAgendaEvent.started'));
   }
 
   @override
@@ -150,13 +152,16 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return started();
   }
@@ -165,12 +170,13 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return started?.call();
   }
@@ -179,12 +185,13 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -203,6 +210,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return started(this);
   }
@@ -217,6 +225,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return started?.call(this);
   }
@@ -231,6 +240,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -250,7 +260,9 @@ abstract class _$$AddEventImplCopyWith<$Res> {
           _$AddEventImpl value, $Res Function(_$AddEventImpl) then) =
       __$$AddEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AgendaEventDetails eventDetails});
+  $Res call({ArtistAgendaEventDetails eventDetails});
+
+  $ArtistAgendaEventDetailsCopyWith<$Res> get eventDetails;
 }
 
 /// @nodoc
@@ -264,36 +276,37 @@ class __$$AddEventImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventDetails = freezed,
+    Object? eventDetails = null,
   }) {
     return _then(_$AddEventImpl(
-      freezed == eventDetails
+      null == eventDetails
           ? _value.eventDetails
           : eventDetails // ignore: cast_nullable_to_non_nullable
-              as AgendaEventDetails,
+              as ArtistAgendaEventDetails,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistAgendaEventDetailsCopyWith<$Res> get eventDetails {
+    return $ArtistAgendaEventDetailsCopyWith<$Res>(_value.eventDetails,
+        (value) {
+      return _then(_value.copyWith(eventDetails: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
+class _$AddEventImpl implements _AddEvent {
   const _$AddEventImpl(this.eventDetails);
 
   @override
-  final AgendaEventDetails eventDetails;
+  final ArtistAgendaEventDetails eventDetails;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.addEvent(eventDetails: $eventDetails)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaEvent.addEvent'))
-      ..add(DiagnosticsProperty('eventDetails', eventDetails));
   }
 
   @override
@@ -301,13 +314,12 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddEventImpl &&
-            const DeepCollectionEquality()
-                .equals(other.eventDetails, eventDetails));
+            (identical(other.eventDetails, eventDetails) ||
+                other.eventDetails == eventDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(eventDetails));
+  int get hashCode => Object.hash(runtimeType, eventDetails);
 
   @JsonKey(ignore: true)
   @override
@@ -319,13 +331,16 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return addEvent(eventDetails);
   }
@@ -334,12 +349,13 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return addEvent?.call(eventDetails);
   }
@@ -348,12 +364,13 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (addEvent != null) {
@@ -372,6 +389,7 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return addEvent(this);
   }
@@ -386,6 +404,7 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return addEvent?.call(this);
   }
@@ -400,6 +419,7 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (addEvent != null) {
@@ -410,10 +430,10 @@ class _$AddEventImpl with DiagnosticableTreeMixin implements _AddEvent {
 }
 
 abstract class _AddEvent implements ArtistAgendaEvent {
-  const factory _AddEvent(final AgendaEventDetails eventDetails) =
+  const factory _AddEvent(final ArtistAgendaEventDetails eventDetails) =
       _$AddEventImpl;
 
-  AgendaEventDetails get eventDetails;
+  ArtistAgendaEventDetails get eventDetails;
   @JsonKey(ignore: true)
   _$$AddEventImplCopyWith<_$AddEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -452,23 +472,15 @@ class __$$DeleteEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
+class _$DeleteEventImpl implements _DeleteEvent {
   const _$DeleteEventImpl(this.eventId);
 
   @override
   final String eventId;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.deleteEvent(eventId: $eventId)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaEvent.deleteEvent'))
-      ..add(DiagnosticsProperty('eventId', eventId));
   }
 
   @override
@@ -492,13 +504,16 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return deleteEvent(eventId);
   }
@@ -507,12 +522,13 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return deleteEvent?.call(eventId);
   }
@@ -521,12 +537,13 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (deleteEvent != null) {
@@ -545,6 +562,7 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return deleteEvent(this);
   }
@@ -559,6 +577,7 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return deleteEvent?.call(this);
   }
@@ -573,6 +592,7 @@ class _$DeleteEventImpl with DiagnosticableTreeMixin implements _DeleteEvent {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (deleteEvent != null) {
@@ -597,7 +617,9 @@ abstract class _$$UpdateEventImplCopyWith<$Res> {
           _$UpdateEventImpl value, $Res Function(_$UpdateEventImpl) then) =
       __$$UpdateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AgendaEventDetails eventDetails});
+  $Res call({ArtistAgendaEventDetails eventDetails});
+
+  $ArtistAgendaEventDetailsCopyWith<$Res> get eventDetails;
 }
 
 /// @nodoc
@@ -611,36 +633,37 @@ class __$$UpdateEventImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventDetails = freezed,
+    Object? eventDetails = null,
   }) {
     return _then(_$UpdateEventImpl(
-      freezed == eventDetails
+      null == eventDetails
           ? _value.eventDetails
           : eventDetails // ignore: cast_nullable_to_non_nullable
-              as AgendaEventDetails,
+              as ArtistAgendaEventDetails,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistAgendaEventDetailsCopyWith<$Res> get eventDetails {
+    return $ArtistAgendaEventDetailsCopyWith<$Res>(_value.eventDetails,
+        (value) {
+      return _then(_value.copyWith(eventDetails: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
+class _$UpdateEventImpl implements _UpdateEvent {
   const _$UpdateEventImpl(this.eventDetails);
 
   @override
-  final AgendaEventDetails eventDetails;
+  final ArtistAgendaEventDetails eventDetails;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.updateEvent(eventDetails: $eventDetails)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaEvent.updateEvent'))
-      ..add(DiagnosticsProperty('eventDetails', eventDetails));
   }
 
   @override
@@ -648,13 +671,12 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateEventImpl &&
-            const DeepCollectionEquality()
-                .equals(other.eventDetails, eventDetails));
+            (identical(other.eventDetails, eventDetails) ||
+                other.eventDetails == eventDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(eventDetails));
+  int get hashCode => Object.hash(runtimeType, eventDetails);
 
   @JsonKey(ignore: true)
   @override
@@ -666,13 +688,16 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return updateEvent(eventDetails);
   }
@@ -681,12 +706,13 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return updateEvent?.call(eventDetails);
   }
@@ -695,12 +721,13 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (updateEvent != null) {
@@ -719,6 +746,7 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return updateEvent(this);
   }
@@ -733,6 +761,7 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return updateEvent?.call(this);
   }
@@ -747,6 +776,7 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (updateEvent != null) {
@@ -757,10 +787,10 @@ class _$UpdateEventImpl with DiagnosticableTreeMixin implements _UpdateEvent {
 }
 
 abstract class _UpdateEvent implements ArtistAgendaEvent {
-  const factory _UpdateEvent(final AgendaEventDetails eventDetails) =
+  const factory _UpdateEvent(final ArtistAgendaEventDetails eventDetails) =
       _$UpdateEventImpl;
 
-  AgendaEventDetails get eventDetails;
+  ArtistAgendaEventDetails get eventDetails;
   @JsonKey(ignore: true)
   _$$UpdateEventImplCopyWith<_$UpdateEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -784,18 +814,12 @@ class __$$LoadEventsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
+class _$LoadEventsImpl implements _LoadEvents {
   const _$LoadEventsImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.loadEvents()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ArtistAgendaEvent.loadEvents'));
   }
 
   @override
@@ -811,13 +835,16 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return loadEvents();
   }
@@ -826,12 +853,13 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return loadEvents?.call();
   }
@@ -840,12 +868,13 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEvents != null) {
@@ -864,6 +893,7 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return loadEvents(this);
   }
@@ -878,6 +908,7 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return loadEvents?.call(this);
   }
@@ -892,6 +923,7 @@ class _$LoadEventsImpl with DiagnosticableTreeMixin implements _LoadEvents {
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEvents != null) {
@@ -911,7 +943,7 @@ abstract class _$$LoadEventsSuccessImplCopyWith<$Res> {
           $Res Function(_$LoadEventsSuccessImpl) then) =
       __$$LoadEventsSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<AgendaEventDetails> events});
+  $Res call({List<ArtistAgendaEventDetails> events});
 }
 
 /// @nodoc
@@ -931,38 +963,28 @@ class __$$LoadEventsSuccessImplCopyWithImpl<$Res>
       null == events
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
-              as List<AgendaEventDetails>,
+              as List<ArtistAgendaEventDetails>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LoadEventsSuccessImpl
-    with DiagnosticableTreeMixin
-    implements _LoadEventsSuccess {
-  const _$LoadEventsSuccessImpl(final List<AgendaEventDetails> events)
+class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
+  const _$LoadEventsSuccessImpl(final List<ArtistAgendaEventDetails> events)
       : _events = events;
 
-  final List<AgendaEventDetails> _events;
+  final List<ArtistAgendaEventDetails> _events;
   @override
-  List<AgendaEventDetails> get events {
+  List<ArtistAgendaEventDetails> get events {
     if (_events is EqualUnmodifiableListView) return _events;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_events);
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.loadEventsSuccess(events: $events)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaEvent.loadEventsSuccess'))
-      ..add(DiagnosticsProperty('events', events));
   }
 
   @override
@@ -988,13 +1010,16 @@ class _$LoadEventsSuccessImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return loadEventsSuccess(events);
   }
@@ -1003,12 +1028,13 @@ class _$LoadEventsSuccessImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return loadEventsSuccess?.call(events);
   }
@@ -1017,12 +1043,13 @@ class _$LoadEventsSuccessImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEventsSuccess != null) {
@@ -1041,6 +1068,7 @@ class _$LoadEventsSuccessImpl
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return loadEventsSuccess(this);
   }
@@ -1055,6 +1083,7 @@ class _$LoadEventsSuccessImpl
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return loadEventsSuccess?.call(this);
   }
@@ -1069,6 +1098,7 @@ class _$LoadEventsSuccessImpl
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEventsSuccess != null) {
@@ -1079,10 +1109,10 @@ class _$LoadEventsSuccessImpl
 }
 
 abstract class _LoadEventsSuccess implements ArtistAgendaEvent {
-  const factory _LoadEventsSuccess(final List<AgendaEventDetails> events) =
-      _$LoadEventsSuccessImpl;
+  const factory _LoadEventsSuccess(
+      final List<ArtistAgendaEventDetails> events) = _$LoadEventsSuccessImpl;
 
-  List<AgendaEventDetails> get events;
+  List<ArtistAgendaEventDetails> get events;
   @JsonKey(ignore: true)
   _$$LoadEventsSuccessImplCopyWith<_$LoadEventsSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1121,25 +1151,15 @@ class __$$LoadEventsErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadEventsErrorImpl
-    with DiagnosticableTreeMixin
-    implements _LoadEventsError {
+class _$LoadEventsErrorImpl implements _LoadEventsError {
   const _$LoadEventsErrorImpl(this.message);
 
   @override
   final String message;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaEvent.loadEventsError(message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaEvent.loadEventsError'))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1164,13 +1184,16 @@ class _$LoadEventsErrorImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AgendaEventDetails eventDetails) addEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
     required TResult Function(String eventId) deleteEvent,
-    required TResult Function(AgendaEventDetails eventDetails) updateEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
     required TResult Function() loadEvents,
-    required TResult Function(List<AgendaEventDetails> events)
+    required TResult Function(List<ArtistAgendaEventDetails> events)
         loadEventsSuccess,
     required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
   }) {
     return loadEventsError(message);
   }
@@ -1179,12 +1202,13 @@ class _$LoadEventsErrorImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult? Function(String eventId)? deleteEvent,
-    TResult? Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult? Function()? loadEvents,
-    TResult? Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
   }) {
     return loadEventsError?.call(message);
   }
@@ -1193,12 +1217,13 @@ class _$LoadEventsErrorImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AgendaEventDetails eventDetails)? addEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
     TResult Function(String eventId)? deleteEvent,
-    TResult Function(AgendaEventDetails eventDetails)? updateEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
     TResult Function()? loadEvents,
-    TResult Function(List<AgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEventsError != null) {
@@ -1217,6 +1242,7 @@ class _$LoadEventsErrorImpl
     required TResult Function(_LoadEvents value) loadEvents,
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
   }) {
     return loadEventsError(this);
   }
@@ -1231,6 +1257,7 @@ class _$LoadEventsErrorImpl
     TResult? Function(_LoadEvents value)? loadEvents,
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
   }) {
     return loadEventsError?.call(this);
   }
@@ -1245,6 +1272,7 @@ class _$LoadEventsErrorImpl
     TResult Function(_LoadEvents value)? loadEvents,
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
     required TResult orElse(),
   }) {
     if (loadEventsError != null) {
@@ -1264,12 +1292,199 @@ abstract class _LoadEventsError implements ArtistAgendaEvent {
 }
 
 /// @nodoc
+abstract class _$$DaySelectedImplCopyWith<$Res> {
+  factory _$$DaySelectedImplCopyWith(
+          _$DaySelectedImpl value, $Res Function(_$DaySelectedImpl) then) =
+      __$$DaySelectedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime selectedDay, DateTime focusedDay});
+}
+
+/// @nodoc
+class __$$DaySelectedImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventCopyWithImpl<$Res, _$DaySelectedImpl>
+    implements _$$DaySelectedImplCopyWith<$Res> {
+  __$$DaySelectedImplCopyWithImpl(
+      _$DaySelectedImpl _value, $Res Function(_$DaySelectedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedDay = null,
+    Object? focusedDay = null,
+  }) {
+    return _then(_$DaySelectedImpl(
+      null == selectedDay
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      null == focusedDay
+          ? _value.focusedDay
+          : focusedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DaySelectedImpl implements _DaySelected {
+  const _$DaySelectedImpl(this.selectedDay, this.focusedDay);
+
+  @override
+  final DateTime selectedDay;
+  @override
+  final DateTime focusedDay;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEvent.daySelected(selectedDay: $selectedDay, focusedDay: $focusedDay)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DaySelectedImpl &&
+            (identical(other.selectedDay, selectedDay) ||
+                other.selectedDay == selectedDay) &&
+            (identical(other.focusedDay, focusedDay) ||
+                other.focusedDay == focusedDay));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectedDay, focusedDay);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DaySelectedImplCopyWith<_$DaySelectedImpl> get copyWith =>
+      __$$DaySelectedImplCopyWithImpl<_$DaySelectedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
+    required TResult Function(String eventId) deleteEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
+    required TResult Function() loadEvents,
+    required TResult Function(List<ArtistAgendaEventDetails> events)
+        loadEventsSuccess,
+    required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
+  }) {
+    return daySelected(selectedDay, focusedDay);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(String eventId)? deleteEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function()? loadEvents,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+  }) {
+    return daySelected?.call(selectedDay, focusedDay);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
+    TResult Function(String eventId)? deleteEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
+    TResult Function()? loadEvents,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    required TResult orElse(),
+  }) {
+    if (daySelected != null) {
+      return daySelected(selectedDay, focusedDay);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddEvent value) addEvent,
+    required TResult Function(_DeleteEvent value) deleteEvent,
+    required TResult Function(_UpdateEvent value) updateEvent,
+    required TResult Function(_LoadEvents value) loadEvents,
+    required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
+    required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
+  }) {
+    return daySelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddEvent value)? addEvent,
+    TResult? Function(_DeleteEvent value)? deleteEvent,
+    TResult? Function(_UpdateEvent value)? updateEvent,
+    TResult? Function(_LoadEvents value)? loadEvents,
+    TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
+    TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
+  }) {
+    return daySelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddEvent value)? addEvent,
+    TResult Function(_DeleteEvent value)? deleteEvent,
+    TResult Function(_UpdateEvent value)? updateEvent,
+    TResult Function(_LoadEvents value)? loadEvents,
+    TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
+    TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
+    required TResult orElse(),
+  }) {
+    if (daySelected != null) {
+      return daySelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DaySelected implements ArtistAgendaEvent {
+  const factory _DaySelected(
+          final DateTime selectedDay, final DateTime focusedDay) =
+      _$DaySelectedImpl;
+
+  DateTime get selectedDay;
+  DateTime get focusedDay;
+  @JsonKey(ignore: true)
+  _$$DaySelectedImplCopyWith<_$DaySelectedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ArtistAgendaState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<AgendaEventDetails> events) loaded,
+    required TResult Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -1277,7 +1492,9 @@ mixin _$ArtistAgendaState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<AgendaEventDetails> events)? loaded,
+    TResult? Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)?
+        loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -1285,7 +1502,9 @@ mixin _$ArtistAgendaState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<AgendaEventDetails> events)? loaded,
+    TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
+            DateTime? selectedDay)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -1356,20 +1575,12 @@ class __$$ArtistAgendaStateInitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistAgendaStateInitialImpl
-    with DiagnosticableTreeMixin
-    implements ArtistAgendaStateInitial {
+class _$ArtistAgendaStateInitialImpl implements ArtistAgendaStateInitial {
   const _$ArtistAgendaStateInitialImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaState.initial()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ArtistAgendaState.initial'));
   }
 
   @override
@@ -1387,7 +1598,9 @@ class _$ArtistAgendaStateInitialImpl
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<AgendaEventDetails> events) loaded,
+    required TResult Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -1398,7 +1611,9 @@ class _$ArtistAgendaStateInitialImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<AgendaEventDetails> events)? loaded,
+    TResult? Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -1409,7 +1624,9 @@ class _$ArtistAgendaStateInitialImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<AgendaEventDetails> events)? loaded,
+    TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
+            DateTime? selectedDay)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1482,20 +1699,12 @@ class __$$ArtistAgendaStateLoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistAgendaStateLoadingImpl
-    with DiagnosticableTreeMixin
-    implements ArtistAgendaStateLoading {
+class _$ArtistAgendaStateLoadingImpl implements ArtistAgendaStateLoading {
   const _$ArtistAgendaStateLoadingImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ArtistAgendaState.loading'));
   }
 
   @override
@@ -1513,7 +1722,9 @@ class _$ArtistAgendaStateLoadingImpl
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<AgendaEventDetails> events) loaded,
+    required TResult Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -1524,7 +1735,9 @@ class _$ArtistAgendaStateLoadingImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<AgendaEventDetails> events)? loaded,
+    TResult? Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -1535,7 +1748,9 @@ class _$ArtistAgendaStateLoadingImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<AgendaEventDetails> events)? loaded,
+    TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
+            DateTime? selectedDay)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1594,7 +1809,10 @@ abstract class _$$ArtistAgendaStateLoadedImplCopyWith<$Res> {
           $Res Function(_$ArtistAgendaStateLoadedImpl) then) =
       __$$ArtistAgendaStateLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<AgendaEventDetails> events});
+  $Res call(
+      {List<ArtistAgendaEventDetails> events,
+      DateTime focusedDay,
+      DateTime? selectedDay});
 }
 
 /// @nodoc
@@ -1610,44 +1828,51 @@ class __$$ArtistAgendaStateLoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? events = null,
+    Object? focusedDay = null,
+    Object? selectedDay = freezed,
   }) {
     return _then(_$ArtistAgendaStateLoadedImpl(
       events: null == events
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
-              as List<AgendaEventDetails>,
+              as List<ArtistAgendaEventDetails>,
+      focusedDay: null == focusedDay
+          ? _value.focusedDay
+          : focusedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      selectedDay: freezed == selectedDay
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$ArtistAgendaStateLoadedImpl
-    with DiagnosticableTreeMixin
-    implements ArtistAgendaStateLoaded {
+class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
   const _$ArtistAgendaStateLoadedImpl(
-      {required final List<AgendaEventDetails> events})
+      {required final List<ArtistAgendaEventDetails> events,
+      required this.focusedDay,
+      this.selectedDay})
       : _events = events;
 
-  final List<AgendaEventDetails> _events;
+  final List<ArtistAgendaEventDetails> _events;
   @override
-  List<AgendaEventDetails> get events {
+  List<ArtistAgendaEventDetails> get events {
     if (_events is EqualUnmodifiableListView) return _events;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_events);
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArtistAgendaState.loaded(events: $events)';
-  }
+  final DateTime focusedDay;
+  @override
+  final DateTime? selectedDay;
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaState.loaded'))
-      ..add(DiagnosticsProperty('events', events));
+  String toString() {
+    return 'ArtistAgendaState.loaded(events: $events, focusedDay: $focusedDay, selectedDay: $selectedDay)';
   }
 
   @override
@@ -1655,12 +1880,16 @@ class _$ArtistAgendaStateLoadedImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ArtistAgendaStateLoadedImpl &&
-            const DeepCollectionEquality().equals(other._events, _events));
+            const DeepCollectionEquality().equals(other._events, _events) &&
+            (identical(other.focusedDay, focusedDay) ||
+                other.focusedDay == focusedDay) &&
+            (identical(other.selectedDay, selectedDay) ||
+                other.selectedDay == selectedDay));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_events));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_events), focusedDay, selectedDay);
 
   @JsonKey(ignore: true)
   @override
@@ -1674,10 +1903,12 @@ class _$ArtistAgendaStateLoadedImpl
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<AgendaEventDetails> events) loaded,
+    required TResult Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)
+        loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(events);
+    return loaded(events, focusedDay, selectedDay);
   }
 
   @override
@@ -1685,10 +1916,12 @@ class _$ArtistAgendaStateLoadedImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<AgendaEventDetails> events)? loaded,
+    TResult? Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(events);
+    return loaded?.call(events, focusedDay, selectedDay);
   }
 
   @override
@@ -1696,12 +1929,14 @@ class _$ArtistAgendaStateLoadedImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<AgendaEventDetails> events)? loaded,
+    TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
+            DateTime? selectedDay)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(events);
+      return loaded(events, focusedDay, selectedDay);
     }
     return orElse();
   }
@@ -1746,10 +1981,13 @@ class _$ArtistAgendaStateLoadedImpl
 
 abstract class ArtistAgendaStateLoaded implements ArtistAgendaState {
   const factory ArtistAgendaStateLoaded(
-          {required final List<AgendaEventDetails> events}) =
-      _$ArtistAgendaStateLoadedImpl;
+      {required final List<ArtistAgendaEventDetails> events,
+      required final DateTime focusedDay,
+      final DateTime? selectedDay}) = _$ArtistAgendaStateLoadedImpl;
 
-  List<AgendaEventDetails> get events;
+  List<ArtistAgendaEventDetails> get events;
+  DateTime get focusedDay;
+  DateTime? get selectedDay;
   @JsonKey(ignore: true)
   _$$ArtistAgendaStateLoadedImplCopyWith<_$ArtistAgendaStateLoadedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1780,7 +2018,7 @@ class __$$ArtistAgendaStateErrorImplCopyWithImpl<$Res>
     Object? message = null,
   }) {
     return _then(_$ArtistAgendaStateErrorImpl(
-      message: null == message
+      null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1790,25 +2028,15 @@ class __$$ArtistAgendaStateErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ArtistAgendaStateErrorImpl
-    with DiagnosticableTreeMixin
-    implements ArtistAgendaStateError {
-  const _$ArtistAgendaStateErrorImpl({required this.message});
+class _$ArtistAgendaStateErrorImpl implements ArtistAgendaStateError {
+  const _$ArtistAgendaStateErrorImpl(this.message);
 
   @override
   final String message;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ArtistAgendaState.error(message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ArtistAgendaState.error'))
-      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1834,7 +2062,9 @@ class _$ArtistAgendaStateErrorImpl
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<AgendaEventDetails> events) loaded,
+    required TResult Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1845,7 +2075,9 @@ class _$ArtistAgendaStateErrorImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<AgendaEventDetails> events)? loaded,
+    TResult? Function(List<ArtistAgendaEventDetails> events,
+            DateTime focusedDay, DateTime? selectedDay)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1856,7 +2088,9 @@ class _$ArtistAgendaStateErrorImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<AgendaEventDetails> events)? loaded,
+    TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
+            DateTime? selectedDay)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1905,7 +2139,7 @@ class _$ArtistAgendaStateErrorImpl
 }
 
 abstract class ArtistAgendaStateError implements ArtistAgendaState {
-  const factory ArtistAgendaStateError({required final String message}) =
+  const factory ArtistAgendaStateError(final String message) =
       _$ArtistAgendaStateErrorImpl;
 
   String get message;

@@ -11,8 +11,22 @@ final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
-class TableEventsExample extends StatelessWidget {
+class TableEventsExample extends StatefulWidget {
   const TableEventsExample({super.key});
+
+  @override
+  _TableEventsExampleState createState() => _TableEventsExampleState();
+}
+
+class _TableEventsExampleState extends State<TableEventsExample> {
+  final DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ArtistAgendaBloc>().add(const ArtistAgendaEvent.started());
+  }
 
   List<ArtistAgendaEventDetails> _getEventsForDay(
       DateTime day, List<ArtistAgendaEventDetails> allEvents) {
@@ -35,8 +49,8 @@ class TableEventsExample extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ArtistAgendaStateLoaded) {
             final allEvents = state.events;
-            DateTime focusedDay = DateTime.now();
-            DateTime? selectedDay = focusedDay;
+            final focusedDay = state.focusedDay;
+            final selectedDay = state.selectedDay ?? focusedDay;
 
             return Column(
               children: [
@@ -67,27 +81,28 @@ class TableEventsExample extends StatelessWidget {
                       color: secondaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    formatButtonTextStyle: TextStyle(color: Colors.white),
+                    formatButtonTextStyle: const TextStyle(color: Colors.white),
                   ),
                   onDaySelected: (selectedDay, focusedDay) {
                     context.read<ArtistAgendaBloc>().add(
-                          const ArtistAgendaEvent
-                              .loadEvents(), // Assuming it reloads with the new day
+                          ArtistAgendaEvent.daySelected(
+                              selectedDay, focusedDay),
                         );
-                    focusedDay = focusedDay;
-                    selectedDay = selectedDay;
                   },
                   onFormatChanged: (format) {
                     // Do nothing
                   },
                   onPageChanged: (focusedDay) {
-                    focusedDay = focusedDay;
+                    context.read<ArtistAgendaBloc>().add(
+                          ArtistAgendaEvent.daySelected(
+                              _selectedDay ?? focusedDay, focusedDay),
+                        );
                   },
                 ),
                 const SizedBox(height: 8.0),
                 Expanded(
                   child: HourlyEventList(
-                    events: _getEventsForDay(selectedDay!, allEvents),
+                    events: _getEventsForDay(selectedDay, allEvents),
                   ),
                 ),
               ],

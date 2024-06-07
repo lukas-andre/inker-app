@@ -56,7 +56,8 @@ class DraggableReviewsBody extends StatelessWidget {
                           DraggableArtistInfoSheetView.info));
 
                   draggableArtistReviewSheetBloc.add(
-                      const DraggableArtistReviewSheetEvent.clearReviews());
+                      const DraggableArtistReviewSheetEvent
+                          .draggableClearReviews());
                 },
                 child: Container(
                   padding: const EdgeInsets.only(right: 16, bottom: 8, top: 8),
@@ -222,7 +223,7 @@ class DraggableReviewItem extends StatelessWidget {
                           onTap: () {
                             if (disliked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .switchReviewReaction(
+                                  .draggableSwitchReviewReaction(
                                       disliked: false,
                                       liked: true,
                                       reviewId: review.id!,
@@ -232,13 +233,13 @@ class DraggableReviewItem extends StatelessWidget {
 
                             if (liked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .reviewLikeRemoved(
+                                  .draggableReviewLikeRemoved(
                                       reviewId: review.id!,
                                       customerId: customerId));
                               return;
                             } else {
-                              reviewBloc.add(
-                                  DraggableArtistReviewSheetEvent.reviewLiked(
+                              reviewBloc.add(DraggableArtistReviewSheetEvent
+                                  .draggableReviewLiked(
                                       reviewId: review.id!,
                                       customerId: customerId));
                             }
@@ -262,7 +263,7 @@ class DraggableReviewItem extends StatelessWidget {
                           onTap: (() {
                             if (liked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .switchReviewReaction(
+                                  .draggableSwitchReviewReaction(
                                       disliked: true,
                                       liked: false,
                                       reviewId: review.id!,
@@ -279,7 +280,7 @@ class DraggableReviewItem extends StatelessWidget {
                               return;
                             } else {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .reviewDisliked(
+                                  .draggableReviewDisliked(
                                       reviewId: review.id!,
                                       customerId: customerId));
                               return;
