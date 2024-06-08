@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
@@ -80,8 +81,42 @@ class ApiAgendaService extends AgendaService {
   get statusValue => throw UnimplementedError();
 
   @override
-  Future getEvents(String token) {
-    // TODO: implement getEvents
-    throw UnimplementedError();
+  Future<List<EventItem>> getEvents({
+    required String token,
+    required String agendaViewType,
+    required String date,
+  }) async {
+    final url = _httpConfig.surl(
+      basePath: 'agenda',
+      queryParams: {
+        'agendaViewType': agendaViewType,
+      },
+    );
+
+    try {
+      final response = await http.get(url, headers: {
+        'Authorization': 'Bearer $token',
+      });
+
+      if (response.statusCode == HttpStatus.notFound) {
+        if (ResponseUtils.resourceNotFound(response)) {
+          throw ResourceNotFound();
+        }
+        throw HttpNotFound();
+      }
+
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception('Error while fetching events');
+      }
+
+      try {
+        return getAgendaEventsResponseFromJson(response.body);
+      } catch (e) {
+        throw JsonParseException();
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 }

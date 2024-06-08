@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 part 'artist_agenda_event.dart';
@@ -91,36 +91,50 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
     emit(const ArtistAgendaStateLoading());
 
     try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        throw Exception('No active session token found');
+      }
+
       final now = DateTime.now();
-      final daysInMonth = DateUtils.getDaysInMonth(now.year, now.month);
-      final fakeEvents =
-          List<ArtistAgendaEventDetails>.generate(daysInMonth, (index) {
-        final date = DateTime(now.year, now.month, index + 1);
-        return ArtistAgendaEventDetails(
-          id: 'event_$index',
-          title: 'Event $index',
-          description: 'This is event number $index',
-          startDate: date,
-          endDate: date.add(const Duration(hours: 1)),
-          location: 'Location $index',
-        );
-      });
-
-      await Future.delayed(const Duration(seconds: 1));
-
-      // Obtén el formato actual si está disponible
       final format = state is ArtistAgendaStateLoaded
           ? (state as ArtistAgendaStateLoaded).format
           : CalendarFormat.month;
 
+      final agendaViewType = format == CalendarFormat.month ? 'month' : 'week';
+      final formattedDate = DateFormat('yyyy-MM-ddTHH:mm:ss').format(now);
+
+      final response = await _agendaService.getEvents(
+        token: token,
+        agendaViewType: agendaViewType,
+        date: formattedDate,
+      );
+
+      final events = response.map((event) {
+        return ArtistAgendaEventDetails(
+          id: event.id.toString(),
+          title: event.title,
+          description: event.info,
+          startDate: event.start,
+          endDate: event.end,
+          location: '',
+        );
+      }).toList();
+
       emit(ArtistAgendaStateLoaded(
-        events: fakeEvents,
+        events: events,
         focusedDay: now,
-        format: format, // Mantén el formato actual
+        format: format,
       ));
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
-      add(ArtistAgendaEvent.loadEventsError(e.toString()));
+      emit(ArtistAgendaStateLoaded(
+        events: [],
+        focusedDay: DateTime.now(),
+        format: state is ArtistAgendaStateLoaded
+            ? (state as ArtistAgendaStateLoaded).format
+            : CalendarFormat.week,
+      ));
     }
   }
 
