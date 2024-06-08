@@ -109,6 +109,7 @@ class _TableEventsExampleState extends State<TableEventsExample>
                 const SizedBox(height: 8.0),
                 Expanded(
                   child: HourlyEventList(
+                    key: ValueKey(_selectedDay),
                     events: _getEventsForDay(selectedDay, allEvents),
                   ),
                 ),
