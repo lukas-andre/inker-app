@@ -19,7 +19,7 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class RegisterCustomerPage3 extends StatelessWidget {
-  const RegisterCustomerPage3({Key? key}) : super(key: key);
+  const RegisterCustomerPage3({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -38,8 +38,8 @@ class RegisterCustomerPage3 extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             RegisterCustomerPage3Layout(),
             RegisterCustomerPage3NextButton(),
@@ -52,8 +52,8 @@ class RegisterCustomerPage3 extends StatelessWidget {
 
 class RegisterCustomerPage3NextButton extends StatelessWidget {
   const RegisterCustomerPage3NextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,15 +130,15 @@ class RegisterCustomerPage3NextButton extends StatelessWidget {
 }
 
 class RegisterCustomerPage3Layout extends StatelessWidget {
-  const RegisterCustomerPage3Layout({Key? key}) : super(key: key);
+  const RegisterCustomerPage3Layout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             RegisterBackButton(),
             CloseRegisterButton(
               index: 3,
@@ -148,8 +148,8 @@ class RegisterCustomerPage3Layout extends StatelessWidget {
         ),
         BlocBuilder<RegisterCustomerBloc, RegisterCustomerState>(
           builder: (context, state) {
-            return Row(
-              children: const [
+            return const Row(
+              children: [
                 RegisterProgressIndicator(
                   progress: 3 / 4,
                 )
@@ -157,8 +157,8 @@ class RegisterCustomerPage3Layout extends StatelessWidget {
             );
           },
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomTitle(
               text: 'Crea tu contraseña para poder acceder a Inker 🔐 ',
             )
@@ -170,8 +170,8 @@ class RegisterCustomerPage3Layout extends StatelessWidget {
         Row(
           children: [RegisterCustomerConfirmPasswordInput()],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomSubTitle(
                 text:
                     'Estas a unos pasos de formar parte de esta gran comunidad.')

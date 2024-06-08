@@ -19,7 +19,6 @@ class TableEventsExample extends StatefulWidget {
 }
 
 class _TableEventsExampleState extends State<TableEventsExample> {
-  final DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
   @override
@@ -51,6 +50,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             final allEvents = state.events;
             final focusedDay = state.focusedDay;
             final selectedDay = state.selectedDay ?? focusedDay;
+            final format = state.format;
 
             return Column(
               children: [
@@ -59,7 +59,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                   lastDay: kLastDay,
                   focusedDay: focusedDay,
                   selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-                  calendarFormat: CalendarFormat.month,
+                  calendarFormat: format, // Usa el formato del estado
                   rangeSelectionMode: RangeSelectionMode.toggledOff,
                   eventLoader: (day) => _getEventsForDay(day, allEvents),
                   startingDayOfWeek: StartingDayOfWeek.monday,
@@ -90,7 +90,10 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         );
                   },
                   onFormatChanged: (format) {
-                    // Do nothing
+                    context.read<ArtistAgendaBloc>().add(
+                          ArtistAgendaEvent.formatChanged(
+                              format), // Agrega un evento para cambiar el formato
+                        );
                   },
                   onPageChanged: (focusedDay) {
                     context.read<ArtistAgendaBloc>().add(

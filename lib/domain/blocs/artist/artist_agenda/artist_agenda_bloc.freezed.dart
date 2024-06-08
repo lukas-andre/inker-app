@@ -29,6 +29,7 @@ mixin _$ArtistAgendaEvent {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +42,7 @@ mixin _$ArtistAgendaEvent {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +55,7 @@ mixin _$ArtistAgendaEvent {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +69,7 @@ mixin _$ArtistAgendaEvent {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +82,7 @@ mixin _$ArtistAgendaEvent {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +95,7 @@ mixin _$ArtistAgendaEvent {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +168,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return started();
   }
@@ -177,6 +184,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return started?.call();
   }
@@ -192,6 +200,7 @@ class _$StartedImpl implements _Started {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -211,6 +220,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return started(this);
   }
@@ -226,6 +236,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return started?.call(this);
   }
@@ -241,6 +252,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -341,6 +353,7 @@ class _$AddEventImpl implements _AddEvent {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return addEvent(eventDetails);
   }
@@ -356,6 +369,7 @@ class _$AddEventImpl implements _AddEvent {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return addEvent?.call(eventDetails);
   }
@@ -371,6 +385,7 @@ class _$AddEventImpl implements _AddEvent {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (addEvent != null) {
@@ -390,6 +405,7 @@ class _$AddEventImpl implements _AddEvent {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return addEvent(this);
   }
@@ -405,6 +421,7 @@ class _$AddEventImpl implements _AddEvent {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return addEvent?.call(this);
   }
@@ -420,6 +437,7 @@ class _$AddEventImpl implements _AddEvent {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (addEvent != null) {
@@ -514,6 +532,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return deleteEvent(eventId);
   }
@@ -529,6 +548,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return deleteEvent?.call(eventId);
   }
@@ -544,6 +564,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (deleteEvent != null) {
@@ -563,6 +584,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return deleteEvent(this);
   }
@@ -578,6 +600,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return deleteEvent?.call(this);
   }
@@ -593,6 +616,7 @@ class _$DeleteEventImpl implements _DeleteEvent {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (deleteEvent != null) {
@@ -698,6 +722,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return updateEvent(eventDetails);
   }
@@ -713,6 +738,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return updateEvent?.call(eventDetails);
   }
@@ -728,6 +754,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (updateEvent != null) {
@@ -747,6 +774,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return updateEvent(this);
   }
@@ -762,6 +790,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return updateEvent?.call(this);
   }
@@ -777,6 +806,7 @@ class _$UpdateEventImpl implements _UpdateEvent {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (updateEvent != null) {
@@ -845,6 +875,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return loadEvents();
   }
@@ -860,6 +891,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return loadEvents?.call();
   }
@@ -875,6 +907,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEvents != null) {
@@ -894,6 +927,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return loadEvents(this);
   }
@@ -909,6 +943,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return loadEvents?.call(this);
   }
@@ -924,6 +959,7 @@ class _$LoadEventsImpl implements _LoadEvents {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEvents != null) {
@@ -1020,6 +1056,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return loadEventsSuccess(events);
   }
@@ -1035,6 +1072,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return loadEventsSuccess?.call(events);
   }
@@ -1050,6 +1088,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEventsSuccess != null) {
@@ -1069,6 +1108,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return loadEventsSuccess(this);
   }
@@ -1084,6 +1124,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return loadEventsSuccess?.call(this);
   }
@@ -1099,6 +1140,7 @@ class _$LoadEventsSuccessImpl implements _LoadEventsSuccess {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEventsSuccess != null) {
@@ -1194,6 +1236,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return loadEventsError(message);
   }
@@ -1209,6 +1252,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return loadEventsError?.call(message);
   }
@@ -1224,6 +1268,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEventsError != null) {
@@ -1243,6 +1288,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return loadEventsError(this);
   }
@@ -1258,6 +1304,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return loadEventsError?.call(this);
   }
@@ -1273,6 +1320,7 @@ class _$LoadEventsErrorImpl implements _LoadEventsError {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (loadEventsError != null) {
@@ -1376,6 +1424,7 @@ class _$DaySelectedImpl implements _DaySelected {
     required TResult Function(String message) loadEventsError,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
         daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
   }) {
     return daySelected(selectedDay, focusedDay);
   }
@@ -1391,6 +1440,7 @@ class _$DaySelectedImpl implements _DaySelected {
     TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult? Function(String message)? loadEventsError,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
   }) {
     return daySelected?.call(selectedDay, focusedDay);
   }
@@ -1406,6 +1456,7 @@ class _$DaySelectedImpl implements _DaySelected {
     TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
     TResult Function(String message)? loadEventsError,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
     required TResult orElse(),
   }) {
     if (daySelected != null) {
@@ -1425,6 +1476,7 @@ class _$DaySelectedImpl implements _DaySelected {
     required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
     required TResult Function(_LoadEventsError value) loadEventsError,
     required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
   }) {
     return daySelected(this);
   }
@@ -1440,6 +1492,7 @@ class _$DaySelectedImpl implements _DaySelected {
     TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult? Function(_LoadEventsError value)? loadEventsError,
     TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
   }) {
     return daySelected?.call(this);
   }
@@ -1455,6 +1508,7 @@ class _$DaySelectedImpl implements _DaySelected {
     TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
     TResult Function(_LoadEventsError value)? loadEventsError,
     TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
     required TResult orElse(),
   }) {
     if (daySelected != null) {
@@ -1477,13 +1531,192 @@ abstract class _DaySelected implements ArtistAgendaEvent {
 }
 
 /// @nodoc
+abstract class _$$FormatChangedImplCopyWith<$Res> {
+  factory _$$FormatChangedImplCopyWith(
+          _$FormatChangedImpl value, $Res Function(_$FormatChangedImpl) then) =
+      __$$FormatChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CalendarFormat format});
+}
+
+/// @nodoc
+class __$$FormatChangedImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventCopyWithImpl<$Res, _$FormatChangedImpl>
+    implements _$$FormatChangedImplCopyWith<$Res> {
+  __$$FormatChangedImplCopyWithImpl(
+      _$FormatChangedImpl _value, $Res Function(_$FormatChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? format = null,
+  }) {
+    return _then(_$FormatChangedImpl(
+      null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as CalendarFormat,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FormatChangedImpl implements _FormatChanged {
+  const _$FormatChangedImpl(this.format);
+
+  @override
+  final CalendarFormat format;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEvent.formatChanged(format: $format)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FormatChangedImpl &&
+            (identical(other.format, format) || other.format == format));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, format);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FormatChangedImplCopyWith<_$FormatChangedImpl> get copyWith =>
+      __$$FormatChangedImplCopyWithImpl<_$FormatChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(ArtistAgendaEventDetails eventDetails) addEvent,
+    required TResult Function(String eventId) deleteEvent,
+    required TResult Function(ArtistAgendaEventDetails eventDetails)
+        updateEvent,
+    required TResult Function() loadEvents,
+    required TResult Function(List<ArtistAgendaEventDetails> events)
+        loadEventsSuccess,
+    required TResult Function(String message) loadEventsError,
+    required TResult Function(DateTime selectedDay, DateTime focusedDay)
+        daySelected,
+    required TResult Function(CalendarFormat format) formatChanged,
+  }) {
+    return formatChanged(format);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? addEvent,
+    TResult? Function(String eventId)? deleteEvent,
+    TResult? Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
+    TResult? Function()? loadEvents,
+    TResult? Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
+    TResult? Function(String message)? loadEventsError,
+    TResult? Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult? Function(CalendarFormat format)? formatChanged,
+  }) {
+    return formatChanged?.call(format);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? addEvent,
+    TResult Function(String eventId)? deleteEvent,
+    TResult Function(ArtistAgendaEventDetails eventDetails)? updateEvent,
+    TResult Function()? loadEvents,
+    TResult Function(List<ArtistAgendaEventDetails> events)? loadEventsSuccess,
+    TResult Function(String message)? loadEventsError,
+    TResult Function(DateTime selectedDay, DateTime focusedDay)? daySelected,
+    TResult Function(CalendarFormat format)? formatChanged,
+    required TResult orElse(),
+  }) {
+    if (formatChanged != null) {
+      return formatChanged(format);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddEvent value) addEvent,
+    required TResult Function(_DeleteEvent value) deleteEvent,
+    required TResult Function(_UpdateEvent value) updateEvent,
+    required TResult Function(_LoadEvents value) loadEvents,
+    required TResult Function(_LoadEventsSuccess value) loadEventsSuccess,
+    required TResult Function(_LoadEventsError value) loadEventsError,
+    required TResult Function(_DaySelected value) daySelected,
+    required TResult Function(_FormatChanged value) formatChanged,
+  }) {
+    return formatChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddEvent value)? addEvent,
+    TResult? Function(_DeleteEvent value)? deleteEvent,
+    TResult? Function(_UpdateEvent value)? updateEvent,
+    TResult? Function(_LoadEvents value)? loadEvents,
+    TResult? Function(_LoadEventsSuccess value)? loadEventsSuccess,
+    TResult? Function(_LoadEventsError value)? loadEventsError,
+    TResult? Function(_DaySelected value)? daySelected,
+    TResult? Function(_FormatChanged value)? formatChanged,
+  }) {
+    return formatChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddEvent value)? addEvent,
+    TResult Function(_DeleteEvent value)? deleteEvent,
+    TResult Function(_UpdateEvent value)? updateEvent,
+    TResult Function(_LoadEvents value)? loadEvents,
+    TResult Function(_LoadEventsSuccess value)? loadEventsSuccess,
+    TResult Function(_LoadEventsError value)? loadEventsError,
+    TResult Function(_DaySelected value)? daySelected,
+    TResult Function(_FormatChanged value)? formatChanged,
+    required TResult orElse(),
+  }) {
+    if (formatChanged != null) {
+      return formatChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FormatChanged implements ArtistAgendaEvent {
+  const factory _FormatChanged(final CalendarFormat format) =
+      _$FormatChangedImpl;
+
+  CalendarFormat get format;
+  @JsonKey(ignore: true)
+  _$$FormatChangedImplCopyWith<_$FormatChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ArtistAgendaState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -1493,7 +1726,7 @@ mixin _$ArtistAgendaState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)?
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -1503,7 +1736,7 @@ mixin _$ArtistAgendaState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
-            DateTime? selectedDay)?
+            DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1599,7 +1832,7 @@ class _$ArtistAgendaStateInitialImpl implements ArtistAgendaStateInitial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1612,7 +1845,7 @@ class _$ArtistAgendaStateInitialImpl implements ArtistAgendaStateInitial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)?
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1625,7 +1858,7 @@ class _$ArtistAgendaStateInitialImpl implements ArtistAgendaStateInitial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
-            DateTime? selectedDay)?
+            DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1723,7 +1956,7 @@ class _$ArtistAgendaStateLoadingImpl implements ArtistAgendaStateLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1736,7 +1969,7 @@ class _$ArtistAgendaStateLoadingImpl implements ArtistAgendaStateLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)?
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1749,7 +1982,7 @@ class _$ArtistAgendaStateLoadingImpl implements ArtistAgendaStateLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
-            DateTime? selectedDay)?
+            DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1812,7 +2045,8 @@ abstract class _$$ArtistAgendaStateLoadedImplCopyWith<$Res> {
   $Res call(
       {List<ArtistAgendaEventDetails> events,
       DateTime focusedDay,
-      DateTime? selectedDay});
+      DateTime? selectedDay,
+      CalendarFormat format});
 }
 
 /// @nodoc
@@ -1830,6 +2064,7 @@ class __$$ArtistAgendaStateLoadedImplCopyWithImpl<$Res>
     Object? events = null,
     Object? focusedDay = null,
     Object? selectedDay = freezed,
+    Object? format = null,
   }) {
     return _then(_$ArtistAgendaStateLoadedImpl(
       events: null == events
@@ -1844,6 +2079,10 @@ class __$$ArtistAgendaStateLoadedImplCopyWithImpl<$Res>
           ? _value.selectedDay
           : selectedDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as CalendarFormat,
     ));
   }
 }
@@ -1854,7 +2093,8 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
   const _$ArtistAgendaStateLoadedImpl(
       {required final List<ArtistAgendaEventDetails> events,
       required this.focusedDay,
-      this.selectedDay})
+      this.selectedDay,
+      required this.format})
       : _events = events;
 
   final List<ArtistAgendaEventDetails> _events;
@@ -1869,10 +2109,12 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
   final DateTime focusedDay;
   @override
   final DateTime? selectedDay;
+  @override
+  final CalendarFormat format;
 
   @override
   String toString() {
-    return 'ArtistAgendaState.loaded(events: $events, focusedDay: $focusedDay, selectedDay: $selectedDay)';
+    return 'ArtistAgendaState.loaded(events: $events, focusedDay: $focusedDay, selectedDay: $selectedDay, format: $format)';
   }
 
   @override
@@ -1884,12 +2126,17 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
             (identical(other.focusedDay, focusedDay) ||
                 other.focusedDay == focusedDay) &&
             (identical(other.selectedDay, selectedDay) ||
-                other.selectedDay == selectedDay));
+                other.selectedDay == selectedDay) &&
+            (identical(other.format, format) || other.format == format));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_events), focusedDay, selectedDay);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_events),
+      focusedDay,
+      selectedDay,
+      format);
 
   @JsonKey(ignore: true)
   @override
@@ -1904,11 +2151,11 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(events, focusedDay, selectedDay);
+    return loaded(events, focusedDay, selectedDay, format);
   }
 
   @override
@@ -1917,11 +2164,11 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)?
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(events, focusedDay, selectedDay);
+    return loaded?.call(events, focusedDay, selectedDay, format);
   }
 
   @override
@@ -1930,13 +2177,13 @@ class _$ArtistAgendaStateLoadedImpl implements ArtistAgendaStateLoaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
-            DateTime? selectedDay)?
+            DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(events, focusedDay, selectedDay);
+      return loaded(events, focusedDay, selectedDay, format);
     }
     return orElse();
   }
@@ -1983,11 +2230,13 @@ abstract class ArtistAgendaStateLoaded implements ArtistAgendaState {
   const factory ArtistAgendaStateLoaded(
       {required final List<ArtistAgendaEventDetails> events,
       required final DateTime focusedDay,
-      final DateTime? selectedDay}) = _$ArtistAgendaStateLoadedImpl;
+      final DateTime? selectedDay,
+      required final CalendarFormat format}) = _$ArtistAgendaStateLoadedImpl;
 
   List<ArtistAgendaEventDetails> get events;
   DateTime get focusedDay;
   DateTime? get selectedDay;
+  CalendarFormat get format;
   @JsonKey(ignore: true)
   _$$ArtistAgendaStateLoadedImplCopyWith<_$ArtistAgendaStateLoadedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2063,7 +2312,7 @@ class _$ArtistAgendaStateErrorImpl implements ArtistAgendaStateError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -2076,7 +2325,7 @@ class _$ArtistAgendaStateErrorImpl implements ArtistAgendaStateError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<ArtistAgendaEventDetails> events,
-            DateTime focusedDay, DateTime? selectedDay)?
+            DateTime focusedDay, DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -2089,7 +2338,7 @@ class _$ArtistAgendaStateErrorImpl implements ArtistAgendaStateError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<ArtistAgendaEventDetails> events, DateTime focusedDay,
-            DateTime? selectedDay)?
+            DateTime? selectedDay, CalendarFormat format)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

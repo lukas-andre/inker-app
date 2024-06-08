@@ -7,8 +7,8 @@ import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistConfirmPasswordInput extends StatelessWidget {
   RegisterArtistConfirmPasswordInput({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final _texEditingController = TextEditingController();
 
   @override

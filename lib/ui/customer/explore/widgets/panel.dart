@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 
 class GoogleMapsClonePage extends StatelessWidget {
-  const GoogleMapsClonePage({Key? key}) : super(key: key);
+  const GoogleMapsClonePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class GoogleMapsClonePage extends StatelessWidget {
 
 /// Google Map in the background
 class CustomGoogleMap extends StatelessWidget {
-  const CustomGoogleMap({Key? key}) : super(key: key);
+  const CustomGoogleMap({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,12 @@ class CustomGoogleMap extends StatelessWidget {
 
 /// Search text field plus the horizontally scrolling categories below the text field
 class CustomHeader extends StatelessWidget {
-  const CustomHeader({Key? key}) : super(key: key);
+  const CustomHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
+    return const Column(
+      children: <Widget>[
         CustomSearchContainer(),
         CustomSearchCategories(),
       ],
@@ -57,7 +57,7 @@ class CustomHeader extends StatelessWidget {
 }
 
 class CustomSearchContainer extends StatelessWidget {
-  const CustomSearchContainer({Key? key}) : super(key: key);
+  const CustomSearchContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,8 @@ class CustomSearchContainer extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(6)),
-        child: Row(
-          children: const <Widget>[
+        child: const Row(
+          children: <Widget>[
             CustomTextField(),
             Icon(Icons.mic),
             SizedBox(width: 16),
@@ -83,7 +83,7 @@ class CustomSearchContainer extends StatelessWidget {
 }
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key}) : super(key: key);
+  const CustomTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class CustomTextField extends StatelessWidget {
 }
 
 class CustomUserAvatar extends StatelessWidget {
-  const CustomUserAvatar({Key? key}) : super(key: key);
+  const CustomUserAvatar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,14 +115,14 @@ class CustomUserAvatar extends StatelessWidget {
 }
 
 class CustomSearchCategories extends StatelessWidget {
-  const CustomSearchCategories({Key? key}) : super(key: key);
+  const CustomSearchCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
           SizedBox(width: 16),
           CustomCategoryChip(Icons.fastfood, 'Takeout'),
           SizedBox(width: 12),
@@ -144,7 +144,7 @@ class CustomCategoryChip extends StatelessWidget {
   final IconData iconData;
   final String title;
 
-  const CustomCategoryChip(this.iconData, this.title);
+  const CustomCategoryChip(this.iconData, this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class CustomCategoryChip extends StatelessWidget {
 
 /// Content of the DraggableBottomSheet's child SingleChildScrollView
 class CustomScrollViewContent extends StatelessWidget {
-  const CustomScrollViewContent({Key? key}) : super(key: key);
+  const CustomScrollViewContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -182,12 +182,12 @@ class CustomScrollViewContent extends StatelessWidget {
 }
 
 class CustomInnerContent extends StatelessWidget {
-  const CustomInnerContent({Key? key}) : super(key: key);
+  const CustomInnerContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
+    return const Column(
+      children: <Widget>[
         SizedBox(height: 12),
         CustomDraggingHandle(),
         SizedBox(height: 16),
@@ -211,7 +211,7 @@ class CustomInnerContent extends StatelessWidget {
 }
 
 class CustomDraggingHandle extends StatelessWidget {
-  const CustomDraggingHandle({Key? key}) : super(key: key);
+  const CustomDraggingHandle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +225,7 @@ class CustomDraggingHandle extends StatelessWidget {
 }
 
 class CustomExploreBerlin extends StatelessWidget {
-  const CustomExploreBerlin({Key? key}) : super(key: key);
+  const CustomExploreBerlin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -244,11 +244,11 @@ class CustomExploreBerlin extends StatelessWidget {
             Container(
               height: 24,
               width: 24,
-              child: const Icon(Icons.arrow_forward_ios,
-                  size: 12, color: Colors.black54),
               decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(16)),
+              child: const Icon(Icons.arrow_forward_ios,
+                  size: 12, color: Colors.black54),
             ),
           ],
         );
@@ -258,17 +258,17 @@ class CustomExploreBerlin extends StatelessWidget {
 }
 
 class CustomHorizontallyScrollingRestaurants extends StatelessWidget {
-  const CustomHorizontallyScrollingRestaurants({Key? key}) : super(key: key);
+  const CustomHorizontallyScrollingRestaurants({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
+    return const Padding(
+      padding: EdgeInsets.only(left: 16),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             CustomRestaurantCategory(),
             SizedBox(width: 12),
             CustomRestaurantCategory(),
@@ -285,15 +285,15 @@ class CustomHorizontallyScrollingRestaurants extends StatelessWidget {
 }
 
 class CustomFeaturedListsText extends StatelessWidget {
-  const CustomFeaturedListsText({Key? key}) : super(key: key);
+  const CustomFeaturedListsText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
+    return const Padding(
+      padding: EdgeInsets.only(left: 16),
       //only to left align the text
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
           Text('Featured Lists', style: TextStyle(fontSize: 14))
         ],
       ),
@@ -302,7 +302,7 @@ class CustomFeaturedListsText extends StatelessWidget {
 }
 
 class CustomFeaturedItemsGrid extends StatelessWidget {
-  const CustomFeaturedItemsGrid({Key? key}) : super(key: key);
+  const CustomFeaturedItemsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -328,14 +328,14 @@ class CustomFeaturedItemsGrid extends StatelessWidget {
 }
 
 class CustomRecentPhotosText extends StatelessWidget {
-  const CustomRecentPhotosText({Key? key}) : super(key: key);
+  const CustomRecentPhotosText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
+    return const Padding(
+      padding: EdgeInsets.only(left: 16),
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
           Text('Recent Photos', style: TextStyle(fontSize: 14)),
         ],
       ),
@@ -344,7 +344,7 @@ class CustomRecentPhotosText extends StatelessWidget {
 }
 
 class CustomRecentPhotoLarge extends StatelessWidget {
-  const CustomRecentPhotoLarge({Key? key}) : super(key: key);
+  const CustomRecentPhotoLarge({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -356,7 +356,7 @@ class CustomRecentPhotoLarge extends StatelessWidget {
 }
 
 class CustomRecentPhotosSmall extends StatelessWidget {
-  const CustomRecentPhotosSmall({Key? key}) : super(key: key);
+  const CustomRecentPhotosSmall({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -365,7 +365,7 @@ class CustomRecentPhotosSmall extends StatelessWidget {
 }
 
 class CustomRestaurantCategory extends StatelessWidget {
-  const CustomRestaurantCategory({Key? key}) : super(key: key);
+  const CustomRestaurantCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -381,7 +381,7 @@ class CustomRestaurantCategory extends StatelessWidget {
 }
 
 class CustomFeaturedItem extends StatelessWidget {
-  const CustomFeaturedItem({Key? key}) : super(key: key);
+  const CustomFeaturedItem({super.key});
 
   @override
   Widget build(BuildContext context) {

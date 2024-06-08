@@ -6,7 +6,7 @@ import 'package:inker_studio/ui/on_boarding/widgets/sing_in_and_register_buttons
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_skip_button.dart';
 
 class FixedComponents extends StatelessWidget {
-  const FixedComponents({Key? key}) : super(key: key);
+  const FixedComponents({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,27 +15,27 @@ class FixedComponents extends StatelessWidget {
     return SafeArea(
       top: device.hasNotch,
       bottom: device.hasNotch,
-      child: Column(
+      child: const Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               OnBoardingSkipButton(),
             ],
           ),
           Row(
-            children: const [
+            children: [
               OnBoardingPageNumberIndicator(),
             ],
           ),
           Row(
-            children: const [
+            children: [
               CustomDotsIndicator(),
             ],
           ),
           Expanded(
             child: Row(
-              children: const [
+              children: [
                 SingInAndRegisterButton(),
               ],
             ),

@@ -5,8 +5,8 @@ const kExplorerListViewTitle = 'Descubrir';
 
 class ExplorerListViewTitle extends StatelessWidget {
   const ExplorerListViewTitle({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

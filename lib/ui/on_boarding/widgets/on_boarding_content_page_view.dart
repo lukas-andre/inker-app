@@ -6,7 +6,7 @@ import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_content.dart';
 
 class OnBoardingContentPageView extends StatelessWidget {
-  const OnBoardingContentPageView({Key? key}) : super(key: key);
+  const OnBoardingContentPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +82,11 @@ class OnBoardingContentPageView extends StatelessWidget {
         child: Stack(
           children: [
             Opacity(
+                opacity: 0.5,
                 child: Image.asset(
                   content.backgroundImage,
                   height: content.height,
-                ),
-                opacity: 0.5),
+                )),
             ClipRRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),

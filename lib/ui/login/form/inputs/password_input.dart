@@ -5,7 +5,7 @@ import 'package:inker_studio/domain/cubits/login/hide_password_cubit.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class PasswordInput extends StatelessWidget {
-  const PasswordInput({Key? key}) : super(key: key);
+  const PasswordInput({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistRatingContent extends StatelessWidget {
-  const DraggableArtistRatingContent({Key? key}) : super(key: key);
+  const DraggableArtistRatingContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +77,9 @@ class DraggableArtistRatingContent extends StatelessWidget {
 
 class DraggableArtistRatingDetailBars extends StatelessWidget {
   const DraggableArtistRatingDetailBars({
-    Key? key,
+    super.key,
     required this.reviewMap,
-  }) : super(key: key);
+  });
 
   final Map<String, double> reviewMap;
 
@@ -105,7 +105,7 @@ class DraggableArtistRatingDetailBars extends StatelessWidget {
                                   TextSpan(
                                     children: [
                                       buildCenteredTextSpan(
-                                          text: e.key + ' ',
+                                          text: '${e.key} ',
                                           style: TextStyleTheme.copyWith(
                                               color: Colors.white,
                                               fontSize: 10,
@@ -133,7 +133,7 @@ class DraggableArtistRatingDetailBars extends StatelessWidget {
                             ),
                           ],
                         ))
-                    .toList(),
+                    ,
               ]),
         ));
   }
@@ -141,9 +141,9 @@ class DraggableArtistRatingDetailBars extends StatelessWidget {
 
 class DraggableArtistRatingResume extends StatelessWidget {
   const DraggableArtistRatingResume({
-    Key? key,
+    super.key,
     required this.review,
-  }) : super(key: key);
+  });
 
   final Review? review;
 
@@ -179,8 +179,8 @@ class DraggableArtistRatingResume extends StatelessWidget {
 
 class DraggableRatingNumbers extends StatelessWidget {
   const DraggableRatingNumbers({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

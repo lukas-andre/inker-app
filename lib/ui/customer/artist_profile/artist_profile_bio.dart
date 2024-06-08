@@ -9,8 +9,7 @@ class ArtistProfileBio extends StatefulWidget {
   final Function(double) onToggleDescription;
 
   const ArtistProfileBio(
-      {Key? key, required this.artist, required this.onToggleDescription})
-      : super(key: key);
+      {super.key, required this.artist, required this.onToggleDescription});
 
   @override
   _ArtistProfileBioState createState() => _ArtistProfileBioState();

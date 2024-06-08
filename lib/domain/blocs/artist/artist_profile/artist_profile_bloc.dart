@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';

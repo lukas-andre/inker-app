@@ -6,7 +6,7 @@ import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_button.
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 
 class ExplorerSwitchViewButtons extends StatelessWidget {
-  const ExplorerSwitchViewButtons({Key? key}) : super(key: key);
+  const ExplorerSwitchViewButtons({super.key});
 
   @override
   Widget build(BuildContext context) {

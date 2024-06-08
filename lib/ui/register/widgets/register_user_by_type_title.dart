@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 
 class RegisterUserByTypeTitle extends StatelessWidget {
-  const RegisterUserByTypeTitle({Key? key}) : super(key: key);
+  const RegisterUserByTypeTitle({super.key});
 
   @override
   Widget build(BuildContext context) {

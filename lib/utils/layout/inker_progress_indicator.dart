@@ -8,10 +8,10 @@ class InkerProgressIndicator extends StatelessWidget {
   final double? radius;
 
   const InkerProgressIndicator({
-    Key? key,
+    super.key,
     this.color,
     this.radius,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

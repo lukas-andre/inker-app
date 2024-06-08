@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegisterProgressIndicator extends StatelessWidget {
-  const RegisterProgressIndicator({Key? key, required this.progress})
-      : super(key: key);
+  const RegisterProgressIndicator({super.key, required this.progress});
   final double progress;
 
   @override

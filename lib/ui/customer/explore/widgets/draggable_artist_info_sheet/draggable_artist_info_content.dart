@@ -14,7 +14,7 @@ import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoContent extends StatelessWidget {
-  const DraggableArtistInfoContent({Key? key}) : super(key: key);
+  const DraggableArtistInfoContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class DraggableArtistInfoContent extends StatelessWidget {
 }
 
 class DraggableStatusRow extends StatelessWidget {
-  const DraggableStatusRow({Key? key}) : super(key: key);
+  const DraggableStatusRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class DraggableStatusRow extends StatelessWidget {
 }
 
 class DraggableInfoBody extends StatelessWidget {
-  const DraggableInfoBody({Key? key}) : super(key: key);
+  const DraggableInfoBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -203,17 +203,17 @@ class DraggableInfoBody extends StatelessWidget {
 }
 
 class CustomHorizontallyScrollingRestaurants extends StatelessWidget {
-  const CustomHorizontallyScrollingRestaurants({Key? key}) : super(key: key);
+  const CustomHorizontallyScrollingRestaurants({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
+    return const Padding(
+      padding: EdgeInsets.only(left: 16),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             CustomRestaurantCategory(),
             SizedBox(width: 12),
             CustomRestaurantCategory(),
@@ -230,7 +230,7 @@ class CustomHorizontallyScrollingRestaurants extends StatelessWidget {
 }
 
 class CustomFeaturedListsText extends StatelessWidget {
-  const CustomFeaturedListsText({Key? key}) : super(key: key);
+  const CustomFeaturedListsText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +251,7 @@ class CustomFeaturedListsText extends StatelessWidget {
 }
 
 class CustomFeaturedItemsGrid extends StatelessWidget {
-  const CustomFeaturedItemsGrid({Key? key}) : super(key: key);
+  const CustomFeaturedItemsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -277,14 +277,14 @@ class CustomFeaturedItemsGrid extends StatelessWidget {
 }
 
 class CustomRecentPhotosText extends StatelessWidget {
-  const CustomRecentPhotosText({Key? key}) : super(key: key);
+  const CustomRecentPhotosText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
+    return const Padding(
+      padding: EdgeInsets.only(left: 16),
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
           Text('Recent Photos', style: TextStyle(fontSize: 14)),
         ],
       ),
@@ -293,7 +293,7 @@ class CustomRecentPhotosText extends StatelessWidget {
 }
 
 class CustomRecentPhotoLarge extends StatelessWidget {
-  const CustomRecentPhotoLarge({Key? key}) : super(key: key);
+  const CustomRecentPhotoLarge({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +305,7 @@ class CustomRecentPhotoLarge extends StatelessWidget {
 }
 
 class CustomRecentPhotosSmall extends StatelessWidget {
-  const CustomRecentPhotosSmall({Key? key}) : super(key: key);
+  const CustomRecentPhotosSmall({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -314,7 +314,7 @@ class CustomRecentPhotosSmall extends StatelessWidget {
 }
 
 class CustomRestaurantCategory extends StatelessWidget {
-  const CustomRestaurantCategory({Key? key}) : super(key: key);
+  const CustomRestaurantCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -330,7 +330,7 @@ class CustomRestaurantCategory extends StatelessWidget {
 }
 
 class CustomFeaturedItem extends StatelessWidget {
-  const CustomFeaturedItem({Key? key}) : super(key: key);
+  const CustomFeaturedItem({super.key});
 
   @override
   Widget build(BuildContext context) {

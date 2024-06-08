@@ -17,7 +17,7 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class VerificationPage extends StatelessWidget {
-  const VerificationPage({Key? key}) : super(key: key);
+  const VerificationPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const VerificationPage());
@@ -35,8 +35,8 @@ class VerificationPage extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             VerificationLayout(),
             VerificationPageNextButton(),
@@ -49,8 +49,8 @@ class VerificationPage extends StatelessWidget {
 
 class VerificationPageNextButton extends StatelessWidget {
   const VerificationPageNextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -172,37 +172,37 @@ class VerificationPageNextButton extends StatelessWidget {
 }
 
 class VerificationLayout extends StatelessWidget {
-  const VerificationLayout({Key? key}) : super(key: key);
+  const VerificationLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
     AccountVerificationBloc bloc = context.read<AccountVerificationBloc>();
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
+          children: [
             CloseRegisterButton(
               toPage: LoginPage(),
             )
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterProgressIndicator(
               progress: 5 / 5,
             )
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomTitle(
               text: 'Se ha enviado un código de verificación a tu celular',
             )
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomSubTitle(
                 text:
                     'Verifica tu cuenta mediante tu numero telefónico, revisa tu bandeja de mensajes.'),

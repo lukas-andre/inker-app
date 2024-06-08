@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/models/artist_page_nav_bar_icons.dart';
 

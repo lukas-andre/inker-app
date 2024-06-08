@@ -12,17 +12,16 @@ import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class CloseRegisterButton extends StatelessWidget {
-  const CloseRegisterButton({Key? key, this.index, this.toPage, this.userType})
-      : super(key: key);
+  const CloseRegisterButton({super.key, this.index, this.toPage, this.userType});
   final int? index;
   final dynamic toPage;
   final String? userType;
 
   @override
   Widget build(BuildContext context) {
-    RegisterArtistBloc _registerArtistBloc =
+    RegisterArtistBloc registerArtistBloc =
         BlocProvider.of<RegisterArtistBloc>(context);
-    RegisterCustomerBloc _registerCustomerBloc =
+    RegisterCustomerBloc registerCustomerBloc =
         BlocProvider.of<RegisterCustomerBloc>(context);
 
     return Container(
@@ -40,7 +39,7 @@ class CloseRegisterButton extends StatelessWidget {
                   }
 
                   _clearForm(
-                      userType, _registerArtistBloc, _registerCustomerBloc);
+                      userType, registerArtistBloc, registerCustomerBloc);
 
                   return;
                 }
@@ -49,7 +48,7 @@ class CloseRegisterButton extends StatelessWidget {
                   if (index == 0) {
                     InkerNavigator.pop(context);
                     _clearForm(
-                        userType, _registerArtistBloc, _registerCustomerBloc);
+                        userType, registerArtistBloc, registerCustomerBloc);
 
                     return;
                   }
@@ -63,7 +62,7 @@ class CloseRegisterButton extends StatelessWidget {
                       await Future.delayed(const Duration(milliseconds: 100));
                     }
                     _clearForm(
-                        userType, _registerArtistBloc, _registerCustomerBloc);
+                        userType, registerArtistBloc, registerCustomerBloc);
                   }
                 } else {
                   InkerNavigator.pop(context);
@@ -88,12 +87,12 @@ class CloseRegisterButton extends StatelessWidget {
                       'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
                   actions: <Widget>[
                     CupertinoDialogAction(
-                      child: const Text('Sí'),
                       isDestructiveAction: true,
                       onPressed: () {
                         shouldClose = true;
                         Navigator.of(context).pop();
                       },
+                      child: const Text('Sí'),
                     ),
                     CupertinoDialogAction(
                       isDefaultAction: true,
@@ -134,10 +133,10 @@ class CloseRegisterButton extends StatelessWidget {
     return shouldClose;
   }
 
-  void _clearForm(String? userType, RegisterArtistBloc _registerArtistBloc,
-      RegisterCustomerBloc _registerCustomerBloc) {
+  void _clearForm(String? userType, RegisterArtistBloc registerArtistBloc,
+      RegisterCustomerBloc registerCustomerBloc) {
     userType == UserType.artist
-        ? _registerArtistBloc.add(const RegisterArtistClearForm())
-        : _registerCustomerBloc.add(const RegisterCustomerClearForm());
+        ? registerArtistBloc.add(const RegisterArtistClearForm())
+        : registerCustomerBloc.add(const RegisterCustomerClearForm());
   }
 }

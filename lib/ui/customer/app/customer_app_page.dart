@@ -7,7 +7,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerAppPage extends StatefulWidget {
-  const CustomerAppPage({Key? key}) : super(key: key);
+  const CustomerAppPage({super.key});
 
   @override
   _CustomerAppPageState createState() => _CustomerAppPageState();

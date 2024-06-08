@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 part 'artist_agenda_event.dart';
 part 'artist_agenda_state.dart';
@@ -34,24 +34,22 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
         loadEventsError: (message) async => _loadEventsError(emit, message),
         daySelected: (selectedDay, focusedDay) async =>
             _daySelected(emit, selectedDay, focusedDay),
+        formatChanged: (format) async => _formatChanged(emit, format),
       );
     });
   }
 
   void _started(Emitter<ArtistAgendaState> emit) {
-    print("Started");
     emit(const ArtistAgendaStateInitial());
     add(const ArtistAgendaEvent.loadEvents());
   }
 
   Future<void> _addEvent(Emitter<ArtistAgendaState> emit,
       ArtistAgendaEventDetails eventDetails) async {
-    print("Adding event: $eventDetails");
     emit(const ArtistAgendaStateLoading());
 
     try {
       final token = await _sessionService.getActiveSessionToken();
-      // await _agendaService.addEvent(eventDetails, token ?? '');
       add(const ArtistAgendaEvent.loadEvents());
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
@@ -61,12 +59,10 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
 
   Future<void> _deleteEvent(
       Emitter<ArtistAgendaState> emit, String eventId) async {
-    print("Deleting event: $eventId");
     emit(const ArtistAgendaStateLoading());
 
     try {
       final token = await _sessionService.getActiveSessionToken();
-      // await _agendaService.deleteEvent(eventId, token ?? '');
       add(const ArtistAgendaEvent.loadEvents());
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
@@ -76,12 +72,10 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
 
   Future<void> _updateEvent(Emitter<ArtistAgendaState> emit,
       ArtistAgendaEventDetails eventDetails) async {
-    print("Updating event: $eventDetails");
     emit(const ArtistAgendaStateLoading());
 
     try {
       final token = await _sessionService.getActiveSessionToken();
-      // await _agendaService.updateEvent(eventDetails, token ?? '');
       add(const ArtistAgendaEvent.loadEvents());
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
@@ -90,7 +84,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
   }
 
   Future<void> _loadEvents(Emitter<ArtistAgendaState> emit) async {
-    print("Loading events");
+    print('Loading events');
     emit(const ArtistAgendaStateLoading());
 
     try {
@@ -104,14 +98,23 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
           title: 'Event $index',
           description: 'This is event number $index',
           startDate: date,
-          endDate: date.add(Duration(hours: 1)),
+          endDate: date.add(const Duration(hours: 1)),
           location: 'Location $index',
         );
       });
 
       await Future.delayed(const Duration(seconds: 1));
-      emit(ArtistAgendaStateLoaded(events: fakeEvents, focusedDay: now));
-      return;
+
+      // Obtén el formato actual si está disponible
+      final format = state is ArtistAgendaStateLoaded
+          ? (state as ArtistAgendaStateLoaded).format
+          : CalendarFormat.month;
+
+      emit(ArtistAgendaStateLoaded(
+        events: fakeEvents,
+        focusedDay: now,
+        format: format, // Mantén el formato actual
+      ));
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
       add(ArtistAgendaEvent.loadEventsError(e.toString()));
@@ -120,24 +123,36 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
 
   void _loadEventsSuccess(
       Emitter<ArtistAgendaState> emit, List<ArtistAgendaEventDetails> events) {
-    print("Load events success: $events");
-    emit(ArtistAgendaStateLoaded(events: events, focusedDay: DateTime.now()));
+    if (state is ArtistAgendaStateLoaded) {
+      final currentState = state as ArtistAgendaStateLoaded;
+      emit(ArtistAgendaStateLoaded(
+        events: events,
+        focusedDay: currentState.focusedDay,
+        selectedDay: currentState.selectedDay,
+        format: currentState.format,
+      ));
+    }
   }
 
   void _loadEventsError(Emitter<ArtistAgendaState> emit, String message) {
-    print("Load events error: $message");
     emit(ArtistAgendaStateError(message));
   }
 
   void _daySelected(Emitter<ArtistAgendaState> emit, DateTime selectedDay,
       DateTime focusedDay) {
-    print("Day selected: $selectedDay, $focusedDay");
     if (state is ArtistAgendaStateLoaded) {
       final currentState = state as ArtistAgendaStateLoaded;
       emit(currentState.copyWith(
         selectedDay: selectedDay,
         focusedDay: focusedDay,
       ));
+    }
+  }
+
+  void _formatChanged(Emitter<ArtistAgendaState> emit, CalendarFormat format) {
+    if (state is ArtistAgendaStateLoaded) {
+      final currentState = state as ArtistAgendaStateLoaded;
+      emit(currentState.copyWith(format: format));
     }
   }
 }

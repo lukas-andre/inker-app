@@ -5,7 +5,7 @@ import 'package:inker_studio/ui/customer/explore/gps_access_page.dart';
 import 'package:inker_studio/ui/customer/explore/explorer_page.dart';
 
 class BuildMapPage extends StatelessWidget {
-  const BuildMapPage({Key? key}) : super(key: key);
+  const BuildMapPage({super.key});
 
   @override
   Widget build(BuildContext context) {

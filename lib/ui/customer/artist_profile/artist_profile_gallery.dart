@@ -7,7 +7,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 class ArtistGallery extends StatelessWidget {
   final List<WorkItem> works;
 
-  const ArtistGallery({Key? key, required this.works}) : super(key: key);
+  const ArtistGallery({super.key, required this.works});
 
   List<ImageProvider<Object>> _buildImages(WorkEvidence? workEvidence) {
     final List<ImageProvider<Object>> images = [];
@@ -28,7 +28,7 @@ class ArtistGallery extends StatelessWidget {
   void _showImageModal(BuildContext context, List<ImageProvider<Object>> images,
       List<String> urls) {
     if (images.isNotEmpty) {
-      final PageController _pageController = PageController();
+      final PageController pageController = PageController();
       showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -59,7 +59,7 @@ class ArtistGallery extends StatelessWidget {
                     child: Stack(
                       children: [
                         PageView.builder(
-                          controller: _pageController,
+                          controller: pageController,
                           itemCount: images.length,
                           itemBuilder: (context, index) {
                             return Container(
@@ -90,7 +90,7 @@ class ArtistGallery extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
-                                  _pageController.previousPage(
+                                  pageController.previousPage(
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,
                                   );
@@ -111,7 +111,7 @@ class ArtistGallery extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
-                                  _pageController.nextPage(
+                                  pageController.nextPage(
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,
                                   );

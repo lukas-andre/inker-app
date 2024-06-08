@@ -4,7 +4,7 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ButtonFollowLocation extends StatelessWidget {
-  const ButtonFollowLocation({Key? key}) : super(key: key);
+  const ButtonFollowLocation({super.key});
 
   @override
   Widget build(BuildContext context) {

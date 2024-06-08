@@ -14,9 +14,8 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfilePage extends StatefulWidget {
-  const ArtistProfilePage({Key? key, required Artist artist})
-      : _artist = artist,
-        super(key: key);
+  const ArtistProfilePage({super.key, required Artist artist})
+      : _artist = artist;
 
   final Artist _artist;
 
@@ -280,14 +279,14 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                             .read<ArtistProfileBloc>()
                             .add(const ArtistProfileEvent.follow());
                   },
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    backgroundColor: const Color(0x00131527),
+                  ),
                   child: Text(
                     artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
                     style: TextStyleTheme.copyWith(
                         color: Colors.white, fontSize: 13),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    backgroundColor: const Color(0x00131527),
                   ),
                 ),
         ),
@@ -296,13 +295,13 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
           flex: 4,
           child: ElevatedButton(
             onPressed: () {},
-            child: Text('Enviar Mensaje',
-                style:
-                    TextStyleTheme.copyWith(color: Colors.white, fontSize: 13)),
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
               backgroundColor: const Color(0x00131527),
             ),
+            child: Text('Enviar Mensaje',
+                style:
+                    TextStyleTheme.copyWith(color: Colors.white, fontSize: 13)),
           ),
         ),
         const SizedBox(width: 10),
@@ -310,13 +309,13 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
           flex: 3,
           child: ElevatedButton(
             onPressed: () {},
-            child: Text(
-              'Agendar',
-              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 14),
-            ),
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
               backgroundColor: secondaryColor,
+            ),
+            child: Text(
+              'Agendar',
+              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 14),
             ),
           ),
         ),

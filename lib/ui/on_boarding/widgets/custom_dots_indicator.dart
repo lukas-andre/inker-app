@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 
 class CustomDotsIndicator extends StatelessWidget {
-  const CustomDotsIndicator({Key? key}) : super(key: key);
+  const CustomDotsIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

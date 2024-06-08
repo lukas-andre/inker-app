@@ -5,13 +5,13 @@ import 'package:inker_studio/ui/login/widgets/social_button.dart';
 
 class LoginLayout extends StatelessWidget {
   const LoginLayout({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(children: const [
+    return const SafeArea(
+      child: Stack(children: [
         LoginHeader(),
         LoginForm(),
         SocialMediaSingInOptions()
@@ -21,7 +21,7 @@ class LoginLayout extends StatelessWidget {
 }
 
 class SocialMediaSingInOptions extends StatelessWidget {
-  const SocialMediaSingInOptions({Key? key}) : super(key: key);
+  const SocialMediaSingInOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +48,15 @@ class SocialMediaSingInOptions extends StatelessWidget {
                   )),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: 50, vertical: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           SocialButton(
                             iconPath: 'assets/icons/svg/google.svg',
                           ),

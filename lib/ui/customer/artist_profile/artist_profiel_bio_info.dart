@@ -6,7 +6,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class ArtistProfileBioInfoRow extends StatelessWidget {
-  const ArtistProfileBioInfoRow({Key? key}) : super(key: key);
+  const ArtistProfileBioInfoRow({super.key});
 
   @override
   Widget build(BuildContext context) {

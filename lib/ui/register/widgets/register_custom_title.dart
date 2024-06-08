@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegisterCustomTitle extends StatelessWidget {
-  const RegisterCustomTitle({Key? key, required this.text}) : super(key: key);
+  const RegisterCustomTitle({super.key, required this.text});
 
   final String text;
 

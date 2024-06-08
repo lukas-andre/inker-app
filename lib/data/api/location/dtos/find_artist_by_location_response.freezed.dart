@@ -521,9 +521,9 @@ mixin _$Artist {
   String? get username => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
-  dynamic? get studioPhoto => throw _privateConstructorUsedError;
+  dynamic get studioPhoto => throw _privateConstructorUsedError;
   String? get shortDescription => throw _privateConstructorUsedError;
-  dynamic? get profileThumbnail => throw _privateConstructorUsedError;
+  dynamic get profileThumbnail => throw _privateConstructorUsedError;
   int? get rating => throw _privateConstructorUsedError;
   Review? get review => throw _privateConstructorUsedError;
   int? get followers => throw _privateConstructorUsedError;
@@ -547,9 +547,9 @@ abstract class $ArtistCopyWith<$Res> {
       String? username,
       String? firstName,
       String? lastName,
-      dynamic? studioPhoto,
+      dynamic studioPhoto,
       String? shortDescription,
-      dynamic? profileThumbnail,
+      dynamic profileThumbnail,
       int? rating,
       Review? review,
       int? followers,
@@ -613,7 +613,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
       studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
@@ -621,7 +621,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
       profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -687,9 +687,9 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       String? username,
       String? firstName,
       String? lastName,
-      dynamic? studioPhoto,
+      dynamic studioPhoto,
       String? shortDescription,
-      dynamic? profileThumbnail,
+      dynamic profileThumbnail,
       int? rating,
       Review? review,
       int? followers,
@@ -753,7 +753,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
       studioPhoto: freezed == studioPhoto
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
@@ -761,7 +761,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
       profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -823,11 +823,11 @@ class _$ArtistImpl implements _Artist {
   @override
   final String? lastName;
   @override
-  final dynamic? studioPhoto;
+  final dynamic studioPhoto;
   @override
   final String? shortDescription;
   @override
-  final dynamic? profileThumbnail;
+  final dynamic profileThumbnail;
   @override
   final int? rating;
   @override
@@ -917,9 +917,9 @@ abstract class _Artist implements Artist {
       final String? username,
       final String? firstName,
       final String? lastName,
-      final dynamic? studioPhoto,
+      final dynamic studioPhoto,
       final String? shortDescription,
-      final dynamic? profileThumbnail,
+      final dynamic profileThumbnail,
       final int? rating,
       final Review? review,
       final int? followers,
@@ -940,11 +940,11 @@ abstract class _Artist implements Artist {
   @override
   String? get lastName;
   @override
-  dynamic? get studioPhoto;
+  dynamic get studioPhoto;
   @override
   String? get shortDescription;
   @override
-  dynamic? get profileThumbnail;
+  dynamic get profileThumbnail;
   @override
   int? get rating;
   @override
