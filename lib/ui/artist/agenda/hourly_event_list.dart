@@ -1,18 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 
-class HourlyEventList extends StatelessWidget {
+class HourlyEventList extends StatefulWidget {
   final List<ArtistAgendaEventDetails> events;
 
   const HourlyEventList({super.key, required this.events});
 
   @override
+  _HourlyEventListState createState() => _HourlyEventListState();
+}
+
+class _HourlyEventListState extends State<HourlyEventList> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToFirstEvent();
+    });
+  }
+
+  void _scrollToFirstEvent() {
+    if (widget.events.isNotEmpty) {
+      final firstEvent = widget.events.first;
+      final position = firstEvent.startDate.hour * 60.0;
+      _scrollController.animateTo(
+        position,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: _scrollController,
       itemCount: 24,
       itemBuilder: (context, index) {
         final hour = index;
-        final hourEvents = events.where((event) =>
+        final hourEvents = widget.events.where((event) =>
             event.startDate.hour == hour ||
             (event.startDate.hour < hour && event.endDate.hour > hour));
         return SizedBox(
