@@ -30,7 +30,7 @@ import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class AppView extends StatefulWidget {
-  const AppView({Key? key}) : super(key: key);
+  const AppView({super.key});
 
   @override
   _AppViewState createState() => _AppViewState();

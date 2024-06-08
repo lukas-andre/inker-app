@@ -4,7 +4,7 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressTypeInput extends StatelessWidget {
-  const RegisterArtistAddressTypeInput({Key? key}) : super(key: key);
+  const RegisterArtistAddressTypeInput({super.key});
 
   @override
   Widget build(BuildContext context) =>
@@ -47,8 +47,7 @@ class RegisterArtistAddressTypeInput extends StatelessWidget {
 }
 
 class InkerChip extends StatelessWidget {
-  const InkerChip({Key? key, required this.text, required this.active})
-      : super(key: key);
+  const InkerChip({super.key, required this.text, required this.active});
   final String text;
   final bool active;
   @override

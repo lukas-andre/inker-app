@@ -22,7 +22,7 @@ class LogoutUseCase {
 
   Future<Session?> execute(Session session) async {
     try {
-      dev.log('aaaaaaaaaaa: ' + session.toString(), className);
+      dev.log('aaaaaaaaaaa: $session', className);
       final currentSession =
           await _sessionService.getSession(session.sessionType);
       dev.log('currentSession: $currentSession', className);

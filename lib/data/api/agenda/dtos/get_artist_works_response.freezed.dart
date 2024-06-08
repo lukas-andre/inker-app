@@ -219,7 +219,7 @@ mixin _$WorkItem {
   bool? get notification => throw _privateConstructorUsedError;
   bool? get done => throw _privateConstructorUsedError;
   WorkEvidence? get workEvidence => throw _privateConstructorUsedError;
-  dynamic? get deletedAt => throw _privateConstructorUsedError;
+  dynamic get deletedAt => throw _privateConstructorUsedError;
   Review? get review => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -246,7 +246,7 @@ abstract class $WorkItemCopyWith<$Res> {
       bool? notification,
       bool? done,
       WorkEvidence? workEvidence,
-      dynamic? deletedAt,
+      dynamic deletedAt,
       Review? review});
 
   $WorkEvidenceCopyWith<$Res>? get workEvidence;
@@ -333,7 +333,7 @@ class _$WorkItemCopyWithImpl<$Res, $Val extends WorkItem>
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       review: freezed == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -387,7 +387,7 @@ abstract class _$$WorkItemImplCopyWith<$Res>
       bool? notification,
       bool? done,
       WorkEvidence? workEvidence,
-      dynamic? deletedAt,
+      dynamic deletedAt,
       Review? review});
 
   @override
@@ -474,7 +474,7 @@ class __$$WorkItemImplCopyWithImpl<$Res>
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
-              as dynamic?,
+              as dynamic,
       review: freezed == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -530,7 +530,7 @@ class _$WorkItemImpl implements _WorkItem {
   @override
   final WorkEvidence? workEvidence;
   @override
-  final dynamic? deletedAt;
+  final dynamic deletedAt;
   @override
   final Review? review;
 
@@ -612,7 +612,7 @@ abstract class _WorkItem implements WorkItem {
       final bool? notification,
       final bool? done,
       final WorkEvidence? workEvidence,
-      final dynamic? deletedAt,
+      final dynamic deletedAt,
       final Review? review}) = _$WorkItemImpl;
 
   factory _WorkItem.fromJson(Map<String, dynamic> json) =
@@ -643,7 +643,7 @@ abstract class _WorkItem implements WorkItem {
   @override
   WorkEvidence? get workEvidence;
   @override
-  dynamic? get deletedAt;
+  dynamic get deletedAt;
   @override
   Review? get review;
   @override

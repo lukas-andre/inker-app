@@ -8,7 +8,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GpsAccessScreen extends StatelessWidget {
-  const GpsAccessScreen({Key? key}) : super(key: key);
+  const GpsAccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class GpsAccessScreen extends StatelessWidget {
 
 class EnableGpsMessage extends StatelessWidget {
   const EnableGpsMessage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,8 @@ class EnableGpsMessage extends StatelessWidget {
 
 class AccessButton extends StatelessWidget {
   const AccessButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   void _handleAccess(BuildContext context) {
     context.read<GpsBloc>().askGpsAccess();

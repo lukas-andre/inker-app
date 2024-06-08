@@ -7,8 +7,8 @@ import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterArtistUsernameInput extends StatelessWidget {
   RegisterArtistUsernameInput({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final _texEditingController = TextEditingController();
 
   @override

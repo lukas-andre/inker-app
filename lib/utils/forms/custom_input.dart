@@ -4,7 +4,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput(
-      {Key? key,
+      {super.key,
       required this.onChanged,
       required this.label,
       this.hint,
@@ -19,8 +19,7 @@ class CustomInput extends StatelessWidget {
       this.withFlex = true,
       this.focusNode,
       this.keyboardType,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   final void Function(String) onChanged;
   final String label;

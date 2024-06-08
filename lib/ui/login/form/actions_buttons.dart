@@ -6,12 +6,12 @@ import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ActionsButtons extends StatelessWidget {
-  const ActionsButtons({Key? key}) : super(key: key);
+  const ActionsButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Expanded(child: ForgotMyPassword()),
         Expanded(child: SignInButton())
       ],
@@ -21,8 +21,8 @@ class ActionsButtons extends StatelessWidget {
 
 class ForgotMyPassword extends StatelessWidget {
   const ForgotMyPassword({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +39,17 @@ class ForgotMyPassword extends StatelessWidget {
 
 class SignInButton extends StatelessWidget {
   const SignInButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     ButtonStyle initSessionButtonStyle = ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
         backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xff7450FF)));
+            WidgetStateProperty.all<Color>(const Color(0xff7450FF)));
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
@@ -75,9 +75,9 @@ class SignInButton extends StatelessWidget {
 
                     context.read<LoginBloc>().add(const LoginSubmitted());
                   },
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text('Iniciar sesión'),
                       SizedBox(width: 10),
                       Icon(

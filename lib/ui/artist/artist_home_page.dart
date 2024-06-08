@@ -6,7 +6,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistAppPage extends StatefulWidget {
-  const ArtistAppPage({Key? key}) : super(key: key);
+  const ArtistAppPage({super.key});
 
   @override
   _ArtistAppPageState createState() => _ArtistAppPageState();

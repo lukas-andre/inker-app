@@ -14,8 +14,8 @@ const bottomBarHeight = 80.0;
 
 class DraggableArtistInfoBottomBar extends StatelessWidget {
   const DraggableArtistInfoBottomBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
               for (var map in availableMaps)
                 CupertinoActionSheetAction(
                   child: Text(
-                    'Abrir en ' + map.mapName,
+                    'Abrir en ${map.mapName}',
                     style: TextStyle(
                         fontSize: 18,
                         fontStyle: TextStyleTheme.instance.fontStyle),

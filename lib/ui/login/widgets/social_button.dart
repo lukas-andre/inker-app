@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialButton extends StatelessWidget {
   final String iconPath;
-  const SocialButton({Key? key, required this.iconPath}) : super(key: key);
+  const SocialButton({super.key, required this.iconPath});
 
   @override
   Widget build(BuildContext context) {

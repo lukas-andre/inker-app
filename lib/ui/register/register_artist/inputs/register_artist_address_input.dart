@@ -2,19 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/utils/forms/clear_input.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressInput extends StatelessWidget {
   RegisterArtistAddressInput({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final TextEditingController _typeAheadController = TextEditingController();
 
   @override

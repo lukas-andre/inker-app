@@ -13,9 +13,8 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileReviewsPage extends StatefulWidget {
-  const ArtistProfileReviewsPage({Key? key, required int artistId})
-      : _artistId = artistId,
-        super(key: key);
+  const ArtistProfileReviewsPage({super.key, required int artistId})
+      : _artistId = artistId;
 
   final int _artistId;
 
@@ -128,8 +127,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
 }
 
 class ArtistProfileReviewItem extends StatelessWidget {
-  const ArtistProfileReviewItem({Key? key, required this.review})
-      : super(key: key);
+  const ArtistProfileReviewItem({super.key, required this.review});
 
   final ReviewItem review;
 
@@ -303,8 +301,8 @@ class ArtistProfileReviewItem extends StatelessWidget {
 
 class ArtistProfileDivider extends StatelessWidget {
   const ArtistProfileDivider({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

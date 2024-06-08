@@ -12,7 +12,7 @@ import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerListView extends StatelessWidget {
-  const ExplorerListView({Key? key}) : super(key: key);
+  const ExplorerListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ExplorerListView extends StatelessWidget {
 }
 
 class ExplorerResultList extends StatelessWidget {
-  ExplorerResultList({Key? key}) : super(key: key);
+  ExplorerResultList({super.key});
   final List<String> imageList = [
     'https://cdn.pixabay.com/photo/2019/03/15/09/49/girl-4056684_960_720.jpg',
     'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',

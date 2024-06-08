@@ -33,7 +33,7 @@ class HourlyEventList extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       '$hour:00',
-                      style: TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ),
                 ),
@@ -60,7 +60,7 @@ class HourlyEventList extends StatelessWidget {
                     ),
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         );
