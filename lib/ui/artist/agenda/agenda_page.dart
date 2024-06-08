@@ -43,9 +43,12 @@ class _TableEventsExampleState extends State<TableEventsExample>
       appBar: AppBar(
         title: Text(
           'Agenda',
-          style: TextStyleTheme.copyWith(color: Colors.white),
+          style: TextStyleTheme.copyWith(
+              color: Colors.white, fontWeight: FontWeight.normal, fontSize: 24),
         ),
         backgroundColor: primaryColor,
+        elevation: 4.0,
+        shadowColor: Colors.black54,
       ),
       body: BlocBuilder<ArtistAgendaBloc, ArtistAgendaState>(
         builder: (context, state) {
@@ -72,11 +75,37 @@ class _TableEventsExampleState extends State<TableEventsExample>
                     selectedDecoration: BoxDecoration(
                       color: secondaryColor,
                       shape: BoxShape.circle,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          offset: Offset(2, 2),
+                          blurRadius: 4.0,
+                        ),
+                      ],
                     ),
                     todayDecoration: BoxDecoration(
                       color: tertiaryColor,
                       shape: BoxShape.circle,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          offset: Offset(2, 2),
+                          blurRadius: 4.0,
+                        ),
+                      ],
                     ),
+                    weekendTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.red,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
+                    selectedTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
+                    todayTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
                   ),
                   headerStyle: HeaderStyle(
                     formatButtonVisible: true,
@@ -86,7 +115,18 @@ class _TableEventsExampleState extends State<TableEventsExample>
                       color: secondaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    formatButtonTextStyle: const TextStyle(color: Colors.white),
+                    formatButtonTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16),
+                    titleTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 20),
+                    leftChevronIcon:
+                        const Icon(Icons.chevron_left, color: Colors.black),
+                    rightChevronIcon:
+                        const Icon(Icons.chevron_right, color: Colors.black),
                   ),
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {
