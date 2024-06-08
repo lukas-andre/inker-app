@@ -1,3 +1,4 @@
+import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 
 abstract class AgendaService {
@@ -11,5 +12,9 @@ abstract class AgendaService {
       required String token});
   void dispose();
 
-  Future<dynamic> getEvents(String token);
+  Future<List<EventItem>> getEvents({
+    required String token,
+    required String agendaViewType,
+    required String date,
+  });
 }
