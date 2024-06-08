@@ -59,7 +59,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                   lastDay: kLastDay,
                   focusedDay: focusedDay,
                   selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-                  calendarFormat: format, // Usa el formato del estado
+                  calendarFormat: format,
                   rangeSelectionMode: RangeSelectionMode.toggledOff,
                   eventLoader: (day) => _getEventsForDay(day, allEvents),
                   startingDayOfWeek: StartingDayOfWeek.monday,
@@ -91,15 +91,12 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                   },
                   onFormatChanged: (format) {
                     context.read<ArtistAgendaBloc>().add(
-                          ArtistAgendaEvent.formatChanged(
-                              format), // Agrega un evento para cambiar el formato
+                          ArtistAgendaEvent.formatChanged(format),
                         );
                   },
                   onPageChanged: (focusedDay) {
-                    context.read<ArtistAgendaBloc>().add(
-                          ArtistAgendaEvent.daySelected(
-                              _selectedDay ?? focusedDay, focusedDay),
-                        );
+                    print(focusedDay);
+                    // fetch events for new page
                   },
                 ),
                 const SizedBox(height: 8.0),
