@@ -18,7 +18,8 @@ class TableEventsExample extends StatefulWidget {
   _TableEventsExampleState createState() => _TableEventsExampleState();
 }
 
-class _TableEventsExampleState extends State<TableEventsExample> {
+class _TableEventsExampleState extends State<TableEventsExample>
+    with AutomaticKeepAliveClientMixin {
   DateTime? _selectedDay;
 
   @override
@@ -27,6 +28,9 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     context.read<ArtistAgendaBloc>().add(const ArtistAgendaEvent.started());
   }
 
+  @override
+  bool get wantKeepAlive => true;
+
   List<ArtistAgendaEventDetails> _getEventsForDay(
       DateTime day, List<ArtistAgendaEventDetails> allEvents) {
     return allEvents.where((event) => isSameDay(event.startDate, day)).toList();
@@ -34,6 +38,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -84,6 +89,9 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                     formatButtonTextStyle: const TextStyle(color: Colors.white),
                   ),
                   onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                    });
                     context.read<ArtistAgendaBloc>().add(
                           ArtistAgendaEvent.daySelected(
                               selectedDay, focusedDay),
@@ -95,8 +103,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         );
                   },
                   onPageChanged: (focusedDay) {
-                    print(focusedDay);
-                    // fetch events for new page
+                    // fetch events for the focused day
                   },
                 ),
                 const SizedBox(height: 8.0),
