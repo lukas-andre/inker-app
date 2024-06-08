@@ -40,7 +40,7 @@ class WorkItem with _$WorkItem {
     bool? notification,
     bool? done,
     WorkEvidence? workEvidence,
-    dynamic? deletedAt,
+    dynamic deletedAt,
     Review? review,
   }) = _WorkItem;
 

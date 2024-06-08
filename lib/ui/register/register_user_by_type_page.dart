@@ -8,7 +8,7 @@ import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/widgets/register_user_by_type_layout.dart';
 
 class RegisterUserByTypePage extends StatelessWidget {
-  const RegisterUserByTypePage({Key? key}) : super(key: key);
+  const RegisterUserByTypePage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -28,10 +28,10 @@ class RegisterUserByTypePage extends StatelessWidget {
           return shouldClose;
         }
       },
-      child: Scaffold(
+      child: const Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
-          children: const [LoginBackground(), RegisterUserByTypeLayout()],
+          children: [LoginBackground(), RegisterUserByTypeLayout()],
         ),
       ),
     );
@@ -52,13 +52,13 @@ class RegisterUserByTypePage extends StatelessWidget {
                   'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: const Text('Sí'),
                   isDestructiveAction: true,
                   isDefaultAction: true,
                   onPressed: () {
                     shouldClose = true;
                     Navigator.of(context).pop();
                   },
+                  child: const Text('Sí'),
                 ),
                 CupertinoDialogAction(
                   child: const Text('No'),
@@ -91,13 +91,13 @@ class RegisterUserByTypePage extends StatelessWidget {
                   'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: const Text('Sí'),
                   isDestructiveAction: true,
                   isDefaultAction: true,
                   onPressed: () {
                     shouldClose = true;
                     Navigator.of(context).pop();
                   },
+                  child: const Text('Sí'),
                 ),
                 CupertinoDialogAction(
                   child: const Text('No'),

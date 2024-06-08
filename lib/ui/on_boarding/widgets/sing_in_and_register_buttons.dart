@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 
 class SingInAndRegisterButton extends StatelessWidget {
-  const SingInAndRegisterButton({Key? key}) : super(key: key);
+  const SingInAndRegisterButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,16 @@ class SingInAndRegisterButton extends StatelessWidget {
                     onPressed: () {
                       onboardingBloc.add(const OnBoardingRegisterPressed());
                     },
-                    child: const Text(
-                      'Registrarme',
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
                     style: TextButton.styleFrom(
                         foregroundColor: const Color(0xffffffff),
                         shape: const StadiumBorder(),
                         backgroundColor: const Color(0xff232434),
                         minimumSize: const Size(300, 50),
                         maximumSize: const Size(387, 60)),
+                    child: const Text(
+                      'Registrarme',
+                      style: TextStyle(fontFamily: 'Poppins'),
+                    ),
                   ),
                 ),
                 Padding(
@@ -49,16 +49,16 @@ class SingInAndRegisterButton extends StatelessWidget {
                     onPressed: () {
                       onboardingBloc.add(const OnBoardingSignInPressed());
                     },
-                    child: const Text(
-                      'Iniciar sesión',
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
                     style: TextButton.styleFrom(
                         foregroundColor: const Color(0xffffffff),
                         shape: const StadiumBorder(),
                         backgroundColor: const Color(0xff7450FF),
                         minimumSize: const Size(300, 50),
                         maximumSize: const Size(387, 60)),
+                    child: const Text(
+                      'Iniciar sesión',
+                      style: TextStyle(fontFamily: 'Poppins'),
+                    ),
                   ),
                 )
               ],

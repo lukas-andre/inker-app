@@ -65,7 +65,7 @@ class CreateUserUseCase {
     String formattedAddress, googlePlaceId;
     Geometry geometry;
 
-    final String? address3 = state.form.addressExtra.value;
+    final String address3 = state.form.addressExtra.value;
 
     for (int i = 0; i < details.addressComponents.length; i++) {
       if (details.addressComponents[i].types.contains('route')) {

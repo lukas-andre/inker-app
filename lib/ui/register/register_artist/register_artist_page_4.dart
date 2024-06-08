@@ -21,7 +21,7 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class RegisterArtistPage4 extends StatelessWidget {
-  const RegisterArtistPage4({Key? key}) : super(key: key);
+  const RegisterArtistPage4({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const RegisterArtistPage4());
@@ -39,8 +39,8 @@ class RegisterArtistPage4 extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             RegisterArtistPage4Layout(),
             RegisterArtistPage4NextButton(),
@@ -53,8 +53,8 @@ class RegisterArtistPage4 extends StatelessWidget {
 
 class RegisterArtistPage4NextButton extends StatelessWidget {
   const RegisterArtistPage4NextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
 }
 
 class RegisterArtistPage4Layout extends StatelessWidget {
-  const RegisterArtistPage4Layout({Key? key}) : super(key: key);
+  const RegisterArtistPage4Layout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +140,9 @@ class RegisterArtistPage4Layout extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 RegisterBackButton(),
                 CloseRegisterButton(
                   index: 4,
@@ -150,15 +150,15 @@ class RegisterArtistPage4Layout extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 RegisterProgressIndicator(
                   progress: 4 / 5,
                 )
               ],
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 RegisterCustomTitle(
                   text: 'Ingresa la dirección de tu estudio o local',
                 )
@@ -179,21 +179,21 @@ class RegisterArtistPage4Layout extends StatelessWidget {
                     )
                   : const SizedBox(),
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 RegisterCustomSubTitle(
                   text: 'Detalle de la dirección',
                 ),
               ],
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 RegisterArtistAddressTypeInput(),
               ],
             ),
             RowSpacer(space: MediaQuery.of(context).size.height * 0.04),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 RegisterCustomSubTitle(
                     fontSize: 15,
                     text:

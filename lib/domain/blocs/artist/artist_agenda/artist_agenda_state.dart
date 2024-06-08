@@ -8,6 +8,7 @@ class ArtistAgendaState with _$ArtistAgendaState {
     required List<ArtistAgendaEventDetails> events,
     required DateTime focusedDay,
     DateTime? selectedDay,
+    required CalendarFormat format,
   }) = ArtistAgendaStateLoaded;
   const factory ArtistAgendaState.error(String message) =
       ArtistAgendaStateError;

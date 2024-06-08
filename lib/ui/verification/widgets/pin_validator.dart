@@ -6,7 +6,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:pinput/pinput.dart';
 
 class PinValidator extends StatelessWidget {
-  PinValidator({Key? key}) : super(key: key);
+  PinValidator({super.key});
   final controller = TextEditingController();
   final focusNode = FocusNode();
 

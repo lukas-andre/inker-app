@@ -5,7 +5,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class CustomPhoneNumberInput extends StatelessWidget {
   const CustomPhoneNumberInput(
-      {Key? key,
+      {super.key,
       required this.label,
       required this.searchDecoratorLabel,
       required this.onInputChanged,
@@ -15,8 +15,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
       this.suffixIcon,
       this.countries,
       this.controller,
-      this.number})
-      : super(key: key);
+      this.number});
 
   final void Function(PhoneNumber)? onInputChanged;
 

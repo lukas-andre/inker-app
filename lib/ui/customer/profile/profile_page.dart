@@ -4,7 +4,7 @@ import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -9,12 +9,11 @@ class ExplorerSwitchButton extends StatelessWidget {
   final ExplorerView view;
   final void Function()? onTap;
   const ExplorerSwitchButton(
-      {Key? key,
+      {super.key,
       this.text,
       required this.selectedView,
       required this.onTap,
-      required this.view})
-      : super(key: key);
+      required this.view});
 
   @override
   Widget build(BuildContext context) {

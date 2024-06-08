@@ -4,8 +4,8 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerSearchBar extends StatelessWidget {
   const ExplorerSearchBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

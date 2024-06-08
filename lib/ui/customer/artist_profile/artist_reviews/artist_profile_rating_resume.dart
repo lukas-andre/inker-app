@@ -8,7 +8,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileRatingResume extends StatelessWidget {
-  const ArtistProfileRatingResume({Key? key}) : super(key: key);
+  const ArtistProfileRatingResume({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +76,9 @@ class ArtistProfileRatingResume extends StatelessWidget {
 
 class ArtistProfileRatingDetailBars extends StatelessWidget {
   const ArtistProfileRatingDetailBars({
-    Key? key,
+    super.key,
     required this.reviewMap,
-  }) : super(key: key);
+  });
 
   final Map<String, double> reviewMap;
 
@@ -104,7 +104,7 @@ class ArtistProfileRatingDetailBars extends StatelessWidget {
                                   TextSpan(
                                     children: [
                                       buildCenteredTextSpan(
-                                          text: e.key + ' ',
+                                          text: '${e.key} ',
                                           style: TextStyleTheme.copyWith(
                                               color: Colors.white,
                                               fontSize: 10,
@@ -132,7 +132,7 @@ class ArtistProfileRatingDetailBars extends StatelessWidget {
                             ),
                           ],
                         ))
-                    .toList(),
+                    ,
               ]),
         ));
   }
@@ -140,9 +140,9 @@ class ArtistProfileRatingDetailBars extends StatelessWidget {
 
 class DraggableArtistRatingResume extends StatelessWidget {
   const DraggableArtistRatingResume({
-    Key? key,
+    super.key,
     required this.review,
-  }) : super(key: key);
+  });
 
   final Review? review;
 
@@ -180,10 +180,9 @@ class DraggableArtistRatingResume extends StatelessWidget {
 
 class ArtistProfileRatingNumbers extends StatelessWidget {
   const ArtistProfileRatingNumbers({
-    Key? key,
+    super.key,
     required Review review,
-  })  : _review = review,
-        super(key: key);
+  })  : _review = review;
 
   final Review _review;
 

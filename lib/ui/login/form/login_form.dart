@@ -5,37 +5,37 @@ import 'package:inker_studio/ui/login/form/inputs/password_input.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
         child: Container(
       margin: const EdgeInsets.fromLTRB(19, 85, 19, 150),
-      child: Column(
+      child: const Column(
         children: [
           Row(
-            children: const [
+            children: [
               LoginFormHeader(),
             ],
           ),
-          const RowSpacer(space: 20),
+          RowSpacer(space: 20),
           Row(
-            children: const [LoginDescription()],
+            children: [LoginDescription()],
           ),
-          const RowSpacer(space: 20),
+          RowSpacer(space: 20),
           Row(
-            children: const [
+            children: [
               IdentifierInput(),
             ],
           ),
           Row(
-            children: const [
+            children: [
               PasswordInput(),
             ],
           ),
-          const RowSpacer(space: 20),
-          const ActionsButtons()
+          RowSpacer(space: 20),
+          ActionsButtons()
         ],
       ),
     ));
@@ -43,7 +43,7 @@ class LoginForm extends StatelessWidget {
 }
 
 class LoginDescription extends StatelessWidget {
-  const LoginDescription({Key? key}) : super(key: key);
+  const LoginDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class LoginDescription extends StatelessWidget {
 }
 
 class LoginFormHeader extends StatelessWidget {
-  const LoginFormHeader({Key? key}) : super(key: key);
+  const LoginFormHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

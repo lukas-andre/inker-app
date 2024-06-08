@@ -3,7 +3,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const SplashPage());

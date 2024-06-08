@@ -1,6 +1,7 @@
 part of 'artist_agenda_bloc.dart';
 
 @freezed
+@freezed
 class ArtistAgendaEvent with _$ArtistAgendaEvent {
   const factory ArtistAgendaEvent.started() = _Started;
   const factory ArtistAgendaEvent.addEvent(
@@ -15,4 +16,6 @@ class ArtistAgendaEvent with _$ArtistAgendaEvent {
       _LoadEventsError;
   const factory ArtistAgendaEvent.daySelected(
       DateTime selectedDay, DateTime focusedDay) = _DaySelected;
+  const factory ArtistAgendaEvent.formatChanged(CalendarFormat format) =
+      _FormatChanged;
 }

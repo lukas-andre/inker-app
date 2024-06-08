@@ -8,12 +8,11 @@ class RegisterUserByTypeButton extends StatelessWidget {
   final String helper;
 
   const RegisterUserByTypeButton(
-      {Key? key,
+      {super.key,
       required this.text,
       required this.iconPath,
       required this.onTap,
-      required this.helper})
-      : super(key: key);
+      required this.helper});
 
   @override
   Widget build(BuildContext context) {

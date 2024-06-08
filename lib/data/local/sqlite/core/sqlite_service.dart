@@ -7,6 +7,7 @@ import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
 import 'package:inker_studio/domain/services/sqlite/database_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/timestamp_column_helper.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
