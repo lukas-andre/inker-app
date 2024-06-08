@@ -39,9 +39,12 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
     });
   }
 
-  void _started(Emitter<ArtistAgendaState> emit) {
-    emit(const ArtistAgendaStateInitial());
-    add(const ArtistAgendaEvent.loadEvents());
+  Future<void> _started(Emitter<ArtistAgendaState> emit) async {
+    // ignore: await_only_futures
+    await state.whenOrNull(
+      initial: () async => await _loadEvents(emit),
+      error: (message) => emit(ArtistAgendaStateError(message)),
+    );
   }
 
   Future<void> _addEvent(Emitter<ArtistAgendaState> emit,
