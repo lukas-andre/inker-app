@@ -10,6 +10,9 @@ List<EventItem> getAgendaEventsResponseFromJson(String str) =>
 String getAgendaEventsResponseToJson(List<EventItem> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+EventItem getEventItemFromJson(String str) =>
+    EventItem.fromJson(json.decode(str));
+
 @freezed
 class EventItem with _$EventItem {
   const factory EventItem({

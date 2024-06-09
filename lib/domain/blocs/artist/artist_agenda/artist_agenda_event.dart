@@ -1,7 +1,6 @@
 part of 'artist_agenda_bloc.dart';
 
 @freezed
-@freezed
 class ArtistAgendaEvent with _$ArtistAgendaEvent {
   const factory ArtistAgendaEvent.started() = _Started;
   const factory ArtistAgendaEvent.addEvent(

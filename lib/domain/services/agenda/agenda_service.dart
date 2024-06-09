@@ -1,3 +1,4 @@
+import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 
@@ -16,5 +17,10 @@ abstract class AgendaService {
     required String token,
     required String agendaViewType,
     required String date,
+  });
+
+  Future<AgendaEventDetailResponse> getEvent({
+    required String token,
+    required int eventId,
   });
 }
