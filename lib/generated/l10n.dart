@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `No hay evidencia de trabajo`
+  String get noWorkEvidence {
+    return Intl.message(
+      'No hay evidencia de trabajo',
+      name: 'noWorkEvidence',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Detalles de la Ubicación`
   String get locationDetails {
     return Intl.message(
@@ -105,6 +115,76 @@ class S {
     return Intl.message(
       'Cancelar Evento',
       name: 'cancelEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se acerca`
+  String get upcomming {
+    return Intl.message(
+      'Se acerca',
+      name: 'upcomming',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finalizado`
+  String get completed {
+    return Intl.message(
+      'Finalizado',
+      name: 'completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancelado`
+  String get cancelled {
+    return Intl.message(
+      'Cancelado',
+      name: 'cancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancelar`
+  String get cancel {
+    return Intl.message(
+      'Cancelar',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Editar`
+  String get edit {
+    return Intl.message(
+      'Editar',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eliminar`
+  String get delete {
+    return Intl.message(
+      'Eliminar',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmar`
+  String get confirm {
+    return Intl.message(
+      'Confirmar',
+      name: 'confirm',
       desc: '',
       args: [],
     );
