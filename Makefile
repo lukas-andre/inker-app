@@ -1,8 +1,15 @@
 
-.PHONY: json-builder
+.PHONY: build
 json:
-	@echo "Building json-builder"
+	@echo "Building json-builder & freezed"
 	flutter pub run build_runner build --delete-conflicting-outputs
+
+.PHONY: build-all
+build-all:
+	@echo "Building all"
+	make build
+	make intl	
+	@echo "Building all done"
 
 
 .PHONY: back
@@ -21,3 +28,9 @@ sync-db:
 	@echo "Syncing DB"
 	adb shell "run-as com.example.inker_studio cat /data/data/com.example.inker_studio/app_flutter/Master.db" > Master.db
 	@echo "DB synced"
+
+.PHONY: intl
+intl:
+	@echo "Generating intl"
+	dart run intl_utils:generate
+	@echo "Intl generated"
