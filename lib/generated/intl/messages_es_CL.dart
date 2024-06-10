@@ -22,13 +22,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancelar Evento"),
+        "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
+        "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "noWorkEvidence":
+            MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
+        "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo")
       };
