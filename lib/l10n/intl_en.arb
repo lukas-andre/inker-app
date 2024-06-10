@@ -3,8 +3,17 @@
     "eventDetails": "Event Details",
     "description": "Description",
     "workEvidence": "Work Evidence",
+    "noWorkEvidence": "No Work Evidence",
     "locationDetails": "Location Details",
     "editEvent": "Edit Event",
-    "cancelEvent": "Cancel Event"
+    "cancelEvent": "Cancel Event",
+    "upcomming": "Upcomming",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm"
+    
   }
   
