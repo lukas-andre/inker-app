@@ -1,0 +1,10 @@
+{
+    "@@locale": "en",
+    "eventDetails": "Event Details",
+    "description": "Description",
+    "workEvidence": "Work Evidence",
+    "locationDetails": "Location Details",
+    "editEvent": "Edit Event",
+    "cancelEvent": "Cancel Event"
+  }
+  

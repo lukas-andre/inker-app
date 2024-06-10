@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
@@ -21,6 +23,8 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
@@ -87,6 +91,11 @@ class _AppViewState extends State<AppView> {
                 )),
         BlocProvider(create: (context) => ArtistsListBloc()),
         BlocProvider(
+            create: (context) => ArtistAgendaEventDetailBloc(
+                  agendaService: context.read(),
+                  sessionService: context.read(),
+                )),
+        BlocProvider(
             create: (context) => ExplorerPageBloc(
                   mapBloc: context.read(),
                   localSessionService: context.read(),
@@ -123,6 +132,17 @@ class _AppViewState extends State<AppView> {
           debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
           theme: themeState ? ThemeData.dark() : ThemeData.light(),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''),
+            Locale('es', 'CL'),
+          ],
+          locale: const Locale('es', 'CL'),
           builder: (context, child) {
             return BlocListener<AuthBloc, AuthState>(
                 listener: (context, state) async {
@@ -130,7 +150,31 @@ class _AppViewState extends State<AppView> {
                 },
                 child: child);
           },
-          onGenerateRoute: (_) => SplashPage.route(),
+          onGenerateRoute: (settings) {
+            if (settings.name == '/') {
+              return MaterialPageRoute(
+                  builder: (context) => const SplashPage());
+            }
+            if (settings.name == '/agendaEventDetail') {
+              final args = settings.arguments;
+              if (args is int) {
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return AgendaEventDetailPage(eventId: args);
+                  },
+                );
+              } else {
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return const ErrorPage(
+                      message: 'Invalid argument type. Expected an integer.',
+                    );
+                  },
+                );
+              }
+            }
+            return null;
+          },
         );
       }),
     );
@@ -157,5 +201,23 @@ class _AppViewState extends State<AppView> {
         NoContextNavigator.push(_navigator, const OnBoardingPage());
         break;
     }
+  }
+}
+
+class ErrorPage extends StatelessWidget {
+  final String message;
+
+  const ErrorPage({super.key, required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Error'),
+      ),
+      body: Center(
+        child: Text(message),
+      ),
+    );
   }
 }
