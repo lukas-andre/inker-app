@@ -88,6 +88,15 @@ class _HourlyEventListState extends State<HourlyEventList> {
                       });
                     }
                   : null,
+              onTap: () {
+                if (hourEvents.isNotEmpty) {
+                  Navigator.pushNamed(
+                    context,
+                    '/agendaEventDetail',
+                    arguments: int.parse(hourEvents.first.id),
+                  );
+                }
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 100),
                 curve: Curves.easeInOut,
@@ -148,7 +157,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
                           ),
                         ),
                       );
-                    }).toList(),
+                    }),
                   ],
                 ),
               ),

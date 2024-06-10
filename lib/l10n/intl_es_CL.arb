@@ -1,0 +1,10 @@
+{
+    "@@locale": "es_CL",
+    "eventDetails": "Detalles del Evento",
+    "description": "Descripción",
+    "workEvidence": "Evidencia del Trabajo",
+    "locationDetails": "Detalles de la Ubicación",
+    "editEvent": "Editar Evento",
+    "cancelEvent": "Cancelar Evento"
+  }
+  
