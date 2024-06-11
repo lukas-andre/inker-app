@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -40,6 +42,7 @@ class _TableEventsExampleState extends State<TableEventsExample>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(
           'Agenda',
@@ -71,31 +74,49 @@ class _TableEventsExampleState extends State<TableEventsExample>
                   rangeSelectionMode: RangeSelectionMode.toggledOff,
                   eventLoader: (day) => _getEventsForDay(day, allEvents),
                   startingDayOfWeek: StartingDayOfWeek.monday,
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
+                    weekendStyle: TextStyleTheme.copyWith(
+                        color: secondaryColor,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
+                  ),
+                  availableCalendarFormats: const {
+                    CalendarFormat.month: 'Mes',
+                    CalendarFormat.week: 'Semana',
+                  },
                   calendarStyle: CalendarStyle(
                     selectedDecoration: BoxDecoration(
                       color: secondaryColor,
                       shape: BoxShape.circle,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(2, 2),
-                          blurRadius: 4.0,
-                        ),
-                      ],
+                      // boxShadow: const [
+                      //   BoxShadow(
+                      //     color: Colors.black26,
+                      //     offset: Offset(2, 2),
+                      //     blurRadius: 4.0,
+                      //   ),
+                      // ],
                     ),
                     todayDecoration: BoxDecoration(
                       color: tertiaryColor,
                       shape: BoxShape.circle,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(2, 2),
-                          blurRadius: 4.0,
-                        ),
-                      ],
+                      // boxShadow: [
+                      // BoxShadow(
+                      //   color: tertiaryColor,
+                      //   offset: const Offset(2, 2),
+                      //   blurRadius: 4.0,
+                      // ),
+                      // ],
                     ),
+                    // weekNumberTextStyle: TextStyleTheme.copyWith(
+                    //     color: Colors.white,
+                    //     fontWeight: FontWeight.normal,
+                    //     fontSize: 14),
                     weekendTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.red,
+                        color: secondaryColor,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
                     selectedTextStyle: TextStyleTheme.copyWith(
@@ -106,27 +127,39 @@ class _TableEventsExampleState extends State<TableEventsExample>
                         color: Colors.white,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
+                    defaultTextStyle: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14),
+                    markerDecoration: const BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
                   ),
                   headerStyle: HeaderStyle(
                     formatButtonVisible: true,
                     titleCentered: true,
-                    formatButtonShowsNext: false,
+                    formatButtonShowsNext: true,
                     formatButtonDecoration: BoxDecoration(
                       color: secondaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    titleTextFormatter: (date, locale) =>
+                        DateFormat.yMMMM(locale)
+                            .format(date)
+                            .replaceAll(' de ', ' del '),
                     formatButtonTextStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.normal,
                         fontSize: 16),
                     titleTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.normal,
                         fontSize: 20),
                     leftChevronIcon:
-                        const Icon(Icons.chevron_left, color: Colors.black),
+                        const Icon(Icons.chevron_left, color: Colors.white),
                     rightChevronIcon:
-                        const Icon(Icons.chevron_right, color: Colors.black),
+                        const Icon(Icons.chevron_right, color: Colors.white),
                   ),
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {

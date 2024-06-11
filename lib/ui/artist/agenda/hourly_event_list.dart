@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class HourlyEventList extends StatefulWidget {
   final List<ArtistAgendaEventDetails> events;
@@ -35,12 +36,6 @@ class _HourlyEventListState extends State<HourlyEventList> {
         curve: Curves.easeInOut,
       );
     }
-  }
-
-  void _resetZoom() {
-    setState(() {
-      _hourHeight = 60.0;
-    });
   }
 
   @override
@@ -85,6 +80,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
 
             return Container(
               height: _hourHeight,
+              color: primaryColor, // Set the background color to primary color
               child: Stack(
                 children: [
                   Positioned.fill(
@@ -92,7 +88,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
                       decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.grey[300]!,
+                            color: tertiaryColor,
                             width: 1.0,
                           ),
                         ),
@@ -102,7 +98,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
                         child: Text(
                           '$hour:00',
                           style: TextStyleTheme.copyWith(
-                            color: Colors.grey[500],
+                            color: quaternaryColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 14.0,
                           ),
@@ -129,7 +125,8 @@ class _HourlyEventListState extends State<HourlyEventList> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color:
+                                secondaryColor, // Event color to match the theme
                             borderRadius: BorderRadius.circular(4.0),
                             boxShadow: const [
                               BoxShadow(
@@ -142,8 +139,9 @@ class _HourlyEventListState extends State<HourlyEventList> {
                           child: Center(
                             child: Text(
                               event.title,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyleTheme.copyWith(
-                                color: Colors.white,
+                                color: quaternaryColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 15.0,
                               ),
