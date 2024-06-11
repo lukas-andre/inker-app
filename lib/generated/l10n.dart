@@ -189,6 +189,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Ubicación del Evento`
+  String get eventLocation {
+    return Intl.message(
+      'Ubicación del Evento',
+      name: 'eventLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

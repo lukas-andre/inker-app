@@ -77,62 +77,56 @@ class _HourlyEventListState extends State<HourlyEventList> {
           itemCount: 24,
           itemBuilder: (context, index) {
             final hour = index;
-            final hourEvents = widget.events.where((event) =>
-                event.startDate.hour == hour ||
-                (event.startDate.hour < hour && event.endDate.hour > hour));
-            return GestureDetector(
-              onDoubleTap: hourEvents.isEmpty
-                  ? () {
-                      setState(() {
-                        _hourHeight = 60.0;
-                      });
-                    }
-                  : null,
-              onTap: () {
-                if (hourEvents.isNotEmpty) {
-                  Navigator.pushNamed(
-                    context,
-                    '/agendaEventDetail',
-                    arguments: int.parse(hourEvents.first.id),
-                  );
-                }
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeInOut,
-                height: _hourHeight,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey[300]!,
-                              width: 1.0,
-                            ),
+            final hourEvents = widget.events
+                .where((event) =>
+                    event.startDate.hour == hour ||
+                    (event.startDate.hour < hour && event.endDate.hour > hour))
+                .toList();
+
+            return Container(
+              height: _hourHeight,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.grey[300]!,
+                            width: 1.0,
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0, top: 18),
-                          child: Text('$hour:00',
-                              style: TextStyleTheme.copyWith(
-                                color: Colors.grey[500],
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14.0,
-                              )),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0, top: 18),
+                        child: Text(
+                          '$hour:00',
+                          style: TextStyleTheme.copyWith(
+                            color: Colors.grey[500],
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14.0,
+                          ),
                         ),
                       ),
                     ),
-                    ...hourEvents.map((event) {
-                      final startMinute = event.startDate.minute;
-                      final durationMinutes =
-                          event.endDate.difference(event.startDate).inMinutes;
-                      return Positioned(
-                        top: (startMinute / 60.0) * _hourHeight,
-                        left: 100.0,
-                        right: 10.0,
-                        height: (durationMinutes / 60.0) * _hourHeight,
+                  ),
+                  ...hourEvents.map((event) {
+                    final startMinute = event.startDate.minute;
+                    final durationMinutes =
+                        event.endDate.difference(event.startDate).inMinutes;
+                    return Positioned(
+                      top: (startMinute / 60.0) * _hourHeight,
+                      left: 100.0,
+                      right: 10.0,
+                      height: (durationMinutes / 60.0) * _hourHeight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/agendaEventDetail',
+                            arguments: int.parse(event.id),
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.blue,
@@ -156,10 +150,10 @@ class _HourlyEventListState extends State<HourlyEventList> {
                             ),
                           ),
                         ),
-                      );
-                    }),
-                  ],
-                ),
+                      ),
+                    );
+                  }),
+                ],
               ),
             );
           },
