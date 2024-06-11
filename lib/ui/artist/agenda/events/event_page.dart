@@ -190,7 +190,8 @@ class AgendaEventDetailPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         InkWell(
-          onTap: () => _openMap(context, data.location.lat, data.location.lng),
+          onTap: () => _openMap(context, data.location.lat, data.location.lng,
+              S.of(context).eventLocation),
           child: Text(
             data.location.formattedAddress,
             style: const TextStyle(
@@ -224,7 +225,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 10), // Adds some spacing between buttons
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
@@ -240,13 +241,14 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  void _openMap(BuildContext context, double latitude, double longitude) async {
+  void _openMap(BuildContext context, double latitude, double longitude,
+      String mapTitle) async {
     final availableMaps = await MapLauncher.installedMaps;
     if (availableMaps.isNotEmpty) {
       final map = availableMaps.first;
       await map.showMarker(
         coords: Coords(latitude, longitude),
-        title: 'Event Location',
+        title: mapTitle,
       );
     }
   }

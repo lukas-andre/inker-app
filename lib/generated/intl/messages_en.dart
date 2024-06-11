@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
+        "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "noWorkEvidence":
