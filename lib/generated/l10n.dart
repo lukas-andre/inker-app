@@ -199,6 +199,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Crear Evento`
+  String get createEvent {
+    return Intl.message(
+      'Crear Evento',
+      name: 'createEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Título del Evento`
+  String get eventTitle {
+    return Intl.message(
+      'Título del Evento',
+      name: 'eventTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información Adicional`
+  String get extraInfo {
+    return Intl.message(
+      'Información Adicional',
+      name: 'extraInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Color del Evento`
+  String get eventColor {
+    return Intl.message(
+      'Color del Evento',
+      name: 'eventColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha de Inicio`
+  String get startDate {
+    return Intl.message(
+      'Fecha de Inicio',
+      name: 'startDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha de Fin`
+  String get endDate {
+    return Intl.message(
+      'Fecha de Fin',
+      name: 'endDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notificación`
+  String get notification {
+    return Intl.message(
+      'Notificación',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -7,7 +7,8 @@ void openModalBottomSheet(
     {required BuildContext context,
     required page,
     bool isRoot = false,
-    enableDrag = true}) {
+    enableDrag = true,
+    bool material = false}) {
   if (Platform.isIOS) {
     if (isRoot) {
       CupertinoScaffold.showCupertinoModalBottomSheet(

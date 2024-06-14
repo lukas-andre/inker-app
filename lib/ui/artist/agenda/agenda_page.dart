@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
-import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -52,149 +52,146 @@ class _TableEventsExampleState extends State<TableEventsExample>
         backgroundColor: primaryColor,
         elevation: 4.0,
         shadowColor: Colors.black54,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              context
+                  .read<ArtistAgendaBloc>()
+                  .add(const ArtistAgendaEvent.refreshed());
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<ArtistAgendaBloc, ArtistAgendaState>(
         builder: (context, state) {
-          if (state is ArtistAgendaStateLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ArtistAgendaStateLoaded) {
-            final allEvents = state.events;
-            final focusedDay = state.focusedDay;
-            final selectedDay = state.selectedDay ?? focusedDay;
-            final format = state.format;
+          return state.when(
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
+            loaded: (events, focusedDay, selectedDay, format) {
+              final allEvents = events;
+              final currentSelectedDay = selectedDay ?? focusedDay;
 
-            return Column(
-              children: [
-                TableCalendar<ArtistAgendaEventDetails>(
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  focusedDay: focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-                  calendarFormat: format,
-                  rangeSelectionMode: RangeSelectionMode.toggledOff,
-                  eventLoader: (day) => _getEventsForDay(day, allEvents),
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  daysOfWeekStyle: DaysOfWeekStyle(
-                    weekdayStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    weekendStyle: TextStyleTheme.copyWith(
+              return Column(
+                children: [
+                  TableCalendar<ArtistAgendaEventDetails>(
+                    firstDay: kFirstDay,
+                    lastDay: kLastDay,
+                    focusedDay: focusedDay,
+                    selectedDayPredicate: (day) =>
+                        isSameDay(currentSelectedDay, day),
+                    calendarFormat: format,
+                    rangeSelectionMode: RangeSelectionMode.toggledOff,
+                    eventLoader: (day) => _getEventsForDay(day, allEvents),
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekdayStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                      weekendStyle: TextStyleTheme.copyWith(
+                          color: secondaryColor,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                    ),
+                    availableCalendarFormats: const {
+                      CalendarFormat.month: 'Mes',
+                      CalendarFormat.week: 'Semana',
+                    },
+                    calendarStyle: CalendarStyle(
+                      selectedDecoration: BoxDecoration(
                         color: secondaryColor,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                  ),
-                  availableCalendarFormats: const {
-                    CalendarFormat.month: 'Mes',
-                    CalendarFormat.week: 'Semana',
-                  },
-                  calendarStyle: CalendarStyle(
-                    selectedDecoration: BoxDecoration(
-                      color: secondaryColor,
-                      shape: BoxShape.circle,
-                      // boxShadow: const [
-                      //   BoxShadow(
-                      //     color: Colors.black26,
-                      //     offset: Offset(2, 2),
-                      //     blurRadius: 4.0,
-                      //   ),
-                      // ],
+                        shape: BoxShape.circle,
+                      ),
+                      todayDecoration: BoxDecoration(
+                        color: tertiaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      weekendTextStyle: TextStyleTheme.copyWith(
+                          color: secondaryColor,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                      selectedTextStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                      todayTextStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                      defaultTextStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14),
+                      markerDecoration: const BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                    todayDecoration: BoxDecoration(
-                      color: tertiaryColor,
-                      shape: BoxShape.circle,
-                      // boxShadow: [
-                      // BoxShadow(
-                      //   color: tertiaryColor,
-                      //   offset: const Offset(2, 2),
-                      //   blurRadius: 4.0,
-                      // ),
-                      // ],
-                    ),
-                    // weekNumberTextStyle: TextStyleTheme.copyWith(
-                    //     color: Colors.white,
-                    //     fontWeight: FontWeight.normal,
-                    //     fontSize: 14),
-                    weekendTextStyle: TextStyleTheme.copyWith(
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: true,
+                      titleCentered: true,
+                      formatButtonShowsNext: true,
+                      formatButtonDecoration: BoxDecoration(
                         color: secondaryColor,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    selectedTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    todayTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    defaultTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    markerDecoration: const BoxDecoration(
-                      color: Colors.blue,
-                      shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      titleTextFormatter: (date, locale) =>
+                          DateFormat.yMMMM(locale)
+                              .format(date)
+                              .replaceAll(' de ', ' del '),
+                      formatButtonTextStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16),
+                      titleTextStyle: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 20),
+                      leftChevronIcon:
+                          const Icon(Icons.chevron_left, color: Colors.white),
+                      rightChevronIcon:
+                          const Icon(Icons.chevron_right, color: Colors.white),
+                    ),
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                      });
+                      context.read<ArtistAgendaBloc>().add(
+                            ArtistAgendaEvent.daySelected(
+                                selectedDay, focusedDay),
+                          );
+                    },
+                    onFormatChanged: (format) {
+                      context.read<ArtistAgendaBloc>().add(
+                            ArtistAgendaEvent.formatChanged(format),
+                          );
+                    },
+                  ),
+                  const SizedBox(height: 8.0),
+                  Expanded(
+                    child: HourlyEventList(
+                      key: ValueKey(_selectedDay),
+                      events: _getEventsForDay(currentSelectedDay, allEvents),
                     ),
                   ),
-                  headerStyle: HeaderStyle(
-                    formatButtonVisible: true,
-                    titleCentered: true,
-                    formatButtonShowsNext: true,
-                    formatButtonDecoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    titleTextFormatter: (date, locale) =>
-                        DateFormat.yMMMM(locale)
-                            .format(date)
-                            .replaceAll(' de ', ' del '),
-                    formatButtonTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 16),
-                    titleTextStyle: TextStyleTheme.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 20),
-                    leftChevronIcon:
-                        const Icon(Icons.chevron_left, color: Colors.white),
-                    rightChevronIcon:
-                        const Icon(Icons.chevron_right, color: Colors.white),
-                  ),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                    });
-                    context.read<ArtistAgendaBloc>().add(
-                          ArtistAgendaEvent.daySelected(
-                              selectedDay, focusedDay),
-                        );
-                  },
-                  onFormatChanged: (format) {
-                    context.read<ArtistAgendaBloc>().add(
-                          ArtistAgendaEvent.formatChanged(format),
-                        );
-                  },
-                  onPageChanged: (focusedDay) {
-                    // fetch events for the focused day
-                  },
-                ),
-                const SizedBox(height: 8.0),
-                Expanded(
-                  child: HourlyEventList(
-                    key: ValueKey(_selectedDay),
-                    events: _getEventsForDay(selectedDay, allEvents),
-                  ),
-                ),
-              ],
-            );
-          } else if (state is ArtistAgendaStateError) {
-            return Center(
-                child: Text('Error loading events: ${state.message}'));
-          } else {
-            return const Center(child: Text('No events found.'));
-          }
+                ],
+              );
+            },
+            error: (message) =>
+                Center(child: Text('Error loading events: $message')),
+          );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/createEvent');
+        },
+        backgroundColor: secondaryColor,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

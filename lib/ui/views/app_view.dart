@@ -24,6 +24,7 @@ import 'package:inker_studio/domain/blocs/register/customer/register_customer_bl
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
@@ -155,6 +156,12 @@ class _AppViewState extends State<AppView> {
               return MaterialPageRoute(
                   builder: (context) => const SplashPage());
             }
+
+            if (settings.name == '/createEvent') {
+              return MaterialPageRoute(
+                  builder: (context) => const CreateEventPage());
+            }
+
             if (settings.name == '/agendaEventDetail') {
               final args = settings.arguments;
               if (args is int) {

@@ -532,6 +532,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AgendaEventDetailResponse eventDetail});
+
+  $AgendaEventDetailResponseCopyWith<$Res> get eventDetail;
 }
 
 /// @nodoc
@@ -545,14 +547,23 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventDetail = freezed,
+    Object? eventDetail = null,
   }) {
     return _then(_$LoadedImpl(
-      freezed == eventDetail
+      null == eventDetail
           ? _value.eventDetail
           : eventDetail // ignore: cast_nullable_to_non_nullable
               as AgendaEventDetailResponse,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AgendaEventDetailResponseCopyWith<$Res> get eventDetail {
+    return $AgendaEventDetailResponseCopyWith<$Res>(_value.eventDetail,
+        (value) {
+      return _then(_value.copyWith(eventDetail: value));
+    });
   }
 }
 
@@ -574,13 +585,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality()
-                .equals(other.eventDetail, eventDetail));
+            (identical(other.eventDetail, eventDetail) ||
+                other.eventDetail == eventDetail));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(eventDetail));
+  int get hashCode => Object.hash(runtimeType, eventDetail);
 
   @JsonKey(ignore: true)
   @override
