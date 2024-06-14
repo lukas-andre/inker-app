@@ -35,6 +35,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
         daySelected: (selectedDay, focusedDay) async =>
             _daySelected(emit, selectedDay, focusedDay),
         formatChanged: (format) async => _formatChanged(emit, format),
+        refreshed: () async => _loadEvents(emit),
       );
     });
   }

@@ -17,4 +17,5 @@ class ArtistAgendaEvent with _$ArtistAgendaEvent {
       DateTime selectedDay, DateTime focusedDay) = _DaySelected;
   const factory ArtistAgendaEvent.formatChanged(CalendarFormat format) =
       _FormatChanged;
+  const factory ArtistAgendaEvent.refreshed() = _Refreshed;
 }

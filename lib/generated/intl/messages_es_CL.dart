@@ -27,18 +27,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
+        "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
+        "eventColor": MessageLookupByLibrary.simpleMessage("Color del Evento"),
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),
         "eventLocation":
             MessageLookupByLibrary.simpleMessage("Ubicación del Evento"),
+        "eventTitle": MessageLookupByLibrary.simpleMessage("Título del Evento"),
+        "extraInfo":
+            MessageLookupByLibrary.simpleMessage("Información Adicional"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
+        "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo")
