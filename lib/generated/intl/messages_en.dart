@@ -27,17 +27,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
+        "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
+        "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
         "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
+        "eventTitle": MessageLookupByLibrary.simpleMessage("Event Title"),
+        "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
-        "upcomming": MessageLookupByLibrary.simpleMessage("Upcomming"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
+        "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence")
       };
 }
