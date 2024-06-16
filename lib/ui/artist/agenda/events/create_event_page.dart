@@ -22,6 +22,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   final TextEditingController _notesController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+  bool _isSubmitted = false;
   DateTime _selectedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
 
@@ -46,11 +47,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
+            autovalidateMode: _isSubmitted
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             child: ListView(
               children: [
                 Card(
-                  color:
-                      const Color(0x002a2d40), // Color de fondo de la tarjeta
+                  color: const Color(0x002a2d40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -60,7 +63,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       children: [
                         _buildTextField(
                           controller: _guestController,
-                          label: 'John Doe',
+                          label: 'Invitado',
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a guest';
@@ -126,27 +129,53 @@ class _CreateEventPageState extends State<CreateEventPage> {
     int maxLines = 1,
     void Function(String)? onFieldSubmitted,
   }) {
-    return SizedBox(
-      height: 25,
-      child: TextFormField(
-        controller: controller,
-        style: const TextStyle(color: Colors.white),
-        maxLines: maxLines,
-        decoration: InputDecoration(
-            labelText: label,
-            labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
-            filled: true,
-            fillColor:
-                const Color(0x002a2d40), // Color de fondo del campo de entrada
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  color: Color(0x002a2d40)), // Color del borde habilitado
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: InputBorder.none),
-        validator: validator,
-        onFieldSubmitted: onFieldSubmitted,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 25,
+          child: TextFormField(
+            controller: controller,
+            style: const TextStyle(color: Colors.white),
+            maxLines: maxLines,
+            decoration: InputDecoration(
+                errorText: null,
+                error: null,
+                errorStyle:
+                    const TextStyle(height: 0, color: Color(0x002a2d40)),
+                focusedErrorBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                labelText: label,
+                labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
+                filled: true,
+                fillColor: const Color(0x002a2d40),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0x002a2d40)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: InputBorder.none),
+            validator: validator,
+            autovalidateMode: AutovalidateMode.disabled,
+            onFieldSubmitted: onFieldSubmitted,
+          ),
+        ),
+        const SizedBox(height: 8), // Space between input and error text
+        if (_isSubmitted && validator != null)
+          Builder(
+            builder: (context) {
+              final errorText = validator(controller.text);
+              return errorText != null
+                  ? Text(
+                      errorText,
+                      style: TextStyleTheme.copyWith(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                    )
+                  : const SizedBox.shrink();
+            },
+          ),
+      ],
     );
   }
 
@@ -203,6 +232,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
       height: 50,
       child: ElevatedButton(
         onPressed: () {
+          setState(() {
+            _isSubmitted = true; // Set this line
+          });
           if (_formKey.currentState!.validate()) {
             final bloc = context.read<ArtistAgendaBloc>();
             bloc.add(ArtistAgendaEvent.addEvent(

@@ -28,6 +28,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -37,14 +38,19 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
                 controller: _timeController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
+                  error: null,
+                  errorBorder: InputBorder.none,
+                  errorText: null,
+                  errorStyle: TextStyleTheme.copyWith(
+                      color: const Color(0x002a2d40), fontSize: 0),
                   labelText: 'Hora',
-                  labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
+                  labelStyle: TextStyleTheme.copyWith(
+                      color: Colors.white54, fontSize: 18),
                   border: InputBorder.none,
                   suffixIcon:
                       const Icon(Icons.access_time, color: Colors.white54),
                   filled: true,
-                  fillColor: const Color(
-                      0x002a2d40), // Background color to match the card
+                  fillColor: const Color(0x002a2d40),
                 ),
                 readOnly: false,
                 onTap: () async {
@@ -90,9 +96,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
                   labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
                   border: InputBorder.none,
                   filled: true,
-                  // TODO: SAVE COLOR IN A CONSTANT
-                  fillColor: const Color(
-                      0x002a2d40), // Background color to match the card
+                  fillColor: const Color(0x002a2d40),
                 ),
                 items: _durations.map((String duration) {
                   return DropdownMenuItem<String>(
@@ -113,11 +117,20 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
             ),
           ],
         ),
-        const SizedBox(height: 10),
         if (_timeRange.isNotEmpty)
-          Text(
-            _timeRange,
-            style: TextStyleTheme.copyWith(color: Colors.white54),
+          Center(
+            child: Text(
+              _timeRange,
+              style: TextStyleTheme.copyWith(color: Colors.white54),
+            ),
+          ),
+        if (_timeController.text.isEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+            child: Text(
+              'Please enter a valid time',
+              style: TextStyleTheme.copyWith(color: Colors.red, fontSize: 12),
+            ),
           ),
       ],
     );
@@ -125,6 +138,9 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
 
   void _updateTimeRange() {
     if (_timeController.text.isEmpty) {
+      setState(() {
+        _timeRange = '';
+      });
       return;
     }
 
