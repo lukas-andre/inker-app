@@ -1,5 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/data/api/customer/dtos/search_customer_response.dart';
+import 'package:inker_studio/domain/services/customer/customer_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 part 'artist_agenda_create_event_event.dart';
 part 'artist_agenda_create_event_state.dart';
@@ -7,7 +11,15 @@ part 'artist_agenda_create_event_bloc.freezed.dart';
 
 class ArtistAgendaCreateEventBloc
     extends Bloc<ArtistAgendaCreateEventEvent, ArtistAgendaCreateEventState> {
-  ArtistAgendaCreateEventBloc() : super(const ArtistAgendaCreateEventState()) {
+  final CustomerService _customerService;
+  final LocalSessionService _sessionService;
+
+  ArtistAgendaCreateEventBloc({
+    required CustomerService customerService,
+    required LocalSessionService sessionService,
+  })  : _customerService = customerService,
+        _sessionService = sessionService,
+        super(const ArtistAgendaCreateEventState()) {
     on<ArtistAgendaCreateEventEvent>((event, emit) async {
       await event.when(
         formInitialized: () async => _onFormInitialized(emit),
@@ -18,6 +30,16 @@ class ArtistAgendaCreateEventBloc
         formSubmitted: () async => _onFormSubmitted(emit),
       );
     });
+  }
+
+  Future<List<CustomerDTO>> fetchEventGuestsMatches(String term) async {
+    final token = await _sessionService.getActiveSessionToken();
+    if (token == null) {
+      dev.log('No token', 'ArtistAgendaCreateEventBloc');
+      return [];
+    }
+    final suggestions = await _customerService.searchByTerm(token, term);
+    return suggestions.customers;
   }
 
   void _onFormInitialized(Emitter<ArtistAgendaCreateEventState> emit) {
