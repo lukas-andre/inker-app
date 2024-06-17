@@ -269,6 +269,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Agendar cita`
+  String get scheduleEvent {
+    return Intl.message(
+      'Agendar cita',
+      name: 'scheduleEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invitado`
+  String get guest {
+    return Intl.message(
+      'Invitado',
+      name: 'guest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nota`
+  String get note {
+    return Intl.message(
+      'Nota',
+      name: 'note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `caracteres`
+  String get characters {
+    return Intl.message(
+      'caracteres',
+      name: 'characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enviar Mensaje`
+  String get sendMessage {
+    return Intl.message(
+      'Enviar Mensaje',
+      name: 'sendMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Servicio`
+  String get selectService {
+    return Intl.message(
+      'Seleccionar Servicio',
+      name: 'selectService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hora`
+  String get hour {
+    return Intl.message(
+      'Hora',
+      name: 'hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duración`
+  String get duration {
+    return Intl.message(
+      'Duración',
+      name: 'duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tatuaje`
+  String get tattoo {
+    return Intl.message(
+      'Tatuaje',
+      name: 'tattoo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Barbería`
+  String get barber {
+    return Intl.message(
+      'Barbería',
+      name: 'barber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Piercing`
+  String get piercing {
+    return Intl.message(
+      'Piercing',
+      name: 'piercing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Corte de Pelo`
+  String get haircut {
+    return Intl.message(
+      'Corte de Pelo',
+      name: 'haircut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Makeup`
+  String get makeup {
+    return Intl.message(
+      'Makeup',
+      name: 'makeup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nails`
+  String get nail {
+    return Intl.message(
+      'Nails',
+      name: 'nail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Otro`
+  String get other {
+    return Intl.message(
+      'Otro',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por favor seleccione un invitado`
+  String get errorMsgGuestValidationError {
+    return Intl.message(
+      'Por favor seleccione un invitado',
+      name: 'errorMsgGuestValidationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notas superan el límite de caracteres`
+  String get errorMsgNotesValidationError {
+    return Intl.message(
+      'Notas superan el límite de caracteres',
+      name: 'errorMsgNotesValidationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por favor seleccione una hora`
+  String get errorMsgHoursValidationError {
+    return Intl.message(
+      'Por favor seleccione una hora',
+      name: 'errorMsgHoursValidationError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

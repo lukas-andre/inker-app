@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event/guest_field.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event/notes_field.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/calendar_day_picker.dart';
@@ -40,7 +41,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(
-          'Agendar cita',
+          S.of(context).scheduleEvent,
           style: TextStyleTheme.copyWith(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),

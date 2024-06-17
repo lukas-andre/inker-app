@@ -22,28 +22,49 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "barber": MessageLookupByLibrary.simpleMessage("Barber"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancel Event"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "characters": MessageLookupByLibrary.simpleMessage("characters"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
+        "errorMsgGuestValidationError":
+            MessageLookupByLibrary.simpleMessage("Please select guest"),
+        "errorMsgHoursValidationError":
+            MessageLookupByLibrary.simpleMessage("Please select hours"),
+        "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
+            "Notes exceed the limit of characters"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
         "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Event Title"),
         "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
+        "guest": MessageLookupByLibrary.simpleMessage("Guest"),
+        "haircut": MessageLookupByLibrary.simpleMessage("Haircut"),
+        "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
+        "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "nail": MessageLookupByLibrary.simpleMessage("Nail"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
+        "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
+        "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
+        "selectService": MessageLookupByLibrary.simpleMessage("Select Service"),
+        "sendMessage": MessageLookupByLibrary.simpleMessage("Send Message"),
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
+        "tattoo": MessageLookupByLibrary.simpleMessage("Tattoo"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence")
       };

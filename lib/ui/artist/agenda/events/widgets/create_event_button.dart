@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -31,7 +32,7 @@ class CreateEventButton extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Text(
-          'Agendar cita',
+          S.of(context).scheduleEvent,
           style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
         ),
       ),
