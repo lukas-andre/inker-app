@@ -22,17 +22,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "barber": MessageLookupByLibrary.simpleMessage("Barbería"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancelar Evento"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
+        "duration": MessageLookupByLibrary.simpleMessage("Duración"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
+        "errorMsgGuestValidationError": MessageLookupByLibrary.simpleMessage(
+            "Por favor seleccione un invitado"),
+        "errorMsgHoursValidationError": MessageLookupByLibrary.simpleMessage(
+            "Por favor seleccione una hora"),
+        "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
+            "Notas superan el límite de caracteres"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Color del Evento"),
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),
@@ -41,12 +50,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventTitle": MessageLookupByLibrary.simpleMessage("Título del Evento"),
         "extraInfo":
             MessageLookupByLibrary.simpleMessage("Información Adicional"),
+        "guest": MessageLookupByLibrary.simpleMessage("Invitado"),
+        "haircut": MessageLookupByLibrary.simpleMessage("Corte de Pelo"),
+        "hour": MessageLookupByLibrary.simpleMessage("Hora"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "nail": MessageLookupByLibrary.simpleMessage("Nails"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
+        "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
+        "other": MessageLookupByLibrary.simpleMessage("Otro"),
+        "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
+        "selectService":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Servicio"),
+        "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
+        "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo")

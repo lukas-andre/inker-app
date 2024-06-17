@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -14,9 +15,9 @@ class _ServiceChipsState extends State<ServiceChips> {
     'Tatuajes',
     'Barbería',
     'Piercings',
-    'Perforaciones',
     'Maquillaje',
-    'Peinado'
+    'Estética',
+    'Otros'
   ];
   String _selectedService = 'Tatuajes';
 
@@ -26,7 +27,7 @@ class _ServiceChipsState extends State<ServiceChips> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Seleccionar servicio',
+          S.of(context).selectService,
           style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
         ),
         const SizedBox(height: 10),

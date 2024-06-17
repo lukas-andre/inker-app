@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class MessageButton extends StatelessWidget {
@@ -19,7 +20,7 @@ class MessageButton extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Text(
-          'Enviar mensaje',
+          S.of(context).sendMessage,
           style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
         ),
       ),

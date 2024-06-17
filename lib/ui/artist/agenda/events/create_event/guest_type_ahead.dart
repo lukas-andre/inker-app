@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:inker_studio/data/api/customer/dtos/search_customer_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -89,7 +90,7 @@ class GuestTypeAheadField extends StatelessWidget {
           focusNode: focusNode,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            labelText: 'Invitado',
+            labelText: S.of(context).guest,
             labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
             filled: true,
             fillColor: const Color(0x002a2d40),
@@ -103,7 +104,7 @@ class GuestTypeAheadField extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Por favor, ingresa un invitado';
+              return S.of(context).errorMsgGuestValidationError;
             }
             return null;
           },

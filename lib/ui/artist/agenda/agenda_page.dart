@@ -47,7 +47,7 @@ class _TableEventsExampleState extends State<TableEventsExample>
         title: Text(
           'Agenda',
           style: TextStyleTheme.copyWith(
-              color: Colors.white, fontWeight: FontWeight.normal, fontSize: 24),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
         backgroundColor: primaryColor,
         elevation: 4.0,
