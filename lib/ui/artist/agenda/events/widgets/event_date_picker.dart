@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
@@ -79,7 +80,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a valid time';
+                    return S.of(context).errorMsgHoursValidationError;
                   }
                   return null;
                 },
@@ -92,7 +93,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
                 value: _selectedDuration,
                 dropdownColor: primaryColor,
                 decoration: InputDecoration(
-                  labelText: 'Duración',
+                  labelText: S.of(context).duration,
                   labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
                   border: InputBorder.none,
                   filled: true,
@@ -128,7 +129,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 8.0),
             child: Text(
-              'Please enter a valid time',
+              S.of(context).errorMsgHoursValidationError,
               style: TextStyleTheme.copyWith(color: Colors.red, fontSize: 12),
             ),
           ),

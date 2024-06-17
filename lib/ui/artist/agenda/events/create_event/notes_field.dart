@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class NotesField extends StatefulWidget {
@@ -53,7 +54,7 @@ class _NotesFieldState extends State<NotesField> {
                 style: const TextStyle(color: Colors.white),
                 maxLines: null,
                 decoration: InputDecoration(
-                  labelText: 'Nota',
+                  labelText: S.of(context).note,
                   labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
                   filled: true,
                   fillColor: const Color(0x002a2d40),
@@ -67,7 +68,9 @@ class _NotesFieldState extends State<NotesField> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  errorText: state.notesError,
+                  errorText: state.notesError != null
+                      ? S.of(context).errorMsgNotesValidationError
+                      : null,
                 ),
               ),
               const SizedBox(height: 8),
@@ -75,7 +78,7 @@ class _NotesFieldState extends State<NotesField> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${_controller.text.length}/$maxNoteLength caracteres',
+                    '${_controller.text.length}/$maxNoteLength ${S.of(context).characters}',
                     style: TextStyleTheme.copyWith(
                       color: _controller.text.length > maxNoteLength
                           ? Colors.red
