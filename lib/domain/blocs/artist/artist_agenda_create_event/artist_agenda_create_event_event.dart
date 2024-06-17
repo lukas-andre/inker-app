@@ -4,7 +4,7 @@ part of 'artist_agenda_create_event_bloc.dart';
 class ArtistAgendaCreateEventEvent with _$ArtistAgendaCreateEventEvent {
   const factory ArtistAgendaCreateEventEvent.formInitialized() =
       _FormInitialized;
-  const factory ArtistAgendaCreateEventEvent.guestChanged(String guest) =
+  const factory ArtistAgendaCreateEventEvent.guestChanged(CustomerDTO? guest) =
       _GuestChanged;
   const factory ArtistAgendaCreateEventEvent.notesChanged(String notes) =
       _NotesChanged;

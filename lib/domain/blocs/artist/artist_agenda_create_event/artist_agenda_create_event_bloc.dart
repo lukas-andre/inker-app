@@ -39,6 +39,13 @@ class ArtistAgendaCreateEventBloc
       return [];
     }
     final suggestions = await _customerService.searchByTerm(token, term);
+
+    if (state.selectedGuest != null && suggestions.customers.isNotEmpty) {
+      return suggestions.customers
+          .where((element) => element.id != state.selectedGuest?.id)
+          .toList();
+    }
+
     return suggestions.customers;
   }
 
@@ -47,10 +54,10 @@ class ArtistAgendaCreateEventBloc
   }
 
   void _onGuestChanged(
-      Emitter<ArtistAgendaCreateEventState> emit, String guest) {
+      Emitter<ArtistAgendaCreateEventState> emit, CustomerDTO? guest) {
     emit(state.copyWith(
-      guest: guest,
-      guestError: guest.isEmpty ? 'error_guest_empty' : null,
+      selectedGuest: guest,
+      guestError: guest != null ? 'error_guest_empty' : null,
     ));
   }
 

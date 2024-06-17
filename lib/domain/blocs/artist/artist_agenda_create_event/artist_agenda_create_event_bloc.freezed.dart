@@ -19,7 +19,7 @@ mixin _$ArtistAgendaCreateEventEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -29,7 +29,7 @@ mixin _$ArtistAgendaCreateEventEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -39,7 +39,7 @@ mixin _$ArtistAgendaCreateEventEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -140,7 +140,7 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -153,7 +153,7 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -166,7 +166,7 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -233,7 +233,9 @@ abstract class _$$GuestChangedImplCopyWith<$Res> {
           _$GuestChangedImpl value, $Res Function(_$GuestChangedImpl) then) =
       __$$GuestChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String guest});
+  $Res call({CustomerDTO? guest});
+
+  $CustomerDTOCopyWith<$Res>? get guest;
 }
 
 /// @nodoc
@@ -247,14 +249,26 @@ class __$$GuestChangedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guest = null,
+    Object? guest = freezed,
   }) {
     return _then(_$GuestChangedImpl(
-      null == guest
+      freezed == guest
           ? _value.guest
           : guest // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CustomerDTO?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerDTOCopyWith<$Res>? get guest {
+    if (_value.guest == null) {
+      return null;
+    }
+
+    return $CustomerDTOCopyWith<$Res>(_value.guest!, (value) {
+      return _then(_value.copyWith(guest: value));
+    });
   }
 }
 
@@ -264,7 +278,7 @@ class _$GuestChangedImpl implements _GuestChanged {
   const _$GuestChangedImpl(this.guest);
 
   @override
-  final String guest;
+  final CustomerDTO? guest;
 
   @override
   String toString() {
@@ -292,7 +306,7 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -305,7 +319,7 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -318,7 +332,7 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -376,9 +390,9 @@ class _$GuestChangedImpl implements _GuestChanged {
 }
 
 abstract class _GuestChanged implements ArtistAgendaCreateEventEvent {
-  const factory _GuestChanged(final String guest) = _$GuestChangedImpl;
+  const factory _GuestChanged(final CustomerDTO? guest) = _$GuestChangedImpl;
 
-  String get guest;
+  CustomerDTO? get guest;
   @JsonKey(ignore: true)
   _$$GuestChangedImplCopyWith<_$GuestChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -449,7 +463,7 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -462,7 +476,7 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -475,7 +489,7 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -606,7 +620,7 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -619,7 +633,7 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -632,7 +646,7 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -763,7 +777,7 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -776,7 +790,7 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -789,7 +803,7 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -894,7 +908,7 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
-    required TResult Function(String guest) guestChanged,
+    required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
     required TResult Function(String time) timeChanged,
@@ -907,7 +921,7 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
-    TResult? Function(String guest)? guestChanged,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
     TResult? Function(String time)? timeChanged,
@@ -920,7 +934,7 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
-    TResult Function(String guest)? guestChanged,
+    TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
     TResult Function(String time)? timeChanged,
@@ -983,7 +997,7 @@ abstract class _FormSubmitted implements ArtistAgendaCreateEventEvent {
 
 /// @nodoc
 mixin _$ArtistAgendaCreateEventState {
-  String get guest => throw _privateConstructorUsedError;
+  CustomerDTO? get selectedGuest => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
   String get time => throw _privateConstructorUsedError;
@@ -1006,13 +1020,15 @@ abstract class $ArtistAgendaCreateEventStateCopyWith<$Res> {
           ArtistAgendaCreateEventState>;
   @useResult
   $Res call(
-      {String guest,
+      {CustomerDTO? selectedGuest,
       String notes,
       String date,
       String time,
       String? guestError,
       String? notesError,
       ArtistAgendaCreateEventStatus status});
+
+  $CustomerDTOCopyWith<$Res>? get selectedGuest;
 }
 
 /// @nodoc
@@ -1029,7 +1045,7 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guest = null,
+    Object? selectedGuest = freezed,
     Object? notes = null,
     Object? date = null,
     Object? time = null,
@@ -1038,10 +1054,10 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      guest: null == guest
-          ? _value.guest
-          : guest // ignore: cast_nullable_to_non_nullable
-              as String,
+      selectedGuest: freezed == selectedGuest
+          ? _value.selectedGuest
+          : selectedGuest // ignore: cast_nullable_to_non_nullable
+              as CustomerDTO?,
       notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -1068,6 +1084,18 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
               as ArtistAgendaCreateEventStatus,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerDTOCopyWith<$Res>? get selectedGuest {
+    if (_value.selectedGuest == null) {
+      return null;
+    }
+
+    return $CustomerDTOCopyWith<$Res>(_value.selectedGuest!, (value) {
+      return _then(_value.copyWith(selectedGuest: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1080,13 +1108,16 @@ abstract class _$$ArtistAgendaCreateEventStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String guest,
+      {CustomerDTO? selectedGuest,
       String notes,
       String date,
       String time,
       String? guestError,
       String? notesError,
       ArtistAgendaCreateEventStatus status});
+
+  @override
+  $CustomerDTOCopyWith<$Res>? get selectedGuest;
 }
 
 /// @nodoc
@@ -1102,7 +1133,7 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guest = null,
+    Object? selectedGuest = freezed,
     Object? notes = null,
     Object? date = null,
     Object? time = null,
@@ -1111,10 +1142,10 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
     Object? status = null,
   }) {
     return _then(_$ArtistAgendaCreateEventStateImpl(
-      guest: null == guest
-          ? _value.guest
-          : guest // ignore: cast_nullable_to_non_nullable
-              as String,
+      selectedGuest: freezed == selectedGuest
+          ? _value.selectedGuest
+          : selectedGuest // ignore: cast_nullable_to_non_nullable
+              as CustomerDTO?,
       notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -1148,7 +1179,7 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
 class _$ArtistAgendaCreateEventStateImpl
     implements _ArtistAgendaCreateEventState {
   const _$ArtistAgendaCreateEventStateImpl(
-      {this.guest = '',
+      {this.selectedGuest,
       this.notes = '',
       this.date = '',
       this.time = '',
@@ -1157,8 +1188,7 @@ class _$ArtistAgendaCreateEventStateImpl
       this.status = ArtistAgendaCreateEventStatus.initial});
 
   @override
-  @JsonKey()
-  final String guest;
+  final CustomerDTO? selectedGuest;
   @override
   @JsonKey()
   final String notes;
@@ -1178,7 +1208,7 @@ class _$ArtistAgendaCreateEventStateImpl
 
   @override
   String toString() {
-    return 'ArtistAgendaCreateEventState(guest: $guest, notes: $notes, date: $date, time: $time, guestError: $guestError, notesError: $notesError, status: $status)';
+    return 'ArtistAgendaCreateEventState(selectedGuest: $selectedGuest, notes: $notes, date: $date, time: $time, guestError: $guestError, notesError: $notesError, status: $status)';
   }
 
   @override
@@ -1186,7 +1216,8 @@ class _$ArtistAgendaCreateEventStateImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ArtistAgendaCreateEventStateImpl &&
-            (identical(other.guest, guest) || other.guest == guest) &&
+            (identical(other.selectedGuest, selectedGuest) ||
+                other.selectedGuest == selectedGuest) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.time, time) || other.time == time) &&
@@ -1198,8 +1229,8 @@ class _$ArtistAgendaCreateEventStateImpl
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, guest, notes, date, time, guestError, notesError, status);
+  int get hashCode => Object.hash(runtimeType, selectedGuest, notes, date, time,
+      guestError, notesError, status);
 
   @JsonKey(ignore: true)
   @override
@@ -1213,7 +1244,7 @@ class _$ArtistAgendaCreateEventStateImpl
 abstract class _ArtistAgendaCreateEventState
     implements ArtistAgendaCreateEventState {
   const factory _ArtistAgendaCreateEventState(
-          {final String guest,
+          {final CustomerDTO? selectedGuest,
           final String notes,
           final String date,
           final String time,
@@ -1223,7 +1254,7 @@ abstract class _ArtistAgendaCreateEventState
       _$ArtistAgendaCreateEventStateImpl;
 
   @override
-  String get guest;
+  CustomerDTO? get selectedGuest;
   @override
   String get notes;
   @override

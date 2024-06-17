@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event/guest_field.dart';
+import 'package:inker_studio/ui/artist/agenda/events/create_event/notes_field.dart';
+import 'package:inker_studio/ui/artist/agenda/events/widgets/calendar_day_picker.dart';
+import 'package:inker_studio/ui/artist/agenda/events/widgets/create_event_button.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/event_date_picker.dart';
+import 'package:inker_studio/ui/artist/agenda/events/widgets/send_message_button.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/service_chip_selection.dart';
-import 'package:intl/intl.dart';
-import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
-import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({super.key});
@@ -20,15 +20,6 @@ class CreateEventPage extends StatefulWidget {
 
 class _CreateEventPageState extends State<CreateEventPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _guestController = TextEditingController();
-  final TextEditingController _notesController = TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
-
-  static const int _maxNoteLength = 10;
-
-  DateTime _selectedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
 
   @override
   void initState() {
@@ -36,17 +27,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
         .read<ArtistAgendaCreateEventBloc>()
         .add(const ArtistAgendaCreateEventEvent.formInitialized());
     super.initState();
-    _notesController.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
   void dispose() {
-    _guestController.dispose();
-    _notesController.dispose();
-    _dateController.dispose();
-    _timeController.dispose();
     super.dispose();
   }
 
@@ -78,13 +62,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        const GuestField(),
-                        const SizedBox(height: 20),
-                        _buildNotesField()
+                        GuestField(),
+                        SizedBox(height: 20),
+                        NotesField()
                       ],
                     ),
                   ),
@@ -96,15 +80,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        const SizedBox(height: 12),
-                        _buildTableCalendar(context),
-                        const SizedBox(height: 12),
-                        const TimePickerWithDuration(),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12),
+                        CalendarDayPicker(),
+                        SizedBox(height: 12),
+                        TimePickerWithDuration(),
+                        SizedBox(height: 12),
                       ],
                     ),
                   ),
@@ -115,171 +99,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildMessageButton(context),
-                    _buildCreateEventButton(context),
+                    const MessageButton(),
+                    CreateEventButton(formKey: _formKey),
                   ],
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNotesField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextFormField(
-          controller: _notesController,
-          style: const TextStyle(color: Colors.white),
-          maxLines: null,
-          decoration: InputDecoration(
-            labelText: 'Nota',
-            labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
-            filled: true,
-            fillColor: const Color(0x002a2d40),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0x002a2d40)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Color(0x002a2d40),
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          validator: (value) {
-            if (value != null && value.length > _maxNoteLength) {
-              return 'Nota no puede exceder $_maxNoteLength caracteres';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              '${_notesController.text.length}/$_maxNoteLength caracteres',
-              style: TextStyleTheme.copyWith(
-                color: _notesController.text.length > _maxNoteLength
-                    ? Colors.red
-                    : Colors.white54,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTableCalendar(BuildContext context) {
-    return TableCalendar<ArtistAgendaEventDetails>(
-      firstDay: DateTime(2000),
-      lastDay: DateTime(2101),
-      focusedDay: _selectedDay,
-      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-      calendarFormat: _calendarFormat,
-      onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          _selectedDay = selectedDay;
-        });
-      },
-      onFormatChanged: (format) {
-        setState(() {
-          _calendarFormat = format;
-        });
-      },
-      calendarStyle: CalendarStyle(
-        selectedDecoration:
-            BoxDecoration(color: secondaryColor, shape: BoxShape.circle),
-        todayDecoration:
-            BoxDecoration(color: tertiaryColor, shape: BoxShape.circle),
-        weekendTextStyle: TextStyleTheme.copyWith(
-            color: secondaryColor, fontWeight: FontWeight.normal, fontSize: 14),
-        defaultTextStyle: TextStyleTheme.copyWith(
-            color: Colors.white, fontWeight: FontWeight.normal, fontSize: 14),
-        markerDecoration:
-            const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-      ),
-      headerStyle: HeaderStyle(
-        formatButtonVisible: false,
-        titleCentered: true,
-        formatButtonShowsNext: true,
-        formatButtonDecoration: BoxDecoration(
-            color: secondaryColor, borderRadius: BorderRadius.circular(20)),
-        titleTextFormatter: (date, locale) =>
-            DateFormat.yMMMM(locale).format(date).replaceAll(' de ', ' del '),
-        formatButtonTextStyle: TextStyleTheme.copyWith(
-            color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16),
-        titleTextStyle: TextStyleTheme.copyWith(
-            color: Colors.white, fontWeight: FontWeight.normal, fontSize: 20),
-        leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
-        rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildCreateEventButton(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            final bloc = context.read<ArtistAgendaBloc>();
-            // INVALIDATE DATE FORMAT ERROR HERE, on start event and maybe end date
-            bloc.add(ArtistAgendaEvent.addEvent(
-              ArtistAgendaEventDetails(
-                id: '',
-                title: _guestController.text,
-                description: _notesController.text,
-                startDate: DateTime.parse(
-                    '${_dateController.text} ${_timeController.text}'),
-                endDate: DateTime.parse(
-                        '${_dateController.text} ${_timeController.text}')
-                    .add(const Duration(
-                        minutes: 60)), // Add 1 hour to the start time
-                location: '',
-                notes: null,
-              ),
-            ));
-            Navigator.pop(context);
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
-          padding: const EdgeInsets.symmetric(vertical: 0.0),
-          shape: const StadiumBorder(),
-        ),
-        child: Text(
-          'Agendar cita',
-          style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMessageButton(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {
-          // Handle sending message logic here
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey[700],
-          padding: const EdgeInsets.symmetric(vertical: 0.0),
-          shape: const StadiumBorder(),
-        ),
-        child: Text(
-          'Enviar mensaje',
-          style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
         ),
       ),
     );
