@@ -44,7 +44,7 @@ class _ServiceChipsState extends State<ServiceChips> {
                       _selectedService = service;
                     });
                   },
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                   selectedColor: secondaryColor,
                   backgroundColor: Colors.grey[800],
                   labelStyle: TextStyleTheme.copyWith(
