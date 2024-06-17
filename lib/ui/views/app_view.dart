@@ -97,7 +97,11 @@ class _AppViewState extends State<AppView> {
                   agendaService: context.read(),
                   sessionService: context.read(),
                 )),
-        BlocProvider(create: (context) => ArtistAgendaCreateEventBloc()),
+        BlocProvider(
+            create: (context) => ArtistAgendaCreateEventBloc(
+                  customerService: context.read(),
+                  sessionService: context.read(),
+                )),
         BlocProvider(
             create: (context) => ExplorerPageBloc(
                   mapBloc: context.read(),
