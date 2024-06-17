@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event/guest_field.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/event_date_picker.dart';
@@ -25,8 +24,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   final TextEditingController _notesController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-  final SuggestionsController<String> _suggestionsController =
-      SuggestionsController<String>();
+
   static const int _maxNoteLength = 10;
 
   DateTime _selectedDay = DateTime.now();
@@ -84,9 +82,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        GuestField(
-                          suggestionsController: _suggestionsController,
-                        ),
+                        const GuestField(),
                         const SizedBox(height: 20),
                         _buildNotesField()
                       ],
@@ -129,81 +125,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
         ),
       ),
     );
-  }
-
-  Widget _buildGuestField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TypeAheadField<String>(
-          suggestionsController: _suggestionsController,
-          suggestionsCallback: (pattern) async {
-            return await _fetchSuggestions(pattern);
-          },
-          itemBuilder: (context, suggestion) {
-            return Container(
-              decoration: BoxDecoration(
-                color: primaryColor,
-              ),
-              child: ListTile(
-                title: Text(suggestion,
-                    style: TextStyleTheme.copyWith(color: Colors.white)),
-              ),
-            );
-          },
-          onSelected: (suggestion) {
-            _guestController.text = suggestion;
-          },
-          hideOnEmpty: true,
-          hideOnLoading: false,
-          hideOnError: false,
-          hideOnSelect: true,
-          hideWithKeyboard: true,
-          debounceDuration: const Duration(milliseconds: 300),
-          builder: (context, controller, focusNode) {
-            return TextFormField(
-              controller: controller,
-              focusNode: focusNode,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Invitado',
-                labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
-                filled: true,
-                fillColor: const Color(0x002a2d40),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Color(0x002a2d40)),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: InputBorder.none,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingresa un invitado';
-                }
-                return null;
-              },
-            );
-          },
-          errorBuilder: (context, error) => const Text('Error!'),
-          loadingBuilder: (context) => Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: const Color(0x002a2d40),
-              backgroundBlendMode: BlendMode.saturation,
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-          emptyBuilder: (context) => const Text('No items found!'),
-        ),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
-
-  Future<List<String>> _fetchSuggestions(String pattern) async {
-    // Simulando una llamada HTTP, deberías reemplazar esto con tu lógica real
-    await Future.delayed(const Duration(milliseconds: 500));
-    return List<String>.generate(3, (index) => 'Sugerencia $pattern $index');
   }
 
   Widget _buildNotesField() {

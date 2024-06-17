@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:inker_studio/data/api/customer/dtos/search_customer_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GuestField extends StatefulWidget {
-  final SuggestionsController<String> suggestionsController;
-
   const GuestField({
     super.key,
-    required this.suggestionsController,
   });
 
   @override
@@ -18,6 +17,9 @@ class GuestField extends StatefulWidget {
 }
 
 class _GuestFieldState extends State<GuestField> {
+  final SuggestionsController<CustomerDTO> _suggestionsController =
+      SuggestionsController<CustomerDTO>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ArtistAgendaCreateEventBloc,
@@ -26,28 +28,73 @@ class _GuestFieldState extends State<GuestField> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TypeAheadField<String>(
-              suggestionsController: widget.suggestionsController,
+            TypeAheadField<CustomerDTO>(
+              decorationBuilder: (context, child) {
+                return Material(
+                  type: MaterialType.card,
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(15),
+                  color: primaryColor,
+                  child: child,
+                );
+              },
+              loadingBuilder: (context) => Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                ),
+                child: const Center(
+                  child: InkerProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              suggestionsController: _suggestionsController,
               suggestionsCallback: (pattern) async {
-                await Future.delayed(const Duration(milliseconds: 500));
-                return List<String>.generate(
-                    3, (index) => 'Sugerencia $pattern $index');
+                final suggestions = await context
+                    .read<ArtistAgendaCreateEventBloc>()
+                    .fetchEventGuestsMatches(pattern);
+
+                return suggestions;
               },
               itemBuilder: (context, suggestion) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor,
+                return ListTile(
+                  leading: suggestion.profileThumbnail != null
+                      ? CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(suggestion.profileThumbnail!),
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child: Text(
+                            suggestion.firstName[0],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                  title: Text(
+                    '${suggestion.firstName} ${suggestion.lastName}',
+                    style: TextStyleTheme.copyWith(color: Colors.white),
                   ),
-                  child: ListTile(
-                    title: Text(suggestion,
-                        style: TextStyleTheme.copyWith(color: Colors.white)),
+                  subtitle: Text(
+                    suggestion.contactEmail,
+                    style: TextStyleTheme.copyWith(color: Colors.white54),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(suggestion.rating, (index) {
+                      return const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 16,
+                      );
+                    }),
                   ),
                 );
               },
               onSelected: (suggestion) {
-                context
-                    .read<ArtistAgendaCreateEventBloc>()
-                    .add(ArtistAgendaCreateEventEvent.guestChanged(suggestion));
+                context.read<ArtistAgendaCreateEventBloc>().add(
+                    ArtistAgendaCreateEventEvent.guestChanged(
+                        suggestion.firstName));
               },
               hideOnEmpty: true,
               hideOnLoading: false,
@@ -87,7 +134,7 @@ class _GuestFieldState extends State<GuestField> {
                 );
               },
             ),
-            const SizedBox(height: 8),
+            // const SizedBox(height: 8),
           ],
         );
       },
