@@ -5,7 +5,7 @@ enum ArtistAgendaCreateEventStatus { initial, loading, success, failure }
 @freezed
 class ArtistAgendaCreateEventState with _$ArtistAgendaCreateEventState {
   const factory ArtistAgendaCreateEventState({
-    @Default('') String guest,
+    CustomerDTO? selectedGuest,
     @Default('') String notes,
     @Default('') String date,
     @Default('') String time,
