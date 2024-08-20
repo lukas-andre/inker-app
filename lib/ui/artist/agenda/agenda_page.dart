@@ -13,14 +13,14 @@ final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
-class TableEventsExample extends StatefulWidget {
-  const TableEventsExample({super.key});
+class AgendaTablePage extends StatefulWidget {
+  const AgendaTablePage({super.key});
 
   @override
-  _TableEventsExampleState createState() => _TableEventsExampleState();
+  _AgendaTablePageState createState() => _AgendaTablePageState();
 }
 
-class _TableEventsExampleState extends State<TableEventsExample>
+class _AgendaTablePageState extends State<AgendaTablePage>
     with AutomaticKeepAliveClientMixin {
   DateTime? _selectedDay;
 

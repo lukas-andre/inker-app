@@ -15,7 +15,7 @@ class ArtistAppPage extends StatefulWidget {
 class _ArtistAppPageState extends State<ArtistAppPage> {
   int _selectedIndex = 1;
   static const List<Widget> _pageWidgets = <Widget>[
-    TableEventsExample(),
+    AgendaTablePage(),
     Center(
       child: Text('Three'),
     ),
