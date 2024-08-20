@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,11 +21,13 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
   @override
   void initState() {
     super.initState();
-    final initialSelectedDay =
-        context.read<ArtistAgendaCreateEventBloc>().state.date;
-    _focusedDay = initialSelectedDay.isNotEmpty
-        ? DateTime.parse(initialSelectedDay)
-        : DateTime.now();
+
+    final agendaSelectedDay = context.read<ArtistAgendaBloc>().state.maybeWhen(
+          loaded: (events, focusedDay, selectedDay, format) => selectedDay,
+          orElse: () => DateTime.now(),
+        );
+
+    _focusedDay = agendaSelectedDay ?? DateTime.now();
     _calendarFormat = CalendarFormat.twoWeeks;
   }
 
