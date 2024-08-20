@@ -1,6 +1,5 @@
 import 'dart:async' show StreamSubscription;
 
-import 'package:bloc/bloc.dart' show Bloc;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
@@ -81,6 +80,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       dev.log('session: $session', className, '_tryGetSession');
       return session;
     } on Exception catch (_, stackTrace) {
+      // ignore: no_wildcard_variable_uses
       dev.logError(_, stackTrace);
       return null;
     }

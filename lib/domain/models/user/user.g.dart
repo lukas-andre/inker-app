@@ -7,13 +7,13 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map json) => User(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       uid: json['uid'] as String?,
       email: json['email'] as String?,
       username: json['username'] as String?,
       fullname: json['fullname'] as String?,
       userType: json['userType'] as String?,
-      userTypeId: json['userTypeId'] as int?,
+      userTypeId: (json['userTypeId'] as num?)?.toInt(),
       profileThumbnail: json['profileThumbnail'],
     );
 

@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_content.dart';
 
 part 'on_boarding_event.dart';
@@ -9,7 +9,7 @@ part 'on_boarding_state.dart';
 class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
   OnBoardingBloc() : super(OnBoardingState()) {
     on<OnBoardingMoveToIndex>((event, emit) {
-      _mapOnBoardingMoveToIndexToState(event, emit);
+      _mapOnBoardingMoveToIndexToState(event, emit.call);
     });
 
     on<OnBoardingNextOrForward>((event, emit) {

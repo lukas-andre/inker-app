@@ -6,7 +6,7 @@ import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_phone_number_input.dart';
 
 class RegisterArtistPhoneNumberInput extends StatelessWidget {
-  RegisterArtistPhoneNumberInput({Key? key}) : super(key: key);
+  RegisterArtistPhoneNumberInput({super.key});
   final _texEditingController = TextEditingController();
 
   @override

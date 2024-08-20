@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DraggingSheetHandler extends StatelessWidget {
-  const DraggingSheetHandler({Key? key}) : super(key: key);
+  const DraggingSheetHandler({super.key});
 
   @override
   Widget build(BuildContext context) {

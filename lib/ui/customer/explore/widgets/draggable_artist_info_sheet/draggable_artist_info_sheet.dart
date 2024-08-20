@@ -6,13 +6,12 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_bottom_bar.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_content.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_review_sheet/draggable_artist_review_sheet.dart';
-import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoSheet extends StatelessWidget {
   const DraggableArtistInfoSheet({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +59,7 @@ class DraggableArtistInfoSheet extends StatelessWidget {
                                               DraggableArtistReviewSheetBloc>()
                                           .add(
                                               const DraggableArtistReviewSheetEvent
-                                                  .refreshReviews());
-                                      dev.log(
-                                          'notification is ScrollEndNotification ${notification.metrics}',
-                                          'DraggableArtistInfoSheetEnd');
+                                                  .draggableRefreshReviews());
                                     }
                                   }
                                 },
@@ -91,7 +87,7 @@ class DraggableArtistInfoSheet extends StatelessWidget {
 }
 
 class DraggableArtistInfoSheetLayout extends StatelessWidget {
-  const DraggableArtistInfoSheetLayout({Key? key}) : super(key: key);
+  const DraggableArtistInfoSheetLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +105,7 @@ class DraggableArtistInfoSheetLayout extends StatelessWidget {
 }
 
 class DraggableArtistInfoSheetInnerContent extends StatelessWidget {
-  const DraggableArtistInfoSheetInnerContent({Key? key}) : super(key: key);
+  const DraggableArtistInfoSheetInnerContent({super.key});
 
   @override
   Widget build(BuildContext context) {

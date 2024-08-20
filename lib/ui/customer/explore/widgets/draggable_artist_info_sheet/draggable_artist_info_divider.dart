@@ -3,8 +3,8 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoBottomDivider extends StatelessWidget {
   const DraggableArtistInfoBottomDivider({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

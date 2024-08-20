@@ -8,7 +8,7 @@ import 'package:inker_studio/ui/register/register_artist/register_artist_page_1.
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class RegisterArtistFormPage1 extends StatelessWidget {
-  const RegisterArtistFormPage1({Key? key}) : super(key: key);
+  const RegisterArtistFormPage1({super.key});
 
   @override
   Widget build(BuildContext context) {

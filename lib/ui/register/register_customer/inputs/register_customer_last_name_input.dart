@@ -8,8 +8,8 @@ import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
 
 class RegisterCustomerLastNameInput extends StatelessWidget {
   RegisterCustomerLastNameInput({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final _texEditingController = TextEditingController();
 
   @override
