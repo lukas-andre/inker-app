@@ -8,43 +8,43 @@ import 'package:inker_studio/ui/register/widgets/register_user_by_type_title.dar
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 
 class RegisterUserByTypeLayout extends StatelessWidget {
-  const RegisterUserByTypeLayout({Key? key}) : super(key: key);
+  const RegisterUserByTypeLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               CloseRegisterButton(
                 index: 0,
               )
             ],
           ),
           Row(
-            children: const [
+            children: [
               RegisterProgressIndicator(
                 progress: 1 / 4,
               )
             ],
           ),
           Row(
-            children: const [RegisterUserByTypeTitle()],
+            children: [RegisterUserByTypeTitle()],
           ),
           Row(
-            children: const [RegisterUserByTypeSubTitle()],
+            children: [RegisterUserByTypeSubTitle()],
           ),
-          const RowSpacer(space: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [RegisterArtistButton()],
-          ),
-          const RowSpacer(space: 40),
+          RowSpacer(space: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [RegisterCustomerButton()],
+            children: [RegisterArtistButton()],
+          ),
+          RowSpacer(space: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [RegisterCustomerButton()],
           ),
         ],
       ),

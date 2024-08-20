@@ -18,7 +18,7 @@ class BlocNavigator {
 }
 
 class InkerNavigator {
-  static void push(BuildContext context, page) {
+  static void push(BuildContext context, Widget page) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   }
 

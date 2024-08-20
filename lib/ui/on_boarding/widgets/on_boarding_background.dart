@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class OnBoardingBackground extends StatelessWidget {
-  const OnBoardingBackground({Key? key}) : super(key: key);
+  const OnBoardingBackground({super.key});
 
   @override
   Widget build(BuildContext context) {

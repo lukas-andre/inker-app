@@ -6,7 +6,7 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ButtonCurrentLocation extends StatelessWidget {
-  const ButtonCurrentLocation({Key? key}) : super(key: key);
+  const ButtonCurrentLocation({super.key});
 
   @override
   Widget build(BuildContext context) {

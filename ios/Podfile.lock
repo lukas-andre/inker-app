@@ -1,114 +1,117 @@
 PODS:
-  - AppAuth (1.5.0):
-    - AppAuth/Core (= 1.5.0)
-    - AppAuth/ExternalUserAgent (= 1.5.0)
-  - AppAuth/Core (1.5.0)
-  - AppAuth/ExternalUserAgent (1.5.0):
+  - AppAuth (1.7.5):
+    - AppAuth/Core (= 1.7.5)
+    - AppAuth/ExternalUserAgent (= 1.7.5)
+  - AppAuth/Core (1.7.5)
+  - AppAuth/ExternalUserAgent (1.7.5):
     - AppAuth/Core
-  - Firebase/Auth (9.3.0):
+  - Firebase/Auth (10.27.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 9.3.0)
-  - Firebase/CoreOnly (9.3.0):
-    - FirebaseCore (= 9.3.0)
-  - firebase_auth (3.6.2):
-    - Firebase/Auth (= 9.3.0)
+    - FirebaseAuth (~> 10.27.0)
+  - Firebase/CoreOnly (10.27.0):
+    - FirebaseCore (= 10.27.0)
+  - firebase_auth (5.0.0):
+    - Firebase/Auth (= 10.27.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.20.0):
-    - Firebase/CoreOnly (= 9.3.0)
+  - firebase_core (3.0.0):
+    - Firebase/CoreOnly (= 10.27.0)
     - Flutter
-  - FirebaseAuth (9.3.0):
-    - FirebaseCore (~> 9.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
-    - GoogleUtilities/Environment (~> 7.7)
-    - GTMSessionFetcher/Core (< 3.0, >= 1.7)
-  - FirebaseCore (9.3.0):
-    - FirebaseCoreDiagnostics (~> 9.0)
-    - FirebaseCoreInternal (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.7)
-    - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (9.4.0):
-    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
-    - GoogleUtilities/Environment (~> 7.7)
-    - GoogleUtilities/Logger (~> 7.7)
-    - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseCoreInternal (9.4.0):
-    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+  - FirebaseAppCheckInterop (10.27.0)
+  - FirebaseAuth (10.27.0):
+    - FirebaseAppCheckInterop (~> 10.17)
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+    - RecaptchaInterop (~> 100.0)
+  - FirebaseCore (10.27.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreInternal (10.27.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
   - flutter_native_splash (0.0.1):
     - Flutter
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
   - geolocator_apple (1.2.0):
     - Flutter
-  - google_maps_flutter (0.0.1):
+  - google_maps_flutter_ios (0.0.1):
     - Flutter
-    - GoogleMaps
+    - GoogleMaps (< 9.0, >= 8.4)
   - google_sign_in_ios (0.0.1):
+    - AppAuth (>= 1.7.4)
     - Flutter
-    - GoogleSignIn (~> 6.2)
-  - GoogleDataTransport (9.2.0):
-    - GoogleUtilities/Environment (~> 7.7)
-    - nanopb (< 2.30910.0, >= 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (6.2.1):
-    - GoogleMaps/Maps (= 6.2.1)
-  - GoogleMaps/Base (6.2.1)
-  - GoogleMaps/Maps (6.2.1):
+    - FlutterMacOS
+    - GoogleSignIn (~> 7.1)
+    - GTMSessionFetcher (>= 3.4.0)
+  - GoogleMaps (8.4.0):
+    - GoogleMaps/Maps (= 8.4.0)
+  - GoogleMaps/Base (8.4.0)
+  - GoogleMaps/Maps (8.4.0):
     - GoogleMaps/Base
-  - GoogleSignIn (6.2.2):
-    - AppAuth (~> 1.5)
-    - GTMAppAuth (~> 1.3)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUtilities/AppDelegateSwizzler (7.7.0):
+  - GoogleSignIn (7.1.0):
+    - AppAuth (< 2.0, >= 1.7.3)
+    - GTMAppAuth (< 5.0, >= 4.1.1)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GoogleUtilities/AppDelegateSwizzler (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.7.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (7.13.3):
+    - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.7.0):
+  - GoogleUtilities/Logger (7.13.3):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.7.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (7.13.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.7.0)"
-  - GoogleUtilities/Reachability (7.7.0):
+  - "GoogleUtilities/NSData+zlib (7.13.3)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/Reachability (7.13.3):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.3.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.7.2)
-  - libphonenumber (0.0.1):
-    - Flutter
-    - libPhoneNumber-iOS
-  - libPhoneNumber-iOS (0.9.15)
+    - GoogleUtilities/Privacy
+  - GTMAppAuth (4.1.1):
+    - AppAuth/Core (~> 1.7)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher (3.4.1):
+    - GTMSessionFetcher/Full (= 3.4.1)
+  - GTMSessionFetcher/Core (3.4.1)
+  - GTMSessionFetcher/Full (3.4.1):
+    - GTMSessionFetcher/Core
   - libphonenumber_plugin (0.0.1):
     - Flutter
-    - libphonenumber
-    - libPhoneNumber-iOS
+    - PhoneNumberKit
   - map_launcher (0.0.1):
     - Flutter
-  - nanopb (2.30909.0):
-    - nanopb/decode (= 2.30909.0)
-    - nanopb/encode (= 2.30909.0)
-  - nanopb/decode (2.30909.0)
-  - nanopb/encode (2.30909.0)
-  - path_provider_ios (0.0.1):
+  - path_provider_foundation (0.0.1):
     - Flutter
-  - "permission_handler (5.1.0+2)":
+    - FlutterMacOS
+  - permission_handler_apple (9.3.0):
     - Flutter
-  - PromisesObjC (2.1.1)
-  - shared_preferences_ios (0.0.1):
+  - PhoneNumberKit (3.7.11):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.7.11)
+    - PhoneNumberKit/UIKit (= 3.7.11)
+  - PhoneNumberKit/PhoneNumberKitCore (3.7.11)
+  - PhoneNumberKit/UIKit (3.7.11):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - pointer_interceptor_ios (0.0.1):
     - Flutter
-  - smart_auth (0.0.1):
+  - PromisesObjC (2.4.0)
+  - RecaptchaInterop (100.0.0)
+  - shared_preferences_foundation (0.0.1):
     - Flutter
-  - sqflite (0.0.2):
+    - FlutterMacOS
+  - sqflite (0.0.3):
     - Flutter
-    - FMDB (>= 2.7.5)
+    - FlutterMacOS
 
 DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
@@ -117,36 +120,33 @@ DEPENDENCIES:
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
-  - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
-  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
+  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - GoogleMaps
-  - libphonenumber (from `.symlinks/plugins/libphonenumber/ios`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
-  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
-  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
-  - smart_auth (from `.symlinks/plugins/smart_auth/ios`)
-  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - pointer_interceptor_ios (from `.symlinks/plugins/pointer_interceptor_ios/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
 
 SPEC REPOS:
   trunk:
     - AppAuth
     - Firebase
+    - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseCore
-    - FirebaseCoreDiagnostics
     - FirebaseCoreInternal
-    - FMDB
-    - GoogleDataTransport
     - GoogleMaps
     - GoogleSignIn
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
-    - libPhoneNumber-iOS
-    - nanopb
+    - PhoneNumberKit
     - PromisesObjC
+    - RecaptchaInterop
 
 EXTERNAL SOURCES:
   firebase_auth:
@@ -161,61 +161,56 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
-  google_maps_flutter:
-    :path: ".symlinks/plugins/google_maps_flutter/ios"
+  google_maps_flutter_ios:
+    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   google_sign_in_ios:
-    :path: ".symlinks/plugins/google_sign_in_ios/ios"
-  libphonenumber:
-    :path: ".symlinks/plugins/libphonenumber/ios"
+    :path: ".symlinks/plugins/google_sign_in_ios/darwin"
   libphonenumber_plugin:
     :path: ".symlinks/plugins/libphonenumber_plugin/ios"
   map_launcher:
     :path: ".symlinks/plugins/map_launcher/ios"
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
-  permission_handler:
-    :path: ".symlinks/plugins/permission_handler/ios"
-  shared_preferences_ios:
-    :path: ".symlinks/plugins/shared_preferences_ios/ios"
-  smart_auth:
-    :path: ".symlinks/plugins/smart_auth/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  pointer_interceptor_ios:
+    :path: ".symlinks/plugins/pointer_interceptor_ios/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
-    :path: ".symlinks/plugins/sqflite/ios"
+    :path: ".symlinks/plugins/sqflite/darwin"
 
 SPEC CHECKSUMS:
-  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
-  Firebase: ef75abb1cdbc746d5a38f4e26c422c807b189b8c
-  firebase_auth: e4bd9a01f6c45764bf3bfb0cea4d5ce3673a92a2
-  firebase_core: 96214f90497b808a2cf2a24517084c5f6de37b53
-  FirebaseAuth: 9ebc3577fe0acf9092df21ac314024b70aebf21e
-  FirebaseCore: c088995ece701a021a48a1348ea0174877de2a6a
-  FirebaseCoreDiagnostics: aaa87098082c4d4bdd1a9557b1186d18ca85ce8c
-  FirebaseCoreInternal: a13302b0088fbf5f38b79b6ece49c2af7d3e05d6
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
+  Firebase: 26b040b20866a55f55eb3611b9fcf3ae64816b86
+  firebase_auth: 17ce83d25a062b2a594e5dfce91a4ad36e3739d5
+  firebase_core: 5926464bbb028fef87d2443369b73ada2a8a3608
+  FirebaseAppCheckInterop: 0dd062c9926a76332ca5711dbed6f1a9ac540b54
+  FirebaseAuth: 77a012b7e08042bf44d0db835ca2e86e6ca7bbd3
+  FirebaseCore: a2b95ae4ce7c83ceecfbbbe3b6f1cddc7415a808
+  FirebaseCoreInternal: 4b297a2d56063dbea2c1d0d04222d44a8d058862
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
-  google_maps_flutter: c59fc576c0d0c7f4dc4bd63832c862d22d5a7c6d
-  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
-  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
-  GoogleMaps: 20d7b12be49a14287f797e88e0e31bc4156aaeb4
-  GoogleSignIn: 3c68388ac221f379676e8f1cb115df3aaf73b93f
-  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
-  libphonenumber: bd14d5abfc5939ab0b0767234e2d8e2593af258e
-  libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
-  libphonenumber_plugin: 7cf755ad1656145935d6c208173a476bd3f12898
-  map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
-  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
-  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
-  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
-  smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
-  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
+  google_maps_flutter_ios: c454f18e0e22df6ac0e9f2a4df340858f5a3680c
+  google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
+  GoogleMaps: 8939898920281c649150e0af74aa291c60f2e77d
+  GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
+  GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
+  GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
+  GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
+  libphonenumber_plugin: 48bf4078546377eedaab4aa54978cd0f6fa23072
+  map_launcher: 5fde49ac9a52672bf99da746599f507b4490d7b5
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
+  PhoneNumberKit: ced55861269312a5e3bc2ef82a58d6255b1c976a
+  pointer_interceptor_ios: 508241697ff0947f853c061945a8b822463947c1
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
 
-PODFILE CHECKSUM: 2d316cbc6abee71aa4ab88956313fdd811fb188f
+PODFILE CHECKSUM: 0c161463ce495f448b262ef5a42509f4c4bc9f3b
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

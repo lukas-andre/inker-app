@@ -10,7 +10,7 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const LoginPage());
@@ -64,8 +64,8 @@ class LoginPage extends StatelessWidget {
               context.read<LoginBloc>().add(const LoginClearMessages());
             }
           },
-          child: Stack(
-            children: const [
+          child: const Stack(
+            children: [
               LoginBackground(),
               LoginLayout(),
             ],

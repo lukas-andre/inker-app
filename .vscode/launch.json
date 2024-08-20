@@ -14,7 +14,8 @@
         {
             "name": "inker_studio",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug"
         },
         {
             "name": "inker_studio (profile mode)",
@@ -26,7 +27,7 @@
             "name": "Android",
             "request": "launch",
             "type":"dart",
-            "deviceId": "emulator-5554"
+            "deviceId": "emulator-5556"
         },
         {
             "name": "iOS",

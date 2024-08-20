@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
-import 'package:simple_animations/stateless_animation/play_animation.dart';
+import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const SplashPage());
@@ -28,11 +28,11 @@ class SplashPage extends StatelessWidget {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Color(0x0DFFFFFF)),
                   child: Center(
-                    child: PlayAnimation<double>(
+                    child: PlayAnimationBuilder<double>(
                       tween: Tween(begin: 1.0, end: 2.0),
                       duration: const Duration(seconds: 1),
                       curve: Curves.decelerate,
-                      builder: (context, child, value) {
+                      builder: (context, value, child) {
                         return Transform.scale(
                           scale: value,
                           child: child,

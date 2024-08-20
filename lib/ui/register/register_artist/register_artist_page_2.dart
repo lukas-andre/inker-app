@@ -16,7 +16,7 @@ import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class RegisterArtistPage2 extends StatelessWidget {
-  const RegisterArtistPage2({Key? key}) : super(key: key);
+  const RegisterArtistPage2({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const RegisterArtistPage2());
@@ -34,8 +34,8 @@ class RegisterArtistPage2 extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             RegisterArtistPage2Layout(),
             RegisterArtistPage2NextButton(),
@@ -48,8 +48,8 @@ class RegisterArtistPage2 extends StatelessWidget {
 
 class RegisterArtistPage2NextButton extends StatelessWidget {
   const RegisterArtistPage2NextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,15 +78,15 @@ class RegisterArtistPage2NextButton extends StatelessWidget {
 }
 
 class RegisterArtistPage2Layout extends StatelessWidget {
-  const RegisterArtistPage2Layout({Key? key}) : super(key: key);
+  const RegisterArtistPage2Layout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             RegisterBackButton(),
             CloseRegisterButton(
               index: 2,
@@ -94,15 +94,15 @@ class RegisterArtistPage2Layout extends StatelessWidget {
             )
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterProgressIndicator(
               progress: 2 / 5,
             )
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomTitle(
               text: 'Completa tus datos de contacto 📞',
             )
@@ -116,8 +116,8 @@ class RegisterArtistPage2Layout extends StatelessWidget {
             RegisterArtistPhoneNumberInput(),
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomSubTitle(
                 text:
                     'Estas a unos pasos de formar parte de esta gran comunidad.')

@@ -6,12 +6,12 @@ class Developer {
   final className = 'Developer';
 
   void log(String message, String className, [String? method]) {
-    var _className = className;
+    var className0 = className;
 
     if (method != null) {
-      _className = '$className::$method';
+      className0 = '$className::$method';
     }
-    developer.log(message, name: _className, time: DateTime.now());
+    developer.log(message, name: className0, time: DateTime.now());
   }
 
   void inspect(dynamic object, [String? message]) {

@@ -7,7 +7,7 @@ part of 'registered_user_info.dart';
 // **************************************************************************
 
 RegisteredUserInfo _$RegisteredUserInfoFromJson(Map json) => RegisteredUserInfo(
-      userId: json['userId'] as int,
+      userId: (json['userId'] as num).toInt(),
       userType: $enumDecode(_$UserTypeEnumEnumMap, json['userType']),
       phoneNumber: json['phoneNumber'] as String,
       email: json['email'] as String,

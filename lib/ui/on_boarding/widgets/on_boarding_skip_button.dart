@@ -4,8 +4,8 @@ import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 
 class OnBoardingSkipButton extends StatelessWidget {
   const OnBoardingSkipButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,11 +6,10 @@ class RegisterActionButton extends StatelessWidget {
   final void Function()? onPressed;
   final bool isLoading;
   const RegisterActionButton(
-      {Key? key,
+      {super.key,
       required this.text,
       required this.onPressed,
-      this.isLoading = false})
-      : super(key: key);
+      this.isLoading = false});
 
   Widget _loadingIndicator() {
     return const CupertinoActivityIndicator(
@@ -29,6 +28,13 @@ class RegisterActionButton extends StatelessWidget {
           child: Center(
               child: TextButton(
             onPressed: onPressed,
+            style: ButtonStyle(
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              ),
+              backgroundColor:
+                  WidgetStateProperty.all(const Color(0xff7450ff)),
+            ),
             child: SizedBox(
               height: 40,
               width: MediaQuery.of(context).size.width * 0.85,
@@ -45,13 +51,6 @@ class RegisterActionButton extends StatelessWidget {
                             fontWeight: FontWeight.w400),
                       ),
               ),
-            ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff7450ff)),
             ),
           )),
         ),

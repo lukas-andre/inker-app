@@ -9,7 +9,10 @@ analyzer:
   errors:
     todo: ignore
     invalid_annotation_target: ignore
+    library_private_types_in_public_api: ignore
   exclude:
     - 'packages/*'
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

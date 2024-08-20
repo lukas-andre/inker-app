@@ -13,7 +13,7 @@ import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  const OnBoardingPage({Key? key}) : super(key: key);
+  const OnBoardingPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const OnBoardingPage());
@@ -47,8 +47,8 @@ class OnBoardingPage extends StatelessWidget {
           }
           context.read<OnBoardingBloc>().add(const OnBoardingClearRedirect());
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             OnBoardingBackground(),
             OnBoardingContentPageView(),
             FixedComponents(),

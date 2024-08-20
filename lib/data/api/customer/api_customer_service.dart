@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/api/customer/dtos/create_customer_request.dart';
 import 'package:inker_studio/data/api/customer/dtos/create_customer_response.dart';
+import 'package:inker_studio/data/api/customer/dtos/search_customer_response.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
@@ -49,5 +50,36 @@ class ApiCustomerService implements CustomerService {
     }
 
     throw Exception('Problems creating customer account for ${request.email}');
+  }
+
+  @override
+  Future<SearchCustomerResponse> searchByTerm(String token, String term) async {
+    final url = _httpConfig.surl(
+      basePath: 'customers',
+      path: 'search',
+      queryParams: {'term': term},
+    );
+
+    try {
+      final response = await http.get(url, headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      });
+
+      if (response.statusCode == HttpStatus.ok) {
+        try {
+          return SearchCustomerResponse(
+              customers: getCustomerDTOsFromJson(response.body));
+        } catch (e) {
+          throw JsonParseException();
+        }
+      } else if (response.statusCode == HttpStatus.notFound) {
+        throw ResourceNotFound();
+      } else {
+        throw Exception('Error while searching customers');
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 }

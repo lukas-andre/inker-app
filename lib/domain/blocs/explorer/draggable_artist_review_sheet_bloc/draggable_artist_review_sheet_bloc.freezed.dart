@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'draggable_artist_review_sheet_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'draggable_artist_review_sheet_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DraggableArtistReviewSheetEvent {
@@ -24,17 +24,20 @@ mixin _$DraggableArtistReviewSheetEvent {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -45,15 +48,15 @@ mixin _$DraggableArtistReviewSheetEvent {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,65 +67,80 @@ mixin _$DraggableArtistReviewSheetEvent {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,24 +168,29 @@ class _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res> {
-  factory _$$_StartedCopyWith(
-          _$_Started value, $Res Function(_$_Started) then) =
-      __$$_StartedCopyWithImpl<$Res>;
+abstract class _$$DraggableArtistReviewSheetStartedImplCopyWith<$Res> {
+  factory _$$DraggableArtistReviewSheetStartedImplCopyWith(
+          _$DraggableArtistReviewSheetStartedImpl value,
+          $Res Function(_$DraggableArtistReviewSheetStartedImpl) then) =
+      __$$DraggableArtistReviewSheetStartedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartedCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res, _$_Started>
-    implements _$$_StartedCopyWith<$Res> {
-  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
+class __$$DraggableArtistReviewSheetStartedImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
+        _$DraggableArtistReviewSheetStartedImpl>
+    implements _$$DraggableArtistReviewSheetStartedImplCopyWith<$Res> {
+  __$$DraggableArtistReviewSheetStartedImplCopyWithImpl(
+      _$DraggableArtistReviewSheetStartedImpl _value,
+      $Res Function(_$DraggableArtistReviewSheetStartedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Started implements _Started {
-  const _$_Started();
+class _$DraggableArtistReviewSheetStartedImpl
+    implements _DraggableArtistReviewSheetStarted {
+  const _$DraggableArtistReviewSheetStartedImpl();
 
   @override
   String toString() {
@@ -175,9 +198,10 @@ class _$_Started implements _Started {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Started);
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableArtistReviewSheetStartedImpl);
   }
 
   @override
@@ -192,17 +216,20 @@ class _$_Started implements _Started {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
     return started();
   }
@@ -216,15 +243,15 @@ class _$_Started implements _Started {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
     return started?.call();
   }
@@ -238,15 +265,15 @@ class _$_Started implements _Started {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -258,19 +285,26 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
     return started(this);
   }
@@ -278,18 +312,22 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
     return started?.call(this);
   }
@@ -297,18 +335,22 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -318,25 +360,28 @@ class _$_Started implements _Started {
   }
 }
 
-abstract class _Started implements DraggableArtistReviewSheetEvent {
-  const factory _Started() = _$_Started;
+abstract class _DraggableArtistReviewSheetStarted
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableArtistReviewSheetStarted() =
+      _$DraggableArtistReviewSheetStartedImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadReviewsCopyWith<$Res> {
-  factory _$$_LoadReviewsCopyWith(
-          _$_LoadReviews value, $Res Function(_$_LoadReviews) then) =
-      __$$_LoadReviewsCopyWithImpl<$Res>;
+abstract class _$$DraggableLoadReviewsImplCopyWith<$Res> {
+  factory _$$DraggableLoadReviewsImplCopyWith(_$DraggableLoadReviewsImpl value,
+          $Res Function(_$DraggableLoadReviewsImpl) then) =
+      __$$DraggableLoadReviewsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int artistId});
 }
 
 /// @nodoc
-class __$$_LoadReviewsCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res, _$_LoadReviews>
-    implements _$$_LoadReviewsCopyWith<$Res> {
-  __$$_LoadReviewsCopyWithImpl(
-      _$_LoadReviews _value, $Res Function(_$_LoadReviews) _then)
+class __$$DraggableLoadReviewsImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
+        _$DraggableLoadReviewsImpl>
+    implements _$$DraggableLoadReviewsImplCopyWith<$Res> {
+  __$$DraggableLoadReviewsImplCopyWithImpl(_$DraggableLoadReviewsImpl _value,
+      $Res Function(_$DraggableLoadReviewsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -344,7 +389,7 @@ class __$$_LoadReviewsCopyWithImpl<$Res>
   $Res call({
     Object? artistId = null,
   }) {
-    return _then(_$_LoadReviews(
+    return _then(_$DraggableLoadReviewsImpl(
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
@@ -355,8 +400,8 @@ class __$$_LoadReviewsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadReviews implements _LoadReviews {
-  const _$_LoadReviews({required this.artistId});
+class _$DraggableLoadReviewsImpl implements _DraggableLoadReviews {
+  const _$DraggableLoadReviewsImpl({required this.artistId});
 
   @override
   final int artistId;
@@ -367,10 +412,10 @@ class _$_LoadReviews implements _LoadReviews {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadReviews &&
+            other is _$DraggableLoadReviewsImpl &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId));
   }
@@ -381,8 +426,10 @@ class _$_LoadReviews implements _LoadReviews {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadReviewsCopyWith<_$_LoadReviews> get copyWith =>
-      __$$_LoadReviewsCopyWithImpl<_$_LoadReviews>(this, _$identity);
+  _$$DraggableLoadReviewsImplCopyWith<_$DraggableLoadReviewsImpl>
+      get copyWith =>
+          __$$DraggableLoadReviewsImplCopyWithImpl<_$DraggableLoadReviewsImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -393,17 +440,20 @@ class _$_LoadReviews implements _LoadReviews {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
     return loadReviews(artistId);
   }
@@ -417,15 +467,15 @@ class _$_LoadReviews implements _LoadReviews {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
     return loadReviews?.call(artistId);
   }
@@ -439,15 +489,15 @@ class _$_LoadReviews implements _LoadReviews {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (loadReviews != null) {
@@ -459,19 +509,26 @@ class _$_LoadReviews implements _LoadReviews {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
     return loadReviews(this);
   }
@@ -479,18 +536,22 @@ class _$_LoadReviews implements _LoadReviews {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
     return loadReviews?.call(this);
   }
@@ -498,18 +559,22 @@ class _$_LoadReviews implements _LoadReviews {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (loadReviews != null) {
@@ -519,35 +584,40 @@ class _$_LoadReviews implements _LoadReviews {
   }
 }
 
-abstract class _LoadReviews implements DraggableArtistReviewSheetEvent {
-  const factory _LoadReviews({required final int artistId}) = _$_LoadReviews;
+abstract class _DraggableLoadReviews
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableLoadReviews({required final int artistId}) =
+      _$DraggableLoadReviewsImpl;
 
   int get artistId;
   @JsonKey(ignore: true)
-  _$$_LoadReviewsCopyWith<_$_LoadReviews> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableLoadReviewsImplCopyWith<_$DraggableLoadReviewsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewsLoadingCopyWith<$Res> {
-  factory _$$_ReviewsLoadingCopyWith(
-          _$_ReviewsLoading value, $Res Function(_$_ReviewsLoading) then) =
-      __$$_ReviewsLoadingCopyWithImpl<$Res>;
+abstract class _$$DraggableReviewsLoadingImplCopyWith<$Res> {
+  factory _$$DraggableReviewsLoadingImplCopyWith(
+          _$DraggableReviewsLoadingImpl value,
+          $Res Function(_$DraggableReviewsLoadingImpl) then) =
+      __$$DraggableReviewsLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReviewsLoadingCopyWithImpl<$Res>
+class __$$DraggableReviewsLoadingImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_ReviewsLoading> implements _$$_ReviewsLoadingCopyWith<$Res> {
-  __$$_ReviewsLoadingCopyWithImpl(
-      _$_ReviewsLoading _value, $Res Function(_$_ReviewsLoading) _then)
+        _$DraggableReviewsLoadingImpl>
+    implements _$$DraggableReviewsLoadingImplCopyWith<$Res> {
+  __$$DraggableReviewsLoadingImplCopyWithImpl(
+      _$DraggableReviewsLoadingImpl _value,
+      $Res Function(_$DraggableReviewsLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReviewsLoading implements _ReviewsLoading {
-  const _$_ReviewsLoading();
+class _$DraggableReviewsLoadingImpl implements _DraggableReviewsLoading {
+  const _$DraggableReviewsLoadingImpl();
 
   @override
   String toString() {
@@ -555,9 +625,10 @@ class _$_ReviewsLoading implements _ReviewsLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReviewsLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableReviewsLoadingImpl);
   }
 
   @override
@@ -572,17 +643,20 @@ class _$_ReviewsLoading implements _ReviewsLoading {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
     return reviewsLoading();
   }
@@ -596,15 +670,15 @@ class _$_ReviewsLoading implements _ReviewsLoading {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
     return reviewsLoading?.call();
   }
@@ -618,15 +692,15 @@ class _$_ReviewsLoading implements _ReviewsLoading {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (reviewsLoading != null) {
@@ -638,19 +712,26 @@ class _$_ReviewsLoading implements _ReviewsLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
     return reviewsLoading(this);
   }
@@ -658,18 +739,22 @@ class _$_ReviewsLoading implements _ReviewsLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
     return reviewsLoading?.call(this);
   }
@@ -677,18 +762,22 @@ class _$_ReviewsLoading implements _ReviewsLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (reviewsLoading != null) {
@@ -698,15 +787,17 @@ class _$_ReviewsLoading implements _ReviewsLoading {
   }
 }
 
-abstract class _ReviewsLoading implements DraggableArtistReviewSheetEvent {
-  const factory _ReviewsLoading() = _$_ReviewsLoading;
+abstract class _DraggableReviewsLoading
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableReviewsLoading() = _$DraggableReviewsLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetReviewReactionsCopyWith<$Res> {
-  factory _$$_SetReviewReactionsCopyWith(_$_SetReviewReactions value,
-          $Res Function(_$_SetReviewReactions) then) =
-      __$$_SetReviewReactionsCopyWithImpl<$Res>;
+abstract class _$$DraggableSetReviewReactionsImplCopyWith<$Res> {
+  factory _$$DraggableSetReviewReactionsImplCopyWith(
+          _$DraggableSetReviewReactionsImpl value,
+          $Res Function(_$DraggableSetReviewReactionsImpl) then) =
+      __$$DraggableSetReviewReactionsImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {Map<int, Reactions> reviewReactions,
@@ -715,11 +806,13 @@ abstract class _$$_SetReviewReactionsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SetReviewReactionsCopyWithImpl<$Res>
+class __$$DraggableSetReviewReactionsImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_SetReviewReactions> implements _$$_SetReviewReactionsCopyWith<$Res> {
-  __$$_SetReviewReactionsCopyWithImpl(
-      _$_SetReviewReactions _value, $Res Function(_$_SetReviewReactions) _then)
+        _$DraggableSetReviewReactionsImpl>
+    implements _$$DraggableSetReviewReactionsImplCopyWith<$Res> {
+  __$$DraggableSetReviewReactionsImplCopyWithImpl(
+      _$DraggableSetReviewReactionsImpl _value,
+      $Res Function(_$DraggableSetReviewReactionsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -729,7 +822,7 @@ class __$$_SetReviewReactionsCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$_SetReviewReactions(
+    return _then(_$DraggableSetReviewReactionsImpl(
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -748,8 +841,9 @@ class __$$_SetReviewReactionsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetReviewReactions implements _SetReviewReactions {
-  const _$_SetReviewReactions(
+class _$DraggableSetReviewReactionsImpl
+    implements _DraggableSetReviewReactions {
+  const _$DraggableSetReviewReactionsImpl(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
@@ -760,6 +854,7 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   final Map<int, Reactions> _reviewReactions;
   @override
   Map<int, Reactions> get reviewReactions {
+    if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
@@ -767,6 +862,8 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   final Map<int, Reaction> _customerReactions;
   @override
   Map<int, Reaction> get customerReactions {
+    if (_customerReactions is EqualUnmodifiableMapView)
+      return _customerReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_customerReactions);
   }
@@ -774,6 +871,7 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   final List<ReviewItem> _reviews;
   @override
   List<ReviewItem> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -784,10 +882,10 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetReviewReactions &&
+            other is _$DraggableSetReviewReactionsImpl &&
             const DeepCollectionEquality()
                 .equals(other._reviewReactions, _reviewReactions) &&
             const DeepCollectionEquality()
@@ -805,9 +903,9 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetReviewReactionsCopyWith<_$_SetReviewReactions> get copyWith =>
-      __$$_SetReviewReactionsCopyWithImpl<_$_SetReviewReactions>(
-          this, _$identity);
+  _$$DraggableSetReviewReactionsImplCopyWith<_$DraggableSetReviewReactionsImpl>
+      get copyWith => __$$DraggableSetReviewReactionsImplCopyWithImpl<
+          _$DraggableSetReviewReactionsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -818,17 +916,20 @@ class _$_SetReviewReactions implements _SetReviewReactions {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
     return setReviewReactions(reviewReactions, customerReactions, reviews);
   }
@@ -842,15 +943,15 @@ class _$_SetReviewReactions implements _SetReviewReactions {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
     return setReviewReactions?.call(
         reviewReactions, customerReactions, reviews);
@@ -865,15 +966,15 @@ class _$_SetReviewReactions implements _SetReviewReactions {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (setReviewReactions != null) {
@@ -885,19 +986,26 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
     return setReviewReactions(this);
   }
@@ -905,18 +1013,22 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
     return setReviewReactions?.call(this);
   }
@@ -924,18 +1036,22 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (setReviewReactions != null) {
@@ -945,253 +1061,38 @@ class _$_SetReviewReactions implements _SetReviewReactions {
   }
 }
 
-abstract class _SetReviewReactions implements DraggableArtistReviewSheetEvent {
-  const factory _SetReviewReactions(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$_SetReviewReactions;
+abstract class _DraggableSetReviewReactions
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableSetReviewReactions(
+          {required final Map<int, Reactions> reviewReactions,
+          required final Map<int, Reaction> customerReactions,
+          required final List<ReviewItem> reviews}) =
+      _$DraggableSetReviewReactionsImpl;
 
   Map<int, Reactions> get reviewReactions;
   Map<int, Reaction> get customerReactions;
   List<ReviewItem> get reviews;
   @JsonKey(ignore: true)
-  _$$_SetReviewReactionsCopyWith<_$_SetReviewReactions> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableSetReviewReactionsImplCopyWith<_$DraggableSetReviewReactionsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewLikedCopyWith<$Res> {
-  factory _$$_ReviewLikedCopyWith(
-          _$_ReviewLiked value, $Res Function(_$_ReviewLiked) then) =
-      __$$_ReviewLikedCopyWithImpl<$Res>;
+abstract class _$$DraggableReviewLikedImplCopyWith<$Res> {
+  factory _$$DraggableReviewLikedImplCopyWith(_$DraggableReviewLikedImpl value,
+          $Res Function(_$DraggableReviewLikedImpl) then) =
+      __$$DraggableReviewLikedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewLikedCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res, _$_ReviewLiked>
-    implements _$$_ReviewLikedCopyWith<$Res> {
-  __$$_ReviewLikedCopyWithImpl(
-      _$_ReviewLiked _value, $Res Function(_$_ReviewLiked) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? reviewId = null,
-    Object? customerId = null,
-  }) {
-    return _then(_$_ReviewLiked(
-      reviewId: null == reviewId
-          ? _value.reviewId
-          : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
-      customerId: null == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_ReviewLiked implements _ReviewLiked {
-  const _$_ReviewLiked({required this.reviewId, required this.customerId});
-
-  @override
-  final int reviewId;
-  @override
-  final int customerId;
-
-  @override
-  String toString() {
-    return 'DraggableArtistReviewSheetEvent.reviewLiked(reviewId: $reviewId, customerId: $customerId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ReviewLiked &&
-            (identical(other.reviewId, reviewId) ||
-                other.reviewId == reviewId) &&
-            (identical(other.customerId, customerId) ||
-                other.customerId == customerId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, reviewId, customerId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ReviewLikedCopyWith<_$_ReviewLiked> get copyWith =>
-      __$$_ReviewLikedCopyWithImpl<_$_ReviewLiked>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function() reviewsLoading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
-        setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
-        reviewDislikedRemoved,
-    required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
-  }) {
-    return reviewLiked(reviewId, customerId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function()? reviewsLoading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
-        setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
-  }) {
-    return reviewLiked?.call(reviewId, customerId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function()? reviewsLoading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
-        setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
-    required TResult orElse(),
-  }) {
-    if (reviewLiked != null) {
-      return reviewLiked(reviewId, customerId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
-        reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
-  }) {
-    return reviewLiked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
-  }) {
-    return reviewLiked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
-    required TResult orElse(),
-  }) {
-    if (reviewLiked != null) {
-      return reviewLiked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ReviewLiked implements DraggableArtistReviewSheetEvent {
-  const factory _ReviewLiked(
-      {required final int reviewId,
-      required final int customerId}) = _$_ReviewLiked;
-
-  int get reviewId;
-  int get customerId;
-  @JsonKey(ignore: true)
-  _$$_ReviewLikedCopyWith<_$_ReviewLiked> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ReviewDislikedCopyWith<$Res> {
-  factory _$$_ReviewDislikedCopyWith(
-          _$_ReviewDisliked value, $Res Function(_$_ReviewDisliked) then) =
-      __$$_ReviewDislikedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int reviewId, int customerId});
-}
-
-/// @nodoc
-class __$$_ReviewDislikedCopyWithImpl<$Res>
+class __$$DraggableReviewLikedImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_ReviewDisliked> implements _$$_ReviewDislikedCopyWith<$Res> {
-  __$$_ReviewDislikedCopyWithImpl(
-      _$_ReviewDisliked _value, $Res Function(_$_ReviewDisliked) _then)
+        _$DraggableReviewLikedImpl>
+    implements _$$DraggableReviewLikedImplCopyWith<$Res> {
+  __$$DraggableReviewLikedImplCopyWithImpl(_$DraggableReviewLikedImpl _value,
+      $Res Function(_$DraggableReviewLikedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1200,7 +1101,7 @@ class __$$_ReviewDislikedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewDisliked(
+    return _then(_$DraggableReviewLikedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1215,226 +1116,8 @@ class __$$_ReviewDislikedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewDisliked implements _ReviewDisliked {
-  const _$_ReviewDisliked({required this.reviewId, required this.customerId});
-
-  @override
-  final int reviewId;
-  @override
-  final int customerId;
-
-  @override
-  String toString() {
-    return 'DraggableArtistReviewSheetEvent.reviewDisliked(reviewId: $reviewId, customerId: $customerId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ReviewDisliked &&
-            (identical(other.reviewId, reviewId) ||
-                other.reviewId == reviewId) &&
-            (identical(other.customerId, customerId) ||
-                other.customerId == customerId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, reviewId, customerId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ReviewDislikedCopyWith<_$_ReviewDisliked> get copyWith =>
-      __$$_ReviewDislikedCopyWithImpl<_$_ReviewDisliked>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function() reviewsLoading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
-        setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
-        reviewDislikedRemoved,
-    required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
-  }) {
-    return reviewDisliked(reviewId, customerId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function()? reviewsLoading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
-        setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
-  }) {
-    return reviewDisliked?.call(reviewId, customerId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function()? reviewsLoading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
-        setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
-    required TResult orElse(),
-  }) {
-    if (reviewDisliked != null) {
-      return reviewDisliked(reviewId, customerId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
-        reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
-  }) {
-    return reviewDisliked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
-  }) {
-    return reviewDisliked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
-    required TResult orElse(),
-  }) {
-    if (reviewDisliked != null) {
-      return reviewDisliked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ReviewDisliked implements DraggableArtistReviewSheetEvent {
-  const factory _ReviewDisliked(
-      {required final int reviewId,
-      required final int customerId}) = _$_ReviewDisliked;
-
-  int get reviewId;
-  int get customerId;
-  @JsonKey(ignore: true)
-  _$$_ReviewDislikedCopyWith<_$_ReviewDisliked> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ReviewLikeRemovedCopyWith<$Res> {
-  factory _$$_ReviewLikeRemovedCopyWith(_$_ReviewLikeRemoved value,
-          $Res Function(_$_ReviewLikeRemoved) then) =
-      __$$_ReviewLikeRemovedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int reviewId, int customerId});
-}
-
-/// @nodoc
-class __$$_ReviewLikeRemovedCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_ReviewLikeRemoved> implements _$$_ReviewLikeRemovedCopyWith<$Res> {
-  __$$_ReviewLikeRemovedCopyWithImpl(
-      _$_ReviewLikeRemoved _value, $Res Function(_$_ReviewLikeRemoved) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? reviewId = null,
-    Object? customerId = null,
-  }) {
-    return _then(_$_ReviewLikeRemoved(
-      reviewId: null == reviewId
-          ? _value.reviewId
-          : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
-      customerId: null == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
-  const _$_ReviewLikeRemoved(
+class _$DraggableReviewLikedImpl implements _DraggableReviewLiked {
+  const _$DraggableReviewLikedImpl(
       {required this.reviewId, required this.customerId});
 
   @override
@@ -1444,14 +1127,14 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
 
   @override
   String toString() {
-    return 'DraggableArtistReviewSheetEvent.reviewLikeRemoved(reviewId: $reviewId, customerId: $customerId)';
+    return 'DraggableArtistReviewSheetEvent.draggableReviewLiked(reviewId: $reviewId, customerId: $customerId)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewLikeRemoved &&
+            other is _$DraggableReviewLikedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -1464,9 +1147,10 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewLikeRemovedCopyWith<_$_ReviewLikeRemoved> get copyWith =>
-      __$$_ReviewLikeRemovedCopyWithImpl<_$_ReviewLikeRemoved>(
-          this, _$identity);
+  _$$DraggableReviewLikedImplCopyWith<_$DraggableReviewLikedImpl>
+      get copyWith =>
+          __$$DraggableReviewLikedImplCopyWithImpl<_$DraggableReviewLikedImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1477,19 +1161,22 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
-    return reviewLikeRemoved(reviewId, customerId);
+    return draggableReviewLiked(reviewId, customerId);
   }
 
   @override
@@ -1501,17 +1188,17 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
-    return reviewLikeRemoved?.call(reviewId, customerId);
+    return draggableReviewLiked?.call(reviewId, customerId);
   }
 
   @override
@@ -1523,19 +1210,19 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (reviewLikeRemoved != null) {
-      return reviewLikeRemoved(reviewId, customerId);
+    if (draggableReviewLiked != null) {
+      return draggableReviewLiked(reviewId, customerId);
     }
     return orElse();
   }
@@ -1543,94 +1230,112 @@ class _$_ReviewLikeRemoved implements _ReviewLikeRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
-    return reviewLikeRemoved(this);
+    return draggableReviewLiked(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
-    return reviewLikeRemoved?.call(this);
+    return draggableReviewLiked?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (reviewLikeRemoved != null) {
-      return reviewLikeRemoved(this);
+    if (draggableReviewLiked != null) {
+      return draggableReviewLiked(this);
     }
     return orElse();
   }
 }
 
-abstract class _ReviewLikeRemoved implements DraggableArtistReviewSheetEvent {
-  const factory _ReviewLikeRemoved(
+abstract class _DraggableReviewLiked
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableReviewLiked(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewLikeRemoved;
+      required final int customerId}) = _$DraggableReviewLikedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewLikeRemovedCopyWith<_$_ReviewLikeRemoved> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableReviewLikedImplCopyWith<_$DraggableReviewLikedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReviewDislikedRemovedCopyWith<$Res> {
-  factory _$$_ReviewDislikedRemovedCopyWith(_$_ReviewDislikedRemoved value,
-          $Res Function(_$_ReviewDislikedRemoved) then) =
-      __$$_ReviewDislikedRemovedCopyWithImpl<$Res>;
+abstract class _$$DraggableReviewDislikedImplCopyWith<$Res> {
+  factory _$$DraggableReviewDislikedImplCopyWith(
+          _$DraggableReviewDislikedImpl value,
+          $Res Function(_$DraggableReviewDislikedImpl) then) =
+      __$$DraggableReviewDislikedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId});
 }
 
 /// @nodoc
-class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
+class __$$DraggableReviewDislikedImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_ReviewDislikedRemoved>
-    implements _$$_ReviewDislikedRemovedCopyWith<$Res> {
-  __$$_ReviewDislikedRemovedCopyWithImpl(_$_ReviewDislikedRemoved _value,
-      $Res Function(_$_ReviewDislikedRemoved) _then)
+        _$DraggableReviewDislikedImpl>
+    implements _$$DraggableReviewDislikedImplCopyWith<$Res> {
+  __$$DraggableReviewDislikedImplCopyWithImpl(
+      _$DraggableReviewDislikedImpl _value,
+      $Res Function(_$DraggableReviewDislikedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1639,7 +1344,7 @@ class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? customerId = null,
   }) {
-    return _then(_$_ReviewDislikedRemoved(
+    return _then(_$DraggableReviewDislikedImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1654,8 +1359,493 @@ class __$$_ReviewDislikedRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
-  const _$_ReviewDislikedRemoved(
+class _$DraggableReviewDislikedImpl implements _DraggableReviewDisliked {
+  const _$DraggableReviewDislikedImpl(
+      {required this.reviewId, required this.customerId});
+
+  @override
+  final int reviewId;
+  @override
+  final int customerId;
+
+  @override
+  String toString() {
+    return 'DraggableArtistReviewSheetEvent.draggableReviewDisliked(reviewId: $reviewId, customerId: $customerId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableReviewDislikedImpl &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.customerId, customerId) ||
+                other.customerId == customerId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reviewId, customerId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DraggableReviewDislikedImplCopyWith<_$DraggableReviewDislikedImpl>
+      get copyWith => __$$DraggableReviewDislikedImplCopyWithImpl<
+          _$DraggableReviewDislikedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(int artistId) loadReviews,
+    required TResult Function() reviewsLoading,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        setReviewReactions,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        reviewDislikedRemoved,
+    required TResult Function(
+            int reviewId, int customerId, bool liked, bool disliked)
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
+  }) {
+    return draggableReviewDisliked(reviewId, customerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(int artistId)? loadReviews,
+    TResult? Function()? reviewsLoading,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        setReviewReactions,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
+    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
+  }) {
+    return draggableReviewDisliked?.call(reviewId, customerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(int artistId)? loadReviews,
+    TResult Function()? reviewsLoading,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        setReviewReactions,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
+    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
+    required TResult orElse(),
+  }) {
+    if (draggableReviewDisliked != null) {
+      return draggableReviewDisliked(reviewId, customerId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
+        reviewDislikedRemoved,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
+  }) {
+    return draggableReviewDisliked(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
+  }) {
+    return draggableReviewDisliked?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
+    required TResult orElse(),
+  }) {
+    if (draggableReviewDisliked != null) {
+      return draggableReviewDisliked(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DraggableReviewDisliked
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableReviewDisliked(
+      {required final int reviewId,
+      required final int customerId}) = _$DraggableReviewDislikedImpl;
+
+  int get reviewId;
+  int get customerId;
+  @JsonKey(ignore: true)
+  _$$DraggableReviewDislikedImplCopyWith<_$DraggableReviewDislikedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DraggableReviewLikeRemovedImplCopyWith<$Res> {
+  factory _$$DraggableReviewLikeRemovedImplCopyWith(
+          _$DraggableReviewLikeRemovedImpl value,
+          $Res Function(_$DraggableReviewLikeRemovedImpl) then) =
+      __$$DraggableReviewLikeRemovedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int reviewId, int customerId});
+}
+
+/// @nodoc
+class __$$DraggableReviewLikeRemovedImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
+        _$DraggableReviewLikeRemovedImpl>
+    implements _$$DraggableReviewLikeRemovedImplCopyWith<$Res> {
+  __$$DraggableReviewLikeRemovedImplCopyWithImpl(
+      _$DraggableReviewLikeRemovedImpl _value,
+      $Res Function(_$DraggableReviewLikeRemovedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewId = null,
+    Object? customerId = null,
+  }) {
+    return _then(_$DraggableReviewLikeRemovedImpl(
+      reviewId: null == reviewId
+          ? _value.reviewId
+          : reviewId // ignore: cast_nullable_to_non_nullable
+              as int,
+      customerId: null == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DraggableReviewLikeRemovedImpl implements _DraggableReviewLikeRemoved {
+  const _$DraggableReviewLikeRemovedImpl(
+      {required this.reviewId, required this.customerId});
+
+  @override
+  final int reviewId;
+  @override
+  final int customerId;
+
+  @override
+  String toString() {
+    return 'DraggableArtistReviewSheetEvent.draggableReviewLikeRemoved(reviewId: $reviewId, customerId: $customerId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableReviewLikeRemovedImpl &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.customerId, customerId) ||
+                other.customerId == customerId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reviewId, customerId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DraggableReviewLikeRemovedImplCopyWith<_$DraggableReviewLikeRemovedImpl>
+      get copyWith => __$$DraggableReviewLikeRemovedImplCopyWithImpl<
+          _$DraggableReviewLikeRemovedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(int artistId) loadReviews,
+    required TResult Function() reviewsLoading,
+    required TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+        setReviewReactions,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        reviewDislikedRemoved,
+    required TResult Function(
+            int reviewId, int customerId, bool liked, bool disliked)
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
+  }) {
+    return draggableReviewLikeRemoved(reviewId, customerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(int artistId)? loadReviews,
+    TResult? Function()? reviewsLoading,
+    TResult? Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        setReviewReactions,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
+    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
+  }) {
+    return draggableReviewLikeRemoved?.call(reviewId, customerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(int artistId)? loadReviews,
+    TResult Function()? reviewsLoading,
+    TResult Function(Map<int, Reactions> reviewReactions,
+            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+        setReviewReactions,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
+    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
+    required TResult orElse(),
+  }) {
+    if (draggableReviewLikeRemoved != null) {
+      return draggableReviewLikeRemoved(reviewId, customerId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
+        reviewDislikedRemoved,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
+  }) {
+    return draggableReviewLikeRemoved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
+  }) {
+    return draggableReviewLikeRemoved?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
+    required TResult orElse(),
+  }) {
+    if (draggableReviewLikeRemoved != null) {
+      return draggableReviewLikeRemoved(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DraggableReviewLikeRemoved
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableReviewLikeRemoved(
+      {required final int reviewId,
+      required final int customerId}) = _$DraggableReviewLikeRemovedImpl;
+
+  int get reviewId;
+  int get customerId;
+  @JsonKey(ignore: true)
+  _$$DraggableReviewLikeRemovedImplCopyWith<_$DraggableReviewLikeRemovedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DraggableReviewDislikedRemovedImplCopyWith<$Res> {
+  factory _$$DraggableReviewDislikedRemovedImplCopyWith(
+          _$DraggableReviewDislikedRemovedImpl value,
+          $Res Function(_$DraggableReviewDislikedRemovedImpl) then) =
+      __$$DraggableReviewDislikedRemovedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int reviewId, int customerId});
+}
+
+/// @nodoc
+class __$$DraggableReviewDislikedRemovedImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
+        _$DraggableReviewDislikedRemovedImpl>
+    implements _$$DraggableReviewDislikedRemovedImplCopyWith<$Res> {
+  __$$DraggableReviewDislikedRemovedImplCopyWithImpl(
+      _$DraggableReviewDislikedRemovedImpl _value,
+      $Res Function(_$DraggableReviewDislikedRemovedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reviewId = null,
+    Object? customerId = null,
+  }) {
+    return _then(_$DraggableReviewDislikedRemovedImpl(
+      reviewId: null == reviewId
+          ? _value.reviewId
+          : reviewId // ignore: cast_nullable_to_non_nullable
+              as int,
+      customerId: null == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DraggableReviewDislikedRemovedImpl
+    implements _DraggableReviewDislikedRemoved {
+  const _$DraggableReviewDislikedRemovedImpl(
       {required this.reviewId, required this.customerId});
 
   @override
@@ -1669,10 +1859,10 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReviewDislikedRemoved &&
+            other is _$DraggableReviewDislikedRemovedImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -1685,9 +1875,10 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReviewDislikedRemovedCopyWith<_$_ReviewDislikedRemoved> get copyWith =>
-      __$$_ReviewDislikedRemovedCopyWithImpl<_$_ReviewDislikedRemoved>(
-          this, _$identity);
+  _$$DraggableReviewDislikedRemovedImplCopyWith<
+          _$DraggableReviewDislikedRemovedImpl>
+      get copyWith => __$$DraggableReviewDislikedRemovedImplCopyWithImpl<
+          _$DraggableReviewDislikedRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1698,17 +1889,20 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
     return reviewDislikedRemoved(reviewId, customerId);
   }
@@ -1722,15 +1916,15 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
     return reviewDislikedRemoved?.call(reviewId, customerId);
   }
@@ -1744,15 +1938,15 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (reviewDislikedRemoved != null) {
@@ -1764,19 +1958,26 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
     return reviewDislikedRemoved(this);
   }
@@ -1784,18 +1985,22 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
     return reviewDislikedRemoved?.call(this);
   }
@@ -1803,18 +2008,22 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
     if (reviewDislikedRemoved != null) {
@@ -1824,35 +2033,38 @@ class _$_ReviewDislikedRemoved implements _ReviewDislikedRemoved {
   }
 }
 
-abstract class _ReviewDislikedRemoved
+abstract class _DraggableReviewDislikedRemoved
     implements DraggableArtistReviewSheetEvent {
-  const factory _ReviewDislikedRemoved(
+  const factory _DraggableReviewDislikedRemoved(
       {required final int reviewId,
-      required final int customerId}) = _$_ReviewDislikedRemoved;
+      required final int customerId}) = _$DraggableReviewDislikedRemovedImpl;
 
   int get reviewId;
   int get customerId;
   @JsonKey(ignore: true)
-  _$$_ReviewDislikedRemovedCopyWith<_$_ReviewDislikedRemoved> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableReviewDislikedRemovedImplCopyWith<
+          _$DraggableReviewDislikedRemovedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SwitchReviewReactionCopyWith<$Res> {
-  factory _$$_SwitchReviewReactionCopyWith(_$_SwitchReviewReaction value,
-          $Res Function(_$_SwitchReviewReaction) then) =
-      __$$_SwitchReviewReactionCopyWithImpl<$Res>;
+abstract class _$$DraggableDraggableSwitchReviewReactionImplCopyWith<$Res> {
+  factory _$$DraggableDraggableSwitchReviewReactionImplCopyWith(
+          _$DraggableDraggableSwitchReviewReactionImpl value,
+          $Res Function(_$DraggableDraggableSwitchReviewReactionImpl) then) =
+      __$$DraggableDraggableSwitchReviewReactionImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int reviewId, int customerId, bool liked, bool disliked});
 }
 
 /// @nodoc
-class __$$_SwitchReviewReactionCopyWithImpl<$Res>
+class __$$DraggableDraggableSwitchReviewReactionImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_SwitchReviewReaction>
-    implements _$$_SwitchReviewReactionCopyWith<$Res> {
-  __$$_SwitchReviewReactionCopyWithImpl(_$_SwitchReviewReaction _value,
-      $Res Function(_$_SwitchReviewReaction) _then)
+        _$DraggableDraggableSwitchReviewReactionImpl>
+    implements _$$DraggableDraggableSwitchReviewReactionImplCopyWith<$Res> {
+  __$$DraggableDraggableSwitchReviewReactionImplCopyWithImpl(
+      _$DraggableDraggableSwitchReviewReactionImpl _value,
+      $Res Function(_$DraggableDraggableSwitchReviewReactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1863,7 +2075,7 @@ class __$$_SwitchReviewReactionCopyWithImpl<$Res>
     Object? liked = null,
     Object? disliked = null,
   }) {
-    return _then(_$_SwitchReviewReaction(
+    return _then(_$DraggableDraggableSwitchReviewReactionImpl(
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
@@ -1886,8 +2098,9 @@ class __$$_SwitchReviewReactionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SwitchReviewReaction implements _SwitchReviewReaction {
-  const _$_SwitchReviewReaction(
+class _$DraggableDraggableSwitchReviewReactionImpl
+    implements _DraggableDraggableSwitchReviewReaction {
+  const _$DraggableDraggableSwitchReviewReactionImpl(
       {required this.reviewId,
       required this.customerId,
       required this.liked,
@@ -1904,14 +2117,14 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
 
   @override
   String toString() {
-    return 'DraggableArtistReviewSheetEvent.switchReviewReaction(reviewId: $reviewId, customerId: $customerId, liked: $liked, disliked: $disliked)';
+    return 'DraggableArtistReviewSheetEvent.draggableSwitchReviewReaction(reviewId: $reviewId, customerId: $customerId, liked: $liked, disliked: $disliked)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SwitchReviewReaction &&
+            other is _$DraggableDraggableSwitchReviewReactionImpl &&
             (identical(other.reviewId, reviewId) ||
                 other.reviewId == reviewId) &&
             (identical(other.customerId, customerId) ||
@@ -1928,9 +2141,11 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SwitchReviewReactionCopyWith<_$_SwitchReviewReaction> get copyWith =>
-      __$$_SwitchReviewReactionCopyWithImpl<_$_SwitchReviewReaction>(
-          this, _$identity);
+  _$$DraggableDraggableSwitchReviewReactionImplCopyWith<
+          _$DraggableDraggableSwitchReviewReactionImpl>
+      get copyWith =>
+          __$$DraggableDraggableSwitchReviewReactionImplCopyWithImpl<
+              _$DraggableDraggableSwitchReviewReactionImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1941,19 +2156,22 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
-    return switchReviewReaction(reviewId, customerId, liked, disliked);
+    return draggableSwitchReviewReaction(reviewId, customerId, liked, disliked);
   }
 
   @override
@@ -1965,17 +2183,18 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
-    return switchReviewReaction?.call(reviewId, customerId, liked, disliked);
+    return draggableSwitchReviewReaction?.call(
+        reviewId, customerId, liked, disliked);
   }
 
   @override
@@ -1987,19 +2206,20 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (switchReviewReaction != null) {
-      return switchReviewReaction(reviewId, customerId, liked, disliked);
+    if (draggableSwitchReviewReaction != null) {
+      return draggableSwitchReviewReaction(
+          reviewId, customerId, liked, disliked);
     }
     return orElse();
   }
@@ -2007,113 +2227,134 @@ class _$_SwitchReviewReaction implements _SwitchReviewReaction {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
-    return switchReviewReaction(this);
+    return draggableSwitchReviewReaction(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
-    return switchReviewReaction?.call(this);
+    return draggableSwitchReviewReaction?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (switchReviewReaction != null) {
-      return switchReviewReaction(this);
+    if (draggableSwitchReviewReaction != null) {
+      return draggableSwitchReviewReaction(this);
     }
     return orElse();
   }
 }
 
-abstract class _SwitchReviewReaction
+abstract class _DraggableDraggableSwitchReviewReaction
     implements DraggableArtistReviewSheetEvent {
-  const factory _SwitchReviewReaction(
-      {required final int reviewId,
-      required final int customerId,
-      required final bool liked,
-      required final bool disliked}) = _$_SwitchReviewReaction;
+  const factory _DraggableDraggableSwitchReviewReaction(
+          {required final int reviewId,
+          required final int customerId,
+          required final bool liked,
+          required final bool disliked}) =
+      _$DraggableDraggableSwitchReviewReactionImpl;
 
   int get reviewId;
   int get customerId;
   bool get liked;
   bool get disliked;
   @JsonKey(ignore: true)
-  _$$_SwitchReviewReactionCopyWith<_$_SwitchReviewReaction> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableDraggableSwitchReviewReactionImplCopyWith<
+          _$DraggableDraggableSwitchReviewReactionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RefreshReviewsCopyWith<$Res> {
-  factory _$$_RefreshReviewsCopyWith(
-          _$_RefreshReviews value, $Res Function(_$_RefreshReviews) then) =
-      __$$_RefreshReviewsCopyWithImpl<$Res>;
+abstract class _$$DraggableRefreshReviewsImplCopyWith<$Res> {
+  factory _$$DraggableRefreshReviewsImplCopyWith(
+          _$DraggableRefreshReviewsImpl value,
+          $Res Function(_$DraggableRefreshReviewsImpl) then) =
+      __$$DraggableRefreshReviewsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_RefreshReviewsCopyWithImpl<$Res>
+class __$$DraggableRefreshReviewsImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_RefreshReviews> implements _$$_RefreshReviewsCopyWith<$Res> {
-  __$$_RefreshReviewsCopyWithImpl(
-      _$_RefreshReviews _value, $Res Function(_$_RefreshReviews) _then)
+        _$DraggableRefreshReviewsImpl>
+    implements _$$DraggableRefreshReviewsImplCopyWith<$Res> {
+  __$$DraggableRefreshReviewsImplCopyWithImpl(
+      _$DraggableRefreshReviewsImpl _value,
+      $Res Function(_$DraggableRefreshReviewsImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_RefreshReviews implements _RefreshReviews {
-  const _$_RefreshReviews();
+class _$DraggableRefreshReviewsImpl implements _DraggableRefreshReviews {
+  const _$DraggableRefreshReviewsImpl();
 
   @override
   String toString() {
-    return 'DraggableArtistReviewSheetEvent.refreshReviews()';
+    return 'DraggableArtistReviewSheetEvent.draggableRefreshReviews()';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RefreshReviews);
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableRefreshReviewsImpl);
   }
 
   @override
@@ -2128,19 +2369,22 @@ class _$_RefreshReviews implements _RefreshReviews {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
-    return refreshReviews();
+    return draggableRefreshReviews();
   }
 
   @override
@@ -2152,17 +2396,17 @@ class _$_RefreshReviews implements _RefreshReviews {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
-    return refreshReviews?.call();
+    return draggableRefreshReviews?.call();
   }
 
   @override
@@ -2174,19 +2418,19 @@ class _$_RefreshReviews implements _RefreshReviews {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (refreshReviews != null) {
-      return refreshReviews();
+    if (draggableRefreshReviews != null) {
+      return draggableRefreshReviews();
     }
     return orElse();
   }
@@ -2194,86 +2438,104 @@ class _$_RefreshReviews implements _RefreshReviews {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
-    return refreshReviews(this);
+    return draggableRefreshReviews(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
-    return refreshReviews?.call(this);
+    return draggableRefreshReviews?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (refreshReviews != null) {
-      return refreshReviews(this);
+    if (draggableRefreshReviews != null) {
+      return draggableRefreshReviews(this);
     }
     return orElse();
   }
 }
 
-abstract class _RefreshReviews implements DraggableArtistReviewSheetEvent {
-  const factory _RefreshReviews() = _$_RefreshReviews;
+abstract class _DraggableRefreshReviews
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableRefreshReviews() = _$DraggableRefreshReviewsImpl;
 }
 
 /// @nodoc
-abstract class _$$_RefreshReviewsErrorCopyWith<$Res> {
-  factory _$$_RefreshReviewsErrorCopyWith(_$_RefreshReviewsError value,
-          $Res Function(_$_RefreshReviewsError) then) =
-      __$$_RefreshReviewsErrorCopyWithImpl<$Res>;
+abstract class _$$DraggableRefreshReviewsErrorImplCopyWith<$Res> {
+  factory _$$DraggableRefreshReviewsErrorImplCopyWith(
+          _$DraggableRefreshReviewsErrorImpl value,
+          $Res Function(_$DraggableRefreshReviewsErrorImpl) then) =
+      __$$DraggableRefreshReviewsErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String errorMessage});
 }
 
 /// @nodoc
-class __$$_RefreshReviewsErrorCopyWithImpl<$Res>
+class __$$DraggableRefreshReviewsErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
-        _$_RefreshReviewsError>
-    implements _$$_RefreshReviewsErrorCopyWith<$Res> {
-  __$$_RefreshReviewsErrorCopyWithImpl(_$_RefreshReviewsError _value,
-      $Res Function(_$_RefreshReviewsError) _then)
+        _$DraggableRefreshReviewsErrorImpl>
+    implements _$$DraggableRefreshReviewsErrorImplCopyWith<$Res> {
+  __$$DraggableRefreshReviewsErrorImplCopyWithImpl(
+      _$DraggableRefreshReviewsErrorImpl _value,
+      $Res Function(_$DraggableRefreshReviewsErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2281,7 +2543,7 @@ class __$$_RefreshReviewsErrorCopyWithImpl<$Res>
   $Res call({
     Object? errorMessage = null,
   }) {
-    return _then(_$_RefreshReviewsError(
+    return _then(_$DraggableRefreshReviewsErrorImpl(
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -2292,22 +2554,23 @@ class __$$_RefreshReviewsErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RefreshReviewsError implements _RefreshReviewsError {
-  const _$_RefreshReviewsError({required this.errorMessage});
+class _$DraggableRefreshReviewsErrorImpl
+    implements _DraggableRefreshReviewsError {
+  const _$DraggableRefreshReviewsErrorImpl({required this.errorMessage});
 
   @override
   final String errorMessage;
 
   @override
   String toString() {
-    return 'DraggableArtistReviewSheetEvent.refreshReviewsError(errorMessage: $errorMessage)';
+    return 'DraggableArtistReviewSheetEvent.draggableRefreshReviewsError(errorMessage: $errorMessage)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RefreshReviewsError &&
+            other is _$DraggableRefreshReviewsErrorImpl &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
@@ -2318,9 +2581,10 @@ class _$_RefreshReviewsError implements _RefreshReviewsError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RefreshReviewsErrorCopyWith<_$_RefreshReviewsError> get copyWith =>
-      __$$_RefreshReviewsErrorCopyWithImpl<_$_RefreshReviewsError>(
-          this, _$identity);
+  _$$DraggableRefreshReviewsErrorImplCopyWith<
+          _$DraggableRefreshReviewsErrorImpl>
+      get copyWith => __$$DraggableRefreshReviewsErrorImplCopyWithImpl<
+          _$DraggableRefreshReviewsErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2331,19 +2595,22 @@ class _$_RefreshReviewsError implements _RefreshReviewsError {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
-    return refreshReviewsError(errorMessage);
+    return draggableRefreshReviewsError(errorMessage);
   }
 
   @override
@@ -2355,17 +2622,17 @@ class _$_RefreshReviewsError implements _RefreshReviewsError {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
-    return refreshReviewsError?.call(errorMessage);
+    return draggableRefreshReviewsError?.call(errorMessage);
   }
 
   @override
@@ -2377,19 +2644,19 @@ class _$_RefreshReviewsError implements _RefreshReviewsError {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (refreshReviewsError != null) {
-      return refreshReviewsError(errorMessage);
+    if (draggableRefreshReviewsError != null) {
+      return draggableRefreshReviewsError(errorMessage);
     }
     return orElse();
   }
@@ -2397,106 +2664,127 @@ class _$_RefreshReviewsError implements _RefreshReviewsError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
-    return refreshReviewsError(this);
+    return draggableRefreshReviewsError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
-    return refreshReviewsError?.call(this);
+    return draggableRefreshReviewsError?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (refreshReviewsError != null) {
-      return refreshReviewsError(this);
+    if (draggableRefreshReviewsError != null) {
+      return draggableRefreshReviewsError(this);
     }
     return orElse();
   }
 }
 
-abstract class _RefreshReviewsError implements DraggableArtistReviewSheetEvent {
-  const factory _RefreshReviewsError({required final String errorMessage}) =
-      _$_RefreshReviewsError;
+abstract class _DraggableRefreshReviewsError
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableRefreshReviewsError(
+          {required final String errorMessage}) =
+      _$DraggableRefreshReviewsErrorImpl;
 
   String get errorMessage;
   @JsonKey(ignore: true)
-  _$$_RefreshReviewsErrorCopyWith<_$_RefreshReviewsError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DraggableRefreshReviewsErrorImplCopyWith<
+          _$DraggableRefreshReviewsErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ClearReviewsCopyWith<$Res> {
-  factory _$$_ClearReviewsCopyWith(
-          _$_ClearReviews value, $Res Function(_$_ClearReviews) then) =
-      __$$_ClearReviewsCopyWithImpl<$Res>;
+abstract class _$$DraggableClearReviewsImplCopyWith<$Res> {
+  factory _$$DraggableClearReviewsImplCopyWith(
+          _$DraggableClearReviewsImpl value,
+          $Res Function(_$DraggableClearReviewsImpl) then) =
+      __$$DraggableClearReviewsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ClearReviewsCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res, _$_ClearReviews>
-    implements _$$_ClearReviewsCopyWith<$Res> {
-  __$$_ClearReviewsCopyWithImpl(
-      _$_ClearReviews _value, $Res Function(_$_ClearReviews) _then)
+class __$$DraggableClearReviewsImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetEventCopyWithImpl<$Res,
+        _$DraggableClearReviewsImpl>
+    implements _$$DraggableClearReviewsImplCopyWith<$Res> {
+  __$$DraggableClearReviewsImplCopyWithImpl(_$DraggableClearReviewsImpl _value,
+      $Res Function(_$DraggableClearReviewsImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ClearReviews implements _ClearReviews {
-  const _$_ClearReviews();
+class _$DraggableClearReviewsImpl implements _DraggableClearReviews {
+  const _$DraggableClearReviewsImpl();
 
   @override
   String toString() {
-    return 'DraggableArtistReviewSheetEvent.clearReviews()';
+    return 'DraggableArtistReviewSheetEvent.draggableClearReviews()';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ClearReviews);
+        (other.runtimeType == runtimeType &&
+            other is _$DraggableClearReviewsImpl);
   }
 
   @override
@@ -2511,19 +2799,22 @@ class _$_ClearReviews implements _ClearReviews {
     required TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
         setReviewReactions,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLiked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewDisliked,
+    required TResult Function(int reviewId, int customerId)
+        draggableReviewLikeRemoved,
     required TResult Function(int reviewId, int customerId)
         reviewDislikedRemoved,
     required TResult Function(
             int reviewId, int customerId, bool liked, bool disliked)
-        switchReviewReaction,
-    required TResult Function() refreshReviews,
-    required TResult Function(String errorMessage) refreshReviewsError,
-    required TResult Function() clearReviews,
+        draggableSwitchReviewReaction,
+    required TResult Function() draggableRefreshReviews,
+    required TResult Function(String errorMessage) draggableRefreshReviewsError,
+    required TResult Function() draggableClearReviews,
   }) {
-    return clearReviews();
+    return draggableClearReviews();
   }
 
   @override
@@ -2535,17 +2826,17 @@ class _$_ClearReviews implements _ClearReviews {
     TResult? Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult? Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult? Function()? refreshReviews,
-    TResult? Function(String errorMessage)? refreshReviewsError,
-    TResult? Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult? Function()? draggableRefreshReviews,
+    TResult? Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult? Function()? draggableClearReviews,
   }) {
-    return clearReviews?.call();
+    return draggableClearReviews?.call();
   }
 
   @override
@@ -2557,19 +2848,19 @@ class _$_ClearReviews implements _ClearReviews {
     TResult Function(Map<int, Reactions> reviewReactions,
             Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
         setReviewReactions,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
+    TResult Function(int reviewId, int customerId)? draggableReviewLiked,
+    TResult Function(int reviewId, int customerId)? draggableReviewDisliked,
+    TResult Function(int reviewId, int customerId)? draggableReviewLikeRemoved,
     TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
     TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
-        switchReviewReaction,
-    TResult Function()? refreshReviews,
-    TResult Function(String errorMessage)? refreshReviewsError,
-    TResult Function()? clearReviews,
+        draggableSwitchReviewReaction,
+    TResult Function()? draggableRefreshReviews,
+    TResult Function(String errorMessage)? draggableRefreshReviewsError,
+    TResult Function()? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (clearReviews != null) {
-      return clearReviews();
+    if (draggableClearReviews != null) {
+      return draggableClearReviews();
     }
     return orElse();
   }
@@ -2577,68 +2868,84 @@ class _$_ClearReviews implements _ClearReviews {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadReviews value) loadReviews,
-    required TResult Function(_ReviewsLoading value) reviewsLoading,
-    required TResult Function(_SetReviewReactions value) setReviewReactions,
-    required TResult Function(_ReviewLiked value) reviewLiked,
-    required TResult Function(_ReviewDisliked value) reviewDisliked,
-    required TResult Function(_ReviewLikeRemoved value) reviewLikeRemoved,
-    required TResult Function(_ReviewDislikedRemoved value)
+    required TResult Function(_DraggableArtistReviewSheetStarted value) started,
+    required TResult Function(_DraggableLoadReviews value) loadReviews,
+    required TResult Function(_DraggableReviewsLoading value) reviewsLoading,
+    required TResult Function(_DraggableSetReviewReactions value)
+        setReviewReactions,
+    required TResult Function(_DraggableReviewLiked value) draggableReviewLiked,
+    required TResult Function(_DraggableReviewDisliked value)
+        draggableReviewDisliked,
+    required TResult Function(_DraggableReviewLikeRemoved value)
+        draggableReviewLikeRemoved,
+    required TResult Function(_DraggableReviewDislikedRemoved value)
         reviewDislikedRemoved,
-    required TResult Function(_SwitchReviewReaction value) switchReviewReaction,
-    required TResult Function(_RefreshReviews value) refreshReviews,
-    required TResult Function(_RefreshReviewsError value) refreshReviewsError,
-    required TResult Function(_ClearReviews value) clearReviews,
+    required TResult Function(_DraggableDraggableSwitchReviewReaction value)
+        draggableSwitchReviewReaction,
+    required TResult Function(_DraggableRefreshReviews value)
+        draggableRefreshReviews,
+    required TResult Function(_DraggableRefreshReviewsError value)
+        draggableRefreshReviewsError,
+    required TResult Function(_DraggableClearReviews value)
+        draggableClearReviews,
   }) {
-    return clearReviews(this);
+    return draggableClearReviews(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadReviews value)? loadReviews,
-    TResult? Function(_ReviewsLoading value)? reviewsLoading,
-    TResult? Function(_SetReviewReactions value)? setReviewReactions,
-    TResult? Function(_ReviewLiked value)? reviewLiked,
-    TResult? Function(_ReviewDisliked value)? reviewDisliked,
-    TResult? Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult? Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult? Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult? Function(_RefreshReviews value)? refreshReviews,
-    TResult? Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult? Function(_ClearReviews value)? clearReviews,
+    TResult? Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult? Function(_DraggableLoadReviews value)? loadReviews,
+    TResult? Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult? Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult? Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult? Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult? Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult? Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult? Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult? Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult? Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult? Function(_DraggableClearReviews value)? draggableClearReviews,
   }) {
-    return clearReviews?.call(this);
+    return draggableClearReviews?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadReviews value)? loadReviews,
-    TResult Function(_ReviewsLoading value)? reviewsLoading,
-    TResult Function(_SetReviewReactions value)? setReviewReactions,
-    TResult Function(_ReviewLiked value)? reviewLiked,
-    TResult Function(_ReviewDisliked value)? reviewDisliked,
-    TResult Function(_ReviewLikeRemoved value)? reviewLikeRemoved,
-    TResult Function(_ReviewDislikedRemoved value)? reviewDislikedRemoved,
-    TResult Function(_SwitchReviewReaction value)? switchReviewReaction,
-    TResult Function(_RefreshReviews value)? refreshReviews,
-    TResult Function(_RefreshReviewsError value)? refreshReviewsError,
-    TResult Function(_ClearReviews value)? clearReviews,
+    TResult Function(_DraggableArtistReviewSheetStarted value)? started,
+    TResult Function(_DraggableLoadReviews value)? loadReviews,
+    TResult Function(_DraggableReviewsLoading value)? reviewsLoading,
+    TResult Function(_DraggableSetReviewReactions value)? setReviewReactions,
+    TResult Function(_DraggableReviewLiked value)? draggableReviewLiked,
+    TResult Function(_DraggableReviewDisliked value)? draggableReviewDisliked,
+    TResult Function(_DraggableReviewLikeRemoved value)?
+        draggableReviewLikeRemoved,
+    TResult Function(_DraggableReviewDislikedRemoved value)?
+        reviewDislikedRemoved,
+    TResult Function(_DraggableDraggableSwitchReviewReaction value)?
+        draggableSwitchReviewReaction,
+    TResult Function(_DraggableRefreshReviews value)? draggableRefreshReviews,
+    TResult Function(_DraggableRefreshReviewsError value)?
+        draggableRefreshReviewsError,
+    TResult Function(_DraggableClearReviews value)? draggableClearReviews,
     required TResult orElse(),
   }) {
-    if (clearReviews != null) {
-      return clearReviews(this);
+    if (draggableClearReviews != null) {
+      return draggableClearReviews(this);
     }
     return orElse();
   }
 }
 
-abstract class _ClearReviews implements DraggableArtistReviewSheetEvent {
-  const factory _ClearReviews() = _$_ClearReviews;
+abstract class _DraggableClearReviews
+    implements DraggableArtistReviewSheetEvent {
+  const factory _DraggableClearReviews() = _$DraggableClearReviewsImpl;
 }
 
 /// @nodoc
@@ -3024,12 +3331,12 @@ class _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$DraggableArtistReviewSheetStateInitialCopyWith<$Res>
+abstract class _$$DraggableArtistReviewSheetStateInitialImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$DraggableArtistReviewSheetStateInitialCopyWith(
-          _$DraggableArtistReviewSheetStateInitial value,
-          $Res Function(_$DraggableArtistReviewSheetStateInitial) then) =
-      __$$DraggableArtistReviewSheetStateInitialCopyWithImpl<$Res>;
+  factory _$$DraggableArtistReviewSheetStateInitialImplCopyWith(
+          _$DraggableArtistReviewSheetStateInitialImpl value,
+          $Res Function(_$DraggableArtistReviewSheetStateInitialImpl) then) =
+      __$$DraggableArtistReviewSheetStateInitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3039,13 +3346,13 @@ abstract class _$$DraggableArtistReviewSheetStateInitialCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DraggableArtistReviewSheetStateInitialCopyWithImpl<$Res>
+class __$$DraggableArtistReviewSheetStateInitialImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$DraggableArtistReviewSheetStateInitial>
-    implements _$$DraggableArtistReviewSheetStateInitialCopyWith<$Res> {
-  __$$DraggableArtistReviewSheetStateInitialCopyWithImpl(
-      _$DraggableArtistReviewSheetStateInitial _value,
-      $Res Function(_$DraggableArtistReviewSheetStateInitial) _then)
+        _$DraggableArtistReviewSheetStateInitialImpl>
+    implements _$$DraggableArtistReviewSheetStateInitialImplCopyWith<$Res> {
+  __$$DraggableArtistReviewSheetStateInitialImplCopyWithImpl(
+      _$DraggableArtistReviewSheetStateInitialImpl _value,
+      $Res Function(_$DraggableArtistReviewSheetStateInitialImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3055,7 +3362,7 @@ class __$$DraggableArtistReviewSheetStateInitialCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$DraggableArtistReviewSheetStateInitial(
+    return _then(_$DraggableArtistReviewSheetStateInitialImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3074,9 +3381,9 @@ class __$$DraggableArtistReviewSheetStateInitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DraggableArtistReviewSheetStateInitial
+class _$DraggableArtistReviewSheetStateInitialImpl
     implements DraggableArtistReviewSheetStateInitial {
-  const _$DraggableArtistReviewSheetStateInitial(
+  const _$DraggableArtistReviewSheetStateInitialImpl(
       {this.reviewReactions = const {},
       this.customerReactions = const {},
       this.reviews = const []});
@@ -3097,10 +3404,10 @@ class _$DraggableArtistReviewSheetStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DraggableArtistReviewSheetStateInitial &&
+            other is _$DraggableArtistReviewSheetStateInitialImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -3118,10 +3425,11 @@ class _$DraggableArtistReviewSheetStateInitial
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DraggableArtistReviewSheetStateInitialCopyWith<
-          _$DraggableArtistReviewSheetStateInitial>
-      get copyWith => __$$DraggableArtistReviewSheetStateInitialCopyWithImpl<
-          _$DraggableArtistReviewSheetStateInitial>(this, _$identity);
+  _$$DraggableArtistReviewSheetStateInitialImplCopyWith<
+          _$DraggableArtistReviewSheetStateInitialImpl>
+      get copyWith =>
+          __$$DraggableArtistReviewSheetStateInitialImplCopyWithImpl<
+              _$DraggableArtistReviewSheetStateInitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3475,7 +3783,7 @@ abstract class DraggableArtistReviewSheetStateInitial
           {final Map<int, Reactions> reviewReactions,
           final Map<int, Reaction> customerReactions,
           final List<ReviewItem> reviews}) =
-      _$DraggableArtistReviewSheetStateInitial;
+      _$DraggableArtistReviewSheetStateInitialImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3485,17 +3793,18 @@ abstract class DraggableArtistReviewSheetStateInitial
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$DraggableArtistReviewSheetStateInitialCopyWith<
-          _$DraggableArtistReviewSheetStateInitial>
+  _$$DraggableArtistReviewSheetStateInitialImplCopyWith<
+          _$DraggableArtistReviewSheetStateInitialImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ReviewSheetConfiguredCopyWith<$Res>
+abstract class _$$ReviewSheetConfiguredImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ReviewSheetConfiguredCopyWith(_$ReviewSheetConfigured value,
-          $Res Function(_$ReviewSheetConfigured) then) =
-      __$$ReviewSheetConfiguredCopyWithImpl<$Res>;
+  factory _$$ReviewSheetConfiguredImplCopyWith(
+          _$ReviewSheetConfiguredImpl value,
+          $Res Function(_$ReviewSheetConfiguredImpl) then) =
+      __$$ReviewSheetConfiguredImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3505,12 +3814,12 @@ abstract class _$$ReviewSheetConfiguredCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ReviewSheetConfiguredCopyWithImpl<$Res>
+class __$$ReviewSheetConfiguredImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$ReviewSheetConfigured>
-    implements _$$ReviewSheetConfiguredCopyWith<$Res> {
-  __$$ReviewSheetConfiguredCopyWithImpl(_$ReviewSheetConfigured _value,
-      $Res Function(_$ReviewSheetConfigured) _then)
+        _$ReviewSheetConfiguredImpl>
+    implements _$$ReviewSheetConfiguredImplCopyWith<$Res> {
+  __$$ReviewSheetConfiguredImplCopyWithImpl(_$ReviewSheetConfiguredImpl _value,
+      $Res Function(_$ReviewSheetConfiguredImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3520,7 +3829,7 @@ class __$$ReviewSheetConfiguredCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ReviewSheetConfigured(
+    return _then(_$ReviewSheetConfiguredImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3539,8 +3848,8 @@ class __$$ReviewSheetConfiguredCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReviewSheetConfigured implements ReviewSheetConfigured {
-  const _$ReviewSheetConfigured(
+class _$ReviewSheetConfiguredImpl implements ReviewSheetConfigured {
+  const _$ReviewSheetConfiguredImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -3558,10 +3867,10 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReviewSheetConfigured &&
+            other is _$ReviewSheetConfiguredImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -3579,9 +3888,9 @@ class _$ReviewSheetConfigured implements ReviewSheetConfigured {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ReviewSheetConfiguredCopyWith<_$ReviewSheetConfigured> get copyWith =>
-      __$$ReviewSheetConfiguredCopyWithImpl<_$ReviewSheetConfigured>(
-          this, _$identity);
+  _$$ReviewSheetConfiguredImplCopyWith<_$ReviewSheetConfiguredImpl>
+      get copyWith => __$$ReviewSheetConfiguredImplCopyWithImpl<
+          _$ReviewSheetConfiguredImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3934,7 +4243,7 @@ abstract class ReviewSheetConfigured
   const factory ReviewSheetConfigured(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ReviewSheetConfigured;
+      required final List<ReviewItem> reviews}) = _$ReviewSheetConfiguredImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -3944,16 +4253,16 @@ abstract class ReviewSheetConfigured
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ReviewSheetConfiguredCopyWith<_$ReviewSheetConfigured> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ReviewSheetConfiguredImplCopyWith<_$ReviewSheetConfiguredImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LikeReviewCopyWith<$Res>
+abstract class _$$LikeReviewImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$LikeReviewCopyWith(
-          _$LikeReview value, $Res Function(_$LikeReview) then) =
-      __$$LikeReviewCopyWithImpl<$Res>;
+  factory _$$LikeReviewImplCopyWith(
+          _$LikeReviewImpl value, $Res Function(_$LikeReviewImpl) then) =
+      __$$LikeReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3963,11 +4272,11 @@ abstract class _$$LikeReviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LikeReviewCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res, _$LikeReview>
-    implements _$$LikeReviewCopyWith<$Res> {
-  __$$LikeReviewCopyWithImpl(
-      _$LikeReview _value, $Res Function(_$LikeReview) _then)
+class __$$LikeReviewImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$LikeReviewImpl> implements _$$LikeReviewImplCopyWith<$Res> {
+  __$$LikeReviewImplCopyWithImpl(
+      _$LikeReviewImpl _value, $Res Function(_$LikeReviewImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3977,7 +4286,7 @@ class __$$LikeReviewCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$LikeReview(
+    return _then(_$LikeReviewImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -3996,8 +4305,8 @@ class __$$LikeReviewCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LikeReview implements LikeReview {
-  const _$LikeReview(
+class _$LikeReviewImpl implements LikeReview {
+  const _$LikeReviewImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -4015,10 +4324,10 @@ class _$LikeReview implements LikeReview {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LikeReview &&
+            other is _$LikeReviewImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -4036,8 +4345,8 @@ class _$LikeReview implements LikeReview {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LikeReviewCopyWith<_$LikeReview> get copyWith =>
-      __$$LikeReviewCopyWithImpl<_$LikeReview>(this, _$identity);
+  _$$LikeReviewImplCopyWith<_$LikeReviewImpl> get copyWith =>
+      __$$LikeReviewImplCopyWithImpl<_$LikeReviewImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4389,7 +4698,7 @@ abstract class LikeReview implements DraggableArtistReviewSheetState {
   const factory LikeReview(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$LikeReview;
+      required final List<ReviewItem> reviews}) = _$LikeReviewImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -4399,16 +4708,16 @@ abstract class LikeReview implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$LikeReviewCopyWith<_$LikeReview> get copyWith =>
+  _$$LikeReviewImplCopyWith<_$LikeReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LikeReviewErrorCopyWith<$Res>
+abstract class _$$LikeReviewErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$LikeReviewErrorCopyWith(
-          _$LikeReviewError value, $Res Function(_$LikeReviewError) then) =
-      __$$LikeReviewErrorCopyWithImpl<$Res>;
+  factory _$$LikeReviewErrorImplCopyWith(_$LikeReviewErrorImpl value,
+          $Res Function(_$LikeReviewErrorImpl) then) =
+      __$$LikeReviewErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4419,11 +4728,11 @@ abstract class _$$LikeReviewErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LikeReviewErrorCopyWithImpl<$Res>
+class __$$LikeReviewErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$LikeReviewError> implements _$$LikeReviewErrorCopyWith<$Res> {
-  __$$LikeReviewErrorCopyWithImpl(
-      _$LikeReviewError _value, $Res Function(_$LikeReviewError) _then)
+        _$LikeReviewErrorImpl> implements _$$LikeReviewErrorImplCopyWith<$Res> {
+  __$$LikeReviewErrorImplCopyWithImpl(
+      _$LikeReviewErrorImpl _value, $Res Function(_$LikeReviewErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4434,7 +4743,7 @@ class __$$LikeReviewErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$LikeReviewError(
+    return _then(_$LikeReviewErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -4457,8 +4766,8 @@ class __$$LikeReviewErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LikeReviewError implements LikeReviewError {
-  const _$LikeReviewError(
+class _$LikeReviewErrorImpl implements LikeReviewError {
+  const _$LikeReviewErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -4479,10 +4788,10 @@ class _$LikeReviewError implements LikeReviewError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LikeReviewError &&
+            other is _$LikeReviewErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -4503,8 +4812,9 @@ class _$LikeReviewError implements LikeReviewError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LikeReviewErrorCopyWith<_$LikeReviewError> get copyWith =>
-      __$$LikeReviewErrorCopyWithImpl<_$LikeReviewError>(this, _$identity);
+  _$$LikeReviewErrorImplCopyWith<_$LikeReviewErrorImpl> get copyWith =>
+      __$$LikeReviewErrorImplCopyWithImpl<_$LikeReviewErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4860,7 +5170,7 @@ abstract class LikeReviewError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$LikeReviewError;
+      required final String errorMessage}) = _$LikeReviewErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -4871,16 +5181,16 @@ abstract class LikeReviewError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$LikeReviewErrorCopyWith<_$LikeReviewError> get copyWith =>
+  _$$LikeReviewErrorImplCopyWith<_$LikeReviewErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DislikeReviewCopyWith<$Res>
+abstract class _$$DislikeReviewImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$DislikeReviewCopyWith(
-          _$DislikeReview value, $Res Function(_$DislikeReview) then) =
-      __$$DislikeReviewCopyWithImpl<$Res>;
+  factory _$$DislikeReviewImplCopyWith(
+          _$DislikeReviewImpl value, $Res Function(_$DislikeReviewImpl) then) =
+      __$$DislikeReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4890,11 +5200,11 @@ abstract class _$$DislikeReviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DislikeReviewCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res, _$DislikeReview>
-    implements _$$DislikeReviewCopyWith<$Res> {
-  __$$DislikeReviewCopyWithImpl(
-      _$DislikeReview _value, $Res Function(_$DislikeReview) _then)
+class __$$DislikeReviewImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$DislikeReviewImpl> implements _$$DislikeReviewImplCopyWith<$Res> {
+  __$$DislikeReviewImplCopyWithImpl(
+      _$DislikeReviewImpl _value, $Res Function(_$DislikeReviewImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4904,7 +5214,7 @@ class __$$DislikeReviewCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$DislikeReview(
+    return _then(_$DislikeReviewImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -4923,8 +5233,8 @@ class __$$DislikeReviewCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DislikeReview implements DislikeReview {
-  const _$DislikeReview(
+class _$DislikeReviewImpl implements DislikeReview {
+  const _$DislikeReviewImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -4942,10 +5252,10 @@ class _$DislikeReview implements DislikeReview {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DislikeReview &&
+            other is _$DislikeReviewImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -4963,8 +5273,8 @@ class _$DislikeReview implements DislikeReview {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DislikeReviewCopyWith<_$DislikeReview> get copyWith =>
-      __$$DislikeReviewCopyWithImpl<_$DislikeReview>(this, _$identity);
+  _$$DislikeReviewImplCopyWith<_$DislikeReviewImpl> get copyWith =>
+      __$$DislikeReviewImplCopyWithImpl<_$DislikeReviewImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5316,7 +5626,7 @@ abstract class DislikeReview implements DraggableArtistReviewSheetState {
   const factory DislikeReview(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$DislikeReview;
+      required final List<ReviewItem> reviews}) = _$DislikeReviewImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -5326,16 +5636,16 @@ abstract class DislikeReview implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$DislikeReviewCopyWith<_$DislikeReview> get copyWith =>
+  _$$DislikeReviewImplCopyWith<_$DislikeReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DislikeReviewErrorCopyWith<$Res>
+abstract class _$$DislikeReviewErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$DislikeReviewErrorCopyWith(_$DislikeReviewError value,
-          $Res Function(_$DislikeReviewError) then) =
-      __$$DislikeReviewErrorCopyWithImpl<$Res>;
+  factory _$$DislikeReviewErrorImplCopyWith(_$DislikeReviewErrorImpl value,
+          $Res Function(_$DislikeReviewErrorImpl) then) =
+      __$$DislikeReviewErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -5346,11 +5656,12 @@ abstract class _$$DislikeReviewErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DislikeReviewErrorCopyWithImpl<$Res>
+class __$$DislikeReviewErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$DislikeReviewError> implements _$$DislikeReviewErrorCopyWith<$Res> {
-  __$$DislikeReviewErrorCopyWithImpl(
-      _$DislikeReviewError _value, $Res Function(_$DislikeReviewError) _then)
+        _$DislikeReviewErrorImpl>
+    implements _$$DislikeReviewErrorImplCopyWith<$Res> {
+  __$$DislikeReviewErrorImplCopyWithImpl(_$DislikeReviewErrorImpl _value,
+      $Res Function(_$DislikeReviewErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5361,7 +5672,7 @@ class __$$DislikeReviewErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$DislikeReviewError(
+    return _then(_$DislikeReviewErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -5384,8 +5695,8 @@ class __$$DislikeReviewErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DislikeReviewError implements DislikeReviewError {
-  const _$DislikeReviewError(
+class _$DislikeReviewErrorImpl implements DislikeReviewError {
+  const _$DislikeReviewErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -5406,10 +5717,10 @@ class _$DislikeReviewError implements DislikeReviewError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DislikeReviewError &&
+            other is _$DislikeReviewErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -5430,8 +5741,8 @@ class _$DislikeReviewError implements DislikeReviewError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DislikeReviewErrorCopyWith<_$DislikeReviewError> get copyWith =>
-      __$$DislikeReviewErrorCopyWithImpl<_$DislikeReviewError>(
+  _$$DislikeReviewErrorImplCopyWith<_$DislikeReviewErrorImpl> get copyWith =>
+      __$$DislikeReviewErrorImplCopyWithImpl<_$DislikeReviewErrorImpl>(
           this, _$identity);
 
   @override
@@ -5788,7 +6099,7 @@ abstract class DislikeReviewError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$DislikeReviewError;
+      required final String errorMessage}) = _$DislikeReviewErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -5799,16 +6110,16 @@ abstract class DislikeReviewError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$DislikeReviewErrorCopyWith<_$DislikeReviewError> get copyWith =>
+  _$$DislikeReviewErrorImplCopyWith<_$DislikeReviewErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LikeRemovedCopyWith<$Res>
+abstract class _$$LikeRemovedImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$LikeRemovedCopyWith(
-          _$LikeRemoved value, $Res Function(_$LikeRemoved) then) =
-      __$$LikeRemovedCopyWithImpl<$Res>;
+  factory _$$LikeRemovedImplCopyWith(
+          _$LikeRemovedImpl value, $Res Function(_$LikeRemovedImpl) then) =
+      __$$LikeRemovedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -5818,11 +6129,11 @@ abstract class _$$LikeRemovedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LikeRemovedCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res, _$LikeRemoved>
-    implements _$$LikeRemovedCopyWith<$Res> {
-  __$$LikeRemovedCopyWithImpl(
-      _$LikeRemoved _value, $Res Function(_$LikeRemoved) _then)
+class __$$LikeRemovedImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$LikeRemovedImpl> implements _$$LikeRemovedImplCopyWith<$Res> {
+  __$$LikeRemovedImplCopyWithImpl(
+      _$LikeRemovedImpl _value, $Res Function(_$LikeRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5832,7 +6143,7 @@ class __$$LikeRemovedCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$LikeRemoved(
+    return _then(_$LikeRemovedImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -5851,8 +6162,8 @@ class __$$LikeRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LikeRemoved implements LikeRemoved {
-  const _$LikeRemoved(
+class _$LikeRemovedImpl implements LikeRemoved {
+  const _$LikeRemovedImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -5870,10 +6181,10 @@ class _$LikeRemoved implements LikeRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LikeRemoved &&
+            other is _$LikeRemovedImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -5891,8 +6202,8 @@ class _$LikeRemoved implements LikeRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LikeRemovedCopyWith<_$LikeRemoved> get copyWith =>
-      __$$LikeRemovedCopyWithImpl<_$LikeRemoved>(this, _$identity);
+  _$$LikeRemovedImplCopyWith<_$LikeRemovedImpl> get copyWith =>
+      __$$LikeRemovedImplCopyWithImpl<_$LikeRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6244,7 +6555,7 @@ abstract class LikeRemoved implements DraggableArtistReviewSheetState {
   const factory LikeRemoved(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$LikeRemoved;
+      required final List<ReviewItem> reviews}) = _$LikeRemovedImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -6254,16 +6565,16 @@ abstract class LikeRemoved implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$LikeRemovedCopyWith<_$LikeRemoved> get copyWith =>
+  _$$LikeRemovedImplCopyWith<_$LikeRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LikeRemovedErrorCopyWith<$Res>
+abstract class _$$LikeRemovedErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$LikeRemovedErrorCopyWith(
-          _$LikeRemovedError value, $Res Function(_$LikeRemovedError) then) =
-      __$$LikeRemovedErrorCopyWithImpl<$Res>;
+  factory _$$LikeRemovedErrorImplCopyWith(_$LikeRemovedErrorImpl value,
+          $Res Function(_$LikeRemovedErrorImpl) then) =
+      __$$LikeRemovedErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -6274,11 +6585,12 @@ abstract class _$$LikeRemovedErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LikeRemovedErrorCopyWithImpl<$Res>
+class __$$LikeRemovedErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$LikeRemovedError> implements _$$LikeRemovedErrorCopyWith<$Res> {
-  __$$LikeRemovedErrorCopyWithImpl(
-      _$LikeRemovedError _value, $Res Function(_$LikeRemovedError) _then)
+        _$LikeRemovedErrorImpl>
+    implements _$$LikeRemovedErrorImplCopyWith<$Res> {
+  __$$LikeRemovedErrorImplCopyWithImpl(_$LikeRemovedErrorImpl _value,
+      $Res Function(_$LikeRemovedErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6289,7 +6601,7 @@ class __$$LikeRemovedErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$LikeRemovedError(
+    return _then(_$LikeRemovedErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -6312,8 +6624,8 @@ class __$$LikeRemovedErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LikeRemovedError implements LikeRemovedError {
-  const _$LikeRemovedError(
+class _$LikeRemovedErrorImpl implements LikeRemovedError {
+  const _$LikeRemovedErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -6334,10 +6646,10 @@ class _$LikeRemovedError implements LikeRemovedError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LikeRemovedError &&
+            other is _$LikeRemovedErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -6358,8 +6670,9 @@ class _$LikeRemovedError implements LikeRemovedError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LikeRemovedErrorCopyWith<_$LikeRemovedError> get copyWith =>
-      __$$LikeRemovedErrorCopyWithImpl<_$LikeRemovedError>(this, _$identity);
+  _$$LikeRemovedErrorImplCopyWith<_$LikeRemovedErrorImpl> get copyWith =>
+      __$$LikeRemovedErrorImplCopyWithImpl<_$LikeRemovedErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6715,7 +7028,7 @@ abstract class LikeRemovedError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$LikeRemovedError;
+      required final String errorMessage}) = _$LikeRemovedErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -6726,16 +7039,16 @@ abstract class LikeRemovedError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$LikeRemovedErrorCopyWith<_$LikeRemovedError> get copyWith =>
+  _$$LikeRemovedErrorImplCopyWith<_$LikeRemovedErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DislikeRemovedCopyWith<$Res>
+abstract class _$$DislikeRemovedImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$DislikeRemovedCopyWith(
-          _$DislikeRemoved value, $Res Function(_$DislikeRemoved) then) =
-      __$$DislikeRemovedCopyWithImpl<$Res>;
+  factory _$$DislikeRemovedImplCopyWith(_$DislikeRemovedImpl value,
+          $Res Function(_$DislikeRemovedImpl) then) =
+      __$$DislikeRemovedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -6745,11 +7058,11 @@ abstract class _$$DislikeRemovedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DislikeRemovedCopyWithImpl<$Res>
+class __$$DislikeRemovedImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$DislikeRemoved> implements _$$DislikeRemovedCopyWith<$Res> {
-  __$$DislikeRemovedCopyWithImpl(
-      _$DislikeRemoved _value, $Res Function(_$DislikeRemoved) _then)
+        _$DislikeRemovedImpl> implements _$$DislikeRemovedImplCopyWith<$Res> {
+  __$$DislikeRemovedImplCopyWithImpl(
+      _$DislikeRemovedImpl _value, $Res Function(_$DislikeRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6759,7 +7072,7 @@ class __$$DislikeRemovedCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$DislikeRemoved(
+    return _then(_$DislikeRemovedImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -6778,8 +7091,8 @@ class __$$DislikeRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DislikeRemoved implements DislikeRemoved {
-  const _$DislikeRemoved(
+class _$DislikeRemovedImpl implements DislikeRemoved {
+  const _$DislikeRemovedImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -6797,10 +7110,10 @@ class _$DislikeRemoved implements DislikeRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DislikeRemoved &&
+            other is _$DislikeRemovedImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -6818,8 +7131,9 @@ class _$DislikeRemoved implements DislikeRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DislikeRemovedCopyWith<_$DislikeRemoved> get copyWith =>
-      __$$DislikeRemovedCopyWithImpl<_$DislikeRemoved>(this, _$identity);
+  _$$DislikeRemovedImplCopyWith<_$DislikeRemovedImpl> get copyWith =>
+      __$$DislikeRemovedImplCopyWithImpl<_$DislikeRemovedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7171,7 +7485,7 @@ abstract class DislikeRemoved implements DraggableArtistReviewSheetState {
   const factory DislikeRemoved(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$DislikeRemoved;
+      required final List<ReviewItem> reviews}) = _$DislikeRemovedImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -7181,16 +7495,16 @@ abstract class DislikeRemoved implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$DislikeRemovedCopyWith<_$DislikeRemoved> get copyWith =>
+  _$$DislikeRemovedImplCopyWith<_$DislikeRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DislikeRemovedErrorCopyWith<$Res>
+abstract class _$$DislikeRemovedErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$DislikeRemovedErrorCopyWith(_$DislikeRemovedError value,
-          $Res Function(_$DislikeRemovedError) then) =
-      __$$DislikeRemovedErrorCopyWithImpl<$Res>;
+  factory _$$DislikeRemovedErrorImplCopyWith(_$DislikeRemovedErrorImpl value,
+          $Res Function(_$DislikeRemovedErrorImpl) then) =
+      __$$DislikeRemovedErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -7201,11 +7515,12 @@ abstract class _$$DislikeRemovedErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DislikeRemovedErrorCopyWithImpl<$Res>
+class __$$DislikeRemovedErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$DislikeRemovedError> implements _$$DislikeRemovedErrorCopyWith<$Res> {
-  __$$DislikeRemovedErrorCopyWithImpl(
-      _$DislikeRemovedError _value, $Res Function(_$DislikeRemovedError) _then)
+        _$DislikeRemovedErrorImpl>
+    implements _$$DislikeRemovedErrorImplCopyWith<$Res> {
+  __$$DislikeRemovedErrorImplCopyWithImpl(_$DislikeRemovedErrorImpl _value,
+      $Res Function(_$DislikeRemovedErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7216,7 +7531,7 @@ class __$$DislikeRemovedErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$DislikeRemovedError(
+    return _then(_$DislikeRemovedErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -7239,8 +7554,8 @@ class __$$DislikeRemovedErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DislikeRemovedError implements DislikeRemovedError {
-  const _$DislikeRemovedError(
+class _$DislikeRemovedErrorImpl implements DislikeRemovedError {
+  const _$DislikeRemovedErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -7261,10 +7576,10 @@ class _$DislikeRemovedError implements DislikeRemovedError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DislikeRemovedError &&
+            other is _$DislikeRemovedErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -7285,8 +7600,8 @@ class _$DislikeRemovedError implements DislikeRemovedError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DislikeRemovedErrorCopyWith<_$DislikeRemovedError> get copyWith =>
-      __$$DislikeRemovedErrorCopyWithImpl<_$DislikeRemovedError>(
+  _$$DislikeRemovedErrorImplCopyWith<_$DislikeRemovedErrorImpl> get copyWith =>
+      __$$DislikeRemovedErrorImplCopyWithImpl<_$DislikeRemovedErrorImpl>(
           this, _$identity);
 
   @override
@@ -7643,7 +7958,7 @@ abstract class DislikeRemovedError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$DislikeRemovedError;
+      required final String errorMessage}) = _$DislikeRemovedErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -7654,16 +7969,16 @@ abstract class DislikeRemovedError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$DislikeRemovedErrorCopyWith<_$DislikeRemovedError> get copyWith =>
+  _$$DislikeRemovedErrorImplCopyWith<_$DislikeRemovedErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ReviewReactionCopyWith<$Res>
+abstract class _$$ReviewReactionImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ReviewReactionCopyWith(
-          _$ReviewReaction value, $Res Function(_$ReviewReaction) then) =
-      __$$ReviewReactionCopyWithImpl<$Res>;
+  factory _$$ReviewReactionImplCopyWith(_$ReviewReactionImpl value,
+          $Res Function(_$ReviewReactionImpl) then) =
+      __$$ReviewReactionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -7673,11 +7988,11 @@ abstract class _$$ReviewReactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ReviewReactionCopyWithImpl<$Res>
+class __$$ReviewReactionImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$ReviewReaction> implements _$$ReviewReactionCopyWith<$Res> {
-  __$$ReviewReactionCopyWithImpl(
-      _$ReviewReaction _value, $Res Function(_$ReviewReaction) _then)
+        _$ReviewReactionImpl> implements _$$ReviewReactionImplCopyWith<$Res> {
+  __$$ReviewReactionImplCopyWithImpl(
+      _$ReviewReactionImpl _value, $Res Function(_$ReviewReactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7687,7 +8002,7 @@ class __$$ReviewReactionCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ReviewReaction(
+    return _then(_$ReviewReactionImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -7706,8 +8021,8 @@ class __$$ReviewReactionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReviewReaction implements ReviewReaction {
-  const _$ReviewReaction(
+class _$ReviewReactionImpl implements ReviewReaction {
+  const _$ReviewReactionImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -7725,10 +8040,10 @@ class _$ReviewReaction implements ReviewReaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReviewReaction &&
+            other is _$ReviewReactionImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -7746,8 +8061,9 @@ class _$ReviewReaction implements ReviewReaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ReviewReactionCopyWith<_$ReviewReaction> get copyWith =>
-      __$$ReviewReactionCopyWithImpl<_$ReviewReaction>(this, _$identity);
+  _$$ReviewReactionImplCopyWith<_$ReviewReactionImpl> get copyWith =>
+      __$$ReviewReactionImplCopyWithImpl<_$ReviewReactionImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8099,7 +8415,7 @@ abstract class ReviewReaction implements DraggableArtistReviewSheetState {
   const factory ReviewReaction(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ReviewReaction;
+      required final List<ReviewItem> reviews}) = _$ReviewReactionImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -8109,16 +8425,16 @@ abstract class ReviewReaction implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ReviewReactionCopyWith<_$ReviewReaction> get copyWith =>
+  _$$ReviewReactionImplCopyWith<_$ReviewReactionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ReviewReactionErrorCopyWith<$Res>
+abstract class _$$ReviewReactionErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ReviewReactionErrorCopyWith(_$ReviewReactionError value,
-          $Res Function(_$ReviewReactionError) then) =
-      __$$ReviewReactionErrorCopyWithImpl<$Res>;
+  factory _$$ReviewReactionErrorImplCopyWith(_$ReviewReactionErrorImpl value,
+          $Res Function(_$ReviewReactionErrorImpl) then) =
+      __$$ReviewReactionErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -8129,11 +8445,12 @@ abstract class _$$ReviewReactionErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ReviewReactionErrorCopyWithImpl<$Res>
+class __$$ReviewReactionErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$ReviewReactionError> implements _$$ReviewReactionErrorCopyWith<$Res> {
-  __$$ReviewReactionErrorCopyWithImpl(
-      _$ReviewReactionError _value, $Res Function(_$ReviewReactionError) _then)
+        _$ReviewReactionErrorImpl>
+    implements _$$ReviewReactionErrorImplCopyWith<$Res> {
+  __$$ReviewReactionErrorImplCopyWithImpl(_$ReviewReactionErrorImpl _value,
+      $Res Function(_$ReviewReactionErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8144,7 +8461,7 @@ class __$$ReviewReactionErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$ReviewReactionError(
+    return _then(_$ReviewReactionErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -8167,8 +8484,8 @@ class __$$ReviewReactionErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReviewReactionError implements ReviewReactionError {
-  const _$ReviewReactionError(
+class _$ReviewReactionErrorImpl implements ReviewReactionError {
+  const _$ReviewReactionErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -8189,10 +8506,10 @@ class _$ReviewReactionError implements ReviewReactionError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReviewReactionError &&
+            other is _$ReviewReactionErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -8213,8 +8530,8 @@ class _$ReviewReactionError implements ReviewReactionError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ReviewReactionErrorCopyWith<_$ReviewReactionError> get copyWith =>
-      __$$ReviewReactionErrorCopyWithImpl<_$ReviewReactionError>(
+  _$$ReviewReactionErrorImplCopyWith<_$ReviewReactionErrorImpl> get copyWith =>
+      __$$ReviewReactionErrorImplCopyWithImpl<_$ReviewReactionErrorImpl>(
           this, _$identity);
 
   @override
@@ -8571,7 +8888,7 @@ abstract class ReviewReactionError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$ReviewReactionError;
+      required final String errorMessage}) = _$ReviewReactionErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -8582,16 +8899,16 @@ abstract class ReviewReactionError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$ReviewReactionErrorCopyWith<_$ReviewReactionError> get copyWith =>
+  _$$ReviewReactionErrorImplCopyWith<_$ReviewReactionErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SwitchReviewReactionCopyWith<$Res>
+abstract class _$$SwitchReviewReactionImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$SwitchReviewReactionCopyWith(_$SwitchReviewReaction value,
-          $Res Function(_$SwitchReviewReaction) then) =
-      __$$SwitchReviewReactionCopyWithImpl<$Res>;
+  factory _$$SwitchReviewReactionImplCopyWith(_$SwitchReviewReactionImpl value,
+          $Res Function(_$SwitchReviewReactionImpl) then) =
+      __$$SwitchReviewReactionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -8601,12 +8918,12 @@ abstract class _$$SwitchReviewReactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SwitchReviewReactionCopyWithImpl<$Res>
+class __$$SwitchReviewReactionImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$SwitchReviewReaction>
-    implements _$$SwitchReviewReactionCopyWith<$Res> {
-  __$$SwitchReviewReactionCopyWithImpl(_$SwitchReviewReaction _value,
-      $Res Function(_$SwitchReviewReaction) _then)
+        _$SwitchReviewReactionImpl>
+    implements _$$SwitchReviewReactionImplCopyWith<$Res> {
+  __$$SwitchReviewReactionImplCopyWithImpl(_$SwitchReviewReactionImpl _value,
+      $Res Function(_$SwitchReviewReactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8616,7 +8933,7 @@ class __$$SwitchReviewReactionCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$SwitchReviewReaction(
+    return _then(_$SwitchReviewReactionImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -8635,8 +8952,8 @@ class __$$SwitchReviewReactionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SwitchReviewReaction implements SwitchReviewReaction {
-  const _$SwitchReviewReaction(
+class _$SwitchReviewReactionImpl implements SwitchReviewReaction {
+  const _$SwitchReviewReactionImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -8654,10 +8971,10 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SwitchReviewReaction &&
+            other is _$SwitchReviewReactionImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -8675,9 +8992,10 @@ class _$SwitchReviewReaction implements SwitchReviewReaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SwitchReviewReactionCopyWith<_$SwitchReviewReaction> get copyWith =>
-      __$$SwitchReviewReactionCopyWithImpl<_$SwitchReviewReaction>(
-          this, _$identity);
+  _$$SwitchReviewReactionImplCopyWith<_$SwitchReviewReactionImpl>
+      get copyWith =>
+          __$$SwitchReviewReactionImplCopyWithImpl<_$SwitchReviewReactionImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9030,7 +9348,7 @@ abstract class SwitchReviewReaction implements DraggableArtistReviewSheetState {
   const factory SwitchReviewReaction(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$SwitchReviewReaction;
+      required final List<ReviewItem> reviews}) = _$SwitchReviewReactionImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -9040,17 +9358,17 @@ abstract class SwitchReviewReaction implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$SwitchReviewReactionCopyWith<_$SwitchReviewReaction> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SwitchReviewReactionImplCopyWith<_$SwitchReviewReactionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SwitchReviewReactionErrorCopyWith<$Res>
+abstract class _$$SwitchReviewReactionErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$SwitchReviewReactionErrorCopyWith(
-          _$SwitchReviewReactionError value,
-          $Res Function(_$SwitchReviewReactionError) then) =
-      __$$SwitchReviewReactionErrorCopyWithImpl<$Res>;
+  factory _$$SwitchReviewReactionErrorImplCopyWith(
+          _$SwitchReviewReactionErrorImpl value,
+          $Res Function(_$SwitchReviewReactionErrorImpl) then) =
+      __$$SwitchReviewReactionErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -9061,12 +9379,13 @@ abstract class _$$SwitchReviewReactionErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SwitchReviewReactionErrorCopyWithImpl<$Res>
+class __$$SwitchReviewReactionErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$SwitchReviewReactionError>
-    implements _$$SwitchReviewReactionErrorCopyWith<$Res> {
-  __$$SwitchReviewReactionErrorCopyWithImpl(_$SwitchReviewReactionError _value,
-      $Res Function(_$SwitchReviewReactionError) _then)
+        _$SwitchReviewReactionErrorImpl>
+    implements _$$SwitchReviewReactionErrorImplCopyWith<$Res> {
+  __$$SwitchReviewReactionErrorImplCopyWithImpl(
+      _$SwitchReviewReactionErrorImpl _value,
+      $Res Function(_$SwitchReviewReactionErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9077,7 +9396,7 @@ class __$$SwitchReviewReactionErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$SwitchReviewReactionError(
+    return _then(_$SwitchReviewReactionErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -9100,8 +9419,8 @@ class __$$SwitchReviewReactionErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SwitchReviewReactionError implements SwitchReviewReactionError {
-  const _$SwitchReviewReactionError(
+class _$SwitchReviewReactionErrorImpl implements SwitchReviewReactionError {
+  const _$SwitchReviewReactionErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -9122,10 +9441,10 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SwitchReviewReactionError &&
+            other is _$SwitchReviewReactionErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -9146,9 +9465,9 @@ class _$SwitchReviewReactionError implements SwitchReviewReactionError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SwitchReviewReactionErrorCopyWith<_$SwitchReviewReactionError>
-      get copyWith => __$$SwitchReviewReactionErrorCopyWithImpl<
-          _$SwitchReviewReactionError>(this, _$identity);
+  _$$SwitchReviewReactionErrorImplCopyWith<_$SwitchReviewReactionErrorImpl>
+      get copyWith => __$$SwitchReviewReactionErrorImplCopyWithImpl<
+          _$SwitchReviewReactionErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9505,7 +9824,7 @@ abstract class SwitchReviewReactionError
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$SwitchReviewReactionError;
+      required final String errorMessage}) = _$SwitchReviewReactionErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -9516,16 +9835,16 @@ abstract class SwitchReviewReactionError
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$SwitchReviewReactionErrorCopyWith<_$SwitchReviewReactionError>
+  _$$SwitchReviewReactionErrorImplCopyWith<_$SwitchReviewReactionErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RefreshReviewsCopyWith<$Res>
+abstract class _$$RefreshReviewsImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$RefreshReviewsCopyWith(
-          _$RefreshReviews value, $Res Function(_$RefreshReviews) then) =
-      __$$RefreshReviewsCopyWithImpl<$Res>;
+  factory _$$RefreshReviewsImplCopyWith(_$RefreshReviewsImpl value,
+          $Res Function(_$RefreshReviewsImpl) then) =
+      __$$RefreshReviewsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -9535,11 +9854,11 @@ abstract class _$$RefreshReviewsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RefreshReviewsCopyWithImpl<$Res>
+class __$$RefreshReviewsImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$RefreshReviews> implements _$$RefreshReviewsCopyWith<$Res> {
-  __$$RefreshReviewsCopyWithImpl(
-      _$RefreshReviews _value, $Res Function(_$RefreshReviews) _then)
+        _$RefreshReviewsImpl> implements _$$RefreshReviewsImplCopyWith<$Res> {
+  __$$RefreshReviewsImplCopyWithImpl(
+      _$RefreshReviewsImpl _value, $Res Function(_$RefreshReviewsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9549,7 +9868,7 @@ class __$$RefreshReviewsCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$RefreshReviews(
+    return _then(_$RefreshReviewsImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -9568,8 +9887,8 @@ class __$$RefreshReviewsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RefreshReviews implements RefreshReviews {
-  const _$RefreshReviews(
+class _$RefreshReviewsImpl implements RefreshReviews {
+  const _$RefreshReviewsImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -9587,10 +9906,10 @@ class _$RefreshReviews implements RefreshReviews {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RefreshReviews &&
+            other is _$RefreshReviewsImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -9608,8 +9927,9 @@ class _$RefreshReviews implements RefreshReviews {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RefreshReviewsCopyWith<_$RefreshReviews> get copyWith =>
-      __$$RefreshReviewsCopyWithImpl<_$RefreshReviews>(this, _$identity);
+  _$$RefreshReviewsImplCopyWith<_$RefreshReviewsImpl> get copyWith =>
+      __$$RefreshReviewsImplCopyWithImpl<_$RefreshReviewsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9961,7 +10281,7 @@ abstract class RefreshReviews implements DraggableArtistReviewSheetState {
   const factory RefreshReviews(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$RefreshReviews;
+      required final List<ReviewItem> reviews}) = _$RefreshReviewsImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -9971,16 +10291,16 @@ abstract class RefreshReviews implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$RefreshReviewsCopyWith<_$RefreshReviews> get copyWith =>
+  _$$RefreshReviewsImplCopyWith<_$RefreshReviewsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RefreshReviewsErrorCopyWith<$Res>
+abstract class _$$RefreshReviewsErrorImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$RefreshReviewsErrorCopyWith(_$RefreshReviewsError value,
-          $Res Function(_$RefreshReviewsError) then) =
-      __$$RefreshReviewsErrorCopyWithImpl<$Res>;
+  factory _$$RefreshReviewsErrorImplCopyWith(_$RefreshReviewsErrorImpl value,
+          $Res Function(_$RefreshReviewsErrorImpl) then) =
+      __$$RefreshReviewsErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -9991,11 +10311,12 @@ abstract class _$$RefreshReviewsErrorCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RefreshReviewsErrorCopyWithImpl<$Res>
+class __$$RefreshReviewsErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$RefreshReviewsError> implements _$$RefreshReviewsErrorCopyWith<$Res> {
-  __$$RefreshReviewsErrorCopyWithImpl(
-      _$RefreshReviewsError _value, $Res Function(_$RefreshReviewsError) _then)
+        _$RefreshReviewsErrorImpl>
+    implements _$$RefreshReviewsErrorImplCopyWith<$Res> {
+  __$$RefreshReviewsErrorImplCopyWithImpl(_$RefreshReviewsErrorImpl _value,
+      $Res Function(_$RefreshReviewsErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10006,7 +10327,7 @@ class __$$RefreshReviewsErrorCopyWithImpl<$Res>
     Object? reviews = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$RefreshReviewsError(
+    return _then(_$RefreshReviewsErrorImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -10029,8 +10350,8 @@ class __$$RefreshReviewsErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RefreshReviewsError implements RefreshReviewsError {
-  const _$RefreshReviewsError(
+class _$RefreshReviewsErrorImpl implements RefreshReviewsError {
+  const _$RefreshReviewsErrorImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews,
@@ -10051,10 +10372,10 @@ class _$RefreshReviewsError implements RefreshReviewsError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RefreshReviewsError &&
+            other is _$RefreshReviewsErrorImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -10075,8 +10396,8 @@ class _$RefreshReviewsError implements RefreshReviewsError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RefreshReviewsErrorCopyWith<_$RefreshReviewsError> get copyWith =>
-      __$$RefreshReviewsErrorCopyWithImpl<_$RefreshReviewsError>(
+  _$$RefreshReviewsErrorImplCopyWith<_$RefreshReviewsErrorImpl> get copyWith =>
+      __$$RefreshReviewsErrorImplCopyWithImpl<_$RefreshReviewsErrorImpl>(
           this, _$identity);
 
   @override
@@ -10433,7 +10754,7 @@ abstract class RefreshReviewsError implements DraggableArtistReviewSheetState {
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
-      required final String errorMessage}) = _$RefreshReviewsError;
+      required final String errorMessage}) = _$RefreshReviewsErrorImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -10444,16 +10765,16 @@ abstract class RefreshReviewsError implements DraggableArtistReviewSheetState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$RefreshReviewsErrorCopyWith<_$RefreshReviewsError> get copyWith =>
+  _$$RefreshReviewsErrorImplCopyWith<_$RefreshReviewsErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ReviewsLoadingCopyWith<$Res>
+abstract class _$$ReviewsLoadingImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ReviewsLoadingCopyWith(
-          _$ReviewsLoading value, $Res Function(_$ReviewsLoading) then) =
-      __$$ReviewsLoadingCopyWithImpl<$Res>;
+  factory _$$ReviewsLoadingImplCopyWith(_$ReviewsLoadingImpl value,
+          $Res Function(_$ReviewsLoadingImpl) then) =
+      __$$ReviewsLoadingImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -10463,11 +10784,11 @@ abstract class _$$ReviewsLoadingCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ReviewsLoadingCopyWithImpl<$Res>
+class __$$ReviewsLoadingImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$ReviewsLoading> implements _$$ReviewsLoadingCopyWith<$Res> {
-  __$$ReviewsLoadingCopyWithImpl(
-      _$ReviewsLoading _value, $Res Function(_$ReviewsLoading) _then)
+        _$ReviewsLoadingImpl> implements _$$ReviewsLoadingImplCopyWith<$Res> {
+  __$$ReviewsLoadingImplCopyWithImpl(
+      _$ReviewsLoadingImpl _value, $Res Function(_$ReviewsLoadingImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10477,7 +10798,7 @@ class __$$ReviewsLoadingCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ReviewsLoading(
+    return _then(_$ReviewsLoadingImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -10496,8 +10817,8 @@ class __$$ReviewsLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReviewsLoading implements ReviewsLoading {
-  const _$ReviewsLoading(
+class _$ReviewsLoadingImpl implements ReviewsLoading {
+  const _$ReviewsLoadingImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -10515,10 +10836,10 @@ class _$ReviewsLoading implements ReviewsLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReviewsLoading &&
+            other is _$ReviewsLoadingImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -10536,8 +10857,9 @@ class _$ReviewsLoading implements ReviewsLoading {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ReviewsLoadingCopyWith<_$ReviewsLoading> get copyWith =>
-      __$$ReviewsLoadingCopyWithImpl<_$ReviewsLoading>(this, _$identity);
+  _$$ReviewsLoadingImplCopyWith<_$ReviewsLoadingImpl> get copyWith =>
+      __$$ReviewsLoadingImplCopyWithImpl<_$ReviewsLoadingImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10889,7 +11211,7 @@ abstract class ReviewsLoading implements DraggableArtistReviewSheetState {
   const factory ReviewsLoading(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ReviewsLoading;
+      required final List<ReviewItem> reviews}) = _$ReviewsLoadingImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -10899,16 +11221,16 @@ abstract class ReviewsLoading implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ReviewsLoadingCopyWith<_$ReviewsLoading> get copyWith =>
+  _$$ReviewsLoadingImplCopyWith<_$ReviewsLoadingImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ReviewsLoadedCopyWith<$Res>
+abstract class _$$ReviewsLoadedImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ReviewsLoadedCopyWith(
-          _$ReviewsLoaded value, $Res Function(_$ReviewsLoaded) then) =
-      __$$ReviewsLoadedCopyWithImpl<$Res>;
+  factory _$$ReviewsLoadedImplCopyWith(
+          _$ReviewsLoadedImpl value, $Res Function(_$ReviewsLoadedImpl) then) =
+      __$$ReviewsLoadedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -10918,11 +11240,11 @@ abstract class _$$ReviewsLoadedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ReviewsLoadedCopyWithImpl<$Res>
-    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res, _$ReviewsLoaded>
-    implements _$$ReviewsLoadedCopyWith<$Res> {
-  __$$ReviewsLoadedCopyWithImpl(
-      _$ReviewsLoaded _value, $Res Function(_$ReviewsLoaded) _then)
+class __$$ReviewsLoadedImplCopyWithImpl<$Res>
+    extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
+        _$ReviewsLoadedImpl> implements _$$ReviewsLoadedImplCopyWith<$Res> {
+  __$$ReviewsLoadedImplCopyWithImpl(
+      _$ReviewsLoadedImpl _value, $Res Function(_$ReviewsLoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10932,7 +11254,7 @@ class __$$ReviewsLoadedCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ReviewsLoaded(
+    return _then(_$ReviewsLoadedImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -10951,8 +11273,8 @@ class __$$ReviewsLoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReviewsLoaded implements ReviewsLoaded {
-  const _$ReviewsLoaded(
+class _$ReviewsLoadedImpl implements ReviewsLoaded {
+  const _$ReviewsLoadedImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -10970,10 +11292,10 @@ class _$ReviewsLoaded implements ReviewsLoaded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ReviewsLoaded &&
+            other is _$ReviewsLoadedImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -10991,8 +11313,8 @@ class _$ReviewsLoaded implements ReviewsLoaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ReviewsLoadedCopyWith<_$ReviewsLoaded> get copyWith =>
-      __$$ReviewsLoadedCopyWithImpl<_$ReviewsLoaded>(this, _$identity);
+  _$$ReviewsLoadedImplCopyWith<_$ReviewsLoadedImpl> get copyWith =>
+      __$$ReviewsLoadedImplCopyWithImpl<_$ReviewsLoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11344,7 +11666,7 @@ abstract class ReviewsLoaded implements DraggableArtistReviewSheetState {
   const factory ReviewsLoaded(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ReviewsLoaded;
+      required final List<ReviewItem> reviews}) = _$ReviewsLoadedImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -11354,16 +11676,16 @@ abstract class ReviewsLoaded implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ReviewsLoadedCopyWith<_$ReviewsLoaded> get copyWith =>
+  _$$ReviewsLoadedImplCopyWith<_$ReviewsLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ClearedReviewsCopyWith<$Res>
+abstract class _$$ClearedReviewsImplCopyWith<$Res>
     implements $DraggableArtistReviewSheetStateCopyWith<$Res> {
-  factory _$$ClearedReviewsCopyWith(
-          _$ClearedReviews value, $Res Function(_$ClearedReviews) then) =
-      __$$ClearedReviewsCopyWithImpl<$Res>;
+  factory _$$ClearedReviewsImplCopyWith(_$ClearedReviewsImpl value,
+          $Res Function(_$ClearedReviewsImpl) then) =
+      __$$ClearedReviewsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -11373,11 +11695,11 @@ abstract class _$$ClearedReviewsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ClearedReviewsCopyWithImpl<$Res>
+class __$$ClearedReviewsImplCopyWithImpl<$Res>
     extends _$DraggableArtistReviewSheetStateCopyWithImpl<$Res,
-        _$ClearedReviews> implements _$$ClearedReviewsCopyWith<$Res> {
-  __$$ClearedReviewsCopyWithImpl(
-      _$ClearedReviews _value, $Res Function(_$ClearedReviews) _then)
+        _$ClearedReviewsImpl> implements _$$ClearedReviewsImplCopyWith<$Res> {
+  __$$ClearedReviewsImplCopyWithImpl(
+      _$ClearedReviewsImpl _value, $Res Function(_$ClearedReviewsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11387,7 +11709,7 @@ class __$$ClearedReviewsCopyWithImpl<$Res>
     Object? customerReactions = null,
     Object? reviews = null,
   }) {
-    return _then(_$ClearedReviews(
+    return _then(_$ClearedReviewsImpl(
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
@@ -11406,8 +11728,8 @@ class __$$ClearedReviewsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClearedReviews implements ClearedReviews {
-  const _$ClearedReviews(
+class _$ClearedReviewsImpl implements ClearedReviews {
+  const _$ClearedReviewsImpl(
       {required this.reviewReactions,
       required this.customerReactions,
       required this.reviews});
@@ -11425,10 +11747,10 @@ class _$ClearedReviews implements ClearedReviews {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClearedReviews &&
+            other is _$ClearedReviewsImpl &&
             const DeepCollectionEquality()
                 .equals(other.reviewReactions, reviewReactions) &&
             const DeepCollectionEquality()
@@ -11446,8 +11768,9 @@ class _$ClearedReviews implements ClearedReviews {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClearedReviewsCopyWith<_$ClearedReviews> get copyWith =>
-      __$$ClearedReviewsCopyWithImpl<_$ClearedReviews>(this, _$identity);
+  _$$ClearedReviewsImplCopyWith<_$ClearedReviewsImpl> get copyWith =>
+      __$$ClearedReviewsImplCopyWithImpl<_$ClearedReviewsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11799,7 +12122,7 @@ abstract class ClearedReviews implements DraggableArtistReviewSheetState {
   const factory ClearedReviews(
       {required final Map<int, Reactions> reviewReactions,
       required final Map<int, Reaction> customerReactions,
-      required final List<ReviewItem> reviews}) = _$ClearedReviews;
+      required final List<ReviewItem> reviews}) = _$ClearedReviewsImpl;
 
   @override
   Map<int, Reactions> get reviewReactions;
@@ -11809,6 +12132,6 @@ abstract class ClearedReviews implements DraggableArtistReviewSheetState {
   List<ReviewItem> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$ClearedReviewsCopyWith<_$ClearedReviews> get copyWith =>
+  _$$ClearedReviewsImplCopyWith<_$ClearedReviewsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

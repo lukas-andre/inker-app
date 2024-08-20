@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class RegisterCustomSubTitle extends StatelessWidget {
   const RegisterCustomSubTitle(
-      {Key? key, required this.text, this.fontSize = 16})
-      : super(key: key);
+      {super.key, required this.text, this.fontSize = 16});
   final String text;
   final double? fontSize;
   @override

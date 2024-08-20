@@ -16,7 +16,7 @@ import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 
 class RegisterArtistPage3 extends StatelessWidget {
-  const RegisterArtistPage3({Key? key}) : super(key: key);
+  const RegisterArtistPage3({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const RegisterArtistPage3());
@@ -34,8 +34,8 @@ class RegisterArtistPage3 extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             RegisterArtistPage3Layout(),
             RegisterArtistPage3NextButton(),
@@ -48,8 +48,8 @@ class RegisterArtistPage3 extends StatelessWidget {
 
 class RegisterArtistPage3NextButton extends StatelessWidget {
   const RegisterArtistPage3NextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +79,15 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
 }
 
 class RegisterArtistPage3Layout extends StatelessWidget {
-  const RegisterArtistPage3Layout({Key? key}) : super(key: key);
+  const RegisterArtistPage3Layout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             RegisterBackButton(),
             CloseRegisterButton(
               index: 3,
@@ -97,8 +97,8 @@ class RegisterArtistPage3Layout extends StatelessWidget {
         ),
         BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
           builder: (context, state) {
-            return Row(
-              children: const [
+            return const Row(
+              children: [
                 RegisterProgressIndicator(
                   progress: 3 / 5,
                 )
@@ -106,8 +106,8 @@ class RegisterArtistPage3Layout extends StatelessWidget {
             );
           },
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomTitle(
               text: 'Crea tu contraseña para poder acceder a Inker 🔐 ',
             )
@@ -119,8 +119,8 @@ class RegisterArtistPage3Layout extends StatelessWidget {
         Row(
           children: [RegisterArtistConfirmPasswordInput()],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             RegisterCustomSubTitle(
                 text:
                     'Estas a unos pasos de formar parte de esta gran comunidad.')

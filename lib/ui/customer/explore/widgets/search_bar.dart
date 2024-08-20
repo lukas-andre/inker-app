@@ -3,7 +3,7 @@ import 'package:inker_studio/ui/customer/explore/delegate/search_artist_delegate
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
