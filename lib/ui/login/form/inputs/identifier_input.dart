@@ -5,7 +5,7 @@ import 'package:inker_studio/utils/forms/custom_input.dart';
 import 'package:inker_studio/utils/forms/lower_case_text_formatter.dart';
 
 class IdentifierInput extends StatelessWidget {
-  const IdentifierInput({Key? key}) : super(key: key);
+  const IdentifierInput({super.key});
 
   @override
   Widget build(BuildContext context) {

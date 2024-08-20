@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class RegisterBackButton extends StatelessWidget {
   const RegisterBackButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

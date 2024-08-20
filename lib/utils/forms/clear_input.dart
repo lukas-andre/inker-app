@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ClearInput extends StatelessWidget {
-  const ClearInput({Key? key, required this.onTap}) : super(key: key);
+  const ClearInput({super.key, required this.onTap});
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {

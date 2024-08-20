@@ -4,7 +4,7 @@ import 'package:inker_studio/ui/register/widgets/register_user_by_type_button.da
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 
 class RegisterCustomerButton extends StatelessWidget {
-  const RegisterCustomerButton({Key? key}) : super(key: key);
+  const RegisterCustomerButton({super.key});
 
   @override
   Widget build(BuildContext context) {

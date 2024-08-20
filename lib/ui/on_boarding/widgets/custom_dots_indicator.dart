@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 
 class CustomDotsIndicator extends StatelessWidget {
-  const CustomDotsIndicator({Key? key}) : super(key: key);
+  const CustomDotsIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CustomDotsIndicator extends StatelessWidget {
               padding: const EdgeInsets.only(left: 39),
               child: DotsIndicator(
                 dotsCount: state.contents.length,
-                position: state.page.toDouble(),
+                position: state.page,
                 mainAxisAlignment: MainAxisAlignment.start,
                 onTap: (index) {
                   context

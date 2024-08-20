@@ -5,7 +5,7 @@ import 'package:inker_studio/ui/register/register_user_by_type_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 
 class LoginHeader extends StatelessWidget {
-  const LoginHeader({Key? key}) : super(key: key);
+  const LoginHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

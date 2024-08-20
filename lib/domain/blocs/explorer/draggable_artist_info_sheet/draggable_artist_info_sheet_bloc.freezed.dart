@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'draggable_artist_info_sheet_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'draggable_artist_info_sheet_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DraggableArtistInfoSheetEvent {
@@ -92,22 +92,22 @@ class _$DraggableArtistInfoSheetEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_ChangeViewCopyWith<$Res>
+abstract class _$$ChangeViewImplCopyWith<$Res>
     implements $DraggableArtistInfoSheetEventCopyWith<$Res> {
-  factory _$$_ChangeViewCopyWith(
-          _$_ChangeView value, $Res Function(_$_ChangeView) then) =
-      __$$_ChangeViewCopyWithImpl<$Res>;
+  factory _$$ChangeViewImplCopyWith(
+          _$ChangeViewImpl value, $Res Function(_$ChangeViewImpl) then) =
+      __$$ChangeViewImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DraggableArtistInfoSheetView view});
 }
 
 /// @nodoc
-class __$$_ChangeViewCopyWithImpl<$Res>
-    extends _$DraggableArtistInfoSheetEventCopyWithImpl<$Res, _$_ChangeView>
-    implements _$$_ChangeViewCopyWith<$Res> {
-  __$$_ChangeViewCopyWithImpl(
-      _$_ChangeView _value, $Res Function(_$_ChangeView) _then)
+class __$$ChangeViewImplCopyWithImpl<$Res>
+    extends _$DraggableArtistInfoSheetEventCopyWithImpl<$Res, _$ChangeViewImpl>
+    implements _$$ChangeViewImplCopyWith<$Res> {
+  __$$ChangeViewImplCopyWithImpl(
+      _$ChangeViewImpl _value, $Res Function(_$ChangeViewImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -115,7 +115,7 @@ class __$$_ChangeViewCopyWithImpl<$Res>
   $Res call({
     Object? view = null,
   }) {
-    return _then(_$_ChangeView(
+    return _then(_$ChangeViewImpl(
       null == view
           ? _value.view
           : view // ignore: cast_nullable_to_non_nullable
@@ -126,8 +126,8 @@ class __$$_ChangeViewCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChangeView implements _ChangeView {
-  const _$_ChangeView(this.view);
+class _$ChangeViewImpl implements _ChangeView {
+  const _$ChangeViewImpl(this.view);
 
   @override
   final DraggableArtistInfoSheetView view;
@@ -138,10 +138,10 @@ class _$_ChangeView implements _ChangeView {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ChangeView &&
+            other is _$ChangeViewImpl &&
             (identical(other.view, view) || other.view == view));
   }
 
@@ -151,8 +151,8 @@ class _$_ChangeView implements _ChangeView {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChangeViewCopyWith<_$_ChangeView> get copyWith =>
-      __$$_ChangeViewCopyWithImpl<_$_ChangeView>(this, _$identity);
+  _$$ChangeViewImplCopyWith<_$ChangeViewImpl> get copyWith =>
+      __$$ChangeViewImplCopyWithImpl<_$ChangeViewImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -213,13 +213,13 @@ class _$_ChangeView implements _ChangeView {
 
 abstract class _ChangeView implements DraggableArtistInfoSheetEvent {
   const factory _ChangeView(final DraggableArtistInfoSheetView view) =
-      _$_ChangeView;
+      _$ChangeViewImpl;
 
   @override
   DraggableArtistInfoSheetView get view;
   @override
   @JsonKey(ignore: true)
-  _$$_ChangeViewCopyWith<_$_ChangeView> get copyWith =>
+  _$$ChangeViewImplCopyWith<_$ChangeViewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -317,24 +317,25 @@ class _$DraggableArtistInfoSheetStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$InitialImplCopyWith<$Res> {
+  factory _$$InitialImplCopyWith(
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
+  __$$InitialImplCopyWithImpl(
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial();
+class _$InitialImpl implements _Initial {
+  const _$InitialImpl();
 
   @override
   String toString() {
@@ -342,9 +343,9 @@ class _$_Initial implements _Initial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
 
   @override
@@ -444,29 +445,29 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements DraggableArtistInfoSheetState {
-  const factory _Initial() = _$_Initial;
+  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_InfoViewCopyWith<$Res> {
-  factory _$$_InfoViewCopyWith(
-          _$_InfoView value, $Res Function(_$_InfoView) then) =
-      __$$_InfoViewCopyWithImpl<$Res>;
+abstract class _$$InfoViewImplCopyWith<$Res> {
+  factory _$$InfoViewImplCopyWith(
+          _$InfoViewImpl value, $Res Function(_$InfoViewImpl) then) =
+      __$$InfoViewImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InfoViewCopyWithImpl<$Res>
-    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$_InfoView>
-    implements _$$_InfoViewCopyWith<$Res> {
-  __$$_InfoViewCopyWithImpl(
-      _$_InfoView _value, $Res Function(_$_InfoView) _then)
+class __$$InfoViewImplCopyWithImpl<$Res>
+    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$InfoViewImpl>
+    implements _$$InfoViewImplCopyWith<$Res> {
+  __$$InfoViewImplCopyWithImpl(
+      _$InfoViewImpl _value, $Res Function(_$InfoViewImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_InfoView implements _InfoView {
-  const _$_InfoView();
+class _$InfoViewImpl implements _InfoView {
+  const _$InfoViewImpl();
 
   @override
   String toString() {
@@ -474,9 +475,9 @@ class _$_InfoView implements _InfoView {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InfoView);
+        (other.runtimeType == runtimeType && other is _$InfoViewImpl);
   }
 
   @override
@@ -576,29 +577,29 @@ class _$_InfoView implements _InfoView {
 }
 
 abstract class _InfoView implements DraggableArtistInfoSheetState {
-  const factory _InfoView() = _$_InfoView;
+  const factory _InfoView() = _$InfoViewImpl;
 }
 
 /// @nodoc
-abstract class _$$_InfoViewLoadingCopyWith<$Res> {
-  factory _$$_InfoViewLoadingCopyWith(
-          _$_InfoViewLoading value, $Res Function(_$_InfoViewLoading) then) =
-      __$$_InfoViewLoadingCopyWithImpl<$Res>;
+abstract class _$$InfoViewLoadingImplCopyWith<$Res> {
+  factory _$$InfoViewLoadingImplCopyWith(_$InfoViewLoadingImpl value,
+          $Res Function(_$InfoViewLoadingImpl) then) =
+      __$$InfoViewLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InfoViewLoadingCopyWithImpl<$Res>
+class __$$InfoViewLoadingImplCopyWithImpl<$Res>
     extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res,
-        _$_InfoViewLoading> implements _$$_InfoViewLoadingCopyWith<$Res> {
-  __$$_InfoViewLoadingCopyWithImpl(
-      _$_InfoViewLoading _value, $Res Function(_$_InfoViewLoading) _then)
+        _$InfoViewLoadingImpl> implements _$$InfoViewLoadingImplCopyWith<$Res> {
+  __$$InfoViewLoadingImplCopyWithImpl(
+      _$InfoViewLoadingImpl _value, $Res Function(_$InfoViewLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_InfoViewLoading implements _InfoViewLoading {
-  const _$_InfoViewLoading();
+class _$InfoViewLoadingImpl implements _InfoViewLoading {
+  const _$InfoViewLoadingImpl();
 
   @override
   String toString() {
@@ -606,9 +607,9 @@ class _$_InfoViewLoading implements _InfoViewLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InfoViewLoading);
+        (other.runtimeType == runtimeType && other is _$InfoViewLoadingImpl);
   }
 
   @override
@@ -708,29 +709,29 @@ class _$_InfoViewLoading implements _InfoViewLoading {
 }
 
 abstract class _InfoViewLoading implements DraggableArtistInfoSheetState {
-  const factory _InfoViewLoading() = _$_InfoViewLoading;
+  const factory _InfoViewLoading() = _$InfoViewLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_InfoViewErrorCopyWith<$Res> {
-  factory _$$_InfoViewErrorCopyWith(
-          _$_InfoViewError value, $Res Function(_$_InfoViewError) then) =
-      __$$_InfoViewErrorCopyWithImpl<$Res>;
+abstract class _$$InfoViewErrorImplCopyWith<$Res> {
+  factory _$$InfoViewErrorImplCopyWith(
+          _$InfoViewErrorImpl value, $Res Function(_$InfoViewErrorImpl) then) =
+      __$$InfoViewErrorImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InfoViewErrorCopyWithImpl<$Res>
-    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$_InfoViewError>
-    implements _$$_InfoViewErrorCopyWith<$Res> {
-  __$$_InfoViewErrorCopyWithImpl(
-      _$_InfoViewError _value, $Res Function(_$_InfoViewError) _then)
+class __$$InfoViewErrorImplCopyWithImpl<$Res>
+    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res,
+        _$InfoViewErrorImpl> implements _$$InfoViewErrorImplCopyWith<$Res> {
+  __$$InfoViewErrorImplCopyWithImpl(
+      _$InfoViewErrorImpl _value, $Res Function(_$InfoViewErrorImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_InfoViewError implements _InfoViewError {
-  const _$_InfoViewError();
+class _$InfoViewErrorImpl implements _InfoViewError {
+  const _$InfoViewErrorImpl();
 
   @override
   String toString() {
@@ -738,9 +739,9 @@ class _$_InfoViewError implements _InfoViewError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InfoViewError);
+        (other.runtimeType == runtimeType && other is _$InfoViewErrorImpl);
   }
 
   @override
@@ -840,29 +841,29 @@ class _$_InfoViewError implements _InfoViewError {
 }
 
 abstract class _InfoViewError implements DraggableArtistInfoSheetState {
-  const factory _InfoViewError() = _$_InfoViewError;
+  const factory _InfoViewError() = _$InfoViewErrorImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReviewsViewCopyWith<$Res> {
-  factory _$$_ReviewsViewCopyWith(
-          _$_ReviewsView value, $Res Function(_$_ReviewsView) then) =
-      __$$_ReviewsViewCopyWithImpl<$Res>;
+abstract class _$$ReviewsViewImplCopyWith<$Res> {
+  factory _$$ReviewsViewImplCopyWith(
+          _$ReviewsViewImpl value, $Res Function(_$ReviewsViewImpl) then) =
+      __$$ReviewsViewImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReviewsViewCopyWithImpl<$Res>
-    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$_ReviewsView>
-    implements _$$_ReviewsViewCopyWith<$Res> {
-  __$$_ReviewsViewCopyWithImpl(
-      _$_ReviewsView _value, $Res Function(_$_ReviewsView) _then)
+class __$$ReviewsViewImplCopyWithImpl<$Res>
+    extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res, _$ReviewsViewImpl>
+    implements _$$ReviewsViewImplCopyWith<$Res> {
+  __$$ReviewsViewImplCopyWithImpl(
+      _$ReviewsViewImpl _value, $Res Function(_$ReviewsViewImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReviewsView implements _ReviewsView {
-  const _$_ReviewsView();
+class _$ReviewsViewImpl implements _ReviewsView {
+  const _$ReviewsViewImpl();
 
   @override
   String toString() {
@@ -870,9 +871,9 @@ class _$_ReviewsView implements _ReviewsView {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReviewsView);
+        (other.runtimeType == runtimeType && other is _$ReviewsViewImpl);
   }
 
   @override
@@ -972,29 +973,30 @@ class _$_ReviewsView implements _ReviewsView {
 }
 
 abstract class _ReviewsView implements DraggableArtistInfoSheetState {
-  const factory _ReviewsView() = _$_ReviewsView;
+  const factory _ReviewsView() = _$ReviewsViewImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReviewsViewLoadingCopyWith<$Res> {
-  factory _$$_ReviewsViewLoadingCopyWith(_$_ReviewsViewLoading value,
-          $Res Function(_$_ReviewsViewLoading) then) =
-      __$$_ReviewsViewLoadingCopyWithImpl<$Res>;
+abstract class _$$ReviewsViewLoadingImplCopyWith<$Res> {
+  factory _$$ReviewsViewLoadingImplCopyWith(_$ReviewsViewLoadingImpl value,
+          $Res Function(_$ReviewsViewLoadingImpl) then) =
+      __$$ReviewsViewLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReviewsViewLoadingCopyWithImpl<$Res>
+class __$$ReviewsViewLoadingImplCopyWithImpl<$Res>
     extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res,
-        _$_ReviewsViewLoading> implements _$$_ReviewsViewLoadingCopyWith<$Res> {
-  __$$_ReviewsViewLoadingCopyWithImpl(
-      _$_ReviewsViewLoading _value, $Res Function(_$_ReviewsViewLoading) _then)
+        _$ReviewsViewLoadingImpl>
+    implements _$$ReviewsViewLoadingImplCopyWith<$Res> {
+  __$$ReviewsViewLoadingImplCopyWithImpl(_$ReviewsViewLoadingImpl _value,
+      $Res Function(_$ReviewsViewLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReviewsViewLoading implements _ReviewsViewLoading {
-  const _$_ReviewsViewLoading();
+class _$ReviewsViewLoadingImpl implements _ReviewsViewLoading {
+  const _$ReviewsViewLoadingImpl();
 
   @override
   String toString() {
@@ -1002,9 +1004,9 @@ class _$_ReviewsViewLoading implements _ReviewsViewLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReviewsViewLoading);
+        (other.runtimeType == runtimeType && other is _$ReviewsViewLoadingImpl);
   }
 
   @override
@@ -1104,29 +1106,30 @@ class _$_ReviewsViewLoading implements _ReviewsViewLoading {
 }
 
 abstract class _ReviewsViewLoading implements DraggableArtistInfoSheetState {
-  const factory _ReviewsViewLoading() = _$_ReviewsViewLoading;
+  const factory _ReviewsViewLoading() = _$ReviewsViewLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReviewsViewErrorCopyWith<$Res> {
-  factory _$$_ReviewsViewErrorCopyWith(
-          _$_ReviewsViewError value, $Res Function(_$_ReviewsViewError) then) =
-      __$$_ReviewsViewErrorCopyWithImpl<$Res>;
+abstract class _$$ReviewsViewErrorImplCopyWith<$Res> {
+  factory _$$ReviewsViewErrorImplCopyWith(_$ReviewsViewErrorImpl value,
+          $Res Function(_$ReviewsViewErrorImpl) then) =
+      __$$ReviewsViewErrorImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReviewsViewErrorCopyWithImpl<$Res>
+class __$$ReviewsViewErrorImplCopyWithImpl<$Res>
     extends _$DraggableArtistInfoSheetStateCopyWithImpl<$Res,
-        _$_ReviewsViewError> implements _$$_ReviewsViewErrorCopyWith<$Res> {
-  __$$_ReviewsViewErrorCopyWithImpl(
-      _$_ReviewsViewError _value, $Res Function(_$_ReviewsViewError) _then)
+        _$ReviewsViewErrorImpl>
+    implements _$$ReviewsViewErrorImplCopyWith<$Res> {
+  __$$ReviewsViewErrorImplCopyWithImpl(_$ReviewsViewErrorImpl _value,
+      $Res Function(_$ReviewsViewErrorImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReviewsViewError implements _ReviewsViewError {
-  const _$_ReviewsViewError();
+class _$ReviewsViewErrorImpl implements _ReviewsViewError {
+  const _$ReviewsViewErrorImpl();
 
   @override
   String toString() {
@@ -1134,9 +1137,9 @@ class _$_ReviewsViewError implements _ReviewsViewError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReviewsViewError);
+        (other.runtimeType == runtimeType && other is _$ReviewsViewErrorImpl);
   }
 
   @override
@@ -1236,5 +1239,5 @@ class _$_ReviewsViewError implements _ReviewsViewError {
 }
 
 abstract class _ReviewsViewError implements DraggableArtistInfoSheetState {
-  const factory _ReviewsViewError() = _$_ReviewsViewError;
+  const factory _ReviewsViewError() = _$ReviewsViewErrorImpl;
 }

@@ -12,7 +12,7 @@ class InkerStadiumButton extends StatelessWidget {
   final double? height;
 
   const InkerStadiumButton(
-      {Key? key,
+      {super.key,
       required this.onTap,
       required this.backgroundColor,
       this.selected,
@@ -20,8 +20,7 @@ class InkerStadiumButton extends StatelessWidget {
       this.text,
       this.textStyle,
       this.width,
-      this.height})
-      : super(key: key);
+      this.height});
 
   @override
   Widget build(BuildContext context) {

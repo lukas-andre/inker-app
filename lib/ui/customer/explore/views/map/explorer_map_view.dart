@@ -5,7 +5,7 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 
 class ExplorerMapView extends StatelessWidget {
-  const ExplorerMapView({Key? key}) : super(key: key);
+  const ExplorerMapView({super.key});
   final testImage =
       'https://d1riey1i0e5tx2.cloudfront.net/artist/1/profile_picture.png';
 

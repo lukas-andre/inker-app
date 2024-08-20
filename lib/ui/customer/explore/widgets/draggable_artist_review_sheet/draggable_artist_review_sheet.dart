@@ -15,12 +15,12 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistReviewsContent extends StatelessWidget {
-  const DraggableArtistReviewsContent({Key? key}) : super(key: key);
+  const DraggableArtistReviewsContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         SizedBox(height: 12),
         DraggingSheetHandler(),
         SizedBox(height: 16),
@@ -33,7 +33,7 @@ class DraggableArtistReviewsContent extends StatelessWidget {
 }
 
 class DraggableReviewsBody extends StatelessWidget {
-  const DraggableReviewsBody({Key? key}) : super(key: key);
+  const DraggableReviewsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,8 @@ class DraggableReviewsBody extends StatelessWidget {
                           DraggableArtistInfoSheetView.info));
 
                   draggableArtistReviewSheetBloc.add(
-                      const DraggableArtistReviewSheetEvent.clearReviews());
+                      const DraggableArtistReviewSheetEvent
+                          .draggableClearReviews());
                 },
                 child: Container(
                   padding: const EdgeInsets.only(right: 16, bottom: 8, top: 8),
@@ -90,7 +91,7 @@ class DraggableReviewsBody extends StatelessWidget {
 }
 
 class DraggableReviewsList extends StatelessWidget {
-  const DraggableReviewsList({Key? key}) : super(key: key);
+  const DraggableReviewsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +130,7 @@ class DraggableReviewsList extends StatelessWidget {
 }
 
 class DraggableReviewItem extends StatelessWidget {
-  const DraggableReviewItem({Key? key, required this.review}) : super(key: key);
+  const DraggableReviewItem({super.key, required this.review});
 
   final ReviewItem review;
 
@@ -222,7 +223,7 @@ class DraggableReviewItem extends StatelessWidget {
                           onTap: () {
                             if (disliked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .switchReviewReaction(
+                                  .draggableSwitchReviewReaction(
                                       disliked: false,
                                       liked: true,
                                       reviewId: review.id!,
@@ -232,13 +233,13 @@ class DraggableReviewItem extends StatelessWidget {
 
                             if (liked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .reviewLikeRemoved(
+                                  .draggableReviewLikeRemoved(
                                       reviewId: review.id!,
                                       customerId: customerId));
                               return;
                             } else {
-                              reviewBloc.add(
-                                  DraggableArtistReviewSheetEvent.reviewLiked(
+                              reviewBloc.add(DraggableArtistReviewSheetEvent
+                                  .draggableReviewLiked(
                                       reviewId: review.id!,
                                       customerId: customerId));
                             }
@@ -262,7 +263,7 @@ class DraggableReviewItem extends StatelessWidget {
                           onTap: (() {
                             if (liked) {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .switchReviewReaction(
+                                  .draggableSwitchReviewReaction(
                                       disliked: true,
                                       liked: false,
                                       reviewId: review.id!,
@@ -279,7 +280,7 @@ class DraggableReviewItem extends StatelessWidget {
                               return;
                             } else {
                               reviewBloc.add(DraggableArtistReviewSheetEvent
-                                  .reviewDisliked(
+                                  .draggableReviewDisliked(
                                       reviewId: review.id!,
                                       customerId: customerId));
                               return;

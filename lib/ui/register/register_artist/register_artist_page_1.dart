@@ -18,7 +18,7 @@ import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
 // TODO: TODAS SON IGUALES SOLO CAMBIAN LAS VALIDACIONES, LAS ROWS,
 // EL PROGRESS, Y LOS TITULOS, POR LO QUE SE PUEDE AUTOMATIZAR
 class RegisterArtistPage1 extends StatelessWidget {
-  const RegisterArtistPage1({Key? key}) : super(key: key);
+  const RegisterArtistPage1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class RegisterArtistPage1 extends StatelessWidget {
             currentFocus.unfocus();
           }
         },
-        child: Stack(
-          children: const [
+        child: const Stack(
+          children: [
             LoginBackground(),
             RegisterArtistLayout(),
             RegisterArtistPage1NextButton(),
@@ -46,8 +46,8 @@ class RegisterArtistPage1 extends StatelessWidget {
 
 class RegisterArtistPage1NextButton extends StatelessWidget {
   const RegisterArtistPage1NextButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,15 +83,15 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
 }
 
 class RegisterArtistLayout extends StatelessWidget {
-  const RegisterArtistLayout({Key? key}) : super(key: key);
+  const RegisterArtistLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             RegisterBackButton(),
             CloseRegisterButton(
               index: 1,
@@ -100,23 +100,23 @@ class RegisterArtistLayout extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [
+          children: [
             RegisterProgressIndicator(
               progress: 1 / 5,
             )
           ],
         ),
         Row(
-          children: const [
+          children: [
             RegisterCustomTitle(
               text: 'Completa tus datos personales ℹ️',
             )
           ],
         ),
-        const RegisterArtistFormPage1(),
+        RegisterArtistFormPage1(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             RegisterCustomSubTitle(
                 text:
                     'Introduce tus datos personales para poder continuar tu registro.')
@@ -128,8 +128,7 @@ class RegisterArtistLayout extends StatelessWidget {
 }
 
 class KeyBoardActionBackButton extends StatelessWidget {
-  const KeyBoardActionBackButton({Key? key, this.isActive = true})
-      : super(key: key);
+  const KeyBoardActionBackButton({super.key, this.isActive = true});
   final bool isActive;
   @override
   Widget build(BuildContext context) {
@@ -153,8 +152,7 @@ class KeyBoardActionBackButton extends StatelessWidget {
 
 class KeyBoardActionNextButton extends StatelessWidget {
   const KeyBoardActionNextButton(
-      {Key? key, this.isActive = true, this.isFinal = false})
-      : super(key: key);
+      {super.key, this.isActive = true, this.isFinal = false});
   final bool isActive;
   final bool isFinal;
 
