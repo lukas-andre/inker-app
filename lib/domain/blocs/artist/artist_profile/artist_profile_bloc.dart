@@ -65,6 +65,9 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
     final token = await _sessionService.getActiveSessionToken();
 
     try {
+      // TODO: Check what happend here bc the API is returning empty works...
+      // I think is bc now the artist have a lot of events and the API is
+      // returning the events instead of the works.
       final works = await _agendaService.getArtistWorks(
         artistId: state.artist!.id!,
         page: _paginator.page,
