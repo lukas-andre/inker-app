@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
+        "createQuotation":
+            MessageLookupByLibrary.simpleMessage("Create Quotation"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
