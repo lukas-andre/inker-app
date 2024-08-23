@@ -39,5 +39,6 @@
   "other": "Other",
   "errorMsgGuestValidationError": "Please select guest",
   "errorMsgNotesValidationError": "Notes exceed the limit of characters",
-  "errorMsgHoursValidationError": "Please select hours"
+  "errorMsgHoursValidationError": "Please select hours",
+  "createQuotation": "Create Quotation"
 }

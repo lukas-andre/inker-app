@@ -320,10 +320,10 @@ class S {
     );
   }
 
-  /// `Seleccionar Servicio`
+  /// `Seleccionar servicio`
   String get selectService {
     return Intl.message(
-      'Seleccionar Servicio',
+      'Seleccionar servicio',
       name: 'selectService',
       desc: '',
       args: [],
@@ -445,6 +445,16 @@ class S {
     return Intl.message(
       'Por favor seleccione una hora',
       name: 'errorMsgHoursValidationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crear Cotización`
+  String get createQuotation {
+    return Intl.message(
+      'Crear Cotización',
+      name: 'createQuotation',
       desc: '',
       args: [],
     );

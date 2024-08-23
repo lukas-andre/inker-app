@@ -39,5 +39,6 @@
   "other": "Otro",
   "errorMsgGuestValidationError": "Por favor seleccione un invitado",
   "errorMsgNotesValidationError": "Notas superan el límite de caracteres",
-  "errorMsgHoursValidationError": "Por favor seleccione una hora"
+  "errorMsgHoursValidationError": "Por favor seleccione una hora",
+  "createQuotation": "Crear Cotización"
 }

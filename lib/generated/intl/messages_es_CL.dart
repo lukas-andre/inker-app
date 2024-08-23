@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
+        "createQuotation":
+            MessageLookupByLibrary.simpleMessage("Crear Cotización"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
@@ -65,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
         "selectService":
-            MessageLookupByLibrary.simpleMessage("Seleccionar Servicio"),
+            MessageLookupByLibrary.simpleMessage("Seleccionar servicio"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),

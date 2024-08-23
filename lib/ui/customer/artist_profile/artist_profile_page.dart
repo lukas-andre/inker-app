@@ -8,6 +8,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_b
 import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
+import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -308,7 +309,11 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
         Expanded(
           flex: 3,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                CreateQuotationPage.route(artistId: widget._artist.id!),
+              );
+            },
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
               backgroundColor: secondaryColor,
