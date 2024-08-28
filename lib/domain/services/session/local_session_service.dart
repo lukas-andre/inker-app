@@ -19,4 +19,6 @@ abstract class LocalSessionService {
   Future<Session?> tryGetActiveSession();
 
   Future<Session?> newGoogleSession(firebase_auth.User? googleUser);
+
+  Future<Session?> getActiveSession();
 }

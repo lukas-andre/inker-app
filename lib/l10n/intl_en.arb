@@ -16,6 +16,7 @@
   "confirm": "Confirm",
   "eventLocation": "Event Location",
   "createEvent": "Create Event",
+  "quoted": "Quoted",
   "eventTitle": "Event Title",
   "extraInfo": "Extra Info",
   "eventColor": "Event Color",
@@ -40,5 +41,6 @@
   "errorMsgGuestValidationError": "Please select guest",
   "errorMsgNotesValidationError": "Notes exceed the limit of characters",
   "errorMsgHoursValidationError": "Please select hours",
-  "createQuotation": "Create Quotation"
+  "createQuotation": "Create Quotation",
+  "loadMore": "Load More"
 }

@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guest": MessageLookupByLibrary.simpleMessage("Guest"),
         "haircut": MessageLookupByLibrary.simpleMessage("Haircut"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
+        "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
@@ -62,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "quoted": MessageLookupByLibrary.simpleMessage("Quoted"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
         "selectService": MessageLookupByLibrary.simpleMessage("Select Service"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Send Message"),

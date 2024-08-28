@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
 import 'package:inker_studio/ui/customer/profile/profile_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -20,9 +21,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       child: Text('One'),
     ),
     BuildMapPage(),
-    Center(
-      child: Text('Three'),
-    ),
+    QuotationListPage(),
     ProfilePage()
   ];
 

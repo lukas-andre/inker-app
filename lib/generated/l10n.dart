@@ -210,6 +210,16 @@ class S {
     );
   }
 
+  /// `Cotizado`
+  String get quoted {
+    return Intl.message(
+      'Cotizado',
+      name: 'quoted',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Título del Evento`
   String get eventTitle {
     return Intl.message(
@@ -455,6 +465,16 @@ class S {
     return Intl.message(
       'Crear Cotización',
       name: 'createQuotation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cargar Más`
+  String get loadMore {
+    return Intl.message(
+      'Cargar Más',
+      name: 'loadMore',
       desc: '',
       args: [],
     );
