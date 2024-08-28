@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -66,8 +67,38 @@ class ApiQuotationService implements QuotationService {
   }
 
   @override
-  Future<List<Quotation>> getQuotations({required String token}) async {
-    throw UnimplementedError();
+  Future<QuotationListResponse> getQuotations({
+    required String token,
+    List<String>? statuses,
+    int page = 1,
+    int limit = 10,
+  }) async {
+    final queryParams = {
+      if (statuses != null && statuses.isNotEmpty) 'status': statuses.join(','),
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+
+    final url = _httpConfig.surl(path: 'quotations', queryParams: queryParams);
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final jsonData = json.decode(response.body);
+        return QuotationListResponse.fromJson(jsonData);
+      } else {
+        throw Exception('Failed to load quotations: ${response.body}');
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 
   @override
