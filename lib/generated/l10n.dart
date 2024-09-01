@@ -479,6 +479,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Responder`
+  String get reply {
+    return Intl.message(
+      'Responder',
+      name: 'reply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enviar`
+  String get send {
+    return Intl.message(
+      'Enviar',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Estado`
+  String get status {
+    return Intl.message(
+      'Estado',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

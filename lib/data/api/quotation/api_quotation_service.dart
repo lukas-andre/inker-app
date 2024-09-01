@@ -6,20 +6,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/config/http_client_config.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/response_utils.dart';
 import 'package:http_parser/http_parser.dart';
 
 class ApiQuotationService implements QuotationService {
   final HttpClientConfig _httpConfig;
 
-  ApiQuotationService() : _httpConfig = HttpClientConfig(basePath: 'agenda');
+  ApiQuotationService()
+      : _httpConfig = HttpClientConfig(basePath: 'quotations');
 
   @override
   Future<Map<String, dynamic>> createQuotation(
       Quotation quotation, List<XFile> referenceImages, String token) async {
-    final url = _httpConfig.surl(path: 'quotation');
+    final url = _httpConfig.surl(path: '');
 
     var request = http.MultipartRequest('POST', url);
 
@@ -79,7 +80,7 @@ class ApiQuotationService implements QuotationService {
       'limit': limit.toString(),
     };
 
-    final url = _httpConfig.surl(path: 'quotations', queryParams: queryParams);
+    final url = _httpConfig.surl(path: '', queryParams: queryParams);
 
     try {
       final response = await http.get(
@@ -102,20 +103,138 @@ class ApiQuotationService implements QuotationService {
   }
 
   @override
-  Future<Quotation> getQuotationDetails(
-      {required String token, required String quotationId}) async {
-    throw UnimplementedError();
+  Future<Quotation> getQuotationDetails({
+    required String token,
+    required String quotationId,
+  }) async {
+    final url = _httpConfig.surl(path: quotationId);
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final jsonData = json.decode(response.body);
+        return Quotation.fromJson(jsonData);
+      } else {
+        throw Exception('Failed to load quotation details: ${response.body}');
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 
   @override
-  Future<Quotation> updateQuotation(Quotation quotation) async {
-    // Implementación de actualización de cotización
-    throw UnimplementedError();
+  Future<void> processArtistAction({
+    required String token,
+    required String quotationId,
+    required ArtistQuotationAction action,
+    double? estimatedCost,
+    DateTime? appointmentDate,
+    int? appointmentDuration,
+    String? additionalDetails,
+    QuotationArtistRejectReason? rejectionReason,
+    List<XFile>? proposedDesigns,
+  }) async {
+    final url = _httpConfig.surl(path: '$quotationId/artist-actions');
+
+    var request = http.MultipartRequest('POST', url);
+
+    request.fields['action'] = action.toString().split('.').last;
+    if (estimatedCost != null) {
+      request.fields['estimatedCost'] = estimatedCost.toString();
+    }
+    if (appointmentDate != null) {
+      request.fields['appointmentDate'] = appointmentDate.toIso8601String();
+    }
+    if (appointmentDuration != null) {
+      request.fields['appointmentDuration'] = appointmentDuration.toString();
+    }
+    if (additionalDetails != null) {
+      request.fields['additionalDetails'] = additionalDetails;
+    }
+    if (rejectionReason != null) {
+      request.fields['rejectionReason'] =
+          rejectionReason.toString().split('.').last;
+    }
+
+    if (proposedDesigns != null) {
+      for (var i = 0; i < proposedDesigns.length; i++) {
+        var file = proposedDesigns[i];
+        var stream = http.ByteStream(file.openRead());
+        var length = await file.length();
+        var multipartFile = http.MultipartFile(
+          'proposedDesigns',
+          stream,
+          length,
+          filename: 'design_$i.jpg',
+          contentType: MediaType('image', 'jpeg'),
+        );
+        request.files.add(multipartFile);
+      }
+    }
+
+    request.headers.addAll({
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    });
+
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode != HttpStatus.noContent) {
+        throw Exception('Failed to process artist action: ${response.body}');
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 
   @override
-  Future<void> deleteQuotation(String id) async {
-    // Implementación de eliminación de cotización
-    throw UnimplementedError();
+  Future<void> processCustomerAction({
+    required String token,
+    required String quotationId,
+    required CustomerQuotationAction action,
+    QuotationCustomerRejectReason? rejectionReason,
+    QuotationCustomerAppealReason? appealReason,
+    QuotationCustomerCancelReason? cancelReason,
+    String? additionalDetails,
+  }) async {
+    final url = _httpConfig.surl(path: '$quotationId/customer-actions');
+
+    final body = {
+      'action': action.toString().split('.').last,
+      if (rejectionReason != null)
+        'rejectionReason': rejectionReason.toString().split('.').last,
+      if (appealReason != null)
+        'appealReason': appealReason.toString().split('.').last,
+      if (cancelReason != null)
+        'cancelReason': cancelReason.toString().split('.').last,
+      if (additionalDetails != null) 'additionalDetails': additionalDetails,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: json.encode(body),
+      );
+
+      if (response.statusCode != HttpStatus.noContent) {
+        throw Exception('Failed to process customer action: ${response.body}');
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
   }
 }

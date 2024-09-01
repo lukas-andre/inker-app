@@ -24,15 +24,55 @@ class Quotation with _$Quotation {
     DateTime? responseDate,
     DateTime? appointmentDate,
     int? appointmentDuration,
-    String? rejectedReason,
-    AppealedReason? appealedReason,
+    QuotationRejectBy? rejectBy,
+    QuotationCustomerRejectReason? customerRejectReason,
+    QuotationArtistRejectReason? artistRejectReason,
+    String? rejectReasonDetails,
+    DateTime? rejectedDate,
+    QuotationCustomerAppealReason? appealedReason,
     DateTime? appealedDate,
-    CancelReason? canceledReason,
+    QuotationCancelBy? canceledBy,
+    QuotationCustomerCancelReason? customerCancelReason,
+    QuotationSystemCancelReason? systemCancelReason,
+    String? cancelReasonDetails,
     DateTime? canceledDate,
+    int? lastUpdatedBy,
+    QuotationUserType? lastUpdatedByUserType,
+    List<QuotationHistory>? history,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>
       _$QuotationFromJson(json);
+}
+
+@freezed
+class QuotationHistory with _$QuotationHistory {
+  const factory QuotationHistory({
+    required int id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    required Quotation quotation,
+    required QuotationStatus previousStatus,
+    required QuotationStatus newStatus,
+    required DateTime changedAt,
+    required int changedBy,
+    required QuotationRole changedByUserType,
+    double? previousEstimatedCost,
+    double? newEstimatedCost,
+    DateTime? previousAppointmentDate,
+    DateTime? newAppointmentDate,
+    int? previousAppointmentDuration,
+    int? newAppointmentDuration,
+    QuotationCustomerAppealReason? appealedReason,
+    String? rejectionReason,
+    String? cancellationReason,
+    String? additionalDetails,
+    int? lastUpdatedBy,
+    QuotationUserType? lastUpdatedByUserType,
+  }) = _QuotationHistory;
+
+  factory QuotationHistory.fromJson(Map<String, dynamic> json) =>
+      _$QuotationHistoryFromJson(json);
 }
 
 @freezed
@@ -76,16 +116,93 @@ enum QuotationStatus {
   canceled,
 }
 
-enum AppealedReason {
-  @JsonValue('dateChange')
-  dateChange,
+enum QuotationCustomerCancelReason {
+  @JsonValue('change_of_mind')
+  changeOfMind,
+  @JsonValue('found_another_artist')
+  foundAnotherArtist,
+  @JsonValue('financial_reasons')
+  financialReasons,
+  @JsonValue('personal_reasons')
+  personalReasons,
+  @JsonValue('other')
+  other,
 }
 
-enum CancelReason {
+enum QuotationCustomerAppealReason {
+  @JsonValue('date_change')
+  dateChange,
+  @JsonValue('price_change')
+  priceChange,
+  @JsonValue('design_change')
+  designChange,
+}
+
+enum QuotationCustomerRejectReason {
+  @JsonValue('too_expensive')
+  tooExpensive,
+  @JsonValue('not_what_i_wanted')
+  notWhatIWanted,
+  @JsonValue('changed_my_mind')
+  changedMyMind,
+  @JsonValue('found_another_artist')
+  foundAnotherArtist,
+  @JsonValue('other')
+  other,
+}
+
+enum QuotationArtistRejectReason {
+  @JsonValue('scheduling_conflict')
+  schedulingConflict,
+  @JsonValue('artistic_disagreement')
+  artisticDisagreement,
+  @JsonValue('insufficient_details')
+  insufficientDetails,
+  @JsonValue('beyond_expertise')
+  beyondExpertise,
+  @JsonValue('other')
+  other,
+}
+
+enum QuotationSystemCancelReason {
+  @JsonValue('not_attended')
+  notAttended,
+  @JsonValue('system_timeout')
+  systemTimeout,
+}
+
+enum QuotationCancelBy {
+  @JsonValue('customer')
+  customer,
+  @JsonValue('system')
+  system,
+}
+
+enum QuotationRejectBy {
   @JsonValue('customer')
   customer,
   @JsonValue('artist')
   artist,
-  @JsonValue('not_attended')
-  notAttended,
+  @JsonValue('system')
+  system,
+}
+
+enum QuotationUserType {
+  @JsonValue('customer')
+  customer,
+  @JsonValue('artist')
+  artist,
+  @JsonValue('admin')
+  admin,
+  @JsonValue('system')
+  system,
+}
+
+enum QuotationRole {
+  @JsonValue('customer')
+  customer,
+  @JsonValue('artist')
+  artist,
+  @JsonValue('system')
+  system,
 }

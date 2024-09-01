@@ -35,11 +35,27 @@ mixin _$Quotation {
   DateTime? get responseDate => throw _privateConstructorUsedError;
   DateTime? get appointmentDate => throw _privateConstructorUsedError;
   int? get appointmentDuration => throw _privateConstructorUsedError;
-  String? get rejectedReason => throw _privateConstructorUsedError;
-  AppealedReason? get appealedReason => throw _privateConstructorUsedError;
+  QuotationRejectBy? get rejectBy => throw _privateConstructorUsedError;
+  QuotationCustomerRejectReason? get customerRejectReason =>
+      throw _privateConstructorUsedError;
+  QuotationArtistRejectReason? get artistRejectReason =>
+      throw _privateConstructorUsedError;
+  String? get rejectReasonDetails => throw _privateConstructorUsedError;
+  DateTime? get rejectedDate => throw _privateConstructorUsedError;
+  QuotationCustomerAppealReason? get appealedReason =>
+      throw _privateConstructorUsedError;
   DateTime? get appealedDate => throw _privateConstructorUsedError;
-  CancelReason? get canceledReason => throw _privateConstructorUsedError;
+  QuotationCancelBy? get canceledBy => throw _privateConstructorUsedError;
+  QuotationCustomerCancelReason? get customerCancelReason =>
+      throw _privateConstructorUsedError;
+  QuotationSystemCancelReason? get systemCancelReason =>
+      throw _privateConstructorUsedError;
+  String? get cancelReasonDetails => throw _privateConstructorUsedError;
   DateTime? get canceledDate => throw _privateConstructorUsedError;
+  int? get lastUpdatedBy => throw _privateConstructorUsedError;
+  QuotationUserType? get lastUpdatedByUserType =>
+      throw _privateConstructorUsedError;
+  List<QuotationHistory>? get history => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -66,11 +82,21 @@ abstract class $QuotationCopyWith<$Res> {
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
-      String? rejectedReason,
-      AppealedReason? appealedReason,
+      QuotationRejectBy? rejectBy,
+      QuotationCustomerRejectReason? customerRejectReason,
+      QuotationArtistRejectReason? artistRejectReason,
+      String? rejectReasonDetails,
+      DateTime? rejectedDate,
+      QuotationCustomerAppealReason? appealedReason,
       DateTime? appealedDate,
-      CancelReason? canceledReason,
-      DateTime? canceledDate});
+      QuotationCancelBy? canceledBy,
+      QuotationCustomerCancelReason? customerCancelReason,
+      QuotationSystemCancelReason? systemCancelReason,
+      String? cancelReasonDetails,
+      DateTime? canceledDate,
+      int? lastUpdatedBy,
+      QuotationUserType? lastUpdatedByUserType,
+      List<QuotationHistory>? history});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
@@ -102,11 +128,21 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
     Object? appointmentDuration = freezed,
-    Object? rejectedReason = freezed,
+    Object? rejectBy = freezed,
+    Object? customerRejectReason = freezed,
+    Object? artistRejectReason = freezed,
+    Object? rejectReasonDetails = freezed,
+    Object? rejectedDate = freezed,
     Object? appealedReason = freezed,
     Object? appealedDate = freezed,
-    Object? canceledReason = freezed,
+    Object? canceledBy = freezed,
+    Object? customerCancelReason = freezed,
+    Object? systemCancelReason = freezed,
+    Object? cancelReasonDetails = freezed,
     Object? canceledDate = freezed,
+    Object? lastUpdatedBy = freezed,
+    Object? lastUpdatedByUserType = freezed,
+    Object? history = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -161,26 +197,66 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.appointmentDuration
           : appointmentDuration // ignore: cast_nullable_to_non_nullable
               as int?,
-      rejectedReason: freezed == rejectedReason
-          ? _value.rejectedReason
-          : rejectedReason // ignore: cast_nullable_to_non_nullable
+      rejectBy: freezed == rejectBy
+          ? _value.rejectBy
+          : rejectBy // ignore: cast_nullable_to_non_nullable
+              as QuotationRejectBy?,
+      customerRejectReason: freezed == customerRejectReason
+          ? _value.customerRejectReason
+          : customerRejectReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerRejectReason?,
+      artistRejectReason: freezed == artistRejectReason
+          ? _value.artistRejectReason
+          : artistRejectReason // ignore: cast_nullable_to_non_nullable
+              as QuotationArtistRejectReason?,
+      rejectReasonDetails: freezed == rejectReasonDetails
+          ? _value.rejectReasonDetails
+          : rejectReasonDetails // ignore: cast_nullable_to_non_nullable
               as String?,
+      rejectedDate: freezed == rejectedDate
+          ? _value.rejectedDate
+          : rejectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       appealedReason: freezed == appealedReason
           ? _value.appealedReason
           : appealedReason // ignore: cast_nullable_to_non_nullable
-              as AppealedReason?,
+              as QuotationCustomerAppealReason?,
       appealedDate: freezed == appealedDate
           ? _value.appealedDate
           : appealedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      canceledReason: freezed == canceledReason
-          ? _value.canceledReason
-          : canceledReason // ignore: cast_nullable_to_non_nullable
-              as CancelReason?,
+      canceledBy: freezed == canceledBy
+          ? _value.canceledBy
+          : canceledBy // ignore: cast_nullable_to_non_nullable
+              as QuotationCancelBy?,
+      customerCancelReason: freezed == customerCancelReason
+          ? _value.customerCancelReason
+          : customerCancelReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerCancelReason?,
+      systemCancelReason: freezed == systemCancelReason
+          ? _value.systemCancelReason
+          : systemCancelReason // ignore: cast_nullable_to_non_nullable
+              as QuotationSystemCancelReason?,
+      cancelReasonDetails: freezed == cancelReasonDetails
+          ? _value.cancelReasonDetails
+          : cancelReasonDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
       canceledDate: freezed == canceledDate
           ? _value.canceledDate
           : canceledDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      lastUpdatedBy: freezed == lastUpdatedBy
+          ? _value.lastUpdatedBy
+          : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastUpdatedByUserType: freezed == lastUpdatedByUserType
+          ? _value.lastUpdatedByUserType
+          : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationUserType?,
+      history: freezed == history
+          ? _value.history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<QuotationHistory>?,
     ) as $Val);
   }
 
@@ -231,11 +307,21 @@ abstract class _$$QuotationImplCopyWith<$Res>
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
-      String? rejectedReason,
-      AppealedReason? appealedReason,
+      QuotationRejectBy? rejectBy,
+      QuotationCustomerRejectReason? customerRejectReason,
+      QuotationArtistRejectReason? artistRejectReason,
+      String? rejectReasonDetails,
+      DateTime? rejectedDate,
+      QuotationCustomerAppealReason? appealedReason,
       DateTime? appealedDate,
-      CancelReason? canceledReason,
-      DateTime? canceledDate});
+      QuotationCancelBy? canceledBy,
+      QuotationCustomerCancelReason? customerCancelReason,
+      QuotationSystemCancelReason? systemCancelReason,
+      String? cancelReasonDetails,
+      DateTime? canceledDate,
+      int? lastUpdatedBy,
+      QuotationUserType? lastUpdatedByUserType,
+      List<QuotationHistory>? history});
 
   @override
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
@@ -267,11 +353,21 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
     Object? appointmentDuration = freezed,
-    Object? rejectedReason = freezed,
+    Object? rejectBy = freezed,
+    Object? customerRejectReason = freezed,
+    Object? artistRejectReason = freezed,
+    Object? rejectReasonDetails = freezed,
+    Object? rejectedDate = freezed,
     Object? appealedReason = freezed,
     Object? appealedDate = freezed,
-    Object? canceledReason = freezed,
+    Object? canceledBy = freezed,
+    Object? customerCancelReason = freezed,
+    Object? systemCancelReason = freezed,
+    Object? cancelReasonDetails = freezed,
     Object? canceledDate = freezed,
+    Object? lastUpdatedBy = freezed,
+    Object? lastUpdatedByUserType = freezed,
+    Object? history = freezed,
   }) {
     return _then(_$QuotationImpl(
       id: null == id
@@ -326,26 +422,66 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.appointmentDuration
           : appointmentDuration // ignore: cast_nullable_to_non_nullable
               as int?,
-      rejectedReason: freezed == rejectedReason
-          ? _value.rejectedReason
-          : rejectedReason // ignore: cast_nullable_to_non_nullable
+      rejectBy: freezed == rejectBy
+          ? _value.rejectBy
+          : rejectBy // ignore: cast_nullable_to_non_nullable
+              as QuotationRejectBy?,
+      customerRejectReason: freezed == customerRejectReason
+          ? _value.customerRejectReason
+          : customerRejectReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerRejectReason?,
+      artistRejectReason: freezed == artistRejectReason
+          ? _value.artistRejectReason
+          : artistRejectReason // ignore: cast_nullable_to_non_nullable
+              as QuotationArtistRejectReason?,
+      rejectReasonDetails: freezed == rejectReasonDetails
+          ? _value.rejectReasonDetails
+          : rejectReasonDetails // ignore: cast_nullable_to_non_nullable
               as String?,
+      rejectedDate: freezed == rejectedDate
+          ? _value.rejectedDate
+          : rejectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       appealedReason: freezed == appealedReason
           ? _value.appealedReason
           : appealedReason // ignore: cast_nullable_to_non_nullable
-              as AppealedReason?,
+              as QuotationCustomerAppealReason?,
       appealedDate: freezed == appealedDate
           ? _value.appealedDate
           : appealedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      canceledReason: freezed == canceledReason
-          ? _value.canceledReason
-          : canceledReason // ignore: cast_nullable_to_non_nullable
-              as CancelReason?,
+      canceledBy: freezed == canceledBy
+          ? _value.canceledBy
+          : canceledBy // ignore: cast_nullable_to_non_nullable
+              as QuotationCancelBy?,
+      customerCancelReason: freezed == customerCancelReason
+          ? _value.customerCancelReason
+          : customerCancelReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerCancelReason?,
+      systemCancelReason: freezed == systemCancelReason
+          ? _value.systemCancelReason
+          : systemCancelReason // ignore: cast_nullable_to_non_nullable
+              as QuotationSystemCancelReason?,
+      cancelReasonDetails: freezed == cancelReasonDetails
+          ? _value.cancelReasonDetails
+          : cancelReasonDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
       canceledDate: freezed == canceledDate
           ? _value.canceledDate
           : canceledDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      lastUpdatedBy: freezed == lastUpdatedBy
+          ? _value.lastUpdatedBy
+          : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastUpdatedByUserType: freezed == lastUpdatedByUserType
+          ? _value.lastUpdatedByUserType
+          : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationUserType?,
+      history: freezed == history
+          ? _value._history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<QuotationHistory>?,
     ));
   }
 }
@@ -367,11 +503,22 @@ class _$QuotationImpl implements _Quotation {
       this.responseDate,
       this.appointmentDate,
       this.appointmentDuration,
-      this.rejectedReason,
+      this.rejectBy,
+      this.customerRejectReason,
+      this.artistRejectReason,
+      this.rejectReasonDetails,
+      this.rejectedDate,
       this.appealedReason,
       this.appealedDate,
-      this.canceledReason,
-      this.canceledDate});
+      this.canceledBy,
+      this.customerCancelReason,
+      this.systemCancelReason,
+      this.cancelReasonDetails,
+      this.canceledDate,
+      this.lastUpdatedBy,
+      this.lastUpdatedByUserType,
+      final List<QuotationHistory>? history})
+      : _history = history;
 
   factory _$QuotationImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuotationImplFromJson(json);
@@ -403,19 +550,46 @@ class _$QuotationImpl implements _Quotation {
   @override
   final int? appointmentDuration;
   @override
-  final String? rejectedReason;
+  final QuotationRejectBy? rejectBy;
   @override
-  final AppealedReason? appealedReason;
+  final QuotationCustomerRejectReason? customerRejectReason;
+  @override
+  final QuotationArtistRejectReason? artistRejectReason;
+  @override
+  final String? rejectReasonDetails;
+  @override
+  final DateTime? rejectedDate;
+  @override
+  final QuotationCustomerAppealReason? appealedReason;
   @override
   final DateTime? appealedDate;
   @override
-  final CancelReason? canceledReason;
+  final QuotationCancelBy? canceledBy;
+  @override
+  final QuotationCustomerCancelReason? customerCancelReason;
+  @override
+  final QuotationSystemCancelReason? systemCancelReason;
+  @override
+  final String? cancelReasonDetails;
   @override
   final DateTime? canceledDate;
+  @override
+  final int? lastUpdatedBy;
+  @override
+  final QuotationUserType? lastUpdatedByUserType;
+  final List<QuotationHistory>? _history;
+  @override
+  List<QuotationHistory>? get history {
+    final value = _history;
+    if (value == null) return null;
+    if (_history is EqualUnmodifiableListView) return _history;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectedReason: $rejectedReason, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledReason: $canceledReason, canceledDate: $canceledDate)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history)';
   }
 
   @override
@@ -447,40 +621,70 @@ class _$QuotationImpl implements _Quotation {
                 other.appointmentDate == appointmentDate) &&
             (identical(other.appointmentDuration, appointmentDuration) ||
                 other.appointmentDuration == appointmentDuration) &&
-            (identical(other.rejectedReason, rejectedReason) ||
-                other.rejectedReason == rejectedReason) &&
+            (identical(other.rejectBy, rejectBy) ||
+                other.rejectBy == rejectBy) &&
+            (identical(other.customerRejectReason, customerRejectReason) ||
+                other.customerRejectReason == customerRejectReason) &&
+            (identical(other.artistRejectReason, artistRejectReason) ||
+                other.artistRejectReason == artistRejectReason) &&
+            (identical(other.rejectReasonDetails, rejectReasonDetails) ||
+                other.rejectReasonDetails == rejectReasonDetails) &&
+            (identical(other.rejectedDate, rejectedDate) ||
+                other.rejectedDate == rejectedDate) &&
             (identical(other.appealedReason, appealedReason) ||
                 other.appealedReason == appealedReason) &&
             (identical(other.appealedDate, appealedDate) ||
                 other.appealedDate == appealedDate) &&
-            (identical(other.canceledReason, canceledReason) ||
-                other.canceledReason == canceledReason) &&
+            (identical(other.canceledBy, canceledBy) ||
+                other.canceledBy == canceledBy) &&
+            (identical(other.customerCancelReason, customerCancelReason) ||
+                other.customerCancelReason == customerCancelReason) &&
+            (identical(other.systemCancelReason, systemCancelReason) ||
+                other.systemCancelReason == systemCancelReason) &&
+            (identical(other.cancelReasonDetails, cancelReasonDetails) ||
+                other.cancelReasonDetails == cancelReasonDetails) &&
             (identical(other.canceledDate, canceledDate) ||
-                other.canceledDate == canceledDate));
+                other.canceledDate == canceledDate) &&
+            (identical(other.lastUpdatedBy, lastUpdatedBy) ||
+                other.lastUpdatedBy == lastUpdatedBy) &&
+            (identical(other.lastUpdatedByUserType, lastUpdatedByUserType) ||
+                other.lastUpdatedByUserType == lastUpdatedByUserType) &&
+            const DeepCollectionEquality().equals(other._history, _history));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      createdAt,
-      updatedAt,
-      customerId,
-      artistId,
-      description,
-      referenceImages,
-      proposedDesigns,
-      status,
-      estimatedCost,
-      responseDate,
-      appointmentDate,
-      appointmentDuration,
-      rejectedReason,
-      appealedReason,
-      appealedDate,
-      canceledReason,
-      canceledDate);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        createdAt,
+        updatedAt,
+        customerId,
+        artistId,
+        description,
+        referenceImages,
+        proposedDesigns,
+        status,
+        estimatedCost,
+        responseDate,
+        appointmentDate,
+        appointmentDuration,
+        rejectBy,
+        customerRejectReason,
+        artistRejectReason,
+        rejectReasonDetails,
+        rejectedDate,
+        appealedReason,
+        appealedDate,
+        canceledBy,
+        customerCancelReason,
+        systemCancelReason,
+        cancelReasonDetails,
+        canceledDate,
+        lastUpdatedBy,
+        lastUpdatedByUserType,
+        const DeepCollectionEquality().hash(_history)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -511,11 +715,21 @@ abstract class _Quotation implements Quotation {
       final DateTime? responseDate,
       final DateTime? appointmentDate,
       final int? appointmentDuration,
-      final String? rejectedReason,
-      final AppealedReason? appealedReason,
+      final QuotationRejectBy? rejectBy,
+      final QuotationCustomerRejectReason? customerRejectReason,
+      final QuotationArtistRejectReason? artistRejectReason,
+      final String? rejectReasonDetails,
+      final DateTime? rejectedDate,
+      final QuotationCustomerAppealReason? appealedReason,
       final DateTime? appealedDate,
-      final CancelReason? canceledReason,
-      final DateTime? canceledDate}) = _$QuotationImpl;
+      final QuotationCancelBy? canceledBy,
+      final QuotationCustomerCancelReason? customerCancelReason,
+      final QuotationSystemCancelReason? systemCancelReason,
+      final String? cancelReasonDetails,
+      final DateTime? canceledDate,
+      final int? lastUpdatedBy,
+      final QuotationUserType? lastUpdatedByUserType,
+      final List<QuotationHistory>? history}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
@@ -547,18 +761,640 @@ abstract class _Quotation implements Quotation {
   @override
   int? get appointmentDuration;
   @override
-  String? get rejectedReason;
+  QuotationRejectBy? get rejectBy;
   @override
-  AppealedReason? get appealedReason;
+  QuotationCustomerRejectReason? get customerRejectReason;
+  @override
+  QuotationArtistRejectReason? get artistRejectReason;
+  @override
+  String? get rejectReasonDetails;
+  @override
+  DateTime? get rejectedDate;
+  @override
+  QuotationCustomerAppealReason? get appealedReason;
   @override
   DateTime? get appealedDate;
   @override
-  CancelReason? get canceledReason;
+  QuotationCancelBy? get canceledBy;
+  @override
+  QuotationCustomerCancelReason? get customerCancelReason;
+  @override
+  QuotationSystemCancelReason? get systemCancelReason;
+  @override
+  String? get cancelReasonDetails;
   @override
   DateTime? get canceledDate;
   @override
+  int? get lastUpdatedBy;
+  @override
+  QuotationUserType? get lastUpdatedByUserType;
+  @override
+  List<QuotationHistory>? get history;
+  @override
   @JsonKey(ignore: true)
   _$$QuotationImplCopyWith<_$QuotationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+QuotationHistory _$QuotationHistoryFromJson(Map<String, dynamic> json) {
+  return _QuotationHistory.fromJson(json);
+}
+
+/// @nodoc
+mixin _$QuotationHistory {
+  int get id => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  Quotation get quotation => throw _privateConstructorUsedError;
+  QuotationStatus get previousStatus => throw _privateConstructorUsedError;
+  QuotationStatus get newStatus => throw _privateConstructorUsedError;
+  DateTime get changedAt => throw _privateConstructorUsedError;
+  int get changedBy => throw _privateConstructorUsedError;
+  QuotationRole get changedByUserType => throw _privateConstructorUsedError;
+  double? get previousEstimatedCost => throw _privateConstructorUsedError;
+  double? get newEstimatedCost => throw _privateConstructorUsedError;
+  DateTime? get previousAppointmentDate => throw _privateConstructorUsedError;
+  DateTime? get newAppointmentDate => throw _privateConstructorUsedError;
+  int? get previousAppointmentDuration => throw _privateConstructorUsedError;
+  int? get newAppointmentDuration => throw _privateConstructorUsedError;
+  QuotationCustomerAppealReason? get appealedReason =>
+      throw _privateConstructorUsedError;
+  String? get rejectionReason => throw _privateConstructorUsedError;
+  String? get cancellationReason => throw _privateConstructorUsedError;
+  String? get additionalDetails => throw _privateConstructorUsedError;
+  int? get lastUpdatedBy => throw _privateConstructorUsedError;
+  QuotationUserType? get lastUpdatedByUserType =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuotationHistoryCopyWith<QuotationHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuotationHistoryCopyWith<$Res> {
+  factory $QuotationHistoryCopyWith(
+          QuotationHistory value, $Res Function(QuotationHistory) then) =
+      _$QuotationHistoryCopyWithImpl<$Res, QuotationHistory>;
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      Quotation quotation,
+      QuotationStatus previousStatus,
+      QuotationStatus newStatus,
+      DateTime changedAt,
+      int changedBy,
+      QuotationRole changedByUserType,
+      double? previousEstimatedCost,
+      double? newEstimatedCost,
+      DateTime? previousAppointmentDate,
+      DateTime? newAppointmentDate,
+      int? previousAppointmentDuration,
+      int? newAppointmentDuration,
+      QuotationCustomerAppealReason? appealedReason,
+      String? rejectionReason,
+      String? cancellationReason,
+      String? additionalDetails,
+      int? lastUpdatedBy,
+      QuotationUserType? lastUpdatedByUserType});
+
+  $QuotationCopyWith<$Res> get quotation;
+}
+
+/// @nodoc
+class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
+    implements $QuotationHistoryCopyWith<$Res> {
+  _$QuotationHistoryCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? quotation = null,
+    Object? previousStatus = null,
+    Object? newStatus = null,
+    Object? changedAt = null,
+    Object? changedBy = null,
+    Object? changedByUserType = null,
+    Object? previousEstimatedCost = freezed,
+    Object? newEstimatedCost = freezed,
+    Object? previousAppointmentDate = freezed,
+    Object? newAppointmentDate = freezed,
+    Object? previousAppointmentDuration = freezed,
+    Object? newAppointmentDuration = freezed,
+    Object? appealedReason = freezed,
+    Object? rejectionReason = freezed,
+    Object? cancellationReason = freezed,
+    Object? additionalDetails = freezed,
+    Object? lastUpdatedBy = freezed,
+    Object? lastUpdatedByUserType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      quotation: null == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation,
+      previousStatus: null == previousStatus
+          ? _value.previousStatus
+          : previousStatus // ignore: cast_nullable_to_non_nullable
+              as QuotationStatus,
+      newStatus: null == newStatus
+          ? _value.newStatus
+          : newStatus // ignore: cast_nullable_to_non_nullable
+              as QuotationStatus,
+      changedAt: null == changedAt
+          ? _value.changedAt
+          : changedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      changedBy: null == changedBy
+          ? _value.changedBy
+          : changedBy // ignore: cast_nullable_to_non_nullable
+              as int,
+      changedByUserType: null == changedByUserType
+          ? _value.changedByUserType
+          : changedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationRole,
+      previousEstimatedCost: freezed == previousEstimatedCost
+          ? _value.previousEstimatedCost
+          : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
+              as double?,
+      newEstimatedCost: freezed == newEstimatedCost
+          ? _value.newEstimatedCost
+          : newEstimatedCost // ignore: cast_nullable_to_non_nullable
+              as double?,
+      previousAppointmentDate: freezed == previousAppointmentDate
+          ? _value.previousAppointmentDate
+          : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      newAppointmentDate: freezed == newAppointmentDate
+          ? _value.newAppointmentDate
+          : newAppointmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      previousAppointmentDuration: freezed == previousAppointmentDuration
+          ? _value.previousAppointmentDuration
+          : previousAppointmentDuration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      newAppointmentDuration: freezed == newAppointmentDuration
+          ? _value.newAppointmentDuration
+          : newAppointmentDuration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      appealedReason: freezed == appealedReason
+          ? _value.appealedReason
+          : appealedReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerAppealReason?,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellationReason: freezed == cancellationReason
+          ? _value.cancellationReason
+          : cancellationReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalDetails: freezed == additionalDetails
+          ? _value.additionalDetails
+          : additionalDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastUpdatedBy: freezed == lastUpdatedBy
+          ? _value.lastUpdatedBy
+          : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastUpdatedByUserType: freezed == lastUpdatedByUserType
+          ? _value.lastUpdatedByUserType
+          : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationUserType?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QuotationCopyWith<$Res> get quotation {
+    return $QuotationCopyWith<$Res>(_value.quotation, (value) {
+      return _then(_value.copyWith(quotation: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$QuotationHistoryImplCopyWith<$Res>
+    implements $QuotationHistoryCopyWith<$Res> {
+  factory _$$QuotationHistoryImplCopyWith(_$QuotationHistoryImpl value,
+          $Res Function(_$QuotationHistoryImpl) then) =
+      __$$QuotationHistoryImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      Quotation quotation,
+      QuotationStatus previousStatus,
+      QuotationStatus newStatus,
+      DateTime changedAt,
+      int changedBy,
+      QuotationRole changedByUserType,
+      double? previousEstimatedCost,
+      double? newEstimatedCost,
+      DateTime? previousAppointmentDate,
+      DateTime? newAppointmentDate,
+      int? previousAppointmentDuration,
+      int? newAppointmentDuration,
+      QuotationCustomerAppealReason? appealedReason,
+      String? rejectionReason,
+      String? cancellationReason,
+      String? additionalDetails,
+      int? lastUpdatedBy,
+      QuotationUserType? lastUpdatedByUserType});
+
+  @override
+  $QuotationCopyWith<$Res> get quotation;
+}
+
+/// @nodoc
+class __$$QuotationHistoryImplCopyWithImpl<$Res>
+    extends _$QuotationHistoryCopyWithImpl<$Res, _$QuotationHistoryImpl>
+    implements _$$QuotationHistoryImplCopyWith<$Res> {
+  __$$QuotationHistoryImplCopyWithImpl(_$QuotationHistoryImpl _value,
+      $Res Function(_$QuotationHistoryImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? quotation = null,
+    Object? previousStatus = null,
+    Object? newStatus = null,
+    Object? changedAt = null,
+    Object? changedBy = null,
+    Object? changedByUserType = null,
+    Object? previousEstimatedCost = freezed,
+    Object? newEstimatedCost = freezed,
+    Object? previousAppointmentDate = freezed,
+    Object? newAppointmentDate = freezed,
+    Object? previousAppointmentDuration = freezed,
+    Object? newAppointmentDuration = freezed,
+    Object? appealedReason = freezed,
+    Object? rejectionReason = freezed,
+    Object? cancellationReason = freezed,
+    Object? additionalDetails = freezed,
+    Object? lastUpdatedBy = freezed,
+    Object? lastUpdatedByUserType = freezed,
+  }) {
+    return _then(_$QuotationHistoryImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      quotation: null == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation,
+      previousStatus: null == previousStatus
+          ? _value.previousStatus
+          : previousStatus // ignore: cast_nullable_to_non_nullable
+              as QuotationStatus,
+      newStatus: null == newStatus
+          ? _value.newStatus
+          : newStatus // ignore: cast_nullable_to_non_nullable
+              as QuotationStatus,
+      changedAt: null == changedAt
+          ? _value.changedAt
+          : changedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      changedBy: null == changedBy
+          ? _value.changedBy
+          : changedBy // ignore: cast_nullable_to_non_nullable
+              as int,
+      changedByUserType: null == changedByUserType
+          ? _value.changedByUserType
+          : changedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationRole,
+      previousEstimatedCost: freezed == previousEstimatedCost
+          ? _value.previousEstimatedCost
+          : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
+              as double?,
+      newEstimatedCost: freezed == newEstimatedCost
+          ? _value.newEstimatedCost
+          : newEstimatedCost // ignore: cast_nullable_to_non_nullable
+              as double?,
+      previousAppointmentDate: freezed == previousAppointmentDate
+          ? _value.previousAppointmentDate
+          : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      newAppointmentDate: freezed == newAppointmentDate
+          ? _value.newAppointmentDate
+          : newAppointmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      previousAppointmentDuration: freezed == previousAppointmentDuration
+          ? _value.previousAppointmentDuration
+          : previousAppointmentDuration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      newAppointmentDuration: freezed == newAppointmentDuration
+          ? _value.newAppointmentDuration
+          : newAppointmentDuration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      appealedReason: freezed == appealedReason
+          ? _value.appealedReason
+          : appealedReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerAppealReason?,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellationReason: freezed == cancellationReason
+          ? _value.cancellationReason
+          : cancellationReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalDetails: freezed == additionalDetails
+          ? _value.additionalDetails
+          : additionalDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastUpdatedBy: freezed == lastUpdatedBy
+          ? _value.lastUpdatedBy
+          : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastUpdatedByUserType: freezed == lastUpdatedByUserType
+          ? _value.lastUpdatedByUserType
+          : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
+              as QuotationUserType?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuotationHistoryImpl implements _QuotationHistory {
+  const _$QuotationHistoryImpl(
+      {required this.id,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.quotation,
+      required this.previousStatus,
+      required this.newStatus,
+      required this.changedAt,
+      required this.changedBy,
+      required this.changedByUserType,
+      this.previousEstimatedCost,
+      this.newEstimatedCost,
+      this.previousAppointmentDate,
+      this.newAppointmentDate,
+      this.previousAppointmentDuration,
+      this.newAppointmentDuration,
+      this.appealedReason,
+      this.rejectionReason,
+      this.cancellationReason,
+      this.additionalDetails,
+      this.lastUpdatedBy,
+      this.lastUpdatedByUserType});
+
+  factory _$QuotationHistoryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuotationHistoryImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final Quotation quotation;
+  @override
+  final QuotationStatus previousStatus;
+  @override
+  final QuotationStatus newStatus;
+  @override
+  final DateTime changedAt;
+  @override
+  final int changedBy;
+  @override
+  final QuotationRole changedByUserType;
+  @override
+  final double? previousEstimatedCost;
+  @override
+  final double? newEstimatedCost;
+  @override
+  final DateTime? previousAppointmentDate;
+  @override
+  final DateTime? newAppointmentDate;
+  @override
+  final int? previousAppointmentDuration;
+  @override
+  final int? newAppointmentDuration;
+  @override
+  final QuotationCustomerAppealReason? appealedReason;
+  @override
+  final String? rejectionReason;
+  @override
+  final String? cancellationReason;
+  @override
+  final String? additionalDetails;
+  @override
+  final int? lastUpdatedBy;
+  @override
+  final QuotationUserType? lastUpdatedByUserType;
+
+  @override
+  String toString() {
+    return 'QuotationHistory(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, quotation: $quotation, previousStatus: $previousStatus, newStatus: $newStatus, changedAt: $changedAt, changedBy: $changedBy, changedByUserType: $changedByUserType, previousEstimatedCost: $previousEstimatedCost, newEstimatedCost: $newEstimatedCost, previousAppointmentDate: $previousAppointmentDate, newAppointmentDate: $newAppointmentDate, previousAppointmentDuration: $previousAppointmentDuration, newAppointmentDuration: $newAppointmentDuration, appealedReason: $appealedReason, rejectionReason: $rejectionReason, cancellationReason: $cancellationReason, additionalDetails: $additionalDetails, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuotationHistoryImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.quotation, quotation) ||
+                other.quotation == quotation) &&
+            (identical(other.previousStatus, previousStatus) ||
+                other.previousStatus == previousStatus) &&
+            (identical(other.newStatus, newStatus) ||
+                other.newStatus == newStatus) &&
+            (identical(other.changedAt, changedAt) ||
+                other.changedAt == changedAt) &&
+            (identical(other.changedBy, changedBy) ||
+                other.changedBy == changedBy) &&
+            (identical(other.changedByUserType, changedByUserType) ||
+                other.changedByUserType == changedByUserType) &&
+            (identical(other.previousEstimatedCost, previousEstimatedCost) ||
+                other.previousEstimatedCost == previousEstimatedCost) &&
+            (identical(other.newEstimatedCost, newEstimatedCost) ||
+                other.newEstimatedCost == newEstimatedCost) &&
+            (identical(
+                    other.previousAppointmentDate, previousAppointmentDate) ||
+                other.previousAppointmentDate == previousAppointmentDate) &&
+            (identical(other.newAppointmentDate, newAppointmentDate) ||
+                other.newAppointmentDate == newAppointmentDate) &&
+            (identical(other.previousAppointmentDuration,
+                    previousAppointmentDuration) ||
+                other.previousAppointmentDuration ==
+                    previousAppointmentDuration) &&
+            (identical(other.newAppointmentDuration, newAppointmentDuration) ||
+                other.newAppointmentDuration == newAppointmentDuration) &&
+            (identical(other.appealedReason, appealedReason) ||
+                other.appealedReason == appealedReason) &&
+            (identical(other.rejectionReason, rejectionReason) ||
+                other.rejectionReason == rejectionReason) &&
+            (identical(other.cancellationReason, cancellationReason) ||
+                other.cancellationReason == cancellationReason) &&
+            (identical(other.additionalDetails, additionalDetails) ||
+                other.additionalDetails == additionalDetails) &&
+            (identical(other.lastUpdatedBy, lastUpdatedBy) ||
+                other.lastUpdatedBy == lastUpdatedBy) &&
+            (identical(other.lastUpdatedByUserType, lastUpdatedByUserType) ||
+                other.lastUpdatedByUserType == lastUpdatedByUserType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        createdAt,
+        updatedAt,
+        quotation,
+        previousStatus,
+        newStatus,
+        changedAt,
+        changedBy,
+        changedByUserType,
+        previousEstimatedCost,
+        newEstimatedCost,
+        previousAppointmentDate,
+        newAppointmentDate,
+        previousAppointmentDuration,
+        newAppointmentDuration,
+        appealedReason,
+        rejectionReason,
+        cancellationReason,
+        additionalDetails,
+        lastUpdatedBy,
+        lastUpdatedByUserType
+      ]);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuotationHistoryImplCopyWith<_$QuotationHistoryImpl> get copyWith =>
+      __$$QuotationHistoryImplCopyWithImpl<_$QuotationHistoryImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuotationHistoryImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _QuotationHistory implements QuotationHistory {
+  const factory _QuotationHistory(
+      {required final int id,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      required final Quotation quotation,
+      required final QuotationStatus previousStatus,
+      required final QuotationStatus newStatus,
+      required final DateTime changedAt,
+      required final int changedBy,
+      required final QuotationRole changedByUserType,
+      final double? previousEstimatedCost,
+      final double? newEstimatedCost,
+      final DateTime? previousAppointmentDate,
+      final DateTime? newAppointmentDate,
+      final int? previousAppointmentDuration,
+      final int? newAppointmentDuration,
+      final QuotationCustomerAppealReason? appealedReason,
+      final String? rejectionReason,
+      final String? cancellationReason,
+      final String? additionalDetails,
+      final int? lastUpdatedBy,
+      final QuotationUserType? lastUpdatedByUserType}) = _$QuotationHistoryImpl;
+
+  factory _QuotationHistory.fromJson(Map<String, dynamic> json) =
+      _$QuotationHistoryImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  Quotation get quotation;
+  @override
+  QuotationStatus get previousStatus;
+  @override
+  QuotationStatus get newStatus;
+  @override
+  DateTime get changedAt;
+  @override
+  int get changedBy;
+  @override
+  QuotationRole get changedByUserType;
+  @override
+  double? get previousEstimatedCost;
+  @override
+  double? get newEstimatedCost;
+  @override
+  DateTime? get previousAppointmentDate;
+  @override
+  DateTime? get newAppointmentDate;
+  @override
+  int? get previousAppointmentDuration;
+  @override
+  int? get newAppointmentDuration;
+  @override
+  QuotationCustomerAppealReason? get appealedReason;
+  @override
+  String? get rejectionReason;
+  @override
+  String? get cancellationReason;
+  @override
+  String? get additionalDetails;
+  @override
+  int? get lastUpdatedBy;
+  @override
+  QuotationUserType? get lastUpdatedByUserType;
+  @override
+  @JsonKey(ignore: true)
+  _$$QuotationHistoryImplCopyWith<_$QuotationHistoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
