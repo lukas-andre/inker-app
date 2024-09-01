@@ -30,17 +30,38 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           ? null
           : DateTime.parse(json['appointmentDate'] as String),
       appointmentDuration: (json['appointmentDuration'] as num?)?.toInt(),
-      rejectedReason: json['rejectedReason'] as String?,
-      appealedReason:
-          $enumDecodeNullable(_$AppealedReasonEnumMap, json['appealedReason']),
+      rejectBy:
+          $enumDecodeNullable(_$QuotationRejectByEnumMap, json['rejectBy']),
+      customerRejectReason: $enumDecodeNullable(
+          _$QuotationCustomerRejectReasonEnumMap, json['customerRejectReason']),
+      artistRejectReason: $enumDecodeNullable(
+          _$QuotationArtistRejectReasonEnumMap, json['artistRejectReason']),
+      rejectReasonDetails: json['rejectReasonDetails'] as String?,
+      rejectedDate: json['rejectedDate'] == null
+          ? null
+          : DateTime.parse(json['rejectedDate'] as String),
+      appealedReason: $enumDecodeNullable(
+          _$QuotationCustomerAppealReasonEnumMap, json['appealedReason']),
       appealedDate: json['appealedDate'] == null
           ? null
           : DateTime.parse(json['appealedDate'] as String),
-      canceledReason:
-          $enumDecodeNullable(_$CancelReasonEnumMap, json['canceledReason']),
+      canceledBy:
+          $enumDecodeNullable(_$QuotationCancelByEnumMap, json['canceledBy']),
+      customerCancelReason: $enumDecodeNullable(
+          _$QuotationCustomerCancelReasonEnumMap, json['customerCancelReason']),
+      systemCancelReason: $enumDecodeNullable(
+          _$QuotationSystemCancelReasonEnumMap, json['systemCancelReason']),
+      cancelReasonDetails: json['cancelReasonDetails'] as String?,
       canceledDate: json['canceledDate'] == null
           ? null
           : DateTime.parse(json['canceledDate'] as String),
+      lastUpdatedBy: (json['lastUpdatedBy'] as num?)?.toInt(),
+      lastUpdatedByUserType: $enumDecodeNullable(
+          _$QuotationUserTypeEnumMap, json['lastUpdatedByUserType']),
+      history: (json['history'] as List<dynamic>?)
+          ?.map((e) =>
+              QuotationHistory.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -66,13 +87,27 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('responseDate', instance.responseDate?.toIso8601String());
   writeNotNull('appointmentDate', instance.appointmentDate?.toIso8601String());
   writeNotNull('appointmentDuration', instance.appointmentDuration);
-  writeNotNull('rejectedReason', instance.rejectedReason);
-  writeNotNull(
-      'appealedReason', _$AppealedReasonEnumMap[instance.appealedReason]);
+  writeNotNull('rejectBy', _$QuotationRejectByEnumMap[instance.rejectBy]);
+  writeNotNull('customerRejectReason',
+      _$QuotationCustomerRejectReasonEnumMap[instance.customerRejectReason]);
+  writeNotNull('artistRejectReason',
+      _$QuotationArtistRejectReasonEnumMap[instance.artistRejectReason]);
+  writeNotNull('rejectReasonDetails', instance.rejectReasonDetails);
+  writeNotNull('rejectedDate', instance.rejectedDate?.toIso8601String());
+  writeNotNull('appealedReason',
+      _$QuotationCustomerAppealReasonEnumMap[instance.appealedReason]);
   writeNotNull('appealedDate', instance.appealedDate?.toIso8601String());
-  writeNotNull(
-      'canceledReason', _$CancelReasonEnumMap[instance.canceledReason]);
+  writeNotNull('canceledBy', _$QuotationCancelByEnumMap[instance.canceledBy]);
+  writeNotNull('customerCancelReason',
+      _$QuotationCustomerCancelReasonEnumMap[instance.customerCancelReason]);
+  writeNotNull('systemCancelReason',
+      _$QuotationSystemCancelReasonEnumMap[instance.systemCancelReason]);
+  writeNotNull('cancelReasonDetails', instance.cancelReasonDetails);
   writeNotNull('canceledDate', instance.canceledDate?.toIso8601String());
+  writeNotNull('lastUpdatedBy', instance.lastUpdatedBy);
+  writeNotNull('lastUpdatedByUserType',
+      _$QuotationUserTypeEnumMap[instance.lastUpdatedByUserType]);
+  writeNotNull('history', instance.history?.map((e) => e.toJson()).toList());
   return val;
 }
 
@@ -85,14 +120,139 @@ const _$QuotationStatusEnumMap = {
   QuotationStatus.canceled: 'canceled',
 };
 
-const _$AppealedReasonEnumMap = {
-  AppealedReason.dateChange: 'dateChange',
+const _$QuotationRejectByEnumMap = {
+  QuotationRejectBy.customer: 'customer',
+  QuotationRejectBy.artist: 'artist',
+  QuotationRejectBy.system: 'system',
 };
 
-const _$CancelReasonEnumMap = {
-  CancelReason.customer: 'customer',
-  CancelReason.artist: 'artist',
-  CancelReason.notAttended: 'not_attended',
+const _$QuotationCustomerRejectReasonEnumMap = {
+  QuotationCustomerRejectReason.tooExpensive: 'too_expensive',
+  QuotationCustomerRejectReason.notWhatIWanted: 'not_what_i_wanted',
+  QuotationCustomerRejectReason.changedMyMind: 'changed_my_mind',
+  QuotationCustomerRejectReason.foundAnotherArtist: 'found_another_artist',
+  QuotationCustomerRejectReason.other: 'other',
+};
+
+const _$QuotationArtistRejectReasonEnumMap = {
+  QuotationArtistRejectReason.schedulingConflict: 'scheduling_conflict',
+  QuotationArtistRejectReason.artisticDisagreement: 'artistic_disagreement',
+  QuotationArtistRejectReason.insufficientDetails: 'insufficient_details',
+  QuotationArtistRejectReason.beyondExpertise: 'beyond_expertise',
+  QuotationArtistRejectReason.other: 'other',
+};
+
+const _$QuotationCustomerAppealReasonEnumMap = {
+  QuotationCustomerAppealReason.dateChange: 'date_change',
+  QuotationCustomerAppealReason.priceChange: 'price_change',
+  QuotationCustomerAppealReason.designChange: 'design_change',
+};
+
+const _$QuotationCancelByEnumMap = {
+  QuotationCancelBy.customer: 'customer',
+  QuotationCancelBy.system: 'system',
+};
+
+const _$QuotationCustomerCancelReasonEnumMap = {
+  QuotationCustomerCancelReason.changeOfMind: 'change_of_mind',
+  QuotationCustomerCancelReason.foundAnotherArtist: 'found_another_artist',
+  QuotationCustomerCancelReason.financialReasons: 'financial_reasons',
+  QuotationCustomerCancelReason.personalReasons: 'personal_reasons',
+  QuotationCustomerCancelReason.other: 'other',
+};
+
+const _$QuotationSystemCancelReasonEnumMap = {
+  QuotationSystemCancelReason.notAttended: 'not_attended',
+  QuotationSystemCancelReason.systemTimeout: 'system_timeout',
+};
+
+const _$QuotationUserTypeEnumMap = {
+  QuotationUserType.customer: 'customer',
+  QuotationUserType.artist: 'artist',
+  QuotationUserType.admin: 'admin',
+  QuotationUserType.system: 'system',
+};
+
+_$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
+    _$QuotationHistoryImpl(
+      id: (json['id'] as num).toInt(),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      quotation: Quotation.fromJson(
+          Map<String, dynamic>.from(json['quotation'] as Map)),
+      previousStatus:
+          $enumDecode(_$QuotationStatusEnumMap, json['previousStatus']),
+      newStatus: $enumDecode(_$QuotationStatusEnumMap, json['newStatus']),
+      changedAt: DateTime.parse(json['changedAt'] as String),
+      changedBy: (json['changedBy'] as num).toInt(),
+      changedByUserType:
+          $enumDecode(_$QuotationRoleEnumMap, json['changedByUserType']),
+      previousEstimatedCost:
+          (json['previousEstimatedCost'] as num?)?.toDouble(),
+      newEstimatedCost: (json['newEstimatedCost'] as num?)?.toDouble(),
+      previousAppointmentDate: json['previousAppointmentDate'] == null
+          ? null
+          : DateTime.parse(json['previousAppointmentDate'] as String),
+      newAppointmentDate: json['newAppointmentDate'] == null
+          ? null
+          : DateTime.parse(json['newAppointmentDate'] as String),
+      previousAppointmentDuration:
+          (json['previousAppointmentDuration'] as num?)?.toInt(),
+      newAppointmentDuration: (json['newAppointmentDuration'] as num?)?.toInt(),
+      appealedReason: $enumDecodeNullable(
+          _$QuotationCustomerAppealReasonEnumMap, json['appealedReason']),
+      rejectionReason: json['rejectionReason'] as String?,
+      cancellationReason: json['cancellationReason'] as String?,
+      additionalDetails: json['additionalDetails'] as String?,
+      lastUpdatedBy: (json['lastUpdatedBy'] as num?)?.toInt(),
+      lastUpdatedByUserType: $enumDecodeNullable(
+          _$QuotationUserTypeEnumMap, json['lastUpdatedByUserType']),
+    );
+
+Map<String, dynamic> _$$QuotationHistoryImplToJson(
+    _$QuotationHistoryImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'createdAt': instance.createdAt.toIso8601String(),
+    'updatedAt': instance.updatedAt.toIso8601String(),
+    'quotation': instance.quotation.toJson(),
+    'previousStatus': _$QuotationStatusEnumMap[instance.previousStatus]!,
+    'newStatus': _$QuotationStatusEnumMap[instance.newStatus]!,
+    'changedAt': instance.changedAt.toIso8601String(),
+    'changedBy': instance.changedBy,
+    'changedByUserType': _$QuotationRoleEnumMap[instance.changedByUserType]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('previousEstimatedCost', instance.previousEstimatedCost);
+  writeNotNull('newEstimatedCost', instance.newEstimatedCost);
+  writeNotNull('previousAppointmentDate',
+      instance.previousAppointmentDate?.toIso8601String());
+  writeNotNull(
+      'newAppointmentDate', instance.newAppointmentDate?.toIso8601String());
+  writeNotNull(
+      'previousAppointmentDuration', instance.previousAppointmentDuration);
+  writeNotNull('newAppointmentDuration', instance.newAppointmentDuration);
+  writeNotNull('appealedReason',
+      _$QuotationCustomerAppealReasonEnumMap[instance.appealedReason]);
+  writeNotNull('rejectionReason', instance.rejectionReason);
+  writeNotNull('cancellationReason', instance.cancellationReason);
+  writeNotNull('additionalDetails', instance.additionalDetails);
+  writeNotNull('lastUpdatedBy', instance.lastUpdatedBy);
+  writeNotNull('lastUpdatedByUserType',
+      _$QuotationUserTypeEnumMap[instance.lastUpdatedByUserType]);
+  return val;
+}
+
+const _$QuotationRoleEnumMap = {
+  QuotationRole.customer: 'customer',
+  QuotationRole.artist: 'artist',
+  QuotationRole.system: 'system',
 };
 
 _$MultimediasMetadataImpl _$$MultimediasMetadataImplFromJson(Map json) =>

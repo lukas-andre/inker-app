@@ -67,11 +67,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "quoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
+        "reply": MessageLookupByLibrary.simpleMessage("Responder"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
         "selectService":
             MessageLookupByLibrary.simpleMessage("Seleccionar servicio"),
+        "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
+        "status": MessageLookupByLibrary.simpleMessage("Estado"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":

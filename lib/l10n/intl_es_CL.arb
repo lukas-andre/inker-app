@@ -42,5 +42,8 @@
   "errorMsgNotesValidationError": "Notas superan el límite de caracteres",
   "errorMsgHoursValidationError": "Por favor seleccione una hora",
   "createQuotation": "Crear Cotización",
-  "loadMore": "Cargar Más"
+  "loadMore": "Cargar Más",
+  "reply": "Responder",
+  "send": "Enviar",
+  "status": "Estado"
 }
