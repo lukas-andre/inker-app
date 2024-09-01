@@ -1,6 +1,7 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 
 abstract class QuotationService {
   Future<Map<String, dynamic>> createQuotation(
@@ -14,6 +15,26 @@ abstract class QuotationService {
   });
   Future<Quotation> getQuotationDetails(
       {required String token, required String quotationId});
-  Future<Quotation> updateQuotation(Quotation quotation);
-  Future<void> deleteQuotation(String id);
+
+  Future<void> processArtistAction({
+    required String token,
+    required String quotationId,
+    required ArtistQuotationAction action,
+    double? estimatedCost,
+    DateTime? appointmentDate,
+    int? appointmentDuration,
+    String? additionalDetails,
+    QuotationArtistRejectReason? rejectionReason,
+    List<XFile>? proposedDesigns,
+  });
+
+  Future<void> processCustomerAction({
+    required String token,
+    required String quotationId,
+    required CustomerQuotationAction action,
+    QuotationCustomerRejectReason? rejectionReason,
+    QuotationCustomerAppealReason? appealReason,
+    QuotationCustomerCancelReason? cancelReason,
+    String? additionalDetails,
+  });
 }

@@ -246,6 +246,11 @@ class _QuotationListViewState extends State<QuotationListView>
 
   Widget _buildQuotationCard(Quotation quotation, Session session, S l10n) {
     final isArtist = session.user?.userType == 'ARTIST';
+    final isCustomer = !isArtist;
+    final canCancel = isCustomer && quotation.status == QuotationStatus.pending;
+    final canReplyAndCancel =
+        isCustomer && quotation.status == QuotationStatus.quoted;
+
     return Card(
       color: const Color(0xFF1F223C),
       margin: const EdgeInsets.only(bottom: 16),
@@ -274,7 +279,7 @@ class _QuotationListViewState extends State<QuotationListView>
                       Text(
                         isArtist
                             ? quotation.customerId.toString() ?? l10n.guest
-                            : '${l10n.description}: ${_getStatusText(quotation.status, l10n)}',
+                            : '${l10n.status}: ${_getStatusText(quotation.status, l10n)}',
                         style: TextStyleTheme.bodyText2
                             .copyWith(color: const Color(0xFF686D90)),
                       ),
@@ -285,42 +290,82 @@ class _QuotationListViewState extends State<QuotationListView>
             ),
             const SizedBox(height: 16),
             if (isArtist)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // TODO: Implement reply logic
-                    },
-                    icon: const Icon(Icons.message, size: 16),
-                    label: Text(l10n.sendMessage),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFFF2F2F2),
-                      backgroundColor: const Color(0xFF7450ff),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: const BorderSide(color: Color(0xFF777E91)),
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // TODO: Implement reject logic
-                    },
-                    icon: const Icon(Icons.close, size: 16),
-                    label: Text(l10n.cancel),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFFF2F2F2),
-                      backgroundColor: const Color(0xFF141D3C),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: const BorderSide(color: Color(0xFF777E91)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              _buildArtistActions(l10n)
+            else if (canCancel || canReplyAndCancel)
+              _buildCustomerActions(quotation, canReplyAndCancel, l10n),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildArtistActions(S l10n) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildActionButton(
+          onPressed: () {
+            // TODO: Implement reply logic
+          },
+          icon: Icons.message,
+          label: l10n.sendMessage,
+          isPrimary: true,
+        ),
+        _buildActionButton(
+          onPressed: () {
+            // TODO: Implement reject logic
+          },
+          icon: Icons.close,
+          label: l10n.cancel,
+          isPrimary: false,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCustomerActions(Quotation quotation, bool canReply, S l10n) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        if (canReply)
+          _buildActionButton(
+            onPressed: () {
+              // TODO: Implement reply logic
+            },
+            icon: Icons.reply,
+            label: l10n.reply,
+            isPrimary: true,
+          ),
+        const SizedBox(width: 8),
+        _buildActionButton(
+          onPressed: () {
+            // TODO: Implement cancel logic
+          },
+          icon: Icons.cancel,
+          label: l10n.cancel,
+          isPrimary: false,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required String label,
+    required bool isPrimary,
+  }) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 16),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        foregroundColor: const Color(0xFFF2F2F2),
+        backgroundColor:
+            isPrimary ? const Color(0xFF7450ff) : const Color(0xFF141D3C),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+          side: const BorderSide(color: Color(0xFF777E91)),
         ),
       ),
     );

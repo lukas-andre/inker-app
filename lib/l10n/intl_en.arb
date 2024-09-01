@@ -42,5 +42,8 @@
   "errorMsgNotesValidationError": "Notes exceed the limit of characters",
   "errorMsgHoursValidationError": "Please select hours",
   "createQuotation": "Create Quotation",
-  "loadMore": "Load More"
+  "loadMore": "Load More",
+  "reply": "Reply",
+  "send": "Send",
+  "status": "Status"
 }
