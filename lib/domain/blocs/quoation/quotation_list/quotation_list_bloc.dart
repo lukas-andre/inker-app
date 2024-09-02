@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -25,6 +26,8 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         loadQuotations: (List<String>? statuses, bool isNextPage) async =>
             _loadQuotations(emit, statuses, isNextPage),
         changeTab: (int tabIndex) async => _changeTab(emit, tabIndex),
+        cancelQuotation: (String quotationId) async =>
+            _cancelQuotation(emit, quotationId),
       );
     });
   }
@@ -134,6 +137,52 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         return ['quoted', 'accepted', 'rejected', 'canceled'];
       default:
         return [];
+    }
+  }
+
+  Future<void> _cancelQuotation(
+      Emitter<QuotationListState> emit, String quotationId) async {
+    try {
+      final currentState = state;
+      if (currentState is QuotationListLoaded) {
+        emit(currentState.copyWith(cancellingQuotationId: quotationId));
+
+        final session = await _sessionService.getActiveSession();
+        if (session == null) {
+          emit(const QuotationListState.error('No se ha iniciado sesión.'));
+          return;
+        }
+
+        await _quotationService.processCustomerAction(
+          token: session.accessToken,
+          quotationId: quotationId,
+          action: CustomerQuotationAction.cancel,
+          cancelReason: QuotationCustomerCancelReason.other,
+        );
+
+        final updatedQuotationsByTab =
+            Map<int, List<Quotation>>.from(currentState.quotationsByTab);
+        for (final tab in updatedQuotationsByTab.keys) {
+          updatedQuotationsByTab[tab] = updatedQuotationsByTab[tab]!
+              .where((quotation) => quotation.id.toString() != quotationId)
+              .toList();
+        }
+
+        emit(const QuotationListState.cancelSuccess());
+
+        emit(QuotationListState.loaded(
+          quotationsByTab: updatedQuotationsByTab,
+          currentTab: currentState.currentTab,
+          currentPage: currentState.currentPage,
+          hasMorePages: currentState.hasMorePages,
+          session: currentState.session,
+          currentStatuses: currentState.currentStatuses,
+          isLoadingMore: false,
+          cancellingQuotationId: null,
+        ));
+      }
+    } catch (e) {
+      emit(QuotationListState.error(e.toString()));
     }
   }
 }

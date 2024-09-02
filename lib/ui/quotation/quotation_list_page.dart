@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
@@ -6,6 +9,8 @@ import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class QuotationListPage extends StatelessWidget {
   const QuotationListPage({super.key});
@@ -33,12 +38,19 @@ class _QuotationListViewState extends State<QuotationListView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String searchTerm = "";
+  late QuotationListBloc _quotationListBloc;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabChange);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _quotationListBloc = BlocProvider.of<QuotationListBloc>(context);
   }
 
   @override
@@ -50,8 +62,7 @@ class _QuotationListViewState extends State<QuotationListView>
 
   void _handleTabChange() {
     if (!_tabController.indexIsChanging) {
-      context
-          .read<QuotationListBloc>()
+      _quotationListBloc
           .add(QuotationListEvent.changeTab(_tabController.index));
     }
   }
@@ -76,50 +87,49 @@ class _QuotationListViewState extends State<QuotationListView>
               _buildTabs(l10n),
               const SizedBox(height: 16),
               Expanded(
-                child: BlocBuilder<QuotationListBloc, QuotationListState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      initial: () =>
-                          const Center(child: InkerProgressIndicator()),
-                      loading: () =>
-                          const Center(child: InkerProgressIndicator()),
-                      loaded: (quotationsByTab,
-                          currentTab,
-                          currentPage,
-                          hasMorePages,
-                          session,
-                          currentStatuses,
-                          isLoadingMore) {
-                        final quotations = quotationsByTab[currentTab] ?? [];
-                        if (quotations.isEmpty) {
-                          return Center(
-                            child: Text(
-                              'No hay cotizaciones disponibles',
-                              style: TextStyleTheme.bodyText1
-                                  .copyWith(color: const Color(0xFFF2F2F2)),
-                            ),
-                          );
-                        }
-                        return _buildQuotationList(
-                          quotations,
-                          session,
-                          l10n,
-                          hasMorePages[currentTab] ?? false,
-                          isLoadingMore,
-                        );
-                      },
-                      error: (message) => Center(
-                        child: Text(
-                          message,
-                          style: TextStyleTheme.bodyText1
-                              .copyWith(color: const Color(0xFFF2F2F2)),
-                        ),
+                  child: BlocConsumer<QuotationListBloc, QuotationListState>(
+                listener: (context, state) {
+                  if (state is QuotationListCancelSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      customSnackBar(
+                        context: context,
+                        content: l10n.quotationCancelledSuccessfully,
+                        backgroundColor: secondaryColor,
                       ),
-                      orElse: () => const SizedBox.shrink(),
                     );
-                  },
-                ),
-              ),
+                  }
+                },
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    loaded: (quotationsByTab,
+                        currentTab,
+                        currentPage,
+                        hasMorePages,
+                        session,
+                        currentStatuses,
+                        isLoadingMore,
+                        cancellingQuotationId) {
+                      final quotations = quotationsByTab[currentTab] ?? [];
+                      return _buildQuotationList(
+                        quotations,
+                        session,
+                        l10n,
+                        hasMorePages[currentTab] ?? false,
+                        isLoadingMore,
+                        cancellingQuotationId,
+                      );
+                    },
+                    error: (message) => Center(
+                      child: Text(
+                        message,
+                        style: TextStyleTheme.bodyText1
+                            .copyWith(color: const Color(0xFFF2F2F2)),
+                      ),
+                    ),
+                    orElse: () => const Center(child: InkerProgressIndicator()),
+                  );
+                },
+              )),
             ],
           ),
         ),
@@ -130,31 +140,6 @@ class _QuotationListViewState extends State<QuotationListView>
         },
         backgroundColor: const Color(0xFF7450ff),
         child: const Icon(Icons.add, color: Color(0xFFF2F2F2)),
-      ),
-    );
-  }
-
-  Widget _buildSearchField(S l10n) {
-    return TextField(
-      onChanged: (value) {
-        setState(() {
-          searchTerm = value;
-        });
-      },
-      style: TextStyleTheme.bodyText1.copyWith(color: const Color(0xFFF2F2F2)),
-      decoration: InputDecoration(
-        hintText: l10n.description,
-        hintStyle:
-            TextStyleTheme.bodyText1.copyWith(color: const Color(0xFF686D90)),
-        fillColor: const Color(0xFF1F223C),
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Color(0xFF777E91)),
-        ),
-        prefixIcon: const Icon(Icons.search, color: Color(0xFF686D90)),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );
   }
@@ -208,6 +193,7 @@ class _QuotationListViewState extends State<QuotationListView>
     S l10n,
     bool hasMorePages,
     bool isLoadingMore,
+    String? cancellingQuotationId,
   ) {
     final filteredQuotations = quotations
         .where((quote) =>
@@ -229,9 +215,10 @@ class _QuotationListViewState extends State<QuotationListView>
                 ? const Center(child: InkerProgressIndicator())
                 : ElevatedButton(
                     onPressed: () {
-                      final bloc = context.read<QuotationListBloc>();
-                      bloc.add(QuotationListEvent.loadQuotations(
-                          bloc.getStatusesForTab(_tabController.index), true));
+                      _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                          _quotationListBloc
+                              .getStatusesForTab(_tabController.index),
+                          true));
                     },
                     child: Text(l10n.loadMore),
                   );
@@ -239,12 +226,14 @@ class _QuotationListViewState extends State<QuotationListView>
             return const SizedBox.shrink();
           }
         }
-        return _buildQuotationCard(filteredQuotations[index], session, l10n);
+        return _buildQuotationCard(
+            filteredQuotations[index], session, l10n, cancellingQuotationId);
       },
     );
   }
 
-  Widget _buildQuotationCard(Quotation quotation, Session session, S l10n) {
+  Widget _buildQuotationCard(Quotation quotation, Session session, S l10n,
+      String? cancellingQuotationId) {
     final isArtist = session.user?.userType == 'ARTIST';
     final isCustomer = !isArtist;
     final canCancel = isCustomer && quotation.status == QuotationStatus.pending;
@@ -292,10 +281,45 @@ class _QuotationListViewState extends State<QuotationListView>
             if (isArtist)
               _buildArtistActions(l10n)
             else if (canCancel || canReplyAndCancel)
-              _buildCustomerActions(quotation, canReplyAndCancel, l10n),
+              _buildCustomerActions(
+                  quotation, canReplyAndCancel, l10n, cancellingQuotationId),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCustomerActions(Quotation quotation, bool canReply, S l10n,
+      String? cancellingQuotationId) {
+    final isCancelling = cancellingQuotationId == quotation.id.toString();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        if (canReply)
+          _buildActionButton(
+            onPressed: () {
+              // TODO: Implement reply logic
+            },
+            icon: Icons.reply,
+            label: l10n.reply,
+            isPrimary: true,
+          ),
+        const SizedBox(width: 8),
+        isCancelling
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: InkerProgressIndicator(),
+              )
+            : _buildActionButton(
+                onPressed: () =>
+                    _showCancelConfirmationDialog(context, quotation, l10n),
+                icon: Icons.cancel,
+                label: l10n.cancel,
+                isPrimary: false,
+              ),
+      ],
     );
   }
 
@@ -323,32 +347,6 @@ class _QuotationListViewState extends State<QuotationListView>
     );
   }
 
-  Widget _buildCustomerActions(Quotation quotation, bool canReply, S l10n) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (canReply)
-          _buildActionButton(
-            onPressed: () {
-              // TODO: Implement reply logic
-            },
-            icon: Icons.reply,
-            label: l10n.reply,
-            isPrimary: true,
-          ),
-        const SizedBox(width: 8),
-        _buildActionButton(
-          onPressed: () {
-            // TODO: Implement cancel logic
-          },
-          icon: Icons.cancel,
-          label: l10n.cancel,
-          isPrimary: false,
-        ),
-      ],
-    );
-  }
-
   Widget _buildActionButton({
     required VoidCallback onPressed,
     required IconData icon,
@@ -369,6 +367,58 @@ class _QuotationListViewState extends State<QuotationListView>
         ),
       ),
     );
+  }
+
+  void _showCancelConfirmationDialog(
+      BuildContext context, Quotation quotation, S l10n) {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(l10n.cancelQuotationConfirmationTitle),
+          content: Text(l10n.cancelQuotationConfirmationMessage),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text(l10n.no),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            CupertinoDialogAction(
+              child: Text(l10n.yes),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _cancelQuotation(quotation);
+              },
+            ),
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(l10n.cancelQuotationConfirmationTitle),
+          content: Text(l10n.cancelQuotationConfirmationMessage),
+          actions: <Widget>[
+            TextButton(
+              child: Text(l10n.no),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            TextButton(
+              child: Text(l10n.yes),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _cancelQuotation(quotation);
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _cancelQuotation(Quotation quotation) {
+    _quotationListBloc
+        .add(QuotationListEvent.cancelQuotation(quotation.id.toString()));
   }
 
   String _getStatusText(QuotationStatus status, S l10n) {

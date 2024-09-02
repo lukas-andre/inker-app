@@ -509,6 +509,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Cancelar Cotización`
+  String get cancelQuotationConfirmationTitle {
+    return Intl.message(
+      'Cancelar Cotización',
+      name: 'cancelQuotationConfirmationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas cancelar esta cotización?`
+  String get cancelQuotationConfirmationMessage {
+    return Intl.message(
+      '¿Estás seguro de que deseas cancelar esta cotización?',
+      name: 'cancelQuotationConfirmationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cotización cancelada exitosamente`
+  String get quotationCancelledSuccessfully {
+    return Intl.message(
+      'Cotización cancelada exitosamente',
+      name: 'quotationCancelledSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sí`
+  String get yes {
+    return Intl.message(
+      'Sí',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

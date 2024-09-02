@@ -45,5 +45,10 @@
   "loadMore": "Cargar Más",
   "reply": "Responder",
   "send": "Enviar",
-  "status": "Estado"
+  "status": "Estado",
+  "cancelQuotationConfirmationTitle": "Cancelar Cotización",
+  "cancelQuotationConfirmationMessage": "¿Estás seguro de que deseas cancelar esta cotización?",
+  "quotationCancelledSuccessfully": "Cotización cancelada exitosamente",
+  "yes": "Sí",
+  "no": "No"
 }
