@@ -22,6 +22,7 @@ mixin _$QuotationListEvent {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(int tabIndex) changeTab,
+    required TResult Function(String quotationId) cancelQuotation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +30,7 @@ mixin _$QuotationListEvent {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(int tabIndex)? changeTab,
+    TResult? Function(String quotationId)? cancelQuotation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,7 @@ mixin _$QuotationListEvent {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(int tabIndex)? changeTab,
+    TResult Function(String quotationId)? cancelQuotation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +47,7 @@ mixin _$QuotationListEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_ChangeTab value) changeTab,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +55,7 @@ mixin _$QuotationListEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_ChangeTab value)? changeTab,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +63,7 @@ mixin _$QuotationListEvent {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_ChangeTab value)? changeTab,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,6 +129,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(int tabIndex) changeTab,
+    required TResult Function(String quotationId) cancelQuotation,
   }) {
     return started();
   }
@@ -133,6 +140,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(int tabIndex)? changeTab,
+    TResult? Function(String quotationId)? cancelQuotation,
   }) {
     return started?.call();
   }
@@ -143,6 +151,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(int tabIndex)? changeTab,
+    TResult Function(String quotationId)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -157,6 +166,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_ChangeTab value) changeTab,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
   }) {
     return started(this);
   }
@@ -167,6 +177,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_ChangeTab value)? changeTab,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
   }) {
     return started?.call(this);
   }
@@ -177,6 +188,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_ChangeTab value)? changeTab,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -278,6 +290,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(int tabIndex) changeTab,
+    required TResult Function(String quotationId) cancelQuotation,
   }) {
     return loadQuotations(statuses, isNextPage);
   }
@@ -288,6 +301,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(int tabIndex)? changeTab,
+    TResult? Function(String quotationId)? cancelQuotation,
   }) {
     return loadQuotations?.call(statuses, isNextPage);
   }
@@ -298,6 +312,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(int tabIndex)? changeTab,
+    TResult Function(String quotationId)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -312,6 +327,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_ChangeTab value) changeTab,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
   }) {
     return loadQuotations(this);
   }
@@ -322,6 +338,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_ChangeTab value)? changeTab,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
   }) {
     return loadQuotations?.call(this);
   }
@@ -332,6 +349,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_ChangeTab value)? changeTab,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -422,6 +440,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(int tabIndex) changeTab,
+    required TResult Function(String quotationId) cancelQuotation,
   }) {
     return changeTab(tabIndex);
   }
@@ -432,6 +451,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(int tabIndex)? changeTab,
+    TResult? Function(String quotationId)? cancelQuotation,
   }) {
     return changeTab?.call(tabIndex);
   }
@@ -442,6 +462,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(int tabIndex)? changeTab,
+    TResult Function(String quotationId)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (changeTab != null) {
@@ -456,6 +477,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_ChangeTab value) changeTab,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
   }) {
     return changeTab(this);
   }
@@ -466,6 +488,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_ChangeTab value)? changeTab,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
   }) {
     return changeTab?.call(this);
   }
@@ -476,6 +499,7 @@ class _$ChangeTabImpl implements _ChangeTab {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_ChangeTab value)? changeTab,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
     required TResult orElse(),
   }) {
     if (changeTab != null) {
@@ -495,6 +519,155 @@ abstract class _ChangeTab implements QuotationListEvent {
 }
 
 /// @nodoc
+abstract class _$$CancelQuotationImplCopyWith<$Res> {
+  factory _$$CancelQuotationImplCopyWith(_$CancelQuotationImpl value,
+          $Res Function(_$CancelQuotationImpl) then) =
+      __$$CancelQuotationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String quotationId});
+}
+
+/// @nodoc
+class __$$CancelQuotationImplCopyWithImpl<$Res>
+    extends _$QuotationListEventCopyWithImpl<$Res, _$CancelQuotationImpl>
+    implements _$$CancelQuotationImplCopyWith<$Res> {
+  __$$CancelQuotationImplCopyWithImpl(
+      _$CancelQuotationImpl _value, $Res Function(_$CancelQuotationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+  }) {
+    return _then(_$CancelQuotationImpl(
+      null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CancelQuotationImpl implements _CancelQuotation {
+  const _$CancelQuotationImpl(this.quotationId);
+
+  @override
+  final String quotationId;
+
+  @override
+  String toString() {
+    return 'QuotationListEvent.cancelQuotation(quotationId: $quotationId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CancelQuotationImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quotationId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CancelQuotationImplCopyWith<_$CancelQuotationImpl> get copyWith =>
+      __$$CancelQuotationImplCopyWithImpl<_$CancelQuotationImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(List<String>? statuses, bool isNextPage)
+        loadQuotations,
+    required TResult Function(int tabIndex) changeTab,
+    required TResult Function(String quotationId) cancelQuotation,
+  }) {
+    return cancelQuotation(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult? Function(int tabIndex)? changeTab,
+    TResult? Function(String quotationId)? cancelQuotation,
+  }) {
+    return cancelQuotation?.call(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult Function(int tabIndex)? changeTab,
+    TResult Function(String quotationId)? cancelQuotation,
+    required TResult orElse(),
+  }) {
+    if (cancelQuotation != null) {
+      return cancelQuotation(quotationId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadQuotations value) loadQuotations,
+    required TResult Function(_ChangeTab value) changeTab,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
+  }) {
+    return cancelQuotation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadQuotations value)? loadQuotations,
+    TResult? Function(_ChangeTab value)? changeTab,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
+  }) {
+    return cancelQuotation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadQuotations value)? loadQuotations,
+    TResult Function(_ChangeTab value)? changeTab,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
+    required TResult orElse(),
+  }) {
+    if (cancelQuotation != null) {
+      return cancelQuotation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CancelQuotation implements QuotationListEvent {
+  const factory _CancelQuotation(final String quotationId) =
+      _$CancelQuotationImpl;
+
+  String get quotationId;
+  @JsonKey(ignore: true)
+  _$$CancelQuotationImplCopyWith<_$CancelQuotationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$QuotationListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -507,9 +680,11 @@ mixin _$QuotationListState {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)
+            bool isLoadingMore,
+            String? cancellingQuotationId)
         loaded,
     required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -523,9 +698,11 @@ mixin _$QuotationListState {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -539,9 +716,11 @@ mixin _$QuotationListState {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -551,6 +730,7 @@ mixin _$QuotationListState {
     required TResult Function(QuotationListLoading value) loading,
     required TResult Function(QuotationListLoaded value) loaded,
     required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -559,6 +739,7 @@ mixin _$QuotationListState {
     TResult? Function(QuotationListLoading value)? loading,
     TResult? Function(QuotationListLoaded value)? loaded,
     TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -567,6 +748,7 @@ mixin _$QuotationListState {
     TResult Function(QuotationListLoading value)? loading,
     TResult Function(QuotationListLoaded value)? loaded,
     TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -638,9 +820,11 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)
+            bool isLoadingMore,
+            String? cancellingQuotationId)
         loaded,
     required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
   }) {
     return initial();
   }
@@ -657,9 +841,11 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
   }) {
     return initial?.call();
   }
@@ -676,9 +862,11 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -694,6 +882,7 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
     required TResult Function(QuotationListLoading value) loading,
     required TResult Function(QuotationListLoaded value) loaded,
     required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
   }) {
     return initial(this);
   }
@@ -705,6 +894,7 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
     TResult? Function(QuotationListLoading value)? loading,
     TResult? Function(QuotationListLoaded value)? loaded,
     TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
   }) {
     return initial?.call(this);
   }
@@ -716,6 +906,7 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
     TResult Function(QuotationListLoading value)? loading,
     TResult Function(QuotationListLoaded value)? loaded,
     TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -777,9 +968,11 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)
+            bool isLoadingMore,
+            String? cancellingQuotationId)
         loaded,
     required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
   }) {
     return loading();
   }
@@ -796,9 +989,11 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
   }) {
     return loading?.call();
   }
@@ -815,9 +1010,11 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -833,6 +1030,7 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
     required TResult Function(QuotationListLoading value) loading,
     required TResult Function(QuotationListLoaded value) loaded,
     required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
   }) {
     return loading(this);
   }
@@ -844,6 +1042,7 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
     TResult? Function(QuotationListLoading value)? loading,
     TResult? Function(QuotationListLoaded value)? loaded,
     TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
   }) {
     return loading?.call(this);
   }
@@ -855,6 +1054,7 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
     TResult Function(QuotationListLoading value)? loading,
     TResult Function(QuotationListLoaded value)? loaded,
     TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -881,7 +1081,8 @@ abstract class _$$QuotationListLoadedImplCopyWith<$Res> {
       Map<int, bool> hasMorePages,
       Session session,
       List<String>? currentStatuses,
-      bool isLoadingMore});
+      bool isLoadingMore,
+      String? cancellingQuotationId});
 }
 
 /// @nodoc
@@ -902,6 +1103,7 @@ class __$$QuotationListLoadedImplCopyWithImpl<$Res>
     Object? session = null,
     Object? currentStatuses = freezed,
     Object? isLoadingMore = null,
+    Object? cancellingQuotationId = freezed,
   }) {
     return _then(_$QuotationListLoadedImpl(
       quotationsByTab: null == quotationsByTab
@@ -932,6 +1134,10 @@ class __$$QuotationListLoadedImplCopyWithImpl<$Res>
           ? _value.isLoadingMore
           : isLoadingMore // ignore: cast_nullable_to_non_nullable
               as bool,
+      cancellingQuotationId: freezed == cancellingQuotationId
+          ? _value.cancellingQuotationId
+          : cancellingQuotationId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -946,7 +1152,8 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
       required final Map<int, bool> hasMorePages,
       required this.session,
       final List<String>? currentStatuses,
-      this.isLoadingMore = false})
+      this.isLoadingMore = false,
+      this.cancellingQuotationId})
       : _quotationsByTab = quotationsByTab,
         _currentPage = currentPage,
         _hasMorePages = hasMorePages,
@@ -993,10 +1200,12 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
   @override
   @JsonKey()
   final bool isLoadingMore;
+  @override
+  final String? cancellingQuotationId;
 
   @override
   String toString() {
-    return 'QuotationListState.loaded(quotationsByTab: $quotationsByTab, currentTab: $currentTab, currentPage: $currentPage, hasMorePages: $hasMorePages, session: $session, currentStatuses: $currentStatuses, isLoadingMore: $isLoadingMore)';
+    return 'QuotationListState.loaded(quotationsByTab: $quotationsByTab, currentTab: $currentTab, currentPage: $currentPage, hasMorePages: $hasMorePages, session: $session, currentStatuses: $currentStatuses, isLoadingMore: $isLoadingMore, cancellingQuotationId: $cancellingQuotationId)';
   }
 
   @override
@@ -1016,7 +1225,9 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             const DeepCollectionEquality()
                 .equals(other._currentStatuses, _currentStatuses) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
-                other.isLoadingMore == isLoadingMore));
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.cancellingQuotationId, cancellingQuotationId) ||
+                other.cancellingQuotationId == cancellingQuotationId));
   }
 
   @override
@@ -1028,7 +1239,8 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
       const DeepCollectionEquality().hash(_hasMorePages),
       session,
       const DeepCollectionEquality().hash(_currentStatuses),
-      isLoadingMore);
+      isLoadingMore,
+      cancellingQuotationId);
 
   @JsonKey(ignore: true)
   @override
@@ -1049,12 +1261,14 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)
+            bool isLoadingMore,
+            String? cancellingQuotationId)
         loaded,
     required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
   }) {
     return loaded(quotationsByTab, currentTab, currentPage, hasMorePages,
-        session, currentStatuses, isLoadingMore);
+        session, currentStatuses, isLoadingMore, cancellingQuotationId);
   }
 
   @override
@@ -1069,12 +1283,14 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
   }) {
     return loaded?.call(quotationsByTab, currentTab, currentPage, hasMorePages,
-        session, currentStatuses, isLoadingMore);
+        session, currentStatuses, isLoadingMore, cancellingQuotationId);
   }
 
   @override
@@ -1089,14 +1305,16 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) {
     if (loaded != null) {
       return loaded(quotationsByTab, currentTab, currentPage, hasMorePages,
-          session, currentStatuses, isLoadingMore);
+          session, currentStatuses, isLoadingMore, cancellingQuotationId);
     }
     return orElse();
   }
@@ -1108,6 +1326,7 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
     required TResult Function(QuotationListLoading value) loading,
     required TResult Function(QuotationListLoaded value) loaded,
     required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
   }) {
     return loaded(this);
   }
@@ -1119,6 +1338,7 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
     TResult? Function(QuotationListLoading value)? loading,
     TResult? Function(QuotationListLoaded value)? loaded,
     TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
   }) {
     return loaded?.call(this);
   }
@@ -1130,6 +1350,7 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
     TResult Function(QuotationListLoading value)? loading,
     TResult Function(QuotationListLoaded value)? loaded,
     TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1147,7 +1368,8 @@ abstract class QuotationListLoaded implements QuotationListState {
       required final Map<int, bool> hasMorePages,
       required final Session session,
       final List<String>? currentStatuses,
-      final bool isLoadingMore}) = _$QuotationListLoadedImpl;
+      final bool isLoadingMore,
+      final String? cancellingQuotationId}) = _$QuotationListLoadedImpl;
 
   Map<int, List<Quotation>> get quotationsByTab;
   int get currentTab;
@@ -1156,6 +1378,7 @@ abstract class QuotationListLoaded implements QuotationListState {
   Session get session;
   List<String>? get currentStatuses;
   bool get isLoadingMore;
+  String? get cancellingQuotationId;
   @JsonKey(ignore: true)
   _$$QuotationListLoadedImplCopyWith<_$QuotationListLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1235,9 +1458,11 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)
+            bool isLoadingMore,
+            String? cancellingQuotationId)
         loaded,
     required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
   }) {
     return error(message);
   }
@@ -1254,9 +1479,11 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
   }) {
     return error?.call(message);
   }
@@ -1273,9 +1500,11 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Map<int, bool> hasMorePages,
             Session session,
             List<String>? currentStatuses,
-            bool isLoadingMore)?
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
         loaded,
     TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1291,6 +1520,7 @@ class _$QuotationListErrorImpl implements QuotationListError {
     required TResult Function(QuotationListLoading value) loading,
     required TResult Function(QuotationListLoaded value) loaded,
     required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
   }) {
     return error(this);
   }
@@ -1302,6 +1532,7 @@ class _$QuotationListErrorImpl implements QuotationListError {
     TResult? Function(QuotationListLoading value)? loading,
     TResult? Function(QuotationListLoaded value)? loaded,
     TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
   }) {
     return error?.call(this);
   }
@@ -1313,6 +1544,7 @@ class _$QuotationListErrorImpl implements QuotationListError {
     TResult Function(QuotationListLoading value)? loading,
     TResult Function(QuotationListLoaded value)? loaded,
     TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1330,4 +1562,155 @@ abstract class QuotationListError implements QuotationListState {
   @JsonKey(ignore: true)
   _$$QuotationListErrorImplCopyWith<_$QuotationListErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$QuotationListCancelSuccessImplCopyWith<$Res> {
+  factory _$$QuotationListCancelSuccessImplCopyWith(
+          _$QuotationListCancelSuccessImpl value,
+          $Res Function(_$QuotationListCancelSuccessImpl) then) =
+      __$$QuotationListCancelSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuotationListCancelSuccessImplCopyWithImpl<$Res>
+    extends _$QuotationListStateCopyWithImpl<$Res,
+        _$QuotationListCancelSuccessImpl>
+    implements _$$QuotationListCancelSuccessImplCopyWith<$Res> {
+  __$$QuotationListCancelSuccessImplCopyWithImpl(
+      _$QuotationListCancelSuccessImpl _value,
+      $Res Function(_$QuotationListCancelSuccessImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$QuotationListCancelSuccessImpl implements QuotationListCancelSuccess {
+  const _$QuotationListCancelSuccessImpl();
+
+  @override
+  String toString() {
+    return 'QuotationListState.cancelSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuotationListCancelSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            Map<int, List<Quotation>> quotationsByTab,
+            int currentTab,
+            Map<int, int> currentPage,
+            Map<int, bool> hasMorePages,
+            Session session,
+            List<String>? currentStatuses,
+            bool isLoadingMore,
+            String? cancellingQuotationId)
+        loaded,
+    required TResult Function(String message) error,
+    required TResult Function() cancelSuccess,
+  }) {
+    return cancelSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            Map<int, List<Quotation>> quotationsByTab,
+            int currentTab,
+            Map<int, int> currentPage,
+            Map<int, bool> hasMorePages,
+            Session session,
+            List<String>? currentStatuses,
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
+        loaded,
+    TResult? Function(String message)? error,
+    TResult? Function()? cancelSuccess,
+  }) {
+    return cancelSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            Map<int, List<Quotation>> quotationsByTab,
+            int currentTab,
+            Map<int, int> currentPage,
+            Map<int, bool> hasMorePages,
+            Session session,
+            List<String>? currentStatuses,
+            bool isLoadingMore,
+            String? cancellingQuotationId)?
+        loaded,
+    TResult Function(String message)? error,
+    TResult Function()? cancelSuccess,
+    required TResult orElse(),
+  }) {
+    if (cancelSuccess != null) {
+      return cancelSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuotationListInitial value) initial,
+    required TResult Function(QuotationListLoading value) loading,
+    required TResult Function(QuotationListLoaded value) loaded,
+    required TResult Function(QuotationListError value) error,
+    required TResult Function(QuotationListCancelSuccess value) cancelSuccess,
+  }) {
+    return cancelSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuotationListInitial value)? initial,
+    TResult? Function(QuotationListLoading value)? loading,
+    TResult? Function(QuotationListLoaded value)? loaded,
+    TResult? Function(QuotationListError value)? error,
+    TResult? Function(QuotationListCancelSuccess value)? cancelSuccess,
+  }) {
+    return cancelSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuotationListInitial value)? initial,
+    TResult Function(QuotationListLoading value)? loading,
+    TResult Function(QuotationListLoaded value)? loaded,
+    TResult Function(QuotationListError value)? error,
+    TResult Function(QuotationListCancelSuccess value)? cancelSuccess,
+    required TResult orElse(),
+  }) {
+    if (cancelSuccess != null) {
+      return cancelSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuotationListCancelSuccess implements QuotationListState {
+  const factory QuotationListCancelSuccess() = _$QuotationListCancelSuccessImpl;
 }

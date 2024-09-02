@@ -45,5 +45,10 @@
   "loadMore": "Load More",
   "reply": "Reply",
   "send": "Send",
-  "status": "Status"
+  "status": "Status",
+  "cancelQuotationConfirmationTitle": "Cancel Quotation",
+  "cancelQuotationConfirmationMessage": "Are you sure you want to cancel this quotation?",
+  "quotationCancelledSuccessfully": "Quotation cancelled successfully",
+  "yes": "Yes",
+  "no": "No"
 }

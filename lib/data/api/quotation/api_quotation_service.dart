@@ -20,7 +20,7 @@ class ApiQuotationService implements QuotationService {
   @override
   Future<Map<String, dynamic>> createQuotation(
       Quotation quotation, List<XFile> referenceImages, String token) async {
-    final url = _httpConfig.surl(path: '');
+    final url = _httpConfig.surl();
 
     var request = http.MultipartRequest('POST', url);
 
@@ -80,7 +80,7 @@ class ApiQuotationService implements QuotationService {
       'limit': limit.toString(),
     };
 
-    final url = _httpConfig.surl(path: '', queryParams: queryParams);
+    final url = _httpConfig.surl(queryParams: queryParams);
 
     try {
       final response = await http.get(

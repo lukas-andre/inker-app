@@ -146,6 +146,7 @@ const _$QuotationCustomerAppealReasonEnumMap = {
   QuotationCustomerAppealReason.dateChange: 'date_change',
   QuotationCustomerAppealReason.priceChange: 'price_change',
   QuotationCustomerAppealReason.designChange: 'design_change',
+  QuotationCustomerAppealReason.other: 'other',
 };
 
 const _$QuotationCancelByEnumMap = {

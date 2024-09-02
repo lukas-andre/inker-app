@@ -66,7 +66,6 @@ class CustomInput extends StatelessWidget {
         key: key,
         autofillHints: const [
           AutofillHints.email,
-          AutofillHints.telephoneNumber
         ],
         style: const TextStyle(color: Colors.white),
         inputFormatters: inputFormatters ?? [],

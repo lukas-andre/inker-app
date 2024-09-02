@@ -25,6 +25,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "barber": MessageLookupByLibrary.simpleMessage("Barbería"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancelar Evento"),
+        "cancelQuotationConfirmationMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Estás seguro de que deseas cancelar esta cotización?"),
+        "cancelQuotationConfirmationTitle":
+            MessageLookupByLibrary.simpleMessage("Cancelar Cotización"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
@@ -60,12 +65,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Cotización cancelada exitosamente"),
         "quoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
         "reply": MessageLookupByLibrary.simpleMessage("Responder"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
@@ -78,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":
-            MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo")
+            MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo"),
+        "yes": MessageLookupByLibrary.simpleMessage("Sí")
       };
 }
