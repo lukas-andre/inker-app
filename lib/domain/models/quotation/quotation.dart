@@ -136,6 +136,8 @@ enum QuotationCustomerAppealReason {
   priceChange,
   @JsonValue('design_change')
   designChange,
+  @JsonValue('other')
+  other,
 }
 
 enum QuotationCustomerRejectReason {

@@ -25,6 +25,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "barber": MessageLookupByLibrary.simpleMessage("Barber"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancel Event"),
+        "cancelQuotationConfirmationMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to cancel this quotation?"),
+        "cancelQuotationConfirmationTitle":
+            MessageLookupByLibrary.simpleMessage("Cancel Quotation"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "characters": MessageLookupByLibrary.simpleMessage("characters"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
@@ -57,12 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Quotation cancelled successfully"),
         "quoted": MessageLookupByLibrary.simpleMessage("Quoted"),
         "reply": MessageLookupByLibrary.simpleMessage("Reply"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
@@ -73,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tattoo"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
-        "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence")
+        "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

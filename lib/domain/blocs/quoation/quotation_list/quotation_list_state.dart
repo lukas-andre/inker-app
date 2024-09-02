@@ -12,6 +12,8 @@ class QuotationListState with _$QuotationListState {
     required Session session,
     List<String>? currentStatuses,
     @Default(false) bool isLoadingMore,
+    String? cancellingQuotationId,
   }) = QuotationListLoaded;
   const factory QuotationListState.error(String message) = QuotationListError;
+  const factory QuotationListState.cancelSuccess() = QuotationListCancelSuccess;
 }
