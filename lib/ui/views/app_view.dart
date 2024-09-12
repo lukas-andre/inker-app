@@ -31,6 +31,7 @@ import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
+import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
@@ -186,6 +187,14 @@ class _AppViewState extends State<AppView> {
                   },
                 );
               }
+            }
+
+            if (settings.name == '/artistQuotationResponse') {
+              final args = settings.arguments as Map<String, dynamic>;
+              return MaterialPageRoute(
+                builder: (context) => ArtistQuotationResponsePage(
+                    quotationId: args['quotationId']),
+              );
             }
 
             if (settings.name == CreateQuotationPage.routeName) {

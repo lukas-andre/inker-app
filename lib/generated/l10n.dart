@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `es_CL`
+  String get locale {
+    return Intl.message(
+      'es_CL',
+      name: 'locale',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Detalles del Evento`
   String get eventDetails {
     return Intl.message(
@@ -557,6 +567,346 @@ class S {
       name: 'no',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Cotizaciones`
+  String get quotes {
+    return Intl.message(
+      'Cotizaciones',
+      name: 'quotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cotización`
+  String get quote {
+    return Intl.message(
+      'Cotización',
+      name: 'quote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Cotización`
+  String get quoteDetails {
+    return Intl.message(
+      'Detalles de la Cotización',
+      name: 'quoteDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Solicitud`
+  String get request {
+    return Intl.message(
+      'Solicitud',
+      name: 'request',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Solicitudes`
+  String get requests {
+    return Intl.message(
+      'Solicitudes',
+      name: 'requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Solicitud`
+  String get requestDetails {
+    return Intl.message(
+      'Detalles de la Solicitud',
+      name: 'requestDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Responder Cotización`
+  String get respondToQuotation {
+    return Intl.message(
+      'Responder Cotización',
+      name: 'respondToQuotation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Respuesta a la cotización enviada exitosamente`
+  String get quotationResponseSuccess {
+    return Intl.message(
+      'Respuesta a la cotización enviada exitosamente',
+      name: 'quotationResponseSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enviar`
+  String get submit {
+    return Intl.message(
+      'Enviar',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Acción`
+  String get action {
+    return Intl.message(
+      'Acción',
+      name: 'action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Obtener Artista`
+  String get getArtistActionText {
+    return Intl.message(
+      'Obtener Artista',
+      name: 'getArtistActionText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Costo Estimado`
+  String get estimatedCost {
+    return Intl.message(
+      'Costo Estimado',
+      name: 'estimatedCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha de la Cita`
+  String get appointmentDate {
+    return Intl.message(
+      'Fecha de la Cita',
+      name: 'appointmentDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No seleccionado`
+  String get notSelected {
+    return Intl.message(
+      'No seleccionado',
+      name: 'notSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duración de la Cita`
+  String get appointmentDuration {
+    return Intl.message(
+      'Duración de la Cita',
+      name: 'appointmentDuration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Campo Requerido`
+  String get requiredField {
+    return Intl.message(
+      'Campo Requerido',
+      name: 'requiredField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Número Inválido`
+  String get invalidNumber {
+    return Intl.message(
+      'Número Inválido',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detalles Adicionales`
+  String get additionalDetails {
+    return Intl.message(
+      'Detalles Adicionales',
+      name: 'additionalDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Motivo de Rechazo`
+  String get rejectionReason {
+    return Intl.message(
+      'Motivo de Rechazo',
+      name: 'rejectionReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Diseños Propuestos`
+  String get proposedDesigns {
+    return Intl.message(
+      'Diseños Propuestos',
+      name: 'proposedDesigns',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rechazar`
+  String get reject {
+    return Intl.message(
+      'Rechazar',
+      name: 'reject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aceptar Apelación`
+  String get acceptAppeal {
+    return Intl.message(
+      'Aceptar Apelación',
+      name: 'acceptAppeal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rechazar Apelación`
+  String get rejectAppeal {
+    return Intl.message(
+      'Rechazar Apelación',
+      name: 'rejectAppeal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Cotización`
+  String get quotationDetails {
+    return Intl.message(
+      'Detalles de la Cotización',
+      name: 'quotationDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creado en`
+  String get createdAt {
+    return Intl.message(
+      'Creado en',
+      name: 'createdAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Imágenes de Referencia`
+  String get referenceImages {
+    return Intl.message(
+      'Imágenes de Referencia',
+      name: 'referenceImages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tu Respuesta`
+  String get yourResponse {
+    return Intl.message(
+      'Tu Respuesta',
+      name: 'yourResponse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ahora mismo`
+  String get justNow {
+    return Intl.message(
+      'Ahora mismo',
+      name: 'justNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =1{hace 1 minuto} other{hace {count} minutos}}`
+  String minutesAgo(num count) {
+    return Intl.plural(
+      count,
+      one: 'hace 1 minuto',
+      other: 'hace $count minutos',
+      name: 'minutesAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{hace 1 hora} other{hace {count} horas}}`
+  String hoursAgo(num count) {
+    return Intl.plural(
+      count,
+      one: 'hace 1 hora',
+      other: 'hace $count horas',
+      name: 'hoursAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{hace 1 día} other{hace {count} días}}`
+  String daysAgo(num count) {
+    return Intl.plural(
+      count,
+      one: 'hace 1 día',
+      other: 'hace $count días',
+      name: 'daysAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{hace 1 mes} other{hace {count} meses}}`
+  String monthsAgo(num count) {
+    return Intl.plural(
+      count,
+      one: 'hace 1 mes',
+      other: 'hace $count meses',
+      name: 'monthsAgo',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{hace 1 año} other{hace {count} años}}`
+  String yearsAgo(num count) {
+    return Intl.plural(
+      count,
+      one: 'hace 1 año',
+      other: 'hace $count años',
+      name: 'yearsAgo',
+      desc: '',
+      args: [count],
     );
   }
 }
