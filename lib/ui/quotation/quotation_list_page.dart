@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
@@ -67,6 +68,9 @@ class _QuotationListViewState extends State<QuotationListView>
     }
   }
 
+  bool get _isArtist =>
+      context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
@@ -79,7 +83,7 @@ class _QuotationListViewState extends State<QuotationListView>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                l10n.createQuotation,
+                _isArtist ? l10n.requests : l10n.quotes,
                 style: TextStyleTheme.headline1
                     .copyWith(color: const Color(0xFFF2F2F2)),
               ),
@@ -268,7 +272,7 @@ class _QuotationListViewState extends State<QuotationListView>
                       Text(
                         isArtist
                             ? quotation.customerId.toString() ?? l10n.guest
-                            : '${l10n.status}: ${_getStatusText(quotation.status, l10n)}',
+                            : '${l10n.status}: ${getStatusText(quotation.status, l10n)}',
                         style: TextStyleTheme.bodyText2
                             .copyWith(color: const Color(0xFF686D90)),
                       ),
@@ -279,7 +283,7 @@ class _QuotationListViewState extends State<QuotationListView>
             ),
             const SizedBox(height: 16),
             if (isArtist)
-              _buildArtistActions(l10n)
+              _buildArtistActions(quotation, l10n)
             else if (canCancel || canReplyAndCancel)
               _buildCustomerActions(
                   quotation, canReplyAndCancel, l10n, cancellingQuotationId),
@@ -323,16 +327,17 @@ class _QuotationListViewState extends State<QuotationListView>
     );
   }
 
-  Widget _buildArtistActions(S l10n) {
+  Widget _buildArtistActions(Quotation quotation, S l10n) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildActionButton(
-          onPressed: () {
-            // TODO: Implement reply logic
-          },
-          icon: Icons.message,
-          label: l10n.sendMessage,
+          onPressed: () => Navigator.of(context).pushNamed(
+            '/artistQuotationResponse',
+            arguments: {'quotationId': quotation.id.toString()},
+          ),
+          icon: Icons.reply,
+          label: l10n.reply,
           isPrimary: true,
         ),
         _buildActionButton(
@@ -420,23 +425,23 @@ class _QuotationListViewState extends State<QuotationListView>
     _quotationListBloc
         .add(QuotationListEvent.cancelQuotation(quotation.id.toString()));
   }
+}
 
-  String _getStatusText(QuotationStatus status, S l10n) {
-    switch (status) {
-      case QuotationStatus.pending:
-        return l10n.upcomming;
-      case QuotationStatus.quoted:
-        return l10n.quoted;
-      case QuotationStatus.accepted:
-        return l10n.completed;
-      case QuotationStatus.rejected:
-        return l10n.cancelled;
-      case QuotationStatus.appealed:
-        return l10n.upcomming;
-      case QuotationStatus.canceled:
-        return l10n.cancelled;
-      default:
-        return '';
-    }
+String getStatusText(QuotationStatus status, S l10n) {
+  switch (status) {
+    case QuotationStatus.pending:
+      return l10n.upcomming;
+    case QuotationStatus.quoted:
+      return l10n.quoted;
+    case QuotationStatus.accepted:
+      return l10n.completed;
+    case QuotationStatus.rejected:
+      return l10n.cancelled;
+    case QuotationStatus.appealed:
+      return l10n.upcomming;
+    case QuotationStatus.canceled:
+      return l10n.cancelled;
+    default:
+      return '';
   }
 }
