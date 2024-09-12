@@ -83,5 +83,6 @@
   "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
   "daysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
   "monthsAgo": "{count, plural, =1{1 month ago} other{{count} months ago}}",
-  "yearsAgo": "{count, plural, =1{1 year ago} other{{count} years ago}}"
+  "yearsAgo": "{count, plural, =1{1 year ago} other{{count} years ago}}",
+  "estimatedCostDisclaimer": "This is an estimated cost and may vary based on the final design or service"
 }

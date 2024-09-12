@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
             "Notas superan el límite de caracteres"),
         "estimatedCost": MessageLookupByLibrary.simpleMessage("Costo Estimado"),
+        "estimatedCostDisclaimer": MessageLookupByLibrary.simpleMessage(
+            "El costo estimado es solo una estimación y puede variar según el trabajo real"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Color del Evento"),
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),

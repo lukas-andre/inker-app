@@ -10,8 +10,8 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'hourly_event_list.dart';
 
 final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+final kFirstDay = DateTime(kToday.year, kToday.month - 18, kToday.day);
+final kLastDay = DateTime(kToday.year, kToday.month + 18, kToday.day);
 
 class AgendaTablePage extends StatefulWidget {
   const AgendaTablePage({super.key});
