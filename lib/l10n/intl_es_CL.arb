@@ -84,5 +84,6 @@
   "hoursAgo": "{count, plural, =1{hace 1 hora} other{hace {count} horas}}",
   "daysAgo": "{count, plural, =1{hace 1 día} other{hace {count} días}}",
   "monthsAgo": "{count, plural, =1{hace 1 mes} other{hace {count} meses}}",
-  "yearsAgo": "{count, plural, =1{hace 1 año} other{hace {count} años}}"
+  "yearsAgo": "{count, plural, =1{hace 1 año} other{hace {count} años}}",
+  "estimatedCostDisclaimer": "El costo estimado es solo una estimación y puede variar según el trabajo real"
 }
