@@ -55,11 +55,17 @@ class _ArtistQuotationResponseViewState
   String _selectedDuration = '1 hora';
   String _timeRange = '';
   DateTime? _appointmentDate;
-  int? _appointmentDuration;
   ArtistQuotationAction _action = ArtistQuotationAction.quote;
   QuotationArtistRejectReason? _rejectionReason;
   final List<XFile> _proposedDesigns = [];
   QuotationStatus _quotationStatus = QuotationStatus.pending;
+
+  bool _showDateError = false;
+  bool _showTimeError = false;
+  bool _showDurationError = false;
+  String? _dateErrorText;
+  String? _timeErrorText;
+  String? _durationErrorText;
 
   @override
   void initState() {
@@ -227,32 +233,43 @@ class _ArtistQuotationResponseViewState
             if (_action == ArtistQuotationAction.quote) ...[
               _buildEstimatedCostField(l10n),
               const SizedBox(height: 16),
-              CalendarDayPickerV2(
+              CalendarDayPickerV3(
                 focusedDay: _appointmentDate ?? DateTime.now(),
                 selectedDay: _appointmentDate,
                 calendarFormat: CalendarFormat.month,
                 onDaySelected: (selectedDay, focusedDay) {
                   setState(() {
                     _appointmentDate = selectedDay;
+                    _showDateError = false;
+                    _dateErrorText = null;
                   });
                 },
                 onFormatChanged: (format) {},
+                showError: _showDateError,
+                errorText: _dateErrorText,
               ),
               const SizedBox(height: 16),
-              TimePickerWithDurationV2(
+              TimePickerWithDurationV3(
                 timeController: _timeController,
                 selectedDuration: _selectedDuration,
                 timeRange: _timeRange,
-                showError: false,
+                showTimeError: _showTimeError,
+                showDurationError: _showDurationError,
+                timeErrorText: _timeErrorText,
+                durationErrorText: _durationErrorText,
                 onTimeChanged: (time) {
                   setState(() {
                     _timeController.text = time;
+                    _showTimeError = false;
+                    _timeErrorText = null;
                     _updateTimeRange();
                   });
                 },
                 onDurationChanged: (duration) {
                   setState(() {
                     _selectedDuration = duration;
+                    _showDurationError = false;
+                    _durationErrorText = null;
                     _updateTimeRange();
                   });
                 },
@@ -450,111 +467,57 @@ class _ArtistQuotationResponseViewState
   }
 
   Widget _buildEstimatedCostField(S l10n) {
-    return TextFormField(
-      controller: _estimatedCostController,
-      decoration: InputDecoration(
-        labelText: l10n.estimatedCost,
-        labelStyle: TextStyleTheme.bodyText1,
-        fillColor: inputBackgroundColor,
-        filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
-        prefixIcon: Icon(Icons.attach_money, color: tertiaryColor),
-      ),
-      style: TextStyleTheme.bodyText1,
-      keyboardType: TextInputType.number,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.requiredField;
-        }
-        if (double.tryParse(value) == null) {
-          return l10n.invalidNumber;
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _buildAppointmentDatePicker(S l10n) {
-    return ListTile(
-      title: Text(l10n.appointmentDate, style: TextStyleTheme.bodyText1),
-      subtitle: Text(
-        _appointmentDate?.toString() ?? l10n.notSelected,
-        style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
-      ),
-      trailing: Icon(Icons.calendar_today, color: secondaryColor),
-      onTap: () async {
-        final pickedDate = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime.now().add(const Duration(days: 365)),
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.dark(
-                  primary: secondaryColor,
-                  onPrimary: quaternaryColor,
-                  surface: explorerSecondaryColor,
-                  onSurface: quaternaryColor,
-                ),
+    return Tooltip(
+      message: l10n.estimatedCostDisclaimer,
+      child: TextFormField(
+        controller: _estimatedCostController,
+        decoration: InputDecoration(
+          labelText: l10n.estimatedCost,
+          labelStyle: TextStyleTheme.bodyText1,
+          fillColor: inputBackgroundColor,
+          filled: true,
+          border: inputBorder,
+          focusedBorder: focusedBorder,
+          prefixIcon: Icon(Icons.attach_money, color: tertiaryColor),
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(Icons.info_outline, color: tertiaryColor),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.estimatedCostDisclaimer)),
+                  );
+                },
               ),
-              child: child!,
-            );
-          },
-        );
-        if (pickedDate != null) {
-          setState(() {
-            _appointmentDate = pickedDate;
-          });
-        }
-      },
-    );
-  }
-
-  Widget _buildAppointmentDurationPicker(S l10n) {
-    final List<Map<String, dynamic>> durations = [
-      {'value': 15, 'label': '15 min'},
-      {'value': 30, 'label': '30 min'},
-      {'value': 45, 'label': '45 min'},
-      {'value': 60, 'label': '1 hr'},
-      {'value': 75, 'label': '1 hr 15 min'},
-      {'value': 90, 'label': '1 hr 30 min'},
-      {'value': 105, 'label': '1 hr 45 min'},
-      {'value': 120, 'label': '2 hr'},
-      {'value': 150, 'label': '2 hr 30 min'},
-      {'value': 180, 'label': '3 hr'},
-    ];
-
-    return DropdownButtonFormField<int>(
-      decoration: InputDecoration(
-        labelText: l10n.appointmentDuration,
-        labelStyle: TextStyleTheme.bodyText1.copyWith(color: tertiaryColor),
-        fillColor: inputBackgroundColor,
-        filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
-        prefixIcon: Icon(Icons.access_time, color: tertiaryColor),
-      ),
-      value: _appointmentDuration,
-      items: durations.map((duration) {
-        return DropdownMenuItem<int>(
-          value: duration['value'],
-          child: Text(
-            duration['label'],
-            style: TextStyleTheme.bodyText1.copyWith(color: quaternaryColor),
+              IconButton(
+                icon: Icon(Icons.close, color: tertiaryColor),
+                onPressed: () {
+                  _estimatedCostController.clear();
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.keyboard_hide, color: tertiaryColor),
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                },
+              ),
+            ],
           ),
-        );
-      }).toList(),
-      onChanged: (value) {
-        setState(() {
-          _appointmentDuration = value!;
-        });
-      },
-      dropdownColor: explorerSecondaryColor,
-      style: TextStyleTheme.bodyText1.copyWith(color: quaternaryColor),
-      icon: Icon(Icons.arrow_drop_down, color: tertiaryColor),
+        ),
+        style: TextStyleTheme.bodyText1,
+        keyboardType: TextInputType.number,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '${l10n.requiredField} ${l10n.estimatedCostDisclaimer}';
+          }
+          if (double.tryParse(value) == null) {
+            return '${l10n.invalidNumber} ${l10n.estimatedCostDisclaimer}';
+          }
+          return null;
+        },
+      ),
     );
   }
 
@@ -683,8 +646,28 @@ class _ArtistQuotationResponseViewState
   }
 
   void _submitForm(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
+    final validExtraFields = _validateAdditionalFields();
+    if (_formKey.currentState!.validate() && validExtraFields) {
       _formKey.currentState!.save();
+
+      DateTime? finalAppointmentDate;
+      int? finalAppointmentDuration;
+
+      if (_action == ArtistQuotationAction.quote) {
+        if (_appointmentDate != null && _timeController.text.isNotEmpty) {
+          final timeComponents = _timeController.text.split(':');
+          finalAppointmentDate = DateTime(
+            _appointmentDate!.year,
+            _appointmentDate!.month,
+            _appointmentDate!.day,
+            int.parse(timeComponents[0]),
+            int.parse(timeComponents[1]),
+          );
+        }
+
+        finalAppointmentDuration = _getDurationInMinutes(_selectedDuration);
+      }
+
       _bloc.add(
         ArtistQuotationResponseEvent.submit(
           quotationId: widget.quotationId,
@@ -692,11 +675,8 @@ class _ArtistQuotationResponseViewState
           estimatedCost: _action == ArtistQuotationAction.quote
               ? double.tryParse(_estimatedCostController.text)
               : null,
-          appointmentDate:
-              _action == ArtistQuotationAction.quote ? _appointmentDate : null,
-          appointmentDuration: _action == ArtistQuotationAction.quote
-              ? _appointmentDuration
-              : null,
+          appointmentDate: finalAppointmentDate,
+          appointmentDuration: finalAppointmentDuration,
           additionalDetails: _additionalDetailsController.text,
           rejectionReason:
               _action == ArtistQuotationAction.reject ? _rejectionReason : null,
@@ -705,5 +685,38 @@ class _ArtistQuotationResponseViewState
         ),
       );
     }
+  }
+
+  bool _validateAdditionalFields() {
+    bool isValid = true;
+    final l10n = S.of(context);
+
+    if (_action == ArtistQuotationAction.quote) {
+      if (_appointmentDate == null) {
+        setState(() {
+          _showDateError = true;
+          _dateErrorText = l10n.requiredField;
+        });
+        isValid = false;
+      }
+
+      if (_timeController.text.isEmpty) {
+        setState(() {
+          _showTimeError = true;
+          _timeErrorText = l10n.requiredField;
+        });
+        isValid = false;
+      }
+
+      if (_selectedDuration.isEmpty) {
+        setState(() {
+          _showDurationError = true;
+          _durationErrorText = l10n.requiredField;
+        });
+        isValid = false;
+      }
+    }
+
+    return isValid;
   }
 }

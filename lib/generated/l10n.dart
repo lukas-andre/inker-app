@@ -909,6 +909,16 @@ class S {
       args: [count],
     );
   }
+
+  /// `El costo estimado es solo una estimación y puede variar según el trabajo real`
+  String get estimatedCostDisclaimer {
+    return Intl.message(
+      'El costo estimado es solo una estimación y puede variar según el trabajo real',
+      name: 'estimatedCostDisclaimer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -4,20 +4,26 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
-class TimePickerWithDurationV2 extends StatelessWidget {
+class TimePickerWithDurationV3 extends StatelessWidget {
   final TextEditingController timeController;
   final String selectedDuration;
   final String timeRange;
-  final bool showError;
+  final bool showTimeError;
+  final bool showDurationError;
+  final String? timeErrorText;
+  final String? durationErrorText;
   final Function(String) onTimeChanged;
   final Function(String) onDurationChanged;
 
-  const TimePickerWithDurationV2({
+  const TimePickerWithDurationV3({
     super.key,
     required this.timeController,
     required this.selectedDuration,
     required this.timeRange,
-    required this.showError,
+    this.showTimeError = false,
+    this.showDurationError = false,
+    this.timeErrorText,
+    this.durationErrorText,
     required this.onTimeChanged,
     required this.onDurationChanged,
   });
@@ -52,19 +58,27 @@ class TimePickerWithDurationV2 extends StatelessWidget {
             ),
           ],
         ),
+        if (showTimeError && timeErrorText != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+            child: Text(
+              timeErrorText!,
+              style: TextStyleTheme.copyWith(color: Colors.red, fontSize: 12),
+            ),
+          ),
+        if (showDurationError && durationErrorText != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+            child: Text(
+              durationErrorText!,
+              style: TextStyleTheme.copyWith(color: Colors.red, fontSize: 12),
+            ),
+          ),
         if (timeRange.isNotEmpty)
           Center(
             child: Text(
               timeRange,
               style: TextStyleTheme.copyWith(color: Colors.white54),
-            ),
-          ),
-        if (showError)
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-            child: Text(
-              l10n.errorMsgHoursValidationError,
-              style: TextStyleTheme.copyWith(color: Colors.red, fontSize: 12),
             ),
           ),
       ],
@@ -83,6 +97,7 @@ class TimePickerWithDurationV2 extends StatelessWidget {
         suffixIcon: const Icon(Icons.access_time, color: Colors.white54),
         filled: true,
         fillColor: const Color(0x002a2d40),
+        errorStyle: const TextStyle(height: 0),
       ),
       readOnly: true,
       onTap: () async {
@@ -119,6 +134,7 @@ class TimePickerWithDurationV2 extends StatelessWidget {
         border: InputBorder.none,
         filled: true,
         fillColor: const Color(0x002a2d40),
+        errorStyle: const TextStyle(height: 0),
       ),
       items: durations.map((String duration) {
         return DropdownMenuItem<String>(

@@ -74,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
             "Notes exceed the limit of characters"),
         "estimatedCost": MessageLookupByLibrary.simpleMessage("Estimated Cost"),
+        "estimatedCostDisclaimer": MessageLookupByLibrary.simpleMessage(
+            "This is an estimated cost and may vary based on the final design or service"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
         "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
