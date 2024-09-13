@@ -37,14 +37,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "action": MessageLookupByLibrary.simpleMessage("Action"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Additional Details"),
+        "and": MessageLookupByLibrary.simpleMessage("and"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Appointment Date"),
+        "appointmentDateTime":
+            MessageLookupByLibrary.simpleMessage("Appointment Date & Time"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
         "barber": MessageLookupByLibrary.simpleMessage("Barber"),
+        "between": MessageLookupByLibrary.simpleMessage("between"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancel Event"),
         "cancelQuotationConfirmationMessage":
@@ -53,9 +58,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelQuotationConfirmationTitle":
             MessageLookupByLibrary.simpleMessage("Cancel Quotation"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "changeSelection":
+            MessageLookupByLibrary.simpleMessage("Change Selection"),
         "characters": MessageLookupByLibrary.simpleMessage("characters"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmTimeSelection":
+            MessageLookupByLibrary.simpleMessage("Confirm Time Selection"),
+        "conflictingEvent": MessageLookupByLibrary.simpleMessage(
+            "This time conflicts with an existing event"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Create Quotation"),
@@ -64,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "durationCannotBeZero":
+            MessageLookupByLibrary.simpleMessage("Duration cannot be zero"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
@@ -79,13 +92,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
         "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
+        "eventOverlap": MessageLookupByLibrary.simpleMessage("Event Overlap"),
+        "eventOverlapMessage": MessageLookupByLibrary.simpleMessage(
+            "This event overlaps with an existing event. Do you want to proceed?"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Event Title"),
         "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
+        "from": MessageLookupByLibrary.simpleMessage("From"),
         "getArtistActionText":
             MessageLookupByLibrary.simpleMessage("Get Artist"),
+        "goBack": MessageLookupByLibrary.simpleMessage("Go Back"),
         "guest": MessageLookupByLibrary.simpleMessage("Guest"),
         "haircut": MessageLookupByLibrary.simpleMessage("Haircut"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
+        "hours": MessageLookupByLibrary.simpleMessage("hours"),
         "hoursAgo": m1,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
@@ -93,10 +112,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
         "minutesAgo": m2,
         "monthsAgo": m3,
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
+        "nextWeek": MessageLookupByLibrary.simpleMessage("Next Week"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noEventsToday": MessageLookupByLibrary.simpleMessage(
+            "No events scheduled for today"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
         "notSelected": MessageLookupByLibrary.simpleMessage("Not Selected"),
@@ -104,10 +127,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
+        "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Proposed Designs"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Quotation cancelled successfully"),
+        "quotationDate": MessageLookupByLibrary.simpleMessage("Quotation Date"),
         "quotationDetails":
             MessageLookupByLibrary.simpleMessage("Quotation Details"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
@@ -128,20 +154,39 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request Details"),
         "requests": MessageLookupByLibrary.simpleMessage("Requests"),
         "requiredField": MessageLookupByLibrary.simpleMessage("Required Field"),
+        "resetZoom": MessageLookupByLibrary.simpleMessage("Reset Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Respond to Quotation"),
+        "scheduleAssistant":
+            MessageLookupByLibrary.simpleMessage("Schedule Assistant"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
+        "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
+        "selectDateTime":
+            MessageLookupByLibrary.simpleMessage("Select Date & Time"),
+        "selectDuration":
+            MessageLookupByLibrary.simpleMessage("Select Duration"),
         "selectService": MessageLookupByLibrary.simpleMessage("Select Service"),
+        "selectTime": MessageLookupByLibrary.simpleMessage("Select Time"),
+        "selectValidTimeRange": MessageLookupByLibrary.simpleMessage(
+            "Please select a valid time range"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Send Message"),
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tattoo"),
+        "tentativeEvent":
+            MessageLookupByLibrary.simpleMessage("Tentative Event"),
+        "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
+            "This time slot is unavailable"),
+        "to": MessageLookupByLibrary.simpleMessage("To"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
         "yearsAgo": m4,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-        "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response")
+        "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
+        "zoomIn": MessageLookupByLibrary.simpleMessage("Zoom In"),
+        "zoomOut": MessageLookupByLibrary.simpleMessage("Zoom Out")
       };
 }

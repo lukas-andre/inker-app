@@ -37,16 +37,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "acceptAppeal":
             MessageLookupByLibrary.simpleMessage("Aceptar Apelación"),
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
+        "and": MessageLookupByLibrary.simpleMessage("y"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Fecha de la Cita"),
+        "appointmentDateTime":
+            MessageLookupByLibrary.simpleMessage("Fecha y Hora de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
         "barber": MessageLookupByLibrary.simpleMessage("Barbería"),
+        "between": MessageLookupByLibrary.simpleMessage("entre"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancelar Evento"),
         "cancelQuotationConfirmationMessage":
@@ -55,9 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelQuotationConfirmationTitle":
             MessageLookupByLibrary.simpleMessage("Cancelar Cotización"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "changeSelection":
+            MessageLookupByLibrary.simpleMessage("Cambiar Selección"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "confirmTimeSelection":
+            MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
+        "conflictingEvent": MessageLookupByLibrary.simpleMessage(
+            "Esta hora entra en conflicto con un evento existente"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
@@ -66,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
+        "durationCannotBeZero": MessageLookupByLibrary.simpleMessage(
+            "La duración no puede ser cero"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
@@ -83,14 +96,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),
         "eventLocation":
             MessageLookupByLibrary.simpleMessage("Ubicación del Evento"),
+        "eventOverlap":
+            MessageLookupByLibrary.simpleMessage("Superposición de Eventos"),
+        "eventOverlapMessage": MessageLookupByLibrary.simpleMessage(
+            "Este evento se superpone con un evento existente. ¿Deseas continuar?"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Título del Evento"),
         "extraInfo":
             MessageLookupByLibrary.simpleMessage("Información Adicional"),
+        "from": MessageLookupByLibrary.simpleMessage("Desde"),
         "getArtistActionText":
             MessageLookupByLibrary.simpleMessage("Obtener Artista"),
+        "goBack": MessageLookupByLibrary.simpleMessage("Volver"),
         "guest": MessageLookupByLibrary.simpleMessage("Invitado"),
         "haircut": MessageLookupByLibrary.simpleMessage("Corte de Pelo"),
         "hour": MessageLookupByLibrary.simpleMessage("Hora"),
+        "hours": MessageLookupByLibrary.simpleMessage("horas"),
         "hoursAgo": m1,
         "invalidNumber":
             MessageLookupByLibrary.simpleMessage("Número Inválido"),
@@ -100,10 +120,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m2,
         "monthsAgo": m3,
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
+        "nextWeek": MessageLookupByLibrary.simpleMessage("Semana Siguiente"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noEventsToday": MessageLookupByLibrary.simpleMessage(
+            "No hay eventos programados para hoy"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
@@ -111,10 +135,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
+        "proceed": MessageLookupByLibrary.simpleMessage("Continuar"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Diseños Propuestos"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Cotización cancelada exitosamente"),
+        "quotationDate":
+            MessageLookupByLibrary.simpleMessage("Fecha De Cotización"),
         "quotationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
@@ -138,22 +166,41 @@ class MessageLookup extends MessageLookupByLibrary {
         "requests": MessageLookupByLibrary.simpleMessage("Solicitudes"),
         "requiredField":
             MessageLookupByLibrary.simpleMessage("Campo Requerido"),
+        "resetZoom": MessageLookupByLibrary.simpleMessage("Restablecer Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
+        "scheduleAssistant":
+            MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
+        "selectDate": MessageLookupByLibrary.simpleMessage("Seleccionar Fecha"),
+        "selectDateTime":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Fecha y Hora"),
+        "selectDuration":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Duración"),
         "selectService":
             MessageLookupByLibrary.simpleMessage("Seleccionar servicio"),
+        "selectTime": MessageLookupByLibrary.simpleMessage("Seleccionar Hora"),
+        "selectValidTimeRange": MessageLookupByLibrary.simpleMessage(
+            "Por favor, selecciona un rango de tiempo válido"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "status": MessageLookupByLibrary.simpleMessage("Estado"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
+        "tentativeEvent":
+            MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
+        "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
+            "Este horario no está disponible"),
+        "to": MessageLookupByLibrary.simpleMessage("Hasta"),
+        "today": MessageLookupByLibrary.simpleMessage("Hoy"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo"),
         "yearsAgo": m4,
         "yes": MessageLookupByLibrary.simpleMessage("Sí"),
-        "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta")
+        "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta"),
+        "zoomIn": MessageLookupByLibrary.simpleMessage("Acercar"),
+        "zoomOut": MessageLookupByLibrary.simpleMessage("Alejar")
       };
 }
