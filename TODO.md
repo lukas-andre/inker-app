@@ -1,3 +1,6 @@
+ # TODO: cambiar estado se acerca en espera cambiar estados de acuerdo si lo esta viendo un artista o un customer solo los translates.
+ hacer que cuando agende scrolee automaticamente al nivel donde se creo el evento. tambien siempre que se cambie el dia scrollear al inicio
+
 # TODO: 04/01/2022
 
 1. Al momento de hacer signIn con redes sociales, se esta creando la session antes de hacer el login oficial,
