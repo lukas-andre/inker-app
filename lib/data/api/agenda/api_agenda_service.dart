@@ -155,4 +155,46 @@ class ApiAgendaService extends AgendaService {
       rethrow;
     }
   }
+
+  @override
+  Future<List<EventItem>> getArtistEvents({
+    required String token,
+    required int artistId,
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
+    final url = _httpConfig.surl(
+      path: 'artist/$artistId',
+      queryParams: {
+        'startDate': startDate.toIso8601String(),
+        'endDate': endDate.toIso8601String(),
+      },
+    );
+
+    try {
+      final response = await http.get(url, headers: {
+        'Authorization': 'Bearer $token',
+      });
+
+      if (response.statusCode == HttpStatus.notFound) {
+        if (ResponseUtils.resourceNotFound(response)) {
+          throw ResourceNotFound();
+        }
+        throw HttpNotFound();
+      }
+
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception('Error while fetching artist events');
+      }
+
+      try {
+        return getAgendaEventsResponseFromJson(response.body);
+      } catch (e) {
+        throw JsonParseException();
+      }
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      rethrow;
+    }
+  }
 }

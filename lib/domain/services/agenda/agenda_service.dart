@@ -23,4 +23,11 @@ abstract class AgendaService {
     required String token,
     required int eventId,
   });
+
+  Future<List<EventItem>> getArtistEvents({
+    required String token,
+    required int artistId,
+    required DateTime startDate,
+    required DateTime endDate,
+  });
 }

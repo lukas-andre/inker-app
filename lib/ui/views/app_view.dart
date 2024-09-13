@@ -23,6 +23,7 @@ import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
+import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
@@ -134,6 +135,9 @@ class _AppViewState extends State<AppView> {
                   reviewService: context.read(),
                 )),
         BlocProvider(create: (context) => ArtistBioCubitCubit()),
+        BlocProvider(
+            create: (context) => ScheduleAssistantBloc(
+                agendaService: context.read(), sessionService: context.read())),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         OverlayStyle.setWhite();

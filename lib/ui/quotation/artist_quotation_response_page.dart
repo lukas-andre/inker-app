@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/artist_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
+import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/calendar_day_picker_v2.dart';
 import 'package:inker_studio/ui/quotation/widgets/time_picker_with_duration_v2.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -51,7 +53,7 @@ class _ArtistQuotationResponseViewState
   final _timeController = TextEditingController();
 
   late ArtistQuotationResponseBloc _bloc;
-
+  late int artistId;
   String _selectedDuration = '1 hora';
   String _timeRange = '';
   DateTime? _appointmentDate;
@@ -72,6 +74,8 @@ class _ArtistQuotationResponseViewState
     super.initState();
     _bloc = BlocProvider.of<ArtistQuotationResponseBloc>(context);
     _bloc.add(ArtistQuotationResponseEvent.loadQuotation(widget.quotationId));
+    artistId =
+        BlocProvider.of<AuthBloc>(context).state.session.user?.userTypeId ?? 0;
   }
 
   @override
@@ -233,47 +237,7 @@ class _ArtistQuotationResponseViewState
             if (_action == ArtistQuotationAction.quote) ...[
               _buildEstimatedCostField(l10n),
               const SizedBox(height: 16),
-              CalendarDayPickerV3(
-                focusedDay: _appointmentDate ?? DateTime.now(),
-                selectedDay: _appointmentDate,
-                calendarFormat: CalendarFormat.month,
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _appointmentDate = selectedDay;
-                    _showDateError = false;
-                    _dateErrorText = null;
-                  });
-                },
-                onFormatChanged: (format) {},
-                showError: _showDateError,
-                errorText: _dateErrorText,
-              ),
-              const SizedBox(height: 16),
-              TimePickerWithDurationV3(
-                timeController: _timeController,
-                selectedDuration: _selectedDuration,
-                timeRange: _timeRange,
-                showTimeError: _showTimeError,
-                showDurationError: _showDurationError,
-                timeErrorText: _timeErrorText,
-                durationErrorText: _durationErrorText,
-                onTimeChanged: (time) {
-                  setState(() {
-                    _timeController.text = time;
-                    _showTimeError = false;
-                    _timeErrorText = null;
-                    _updateTimeRange();
-                  });
-                },
-                onDurationChanged: (duration) {
-                  setState(() {
-                    _selectedDuration = duration;
-                    _showDurationError = false;
-                    _durationErrorText = null;
-                    _updateTimeRange();
-                  });
-                },
-              ),
+              _buildScheduleInput(l10n),
               const SizedBox(height: 16),
               _buildAdditionalDetailsField(l10n),
               const SizedBox(height: 16),
@@ -308,6 +272,107 @@ class _ArtistQuotationResponseViewState
     );
   }
 
+  Widget _buildScheduleInput(S l10n) {
+    final TextEditingController scheduleController = TextEditingController();
+
+    if (_appointmentDate != null) {
+      scheduleController.text =
+          DateFormat('yyyy-MM-dd HH:mm').format(_appointmentDate!);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () => _navigateToScheduleAssistant(context),
+          child: AbsorbPointer(
+            child: TextFormField(
+              controller: scheduleController,
+              decoration: InputDecoration(
+                labelText: l10n.appointmentDateTime,
+                hintText: l10n.selectDateTime,
+                labelStyle:
+                    TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                filled: true,
+                fillColor: inputBackgroundColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: const Icon(
+                  Icons.calendar_today,
+                  color: Colors.white70,
+                ),
+                errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
+              ),
+              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+              readOnly: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return l10n.requiredField;
+                }
+                return null;
+              },
+            ),
+          ),
+        ),
+        if (_showDateError && _dateErrorText != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+            child: Text(
+              _dateErrorText!,
+              style: TextStyleTheme.caption.copyWith(color: Colors.red),
+            ),
+          ),
+        if (_selectedDuration == '0')
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+            child: Text(
+              l10n.durationCannotBeZero,
+              style: TextStyleTheme.caption.copyWith(color: Colors.red),
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _navigateToScheduleAssistant(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScheduleAssistantPage(artistId: artistId),
+      ),
+    );
+
+    if (result != null) {
+      final startTime = result['startEventDate'] as DateTime?;
+      final duration = result['duration'] as int?;
+
+      setState(() {
+        if (startTime != null) {
+          _appointmentDate = startTime;
+          _showDateError = false;
+          _dateErrorText = null;
+
+          if (duration == 0) {
+            _selectedDuration = '0';
+            _showDurationError = true;
+            _durationErrorText = S.of(context).durationCannotBeZero;
+          } else {
+            _selectedDuration = duration.toString();
+            _showDurationError = false;
+            _durationErrorText = null;
+          }
+
+          _timeController.text = DateFormat('HH:mm').format(startTime);
+        } else {
+          _showDateError = true;
+          _dateErrorText = S.of(context).requiredField;
+        }
+      });
+    }
+  }
+
   Widget _buildDateDetailItem(String label, DateTime date, S l10n) {
     final formattedDate = DateFormat.yMMMd(l10n.locale).add_Hm().format(date);
     final timeAgo = _getTimeAgo(date, l10n);
@@ -327,7 +392,7 @@ class _ArtistQuotationResponseViewState
           Expanded(
             child: Row(
               children: [
-                Icon(Icons.access_time, size: 16, color: Colors.white70),
+                const Icon(Icons.access_time, size: 16, color: Colors.white70),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Column(
@@ -496,18 +561,14 @@ class _ArtistQuotationResponseViewState
                   _estimatedCostController.clear();
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.keyboard_hide, color: tertiaryColor),
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                },
-              ),
             ],
           ),
         ),
         style: TextStyleTheme.bodyText1,
-        keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        keyboardType: const TextInputType.numberWithOptions(signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         validator: (value) {
           if (value == null || value.isEmpty) {
             return '${l10n.requiredField} ${l10n.estimatedCostDisclaimer}';

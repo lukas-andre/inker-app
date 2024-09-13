@@ -919,6 +919,326 @@ class S {
       args: [],
     );
   }
+
+  /// `Asistente de agenda`
+  String get scheduleAssistant {
+    return Intl.message(
+      'Asistente de agenda',
+      name: 'scheduleAssistant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Fecha y Hora`
+  String get selectDateTime {
+    return Intl.message(
+      'Seleccionar Fecha y Hora',
+      name: 'selectDateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aceptar`
+  String get accept {
+    return Intl.message(
+      'Aceptar',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La duración no puede ser cero`
+  String get durationCannotBeZero {
+    return Intl.message(
+      'La duración no puede ser cero',
+      name: 'durationCannotBeZero',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha y Hora de la Cita`
+  String get appointmentDateTime {
+    return Intl.message(
+      'Fecha y Hora de la Cita',
+      name: 'appointmentDateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Fecha`
+  String get selectDate {
+    return Intl.message(
+      'Seleccionar Fecha',
+      name: 'selectDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Hora`
+  String get selectTime {
+    return Intl.message(
+      'Seleccionar Hora',
+      name: 'selectTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Duración`
+  String get selectDuration {
+    return Intl.message(
+      'Seleccionar Duración',
+      name: 'selectDuration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento Tentativo`
+  String get tentativeEvent {
+    return Intl.message(
+      'Evento Tentativo',
+      name: 'tentativeEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Desde`
+  String get from {
+    return Intl.message(
+      'Desde',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hasta`
+  String get to {
+    return Intl.message(
+      'Hasta',
+      name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `minutos`
+  String get minutes {
+    return Intl.message(
+      'minutos',
+      name: 'minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `horas`
+  String get hours {
+    return Intl.message(
+      'horas',
+      name: 'hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No hay eventos programados para hoy`
+  String get noEventsToday {
+    return Intl.message(
+      'No hay eventos programados para hoy',
+      name: 'noEventsToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Esta hora entra en conflicto con un evento existente`
+  String get conflictingEvent {
+    return Intl.message(
+      'Esta hora entra en conflicto con un evento existente',
+      name: 'conflictingEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmar Selección de Hora`
+  String get confirmTimeSelection {
+    return Intl.message(
+      'Confirmar Selección de Hora',
+      name: 'confirmTimeSelection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar Selección`
+  String get changeSelection {
+    return Intl.message(
+      'Cambiar Selección',
+      name: 'changeSelection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Superposición de Eventos`
+  String get eventOverlap {
+    return Intl.message(
+      'Superposición de Eventos',
+      name: 'eventOverlap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Este evento se superpone con un evento existente. ¿Deseas continuar?`
+  String get eventOverlapMessage {
+    return Intl.message(
+      'Este evento se superpone con un evento existente. ¿Deseas continuar?',
+      name: 'eventOverlapMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continuar`
+  String get proceed {
+    return Intl.message(
+      'Continuar',
+      name: 'proceed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Volver`
+  String get goBack {
+    return Intl.message(
+      'Volver',
+      name: 'goBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Acercar`
+  String get zoomIn {
+    return Intl.message(
+      'Acercar',
+      name: 'zoomIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alejar`
+  String get zoomOut {
+    return Intl.message(
+      'Alejar',
+      name: 'zoomOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restablecer Zoom`
+  String get resetZoom {
+    return Intl.message(
+      'Restablecer Zoom',
+      name: 'resetZoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hoy`
+  String get today {
+    return Intl.message(
+      'Hoy',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Semana Anterior`
+  String get previousWeek {
+    return Intl.message(
+      'Semana Anterior',
+      name: 'previousWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Semana Siguiente`
+  String get nextWeek {
+    return Intl.message(
+      'Semana Siguiente',
+      name: 'nextWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Este horario no está disponible`
+  String get timeSlotUnavailable {
+    return Intl.message(
+      'Este horario no está disponible',
+      name: 'timeSlotUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por favor, selecciona un rango de tiempo válido`
+  String get selectValidTimeRange {
+    return Intl.message(
+      'Por favor, selecciona un rango de tiempo válido',
+      name: 'selectValidTimeRange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha De Cotización`
+  String get quotationDate {
+    return Intl.message(
+      'Fecha De Cotización',
+      name: 'quotationDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `y`
+  String get and {
+    return Intl.message(
+      'y',
+      name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `entre`
+  String get between {
+    return Intl.message(
+      'entre',
+      name: 'between',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
