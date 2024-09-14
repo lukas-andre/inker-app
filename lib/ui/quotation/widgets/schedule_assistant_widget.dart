@@ -242,6 +242,12 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                           _rangeEnd =
                               _rangeStart!.add(const Duration(hours: 1));
                         }
+                        // Set end automatically to start time + 1 hour if not set
+                        if (_rangeEnd == null ||
+                            _rangeEnd!.isBefore(_rangeStart!)) {
+                          _rangeEnd =
+                              _rangeStart!.add(const Duration(hours: 1));
+                        }
                       } else {
                         _rangeEnd = DateTime(
                           _selectedDay!.year,
@@ -257,6 +263,8 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                         }
                       }
                       _updateDuration();
+                      _setCalendarFormatToWeek();
+                      _scrollToTime(isStartTime ? _rangeStart! : _rangeEnd!);
                     });
                   },
                 ),
@@ -414,40 +422,93 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     );
   }
 
-  void _onTimeCellTapped(int hour, int minute) async {
-    final selectedTime = TimeOfDay(hour: hour, minute: minute);
-    final picked = await showTimePicker(
+  void _onTimeCellTapped(int hour, int minute) {
+    showModalBottomSheet(
       context: context,
-      initialTime: selectedTime,
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  S.of(context).selectStartTime,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ImprovedTimeWheelPicker(
+                  initialTime: TimeOfDay(hour: hour, minute: minute),
+                  onTimeSelected: (selectedTime) {
+                    setState(() {
+                      _rangeStart = DateTime(
+                        _selectedDay!.year,
+                        _selectedDay!.month,
+                        _selectedDay!.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+                      _rangeEnd = _rangeStart!.add(const Duration(hours: 1));
+                      _updateDuration();
+                      _setCalendarFormatToWeek();
+                      _scrollToTime(_rangeStart!);
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
+                  ),
+                  child: Text(
+                    S.of(context).confirm,
+                    style: TextStyleTheme.button.copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
+  }
 
-    if (picked != null) {
-      setState(() {
-        _rangeStart = DateTime(
-          _selectedDay!.year,
-          _selectedDay!.month,
-          _selectedDay!.day,
-          picked.hour,
-          picked.minute,
-        );
-        _rangeEnd = null;
-        _durationInMinutes = 0;
-      });
+  void _scrollToTime(DateTime time) {
+    final scrollPosition = _calculateScrollPosition(time);
+    _scrollController.animateTo(
+      scrollPosition,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOutQuad,
+    );
+  }
 
-      print('Range Start set to: $_rangeStart'); // Print para depuración
+  double _calculateScrollPosition(DateTime time) {
+    final index = (time.hour * _intervalsPerHour) + (time.minute ~/ 15);
+    return index * _cellHeight;
+  }
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToSelectedTime(picked.hour, picked.minute);
-      });
-
-      _showDurationPicker();
-    }
+  void _setCalendarFormatToWeek() {
+    setState(() {
+      _calendarFormat = CalendarFormat.week;
+    });
   }
 
   Widget _buildCalendar() {
@@ -481,19 +542,6 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     );
   }
 
-  void _setDuration(int minutes) {
-    setState(() {
-      _durationInMinutes = minutes;
-      _rangeEnd = _rangeStart!.add(Duration(minutes: minutes));
-      _calendarFormat = CalendarFormat.week;
-    });
-
-    print(
-        'Range Start: $_rangeStart, Range End: $_rangeEnd'); // Print para depuración
-
-    widget.onTimeRangeSelected(_rangeStart!, _rangeEnd!);
-  }
-
   void scrollToSelectedTime(int hour, int minute) {
     final index = (hour * 4) + (minute ~/ 15);
     final scrollPosition = index * _cellHeight;
@@ -503,113 +551,5 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutBack,
     );
-  }
-
-  void _showDurationPicker() {
-    final startTime = _rangeStart!;
-    final endOfDay =
-        DateTime(startTime.year, startTime.month, startTime.day, 23, 59);
-    final maxDurationMinutes = endOfDay.difference(startTime).inMinutes;
-
-    List<MapEntry<String, int>> durations = [];
-    for (int minutes = 1; minutes <= maxDurationMinutes; minutes++) {
-      final endTime = startTime.add(Duration(minutes: minutes));
-      final durationString = _formatDuration(startTime, endTime);
-      durations.add(MapEntry(durationString, minutes));
-    }
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.75,
-          decoration: BoxDecoration(
-            color: primaryColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20)),
-                ),
-                child: Text(
-                  S.of(context).selectDuration,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: RawScrollbar(
-                  thumbColor:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-                  radius: const Radius.circular(20),
-                  thickness: 5,
-                  child: ListView.builder(
-                    itemCount: durations.length,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    itemBuilder: (context, index) {
-                      final entry = durations[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: InkWell(
-                          onTap: () {
-                            _setDuration(entry.value);
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  entry.key,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                                Text(
-                                  '${entry.value} ${S.of(context).minutes}',
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  String _formatDuration(DateTime start, DateTime end) {
-    final formatter = DateFormat('HH:mm');
-    return '${formatter.format(start)} - ${formatter.format(end)}';
   }
 }
