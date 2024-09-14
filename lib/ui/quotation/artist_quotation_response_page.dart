@@ -69,6 +69,7 @@ class _ArtistQuotationResponseViewState
   DateTime? _appointmentStartDate;
   DateTime? _appointmentEndDate;
   int _durationInMinutes = 0;
+  bool _isDetailsExpanded = false;
 
   @override
   void initState() {
@@ -133,8 +134,7 @@ class _ArtistQuotationResponseViewState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildQuotationDetails(quotation, l10n),
-          const Divider(color: Colors.white24, height: 32),
+          _buildQuotationDetailsAccordion(quotation, l10n),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -148,25 +148,50 @@ class _ArtistQuotationResponseViewState
     );
   }
 
-  Widget _buildQuotationDetails(Quotation quotation, S l10n) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: explorerSecondaryColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.quotationDetails,
-            style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+  Widget _buildQuotationDetailsAccordion(Quotation quotation, S l10n) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              _isDetailsExpanded = !_isDetailsExpanded;
+            });
+          },
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            color: explorerSecondaryColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.quotationDetails,
+                  style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                ),
+                Icon(
+                  _isDetailsExpanded ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.white,
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          _buildDetailItem(l10n.description, quotation.description),
-          _buildDetailItem(l10n.status, getStatusText(quotation.status, l10n)),
-          _buildDateDetailItem(l10n.createdAt, quotation.createdAt, l10n),
-          if (quotation.referenceImages != null)
-            _buildReferenceImages(quotation.referenceImages!, l10n),
-        ],
-      ),
+        ),
+        if (_isDetailsExpanded)
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: explorerSecondaryColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailItem(l10n.description, quotation.description),
+                _buildDetailItem(
+                    l10n.status, getStatusText(quotation.status, l10n)),
+                _buildDateDetailItem(l10n.createdAt, quotation.createdAt, l10n),
+                if (quotation.referenceImages != null)
+                  _buildReferenceImages(quotation.referenceImages!, l10n),
+              ],
+            ),
+          ),
+      ],
     );
   }
 
@@ -286,10 +311,9 @@ class _ArtistQuotationResponseViewState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () => _navigateToScheduleAssistant(context),
-          child: AbsorbPointer(
-            child: TextFormField(
+        Stack(
+          children: [
+            TextFormField(
               controller: scheduleController,
               decoration: InputDecoration(
                 labelText: l10n.appointmentDateTime,
@@ -302,9 +326,20 @@ class _ArtistQuotationResponseViewState
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                suffixIcon: const Icon(
-                  Icons.calendar_today,
-                  color: Colors.white70,
+                prefixIcon: Icon(Icons.calendar_today, color: tertiaryColor),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.info_outline, color: tertiaryColor),
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.scheduleInfo)),
+                        );
+                      },
+                    ),
+                    SizedBox(width: 48), // Espacio para el botón de borrar
+                  ],
                 ),
                 errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
               ),
@@ -317,7 +352,39 @@ class _ArtistQuotationResponseViewState
                 return null;
               },
             ),
-          ),
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => _navigateToScheduleAssistant(context),
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+            if (_appointmentStartDate != null)
+              Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: Center(
+                  child: IconButton(
+                    icon: Icon(Icons.close, color: tertiaryColor),
+                    onPressed: () {
+                      setState(() {
+                        _appointmentStartDate = null;
+                        _appointmentEndDate = null;
+                        _durationInMinutes = 0;
+                        scheduleController.clear();
+                        _showDateError = false;
+                        _dateErrorText = null;
+                        _showDurationError = false;
+                        _durationErrorText = null;
+                      });
+                    },
+                  ),
+                ),
+              ),
+          ],
         ),
         if (_showDateError && _dateErrorText != null)
           Padding(
