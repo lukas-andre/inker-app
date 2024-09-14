@@ -33,7 +33,6 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   late DateTime _focusedDay;
   DateTime? _selectedDay;
   List<EventDetails> _allEvents = [];
-  List<EventDetails> _filteredEvents = [];
 
   final ScrollController _scrollController = ScrollController();
   final double _hourHeight = 60.0;
@@ -74,12 +73,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
 
   void _filterEventsForSelectedDay() {
     if (_selectedDay != null) {
-      _filteredEvents = _allEvents
-          .where((event) => isSameDay(event.startDate, _selectedDay!))
-          .toList();
-    } else {
-      _filteredEvents = [];
-    }
+    } else {}
   }
 
   @override
@@ -135,7 +129,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         currentTime.isAfter(_rangeStart!) &&
         currentTime.isBefore(_rangeEnd!);
     final isEnd = _rangeEnd != null &&
-        currentTime.add(Duration(minutes: 15)).isAtSameMomentAs(_rangeEnd!);
+        currentTime
+            .add(const Duration(minutes: 15))
+            .isAtSameMomentAs(_rangeEnd!);
 
     return GestureDetector(
       onTap: () => _onTimeCellTapped(hour, minute),
@@ -175,15 +171,15 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
               child: isStart || isEnd
                   ? Center(
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           isStart ? S.of(context).start : S.of(context).end,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -191,7 +187,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                         ),
                       ),
                     )
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
             ),
           ],
         ),
@@ -357,137 +353,6 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     );
   }
 
-  Widget _buildHourlyEventList() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: 24,
-      itemBuilder: (context, index) {
-        final hour = index;
-        final hourEvents = _filteredEvents
-            .where((event) =>
-                event.startDate.hour == hour ||
-                (event.startDate.hour < hour && event.endDate.hour > hour))
-            .toList();
-
-        return GestureDetector(
-          onTap: () => _onHourTapped(hour),
-          child: Stack(
-            children: [
-              Container(
-                height: _hourHeight,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey[300]!, width: 0.5),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      child: Center(
-                        child: Text(
-                          '$hour:00',
-                          style:
-                              TextStyle(fontSize: 12, color: Colors.grey[600]),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          ...hourEvents
-                              .map((event) => _buildEventItem(event, hour)),
-                          if (_rangeStart != null && _rangeEnd != null)
-                            _buildTentativeEventItem(hour),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildTentativeEventItem(int currentHour) {
-    if (_rangeStart == null || _rangeEnd == null) {
-      return const SizedBox.shrink();
-    }
-
-    final startTime = _rangeStart!;
-    final endTime = _rangeEnd!;
-
-    // Check if the current hour block is within the selected range
-    if (currentHour < startTime.hour || currentHour >= endTime.hour) {
-      return const SizedBox.shrink();
-    }
-
-    double top = 0;
-    double height = _hourHeight;
-
-    // Adjust top position for the first hour
-    if (currentHour == startTime.hour) {
-      top = (startTime.minute / 60) * _hourHeight;
-      height -= top;
-    }
-
-    // Adjust height for the last hour
-    if (currentHour == endTime.hour - 1) {
-      height = (endTime.minute / 60) * _hourHeight;
-    }
-
-    return Positioned(
-      top: top,
-      left: 0,
-      right: 0,
-      height: height,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-              color: Theme.of(context).colorScheme.primary, width: 2),
-        ),
-        child: Center(
-          child: Text(
-            S.of(context).quotationDate,
-            style: const TextStyle(
-                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEventItem(EventDetails event, int hour) {
-    final startMinute = event.startDate.minute;
-    final durationMinutes = event.endDate.difference(event.startDate).inMinutes;
-    return Positioned(
-      top: (startMinute / 60.0) * _hourHeight,
-      left: 40,
-      right: 0,
-      height: (durationMinutes / 60.0) * _hourHeight,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-        decoration: BoxDecoration(
-          color: Colors.blue[100],
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Center(
-          child: Text(
-            event.title,
-            style: const TextStyle(fontSize: 12),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-    );
-  }
-
   void _setDuration(int minutes) {
     setState(() {
       _durationInMinutes = minutes;
@@ -497,41 +362,6 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     });
 
     widget.onTimeRangeSelected(_rangeStart!, _rangeEnd!);
-  }
-
-  void _onHourTapped(int hour) async {
-    setState(() {
-      _rangeStart = DateTime(
-          _selectedDay!.year, _selectedDay!.month, _selectedDay!.day, hour);
-      _durationInMinutes = 0;
-      _rangeEnd = null;
-    });
-
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: hour, minute: 0),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
-        );
-      },
-    );
-
-    if (picked != null) {
-      setState(() {
-        _rangeStart = DateTime(_selectedDay!.year, _selectedDay!.month,
-            _selectedDay!.day, picked.hour, picked.minute);
-      });
-
-      // Scroll to the selected time with bounce effect
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToSelectedTime(picked.hour, picked.minute);
-      });
-
-      // Mostrar el selector de duración
-      _showDurationPicker();
-    }
   }
 
   void scrollToSelectedTime(int hour, int minute) {
