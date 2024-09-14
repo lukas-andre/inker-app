@@ -9,6 +9,7 @@ import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart'
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
+import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,6 +47,7 @@ class _ArtistQuotationResponseViewState
     extends State<_ArtistQuotationResponseView> {
   final _formKey = GlobalKey<FormState>();
   final _estimatedCostController = TextEditingController();
+  final _estimatedCostFocusNode = FocusNode();
   final _additionalDetailsController = TextEditingController();
 
   late ArtistQuotationResponseBloc _bloc;
@@ -347,6 +349,8 @@ class _ArtistQuotationResponseViewState
         }
       });
     }
+
+    _estimatedCostFocusNode.unfocus();
   }
 
   List<ArtistQuotationAction> _getAvailableActions() {
@@ -409,53 +413,11 @@ class _ArtistQuotationResponseViewState
   }
 
   Widget _buildEstimatedCostField(S l10n) {
-    return Tooltip(
-      message: l10n.estimatedCostDisclaimer,
-      child: TextFormField(
-        controller: _estimatedCostController,
-        decoration: InputDecoration(
-          labelText: l10n.estimatedCost,
-          labelStyle: TextStyleTheme.bodyText1,
-          fillColor: inputBackgroundColor,
-          filled: true,
-          border: inputBorder,
-          focusedBorder: focusedBorder,
-          prefixIcon: Icon(Icons.attach_money, color: tertiaryColor),
-          suffixIcon: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon: Icon(Icons.info_outline, color: tertiaryColor),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.estimatedCostDisclaimer)),
-                  );
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.close, color: tertiaryColor),
-                onPressed: () {
-                  _estimatedCostController.clear();
-                },
-              ),
-            ],
-          ),
-        ),
-        style: TextStyleTheme.bodyText1,
-        keyboardType: const TextInputType.numberWithOptions(signed: true),
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-        ],
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return '${l10n.requiredField} ${l10n.estimatedCostDisclaimer}';
-          }
-          if (double.tryParse(value) == null) {
-            return '${l10n.invalidNumber} ${l10n.estimatedCostDisclaimer}';
-          }
-          return null;
-        },
-      ),
+    return EstimatedCostField(
+      controller: _estimatedCostController,
+      l10n: l10n,
+      focusNode: _estimatedCostFocusNode,
+      onChanged: (value) {},
     );
   }
 
@@ -592,6 +554,7 @@ class _ArtistQuotationResponseViewState
         ArtistQuotationResponseEvent.submit(
           quotationId: widget.quotationId,
           action: _action,
+          // TODO, ESTIMATED COST? HAY QUE ENVIAR CURRENCY O NO?
           estimatedCost: _action == ArtistQuotationAction.quote
               ? double.tryParse(_estimatedCostController.text)
               : null,
@@ -613,18 +576,18 @@ class _ArtistQuotationResponseViewState
 
     if (_action == ArtistQuotationAction.quote) {
       if (_appointmentStartDate == null) {
-        setState(() {
-          _showDateError = true;
-          _dateErrorText = l10n.requiredField;
-        });
+        // setState(() {
+        //   _showDateError = true;
+        //   _dateErrorText = l10n.requiredField;
+        // });
         isValid = false;
       }
 
       if (_durationInMinutes == 0) {
-        setState(() {
-          _showDurationError = true;
-          _durationErrorText = l10n.durationCannotBeZero;
-        });
+        // setState(() {
+        //   _showDurationError = true;
+        //   _durationErrorText = l10n.durationCannotBeZero;
+        // });
         isValid = false;
       }
     }
