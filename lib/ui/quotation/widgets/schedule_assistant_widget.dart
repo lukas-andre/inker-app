@@ -4,6 +4,8 @@ import 'package:inker_studio/domain/blocs/schedule_assistant/models/event_detail
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/widgets/calendar_day_picker_v2.dart';
+import 'package:inker_studio/ui/quotation/widgets/time_wheel_picker.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/forms/capitalize_text_formatter.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
@@ -57,12 +59,22 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToCurrentTime();
+      if (_rangeStart != null) {
+        _scrollToSelectedTime(_rangeStart!.hour, _rangeStart!.minute);
+      } else {
+        _scrollToCurrentTime();
+      }
     });
 
     context
         .read<ScheduleAssistantBloc>()
         .add(ScheduleAssistantEvent.started(widget.artistId));
+  }
+
+  void _scrollToSelectedTime(int hour, int minute) {
+    final index = (hour * _intervalsPerHour) + (minute ~/ 15);
+    final scrollPosition = index * _cellHeight;
+    _scrollController.jumpTo(scrollPosition);
   }
 
   void _scrollToCurrentTime() {
@@ -91,15 +103,186 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         );
       },
       builder: (context, state) {
-        return Column(
+        return Stack(
           children: [
-            _buildCalendar(),
-            _buildSelectedTimeRange(),
-            Expanded(child: _buildGridEventList()),
+            Column(
+              children: [
+                _buildCalendar(),
+                _buildTimeRangeSelector(),
+                Expanded(child: _buildGridEventList()),
+              ],
+            ),
           ],
         );
       },
     );
+  }
+
+  Widget _buildTimeRangeSelector() {
+    final dateFormatter =
+        DateFormat('EEEE d MMMM', Localizations.localeOf(context).languageCode);
+    final timeFormatter = DateFormat('HH:mm');
+
+    String formattedDate = _selectedDay != null
+        ? dateFormatter.format(_selectedDay!).capitalize()
+        : S.of(context).selectDate;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text(
+            formattedDate,
+            style: TextStyleTheme.subtitle1.copyWith(color: Colors.white),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildTimeSelector(
+                label: S.of(context).start,
+                time: _rangeStart,
+                onTap: () => _showTimeWheelPicker(isStartTime: true),
+              ),
+              const Icon(Icons.arrow_forward, color: Colors.white),
+              _buildTimeSelector(
+                label: S.of(context).end,
+                time: _rangeEnd,
+                onTap: () => _showTimeWheelPicker(isStartTime: false),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimeSelector({
+    required String label,
+    required DateTime? time,
+    required VoidCallback onTap,
+  }) {
+    final timeString =
+        time != null ? DateFormat('HH:mm').format(time) : '--:--';
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
+        ),
+        child: Column(
+          children: [
+            Text(label,
+                style: const TextStyle(color: Colors.white, fontSize: 14)),
+            const SizedBox(height: 4),
+            Text(timeString,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showTimeWheelPicker({required bool isStartTime}) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  isStartTime
+                      ? S.of(context).selectStartTime
+                      : S.of(context).selectEndTime,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: TimeWheelPicker(
+                  initialTime: TimeOfDay.fromDateTime(isStartTime
+                      ? (_rangeStart ?? DateTime.now())
+                      : (_rangeEnd ??
+                          DateTime.now().add(const Duration(hours: 1)))),
+                  onTimeSelected: (selectedTime) {
+                    setState(() {
+                      if (isStartTime) {
+                        _rangeStart = DateTime(
+                          _selectedDay!.year,
+                          _selectedDay!.month,
+                          _selectedDay!.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                        if (_rangeEnd != null &&
+                            _rangeEnd!.isBefore(_rangeStart!)) {
+                          _rangeEnd =
+                              _rangeStart!.add(const Duration(hours: 1));
+                        }
+                      } else {
+                        _rangeEnd = DateTime(
+                          _selectedDay!.year,
+                          _selectedDay!.month,
+                          _selectedDay!.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                        if (_rangeStart != null &&
+                            _rangeEnd!.isBefore(_rangeStart!)) {
+                          _rangeStart =
+                              _rangeEnd!.subtract(const Duration(hours: 1));
+                        }
+                      }
+                      _updateDuration();
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
+                  ),
+                  child: Text(S.of(context).confirm),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _updateDuration() {
+    if (_rangeStart != null && _rangeEnd != null) {
+      _durationInMinutes = _rangeEnd!.difference(_rangeStart!).inMinutes;
+      widget.onTimeRangeSelected(_rangeStart!, _rangeEnd!);
+    }
   }
 
   Widget _buildGridEventList() {
@@ -110,40 +293,49 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         mainAxisExtent: _cellHeight,
         mainAxisSpacing: 1,
       ),
-      itemCount: 24 * _intervalsPerHour,
+      itemCount: 24 * 4, // 24 horas * 4 (intervalos de 15 minutos)
       itemBuilder: (context, index) {
-        final hour = index ~/ _intervalsPerHour;
-        final minute = (index % _intervalsPerHour) * 15;
+        final hour = index ~/ 4;
+        final minute = (index % 4) * 15;
         return _buildTimeCell(hour, minute);
       },
     );
   }
 
   Widget _buildTimeCell(int hour, int minute) {
-    final currentTime = DateTime(_selectedDay!.year, _selectedDay!.month,
+    final cellStartTime = DateTime(_selectedDay!.year, _selectedDay!.month,
         _selectedDay!.day, hour, minute);
-    final isStart =
-        _rangeStart != null && currentTime.isAtSameMomentAs(_rangeStart!);
-    final isWithinRange = _rangeStart != null &&
-        _rangeEnd != null &&
-        currentTime.isAfter(_rangeStart!) &&
-        currentTime.isBefore(_rangeEnd!);
-    final isEnd = _rangeEnd != null &&
-        currentTime
-            .add(const Duration(minutes: 15))
-            .isAtSameMomentAs(_rangeEnd!);
+    final cellEndTime = cellStartTime.add(const Duration(minutes: 15));
+
+    bool isWithinRange = false;
+    bool isStart = false;
+    bool isEnd = false;
+
+    if (_rangeStart != null && _rangeEnd != null) {
+      isWithinRange = cellStartTime.isAfter(_rangeStart!) &&
+          cellStartTime.isBefore(_rangeEnd!);
+      isStart = (_rangeStart!.isAfter(cellStartTime) &&
+              _rangeStart!.isBefore(cellEndTime)) ||
+          _rangeStart!.isAtSameMomentAs(cellStartTime);
+      isEnd = (_rangeEnd!.isAfter(cellStartTime) &&
+              _rangeEnd!.isBefore(cellEndTime)) ||
+          _rangeEnd!.isAtSameMomentAs(cellStartTime);
+    }
+
+    // Incluimos la celda de inicio en el rango
+    bool shouldColor = isWithinRange || isStart;
 
     return GestureDetector(
       onTap: () => _onTimeCellTapped(hour, minute),
       child: Container(
         decoration: BoxDecoration(
-          color: isWithinRange || isStart || isEnd
+          color: shouldColor
               ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
               : Colors.transparent,
           border: Border(
             bottom: BorderSide(
-              color: minute == 45 ? Colors.grey[300]! : Colors.transparent,
-              width: minute == 45 ? 0 : 0.5,
+              color: Colors.transparent,
+              width: minute % 15 == 0 ? 1 : 0.5,
             ),
           ),
         ),
@@ -168,8 +360,10 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                     ),
             ),
             Expanded(
-              child: isStart || isEnd
-                  ? Center(
+              child: Stack(
+                children: [
+                  if (isStart)
+                    Center(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 2),
@@ -178,16 +372,36 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          isStart ? S.of(context).start : S.of(context).end,
+                          S.of(context).start,
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ),
-                    )
-                  : const SizedBox.shrink(),
+                    ),
+                  if (isEnd)
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          S.of(context).end,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ],
         ),
@@ -221,105 +435,14 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         _durationInMinutes = 0;
       });
 
-      // Scroll to the selected time
+      print('Range Start set to: $_rangeStart'); // Print para depuración
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         scrollToSelectedTime(picked.hour, picked.minute);
       });
 
-      // Show duration picker
       _showDurationPicker();
     }
-  }
-
-  Widget _buildSelectedTimeRange() {
-    if (_rangeStart != null && _rangeEnd != null) {
-      final dateFormatter = DateFormat(
-          'EEEE d MMMM', Localizations.localeOf(context).languageCode);
-      final timeFormatter = DateFormat('HH:mm');
-      final formattedDate = dateFormatter.format(_rangeStart!);
-      final formattedStartTime = timeFormatter.format(_rangeStart!);
-      final formattedEndTime = timeFormatter.format(_rangeEnd!);
-
-      final durationInMinutes = _rangeEnd!.difference(_rangeStart!).inMinutes;
-
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.3)),
-          ),
-          child: Column(
-            children: [
-              Text(
-                formattedDate.capitalize(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildTimeChip(formattedStartTime),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 20,
-                    ),
-                  ),
-                  _buildTimeChip(formattedEndTime),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  '${S.of(context).duration}: $durationInMinutes ${S.of(context).minutes}',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-    return const SizedBox.shrink();
-  }
-
-  Widget _buildTimeChip(String time) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        time,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
-    );
   }
 
   Widget _buildCalendar() {
@@ -357,15 +480,17 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     setState(() {
       _durationInMinutes = minutes;
       _rangeEnd = _rangeStart!.add(Duration(minutes: minutes));
-      _calendarFormat =
-          CalendarFormat.week; // Change to week view to improve UX
+      _calendarFormat = CalendarFormat.week;
     });
+
+    print(
+        'Range Start: $_rangeStart, Range End: $_rangeEnd'); // Print para depuración
 
     widget.onTimeRangeSelected(_rangeStart!, _rangeEnd!);
   }
 
   void scrollToSelectedTime(int hour, int minute) {
-    final index = (hour * _intervalsPerHour) + (minute ~/ 15);
+    final index = (hour * 4) + (minute ~/ 15);
     final scrollPosition = index * _cellHeight;
 
     _scrollController.animateTo(
@@ -382,7 +507,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     final maxDurationMinutes = endOfDay.difference(startTime).inMinutes;
 
     List<MapEntry<String, int>> durations = [];
-    for (int minutes = 15; minutes <= maxDurationMinutes; minutes += 15) {
+    for (int minutes = 1; minutes <= maxDurationMinutes; minutes++) {
       final endTime = startTime.add(Duration(minutes: minutes));
       final durationString = _formatDuration(startTime, endTime);
       durations.add(MapEntry(durationString, minutes));
