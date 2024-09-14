@@ -66,6 +66,10 @@ class _ArtistQuotationResponseViewState
   String? _timeErrorText;
   String? _durationErrorText;
 
+  DateTime? _appointmentStartDate;
+  DateTime? _appointmentEndDate;
+  int _durationInMinutes = 0;
+
   @override
   void initState() {
     super.initState();
@@ -272,9 +276,11 @@ class _ArtistQuotationResponseViewState
   Widget _buildScheduleInput(S l10n) {
     final TextEditingController scheduleController = TextEditingController();
 
-    if (_appointmentDate != null) {
-      scheduleController.text =
-          DateFormat('yyyy-MM-dd HH:mm').format(_appointmentDate!);
+    if (_appointmentStartDate != null && _appointmentEndDate != null) {
+      final startFormatted =
+          DateFormat('yyyy-MM-dd HH:mm').format(_appointmentStartDate!);
+      final endFormatted = DateFormat('HH:mm').format(_appointmentEndDate!);
+      scheduleController.text = '$startFormatted - $endFormatted';
     }
 
     return Column(
@@ -321,11 +327,11 @@ class _ArtistQuotationResponseViewState
               style: TextStyleTheme.caption.copyWith(color: Colors.red),
             ),
           ),
-        if (_selectedDuration == '0')
+        if (_showDurationError && _durationErrorText != null)
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 12.0),
             child: Text(
-              l10n.durationCannotBeZero,
+              _durationErrorText!,
               style: TextStyleTheme.caption.copyWith(color: Colors.red),
             ),
           ),
@@ -337,7 +343,13 @@ class _ArtistQuotationResponseViewState
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ScheduleAssistantPage(artistId: artistId),
+        builder: (context) => ScheduleAssistantPage(
+          artistId: artistId,
+          tentativeDate:
+              _appointmentStartDate, // Usa la fecha existente si está disponible
+          tentativeDuration:
+              _durationInMinutes, // Usa la duración existente si está disponible
+        ),
       ),
     );
 
@@ -346,25 +358,26 @@ class _ArtistQuotationResponseViewState
       final duration = result['duration'] as int?;
 
       setState(() {
-        if (startTime != null) {
-          _appointmentDate = startTime;
+        if (startTime != null && duration != null) {
+          _appointmentStartDate = startTime;
+          _appointmentEndDate = startTime.add(Duration(minutes: duration));
+          _durationInMinutes = duration;
           _showDateError = false;
           _dateErrorText = null;
 
           if (duration == 0) {
-            _selectedDuration = '0';
             _showDurationError = true;
             _durationErrorText = S.of(context).durationCannotBeZero;
           } else {
-            _selectedDuration = duration.toString();
             _showDurationError = false;
             _durationErrorText = null;
           }
-
-          _timeController.text = DateFormat('HH:mm').format(startTime);
         } else {
           _showDateError = true;
           _dateErrorText = S.of(context).requiredField;
+          _appointmentStartDate = null;
+          _appointmentEndDate = null;
+          _durationInMinutes = 0;
         }
       });
     }
@@ -691,24 +704,6 @@ class _ArtistQuotationResponseViewState
     if (_formKey.currentState!.validate() && validExtraFields) {
       _formKey.currentState!.save();
 
-      DateTime? finalAppointmentDate;
-      int? finalAppointmentDuration;
-
-      if (_action == ArtistQuotationAction.quote) {
-        if (_appointmentDate != null && _timeController.text.isNotEmpty) {
-          final timeComponents = _timeController.text.split(':');
-          finalAppointmentDate = DateTime(
-            _appointmentDate!.year,
-            _appointmentDate!.month,
-            _appointmentDate!.day,
-            int.parse(timeComponents[0]),
-            int.parse(timeComponents[1]),
-          );
-        }
-
-        finalAppointmentDuration = _getDurationInMinutes(_selectedDuration);
-      }
-
       _bloc.add(
         ArtistQuotationResponseEvent.submit(
           quotationId: widget.quotationId,
@@ -716,8 +711,8 @@ class _ArtistQuotationResponseViewState
           estimatedCost: _action == ArtistQuotationAction.quote
               ? double.tryParse(_estimatedCostController.text)
               : null,
-          appointmentDate: finalAppointmentDate,
-          appointmentDuration: finalAppointmentDuration,
+          appointmentDate: _appointmentStartDate,
+          appointmentDuration: _durationInMinutes,
           additionalDetails: _additionalDetailsController.text,
           rejectionReason:
               _action == ArtistQuotationAction.reject ? _rejectionReason : null,
@@ -733,7 +728,7 @@ class _ArtistQuotationResponseViewState
     final l10n = S.of(context);
 
     if (_action == ArtistQuotationAction.quote) {
-      if (_appointmentDate == null) {
+      if (_appointmentStartDate == null) {
         setState(() {
           _showDateError = true;
           _dateErrorText = l10n.requiredField;
@@ -741,18 +736,10 @@ class _ArtistQuotationResponseViewState
         isValid = false;
       }
 
-      if (_timeController.text.isEmpty) {
-        setState(() {
-          _showTimeError = true;
-          _timeErrorText = l10n.requiredField;
-        });
-        isValid = false;
-      }
-
-      if (_selectedDuration.isEmpty) {
+      if (_durationInMinutes == 0) {
         setState(() {
           _showDurationError = true;
-          _durationErrorText = l10n.requiredField;
+          _durationErrorText = l10n.durationCannotBeZero;
         });
         isValid = false;
       }
