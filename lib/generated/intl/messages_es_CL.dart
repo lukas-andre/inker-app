@@ -134,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
