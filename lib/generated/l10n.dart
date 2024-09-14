@@ -1269,6 +1269,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Seleccionar Hora de Inicio`
+  String get selectStartTime {
+    return Intl.message(
+      'Seleccionar Hora de Inicio',
+      name: 'selectStartTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Hora de Fin`
+  String get selectEndTime {
+    return Intl.message(
+      'Seleccionar Hora de Fin',
+      name: 'selectEndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por favor, selecciona un rango de tiempo`
+  String get pleaseSelectTimeRange {
+    return Intl.message(
+      'Por favor, selecciona un rango de tiempo',
+      name: 'pleaseSelectTimeRange',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

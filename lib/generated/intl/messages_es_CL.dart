@@ -137,6 +137,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
+            "Por favor, selecciona un rango de tiempo"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
         "proceed": MessageLookupByLibrary.simpleMessage("Continuar"),
         "proposedDesigns":
@@ -179,8 +181,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Seleccionar Fecha y Hora"),
         "selectDuration":
             MessageLookupByLibrary.simpleMessage("Seleccionar Duración"),
+        "selectEndTime":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Hora de Fin"),
         "selectService":
             MessageLookupByLibrary.simpleMessage("Seleccionar servicio"),
+        "selectStartTime":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Hora de Inicio"),
         "selectTime": MessageLookupByLibrary.simpleMessage("Seleccionar Hora"),
         "selectValidTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo válido"),

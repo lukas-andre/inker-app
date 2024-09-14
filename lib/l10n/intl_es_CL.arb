@@ -120,5 +120,8 @@
   "between": "entre",
   "start": "Inicio",
   "end": "Fin",
-  "ok": "OK"
+  "ok": "OK",
+  "selectStartTime": "Seleccionar Hora de Inicio",
+  "selectEndTime": "Seleccionar Hora de Fin",
+  "pleaseSelectTimeRange": "Por favor, selecciona un rango de tiempo"
 }
