@@ -9,14 +9,11 @@ import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart'
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
-import 'package:inker_studio/ui/quotation/widgets/calendar_day_picker_v2.dart';
-import 'package:inker_studio/ui/quotation/widgets/time_picker_with_duration_v2.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class ArtistQuotationResponsePage extends StatelessWidget {
   final String quotationId;
@@ -418,23 +415,6 @@ class _ArtistQuotationResponseViewState
         ],
       ),
     );
-  }
-
-  void _updateTimeRange() {
-    if (_timeController.text.isEmpty) {
-      setState(() {
-        _timeRange = '';
-      });
-      return;
-    }
-
-    final startTime = DateFormat('HH:mm').parse(_timeController.text);
-    final durationInMinutes = _getDurationInMinutes(_selectedDuration);
-    final endTime = startTime.add(Duration(minutes: durationInMinutes));
-    setState(() {
-      _timeRange =
-          '${DateFormat('HH:mm').format(startTime)} - ${DateFormat('HH:mm').format(endTime)}';
-    });
   }
 
   int _getDurationInMinutes(String duration) {
