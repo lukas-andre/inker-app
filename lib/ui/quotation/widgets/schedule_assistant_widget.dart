@@ -492,6 +492,8 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     setState(() {
       _durationInMinutes = minutes;
       _rangeEnd = _rangeStart!.add(Duration(minutes: minutes));
+      _calendarFormat =
+          CalendarFormat.week; // Change to week view to improve UX
     });
 
     widget.onTimeRangeSelected(_rangeStart!, _rangeEnd!);
