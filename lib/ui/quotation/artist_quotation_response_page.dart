@@ -7,8 +7,8 @@ import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/art
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
+import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,29 +47,22 @@ class _ArtistQuotationResponseViewState
   final _formKey = GlobalKey<FormState>();
   final _estimatedCostController = TextEditingController();
   final _additionalDetailsController = TextEditingController();
-  final _timeController = TextEditingController();
 
   late ArtistQuotationResponseBloc _bloc;
   late int artistId;
-  String _selectedDuration = '1 hora';
-  String _timeRange = '';
-  DateTime? _appointmentDate;
   ArtistQuotationAction _action = ArtistQuotationAction.quote;
   QuotationArtistRejectReason? _rejectionReason;
   final List<XFile> _proposedDesigns = [];
   QuotationStatus _quotationStatus = QuotationStatus.pending;
 
   bool _showDateError = false;
-  bool _showTimeError = false;
   bool _showDurationError = false;
   String? _dateErrorText;
-  String? _timeErrorText;
   String? _durationErrorText;
 
   DateTime? _appointmentStartDate;
   DateTime? _appointmentEndDate;
   int _durationInMinutes = 0;
-  bool _isDetailsExpanded = false;
 
   @override
   void initState() {
@@ -88,6 +81,13 @@ class _ArtistQuotationResponseViewState
       appBar: AppBar(
         title: Text(l10n.respondToQuotation, style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
+        iconTheme: const IconThemeData(
+            color: Colors
+                .white), // Esto hace que la flecha de retroceso sea blanca
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -134,7 +134,7 @@ class _ArtistQuotationResponseViewState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildQuotationDetailsAccordion(quotation, l10n),
+          AnimatedQuotationDetailsAccordion(quotation: quotation, l10n: l10n),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -145,108 +145,6 @@ class _ArtistQuotationResponseViewState
           _buildResponseForm(l10n),
         ],
       ),
-    );
-  }
-
-  Widget _buildQuotationDetailsAccordion(Quotation quotation, S l10n) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: () {
-            setState(() {
-              _isDetailsExpanded = !_isDetailsExpanded;
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            color: explorerSecondaryColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  l10n.quotationDetails,
-                  style: TextStyleTheme.headline3.copyWith(color: Colors.white),
-                ),
-                Icon(
-                  _isDetailsExpanded ? Icons.expand_less : Icons.expand_more,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-        ),
-        if (_isDetailsExpanded)
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: explorerSecondaryColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildDetailItem(l10n.description, quotation.description),
-                _buildDetailItem(
-                    l10n.status, getStatusText(quotation.status, l10n)),
-                _buildDateDetailItem(l10n.createdAt, quotation.createdAt, l10n),
-                if (quotation.referenceImages != null)
-                  _buildReferenceImages(quotation.referenceImages!, l10n),
-              ],
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildDetailItem(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              label,
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildReferenceImages(MultimediasMetadata images, S l10n) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          l10n.referenceImages,
-          style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 100,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: images.metadata.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Image.network(
-                  images.metadata[index].url,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 
@@ -338,7 +236,8 @@ class _ArtistQuotationResponseViewState
                         );
                       },
                     ),
-                    SizedBox(width: 48), // Espacio para el botón de borrar
+                    const SizedBox(
+                        width: 48), // Espacio para el botón de borrar
                   ],
                 ),
                 errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
@@ -447,88 +346,6 @@ class _ArtistQuotationResponseViewState
           _durationInMinutes = 0;
         }
       });
-    }
-  }
-
-  Widget _buildDateDetailItem(String label, DateTime date, S l10n) {
-    final formattedDate = DateFormat.yMMMd(l10n.locale).add_Hm().format(date);
-    final timeAgo = _getTimeAgo(date, l10n);
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              label,
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                const Icon(Icons.access_time, size: 16, color: Colors.white70),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        formattedDate,
-                        style: TextStyleTheme.bodyText1
-                            .copyWith(color: Colors.white),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        timeAgo,
-                        style: TextStyleTheme.caption
-                            .copyWith(color: Colors.white70),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  int _getDurationInMinutes(String duration) {
-    final Map<String, int> durationMap = {
-      '30 minutos': 30,
-      '1 hora': 60,
-      '1 hora 30 minutos': 90,
-      '2 horas': 120,
-      '2 horas 30 minutos': 150,
-      '3 horas': 180,
-      '3 horas 30 minutos': 210,
-      '4 horas': 240,
-    };
-    return durationMap[duration] ?? 60;
-  }
-
-  String _getTimeAgo(DateTime date, l10n) {
-    final now = DateTime.now();
-    final difference = now.difference(date);
-
-    if (difference.inDays > 365) {
-      final years = (difference.inDays / 365).floor();
-      return l10n.yearsAgo(years);
-    } else if (difference.inDays > 30) {
-      final months = (difference.inDays / 30).floor();
-      return l10n.monthsAgo(months);
-    } else if (difference.inDays > 0) {
-      return l10n.daysAgo(difference.inDays);
-    } else if (difference.inHours > 0) {
-      return l10n.hoursAgo(difference.inHours);
-    } else if (difference.inMinutes > 0) {
-      return l10n.minutesAgo(difference.inMinutes);
-    } else {
-      return l10n.justNow;
     }
   }
 
