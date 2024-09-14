@@ -42,6 +42,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   DateTime? _rangeEnd;
   int _durationInMinutes = 0;
 
+  static const int _intervalsPerHour = 4; // 15-minute intervals
+  static const double _cellHeight = 30.0; // Increased for better touch targets
+
   @override
   void initState() {
     super.initState();
@@ -98,11 +101,138 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
           children: [
             _buildCalendar(),
             _buildSelectedTimeRange(),
-            Expanded(child: _buildHourlyEventList()),
+            Expanded(child: _buildGridEventList()),
           ],
         );
       },
     );
+  }
+
+  Widget _buildGridEventList() {
+    return GridView.builder(
+      controller: _scrollController,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        mainAxisExtent: _cellHeight,
+        mainAxisSpacing: 1,
+      ),
+      itemCount: 24 * _intervalsPerHour,
+      itemBuilder: (context, index) {
+        final hour = index ~/ _intervalsPerHour;
+        final minute = (index % _intervalsPerHour) * 15;
+        return _buildTimeCell(hour, minute);
+      },
+    );
+  }
+
+  Widget _buildTimeCell(int hour, int minute) {
+    final currentTime = DateTime(_selectedDay!.year, _selectedDay!.month,
+        _selectedDay!.day, hour, minute);
+    final isStart =
+        _rangeStart != null && currentTime.isAtSameMomentAs(_rangeStart!);
+    final isWithinRange = _rangeStart != null &&
+        _rangeEnd != null &&
+        currentTime.isAfter(_rangeStart!) &&
+        currentTime.isBefore(_rangeEnd!);
+    final isEnd = _rangeEnd != null &&
+        currentTime.add(Duration(minutes: 15)).isAtSameMomentAs(_rangeEnd!);
+
+    return GestureDetector(
+      onTap: () => _onTimeCellTapped(hour, minute),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isWithinRange || isStart || isEnd
+              ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
+              : Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              color: minute == 45 ? Colors.grey[300]! : Colors.transparent,
+              width: minute == 45 ? 0 : 0.5,
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 60,
+              child: minute == 0
+                  ? Text(
+                      '${hour.toString().padLeft(2, '0')}:00',
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )
+                  : Text(
+                      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+            ),
+            Expanded(
+              child: isStart || isEnd
+                  ? Center(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          isStart ? S.of(context).start : S.of(context).end,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onTimeCellTapped(int hour, int minute) async {
+    final selectedTime = TimeOfDay(hour: hour, minute: minute);
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _rangeStart = DateTime(
+          _selectedDay!.year,
+          _selectedDay!.month,
+          _selectedDay!.day,
+          picked.hour,
+          picked.minute,
+        );
+        _rangeEnd = null;
+        _durationInMinutes = 0;
+      });
+
+      // Scroll to the selected time
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToSelectedTime(picked.hour, picked.minute);
+      });
+
+      // Show duration picker
+      _showDurationPicker();
+    }
   }
 
   Widget _buildSelectedTimeRange() {
@@ -241,72 +371,77 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
 
         return GestureDetector(
           onTap: () => _onHourTapped(hour),
-          child: Container(
-            height: _hourHeight,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey[300]!, width: 0.5),
-              ),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: SizedBox(
-                    width: 40,
-                    height: _hourHeight,
-                    child: Center(
-                      child: Text(
-                        '$hour:00',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                    ),
+          child: Stack(
+            children: [
+              Container(
+                height: _hourHeight,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey[300]!, width: 0.5),
                   ),
                 ),
-                if (_rangeStart != null && _durationInMinutes > 0)
-                  _buildTentativeEventItem(hour),
-                ...hourEvents.map((event) => _buildEventItem(event, hour)),
-              ],
-            ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      child: Center(
+                        child: Text(
+                          '$hour:00',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          ...hourEvents
+                              .map((event) => _buildEventItem(event, hour)),
+                          if (_rangeStart != null && _rangeEnd != null)
+                            _buildTentativeEventItem(hour),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },
     );
   }
 
-  Widget _buildTentativeEventItem(int hour) {
-    if (_rangeStart == null || _durationInMinutes == 0) {
+  Widget _buildTentativeEventItem(int currentHour) {
+    if (_rangeStart == null || _rangeEnd == null) {
       return const SizedBox.shrink();
     }
 
     final startTime = _rangeStart!;
-    final endTime = startTime.add(Duration(minutes: _durationInMinutes));
+    final endTime = _rangeEnd!;
 
-    // Check if the current hour is within the event's time range
-    if (hour < startTime.hour ||
-        hour >= endTime.hour + (endTime.minute > 0 ? 1 : 0)) {
+    // Check if the current hour block is within the selected range
+    if (currentHour < startTime.hour || currentHour >= endTime.hour) {
       return const SizedBox.shrink();
     }
 
     double top = 0;
     double height = _hourHeight;
 
-    // Calculate top position for the first hour
-    if (hour == startTime.hour) {
+    // Adjust top position for the first hour
+    if (currentHour == startTime.hour) {
       top = (startTime.minute / 60) * _hourHeight;
+      height -= top;
     }
 
-    // Calculate height for the last hour
-    if (hour == endTime.hour) {
+    // Adjust height for the last hour
+    if (currentHour == endTime.hour - 1) {
       height = (endTime.minute / 60) * _hourHeight;
-    } else if (hour == startTime.hour) {
-      height = _hourHeight - top;
     }
 
     return Positioned(
-      left: 40,
       top: top,
+      left: 0,
       right: 0,
       height: height,
       child: Container(
@@ -398,31 +533,14 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   }
 
   void scrollToSelectedTime(int hour, int minute) {
-    final scrollPosition = (hour * _hourHeight) + (minute / 60 * _hourHeight);
+    final index = (hour * _intervalsPerHour) + (minute ~/ 15);
+    final scrollPosition = index * _cellHeight;
 
-    // This animation sequence not works as I expected lol, fix it in the future
-    // if you want to improve the UX of the scroll to selected time
-    _scrollController
-        .animateTo(
+    _scrollController.animateTo(
       scrollPosition,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutBack,
-    )
-        .then((_) {
-      _scrollController
-          .animateTo(
-        scrollPosition - 80,
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeInOut,
-      )
-          .then((_) {
-        _scrollController.animateTo(
-          scrollPosition,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.easeInOut,
-        );
-      });
-    });
+    );
   }
 
   void _showDurationPicker() {
