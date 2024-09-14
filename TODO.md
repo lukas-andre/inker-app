@@ -1,6 +1,11 @@
  # TODO: cambiar estado se acerca en espera cambiar estados de acuerdo si lo esta viendo un artista o un customer solo los translates.
  hacer que cuando agende scrolee automaticamente al nivel donde se creo el evento. tambien siempre que se cambie el dia scrollear al inicio
 
+ HERMANO QUEDA HACER CACHE DE LO POSIBLE NO IR TODO EL RATO A BUSCAR EL EVENTO
+ AGREGAR EL COEHETE Y LA PANTALLA DE LOADING QUE HICIMOS OBVIO
+ AGREGAR EVENTOS, POR ALGUNA RAZON NO SE VEN PERO TAMBIEN PIENSA EN FILTROS Y SELECCIONAR EVENTOS O QUOTATIONS Y AGEGARLOS
+ AL CALENDARIO
+
 # TODO: 04/01/2022
 
 1. Al momento de hacer signIn con redes sociales, se esta creando la session antes de hacer el login oficial,
