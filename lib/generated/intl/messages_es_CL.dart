@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "La duración no puede ser cero"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
+        "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "errorMsgGuestValidationError": MessageLookupByLibrary.simpleMessage(
             "Por favor seleccione un invitado"),
@@ -184,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, selecciona un rango de tiempo válido"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
+        "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "status": MessageLookupByLibrary.simpleMessage("Estado"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),

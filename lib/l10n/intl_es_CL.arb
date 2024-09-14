@@ -117,5 +117,7 @@
   "selectValidTimeRange": "Por favor, selecciona un rango de tiempo válido",
   "quotationDate": "Fecha De Cotización",
   "and": "y",
-  "between": "entre"
+  "between": "entre",
+  "start": "Inicio",
+  "end": "Fin"
 }

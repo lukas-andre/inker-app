@@ -116,5 +116,7 @@
   "selectValidTimeRange": "Please select a valid time range",
   "quotationDate": "Quotation Date",
   "and": "and",
-  "between": "between"
+  "between": "between",
+  "start": "Start",
+  "end": "End"
 }
