@@ -164,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Schedule Assistant"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
+        "scheduleInfo": MessageLookupByLibrary.simpleMessage("Schedule Info"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Select Date & Time"),

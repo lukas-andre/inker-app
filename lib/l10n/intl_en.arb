@@ -122,5 +122,6 @@
   "ok": "OK",
   "selectStartTime": "Select Start Time",
   "selectEndTime": "Select End Time",
-  "pleaseSelectTimeRange": "Please select a time range"
+  "pleaseSelectTimeRange": "Please select a time range",
+  "scheduleInfo": "Schedule Info"
 }

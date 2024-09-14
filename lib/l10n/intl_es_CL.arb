@@ -123,5 +123,6 @@
   "ok": "OK",
   "selectStartTime": "Seleccionar Hora de Inicio",
   "selectEndTime": "Seleccionar Hora de Fin",
-  "pleaseSelectTimeRange": "Por favor, selecciona un rango de tiempo"
+  "pleaseSelectTimeRange": "Por favor, selecciona un rango de tiempo",
+  "scheduleInfo": "Información de Agenda"
 }

@@ -176,6 +176,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
+        "scheduleInfo":
+            MessageLookupByLibrary.simpleMessage("Información de Agenda"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Seleccionar Fecha"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Seleccionar Fecha y Hora"),

@@ -1299,6 +1299,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Información de Agenda`
+  String get scheduleInfo {
+    return Intl.message(
+      'Información de Agenda',
+      name: 'scheduleInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
