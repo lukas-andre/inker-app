@@ -38,7 +38,7 @@ class QuotationListView extends StatefulWidget {
 class _QuotationListViewState extends State<QuotationListView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String searchTerm = "";
+  String searchTerm = '';
   late QuotationListBloc _quotationListBloc;
 
   @override

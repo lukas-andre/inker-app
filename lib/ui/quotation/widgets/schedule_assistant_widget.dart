@@ -41,6 +41,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
 
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  // ignore: unused_field
   int _durationInMinutes = 0;
 
   static const int _intervalsPerHour = 4; // 15-minute intervals
@@ -121,6 +122,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   Widget _buildTimeRangeSelector() {
     final dateFormatter =
         DateFormat('EEEE d MMMM', Localizations.localeOf(context).languageCode);
+    // ignore: unused_local_variable
     final timeFormatter = DateFormat('HH:mm');
 
     String formattedDate = _selectedDay != null
@@ -220,7 +222,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                 ),
               ),
               Expanded(
-                child: TimeWheelPicker(
+                child: ImprovedTimeWheelPicker(
                   initialTime: TimeOfDay.fromDateTime(isStartTime
                       ? (_rangeStart ?? DateTime.now())
                       : (_rangeEnd ??
@@ -268,7 +270,10 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 16),
                   ),
-                  child: Text(S.of(context).confirm),
+                  child: Text(
+                    S.of(context).confirm,
+                    style: TextStyleTheme.button.copyWith(color: Colors.white),
+                  ),
                 ),
               ),
             ],
