@@ -614,22 +614,13 @@ class _ArtistQuotationResponseViewState
 
   bool _validateAdditionalFields() {
     bool isValid = true;
-    final l10n = S.of(context);
 
     if (_action == ArtistQuotationAction.quote) {
       if (_appointmentStartDate == null) {
-        // setState(() {
-        //   _showDateError = true;
-        //   _dateErrorText = l10n.requiredField;
-        // });
         isValid = false;
       }
 
       if (_durationInMinutes == 0) {
-        // setState(() {
-        //   _showDurationError = true;
-        //   _durationErrorText = l10n.durationCannotBeZero;
-        // });
         isValid = false;
       }
     }
