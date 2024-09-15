@@ -210,29 +210,45 @@ class _QuotationListViewState extends State<QuotationListView>
                 .contains(searchTerm.toLowerCase()))
         .toList();
 
-    return ListView.builder(
-      itemCount: filteredQuotations.length + (hasMorePages ? 1 : 0),
-      itemBuilder: (context, index) {
-        if (index == filteredQuotations.length) {
-          if (hasMorePages) {
-            return isLoadingMore
-                ? const Center(child: InkerProgressIndicator())
-                : ElevatedButton(
-                    onPressed: () {
-                      _quotationListBloc.add(QuotationListEvent.loadQuotations(
+    return RefreshIndicator(
+      onRefresh: () async {
+        // Trigger a refresh of the quotation list
+        _quotationListBloc.add(QuotationListEvent.loadQuotations(
+          _quotationListBloc.getStatusesForTab(_tabController.index),
+          false,
+        ));
+      },
+      child: ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: filteredQuotations.length + (hasMorePages ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (index == filteredQuotations.length) {
+            if (hasMorePages) {
+              return isLoadingMore
+                  ? const Center(child: InkerProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: () {
+                        _quotationListBloc
+                            .add(QuotationListEvent.loadQuotations(
                           _quotationListBloc
                               .getStatusesForTab(_tabController.index),
-                          true));
-                    },
-                    child: Text(l10n.loadMore),
-                  );
-          } else {
-            return const SizedBox.shrink();
+                          true,
+                        ));
+                      },
+                      child: Text(l10n.loadMore),
+                    );
+            } else {
+              return const SizedBox.shrink();
+            }
           }
-        }
-        return _buildQuotationCard(
-            filteredQuotations[index], session, l10n, cancellingQuotationId);
-      },
+          return _buildQuotationCard(
+            filteredQuotations[index],
+            session,
+            l10n,
+            cancellingQuotationId,
+          );
+        },
+      ),
     );
   }
 

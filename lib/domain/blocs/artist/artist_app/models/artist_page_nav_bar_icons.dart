@@ -42,7 +42,7 @@ ArtistPageNavBarIcons kArtistPageNavBarIcons = const ArtistPageNavBarIcons(
     PageNavBarIcon(
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
-      title: 'Guardados',
+      title: 'Solicituded',
       index: 2,
     ),
     PageNavBarIcon(
