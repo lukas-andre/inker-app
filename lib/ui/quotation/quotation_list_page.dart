@@ -271,7 +271,7 @@ class _QuotationListViewState extends State<QuotationListView>
                       ),
                       Text(
                         isArtist
-                            ? quotation.customerId.toString() ?? l10n.guest
+                            ? quotation.customerId.toString()
                             : '${l10n.status}: ${getStatusText(quotation.status, l10n)}',
                         style: TextStyleTheme.bodyText2
                             .copyWith(color: const Color(0xFF686D90)),
