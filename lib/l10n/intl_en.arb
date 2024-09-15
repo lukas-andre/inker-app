@@ -1,132 +1,549 @@
 {
   "@@locale": "en",
   "locale": "en",
+  "@locale": {
+    "description": "The language and locale settings."
+  },
   "eventDetails": "Event Details",
+  "@eventDetails": {
+    "description": "Details of the event."
+  },
   "description": "Description",
+  "@description": {
+    "description": "A short explanation or description."
+  },
   "workEvidence": "Work Evidence",
+  "@workEvidence": {
+    "description": "Proof or evidence of work done."
+  },
   "noWorkEvidence": "No Work Evidence",
+  "@noWorkEvidence": {
+    "description": "Message displayed when there is no work evidence."
+  },
   "locationDetails": "Location Details",
+  "@locationDetails": {
+    "description": "Information about the location of the event."
+  },
   "editEvent": "Edit Event",
+  "@editEvent": {
+    "description": "Action to edit the event."
+  },
   "cancelEvent": "Cancel Event",
+  "@cancelEvent": {
+    "description": "Action to cancel the event."
+  },
   "upcomming": "Upcoming",
+  "@upcomming": {
+    "description": "Events that are scheduled to happen in the future."
+  },
   "completed": "Completed",
+  "@completed": {
+    "description": "Events that have already been completed."
+  },
   "cancelled": "Cancelled",
+  "@cancelled": {
+    "description": "Events that have been cancelled."
+  },
   "cancel": "Cancel",
+  "@cancel": {
+    "description": "Action to cancel an operation."
+  },
   "edit": "Edit",
+  "@edit": {
+    "description": "Action to modify or change something."
+  },
   "delete": "Delete",
+  "@delete": {
+    "description": "Action to remove or delete something."
+  },
   "confirm": "Confirm",
+  "@confirm": {
+    "description": "Action to confirm a choice or operation."
+  },
   "eventLocation": "Event Location",
+  "@eventLocation": {
+    "description": "The location where the event will take place."
+  },
   "createEvent": "Create Event",
+  "@createEvent": {
+    "description": "Action to create a new event."
+  },
   "quoted": "Quoted",
+  "@quoted": {
+    "description": "Status indicating that a quotation has been made."
+  },
   "eventTitle": "Event Title",
+  "@eventTitle": {
+    "description": "The title or name of the event."
+  },
   "extraInfo": "Extra Info",
+  "@extraInfo": {
+    "description": "Additional information related to the event."
+  },
   "eventColor": "Event Color",
+  "@eventColor": {
+    "description": "The color associated with the event."
+  },
   "startDate": "Start Date",
+  "@startDate": {
+    "description": "The date when the event starts."
+  },
   "endDate": "End Date",
+  "@endDate": {
+    "description": "The date when the event ends."
+  },
   "notification": "Notification",
+  "@notification": {
+    "description": "A message or alert about something."
+  },
   "scheduleEvent": "Schedule Event",
+  "@scheduleEvent": {
+    "description": "Action to schedule an event."
+  },
   "guest": "Guest",
+  "@guest": {
+    "description": "A person invited to the event."
+  },
   "note": "Note",
+  "@note": {
+    "description": "A brief comment or annotation."
+  },
   "characters": "characters",
+  "@characters": {
+    "description": "A count of characters used."
+  },
   "sendMessage": "Send Message",
+  "@sendMessage": {
+    "description": "Action to send a message."
+  },
   "selectService": "Select Service",
+  "@selectService": {
+    "description": "Action to choose a service."
+  },
   "hour": "Hour",
+  "@hour": {
+    "description": "Unit of time measured in hours."
+  },
   "duration": "Duration",
+  "@duration": {
+    "description": "The length of time an event or appointment lasts."
+  },
   "tattoo": "Tattoo",
+  "@tattoo": {
+    "description": "A tattoo service."
+  },
   "barber": "Barber",
+  "@barber": {
+    "description": "A barber service."
+  },
   "piercing": "Piercing",
+  "@piercing": {
+    "description": "A piercing service."
+  },
   "haircut": "Haircut",
+  "@haircut": {
+    "description": "A haircut service."
+  },
   "makeup": "Makeup",
+  "@makeup": {
+    "description": "A makeup service."
+  },
   "nail": "Nail",
+  "@nail": {
+    "description": "A nail service."
+  },
   "other": "Other",
+  "@other": {
+    "description": "Another service type."
+  },
   "errorMsgGuestValidationError": "Please select guest",
+  "@errorMsgGuestValidationError": {
+    "description": "Error message displayed when no guest is selected."
+  },
   "errorMsgNotesValidationError": "Notes exceed the limit of characters",
+  "@errorMsgNotesValidationError": {
+    "description": "Error message displayed when notes exceed character limit."
+  },
   "errorMsgHoursValidationError": "Please select hours",
+  "@errorMsgHoursValidationError": {
+    "description": "Error message displayed when no hours are selected."
+  },
   "createQuotation": "Create Quotation",
+  "@createQuotation": {
+    "description": "Action to create a quotation."
+  },
   "loadMore": "Load More",
+  "@loadMore": {
+    "description": "Action to load more items or content."
+  },
   "reply": "Reply",
+  "@reply": {
+    "description": "Action to respond to a message."
+  },
   "send": "Send",
+  "@send": {
+    "description": "Action to send something."
+  },
   "status": "Status",
+  "@status": {
+    "description": "Current state or condition of something."
+  },
   "cancelQuotationConfirmationTitle": "Cancel Quotation",
+  "@cancelQuotationConfirmationTitle": {
+    "description": "Title for the cancel quotation confirmation message."
+  },
   "cancelQuotationConfirmationMessage": "Are you sure you want to cancel this quotation?",
+  "@cancelQuotationConfirmationMessage": {
+    "description": "Message asking for confirmation to cancel a quotation."
+  },
   "quotationCancelledSuccessfully": "Quotation cancelled successfully",
+  "@quotationCancelledSuccessfully": {
+    "description": "Message confirming that the quotation was cancelled."
+  },
   "yes": "Yes",
+  "@yes": {
+    "description": "Confirmation action for yes."
+  },
   "no": "No",
+  "@no": {
+    "description": "Confirmation action for no."
+  },
   "quotes": "Quotes",
+  "@quotes": {
+    "description": "A list or collection of quotations."
+  },
   "quote": "Quote",
+  "@quote": {
+    "description": "A single quotation or price estimate."
+  },
   "quoteDetails": "Quote Details",
+  "@quoteDetails": {
+    "description": "Information about a particular quotation."
+  },
   "request": "Request",
+  "@request": {
+    "description": "An action to ask for something."
+  },
   "requests": "Requests",
+  "@requests": {
+    "description": "A list or collection of requests."
+  },
   "requestDetails": "Request Details",
+  "@requestDetails": {
+    "description": "Information about a particular request."
+  },
   "respondToQuotation": "Respond to Quotation",
+  "@respondToQuotation": {
+    "description": "Action to reply to a quotation."
+  },
   "quotationResponseSuccess": "Quotation response sent successfully",
+  "@quotationResponseSuccess": {
+    "description": "Message confirming that the quotation response was sent successfully."
+  },
   "submit": "Submit",
+  "@submit": {
+    "description": "Action to submit something."
+  },
   "action": "Action",
+  "@action": {
+    "description": "A general term for an operation or task."
+  },
   "getArtistActionText": "Get Artist",
+  "@getArtistActionText": {
+    "description": "Action to retrieve information about an artist."
+  },
   "estimatedCost": "Estimated Cost",
+  "@estimatedCost": {
+    "description": "The estimated cost of a service or product."
+  },
   "appointmentDate": "Appointment Date",
+  "@appointmentDate": {
+    "description": "The date of the appointment."
+  },
   "notSelected": "Not Selected",
+  "@notSelected": {
+    "description": "Message displayed when no item or option is selected."
+  },
   "appointmentDuration": "Appointment Duration",
+  "@appointmentDuration": {
+    "description": "The length of time the appointment will last."
+  },
   "requiredField": "Required Field",
+  "@requiredField": {
+    "description": "Indicates that a field is required."
+  },
   "invalidNumber": "Invalid Number",
+  "@invalidNumber": {
+    "description": "Error message displayed when the input is not a valid number."
+  },
   "additionalDetails": "Additional Details",
+  "@additionalDetails": {
+    "description": "Extra or supplementary information."
+  },
   "rejectionReason": "Rejection Reason",
+  "@rejectionReason": {
+    "description": "The reason for rejecting something."
+  },
   "proposedDesigns": "Proposed Designs",
+  "@proposedDesigns": {
+    "description": "Designs suggested or proposed for the project."
+  },
   "reject": "Reject",
+  "@reject": {
+    "description": "Action to refuse or reject something."
+  },
   "acceotAppeal": "Accept Appeal",
+  "@acceotAppeal": {
+    "description": "Action to accept an appeal."
+  },
   "rejectAppeal": "Reject Appeal",
+  "@rejectAppeal": {
+    "description": "Action to refuse an appeal."
+  },
   "quotationDetails": "Quotation Details",
+  "@quotationDetails": {
+    "description": "Information about a specific quotation."
+  },
   "createdAt": "Created At",
+  "@createdAt": {
+    "description": "The date and time when something was created."
+  },
   "referenceImages": "Reference Images",
+  "@referenceImages": {
+    "description": "Images used as reference for a design or idea."
+  },
   "yourResponse": "Your Response",
+  "@yourResponse": {
+    "description": "Message to display the user's response."
+  },
   "minutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@minutesAgo": {
+    "description": "Message indicating how many minutes ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of minutes that have passed."
+      }
+    }
+  },
   "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@hoursAgo": {
+    "description": "Message indicating how many hours ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of hours that have passed."
+      }
+    }
+  },
   "daysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+  "@daysAgo": {
+    "description": "Message indicating how many days ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of days that have passed."
+      }
+    }
+  },
   "monthsAgo": "{count, plural, =1{1 month ago} other{{count} months ago}}",
+  "@monthsAgo": {
+    "description": "Message indicating how many months ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of months that have passed."
+      }
+    }
+  },
   "yearsAgo": "{count, plural, =1{1 year ago} other{{count} years ago}}",
+  "@yearsAgo": {
+    "description": "Message indicating how many years ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of years that have passed."
+      }
+    }
+  },
   "estimatedCostDisclaimer": "This is an estimated cost and may vary based on the final design or service",
+  "@estimatedCostDisclaimer": {
+    "description": "Disclaimer about the estimated cost."
+  },
   "scheduleAssistant": "Schedule Assistant",
+  "@scheduleAssistant": {
+    "description": "Tool or feature to help schedule appointments."
+  },
   "selectDateTime": "Select Date & Time",
+  "@selectDateTime": {
+    "description": "Prompt to choose a date and time."
+  },
   "accept": "Accept",
+  "@accept": {
+    "description": "Action to agree or accept something."
+  },
   "durationCannotBeZero": "Duration cannot be zero",
+  "@durationCannotBeZero": {
+    "description": "Error message when the duration is set to zero."
+  },
   "appointmentDateTime": "Appointment Date & Time",
+  "@appointmentDateTime": {
+    "description": "The specific date and time of the appointment."
+  },
   "selectDate": "Select Date",
+  "@selectDate": {
+    "description": "Prompt to choose a date."
+  },
   "selectTime": "Select Time",
+  "@selectTime": {
+    "description": "Prompt to choose a time."
+  },
   "selectDuration": "Select Duration",
+  "@selectDuration": {
+    "description": "Prompt to choose the duration of an event or appointment."
+  },
   "tentativeEvent": "Tentative Event",
+  "@tentativeEvent": {
+    "description": "An event that is not yet confirmed."
+  },
   "from": "From",
+  "@from": {
+    "description": "Indicates the starting point of something."
+  },
   "to": "To",
+  "@to": {
+    "description": "Indicates the end point of something."
+  },
   "minutes": "minutes",
+  "@minutes": {
+    "description": "Unit of time measured in minutes."
+  },
   "hours": "hours",
+  "@hours": {
+    "description": "Unit of time measured in hours."
+  },
   "noEventsToday": "No events scheduled for today",
+  "@noEventsToday": {
+    "description": "Message displayed when there are no events for the current day."
+  },
   "conflictingEvent": "This time conflicts with an existing event",
+  "@conflictingEvent": {
+    "description": "Message displayed when an event conflicts with another."
+  },
   "confirmTimeSelection": "Confirm Time Selection",
+  "@confirmTimeSelection": {
+    "description": "Action to confirm the selection of a time."
+  },
   "changeSelection": "Change Selection",
+  "@changeSelection": {
+    "description": "Action to modify or change a previously made selection."
+  },
   "eventOverlap": "Event Overlap",
+  "@eventOverlap": {
+    "description": "Indicates that two or more events overlap."
+  },
   "eventOverlapMessage": "This event overlaps with an existing event. Do you want to proceed?",
+  "@eventOverlapMessage": {
+    "description": "Warning message about event overlap."
+  },
   "proceed": "Proceed",
+  "@proceed": {
+    "description": "Action to move forward with something."
+  },
   "goBack": "Go Back",
+  "@goBack": {
+    "description": "Action to return to a previous step or screen."
+  },
   "zoomIn": "Zoom In",
+  "@zoomIn": {
+    "description": "Action to increase the zoom level."
+  },
   "zoomOut": "Zoom Out",
+  "@zoomOut": {
+    "description": "Action to decrease the zoom level."
+  },
   "resetZoom": "Reset Zoom",
+  "@resetZoom": {
+    "description": "Action to reset the zoom level to the default."
+  },
   "today": "Today",
+  "@today": {
+    "description": "Indicates the current day."
+  },
   "previousWeek": "Previous Week",
+  "@previousWeek": {
+    "description": "The week before the current one."
+  },
   "nextWeek": "Next Week",
+  "@nextWeek": {
+    "description": "The week after the current one."
+  },
   "timeSlotUnavailable": "This time slot is unavailable",
+  "@timeSlotUnavailable": {
+    "description": "Message displayed when a time slot is already booked."
+  },
   "selectValidTimeRange": "Please select a valid time range",
+  "@selectValidTimeRange": {
+    "description": "Prompt to choose a valid range of time."
+  },
   "quotationDate": "Quotation Date",
+  "@quotationDate": {
+    "description": "The date when a quotation was created."
+  },
   "and": "and",
+  "@and": {
+    "description": "Connects two ideas or items."
+  },
   "between": "between",
+  "@between": {
+    "description": "Indicates a range between two points."
+  },
   "start": "Start",
+  "@start": {
+    "description": "Indicates the beginning of something."
+  },
   "end": "End",
+  "@end": {
+    "description": "Indicates the conclusion of something."
+  },
   "ok": "OK",
+  "@ok": {
+    "description": "Action to confirm or proceed."
+  },
   "selectStartTime": "Select Start Time",
+  "@selectStartTime": {
+    "description": "Prompt to choose a start time."
+  },
   "selectEndTime": "Select End Time",
+  "@selectEndTime": {
+    "description": "Prompt to choose an end time."
+  },
   "pleaseSelectTimeRange": "Please select a time range",
+  "@pleaseSelectTimeRange": {
+    "description": "Prompt to choose a time range."
+  },
   "scheduleInfo": "Schedule Info",
+  "@scheduleInfo": {
+    "description": "Information about the schedule of events or appointments."
+  },
   "processingQuotation": "Processing Quotation",
+  "@processingQuotation": {
+    "description": "Message indicating that the system is processing a quotation."
+  },
   "processingQuotationMessage": "Please wait while we process your quotation",
+  "@processingQuotationMessage": {
+    "description": "Message asking the user to wait while a quotation is processed."
+  },
   "quotationResponseSuccessMessage": "Your response has been sent successfully",
+  "@quotationResponseSuccessMessage": {
+    "description": "Message confirming that the quotation response was sent successfully."
+  },
   "error": "Error",
-  "invalidRange": "Invalid Range"
+  "@error": {
+    "description": "General error message."
+  },
+  "invalidRange": "Invalid Range",
+  "@invalidRange": {
+    "description": "Message displayed when a selected range is not valid."
+  }
 }

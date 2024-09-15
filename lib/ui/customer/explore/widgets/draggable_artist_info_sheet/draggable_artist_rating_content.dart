@@ -32,8 +32,6 @@ class DraggableArtistRatingContent extends StatelessWidget {
           }
         });
 
-        print(reviewMap);
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,45 +93,43 @@ class DraggableArtistRatingDetailBars extends StatelessWidget {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...reviewMap.entries
-                    .map((e) => Row(
-                          children: [
-                            SizedBox(
-                              width: 25,
-                              child: Center(
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      buildCenteredTextSpan(
-                                          text: '${e.key} ',
-                                          style: TextStyleTheme.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w200)),
-                                      const WidgetSpan(
-                                        alignment: PlaceholderAlignment.middle,
-                                        child: Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                          size: 10,
-                                        ),
-                                      ),
-                                    ],
+                ...reviewMap.entries.map((e) => Row(
+                      children: [
+                        SizedBox(
+                          width: 25,
+                          child: Center(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  buildCenteredTextSpan(
+                                      text: '${e.key} ',
+                                      style: TextStyleTheme.copyWith(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w200)),
+                                  const WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 10,
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              child: LinearProgressIndicator(
-                                  value: e.value,
-                                  backgroundColor: greyColor,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      yellowColor)),
-                            ),
-                          ],
-                        ))
-                    ,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          child: LinearProgressIndicator(
+                              value: e.value,
+                              backgroundColor: greyColor,
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(yellowColor)),
+                        ),
+                      ],
+                    )),
               ]),
         ));
   }

@@ -19,7 +19,7 @@ class CalendarDayPickerV3 extends StatelessWidget {
   final HeaderStyle? headerStyle;
 
   const CalendarDayPickerV3({
-    Key? key,
+    super.key,
     required this.focusedDay,
     this.selectedDay,
     required this.calendarFormat,
@@ -32,7 +32,7 @@ class CalendarDayPickerV3 extends StatelessWidget {
     this.errorText,
     this.calendarStyle,
     this.headerStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
