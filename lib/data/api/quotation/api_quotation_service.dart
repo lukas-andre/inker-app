@@ -24,7 +24,7 @@ class ApiQuotationService implements QuotationService {
 
     var request = http.MultipartRequest('POST', url);
 
-    request.fields['title'] = "TBD";
+    request.fields['title'] = 'TBD';
     request.fields['description'] = quotation.description;
     request.fields['customerId'] = quotation.customerId.toString();
     request.fields['artistId'] = quotation.artistId.toString();

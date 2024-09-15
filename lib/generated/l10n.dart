@@ -55,7 +55,7 @@ class S {
     return Intl.message(
       'es_CL',
       name: 'locale',
-      desc: '',
+      desc: 'Código de idioma y país para la localización.',
       args: [],
     );
   }
@@ -65,7 +65,7 @@ class S {
     return Intl.message(
       'Detalles del Evento',
       name: 'eventDetails',
-      desc: '',
+      desc: 'Título de la sección de detalles del evento.',
       args: [],
     );
   }
@@ -75,7 +75,7 @@ class S {
     return Intl.message(
       'Descripción',
       name: 'description',
-      desc: '',
+      desc: 'Etiqueta de descripción para un evento o cotización.',
       args: [],
     );
   }
@@ -85,7 +85,7 @@ class S {
     return Intl.message(
       'Evidencia del Trabajo',
       name: 'workEvidence',
-      desc: '',
+      desc: 'Texto que describe la evidencia del trabajo realizado.',
       args: [],
     );
   }
@@ -95,7 +95,7 @@ class S {
     return Intl.message(
       'No hay evidencia de trabajo',
       name: 'noWorkEvidence',
-      desc: '',
+      desc: 'Mensaje mostrado cuando no hay evidencia del trabajo.',
       args: [],
     );
   }
@@ -105,7 +105,7 @@ class S {
     return Intl.message(
       'Detalles de la Ubicación',
       name: 'locationDetails',
-      desc: '',
+      desc: 'Etiqueta para los detalles de la ubicación del evento.',
       args: [],
     );
   }
@@ -115,7 +115,7 @@ class S {
     return Intl.message(
       'Editar Evento',
       name: 'editEvent',
-      desc: '',
+      desc: 'Botón para editar un evento.',
       args: [],
     );
   }
@@ -125,7 +125,7 @@ class S {
     return Intl.message(
       'Cancelar Evento',
       name: 'cancelEvent',
-      desc: '',
+      desc: 'Botón para cancelar un evento.',
       args: [],
     );
   }
@@ -135,7 +135,7 @@ class S {
     return Intl.message(
       'Se acerca',
       name: 'upcomming',
-      desc: '',
+      desc: 'Estado que indica que un evento se aproxima.',
       args: [],
     );
   }
@@ -145,7 +145,7 @@ class S {
     return Intl.message(
       'Finalizado',
       name: 'completed',
-      desc: '',
+      desc: 'Estado que indica que un evento ha finalizado.',
       args: [],
     );
   }
@@ -155,7 +155,7 @@ class S {
     return Intl.message(
       'Cancelado',
       name: 'cancelled',
-      desc: '',
+      desc: 'Estado que indica que un evento ha sido cancelado.',
       args: [],
     );
   }
@@ -165,7 +165,7 @@ class S {
     return Intl.message(
       'Cancelar',
       name: 'cancel',
-      desc: '',
+      desc: 'Etiqueta o botón para cancelar.',
       args: [],
     );
   }
@@ -175,7 +175,7 @@ class S {
     return Intl.message(
       'Editar',
       name: 'edit',
-      desc: '',
+      desc: 'Etiqueta o botón para editar.',
       args: [],
     );
   }
@@ -185,7 +185,7 @@ class S {
     return Intl.message(
       'Eliminar',
       name: 'delete',
-      desc: '',
+      desc: 'Etiqueta o botón para eliminar.',
       args: [],
     );
   }
@@ -195,7 +195,7 @@ class S {
     return Intl.message(
       'Confirmar',
       name: 'confirm',
-      desc: '',
+      desc: 'Etiqueta o botón para confirmar.',
       args: [],
     );
   }
@@ -205,7 +205,7 @@ class S {
     return Intl.message(
       'Ubicación del Evento',
       name: 'eventLocation',
-      desc: '',
+      desc: 'Etiqueta que muestra la ubicación del evento.',
       args: [],
     );
   }
@@ -215,7 +215,7 @@ class S {
     return Intl.message(
       'Crear Evento',
       name: 'createEvent',
-      desc: '',
+      desc: 'Botón para crear un nuevo evento.',
       args: [],
     );
   }
@@ -225,7 +225,7 @@ class S {
     return Intl.message(
       'Cotizado',
       name: 'quoted',
-      desc: '',
+      desc: 'Etiqueta que indica que un evento ha sido cotizado.',
       args: [],
     );
   }
@@ -235,7 +235,7 @@ class S {
     return Intl.message(
       'Título del Evento',
       name: 'eventTitle',
-      desc: '',
+      desc: 'Etiqueta que indica el título del evento.',
       args: [],
     );
   }
@@ -245,7 +245,7 @@ class S {
     return Intl.message(
       'Información Adicional',
       name: 'extraInfo',
-      desc: '',
+      desc: 'Etiqueta para información adicional en un formulario o evento.',
       args: [],
     );
   }
@@ -255,7 +255,7 @@ class S {
     return Intl.message(
       'Color del Evento',
       name: 'eventColor',
-      desc: '',
+      desc: 'Campo que muestra el color asignado al evento.',
       args: [],
     );
   }
@@ -265,7 +265,7 @@ class S {
     return Intl.message(
       'Fecha de Inicio',
       name: 'startDate',
-      desc: '',
+      desc: 'Campo que indica la fecha de inicio del evento.',
       args: [],
     );
   }
@@ -275,7 +275,7 @@ class S {
     return Intl.message(
       'Fecha de Fin',
       name: 'endDate',
-      desc: '',
+      desc: 'Campo que indica la fecha de fin del evento.',
       args: [],
     );
   }
@@ -285,7 +285,7 @@ class S {
     return Intl.message(
       'Notificación',
       name: 'notification',
-      desc: '',
+      desc: 'Etiqueta para notificaciones.',
       args: [],
     );
   }
@@ -295,7 +295,7 @@ class S {
     return Intl.message(
       'Agendar cita',
       name: 'scheduleEvent',
-      desc: '',
+      desc: 'Botón para agendar una cita.',
       args: [],
     );
   }
@@ -305,7 +305,7 @@ class S {
     return Intl.message(
       'Invitado',
       name: 'guest',
-      desc: '',
+      desc: 'Etiqueta para los invitados de un evento.',
       args: [],
     );
   }
@@ -315,7 +315,7 @@ class S {
     return Intl.message(
       'Nota',
       name: 'note',
-      desc: '',
+      desc: 'Etiqueta para una nota adicional.',
       args: [],
     );
   }
@@ -325,7 +325,7 @@ class S {
     return Intl.message(
       'caracteres',
       name: 'characters',
-      desc: '',
+      desc: 'Etiqueta que muestra el número de caracteres.',
       args: [],
     );
   }
@@ -335,7 +335,7 @@ class S {
     return Intl.message(
       'Enviar Mensaje',
       name: 'sendMessage',
-      desc: '',
+      desc: 'Botón para enviar un mensaje.',
       args: [],
     );
   }
@@ -345,7 +345,8 @@ class S {
     return Intl.message(
       'Seleccionar servicio',
       name: 'selectService',
-      desc: '',
+      desc:
+          'Etiqueta para seleccionar un servicio durante la creación de un evento o cotización.',
       args: [],
     );
   }
@@ -355,7 +356,7 @@ class S {
     return Intl.message(
       'Hora',
       name: 'hour',
-      desc: '',
+      desc: 'Campo o etiqueta para la hora.',
       args: [],
     );
   }
@@ -365,7 +366,7 @@ class S {
     return Intl.message(
       'Duración',
       name: 'duration',
-      desc: '',
+      desc: 'Campo o etiqueta para la duración del evento o servicio.',
       args: [],
     );
   }
@@ -375,7 +376,7 @@ class S {
     return Intl.message(
       'Tatuaje',
       name: 'tattoo',
-      desc: '',
+      desc: 'Opción para seleccionar tatuaje como servicio.',
       args: [],
     );
   }
@@ -385,7 +386,7 @@ class S {
     return Intl.message(
       'Barbería',
       name: 'barber',
-      desc: '',
+      desc: 'Opción para seleccionar barbería como servicio.',
       args: [],
     );
   }
@@ -395,7 +396,7 @@ class S {
     return Intl.message(
       'Piercing',
       name: 'piercing',
-      desc: '',
+      desc: 'Opción para seleccionar piercing como servicio.',
       args: [],
     );
   }
@@ -405,7 +406,7 @@ class S {
     return Intl.message(
       'Corte de Pelo',
       name: 'haircut',
-      desc: '',
+      desc: 'Opción para seleccionar corte de pelo como servicio.',
       args: [],
     );
   }
@@ -415,7 +416,7 @@ class S {
     return Intl.message(
       'Makeup',
       name: 'makeup',
-      desc: '',
+      desc: 'Opción para seleccionar maquillaje como servicio.',
       args: [],
     );
   }
@@ -425,7 +426,7 @@ class S {
     return Intl.message(
       'Nails',
       name: 'nail',
-      desc: '',
+      desc: 'Opción para seleccionar uñas como servicio.',
       args: [],
     );
   }
@@ -435,7 +436,7 @@ class S {
     return Intl.message(
       'Otro',
       name: 'other',
-      desc: '',
+      desc: 'Opción para seleccionar otro servicio.',
       args: [],
     );
   }
@@ -445,7 +446,7 @@ class S {
     return Intl.message(
       'Por favor seleccione un invitado',
       name: 'errorMsgGuestValidationError',
-      desc: '',
+      desc: 'Mensaje de error cuando no se ha seleccionado un invitado.',
       args: [],
     );
   }
@@ -455,7 +456,7 @@ class S {
     return Intl.message(
       'Notas superan el límite de caracteres',
       name: 'errorMsgNotesValidationError',
-      desc: '',
+      desc: 'Mensaje de error cuando las notas superan el límite permitido.',
       args: [],
     );
   }
@@ -465,7 +466,7 @@ class S {
     return Intl.message(
       'Por favor seleccione una hora',
       name: 'errorMsgHoursValidationError',
-      desc: '',
+      desc: 'Mensaje de error cuando no se ha seleccionado una hora.',
       args: [],
     );
   }
@@ -475,7 +476,7 @@ class S {
     return Intl.message(
       'Crear Cotización',
       name: 'createQuotation',
-      desc: '',
+      desc: 'Botón para crear una cotización.',
       args: [],
     );
   }
@@ -485,7 +486,7 @@ class S {
     return Intl.message(
       'Cargar Más',
       name: 'loadMore',
-      desc: '',
+      desc: 'Botón para cargar más elementos.',
       args: [],
     );
   }
@@ -495,7 +496,7 @@ class S {
     return Intl.message(
       'Responder',
       name: 'reply',
-      desc: '',
+      desc: 'Botón para responder a un mensaje o cotización.',
       args: [],
     );
   }
@@ -505,7 +506,7 @@ class S {
     return Intl.message(
       'Enviar',
       name: 'send',
-      desc: '',
+      desc: 'Botón para enviar un formulario o mensaje.',
       args: [],
     );
   }
@@ -515,7 +516,8 @@ class S {
     return Intl.message(
       'Estado',
       name: 'status',
-      desc: '',
+      desc:
+          'Campo o etiqueta para mostrar el estado de un evento o cotización.',
       args: [],
     );
   }
@@ -525,7 +527,7 @@ class S {
     return Intl.message(
       'Cancelar Cotización',
       name: 'cancelQuotationConfirmationTitle',
-      desc: '',
+      desc: 'Título del mensaje de confirmación para cancelar una cotización.',
       args: [],
     );
   }
@@ -535,7 +537,7 @@ class S {
     return Intl.message(
       '¿Estás seguro de que deseas cancelar esta cotización?',
       name: 'cancelQuotationConfirmationMessage',
-      desc: '',
+      desc: 'Mensaje de confirmación para cancelar una cotización.',
       args: [],
     );
   }
@@ -545,7 +547,8 @@ class S {
     return Intl.message(
       'Cotización cancelada exitosamente',
       name: 'quotationCancelledSuccessfully',
-      desc: '',
+      desc:
+          'Mensaje mostrado cuando una cotización ha sido cancelada exitosamente.',
       args: [],
     );
   }
@@ -555,7 +558,7 @@ class S {
     return Intl.message(
       'Sí',
       name: 'yes',
-      desc: '',
+      desc: 'Botón o etiqueta para confirmar algo con \'Sí\'.',
       args: [],
     );
   }
@@ -565,7 +568,7 @@ class S {
     return Intl.message(
       'No',
       name: 'no',
-      desc: '',
+      desc: 'Botón o etiqueta para denegar algo con \'No\'.',
       args: [],
     );
   }
@@ -575,7 +578,7 @@ class S {
     return Intl.message(
       'Cotizaciones',
       name: 'quotes',
-      desc: '',
+      desc: 'Campo o etiqueta para el número de cotizaciones.',
       args: [],
     );
   }
@@ -585,7 +588,7 @@ class S {
     return Intl.message(
       'Cotización',
       name: 'quote',
-      desc: '',
+      desc: 'Campo o etiqueta para una cotización.',
       args: [],
     );
   }
@@ -595,7 +598,7 @@ class S {
     return Intl.message(
       'Detalles de la Cotización',
       name: 'quoteDetails',
-      desc: '',
+      desc: 'Etiqueta para mostrar los detalles de una cotización.',
       args: [],
     );
   }
@@ -605,7 +608,7 @@ class S {
     return Intl.message(
       'Solicitud',
       name: 'request',
-      desc: '',
+      desc: 'Campo o etiqueta para una solicitud.',
       args: [],
     );
   }
@@ -615,7 +618,7 @@ class S {
     return Intl.message(
       'Solicitudes',
       name: 'requests',
-      desc: '',
+      desc: 'Campo o etiqueta para las solicitudes.',
       args: [],
     );
   }
@@ -625,7 +628,7 @@ class S {
     return Intl.message(
       'Detalles de la Solicitud',
       name: 'requestDetails',
-      desc: '',
+      desc: 'Etiqueta para mostrar los detalles de una solicitud.',
       args: [],
     );
   }
@@ -635,7 +638,7 @@ class S {
     return Intl.message(
       'Responder Cotización',
       name: 'respondToQuotation',
-      desc: '',
+      desc: 'Botón para responder a una cotización.',
       args: [],
     );
   }
@@ -645,7 +648,8 @@ class S {
     return Intl.message(
       'Respuesta a la cotización enviada exitosamente',
       name: 'quotationResponseSuccess',
-      desc: '',
+      desc:
+          'Mensaje de éxito cuando la respuesta a la cotización ha sido enviada correctamente.',
       args: [],
     );
   }
@@ -655,7 +659,7 @@ class S {
     return Intl.message(
       'Enviar',
       name: 'submit',
-      desc: '',
+      desc: 'Botón para enviar un formulario.',
       args: [],
     );
   }
@@ -665,7 +669,7 @@ class S {
     return Intl.message(
       'Acción',
       name: 'action',
-      desc: '',
+      desc: 'Campo o etiqueta para realizar una acción.',
       args: [],
     );
   }
@@ -675,7 +679,7 @@ class S {
     return Intl.message(
       'Obtener Artista',
       name: 'getArtistActionText',
-      desc: '',
+      desc: 'Texto que indica la acción de obtener un artista.',
       args: [],
     );
   }
@@ -685,7 +689,7 @@ class S {
     return Intl.message(
       'Costo Estimado',
       name: 'estimatedCost',
-      desc: '',
+      desc: 'Campo o etiqueta para el costo estimado de un servicio.',
       args: [],
     );
   }
@@ -695,7 +699,7 @@ class S {
     return Intl.message(
       'Fecha de la Cita',
       name: 'appointmentDate',
-      desc: '',
+      desc: 'Campo para seleccionar o mostrar la fecha de una cita.',
       args: [],
     );
   }
@@ -705,7 +709,7 @@ class S {
     return Intl.message(
       'No seleccionado',
       name: 'notSelected',
-      desc: '',
+      desc: 'Etiqueta para indicar que un valor no ha sido seleccionado.',
       args: [],
     );
   }
@@ -715,7 +719,7 @@ class S {
     return Intl.message(
       'Duración de la Cita',
       name: 'appointmentDuration',
-      desc: '',
+      desc: 'Campo o etiqueta para la duración de una cita.',
       args: [],
     );
   }
@@ -725,7 +729,7 @@ class S {
     return Intl.message(
       'Campo Requerido',
       name: 'requiredField',
-      desc: '',
+      desc: 'Mensaje para indicar que un campo es obligatorio.',
       args: [],
     );
   }
@@ -735,7 +739,7 @@ class S {
     return Intl.message(
       'Número Inválido',
       name: 'invalidNumber',
-      desc: '',
+      desc: 'Mensaje de error cuando se ingresa un número inválido.',
       args: [],
     );
   }
@@ -745,7 +749,7 @@ class S {
     return Intl.message(
       'Detalles Adicionales',
       name: 'additionalDetails',
-      desc: '',
+      desc: 'Campo o etiqueta para mostrar o ingresar detalles adicionales.',
       args: [],
     );
   }
@@ -755,7 +759,8 @@ class S {
     return Intl.message(
       'Motivo de Rechazo',
       name: 'rejectionReason',
-      desc: '',
+      desc:
+          'Campo para mostrar o ingresar el motivo de rechazo de una solicitud.',
       args: [],
     );
   }
@@ -765,7 +770,7 @@ class S {
     return Intl.message(
       'Diseños Propuestos',
       name: 'proposedDesigns',
-      desc: '',
+      desc: 'Campo o etiqueta para mostrar los diseños propuestos.',
       args: [],
     );
   }
@@ -775,7 +780,7 @@ class S {
     return Intl.message(
       'Rechazar',
       name: 'reject',
-      desc: '',
+      desc: 'Botón para rechazar una solicitud.',
       args: [],
     );
   }
@@ -785,7 +790,7 @@ class S {
     return Intl.message(
       'Aceptar Apelación',
       name: 'acceptAppeal',
-      desc: '',
+      desc: 'Botón para aceptar una apelación.',
       args: [],
     );
   }
@@ -795,7 +800,7 @@ class S {
     return Intl.message(
       'Rechazar Apelación',
       name: 'rejectAppeal',
-      desc: '',
+      desc: 'Botón para rechazar una apelación.',
       args: [],
     );
   }
@@ -805,7 +810,7 @@ class S {
     return Intl.message(
       'Detalles de la Cotización',
       name: 'quotationDetails',
-      desc: '',
+      desc: 'Campo o etiqueta para mostrar los detalles de una cotización.',
       args: [],
     );
   }
@@ -815,7 +820,8 @@ class S {
     return Intl.message(
       'Creado en',
       name: 'createdAt',
-      desc: '',
+      desc:
+          'Campo o etiqueta para mostrar la fecha y hora en que fue creada una solicitud o cotización.',
       args: [],
     );
   }
@@ -825,7 +831,7 @@ class S {
     return Intl.message(
       'Imágenes de Referencia',
       name: 'referenceImages',
-      desc: '',
+      desc: 'Campo para mostrar o subir imágenes de referencia.',
       args: [],
     );
   }
@@ -835,7 +841,8 @@ class S {
     return Intl.message(
       'Tu Respuesta',
       name: 'yourResponse',
-      desc: '',
+      desc:
+          'Campo o etiqueta para mostrar o ingresar la respuesta del usuario.',
       args: [],
     );
   }
@@ -845,67 +852,67 @@ class S {
     return Intl.message(
       'Ahora mismo',
       name: 'justNow',
-      desc: '',
+      desc: 'Mensaje que indica que algo ocurrió hace poco.',
       args: [],
     );
   }
 
   /// `{count, plural, =1{hace 1 minuto} other{hace {count} minutos}}`
-  String minutesAgo(num count) {
+  String minutesAgo(int count) {
     return Intl.plural(
       count,
       one: 'hace 1 minuto',
       other: 'hace $count minutos',
       name: 'minutesAgo',
-      desc: '',
+      desc: 'Mensaje que indica cuántos minutos han pasado desde un evento.',
       args: [count],
     );
   }
 
   /// `{count, plural, =1{hace 1 hora} other{hace {count} horas}}`
-  String hoursAgo(num count) {
+  String hoursAgo(int count) {
     return Intl.plural(
       count,
       one: 'hace 1 hora',
       other: 'hace $count horas',
       name: 'hoursAgo',
-      desc: '',
+      desc: 'Mensaje que indica cuántas horas han pasado desde un evento.',
       args: [count],
     );
   }
 
   /// `{count, plural, =1{hace 1 día} other{hace {count} días}}`
-  String daysAgo(num count) {
+  String daysAgo(int count) {
     return Intl.plural(
       count,
       one: 'hace 1 día',
       other: 'hace $count días',
       name: 'daysAgo',
-      desc: '',
+      desc: 'Mensaje que indica cuántos días han pasado desde un evento.',
       args: [count],
     );
   }
 
   /// `{count, plural, =1{hace 1 mes} other{hace {count} meses}}`
-  String monthsAgo(num count) {
+  String monthsAgo(int count) {
     return Intl.plural(
       count,
       one: 'hace 1 mes',
       other: 'hace $count meses',
       name: 'monthsAgo',
-      desc: '',
+      desc: 'Mensaje que indica cuántos meses han pasado desde un evento.',
       args: [count],
     );
   }
 
   /// `{count, plural, =1{hace 1 año} other{hace {count} años}}`
-  String yearsAgo(num count) {
+  String yearsAgo(int count) {
     return Intl.plural(
       count,
       one: 'hace 1 año',
       other: 'hace $count años',
       name: 'yearsAgo',
-      desc: '',
+      desc: 'Mensaje que indica cuántos años han pasado desde un evento.',
       args: [count],
     );
   }
@@ -915,7 +922,8 @@ class S {
     return Intl.message(
       'El costo estimado es solo una estimación y puede variar según el trabajo real',
       name: 'estimatedCostDisclaimer',
-      desc: '',
+      desc:
+          'Mensaje que indica que el costo estimado es aproximado y puede cambiar.',
       args: [],
     );
   }
@@ -925,7 +933,7 @@ class S {
     return Intl.message(
       'Asistente de agenda',
       name: 'scheduleAssistant',
-      desc: '',
+      desc: 'Título o etiqueta para el asistente de programación de citas.',
       args: [],
     );
   }
@@ -935,7 +943,7 @@ class S {
     return Intl.message(
       'Seleccionar Fecha y Hora',
       name: 'selectDateTime',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la fecha y hora de un evento.',
       args: [],
     );
   }
@@ -945,7 +953,7 @@ class S {
     return Intl.message(
       'Aceptar',
       name: 'accept',
-      desc: '',
+      desc: 'Botón para aceptar una acción o solicitud.',
       args: [],
     );
   }
@@ -955,7 +963,7 @@ class S {
     return Intl.message(
       'La duración no puede ser cero',
       name: 'durationCannotBeZero',
-      desc: '',
+      desc: 'Mensaje de error cuando la duración de un evento es cero.',
       args: [],
     );
   }
@@ -965,7 +973,7 @@ class S {
     return Intl.message(
       'Fecha y Hora de la Cita',
       name: 'appointmentDateTime',
-      desc: '',
+      desc: 'Campo para seleccionar o mostrar la fecha y hora de una cita.',
       args: [],
     );
   }
@@ -975,7 +983,7 @@ class S {
     return Intl.message(
       'Seleccionar Fecha',
       name: 'selectDate',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la fecha de un evento.',
       args: [],
     );
   }
@@ -985,7 +993,7 @@ class S {
     return Intl.message(
       'Seleccionar Hora',
       name: 'selectTime',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la hora de un evento.',
       args: [],
     );
   }
@@ -995,7 +1003,7 @@ class S {
     return Intl.message(
       'Seleccionar Duración',
       name: 'selectDuration',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la duración de un evento.',
       args: [],
     );
   }
@@ -1005,7 +1013,7 @@ class S {
     return Intl.message(
       'Evento Tentativo',
       name: 'tentativeEvent',
-      desc: '',
+      desc: 'Etiqueta para indicar que un evento es tentativo.',
       args: [],
     );
   }
@@ -1015,7 +1023,7 @@ class S {
     return Intl.message(
       'Desde',
       name: 'from',
-      desc: '',
+      desc: 'Campo o etiqueta que indica el inicio de un intervalo.',
       args: [],
     );
   }
@@ -1025,7 +1033,7 @@ class S {
     return Intl.message(
       'Hasta',
       name: 'to',
-      desc: '',
+      desc: 'Campo o etiqueta que indica el final de un intervalo.',
       args: [],
     );
   }
@@ -1035,7 +1043,7 @@ class S {
     return Intl.message(
       'minutos',
       name: 'minutes',
-      desc: '',
+      desc: 'Etiqueta que indica minutos.',
       args: [],
     );
   }
@@ -1045,7 +1053,7 @@ class S {
     return Intl.message(
       'horas',
       name: 'hours',
-      desc: '',
+      desc: 'Etiqueta que indica horas.',
       args: [],
     );
   }
@@ -1055,7 +1063,8 @@ class S {
     return Intl.message(
       'No hay eventos programados para hoy',
       name: 'noEventsToday',
-      desc: '',
+      desc:
+          'Mensaje que indica que no hay eventos programados para el día actual.',
       args: [],
     );
   }
@@ -1065,7 +1074,8 @@ class S {
     return Intl.message(
       'Esta hora entra en conflicto con un evento existente',
       name: 'conflictingEvent',
-      desc: '',
+      desc:
+          'Mensaje que indica que el horario seleccionado entra en conflicto con otro evento.',
       args: [],
     );
   }
@@ -1075,7 +1085,7 @@ class S {
     return Intl.message(
       'Confirmar Selección de Hora',
       name: 'confirmTimeSelection',
-      desc: '',
+      desc: 'Botón para confirmar la selección de una hora.',
       args: [],
     );
   }
@@ -1085,7 +1095,7 @@ class S {
     return Intl.message(
       'Cambiar Selección',
       name: 'changeSelection',
-      desc: '',
+      desc: 'Botón para cambiar la selección de un horario.',
       args: [],
     );
   }
@@ -1095,7 +1105,7 @@ class S {
     return Intl.message(
       'Superposición de Eventos',
       name: 'eventOverlap',
-      desc: '',
+      desc: 'Etiqueta que indica que hay una superposición de eventos.',
       args: [],
     );
   }
@@ -1105,7 +1115,8 @@ class S {
     return Intl.message(
       'Este evento se superpone con un evento existente. ¿Deseas continuar?',
       name: 'eventOverlapMessage',
-      desc: '',
+      desc:
+          'Mensaje que pregunta si se desea continuar con la creación de un evento a pesar de una superposición de horarios.',
       args: [],
     );
   }
@@ -1115,7 +1126,7 @@ class S {
     return Intl.message(
       'Continuar',
       name: 'proceed',
-      desc: '',
+      desc: 'Botón para proceder con una acción.',
       args: [],
     );
   }
@@ -1125,7 +1136,7 @@ class S {
     return Intl.message(
       'Volver',
       name: 'goBack',
-      desc: '',
+      desc: 'Botón para regresar a la pantalla anterior.',
       args: [],
     );
   }
@@ -1135,7 +1146,7 @@ class S {
     return Intl.message(
       'Acercar',
       name: 'zoomIn',
-      desc: '',
+      desc: 'Botón para acercar un mapa o imagen.',
       args: [],
     );
   }
@@ -1145,7 +1156,7 @@ class S {
     return Intl.message(
       'Alejar',
       name: 'zoomOut',
-      desc: '',
+      desc: 'Botón para alejar un mapa o imagen.',
       args: [],
     );
   }
@@ -1155,7 +1166,7 @@ class S {
     return Intl.message(
       'Restablecer Zoom',
       name: 'resetZoom',
-      desc: '',
+      desc: 'Botón para restablecer el nivel de zoom.',
       args: [],
     );
   }
@@ -1165,7 +1176,7 @@ class S {
     return Intl.message(
       'Hoy',
       name: 'today',
-      desc: '',
+      desc: 'Etiqueta o botón para indicar el día actual.',
       args: [],
     );
   }
@@ -1175,7 +1186,7 @@ class S {
     return Intl.message(
       'Semana Anterior',
       name: 'previousWeek',
-      desc: '',
+      desc: 'Botón para navegar a la semana anterior en el calendario.',
       args: [],
     );
   }
@@ -1185,7 +1196,7 @@ class S {
     return Intl.message(
       'Semana Siguiente',
       name: 'nextWeek',
-      desc: '',
+      desc: 'Botón para navegar a la semana siguiente en el calendario.',
       args: [],
     );
   }
@@ -1195,7 +1206,7 @@ class S {
     return Intl.message(
       'Este horario no está disponible',
       name: 'timeSlotUnavailable',
-      desc: '',
+      desc: 'Mensaje que indica que un horario no está disponible.',
       args: [],
     );
   }
@@ -1205,7 +1216,8 @@ class S {
     return Intl.message(
       'Por favor, selecciona un rango de tiempo válido',
       name: 'selectValidTimeRange',
-      desc: '',
+      desc:
+          'Mensaje de error que indica que se debe seleccionar un rango de tiempo válido.',
       args: [],
     );
   }
@@ -1215,7 +1227,7 @@ class S {
     return Intl.message(
       'Fecha De Cotización',
       name: 'quotationDate',
-      desc: '',
+      desc: 'Campo para mostrar o seleccionar la fecha de una cotización.',
       args: [],
     );
   }
@@ -1225,7 +1237,7 @@ class S {
     return Intl.message(
       'y',
       name: 'and',
-      desc: '',
+      desc: 'Conjunción para conectar palabras o frases.',
       args: [],
     );
   }
@@ -1235,7 +1247,7 @@ class S {
     return Intl.message(
       'entre',
       name: 'between',
-      desc: '',
+      desc: 'Palabra que indica un intervalo de tiempo o espacio.',
       args: [],
     );
   }
@@ -1245,7 +1257,7 @@ class S {
     return Intl.message(
       'Inicio',
       name: 'start',
-      desc: '',
+      desc: 'Campo o etiqueta que indica el comienzo de algo.',
       args: [],
     );
   }
@@ -1255,7 +1267,7 @@ class S {
     return Intl.message(
       'Fin',
       name: 'end',
-      desc: '',
+      desc: 'Campo o etiqueta que indica el final de algo.',
       args: [],
     );
   }
@@ -1265,7 +1277,7 @@ class S {
     return Intl.message(
       'OK',
       name: 'ok',
-      desc: '',
+      desc: 'Botón para confirmar una acción.',
       args: [],
     );
   }
@@ -1275,7 +1287,7 @@ class S {
     return Intl.message(
       'Seleccionar Hora de Inicio',
       name: 'selectStartTime',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la hora de inicio de un evento.',
       args: [],
     );
   }
@@ -1285,7 +1297,7 @@ class S {
     return Intl.message(
       'Seleccionar Hora de Fin',
       name: 'selectEndTime',
-      desc: '',
+      desc: 'Campo o botón para seleccionar la hora de fin de un evento.',
       args: [],
     );
   }
@@ -1295,7 +1307,8 @@ class S {
     return Intl.message(
       'Por favor, selecciona un rango de tiempo',
       name: 'pleaseSelectTimeRange',
-      desc: '',
+      desc:
+          'Mensaje de error que indica que se debe seleccionar un rango de tiempo.',
       args: [],
     );
   }
@@ -1305,7 +1318,8 @@ class S {
     return Intl.message(
       'Información de Agenda',
       name: 'scheduleInfo',
-      desc: '',
+      desc:
+          'Etiqueta o campo para mostrar información sobre el calendario o la agenda.',
       args: [],
     );
   }
@@ -1315,7 +1329,7 @@ class S {
     return Intl.message(
       'Procesando Cotización',
       name: 'processingQuotation',
-      desc: '',
+      desc: 'Mensaje que indica que se está procesando una cotización.',
       args: [],
     );
   }
@@ -1325,7 +1339,8 @@ class S {
     return Intl.message(
       'Por favor, espera mientras procesamos tu cotización',
       name: 'processingQuotationMessage',
-      desc: '',
+      desc:
+          'Mensaje que indica que el usuario debe esperar mientras se procesa su cotización.',
       args: [],
     );
   }
@@ -1335,7 +1350,8 @@ class S {
     return Intl.message(
       'Tu respuesta ha sido enviada exitosamente',
       name: 'quotationResponseSuccessMessage',
-      desc: '',
+      desc:
+          'Mensaje que indica que la respuesta a la cotización fue enviada correctamente.',
       args: [],
     );
   }
@@ -1345,7 +1361,7 @@ class S {
     return Intl.message(
       'Error',
       name: 'error',
-      desc: '',
+      desc: 'Mensaje o etiqueta para indicar que ocurrió un error.',
       args: [],
     );
   }
@@ -1355,7 +1371,8 @@ class S {
     return Intl.message(
       'Rango Inválido',
       name: 'invalidRange',
-      desc: '',
+      desc:
+          'Mensaje de error que indica que el rango seleccionado no es válido.',
       args: [],
     );
   }
