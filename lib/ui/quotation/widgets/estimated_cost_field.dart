@@ -69,12 +69,6 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
   String? _errorText;
 
   @override
-  void dispose() {
-    widget.focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _initializeNumberFormat();

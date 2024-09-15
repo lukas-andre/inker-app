@@ -142,7 +142,7 @@ class _ArtistQuotationResponseViewState
               success: () => const SizedBox(),
               failure: (_) => const SizedBox(),
               orElse: () {
-                return const Text('data');
+                return const Center(child: InkerProgressIndicator());
               },
             );
           },
