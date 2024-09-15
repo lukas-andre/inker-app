@@ -332,10 +332,18 @@ class _QuotationListViewState extends State<QuotationListView>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildActionButton(
-          onPressed: () => Navigator.of(context).pushNamed(
-            '/artistQuotationResponse',
-            arguments: {'quotationId': quotation.id.toString()},
-          ),
+          onPressed: () async {
+            final result = await Navigator.of(context).pushNamed(
+              '/artistQuotationResponse',
+              arguments: {'quotationId': quotation.id.toString()},
+            );
+            if (result == true) {
+              _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                _quotationListBloc.getStatusesForTab(_tabController.index),
+                false,
+              ));
+            }
+          },
           icon: Icons.reply,
           label: l10n.reply,
           isPrimary: true,
