@@ -335,7 +335,14 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
           _rangeEnd!.isAtSameMomentAs(cellStartTime);
     }
 
-    // Incluimos la celda de inicio en el rango
+    List<EventDetails> cellEvents = _allEvents.where((event) {
+      final eventStartLocal = event.startDate.toLocal();
+      final eventEndLocal = event.endDate.toLocal();
+      return eventStartLocal.isBefore(cellEndTime) &&
+          eventEndLocal.isAfter(cellStartTime) &&
+          isSameDay(eventStartLocal, _selectedDay!);
+    }).toList();
+
     bool shouldColor = isWithinRange || isStart;
 
     return GestureDetector(
@@ -347,8 +354,10 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
               : Colors.transparent,
           border: Border(
             bottom: BorderSide(
-              color: Colors.transparent,
-              width: minute % 15 == 0 ? 1 : 0.5,
+              color: minute % 60 == 0
+                  ? Colors.white.withOpacity(0.8)
+                  : Colors.grey[850]!,
+              width: minute % 15 == 0 ? 1 : 0,
             ),
           ),
         ),
@@ -356,68 +365,70 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
           children: [
             SizedBox(
               width: 60,
-              child: minute == 0
-                  ? Text(
-                      '${hour.toString().padLeft(2, '0')}:00',
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )
-                  : Text(
-                      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
+              child: Text(
+                minute == 0
+                    ? '${hour.toString().padLeft(2, '0')}:00'
+                    : '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}',
+                style: TextStyle(
+                  fontSize: minute == 0 ? 16 : 12,
+                  fontWeight: minute == 0 ? FontWeight.bold : FontWeight.normal,
+                  color: minute == 0 ? Colors.white : Colors.grey[600],
+                ),
+              ),
             ),
             Expanded(
               child: Stack(
                 children: [
-                  if (isStart)
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          S.of(context).start,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Left side: Start and End chips
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (isStart)
+                            _buildChip(S.of(context).start, secondaryColor),
+                          if (isEnd)
+                            _buildChip(S.of(context).end, secondaryColor),
+                        ],
                       ),
-                    ),
-                  if (isEnd)
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          S.of(context).end,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                      // Right side: Event chips
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: cellEvents
+                            .map((event) =>
+                                _buildChip(event.title, tertiaryColor))
+                            .toList(),
                       ),
-                    ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildChip(String label, Color color) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -513,33 +524,29 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
 
   Widget _buildCalendar() {
     return CalendarDayPickerV3(
-      focusedDay: _focusedDay,
-      selectedDay: _selectedDay,
-      calendarFormat: _calendarFormat,
-      onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          _selectedDay = selectedDay;
-          _focusedDay = focusedDay;
-          _rangeStart = null;
-          _rangeEnd = null;
-          _durationInMinutes = 0;
-          _filterEventsForSelectedDay();
-        });
-        context.read<ScheduleAssistantBloc>().add(
-              ScheduleAssistantEvent.dateRangeChanged(selectedDay, selectedDay),
-            );
-      },
-      onFormatChanged: (format) {
-        setState(() {
-          _calendarFormat = format;
-        });
-      },
-      eventLoader: (day) {
-        return _allEvents
-            .where((event) => isSameDay(event.startDate, day))
-            .toList();
-      },
-    );
+        focusedDay: _focusedDay,
+        selectedDay: _selectedDay,
+        calendarFormat: _calendarFormat,
+        onDaySelected: (selectedDay, focusedDay) {
+          setState(() {
+            _selectedDay = selectedDay;
+            _focusedDay = focusedDay;
+            _rangeStart = null;
+            _rangeEnd = null;
+            _durationInMinutes = 0;
+            _filterEventsForSelectedDay();
+          });
+          context.read<ScheduleAssistantBloc>().add(
+                ScheduleAssistantEvent.dateRangeChanged(
+                    selectedDay, selectedDay),
+              );
+        },
+        onFormatChanged: (format) {
+          setState(() {
+            _calendarFormat = format;
+          });
+        },
+        eventLoader: _getEventsForDay);
   }
 
   void scrollToSelectedTime(int hour, int minute) {
@@ -551,5 +558,12 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutBack,
     );
+  }
+
+  List<EventDetails> _getEventsForDay(DateTime day) {
+    return _allEvents.where((event) {
+      final eventStartLocal = event.startDate.toLocal();
+      return isSameDay(eventStartLocal, day);
+    }).toList();
   }
 }
