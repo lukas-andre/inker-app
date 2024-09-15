@@ -48,7 +48,7 @@ class EstimatedCostField extends StatefulWidget {
   final S l10n;
   final Function(String) onChanged;
   final FocusNode focusNode;
-  final minCost = 1000;
+  final minCost = 100;
   final maxCost = 10000000;
 
   const EstimatedCostField({
