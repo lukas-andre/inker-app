@@ -127,5 +127,6 @@
   "processingQuotation": "Processing Quotation",
   "processingQuotationMessage": "Please wait while we process your quotation",
   "quotationResponseSuccessMessage": "Your response has been sent successfully",
-  "error": "Error"
+  "error": "Error",
+  "invalidRange": "Invalid Range"
 }

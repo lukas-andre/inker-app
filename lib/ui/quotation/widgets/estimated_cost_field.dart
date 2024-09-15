@@ -6,31 +6,40 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ChileanPesoInputFormatter extends TextInputFormatter {
-  final NumberFormat _numberFormat;
-
-  ChileanPesoInputFormatter(this._numberFormat);
-
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.length < oldValue.text.length) {
+    if (newValue.text.isEmpty) {
       return newValue;
     }
 
-    if (newValue.text.isEmpty) {
-      return const TextEditingValue(text: '');
-    }
+    final String cleanedText = newValue.text.replaceAll(RegExp(r'[^\d]'), '');
 
-    String newText = newValue.text.replaceAll(RegExp(r'[^\d]'), '');
-    if (newText.isEmpty) newText = '0';
-    int value = int.parse(newText);
+    final formattedText = _formatNumber(cleanedText);
 
-    String formattedValue = _numberFormat.format(value);
+    final int cursorPosition = newValue.selection.end;
+    final int oldDotCount = '.'.allMatches(oldValue.text).length;
+    final int newDotCount = '.'.allMatches(formattedText).length;
+    final int cursorOffset = newDotCount - oldDotCount;
+    final int newCursorPosition = cursorPosition + cursorOffset;
 
     return TextEditingValue(
-      text: formattedValue,
-      selection: TextSelection.collapsed(offset: formattedValue.length),
+      text: formattedText,
+      selection: TextSelection.collapsed(
+        offset: newCursorPosition.clamp(0, formattedText.length),
+      ),
     );
+  }
+
+  String _formatNumber(String value) {
+    final buffer = StringBuffer();
+    for (int i = 0; i < value.length; i++) {
+      if (i > 0 && (value.length - i) % 3 == 0) {
+        buffer.write('.');
+      }
+      buffer.write(value[i]);
+    }
+    return buffer.toString();
   }
 }
 
@@ -39,20 +48,23 @@ class EstimatedCostField extends StatefulWidget {
   final S l10n;
   final Function(String) onChanged;
   final FocusNode focusNode;
+  final minCost = 1000;
+  final maxCost = 10000000;
 
   const EstimatedCostField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.l10n,
     required this.onChanged,
     required this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   _EstimatedCostFieldState createState() => _EstimatedCostFieldState();
 }
 
 class _EstimatedCostFieldState extends State<EstimatedCostField> {
+  // ignore: unused_field
   late NumberFormat _numberFormat;
   String? _errorText;
 
@@ -123,10 +135,9 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
           ),
         ),
         style: TextStyleTheme.bodyText1,
-        keyboardType: TextInputType.numberWithOptions(
-            decimal: _numberFormat.currencyName != 'CLP'),
+        keyboardType: TextInputType.number,
         inputFormatters: [
-          ChileanPesoInputFormatter(_numberFormat),
+          ChileanPesoInputFormatter(),
         ],
         onChanged: (value) {
           widget.onChanged(value);
@@ -143,9 +154,18 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
     if (value == null || value.isEmpty) {
       return '${widget.l10n.requiredField} ${widget.l10n.estimatedCostDisclaimer}';
     }
-    if (double.tryParse(value.replaceAll(RegExp(r'[^\d.]'), '')) == null) {
+
+    String numberString = value.replaceAll('.', '');
+    int? number = int.tryParse(numberString);
+
+    if (number == null) {
       return '${widget.l10n.invalidNumber} ${widget.l10n.estimatedCostDisclaimer}';
     }
+
+    if (number < widget.minCost || number > widget.maxCost) {
+      return '${widget.l10n.invalidRange} ${widget.l10n.estimatedCostDisclaimer}';
+    }
+
     return null;
   }
 }

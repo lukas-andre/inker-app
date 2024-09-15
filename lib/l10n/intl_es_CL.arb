@@ -128,5 +128,6 @@
   "processingQuotation": "Procesando Cotización",
   "processingQuotationMessage": "Por favor, espera mientras procesamos tu cotización",
   "quotationResponseSuccessMessage": "Tu respuesta ha sido enviada exitosamente",
-  "error": "Error"
+  "error": "Error",
+  "invalidRange": "Rango Inválido"
 }

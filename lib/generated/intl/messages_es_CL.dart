@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hoursAgo": m1,
         "invalidNumber":
             MessageLookupByLibrary.simpleMessage("Número Inválido"),
+        "invalidRange": MessageLookupByLibrary.simpleMessage("Rango Inválido"),
         "justNow": MessageLookupByLibrary.simpleMessage("Ahora mismo"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
