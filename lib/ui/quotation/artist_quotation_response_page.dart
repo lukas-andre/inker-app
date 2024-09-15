@@ -110,6 +110,9 @@ class _ArtistQuotationResponseViewState
                   AnimationState.completed,
                   l10n.quotationResponseSuccess,
                   l10n.quotationResponseSuccessMessage,
+                  onComplete: () {
+                    Navigator.of(context).pop(true);
+                  },
                 );
               },
               failure: (error) {
@@ -148,8 +151,9 @@ class _ArtistQuotationResponseViewState
     );
   }
 
-  void _showSuccessAnimationPage(BuildContext context, AnimationState state,
-      String title, String subtitle) {
+  void _showSuccessAnimationPage(
+      BuildContext context, AnimationState state, String title, String subtitle,
+      {VoidCallback? onComplete}) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => SuccessAnimationPage(
@@ -158,8 +162,8 @@ class _ArtistQuotationResponseViewState
           state: state,
           onAnimationComplete: () {
             Navigator.of(context).pop();
-            if (state == AnimationState.completed) {
-              Navigator.of(context).pop();
+            if (state == AnimationState.completed && onComplete != null) {
+              onComplete();
             }
           },
         ),
