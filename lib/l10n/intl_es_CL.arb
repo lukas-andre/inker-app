@@ -1,133 +1,553 @@
 {
   "@@locale": "es_CL",
   "locale": "es_CL",
+  "@locale": {
+    "description": "Código de idioma y país para la localización."
+  },
   "eventDetails": "Detalles del Evento",
+  "@eventDetails": {
+    "description": "Título de la sección de detalles del evento."
+  },
   "description": "Descripción",
+  "@description": {
+    "description": "Etiqueta de descripción para un evento o cotización."
+  },
   "workEvidence": "Evidencia del Trabajo",
+  "@workEvidence": {
+    "description": "Texto que describe la evidencia del trabajo realizado."
+  },
   "noWorkEvidence": "No hay evidencia de trabajo",
+  "@noWorkEvidence": {
+    "description": "Mensaje mostrado cuando no hay evidencia del trabajo."
+  },
   "locationDetails": "Detalles de la Ubicación",
+  "@locationDetails": {
+    "description": "Etiqueta para los detalles de la ubicación del evento."
+  },
   "editEvent": "Editar Evento",
+  "@editEvent": {
+    "description": "Botón para editar un evento."
+  },
   "cancelEvent": "Cancelar Evento",
+  "@cancelEvent": {
+    "description": "Botón para cancelar un evento."
+  },
   "upcomming": "Se acerca",
+  "@upcomming": {
+    "description": "Estado que indica que un evento se aproxima."
+  },
   "completed": "Finalizado",
+  "@completed": {
+    "description": "Estado que indica que un evento ha finalizado."
+  },
   "cancelled": "Cancelado",
+  "@cancelled": {
+    "description": "Estado que indica que un evento ha sido cancelado."
+  },
   "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Etiqueta o botón para cancelar."
+  },
   "edit": "Editar",
+  "@edit": {
+    "description": "Etiqueta o botón para editar."
+  },
   "delete": "Eliminar",
+  "@delete": {
+    "description": "Etiqueta o botón para eliminar."
+  },
   "confirm": "Confirmar",
+  "@confirm": {
+    "description": "Etiqueta o botón para confirmar."
+  },
   "eventLocation": "Ubicación del Evento",
+  "@eventLocation": {
+    "description": "Etiqueta que muestra la ubicación del evento."
+  },
   "createEvent": "Crear Evento",
+  "@createEvent": {
+    "description": "Botón para crear un nuevo evento."
+  },
   "quoted": "Cotizado",
+  "@quoted": {
+    "description": "Etiqueta que indica que un evento ha sido cotizado."
+  },
   "eventTitle": "Título del Evento",
+  "@eventTitle": {
+    "description": "Etiqueta que indica el título del evento."
+  },
   "extraInfo": "Información Adicional",
+  "@extraInfo": {
+    "description": "Etiqueta para información adicional en un formulario o evento."
+  },
   "eventColor": "Color del Evento",
+  "@eventColor": {
+    "description": "Campo que muestra el color asignado al evento."
+  },
   "startDate": "Fecha de Inicio",
+  "@startDate": {
+    "description": "Campo que indica la fecha de inicio del evento."
+  },
   "endDate": "Fecha de Fin",
+  "@endDate": {
+    "description": "Campo que indica la fecha de fin del evento."
+  },
   "notification": "Notificación",
+  "@notification": {
+    "description": "Etiqueta para notificaciones."
+  },
   "scheduleEvent": "Agendar cita",
+  "@scheduleEvent": {
+    "description": "Botón para agendar una cita."
+  },
   "guest": "Invitado",
+  "@guest": {
+    "description": "Etiqueta para los invitados de un evento."
+  },
   "note": "Nota",
+  "@note": {
+    "description": "Etiqueta para una nota adicional."
+  },
   "characters": "caracteres",
+  "@characters": {
+    "description": "Etiqueta que muestra el número de caracteres."
+  },
   "sendMessage": "Enviar Mensaje",
+  "@sendMessage": {
+    "description": "Botón para enviar un mensaje."
+  },
   "selectService": "Seleccionar servicio",
+  "@selectService": {
+    "description": "Etiqueta para seleccionar un servicio durante la creación de un evento o cotización."
+  },
   "hour": "Hora",
+  "@hour": {
+    "description": "Campo o etiqueta para la hora."
+  },
   "duration": "Duración",
+  "@duration": {
+    "description": "Campo o etiqueta para la duración del evento o servicio."
+  },
   "tattoo": "Tatuaje",
+  "@tattoo": {
+    "description": "Opción para seleccionar tatuaje como servicio."
+  },
   "barber": "Barbería",
+  "@barber": {
+    "description": "Opción para seleccionar barbería como servicio."
+  },
   "piercing": "Piercing",
+  "@piercing": {
+    "description": "Opción para seleccionar piercing como servicio."
+  },
   "haircut": "Corte de Pelo",
+  "@haircut": {
+    "description": "Opción para seleccionar corte de pelo como servicio."
+  },
   "makeup": "Makeup",
+  "@makeup": {
+    "description": "Opción para seleccionar maquillaje como servicio."
+  },
   "nail": "Nails",
+  "@nail": {
+    "description": "Opción para seleccionar uñas como servicio."
+  },
   "other": "Otro",
+  "@other": {
+    "description": "Opción para seleccionar otro servicio."
+  },
   "errorMsgGuestValidationError": "Por favor seleccione un invitado",
+  "@errorMsgGuestValidationError": {
+    "description": "Mensaje de error cuando no se ha seleccionado un invitado."
+  },
   "errorMsgNotesValidationError": "Notas superan el límite de caracteres",
+  "@errorMsgNotesValidationError": {
+    "description": "Mensaje de error cuando las notas superan el límite permitido."
+  },
   "errorMsgHoursValidationError": "Por favor seleccione una hora",
+  "@errorMsgHoursValidationError": {
+    "description": "Mensaje de error cuando no se ha seleccionado una hora."
+  },
   "createQuotation": "Crear Cotización",
+  "@createQuotation": {
+    "description": "Botón para crear una cotización."
+  },
   "loadMore": "Cargar Más",
+  "@loadMore": {
+    "description": "Botón para cargar más elementos."
+  },
   "reply": "Responder",
+  "@reply": {
+    "description": "Botón para responder a un mensaje o cotización."
+  },
   "send": "Enviar",
+  "@send": {
+    "description": "Botón para enviar un formulario o mensaje."
+  },
   "status": "Estado",
+  "@status": {
+    "description": "Campo o etiqueta para mostrar el estado de un evento o cotización."
+  },
   "cancelQuotationConfirmationTitle": "Cancelar Cotización",
+  "@cancelQuotationConfirmationTitle": {
+    "description": "Título del mensaje de confirmación para cancelar una cotización."
+  },
   "cancelQuotationConfirmationMessage": "¿Estás seguro de que deseas cancelar esta cotización?",
+  "@cancelQuotationConfirmationMessage": {
+    "description": "Mensaje de confirmación para cancelar una cotización."
+  },
   "quotationCancelledSuccessfully": "Cotización cancelada exitosamente",
+  "@quotationCancelledSuccessfully": {
+    "description": "Mensaje mostrado cuando una cotización ha sido cancelada exitosamente."
+  },
   "yes": "Sí",
+  "@yes": {
+    "description": "Botón o etiqueta para confirmar algo con 'Sí'."
+  },
   "no": "No",
+  "@no": {
+    "description": "Botón o etiqueta para denegar algo con 'No'."
+  },
   "quotes": "Cotizaciones",
+  "@quotes": {
+    "description": "Campo o etiqueta para el número de cotizaciones."
+  },
   "quote": "Cotización",
+  "@quote": {
+    "description": "Campo o etiqueta para una cotización."
+  },
   "quoteDetails": "Detalles de la Cotización",
+  "@quoteDetails": {
+    "description": "Etiqueta para mostrar los detalles de una cotización."
+  },
   "request": "Solicitud",
+  "@request": {
+    "description": "Campo o etiqueta para una solicitud."
+  },
   "requests": "Solicitudes",
+  "@requests": {
+    "description": "Campo o etiqueta para las solicitudes."
+  },
   "requestDetails": "Detalles de la Solicitud",
+  "@requestDetails": {
+    "description": "Etiqueta para mostrar los detalles de una solicitud."
+  },
   "respondToQuotation": "Responder Cotización",
+  "@respondToQuotation": {
+    "description": "Botón para responder a una cotización."
+  },
   "quotationResponseSuccess": "Respuesta a la cotización enviada exitosamente",
+  "@quotationResponseSuccess": {
+    "description": "Mensaje de éxito cuando la respuesta a la cotización ha sido enviada correctamente."
+  },
   "submit": "Enviar",
+  "@submit": {
+    "description": "Botón para enviar un formulario."
+  },
   "action": "Acción",
+  "@action": {
+    "description": "Campo o etiqueta para realizar una acción."
+  },
   "getArtistActionText": "Obtener Artista",
+  "@getArtistActionText": {
+    "description": "Texto que indica la acción de obtener un artista."
+  },
   "estimatedCost": "Costo Estimado",
+  "@estimatedCost": {
+    "description": "Campo o etiqueta para el costo estimado de un servicio."
+  },
   "appointmentDate": "Fecha de la Cita",
+  "@appointmentDate": {
+    "description": "Campo para seleccionar o mostrar la fecha de una cita."
+  },
   "notSelected": "No seleccionado",
+  "@notSelected": {
+    "description": "Etiqueta para indicar que un valor no ha sido seleccionado."
+  },
   "appointmentDuration": "Duración de la Cita",
+  "@appointmentDuration": {
+    "description": "Campo o etiqueta para la duración de una cita."
+  },
   "requiredField": "Campo Requerido",
+  "@requiredField": {
+    "description": "Mensaje para indicar que un campo es obligatorio."
+  },
   "invalidNumber": "Número Inválido",
+  "@invalidNumber": {
+    "description": "Mensaje de error cuando se ingresa un número inválido."
+  },
   "additionalDetails": "Detalles Adicionales",
+  "@additionalDetails": {
+    "description": "Campo o etiqueta para mostrar o ingresar detalles adicionales."
+  },
   "rejectionReason": "Motivo de Rechazo",
+  "@rejectionReason": {
+    "description": "Campo para mostrar o ingresar el motivo de rechazo de una solicitud."
+  },
   "proposedDesigns": "Diseños Propuestos",
+  "@proposedDesigns": {
+    "description": "Campo o etiqueta para mostrar los diseños propuestos."
+  },
   "reject": "Rechazar",
+  "@reject": {
+    "description": "Botón para rechazar una solicitud."
+  },
   "acceptAppeal": "Aceptar Apelación",
+  "@acceptAppeal": {
+    "description": "Botón para aceptar una apelación."
+  },
   "rejectAppeal": "Rechazar Apelación",
+  "@rejectAppeal": {
+    "description": "Botón para rechazar una apelación."
+  },
   "quotationDetails": "Detalles de la Cotización",
+  "@quotationDetails": {
+    "description": "Campo o etiqueta para mostrar los detalles de una cotización."
+  },
   "createdAt": "Creado en",
+  "@createdAt": {
+    "description": "Campo o etiqueta para mostrar la fecha y hora en que fue creada una solicitud o cotización."
+  },
   "referenceImages": "Imágenes de Referencia",
+  "@referenceImages": {
+    "description": "Campo para mostrar o subir imágenes de referencia."
+  },
   "yourResponse": "Tu Respuesta",
+  "@yourResponse": {
+    "description": "Campo o etiqueta para mostrar o ingresar la respuesta del usuario."
+  },
   "justNow": "Ahora mismo",
+  "@justNow": {
+    "description": "Mensaje que indica que algo ocurrió hace poco."
+  },
   "minutesAgo": "{count, plural, =1{hace 1 minuto} other{hace {count} minutos}}",
+  "@minutesAgo": {
+    "description": "Mensaje que indica cuántos minutos han pasado desde un evento.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "El número de minutos que han pasado."
+      }
+    }
+  },
   "hoursAgo": "{count, plural, =1{hace 1 hora} other{hace {count} horas}}",
+  "@hoursAgo": {
+    "description": "Mensaje que indica cuántas horas han pasado desde un evento.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "El número de horas que han pasado."
+      }
+    }
+  },
   "daysAgo": "{count, plural, =1{hace 1 día} other{hace {count} días}}",
+  "@daysAgo": {
+    "description": "Mensaje que indica cuántos días han pasado desde un evento.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "El número de días que han pasado."
+      }
+    }
+  },
   "monthsAgo": "{count, plural, =1{hace 1 mes} other{hace {count} meses}}",
+  "@monthsAgo": {
+    "description": "Mensaje que indica cuántos meses han pasado desde un evento.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "El número de meses que han pasado."
+      }
+    }
+  },
   "yearsAgo": "{count, plural, =1{hace 1 año} other{hace {count} años}}",
+  "@yearsAgo": {
+    "description": "Mensaje que indica cuántos años han pasado desde un evento.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "El número de años que han pasado."
+      }
+    }
+  },
   "estimatedCostDisclaimer": "El costo estimado es solo una estimación y puede variar según el trabajo real",
+  "@estimatedCostDisclaimer": {
+    "description": "Mensaje que indica que el costo estimado es aproximado y puede cambiar."
+  },
   "scheduleAssistant": "Asistente de agenda",
+  "@scheduleAssistant": {
+    "description": "Título o etiqueta para el asistente de programación de citas."
+  },
   "selectDateTime": "Seleccionar Fecha y Hora",
+  "@selectDateTime": {
+    "description": "Campo o botón para seleccionar la fecha y hora de un evento."
+  },
   "accept": "Aceptar",
+  "@accept": {
+    "description": "Botón para aceptar una acción o solicitud."
+  },
   "durationCannotBeZero": "La duración no puede ser cero",
+  "@durationCannotBeZero": {
+    "description": "Mensaje de error cuando la duración de un evento es cero."
+  },
   "appointmentDateTime": "Fecha y Hora de la Cita",
+  "@appointmentDateTime": {
+    "description": "Campo para seleccionar o mostrar la fecha y hora de una cita."
+  },
   "selectDate": "Seleccionar Fecha",
+  "@selectDate": {
+    "description": "Campo o botón para seleccionar la fecha de un evento."
+  },
   "selectTime": "Seleccionar Hora",
+  "@selectTime": {
+    "description": "Campo o botón para seleccionar la hora de un evento."
+  },
   "selectDuration": "Seleccionar Duración",
+  "@selectDuration": {
+    "description": "Campo o botón para seleccionar la duración de un evento."
+  },
   "tentativeEvent": "Evento Tentativo",
+  "@tentativeEvent": {
+    "description": "Etiqueta para indicar que un evento es tentativo."
+  },
   "from": "Desde",
+  "@from": {
+    "description": "Campo o etiqueta que indica el inicio de un intervalo."
+  },
   "to": "Hasta",
+  "@to": {
+    "description": "Campo o etiqueta que indica el final de un intervalo."
+  },
   "minutes": "minutos",
+  "@minutes": {
+    "description": "Etiqueta que indica minutos."
+  },
   "hours": "horas",
+  "@hours": {
+    "description": "Etiqueta que indica horas."
+  },
   "noEventsToday": "No hay eventos programados para hoy",
+  "@noEventsToday": {
+    "description": "Mensaje que indica que no hay eventos programados para el día actual."
+  },
   "conflictingEvent": "Esta hora entra en conflicto con un evento existente",
+  "@conflictingEvent": {
+    "description": "Mensaje que indica que el horario seleccionado entra en conflicto con otro evento."
+  },
   "confirmTimeSelection": "Confirmar Selección de Hora",
+  "@confirmTimeSelection": {
+    "description": "Botón para confirmar la selección de una hora."
+  },
   "changeSelection": "Cambiar Selección",
+  "@changeSelection": {
+    "description": "Botón para cambiar la selección de un horario."
+  },
   "eventOverlap": "Superposición de Eventos",
+  "@eventOverlap": {
+    "description": "Etiqueta que indica que hay una superposición de eventos."
+  },
   "eventOverlapMessage": "Este evento se superpone con un evento existente. ¿Deseas continuar?",
+  "@eventOverlapMessage": {
+    "description": "Mensaje que pregunta si se desea continuar con la creación de un evento a pesar de una superposición de horarios."
+  },
   "proceed": "Continuar",
+  "@proceed": {
+    "description": "Botón para proceder con una acción."
+  },
   "goBack": "Volver",
+  "@goBack": {
+    "description": "Botón para regresar a la pantalla anterior."
+  },
   "zoomIn": "Acercar",
+  "@zoomIn": {
+    "description": "Botón para acercar un mapa o imagen."
+  },
   "zoomOut": "Alejar",
+  "@zoomOut": {
+    "description": "Botón para alejar un mapa o imagen."
+  },
   "resetZoom": "Restablecer Zoom",
+  "@resetZoom": {
+    "description": "Botón para restablecer el nivel de zoom."
+  },
   "today": "Hoy",
+  "@today": {
+    "description": "Etiqueta o botón para indicar el día actual."
+  },
   "previousWeek": "Semana Anterior",
+  "@previousWeek": {
+    "description": "Botón para navegar a la semana anterior en el calendario."
+  },
   "nextWeek": "Semana Siguiente",
+  "@nextWeek": {
+    "description": "Botón para navegar a la semana siguiente en el calendario."
+  },
   "timeSlotUnavailable": "Este horario no está disponible",
+  "@timeSlotUnavailable": {
+    "description": "Mensaje que indica que un horario no está disponible."
+  },
   "selectValidTimeRange": "Por favor, selecciona un rango de tiempo válido",
+  "@selectValidTimeRange": {
+    "description": "Mensaje de error que indica que se debe seleccionar un rango de tiempo válido."
+  },
   "quotationDate": "Fecha De Cotización",
+  "@quotationDate": {
+    "description": "Campo para mostrar o seleccionar la fecha de una cotización."
+  },
   "and": "y",
+  "@and": {
+    "description": "Conjunción para conectar palabras o frases."
+  },
   "between": "entre",
+  "@between": {
+    "description": "Palabra que indica un intervalo de tiempo o espacio."
+  },
   "start": "Inicio",
+  "@start": {
+    "description": "Campo o etiqueta que indica el comienzo de algo."
+  },
   "end": "Fin",
+  "@end": {
+    "description": "Campo o etiqueta que indica el final de algo."
+  },
   "ok": "OK",
+  "@ok": {
+    "description": "Botón para confirmar una acción."
+  },
   "selectStartTime": "Seleccionar Hora de Inicio",
+  "@selectStartTime": {
+    "description": "Campo o botón para seleccionar la hora de inicio de un evento."
+  },
   "selectEndTime": "Seleccionar Hora de Fin",
+  "@selectEndTime": {
+    "description": "Campo o botón para seleccionar la hora de fin de un evento."
+  },
   "pleaseSelectTimeRange": "Por favor, selecciona un rango de tiempo",
+  "@pleaseSelectTimeRange": {
+    "description": "Mensaje de error que indica que se debe seleccionar un rango de tiempo."
+  },
   "scheduleInfo": "Información de Agenda",
+  "@scheduleInfo": {
+    "description": "Etiqueta o campo para mostrar información sobre el calendario o la agenda."
+  },
   "processingQuotation": "Procesando Cotización",
+  "@processingQuotation": {
+    "description": "Mensaje que indica que se está procesando una cotización."
+  },
   "processingQuotationMessage": "Por favor, espera mientras procesamos tu cotización",
+  "@processingQuotationMessage": {
+    "description": "Mensaje que indica que el usuario debe esperar mientras se procesa su cotización."
+  },
   "quotationResponseSuccessMessage": "Tu respuesta ha sido enviada exitosamente",
+  "@quotationResponseSuccessMessage": {
+    "description": "Mensaje que indica que la respuesta a la cotización fue enviada correctamente."
+  },
   "error": "Error",
-  "invalidRange": "Rango Inválido"
+  "@error": {
+    "description": "Mensaje o etiqueta para indicar que ocurrió un error."
+  },
+  "invalidRange": "Rango Inválido",
+  "@invalidRange": {
+    "description": "Mensaje de error que indica que el rango seleccionado no es válido."
+  }
 }

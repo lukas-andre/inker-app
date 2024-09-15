@@ -117,7 +117,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         labelStyle:
                             TextStyleTheme.copyWith(color: Colors.white),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.check, color: Colors.white),
+                          icon: const Icon(Icons.check, color: Colors.white),
                           onPressed: () => FocusScope.of(context).unfocus,
                         ),
                       ),

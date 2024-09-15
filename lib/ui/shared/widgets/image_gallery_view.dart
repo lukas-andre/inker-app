@@ -11,11 +11,11 @@ class ImageGalleryView extends StatefulWidget {
   final S l10n;
 
   const ImageGalleryView({
-    Key? key,
+    super.key,
     required this.images,
     required this.initialIndex,
     required this.l10n,
-  }) : super(key: key);
+  });
 
   @override
   _ImageGalleryViewState createState() => _ImageGalleryViewState();
@@ -62,7 +62,7 @@ class _ImageGalleryViewState extends State<ImageGalleryView> {
         },
         itemCount: widget.images.length,
         loadingBuilder: (context, event) => Center(
-          child: Container(
+          child: SizedBox(
             width: 20.0,
             height: 20.0,
             child: CircularProgressIndicator(

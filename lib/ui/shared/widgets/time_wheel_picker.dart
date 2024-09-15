@@ -7,10 +7,10 @@ class ImprovedTimeWheelPicker extends StatefulWidget {
   final Function(TimeOfDay) onTimeSelected;
 
   const ImprovedTimeWheelPicker({
-    Key? key,
+    super.key,
     required this.initialTime,
     required this.onTimeSelected,
-  }) : super(key: key);
+  });
 
   @override
   _ImprovedTimeWheelPickerState createState() =>
