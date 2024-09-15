@@ -1,13 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/artist_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
+import 'package:inker_studio/ui/schedule_assistant/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
@@ -84,9 +83,7 @@ class _ArtistQuotationResponseViewState
       appBar: AppBar(
         title: Text(l10n.respondToQuotation, style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
-        iconTheme: const IconThemeData(
-            color: Colors
-                .white), // Esto hace que la flecha de retroceso sea blanca
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
@@ -107,7 +104,7 @@ class _ArtistQuotationResponseViewState
                 );
               },
               success: () {
-                Navigator.of(context).pop(); // Cerrar la página de animación
+                Navigator.of(context).pop();
                 _showSuccessAnimationPage(
                   context,
                   AnimationState.completed,
@@ -116,8 +113,7 @@ class _ArtistQuotationResponseViewState
                 );
               },
               failure: (error) {
-                Navigator.of(context)
-                    .pop(); // Cerrar la página de animación si estaba abierta
+                Navigator.of(context).pop();
                 _showSuccessAnimationPage(
                   context,
                   AnimationState.error,
@@ -139,14 +135,12 @@ class _ArtistQuotationResponseViewState
                 _quotationStatus = quotation.status;
                 return _buildPageContent(quotation, l10n);
               },
-              submittingResponse: () =>
-                  const SizedBox(), // La animación se maneja en el listener
-              success: () =>
-                  const SizedBox(), // La animación se maneja en el listener
+              submittingResponse: () => const SizedBox(),
+              success: () => const SizedBox(),
               failure: (_) => const SizedBox(),
               orElse: () {
                 return const Text('data');
-              }, // La animación se maneja en el listener
+              },
             );
           },
         ),
@@ -165,7 +159,7 @@ class _ArtistQuotationResponseViewState
           onAnimationComplete: () {
             Navigator.of(context).pop();
             if (state == AnimationState.completed) {
-              Navigator.of(context).pop(); // Volver a la página anterior
+              Navigator.of(context).pop();
             }
           },
         ),
@@ -280,8 +274,7 @@ class _ArtistQuotationResponseViewState
                         );
                       },
                     ),
-                    const SizedBox(
-                        width: 48), // Espacio para el botón de borrar
+                    const SizedBox(width: 48),
                   ],
                 ),
                 errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
@@ -355,10 +348,8 @@ class _ArtistQuotationResponseViewState
       MaterialPageRoute(
         builder: (context) => ScheduleAssistantPage(
           artistId: artistId,
-          tentativeDate:
-              _appointmentStartDate, // Usa la fecha existente si está disponible
-          tentativeDuration:
-              _durationInMinutes, // Usa la duración existente si está disponible
+          tentativeDate: _appointmentStartDate,
+          tentativeDuration: _durationInMinutes,
         ),
       ),
     );

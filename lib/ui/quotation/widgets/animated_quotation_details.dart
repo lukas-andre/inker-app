@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/ui/quotation/widgets/image_gallery_view.dart';
+import 'package:inker_studio/ui/shared/widgets/image_gallery_view.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
