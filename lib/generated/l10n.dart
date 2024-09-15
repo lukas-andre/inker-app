@@ -1349,6 +1349,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Rango Inválido`
+  String get invalidRange {
+    return Intl.message(
+      'Rango Inválido',
+      name: 'invalidRange',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

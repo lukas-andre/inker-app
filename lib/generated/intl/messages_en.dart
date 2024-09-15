@@ -109,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
         "hoursAgo": m1,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
+        "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locale": MessageLookupByLibrary.simpleMessage("en"),
         "locationDetails":
