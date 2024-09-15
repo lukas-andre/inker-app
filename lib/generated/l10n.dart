@@ -1309,6 +1309,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Procesando Cotización`
+  String get processingQuotation {
+    return Intl.message(
+      'Procesando Cotización',
+      name: 'processingQuotation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por favor, espera mientras procesamos tu cotización`
+  String get processingQuotationMessage {
+    return Intl.message(
+      'Por favor, espera mientras procesamos tu cotización',
+      name: 'processingQuotationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tu respuesta ha sido enviada exitosamente`
+  String get quotationResponseSuccessMessage {
+    return Intl.message(
+      'Tu respuesta ha sido enviada exitosamente',
+      name: 'quotationResponseSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

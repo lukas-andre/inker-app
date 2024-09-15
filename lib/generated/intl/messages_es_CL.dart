@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgGuestValidationError": MessageLookupByLibrary.simpleMessage(
             "Por favor seleccione un invitado"),
         "errorMsgHoursValidationError": MessageLookupByLibrary.simpleMessage(
@@ -141,6 +142,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, selecciona un rango de tiempo"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
         "proceed": MessageLookupByLibrary.simpleMessage("Continuar"),
+        "processingQuotation":
+            MessageLookupByLibrary.simpleMessage("Procesando Cotización"),
+        "processingQuotationMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, espera mientras procesamos tu cotización"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Diseños Propuestos"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -151,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
             "Respuesta a la cotización enviada exitosamente"),
+        "quotationResponseSuccessMessage": MessageLookupByLibrary.simpleMessage(
+            "Tu respuesta ha sido enviada exitosamente"),
         "quote": MessageLookupByLibrary.simpleMessage("Cotización"),
         "quoteDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),

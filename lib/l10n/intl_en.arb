@@ -123,5 +123,9 @@
   "selectStartTime": "Select Start Time",
   "selectEndTime": "Select End Time",
   "pleaseSelectTimeRange": "Please select a time range",
-  "scheduleInfo": "Schedule Info"
+  "scheduleInfo": "Schedule Info",
+  "processingQuotation": "Processing Quotation",
+  "processingQuotationMessage": "Please wait while we process your quotation",
+  "quotationResponseSuccessMessage": "Your response has been sent successfully",
+  "error": "Error"
 }

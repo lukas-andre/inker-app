@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgGuestValidationError":
             MessageLookupByLibrary.simpleMessage("Please select guest"),
         "errorMsgHoursValidationError":
@@ -133,6 +134,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
+        "processingQuotation":
+            MessageLookupByLibrary.simpleMessage("Processing Quotation"),
+        "processingQuotationMessage": MessageLookupByLibrary.simpleMessage(
+            "Please wait while we process your quotation"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Proposed Designs"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -142,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quotation Details"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
             "Quotation response sent successfully"),
+        "quotationResponseSuccessMessage": MessageLookupByLibrary.simpleMessage(
+            "Your response has been sent successfully"),
         "quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "quoteDetails": MessageLookupByLibrary.simpleMessage("Quote Details"),
         "quoted": MessageLookupByLibrary.simpleMessage("Quoted"),

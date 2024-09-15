@@ -552,6 +552,8 @@ abstract class _$$EventCreatedImplCopyWith<$Res> {
       __$$EventCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({EventDetails event});
+
+  $EventDetailsCopyWith<$Res> get event;
 }
 
 /// @nodoc
@@ -565,14 +567,22 @@ class __$$EventCreatedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? event = freezed,
+    Object? event = null,
   }) {
     return _then(_$EventCreatedImpl(
-      freezed == event
+      null == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDetails,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $EventDetailsCopyWith<$Res> get event {
+    return $EventDetailsCopyWith<$Res>(_value.event, (value) {
+      return _then(_value.copyWith(event: value));
+    });
   }
 }
 
@@ -594,12 +604,11 @@ class _$EventCreatedImpl implements _EventCreated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EventCreatedImpl &&
-            const DeepCollectionEquality().equals(other.event, event));
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(event));
+  int get hashCode => Object.hash(runtimeType, event);
 
   @JsonKey(ignore: true)
   @override

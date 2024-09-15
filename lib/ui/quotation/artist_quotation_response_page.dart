@@ -10,6 +10,7 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
+import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -97,15 +98,31 @@ class _ArtistQuotationResponseViewState
             ArtistQuotationResponseState>(
           listener: (context, state) {
             state.maybeWhen(
+              submittingResponse: () {
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.loading,
+                  l10n.processingQuotation,
+                  l10n.processingQuotationMessage,
+                );
+              },
               success: () {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.quotationResponseSuccess)),
+                Navigator.of(context).pop(); // Cerrar la página de animación
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.completed,
+                  l10n.quotationResponseSuccess,
+                  l10n.quotationResponseSuccessMessage,
                 );
               },
               failure: (error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(error)),
+                Navigator.of(context)
+                    .pop(); // Cerrar la página de animación si estaba abierta
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.error,
+                  l10n.error,
+                  error,
                 );
               },
               orElse: () {},
@@ -122,9 +139,34 @@ class _ArtistQuotationResponseViewState
                 _quotationStatus = quotation.status;
                 return _buildPageContent(quotation, l10n);
               },
-              loading: () => const Center(child: InkerProgressIndicator()),
-              orElse: () => const Center(child: InkerProgressIndicator()),
+              submittingResponse: () =>
+                  const SizedBox(), // La animación se maneja en el listener
+              success: () =>
+                  const SizedBox(), // La animación se maneja en el listener
+              failure: (_) => const SizedBox(),
+              orElse: () {
+                return const Text('data');
+              }, // La animación se maneja en el listener
             );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessAnimationPage(BuildContext context, AnimationState state,
+      String title, String subtitle) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SuccessAnimationPage(
+          title: title,
+          subtitle: subtitle,
+          state: state,
+          onAnimationComplete: () {
+            Navigator.of(context).pop();
+            if (state == AnimationState.completed) {
+              Navigator.of(context).pop(); // Volver a la página anterior
+            }
           },
         ),
       ),
