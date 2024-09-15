@@ -169,6 +169,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reject": MessageLookupByLibrary.simpleMessage("Rechazar"),
         "rejectAppeal":
             MessageLookupByLibrary.simpleMessage("Rechazar Apelación"),
+        "rejectReasonArtisticDisagreement":
+            MessageLookupByLibrary.simpleMessage("Desacuerdo Artístico"),
+        "rejectReasonBeyondExpertise":
+            MessageLookupByLibrary.simpleMessage("Fuera de Experiencia"),
+        "rejectReasonInsufficientDetails":
+            MessageLookupByLibrary.simpleMessage("Detalles Insuficientes"),
+        "rejectReasonOther": MessageLookupByLibrary.simpleMessage("Otro"),
+        "rejectReasonSchedulingConflict":
+            MessageLookupByLibrary.simpleMessage("Conflicto de Horario"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Motivo de Rechazo"),
         "reply": MessageLookupByLibrary.simpleMessage("Responder"),

@@ -1376,6 +1376,59 @@ class S {
       args: [],
     );
   }
+
+  /// `Conflicto de Horario`
+  String get rejectReasonSchedulingConflict {
+    return Intl.message(
+      'Conflicto de Horario',
+      name: 'rejectReasonSchedulingConflict',
+      desc: 'Motivo de rechazo cuando hay un conflicto de programación.',
+      args: [],
+    );
+  }
+
+  /// `Desacuerdo Artístico`
+  String get rejectReasonArtisticDisagreement {
+    return Intl.message(
+      'Desacuerdo Artístico',
+      name: 'rejectReasonArtisticDisagreement',
+      desc:
+          'Motivo de rechazo cuando hay un desacuerdo sobre el aspecto artístico.',
+      args: [],
+    );
+  }
+
+  /// `Detalles Insuficientes`
+  String get rejectReasonInsufficientDetails {
+    return Intl.message(
+      'Detalles Insuficientes',
+      name: 'rejectReasonInsufficientDetails',
+      desc:
+          'Motivo de rechazo cuando la cotización no proporciona suficientes detalles.',
+      args: [],
+    );
+  }
+
+  /// `Fuera de Experiencia`
+  String get rejectReasonBeyondExpertise {
+    return Intl.message(
+      'Fuera de Experiencia',
+      name: 'rejectReasonBeyondExpertise',
+      desc:
+          'Motivo de rechazo cuando el trabajo está fuera del área de experiencia del artista.',
+      args: [],
+    );
+  }
+
+  /// `Otro`
+  String get rejectReasonOther {
+    return Intl.message(
+      'Otro',
+      name: 'rejectReasonOther',
+      desc: 'Motivo de rechazo para cualquier otra razón no especificada.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

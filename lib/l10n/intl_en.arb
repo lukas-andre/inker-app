@@ -545,5 +545,25 @@
   "invalidRange": "Invalid Range",
   "@invalidRange": {
     "description": "Message displayed when a selected range is not valid."
+  },
+  "rejectReasonSchedulingConflict": "Scheduling Conflict",
+  "@rejectReasonSchedulingConflict": {
+    "description": "Rejection reason when there is a scheduling conflict."
+  },
+  "rejectReasonArtisticDisagreement": "Artistic Disagreement",
+  "@rejectReasonArtisticDisagreement": {
+    "description": "Rejection reason when there is a disagreement about the artistic aspect."
+  },
+  "rejectReasonInsufficientDetails": "Insufficient Details",
+  "@rejectReasonInsufficientDetails": {
+    "description": "Rejection reason when the quotation does not provide enough details."
+  },
+  "rejectReasonBeyondExpertise": "Beyond Expertise",
+  "@rejectReasonBeyondExpertise": {
+    "description": "Rejection reason when the work is outside the artist's area of expertise."
+  },
+  "rejectReasonOther": "Other",
+  "@rejectReasonOther": {
+    "description": "Rejection reason for any other unspecified reason."
   }
 }

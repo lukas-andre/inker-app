@@ -549,5 +549,25 @@
   "invalidRange": "Rango Inválido",
   "@invalidRange": {
     "description": "Mensaje de error que indica que el rango seleccionado no es válido."
+  },
+  "rejectReasonSchedulingConflict": "Conflicto de Horario",
+  "@rejectReasonSchedulingConflict": {
+    "description": "Motivo de rechazo cuando hay un conflicto de programación."
+  },
+  "rejectReasonArtisticDisagreement": "Desacuerdo Artístico",
+  "@rejectReasonArtisticDisagreement": {
+    "description": "Motivo de rechazo cuando hay un desacuerdo sobre el aspecto artístico."
+  },
+  "rejectReasonInsufficientDetails": "Detalles Insuficientes",
+  "@rejectReasonInsufficientDetails": {
+    "description": "Motivo de rechazo cuando la cotización no proporciona suficientes detalles."
+  },
+  "rejectReasonBeyondExpertise": "Fuera de Experiencia",
+  "@rejectReasonBeyondExpertise": {
+    "description": "Motivo de rechazo cuando el trabajo está fuera del área de experiencia del artista."
+  },
+  "rejectReasonOther": "Otro",
+  "@rejectReasonOther": {
+    "description": "Motivo de rechazo para cualquier otra razón no especificada."
   }
 }
