@@ -51,7 +51,7 @@ class ArtistQuotationResponseBloc
 
   Future<void> _loadQuotation(
       Emitter<ArtistQuotationResponseState> emit, String quotationId) async {
-    emit(const ArtistQuotationResponseState.loading());
+    emit(const ArtistQuotationResponseState.loadingQuotation());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
@@ -81,7 +81,7 @@ class ArtistQuotationResponseBloc
     QuotationArtistRejectReason? rejectionReason,
     List<XFile>? proposedDesigns,
   ) async {
-    emit(const ArtistQuotationResponseState.loading());
+    emit(const ArtistQuotationResponseState.submittingResponse());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {

@@ -593,8 +593,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) =>
@@ -602,8 +603,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) =>
@@ -611,8 +613,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
@@ -621,8 +624,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) =>
@@ -630,8 +634,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) =>
@@ -639,8 +644,9 @@ mixin _$ArtistQuotationResponseState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -708,8 +714,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) {
@@ -720,8 +727,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) {
@@ -732,8 +740,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
@@ -748,8 +757,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
@@ -760,8 +770,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
@@ -772,8 +783,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -790,35 +802,36 @@ abstract class _Initial implements ArtistQuotationResponseState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$LoadingQuotationImplCopyWith<$Res> {
+  factory _$$LoadingQuotationImplCopyWith(_$LoadingQuotationImpl value,
+          $Res Function(_$LoadingQuotationImpl) then) =
+      __$$LoadingQuotationImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ArtistQuotationResponseStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$LoadingQuotationImplCopyWithImpl<$Res>
+    extends _$ArtistQuotationResponseStateCopyWithImpl<$Res,
+        _$LoadingQuotationImpl>
+    implements _$$LoadingQuotationImplCopyWith<$Res> {
+  __$$LoadingQuotationImplCopyWithImpl(_$LoadingQuotationImpl _value,
+      $Res Function(_$LoadingQuotationImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+class _$LoadingQuotationImpl implements _LoadingQuotation {
+  const _$LoadingQuotationImpl();
 
   @override
   String toString() {
-    return 'ArtistQuotationResponseState.loading()';
+    return 'ArtistQuotationResponseState.loadingQuotation()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$LoadingQuotationImpl);
   }
 
   @override
@@ -828,38 +841,41 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) {
-    return loading();
+    return loadingQuotation();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) {
-    return loading?.call();
+    return loadingQuotation?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (loadingQuotation != null) {
+      return loadingQuotation();
     }
     return orElse();
   }
@@ -868,45 +884,48 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
-    return loading(this);
+    return loadingQuotation(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
-    return loading?.call(this);
+    return loadingQuotation?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (loadingQuotation != null) {
+      return loadingQuotation(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loading implements ArtistQuotationResponseState {
-  const factory _Loading() = _$LoadingImpl;
+abstract class _LoadingQuotation implements ArtistQuotationResponseState {
+  const factory _LoadingQuotation() = _$LoadingQuotationImpl;
 }
 
 /// @nodoc
@@ -986,8 +1005,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) {
@@ -998,8 +1018,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) {
@@ -1010,8 +1031,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
@@ -1026,8 +1048,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
@@ -1038,8 +1061,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
@@ -1050,8 +1074,9 @@ class _$QuotationLoadedImpl implements _QuotationLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -1071,6 +1096,133 @@ abstract class _QuotationLoaded implements ArtistQuotationResponseState {
   @JsonKey(ignore: true)
   _$$QuotationLoadedImplCopyWith<_$QuotationLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SubmittingResponseImplCopyWith<$Res> {
+  factory _$$SubmittingResponseImplCopyWith(_$SubmittingResponseImpl value,
+          $Res Function(_$SubmittingResponseImpl) then) =
+      __$$SubmittingResponseImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SubmittingResponseImplCopyWithImpl<$Res>
+    extends _$ArtistQuotationResponseStateCopyWithImpl<$Res,
+        _$SubmittingResponseImpl>
+    implements _$$SubmittingResponseImplCopyWith<$Res> {
+  __$$SubmittingResponseImplCopyWithImpl(_$SubmittingResponseImpl _value,
+      $Res Function(_$SubmittingResponseImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SubmittingResponseImpl implements _SubmittingResponse {
+  const _$SubmittingResponseImpl();
+
+  @override
+  String toString() {
+    return 'ArtistQuotationResponseState.submittingResponse()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SubmittingResponseImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loadingQuotation,
+    required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) {
+    return submittingResponse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loadingQuotation,
+    TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) {
+    return submittingResponse?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingQuotation,
+    TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) {
+    if (submittingResponse != null) {
+      return submittingResponse();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
+    required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return submittingResponse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
+    TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+  }) {
+    return submittingResponse?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
+    TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (submittingResponse != null) {
+      return submittingResponse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SubmittingResponse implements ArtistQuotationResponseState {
+  const factory _SubmittingResponse() = _$SubmittingResponseImpl;
 }
 
 /// @nodoc
@@ -1112,8 +1264,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) {
@@ -1124,8 +1277,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) {
@@ -1136,8 +1290,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
@@ -1152,8 +1307,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
@@ -1164,8 +1320,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
@@ -1176,8 +1333,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
@@ -1258,8 +1416,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loadingQuotation,
     required TResult Function(Quotation quotation) quotationLoaded,
+    required TResult Function() submittingResponse,
     required TResult Function() success,
     required TResult Function(String error) failure,
   }) {
@@ -1270,8 +1429,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loadingQuotation,
     TResult? Function(Quotation quotation)? quotationLoaded,
+    TResult? Function()? submittingResponse,
     TResult? Function()? success,
     TResult? Function(String error)? failure,
   }) {
@@ -1282,8 +1442,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loadingQuotation,
     TResult Function(Quotation quotation)? quotationLoaded,
+    TResult Function()? submittingResponse,
     TResult Function()? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
@@ -1298,8 +1459,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadingQuotation value) loadingQuotation,
     required TResult Function(_QuotationLoaded value) quotationLoaded,
+    required TResult Function(_SubmittingResponse value) submittingResponse,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
   }) {
@@ -1310,8 +1472,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadingQuotation value)? loadingQuotation,
     TResult? Function(_QuotationLoaded value)? quotationLoaded,
+    TResult? Function(_SubmittingResponse value)? submittingResponse,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
   }) {
@@ -1322,8 +1485,9 @@ class _$FailureImpl implements _Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadingQuotation value)? loadingQuotation,
     TResult Function(_QuotationLoaded value)? quotationLoaded,
+    TResult Function(_SubmittingResponse value)? submittingResponse,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),

@@ -124,5 +124,9 @@
   "selectStartTime": "Seleccionar Hora de Inicio",
   "selectEndTime": "Seleccionar Hora de Fin",
   "pleaseSelectTimeRange": "Por favor, selecciona un rango de tiempo",
-  "scheduleInfo": "Información de Agenda"
+  "scheduleInfo": "Información de Agenda",
+  "processingQuotation": "Procesando Cotización",
+  "processingQuotationMessage": "Por favor, espera mientras procesamos tu cotización",
+  "quotationResponseSuccessMessage": "Tu respuesta ha sido enviada exitosamente",
+  "error": "Error"
 }
