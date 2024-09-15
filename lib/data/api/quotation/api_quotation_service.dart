@@ -11,6 +11,19 @@ import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:http_parser/http_parser.dart';
 
+extension QuotationArtistRejectReasonExtension on QuotationArtistRejectReason {
+  String toSnakeCase() {
+    return toString()
+        .split('.')
+        .last
+        .replaceAllMapped(
+          RegExp(r'[A-Z]'),
+          (match) => '_${match.group(0)!.toLowerCase()}',
+        )
+        .replaceFirst(RegExp(r'^_'), '');
+  }
+}
+
 class ApiQuotationService implements QuotationService {
   final HttpClientConfig _httpConfig;
 
@@ -159,8 +172,7 @@ class ApiQuotationService implements QuotationService {
       request.fields['additionalDetails'] = additionalDetails;
     }
     if (rejectionReason != null) {
-      request.fields['rejectionReason'] =
-          rejectionReason.toString().split('.').last;
+      request.fields['rejectionReason'] = rejectionReason.toSnakeCase();
     }
 
     if (proposedDesigns != null) {

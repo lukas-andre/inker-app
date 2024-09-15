@@ -140,7 +140,11 @@ class _ArtistQuotationResponseViewState
               },
               submittingResponse: () => const SizedBox(),
               success: () => const SizedBox(),
-              failure: (_) => const SizedBox(),
+              failure: (_) {
+                _bloc.add(ArtistQuotationResponseEvent.loadQuotation(
+                    widget.quotationId));
+                return const Center(child: InkerProgressIndicator());
+              },
               orElse: () {
                 return const Center(child: InkerProgressIndicator());
               },
@@ -492,7 +496,7 @@ class _ArtistQuotationResponseViewState
         return DropdownMenuItem(
           value: reason,
           child: Text(
-            reason.toString().split('.').last,
+            _getTranslatedRejectionReason(reason, l10n),
             style: TextStyleTheme.bodyText1,
           ),
         );
@@ -509,6 +513,22 @@ class _ArtistQuotationResponseViewState
         return null;
       },
     );
+  }
+
+  String _getTranslatedRejectionReason(
+      QuotationArtistRejectReason reason, S l10n) {
+    switch (reason) {
+      case QuotationArtistRejectReason.schedulingConflict:
+        return l10n.rejectReasonSchedulingConflict;
+      case QuotationArtistRejectReason.artisticDisagreement:
+        return l10n.rejectReasonArtisticDisagreement;
+      case QuotationArtistRejectReason.insufficientDetails:
+        return l10n.rejectReasonInsufficientDetails;
+      case QuotationArtistRejectReason.beyondExpertise:
+        return l10n.rejectReasonBeyondExpertise;
+      case QuotationArtistRejectReason.other:
+        return l10n.rejectReasonOther;
+    }
   }
 
   Widget _buildProposedDesignsUpload(S l10n) {

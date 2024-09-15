@@ -158,6 +158,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reference Images"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
         "rejectAppeal": MessageLookupByLibrary.simpleMessage("Reject Appeal"),
+        "rejectReasonArtisticDisagreement":
+            MessageLookupByLibrary.simpleMessage("Artistic Disagreement"),
+        "rejectReasonBeyondExpertise":
+            MessageLookupByLibrary.simpleMessage("Beyond Expertise"),
+        "rejectReasonInsufficientDetails":
+            MessageLookupByLibrary.simpleMessage("Insufficient Details"),
+        "rejectReasonOther": MessageLookupByLibrary.simpleMessage("Other"),
+        "rejectReasonSchedulingConflict":
+            MessageLookupByLibrary.simpleMessage("Scheduling Conflict"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Rejection Reason"),
         "reply": MessageLookupByLibrary.simpleMessage("Reply"),
