@@ -722,7 +722,9 @@ mixin _$QuotationListState {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
@@ -737,7 +739,9 @@ mixin _$QuotationListState {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
@@ -752,7 +756,9 @@ mixin _$QuotationListState {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
@@ -853,7 +859,9 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
@@ -871,7 +879,9 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
@@ -889,7 +899,9 @@ class _$QuotationListInitialImpl implements QuotationListInitial {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
@@ -992,7 +1004,9 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
@@ -1010,7 +1024,9 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
@@ -1028,7 +1044,9 @@ class _$QuotationListLoadingImpl implements QuotationListLoading {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
@@ -1096,7 +1114,9 @@ abstract class _$$QuotationListLoadedImplCopyWith<$Res> {
       Session session,
       List<String>? statuses,
       bool isLoadingMore,
-      String? cancellingQuotationId});
+      String? cancellingQuotationId,
+      int currentPage,
+      int totalItems});
 }
 
 /// @nodoc
@@ -1115,6 +1135,8 @@ class __$$QuotationListLoadedImplCopyWithImpl<$Res>
     Object? statuses = freezed,
     Object? isLoadingMore = null,
     Object? cancellingQuotationId = freezed,
+    Object? currentPage = null,
+    Object? totalItems = null,
   }) {
     return _then(_$QuotationListLoadedImpl(
       quotations: null == quotations
@@ -1137,6 +1159,14 @@ class __$$QuotationListLoadedImplCopyWithImpl<$Res>
           ? _value.cancellingQuotationId
           : cancellingQuotationId // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalItems: null == totalItems
+          ? _value.totalItems
+          : totalItems // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1149,7 +1179,9 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
       required this.session,
       final List<String>? statuses,
       this.isLoadingMore = false,
-      this.cancellingQuotationId})
+      this.cancellingQuotationId,
+      this.currentPage = 1,
+      required this.totalItems})
       : _quotations = quotations,
         _statuses = statuses;
 
@@ -1178,10 +1210,16 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
   final bool isLoadingMore;
   @override
   final String? cancellingQuotationId;
+  @override
+  @JsonKey()
+  final int currentPage;
+// Current page number
+  @override
+  final int totalItems;
 
   @override
   String toString() {
-    return 'QuotationListState.loaded(quotations: $quotations, session: $session, statuses: $statuses, isLoadingMore: $isLoadingMore, cancellingQuotationId: $cancellingQuotationId)';
+    return 'QuotationListState.loaded(quotations: $quotations, session: $session, statuses: $statuses, isLoadingMore: $isLoadingMore, cancellingQuotationId: $cancellingQuotationId, currentPage: $currentPage, totalItems: $totalItems)';
   }
 
   @override
@@ -1196,7 +1234,11 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             (identical(other.isLoadingMore, isLoadingMore) ||
                 other.isLoadingMore == isLoadingMore) &&
             (identical(other.cancellingQuotationId, cancellingQuotationId) ||
-                other.cancellingQuotationId == cancellingQuotationId));
+                other.cancellingQuotationId == cancellingQuotationId) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.totalItems, totalItems) ||
+                other.totalItems == totalItems));
   }
 
   @override
@@ -1206,7 +1248,9 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
       session,
       const DeepCollectionEquality().hash(_statuses),
       isLoadingMore,
-      cancellingQuotationId);
+      cancellingQuotationId,
+      currentPage,
+      totalItems);
 
   @JsonKey(ignore: true)
   @override
@@ -1225,13 +1269,15 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
   }) {
-    return loaded(
-        quotations, session, statuses, isLoadingMore, cancellingQuotationId);
+    return loaded(quotations, session, statuses, isLoadingMore,
+        cancellingQuotationId, currentPage, totalItems);
   }
 
   @override
@@ -1244,13 +1290,15 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
   }) {
-    return loaded?.call(
-        quotations, session, statuses, isLoadingMore, cancellingQuotationId);
+    return loaded?.call(quotations, session, statuses, isLoadingMore,
+        cancellingQuotationId, currentPage, totalItems);
   }
 
   @override
@@ -1263,15 +1311,17 @@ class _$QuotationListLoadedImpl implements QuotationListLoaded {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(
-          quotations, session, statuses, isLoadingMore, cancellingQuotationId);
+      return loaded(quotations, session, statuses, isLoadingMore,
+          cancellingQuotationId, currentPage, totalItems);
     }
     return orElse();
   }
@@ -1323,13 +1373,17 @@ abstract class QuotationListLoaded implements QuotationListState {
       required final Session session,
       final List<String>? statuses,
       final bool isLoadingMore,
-      final String? cancellingQuotationId}) = _$QuotationListLoadedImpl;
+      final String? cancellingQuotationId,
+      final int currentPage,
+      required final int totalItems}) = _$QuotationListLoadedImpl;
 
   List<Quotation> get quotations;
   Session get session;
   List<String>? get statuses;
   bool get isLoadingMore;
   String? get cancellingQuotationId;
+  int get currentPage; // Current page number
+  int get totalItems;
   @JsonKey(ignore: true)
   _$$QuotationListLoadedImplCopyWith<_$QuotationListLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1407,7 +1461,9 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
@@ -1425,7 +1481,9 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
@@ -1443,7 +1501,9 @@ class _$QuotationListErrorImpl implements QuotationListError {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
@@ -1555,7 +1615,9 @@ class _$QuotationListCancelSuccessImpl implements QuotationListCancelSuccess {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() cancelSuccess,
@@ -1573,7 +1635,9 @@ class _$QuotationListCancelSuccessImpl implements QuotationListCancelSuccess {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? cancelSuccess,
@@ -1591,7 +1655,9 @@ class _$QuotationListCancelSuccessImpl implements QuotationListCancelSuccess {
             Session session,
             List<String>? statuses,
             bool isLoadingMore,
-            String? cancellingQuotationId)?
+            String? cancellingQuotationId,
+            int currentPage,
+            int totalItems)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? cancelSuccess,
