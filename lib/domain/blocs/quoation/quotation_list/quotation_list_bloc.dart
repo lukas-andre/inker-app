@@ -38,12 +38,12 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
             emit(const QuotationListState.error('No se ha iniciado sesión.'));
             return;
           }
-          emit(QuotationListState.loaded(
-            quotations: quotations,
-            session: session,
-            statuses: statuses,
-            isLoadingMore: false,
-          ));
+          // emit(QuotationListState.loaded(
+          //   quotations: quotations,
+          //   session: session,
+          //   statuses: statuses,
+          //   isLoadingMore: false,
+          // ));
         },
       );
     });
@@ -74,21 +74,37 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
 
       final cacheKey = statuses?.join(',') ?? 'all';
 
-      emit(QuotationListState.loading());
+      int nextPage = 1;
+      List<Quotation> accumulatedQuotations = [];
+
+      if (isNextPage && state is QuotationListLoaded) {
+        final currentState = state as QuotationListLoaded;
+        nextPage = currentState.currentPage + 1;
+        accumulatedQuotations = List.from(currentState.quotations);
+        emit(currentState.copyWith(isLoadingMore: true));
+      } else {
+        nextPage = 1;
+        accumulatedQuotations = [];
+        emit(const QuotationListState.loading());
+      }
 
       final response = await _quotationService.getQuotations(
         token: session.accessToken,
         statuses: statuses,
-        page: 1,
+        page: nextPage,
       );
 
-      _cachedQuotations[cacheKey] = response.items;
+      accumulatedQuotations.addAll(response.items);
+
+      _cachedQuotations[cacheKey] = accumulatedQuotations;
 
       emit(QuotationListState.loaded(
-        quotations: response.items,
+        quotations: accumulatedQuotations,
         session: session,
         statuses: statuses,
         isLoadingMore: false,
+        currentPage: nextPage,
+        totalItems: response.total, // Use total from API response
       ));
     } catch (e) {
       emit(QuotationListState.error(e.toString()));

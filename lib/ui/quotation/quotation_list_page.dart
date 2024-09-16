@@ -40,19 +40,49 @@ class QuotationListView extends StatefulWidget {
 class _QuotationListViewState extends State<QuotationListView> {
   late QuotationListBloc _quotationListBloc;
   late bool _isArtist;
+  final ScrollController _scrollController = ScrollController();
 
   String searchTerm = '';
   List<String> _selectedStatuses = [];
   Map<String, List<Quotation>> _cachedQuotations = {};
   List<Map<String, dynamic>> _filterOptions = [];
   bool _didInitDependencies = false;
-  // Nueva variable para almacenar la opción seleccionada
   Map<String, dynamic>? _selectedOption;
 
   @override
   void initState() {
     super.initState();
-    // Variables que no dependen del contexto pueden inicializarse aquí
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      final currentState = _quotationListBloc.state;
+      if (currentState is QuotationListLoaded && !currentState.isLoadingMore) {
+        if (currentState.quotations.length < currentState.totalItems) {
+          _quotationListBloc.add(
+            QuotationListEvent.loadQuotations(
+              _selectedStatuses,
+              true, // isNextPage es true
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    return currentScroll >= (maxScroll * 0.9);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -165,14 +195,24 @@ class _QuotationListViewState extends State<QuotationListView> {
                   },
                   builder: (context, state) {
                     return state.maybeWhen(
-                      loaded: (quotations, session, statuses, isLoadingMore,
-                          cancellingQuotationId) {
+                      loaded: (
+                        quotations,
+                        session,
+                        statuses,
+                        isLoadingMore,
+                        cancellingQuotationId,
+                        currentPage,
+                        totalItems,
+                      ) {
                         return _buildQuotationList(
                           quotations,
                           session,
                           l10n,
                           isLoadingMore,
                           cancellingQuotationId,
+                          currentPage,
+                          totalItems,
+                          statuses,
                         );
                       },
                       error: (message) => Center(
@@ -260,6 +300,9 @@ class _QuotationListViewState extends State<QuotationListView> {
     S l10n,
     bool isLoadingMore,
     String? cancellingQuotationId,
+    int currentPage,
+    int totalItems,
+    List<String>? statuses,
   ) {
     final filteredQuotations = quotations
         .where((quote) =>
@@ -283,15 +326,26 @@ class _QuotationListViewState extends State<QuotationListView> {
         ));
       },
       child: ListView.builder(
+        controller: _scrollController,
         physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: filteredQuotations.length,
+        itemCount: filteredQuotations.length + (isLoadingMore ? 1 : 0),
         itemBuilder: (context, index) {
-          return _buildQuotationCard(
-            filteredQuotations[index],
-            session,
-            l10n,
-            cancellingQuotationId,
-          );
+          if (index < filteredQuotations.length) {
+            return _buildQuotationCard(
+              filteredQuotations[index],
+              session,
+              l10n,
+              cancellingQuotationId,
+            );
+          } else {
+            // Mostrar indicador de carga al final
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: Center(
+                child: InkerProgressIndicator(),
+              ),
+            );
+          }
         },
       ),
     );
