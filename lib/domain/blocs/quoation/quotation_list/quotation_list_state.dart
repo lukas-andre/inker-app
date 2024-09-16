@@ -10,6 +10,8 @@ class QuotationListState with _$QuotationListState {
     List<String>? statuses,
     @Default(false) bool isLoadingMore,
     String? cancellingQuotationId,
+    @Default(1) int currentPage, // Current page number
+    required int totalItems, // Total number of items from API
   }) = QuotationListLoaded;
   const factory QuotationListState.error(String message) = QuotationListError;
   const factory QuotationListState.cancelSuccess() = QuotationListCancelSuccess;
