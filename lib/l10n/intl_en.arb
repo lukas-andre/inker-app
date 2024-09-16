@@ -565,5 +565,53 @@
   "rejectReasonOther": "Other",
   "@rejectReasonOther": {
     "description": "Rejection reason for any other unspecified reason."
+  },
+  "pending": "Pending",
+  "@pending": {
+    "description": "Status indicating that something is waiting for a decision or action."
+  },
+  "responded": "Responded",
+  "@responded": {
+    "description": "Status indicating that a response has been given."
+  },
+  "accepted": "Accepted",
+  "@accepted": {
+    "description": "Status indicating that something has been approved or agreed to."
+  },
+  "appeal": "Appeal",
+  "@appeal": {
+    "description": "A request for a review or reconsideration of a decision."
+  },
+  "newRequest": "New Request",
+  "@newRequest": {
+    "description": "A request that has just been made."
+  },
+  "awaitingCustomer": "Awaiting Customer",
+  "@awaitingCustomer": {
+    "description": "Status indicating that something is waiting for the customer."
+  },
+  "awaitingReply": "Awaiting Reply",
+  "@awaitingReply": {
+    "description": "Status indicating that something is waiting for a reply."
+  },
+  "scheduled": "Scheduled",
+  "@scheduled": {
+    "description": "Status indicating that something has been arranged or planned."
+  },
+  "awaitingArtist": "Awaiting Artist",
+  "@awaitingArtist": {
+    "description": "Status indicating that something is waiting for the artist."
+  },
+  "receivedQuotation": "Received Quotation",
+  "@receivedQuotation": {
+    "description": "Status indicating that a quotation has been received."
+  },
+  "newRequests": "New Requests",
+  "@newRequests": {
+    "description": "Requests that have just been made."
+  },
+  "receivedQuotations": "Received Quotations",
+  "@receivedQuotations": {
+    "description": "Quotations that have just been received."
   }
 }

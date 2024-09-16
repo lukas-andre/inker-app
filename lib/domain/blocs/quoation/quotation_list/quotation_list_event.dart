@@ -5,7 +5,8 @@ class QuotationListEvent with _$QuotationListEvent {
   const factory QuotationListEvent.started() = _Started;
   const factory QuotationListEvent.loadQuotations(
       List<String>? statuses, bool isNextPage) = _LoadQuotations;
-  const factory QuotationListEvent.changeTab(int tabIndex) = _ChangeTab;
   const factory QuotationListEvent.cancelQuotation(String quotationId) =
       _CancelQuotation;
+  const factory QuotationListEvent.useCachedQuotations(
+      List<Quotation> quotations, List<String> statuses) = _UseCachedQuotations;
 }

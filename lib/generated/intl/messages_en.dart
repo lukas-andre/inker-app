@@ -38,16 +38,23 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+        "accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
         "action": MessageLookupByLibrary.simpleMessage("Action"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Additional Details"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
+        "appeal": MessageLookupByLibrary.simpleMessage("Appeal"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Appointment Date"),
         "appointmentDateTime":
             MessageLookupByLibrary.simpleMessage("Appointment Date & Time"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
+        "awaitingArtist":
+            MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
+        "awaitingCustomer":
+            MessageLookupByLibrary.simpleMessage("Awaiting Customer"),
+        "awaitingReply": MessageLookupByLibrary.simpleMessage("Awaiting Reply"),
         "barber": MessageLookupByLibrary.simpleMessage("Barber"),
         "between": MessageLookupByLibrary.simpleMessage("between"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -119,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "minutesAgo": m2,
         "monthsAgo": m3,
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
+        "newRequest": MessageLookupByLibrary.simpleMessage("New Request"),
+        "newRequests": MessageLookupByLibrary.simpleMessage("New Requests"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("Next Week"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
@@ -130,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseSelectTimeRange":
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
@@ -154,6 +164,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "quoteDetails": MessageLookupByLibrary.simpleMessage("Quote Details"),
         "quoted": MessageLookupByLibrary.simpleMessage("Quoted"),
         "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
+        "receivedQuotation":
+            MessageLookupByLibrary.simpleMessage("Received Quotation"),
+        "receivedQuotations":
+            MessageLookupByLibrary.simpleMessage("Received Quotations"),
         "referenceImages":
             MessageLookupByLibrary.simpleMessage("Reference Images"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
@@ -178,10 +192,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetZoom": MessageLookupByLibrary.simpleMessage("Reset Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Respond to Quotation"),
+        "responded": MessageLookupByLibrary.simpleMessage("Responded"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Schedule Assistant"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
         "scheduleInfo": MessageLookupByLibrary.simpleMessage("Schedule Info"),
+        "scheduled": MessageLookupByLibrary.simpleMessage("Scheduled"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Select Date & Time"),

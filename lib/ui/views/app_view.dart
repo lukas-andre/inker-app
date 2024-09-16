@@ -197,7 +197,8 @@ class _AppViewState extends State<AppView> {
               final args = settings.arguments as Map<String, dynamic>;
               return MaterialPageRoute(
                 builder: (context) => ArtistQuotationResponsePage(
-                    quotationId: args['quotationId']),
+                    quotationId: args['quotationId'],
+                    predefinedAction: args['predefinedAction']),
               );
             }
 
