@@ -18,8 +18,10 @@ import 'package:intl/intl.dart';
 
 class ArtistQuotationResponsePage extends StatelessWidget {
   final String quotationId;
+  final ArtistQuotationAction? predefinedAction; // Nuevo parámetro opcional
 
-  const ArtistQuotationResponsePage({super.key, required this.quotationId});
+  const ArtistQuotationResponsePage(
+      {super.key, required this.quotationId, this.predefinedAction});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,20 @@ class ArtistQuotationResponsePage extends StatelessWidget {
         quotationService: context.read(),
         sessionService: context.read(),
       ),
-      child: _ArtistQuotationResponseView(quotationId: quotationId),
+      child: _ArtistQuotationResponseView(
+        quotationId: quotationId,
+        predefinedAction: predefinedAction,
+      ),
     );
   }
 }
 
 class _ArtistQuotationResponseView extends StatefulWidget {
   final String quotationId;
+  final ArtistQuotationAction? predefinedAction; // Nuevo parámetro opcional
 
-  const _ArtistQuotationResponseView({required this.quotationId});
+  const _ArtistQuotationResponseView(
+      {required this.quotationId, this.predefinedAction});
 
   @override
   _ArtistQuotationResponseViewState createState() =>
@@ -73,6 +80,10 @@ class _ArtistQuotationResponseViewState
     _bloc.add(ArtistQuotationResponseEvent.loadQuotation(widget.quotationId));
     artistId =
         BlocProvider.of<AuthBloc>(context).state.session.user?.userTypeId ?? 0;
+
+    if (widget.predefinedAction != null) {
+      _action = widget.predefinedAction!;
+    }
   }
 
   @override
