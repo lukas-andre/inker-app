@@ -142,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
             "No hay eventos programados para hoy"),
+        "noQuotationsFound": MessageLookupByLibrary.simpleMessage(
+            "No se encontraron cotizaciones"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),

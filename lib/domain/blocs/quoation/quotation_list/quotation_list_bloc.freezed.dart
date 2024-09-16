@@ -22,8 +22,6 @@ mixin _$QuotationListEvent {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
-    required TResult Function(List<Quotation> quotations, List<String> statuses)
-        useCachedQuotations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,8 +29,6 @@ mixin _$QuotationListEvent {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
-    TResult? Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,8 +36,6 @@ mixin _$QuotationListEvent {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
-    TResult Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -50,7 +44,6 @@ mixin _$QuotationListEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
-    required TResult Function(_UseCachedQuotations value) useCachedQuotations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,7 +51,6 @@ mixin _$QuotationListEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
-    TResult? Function(_UseCachedQuotations value)? useCachedQuotations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,7 +58,6 @@ mixin _$QuotationListEvent {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
-    TResult Function(_UseCachedQuotations value)? useCachedQuotations,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,8 +123,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
-    required TResult Function(List<Quotation> quotations, List<String> statuses)
-        useCachedQuotations,
   }) {
     return started();
   }
@@ -144,8 +133,6 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
-    TResult? Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
   }) {
     return started?.call();
   }
@@ -156,8 +143,6 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
-    TResult Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -172,7 +157,6 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
-    required TResult Function(_UseCachedQuotations value) useCachedQuotations,
   }) {
     return started(this);
   }
@@ -183,7 +167,6 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
-    TResult? Function(_UseCachedQuotations value)? useCachedQuotations,
   }) {
     return started?.call(this);
   }
@@ -194,7 +177,6 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
-    TResult Function(_UseCachedQuotations value)? useCachedQuotations,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -296,8 +278,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
-    required TResult Function(List<Quotation> quotations, List<String> statuses)
-        useCachedQuotations,
   }) {
     return loadQuotations(statuses, isNextPage);
   }
@@ -308,8 +288,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
-    TResult? Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
   }) {
     return loadQuotations?.call(statuses, isNextPage);
   }
@@ -320,8 +298,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
-    TResult Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -336,7 +312,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
-    required TResult Function(_UseCachedQuotations value) useCachedQuotations,
   }) {
     return loadQuotations(this);
   }
@@ -347,7 +322,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
-    TResult? Function(_UseCachedQuotations value)? useCachedQuotations,
   }) {
     return loadQuotations?.call(this);
   }
@@ -358,7 +332,6 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
-    TResult Function(_UseCachedQuotations value)? useCachedQuotations,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -450,8 +423,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
-    required TResult Function(List<Quotation> quotations, List<String> statuses)
-        useCachedQuotations,
   }) {
     return cancelQuotation(quotationId);
   }
@@ -462,8 +433,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
-    TResult? Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
   }) {
     return cancelQuotation?.call(quotationId);
   }
@@ -474,8 +443,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
-    TResult Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -490,7 +457,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
-    required TResult Function(_UseCachedQuotations value) useCachedQuotations,
   }) {
     return cancelQuotation(this);
   }
@@ -501,7 +467,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
-    TResult? Function(_UseCachedQuotations value)? useCachedQuotations,
   }) {
     return cancelQuotation?.call(this);
   }
@@ -512,7 +477,6 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
-    TResult Function(_UseCachedQuotations value)? useCachedQuotations,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -529,185 +493,6 @@ abstract class _CancelQuotation implements QuotationListEvent {
   String get quotationId;
   @JsonKey(ignore: true)
   _$$CancelQuotationImplCopyWith<_$CancelQuotationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UseCachedQuotationsImplCopyWith<$Res> {
-  factory _$$UseCachedQuotationsImplCopyWith(_$UseCachedQuotationsImpl value,
-          $Res Function(_$UseCachedQuotationsImpl) then) =
-      __$$UseCachedQuotationsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Quotation> quotations, List<String> statuses});
-}
-
-/// @nodoc
-class __$$UseCachedQuotationsImplCopyWithImpl<$Res>
-    extends _$QuotationListEventCopyWithImpl<$Res, _$UseCachedQuotationsImpl>
-    implements _$$UseCachedQuotationsImplCopyWith<$Res> {
-  __$$UseCachedQuotationsImplCopyWithImpl(_$UseCachedQuotationsImpl _value,
-      $Res Function(_$UseCachedQuotationsImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? quotations = null,
-    Object? statuses = null,
-  }) {
-    return _then(_$UseCachedQuotationsImpl(
-      null == quotations
-          ? _value._quotations
-          : quotations // ignore: cast_nullable_to_non_nullable
-              as List<Quotation>,
-      null == statuses
-          ? _value._statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UseCachedQuotationsImpl implements _UseCachedQuotations {
-  const _$UseCachedQuotationsImpl(
-      final List<Quotation> quotations, final List<String> statuses)
-      : _quotations = quotations,
-        _statuses = statuses;
-
-  final List<Quotation> _quotations;
-  @override
-  List<Quotation> get quotations {
-    if (_quotations is EqualUnmodifiableListView) return _quotations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_quotations);
-  }
-
-  final List<String> _statuses;
-  @override
-  List<String> get statuses {
-    if (_statuses is EqualUnmodifiableListView) return _statuses;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_statuses);
-  }
-
-  @override
-  String toString() {
-    return 'QuotationListEvent.useCachedQuotations(quotations: $quotations, statuses: $statuses)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UseCachedQuotationsImpl &&
-            const DeepCollectionEquality()
-                .equals(other._quotations, _quotations) &&
-            const DeepCollectionEquality().equals(other._statuses, _statuses));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_quotations),
-      const DeepCollectionEquality().hash(_statuses));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UseCachedQuotationsImplCopyWith<_$UseCachedQuotationsImpl> get copyWith =>
-      __$$UseCachedQuotationsImplCopyWithImpl<_$UseCachedQuotationsImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(List<String>? statuses, bool isNextPage)
-        loadQuotations,
-    required TResult Function(String quotationId) cancelQuotation,
-    required TResult Function(List<Quotation> quotations, List<String> statuses)
-        useCachedQuotations,
-  }) {
-    return useCachedQuotations(quotations, statuses);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
-    TResult? Function(String quotationId)? cancelQuotation,
-    TResult? Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
-  }) {
-    return useCachedQuotations?.call(quotations, statuses);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
-    TResult Function(String quotationId)? cancelQuotation,
-    TResult Function(List<Quotation> quotations, List<String> statuses)?
-        useCachedQuotations,
-    required TResult orElse(),
-  }) {
-    if (useCachedQuotations != null) {
-      return useCachedQuotations(quotations, statuses);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadQuotations value) loadQuotations,
-    required TResult Function(_CancelQuotation value) cancelQuotation,
-    required TResult Function(_UseCachedQuotations value) useCachedQuotations,
-  }) {
-    return useCachedQuotations(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadQuotations value)? loadQuotations,
-    TResult? Function(_CancelQuotation value)? cancelQuotation,
-    TResult? Function(_UseCachedQuotations value)? useCachedQuotations,
-  }) {
-    return useCachedQuotations?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadQuotations value)? loadQuotations,
-    TResult Function(_CancelQuotation value)? cancelQuotation,
-    TResult Function(_UseCachedQuotations value)? useCachedQuotations,
-    required TResult orElse(),
-  }) {
-    if (useCachedQuotations != null) {
-      return useCachedQuotations(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UseCachedQuotations implements QuotationListEvent {
-  const factory _UseCachedQuotations(
-          final List<Quotation> quotations, final List<String> statuses) =
-      _$UseCachedQuotationsImpl;
-
-  List<Quotation> get quotations;
-  List<String> get statuses;
-  @JsonKey(ignore: true)
-  _$$UseCachedQuotationsImplCopyWith<_$UseCachedQuotationsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
