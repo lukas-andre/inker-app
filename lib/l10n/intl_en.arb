@@ -613,5 +613,9 @@
   "receivedQuotations": "Received Quotations",
   "@receivedQuotations": {
     "description": "Quotations that have just been received."
+  },
+  "noQuotationsFound": "No quotations found",
+  "@noQuotationsFound": {
+    "description": "Message displayed when no quotations are found."
   }
 }

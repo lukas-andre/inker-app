@@ -617,5 +617,9 @@
   "receivedQuotations": "Cotizaciones Recibidas",
   "@receivedQuotations": {
     "description": "Etiqueta para mostrar las cotizaciones recibidas."
+  },
+  "noQuotationsFound": "No se encontraron cotizaciones",
+  "@noQuotationsFound": {
+    "description": "Mensaje que indica que no se encontraron cotizaciones."
   }
 }
