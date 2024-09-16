@@ -44,7 +44,6 @@ class _QuotationListViewState extends State<QuotationListView> {
 
   String searchTerm = '';
   List<String> _selectedStatuses = [];
-  Map<String, List<Quotation>> _cachedQuotations = {};
   List<Map<String, dynamic>> _filterOptions = [];
   bool _didInitDependencies = false;
   Map<String, dynamic>? _selectedOption;
@@ -247,28 +246,14 @@ class _QuotationListViewState extends State<QuotationListView> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  // Actualizar la opción seleccionada
                   _selectedOption = option;
                   _selectedStatuses = option['statuses'] as List<String>;
                 });
-                final cacheKey = _selectedStatuses.join(',');
-                if (_cachedQuotations.containsKey(cacheKey)) {
-                  // Usar datos en caché
-                  _quotationListBloc.add(
-                    QuotationListEvent.useCachedQuotations(
-                      _cachedQuotations[cacheKey]!,
-                      _selectedStatuses,
-                    ),
-                  );
-                } else {
-                  // Cargar datos desde el servidor
-                  _quotationListBloc.add(
-                    QuotationListEvent.loadQuotations(
-                      _selectedStatuses,
-                      false,
-                    ),
-                  );
-                }
+
+                _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                  _selectedStatuses,
+                  false,
+                ));
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -304,6 +289,9 @@ class _QuotationListViewState extends State<QuotationListView> {
     int totalItems,
     List<String>? statuses,
   ) {
+    if (quotations.isEmpty) {
+      return _buildEmptyState(l10n);
+    }
     final filteredQuotations = quotations
         .where((quote) =>
             quote.description
@@ -317,9 +305,6 @@ class _QuotationListViewState extends State<QuotationListView> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        // Limpiar caché y recargar datos
-        final cacheKey = _selectedStatuses.join(',');
-        _cachedQuotations.remove(cacheKey);
         _quotationListBloc.add(QuotationListEvent.loadQuotations(
           _selectedStatuses,
           false,
@@ -347,6 +332,29 @@ class _QuotationListViewState extends State<QuotationListView> {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(S l10n) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.inbox,
+            size: 80,
+            color: Colors.grey[600],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.noQuotationsFound,
+            style: TextStyleTheme.headline3.copyWith(
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -406,9 +414,9 @@ class _QuotationListViewState extends State<QuotationListView> {
                 // Fecha de Creación
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.calendar_today,
-                      color: const Color(0xFF686D90),
+                      color: Color(0xFF686D90),
                       size: 16,
                     ),
                     const SizedBox(width: 4),

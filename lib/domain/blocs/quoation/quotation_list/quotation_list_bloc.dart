@@ -16,7 +16,6 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
   final LocalSessionService _sessionService;
 
   late bool _isArtist;
-  final Map<String, List<Quotation>> _cachedQuotations = {};
 
   QuotationListBloc({
     required QuotationService quotationService,
@@ -31,20 +30,6 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
             _loadQuotations(emit, statuses, isNextPage),
         cancelQuotation: (String quotationId) async =>
             _cancelQuotation(emit, quotationId),
-        useCachedQuotations:
-            (List<Quotation> quotations, List<String> statuses) async {
-          final session = await _sessionService.getActiveSession();
-          if (session == null) {
-            emit(const QuotationListState.error('No se ha iniciado sesión.'));
-            return;
-          }
-          // emit(QuotationListState.loaded(
-          //   quotations: quotations,
-          //   session: session,
-          //   statuses: statuses,
-          //   isLoadingMore: false,
-          // ));
-        },
       );
     });
   }
@@ -72,8 +57,6 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         return;
       }
 
-      final cacheKey = statuses?.join(',') ?? 'all';
-
       int nextPage = 1;
       List<Quotation> accumulatedQuotations = [];
 
@@ -95,8 +78,6 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
       );
 
       accumulatedQuotations.addAll(response.items);
-
-      _cachedQuotations[cacheKey] = accumulatedQuotations;
 
       emit(QuotationListState.loaded(
         quotations: accumulatedQuotations,
@@ -134,10 +115,6 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         final updatedQuotations = currentState.quotations
             .where((quotation) => quotation.id.toString() != quotationId)
             .toList();
-
-        // Actualizar el caché
-        final cacheKey = currentState.statuses?.join(',') ?? 'all';
-        _cachedQuotations[cacheKey] = updatedQuotations;
 
         emit(const QuotationListState.cancelSuccess());
 

@@ -1549,6 +1549,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No se encontraron cotizaciones`
+  String get noQuotationsFound {
+    return Intl.message(
+      'No se encontraron cotizaciones',
+      name: 'noQuotationsFound',
+      desc: 'Mensaje que indica que no se encontraron cotizaciones.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
