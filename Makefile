@@ -7,6 +7,7 @@ build:
 .PHONY: build-all
 build-all:
 	@echo "Building all"
+	rm -rf lib/generated
 	make build
 	make intl	
 	@echo "Building all done"
@@ -32,5 +33,6 @@ sync-db:
 .PHONY: intl
 intl:
 	@echo "Generating intl"
+	rm -rf lib/generated
 	dart run intl_utils:generate
 	@echo "Intl generated"

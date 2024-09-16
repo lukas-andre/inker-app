@@ -1429,6 +1429,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Pendiente`
+  String get pending {
+    return Intl.message(
+      'Pendiente',
+      name: 'pending',
+      desc: 'Estado que indica que algo está en espera.',
+      args: [],
+    );
+  }
+
+  /// `Aceptado`
+  String get responded {
+    return Intl.message(
+      'Aceptado',
+      name: 'responded',
+      desc: 'Estado que indica que algo ha sido aceptado.',
+      args: [],
+    );
+  }
+
+  /// `Aceptado`
+  String get accepted {
+    return Intl.message(
+      'Aceptado',
+      name: 'accepted',
+      desc: 'Estado que indica que algo ha sido aceptado.',
+      args: [],
+    );
+  }
+
+  /// `Apelación`
+  String get appeal {
+    return Intl.message(
+      'Apelación',
+      name: 'appeal',
+      desc: 'Campo o etiqueta para una apelación.',
+      args: [],
+    );
+  }
+
+  /// `Nueva Solicitud`
+  String get newRequest {
+    return Intl.message(
+      'Nueva Solicitud',
+      name: 'newRequest',
+      desc: 'Etiqueta para una nueva solicitud.',
+      args: [],
+    );
+  }
+
+  /// `Esperando Cliente`
+  String get awaitingCustomer {
+    return Intl.message(
+      'Esperando Cliente',
+      name: 'awaitingCustomer',
+      desc: 'Estado que indica que se está esperando al cliente.',
+      args: [],
+    );
+  }
+
+  /// `Esperando Respuesta`
+  String get awaitingReply {
+    return Intl.message(
+      'Esperando Respuesta',
+      name: 'awaitingReply',
+      desc: 'Estado que indica que se está esperando una respuesta.',
+      args: [],
+    );
+  }
+
+  /// `Esperando Artista`
+  String get awaitingArtist {
+    return Intl.message(
+      'Esperando Artista',
+      name: 'awaitingArtist',
+      desc: 'Estado que indica que se está esperando al artista.',
+      args: [],
+    );
+  }
+
+  /// `Agendado`
+  String get scheduled {
+    return Intl.message(
+      'Agendado',
+      name: 'scheduled',
+      desc: 'Estado que indica que algo ha sido agendado.',
+      args: [],
+    );
+  }
+
+  /// `Cotización Recibida`
+  String get receivedQuotation {
+    return Intl.message(
+      'Cotización Recibida',
+      name: 'receivedQuotation',
+      desc: 'Estado que indica que se ha recibido una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Nuevas Solicitudes`
+  String get newRequests {
+    return Intl.message(
+      'Nuevas Solicitudes',
+      name: 'newRequests',
+      desc: 'Etiqueta para mostrar las nuevas solicitudes.',
+      args: [],
+    );
+  }
+
+  /// `Cotizaciones Recibidas`
+  String get receivedQuotations {
+    return Intl.message(
+      'Cotizaciones Recibidas',
+      name: 'receivedQuotations',
+      desc: 'Etiqueta para mostrar las cotizaciones recibidas.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -5,12 +5,9 @@ class QuotationListState with _$QuotationListState {
   const factory QuotationListState.initial() = QuotationListInitial;
   const factory QuotationListState.loading() = QuotationListLoading;
   const factory QuotationListState.loaded({
-    required Map<int, List<Quotation>> quotationsByTab,
-    required int currentTab,
-    required Map<int, int> currentPage,
-    required Map<int, bool> hasMorePages,
+    required List<Quotation> quotations,
     required Session session,
-    List<String>? currentStatuses,
+    List<String>? statuses,
     @Default(false) bool isLoadingMore,
     String? cancellingQuotationId,
   }) = QuotationListLoaded;

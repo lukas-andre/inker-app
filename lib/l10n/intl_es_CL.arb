@@ -569,5 +569,53 @@
   "rejectReasonOther": "Otro",
   "@rejectReasonOther": {
     "description": "Motivo de rechazo para cualquier otra razón no especificada."
+  },
+  "pending": "Pendiente",
+  "@pending": {
+    "description": "Estado que indica que algo está en espera."
+  },
+  "responded": "Aceptado",
+  "@responded": {
+    "description": "Estado que indica que algo ha sido aceptado."
+  },
+  "accepted": "Aceptado",
+  "@accepted": {
+    "description": "Estado que indica que algo ha sido aceptado."
+  },
+  "appeal": "Apelación",
+  "@appeal": {
+    "description": "Campo o etiqueta para una apelación."
+  },
+  "newRequest": "Nueva Solicitud",
+  "@newRequest": {
+    "description": "Etiqueta para una nueva solicitud."
+  },
+  "awaitingCustomer": "Esperando Cliente",
+  "@awaitingCustomer": {
+    "description": "Estado que indica que se está esperando al cliente."
+  },
+  "awaitingReply": "Esperando Respuesta",
+  "@awaitingReply": {
+    "description": "Estado que indica que se está esperando una respuesta."
+  },
+  "awaitingArtist": "Esperando Artista",
+  "@awaitingArtist": {
+    "description": "Estado que indica que se está esperando al artista."
+  },
+  "scheduled": "Agendado",
+  "@scheduled": {
+    "description": "Estado que indica que algo ha sido agendado."
+  },
+  "receivedQuotation": "Cotización Recibida",
+  "@receivedQuotation": {
+    "description": "Estado que indica que se ha recibido una cotización."
+  },
+  "newRequests": "Nuevas Solicitudes",
+  "@newRequests": {
+    "description": "Etiqueta para mostrar las nuevas solicitudes."
+  },
+  "receivedQuotations": "Cotizaciones Recibidas",
+  "@receivedQuotations": {
+    "description": "Etiqueta para mostrar las cotizaciones recibidas."
   }
 }

@@ -40,16 +40,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "acceptAppeal":
             MessageLookupByLibrary.simpleMessage("Aceptar Apelación"),
+        "accepted": MessageLookupByLibrary.simpleMessage("Aceptado"),
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
+        "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Fecha de la Cita"),
         "appointmentDateTime":
             MessageLookupByLibrary.simpleMessage("Fecha y Hora de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
+        "awaitingArtist":
+            MessageLookupByLibrary.simpleMessage("Esperando Artista"),
+        "awaitingCustomer":
+            MessageLookupByLibrary.simpleMessage("Esperando Cliente"),
+        "awaitingReply":
+            MessageLookupByLibrary.simpleMessage("Esperando Respuesta"),
         "barber": MessageLookupByLibrary.simpleMessage("Barbería"),
         "between": MessageLookupByLibrary.simpleMessage("entre"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -127,6 +135,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "minutesAgo": m2,
         "monthsAgo": m3,
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
+        "newRequest": MessageLookupByLibrary.simpleMessage("Nueva Solicitud"),
+        "newRequests":
+            MessageLookupByLibrary.simpleMessage("Nuevas Solicitudes"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("Semana Siguiente"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
@@ -138,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pendiente"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
@@ -164,6 +176,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
         "quoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
         "quotes": MessageLookupByLibrary.simpleMessage("Cotizaciones"),
+        "receivedQuotation":
+            MessageLookupByLibrary.simpleMessage("Cotización Recibida"),
+        "receivedQuotations":
+            MessageLookupByLibrary.simpleMessage("Cotizaciones Recibidas"),
         "referenceImages":
             MessageLookupByLibrary.simpleMessage("Imágenes de Referencia"),
         "reject": MessageLookupByLibrary.simpleMessage("Rechazar"),
@@ -190,11 +206,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetZoom": MessageLookupByLibrary.simpleMessage("Restablecer Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
+        "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
         "scheduleInfo":
             MessageLookupByLibrary.simpleMessage("Información de Agenda"),
+        "scheduled": MessageLookupByLibrary.simpleMessage("Agendado"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Seleccionar Fecha"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Seleccionar Fecha y Hora"),

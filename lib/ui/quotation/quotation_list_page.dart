@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
+import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
@@ -35,41 +37,96 @@ class QuotationListView extends StatefulWidget {
   State<QuotationListView> createState() => _QuotationListViewState();
 }
 
-class _QuotationListViewState extends State<QuotationListView>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String searchTerm = '';
+class _QuotationListViewState extends State<QuotationListView> {
   late QuotationListBloc _quotationListBloc;
+  late bool _isArtist;
+
+  String searchTerm = '';
+  List<String> _selectedStatuses = [];
+  Map<String, List<Quotation>> _cachedQuotations = {};
+  List<Map<String, dynamic>> _filterOptions = [];
+  bool _didInitDependencies = false;
+  // Nueva variable para almacenar la opción seleccionada
+  Map<String, dynamic>? _selectedOption;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_handleTabChange);
+    // Variables que no dependen del contexto pueden inicializarse aquí
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _quotationListBloc = BlocProvider.of<QuotationListBloc>(context);
-  }
+    if (!_didInitDependencies) {
+      _didInitDependencies = true;
+      _quotationListBloc = BlocProvider.of<QuotationListBloc>(context);
+      _isArtist =
+          context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
 
-  @override
-  void dispose() {
-    _tabController.removeListener(_handleTabChange);
-    _tabController.dispose();
-    super.dispose();
-  }
+      final l10n = S.of(context);
+      _filterOptions = getFilterOptions(l10n);
 
-  void _handleTabChange() {
-    if (!_tabController.indexIsChanging) {
-      _quotationListBloc
-          .add(QuotationListEvent.changeTab(_tabController.index));
+      // Inicializar la opción seleccionada con la primera opción
+      _selectedOption = _filterOptions[0];
+      _selectedStatuses = _selectedOption?['statuses'] as List<String>;
+
+      // Cargar las cotizaciones para el estado seleccionado
+      _quotationListBloc.add(
+        QuotationListEvent.loadQuotations(_selectedStatuses, false),
+      );
     }
   }
 
-  bool get _isArtist =>
-      context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+  List<Map<String, dynamic>> getFilterOptions(S l10n) {
+    if (_isArtist) {
+      return [
+        {
+          'label': l10n.newRequests,
+          'statuses': ['pending', 'appealed']
+        },
+        {
+          'label': l10n.awaitingReply,
+          'statuses': ['quoted']
+        },
+        {
+          'label': l10n.scheduled,
+          'statuses': ['accepted']
+        },
+        // {
+        //   'label': l10n.completed,
+        //   'statuses': ['completed']
+        // },
+        {
+          'label': l10n.cancelled,
+          'statuses': ['rejected', 'canceled']
+        },
+      ];
+    } else {
+      return [
+        {
+          'label': l10n.awaitingArtist,
+          'statuses': ['pending', 'appealed']
+        },
+        {
+          'label': l10n.receivedQuotations,
+          'statuses': ['quoted']
+        },
+        {
+          'label': l10n.scheduled,
+          'statuses': ['accepted']
+        },
+        {
+          'label': l10n.completed,
+          'statuses': ['completed']
+        },
+        {
+          'label': l10n.cancelled,
+          'statuses': ['rejected', 'canceled']
+        },
+      ];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,112 +139,118 @@ class _QuotationListViewState extends State<QuotationListView>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Título
               Text(
                 _isArtist ? l10n.requests : l10n.quotes,
                 style: TextStyleTheme.headline1
                     .copyWith(color: const Color(0xFFF2F2F2)),
               ),
               const SizedBox(height: 16),
-              _buildTabs(l10n),
+              // Filtros con FilterChips
+              _buildFilterChips(l10n),
               const SizedBox(height: 16),
+              // Lista de cotizaciones
               Expanded(
-                  child: BlocConsumer<QuotationListBloc, QuotationListState>(
-                listener: (context, state) {
-                  if (state is QuotationListCancelSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      customSnackBar(
-                        context: context,
-                        content: l10n.quotationCancelledSuccessfully,
-                        backgroundColor: secondaryColor,
-                      ),
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    loaded: (quotationsByTab,
-                        currentTab,
-                        currentPage,
-                        hasMorePages,
-                        session,
-                        currentStatuses,
-                        isLoadingMore,
-                        cancellingQuotationId) {
-                      final quotations = quotationsByTab[currentTab] ?? [];
-                      return _buildQuotationList(
-                        quotations,
-                        session,
-                        l10n,
-                        hasMorePages[currentTab] ?? false,
-                        isLoadingMore,
-                        cancellingQuotationId,
+                child: BlocConsumer<QuotationListBloc, QuotationListState>(
+                  listener: (context, state) {
+                    if (state is QuotationListCancelSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        customSnackBar(
+                          context: context,
+                          content: l10n.quotationCancelledSuccessfully,
+                          backgroundColor: secondaryColor,
+                        ),
                       );
-                    },
-                    error: (message) => Center(
-                      child: Text(
-                        message,
-                        style: TextStyleTheme.bodyText1
-                            .copyWith(color: const Color(0xFFF2F2F2)),
+                    }
+                  },
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loaded: (quotations, session, statuses, isLoadingMore,
+                          cancellingQuotationId) {
+                        return _buildQuotationList(
+                          quotations,
+                          session,
+                          l10n,
+                          isLoadingMore,
+                          cancellingQuotationId,
+                        );
+                      },
+                      error: (message) => Center(
+                        child: Text(
+                          message,
+                          style: TextStyleTheme.bodyText1
+                              .copyWith(color: const Color(0xFFF2F2F2)),
+                        ),
                       ),
-                    ),
-                    orElse: () => const Center(child: InkerProgressIndicator()),
-                  );
-                },
-              )),
+                      orElse: () =>
+                          const Center(child: InkerProgressIndicator()),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Implement create quotation functionality
-        },
-        backgroundColor: const Color(0xFF7450ff),
-        child: const Icon(Icons.add, color: Color(0xFFF2F2F2)),
-      ),
     );
   }
 
-  Widget _buildTabs(S l10n) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF1F223C),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFF777E91)),
-            ),
-            child: TabBar(
-              dividerColor: Colors.transparent,
-              controller: _tabController,
-              tabAlignment: TabAlignment.fill,
-              indicator: BoxDecoration(
-                color: const Color(0xFF7450ff),
-                borderRadius: BorderRadius.circular(8),
+  Widget _buildFilterChips(S l10n) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: _filterOptions.map((option) {
+          final isSelected = _selectedOption == option;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  // Actualizar la opción seleccionada
+                  _selectedOption = option;
+                  _selectedStatuses = option['statuses'] as List<String>;
+                });
+                final cacheKey = _selectedStatuses.join(',');
+                if (_cachedQuotations.containsKey(cacheKey)) {
+                  // Usar datos en caché
+                  _quotationListBloc.add(
+                    QuotationListEvent.useCachedQuotations(
+                      _cachedQuotations[cacheKey]!,
+                      _selectedStatuses,
+                    ),
+                  );
+                } else {
+                  // Cargar datos desde el servidor
+                  _quotationListBloc.add(
+                    QuotationListEvent.loadQuotations(
+                      _selectedStatuses,
+                      false,
+                    ),
+                  );
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: isSelected ? secondaryColor : tertiaryColor,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
+                child: Text(
+                  option['label'],
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-              unselectedLabelColor: const Color(0xFFF2F2F2),
-              labelStyle: TextStyleTheme.button,
-              labelPadding: EdgeInsets.zero,
-              tabs: [
-                _buildTab(l10n.upcomming),
-                _buildTab(l10n.completed),
-              ],
             ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTab(String text) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+          );
+        }).toList(),
       ),
-      child: Center(child: Text(text)),
     );
   }
 
@@ -195,7 +258,6 @@ class _QuotationListViewState extends State<QuotationListView>
     List<Quotation> quotations,
     Session session,
     S l10n,
-    bool hasMorePages,
     bool isLoadingMore,
     String? cancellingQuotationId,
   ) {
@@ -212,35 +274,18 @@ class _QuotationListViewState extends State<QuotationListView>
 
     return RefreshIndicator(
       onRefresh: () async {
-        // Trigger a refresh of the quotation list
+        // Limpiar caché y recargar datos
+        final cacheKey = _selectedStatuses.join(',');
+        _cachedQuotations.remove(cacheKey);
         _quotationListBloc.add(QuotationListEvent.loadQuotations(
-          _quotationListBloc.getStatusesForTab(_tabController.index),
+          _selectedStatuses,
           false,
         ));
       },
       child: ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: filteredQuotations.length + (hasMorePages ? 1 : 0),
+        itemCount: filteredQuotations.length,
         itemBuilder: (context, index) {
-          if (index == filteredQuotations.length) {
-            if (hasMorePages) {
-              return isLoadingMore
-                  ? const Center(child: InkerProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: () {
-                        _quotationListBloc
-                            .add(QuotationListEvent.loadQuotations(
-                          _quotationListBloc
-                              .getStatusesForTab(_tabController.index),
-                          true,
-                        ));
-                      },
-                      child: Text(l10n.loadMore),
-                    );
-            } else {
-              return const SizedBox.shrink();
-            }
-          }
           return _buildQuotationCard(
             filteredQuotations[index],
             session,
@@ -252,13 +297,16 @@ class _QuotationListViewState extends State<QuotationListView>
     );
   }
 
-  Widget _buildQuotationCard(Quotation quotation, Session session, S l10n,
-      String? cancellingQuotationId) {
+  Widget _buildQuotationCard(
+    Quotation quotation,
+    Session session,
+    S l10n,
+    String? cancellingQuotationId,
+  ) {
     final isArtist = session.user?.userType == 'ARTIST';
-    final isCustomer = !isArtist;
-    final canCancel = isCustomer && quotation.status == QuotationStatus.pending;
-    final canReplyAndCancel =
-        isCustomer && quotation.status == QuotationStatus.quoted;
+    final statusText = getStatusText(quotation.status, l10n, isArtist);
+    final statusColor = getStatusColor(quotation.status);
+    final statusIcon = getStatusIcon(quotation.status);
 
     return Card(
       color: const Color(0xFF1F223C),
@@ -272,107 +320,350 @@ class _QuotationListViewState extends State<QuotationListView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Insignia de Estado y Fecha de Creación
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
                     children: [
-                      Text(
-                        quotation.description,
-                        style: TextStyleTheme.subtitle1
-                            .copyWith(color: const Color(0xFFF2F2F2)),
-                        overflow: TextOverflow.ellipsis,
+                      Icon(
+                        statusIcon,
+                        color: statusColor,
+                        size: 16,
                       ),
+                      const SizedBox(width: 4),
                       Text(
-                        isArtist
-                            ? quotation.customerId.toString()
-                            : '${l10n.status}: ${getStatusText(quotation.status, l10n)}',
-                        style: TextStyleTheme.bodyText2
-                            .copyWith(color: const Color(0xFF686D90)),
+                        statusText,
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: statusColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                 ),
+                const Spacer(),
+                // Fecha de Creación
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today,
+                      color: const Color(0xFF686D90),
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      DateFormat.yMMMd().format(quotation.createdAt),
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: const Color(0xFF686D90),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 16),
-            if (isArtist)
-              _buildArtistActions(quotation, l10n)
-            else if (canCancel || canReplyAndCancel)
-              _buildCustomerActions(
-                  quotation, canReplyAndCancel, l10n, cancellingQuotationId),
+            // Descripción
+            Text(
+              quotation.description,
+              style: TextStyleTheme.bodyText1.copyWith(
+                color: const Color(0xFFF2F2F2),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Detalles
+            if (quotation.estimatedCost != null ||
+                quotation.appointmentDate != null ||
+                quotation.appointmentDuration != null)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (quotation.estimatedCost != null)
+                    _buildDetailRow(
+                      icon: Icons.attach_money,
+                      label: l10n.estimatedCost,
+                      value: '\$${quotation.estimatedCost!.toStringAsFixed(2)}',
+                    ),
+                  if (quotation.appointmentDate != null)
+                    _buildDetailRow(
+                      icon: Icons.event,
+                      label: l10n.appointmentDate,
+                      value:
+                          DateFormat.yMMMd().format(quotation.appointmentDate!),
+                    ),
+                  if (quotation.appointmentDuration != null)
+                    _buildDetailRow(
+                      icon: Icons.access_time,
+                      label: l10n.appointmentDuration,
+                      value: '${quotation.appointmentDuration} ${l10n.hours}',
+                    ),
+                ],
+              ),
+            const SizedBox(height: 16),
+            // Imágenes de Referencia
+            if (quotation.referenceImages != null &&
+                quotation.referenceImages!.metadata.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.referenceImages,
+                    style: TextStyleTheme.subtitle2.copyWith(
+                      color: const Color(0xFFF2F2F2),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildImageGallery(quotation.referenceImages!.metadata),
+                ],
+              ),
+            // Propuestas de Diseño
+            if (quotation.proposedDesigns != null &&
+                quotation.proposedDesigns!.metadata.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.proposedDesigns,
+                    style: TextStyleTheme.subtitle2.copyWith(
+                      color: const Color(0xFFF2F2F2),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildImageGallery(quotation.proposedDesigns!.metadata),
+                ],
+              ),
+            const SizedBox(height: 16),
+            // Acciones
+            _buildActions(quotation, session, l10n, cancellingQuotationId),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCustomerActions(Quotation quotation, bool canReply, S l10n,
-      String? cancellingQuotationId) {
-    final isCancelling = cancellingQuotationId == quotation.id.toString();
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (canReply)
-          _buildActionButton(
-            onPressed: () {
-              // TODO: Implement reply logic
-            },
-            icon: Icons.reply,
-            label: l10n.reply,
-            isPrimary: true,
+  Widget _buildDetailRow({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: const Color(0xFF686D90),
+            size: 16,
           ),
-        const SizedBox(width: 8),
-        isCancelling
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: InkerProgressIndicator(),
-              )
-            : _buildActionButton(
-                onPressed: () =>
-                    _showCancelConfirmationDialog(context, quotation, l10n),
-                icon: Icons.cancel,
-                label: l10n.cancel,
-                isPrimary: false,
+          const SizedBox(width: 8),
+          Text(
+            '$label: ',
+            style: TextStyleTheme.bodyText2.copyWith(
+              color: const Color(0xFFF2F2F2),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyleTheme.bodyText2.copyWith(
+                color: const Color(0xFF686D90),
               ),
-      ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildArtistActions(Quotation quotation, S l10n) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildActionButton(
-          onPressed: () async {
-            final result = await Navigator.of(context).pushNamed(
-              '/artistQuotationResponse',
-              arguments: {'quotationId': quotation.id.toString()},
-            );
-            if (result == true) {
-              _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                _quotationListBloc.getStatusesForTab(_tabController.index),
-                false,
-              ));
-            }
-          },
-          icon: Icons.reply,
-          label: l10n.reply,
-          isPrimary: true,
-        ),
-        _buildActionButton(
-          onPressed: () {
-            // TODO: Implement reject logic
-          },
-          icon: Icons.close,
-          label: l10n.cancel,
-          isPrimary: false,
-        ),
-      ],
+  Color getStatusColor(QuotationStatus status) {
+    switch (status) {
+      case QuotationStatus.pending:
+      case QuotationStatus.appealed:
+        return Colors.orange;
+      case QuotationStatus.quoted:
+        return Colors.blue;
+      case QuotationStatus.accepted:
+        return Colors.green;
+      case QuotationStatus.rejected:
+      case QuotationStatus.canceled:
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  IconData getStatusIcon(QuotationStatus status) {
+    switch (status) {
+      case QuotationStatus.pending:
+      case QuotationStatus.appealed:
+        return Icons.hourglass_empty;
+      case QuotationStatus.quoted:
+        return Icons.format_quote;
+      case QuotationStatus.accepted:
+        return Icons.check_circle;
+      case QuotationStatus.rejected:
+      case QuotationStatus.canceled:
+        return Icons.cancel;
+      default:
+        return Icons.info;
+    }
+  }
+
+  Widget _buildActions(
+    Quotation quotation,
+    Session session,
+    S l10n,
+    String? cancellingQuotationId,
+  ) {
+    final isArtist = session.user?.userType == 'ARTIST';
+    final isCancelling = cancellingQuotationId == quotation.id.toString();
+
+    // Acciones para el Artista
+    if (isArtist) {
+      switch (quotation.status) {
+        case QuotationStatus.pending:
+        case QuotationStatus.appealed:
+          // El artista puede responder o rechazar la cotización
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildActionButton(
+                onPressed: () async {
+                  final result = await Navigator.of(context).pushNamed(
+                    '/artistQuotationResponse',
+                    arguments: {'quotationId': quotation.id.toString()},
+                  );
+                  if (result == true) {
+                    _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                      _selectedStatuses,
+                      false,
+                    ));
+                  }
+                },
+                icon: Icons.reply,
+                label: l10n.reply,
+                isPrimary: true,
+              ),
+              const SizedBox(width: 8),
+              _buildActionButton(
+                onPressed: () async {
+                  final result = await Navigator.of(context).pushNamed(
+                    '/artistQuotationResponse',
+                    arguments: {
+                      'quotationId': quotation.id.toString(),
+                      'predefinedAction': ArtistQuotationAction.reject
+                    },
+                  );
+                  if (result == true) {
+                    _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                      _selectedStatuses,
+                      false,
+                    ));
+                  }
+                },
+                icon: Icons.cancel,
+                label: l10n.reject,
+                isPrimary: false,
+              ),
+            ],
+          );
+        default:
+          return const SizedBox.shrink();
+      }
+    }
+
+    // Acciones para el Cliente
+    else {
+      switch (quotation.status) {
+        case QuotationStatus.pending:
+        case QuotationStatus.appealed:
+          // El cliente puede cancelar la cotización
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              isCancelling
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: InkerProgressIndicator(),
+                    )
+                  : _buildActionButton(
+                      onPressed: () => _showCancelConfirmationDialog(
+                          context, quotation, l10n),
+                      icon: Icons.cancel,
+                      label: l10n.cancel,
+                      isPrimary: false,
+                    ),
+            ],
+          );
+        case QuotationStatus.quoted:
+          // El cliente puede aceptar, apelar o rechazar la cotización
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildActionButton(
+                onPressed: () {
+                  // Implementar la lógica para aceptar
+                },
+                icon: Icons.check,
+                label: l10n.accept,
+                isPrimary: true,
+              ),
+              const SizedBox(width: 8),
+              _buildActionButton(
+                onPressed: () {
+                  // Implementar la lógica para apelar
+                },
+                icon: Icons.edit,
+                label: l10n.appeal,
+                isPrimary: false,
+              ),
+              const SizedBox(width: 8),
+              _buildActionButton(
+                onPressed: () {
+                  // Implementar la lógica para rechazar
+                },
+                icon: Icons.cancel,
+                label: l10n.reject,
+                isPrimary: false,
+              ),
+            ],
+          );
+        default:
+          return const SizedBox.shrink();
+      }
+    }
+  }
+
+  Widget _buildImageGallery(List<MultimediaMetadata> images) {
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          final image = images[index];
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.network(
+              image.url,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -451,21 +742,36 @@ class _QuotationListViewState extends State<QuotationListView>
   }
 }
 
-String getStatusText(QuotationStatus status, S l10n) {
-  switch (status) {
-    case QuotationStatus.pending:
-      return l10n.upcomming;
-    case QuotationStatus.quoted:
-      return l10n.quoted;
-    case QuotationStatus.accepted:
-      return l10n.completed;
-    case QuotationStatus.rejected:
-      return l10n.cancelled;
-    case QuotationStatus.appealed:
-      return l10n.upcomming;
-    case QuotationStatus.canceled:
-      return l10n.cancelled;
-    default:
-      return '';
+String getStatusText(QuotationStatus status, S l10n, bool isArtist) {
+  if (isArtist) {
+    switch (status) {
+      case QuotationStatus.pending:
+      case QuotationStatus.appealed:
+        return l10n.newRequest;
+      case QuotationStatus.quoted:
+        return l10n.awaitingReply;
+      case QuotationStatus.accepted:
+        return l10n.scheduled;
+      case QuotationStatus.rejected:
+      case QuotationStatus.canceled:
+        return l10n.cancelled;
+      default:
+        return '';
+    }
+  } else {
+    switch (status) {
+      case QuotationStatus.pending:
+      case QuotationStatus.appealed:
+        return l10n.awaitingArtist;
+      case QuotationStatus.quoted:
+        return l10n.receivedQuotation;
+      case QuotationStatus.accepted:
+        return l10n.scheduled;
+      case QuotationStatus.rejected:
+      case QuotationStatus.canceled:
+        return l10n.cancelled;
+      default:
+        return '';
+    }
   }
 }
