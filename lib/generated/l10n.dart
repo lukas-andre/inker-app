@@ -1830,6 +1830,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Notificaciones`
+  String get notifications {
+    return Intl.message(
+      'Notificaciones',
+      name: 'notifications',
+      desc: 'Mensajes o alertas sobre actividades recientes.',
+      args: [],
+    );
+  }
+
+  /// `Servicios de ubicación`
+  String get locationServices {
+    return Intl.message(
+      'Servicios de ubicación',
+      name: 'locationServices',
+      desc: 'Funciones que utilizan la ubicación del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Idioma`
+  String get language {
+    return Intl.message(
+      'Idioma',
+      name: 'language',
+      desc: 'El idioma preferido para la interfaz de usuario.',
+      args: [],
+    );
+  }
+
+  /// `Política de privacidad`
+  String get privacyPolicy {
+    return Intl.message(
+      'Política de privacidad',
+      name: 'privacyPolicy',
+      desc: 'Reglas o directrices sobre el uso de información personal.',
+      args: [],
+    );
+  }
+
+  /// `Términos y condiciones`
+  String get termsAndConditions {
+    return Intl.message(
+      'Términos y condiciones',
+      name: 'termsAndConditions',
+      desc: 'Las reglas o directrices para usar un servicio.',
+      args: [],
+    );
+  }
+
+  /// `Cerrar sesión`
+  String get logOut {
+    return Intl.message(
+      'Cerrar sesión',
+      name: 'logOut',
+      desc: 'Acción para finalizar la sesión actual.',
+      args: [],
+    );
+  }
+
+  /// `Confirmar Cierre de Sesión`
+  String get confirmLogout {
+    return Intl.message(
+      'Confirmar Cierre de Sesión',
+      name: 'confirmLogout',
+      desc: 'Mensaje de confirmación para cerrar la sesión.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas cerrar sesión?`
+  String get areYouSureLogout {
+    return Intl.message(
+      '¿Estás seguro de que deseas cerrar sesión?',
+      name: 'areYouSureLogout',
+      desc: 'Pregunta de confirmación para cerrar la sesión.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

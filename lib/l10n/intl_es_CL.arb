@@ -729,5 +729,37 @@
   "profileImage": "Imagen de Perfil",
   "@profileImage": {
     "description": "Una imagen que representa a una persona."
+  },
+  "notifications": "Notificaciones",
+  "@notifications": {
+    "description": "Mensajes o alertas sobre actividades recientes."
+  },
+  "locationServices": "Servicios de ubicación",
+  "@locationServices": {
+    "description": "Funciones que utilizan la ubicación del usuario."
+  },
+  "language": "Idioma",
+  "@language": {
+    "description": "El idioma preferido para la interfaz de usuario."
+  },
+  "privacyPolicy": "Política de privacidad",
+  "@privacyPolicy": {
+    "description": "Reglas o directrices sobre el uso de información personal."
+  },
+  "termsAndConditions": "Términos y condiciones",
+  "@termsAndConditions": {
+    "description": "Las reglas o directrices para usar un servicio."
+  },
+  "logOut": "Cerrar sesión",
+  "@logOut": {
+    "description": "Acción para finalizar la sesión actual."
+  },
+  "confirmLogout": "Confirmar Cierre de Sesión",
+  "@confirmLogout": {
+    "description": "Mensaje de confirmación para cerrar la sesión."
+  },
+  "areYouSureLogout": "¿Estás seguro de que deseas cerrar sesión?",
+  "@areYouSureLogout": {
+    "description": "Pregunta de confirmación para cerrar la sesión."
   }
 }
