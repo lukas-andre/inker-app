@@ -1559,6 +1559,127 @@ class S {
       args: [],
     );
   }
+
+  /// `Mi Perfil`
+  String get myProfile {
+    return Intl.message(
+      'Mi Perfil',
+      name: 'myProfile',
+      desc: 'Título o etiqueta para el perfil del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Editar Perfil`
+  String get editProfile {
+    return Intl.message(
+      'Editar Perfil',
+      name: 'editProfile',
+      desc: 'Botón para editar el perfil del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Ajustes`
+  String get settings {
+    return Intl.message(
+      'Ajustes',
+      name: 'settings',
+      desc: 'Título o etiqueta para los ajustes.',
+      args: [],
+    );
+  }
+
+  /// `Cerrar Sesión`
+  String get logout {
+    return Intl.message(
+      'Cerrar Sesión',
+      name: 'logout',
+      desc: 'Botón para cerrar la sesión del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Cuenta`
+  String get deleteAccount {
+    return Intl.message(
+      'Eliminar Cuenta',
+      name: 'deleteAccount',
+      desc: 'Botón para eliminar la cuenta del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Confirmar Eliminación`
+  String get confirmDeletion {
+    return Intl.message(
+      'Confirmar Eliminación',
+      name: 'confirmDeletion',
+      desc: 'Mensaje de confirmación para eliminar la cuenta.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.`
+  String get confirmDeletionMessage {
+    return Intl.message(
+      '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.',
+      name: 'confirmDeletionMessage',
+      desc: 'Mensaje de confirmación para eliminar la cuenta.',
+      args: [],
+    );
+  }
+
+  /// `Agrega una descripción sobre ti.`
+  String get addDescription {
+    return Intl.message(
+      'Agrega una descripción sobre ti.',
+      name: 'addDescription',
+      desc:
+          'Mensaje que indica que se debe agregar una descripción sobre el usuario.',
+      args: [],
+    );
+  }
+
+  /// `Seguidores`
+  String get followers {
+    return Intl.message(
+      'Seguidores',
+      name: 'followers',
+      desc: 'Campo o etiqueta para los seguidores.',
+      args: [],
+    );
+  }
+
+  /// `Seguidos`
+  String get following {
+    return Intl.message(
+      'Seguidos',
+      name: 'following',
+      desc: 'Campo o etiqueta para los seguidos.',
+      args: [],
+    );
+  }
+
+  /// `Calificación`
+  String get rating {
+    return Intl.message(
+      'Calificación',
+      name: 'rating',
+      desc: 'Campo o etiqueta para la calificación.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay reseñas`
+  String get noReviewsYet {
+    return Intl.message(
+      'Aún no hay reseñas',
+      name: 'noReviewsYet',
+      desc: 'Mensaje que indica que aún no hay reseñas.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

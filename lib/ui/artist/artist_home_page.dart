@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
-import 'package:inker_studio/ui/customer/profile/profile_page.dart';
+import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -19,7 +19,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   static const List<Widget> _pageWidgets = <Widget>[
     AgendaTablePage(),
     QuotationListPage(),
-    ProfilePage(),
+    ArtistProfilePage(),
   ];
 
   @override
