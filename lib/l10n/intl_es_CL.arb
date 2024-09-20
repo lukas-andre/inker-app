@@ -761,5 +761,21 @@
   "areYouSureLogout": "¿Estás seguro de que deseas cerrar sesión?",
   "@areYouSureLogout": {
     "description": "Pregunta de confirmación para cerrar la sesión."
+  },
+  "noImageSelected": "No se ha seleccionado ninguna imagen",
+  "@noImageSelected": {
+    "description": "Mensaje que indica que no se ha seleccionado ninguna imagen."
+  },
+  "privacyPolicyContent": "Su privacidad es importante para nosotros. No recopilamos información personal sin su consentimiento.",
+  "@privacyPolicyContent": {
+    "description": "Texto que describe la política de privacidad."
+  },
+  "termsAndConditionsContent": "Al usar esta aplicación, usted acepta los términos y condiciones aquí descritos.",
+  "@termsAndConditionsContent": {
+    "description": "Texto que describe los términos y condiciones."
+  },
+  "done": "Hecho",
+  "@done": {
+    "description": "Botón para indicar que se ha completado una acción."
   }
 }
