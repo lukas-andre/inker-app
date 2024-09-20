@@ -669,5 +669,65 @@
   "noReviewsYet": "Aún no hay reseñas",
   "@noReviewsYet": {
     "description": "Mensaje que indica que aún no hay reseñas."
+  },
+  "fullName": "Nombre completo",
+  "@fullName": {
+    "description": "El nombre completo de una persona."
+  },
+  "username": "Nombre de usuario",
+  "@username": {
+    "description": "Un nombre único utilizado para identificar a un usuario."
+  },
+  "email": "Correo electrónico",
+  "@email": {
+    "description": "Una dirección digital utilizada para la comunicación."
+  },
+  "phone": "Teléfono",
+  "@phone": {
+    "description": "Un número de teléfono."
+  },
+  "address": "Dirección",
+  "@address": {
+    "description": "La ubicación donde alguien vive o trabaja."
+  },
+  "city": "Ciudad",
+  "@city": {
+    "description": "Una gran ciudad o área urbana."
+  },
+  "state": "Estado",
+  "@state": {
+    "description": "Una región o territorio de un país."
+  },
+  "genres": "Géneros",
+  "@genres": {
+    "description": "Categorías o tipos de arte."
+  },
+  "tags": "Etiquetas",
+  "@tags": {
+    "description": "Palabras clave o etiquetas utilizadas para categorizar algo."
+  },
+  "studioPhoto": "Foto del estudio",
+  "@studioPhoto": {
+    "description": "Una imagen del estudio del artista."
+  },
+  "updateStudioPhoto": "Actualizar foto del estudio",
+  "@updateStudioPhoto": {
+    "description": "Acción para cambiar la imagen del estudio del artista."
+  },
+  "addStudioPhoto": "Agregar foto del estudio",
+  "@addStudioPhoto": {
+    "description": "Acción para incluir una imagen del estudio del artista."
+  },
+  "shortDescription": "Descripción Corta",
+  "@shortDescription": {
+    "description": "Una breve descripción de algo."
+  },
+  "chooseImage": "Elegir Imagen",
+  "@chooseImage": {
+    "description": "Botón para seleccionar una imagen."
+  },
+  "profileImage": "Imagen de Perfil",
+  "@profileImage": {
+    "description": "Una imagen que representa a una persona."
   }
 }

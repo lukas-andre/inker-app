@@ -10,6 +10,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cub
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
@@ -29,6 +30,8 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
+import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
+import 'package:inker_studio/ui/artist/profile/edit_field_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
@@ -138,6 +141,10 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
             create: (context) => ScheduleAssistantBloc(
                 agendaService: context.read(), sessionService: context.read())),
+        BlocProvider(
+            create: (context) => ArtistMyProfileBloc(
+                  context.read(),
+                )),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         OverlayStyle.setWhite();
@@ -206,6 +213,24 @@ class _AppViewState extends State<AppView> {
               final args = settings.arguments as Map<String, dynamic>;
               return CreateQuotationPage.route(artistId: args['artistId']);
             }
+
+            if (settings.name == '/editField') {
+              final args = settings.arguments as Map<String, dynamic>;
+              return MaterialPageRoute(
+                builder: (context) => EditFieldPage(field: args['field']),
+              );
+            }
+
+            if (settings.name == '/artistProfile') {
+              return MaterialPageRoute(
+                builder: (context) => const ArtistProfilePage(),
+              );
+            }
+
+            // if (settings.name == '/settings') {
+            //   return MaterialPageRoute(
+            //       builder: (context) => const SettingsPage());
+            // }
 
             return null;
           },

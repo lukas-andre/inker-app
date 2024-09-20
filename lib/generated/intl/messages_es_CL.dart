@@ -44,8 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
         "addDescription": MessageLookupByLibrary.simpleMessage(
             "Agrega una descripción sobre ti."),
+        "addStudioPhoto":
+            MessageLookupByLibrary.simpleMessage("Agregar foto del estudio"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
+        "address": MessageLookupByLibrary.simpleMessage("Dirección"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
         "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
         "appointmentDate":
@@ -73,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "changeSelection":
             MessageLookupByLibrary.simpleMessage("Cambiar Selección"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage("Elegir Imagen"),
+        "city": MessageLookupByLibrary.simpleMessage("Ciudad"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "confirmDeletion":
@@ -98,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Editar Perfil"),
+        "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
@@ -125,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "followers": MessageLookupByLibrary.simpleMessage("Seguidores"),
         "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Nombre completo"),
+        "genres": MessageLookupByLibrary.simpleMessage("Géneros"),
         "getArtistActionText":
             MessageLookupByLibrary.simpleMessage("Obtener Artista"),
         "goBack": MessageLookupByLibrary.simpleMessage("Volver"),
@@ -167,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "pending": MessageLookupByLibrary.simpleMessage("Pendiente"),
+        "phone": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
@@ -176,6 +185,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Procesando Cotización"),
         "processingQuotationMessage": MessageLookupByLibrary.simpleMessage(
             "Por favor, espera mientras procesamos tu cotización"),
+        "profileImage":
+            MessageLookupByLibrary.simpleMessage("Imagen de Perfil"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Diseños Propuestos"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -248,10 +259,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
+        "shortDescription":
+            MessageLookupByLibrary.simpleMessage("Descripción Corta"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
+        "state": MessageLookupByLibrary.simpleMessage("Estado"),
         "status": MessageLookupByLibrary.simpleMessage("Estado"),
+        "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "tags": MessageLookupByLibrary.simpleMessage("Etiquetas"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "tentativeEvent":
             MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
@@ -260,6 +276,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),
         "today": MessageLookupByLibrary.simpleMessage("Hoy"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
+        "updateStudioPhoto":
+            MessageLookupByLibrary.simpleMessage("Actualizar foto del estudio"),
+        "username": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo"),
         "yearsAgo": m4,
