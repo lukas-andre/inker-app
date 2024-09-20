@@ -757,5 +757,21 @@
   "areYouSureLogout": "Are you sure you want to log out?",
   "@areYouSureLogout": {
     "description": "Message asking for confirmation to log out."
+  },
+  "noImageSelected": "No image selected",
+  "@noImageSelected": {
+    "description": "Message displayed when no image is chosen."
+  },
+  "privacyPolicyContent": "Your privacy is important to us. We do not collect personal information without your consent.",
+  "@privacyPolicyContent": {
+    "description": "Information about the privacy policy."
+  },
+  "termsAndConditionsContent": "By using this app, you agree to the terms and conditions outlined here.",
+  "@termsAndConditionsContent": {
+    "description": "Information about the terms and conditions."
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Action to finish or complete something."
   }
 }

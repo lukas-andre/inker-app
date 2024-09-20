@@ -14,8 +14,8 @@ class ArtistProfileEvent with _$ArtistProfileEvent {
   const factory ArtistProfileEvent.updateGenres(List<String> genres) =
       _UpdateGenres;
   const factory ArtistProfileEvent.updateTags(List<String> tags) = _UpdateTags;
-  const factory ArtistProfileEvent.updateProfileImage(File image) =
+  const factory ArtistProfileEvent.updateProfileImage(XFile image) =
       _UpdateProfileImage;
-  const factory ArtistProfileEvent.updateStudioPhoto(File image) =
+  const factory ArtistProfileEvent.updateStudioPhoto(XFile image) =
       _UpdateStudioPhoto;
 }

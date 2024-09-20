@@ -1910,6 +1910,46 @@ class S {
       args: [],
     );
   }
+
+  /// `No se ha seleccionado ninguna imagen`
+  String get noImageSelected {
+    return Intl.message(
+      'No se ha seleccionado ninguna imagen',
+      name: 'noImageSelected',
+      desc: 'Mensaje que indica que no se ha seleccionado ninguna imagen.',
+      args: [],
+    );
+  }
+
+  /// `Su privacidad es importante para nosotros. No recopilamos información personal sin su consentimiento.`
+  String get privacyPolicyContent {
+    return Intl.message(
+      'Su privacidad es importante para nosotros. No recopilamos información personal sin su consentimiento.',
+      name: 'privacyPolicyContent',
+      desc: 'Texto que describe la política de privacidad.',
+      args: [],
+    );
+  }
+
+  /// `Al usar esta aplicación, usted acepta los términos y condiciones aquí descritos.`
+  String get termsAndConditionsContent {
+    return Intl.message(
+      'Al usar esta aplicación, usted acepta los términos y condiciones aquí descritos.',
+      name: 'termsAndConditionsContent',
+      desc: 'Texto que describe los términos y condiciones.',
+      args: [],
+    );
+  }
+
+  /// `Hecho`
+  String get done {
+    return Intl.message(
+      'Hecho',
+      name: 'done',
+      desc: 'Botón para indicar que se ha completado una acción.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

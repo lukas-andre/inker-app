@@ -23,7 +23,7 @@ class EditFieldPage extends StatefulWidget {
 
 class _EditFieldPageState extends State<EditFieldPage> {
   late TextEditingController _controller;
-  File? _imageFile;
+  XFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -35,25 +35,27 @@ class _EditFieldPageState extends State<EditFieldPage> {
 
   void _loadInitialValue() {
     final artistBloc = context.read<ArtistMyProfileBloc>();
-    artistBloc.state.whenOrNull(loaded: (artist) {
-      switch (widget.field) {
-        case 'name':
-          _controller.text = '${artist.firstName} ${artist.lastName}';
-          break;
-        case 'username':
-          _controller.text = artist.username;
-          break;
-        case 'description':
-          _controller.text = artist.shortDescription;
-          break;
-        case 'genres':
-          _controller.text = artist.genres?.join(', ') ?? '';
-          break;
-        case 'tags':
-          _controller.text = artist.tags?.join(', ') ?? '';
-          break;
-      }
-    });
+    artistBloc.state.whenOrNull(
+      loaded: (artist) {
+        switch (widget.field) {
+          case 'name':
+            _controller.text = '${artist.firstName} ${artist.lastName}';
+            break;
+          case 'username':
+            _controller.text = artist.username;
+            break;
+          case 'description':
+            _controller.text = artist.shortDescription;
+            break;
+          case 'genres':
+            _controller.text = artist.genres?.join(', ') ?? '';
+            break;
+          case 'tags':
+            _controller.text = artist.tags?.join(', ') ?? '';
+            break;
+        }
+      },
+    );
   }
 
   @override
@@ -74,15 +76,24 @@ class _EditFieldPageState extends State<EditFieldPage> {
         ],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: BlocBuilder<ArtistMyProfileBloc, ArtistProfileState>(
+      body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            error: (message) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message)),
+            ),
+            orElse: () {},
+          );
+        },
         builder: (context, state) {
           return state.when(
             initial: () => const Center(child: InkerProgressIndicator()),
             loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (artist) => _buildEditForm(artist),
             error: (message) => Center(
-                child: Text('${S.of(context).error}: $message',
-                    style: TextStyleTheme.headline2)),
+              child: Text('${S.of(context).error}: $message',
+                  style: TextStyleTheme.headline2),
+            ),
           );
         },
       ),
@@ -120,14 +131,26 @@ class _EditFieldPageState extends State<EditFieldPage> {
         : artist.studioPhoto;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (currentImage != null)
-          Image.network(currentImage, height: 200, fit: BoxFit.cover),
-        if (_imageFile != null)
-          Image.file(_imageFile!, height: 200, fit: BoxFit.cover),
-        ElevatedButton(
-          onPressed: _pickImage,
-          child: Text(S.of(context).chooseImage),
+        Expanded(
+          child: _imageFile != null
+              ? Image.file(File(_imageFile!.path), fit: BoxFit.cover)
+              : (currentImage != null
+                  ? Image.network(currentImage, fit: BoxFit.cover)
+                  : Center(child: Text(S.of(context).noImageSelected))),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: _pickImage,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: secondaryColor,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            child:
+                Text(S.of(context).chooseImage, style: TextStyleTheme.button),
+          ),
         ),
       ],
     );
@@ -137,7 +160,7 @@ class _EditFieldPageState extends State<EditFieldPage> {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
-        _imageFile = File(pickedFile.path);
+        _imageFile = pickedFile;
       });
     }
   }

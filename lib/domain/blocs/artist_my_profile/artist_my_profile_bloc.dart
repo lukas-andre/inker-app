@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
 
@@ -24,9 +23,9 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
         updateDescription: (description) =>
             _updateDescription(description, emit),
         updateGenres: (genres) => _updateGenres(genres, emit),
+        updateTags: (tags) => _updateTags(tags, emit),
         updateProfileImage: (image) => _updateProfileImage(image, emit),
         updateStudioPhoto: (image) => _updateStudioPhoto(image, emit),
-        updateTags: (tags) => _updateTags(tags, emit),
       );
     });
   }
@@ -100,12 +99,31 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
   }
 
   Future<void> _updateProfileImage(
-      File image, Emitter<ArtistProfileState> emit) async {
-    // Implementa la lógica para subir la imagen y actualizar el perfil
+      XFile image, Emitter<ArtistProfileState> emit) async {
+    emit(const ArtistProfileState.loading());
+    try {
+      final currentState = state;
+      if (currentState is _Loaded) {
+        await _artistService.updateProfilePicture(
+            currentState.artist.id!, image);
+        await _loadProfile(emit);
+      }
+    } catch (e) {
+      emit(ArtistProfileState.error(e.toString()));
+    }
   }
 
   Future<void> _updateStudioPhoto(
-      File image, Emitter<ArtistProfileState> emit) async {
-    // Implementa la lógica para subir la imagen y actualizar el perfil
+      XFile image, Emitter<ArtistProfileState> emit) async {
+    emit(const ArtistProfileState.loading());
+    try {
+      final currentState = state;
+      if (currentState is _Loaded) {
+        await _artistService.updateStudioPhoto(currentState.artist.id!, image);
+        await _loadProfile(emit);
+      }
+    } catch (e) {
+      emit(ArtistProfileState.error(e.toString()));
+    }
   }
 }

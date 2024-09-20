@@ -96,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationCannotBeZero":
             MessageLookupByLibrary.simpleMessage("Duration cannot be zero"),
@@ -159,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
             "No events scheduled for today"),
+        "noImageSelected":
+            MessageLookupByLibrary.simpleMessage("No image selected"),
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
@@ -177,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "privacyPolicyContent": MessageLookupByLibrary.simpleMessage(
+            "Your privacy is important to us. We do not collect personal information without your consent."),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "processingQuotation":
             MessageLookupByLibrary.simpleMessage("Processing Quotation"),
@@ -263,6 +268,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tentative Event"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
+        "termsAndConditionsContent": MessageLookupByLibrary.simpleMessage(
+            "By using this app, you agree to the terms and conditions outlined here."),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "This time slot is unavailable"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
