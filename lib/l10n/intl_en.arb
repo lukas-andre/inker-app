@@ -725,5 +725,37 @@
   "profileImage": "Profile Image",
   "@profileImage": {
     "description": "A picture that represents the user's profile."
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Messages or alerts about recent activity."
+  },
+  "locationServices": "Location Services",
+  "@locationServices": {
+    "description": "Features that use the user's location."
+  },
+  "language": "Language",
+  "@language": {
+    "description": "The preferred language for the user interface."
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Rules or guidelines about the use of personal information."
+  },
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": {
+    "description": "The rules or guidelines for using a service."
+  },
+  "logOut": "Log Out",
+  "@logOut": {
+    "description": "Action to end the current session."
+  },
+  "confirmLogout": "Confirm Logout",
+  "@confirmLogout": {
+    "description": "Action to confirm the end of the current session."
+  },
+  "areYouSureLogout": "Are you sure you want to log out?",
+  "@areYouSureLogout": {
+    "description": "Message asking for confirmation to log out."
   }
 }

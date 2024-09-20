@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fecha y Hora de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
+        "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro de que deseas cerrar sesión?"),
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Esperando Artista"),
         "awaitingCustomer":
@@ -84,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirmar Eliminación"),
         "confirmDeletionMessage": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."),
+        "confirmLogout":
+            MessageLookupByLibrary.simpleMessage("Confirmar Cierre de Sesión"),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
@@ -145,10 +149,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Número Inválido"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Rango Inválido"),
         "justNow": MessageLookupByLibrary.simpleMessage("Ahora mismo"),
+        "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "locationServices":
+            MessageLookupByLibrary.simpleMessage("Servicios de ubicación"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
@@ -172,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Notificaciones"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "pending": MessageLookupByLibrary.simpleMessage("Pendiente"),
@@ -180,6 +189,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
+        "privacyPolicy":
+            MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "proceed": MessageLookupByLibrary.simpleMessage("Continuar"),
         "processingQuotation":
             MessageLookupByLibrary.simpleMessage("Procesando Cotización"),
@@ -271,6 +282,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "tentativeEvent":
             MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
+        "termsAndConditions":
+            MessageLookupByLibrary.simpleMessage("Términos y condiciones"),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "Este horario no está disponible"),
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),

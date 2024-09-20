@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Appointment Date & Time"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
+        "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
         "awaitingCustomer":
@@ -81,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Deletion"),
         "confirmDeletionMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete your account? This action cannot be undone."),
+        "confirmLogout": MessageLookupByLibrary.simpleMessage("Confirm Logout"),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirm Time Selection"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
@@ -135,10 +138,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "hoursAgo": m1,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locale": MessageLookupByLibrary.simpleMessage("en"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
+        "locationServices":
+            MessageLookupByLibrary.simpleMessage("Location Services"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
@@ -160,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notSelected": MessageLookupByLibrary.simpleMessage("Not Selected"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "pending": MessageLookupByLibrary.simpleMessage("Pending"),
@@ -168,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseSelectTimeRange":
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "processingQuotation":
             MessageLookupByLibrary.simpleMessage("Processing Quotation"),
@@ -252,6 +261,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tattoo": MessageLookupByLibrary.simpleMessage("Tattoo"),
         "tentativeEvent":
             MessageLookupByLibrary.simpleMessage("Tentative Event"),
+        "termsAndConditions":
+            MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "This time slot is unavailable"),
         "to": MessageLookupByLibrary.simpleMessage("To"),

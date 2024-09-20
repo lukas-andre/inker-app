@@ -25,6 +25,7 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
+import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
@@ -36,6 +37,7 @@ import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
+import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
@@ -145,6 +147,12 @@ class _AppViewState extends State<AppView> {
             create: (context) => ArtistMyProfileBloc(
                   context.read(),
                 )),
+        BlocProvider(
+            create: (context) => SettingsBloc(
+                  logoutUseCase: context.read(),
+                  sessionService: context.read(),
+                  settingsService: context.read(),
+                )),
       ],
       child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
         OverlayStyle.setWhite();
@@ -198,6 +206,12 @@ class _AppViewState extends State<AppView> {
                   },
                 );
               }
+            }
+
+            if (settings.name == '/settings') {
+              return MaterialPageRoute(
+                builder: (context) => const SettingsPage(),
+              );
             }
 
             if (settings.name == '/artistQuotationResponse') {

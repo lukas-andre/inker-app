@@ -7,6 +7,7 @@ import 'package:inker_studio/data/api/customer/api_customer_service.dart';
 import 'package:inker_studio/data/api/location/api_location_service.dart';
 import 'package:inker_studio/data/api/quotation/api_quotation_service.dart';
 import 'package:inker_studio/data/api/review/api_review_service.dart';
+import 'package:inker_studio/data/api/settings/api_settings_service.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/gcp/gcp_places_service.dart';
@@ -25,6 +26,7 @@ import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/settings/settings_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
@@ -73,6 +75,9 @@ List<RepositoryProvider> buildProviders() {
     RepositoryProvider<CreateUserUseCase>(
       create: (context) => CreateUserUseCase(
           gcpPlacesService: context.read(), userService: context.read()),
+    ),
+    RepositoryProvider<SettingsService>(
+      create: (context) => ApiSettingsService(),
     ),
   ];
 }
