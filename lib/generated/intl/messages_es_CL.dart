@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aceptar Apelación"),
         "accepted": MessageLookupByLibrary.simpleMessage("Aceptado"),
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
+        "addDescription": MessageLookupByLibrary.simpleMessage(
+            "Agrega una descripción sobre ti."),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
@@ -73,6 +75,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "confirmDeletion":
+            MessageLookupByLibrary.simpleMessage("Confirmar Eliminación"),
+        "confirmDeletionMessage": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
@@ -83,12 +89,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "createdAt": MessageLookupByLibrary.simpleMessage("Creado en"),
         "daysAgo": m0,
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
+        "deleteAccount":
+            MessageLookupByLibrary.simpleMessage("Eliminar Cuenta"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
         "durationCannotBeZero": MessageLookupByLibrary.simpleMessage(
             "La duración no puede ser cero"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
+        "editProfile": MessageLookupByLibrary.simpleMessage("Editar Perfil"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
@@ -113,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventTitle": MessageLookupByLibrary.simpleMessage("Título del Evento"),
         "extraInfo":
             MessageLookupByLibrary.simpleMessage("Información Adicional"),
+        "followers": MessageLookupByLibrary.simpleMessage("Seguidores"),
+        "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
         "getArtistActionText":
             MessageLookupByLibrary.simpleMessage("Obtener Artista"),
@@ -130,10 +141,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m2,
         "monthsAgo": m3,
+        "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
         "newRequest": MessageLookupByLibrary.simpleMessage("Nueva Solicitud"),
         "newRequests":
@@ -144,6 +157,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No hay eventos programados para hoy"),
         "noQuotationsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron cotizaciones"),
+        "noReviewsYet":
+            MessageLookupByLibrary.simpleMessage("Aún no hay reseñas"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
@@ -178,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
         "quoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
         "quotes": MessageLookupByLibrary.simpleMessage("Cotizaciones"),
+        "rating": MessageLookupByLibrary.simpleMessage("Calificación"),
         "receivedQuotation":
             MessageLookupByLibrary.simpleMessage("Cotización Recibida"),
         "receivedQuotations":
@@ -231,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, selecciona un rango de tiempo válido"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
+        "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "status": MessageLookupByLibrary.simpleMessage("Estado"),
