@@ -1680,6 +1680,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Nombre completo`
+  String get fullName {
+    return Intl.message(
+      'Nombre completo',
+      name: 'fullName',
+      desc: 'El nombre completo de una persona.',
+      args: [],
+    );
+  }
+
+  /// `Nombre de usuario`
+  String get username {
+    return Intl.message(
+      'Nombre de usuario',
+      name: 'username',
+      desc: 'Un nombre único utilizado para identificar a un usuario.',
+      args: [],
+    );
+  }
+
+  /// `Correo electrónico`
+  String get email {
+    return Intl.message(
+      'Correo electrónico',
+      name: 'email',
+      desc: 'Una dirección digital utilizada para la comunicación.',
+      args: [],
+    );
+  }
+
+  /// `Teléfono`
+  String get phone {
+    return Intl.message(
+      'Teléfono',
+      name: 'phone',
+      desc: 'Un número de teléfono.',
+      args: [],
+    );
+  }
+
+  /// `Dirección`
+  String get address {
+    return Intl.message(
+      'Dirección',
+      name: 'address',
+      desc: 'La ubicación donde alguien vive o trabaja.',
+      args: [],
+    );
+  }
+
+  /// `Ciudad`
+  String get city {
+    return Intl.message(
+      'Ciudad',
+      name: 'city',
+      desc: 'Una gran ciudad o área urbana.',
+      args: [],
+    );
+  }
+
+  /// `Estado`
+  String get state {
+    return Intl.message(
+      'Estado',
+      name: 'state',
+      desc: 'Una región o territorio de un país.',
+      args: [],
+    );
+  }
+
+  /// `Géneros`
+  String get genres {
+    return Intl.message(
+      'Géneros',
+      name: 'genres',
+      desc: 'Categorías o tipos de arte.',
+      args: [],
+    );
+  }
+
+  /// `Etiquetas`
+  String get tags {
+    return Intl.message(
+      'Etiquetas',
+      name: 'tags',
+      desc: 'Palabras clave o etiquetas utilizadas para categorizar algo.',
+      args: [],
+    );
+  }
+
+  /// `Foto del estudio`
+  String get studioPhoto {
+    return Intl.message(
+      'Foto del estudio',
+      name: 'studioPhoto',
+      desc: 'Una imagen del estudio del artista.',
+      args: [],
+    );
+  }
+
+  /// `Actualizar foto del estudio`
+  String get updateStudioPhoto {
+    return Intl.message(
+      'Actualizar foto del estudio',
+      name: 'updateStudioPhoto',
+      desc: 'Acción para cambiar la imagen del estudio del artista.',
+      args: [],
+    );
+  }
+
+  /// `Agregar foto del estudio`
+  String get addStudioPhoto {
+    return Intl.message(
+      'Agregar foto del estudio',
+      name: 'addStudioPhoto',
+      desc: 'Acción para incluir una imagen del estudio del artista.',
+      args: [],
+    );
+  }
+
+  /// `Descripción Corta`
+  String get shortDescription {
+    return Intl.message(
+      'Descripción Corta',
+      name: 'shortDescription',
+      desc: 'Una breve descripción de algo.',
+      args: [],
+    );
+  }
+
+  /// `Elegir Imagen`
+  String get chooseImage {
+    return Intl.message(
+      'Elegir Imagen',
+      name: 'chooseImage',
+      desc: 'Botón para seleccionar una imagen.',
+      args: [],
+    );
+  }
+
+  /// `Imagen de Perfil`
+  String get profileImage {
+    return Intl.message(
+      'Imagen de Perfil',
+      name: 'profileImage',
+      desc: 'Una imagen que representa a una persona.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

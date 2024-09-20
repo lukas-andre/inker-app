@@ -665,5 +665,65 @@
   "noReviewsYet": "No reviews yet",
   "@noReviewsYet": {
     "description": "Message displayed when there are no reviews."
+  },
+  "fullName": "Full Name",
+  "@fullName": {
+    "description": "The complete name of a person."
+  },
+  "username": "Username",
+  "@username": {
+    "description": "A unique name used to identify a user."
+  },
+  "email": "Email",
+  "@email": {
+    "description": "A digital address used for communication."
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "A telephone number."
+  },
+  "address": "Address",
+  "@address": {
+    "description": "The location where someone lives or works."
+  },
+  "city": "City",
+  "@city": {
+    "description": "A large town or urban area."
+  },
+  "state": "State",
+  "@state": {
+    "description": "A region or territory of a country."
+  },
+  "genres": "Genres",
+  "@genres": {
+    "description": "Categories or types of art."
+  },
+  "tags": "Tags",
+  "@tags": {
+    "description": "Keywords or labels used to categorize something."
+  },
+  "studioPhoto": "Studio Photo",
+  "@studioPhoto": {
+    "description": "A picture of the artist's studio."
+  },
+  "updateStudioPhoto": "Update Studio Photo",
+  "@updateStudioPhoto": {
+    "description": "Action to change the picture of the artist's studio."
+  },
+  "addStudioPhoto": "Add Studio Photo",
+  "@addStudioPhoto": {
+    "description": "Action to include a picture of the artist's studio."
+  },
+  "shortDescription": "Short Description",
+  "@shortDescription": {
+    "description": "A brief summary or explanation."
+  },
+  "chooseImage": "Choose Image",
+  "@chooseImage": {
+    "description": "Action to select an image."
+  },
+  "profileImage": "Profile Image",
+  "@profileImage": {
+    "description": "A picture that represents the user's profile."
   }
 }
