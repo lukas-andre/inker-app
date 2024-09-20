@@ -37,9 +37,13 @@ import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
+import 'package:inker_studio/ui/settings/languague_settings_page.dart';
+import 'package:inker_studio/ui/settings/privacy_policy_page.dart';
 import 'package:inker_studio/ui/settings/settings_page.dart';
+import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
+import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
@@ -153,109 +157,131 @@ class _AppViewState extends State<AppView> {
                   sessionService: context.read(),
                   settingsService: context.read(),
                 )),
+        BlocProvider(
+          create: (context) => LocalizationCubit(),
+        ),
       ],
-      child: BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
-        OverlayStyle.setWhite();
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: _navigatorKey,
-          theme: themeState ? ThemeData.dark() : ThemeData.light(),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''),
-            Locale('es', 'CL'),
-          ],
-          locale: const Locale('es', 'CL'),
-          builder: (context, child) {
-            return BlocListener<AuthBloc, AuthState>(
-                listener: (context, state) async {
-                  await _navigateByAuthStatus(context, state);
-                },
-                child: child);
-          },
-          onGenerateRoute: (settings) {
-            if (settings.name == '/') {
-              return MaterialPageRoute(
-                  builder: (context) => const SplashPage());
-            }
-
-            if (settings.name == '/createEvent') {
-              return MaterialPageRoute(
-                  builder: (context) => const CreateEventPage());
-            }
-
-            if (settings.name == '/agendaEventDetail') {
-              final args = settings.arguments;
-              if (args is int) {
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return AgendaEventDetailPage(eventId: args);
+      child: BlocBuilder<LocalizationCubit, Locale>(builder: (context, locale) {
+        return BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
+          OverlayStyle.setWhite();
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorKey: _navigatorKey,
+            theme: themeState ? ThemeData.dark() : ThemeData.light(),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('es', 'CL'),
+            ],
+            locale: locale,
+            builder: (context, child) {
+              return BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) async {
+                    await _navigateByAuthStatus(context, state);
                   },
-                );
-              } else {
+                  child: child);
+            },
+            onGenerateRoute: (settings) {
+              if (settings.name == '/') {
                 return MaterialPageRoute(
-                  builder: (context) {
-                    return const ErrorPage(
-                      message: 'Invalid argument type. Expected an integer.',
-                    );
-                  },
+                    builder: (context) => const SplashPage());
+              }
+
+              if (settings.name == '/createEvent') {
+                return MaterialPageRoute(
+                    builder: (context) => const CreateEventPage());
+              }
+
+              if (settings.name == '/agendaEventDetail') {
+                final args = settings.arguments;
+                if (args is int) {
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return AgendaEventDetailPage(eventId: args);
+                    },
+                  );
+                } else {
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return const ErrorPage(
+                        message: 'Invalid argument type. Expected an integer.',
+                      );
+                    },
+                  );
+                }
+              }
+
+              if (settings.name == '/settings') {
+                return MaterialPageRoute(
+                  builder: (context) => SettingsPage(),
                 );
               }
-            }
 
-            if (settings.name == '/settings') {
-              return MaterialPageRoute(
-                builder: (context) => const SettingsPage(),
-              );
-            }
+              if (settings.name == '/languageSettings') {
+                return MaterialPageRoute(
+                  builder: (context) => const LanguageSettingsPage(),
+                );
+              }
 
-            if (settings.name == '/artistQuotationResponse') {
-              final args = settings.arguments as Map<String, dynamic>;
-              return MaterialPageRoute(
-                builder: (context) => ArtistQuotationResponsePage(
-                    quotationId: args['quotationId'],
-                    predefinedAction: args['predefinedAction']),
-              );
-            }
+              if (settings.name == '/privacyPolicy') {
+                return MaterialPageRoute(
+                  builder: (context) => const PrivacyPolicyPage(),
+                );
+              }
 
-            if (settings.name == CreateQuotationPage.routeName) {
-              final args = settings.arguments as Map<String, dynamic>;
-              return CreateQuotationPage.route(artistId: args['artistId']);
-            }
+              if (settings.name == '/termsAndConditions') {
+                return MaterialPageRoute(
+                  builder: (context) => const TermsAndConditionsPage(),
+                );
+              }
 
-            if (settings.name == '/editField') {
-              final args = settings.arguments as Map<String, dynamic>;
-              return MaterialPageRoute(
-                builder: (context) => EditFieldPage(field: args['field']),
-              );
-            }
+              if (settings.name == '/artistQuotationResponse') {
+                final args = settings.arguments as Map<String, dynamic>;
+                return MaterialPageRoute(
+                  builder: (context) => ArtistQuotationResponsePage(
+                      quotationId: args['quotationId'],
+                      predefinedAction: args['predefinedAction']),
+                );
+              }
 
-            if (settings.name == '/artistProfile') {
-              return MaterialPageRoute(
-                builder: (context) => const ArtistProfilePage(),
-              );
-            }
+              if (settings.name == CreateQuotationPage.routeName) {
+                final args = settings.arguments as Map<String, dynamic>;
+                return CreateQuotationPage.route(artistId: args['artistId']);
+              }
 
-            // if (settings.name == '/settings') {
-            //   return MaterialPageRoute(
-            //       builder: (context) => const SettingsPage());
-            // }
+              if (settings.name == '/editField') {
+                final args = settings.arguments as Map<String, dynamic>;
+                return MaterialPageRoute(
+                  builder: (context) => EditFieldPage(field: args['field']),
+                );
+              }
 
-            return null;
-          },
-        );
+              if (settings.name == '/artistProfile') {
+                return MaterialPageRoute(
+                  builder: (context) => const ArtistProfilePage(),
+                );
+              }
+
+              // if (settings.name == '/settings') {
+              //   return MaterialPageRoute(
+              //       builder: (context) => const SettingsPage());
+              // }
+
+              return null;
+            },
+          );
+        });
       }),
     );
   }
 
   Future<void> _navigateByAuthStatus(
       BuildContext context, AuthState state) async {
-    await Future.delayed(const Duration(seconds: 1));
     switch (state.status) {
       case AuthStatus.authenticated:
         final String userType = state.session.user!.userType!;

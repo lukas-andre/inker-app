@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'dart:math' as math;
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -169,7 +170,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
               child: Text(
-                'Hecho',
+                S.of(context).done,
                 style: TextStyleTheme.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

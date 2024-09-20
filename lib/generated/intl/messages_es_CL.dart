@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Eliminar Cuenta"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
+        "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
         "durationCannotBeZero": MessageLookupByLibrary.simpleMessage(
             "La duración no puede ser cero"),
@@ -171,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
             "No hay eventos programados para hoy"),
+        "noImageSelected": MessageLookupByLibrary.simpleMessage(
+            "No se ha seleccionado ninguna imagen"),
         "noQuotationsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron cotizaciones"),
         "noReviewsYet":
@@ -191,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Política de privacidad"),
+        "privacyPolicyContent": MessageLookupByLibrary.simpleMessage(
+            "Su privacidad es importante para nosotros. No recopilamos información personal sin su consentimiento."),
         "proceed": MessageLookupByLibrary.simpleMessage("Continuar"),
         "processingQuotation":
             MessageLookupByLibrary.simpleMessage("Procesando Cotización"),
@@ -284,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Términos y condiciones"),
+        "termsAndConditionsContent": MessageLookupByLibrary.simpleMessage(
+            "Al usar esta aplicación, usted acepta los términos y condiciones aquí descritos."),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "Este horario no está disponible"),
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),

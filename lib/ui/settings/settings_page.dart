@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -10,12 +12,14 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
 
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
+
+  late LocalizationCubit localizationCubit;
 
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SettingsBloc>(context);
-
+    localizationCubit = context.read<LocalizationCubit>();
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -94,8 +98,7 @@ class SettingsPage extends StatelessWidget {
   }
 
   String _getCurrentLanguageName(BuildContext context) {
-    // Assuming the app supports 'en' and 'es'
-    final locale = Localizations.localeOf(context).languageCode;
+    final locale = localizationCubit.state.languageCode;
     switch (locale) {
       case 'en':
         return 'English';
@@ -134,8 +137,9 @@ class SettingsPage extends StatelessWidget {
               child: Text(S.of(context).logOut),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                BlocProvider.of<SettingsBloc>(context)
-                    .add(const SettingsEvent.logout());
+                context.read<AuthBloc>().add(AuthLogoutRequested(
+                    context.read<AuthBloc>().state.session));
+                Navigator.of(context).pop();
               },
             ),
           ],
