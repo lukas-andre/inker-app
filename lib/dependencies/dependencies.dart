@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/account_verification/api_account_verification_service_impl.dart';
 import 'package:inker_studio/data/api/agenda/api_agenda_service.dart';
+import 'package:inker_studio/data/api/artist/api_artist_service.dart';
 import 'package:inker_studio/data/api/auth/api_auth_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
 import 'package:inker_studio/data/api/location/api_location_service.dart';
@@ -14,6 +15,7 @@ import 'package:inker_studio/data/local/sqlite/sqlite_customer_service.dart';
 import 'package:inker_studio/data/local/sqlite/sqlite_session_service.dart';
 import 'package:inker_studio/domain/services/account_verification/account_verification_service.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/services/artist/artist_service.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
@@ -45,6 +47,10 @@ List<RepositoryProvider> buildProviders() {
     RepositoryProvider<CustomerService>(create: (_) => ApiCustomerService()),
     RepositoryProvider<LocalSessionService>(
         create: (_) => SqliteSessionService()),
+    RepositoryProvider<ArtistService>(
+        create: (context) => ApiArtistService(
+              sessionService: context.read(),
+            )),
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
     RepositoryProvider<ReviewService>(create: (_) => ApiReviewService()),

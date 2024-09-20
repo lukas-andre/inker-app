@@ -621,5 +621,53 @@
   "noQuotationsFound": "No se encontraron cotizaciones",
   "@noQuotationsFound": {
     "description": "Mensaje que indica que no se encontraron cotizaciones."
+  },
+  "myProfile": "Mi Perfil",
+  "@myProfile": {
+    "description": "Título o etiqueta para el perfil del usuario."
+  },
+  "editProfile": "Editar Perfil",
+  "@editProfile": {
+    "description": "Botón para editar el perfil del usuario."
+  },
+  "settings": "Ajustes",
+  "@settings": {
+    "description": "Título o etiqueta para los ajustes."
+  },
+  "logout": "Cerrar Sesión",
+  "@logout": {
+    "description": "Botón para cerrar la sesión del usuario."
+  },
+  "deleteAccount": "Eliminar Cuenta",
+  "@deleteAccount": {
+    "description": "Botón para eliminar la cuenta del usuario."
+  },
+  "confirmDeletion": "Confirmar Eliminación",
+  "@confirmDeletion": {
+    "description": "Mensaje de confirmación para eliminar la cuenta."
+  },
+  "confirmDeletionMessage": "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
+  "@confirmDeletionMessage": {
+    "description": "Mensaje de confirmación para eliminar la cuenta."
+  },
+  "addDescription": "Agrega una descripción sobre ti.",
+  "@addDescription": {
+    "description": "Mensaje que indica que se debe agregar una descripción sobre el usuario."
+  },
+  "followers": "Seguidores",
+  "@followers": {
+    "description": "Campo o etiqueta para los seguidores."
+  },
+  "following": "Seguidos",
+  "@following": {
+    "description": "Campo o etiqueta para los seguidos."
+  },
+  "rating": "Calificación",
+  "@rating": {
+    "description": "Campo o etiqueta para la calificación."
+  },
+  "noReviewsYet": "Aún no hay reseñas",
+  "@noReviewsYet": {
+    "description": "Mensaje que indica que aún no hay reseñas."
   }
 }

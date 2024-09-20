@@ -617,5 +617,53 @@
   "noQuotationsFound": "No quotations found",
   "@noQuotationsFound": {
     "description": "Message displayed when no quotations are found."
+  },
+  "myProfile": "My Profile",
+  "@myProfile": {
+    "description": "Information about the user's profile."
+  },
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+    "description": "Action to modify the user's profile."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Options or preferences that can be configured."
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Action to end the current session."
+  },
+  "deleteAccount": "Delete Account",
+  "@deleteAccount": {
+    "description": "Action to permanently remove the user's account."
+  },
+  "confirmDeletion": "Confirm Deletion",
+  "@confirmDeletion": {
+    "description": "Action to confirm the deletion of an account."
+  },
+  "confirmDeletionMessage": "Are you sure you want to delete your account? This action cannot be undone.",
+  "@confirmDeletionMessage": {
+    "description": "Message asking for confirmation to delete an account."
+  },
+  "addDescription": "Add Description",
+  "@addDescription": {
+    "description": "Action to include a description."
+  },
+  "followers": "Followers",
+  "@followers": {
+    "description": "People who follow or subscribe to something."
+  },
+  "following": "Following",
+  "@following": {
+    "description": "People who are followed or subscribed to."
+  },
+  "rating": "Rating",
+  "@rating": {
+    "description": "A score or grade given to something."
+  },
+  "noReviewsYet": "No reviews yet",
+  "@noReviewsYet": {
+    "description": "Message displayed when there are no reviews."
   }
 }
