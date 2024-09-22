@@ -785,5 +785,9 @@
   "removeImage": "Remove Image",
   "@removeImage": {
     "description": "Action to delete an image."
+  },
+  "noStudioPhotoAvailable": "No studio photo available",
+  "@noStudioPhotoAvailable": {
+    "description": "Message displayed when there is no studio photo."
   }
 }

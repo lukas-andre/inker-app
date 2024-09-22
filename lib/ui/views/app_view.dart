@@ -32,7 +32,6 @@ import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
-import 'package:inker_studio/ui/artist/profile/edit_field_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
@@ -41,6 +40,7 @@ import 'package:inker_studio/ui/settings/languague_settings_page.dart';
 import 'package:inker_studio/ui/settings/privacy_policy_page.dart';
 import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
+import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
@@ -255,22 +255,19 @@ class _AppViewState extends State<AppView> {
               }
 
               if (settings.name == '/editField') {
-                final args = settings.arguments as Map<String, dynamic>;
+                final args = settings.arguments as EditFieldArguments;
                 return MaterialPageRoute(
-                  builder: (context) => EditFieldPage(field: args['field']),
+                  builder: (context) {
+                    return EditFieldPage(arguments: args);
+                  },
                 );
               }
 
               if (settings.name == '/artistProfile') {
                 return MaterialPageRoute(
-                  builder: (context) => const ArtistProfilePage(),
+                  builder: (context) => const ArtistMyProfilePage(),
                 );
               }
-
-              // if (settings.name == '/settings') {
-              //   return MaterialPageRoute(
-              //       builder: (context) => const SettingsPage());
-              // }
 
               return null;
             },
