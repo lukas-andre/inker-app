@@ -100,30 +100,58 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
 
   Future<void> _updateProfileImage(
       XFile image, Emitter<ArtistProfileState> emit) async {
-    emit(const ArtistProfileState.loading());
-    try {
-      final currentState = state;
-      if (currentState is _Loaded) {
-        await _artistService.updateProfilePicture(
-            currentState.artist.id!, image);
+    await state.when(
+      initial: () async {
+        // Normalmente no deberíamos llegar aquí, pero por si acaso:
+        emit(const ArtistProfileState.error(
+            'No se puede actualizar la imagen de perfil sin cargar primero el perfil'));
+      },
+      loading: () async {
+        // Si ya estamos cargando, no hacemos nada
+      },
+      loaded: (artist) async {
+        emit(const ArtistProfileState.loading());
+        try {
+          final updatedArtist =
+              await _artistService.updateProfilePicture(artist.id!, image);
+          emit(ArtistProfileState.loaded(updatedArtist));
+        } catch (e) {
+          emit(ArtistProfileState.error(e.toString()));
+        }
+      },
+      error: (_) async {
+        // Si estamos en estado de error, intentamos cargar el perfil primero
         await _loadProfile(emit);
-      }
-    } catch (e) {
-      emit(ArtistProfileState.error(e.toString()));
-    }
+        // Luego intentamos actualizar la imagen de nuevo
+        add(ArtistProfileEvent.updateProfileImage(image));
+      },
+    );
   }
 
   Future<void> _updateStudioPhoto(
       XFile image, Emitter<ArtistProfileState> emit) async {
-    emit(const ArtistProfileState.loading());
-    try {
-      final currentState = state;
-      if (currentState is _Loaded) {
-        await _artistService.updateStudioPhoto(currentState.artist.id!, image);
+    await state.when(
+      initial: () async {
+        emit(const ArtistProfileState.error(
+            'No se puede actualizar la foto del estudio sin cargar primero el perfil'));
+      },
+      loading: () async {
+        // Si ya estamos cargando, no hacemos nada
+      },
+      loaded: (artist) async {
+        emit(const ArtistProfileState.loading());
+        try {
+          final updatedArtist =
+              await _artistService.updateStudioPhoto(artist.id!, image);
+          emit(ArtistProfileState.loaded(updatedArtist));
+        } catch (e) {
+          emit(ArtistProfileState.error(e.toString()));
+        }
+      },
+      error: (_) async {
         await _loadProfile(emit);
-      }
-    } catch (e) {
-      emit(ArtistProfileState.error(e.toString()));
-    }
+        add(ArtistProfileEvent.updateStudioPhoto(image));
+      },
+    );
   }
 }

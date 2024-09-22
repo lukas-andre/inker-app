@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelQuotationConfirmationTitle":
             MessageLookupByLibrary.simpleMessage("Cancelar Cotización"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "changeImage": MessageLookupByLibrary.simpleMessage("Cambiar Imagen"),
         "changeSelection":
             MessageLookupByLibrary.simpleMessage("Cambiar Selección"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
@@ -241,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Conflicto de Horario"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Motivo de Rechazo"),
+        "removeImage": MessageLookupByLibrary.simpleMessage("Eliminar Imagen"),
         "reply": MessageLookupByLibrary.simpleMessage("Responder"),
         "request": MessageLookupByLibrary.simpleMessage("Solicitud"),
         "requestDetails":
@@ -252,6 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
         "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
+        "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar Cambios"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),

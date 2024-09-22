@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/ui/artist/profile/profile_picture.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -108,30 +109,21 @@ class ArtistProfilePage extends StatelessWidget {
   }
 
   Widget _buildProfileImage(BuildContext context, Artist artist) {
-    return GestureDetector(
-      onTap: () => _navigateToEditField(context, 'profile-image'),
-      child: Container(
-        height: 200,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-                artist.profileThumbnail ?? defaultProfileImageLink),
-            fit: BoxFit.cover,
+    return Stack(
+      children: [
+        ProfileImage(
+          imageUrl: artist.profileThumbnail ?? defaultProfileImageLink,
+          onTap: () => _navigateToEditField(context, 'profile-image'),
+        ),
+        Positioned(
+          bottom: 16,
+          right: 16,
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Icon(Icons.edit, color: Theme.of(context).primaryColor),
           ),
         ),
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 16,
-              right: 16,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.edit, color: Theme.of(context).primaryColor),
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 

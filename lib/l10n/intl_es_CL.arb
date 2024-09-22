@@ -777,5 +777,17 @@
   "done": "Hecho",
   "@done": {
     "description": "Botón para indicar que se ha completado una acción."
+  },
+  "changeImage": "Cambiar Imagen",
+  "@changeImage": {
+    "description": "Botón para cambiar una imagen."
+  },
+  "saveChanges": "Guardar Cambios",
+  "@saveChanges": {
+    "description": "Botón para guardar los cambios realizados."
+  },
+  "removeImage": "Eliminar Imagen",
+  "@removeImage": {
+    "description": "Botón para eliminar una imagen."
   }
 }

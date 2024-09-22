@@ -1950,6 +1950,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Cambiar Imagen`
+  String get changeImage {
+    return Intl.message(
+      'Cambiar Imagen',
+      name: 'changeImage',
+      desc: 'Botón para cambiar una imagen.',
+      args: [],
+    );
+  }
+
+  /// `Guardar Cambios`
+  String get saveChanges {
+    return Intl.message(
+      'Guardar Cambios',
+      name: 'saveChanges',
+      desc: 'Botón para guardar los cambios realizados.',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Imagen`
+  String get removeImage {
+    return Intl.message(
+      'Eliminar Imagen',
+      name: 'removeImage',
+      desc: 'Botón para eliminar una imagen.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
