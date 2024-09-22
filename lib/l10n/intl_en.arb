@@ -773,5 +773,17 @@
   "done": "Done",
   "@done": {
     "description": "Action to finish or complete something."
+  },
+  "changeImage": "Change Image",
+  "@changeImage": {
+    "description": "Action to replace an image."
+  },
+  "saveChanges": "Save Changes",
+  "@saveChanges": {
+    "description": "Action to confirm and save changes."
+  },
+  "removeImage": "Remove Image",
+  "@removeImage": {
+    "description": "Action to delete an image."
   }
 }
