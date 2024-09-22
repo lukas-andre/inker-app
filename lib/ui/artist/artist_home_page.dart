@@ -19,7 +19,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   static const List<Widget> _pageWidgets = <Widget>[
     AgendaTablePage(),
     QuotationListPage(),
-    ArtistProfilePage(),
+    ArtistMyProfilePage(),
   ];
 
   @override

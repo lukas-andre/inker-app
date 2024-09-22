@@ -179,6 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se encontraron cotizaciones"),
         "noReviewsYet":
             MessageLookupByLibrary.simpleMessage("Aún no hay reseñas"),
+        "noStudioPhotoAvailable": MessageLookupByLibrary.simpleMessage(
+            "No hay foto del estudio disponible"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),

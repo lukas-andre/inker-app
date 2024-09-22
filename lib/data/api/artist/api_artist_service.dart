@@ -127,7 +127,8 @@ class ApiArtistService implements ArtistService {
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.created) {
         return Artist.fromJson(json.decode(response.body));
       } else {
         throw Exception('Failed to update studio photo: ${response.body}');
