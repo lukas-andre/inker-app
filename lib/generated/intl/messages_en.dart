@@ -166,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
+        "noStudioPhotoAvailable":
+            MessageLookupByLibrary.simpleMessage("No studio photo available"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
         "notSelected": MessageLookupByLibrary.simpleMessage("Not Selected"),

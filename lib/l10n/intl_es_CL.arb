@@ -789,5 +789,9 @@
   "removeImage": "Eliminar Imagen",
   "@removeImage": {
     "description": "Botón para eliminar una imagen."
+  },
+  "noStudioPhotoAvailable": "No hay foto del estudio disponible",
+  "@noStudioPhotoAvailable": {
+    "description": "Mensaje que indica que no hay una foto del estudio disponible."
   }
 }

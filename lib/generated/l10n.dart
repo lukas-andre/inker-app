@@ -1980,6 +1980,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No hay foto del estudio disponible`
+  String get noStudioPhotoAvailable {
+    return Intl.message(
+      'No hay foto del estudio disponible',
+      name: 'noStudioPhotoAvailable',
+      desc: 'Mensaje que indica que no hay una foto del estudio disponible.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
