@@ -7,7 +7,7 @@ class TextEditWidget extends StatefulWidget {
   final String? initialValue;
   final String label;
   final String? Function(String?)? validator;
-  final void Function(String) onSaved;
+  final void Function(String?) onSaved;
 
   const TextEditWidget({
     Key? key,
@@ -39,74 +39,60 @@ class _TextEditWidgetState extends State<TextEditWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: widget.label,
-                labelStyle: TextStyleTheme.bodyText1,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                filled: true,
-                fillColor: primaryColor,
-              ),
-              style: TextStyleTheme.bodyText1,
-              maxLines: null,
-            ),
-          ),
-        ),
-        _buildBottomButtons(),
-      ],
-    );
+  void dispose() {
+    _controller.removeListener(_onTextChanged);
+    _controller.dispose();
+    super.dispose();
   }
 
-  Widget _buildBottomButtons() {
-    return Container(
-      color: primaryColor,
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (_hasChanges)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _saveChanges,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                child: Text(
-                  S.of(context).saveChanges,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
-                ),
+          Text(widget.label, style: TextStyleTheme.headline3),
+          const SizedBox(height: 8),
+          TextFormField(
+            controller: _controller,
+            style: TextStyleTheme.bodyText1,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey[800],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
               ),
             ),
+            validator: widget.validator,
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _hasChanges ? _saveChanges : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: secondaryColor,
+                disabledBackgroundColor: Colors.grey,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: Text(
+                S.of(context).save,
+                style: TextStyleTheme.button.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
   void _saveChanges() {
-    if (widget.validator == null ||
-        widget.validator!(_controller.text) == null) {
+    if (_hasChanges) {
       widget.onSaved(_controller.text);
+    } else {
+      Navigator.of(context).pop();
     }
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_onTextChanged);
-    _controller.dispose();
-    super.dispose();
   }
 }

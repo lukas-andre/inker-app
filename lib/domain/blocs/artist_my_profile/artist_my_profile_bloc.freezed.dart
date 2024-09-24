@@ -27,6 +27,8 @@ mixin _$ArtistProfileEvent {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,6 +42,8 @@ mixin _$ArtistProfileEvent {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +57,8 @@ mixin _$ArtistProfileEvent {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,6 +73,8 @@ mixin _$ArtistProfileEvent {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,6 +88,8 @@ mixin _$ArtistProfileEvent {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,6 +103,8 @@ mixin _$ArtistProfileEvent {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -163,6 +175,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return loadProfile();
   }
@@ -179,6 +193,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return loadProfile?.call();
   }
@@ -195,6 +211,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (loadProfile != null) {
@@ -215,6 +233,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return loadProfile(this);
   }
@@ -231,6 +251,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return loadProfile?.call(this);
   }
@@ -247,6 +269,8 @@ class _$LoadProfileImpl implements _LoadProfile {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (loadProfile != null) {
@@ -343,6 +367,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateProfile(artist);
   }
@@ -359,6 +385,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateProfile?.call(artist);
   }
@@ -375,6 +403,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateProfile != null) {
@@ -395,6 +425,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateProfile(this);
   }
@@ -411,6 +443,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateProfile?.call(this);
   }
@@ -427,6 +461,8 @@ class _$UpdateProfileImpl implements _UpdateProfile {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateProfile != null) {
@@ -528,6 +564,8 @@ class _$UpdateNameImpl implements _UpdateName {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateName(firstName, lastName);
   }
@@ -544,6 +582,8 @@ class _$UpdateNameImpl implements _UpdateName {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateName?.call(firstName, lastName);
   }
@@ -560,6 +600,8 @@ class _$UpdateNameImpl implements _UpdateName {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateName != null) {
@@ -580,6 +622,8 @@ class _$UpdateNameImpl implements _UpdateName {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateName(this);
   }
@@ -596,6 +640,8 @@ class _$UpdateNameImpl implements _UpdateName {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateName?.call(this);
   }
@@ -612,6 +658,8 @@ class _$UpdateNameImpl implements _UpdateName {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateName != null) {
@@ -708,6 +756,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateUsername(username);
   }
@@ -724,6 +774,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateUsername?.call(username);
   }
@@ -740,6 +792,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateUsername != null) {
@@ -760,6 +814,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateUsername(this);
   }
@@ -776,6 +832,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateUsername?.call(this);
   }
@@ -792,6 +850,8 @@ class _$UpdateUsernameImpl implements _UpdateUsername {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateUsername != null) {
@@ -885,6 +945,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateDescription(description);
   }
@@ -901,6 +963,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateDescription?.call(description);
   }
@@ -917,6 +981,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateDescription != null) {
@@ -937,6 +1003,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateDescription(this);
   }
@@ -953,6 +1021,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateDescription?.call(this);
   }
@@ -969,6 +1039,8 @@ class _$UpdateDescriptionImpl implements _UpdateDescription {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateDescription != null) {
@@ -1067,6 +1139,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateGenres(genres);
   }
@@ -1083,6 +1157,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateGenres?.call(genres);
   }
@@ -1099,6 +1175,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateGenres != null) {
@@ -1119,6 +1197,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateGenres(this);
   }
@@ -1135,6 +1215,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateGenres?.call(this);
   }
@@ -1151,6 +1233,8 @@ class _$UpdateGenresImpl implements _UpdateGenres {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateGenres != null) {
@@ -1248,6 +1332,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateTags(tags);
   }
@@ -1264,6 +1350,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateTags?.call(tags);
   }
@@ -1280,6 +1368,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateTags != null) {
@@ -1300,6 +1390,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateTags(this);
   }
@@ -1316,6 +1408,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateTags?.call(this);
   }
@@ -1332,6 +1426,8 @@ class _$UpdateTagsImpl implements _UpdateTags {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateTags != null) {
@@ -1424,6 +1520,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateProfileImage(image);
   }
@@ -1440,6 +1538,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateProfileImage?.call(image);
   }
@@ -1456,6 +1556,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateProfileImage != null) {
@@ -1476,6 +1578,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateProfileImage(this);
   }
@@ -1492,6 +1596,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateProfileImage?.call(this);
   }
@@ -1508,6 +1614,8 @@ class _$UpdateProfileImageImpl implements _UpdateProfileImage {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateProfileImage != null) {
@@ -1601,6 +1709,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     required TResult Function(List<String> tags) updateTags,
     required TResult Function(XFile image) updateProfileImage,
     required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
   }) {
     return updateStudioPhoto(image);
   }
@@ -1617,6 +1727,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     TResult? Function(List<String> tags)? updateTags,
     TResult? Function(XFile image)? updateProfileImage,
     TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
   }) {
     return updateStudioPhoto?.call(image);
   }
@@ -1633,6 +1745,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     TResult Function(List<String> tags)? updateTags,
     TResult Function(XFile image)? updateProfileImage,
     TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateStudioPhoto != null) {
@@ -1653,6 +1767,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     required TResult Function(_UpdateTags value) updateTags,
     required TResult Function(_UpdateProfileImage value) updateProfileImage,
     required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
   }) {
     return updateStudioPhoto(this);
   }
@@ -1669,6 +1785,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     TResult? Function(_UpdateTags value)? updateTags,
     TResult? Function(_UpdateProfileImage value)? updateProfileImage,
     TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
   }) {
     return updateStudioPhoto?.call(this);
   }
@@ -1685,6 +1803,8 @@ class _$UpdateStudioPhotoImpl implements _UpdateStudioPhoto {
     TResult Function(_UpdateTags value)? updateTags,
     TResult Function(_UpdateProfileImage value)? updateProfileImage,
     TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
     required TResult orElse(),
   }) {
     if (updateStudioPhoto != null) {
@@ -1700,6 +1820,382 @@ abstract class _UpdateStudioPhoto implements ArtistProfileEvent {
   XFile get image;
   @JsonKey(ignore: true)
   _$$UpdateStudioPhotoImplCopyWith<_$UpdateStudioPhotoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateEmailImplCopyWith<$Res> {
+  factory _$$UpdateEmailImplCopyWith(
+          _$UpdateEmailImpl value, $Res Function(_$UpdateEmailImpl) then) =
+      __$$UpdateEmailImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String studioName});
+}
+
+/// @nodoc
+class __$$UpdateEmailImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$UpdateEmailImpl>
+    implements _$$UpdateEmailImplCopyWith<$Res> {
+  __$$UpdateEmailImplCopyWithImpl(
+      _$UpdateEmailImpl _value, $Res Function(_$UpdateEmailImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? studioName = null,
+  }) {
+    return _then(_$UpdateEmailImpl(
+      null == studioName
+          ? _value.studioName
+          : studioName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateEmailImpl implements _UpdateEmail {
+  const _$UpdateEmailImpl(this.studioName);
+
+  @override
+  final String studioName;
+
+  @override
+  String toString() {
+    return 'ArtistProfileEvent.updateEmail(studioName: $studioName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateEmailImpl &&
+            (identical(other.studioName, studioName) ||
+                other.studioName == studioName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, studioName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateEmailImplCopyWith<_$UpdateEmailImpl> get copyWith =>
+      __$$UpdateEmailImplCopyWithImpl<_$UpdateEmailImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadProfile,
+    required TResult Function(Artist artist) updateProfile,
+    required TResult Function(String firstName, String lastName) updateName,
+    required TResult Function(String username) updateUsername,
+    required TResult Function(String description) updateDescription,
+    required TResult Function(List<String> genres) updateGenres,
+    required TResult Function(List<String> tags) updateTags,
+    required TResult Function(XFile image) updateProfileImage,
+    required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
+  }) {
+    return updateEmail(studioName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadProfile,
+    TResult? Function(Artist artist)? updateProfile,
+    TResult? Function(String firstName, String lastName)? updateName,
+    TResult? Function(String username)? updateUsername,
+    TResult? Function(String description)? updateDescription,
+    TResult? Function(List<String> genres)? updateGenres,
+    TResult? Function(List<String> tags)? updateTags,
+    TResult? Function(XFile image)? updateProfileImage,
+    TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
+  }) {
+    return updateEmail?.call(studioName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadProfile,
+    TResult Function(Artist artist)? updateProfile,
+    TResult Function(String firstName, String lastName)? updateName,
+    TResult Function(String username)? updateUsername,
+    TResult Function(String description)? updateDescription,
+    TResult Function(List<String> genres)? updateGenres,
+    TResult Function(List<String> tags)? updateTags,
+    TResult Function(XFile image)? updateProfileImage,
+    TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
+    required TResult orElse(),
+  }) {
+    if (updateEmail != null) {
+      return updateEmail(studioName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadProfile value) loadProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
+    required TResult Function(_UpdateName value) updateName,
+    required TResult Function(_UpdateUsername value) updateUsername,
+    required TResult Function(_UpdateDescription value) updateDescription,
+    required TResult Function(_UpdateGenres value) updateGenres,
+    required TResult Function(_UpdateTags value) updateTags,
+    required TResult Function(_UpdateProfileImage value) updateProfileImage,
+    required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
+  }) {
+    return updateEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadProfile value)? loadProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
+    TResult? Function(_UpdateName value)? updateName,
+    TResult? Function(_UpdateUsername value)? updateUsername,
+    TResult? Function(_UpdateDescription value)? updateDescription,
+    TResult? Function(_UpdateGenres value)? updateGenres,
+    TResult? Function(_UpdateTags value)? updateTags,
+    TResult? Function(_UpdateProfileImage value)? updateProfileImage,
+    TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
+  }) {
+    return updateEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadProfile value)? loadProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
+    TResult Function(_UpdateName value)? updateName,
+    TResult Function(_UpdateUsername value)? updateUsername,
+    TResult Function(_UpdateDescription value)? updateDescription,
+    TResult Function(_UpdateGenres value)? updateGenres,
+    TResult Function(_UpdateTags value)? updateTags,
+    TResult Function(_UpdateProfileImage value)? updateProfileImage,
+    TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
+    required TResult orElse(),
+  }) {
+    if (updateEmail != null) {
+      return updateEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateEmail implements ArtistProfileEvent {
+  const factory _UpdateEmail(final String studioName) = _$UpdateEmailImpl;
+
+  String get studioName;
+  @JsonKey(ignore: true)
+  _$$UpdateEmailImplCopyWith<_$UpdateEmailImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdatePhoneImplCopyWith<$Res> {
+  factory _$$UpdatePhoneImplCopyWith(
+          _$UpdatePhoneImpl value, $Res Function(_$UpdatePhoneImpl) then) =
+      __$$UpdatePhoneImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String studioName});
+}
+
+/// @nodoc
+class __$$UpdatePhoneImplCopyWithImpl<$Res>
+    extends _$ArtistProfileEventCopyWithImpl<$Res, _$UpdatePhoneImpl>
+    implements _$$UpdatePhoneImplCopyWith<$Res> {
+  __$$UpdatePhoneImplCopyWithImpl(
+      _$UpdatePhoneImpl _value, $Res Function(_$UpdatePhoneImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? studioName = null,
+  }) {
+    return _then(_$UpdatePhoneImpl(
+      null == studioName
+          ? _value.studioName
+          : studioName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdatePhoneImpl implements _UpdatePhone {
+  const _$UpdatePhoneImpl(this.studioName);
+
+  @override
+  final String studioName;
+
+  @override
+  String toString() {
+    return 'ArtistProfileEvent.updatePhone(studioName: $studioName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatePhoneImpl &&
+            (identical(other.studioName, studioName) ||
+                other.studioName == studioName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, studioName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdatePhoneImplCopyWith<_$UpdatePhoneImpl> get copyWith =>
+      __$$UpdatePhoneImplCopyWithImpl<_$UpdatePhoneImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadProfile,
+    required TResult Function(Artist artist) updateProfile,
+    required TResult Function(String firstName, String lastName) updateName,
+    required TResult Function(String username) updateUsername,
+    required TResult Function(String description) updateDescription,
+    required TResult Function(List<String> genres) updateGenres,
+    required TResult Function(List<String> tags) updateTags,
+    required TResult Function(XFile image) updateProfileImage,
+    required TResult Function(XFile image) updateStudioPhoto,
+    required TResult Function(String studioName) updateEmail,
+    required TResult Function(String studioName) updatePhone,
+  }) {
+    return updatePhone(studioName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadProfile,
+    TResult? Function(Artist artist)? updateProfile,
+    TResult? Function(String firstName, String lastName)? updateName,
+    TResult? Function(String username)? updateUsername,
+    TResult? Function(String description)? updateDescription,
+    TResult? Function(List<String> genres)? updateGenres,
+    TResult? Function(List<String> tags)? updateTags,
+    TResult? Function(XFile image)? updateProfileImage,
+    TResult? Function(XFile image)? updateStudioPhoto,
+    TResult? Function(String studioName)? updateEmail,
+    TResult? Function(String studioName)? updatePhone,
+  }) {
+    return updatePhone?.call(studioName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadProfile,
+    TResult Function(Artist artist)? updateProfile,
+    TResult Function(String firstName, String lastName)? updateName,
+    TResult Function(String username)? updateUsername,
+    TResult Function(String description)? updateDescription,
+    TResult Function(List<String> genres)? updateGenres,
+    TResult Function(List<String> tags)? updateTags,
+    TResult Function(XFile image)? updateProfileImage,
+    TResult Function(XFile image)? updateStudioPhoto,
+    TResult Function(String studioName)? updateEmail,
+    TResult Function(String studioName)? updatePhone,
+    required TResult orElse(),
+  }) {
+    if (updatePhone != null) {
+      return updatePhone(studioName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadProfile value) loadProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
+    required TResult Function(_UpdateName value) updateName,
+    required TResult Function(_UpdateUsername value) updateUsername,
+    required TResult Function(_UpdateDescription value) updateDescription,
+    required TResult Function(_UpdateGenres value) updateGenres,
+    required TResult Function(_UpdateTags value) updateTags,
+    required TResult Function(_UpdateProfileImage value) updateProfileImage,
+    required TResult Function(_UpdateStudioPhoto value) updateStudioPhoto,
+    required TResult Function(_UpdateEmail value) updateEmail,
+    required TResult Function(_UpdatePhone value) updatePhone,
+  }) {
+    return updatePhone(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadProfile value)? loadProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
+    TResult? Function(_UpdateName value)? updateName,
+    TResult? Function(_UpdateUsername value)? updateUsername,
+    TResult? Function(_UpdateDescription value)? updateDescription,
+    TResult? Function(_UpdateGenres value)? updateGenres,
+    TResult? Function(_UpdateTags value)? updateTags,
+    TResult? Function(_UpdateProfileImage value)? updateProfileImage,
+    TResult? Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult? Function(_UpdateEmail value)? updateEmail,
+    TResult? Function(_UpdatePhone value)? updatePhone,
+  }) {
+    return updatePhone?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadProfile value)? loadProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
+    TResult Function(_UpdateName value)? updateName,
+    TResult Function(_UpdateUsername value)? updateUsername,
+    TResult Function(_UpdateDescription value)? updateDescription,
+    TResult Function(_UpdateGenres value)? updateGenres,
+    TResult Function(_UpdateTags value)? updateTags,
+    TResult Function(_UpdateProfileImage value)? updateProfileImage,
+    TResult Function(_UpdateStudioPhoto value)? updateStudioPhoto,
+    TResult Function(_UpdateEmail value)? updateEmail,
+    TResult Function(_UpdatePhone value)? updatePhone,
+    required TResult orElse(),
+  }) {
+    if (updatePhone != null) {
+      return updatePhone(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdatePhone implements ArtistProfileEvent {
+  const factory _UpdatePhone(final String studioName) = _$UpdatePhoneImpl;
+
+  String get studioName;
+  @JsonKey(ignore: true)
+  _$$UpdatePhoneImplCopyWith<_$UpdatePhoneImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

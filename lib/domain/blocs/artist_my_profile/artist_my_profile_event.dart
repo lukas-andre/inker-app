@@ -18,4 +18,8 @@ class ArtistProfileEvent with _$ArtistProfileEvent {
       _UpdateProfileImage;
   const factory ArtistProfileEvent.updateStudioPhoto(XFile image) =
       _UpdateStudioPhoto;
+  const factory ArtistProfileEvent.updateEmail(String studioName) =
+      _UpdateEmail;
+  const factory ArtistProfileEvent.updatePhone(String studioName) =
+      _UpdatePhone;
 }
