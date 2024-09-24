@@ -93,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
             "Esta hora entra en conflicto con un evento existente"),
+        "contactInformation":
+            MessageLookupByLibrary.simpleMessage("Información de Contacto"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
@@ -179,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se encontraron cotizaciones"),
         "noReviewsYet":
             MessageLookupByLibrary.simpleMessage("Aún no hay reseñas"),
+        "noServicesAvailable": MessageLookupByLibrary.simpleMessage(
+            "No hay servicios disponibles"),
         "noStudioPhotoAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay foto del estudio disponible"),
         "noWorkEvidence":
@@ -256,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
         "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
+        "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar Cambios"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
@@ -279,6 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, selecciona un rango de tiempo válido"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
+        "services": MessageLookupByLibrary.simpleMessage("Servicios"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
         "shortDescription":
             MessageLookupByLibrary.simpleMessage("Descripción Corta"),

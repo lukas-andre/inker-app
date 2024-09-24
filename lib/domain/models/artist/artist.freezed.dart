@@ -29,11 +29,15 @@ mixin _$Artist {
   String get lastName => throw _privateConstructorUsedError;
   String get shortDescription => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
+  int? get profileThumbnailVersion => throw _privateConstructorUsedError;
   List<String>? get tags => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String? get studioPhoto => throw _privateConstructorUsedError;
+  int? get studioPhotoVersion => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
+  Contact? get contact => throw _privateConstructorUsedError;
+  List<Service> get services => throw _privateConstructorUsedError;
   int get followers => throw _privateConstructorUsedError;
   int get follows => throw _privateConstructorUsedError;
 
@@ -57,13 +61,19 @@ abstract class $ArtistCopyWith<$Res> {
       String lastName,
       String shortDescription,
       String? profileThumbnail,
+      int? profileThumbnailVersion,
       List<String>? tags,
       List<String>? genres,
       double rating,
       String? studioPhoto,
+      int? studioPhotoVersion,
       DateTime? deletedAt,
+      Contact? contact,
+      List<Service> services,
       int followers,
       int follows});
+
+  $ContactCopyWith<$Res>? get contact;
 }
 
 /// @nodoc
@@ -88,11 +98,15 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? lastName = null,
     Object? shortDescription = null,
     Object? profileThumbnail = freezed,
+    Object? profileThumbnailVersion = freezed,
     Object? tags = freezed,
     Object? genres = freezed,
     Object? rating = null,
     Object? studioPhoto = freezed,
+    Object? studioPhotoVersion = freezed,
     Object? deletedAt = freezed,
+    Object? contact = freezed,
+    Object? services = null,
     Object? followers = null,
     Object? follows = null,
   }) {
@@ -133,6 +147,10 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileThumbnailVersion: freezed == profileThumbnailVersion
+          ? _value.profileThumbnailVersion
+          : profileThumbnailVersion // ignore: cast_nullable_to_non_nullable
+              as int?,
       tags: freezed == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -149,10 +167,22 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      studioPhotoVersion: freezed == studioPhotoVersion
+          ? _value.studioPhotoVersion
+          : studioPhotoVersion // ignore: cast_nullable_to_non_nullable
+              as int?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      contact: freezed == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as Contact?,
+      services: null == services
+          ? _value.services
+          : services // ignore: cast_nullable_to_non_nullable
+              as List<Service>,
       followers: null == followers
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -162,6 +192,18 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           : follows // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ContactCopyWith<$Res>? get contact {
+    if (_value.contact == null) {
+      return null;
+    }
+
+    return $ContactCopyWith<$Res>(_value.contact!, (value) {
+      return _then(_value.copyWith(contact: value) as $Val);
+    });
   }
 }
 
@@ -182,13 +224,20 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       String lastName,
       String shortDescription,
       String? profileThumbnail,
+      int? profileThumbnailVersion,
       List<String>? tags,
       List<String>? genres,
       double rating,
       String? studioPhoto,
+      int? studioPhotoVersion,
       DateTime? deletedAt,
+      Contact? contact,
+      List<Service> services,
       int followers,
       int follows});
+
+  @override
+  $ContactCopyWith<$Res>? get contact;
 }
 
 /// @nodoc
@@ -211,11 +260,15 @@ class __$$ArtistImplCopyWithImpl<$Res>
     Object? lastName = null,
     Object? shortDescription = null,
     Object? profileThumbnail = freezed,
+    Object? profileThumbnailVersion = freezed,
     Object? tags = freezed,
     Object? genres = freezed,
     Object? rating = null,
     Object? studioPhoto = freezed,
+    Object? studioPhotoVersion = freezed,
     Object? deletedAt = freezed,
+    Object? contact = freezed,
+    Object? services = null,
     Object? followers = null,
     Object? follows = null,
   }) {
@@ -256,6 +309,10 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileThumbnailVersion: freezed == profileThumbnailVersion
+          ? _value.profileThumbnailVersion
+          : profileThumbnailVersion // ignore: cast_nullable_to_non_nullable
+              as int?,
       tags: freezed == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -272,10 +329,22 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.studioPhoto
           : studioPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      studioPhotoVersion: freezed == studioPhotoVersion
+          ? _value.studioPhotoVersion
+          : studioPhotoVersion // ignore: cast_nullable_to_non_nullable
+              as int?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      contact: freezed == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as Contact?,
+      services: null == services
+          ? _value._services
+          : services // ignore: cast_nullable_to_non_nullable
+              as List<Service>,
       followers: null == followers
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -301,15 +370,20 @@ class _$ArtistImpl implements _Artist {
       required this.lastName,
       required this.shortDescription,
       this.profileThumbnail,
+      this.profileThumbnailVersion,
       final List<String>? tags,
       final List<String>? genres,
       this.rating = 0.0,
       this.studioPhoto,
+      this.studioPhotoVersion,
       this.deletedAt,
+      this.contact,
+      final List<Service> services = const [],
       this.followers = 0,
       this.follows = 0})
       : _tags = tags,
-        _genres = genres;
+        _genres = genres,
+        _services = services;
 
   factory _$ArtistImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArtistImplFromJson(json);
@@ -332,6 +406,8 @@ class _$ArtistImpl implements _Artist {
   final String shortDescription;
   @override
   final String? profileThumbnail;
+  @override
+  final int? profileThumbnailVersion;
   final List<String>? _tags;
   @override
   List<String>? get tags {
@@ -358,7 +434,20 @@ class _$ArtistImpl implements _Artist {
   @override
   final String? studioPhoto;
   @override
+  final int? studioPhotoVersion;
+  @override
   final DateTime? deletedAt;
+  @override
+  final Contact? contact;
+  final List<Service> _services;
+  @override
+  @JsonKey()
+  List<Service> get services {
+    if (_services is EqualUnmodifiableListView) return _services;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_services);
+  }
+
   @override
   @JsonKey()
   final int followers;
@@ -368,7 +457,7 @@ class _$ArtistImpl implements _Artist {
 
   @override
   String toString() {
-    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, deletedAt: $deletedAt, followers: $followers, follows: $follows)';
+    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, services: $services, followers: $followers, follows: $follows)';
   }
 
   @override
@@ -392,13 +481,20 @@ class _$ArtistImpl implements _Artist {
                 other.shortDescription == shortDescription) &&
             (identical(other.profileThumbnail, profileThumbnail) ||
                 other.profileThumbnail == profileThumbnail) &&
+            (identical(
+                    other.profileThumbnailVersion, profileThumbnailVersion) ||
+                other.profileThumbnailVersion == profileThumbnailVersion) &&
             const DeepCollectionEquality().equals(other._tags, _tags) &&
             const DeepCollectionEquality().equals(other._genres, _genres) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.studioPhoto, studioPhoto) ||
                 other.studioPhoto == studioPhoto) &&
+            (identical(other.studioPhotoVersion, studioPhotoVersion) ||
+                other.studioPhotoVersion == studioPhotoVersion) &&
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt) &&
+            (identical(other.contact, contact) || other.contact == contact) &&
+            const DeepCollectionEquality().equals(other._services, _services) &&
             (identical(other.followers, followers) ||
                 other.followers == followers) &&
             (identical(other.follows, follows) || other.follows == follows));
@@ -406,24 +502,29 @@ class _$ArtistImpl implements _Artist {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      createdAt,
-      updatedAt,
-      userId,
-      username,
-      firstName,
-      lastName,
-      shortDescription,
-      profileThumbnail,
-      const DeepCollectionEquality().hash(_tags),
-      const DeepCollectionEquality().hash(_genres),
-      rating,
-      studioPhoto,
-      deletedAt,
-      followers,
-      follows);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        createdAt,
+        updatedAt,
+        userId,
+        username,
+        firstName,
+        lastName,
+        shortDescription,
+        profileThumbnail,
+        profileThumbnailVersion,
+        const DeepCollectionEquality().hash(_tags),
+        const DeepCollectionEquality().hash(_genres),
+        rating,
+        studioPhoto,
+        studioPhotoVersion,
+        deletedAt,
+        contact,
+        const DeepCollectionEquality().hash(_services),
+        followers,
+        follows
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -450,11 +551,15 @@ abstract class _Artist implements Artist {
       required final String lastName,
       required final String shortDescription,
       final String? profileThumbnail,
+      final int? profileThumbnailVersion,
       final List<String>? tags,
       final List<String>? genres,
       final double rating,
       final String? studioPhoto,
+      final int? studioPhotoVersion,
       final DateTime? deletedAt,
+      final Contact? contact,
+      final List<Service> services,
       final int followers,
       final int follows}) = _$ArtistImpl;
 
@@ -479,6 +584,8 @@ abstract class _Artist implements Artist {
   @override
   String? get profileThumbnail;
   @override
+  int? get profileThumbnailVersion;
+  @override
   List<String>? get tags;
   @override
   List<String>? get genres;
@@ -487,7 +594,13 @@ abstract class _Artist implements Artist {
   @override
   String? get studioPhoto;
   @override
+  int? get studioPhotoVersion;
+  @override
   DateTime? get deletedAt;
+  @override
+  Contact? get contact;
+  @override
+  List<Service> get services;
   @override
   int get followers;
   @override
@@ -495,5 +608,486 @@ abstract class _Artist implements Artist {
   @override
   @JsonKey(ignore: true)
   _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Contact _$ContactFromJson(Map<String, dynamic> json) {
+  return _Contact.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Contact {
+  int get id => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String get phoneDialCode => throw _privateConstructorUsedError;
+  String get phoneCountryIsoCode => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ContactCopyWith<Contact> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ContactCopyWith<$Res> {
+  factory $ContactCopyWith(Contact value, $Res Function(Contact) then) =
+      _$ContactCopyWithImpl<$Res, Contact>;
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String email,
+      String phone,
+      String phoneDialCode,
+      String phoneCountryIsoCode});
+}
+
+/// @nodoc
+class _$ContactCopyWithImpl<$Res, $Val extends Contact>
+    implements $ContactCopyWith<$Res> {
+  _$ContactCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? email = null,
+    Object? phone = null,
+    Object? phoneDialCode = null,
+    Object? phoneCountryIsoCode = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneDialCode: null == phoneDialCode
+          ? _value.phoneDialCode
+          : phoneDialCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneCountryIsoCode: null == phoneCountryIsoCode
+          ? _value.phoneCountryIsoCode
+          : phoneCountryIsoCode // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ContactImplCopyWith<$Res> implements $ContactCopyWith<$Res> {
+  factory _$$ContactImplCopyWith(
+          _$ContactImpl value, $Res Function(_$ContactImpl) then) =
+      __$$ContactImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String email,
+      String phone,
+      String phoneDialCode,
+      String phoneCountryIsoCode});
+}
+
+/// @nodoc
+class __$$ContactImplCopyWithImpl<$Res>
+    extends _$ContactCopyWithImpl<$Res, _$ContactImpl>
+    implements _$$ContactImplCopyWith<$Res> {
+  __$$ContactImplCopyWithImpl(
+      _$ContactImpl _value, $Res Function(_$ContactImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? email = null,
+    Object? phone = null,
+    Object? phoneDialCode = null,
+    Object? phoneCountryIsoCode = null,
+  }) {
+    return _then(_$ContactImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneDialCode: null == phoneDialCode
+          ? _value.phoneDialCode
+          : phoneDialCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneCountryIsoCode: null == phoneCountryIsoCode
+          ? _value.phoneCountryIsoCode
+          : phoneCountryIsoCode // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ContactImpl implements _Contact {
+  const _$ContactImpl(
+      {required this.id,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.email,
+      required this.phone,
+      required this.phoneDialCode,
+      required this.phoneCountryIsoCode});
+
+  factory _$ContactImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ContactImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final String email;
+  @override
+  final String phone;
+  @override
+  final String phoneDialCode;
+  @override
+  final String phoneCountryIsoCode;
+
+  @override
+  String toString() {
+    return 'Contact(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, email: $email, phone: $phone, phoneDialCode: $phoneDialCode, phoneCountryIsoCode: $phoneCountryIsoCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ContactImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.phoneDialCode, phoneDialCode) ||
+                other.phoneDialCode == phoneDialCode) &&
+            (identical(other.phoneCountryIsoCode, phoneCountryIsoCode) ||
+                other.phoneCountryIsoCode == phoneCountryIsoCode));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, createdAt, updatedAt, email,
+      phone, phoneDialCode, phoneCountryIsoCode);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ContactImplCopyWith<_$ContactImpl> get copyWith =>
+      __$$ContactImplCopyWithImpl<_$ContactImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ContactImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Contact implements Contact {
+  const factory _Contact(
+      {required final int id,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      required final String email,
+      required final String phone,
+      required final String phoneDialCode,
+      required final String phoneCountryIsoCode}) = _$ContactImpl;
+
+  factory _Contact.fromJson(Map<String, dynamic> json) = _$ContactImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  String get email;
+  @override
+  String get phone;
+  @override
+  String get phoneDialCode;
+  @override
+  String get phoneCountryIsoCode;
+  @override
+  @JsonKey(ignore: true)
+  _$$ContactImplCopyWith<_$ContactImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Service _$ServiceFromJson(Map<String, dynamic> json) {
+  return _Service.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Service {
+  int get id => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServiceCopyWith<Service> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServiceCopyWith<$Res> {
+  factory $ServiceCopyWith(Service value, $Res Function(Service) then) =
+      _$ServiceCopyWithImpl<$Res, Service>;
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String name,
+      String description});
+}
+
+/// @nodoc
+class _$ServiceCopyWithImpl<$Res, $Val extends Service>
+    implements $ServiceCopyWith<$Res> {
+  _$ServiceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? name = null,
+    Object? description = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServiceImplCopyWith<$Res> implements $ServiceCopyWith<$Res> {
+  factory _$$ServiceImplCopyWith(
+          _$ServiceImpl value, $Res Function(_$ServiceImpl) then) =
+      __$$ServiceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      String name,
+      String description});
+}
+
+/// @nodoc
+class __$$ServiceImplCopyWithImpl<$Res>
+    extends _$ServiceCopyWithImpl<$Res, _$ServiceImpl>
+    implements _$$ServiceImplCopyWith<$Res> {
+  __$$ServiceImplCopyWithImpl(
+      _$ServiceImpl _value, $Res Function(_$ServiceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? name = null,
+    Object? description = null,
+  }) {
+    return _then(_$ServiceImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServiceImpl implements _Service {
+  const _$ServiceImpl(
+      {required this.id,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.name,
+      required this.description});
+
+  factory _$ServiceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServiceImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final String name;
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'Service(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServiceImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, createdAt, updatedAt, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServiceImplCopyWith<_$ServiceImpl> get copyWith =>
+      __$$ServiceImplCopyWithImpl<_$ServiceImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServiceImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Service implements Service {
+  const factory _Service(
+      {required final int id,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      required final String name,
+      required final String description}) = _$ServiceImpl;
+
+  factory _Service.fromJson(Map<String, dynamic> json) = _$ServiceImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServiceImplCopyWith<_$ServiceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -789,5 +789,21 @@
   "noStudioPhotoAvailable": "No studio photo available",
   "@noStudioPhotoAvailable": {
     "description": "Message displayed when there is no studio photo."
+  },
+  "services": "Services",
+  "@services": {
+    "description": "The different types of work or tasks offered."
+  },
+  "noServicesAvailable": "No services available",
+  "@noServicesAvailable": {
+    "description": "Message displayed when there are no services."
+  },
+  "contactInformation": "Contact Information",
+  "@contactInformation": {
+    "description": "Details for getting in touch with someone."
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Action to confirm and save changes."
   }
 }

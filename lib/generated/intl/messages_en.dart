@@ -89,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Time Selection"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
             "This time conflicts with an existing event"),
+        "contactInformation":
+            MessageLookupByLibrary.simpleMessage("Contact Information"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Create Quotation"),
@@ -166,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
+        "noServicesAvailable":
+            MessageLookupByLibrary.simpleMessage("No services available"),
         "noStudioPhotoAvailable":
             MessageLookupByLibrary.simpleMessage("No studio photo available"),
         "noWorkEvidence":
@@ -237,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Respond to Quotation"),
         "responded": MessageLookupByLibrary.simpleMessage("Responded"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Schedule Assistant"),
@@ -258,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please select a valid time range"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Send Message"),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shortDescription":
             MessageLookupByLibrary.simpleMessage("Short Description"),

@@ -1990,6 +1990,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Servicios`
+  String get services {
+    return Intl.message(
+      'Servicios',
+      name: 'services',
+      desc: 'Los servicios que se ofrecen.',
+      args: [],
+    );
+  }
+
+  /// `No hay servicios disponibles`
+  String get noServicesAvailable {
+    return Intl.message(
+      'No hay servicios disponibles',
+      name: 'noServicesAvailable',
+      desc: 'Mensaje que indica que no hay servicios disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Información de Contacto`
+  String get contactInformation {
+    return Intl.message(
+      'Información de Contacto',
+      name: 'contactInformation',
+      desc: 'Información para comunicarse con alguien.',
+      args: [],
+    );
+  }
+
+  /// `Guardar`
+  String get save {
+    return Intl.message(
+      'Guardar',
+      name: 'save',
+      desc: 'Botón para guardar cambios o información.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

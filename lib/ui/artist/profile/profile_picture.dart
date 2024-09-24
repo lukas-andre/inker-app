@@ -7,10 +7,10 @@ class ProfileImage extends StatelessWidget {
   final VoidCallback onTap;
 
   const ProfileImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
