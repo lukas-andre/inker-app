@@ -793,5 +793,21 @@
   "noStudioPhotoAvailable": "No hay foto del estudio disponible",
   "@noStudioPhotoAvailable": {
     "description": "Mensaje que indica que no hay una foto del estudio disponible."
+  },
+  "services": "Servicios",
+  "@services": {
+    "description": "Los servicios que se ofrecen."
+  },
+  "noServicesAvailable": "No hay servicios disponibles",
+  "@noServicesAvailable": {
+    "description": "Mensaje que indica que no hay servicios disponibles."
+  },
+  "contactInformation": "Información de Contacto",
+  "@contactInformation": {
+    "description": "Información para comunicarse con alguien."
+  },
+  "save": "Guardar",
+  "@save": {
+    "description": "Botón para guardar cambios o información."
   }
 }

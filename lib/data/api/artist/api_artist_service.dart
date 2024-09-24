@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -43,7 +44,7 @@ class ApiArtistService implements ArtistService {
   }
 
   @override
-  Future<void> updateArtistProfile(Artist artist) async {
+  Future<void> updateArtistProfile(UpdateArtistDto updateArtistDto) async {
     final url = _httpConfig.surl(path: 'me');
 
     try {
@@ -53,7 +54,7 @@ class ApiArtistService implements ArtistService {
           HttpHeaders.authorizationHeader: 'Bearer ${await _getToken()}',
           HttpHeaders.contentTypeHeader: 'application/json',
         },
-        body: json.encode(artist.toJson()),
+        body: json.encode(updateArtistDto.toJson()),
       );
 
       if (response.statusCode != HttpStatus.ok) {

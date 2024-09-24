@@ -13,7 +13,6 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 class ArtistMyProfilePage extends StatelessWidget {
   const ArtistMyProfilePage({super.key});
 
-  // Constantes para labelKey
   static const String kFullName = 'fullName';
   static const String kUsername = 'username';
   static const String kDescription = 'description';
@@ -21,6 +20,8 @@ class ArtistMyProfilePage extends StatelessWidget {
   static const String kTags = 'tags';
   static const String kProfileImage = 'profileImage';
   static const String kStudioPhoto = 'studioPhoto';
+  static const String kEmail = 'email';
+  static const String kPhone = 'phone';
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,86 @@ class ArtistMyProfilePage extends StatelessWidget {
       child: Column(
         children: [
           _buildProfileHeader(context, artist),
+          _buildServices(context, artist),
+          _buildContactInfo(context, artist),
           _buildProfileDetails(context, artist),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildServices(BuildContext context, Artist artist) {
+    return Container(
+      color: primaryColor,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(S.of(context).services, style: TextStyleTheme.headline3),
+          const SizedBox(height: 8),
+          if (artist.services.isNotEmpty)
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: artist.services.length,
+              itemBuilder: (context, index) {
+                final service = artist.services[index];
+                return Card(
+                  color: Colors.grey[800],
+                  child: ListTile(
+                    title: Text(service.name, style: TextStyleTheme.bodyText1),
+                    subtitle: Text(service.description,
+                        style: TextStyleTheme.bodyText2),
+                  ),
+                );
+              },
+            )
+          else
+            Text(S.of(context).noServicesAvailable,
+                style: TextStyleTheme.bodyText1),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContactInfo(BuildContext context, Artist artist) {
+    return Container(
+      color: primaryColor,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(S.of(context).contactInformation,
+              style: TextStyleTheme.headline3),
+          const SizedBox(height: 8),
+          _buildEditableField(
+            context: context,
+            label: S.of(context).email,
+            value: artist.contact?.email ?? '',
+            onTap: () => _navigateToEditField(
+              context,
+              EditFieldArguments(
+                type: EditFieldType.text,
+                initialValue: artist.contact?.email ?? '',
+                label: S.of(context).email,
+                labelKey: kEmail,
+              ),
+            ),
+          ),
+          _buildEditableField(
+            context: context,
+            label: S.of(context).phone,
+            value: artist.contact?.phone ?? '',
+            onTap: () => _navigateToEditField(
+              context,
+              EditFieldArguments(
+                type: EditFieldType.text,
+                initialValue: artist.contact?.phone ?? '',
+                label: S.of(context).phone,
+                labelKey: kPhone,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -121,19 +201,10 @@ class ArtistMyProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            _buildEditableField(
+            _buildNonEditableField(
               context: context,
               label: S.of(context).username,
               value: artist.username,
-              onTap: () => _navigateToEditField(
-                context,
-                EditFieldArguments(
-                  type: EditFieldType.text,
-                  initialValue: artist.username,
-                  label: S.of(context).username,
-                  labelKey: kUsername,
-                ),
-              ),
             ),
             _buildEditableField(
               context: context,
@@ -149,40 +220,38 @@ class ArtistMyProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            _buildEditableField(
-              context: context,
-              label: S.of(context).genres,
-              value: artist.genres?.join(', ') ?? '',
-              onTap: () => _navigateToEditField(
-                context,
-                EditFieldArguments(
-                  type: EditFieldType.text,
-                  initialValue: artist.genres?.join(', ') ?? '',
-                  label: S.of(context).genres,
-                  labelKey: kGenres,
-                ),
-              ),
-            ),
-            _buildEditableField(
-              context: context,
-              label: S.of(context).tags,
-              value: artist.tags?.join(', ') ?? '',
-              onTap: () => _navigateToEditField(
-                context,
-                EditFieldArguments(
-                  type: EditFieldType.text,
-                  initialValue: artist.tags?.join(', ') ?? '',
-                  label: S.of(context).tags,
-                  labelKey: kTags,
-                ),
-              ),
-            ),
             const SizedBox(height: 16),
             Text(S.of(context).studioPhoto, style: TextStyleTheme.headline3),
             const SizedBox(height: 8),
             _buildStudioPhoto(context, artist),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildNonEditableField({
+    required BuildContext context,
+    required String label,
+    required String value,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(label, style: TextStyleTheme.headline3),
+          const SizedBox(height: 4),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade600),
+              borderRadius: BorderRadius.circular(4.0),
+              color: primaryColor,
+            ),
+            child: Text(value, style: TextStyleTheme.bodyText1),
+          ),
+        ],
       ),
     );
   }
@@ -360,6 +429,12 @@ class ArtistMyProfilePage extends StatelessWidget {
             bloc.add(
                 ArtistProfileEvent.updateStudioPhoto(result.value as XFile));
           }
+          break;
+        case kEmail:
+          bloc.add(ArtistProfileEvent.updateEmail(result.value as String));
+          break;
+        case kPhone:
+          bloc.add(ArtistProfileEvent.updatePhone(result.value as String));
           break;
       }
     }
