@@ -56,16 +56,26 @@ class _TextEditWidgetState extends State<TextEditWidget> {
           const SizedBox(height: 8),
           TextFormField(
             controller: _controller,
-            style: TextStyleTheme.bodyText1,
+            style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.grey[800],
+              fillColor: Colors.transparent,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none,
+                borderSide: BorderSide(color: Colors.grey[600]!),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.grey[600]!),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: secondaryColor),
               ),
             ),
             validator: widget.validator,
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
           ),
           const SizedBox(height: 16),
           SizedBox(
