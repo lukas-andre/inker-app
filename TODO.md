@@ -1,8 +1,8 @@
- # TODO: cambiar estado se acerca en espera cambiar estados de acuerdo si lo esta viendo un artista o un customer solo los translates.
- hacer que cuando agende scrolee automaticamente al nivel donde se creo el evento. tambien siempre que se cambie el dia scrollear al inicio
+ # TODO: cambiar estado se acerca en espera cambiar estados de acuerdo si lo esta viendo un artista o un customer solo los translates. DONE
+ hacer que cuando agende scrolee automaticamente al nivel donde se creo el evento. tambien siempre que se cambie el dia scrollear al inicio DONE
 
- HERMANO QUEDA HACER CACHE DE LO POSIBLE NO IR TODO EL RATO A BUSCAR EL EVENTO
- REGISTER PAGE AGREGAR SI ES TATUADOR O BARBERA E INCLUIR FETCH A TIPOS DE SERVICIOS O HARDCODEAR NOMAS DE MOMENTO SI SON DOS
+# TODO: 23/09/2022
+
 
 # TODO: 04/01/2022
 
