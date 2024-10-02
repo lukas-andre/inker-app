@@ -1,0 +1,13 @@
+// customer_quotation_response_event.dart
+part of 'customer_quotation_response_bloc.dart';
+
+@freezed
+class CustomerQuotationResponseEvent with _$CustomerQuotationResponseEvent {
+  const factory CustomerQuotationResponseEvent.loadQuotation(
+      String quotationId) = _LoadQuotation;
+  const factory CustomerQuotationResponseEvent.submit({
+    required String quotationId,
+    required CustomerQuotationAction action,
+    String? additionalDetails,
+  }) = _Submit;
+}

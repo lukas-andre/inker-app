@@ -21,6 +21,7 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
@@ -160,6 +161,10 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
           create: (context) => LocalizationCubit(),
         ),
+        BlocProvider(
+            create: (context) => CustomerQuotationResponseBloc(
+                quotationService: context.read(),
+                sessionService: context.read())),
       ],
       child: BlocBuilder<LocalizationCubit, Locale>(builder: (context, locale) {
         return BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
