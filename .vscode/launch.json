@@ -33,7 +33,7 @@
             "name": "iOS",
             "request": "launch",
             "type":"dart",
-            "deviceId": "00008101-001A20E91A12001E"
+            "deviceId": "B2A96E2C-BDBD-4348-8480-09E47F81AACC"
         },
     ],
     "compounds": [
