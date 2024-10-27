@@ -805,5 +805,285 @@
   "save": "Save",
   "@save": {
     "description": "Action to confirm and save changes."
+  },
+  "acceptQuotation": "Accept Quotation",
+  "@acceptQuotation": {
+    "description": "Action to agree to a quotation."
+  },
+  "rejectQuotation": "Reject Quotation",
+  "@rejectQuotation": {
+    "description": "Action to refuse a quotation."
+  },
+  "appealQuotation": "Appeal Quotation",
+  "@appealQuotation": {
+    "description": "Action to request a review of a quotation."
+  },
+  "cancelQuotation": "Cancel Quotation",
+  "@cancelQuotation": {
+    "description": "Action to revoke a quotation."
+  },
+  "appealReason": "Appeal Reason",
+  "@appealReason": {
+    "description": "The justification for requesting a review."
+  },
+  "appealReasonDateChange": "Date Change",
+  "@appealReasonDateChange": {
+    "description": "Reason for appeal when requesting a change of date."
+  },
+  "appealReasonPriceChange": "Price Change",
+  "@appealReasonPriceChange": {
+    "description": "Reason for appeal when requesting a change of price."
+  },
+  "appealReasonDesignChange": "Design Change",
+  "@appealReasonDesignChange": {
+    "description": "Reason for appeal when requesting a change of design."
+  },
+  "appealReasonOther": "Other",
+  "@appealReasonOther": {
+    "description": "Another reason for appeal."
+  },
+  "rejectReasonTooExpensive": "Too Expensive",
+  "@rejectReasonTooExpensive": {
+    "description": "Rejection reason when the price is too high."
+  },
+  "rejectReasonNotWhatIWanted": "Not What I Wanted",
+  "@rejectReasonNotWhatIWanted": {
+    "description": "Rejection reason when the design is not what was expected."
+  },
+  "rejectReasonChangedMyMind": "Changed My Mind",
+  "@rejectReasonChangedMyMind": {
+    "description": "Rejection reason when the customer changes their decision."
+  },
+  "rejectReasonFoundAnotherArtist": "Found Another Artist",
+  "@rejectReasonFoundAnotherArtist": {
+    "description": "Rejection reason when the customer chooses a different artist."
+  },
+  "quotationStatusArtistPending": "New Request",
+  "@quotationStatusArtistPending": {
+    "description": "Status shown to artist when quotation is pending"
+  },
+  
+  "quotationStatusArtistAppealed": "Appealed by Customer",
+  "@quotationStatusArtistAppealed": {
+    "description": "Status shown to artist when quotation is appealed"
+  },
+  
+  "quotationStatusArtistQuoted": "Awaiting Reply",
+  "@quotationStatusArtistQuoted": {
+    "description": "Status shown to artist when quotation is quoted"
+  },
+  
+  "quotationStatusArtistAccepted": "Scheduled",
+  "@quotationStatusArtistAccepted": {
+    "description": "Status shown to artist when quotation is accepted"
+  },
+  
+  "quotationStatusArtistRejected": "Rejected by Customer",
+  "@quotationStatusArtistRejected": {
+    "description": "Status shown to artist when quotation is rejected"
+  },
+  
+  "quotationStatusArtistCanceled": "Cancelled by You",
+  "@quotationStatusArtistCanceled": {
+    "description": "Status shown to artist when quotation is canceled"
+  },
+  
+  "quotationStatusCustomerPending": "Awaiting Reply",
+  "@quotationStatusCustomerPending": {
+    "description": "Status shown to customer when quotation is pending"
+  },
+  
+  "quotationStatusCustomerAppealed": "Awaiting Artist",
+  "@quotationStatusCustomerAppealed": {
+    "description": "Status shown to customer when quotation is appealed"
+  },
+  
+  "quotationStatusCustomerQuoted": "Received Quotation",
+  "@quotationStatusCustomerQuoted": {
+    "description": "Status shown to customer when quotation is quoted"
+  },
+  
+  "quotationStatusCustomerAccepted": "Scheduled",
+  "@quotationStatusCustomerAccepted": {
+    "description": "Status shown to customer when quotation is accepted"
+  },
+  
+  "quotationStatusCustomerRejected": "Rejected by You",
+  "@quotationStatusCustomerRejected": {
+    "description": "Status shown to customer when quotation is rejected"
+  },
+  
+  "quotationStatusCustomerCanceled": "Cancelled",
+  "@quotationStatusCustomerCanceled": {
+    "description": "Status shown to customer when quotation is canceled"
+  },
+  "currentStatus": "Current Status",
+  "@currentStatus": {
+    "description": "Field or label to display the current status of something."
+  },
+  "quotationHistory": "Quotation History",
+  "@quotationHistory": {
+    "description": "Field or label to display the history of quotations."
+  },
+  "changedStatusFrom": "changed the status from",
+  "@changedStatusFrom": {
+    "description": "Message indicating that the status of something has changed."
+  },
+  "quotedTheRequest": "Quoted the request",
+  "@quotedTheRequest": {
+    "description": "Message indicating that a request has been quoted."
+  },
+  "appealedTheQuotation": "Appealed the quotation",
+  "@appealedTheQuotation": {
+    "description": "Message indicating that a quotation has been appealed."
+  },
+  "statusPending": "Pending",
+  "@statusPending": {
+    "description": "Status indicating that something is waiting."
+  },
+  "statusQuoted": "Quoted",
+  "@statusQuoted": {
+    "description": "Status indicating that something has been quoted."
+  },
+  "statusAccepted": "Accepted",
+  "@statusAccepted": {
+    "description": "Status indicating that something has been accepted."
+  },
+  "statusRejected": "Rejected",
+  "@statusRejected": {
+    "description": "Status indicating that something has been rejected."
+  },
+  "statusCanceled": "Canceled",
+  "@statusCanceled": {
+    "description": "Status indicating that something has been canceled."
+  },
+  "statusAppealed": "Appealed",
+  "@statusAppealed": {
+    "description": "Status indicating that something has been appealed."
+  },
+  "artist": "Artist",
+  "@artist": {
+    "description": "A person who creates art."
+  },
+  "customer": "Customer",
+  "@customer": {
+    "description": "A person who buys goods or services."
+  },
+  "system": "System",
+  "@system": {
+    "description": "A set of things working together as a whole."
+  },
+  "viewDetails": "View Details",
+  "@viewDetails": {
+    "description": "Action to see more information."
+  },
+  "expand": "Expand",
+  "@expand": {
+    "description": "Action to show more content."
+  },
+  "collapse": "Collapse",
+  "@collapse": {
+    "description": "Action to hide content."
+  },
+  "hoursAndMinutes": "{hoursv2} hours and {minutesv2} minutes",
+  "@hoursAndMinutes": {
+    "description": "Text showing duration with both hours and minutes",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      },
+      "minutesv2": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+
+  "hoursv2": "{hoursv2} hours",
+  "@hoursv2": {
+    "description": "Text showing duration in hours only",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "minutesv2": "{minutesv2} minutes",
+  "@minutesv2": {
+    "description": "Text showing duration in minutes only",
+    "placeholders": {
+      "minutesv2": {
+        "type": "int",
+        "example": "45"
+      }
+    }
+  },
+  "cancellationReason": "Cancellation Reason",
+  "@cancellationReason": {
+    "description": "Label for showing the reason of cancellation"
+  },
+  "cancelReasonChangeOfMind": "Change of mind",
+  "@cancelReasonChangeOfMind": {
+    "description": "Cancellation reason when customer changes their mind"
+  },
+  "cancelReasonFoundAnotherArtist": "Found another artist",
+  "@cancelReasonFoundAnotherArtist": {
+    "description": "Cancellation reason when customer found another artist"
+  },
+  "cancelReasonFinancialReasons": "Financial reasons",
+  "@cancelReasonFinancialReasons": {
+    "description": "Cancellation reason due to financial issues"
+  },
+  "cancelReasonPersonalReasons": "Personal reasons",
+  "@cancelReasonPersonalReasons": {
+    "description": "Cancellation reason due to personal issues"
+  },
+  "cancelReasonOther": "Other",
+  "@cancelReasonOther": {
+    "description": "Cancellation reason when it doesn't fit other categories"
+  },
+  "cancelReasonNotAttended": "Appointment not attended",
+  "@cancelReasonNotAttended": {
+    "description": "System cancellation reason when appointment was missed"
+  },
+  "cancelReasonSystemTimeout": "System timeout",
+  "@cancelReasonSystemTimeout": {
+    "description": "System cancellation reason when request timed out"
+  },
+  "noImagesAvailable": "No images available",
+  "@noImagesAvailable": {
+    "description": "Message displayed when there are no images."
+  },
+  "acceptedTheQuotation": "accepted the quotation",
+  "@acceptedTheQuotation": {
+    "description": "Action text when a quotation is accepted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rejectedTheQuotation": "rejected the quotation",
+  "@rejectedTheQuotation": {
+    "description": "Action text when a quotation is rejected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "canceledTheQuotation": "canceled the quotation",
+  "@canceledTheQuotation": {
+    "description": "Action text when a quotation is canceled",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appointmentDateChangedFrom": "Appointment date changed from",
+  "@appointmentDateChangedFrom": {
+    "description": "Text shown when appointment date is changed, followed by the old and new dates",
+    "type": "text",
+    "placeholders": {}
+  },
+  "estimatedCostChangedFrom": "Estimated cost changed from",
+  "@estimatedCostChangedFrom": {
+    "description": "Text shown when estimated cost is changed, followed by the old and new amounts",
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -179,8 +179,10 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
       id: (json['id'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      quotation: Quotation.fromJson(
-          Map<String, dynamic>.from(json['quotation'] as Map)),
+      quotation: json['quotation'] == null
+          ? null
+          : Quotation.fromJson(
+              Map<String, dynamic>.from(json['quotation'] as Map)),
       previousStatus:
           $enumDecode(_$QuotationStatusEnumMap, json['previousStatus']),
       newStatus: $enumDecode(_$QuotationStatusEnumMap, json['newStatus']),
@@ -188,9 +190,8 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
       changedBy: (json['changedBy'] as num).toInt(),
       changedByUserType:
           $enumDecode(_$QuotationRoleEnumMap, json['changedByUserType']),
-      previousEstimatedCost:
-          (json['previousEstimatedCost'] as num?)?.toDouble(),
-      newEstimatedCost: (json['newEstimatedCost'] as num?)?.toDouble(),
+      previousEstimatedCost: json['previousEstimatedCost'] as String?,
+      newEstimatedCost: json['newEstimatedCost'] as String?,
       previousAppointmentDate: json['previousAppointmentDate'] == null
           ? null
           : DateTime.parse(json['previousAppointmentDate'] as String),
@@ -216,12 +217,6 @@ Map<String, dynamic> _$$QuotationHistoryImplToJson(
     'id': instance.id,
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
-    'quotation': instance.quotation.toJson(),
-    'previousStatus': _$QuotationStatusEnumMap[instance.previousStatus]!,
-    'newStatus': _$QuotationStatusEnumMap[instance.newStatus]!,
-    'changedAt': instance.changedAt.toIso8601String(),
-    'changedBy': instance.changedBy,
-    'changedByUserType': _$QuotationRoleEnumMap[instance.changedByUserType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -230,6 +225,13 @@ Map<String, dynamic> _$$QuotationHistoryImplToJson(
     }
   }
 
+  writeNotNull('quotation', instance.quotation?.toJson());
+  val['previousStatus'] = _$QuotationStatusEnumMap[instance.previousStatus]!;
+  val['newStatus'] = _$QuotationStatusEnumMap[instance.newStatus]!;
+  val['changedAt'] = instance.changedAt.toIso8601String();
+  val['changedBy'] = instance.changedBy;
+  val['changedByUserType'] =
+      _$QuotationRoleEnumMap[instance.changedByUserType]!;
   writeNotNull('previousEstimatedCost', instance.previousEstimatedCost);
   writeNotNull('newEstimatedCost', instance.newEstimatedCost);
   writeNotNull('previousAppointmentDate',

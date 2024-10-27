@@ -10,10 +10,13 @@ class AnimatedQuotationDetailsAccordion extends StatefulWidget {
   final Quotation quotation;
   final S l10n;
 
+  final VoidCallback? onViewDetails;
+
   const AnimatedQuotationDetailsAccordion({
     super.key,
     required this.quotation,
     required this.l10n,
+    this.onViewDetails,
   });
 
   @override
@@ -64,20 +67,60 @@ class _AnimatedQuotationDetailsAccordionState
           child: Container(
             padding: const EdgeInsets.all(16),
             color: primaryColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                Text(
-                  widget.l10n.quotationDetails,
-                  style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.l10n.quotationDetails,
+                        style: TextStyleTheme.headline3
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    RotationTransition(
+                      turns: _iconTurns,
+                      child: const Icon(
+                        Icons.expand_more,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                RotationTransition(
-                  turns: _iconTurns,
-                  child: const Icon(
-                    Icons.expand_more,
-                    color: Colors.white,
+                if (widget.onViewDetails != null && _isExpanded) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton.icon(
+                        onPressed: widget.onViewDetails,
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          backgroundColor: Colors.white.withOpacity(0.1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.visibility_outlined,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        label: Text(
+                          widget.l10n.viewDetails,
+                          style: TextStyleTheme.button.copyWith(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ],
             ),
           ),
@@ -93,14 +136,23 @@ class _AnimatedQuotationDetailsAccordionState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildDetailItem(
-                    widget.l10n.description, widget.quotation.description),
-                _buildDetailItem(widget.l10n.status,
-                    getStatusText(widget.quotation.status, widget.l10n)),
-                _buildDateDetailItem(widget.l10n.createdAt,
-                    widget.quotation.createdAt, widget.l10n),
+                  widget.l10n.description,
+                  widget.quotation.description,
+                ),
+                _buildDetailItem(
+                  widget.l10n.status,
+                  getStatusText(widget.quotation.status, widget.l10n),
+                ),
+                _buildDateDetailItem(
+                  widget.l10n.createdAt,
+                  widget.quotation.createdAt,
+                  widget.l10n,
+                ),
                 if (widget.quotation.referenceImages != null)
                   _buildReferenceImages(
-                      widget.quotation.referenceImages!, widget.l10n),
+                    widget.quotation.referenceImages!,
+                    widget.l10n,
+                  ),
               ],
             ),
           ),

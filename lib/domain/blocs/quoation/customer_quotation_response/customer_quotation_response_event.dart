@@ -8,6 +8,8 @@ class CustomerQuotationResponseEvent with _$CustomerQuotationResponseEvent {
   const factory CustomerQuotationResponseEvent.submit({
     required String quotationId,
     required CustomerQuotationAction action,
+    QuotationCustomerRejectReason? rejectionReason,
+    QuotationCustomerAppealReason? appealReason,
     String? additionalDetails,
   }) = _Submit;
 }

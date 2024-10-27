@@ -26,19 +26,30 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(count) =>
       "${Intl.plural(count, one: '1 hour ago', other: '${count} hours ago')}";
 
-  static String m2(count) =>
-      "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
+  static String m2(hoursv2, minutesv2) =>
+      "${hoursv2} hours and ${minutesv2} minutes";
 
-  static String m3(count) =>
-      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+  static String m3(hoursv2) => "${hoursv2} hours";
 
   static String m4(count) =>
+      "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
+
+  static String m5(minutesv2) => "${minutesv2} minutes";
+
+  static String m6(count) =>
+      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+
+  static String m7(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+        "acceptQuotation":
+            MessageLookupByLibrary.simpleMessage("Accept Quotation"),
         "accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
+        "acceptedTheQuotation":
+            MessageLookupByLibrary.simpleMessage("accepted the quotation"),
         "action": MessageLookupByLibrary.simpleMessage("Action"),
         "addDescription":
             MessageLookupByLibrary.simpleMessage("Add Description"),
@@ -49,14 +60,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appeal": MessageLookupByLibrary.simpleMessage("Appeal"),
+        "appealQuotation":
+            MessageLookupByLibrary.simpleMessage("Appeal Quotation"),
+        "appealReason": MessageLookupByLibrary.simpleMessage("Appeal Reason"),
+        "appealReasonDateChange":
+            MessageLookupByLibrary.simpleMessage("Date Change"),
+        "appealReasonDesignChange":
+            MessageLookupByLibrary.simpleMessage("Design Change"),
+        "appealReasonOther": MessageLookupByLibrary.simpleMessage("Other"),
+        "appealReasonPriceChange":
+            MessageLookupByLibrary.simpleMessage("Price Change"),
+        "appealedTheQuotation":
+            MessageLookupByLibrary.simpleMessage("Appealed the quotation"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Appointment Date"),
+        "appointmentDateChangedFrom": MessageLookupByLibrary.simpleMessage(
+            "Appointment date changed from"),
         "appointmentDateTime":
             MessageLookupByLibrary.simpleMessage("Appointment Date & Time"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
+        "artist": MessageLookupByLibrary.simpleMessage("Artist"),
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
         "awaitingCustomer":
@@ -66,18 +92,40 @@ class MessageLookup extends MessageLookupByLibrary {
         "between": MessageLookupByLibrary.simpleMessage("between"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancel Event"),
+        "cancelQuotation":
+            MessageLookupByLibrary.simpleMessage("Cancel Quotation"),
         "cancelQuotationConfirmationMessage":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to cancel this quotation?"),
         "cancelQuotationConfirmationTitle":
             MessageLookupByLibrary.simpleMessage("Cancel Quotation"),
+        "cancelReasonChangeOfMind":
+            MessageLookupByLibrary.simpleMessage("Change of mind"),
+        "cancelReasonFinancialReasons":
+            MessageLookupByLibrary.simpleMessage("Financial reasons"),
+        "cancelReasonFoundAnotherArtist":
+            MessageLookupByLibrary.simpleMessage("Found another artist"),
+        "cancelReasonNotAttended":
+            MessageLookupByLibrary.simpleMessage("Appointment not attended"),
+        "cancelReasonOther": MessageLookupByLibrary.simpleMessage("Other"),
+        "cancelReasonPersonalReasons":
+            MessageLookupByLibrary.simpleMessage("Personal reasons"),
+        "cancelReasonSystemTimeout":
+            MessageLookupByLibrary.simpleMessage("System timeout"),
+        "canceledTheQuotation":
+            MessageLookupByLibrary.simpleMessage("canceled the quotation"),
+        "cancellationReason":
+            MessageLookupByLibrary.simpleMessage("Cancellation Reason"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "changeImage": MessageLookupByLibrary.simpleMessage("Change Image"),
         "changeSelection":
             MessageLookupByLibrary.simpleMessage("Change Selection"),
+        "changedStatusFrom":
+            MessageLookupByLibrary.simpleMessage("changed the status from"),
         "characters": MessageLookupByLibrary.simpleMessage("characters"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "collapse": MessageLookupByLibrary.simpleMessage("Collapse"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmDeletion":
@@ -95,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Create Quotation"),
         "createdAt": MessageLookupByLibrary.simpleMessage("Created At"),
+        "currentStatus": MessageLookupByLibrary.simpleMessage("Current Status"),
+        "customer": MessageLookupByLibrary.simpleMessage("Customer"),
         "daysAgo": m0,
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
@@ -117,6 +167,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
             "Notes exceed the limit of characters"),
         "estimatedCost": MessageLookupByLibrary.simpleMessage("Estimated Cost"),
+        "estimatedCostChangedFrom":
+            MessageLookupByLibrary.simpleMessage("Estimated cost changed from"),
         "estimatedCostDisclaimer": MessageLookupByLibrary.simpleMessage(
             "This is an estimated cost and may vary based on the final design or service"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
@@ -126,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventOverlapMessage": MessageLookupByLibrary.simpleMessage(
             "This event overlaps with an existing event. Do you want to proceed?"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Event Title"),
+        "expand": MessageLookupByLibrary.simpleMessage("Expand"),
         "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),
         "following": MessageLookupByLibrary.simpleMessage("Following"),
@@ -140,6 +193,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
         "hoursAgo": m1,
+        "hoursAndMinutes": m2,
+        "hoursv2": m3,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -153,8 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
-        "minutesAgo": m2,
-        "monthsAgo": m3,
+        "minutesAgo": m4,
+        "minutesv2": m5,
+        "monthsAgo": m6,
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
         "newRequest": MessageLookupByLibrary.simpleMessage("New Request"),
@@ -165,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No events scheduled for today"),
         "noImageSelected":
             MessageLookupByLibrary.simpleMessage("No image selected"),
+        "noImagesAvailable":
+            MessageLookupByLibrary.simpleMessage("No images available"),
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
@@ -202,13 +260,41 @@ class MessageLookup extends MessageLookupByLibrary {
         "quotationDate": MessageLookupByLibrary.simpleMessage("Quotation Date"),
         "quotationDetails":
             MessageLookupByLibrary.simpleMessage("Quotation Details"),
+        "quotationHistory":
+            MessageLookupByLibrary.simpleMessage("Quotation History"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
             "Quotation response sent successfully"),
         "quotationResponseSuccessMessage": MessageLookupByLibrary.simpleMessage(
             "Your response has been sent successfully"),
+        "quotationStatusArtistAccepted":
+            MessageLookupByLibrary.simpleMessage("Scheduled"),
+        "quotationStatusArtistAppealed":
+            MessageLookupByLibrary.simpleMessage("Appealed by Customer"),
+        "quotationStatusArtistCanceled":
+            MessageLookupByLibrary.simpleMessage("Cancelled by You"),
+        "quotationStatusArtistPending":
+            MessageLookupByLibrary.simpleMessage("New Request"),
+        "quotationStatusArtistQuoted":
+            MessageLookupByLibrary.simpleMessage("Awaiting Reply"),
+        "quotationStatusArtistRejected":
+            MessageLookupByLibrary.simpleMessage("Rejected by Customer"),
+        "quotationStatusCustomerAccepted":
+            MessageLookupByLibrary.simpleMessage("Scheduled"),
+        "quotationStatusCustomerAppealed":
+            MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
+        "quotationStatusCustomerCanceled":
+            MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "quotationStatusCustomerPending":
+            MessageLookupByLibrary.simpleMessage("Awaiting Reply"),
+        "quotationStatusCustomerQuoted":
+            MessageLookupByLibrary.simpleMessage("Received Quotation"),
+        "quotationStatusCustomerRejected":
+            MessageLookupByLibrary.simpleMessage("Rejected by You"),
         "quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "quoteDetails": MessageLookupByLibrary.simpleMessage("Quote Details"),
         "quoted": MessageLookupByLibrary.simpleMessage("Quoted"),
+        "quotedTheRequest":
+            MessageLookupByLibrary.simpleMessage("Quoted the request"),
         "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
         "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "receivedQuotation":
@@ -219,15 +305,27 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reference Images"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
         "rejectAppeal": MessageLookupByLibrary.simpleMessage("Reject Appeal"),
+        "rejectQuotation":
+            MessageLookupByLibrary.simpleMessage("Reject Quotation"),
         "rejectReasonArtisticDisagreement":
             MessageLookupByLibrary.simpleMessage("Artistic Disagreement"),
         "rejectReasonBeyondExpertise":
             MessageLookupByLibrary.simpleMessage("Beyond Expertise"),
+        "rejectReasonChangedMyMind":
+            MessageLookupByLibrary.simpleMessage("Changed My Mind"),
+        "rejectReasonFoundAnotherArtist":
+            MessageLookupByLibrary.simpleMessage("Found Another Artist"),
         "rejectReasonInsufficientDetails":
             MessageLookupByLibrary.simpleMessage("Insufficient Details"),
+        "rejectReasonNotWhatIWanted":
+            MessageLookupByLibrary.simpleMessage("Not What I Wanted"),
         "rejectReasonOther": MessageLookupByLibrary.simpleMessage("Other"),
         "rejectReasonSchedulingConflict":
             MessageLookupByLibrary.simpleMessage("Scheduling Conflict"),
+        "rejectReasonTooExpensive":
+            MessageLookupByLibrary.simpleMessage("Too Expensive"),
+        "rejectedTheQuotation":
+            MessageLookupByLibrary.simpleMessage("rejected the quotation"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Rejection Reason"),
         "removeImage": MessageLookupByLibrary.simpleMessage("Remove Image"),
@@ -271,8 +369,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "statusAccepted": MessageLookupByLibrary.simpleMessage("Accepted"),
+        "statusAppealed": MessageLookupByLibrary.simpleMessage("Appealed"),
+        "statusCanceled": MessageLookupByLibrary.simpleMessage("Canceled"),
+        "statusPending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "statusQuoted": MessageLookupByLibrary.simpleMessage("Quoted"),
+        "statusRejected": MessageLookupByLibrary.simpleMessage("Rejected"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Studio Photo"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "system": MessageLookupByLibrary.simpleMessage("System"),
         "tags": MessageLookupByLibrary.simpleMessage("Tags"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tattoo"),
         "tentativeEvent":
@@ -289,8 +394,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Update Studio Photo"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
-        "yearsAgo": m4,
+        "yearsAgo": m7,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Zoom In"),

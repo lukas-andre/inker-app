@@ -805,14 +805,14 @@ mixin _$QuotationHistory {
   int get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  Quotation get quotation => throw _privateConstructorUsedError;
+  Quotation? get quotation => throw _privateConstructorUsedError;
   QuotationStatus get previousStatus => throw _privateConstructorUsedError;
   QuotationStatus get newStatus => throw _privateConstructorUsedError;
   DateTime get changedAt => throw _privateConstructorUsedError;
   int get changedBy => throw _privateConstructorUsedError;
   QuotationRole get changedByUserType => throw _privateConstructorUsedError;
-  double? get previousEstimatedCost => throw _privateConstructorUsedError;
-  double? get newEstimatedCost => throw _privateConstructorUsedError;
+  String? get previousEstimatedCost => throw _privateConstructorUsedError;
+  String? get newEstimatedCost => throw _privateConstructorUsedError;
   DateTime? get previousAppointmentDate => throw _privateConstructorUsedError;
   DateTime? get newAppointmentDate => throw _privateConstructorUsedError;
   int? get previousAppointmentDuration => throw _privateConstructorUsedError;
@@ -842,14 +842,14 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       {int id,
       DateTime createdAt,
       DateTime updatedAt,
-      Quotation quotation,
+      Quotation? quotation,
       QuotationStatus previousStatus,
       QuotationStatus newStatus,
       DateTime changedAt,
       int changedBy,
       QuotationRole changedByUserType,
-      double? previousEstimatedCost,
-      double? newEstimatedCost,
+      String? previousEstimatedCost,
+      String? newEstimatedCost,
       DateTime? previousAppointmentDate,
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
@@ -861,7 +861,7 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       int? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType});
 
-  $QuotationCopyWith<$Res> get quotation;
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -880,7 +880,7 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
     Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? quotation = null,
+    Object? quotation = freezed,
     Object? previousStatus = null,
     Object? newStatus = null,
     Object? changedAt = null,
@@ -912,10 +912,10 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      quotation: null == quotation
+      quotation: freezed == quotation
           ? _value.quotation
           : quotation // ignore: cast_nullable_to_non_nullable
-              as Quotation,
+              as Quotation?,
       previousStatus: null == previousStatus
           ? _value.previousStatus
           : previousStatus // ignore: cast_nullable_to_non_nullable
@@ -939,11 +939,11 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       previousEstimatedCost: freezed == previousEstimatedCost
           ? _value.previousEstimatedCost
           : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       newEstimatedCost: freezed == newEstimatedCost
           ? _value.newEstimatedCost
           : newEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       previousAppointmentDate: freezed == previousAppointmentDate
           ? _value.previousAppointmentDate
           : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
@@ -989,8 +989,12 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
 
   @override
   @pragma('vm:prefer-inline')
-  $QuotationCopyWith<$Res> get quotation {
-    return $QuotationCopyWith<$Res>(_value.quotation, (value) {
+  $QuotationCopyWith<$Res>? get quotation {
+    if (_value.quotation == null) {
+      return null;
+    }
+
+    return $QuotationCopyWith<$Res>(_value.quotation!, (value) {
       return _then(_value.copyWith(quotation: value) as $Val);
     });
   }
@@ -1008,14 +1012,14 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
       {int id,
       DateTime createdAt,
       DateTime updatedAt,
-      Quotation quotation,
+      Quotation? quotation,
       QuotationStatus previousStatus,
       QuotationStatus newStatus,
       DateTime changedAt,
       int changedBy,
       QuotationRole changedByUserType,
-      double? previousEstimatedCost,
-      double? newEstimatedCost,
+      String? previousEstimatedCost,
+      String? newEstimatedCost,
       DateTime? previousAppointmentDate,
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
@@ -1028,7 +1032,7 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
       QuotationUserType? lastUpdatedByUserType});
 
   @override
-  $QuotationCopyWith<$Res> get quotation;
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -1045,7 +1049,7 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
     Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? quotation = null,
+    Object? quotation = freezed,
     Object? previousStatus = null,
     Object? newStatus = null,
     Object? changedAt = null,
@@ -1077,10 +1081,10 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      quotation: null == quotation
+      quotation: freezed == quotation
           ? _value.quotation
           : quotation // ignore: cast_nullable_to_non_nullable
-              as Quotation,
+              as Quotation?,
       previousStatus: null == previousStatus
           ? _value.previousStatus
           : previousStatus // ignore: cast_nullable_to_non_nullable
@@ -1104,11 +1108,11 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
       previousEstimatedCost: freezed == previousEstimatedCost
           ? _value.previousEstimatedCost
           : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       newEstimatedCost: freezed == newEstimatedCost
           ? _value.newEstimatedCost
           : newEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       previousAppointmentDate: freezed == previousAppointmentDate
           ? _value.previousAppointmentDate
           : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
@@ -1160,7 +1164,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
       {required this.id,
       required this.createdAt,
       required this.updatedAt,
-      required this.quotation,
+      this.quotation,
       required this.previousStatus,
       required this.newStatus,
       required this.changedAt,
@@ -1189,7 +1193,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final DateTime updatedAt;
   @override
-  final Quotation quotation;
+  final Quotation? quotation;
   @override
   final QuotationStatus previousStatus;
   @override
@@ -1201,9 +1205,9 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final QuotationRole changedByUserType;
   @override
-  final double? previousEstimatedCost;
+  final String? previousEstimatedCost;
   @override
-  final double? newEstimatedCost;
+  final String? newEstimatedCost;
   @override
   final DateTime? previousAppointmentDate;
   @override
@@ -1328,14 +1332,14 @@ abstract class _QuotationHistory implements QuotationHistory {
       {required final int id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final Quotation quotation,
+      final Quotation? quotation,
       required final QuotationStatus previousStatus,
       required final QuotationStatus newStatus,
       required final DateTime changedAt,
       required final int changedBy,
       required final QuotationRole changedByUserType,
-      final double? previousEstimatedCost,
-      final double? newEstimatedCost,
+      final String? previousEstimatedCost,
+      final String? newEstimatedCost,
       final DateTime? previousAppointmentDate,
       final DateTime? newAppointmentDate,
       final int? previousAppointmentDuration,
@@ -1357,7 +1361,7 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   DateTime get updatedAt;
   @override
-  Quotation get quotation;
+  Quotation? get quotation;
   @override
   QuotationStatus get previousStatus;
   @override
@@ -1369,9 +1373,9 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   QuotationRole get changedByUserType;
   @override
-  double? get previousEstimatedCost;
+  String? get previousEstimatedCost;
   @override
-  double? get newEstimatedCost;
+  String? get newEstimatedCost;
   @override
   DateTime? get previousAppointmentDate;
   @override

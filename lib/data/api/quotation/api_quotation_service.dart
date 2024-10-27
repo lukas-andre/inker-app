@@ -24,6 +24,20 @@ extension QuotationArtistRejectReasonExtension on QuotationArtistRejectReason {
   }
 }
 
+extension T<R> on String {
+  String toSnakeCase() {
+    return toString()
+        .split('.')
+        .last
+        .replaceAllMapped(
+          RegExp(r'[A-Z]'),
+          (match) => '_${match.group(0)!.toLowerCase()}',
+        )
+        .replaceFirst(RegExp(r'^_'), '');
+  }
+}
+
+
 class ApiQuotationService implements QuotationService {
   final HttpClientConfig _httpConfig;
 
@@ -223,11 +237,11 @@ class ApiQuotationService implements QuotationService {
     final body = {
       'action': action.toString().split('.').last,
       if (rejectionReason != null)
-        'rejectionReason': rejectionReason.toString().split('.').last,
+        'rejectionReason': rejectionReason.toString().toSnakeCase(),
       if (appealReason != null)
-        'appealReason': appealReason.toString().split('.').last,
+        'appealReason': appealReason.toString().toSnakeCase(),
       if (cancelReason != null)
-        'cancelReason': cancelReason.toString().split('.').last,
+        'cancelReason': cancelReason.toString().toSnakeCase(),
       if (additionalDetails != null) 'additionalDetails': additionalDetails,
     };
 
