@@ -2030,6 +2030,599 @@ class S {
       args: [],
     );
   }
+
+  /// `Aceptar Cotización`
+  String get acceptQuotation {
+    return Intl.message(
+      'Aceptar Cotización',
+      name: 'acceptQuotation',
+      desc: 'Botón para aceptar una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Rechazar Cotización`
+  String get rejectQuotation {
+    return Intl.message(
+      'Rechazar Cotización',
+      name: 'rejectQuotation',
+      desc: 'Botón para rechazar una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Apelar Cotización`
+  String get appealQuotation {
+    return Intl.message(
+      'Apelar Cotización',
+      name: 'appealQuotation',
+      desc: 'Botón para apelar una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Cancelar Cotización`
+  String get cancelQuotation {
+    return Intl.message(
+      'Cancelar Cotización',
+      name: 'cancelQuotation',
+      desc: 'Botón para cancelar una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Motivo de Apelación`
+  String get appealReason {
+    return Intl.message(
+      'Motivo de Apelación',
+      name: 'appealReason',
+      desc: 'Campo para mostrar o ingresar el motivo de apelación.',
+      args: [],
+    );
+  }
+
+  /// `Necesito cambiar la fecha de la cita`
+  String get appealReasonDateChange {
+    return Intl.message(
+      'Necesito cambiar la fecha de la cita',
+      name: 'appealReasonDateChange',
+      desc: 'Motivo de apelación para cambiar la fecha de la cita.',
+      args: [],
+    );
+  }
+
+  /// `El precio es demasiado alto`
+  String get appealReasonPriceChange {
+    return Intl.message(
+      'El precio es demasiado alto',
+      name: 'appealReasonPriceChange',
+      desc: 'Motivo de apelación para un cambio en el precio.',
+      args: [],
+    );
+  }
+
+  /// `Necesito cambiar el diseño`
+  String get appealReasonDesignChange {
+    return Intl.message(
+      'Necesito cambiar el diseño',
+      name: 'appealReasonDesignChange',
+      desc: 'Motivo de apelación para cambiar el diseño.',
+      args: [],
+    );
+  }
+
+  /// `Otro`
+  String get appealReasonOther {
+    return Intl.message(
+      'Otro',
+      name: 'appealReasonOther',
+      desc: 'Motivo de apelación para cualquier otra razón no especificada.',
+      args: [],
+    );
+  }
+
+  /// `Demasiado Caro`
+  String get rejectReasonTooExpensive {
+    return Intl.message(
+      'Demasiado Caro',
+      name: 'rejectReasonTooExpensive',
+      desc: 'Motivo de rechazo cuando el precio es demasiado alto.',
+      args: [],
+    );
+  }
+
+  /// `No es lo que quería`
+  String get rejectReasonNotWhatIWanted {
+    return Intl.message(
+      'No es lo que quería',
+      name: 'rejectReasonNotWhatIWanted',
+      desc: 'Motivo de rechazo cuando el trabajo no es lo que se esperaba.',
+      args: [],
+    );
+  }
+
+  /// `Cambié de opinión`
+  String get rejectReasonChangedMyMind {
+    return Intl.message(
+      'Cambié de opinión',
+      name: 'rejectReasonChangedMyMind',
+      desc: 'Motivo de rechazo cuando se cambia de opinión.',
+      args: [],
+    );
+  }
+
+  /// `Encontré otro artista`
+  String get rejectReasonFoundAnotherArtist {
+    return Intl.message(
+      'Encontré otro artista',
+      name: 'rejectReasonFoundAnotherArtist',
+      desc: 'Motivo de rechazo cuando se encuentra otro artista.',
+      args: [],
+    );
+  }
+
+  /// `Nueva Solicitud`
+  String get quotationStatusArtistPending {
+    return Intl.message(
+      'Nueva Solicitud',
+      name: 'quotationStatusArtistPending',
+      desc: 'Estado mostrado al artista cuando la cotización está pendiente',
+      args: [],
+    );
+  }
+
+  /// `Apelación Recibida`
+  String get quotationStatusArtistAppealed {
+    return Intl.message(
+      'Apelación Recibida',
+      name: 'quotationStatusArtistAppealed',
+      desc: 'Estado mostrado al artista cuando la cotización está apelada',
+      args: [],
+    );
+  }
+
+  /// `Esperando Respuesta`
+  String get quotationStatusArtistQuoted {
+    return Intl.message(
+      'Esperando Respuesta',
+      name: 'quotationStatusArtistQuoted',
+      desc: 'Estado mostrado al artista cuando la cotización está cotizada',
+      args: [],
+    );
+  }
+
+  /// `Agendado`
+  String get quotationStatusArtistAccepted {
+    return Intl.message(
+      'Agendado',
+      name: 'quotationStatusArtistAccepted',
+      desc: 'Estado mostrado al artista cuando la cotización está aceptada',
+      args: [],
+    );
+  }
+
+  /// `Rechazado por Cliente`
+  String get quotationStatusArtistRejected {
+    return Intl.message(
+      'Rechazado por Cliente',
+      name: 'quotationStatusArtistRejected',
+      desc: 'Estado mostrado al artista cuando la cotización está rechazada',
+      args: [],
+    );
+  }
+
+  /// `Cancelado por Ti`
+  String get quotationStatusArtistCanceled {
+    return Intl.message(
+      'Cancelado por Ti',
+      name: 'quotationStatusArtistCanceled',
+      desc: 'Estado mostrado al artista cuando la cotización está cancelada',
+      args: [],
+    );
+  }
+
+  /// `Esperando Respuesta`
+  String get quotationStatusCustomerPending {
+    return Intl.message(
+      'Esperando Respuesta',
+      name: 'quotationStatusCustomerPending',
+      desc: 'Estado mostrado al cliente cuando la cotización está pendiente',
+      args: [],
+    );
+  }
+
+  /// `Esperando Artista`
+  String get quotationStatusCustomerAppealed {
+    return Intl.message(
+      'Esperando Artista',
+      name: 'quotationStatusCustomerAppealed',
+      desc: 'Estado mostrado al cliente cuando la cotización está apelada',
+      args: [],
+    );
+  }
+
+  /// `Cotización Recibida`
+  String get quotationStatusCustomerQuoted {
+    return Intl.message(
+      'Cotización Recibida',
+      name: 'quotationStatusCustomerQuoted',
+      desc: 'Estado mostrado al cliente cuando la cotización está cotizada',
+      args: [],
+    );
+  }
+
+  /// `Agendado`
+  String get quotationStatusCustomerAccepted {
+    return Intl.message(
+      'Agendado',
+      name: 'quotationStatusCustomerAccepted',
+      desc: 'Estado mostrado al cliente cuando la cotización está aceptada',
+      args: [],
+    );
+  }
+
+  /// `Rechazado por Ti`
+  String get quotationStatusCustomerRejected {
+    return Intl.message(
+      'Rechazado por Ti',
+      name: 'quotationStatusCustomerRejected',
+      desc: 'Estado mostrado al cliente cuando la cotización está rechazada',
+      args: [],
+    );
+  }
+
+  /// `Cancelado`
+  String get quotationStatusCustomerCanceled {
+    return Intl.message(
+      'Cancelado',
+      name: 'quotationStatusCustomerCanceled',
+      desc: 'Estado mostrado al cliente cuando la cotización está cancelada',
+      args: [],
+    );
+  }
+
+  /// `Estado Actual`
+  String get currentStatus {
+    return Intl.message(
+      'Estado Actual',
+      name: 'currentStatus',
+      desc: 'Campo o etiqueta para mostrar el estado actual de algo.',
+      args: [],
+    );
+  }
+
+  /// `Historial de Cotizaciones`
+  String get quotationHistory {
+    return Intl.message(
+      'Historial de Cotizaciones',
+      name: 'quotationHistory',
+      desc: 'Campo o etiqueta para mostrar el historial de cotizaciones.',
+      args: [],
+    );
+  }
+
+  /// `cambió el estado de`
+  String get changedStatusFrom {
+    return Intl.message(
+      'cambió el estado de',
+      name: 'changedStatusFrom',
+      desc: 'Mensaje que indica que el estado de algo ha cambiado.',
+      args: [],
+    );
+  }
+
+  /// `Cotizó la solicitud`
+  String get quotedTheRequest {
+    return Intl.message(
+      'Cotizó la solicitud',
+      name: 'quotedTheRequest',
+      desc: 'Mensaje que indica que se ha cotizado una solicitud.',
+      args: [],
+    );
+  }
+
+  /// `Apeló la cotización`
+  String get appealedTheQuotation {
+    return Intl.message(
+      'Apeló la cotización',
+      name: 'appealedTheQuotation',
+      desc: 'Mensaje que indica que se ha apelado una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Pendiente`
+  String get statusPending {
+    return Intl.message(
+      'Pendiente',
+      name: 'statusPending',
+      desc: 'Estado que indica que algo está en espera.',
+      args: [],
+    );
+  }
+
+  /// `Cotizado`
+  String get statusQuoted {
+    return Intl.message(
+      'Cotizado',
+      name: 'statusQuoted',
+      desc: 'Estado que indica que algo ha sido cotizado.',
+      args: [],
+    );
+  }
+
+  /// `Aceptado`
+  String get statusAccepted {
+    return Intl.message(
+      'Aceptado',
+      name: 'statusAccepted',
+      desc: 'Estado que indica que algo ha sido aceptado.',
+      args: [],
+    );
+  }
+
+  /// `Rechazado`
+  String get statusRejected {
+    return Intl.message(
+      'Rechazado',
+      name: 'statusRejected',
+      desc: 'Estado que indica que algo ha sido rechazado.',
+      args: [],
+    );
+  }
+
+  /// `Cancelado`
+  String get statusCanceled {
+    return Intl.message(
+      'Cancelado',
+      name: 'statusCanceled',
+      desc: 'Estado que indica que algo ha sido cancelado.',
+      args: [],
+    );
+  }
+
+  /// `Apelado`
+  String get statusAppealed {
+    return Intl.message(
+      'Apelado',
+      name: 'statusAppealed',
+      desc: 'Estado que indica que algo ha sido apelado.',
+      args: [],
+    );
+  }
+
+  /// `Artista`
+  String get artist {
+    return Intl.message(
+      'Artista',
+      name: 'artist',
+      desc: 'Una persona que crea arte.',
+      args: [],
+    );
+  }
+
+  /// `Cliente`
+  String get customer {
+    return Intl.message(
+      'Cliente',
+      name: 'customer',
+      desc: 'Una persona que compra bienes o servicios.',
+      args: [],
+    );
+  }
+
+  /// `Sistema`
+  String get system {
+    return Intl.message(
+      'Sistema',
+      name: 'system',
+      desc: 'Un conjunto de cosas que trabajan juntas como un todo.',
+      args: [],
+    );
+  }
+
+  /// `Ver Detalles`
+  String get viewDetails {
+    return Intl.message(
+      'Ver Detalles',
+      name: 'viewDetails',
+      desc: 'Botón para ver más detalles.',
+      args: [],
+    );
+  }
+
+  /// `Expandir`
+  String get expand {
+    return Intl.message(
+      'Expandir',
+      name: 'expand',
+      desc: 'Botón para expandir o mostrar más información.',
+      args: [],
+    );
+  }
+
+  /// `Colapsar`
+  String get collapse {
+    return Intl.message(
+      'Colapsar',
+      name: 'collapse',
+      desc: 'Botón para colapsar o mostrar menos información.',
+      args: [],
+    );
+  }
+
+  /// `{hoursv2} horas y {minutesv2} minutos`
+  String hoursAndMinutes(int hoursv2, int minutesv2) {
+    return Intl.message(
+      '$hoursv2 horas y $minutesv2 minutos',
+      name: 'hoursAndMinutes',
+      desc: 'Texto que muestra duración con horas y minutos',
+      args: [hoursv2, minutesv2],
+    );
+  }
+
+  /// `{hoursv2} horas`
+  String hoursv2(int hoursv2) {
+    return Intl.message(
+      '$hoursv2 horas',
+      name: 'hoursv2',
+      desc: 'Texto que muestra duración solo en horas',
+      args: [hoursv2],
+    );
+  }
+
+  /// `{minutesv2} minutos`
+  String minutesv2(int minutesv2) {
+    return Intl.message(
+      '$minutesv2 minutos',
+      name: 'minutesv2',
+      desc: 'Texto que muestra duración solo en minutos',
+      args: [minutesv2],
+    );
+  }
+
+  /// `Motivo de Cancelación`
+  String get cancellationReason {
+    return Intl.message(
+      'Motivo de Cancelación',
+      name: 'cancellationReason',
+      desc: 'Etiqueta para mostrar el motivo de cancelación',
+      args: [],
+    );
+  }
+
+  /// `Cambié de opinión`
+  String get cancelReasonChangeOfMind {
+    return Intl.message(
+      'Cambié de opinión',
+      name: 'cancelReasonChangeOfMind',
+      desc: 'Motivo de cancelación cuando el cliente cambia de opinión',
+      args: [],
+    );
+  }
+
+  /// `Encontré otro artista`
+  String get cancelReasonFoundAnotherArtist {
+    return Intl.message(
+      'Encontré otro artista',
+      name: 'cancelReasonFoundAnotherArtist',
+      desc: 'Motivo de cancelación cuando el cliente encontró otro artista',
+      args: [],
+    );
+  }
+
+  /// `Motivos financieros`
+  String get cancelReasonFinancialReasons {
+    return Intl.message(
+      'Motivos financieros',
+      name: 'cancelReasonFinancialReasons',
+      desc: 'Motivo de cancelación por problemas financieros',
+      args: [],
+    );
+  }
+
+  /// `Motivos personales`
+  String get cancelReasonPersonalReasons {
+    return Intl.message(
+      'Motivos personales',
+      name: 'cancelReasonPersonalReasons',
+      desc: 'Motivo de cancelación por problemas personales',
+      args: [],
+    );
+  }
+
+  /// `Otro`
+  String get cancelReasonOther {
+    return Intl.message(
+      'Otro',
+      name: 'cancelReasonOther',
+      desc: 'Motivo de cancelación cuando no encaja en otras categorías',
+      args: [],
+    );
+  }
+
+  /// `No asistió a la cita`
+  String get cancelReasonNotAttended {
+    return Intl.message(
+      'No asistió a la cita',
+      name: 'cancelReasonNotAttended',
+      desc: 'Motivo de cancelación del sistema cuando se perdió la cita',
+      args: [],
+    );
+  }
+
+  /// `Tiempo de espera agotado`
+  String get cancelReasonSystemTimeout {
+    return Intl.message(
+      'Tiempo de espera agotado',
+      name: 'cancelReasonSystemTimeout',
+      desc:
+          'Motivo de cancelación del sistema cuando se agotó el tiempo de espera',
+      args: [],
+    );
+  }
+
+  /// `No hay imágenes disponibles`
+  String get noImagesAvailable {
+    return Intl.message(
+      'No hay imágenes disponibles',
+      name: 'noImagesAvailable',
+      desc: 'Mensaje que indica que no hay imágenes disponibles.',
+      args: [],
+    );
+  }
+
+  /// `aceptó la cotización`
+  String get acceptedTheQuotation {
+    return Intl.message(
+      'aceptó la cotización',
+      name: 'acceptedTheQuotation',
+      desc: 'Action text when a quotation is accepted',
+      args: [],
+    );
+  }
+
+  /// `rechazó la cotización`
+  String get rejectedTheQuotation {
+    return Intl.message(
+      'rechazó la cotización',
+      name: 'rejectedTheQuotation',
+      desc: 'Action text when a quotation is rejected',
+      args: [],
+    );
+  }
+
+  /// `canceló la cotización`
+  String get canceledTheQuotation {
+    return Intl.message(
+      'canceló la cotización',
+      name: 'canceledTheQuotation',
+      desc: 'Action text when a quotation is canceled',
+      args: [],
+    );
+  }
+
+  /// `La fecha de la cita cambió de`
+  String get appointmentDateChangedFrom {
+    return Intl.message(
+      'La fecha de la cita cambió de',
+      name: 'appointmentDateChangedFrom',
+      desc:
+          'Text shown when appointment date is changed, followed by the old and new dates',
+      args: [],
+    );
+  }
+
+  /// `El costo estimado cambió de`
+  String get estimatedCostChangedFrom {
+    return Intl.message(
+      'El costo estimado cambió de',
+      name: 'estimatedCostChangedFrom',
+      desc:
+          'Text shown when estimated cost is changed, followed by the old and new amounts',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

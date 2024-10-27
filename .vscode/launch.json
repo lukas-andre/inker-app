@@ -27,19 +27,36 @@
             "name": "Android",
             "request": "launch",
             "type":"dart",
-            "deviceId": "emulator-5554"
+            "deviceId": "emulator-5554",
         },
         {
             "name": "iOS",
             "request": "launch",
             "type":"dart",
-            "deviceId": "B2A96E2C-BDBD-4348-8480-09E47F81AACC"
+            "deviceId": "1754FAB0-2C29-403E-BE59-08BB299F6D37"
         },
+        {
+            "name": "Android2",
+            "request": "launch",
+            "type":"dart",
+            "deviceId": "emulator-5556",
+        },
+        {
+            "name": "iOS2",
+            "request": "launch",
+            "type":"dart",
+            "deviceId": "63E7569B-4004-49AE-A036-63AFF89C2FBF"
+        },
+
     ],
     "compounds": [
         {
             "name": "All Mobiles",
             "configurations": ["iOS","Android"]
+        },
+        {
+            "name": "All Mobiles4",
+            "configurations": ["iOS","Android","iOS2","Android2"]
         }
     ]
 }

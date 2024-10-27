@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
+import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -25,7 +26,7 @@ class CustomerQuotationResponsePage extends StatelessWidget {
       ),
       child: _CustomerQuotationResponseView(
         quotationId: quotationId,
-        predefinedAction: predefinedAction,
+        action: predefinedAction!,
       ),
     );
   }
@@ -33,34 +34,31 @@ class CustomerQuotationResponsePage extends StatelessWidget {
 
 class _CustomerQuotationResponseView extends StatefulWidget {
   final String quotationId;
-  final CustomerQuotationAction? predefinedAction;
+  final CustomerQuotationAction action;
 
-  const _CustomerQuotationResponseView(
-      {required this.quotationId, this.predefinedAction});
+  const _CustomerQuotationResponseView({
+    required this.quotationId,
+    required this.action,
+  });
 
   @override
-  _CustomerQuotationResponseViewState createState() =>
-      _CustomerQuotationResponseViewState();
+  _CustomerQuotationResponseViewState createState() => _CustomerQuotationResponseViewState();
 }
 
-class _CustomerQuotationResponseViewState
-    extends State<_CustomerQuotationResponseView> {
+class _CustomerQuotationResponseViewState extends State<_CustomerQuotationResponseView> {
   final _formKey = GlobalKey<FormState>();
   final _additionalDetailsController = TextEditingController();
 
+  QuotationCustomerRejectReason? _rejectionReason;
+  QuotationCustomerAppealReason? _appealReason;
+
   late CustomerQuotationResponseBloc _bloc;
-  CustomerQuotationAction _action = CustomerQuotationAction.accept;
-  QuotationStatus _quotationStatus = QuotationStatus.pending;
 
   @override
   void initState() {
     super.initState();
     _bloc = BlocProvider.of<CustomerQuotationResponseBloc>(context);
     _bloc.add(CustomerQuotationResponseEvent.loadQuotation(widget.quotationId));
-
-    if (widget.predefinedAction != null) {
-      _action = widget.predefinedAction!;
-    }
   }
 
   @override
@@ -69,7 +67,7 @@ class _CustomerQuotationResponseViewState
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
-        title: Text(l10n.respondToQuotation, style: TextStyleTheme.headline2),
+        title: Text(_getActionTitle(widget.action, l10n), style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
@@ -79,19 +77,37 @@ class _CustomerQuotationResponseViewState
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocConsumer<CustomerQuotationResponseBloc,
-            CustomerQuotationResponseState>(
+        child: BlocConsumer<CustomerQuotationResponseBloc, CustomerQuotationResponseState>(
           listener: (context, state) {
             state.maybeWhen(
               submittingResponse: () {
-                // Mostrar indicador de carga
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.loading,
+                  l10n.processingQuotation,
+                  l10n.processingQuotationMessage,
+                );
               },
               success: () {
-                // Mostrar mensaje de éxito y volver
-                Navigator.of(context).pop(true);
+                Navigator.of(context).pop();
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.completed,
+                  l10n.quotationResponseSuccess,
+                  l10n.quotationResponseSuccessMessage,
+                  onComplete: () {
+                    Navigator.of(context).pop(true);
+                  },
+                );
               },
               failure: (error) {
-                // Mostrar mensaje de error
+                Navigator.of(context).pop();
+                _showSuccessAnimationPage(
+                  context,
+                  AnimationState.error,
+                  l10n.error,
+                  error,
+                );
               },
               orElse: () {},
             );
@@ -99,16 +115,46 @@ class _CustomerQuotationResponseViewState
           builder: (context, state) {
             return state.maybeWhen(
               initial: () {
-                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(
-                    widget.quotationId));
+                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(widget.quotationId));
                 return const Center(child: InkerProgressIndicator());
               },
               quotationLoaded: (quotation) {
-                _quotationStatus = quotation.status;
                 return _buildPageContent(quotation, l10n);
               },
-              orElse: () => const Center(child: InkerProgressIndicator()),
+              submittingResponse: () => const SizedBox(),
+              success: () => const SizedBox(),
+              failure: (_) {
+                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(widget.quotationId));
+                return const Center(child: InkerProgressIndicator());
+              },
+              orElse: () {
+                return const Center(child: InkerProgressIndicator());
+              },
             );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessAnimationPage(
+    BuildContext context,
+    AnimationState state,
+    String title,
+    String subtitle, {
+    VoidCallback? onComplete,
+  }) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SuccessAnimationPage(
+          title: title,
+          subtitle: subtitle,
+          state: state,
+          onAnimationComplete: () {
+            Navigator.of(context).pop();
+            if (state == AnimationState.completed && onComplete != null) {
+              onComplete();
+            }
           },
         ),
       ),
@@ -124,7 +170,7 @@ class _CustomerQuotationResponseViewState
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              l10n.yourResponse,
+              _getActionTitle(widget.action, l10n),
               style: TextStyleTheme.headline3.copyWith(color: Colors.white),
             ),
           ),
@@ -132,6 +178,19 @@ class _CustomerQuotationResponseViewState
         ],
       ),
     );
+  }
+
+  String _getActionTitle(CustomerQuotationAction action, S l10n) {
+    switch (action) {
+      case CustomerQuotationAction.accept:
+        return l10n.acceptQuotation;
+      case CustomerQuotationAction.appeal:
+        return l10n.appealQuotation;
+      case CustomerQuotationAction.reject:
+        return l10n.rejectQuotation;
+      case CustomerQuotationAction.cancel:
+        return l10n.cancelQuotation;
+    }
   }
 
   Widget _buildResponseForm(S l10n) {
@@ -142,20 +201,27 @@ class _CustomerQuotationResponseViewState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildActionDropdown(l10n),
-            const SizedBox(height: 16),
-            if (_action == CustomerQuotationAction.appeal ||
-                _action == CustomerQuotationAction.reject)
-              _buildAdditionalDetailsField(l10n),
+            if (widget.action == CustomerQuotationAction.appeal)
+              _buildAppealReasonDropdown(l10n),
+            if (widget.action == CustomerQuotationAction.reject)
+              _buildRejectionReasonDropdown(l10n),
+            if (widget.action != CustomerQuotationAction.accept)
+              const SizedBox(height: 16),
+            _buildAdditionalDetailsField(l10n),
             const SizedBox(height: 24),
             Center(
-              child: ElevatedButton(
-                onPressed: () => _submitForm(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
-                  foregroundColor: quaternaryColor,
+              child: Container(
+                margin: const EdgeInsets.only(top: 16, bottom: 36),
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () => _submitForm(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    foregroundColor: quaternaryColor,
+                  ),
+                  child: Text(l10n.submit, style: TextStyleTheme.button),
                 ),
-                child: Text(l10n.submit, style: TextStyleTheme.button),
               ),
             ),
           ],
@@ -164,12 +230,11 @@ class _CustomerQuotationResponseViewState
     );
   }
 
-  Widget _buildActionDropdown(S l10n) {
-    final availableActions = _getAvailableActions();
-    return DropdownButtonFormField<CustomerQuotationAction>(
-      value: _action,
+  Widget _buildAppealReasonDropdown(S l10n) {
+    return DropdownButtonFormField<QuotationCustomerAppealReason>(
+      value: _appealReason,
       decoration: InputDecoration(
-        labelText: l10n.action,
+        labelText: l10n.appealReason,
         labelStyle: TextStyleTheme.bodyText1,
         fillColor: inputBackgroundColor,
         filled: true,
@@ -178,47 +243,93 @@ class _CustomerQuotationResponseViewState
       ),
       style: TextStyleTheme.bodyText1,
       dropdownColor: explorerSecondaryColor,
-      items: availableActions.map((action) {
+      items: QuotationCustomerAppealReason.values.map((reason) {
         return DropdownMenuItem(
-          value: action,
-          child: Text(_getActionText(action, l10n)),
+          value: reason,
+          child: Text(
+            _getTranslatedAppealReason(reason, l10n),
+            style: TextStyleTheme.bodyText1,
+          ),
         );
       }).toList(),
       onChanged: (value) {
         setState(() {
-          _action = value!;
+          _appealReason = value;
         });
+      },
+      validator: (value) {
+        if (widget.action == CustomerQuotationAction.appeal && value == null) {
+          return l10n.requiredField;
+        }
+        return null;
       },
     );
   }
 
-  List<CustomerQuotationAction> _getAvailableActions() {
-    switch (_quotationStatus) {
-      case QuotationStatus.quoted:
-        return [
-          CustomerQuotationAction.accept,
-          CustomerQuotationAction.appeal,
-          CustomerQuotationAction.reject,
-        ];
-      default:
-        return [];
+  String _getTranslatedAppealReason(
+      QuotationCustomerAppealReason reason, S l10n) {
+    switch (reason) {
+      case QuotationCustomerAppealReason.dateChange:
+        return l10n.appealReasonDateChange;
+      case QuotationCustomerAppealReason.priceChange:
+        return l10n.appealReasonPriceChange;
+      case QuotationCustomerAppealReason.designChange:
+        return l10n.appealReasonDesignChange;
+      case QuotationCustomerAppealReason.other:
+        return l10n.appealReasonOther;
     }
   }
 
-  String _getActionText(CustomerQuotationAction action, S l10n) {
-    switch (action) {
-      case CustomerQuotationAction.accept:
-        return l10n.accept;
-      case CustomerQuotationAction.appeal:
-        return l10n.appeal;
-      case CustomerQuotationAction.reject:
-        return l10n.reject;
-      case CustomerQuotationAction.cancel:
-        // TODO: Handle this case.
-        break;
-    }
+  Widget _buildRejectionReasonDropdown(S l10n) {
+    return DropdownButtonFormField<QuotationCustomerRejectReason>(
+      value: _rejectionReason,
+      decoration: InputDecoration(
+        labelText: l10n.rejectionReason,
+        labelStyle: TextStyleTheme.bodyText1,
+        fillColor: inputBackgroundColor,
+        filled: true,
+        border: inputBorder,
+        focusedBorder: focusedBorder,
+      ),
+      style: TextStyleTheme.bodyText1,
+      dropdownColor: explorerSecondaryColor,
+      items: QuotationCustomerRejectReason.values.map((reason) {
+        return DropdownMenuItem(
+          value: reason,
+          child: Text(
+            _getTranslatedRejectionReason(reason, l10n),
+            style: TextStyleTheme.bodyText1,
+          ),
+        );
+      }).toList(),
+      onChanged: (value) {
+        setState(() {
+          _rejectionReason = value;
+        });
+      },
+      validator: (value) {
+        if (widget.action == CustomerQuotationAction.reject && value == null) {
+          return l10n.requiredField;
+        }
+        return null;
+      },
+    );
+  }
 
-    return '';
+  String _getTranslatedRejectionReason(
+      QuotationCustomerRejectReason reason, S l10n) {
+    switch (reason) {
+      case QuotationCustomerRejectReason.tooExpensive:
+        return l10n.rejectReasonTooExpensive;
+      case QuotationCustomerRejectReason.notWhatIWanted:
+        return l10n.rejectReasonNotWhatIWanted;
+      case QuotationCustomerRejectReason.changedMyMind:
+        return l10n.rejectReasonChangedMyMind;
+      case QuotationCustomerRejectReason.foundAnotherArtist:
+        return l10n.rejectReasonFoundAnotherArtist;
+      case QuotationCustomerRejectReason.other:
+        return l10n.rejectReasonOther;
+    }
   }
 
   Widget _buildAdditionalDetailsField(S l10n) {
@@ -236,8 +347,8 @@ class _CustomerQuotationResponseViewState
       style: TextStyleTheme.bodyText1,
       maxLines: 3,
       validator: (value) {
-        if ((_action == CustomerQuotationAction.appeal ||
-                _action == CustomerQuotationAction.reject) &&
+        if ((widget.action == CustomerQuotationAction.appeal ||
+                widget.action == CustomerQuotationAction.reject) &&
             (value == null || value.isEmpty)) {
           return l10n.requiredField;
         }
@@ -248,11 +359,15 @@ class _CustomerQuotationResponseViewState
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
       _bloc.add(
         CustomerQuotationResponseEvent.submit(
           quotationId: widget.quotationId,
-          action: _action,
+          action: widget.action,
           additionalDetails: _additionalDetailsController.text,
+          rejectionReason: _rejectionReason,
+          appealReason: _appealReason,
         ),
       );
     }
