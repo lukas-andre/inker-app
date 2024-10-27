@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/art
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/schedule_assistant/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
@@ -191,7 +192,19 @@ class _ArtistQuotationResponseViewState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AnimatedQuotationDetailsAccordion(quotation: quotation, l10n: l10n),
+          AnimatedQuotationDetailsAccordion(
+            quotation: quotation,
+            l10n: l10n,
+            onViewDetails: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => QuotationDetailsPage(
+                    quotation: quotation,
+                  ),
+                ),
+              );
+            },
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(

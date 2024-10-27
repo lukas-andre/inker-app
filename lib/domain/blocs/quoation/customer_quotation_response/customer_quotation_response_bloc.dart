@@ -26,8 +26,8 @@ class CustomerQuotationResponseBloc extends Bloc<CustomerQuotationResponseEvent,
         loadQuotation: (quotationId) async {
           await _loadQuotation(emit, quotationId);
         },
-        submit: (quotationId, action, additionalDetails) async {
-          await _submitResponse(emit, quotationId, action, additionalDetails);
+        submit: (quotationId, action, rejectionReason, appealReson, additionalDetails, ) async {
+          await _submitResponse(emit, quotationId, action, rejectionReason, appealReson, additionalDetails);
         },
       );
     });
@@ -58,6 +58,8 @@ class CustomerQuotationResponseBloc extends Bloc<CustomerQuotationResponseEvent,
     Emitter<CustomerQuotationResponseState> emit,
     String quotationId,
     CustomerQuotationAction action,
+    QuotationCustomerRejectReason? rejectionReason,
+    QuotationCustomerAppealReason? appealReason,
     String? additionalDetails,
   ) async {
     emit(const CustomerQuotationResponseState.submittingResponse());
@@ -73,6 +75,8 @@ class CustomerQuotationResponseBloc extends Bloc<CustomerQuotationResponseEvent,
         token: token,
         quotationId: quotationId,
         action: action,
+        rejectionReason: rejectionReason,
+        appealReason: appealReason,
         additionalDetails: additionalDetails,
       );
       emit(const CustomerQuotationResponseState.success());

@@ -37,6 +37,7 @@ import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
+import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/settings/languague_settings_page.dart';
 import 'package:inker_studio/ui/settings/privacy_policy_page.dart';
 import 'package:inker_studio/ui/settings/settings_page.dart';
@@ -249,6 +250,16 @@ class _AppViewState extends State<AppView> {
                 final args = settings.arguments as Map<String, dynamic>;
                 return MaterialPageRoute(
                   builder: (context) => ArtistQuotationResponsePage(
+                      quotationId: args['quotationId'],
+                      predefinedAction: args['predefinedAction']),
+                );
+              }
+
+
+              if (settings.name == '/customerQuotationResponse') {
+                final args = settings.arguments as Map<String, dynamic>;
+                return MaterialPageRoute(
+                  builder: (context) => CustomerQuotationResponsePage(
                       quotationId: args['quotationId'],
                       predefinedAction: args['predefinedAction']),
                 );

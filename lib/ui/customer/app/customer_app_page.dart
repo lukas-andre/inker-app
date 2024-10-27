@@ -15,11 +15,8 @@ class CustomerAppPage extends StatefulWidget {
 }
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   static const List<Widget> _pageWidgets = <Widget>[
-    Center(
-      child: Text('One'),
-    ),
     BuildMapPage(),
     QuotationListPage(),
     ProfilePage()

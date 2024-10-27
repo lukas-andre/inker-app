@@ -20,15 +20,23 @@ mixin _$CustomerQuotationResponseEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId) loadQuotation,
-    required TResult Function(String quotationId,
-            CustomerQuotationAction action, String? additionalDetails)
+    required TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
+            String? additionalDetails)
         submit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId)? loadQuotation,
-    TResult? Function(String quotationId, CustomerQuotationAction action,
+    TResult? Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
   }) =>
@@ -36,7 +44,11 @@ mixin _$CustomerQuotationResponseEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId)? loadQuotation,
-    TResult Function(String quotationId, CustomerQuotationAction action,
+    TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
     required TResult orElse(),
@@ -171,8 +183,12 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId) loadQuotation,
-    required TResult Function(String quotationId,
-            CustomerQuotationAction action, String? additionalDetails)
+    required TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
+            String? additionalDetails)
         submit,
   }) {
     return loadQuotation(quotationId);
@@ -182,7 +198,11 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId)? loadQuotation,
-    TResult? Function(String quotationId, CustomerQuotationAction action,
+    TResult? Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
   }) {
@@ -193,7 +213,11 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId)? loadQuotation,
-    TResult Function(String quotationId, CustomerQuotationAction action,
+    TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
     required TResult orElse(),
@@ -258,6 +282,8 @@ abstract class _$$SubmitImplCopyWith<$Res>
   $Res call(
       {String quotationId,
       CustomerQuotationAction action,
+      QuotationCustomerRejectReason? rejectionReason,
+      QuotationCustomerAppealReason? appealReason,
       String? additionalDetails});
 }
 
@@ -274,6 +300,8 @@ class __$$SubmitImplCopyWithImpl<$Res>
   $Res call({
     Object? quotationId = null,
     Object? action = null,
+    Object? rejectionReason = freezed,
+    Object? appealReason = freezed,
     Object? additionalDetails = freezed,
   }) {
     return _then(_$SubmitImpl(
@@ -285,6 +313,14 @@ class __$$SubmitImplCopyWithImpl<$Res>
           ? _value.action
           : action // ignore: cast_nullable_to_non_nullable
               as CustomerQuotationAction,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerRejectReason?,
+      appealReason: freezed == appealReason
+          ? _value.appealReason
+          : appealReason // ignore: cast_nullable_to_non_nullable
+              as QuotationCustomerAppealReason?,
       additionalDetails: freezed == additionalDetails
           ? _value.additionalDetails
           : additionalDetails // ignore: cast_nullable_to_non_nullable
@@ -299,6 +335,8 @@ class _$SubmitImpl implements _Submit {
   const _$SubmitImpl(
       {required this.quotationId,
       required this.action,
+      this.rejectionReason,
+      this.appealReason,
       this.additionalDetails});
 
   @override
@@ -306,11 +344,15 @@ class _$SubmitImpl implements _Submit {
   @override
   final CustomerQuotationAction action;
   @override
+  final QuotationCustomerRejectReason? rejectionReason;
+  @override
+  final QuotationCustomerAppealReason? appealReason;
+  @override
   final String? additionalDetails;
 
   @override
   String toString() {
-    return 'CustomerQuotationResponseEvent.submit(quotationId: $quotationId, action: $action, additionalDetails: $additionalDetails)';
+    return 'CustomerQuotationResponseEvent.submit(quotationId: $quotationId, action: $action, rejectionReason: $rejectionReason, appealReason: $appealReason, additionalDetails: $additionalDetails)';
   }
 
   @override
@@ -321,13 +363,17 @@ class _$SubmitImpl implements _Submit {
             (identical(other.quotationId, quotationId) ||
                 other.quotationId == quotationId) &&
             (identical(other.action, action) || other.action == action) &&
+            (identical(other.rejectionReason, rejectionReason) ||
+                other.rejectionReason == rejectionReason) &&
+            (identical(other.appealReason, appealReason) ||
+                other.appealReason == appealReason) &&
             (identical(other.additionalDetails, additionalDetails) ||
                 other.additionalDetails == additionalDetails));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, quotationId, action, additionalDetails);
+  int get hashCode => Object.hash(runtimeType, quotationId, action,
+      rejectionReason, appealReason, additionalDetails);
 
   @JsonKey(ignore: true)
   @override
@@ -339,35 +385,50 @@ class _$SubmitImpl implements _Submit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId) loadQuotation,
-    required TResult Function(String quotationId,
-            CustomerQuotationAction action, String? additionalDetails)
+    required TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
+            String? additionalDetails)
         submit,
   }) {
-    return submit(quotationId, action, additionalDetails);
+    return submit(
+        quotationId, action, rejectionReason, appealReason, additionalDetails);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId)? loadQuotation,
-    TResult? Function(String quotationId, CustomerQuotationAction action,
+    TResult? Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
   }) {
-    return submit?.call(quotationId, action, additionalDetails);
+    return submit?.call(
+        quotationId, action, rejectionReason, appealReason, additionalDetails);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId)? loadQuotation,
-    TResult Function(String quotationId, CustomerQuotationAction action,
+    TResult Function(
+            String quotationId,
+            CustomerQuotationAction action,
+            QuotationCustomerRejectReason? rejectionReason,
+            QuotationCustomerAppealReason? appealReason,
             String? additionalDetails)?
         submit,
     required TResult orElse(),
   }) {
     if (submit != null) {
-      return submit(quotationId, action, additionalDetails);
+      return submit(quotationId, action, rejectionReason, appealReason,
+          additionalDetails);
     }
     return orElse();
   }
@@ -408,11 +469,15 @@ abstract class _Submit implements CustomerQuotationResponseEvent {
   const factory _Submit(
       {required final String quotationId,
       required final CustomerQuotationAction action,
+      final QuotationCustomerRejectReason? rejectionReason,
+      final QuotationCustomerAppealReason? appealReason,
       final String? additionalDetails}) = _$SubmitImpl;
 
   @override
   String get quotationId;
   CustomerQuotationAction get action;
+  QuotationCustomerRejectReason? get rejectionReason;
+  QuotationCustomerAppealReason? get appealReason;
   String? get additionalDetails;
   @override
   @JsonKey(ignore: true)

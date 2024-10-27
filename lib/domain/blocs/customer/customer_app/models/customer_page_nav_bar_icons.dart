@@ -35,12 +35,6 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
     const CustomerPageNavBarIcons(
   icons: [
     PageNavBarIcon(
-      icon: ImageIcon(feedIcon),
-      selectedIcon: ImageIcon(feedSelectedIcon),
-      title: 'Novedades',
-      index: 0,
-    ),
-    PageNavBarIcon(
       icon: ImageIcon(exploreIcon),
       selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
@@ -49,7 +43,7 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
     PageNavBarIcon(
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
-      title: 'Guardados',
+      title: 'Cotizaciones',
       index: 2,
     ),
     PageNavBarIcon(

@@ -71,7 +71,7 @@ class CloseRegisterButton extends StatelessWidget {
               icon: SvgPicture.asset(
                 'assets/icons/svg/circle-xmark-solid.svg',
                 color: Colors.white,
-                // height: 50,
+                height: 45,
               ))),
     );
   }

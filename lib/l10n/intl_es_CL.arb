@@ -809,5 +809,284 @@
   "save": "Guardar",
   "@save": {
     "description": "Botón para guardar cambios o información."
+  },
+  "acceptQuotation": "Aceptar Cotización",
+  "@acceptQuotation": {
+    "description": "Botón para aceptar una cotización."
+  },
+  "rejectQuotation": "Rechazar Cotización",
+  "@rejectQuotation": {
+    "description": "Botón para rechazar una cotización."
+  },
+  "appealQuotation": "Apelar Cotización",
+  "@appealQuotation": {
+    "description": "Botón para apelar una cotización."
+  },
+  "cancelQuotation": "Cancelar Cotización",
+  "@cancelQuotation": {
+    "description": "Botón para cancelar una cotización."
+  },
+  "appealReason": "Motivo de Apelación",
+  "@appealReason": {
+    "description": "Campo para mostrar o ingresar el motivo de apelación."
+  },
+  "appealReasonDateChange": "Necesito cambiar la fecha de la cita",
+  "@appealReasonDateChange": {
+    "description": "Motivo de apelación para cambiar la fecha de la cita."
+  },
+  "appealReasonPriceChange": "El precio es demasiado alto",
+  "@appealReasonPriceChange": {
+    "description": "Motivo de apelación para un cambio en el precio."
+  },
+  "appealReasonDesignChange": "Necesito cambiar el diseño",
+  "@appealReasonDesignChange": {
+    "description": "Motivo de apelación para cambiar el diseño."
+  },
+  "appealReasonOther": "Otro",
+  "@appealReasonOther": {
+    "description": "Motivo de apelación para cualquier otra razón no especificada."
+  },
+  "rejectReasonTooExpensive": "Demasiado Caro",
+  "@rejectReasonTooExpensive": {
+    "description": "Motivo de rechazo cuando el precio es demasiado alto."
+  },
+  "rejectReasonNotWhatIWanted": "No es lo que quería",
+  "@rejectReasonNotWhatIWanted": {
+    "description": "Motivo de rechazo cuando el trabajo no es lo que se esperaba."
+  },
+  "rejectReasonChangedMyMind": "Cambié de opinión",
+  "@rejectReasonChangedMyMind": {
+    "description": "Motivo de rechazo cuando se cambia de opinión."
+  },
+  "rejectReasonFoundAnotherArtist": "Encontré otro artista",
+  "@rejectReasonFoundAnotherArtist": {
+    "description": "Motivo de rechazo cuando se encuentra otro artista."
+  },
+  "quotationStatusArtistPending": "Nueva Solicitud",
+  "@quotationStatusArtistPending": {
+    "description": "Estado mostrado al artista cuando la cotización está pendiente"
+  },
+  
+  "quotationStatusArtistAppealed": "Apelación Recibida",
+  "@quotationStatusArtistAppealed": {
+    "description": "Estado mostrado al artista cuando la cotización está apelada"
+  },
+  
+  "quotationStatusArtistQuoted": "Esperando Respuesta",
+  "@quotationStatusArtistQuoted": {
+    "description": "Estado mostrado al artista cuando la cotización está cotizada"
+  },
+  
+  "quotationStatusArtistAccepted": "Agendado",
+  "@quotationStatusArtistAccepted": {
+    "description": "Estado mostrado al artista cuando la cotización está aceptada"
+  },
+  
+  "quotationStatusArtistRejected": "Rechazado por Cliente",
+  "@quotationStatusArtistRejected": {
+    "description": "Estado mostrado al artista cuando la cotización está rechazada"
+  },
+  
+  "quotationStatusArtistCanceled": "Cancelado por Ti",
+  "@quotationStatusArtistCanceled": {
+    "description": "Estado mostrado al artista cuando la cotización está cancelada"
+  },
+  
+  "quotationStatusCustomerPending": "Esperando Respuesta",
+  "@quotationStatusCustomerPending": {
+    "description": "Estado mostrado al cliente cuando la cotización está pendiente"
+  },
+  
+  "quotationStatusCustomerAppealed": "Esperando Artista",
+  "@quotationStatusCustomerAppealed": {
+    "description": "Estado mostrado al cliente cuando la cotización está apelada"
+  },
+  
+  "quotationStatusCustomerQuoted": "Cotización Recibida",
+  "@quotationStatusCustomerQuoted": {
+    "description": "Estado mostrado al cliente cuando la cotización está cotizada"
+  },
+  
+  "quotationStatusCustomerAccepted": "Agendado",
+  "@quotationStatusCustomerAccepted": {
+    "description": "Estado mostrado al cliente cuando la cotización está aceptada"
+  },
+  
+  "quotationStatusCustomerRejected": "Rechazado por Ti",
+  "@quotationStatusCustomerRejected": {
+    "description": "Estado mostrado al cliente cuando la cotización está rechazada"
+  },
+  
+  "quotationStatusCustomerCanceled": "Cancelado",
+  "@quotationStatusCustomerCanceled": {
+    "description": "Estado mostrado al cliente cuando la cotización está cancelada"
+  },
+  "currentStatus": "Estado Actual",
+  "@currentStatus": {
+    "description": "Campo o etiqueta para mostrar el estado actual de algo."
+  },
+  "quotationHistory": "Historial de Cotizaciones",
+  "@quotationHistory": {
+    "description": "Campo o etiqueta para mostrar el historial de cotizaciones."
+  },
+  "changedStatusFrom": "cambió el estado de",
+  "@changedStatusFrom": {
+    "description": "Mensaje que indica que el estado de algo ha cambiado."
+  },
+  "quotedTheRequest": "Cotizó la solicitud",
+  "@quotedTheRequest": {
+    "description": "Mensaje que indica que se ha cotizado una solicitud."
+  },
+  "appealedTheQuotation": "Apeló la cotización",
+  "@appealedTheQuotation": {
+    "description": "Mensaje que indica que se ha apelado una cotización."
+  },
+  "statusPending": "Pendiente",
+  "@statusPending": {
+    "description": "Estado que indica que algo está en espera."
+  },
+  "statusQuoted": "Cotizado",
+  "@statusQuoted": {
+    "description": "Estado que indica que algo ha sido cotizado."
+  },
+  "statusAccepted": "Aceptado",
+  "@statusAccepted": {
+    "description": "Estado que indica que algo ha sido aceptado."
+  },
+  "statusRejected": "Rechazado",
+  "@statusRejected": {
+    "description": "Estado que indica que algo ha sido rechazado."
+  },
+  "statusCanceled": "Cancelado",
+  "@statusCanceled": {
+    "description": "Estado que indica que algo ha sido cancelado."
+  },
+  "statusAppealed": "Apelado",
+  "@statusAppealed": {
+    "description": "Estado que indica que algo ha sido apelado."
+  },
+  "artist": "Artista",
+  "@artist": {
+    "description": "Una persona que crea arte."
+  },
+  "customer": "Cliente",
+  "@customer": {
+    "description": "Una persona que compra bienes o servicios."
+  },
+  "system": "Sistema",
+  "@system": {
+    "description": "Un conjunto de cosas que trabajan juntas como un todo."
+  },
+  "viewDetails": "Ver Detalles",
+  "@viewDetails": {
+    "description": "Botón para ver más detalles."
+  },
+  "expand": "Expandir",
+  "@expand": {
+    "description": "Botón para expandir o mostrar más información."
+  },
+  "collapse": "Colapsar",
+  "@collapse": {
+    "description": "Botón para colapsar o mostrar menos información."
+  },
+  "hoursAndMinutes": "{hoursv2} horas y {minutesv2} minutos",
+  "@hoursAndMinutes": {
+    "description": "Texto que muestra duración con horas y minutos",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      },
+      "minutesv2": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+  "hoursv2": "{hoursv2} horas",
+  "@hoursv2": {
+    "description": "Texto que muestra duración solo en horas",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "minutesv2": "{minutesv2} minutos",
+  "@minutesv2": {
+    "description": "Texto que muestra duración solo en minutos",
+    "placeholders": {
+      "minutesv2": {
+        "type": "int",
+        "example": "45"
+      }
+    }
+  },
+  "cancellationReason": "Motivo de Cancelación",
+  "@cancellationReason": {
+    "description": "Etiqueta para mostrar el motivo de cancelación"
+  },
+  "cancelReasonChangeOfMind": "Cambié de opinión",
+  "@cancelReasonChangeOfMind": {
+    "description": "Motivo de cancelación cuando el cliente cambia de opinión"
+  },
+  "cancelReasonFoundAnotherArtist": "Encontré otro artista",
+  "@cancelReasonFoundAnotherArtist": {
+    "description": "Motivo de cancelación cuando el cliente encontró otro artista"
+  },
+  "cancelReasonFinancialReasons": "Motivos financieros",
+  "@cancelReasonFinancialReasons": {
+    "description": "Motivo de cancelación por problemas financieros"
+  },
+  "cancelReasonPersonalReasons": "Motivos personales",
+  "@cancelReasonPersonalReasons": {
+    "description": "Motivo de cancelación por problemas personales"
+  },
+  "cancelReasonOther": "Otro",
+  "@cancelReasonOther": {
+    "description": "Motivo de cancelación cuando no encaja en otras categorías"
+  },
+  "cancelReasonNotAttended": "No asistió a la cita",
+  "@cancelReasonNotAttended": {
+    "description": "Motivo de cancelación del sistema cuando se perdió la cita"
+  },
+  "cancelReasonSystemTimeout": "Tiempo de espera agotado",
+  "@cancelReasonSystemTimeout": {
+    "description": "Motivo de cancelación del sistema cuando se agotó el tiempo de espera"
+  },
+  "noImagesAvailable": "No hay imágenes disponibles",
+  "@noImagesAvailable": {
+    "description": "Mensaje que indica que no hay imágenes disponibles."
+  },
+  "acceptedTheQuotation": "aceptó la cotización",
+  "@acceptedTheQuotation": {
+    "description": "Action text when a quotation is accepted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rejectedTheQuotation": "rechazó la cotización",
+  "@rejectedTheQuotation": {
+    "description": "Action text when a quotation is rejected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "canceledTheQuotation": "canceló la cotización",
+  "@canceledTheQuotation": {
+    "description": "Action text when a quotation is canceled",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appointmentDateChangedFrom": "La fecha de la cita cambió de",
+  "@appointmentDateChangedFrom": {
+    "description": "Text shown when appointment date is changed, followed by the old and new dates",
+    "type": "text",
+    "placeholders": {}
+  },
+  "estimatedCostChangedFrom": "El costo estimado cambió de",
+  "@estimatedCostChangedFrom": {
+    "description": "Text shown when estimated cost is changed, followed by the old and new amounts",
+    "type": "text",
+    "placeholders": {}
   }
 }

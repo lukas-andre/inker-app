@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
+import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
+import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
@@ -145,10 +148,10 @@ class _QuotationListViewState extends State<QuotationListView> {
           'label': l10n.scheduled,
           'statuses': ['accepted']
         },
-        {
-          'label': l10n.completed,
-          'statuses': ['completed']
-        },
+        // {
+        //   'label': l10n.completed,
+        //   'statuses': ['completed']
+        // },
         {
           'label': l10n.cancelled,
           'statuses': ['rejected', 'canceled']
@@ -366,147 +369,160 @@ class _QuotationListViewState extends State<QuotationListView> {
     String? cancellingQuotationId,
   ) {
     final isArtist = session.user?.userType == 'ARTIST';
-    final statusText = getStatusText(quotation.status, l10n, isArtist);
+    final statusText =
+        QuotationStatusL10n.getStatus(quotation.status, l10n, isArtist);
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
 
-    return Card(
-      color: const Color(0xFF1F223C),
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: const BorderSide(color: Color(0xFF777E91)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Insignia de Estado y Fecha de Creación
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => QuotationDetailsPage(
+              quotation: quotation,
+            ),
+          ),
+        );
+      },
+      child: Card(
+        color: const Color(0xFF1F223C),
+        margin: const EdgeInsets.only(bottom: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: Color(0xFF777E91)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Insignia de Estado y Fecha de Creación
+              Row(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: statusColor.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          statusIcon,
+                          color: statusColor,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          statusText,
+                          style: TextStyleTheme.subtitle2.copyWith(
+                            color: statusColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Row(
+                  const Spacer(),
+                  // Fecha de Creación
+                  Row(
                     children: [
-                      Icon(
-                        statusIcon,
-                        color: statusColor,
+                      const Icon(
+                        Icons.calendar_today,
+                        color: Color(0xFF686D90),
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        statusText,
-                        style: TextStyleTheme.subtitle2.copyWith(
-                          color: statusColor,
-                          fontWeight: FontWeight.bold,
+                        DateFormat.yMMMd().format(quotation.createdAt),
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: const Color(0xFF686D90),
                         ),
                       ),
                     ],
                   ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Descripción
+              Text(
+                quotation.description,
+                style: TextStyleTheme.bodyText1.copyWith(
+                  color: const Color(0xFFF2F2F2),
+                  fontWeight: FontWeight.bold,
                 ),
-                const Spacer(),
-                // Fecha de Creación
-                Row(
+              ),
+              const SizedBox(height: 16),
+              // Detalles
+              if (quotation.estimatedCost != null ||
+                  quotation.appointmentDate != null ||
+                  quotation.appointmentDuration != null)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
-                      Icons.calendar_today,
-                      color: Color(0xFF686D90),
-                      size: 16,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      DateFormat.yMMMd().format(quotation.createdAt),
-                      style: TextStyleTheme.bodyText2.copyWith(
-                        color: const Color(0xFF686D90),
+                    if (quotation.estimatedCost != null)
+                      _buildDetailRow(
+                        icon: Icons.attach_money,
+                        label: l10n.estimatedCost,
+                        value:
+                            '\$${quotation.estimatedCost!.toStringAsFixed(2)}',
                       ),
-                    ),
+                    if (quotation.appointmentDate != null)
+                      _buildDetailRow(
+                        icon: Icons.event,
+                        label: l10n.appointmentDate,
+                        value: DateFormat.yMMMd()
+                            .format(quotation.appointmentDate!),
+                      ),
+                    if (quotation.appointmentDuration != null)
+                      _buildDetailRow(
+                        icon: Icons.access_time,
+                        label: l10n.appointmentDuration,
+                        value: '${quotation.appointmentDuration} ${l10n.hours}',
+                      ),
                   ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Descripción
-            Text(
-              quotation.description,
-              style: TextStyleTheme.bodyText1.copyWith(
-                color: const Color(0xFFF2F2F2),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Detalles
-            if (quotation.estimatedCost != null ||
-                quotation.appointmentDate != null ||
-                quotation.appointmentDuration != null)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (quotation.estimatedCost != null)
-                    _buildDetailRow(
-                      icon: Icons.attach_money,
-                      label: l10n.estimatedCost,
-                      value: '\$${quotation.estimatedCost!.toStringAsFixed(2)}',
+              const SizedBox(height: 16),
+              // Imágenes de Referencia
+              if (quotation.referenceImages != null &&
+                  quotation.referenceImages!.metadata.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.referenceImages,
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: const Color(0xFFF2F2F2),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  if (quotation.appointmentDate != null)
-                    _buildDetailRow(
-                      icon: Icons.event,
-                      label: l10n.appointmentDate,
-                      value:
-                          DateFormat.yMMMd().format(quotation.appointmentDate!),
+                    const SizedBox(height: 8),
+                    _buildImageGallery(quotation.referenceImages!.metadata),
+                  ],
+                ),
+              // Propuestas de Diseño
+              if (quotation.proposedDesigns != null &&
+                  quotation.proposedDesigns!.metadata.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.proposedDesigns,
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: const Color(0xFFF2F2F2),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  if (quotation.appointmentDuration != null)
-                    _buildDetailRow(
-                      icon: Icons.access_time,
-                      label: l10n.appointmentDuration,
-                      value: '${quotation.appointmentDuration} ${l10n.hours}',
-                    ),
-                ],
-              ),
-            const SizedBox(height: 16),
-            // Imágenes de Referencia
-            if (quotation.referenceImages != null &&
-                quotation.referenceImages!.metadata.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.referenceImages,
-                    style: TextStyleTheme.subtitle2.copyWith(
-                      color: const Color(0xFFF2F2F2),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildImageGallery(quotation.referenceImages!.metadata),
-                ],
-              ),
-            // Propuestas de Diseño
-            if (quotation.proposedDesigns != null &&
-                quotation.proposedDesigns!.metadata.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.proposedDesigns,
-                    style: TextStyleTheme.subtitle2.copyWith(
-                      color: const Color(0xFFF2F2F2),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildImageGallery(quotation.proposedDesigns!.metadata),
-                ],
-              ),
-            const SizedBox(height: 16),
-            // Acciones
-            _buildActions(quotation, session, l10n, cancellingQuotationId),
-          ],
+                    const SizedBox(height: 8),
+                    _buildImageGallery(quotation.proposedDesigns!.metadata),
+                  ],
+                ),
+              const SizedBox(height: 16),
+              // Acciones
+              _buildActions(quotation, session, l10n, cancellingQuotationId),
+            ],
+          ),
         ),
       ),
     );
@@ -648,7 +664,6 @@ class _QuotationListViewState extends State<QuotationListView> {
     else {
       switch (quotation.status) {
         case QuotationStatus.pending:
-        case QuotationStatus.appealed:
           // El cliente puede cancelar la cotización
           return Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -669,41 +684,118 @@ class _QuotationListViewState extends State<QuotationListView> {
             ],
           );
         case QuotationStatus.quoted:
-          // El cliente puede aceptar, apelar o rechazar la cotización
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buildActionButton(
-                onPressed: () {
-                  // Implementar la lógica para aceptar
-                },
-                icon: Icons.check,
-                label: l10n.accept,
-                isPrimary: true,
-              ),
-              const SizedBox(width: 8),
-              _buildActionButton(
-                onPressed: () {
-                  // Implementar la lógica para apelar
-                },
-                icon: Icons.edit,
-                label: l10n.appeal,
-                isPrimary: false,
-              ),
-              const SizedBox(width: 8),
-              _buildActionButton(
-                onPressed: () {
-                  // Implementar la lógica para rechazar
-                },
-                icon: Icons.cancel,
-                label: l10n.reject,
-                isPrimary: false,
-              ),
-            ],
-          );
+          final actions = [
+            _ActionItem(
+              onPressed: () async {
+                final result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CustomerQuotationResponsePage(
+                      quotationId: quotation.id.toString(),
+                      predefinedAction: CustomerQuotationAction.accept,
+                    ),
+                  ),
+                );
+                if (result == true) {
+                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                    _selectedStatuses,
+                    false,
+                  ));
+                }
+              },
+              icon: Icons.check,
+              label: l10n.accept,
+              isPrimary: true,
+            ),
+            _ActionItem(
+              onPressed: () async {
+                final result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CustomerQuotationResponsePage(
+                      quotationId: quotation.id.toString(),
+                      predefinedAction: CustomerQuotationAction.appeal,
+                    ),
+                  ),
+                );
+                if (result == true) {
+                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                    _selectedStatuses,
+                    false,
+                  ));
+                }
+              },
+              icon: Icons.edit,
+              label: l10n.appeal,
+              isPrimary: false,
+            ),
+            _ActionItem(
+              onPressed: () async {
+                final result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CustomerQuotationResponsePage(
+                      quotationId: quotation.id.toString(),
+                      predefinedAction: CustomerQuotationAction.reject,
+                    ),
+                  ),
+                );
+                if (result == true) {
+                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                    _selectedStatuses,
+                    false,
+                  ));
+                }
+              },
+              icon: Icons.cancel,
+              label: l10n.reject,
+              isPrimary: false,
+            ),
+          ];
+          return _buildLimitedActions(actions, l10n);
         default:
           return const SizedBox.shrink();
       }
+    }
+  }
+
+  Widget _buildLimitedActions(List<_ActionItem> actions, S l10n) {
+    if (actions.length <= 2) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: actions
+            .map((action) => _buildActionButton(
+                  onPressed: action.onPressed,
+                  icon: action.icon,
+                  label: action.label,
+                  isPrimary: action.isPrimary,
+                ))
+            .toList(),
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          _buildActionButton(
+            onPressed: actions[0].onPressed,
+            icon: actions[0].icon,
+            label: actions[0].label,
+            isPrimary: actions[0].isPrimary,
+          ),
+          const SizedBox(width: 8),
+          PopupMenuButton<VoidCallback>(
+            icon: const Icon(Icons.more_vert, color: Color(0xFFF2F2F2)),
+            onSelected: (callback) => callback(),
+            itemBuilder: (BuildContext context) =>
+                actions.skip(1).map((action) {
+              return PopupMenuItem<VoidCallback>(
+                value: action.onPressed,
+                child: ListTile(
+                  leading: Icon(action.icon),
+                  title: Text(action.label),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      );
     }
   }
 
@@ -804,36 +896,16 @@ class _QuotationListViewState extends State<QuotationListView> {
   }
 }
 
-String getStatusText(QuotationStatus status, S l10n, bool isArtist) {
-  if (isArtist) {
-    switch (status) {
-      case QuotationStatus.pending:
-      case QuotationStatus.appealed:
-        return l10n.newRequest;
-      case QuotationStatus.quoted:
-        return l10n.awaitingReply;
-      case QuotationStatus.accepted:
-        return l10n.scheduled;
-      case QuotationStatus.rejected:
-      case QuotationStatus.canceled:
-        return l10n.cancelled;
-      default:
-        return '';
-    }
-  } else {
-    switch (status) {
-      case QuotationStatus.pending:
-      case QuotationStatus.appealed:
-        return l10n.awaitingArtist;
-      case QuotationStatus.quoted:
-        return l10n.receivedQuotation;
-      case QuotationStatus.accepted:
-        return l10n.scheduled;
-      case QuotationStatus.rejected:
-      case QuotationStatus.canceled:
-        return l10n.cancelled;
-      default:
-        return '';
-    }
-  }
+class _ActionItem {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final String label;
+  final bool isPrimary;
+
+  _ActionItem({
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    required this.isPrimary,
+  });
 }
