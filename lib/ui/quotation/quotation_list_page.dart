@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/customer/customer.dart';
+import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
+import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
@@ -374,6 +378,11 @@ class _QuotationListViewState extends State<QuotationListView> {
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
 
+    final counterpartInfo = isArtist
+        ? CounterpartInfo.fromCustomer(
+            quotation.customer)
+        : CounterpartInfo.fromArtist(quotation.artist);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -396,135 +405,181 @@ class _QuotationListViewState extends State<QuotationListView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Insignia de Estado y Fecha de Creación
-              Row(
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          statusIcon,
-                          color: statusColor,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          statusText,
-                          style: TextStyleTheme.subtitle2.copyWith(
-                            color: statusColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  // Fecha de Creación
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.calendar_today,
-                        color: Color(0xFF686D90),
-                        size: 16,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        DateFormat.yMMMd().format(quotation.createdAt),
-                        style: TextStyleTheme.bodyText2.copyWith(
-                          color: const Color(0xFF686D90),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              _buildCounterpartHeader(counterpartInfo, isArtist),
               const SizedBox(height: 16),
-              // Descripción
-              Text(
-                quotation.description,
-                style: TextStyleTheme.bodyText1.copyWith(
-                  color: const Color(0xFFF2F2F2),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              _buildStatusAndDate(statusText, statusColor, statusIcon,
+                  quotation.createdAt, l10n),
               const SizedBox(height: 16),
-              // Detalles
+              _buildDescription(quotation.description),
+              const SizedBox(height: 16),
+              if (quotation.location != null) ...[
+                _buildLocation(quotation.location!),
+                const SizedBox(height: 16),
+              ],
               if (quotation.estimatedCost != null ||
                   quotation.appointmentDate != null ||
                   quotation.appointmentDuration != null)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (quotation.estimatedCost != null)
-                      _buildDetailRow(
-                        icon: Icons.attach_money,
-                        label: l10n.estimatedCost,
-                        value:
-                            '\$${quotation.estimatedCost!.toStringAsFixed(2)}',
-                      ),
-                    if (quotation.appointmentDate != null)
-                      _buildDetailRow(
-                        icon: Icons.event,
-                        label: l10n.appointmentDate,
-                        value: DateFormat.yMMMd()
-                            .format(quotation.appointmentDate!),
-                      ),
-                    if (quotation.appointmentDuration != null)
-                      _buildDetailRow(
-                        icon: Icons.access_time,
-                        label: l10n.appointmentDuration,
-                        value: '${quotation.appointmentDuration} ${l10n.hours}',
-                      ),
-                  ],
-                ),
+                _buildQuotationDetails(quotation, l10n),
               const SizedBox(height: 16),
-              // Imágenes de Referencia
-              if (quotation.referenceImages != null &&
-                  quotation.referenceImages!.metadata.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.referenceImages,
-                      style: TextStyleTheme.subtitle2.copyWith(
-                        color: const Color(0xFFF2F2F2),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildImageGallery(quotation.referenceImages!.metadata),
-                  ],
-                ),
-              // Propuestas de Diseño
-              if (quotation.proposedDesigns != null &&
-                  quotation.proposedDesigns!.metadata.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.proposedDesigns,
-                      style: TextStyleTheme.subtitle2.copyWith(
-                        color: const Color(0xFFF2F2F2),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildImageGallery(quotation.proposedDesigns!.metadata),
-                  ],
-                ),
+              _buildImagesSection(quotation, l10n),
               const SizedBox(height: 16),
-              // Acciones
               _buildActions(quotation, session, l10n, cancellingQuotationId),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist) {
+    return Row(
+      children: [
+        if (info.profileThumbnail != null)
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: NetworkImage(info.profileThumbnail!),
+          )
+        else
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: const Color(0xFF686D90),
+            child: Text(
+              info.firstLetter,
+              style: TextStyleTheme.subtitle1.copyWith(color: Colors.white),
+            ),
+          ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                info.displayName,
+                style: TextStyleTheme.subtitle1.copyWith(
+                  color: const Color(0xFFF2F2F2),
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+              if (!isArtist && info.username != null)
+                Text(
+                  '@${info.username}',
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: const Color(0xFF686D90),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatusAndDate(
+    String statusText,
+    Color statusColor,
+    IconData statusIcon,
+    DateTime createdAt,
+    S l10n,
+  ) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: statusColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Icon(statusIcon, color: statusColor, size: 16),
+              const SizedBox(width: 4),
+              Text(
+                statusText,
+                style: TextStyleTheme.subtitle2.copyWith(
+                  color: statusColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Row(
+          children: [
+            const Icon(
+              Icons.calendar_today,
+              color: Color(0xFF686D90),
+              size: 16,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              DateFormat.yMMMd().format(createdAt),
+              style: TextStyleTheme.bodyText2.copyWith(
+                color: const Color(0xFF686D90),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDescription(String description) {
+    return Text(
+      description,
+      style: TextStyleTheme.bodyText1.copyWith(
+        color: const Color(0xFFF2F2F2),
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _buildLocation(Location location) {
+    return Row(
+      children: [
+        const Icon(
+          Icons.location_on,
+          color: Color(0xFF686D90),
+          size: 16,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            location.shortAddress1,
+            style: TextStyleTheme.bodyText2.copyWith(
+              color: const Color(0xFF686D90),
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuotationDetails(Quotation quotation, S l10n) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (quotation.estimatedCost != null)
+          _buildDetailRow(
+            icon: Icons.attach_money,
+            label: l10n.estimatedCost,
+            value: quotation.estimatedCost!.toString(),
+          ),
+        if (quotation.appointmentDate != null)
+          _buildDetailRow(
+            icon: Icons.event,
+            label: l10n.appointmentDate,
+            value: DateFormat.yMMMd().format(quotation.appointmentDate!),
+          ),
+        if (quotation.appointmentDuration != null)
+          _buildDetailRow(
+            icon: Icons.access_time,
+            label: l10n.appointmentDuration,
+            value: '${quotation.appointmentDuration} ${l10n.hours}',
+          ),
+      ],
     );
   }
 
@@ -559,6 +614,61 @@ class _QuotationListViewState extends State<QuotationListView> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildImagesSection(Quotation quotation, S l10n) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (quotation.referenceImages != null &&
+            quotation.referenceImages!.metadata.isNotEmpty) ...[
+          Text(
+            l10n.referenceImages,
+            style: TextStyleTheme.subtitle2.copyWith(
+              color: const Color(0xFFF2F2F2),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _buildImageGallery(quotation.referenceImages!.metadata),
+        ],
+        if (quotation.proposedDesigns != null &&
+            quotation.proposedDesigns!.metadata.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          Text(
+            l10n.proposedDesigns,
+            style: TextStyleTheme.subtitle2.copyWith(
+              color: const Color(0xFFF2F2F2),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _buildImageGallery(quotation.proposedDesigns!.metadata),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildImageGallery(List<MultimediaMetadata> images) {
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          final image = images[index];
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.network(
+              image.url,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          );
+        },
       ),
     );
   }
@@ -639,7 +749,10 @@ class _QuotationListViewState extends State<QuotationListView> {
                     '/artistQuotationResponse',
                     arguments: {
                       'quotationId': quotation.id.toString(),
-                      'predefinedAction': ArtistQuotationAction.reject
+                      'predefinedAction':
+                          quotation.status == QuotationStatus.pending
+                              ? ArtistQuotationAction.reject
+                              : ArtistQuotationAction.rejectAppeal,
                     },
                   );
                   if (result == true) {
@@ -797,28 +910,6 @@ class _QuotationListViewState extends State<QuotationListView> {
         ],
       );
     }
-  }
-
-  Widget _buildImageGallery(List<MultimediaMetadata> images) {
-    return SizedBox(
-      height: 100,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: images.length,
-        itemBuilder: (context, index) {
-          final image = images[index];
-          return Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Image.network(
-              image.url,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-          );
-        },
-      ),
-    );
   }
 
   Widget _buildActionButton({

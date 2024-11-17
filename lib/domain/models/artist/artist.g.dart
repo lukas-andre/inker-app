@@ -14,7 +14,7 @@ _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
       username: json['username'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
-      shortDescription: json['shortDescription'] as String,
+      shortDescription: json['shortDescription'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,
       profileThumbnailVersion:
           (json['profileThumbnailVersion'] as num?)?.toInt(),
@@ -48,7 +48,6 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
     'username': instance.username,
     'firstName': instance.firstName,
     'lastName': instance.lastName,
-    'shortDescription': instance.shortDescription,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -57,6 +56,7 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
     }
   }
 
+  writeNotNull('shortDescription', instance.shortDescription);
   writeNotNull('profileThumbnail', instance.profileThumbnail);
   writeNotNull('profileThumbnailVersion', instance.profileThumbnailVersion);
   writeNotNull('tags', instance.tags);

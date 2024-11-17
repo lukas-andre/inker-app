@@ -2623,6 +2623,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Miembro desde`
+  String get memberSince {
+    return Intl.message(
+      'Miembro desde',
+      name: 'memberSince',
+      desc: 'Text shown when a user joined the platform',
+      args: [],
+    );
+  }
+
+  /// `No disponible`
+  String get notAvailable {
+    return Intl.message(
+      'No disponible',
+      name: 'notAvailable',
+      desc: 'Text shown when something is not available',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -31,7 +31,7 @@ mixin _$Quotation {
   MultimediasMetadata? get proposedDesigns =>
       throw _privateConstructorUsedError;
   QuotationStatus get status => throw _privateConstructorUsedError;
-  double? get estimatedCost => throw _privateConstructorUsedError;
+  Money? get estimatedCost => throw _privateConstructorUsedError;
   DateTime? get responseDate => throw _privateConstructorUsedError;
   DateTime? get appointmentDate => throw _privateConstructorUsedError;
   int? get appointmentDuration => throw _privateConstructorUsedError;
@@ -56,6 +56,9 @@ mixin _$Quotation {
   QuotationUserType? get lastUpdatedByUserType =>
       throw _privateConstructorUsedError;
   List<QuotationHistory>? get history => throw _privateConstructorUsedError;
+  Customer? get customer => throw _privateConstructorUsedError;
+  Artist? get artist => throw _privateConstructorUsedError;
+  Location? get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +81,7 @@ abstract class $QuotationCopyWith<$Res> {
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
       QuotationStatus status,
-      double? estimatedCost,
+      Money? estimatedCost,
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
@@ -96,10 +99,16 @@ abstract class $QuotationCopyWith<$Res> {
       DateTime? canceledDate,
       int? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType,
-      List<QuotationHistory>? history});
+      List<QuotationHistory>? history,
+      Customer? customer,
+      Artist? artist,
+      Location? location});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
+  $MoneyCopyWith<$Res>? get estimatedCost;
+  $ArtistCopyWith<$Res>? get artist;
+  $LocationCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -143,6 +152,9 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? lastUpdatedBy = freezed,
     Object? lastUpdatedByUserType = freezed,
     Object? history = freezed,
+    Object? customer = freezed,
+    Object? artist = freezed,
+    Object? location = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -184,7 +196,7 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as Money?,
       responseDate: freezed == responseDate
           ? _value.responseDate
           : responseDate // ignore: cast_nullable_to_non_nullable
@@ -257,6 +269,18 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.history
           : history // ignore: cast_nullable_to_non_nullable
               as List<QuotationHistory>?,
+      customer: freezed == customer
+          ? _value.customer
+          : customer // ignore: cast_nullable_to_non_nullable
+              as Customer?,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
     ) as $Val);
   }
 
@@ -283,6 +307,42 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       return _then(_value.copyWith(proposedDesigns: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get estimatedCost {
+    if (_value.estimatedCost == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.estimatedCost!, (value) {
+      return _then(_value.copyWith(estimatedCost: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistCopyWith<$Res>? get artist {
+    if (_value.artist == null) {
+      return null;
+    }
+
+    return $ArtistCopyWith<$Res>(_value.artist!, (value) {
+      return _then(_value.copyWith(artist: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res>? get location {
+    if (_value.location == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.location!, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -303,7 +363,7 @@ abstract class _$$QuotationImplCopyWith<$Res>
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
       QuotationStatus status,
-      double? estimatedCost,
+      Money? estimatedCost,
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
@@ -321,12 +381,21 @@ abstract class _$$QuotationImplCopyWith<$Res>
       DateTime? canceledDate,
       int? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType,
-      List<QuotationHistory>? history});
+      List<QuotationHistory>? history,
+      Customer? customer,
+      Artist? artist,
+      Location? location});
 
   @override
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   @override
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
+  @override
+  $MoneyCopyWith<$Res>? get estimatedCost;
+  @override
+  $ArtistCopyWith<$Res>? get artist;
+  @override
+  $LocationCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -368,6 +437,9 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? lastUpdatedBy = freezed,
     Object? lastUpdatedByUserType = freezed,
     Object? history = freezed,
+    Object? customer = freezed,
+    Object? artist = freezed,
+    Object? location = freezed,
   }) {
     return _then(_$QuotationImpl(
       id: null == id
@@ -409,7 +481,7 @@ class __$$QuotationImplCopyWithImpl<$Res>
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as Money?,
       responseDate: freezed == responseDate
           ? _value.responseDate
           : responseDate // ignore: cast_nullable_to_non_nullable
@@ -482,6 +554,18 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value._history
           : history // ignore: cast_nullable_to_non_nullable
               as List<QuotationHistory>?,
+      customer: freezed == customer
+          ? _value.customer
+          : customer // ignore: cast_nullable_to_non_nullable
+              as Customer?,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location?,
     ));
   }
 }
@@ -517,7 +601,10 @@ class _$QuotationImpl implements _Quotation {
       this.canceledDate,
       this.lastUpdatedBy,
       this.lastUpdatedByUserType,
-      final List<QuotationHistory>? history})
+      final List<QuotationHistory>? history,
+      this.customer,
+      this.artist,
+      this.location})
       : _history = history;
 
   factory _$QuotationImpl.fromJson(Map<String, dynamic> json) =>
@@ -542,7 +629,7 @@ class _$QuotationImpl implements _Quotation {
   @override
   final QuotationStatus status;
   @override
-  final double? estimatedCost;
+  final Money? estimatedCost;
   @override
   final DateTime? responseDate;
   @override
@@ -588,8 +675,15 @@ class _$QuotationImpl implements _Quotation {
   }
 
   @override
+  final Customer? customer;
+  @override
+  final Artist? artist;
+  @override
+  final Location? location;
+
+  @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location)';
   }
 
   @override
@@ -649,7 +743,12 @@ class _$QuotationImpl implements _Quotation {
                 other.lastUpdatedBy == lastUpdatedBy) &&
             (identical(other.lastUpdatedByUserType, lastUpdatedByUserType) ||
                 other.lastUpdatedByUserType == lastUpdatedByUserType) &&
-            const DeepCollectionEquality().equals(other._history, _history));
+            const DeepCollectionEquality().equals(other._history, _history) &&
+            (identical(other.customer, customer) ||
+                other.customer == customer) &&
+            (identical(other.artist, artist) || other.artist == artist) &&
+            (identical(other.location, location) ||
+                other.location == location));
   }
 
   @JsonKey(ignore: true)
@@ -683,7 +782,10 @@ class _$QuotationImpl implements _Quotation {
         canceledDate,
         lastUpdatedBy,
         lastUpdatedByUserType,
-        const DeepCollectionEquality().hash(_history)
+        const DeepCollectionEquality().hash(_history),
+        customer,
+        artist,
+        location
       ]);
 
   @JsonKey(ignore: true)
@@ -711,7 +813,7 @@ abstract class _Quotation implements Quotation {
       final MultimediasMetadata? referenceImages,
       final MultimediasMetadata? proposedDesigns,
       required final QuotationStatus status,
-      final double? estimatedCost,
+      final Money? estimatedCost,
       final DateTime? responseDate,
       final DateTime? appointmentDate,
       final int? appointmentDuration,
@@ -729,7 +831,10 @@ abstract class _Quotation implements Quotation {
       final DateTime? canceledDate,
       final int? lastUpdatedBy,
       final QuotationUserType? lastUpdatedByUserType,
-      final List<QuotationHistory>? history}) = _$QuotationImpl;
+      final List<QuotationHistory>? history,
+      final Customer? customer,
+      final Artist? artist,
+      final Location? location}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
@@ -753,7 +858,7 @@ abstract class _Quotation implements Quotation {
   @override
   QuotationStatus get status;
   @override
-  double? get estimatedCost;
+  Money? get estimatedCost;
   @override
   DateTime? get responseDate;
   @override
@@ -791,6 +896,12 @@ abstract class _Quotation implements Quotation {
   @override
   List<QuotationHistory>? get history;
   @override
+  Customer? get customer;
+  @override
+  Artist? get artist;
+  @override
+  Location? get location;
+  @override
   @JsonKey(ignore: true)
   _$$QuotationImplCopyWith<_$QuotationImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -811,8 +922,8 @@ mixin _$QuotationHistory {
   DateTime get changedAt => throw _privateConstructorUsedError;
   int get changedBy => throw _privateConstructorUsedError;
   QuotationRole get changedByUserType => throw _privateConstructorUsedError;
-  String? get previousEstimatedCost => throw _privateConstructorUsedError;
-  String? get newEstimatedCost => throw _privateConstructorUsedError;
+  Money? get previousEstimatedCost => throw _privateConstructorUsedError;
+  Money? get newEstimatedCost => throw _privateConstructorUsedError;
   DateTime? get previousAppointmentDate => throw _privateConstructorUsedError;
   DateTime? get newAppointmentDate => throw _privateConstructorUsedError;
   int? get previousAppointmentDuration => throw _privateConstructorUsedError;
@@ -848,8 +959,8 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       DateTime changedAt,
       int changedBy,
       QuotationRole changedByUserType,
-      String? previousEstimatedCost,
-      String? newEstimatedCost,
+      Money? previousEstimatedCost,
+      Money? newEstimatedCost,
       DateTime? previousAppointmentDate,
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
@@ -862,6 +973,8 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       QuotationUserType? lastUpdatedByUserType});
 
   $QuotationCopyWith<$Res>? get quotation;
+  $MoneyCopyWith<$Res>? get previousEstimatedCost;
+  $MoneyCopyWith<$Res>? get newEstimatedCost;
 }
 
 /// @nodoc
@@ -939,11 +1052,11 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       previousEstimatedCost: freezed == previousEstimatedCost
           ? _value.previousEstimatedCost
           : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Money?,
       newEstimatedCost: freezed == newEstimatedCost
           ? _value.newEstimatedCost
           : newEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Money?,
       previousAppointmentDate: freezed == previousAppointmentDate
           ? _value.previousAppointmentDate
           : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
@@ -998,6 +1111,30 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       return _then(_value.copyWith(quotation: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get previousEstimatedCost {
+    if (_value.previousEstimatedCost == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.previousEstimatedCost!, (value) {
+      return _then(_value.copyWith(previousEstimatedCost: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get newEstimatedCost {
+    if (_value.newEstimatedCost == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.newEstimatedCost!, (value) {
+      return _then(_value.copyWith(newEstimatedCost: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1018,8 +1155,8 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
       DateTime changedAt,
       int changedBy,
       QuotationRole changedByUserType,
-      String? previousEstimatedCost,
-      String? newEstimatedCost,
+      Money? previousEstimatedCost,
+      Money? newEstimatedCost,
       DateTime? previousAppointmentDate,
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
@@ -1033,6 +1170,10 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
 
   @override
   $QuotationCopyWith<$Res>? get quotation;
+  @override
+  $MoneyCopyWith<$Res>? get previousEstimatedCost;
+  @override
+  $MoneyCopyWith<$Res>? get newEstimatedCost;
 }
 
 /// @nodoc
@@ -1108,11 +1249,11 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
       previousEstimatedCost: freezed == previousEstimatedCost
           ? _value.previousEstimatedCost
           : previousEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Money?,
       newEstimatedCost: freezed == newEstimatedCost
           ? _value.newEstimatedCost
           : newEstimatedCost // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Money?,
       previousAppointmentDate: freezed == previousAppointmentDate
           ? _value.previousAppointmentDate
           : previousAppointmentDate // ignore: cast_nullable_to_non_nullable
@@ -1205,9 +1346,9 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final QuotationRole changedByUserType;
   @override
-  final String? previousEstimatedCost;
+  final Money? previousEstimatedCost;
   @override
-  final String? newEstimatedCost;
+  final Money? newEstimatedCost;
   @override
   final DateTime? previousAppointmentDate;
   @override
@@ -1338,8 +1479,8 @@ abstract class _QuotationHistory implements QuotationHistory {
       required final DateTime changedAt,
       required final int changedBy,
       required final QuotationRole changedByUserType,
-      final String? previousEstimatedCost,
-      final String? newEstimatedCost,
+      final Money? previousEstimatedCost,
+      final Money? newEstimatedCost,
       final DateTime? previousAppointmentDate,
       final DateTime? newAppointmentDate,
       final int? previousAppointmentDuration,
@@ -1373,9 +1514,9 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   QuotationRole get changedByUserType;
   @override
-  String? get previousEstimatedCost;
+  Money? get previousEstimatedCost;
   @override
-  String? get newEstimatedCost;
+  Money? get newEstimatedCost;
   @override
   DateTime? get previousAppointmentDate;
   @override
@@ -1399,6 +1540,174 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   @JsonKey(ignore: true)
   _$$QuotationHistoryImplCopyWith<_$QuotationHistoryImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Money _$MoneyFromJson(Map<String, dynamic> json) {
+  return _Money.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Money {
+  int get amount => throw _privateConstructorUsedError;
+  String get currency => throw _privateConstructorUsedError;
+  int get scale => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MoneyCopyWith<Money> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MoneyCopyWith<$Res> {
+  factory $MoneyCopyWith(Money value, $Res Function(Money) then) =
+      _$MoneyCopyWithImpl<$Res, Money>;
+  @useResult
+  $Res call({int amount, String currency, int scale});
+}
+
+/// @nodoc
+class _$MoneyCopyWithImpl<$Res, $Val extends Money>
+    implements $MoneyCopyWith<$Res> {
+  _$MoneyCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? amount = null,
+    Object? currency = null,
+    Object? scale = null,
+  }) {
+    return _then(_value.copyWith(
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MoneyImplCopyWith<$Res> implements $MoneyCopyWith<$Res> {
+  factory _$$MoneyImplCopyWith(
+          _$MoneyImpl value, $Res Function(_$MoneyImpl) then) =
+      __$$MoneyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int amount, String currency, int scale});
+}
+
+/// @nodoc
+class __$$MoneyImplCopyWithImpl<$Res>
+    extends _$MoneyCopyWithImpl<$Res, _$MoneyImpl>
+    implements _$$MoneyImplCopyWith<$Res> {
+  __$$MoneyImplCopyWithImpl(
+      _$MoneyImpl _value, $Res Function(_$MoneyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? amount = null,
+    Object? currency = null,
+    Object? scale = null,
+  }) {
+    return _then(_$MoneyImpl(
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MoneyImpl extends _Money {
+  const _$MoneyImpl(
+      {required this.amount, this.currency = 'USD', this.scale = 2})
+      : super._();
+
+  factory _$MoneyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MoneyImplFromJson(json);
+
+  @override
+  final int amount;
+  @override
+  @JsonKey()
+  final String currency;
+  @override
+  @JsonKey()
+  final int scale;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MoneyImpl &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency) &&
+            (identical(other.scale, scale) || other.scale == scale));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, amount, currency, scale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MoneyImplCopyWith<_$MoneyImpl> get copyWith =>
+      __$$MoneyImplCopyWithImpl<_$MoneyImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MoneyImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Money extends Money {
+  const factory _Money(
+      {required final int amount,
+      final String currency,
+      final int scale}) = _$MoneyImpl;
+  const _Money._() : super._();
+
+  factory _Money.fromJson(Map<String, dynamic> json) = _$MoneyImpl.fromJson;
+
+  @override
+  int get amount;
+  @override
+  String get currency;
+  @override
+  int get scale;
+  @override
+  @JsonKey(ignore: true)
+  _$$MoneyImplCopyWith<_$MoneyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

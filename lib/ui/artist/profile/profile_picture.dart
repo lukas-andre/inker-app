@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileImage extends StatelessWidget {
-  final String imageUrl;
-  final VoidCallback onTap;
+  final String? imageUrl; // Hacer imageUrl opcional
+  final VoidCallback? onTap; // Hacer onTap opcional
 
   const ProfileImage({
     super.key,
-    required this.imageUrl,
-    required this.onTap,
+    this.imageUrl,
+    this.onTap,
   });
 
   @override
@@ -34,24 +35,47 @@ class ProfileImage extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover, // Use BoxFit.cover to fill the container
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  color: Colors.white,
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey[300],
-                child: const Icon(Icons.error, color: Colors.red),
-              ),
-              fadeInDuration: const Duration(milliseconds: 500),
-            ),
+            child: imageUrl?.isNotEmpty == true
+                ? CachedNetworkImage(
+                    imageUrl: imageUrl!,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => _buildPlaceholder(context),
+                    fadeInDuration: const Duration(milliseconds: 500),
+                  )
+                : _buildPlaceholder(context),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder(BuildContext context) {
+    return Container(
+      color: Colors.grey[300],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.person,
+            size: 50,
+            color: Colors.grey[600],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            S.of(context).noImagesAvailable,
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

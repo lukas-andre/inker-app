@@ -1085,5 +1085,15 @@
     "description": "Text shown when estimated cost is changed, followed by the old and new amounts",
     "type": "text",
     "placeholders": {}
+  },
+  "memberSince": "Member since",
+  "@memberSince": {
+    "description": "Text shown when a user joined the platform",
+    "type": "text",
+    "placeholders": {}
+  },  
+  "notAvailable": "Not Available",
+  "@notAvailable": {
+    "description": "Indicates that something is not accessible or present."
   }
 }
