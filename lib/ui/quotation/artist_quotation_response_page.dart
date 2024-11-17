@@ -426,7 +426,7 @@ class _ArtistQuotationResponseViewState
         return [ArtistQuotationAction.reject];
       case QuotationStatus.appealed:
         return [
-          ArtistQuotationAction.acceptAppeal,
+          // ArtistQuotationAction.acceptAppeal,
           ArtistQuotationAction.rejectAppeal,
           ArtistQuotationAction.quote
         ];

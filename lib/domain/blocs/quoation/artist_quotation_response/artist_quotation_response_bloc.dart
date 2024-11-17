@@ -94,7 +94,7 @@ class ArtistQuotationResponseBloc
         token: token,
         quotationId: quotationId,
         action: action,
-        estimatedCost: estimatedCost,
+        estimatedCost: Money(amount: estimatedCost?.toInt() ?? 0, currency: 'CLP', scale: 0),
         appointmentDate: appointmentDate,
         appointmentDuration: appointmentDuration,
         additionalDetails: additionalDetails,

@@ -108,7 +108,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             shortDescription,
-            style: TextStyleTheme.copyWith(fontSize: 12, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -138,7 +138,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             abbreviatedDescriptionWithElipsis,
-            style: TextStyleTheme.copyWith(fontSize: 12, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -152,7 +152,6 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               'Ver más',
               style: TextStyle(
                 color: Colors.blue,
-                // decoration: TextDecoration.underline,
               ),
             ),
           ),

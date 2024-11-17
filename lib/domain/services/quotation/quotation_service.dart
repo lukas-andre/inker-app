@@ -20,7 +20,7 @@ abstract class QuotationService {
     required String token,
     required String quotationId,
     required ArtistQuotationAction action,
-    double? estimatedCost,
+    Money? estimatedCost,
     DateTime? appointmentDate,
     int? appointmentDuration,
     String? additionalDetails,

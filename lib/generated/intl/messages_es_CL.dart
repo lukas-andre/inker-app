@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m4,
         "minutesv2": m5,
@@ -246,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "No hay foto del estudio disponible"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No hay evidencia de trabajo"),
+        "notAvailable": MessageLookupByLibrary.simpleMessage("No disponible"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),

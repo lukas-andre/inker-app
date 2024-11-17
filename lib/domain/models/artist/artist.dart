@@ -14,7 +14,7 @@ class Artist with _$Artist {
     required String username,
     required String firstName,
     required String lastName,
-    required String shortDescription,
+    String? shortDescription,
     String? profileThumbnail,
     int? profileThumbnailVersion,
     List<String>? tags,

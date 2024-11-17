@@ -99,9 +99,11 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
               appBar: AppBar(
+                iconTheme: const IconThemeData(color: Colors.white),
                 title: Text(S.of(context).createQuotation,
                     style: TextStyleTheme.copyWith(color: Colors.white)),
                 backgroundColor: primaryColor,
+        
               ),
               backgroundColor: primaryColor,
               body: SingleChildScrollView(

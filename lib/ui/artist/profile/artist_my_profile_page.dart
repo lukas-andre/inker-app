@@ -7,6 +7,7 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/profile/profile_picture.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -38,6 +39,13 @@ class ArtistMyProfilePage extends StatelessWidget {
           style: TextStyleTheme.headline2,
         ),
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white),
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
+            tooltip: S.of(context).settings,
+          ),
+        ],
       ),
       body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
         listener: (context, state) {

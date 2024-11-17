@@ -213,53 +213,6 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     );
   }
 
-  // Widget _buildBioInfoRow(BuildContext context) {
-  //   return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
-  //     buildWhen: (previous, current) => current is! ArtistProfileStateInitial,
-  //     builder: (context, state) {
-  //       final followersText =
-  //           state.artist?.followers == 1 ? ' seguidor' : ' seguidores';
-  //       final followers = state.artist?.followers ?? '0';
-  //       return Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: 16),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Text(
-  //               followers.toString() + followersText,
-  //               style: TextStyleTheme.copyWith(
-  //                 fontSize: 16,
-  //                 color: Colors.white,
-  //               ),
-  //             ),
-  //             const SizedBox(height: 5),
-  //             // Text(
-  //             //   // '${_artist.following} seguidos',
-  //             //   '0 seguidos',
-  //             //   style: TextStyleTheme.copyWith(
-  //             //     fontSize: 16,
-  //             //     color: Colors.white,
-  //             //   ),
-  //             // ),
-  //             TextButton(
-  //               onPressed: () {
-  //                 InkerNavigator.push(
-  //                     context,
-  //                     ArtistProfileReviewsPage(
-  //                       artistId: widget._artist.id!,
-  //                     ));
-  //               },
-  //               child: Text('Opiniones',
-  //                   style: TextStyleTheme.copyWith(
-  //                       fontSize: 16, color: Colors.white)),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   Widget _buildActions(BuildContext context) {
     final artist = context.watch<ArtistProfileBloc>().state.artist;
 
@@ -267,7 +220,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: artist == null
               ? Container()
               : ElevatedButton(
@@ -287,23 +240,9 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                   child: Text(
                     artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
                     style: TextStyleTheme.copyWith(
-                        color: Colors.white, fontSize: 13),
+                        color: Colors.white, fontSize: 16),
                   ),
                 ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          flex: 4,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              shape: const StadiumBorder(),
-              backgroundColor: const Color(0x00131527),
-            ),
-            child: Text('Enviar Mensaje',
-                style:
-                    TextStyleTheme.copyWith(color: Colors.white, fontSize: 13)),
-          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -320,7 +259,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
             ),
             child: Text(
               'Agendar',
-              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 14),
+              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
             ),
           ),
         ),

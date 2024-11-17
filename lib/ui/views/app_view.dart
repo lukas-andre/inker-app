@@ -14,6 +14,7 @@ import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bl
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer_my_profile/customer_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
@@ -162,6 +163,10 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
           create: (context) => LocalizationCubit(),
         ),
+        BlocProvider(
+            create: (context) => CustomerMyProfileBloc(
+                customerService: context.read(),
+                sessionService: context.read())),
         BlocProvider(
             create: (context) => CustomerQuotationResponseBloc(
                 quotationService: context.read(),

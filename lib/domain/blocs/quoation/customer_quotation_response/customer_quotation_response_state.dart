@@ -1,4 +1,3 @@
-// customer_quotation_response_state.dart
 part of 'customer_quotation_response_bloc.dart';
 
 @freezed

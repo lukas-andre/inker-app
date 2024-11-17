@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/c
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -42,10 +43,12 @@ class _CustomerQuotationResponseView extends StatefulWidget {
   });
 
   @override
-  _CustomerQuotationResponseViewState createState() => _CustomerQuotationResponseViewState();
+  _CustomerQuotationResponseViewState createState() =>
+      _CustomerQuotationResponseViewState();
 }
 
-class _CustomerQuotationResponseViewState extends State<_CustomerQuotationResponseView> {
+class _CustomerQuotationResponseViewState
+    extends State<_CustomerQuotationResponseView> {
   final _formKey = GlobalKey<FormState>();
   final _additionalDetailsController = TextEditingController();
 
@@ -67,7 +70,8 @@ class _CustomerQuotationResponseViewState extends State<_CustomerQuotationRespon
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
-        title: Text(_getActionTitle(widget.action, l10n), style: TextStyleTheme.headline2),
+        title: Text(_getActionTitle(widget.action, l10n),
+            style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
@@ -77,7 +81,8 @@ class _CustomerQuotationResponseViewState extends State<_CustomerQuotationRespon
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocConsumer<CustomerQuotationResponseBloc, CustomerQuotationResponseState>(
+        child: BlocConsumer<CustomerQuotationResponseBloc,
+            CustomerQuotationResponseState>(
           listener: (context, state) {
             state.maybeWhen(
               submittingResponse: () {
@@ -115,7 +120,8 @@ class _CustomerQuotationResponseViewState extends State<_CustomerQuotationRespon
           builder: (context, state) {
             return state.maybeWhen(
               initial: () {
-                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(widget.quotationId));
+                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(
+                    widget.quotationId));
                 return const Center(child: InkerProgressIndicator());
               },
               quotationLoaded: (quotation) {
@@ -124,7 +130,8 @@ class _CustomerQuotationResponseViewState extends State<_CustomerQuotationRespon
               submittingResponse: () => const SizedBox(),
               success: () => const SizedBox(),
               failure: (_) {
-                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(widget.quotationId));
+                _bloc.add(CustomerQuotationResponseEvent.loadQuotation(
+                    widget.quotationId));
                 return const Center(child: InkerProgressIndicator());
               },
               orElse: () {
@@ -166,7 +173,19 @@ class _CustomerQuotationResponseViewState extends State<_CustomerQuotationRespon
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AnimatedQuotationDetailsAccordion(quotation: quotation, l10n: l10n),
+          AnimatedQuotationDetailsAccordion(
+            quotation: quotation,
+            l10n: l10n,
+            onViewDetails: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => QuotationDetailsPage(
+                    quotation: quotation,
+                  ),
+                ),
+              );
+            },
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(

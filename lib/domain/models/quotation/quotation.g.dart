@@ -22,7 +22,10 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           : MultimediasMetadata.fromJson(
               Map<String, dynamic>.from(json['proposedDesigns'] as Map)),
       status: $enumDecode(_$QuotationStatusEnumMap, json['status']),
-      estimatedCost: (json['estimatedCost'] as num?)?.toDouble(),
+      estimatedCost: json['estimatedCost'] == null
+          ? null
+          : Money.fromJson(
+              Map<String, dynamic>.from(json['estimatedCost'] as Map)),
       responseDate: json['responseDate'] == null
           ? null
           : DateTime.parse(json['responseDate'] as String),
@@ -62,6 +65,17 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           ?.map((e) =>
               QuotationHistory.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
+      customer: json['customer'] == null
+          ? null
+          : Customer.fromJson(
+              Map<String, dynamic>.from(json['customer'] as Map)),
+      artist: json['artist'] == null
+          ? null
+          : Artist.fromJson(Map<String, dynamic>.from(json['artist'] as Map)),
+      location: json['location'] == null
+          ? null
+          : Location.fromJson(
+              Map<String, dynamic>.from(json['location'] as Map)),
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -83,7 +97,7 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('referenceImages', instance.referenceImages?.toJson());
   writeNotNull('proposedDesigns', instance.proposedDesigns?.toJson());
   val['status'] = _$QuotationStatusEnumMap[instance.status]!;
-  writeNotNull('estimatedCost', instance.estimatedCost);
+  writeNotNull('estimatedCost', instance.estimatedCost?.toJson());
   writeNotNull('responseDate', instance.responseDate?.toIso8601String());
   writeNotNull('appointmentDate', instance.appointmentDate?.toIso8601String());
   writeNotNull('appointmentDuration', instance.appointmentDuration);
@@ -108,6 +122,9 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('lastUpdatedByUserType',
       _$QuotationUserTypeEnumMap[instance.lastUpdatedByUserType]);
   writeNotNull('history', instance.history?.map((e) => e.toJson()).toList());
+  writeNotNull('customer', instance.customer?.toJson());
+  writeNotNull('artist', instance.artist?.toJson());
+  writeNotNull('location', instance.location?.toJson());
   return val;
 }
 
@@ -190,8 +207,14 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
       changedBy: (json['changedBy'] as num).toInt(),
       changedByUserType:
           $enumDecode(_$QuotationRoleEnumMap, json['changedByUserType']),
-      previousEstimatedCost: json['previousEstimatedCost'] as String?,
-      newEstimatedCost: json['newEstimatedCost'] as String?,
+      previousEstimatedCost: json['previousEstimatedCost'] == null
+          ? null
+          : Money.fromJson(
+              Map<String, dynamic>.from(json['previousEstimatedCost'] as Map)),
+      newEstimatedCost: json['newEstimatedCost'] == null
+          ? null
+          : Money.fromJson(
+              Map<String, dynamic>.from(json['newEstimatedCost'] as Map)),
       previousAppointmentDate: json['previousAppointmentDate'] == null
           ? null
           : DateTime.parse(json['previousAppointmentDate'] as String),
@@ -232,8 +255,9 @@ Map<String, dynamic> _$$QuotationHistoryImplToJson(
   val['changedBy'] = instance.changedBy;
   val['changedByUserType'] =
       _$QuotationRoleEnumMap[instance.changedByUserType]!;
-  writeNotNull('previousEstimatedCost', instance.previousEstimatedCost);
-  writeNotNull('newEstimatedCost', instance.newEstimatedCost);
+  writeNotNull(
+      'previousEstimatedCost', instance.previousEstimatedCost?.toJson());
+  writeNotNull('newEstimatedCost', instance.newEstimatedCost?.toJson());
   writeNotNull('previousAppointmentDate',
       instance.previousAppointmentDate?.toIso8601String());
   writeNotNull(
@@ -257,6 +281,19 @@ const _$QuotationRoleEnumMap = {
   QuotationRole.artist: 'artist',
   QuotationRole.system: 'system',
 };
+
+_$MoneyImpl _$$MoneyImplFromJson(Map json) => _$MoneyImpl(
+      amount: (json['amount'] as num).toInt(),
+      currency: json['currency'] as String? ?? 'USD',
+      scale: (json['scale'] as num?)?.toInt() ?? 2,
+    );
+
+Map<String, dynamic> _$$MoneyImplToJson(_$MoneyImpl instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
+      'currency': instance.currency,
+      'scale': instance.scale,
+    };
 
 _$MultimediasMetadataImpl _$$MultimediasMetadataImplFromJson(Map json) =>
     _$MultimediasMetadataImpl(

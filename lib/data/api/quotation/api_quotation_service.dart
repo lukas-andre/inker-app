@@ -37,7 +37,6 @@ extension T<R> on String {
   }
 }
 
-
 class ApiQuotationService implements QuotationService {
   final HttpClientConfig _httpConfig;
 
@@ -161,7 +160,7 @@ class ApiQuotationService implements QuotationService {
     required String token,
     required String quotationId,
     required ArtistQuotationAction action,
-    double? estimatedCost,
+    Money? estimatedCost,
     DateTime? appointmentDate,
     int? appointmentDuration,
     String? additionalDetails,
@@ -172,9 +171,11 @@ class ApiQuotationService implements QuotationService {
 
     var request = http.MultipartRequest('POST', url);
 
-    request.fields['action'] = action.toString().split('.').last;
+    request.fields['action'] = action.toString().split('.').last.toSnakeCase();
     if (estimatedCost != null) {
-      request.fields['estimatedCost'] = estimatedCost.toString();
+      request.fields['estimatedCost[amount]'] = estimatedCost.amount.toString();
+      request.fields['estimatedCost[currency]'] = estimatedCost.currency;
+      request.fields['estimatedCost[scale]'] = estimatedCost.scale.toString();
     }
     if (appointmentDate != null) {
       request.fields['appointmentDate'] = appointmentDate.toIso8601String();

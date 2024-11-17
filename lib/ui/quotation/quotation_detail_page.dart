@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -17,7 +20,11 @@ class QuotationDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-
+    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final counterpartInfo = isArtist
+        ? CounterpartInfo.fromCustomer(quotation.customer)
+        : CounterpartInfo.fromArtist(quotation.artist);
+        
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -29,11 +36,160 @@ class QuotationDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+              _CounterpartHeader(
+              info: counterpartInfo,
+              isArtist: isArtist,
+              quotation: quotation,
+            ),
             _MainQuotationInfo(quotation: quotation),
             if (quotation.history != null && quotation.history!.isNotEmpty)
               _QuotationTimeline(history: quotation.history!),
             QuotationImages(quotation: quotation),
             // QuotationDetails(quotation: quotation),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CounterpartHeader extends StatelessWidget {
+  final CounterpartInfo info;
+  final bool isArtist;
+  final Quotation quotation;
+
+  const _CounterpartHeader({
+    required this.info,
+    required this.isArtist,
+    required this.quotation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                if (info.profileThumbnail != null)
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(info.profileThumbnail!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF686D90),
+                    ),
+                    child: Center(
+                      child: Text(
+                        info.firstLetter,
+                        style: TextStyleTheme.headline2.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        isArtist ? l10n.customer : l10n.artist,
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: tertiaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        info.displayName,
+                        style: TextStyleTheme.headline3,
+                      ),
+                      if (!isArtist && info.username != null) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          '@${info.username}',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: tertiaryColor,
+                          ),
+                        ),
+                      ],
+                      if (info.contactInfo != null) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.email_outlined,
+                              size: 16,
+                              color: tertiaryColor,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                info.contactInfo!,
+                                style: TextStyleTheme.bodyText2.copyWith(
+                                  color: tertiaryColor,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (quotation.location != null) ...[
+              const Divider(height: 32),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 20,
+                    color: tertiaryColor,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.locale,
+                          style: TextStyleTheme.subtitle2.copyWith(
+                            color: tertiaryColor,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          quotation.location!.formattedAddress,
+                          style: TextStyleTheme.bodyText1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -139,7 +295,7 @@ class _MainQuotationInfo extends StatelessWidget {
         _InfoSection(
           icon: Icons.attach_money,
           title: l10n.estimatedCost,
-          content: '\$${quotation.estimatedCost!.toStringAsFixed(2)}',
+          content: '\$${quotation.estimatedCost!.amount.toStringAsFixed(2)}',
           highlight: true,
         ),
         const SizedBox(height: 16),

@@ -1,5 +1,12 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/customer/customer.dart';
+import 'package:inker_studio/domain/models/location/location.dart';
 import 'dart:convert';
+
+import 'package:intl/intl.dart';
 
 part 'quotation.freezed.dart';
 part 'quotation.g.dart';
@@ -20,7 +27,7 @@ class Quotation with _$Quotation {
     MultimediasMetadata? referenceImages,
     MultimediasMetadata? proposedDesigns,
     required QuotationStatus status,
-    double? estimatedCost,
+    Money? estimatedCost,
     DateTime? responseDate,
     DateTime? appointmentDate,
     int? appointmentDuration,
@@ -39,6 +46,9 @@ class Quotation with _$Quotation {
     int? lastUpdatedBy,
     QuotationUserType? lastUpdatedByUserType,
     List<QuotationHistory>? history,
+    Customer? customer,
+    Artist? artist,
+    Location? location,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>
@@ -57,8 +67,8 @@ class QuotationHistory with _$QuotationHistory {
     required DateTime changedAt,
     required int changedBy,
     required QuotationRole changedByUserType,
-    String? previousEstimatedCost,
-    String? newEstimatedCost,
+    Money? previousEstimatedCost,
+    Money? newEstimatedCost,
     DateTime? previousAppointmentDate,
     DateTime? newAppointmentDate,
     int? previousAppointmentDuration,
@@ -75,6 +85,96 @@ class QuotationHistory with _$QuotationHistory {
       _$QuotationHistoryFromJson(json);
 }
 
+@freezed
+class Money with _$Money {
+  const Money._(); // Needed for custom methods
+  
+  const factory Money({
+    required int amount,
+    @Default('USD') String currency,
+    @Default(2) int scale,
+  }) = _Money;
+
+  factory Money.fromJson(Map<String, dynamic> json) => _$MoneyFromJson(json);
+
+  /// Creates a Money instance from a floating point value
+  static Money fromFloat(double amount, [String currency = 'USD', int scale = 2]) {
+    return Money(
+      amount: (amount * pow(10, scale)).round(),
+      currency: currency,
+      scale: scale,
+    );
+  }
+
+  /// Get the amount as a float
+  double toFloat() {
+    return amount / pow(10, scale);
+  }
+
+  /// Format the money amount according to the currency
+  String format({bool includeCurrencySymbol = true}) {
+    final value = toFloat();
+    String formatted;
+
+    switch (currency) {
+      case 'CLP':
+        // Chilean Peso: no decimal places, dot as thousand separator
+        final formatter = NumberFormat('#,###', 'es_CL');
+        formatted = formatter.format(value.round());
+        if (includeCurrencySymbol) {
+          formatted = '\$$formatted';
+        }
+        break;
+
+      case 'USD':
+        // US Dollar: 2 decimal places, comma as thousand separator
+        final formatter = NumberFormat.currency(
+          locale: 'en_US',
+          symbol: includeCurrencySymbol ? '\$' : '',
+          decimalDigits: scale,
+        );
+        formatted = formatter.format(value);
+        break;
+
+      case 'EUR':
+        // Euro: 2 decimal places, dot as thousand separator, comma as decimal
+        final formatter = NumberFormat.currency(
+          locale: 'es_ES',
+          symbol: includeCurrencySymbol ? '€' : '',
+          decimalDigits: scale,
+        );
+        formatted = formatter.format(value);
+        break;
+
+      default:
+        // Generic format with the currency code
+        final formatter = NumberFormat.currency(
+          symbol: includeCurrencySymbol ? '$currency ' : '',
+          decimalDigits: scale,
+        );
+        formatted = formatter.format(value);
+    }
+
+    return formatted;
+  }
+
+  /// Format the money amount with the currency symbol
+  String formatWithSymbol() => format(includeCurrencySymbol: true);
+
+  /// Format the money amount without the currency symbol
+  String formatWithoutSymbol() => format(includeCurrencySymbol: false);
+
+  /// Format for compact display (e.g., $1K, $1M)
+  String formatCompact() {
+    final value = toFloat();
+    final formatter = NumberFormat.compact(locale: currency == 'CLP' ? 'es_CL' : 'en_US');
+    return '${currency == 'USD' ? '\$' : ''}${formatter.format(value)}';
+  }
+
+  /// Override toString to provide a readable format
+  @override
+  String toString() => formatWithSymbol();
+}
 @freezed
 class MultimediasMetadata with _$MultimediasMetadata {
   const factory MultimediasMetadata({

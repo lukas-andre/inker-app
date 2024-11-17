@@ -27,7 +27,7 @@ mixin _$Artist {
   String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
-  String get shortDescription => throw _privateConstructorUsedError;
+  String? get shortDescription => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   int? get profileThumbnailVersion => throw _privateConstructorUsedError;
   List<String>? get tags => throw _privateConstructorUsedError;
@@ -59,7 +59,7 @@ abstract class $ArtistCopyWith<$Res> {
       String username,
       String firstName,
       String lastName,
-      String shortDescription,
+      String? shortDescription,
       String? profileThumbnail,
       int? profileThumbnailVersion,
       List<String>? tags,
@@ -96,7 +96,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? shortDescription = null,
+    Object? shortDescription = freezed,
     Object? profileThumbnail = freezed,
     Object? profileThumbnailVersion = freezed,
     Object? tags = freezed,
@@ -139,10 +139,10 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      shortDescription: null == shortDescription
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
@@ -222,7 +222,7 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       String username,
       String firstName,
       String lastName,
-      String shortDescription,
+      String? shortDescription,
       String? profileThumbnail,
       int? profileThumbnailVersion,
       List<String>? tags,
@@ -258,7 +258,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
     Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? shortDescription = null,
+    Object? shortDescription = freezed,
     Object? profileThumbnail = freezed,
     Object? profileThumbnailVersion = freezed,
     Object? tags = freezed,
@@ -301,10 +301,10 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      shortDescription: null == shortDescription
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       profileThumbnail: freezed == profileThumbnail
           ? _value.profileThumbnail
           : profileThumbnail // ignore: cast_nullable_to_non_nullable
@@ -368,7 +368,7 @@ class _$ArtistImpl implements _Artist {
       required this.username,
       required this.firstName,
       required this.lastName,
-      required this.shortDescription,
+      this.shortDescription,
       this.profileThumbnail,
       this.profileThumbnailVersion,
       final List<String>? tags,
@@ -403,7 +403,7 @@ class _$ArtistImpl implements _Artist {
   @override
   final String lastName;
   @override
-  final String shortDescription;
+  final String? shortDescription;
   @override
   final String? profileThumbnail;
   @override
@@ -549,7 +549,7 @@ abstract class _Artist implements Artist {
       required final String username,
       required final String firstName,
       required final String lastName,
-      required final String shortDescription,
+      final String? shortDescription,
       final String? profileThumbnail,
       final int? profileThumbnailVersion,
       final List<String>? tags,
@@ -580,7 +580,7 @@ abstract class _Artist implements Artist {
   @override
   String get lastName;
   @override
-  String get shortDescription;
+  String? get shortDescription;
   @override
   String? get profileThumbnail;
   @override
