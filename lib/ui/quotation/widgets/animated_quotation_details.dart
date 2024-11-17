@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 class AnimatedQuotationDetailsAccordion extends StatefulWidget {
   final Quotation quotation;
   final S l10n;
-
   final VoidCallback? onViewDetails;
 
   const AnimatedQuotationDetailsAccordion({
@@ -26,10 +25,13 @@ class AnimatedQuotationDetailsAccordion extends StatefulWidget {
 
 class _AnimatedQuotationDetailsAccordionState
     extends State<AnimatedQuotationDetailsAccordion>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   bool _isExpanded = false;
   late AnimationController _controller;
   late Animation<double> _iconTurns;
+  late AnimationController _attentionController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -38,12 +40,49 @@ class _AnimatedQuotationDetailsAccordionState
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
+    
+    // Controlador para la animación de atención
+    _attentionController = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    )..repeat();
+
+    // Animación de escala para el rebote suave
+    _scaleAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.1)
+            .chain(CurveTween(curve: Curves.easeOut)),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 1.1, end: 1.0)
+            .chain(CurveTween(curve: Curves.easeIn)),
+        weight: 50,
+      ),
+    ]).animate(_attentionController);
+
+    // Animación de opacidad para el efecto de parpadeo
+    _opacityAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 0.6),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 0.6, end: 1.0),
+        weight: 50,
+      ),
+    ]).animate(_attentionController);
+
+    if (widget.quotation.status == QuotationStatus.accepted) {
+      _toggleExpand();
+    }
     _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_controller);
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _attentionController.dispose();
     super.dispose();
   }
 
@@ -52,6 +91,7 @@ class _AnimatedQuotationDetailsAccordionState
       _isExpanded = !_isExpanded;
       if (_isExpanded) {
         _controller.forward();
+        _attentionController.stop();
       } else {
         _controller.reverse();
       }
@@ -73,18 +113,36 @@ class _AnimatedQuotationDetailsAccordionState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(
-                        widget.l10n.quotationDetails,
-                        style: TextStyleTheme.headline3
-                            .copyWith(color: Colors.white),
+                      child: AnimatedBuilder(
+                        animation: _attentionController,
+                        builder: (context, child) {
+                          return Opacity(
+                            opacity: _isExpanded ? 1.0 : _opacityAnimation.value,
+                            child: Text(
+                              widget.l10n.quotationDetails,
+                              style: TextStyleTheme.headline3
+                                  .copyWith(color: Colors.white),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                    RotationTransition(
-                      turns: _iconTurns,
-                      child: const Icon(
-                        Icons.expand_more,
-                        color: Colors.white,
-                      ),
+                    AnimatedBuilder(
+                      animation: _attentionController,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: _isExpanded ? 1.0 : _scaleAnimation.value,
+                          child: RotationTransition(
+                            turns: _iconTurns,
+                            child: Icon(
+                              Icons.expand_more,
+                              color: Colors.white.withOpacity(
+                                _isExpanded ? 1.0 : _opacityAnimation.value,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
