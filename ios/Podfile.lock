@@ -34,7 +34,7 @@ PODS:
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
-  - flutter_native_splash (0.0.1):
+  - flutter_native_splash (2.4.3):
     - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
@@ -196,7 +196,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 4b297a2d56063dbea2c1d0d04222d44a8d058862
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  flutter_native_splash: e8a1e01082d97a8099d973f919f57904c925008a
   geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
   google_maps_flutter_ios: c454f18e0e22df6ac0e9f2a4df340858f5a3680c
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38

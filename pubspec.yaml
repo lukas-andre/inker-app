@@ -34,7 +34,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_device_type: ^0.4.0
   flutter_dotenv: ^5.0.2
-  flutter_native_splash: ^2.2.3+1
+  flutter_native_splash: ^2.4.3
   flutter_rating_bar: ^4.0.1
   flutter_staggered_grid_view: ^0.7.0
   flutter_svg: ^2.0.9
@@ -100,6 +100,8 @@ flutter:
     - assets/icons/
     - assets/icons/bottom_nav/
     - assets/icons/svg/
+    - assets/isologotipo_negative.png
+    - assets/isotipo_negative.png
   fonts:
     - family: Poppins
       fonts:
@@ -133,3 +135,21 @@ flutter_intl:
     download_include_tags: # Optional list of tags to be downloaded (e.g. ['include', 'Include key']). If not set, all string keys will be considered for download. Default: []
     download_exclude_tags: # Optional list of tags to be excluded from download (e.g. ['exclude', 'Exclude key']). If not set, all string keys will be considered for download. Default: []
     ota_enabled: # Set to true if you want to use Localizely Over-the-air functionality. Default: false
+
+flutter_native_splash:
+  color: "#1F0966"  # Tu color azul (31, 9, 102)
+  image: assets/isologotipo_negative.png
+  
+  # Configuración específica para Android 12+
+  android_12:
+    image: assets/isotipo_negative.png
+    color: "#1F0966"
+    icon_background_color: "#1F0966"
+
+  # Asegurarnos que la imagen se muestre correctamente
+  android_gravity: center
+  ios_content_mode: scaleAspectFit
+  web_image_mode: center
+
+  # Para mantener la imagen visible
+  fullscreen: false
