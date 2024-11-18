@@ -3,12 +3,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/config/http_client_config.dart';
-import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
-import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/response_utils.dart';
 
 class ApiSettingsService extends SettingsService {
   static const String className = 'ApiSettingsService';
