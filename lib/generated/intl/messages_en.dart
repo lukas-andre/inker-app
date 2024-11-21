@@ -200,6 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locale": MessageLookupByLibrary.simpleMessage("en"),
+        "location": MessageLookupByLibrary.simpleMessage("Location"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
         "locationServices":

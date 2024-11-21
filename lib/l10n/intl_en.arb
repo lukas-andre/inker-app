@@ -1095,5 +1095,9 @@
   "notAvailable": "Not Available",
   "@notAvailable": {
     "description": "Indicates that something is not accessible or present."
+  },
+  "location": "Location",
+  "@location": {
+    "description": "The physical place where something is located."
   }
 }

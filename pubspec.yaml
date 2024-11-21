@@ -25,8 +25,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   dots_indicator: ^3.0.0
   equatable: ^2.0.3
-  firebase_auth: ^5.0.0
-  firebase_core: ^3.0.0
+  firebase_auth: ^5.3.3
+  firebase_core: ^3.8.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -75,6 +75,8 @@ dependencies:
   lottie: ^3.0.0
   photo_view: ^0.15.0
   shimmer: ^3.0.0
+  firebase_remote_config: ^5.1.5
+  firebase_analytics: ^11.3.5
 
 dev_dependencies:
   analyzer: ^6.4.1 

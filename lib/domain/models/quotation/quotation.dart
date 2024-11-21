@@ -174,7 +174,11 @@ class Money with _$Money {
   /// Override toString to provide a readable format
   @override
   String toString() => formatWithSymbol();
+
+  // is empty
+  bool get isEmpty => amount == 0;
 }
+
 @freezed
 class MultimediasMetadata with _$MultimediasMetadata {
   const factory MultimediasMetadata({
