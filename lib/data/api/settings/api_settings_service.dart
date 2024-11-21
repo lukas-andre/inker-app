@@ -1,58 +1,47 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:http/http.dart' as http;
-import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 class ApiSettingsService extends SettingsService {
-  static const String className = 'ApiSettingsService';
+  static const String _basePath = 'settings';
+  late final HttpClientService _httpClient;
 
-  final HttpClientConfig _httpConfig;
+  ApiSettingsService() {
+    _initializeHttpClient();
+  }
 
-  ApiSettingsService()
-      : _httpConfig = HttpClientConfig(basePath: 'settings'),
-        super();
+  Future<void> _initializeHttpClient() async {
+    _httpClient = await HttpClientService.getInstance();
+  }
 
   @override
   Future<Settings> loadSettings({required String token}) async {
     return Settings.initial();
-    // final url = _httpConfig.surl(
-    //   basePath: 'settings',
-    // );
-
-    // try {
-    //   final response = await http.get(
-    //     url,
-    //     headers: {
-    //       'Authorization': 'Bearer $token',
-    //       'Content-Type': 'application/json',
-    //     },
-    //   );
-
-    //   if (response.statusCode == HttpStatus.notFound) {
-    //     if (ResponseUtils.resourceNotFound(response)) {
-    //       throw ResourceNotFound();
-    //     }
-    //     throw HttpNotFound();
-    //   }
-
-    //   if (response.statusCode != HttpStatus.ok) {
-    //     throw Exception('Error while loading settings');
-    //   }
-
-    //   try {
-    //     final Map<String, dynamic> json = jsonDecode(response.body);
-    //     return Settings.fromJson(json);
-    //   } catch (e) {
-    //     throw JsonParseException();
-    //   }
-    // } catch (e, stackTrace) {
-    //   dev.logError(e, stackTrace);
-    //   rethrow;
-    // }
+    // Cuando se necesite implementar:
+    /*
+    try {
+      return await _httpClient.get(
+        path: _basePath,
+        token: token,
+        fromJson: Settings.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      if (e.statusCode == HttpStatus.notFound) {
+        if (e.message.contains('Resource not found')) {
+          throw ResourceNotFound();
+        }
+        throw HttpNotFound();
+      }
+      throw Exception('Error while loading settings');
+    } catch (e) {
+      if (e is FormatException) {
+        throw JsonParseException();
+      }
+      dev.logError(e, StackTrace.current);
+      rethrow;
+    }
+    */
   }
 
   @override
@@ -60,26 +49,18 @@ class ApiSettingsService extends SettingsService {
     required bool enabled,
     required String token,
   }) async {
-    final url = _httpConfig.surl(
-      basePath: 'settings',
-      path: 'notifications',
-    );
-
     try {
-      final response = await http.put(
-        url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({'enabled': enabled}),
+      await _httpClient.put(
+        path: '$_basePath/notifications',
+        token: token,
+        body: {'enabled': enabled},
+        fromJson: (json) => null,
       );
-
-      if (response.statusCode != HttpStatus.ok) {
-        throw Exception('Error while updating notifications settings');
-      }
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Error while updating notifications settings: ${e.message}');
+      }
       rethrow;
     }
   }
@@ -89,26 +70,18 @@ class ApiSettingsService extends SettingsService {
     required bool enabled,
     required String token,
   }) async {
-    final url = _httpConfig.surl(
-      basePath: 'settings',
-      path: 'location-services',
-    );
-
     try {
-      final response = await http.put(
-        url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({'enabled': enabled}),
+      await _httpClient.put(
+        path: '$_basePath/location-services',
+        token: token,
+        body: {'enabled': enabled},
+        fromJson: (json) => null,
       );
-
-      if (response.statusCode != HttpStatus.ok) {
-        throw Exception('Error while updating location services settings');
-      }
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Error while updating location services settings: ${e.message}');
+      }
       rethrow;
     }
   }

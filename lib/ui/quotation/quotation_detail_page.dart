@@ -174,7 +174,7 @@ class _CounterpartHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.locale,
+                          l10n.location,
                           style: TextStyleTheme.subtitle2.copyWith(
                             color: tertiaryColor,
                           ),
