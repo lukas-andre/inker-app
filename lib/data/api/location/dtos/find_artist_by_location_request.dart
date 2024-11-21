@@ -24,5 +24,6 @@ class FindArtistByLocationRequest {
   factory FindArtistByLocationRequest.fromJson(Map<String, dynamic> json) =>
       _$FindArtistByLocationRequestFromJson(json);
 
+
   Map<String, dynamic> toJson() => _$FindArtistByLocationRequestToJson(this);
 }

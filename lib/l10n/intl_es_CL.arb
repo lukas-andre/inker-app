@@ -1100,5 +1100,11 @@
     "description": "Text shown when something is not available",
     "type": "text",
     "placeholders": {}
+  },
+  "location": "Ubicación",
+  "@location": {
+    "description": "Text shown to indicate a location",
+    "type": "text",
+    "placeholders": {}
   }
 }

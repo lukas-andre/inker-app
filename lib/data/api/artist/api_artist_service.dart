@@ -1,146 +1,107 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:http_parser/http_parser.dart';
 
 class ApiArtistService implements ArtistService {
-  final HttpClientConfig _httpConfig;
+  static const String _basePath = 'artist';
   final LocalSessionService _sessionService;
+  late final HttpClientService _httpClient;
 
   ApiArtistService({
     required LocalSessionService sessionService,
-  })  : _sessionService = sessionService,
-        _httpConfig = HttpClientConfig(basePath: 'artist');
+  }) : _sessionService = sessionService {
+    _initializeHttpClient();
+  }
+
+  Future<void> _initializeHttpClient() async {
+    _httpClient = await HttpClientService.getInstance();
+  }
+
+  Future<String> _getToken() async {
+    return (await _sessionService.getActiveSessionToken())!;
+  }
 
   @override
   Future<Artist> getArtistProfile() async {
-    final url = _httpConfig.surl(path: 'me');
-
     try {
-      final response = await http.get(
-        url,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${await _getToken()}',
-        },
+      final token = await _getToken();
+      return await _httpClient.get(
+        path: '$_basePath/me',
+        token: token,
+        fromJson: Artist.fromJson,
       );
-
-      if (response.statusCode == HttpStatus.ok) {
-        return Artist.fromJson(json.decode(response.body));
-      } else {
-        throw Exception('Failed to load artist profile: ${response.body}');
-      }
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Failed to load artist profile: ${e.message}');
+      }
       rethrow;
     }
   }
 
   @override
   Future<void> updateArtistProfile(UpdateArtistDto updateArtistDto) async {
-    final url = _httpConfig.surl(path: 'me');
-
     try {
-      final response = await http.put(
-        url,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${await _getToken()}',
-          HttpHeaders.contentTypeHeader: 'application/json',
-        },
-        body: json.encode(updateArtistDto.toJson()),
+      final token = await _getToken();
+      await _httpClient.put(
+        path: '$_basePath/me',
+        token: token,
+        body: updateArtistDto.toJson(),
+        fromJson: (json) => null,
       );
-
-      if (response.statusCode != HttpStatus.ok) {
-        throw Exception('Failed to update artist profile: ${response.body}');
-      }
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Failed to update artist profile: ${e.message}');
+      }
       rethrow;
     }
   }
 
   @override
   Future<Artist> updateProfilePicture(int artistId, XFile image) async {
-    final url = _httpConfig.surl(path: '$artistId/profile-picture');
-
-    var request = http.MultipartRequest('POST', url);
-
-    var stream = http.ByteStream(image.openRead());
-    var length = await image.length();
-    var multipartFile = http.MultipartFile(
-      'file',
-      stream,
-      length,
-      filename: image.name,
-      contentType: MediaType('image', 'jpeg'),
-    );
-    request.files.add(multipartFile);
-
-    request.headers.addAll({
-      HttpHeaders.authorizationHeader: 'Bearer ${await _getToken()}',
-    });
-
     try {
-      var streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-
-      if (response.statusCode == HttpStatus.ok ||
-          response.statusCode == HttpStatus.created) {
-        return Artist.fromJson(json.decode(response.body));
-      } else {
-        throw Exception('Failed to update profile picture: ${response.body}');
-      }
+      final token = await _getToken();
+      return await _httpClient.multipartRequest(
+        path: '$_basePath/$artistId/profile-picture',
+        method: 'POST',
+        token: token,
+        field: 'file',
+        file: File(image.path),
+        fromJson: Artist.fromJson,
+      );
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Failed to update profile picture: ${e.message}');
+      }
       rethrow;
     }
   }
 
   @override
   Future<Artist> updateStudioPhoto(int artistId, XFile image) async {
-    final url = _httpConfig.surl(path: '$artistId/studio-photo');
-
-    var request = http.MultipartRequest('POST', url);
-
-    var stream = http.ByteStream(image.openRead());
-    var length = await image.length();
-    var multipartFile = http.MultipartFile(
-      'file',
-      stream,
-      length,
-      filename: image.name,
-      contentType: MediaType('image', 'jpeg'),
-    );
-    request.files.add(multipartFile);
-
-    request.headers.addAll({
-      HttpHeaders.authorizationHeader: 'Bearer ${await _getToken()}',
-    });
-
     try {
-      var streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-
-      if (response.statusCode == HttpStatus.ok ||
-          response.statusCode == HttpStatus.created) {
-        return Artist.fromJson(json.decode(response.body));
-      } else {
-        throw Exception('Failed to update studio photo: ${response.body}');
-      }
+      final token = await _getToken();
+      return await _httpClient.multipartRequest(
+        path: '$_basePath/$artistId/studio-photo',
+        method: 'POST',
+        token: token,
+        field: 'file',
+        file: File(image.path),
+        fromJson: Artist.fromJson,
+      );
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Failed to update studio photo: ${e.message}');
+      }
       rethrow;
     }
-  }
-
-  Future<String> _getToken() async {
-    return (await _sessionService.getActiveSessionToken())!;
   }
 }

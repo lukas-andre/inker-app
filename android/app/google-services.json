@@ -2,12 +2,12 @@
   "project_info": {
     "project_number": "552111998838",
     "project_id": "inker-5ff7d",
-    "storage_bucket": "inker-5ff7d.appspot.com"
+    "storage_bucket": "inker-5ff7d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:552111998838:android:192acb2943b6d793479c57",
+        "mobilesdk_app_id": "1:552111998838:android:f7e13464c54f846f479c57",
         "android_client_info": {
           "package_name": "com.example.inker_studio"
         }

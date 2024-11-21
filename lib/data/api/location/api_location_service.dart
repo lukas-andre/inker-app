@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:http/http.dart' as http;
-import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_request.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/data/api/location/errors/errors.dart';
@@ -10,62 +7,60 @@ import 'package:inker_studio/domain/errors/location/find_artist_by_location_exce
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
-import 'package:inker_studio/utils/api/content_type.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/response_utils.dart';
 
 class ApiLocationService implements LocationService {
-  static const String className = 'ApiUserService';
+  static const String className = 'ApiLocationService';
+  late final HttpClientService _httpClient;
 
-  final HttpClientConfig _httpConfig;
-  ApiLocationService()
-      : _httpConfig = HttpClientConfig(basePath: 'locations'),
-        super();
+  ApiLocationService() {
+    _initializeHttpClient();
+  }
+
+  Future<void> _initializeHttpClient() async {
+    _httpClient = await HttpClientService.getInstance();
+  }
 
   @override
   Future<List<FindArtistByLocationResponse>> getArtistByLocation(
       String token, FindArtistByLocationRequest request) async {
-    final url = _httpConfig.surl(path: 'artist');
     try {
-      final body = findArtistByLocationRequestToJson(request);
-      final response = await http.post(url, body: body, headers: {
-        ...acceptApplicationJson,
-        ...{
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-        }
-      });
-      dev.inspect(response, 'getArtistByLocation response');
-      if (response.statusCode == HttpStatus.ok) {
-        try {
-          List<FindArtistByLocationResponse> artists;
-          artists = (json.decode(response.body) as List)
-              .map((e) => FindArtistByLocationResponse.fromJson(e))
-              .toList();
-          return artists;
-        } catch (error, stackTrace) {
-          dev.logError(error, stackTrace);
-          throw JsonParseException();
-        }
-      } else if (response.statusCode == HttpStatus.unprocessableEntity) {
-        if (response.body.contains(troubleFindingLocations)) {
+      return await _httpClient.postList(
+        path: 'locations/artist',
+        token: token,
+        body: request.toJson(),
+        fromJson: FindArtistByLocationResponse.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      dev.logError(e, StackTrace.current);
+
+      if (e.statusCode == HttpStatus.unprocessableEntity) {
+        if (e.message.contains(troubleFindingLocations)) {
           throw TroubleFindingLocations();
-        } else if (response.body.contains(problemsFilteringArtists)) {
+        } else if (e.message.contains(problemsFilteringArtists)) {
           throw ProblemsFilteringArtists();
         }
         throw UnprocessableEntity();
-      } else if (response.statusCode == HttpStatus.notFound) {
-        if (ResponseUtils.resourceNotFound(response.body)) {
+      }
+
+      if (e.statusCode == HttpStatus.notFound) {
+        if (ResponseUtils.resourceNotFound(e.message)) {
           throw ResourceNotFound();
-        } else if (response.body.contains(noArtistsFound)) {
+        } else if (e.message.contains(noArtistsFound)) {
           throw NoArtistsFound();
         }
         throw HttpNotFound();
-      } else {
+      }
+
+      if (e.statusCode >= HttpStatus.internalServerError) {
         throw InternalServerException();
       }
+
+      rethrow;
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
-      rethrow;
+      throw JsonParseException();
     }
   }
 }

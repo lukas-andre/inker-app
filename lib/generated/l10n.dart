@@ -2643,6 +2643,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Ubicación`
+  String get location {
+    return Intl.message(
+      'Ubicación',
+      name: 'location',
+      desc: 'Text shown to indicate a location',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
