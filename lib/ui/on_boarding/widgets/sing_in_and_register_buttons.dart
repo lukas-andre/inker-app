@@ -44,6 +44,7 @@ class SingInAndRegisterButton extends StatelessWidget {
                   ),
                 ),
                 Padding(
+                  key: const Key('onboarding_signin_button'),
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                     onPressed: () {

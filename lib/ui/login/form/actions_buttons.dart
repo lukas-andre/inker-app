@@ -61,6 +61,7 @@ class SignInButton extends StatelessWidget {
                       child: InkerProgressIndicator(),
                     )))
             : SizedBox(
+                key: const Key('loginForm_signin_button'),
                 height: 55,
                 child: TextButton(
                   style: initSessionButtonStyle,

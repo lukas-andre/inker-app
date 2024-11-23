@@ -12,6 +12,13 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
+  static const String invalidCredentialsMessage = 'Correo o contraseña incorrectos';
+  static const String invalidCredentialsSnackBarKey = 'invalidCredentialsSnackBarKey';
+  static const String userInactiveMessage = 'Lo sentimos tu usuario esta inactivo 😭';
+  static const String userInactiveSnackBarKey = 'userInactiveSnackBarKey';
+  static const String unknownErrorMessage = 'Correo o contraseña incorrectos 😭';
+  static const String unknownErrorSnackBarKey = 'unknownErrorSnackBarKey';
+
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const LoginPage());
   }
@@ -77,7 +84,8 @@ class LoginPage extends StatelessWidget {
 
   SnackBar _getUserInactiveSnackBar() {
     return customSnackBar(
-        content: 'Lo sentimos tu usuario esta inactivo 😭',
+        key: const Key(userInactiveSnackBarKey),
+        content: userInactiveMessage,
         duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: 'Activar',
@@ -91,7 +99,8 @@ class LoginPage extends StatelessWidget {
 
   SnackBar _getInvalidCredentialsSnackBar() {
     return customSnackBar(
-        content: 'Correo o contraseña incorrectos',
+        key: const Key(invalidCredentialsSnackBarKey),
+        content: invalidCredentialsMessage,
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',
@@ -105,7 +114,8 @@ class LoginPage extends StatelessWidget {
 
   SnackBar _getUnknownErrorSnackBar() {
     return customSnackBar(
-        content: 'Correo o contraseña incorrectos 😭',
+        key: const Key(unknownErrorSnackBarKey),
+        content: unknownErrorMessage,
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',
