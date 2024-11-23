@@ -32,11 +32,25 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: "true"
+    }
+
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.debug
+        }
+
+        // Bear in mind that ProGuard can lead to some problems if not well configured,
+        // potentially causing issues such as ClassNotFoundExceptions. Keep all the Patrol packages 
+        // or disable ProGuard in android/app/build.gradle:
+        debug {
+            minifyEnabled false
+            shrinkResources false
         }
     }
 
@@ -61,4 +75,5 @@ flutter {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    androidTestUtil "androidx.test:orchestrator:1.4.2"
 }
