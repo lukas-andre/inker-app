@@ -626,10 +626,10 @@ packages:
     dependency: "direct main"
     description:
       name: geolocator
-      sha256: "6cb9fb6e5928b58b9a84bdf85012d757fd07aab8215c5205337021c4999bad27"
+      sha256: d2ec66329cab29cb297d51d96c067d457ca519dca8589665fa0b82ebacb7dbe4
       url: "https://pub.dev"
     source: hosted
-    version: "11.1.0"
+    version: "13.0.2"
   geolocator_android:
     dependency: transitive
     description:
@@ -642,10 +642,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_apple
-      sha256: bc2aca02423ad429cb0556121f56e60360a2b7d694c8570301d06ea0c00732fd
+      sha256: "6154ea2682563f69fc0125762ed7e91e7ed85d0b9776595653be33918e064807"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.7"
+    version: "2.3.8+1"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -658,10 +658,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_web
-      sha256: "49d8f846ebeb5e2b6641fe477a7e97e5dd73f03cbfef3fd5c42177b7300fb0ed"
+      sha256: "2ed69328e05cd94e7eb48bb0535f5fc0c0c44d1c4fa1e9737267484d05c29b5e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "4.1.1"
   geolocator_windows:
     dependency: transitive
     description:
@@ -1167,26 +1167,26 @@ packages:
     dependency: "direct dev"
     description:
       name: patrol
-      sha256: "09183a1b7c9718c62306b8ccfe8021cc0ee566e431212a023a5c7c0cb3146424"
+      sha256: "829065b7daa1307283339a2b3a2d57f29631e5178d2f9d5276b376f34efda2e8"
       url: "https://pub.dev"
     source: hosted
-    version: "3.13.0-dev.4"
+    version: "3.13.0"
   patrol_finders:
     dependency: transitive
     description:
       name: patrol_finders
-      sha256: aa9b548a467dab4ffd668e9feaef911a0deb0bcaa35c514945ee50c771ffbd80
+      sha256: "3ecd1df127024ff0b5bc5df64aecf6068813d7e88cf9fddb162369e29c2da2a7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.5.0"
   patrol_log:
     dependency: transitive
     description:
       name: patrol_log
-      sha256: "8cb68fedf7c922ffee69f8e2a4e543a2ae91ccc86ad2dc4ec5259b34fe25ef87"
+      sha256: a984718fd900163fc3478dae5befa09e14ba25f86263ffed460c7589b7d8be5c
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   permission_handler:
     dependency: "direct main"
     description:

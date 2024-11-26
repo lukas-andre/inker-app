@@ -7,7 +7,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/profile/profile_picture.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -73,10 +72,11 @@ class ArtistMyProfilePage extends StatelessWidget {
 
   Widget _buildProfileContent(BuildContext context, Artist artist) {
     return SingleChildScrollView(
+      key: const Key('artistProfileContent'),
       child: Column(
         children: [
           _buildProfileHeader(context, artist),
-          _buildServices(context, artist),
+          // _buildServices(context, artist),
           _buildContactInfo(context, artist),
           _buildProfileDetails(context, artist),
         ],
@@ -84,42 +84,43 @@ class ArtistMyProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildServices(BuildContext context, Artist artist) {
-    return Container(
-      color: primaryColor,
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(S.of(context).services, style: TextStyleTheme.headline3),
-          const SizedBox(height: 8),
-          if (artist.services.isNotEmpty)
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: artist.services.length,
-              itemBuilder: (context, index) {
-                final service = artist.services[index];
-                return Card(
-                  color: Colors.grey[800],
-                  child: ListTile(
-                    title: Text(service.name, style: TextStyleTheme.bodyText1),
-                    subtitle: Text(service.description,
-                        style: TextStyleTheme.bodyText2),
-                  ),
-                );
-              },
-            )
-          else
-            Text(S.of(context).noServicesAvailable,
-                style: TextStyleTheme.bodyText1),
-        ],
-      ),
-    );
-  }
+  // Widget _buildServices(BuildContext context, Artist artist) {
+  //   return Container(
+  //     color: primaryColor,
+  //     padding: const EdgeInsets.all(16.0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(S.of(context).services, style: TextStyleTheme.headline3),
+  //         const SizedBox(height: 8),
+  //         if (artist.services.isNotEmpty)
+  //           ListView.builder(
+  //             shrinkWrap: true,
+  //             physics: const NeverScrollableScrollPhysics(),
+  //             itemCount: artist.services.length,
+  //             itemBuilder: (context, index) {
+  //               final service = artist.services[index];
+  //               return Card(
+  //                 color: Colors.grey[800],
+  //                 child: ListTile(
+  //                   title: Text(service.name, style: TextStyleTheme.bodyText1),
+  //                   subtitle: Text(service.description,
+  //                       style: TextStyleTheme.bodyText2),
+  //                 ),
+  //               );
+  //             },
+  //           )
+  //         else
+  //           Text(S.of(context).noServicesAvailable,
+  //               style: TextStyleTheme.bodyText1),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildContactInfo(BuildContext context, Artist artist) {
     return Container(
+      key: const Key('artistProfileContactInfo'),
       color: primaryColor,
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -163,6 +164,7 @@ class ArtistMyProfilePage extends StatelessWidget {
 
   Widget _buildProfileHeader(BuildContext context, Artist artist) {
     return GestureDetector(
+      key: const Key('artistProfileHeader'),
       onTap: () => _navigateToEditField(
         context,
         EditFieldArguments(
@@ -189,6 +191,7 @@ class ArtistMyProfilePage extends StatelessWidget {
 
   Widget _buildProfileDetails(BuildContext context, Artist artist) {
     return Container(
+      key: const Key('artistProfileDetails'),
       color: primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -304,6 +307,7 @@ class ArtistMyProfilePage extends StatelessWidget {
 
   Widget _buildStudioPhoto(BuildContext context, Artist artist) {
     return GestureDetector(
+      key: const Key('artistProfileStudioPhoto'),
       onTap: () => _navigateToEditField(
         context,
         EditFieldArguments(
