@@ -59,6 +59,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
             items: [
               for (int index = 0; index < icons.length; index++)
                 BottomNavigationBarItem(
+                  key: icons[index].key,
                   icon: icons[index].icon,
                   activeIcon: icons[index].selectedIcon,
                   label: icons[index].title,
