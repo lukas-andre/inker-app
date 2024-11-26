@@ -1,15 +1,11 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
-import 'package:inker_studio/ui/customer/explore/explorer_page.dart';
-import 'package:inker_studio/ui/customer/explore/gps_access_page.dart';
-import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
-import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_view_buttons.dart';
+import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
+import 'package:inker_studio/ui/artist/artist_home_page.dart';
+import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/login/login_page.dart';
-import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
+import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
@@ -23,7 +19,7 @@ const _defaultConfig = PatrolTesterConfig(
 );
 
 void main() {
-  group('Customer Authentication Tests', () {
+  group('Artist Authentication Tests', () {
     setUp(() async {
       await TestConfig.initializeTests(resetDatabase: true);
     });
@@ -42,7 +38,7 @@ void main() {
     );
 
     patrolTest(
-      'Verify successful login',
+      'Verify successful artist login',
       config: _defaultConfig,
       ($) async {
         await app.main();
@@ -50,11 +46,11 @@ void main() {
 
         await TestActions.performLogin(
           $,
-          email: 'lucas.henrydz@gmail.com',
+          email: 'lucas.henryd@icloud.com', // Use an artist test account
           password: 'admin1',
         );
 
-        await $(CustomerAppPage).waitUntilVisible();
+        await $(ArtistAppPage).waitUntilVisible();
       },
     );
 
@@ -80,32 +76,37 @@ void main() {
       },
     );
 
-    patrolTest('Verify successful login, GPS permission and artist explorer page',
-        ($) async {
-      await app.main();
-      await TestActions.skipOnboarding($);
+    patrolTest(
+      'Verify successful login and artist profile page access',
+      config: _defaultConfig,
+      ($) async {
+        await app.main();
+        await TestActions.skipOnboarding($);
 
-      await TestActions.performLogin(
-        $,
-        email: 'lucas.henrydz@gmail.com',
-        password: 'admin1',
-      );
+        await TestActions.performLogin(
+          $,
+          email: 'lucas.henryd@icloud.com',
+          password: 'admin1',
+        );
 
-      await $(CustomerAppPage).waitUntilVisible();
+        await $(ArtistAppPage).waitUntilVisible();
+        await $(QuotationListPage).waitUntilVisible();
+        
+        // Navigate to profile
+        await $(#profileTab).tap();
+        await $(ArtistMyProfilePage).waitUntilVisible();
 
-      await $(AccessButton.accessButtonText).tap();
-      await $(GpsAccessScreen).waitUntilVisible();
+        // Verify profile elements are visible
+        await $(#artistProfileContent).waitUntilVisible();
+        await $(#artistProfileHeader).waitUntilVisible();
+        await $(#artistProfileContactInfo).waitUntilVisible();
 
-      if (await $.native
-          .isPermissionDialogVisible(timeout: const Duration(seconds: 5))) {
-        await $.native.selectFineLocation();
-        await $.native.grantPermissionWhenInUse();
-      }
-
-      await $(InkerProgressIndicator).waitUntilVisible();
-      await $(GridView).waitUntilVisible();
-      await $(#explorerPageStack).waitUntilVisible();
-      await $(ExplorerListView).waitUntilVisible();
-    });
+        // Scroll to details and studio photo
+        await $(#artistProfileDetails).scrollTo();
+        await $(#artistProfileDetails).waitUntilVisible();
+        await $(#artistProfileStudioPhoto).scrollTo();
+        await $(#artistProfileStudioPhoto).waitUntilVisible();
+      },
+    );
   });
 }

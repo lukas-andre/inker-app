@@ -18,11 +18,14 @@ class PageNavBarIcon extends Equatable {
   final dynamic selectedIcon;
   final String? title;
   final int index;
-  const PageNavBarIcon(
-      {required this.icon,
-      required this.selectedIcon,
-      this.title,
-      required this.index});
+  final Key? key;
+  const PageNavBarIcon({
+    required this.icon,
+    required this.selectedIcon,
+    this.title,
+    required this.index,
+    this.key,
+  });
 
   @override
   List<Object?> get props => [icon, title, index];
@@ -35,18 +38,21 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
     const CustomerPageNavBarIcons(
   icons: [
     PageNavBarIcon(
+      key: Key('exploreIcon'),
       icon: ImageIcon(exploreIcon),
       selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
       index: 1,
     ),
     PageNavBarIcon(
+      key: Key('bookMarkIcon'),
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
       title: 'Cotizaciones',
       index: 2,
     ),
     PageNavBarIcon(
+      key: Key('profileIcon'),
       icon: Icon(
         Icons.account_circle_outlined,
         size: 25,
