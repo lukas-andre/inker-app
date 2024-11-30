@@ -1,22 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/login/login_page.dart';
+import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
-import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
 
+import '../../data/auth_test_data.dart';
+import '../../helpers/keys.dart';
 import '../../helpers/test_actions.dart';
 import '../../helpers/test_config.dart';
-
-const _defaultConfig = PatrolTesterConfig(
-  settlePolicy: SettlePolicy.trySettle,
-  settleTimeout: Duration(seconds: 10),
-);
 
 void main() {
   group('Artist Authentication Tests', () {
@@ -30,7 +26,7 @@ void main() {
 
     patrolTest(
       'Verify skip onboarding',
-      config: _defaultConfig,
+      config: TestConfig.defaultConfig,
       ($) async {
         await app.main();
         await TestActions.skipOnboarding($);
@@ -39,73 +35,86 @@ void main() {
 
     patrolTest(
       'Verify successful artist login',
-      config: _defaultConfig,
+      config: TestConfig.defaultConfig,
       ($) async {
         await app.main();
         await TestActions.skipOnboarding($);
-
         await TestActions.performLogin(
           $,
-          email: 'lucas.henryd@icloud.com', // Use an artist test account
-          password: 'admin1',
+          email: AuthTestData.validArtistCredentials['email']!,
+          password: AuthTestData.validArtistCredentials['password']!,
         );
-
         await $(ArtistAppPage).waitUntilVisible();
       },
     );
 
     patrolTest(
       'Verify login failure with invalid credentials',
-      config: _defaultConfig,
+      config: TestConfig.defaultConfig,
       ($) async {
         await app.main();
         await TestActions.skipOnboarding($);
-
         await TestActions.performLogin(
           $,
-          email: 'lucas.henrydz@gmail.com',
-          password: 'admin11',
+          email: AuthTestData.invalidCredentials['email']!,
+          password: AuthTestData.invalidCredentials['password']!,
         );
 
-        final toastFinder = find.byType(SnackBar);
-        expect(toastFinder, findsOneWidget);
-        expect(find.textContaining(LoginPage.invalidCredentialsMessage),
-            findsOneWidget);
-
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(
+          find.textContaining(LoginPage.invalidCredentialsMessage),
+          findsOneWidget,
+        );
         await $(LoginPage).waitUntilVisible();
       },
     );
 
     patrolTest(
       'Verify successful login and artist profile page access',
-      config: _defaultConfig,
+      config: TestConfig.defaultConfig,
       ($) async {
         await app.main();
         await TestActions.skipOnboarding($);
-
         await TestActions.performLogin(
           $,
-          email: 'lucas.henryd@icloud.com',
-          password: 'admin1',
+          email: AuthTestData.validArtistCredentials['email']!,
+          password: AuthTestData.validArtistCredentials['password']!,
         );
 
         await $(ArtistAppPage).waitUntilVisible();
         await $(QuotationListPage).waitUntilVisible();
-        
-        // Navigate to profile
-        await $(#profileTab).tap();
+
+        await $(K.profileTab).tap();
         await $(ArtistMyProfilePage).waitUntilVisible();
 
-        // Verify profile elements are visible
-        await $(#artistProfileContent).waitUntilVisible();
-        await $(#artistProfileHeader).waitUntilVisible();
-        await $(#artistProfileContactInfo).waitUntilVisible();
+        await TestActions.verifyProfileElements($);
+      },
+    );
 
-        // Scroll to details and studio photo
-        await $(#artistProfileDetails).scrollTo();
-        await $(#artistProfileDetails).waitUntilVisible();
-        await $(#artistProfileStudioPhoto).scrollTo();
-        await $(#artistProfileStudioPhoto).waitUntilVisible();
+    patrolTest(
+      'Verify successful logout',
+      config: TestConfig.defaultConfig,
+      ($) async {
+        await app.main();
+        await TestActions.skipOnboarding($);
+        await TestActions.performLogin(
+          $,
+          email: AuthTestData.validArtistCredentials['email']!,
+          password: AuthTestData.validArtistCredentials['password']!,
+        );
+
+        await $(ArtistAppPage).waitUntilVisible();
+        await $(QuotationListPage).waitUntilVisible();
+
+        await $(K.profileTab).tap();
+        await $(ArtistMyProfilePage).waitUntilVisible();
+
+        await $(K.settingsButton).tap();
+        await $(SettingsPage).waitUntilVisible();
+
+        await $(K.logoutButton).tap();
+        await $(K.confirmLogoutButton).tap();
+        await $(OnBoardingPage).waitUntilVisible();
       },
     );
   });

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
@@ -40,7 +41,7 @@ class ExplorerListView extends StatelessWidget {
 
 class ExplorerResultList extends StatelessWidget {
   ExplorerResultList({super.key});
-  final List<String> imageList = [
+  final List<String> defaultImages = [
     'https://cdn.pixabay.com/photo/2019/03/15/09/49/girl-4056684_960_720.jpg',
     'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
     'https://cdn.pixabay.com/photo/2020/09/18/19/31/laptop-5582775_960_720.jpg',
@@ -55,101 +56,149 @@ class ExplorerResultList extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: BlocBuilder<ArtistsListBloc, ArtistsListState>(
-      builder: (context, state) {
-        final size = MediaQuery.of(context).size;
-        if (state is ArtistsListStateInitial) {
-          return const InkerProgressIndicator();
-        }
-        return GridView.count(
-          crossAxisCount: 2,
-          padding: const EdgeInsets.all(10),
-          childAspectRatio: 0.65,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 10,
-          children: List.generate(
+    return Expanded(
+      child: BlocBuilder<ArtistsListBloc, ArtistsListState>(
+        builder: (context, state) {
+          if (state is ArtistsListStateInitial) {
+            return const InkerProgressIndicator();
+          }
+
+          return GridView.count(
+            key: const Key('artistGridView'),
+            crossAxisCount: 2,
+            padding: const EdgeInsets.all(10),
+            childAspectRatio: 0.65,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 10,
+            children: List.generate(
               state.artists.length,
-              (index) => SizedBox(
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Expanded(
-                                flex: 6,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    InkerNavigator.push(
-                                        context,
-                                        ArtistProfilePage(
-                                            artist: state.artists[index]));
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    // child: Image.network(
-                                    //   state.artistFounded[index].artist!
-                                    //           .studioPhoto ??
-                                    //       imageList[index],
-                                    //   fit: BoxFit.cover,
-                                    //   width: size.width,
-                                    // ),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          state.artists[index].studioPhoto ??
-                                              imageList[index],
-                                      fit: BoxFit.cover,
-                                      width: size.width,
-                                      placeholder: (context, url) =>
-                                          const Center(
-                                        child: InkerProgressIndicator(
-                                          radius: 10,
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                    ),
-                                  ),
-                                )),
-                            Container(
-                                padding: const EdgeInsets.only(top: 3),
-                                width: size.width,
-                                child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CircleAvatar(
-                                      minRadius: 15,
-                                      backgroundImage: NetworkImage(state
-                                              .artists[index]
-                                              .profileThumbnail ??
-                                          'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg'),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              '@${state.artists[index].username!}',
-                                              style: TextStyleTheme.copyWith(
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          Text(
-                                              '${(state.artists[index].distance! * 1000).toInt()} mt',
-                                              style: TextStyleTheme.copyWith(
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                        ]),
-                                  ],
-                                )),
-                          ],
-                        )
-                      ],
-                    ),
-                  )),
-        );
-      },
-    ));
+              (index) => _ArtistGridItem(
+                key: Key('artistItem$index'),
+                artist: state.artists[index],
+                defaultImage: defaultImages[index % defaultImages.length],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _ArtistGridItem extends StatelessWidget {
+  const _ArtistGridItem({
+    super.key,
+    required this.artist,
+    required this.defaultImage,
+  });
+
+  final Artist artist;
+  final String defaultImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => InkerNavigator.push(
+        context,
+        ArtistProfilePage(artist: artist),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 6,
+              child: _StudioImage(
+                imageUrl: artist.studioPhoto ?? defaultImage,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _ArtistInfo(artist: artist),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StudioImage extends StatelessWidget {
+  const _StudioImage({
+    required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        placeholder: (context, url) => const Center(
+          child: InkerProgressIndicator(radius: 10),
+        ),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+    );
+  }
+}
+
+class _ArtistInfo extends StatelessWidget {
+  const _ArtistInfo({
+    required this.artist,
+  });
+
+  final Artist artist;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 20,
+          backgroundImage: NetworkImage(
+            artist.profileThumbnail ??
+                'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg',
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '@${artist.username!}',
+                style: TextStyleTheme.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                '${(artist.distance! * 1000).toInt()} mt',
+                style: TextStyleTheme.copyWith(
+                  fontSize: 12,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

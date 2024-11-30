@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
@@ -67,12 +67,18 @@ class ApiArtistService implements ArtistService {
   Future<Artist> updateProfilePicture(int artistId, XFile image) async {
     try {
       final token = await _getToken();
+      final files = [
+        await MultipartFile.fromPath(
+          'file',
+          image.path,
+        ),
+      ];
+
       return await _httpClient.multipartRequest(
         path: '$_basePath/$artistId/profile-picture',
         method: 'POST',
         token: token,
-        field: 'file',
-        file: File(image.path),
+        files: files,
         fromJson: Artist.fromJson,
       );
     } catch (e, stackTrace) {
@@ -88,12 +94,18 @@ class ApiArtistService implements ArtistService {
   Future<Artist> updateStudioPhoto(int artistId, XFile image) async {
     try {
       final token = await _getToken();
+      final files = [
+        await MultipartFile.fromPath(
+          'file',
+          image.path,
+        ),
+      ];
+
       return await _httpClient.multipartRequest(
         path: '$_basePath/$artistId/studio-photo',
         method: 'POST',
         token: token,
-        field: 'file',
-        file: File(image.path),
+        files: files,
         fromJson: Artist.fromJson,
       );
     } catch (e, stackTrace) {
