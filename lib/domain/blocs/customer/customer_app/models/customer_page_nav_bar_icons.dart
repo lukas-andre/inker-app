@@ -38,21 +38,21 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
     const CustomerPageNavBarIcons(
   icons: [
     PageNavBarIcon(
-      key: Key('exploreIcon'),
+      key: Key('exploreTab'),
       icon: ImageIcon(exploreIcon),
       selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
       index: 1,
     ),
     PageNavBarIcon(
-      key: Key('bookMarkIcon'),
+      key: Key('bookMarkTab'),
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
       title: 'Cotizaciones',
       index: 2,
     ),
     PageNavBarIcon(
-      key: Key('profileIcon'),
+      key: Key('profileTab'),
       icon: Icon(
         Icons.account_circle_outlined,
         size: 25,

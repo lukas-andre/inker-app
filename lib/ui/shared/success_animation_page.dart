@@ -159,6 +159,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
           ),
           const SizedBox(height: 30),
           SizedBox(
+            key: const Key('successAnimationPageDoneButton'),
             width: double.infinity,
             child: ElevatedButton(
               onPressed: widget.onAnimationComplete,

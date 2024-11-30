@@ -110,11 +110,9 @@ class HttpClientService {
       if (response.statusCode == HttpStatus.ok ||
           response.statusCode == HttpStatus.created) {
         return fromJson(json.decode(response.body));
-      } 
-      else if (response.statusCode == HttpStatus.noContent) {
+      } else if (response.statusCode == HttpStatus.noContent) {
         return fromJson({});
-      }
-      else {
+      } else {
         _handleError(response, requestBody: encodedBody);
       }
     } catch (e) {
@@ -147,8 +145,8 @@ class HttpClientService {
     required String path,
     required String method,
     required T Function(Map<String, dynamic>) fromJson,
-    required String field,
-    required File file,
+    Map<String, String>? fields,
+    List<http.MultipartFile>? files,
     String? token,
     Map<String, dynamic>? queryParams,
   }) async {
@@ -158,11 +156,16 @@ class HttpClientService {
 
       request.headers.addAll(_buildHeaders(token));
 
-      request.files.add(await http.MultipartFile.fromPath(
-        field,
-        file.path,
-        contentType: MediaType('image', 'jpeg'),
-      ));
+      if (fields != null) {
+        request.fields.addAll(fields);
+      }
+
+      if (files != null) {
+        request.files.addAll(files);
+      }
+
+      HttpLogger.logRequest('MULTIPART', uri,
+          headers: request.headers, body: request.fields);
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
@@ -177,6 +180,7 @@ class HttpClientService {
     http.Response response,
     T Function(Map<String, dynamic>) fromJson,
   ) {
+    HttpLogger.logResponse(response);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       try {
         return fromJson(json.decode(response.body));
@@ -188,7 +192,7 @@ class HttpClientService {
     }
   }
 
-    Future<List<T>> postList<T>({
+  Future<List<T>> postList<T>({
     required String path,
     required T Function(Map<String, dynamic>) fromJson,
     required Map<String, dynamic> body,

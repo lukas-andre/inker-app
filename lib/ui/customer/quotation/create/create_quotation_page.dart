@@ -86,6 +86,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     state: AnimationState.error,
                     onAnimationComplete: () {
                       Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
@@ -103,7 +104,6 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 title: Text(S.of(context).createQuotation,
                     style: TextStyleTheme.copyWith(color: Colors.white)),
                 backgroundColor: primaryColor,
-        
               ),
               backgroundColor: primaryColor,
               body: SingleChildScrollView(
@@ -112,6 +112,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextField(
+                      key: const Key('createQuotationDescriptionField'),
                       controller: _descriptionController,
                       focusNode: _descriptionFocusNode,
                       decoration: InputDecoration(
@@ -128,6 +129,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     ),
                     const SizedBox(height: 16),
                     GestureDetector(
+                      key: const Key('createQuotationDateField'),
                       onTap: () {
                         _selectDate(context);
                         FocusScope.of(context).unfocus();
@@ -161,6 +163,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
+                      key: const Key('createQuotationSubmitButton'),
                       onPressed: state.maybeWhen(
                         loading: (_) => null,
                         orElse: () => () => _submitQuotation(context),

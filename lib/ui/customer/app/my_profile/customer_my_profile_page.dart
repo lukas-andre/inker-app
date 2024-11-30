@@ -36,6 +36,7 @@ class CustomerMyProfilePage extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
+            key: const Key('settingsButton'),
             icon: const Icon(Icons.settings, color: Colors.white),
             onPressed: () => Navigator.pushNamed(context, '/settings'),
             tooltip: S.of(context).settings,

@@ -35,7 +35,7 @@ class ApiQuotationService implements QuotationService {
   late final HttpClientService _httpClient;
 
   ApiQuotationService() {
-        _initializeHttpClient();
+    _initializeHttpClient();
   }
 
   Future<void> _initializeHttpClient() async {
@@ -70,8 +70,8 @@ class ApiQuotationService implements QuotationService {
       path: _basePath,
       method: 'POST',
       token: token,
-      field: 'files[]',
-      file: File(referenceImages.first.path),
+      fields: request.fields,
+      files: request.files,
       fromJson: (json) => json,
     );
   }
@@ -121,7 +121,8 @@ class ApiQuotationService implements QuotationService {
     QuotationArtistRejectReason? rejectionReason,
     List<XFile>? proposedDesigns,
   }) async {
-    final fields = {
+    final List<http.MultipartFile> files = [];
+    final Map<String, String> fields = {
       'action': action.toString().split('.').last.toSnakeCase(),
       // TODO: Handle empty estimated cost
       if (estimatedCost != null && !estimatedCost.isEmpty) ...{
@@ -138,23 +139,27 @@ class ApiQuotationService implements QuotationService {
         'rejectionReason': rejectionReason.toSnakeCase(),
     };
 
+
     if (proposedDesigns != null && proposedDesigns.isNotEmpty) {
-      return await _httpClient.multipartRequest(
-        path: '$_basePath/$quotationId/artist-actions',
-        method: 'POST',
-        token: token,
-        field: 'proposedDesigns',
-        file: File(proposedDesigns.first.path),
-        fromJson: (json) => null,
-      );
-    } else {
-      return await _httpClient.post(
-        path: '$_basePath/$quotationId/artist-actions',
-        token: token,
-        body: fields,
-        fromJson: (json) => null,
-      );
+      for (var i = 0; i < proposedDesigns.length; i++) {
+        var file = proposedDesigns[i];
+        files.add(await http.MultipartFile.fromPath(
+          'proposedDesigns[]',
+          file.path,
+          contentType: MediaType('image', 'jpeg'),
+          filename: 'image_$i.jpg',
+        ));
+      }
     }
+
+    return await _httpClient.multipartRequest(
+      path: '$_basePath/$quotationId/artist-actions',
+      method: 'POST',
+      token: token,
+      fields: fields,
+      files: files,
+      fromJson: (json) {},
+    );
   }
 
   @override
@@ -170,11 +175,20 @@ class ApiQuotationService implements QuotationService {
     final body = {
       'action': action.toString().split('.').last.toSnakeCase(),
       if (rejectionReason != null)
-        'rejectionReason': rejectionReason.toString().toSnakeCase().replaceAll('quotation_customer_reject_reason.', ''),
+        'rejectionReason': rejectionReason
+            .toString()
+            .toSnakeCase()
+            .replaceAll('quotation_customer_reject_reason.', ''),
       if (appealReason != null)
-        'appealReason': appealReason.toString().toSnakeCase().replaceAll('quotation_customer_appeal_reason.', ''),
+        'appealReason': appealReason
+            .toString()
+            .toSnakeCase()
+            .replaceAll('quotation_customer_appeal_reason.', ''),
       if (cancelReason != null)
-        'cancelReason': cancelReason.toString().toSnakeCase().replaceAll('quotation_customer_cancel_reason.', ''),
+        'cancelReason': cancelReason
+            .toString()
+            .toSnakeCase()
+            .replaceAll('quotation_customer_cancel_reason.', ''),
       if (additionalDetails != null) 'additionalDetails': additionalDetails,
     };
 

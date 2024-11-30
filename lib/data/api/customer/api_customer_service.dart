@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/customer/dtos/create_customer_request.dart';
@@ -111,12 +112,18 @@ class ApiCustomerService implements CustomerService {
   Future<Customer> updateProfilePicture(
       int customerId, XFile image, String token) async {
     try {
+      final files = [
+        await MultipartFile.fromPath(
+          'file',
+          image.path,
+        ),
+      ];
+
       return await _httpClient.multipartRequest(
         path: 'customers/$customerId/profile-picture',
         method: 'POST',
         token: token,
-        field: 'file',
-        file: File(image.path),
+        files: files,
         fromJson: (json) => Customer.fromJson(json),
       );
     } catch (e, stackTrace) {
