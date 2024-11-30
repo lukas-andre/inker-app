@@ -246,6 +246,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
         ),
         const SizedBox(width: 10),
         Expanded(
+          key: const Key('createQuotationButton'),
           flex: 3,
           child: ElevatedButton(
             onPressed: () {

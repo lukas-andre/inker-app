@@ -9,6 +9,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
+// ignore: must_be_immutable
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
 
@@ -18,7 +19,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<SettingsBloc>(context);
     localizationCubit = context.read<LocalizationCubit>();
     return Scaffold(
       backgroundColor: primaryColor,
@@ -89,6 +89,7 @@ class SettingsPage extends StatelessWidget {
           onTap: () => _navigateToTermsAndConditions(context),
         ),
         ListTile(
+          key: const Key('logoutButton'),
           leading: const Icon(Icons.logout),
           title: Text(S.of(context).logOut, style: TextStyleTheme.bodyText1),
           onTap: () => _confirmLogout(context),
@@ -130,10 +131,12 @@ class SettingsPage extends StatelessWidget {
           content: Text(S.of(context).areYouSureLogout),
           actions: [
             TextButton(
+              key: const Key('cancelLogoutButton'),
               child: Text(S.of(context).cancel),
               onPressed: () => Navigator.of(dialogContext).pop(),
             ),
             TextButton(
+              key: const Key('confirmLogoutButton'),
               child: Text(S.of(context).logOut),
               onPressed: () {
                 Navigator.of(dialogContext).pop();

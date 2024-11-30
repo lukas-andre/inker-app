@@ -1,3 +1,4 @@
+import 'package:inker_studio/ui/customer/explore/gps_access_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:patrol/patrol.dart';
 
@@ -6,11 +7,9 @@ import 'keys.dart';
 class TestActions {
   static Future<void> skipOnboarding(PatrolIntegrationTester $) async {
     await $.pumpAndSettle();
-    
-    // Verify we're on OnBoarding
+
     await $(OnBoardingPage).waitUntilVisible();
-    
-    // Find and tap skip button
+
     await $('Saltar').tap();
   }
 
@@ -19,15 +18,36 @@ class TestActions {
     required String email,
     required String password,
   }) async {
-    // Find and tap sign in button
     await $(K.signInButton).tap();
-    
-    // Fill the form
+
     await $(K.usernameField).enterText(email);
     await $(K.passwordField).enterText(password);
-    
-    // Submit form
+
     await $(K.loginButton).tap();
     await $.pumpAndSettle();
+  }
+
+  static Future<void> verifyProfileElements(PatrolIntegrationTester $) async {
+    await $(K.artistProfileContent).waitUntilVisible();
+    await $(K.artistProfileHeader).waitUntilVisible();
+    await $(K.artistProfileContactInfo).waitUntilVisible();
+
+    await $(K.artistProfileDetails).scrollTo();
+    await $(K.artistProfileDetails).waitUntilVisible();
+    await $(K.artistProfileStudioPhoto).scrollTo();
+    await $(K.artistProfileStudioPhoto).waitUntilVisible();
+  }
+
+  static Future<void> handleGpsPermission(PatrolIntegrationTester $) async {
+    if ($(AccessButton.accessButtonText).visible) {
+      await $(AccessButton.accessButtonText).tap();
+      await $(GpsAccessScreen).waitUntilVisible();
+
+      if (await $.native
+          .isPermissionDialogVisible(timeout: const Duration(seconds: 5))) {
+        await $.native.selectFineLocation();
+        await $.native.grantPermissionWhenInUse();
+      }
+    }
   }
 }
