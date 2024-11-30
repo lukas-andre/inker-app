@@ -9,7 +9,7 @@ import 'package:patrol/src/native/contracts/contracts.dart';
 import 'package:test_api/src/backend/invoker.dart';
 
 // START: GENERATED TEST IMPORTS
-import 'flows/shared/quotation/quotation_flow_test.dart' as flows__shared__quotation__quotation_flow_test;
+import 'flows/artist/auth_flow_test.dart' as flows__artist__auth_flow_test;
 // END: GENERATED TEST IMPORTS
 
 Future<void> main() async {
@@ -69,7 +69,7 @@ Future<void> main() async {
   });
 
   // START: GENERATED TEST GROUPS
-  group('flows.shared.quotation.quotation_flow_test', flows__shared__quotation__quotation_flow_test.main);
+  group('flows.artist.auth_flow_test', flows__artist__auth_flow_test.main);
   // END: GENERATED TEST GROUPS
 
   final dartTestGroup = await testExplorationCompleter.future;
