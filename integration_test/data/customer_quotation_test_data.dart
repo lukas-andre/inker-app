@@ -1,29 +1,30 @@
 class CustomerQuotationTestData {
   static const artistName = '@elnata';
-  static const quotationDescription = 'Me gustaría un tatuaje de un dragón japonés en el brazo';
-  static var quotationDate = DateTime.now().add(const Duration(days: 1));  
+  static const quotationDescription =
+      'Me gustaría un tatuaje de un dragón japonés en el brazo';
+  static var quotationDate = DateTime.now().add(const Duration(days: 1));
 
-    static const Map<String, String> quotationStates = {
+  static const Map<String, String> quotationStates = {
     'pending': 'Pendiente',
     'cancelled': 'Cancelada',
     'rejected': 'Rechazada',
     'accepted': 'Aceptada',
   };
 
-    static DateTime getValidQuotationDate() {
+  static DateTime getValidQuotationDate() {
     final now = DateTime.now();
     final tomorrow = now.add(const Duration(days: 1));
-    
+
     // Si mañana es fin de mes, usamos el primer día del próximo mes
     if (_isLastDayOfMonth(tomorrow)) {
       return _getFirstDayOfNextMonth(now);
     }
-    
+
     // Si mañana es domingo, usamos el lunes
     if (tomorrow.weekday == DateTime.sunday) {
       return tomorrow.add(const Duration(days: 1));
     }
-    
+
     return tomorrow;
   }
 
