@@ -16,12 +16,9 @@ class QuotationTestActions {
     String artistName,
   ) async {
     await $(ExplorerListView).waitUntilVisible();
-    // await $(InkerProgressIndicator).
-
     await $(Text)
         .which<Text>((widget) => widget.data?.contains(artistName) ?? false)
         .tap();
-
     await $(ArtistProfilePage).waitUntilVisible();
   }
 
@@ -32,19 +29,16 @@ class QuotationTestActions {
   }) async {
     await $(K.createQuotationButton).tap();
     await $(CreateQuotationPage).waitUntilVisible();
-
     await $(K.createQuotationDescriptionField).enterText(description);
-
     await _selectDate($, date);
-
     await $(K.createQuotationSubmitButton).tap();
   }
 
   static Future<void> _selectDate(
       PatrolIntegrationTester $, DateTime date) async {
     await $(K.createQuotationDateField).tap();
-
     final currentMonth = DateTime.now();
+
     if (date.month != currentMonth.month || date.year != currentMonth.year) {
       if (date.isAfter(currentMonth)) {
         await $(Icons.chevron_right).tap();
@@ -55,7 +49,6 @@ class QuotationTestActions {
         .which<Text>(
           (widget) =>
               widget.data == date.day.toString() &&
-              // Asegurarse de seleccionar el día correcto y no uno deshabilitado
               widget.style?.color != const Color(0x61000000),
         )
         .tap();
@@ -87,11 +80,8 @@ class QuotationTestActions {
     await $(Text)
         .which<Text>((widget) => widget.data?.contains(description) ?? false)
         .waitUntilVisible();
-
     await $(K.quotationCancelButton).first.tap();
-
     await $(K.quotationConfirmCancelButton).tap();
-
     await $(K.quotationCancelSuccessMessage).waitUntilVisible();
   }
 
@@ -113,9 +103,7 @@ class QuotationTestActions {
         .tap();
 
     await $(K.quotationCancelDialogTitle).waitUntilVisible();
-
     await $(K.quotationNoCancelButton).tap();
-
     await $(QuotationListPage).waitUntilVisible();
     await $(Text)
         .which<Text>((widget) => widget.data?.contains(description) ?? false)
@@ -128,28 +116,16 @@ class QuotationTestActions {
     required String rejectionReason,
     required String additionalDetails,
   }) async {
-    // Find quotation by description
     await $(Text)
         .which<Text>((widget) => widget.data?.contains(description) ?? false)
         .waitUntilVisible();
-
-    // Tap reject button
     await $(K.quotationRejectButton).tap();
-
     await $(K.quotationRejectReasonField).tap();
-
     await $(Text).which<Text>((widget) => widget.data == rejectionReason).tap();
-
-    // Fill additional details
     await $(K.quotationAdditionalDetailsField).enterText(additionalDetails);
-
-    // // Submit rejection
     await $(K.quotationActionSubmitButton).tap();
-
-    // Verify rejection success message
     await $(SuccessAnimationPage).waitUntilVisible();
     await $(K.successAnimationPageDoneButton).tap();
-    // Verify we are back in the quotations list
     await $(QuotationListPage).waitUntilVisible();
   }
 
@@ -160,27 +136,14 @@ class QuotationTestActions {
     required String additionalDetails,
     DateTime? startTime,
   }) async {
-    // Find and wait for quotation with description
     await $(Text)
         .which<Text>((widget) => widget.data?.contains(description) ?? false)
         .waitUntilVisible();
-
-    // Tap reply button
     await $(K.quotationReplyButton).tap();
-
-    // Fill estimated cost
     await $(K.estimatedCostField).enterText(estimatedCost);
-
-    // Handle schedule assistant
     await _handleScheduleAssistant($, startTime: startTime ?? DateTime.now());
-
-    // Add additional details
     await $(K.quotationAdditionalDetailsField).enterText(additionalDetails);
-
-    // Submit response
     await $(K.quotationActionSubmitButton).tap();
-
-    // Verify success and return to list
     await $(SuccessAnimationPage).waitUntilVisible();
     await $(K.successAnimationPageDoneButton).tap();
     await $(QuotationListPage).waitUntilVisible();
@@ -190,17 +153,10 @@ class QuotationTestActions {
     PatrolIntegrationTester $, {
     required DateTime startTime,
   }) async {
-    // Abrir schedule assistant
     await $(K.dateTimeRangeSelector).tap();
     await $(K.scheduleAssistantView).waitUntilVisible();
-
-    // Primero seleccionar el día en el calendario
     await _selectCalendarDate($, startTime);
-
-    // Luego seleccionar la hora en la grilla
     await _selectTimeInGrid($, startTime);
-
-    // Confirmar la selección
     await $(K.scheduleAssistantConfirmButton).tap();
   }
 
@@ -208,28 +164,19 @@ class QuotationTestActions {
     PatrolIntegrationTester $,
     DateTime targetDate,
   ) async {
-    // El formato es "mes del año" (e.g. "diciembre del 2024")
     final targetMonthString =
         DateFormat("MMMM 'del' y", 'es').format(targetDate);
-
-    // Esperar a que el calendario sea visible
     await $(TableCalendar).waitUntilVisible();
 
-    // Primero verificar si el día que queremos ya está visible y seleccionable
-    final isTargetDayVisible = $(targetDate.day.toString()).visible;
-
-    if (isTargetDayVisible) {
-      // Si el día ya está visible, simplemente hacemos tap
+    if ($(targetDate.day.toString()).visible) {
       await $(targetDate.day.toString()).tap();
       return;
     }
 
-    // Si no está visible, navegamos hasta encontrarlo
     int attempts = 0;
     const maxAttempts = 5;
 
     while (attempts < maxAttempts) {
-      // Verificar si estamos en el mes correcto
       final isCorrectMonth = $(Text)
           .which<Text>(
             (text) =>
@@ -243,21 +190,15 @@ class QuotationTestActions {
 
         if (dayFinder.visible) {
           await dayFinder.tap();
-          // Verificar que realmente se seleccionó el día
           await Future.delayed(const Duration(milliseconds: 300));
-          if (dayFinder.visible) {
-            return; // Salimos de la función si el día se seleccionó correctamente
-          }
+          if (dayFinder.visible) return;
         }
       }
 
-      // Solo navegamos si no hemos encontrado el día
-      if (targetDate.isAfter(DateTime.now())) {
-        await $(Icons.chevron_right).tap();
-      } else {
-        await $(Icons.chevron_left).tap();
-      }
-
+      await $(targetDate.isAfter(DateTime.now())
+              ? Icons.chevron_right
+              : Icons.chevron_left)
+          .tap();
       await Future.delayed(const Duration(milliseconds: 300));
       attempts++;
     }
@@ -272,32 +213,21 @@ class QuotationTestActions {
     DateTime time,
   ) async {
     await $(GridView).waitUntilVisible();
+    final formattedTime =
+        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
-    print('${time.hour}:${time.minute}');
-    // Tap on time cell
     await $(K.gridEventList)
-        .containing(
-            '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}')
+        .containing(formattedTime)
         .scrollTo(view: $(K.gridEventList))
         .tap();
 
-    // Wait for wheel picker
     await $(K.scheduleWheelPicker).waitUntilVisible();
-
-    // Wait for wheels to be visible
     await $(K.timeWheelHourWheel).waitUntilVisible();
     await $(K.timeWheelMinuteWheel).waitUntilVisible();
-
     await Future.delayed(const Duration(milliseconds: 300));
-
     await $(K.scheduleWheelConfirmButton).tap();
-
-    // Verify time was set
     await $(Text)
-        .which<Text>((widget) =>
-            widget.data?.contains(
-                '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}') ??
-            false)
+        .which<Text>((widget) => widget.data?.contains(formattedTime) ?? false)
         .waitUntilVisible();
   }
 }
