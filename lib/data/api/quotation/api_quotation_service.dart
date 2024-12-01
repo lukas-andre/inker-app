@@ -158,7 +158,7 @@ class ApiQuotationService implements QuotationService {
       token: token,
       fields: fields,
       files: files,
-      fromJson: (json) {},
+      fromJson: (json) => null,
     );
   }
 

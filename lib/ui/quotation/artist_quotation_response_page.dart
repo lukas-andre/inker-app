@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/art
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/schedule_assistant/schedule_assistant_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
@@ -247,6 +248,7 @@ class _ArtistQuotationResponseViewState
             const SizedBox(height: 24),
             Center(
               child: Container(
+                key: K.quotationActionSubmitButton,
                 margin: const EdgeInsets.only(top: 16, bottom: 36),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 48,
@@ -322,6 +324,7 @@ class _ArtistQuotationResponseViewState
             ),
             Positioned.fill(
               child: GestureDetector(
+                key: K.dateTimeRangeSelector,
                 behavior: HitTestBehavior.translucent,
                 onTap: () => _navigateToScheduleAssistant(context),
                 child: Container(
@@ -488,6 +491,7 @@ class _ArtistQuotationResponseViewState
 
   Widget _buildAdditionalDetailsField(S l10n) {
     return TextFormField(
+      key: K.quotationAdditionalDetailsField,
       controller: _additionalDetailsController,
       decoration: InputDecoration(
         labelText: l10n.additionalDetails,
@@ -505,6 +509,7 @@ class _ArtistQuotationResponseViewState
 
   Widget _buildRejectionReasonDropdown(S l10n) {
     return DropdownButtonFormField<QuotationArtistRejectReason>(
+      key: K.quotationRejectReasonField,
       value: _rejectionReason,
       decoration: InputDecoration(
         labelText: l10n.rejectionReason,
@@ -516,8 +521,9 @@ class _ArtistQuotationResponseViewState
       ),
       style: TextStyleTheme.bodyText1,
       dropdownColor: explorerSecondaryColor,
-      items: QuotationArtistRejectReason.values.map((reason) {
+      items: QuotationArtistRejectReason.values.map((reason,) {
         return DropdownMenuItem(
+          key: Key(reason.index.toString()),
           value: reason,
           child: Text(
             _getTranslatedRejectionReason(reason, l10n),

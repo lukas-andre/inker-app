@@ -181,7 +181,11 @@ class HttpClientService {
     T Function(Map<String, dynamic>) fromJson,
   ) {
     HttpLogger.logResponse(response);
+
     if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.statusCode == HttpStatus.noContent) {
+        return fromJson({});
+      }
       try {
         return fromJson(json.decode(response.body));
       } catch (e) {

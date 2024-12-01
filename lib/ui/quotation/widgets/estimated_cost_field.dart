@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -92,6 +93,7 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
     return Tooltip(
       message: widget.l10n.estimatedCostDisclaimer,
       child: TextFormField(
+        key: K.estimatedCostField,
         focusNode: widget.focusNode,
         controller: widget.controller,
         decoration: InputDecoration(

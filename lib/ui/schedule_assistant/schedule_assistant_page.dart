@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/schedule_assistant/schedule_assistant_widget.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -76,6 +77,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
           sessionService: context.read<LocalSessionService>(),
         )..add(ScheduleAssistantEvent.started(widget.artistId)),
         child: Scaffold(
+          key: K.scheduleAssistantView,
           backgroundColor: primaryColor,
           appBar: AppBar(
             title:
@@ -107,6 +109,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
 
   Widget _buildConfirmButton(S l10n) {
     return SizedBox(
+      key: K.scheduleAssistantConfirmButton,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
