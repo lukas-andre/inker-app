@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/models/event_details.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/shared/widgets/calendar_day_picker_v2.dart';
 import 'package:inker_studio/ui/shared/widgets/time_wheel_picker.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -196,12 +197,25 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   }
 
   void _showTimeWheelPicker({required bool isStartTime}) {
+    setState(() {
+      _rangeStart = isStartTime
+          ? DateTime.now()
+          : DateTime.now().add(const Duration(hours: 1));
+      _rangeEnd = isStartTime
+          ? _rangeStart!.add(const Duration(hours: 1))
+          : _rangeStart;
+      _updateDuration();
+      _setCalendarFormatToWeek();
+      _scrollToTime(isStartTime ? _rangeStart! : _rangeEnd!);
+    });
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
+          key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
             color: primaryColor,
@@ -237,17 +251,8 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                           selectedTime.hour,
                           selectedTime.minute,
                         );
-                        if (_rangeEnd != null &&
-                            _rangeEnd!.isBefore(_rangeStart!)) {
-                          _rangeEnd =
-                              _rangeStart!.add(const Duration(hours: 1));
-                        }
-                        // Set end automatically to start time + 1 hour if not set
-                        if (_rangeEnd == null ||
-                            _rangeEnd!.isBefore(_rangeStart!)) {
-                          _rangeEnd =
-                              _rangeStart!.add(const Duration(hours: 1));
-                        }
+                        // Establecer automáticamente el tiempo final a 1 hora después
+                        _rangeEnd = _rangeStart!.add(const Duration(hours: 1));
                       } else {
                         _rangeEnd = DateTime(
                           _selectedDay!.year,
@@ -256,11 +261,6 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                           selectedTime.hour,
                           selectedTime.minute,
                         );
-                        if (_rangeStart != null &&
-                            _rangeEnd!.isBefore(_rangeStart!)) {
-                          _rangeStart =
-                              _rangeEnd!.subtract(const Duration(hours: 1));
-                        }
                       }
                       _updateDuration();
                       _setCalendarFormatToWeek();
@@ -270,6 +270,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                 ),
               ),
               Padding(
+                key: K.scheduleAssistantConfirmButton,
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
@@ -300,6 +301,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
 
   Widget _buildGridEventList() {
     return GridView.builder(
+      key: K.gridEventList,
       controller: _scrollController,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
@@ -346,6 +348,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     bool shouldColor = isWithinRange || isStart;
 
     return GestureDetector(
+      key: Key('${K.timeCell}_${hour}_$minute}'), // Add this key
       onTap: () => _onTimeCellTapped(hour, minute),
       child: Container(
         decoration: BoxDecoration(
@@ -434,12 +437,21 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
   }
 
   void _onTimeCellTapped(int hour, int minute) {
+    setState(() {
+      _rangeStart = DateTime(_selectedDay!.year, _selectedDay!.month,
+          _selectedDay!.day, hour, minute);
+      _rangeEnd = _rangeStart!.add(const Duration(minutes: 15));
+      _updateDuration();
+      _setCalendarFormatToWeek();
+      _scrollToTime(_rangeStart!);
+    });
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
+          key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
             color: primaryColor,
@@ -478,7 +490,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                   },
                 ),
               ),
+              // TODO: This should be a button inside the time wheel picker
               Padding(
+                key: K.scheduleWheelConfirmButton,
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {

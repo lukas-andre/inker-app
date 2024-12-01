@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class ImprovedTimeWheelPicker extends StatefulWidget {
   final TimeOfDay initialTime;
   final Function(TimeOfDay) onTimeSelected;
+  
 
   const ImprovedTimeWheelPicker({
     super.key,
@@ -32,6 +34,14 @@ class _ImprovedTimeWheelPickerState extends State<ImprovedTimeWheelPicker> {
         FixedExtentScrollController(initialItem: _selectedTime.minute);
   }
 
+  Future<void> scrollToHour(int hour) async {
+    await _hourController.animateToItem(
+      hour,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -42,6 +52,7 @@ class _ImprovedTimeWheelPickerState extends State<ImprovedTimeWheelPicker> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildWheel(
+              key: K.timeWheelHourWheel,
               label: S.of(context).hour,
               controller: _hourController,
               items: List.generate(
@@ -52,6 +63,7 @@ class _ImprovedTimeWheelPickerState extends State<ImprovedTimeWheelPicker> {
             ),
             const SizedBox(width: 20),
             _buildWheel(
+              key: K.timeWheelMinuteWheel,
               label: S.of(context).minutes,
               controller: _minuteController,
               items: List.generate(
@@ -67,6 +79,7 @@ class _ImprovedTimeWheelPickerState extends State<ImprovedTimeWheelPicker> {
   }
 
   Widget _buildWheel({
+    required Key key,
     required String label,
     required FixedExtentScrollController controller,
     required List<String> items,
@@ -90,6 +103,7 @@ class _ImprovedTimeWheelPickerState extends State<ImprovedTimeWheelPicker> {
           height: wheelHeight,
           width: 70,
           child: ListWheelScrollView.useDelegate(
+            key: key,
             controller: controller,
             itemExtent: 40,
             perspective: 0.005,

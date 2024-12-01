@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
-import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
@@ -192,6 +191,7 @@ class _QuotationListViewState extends State<QuotationListView> {
                     if (state is QuotationListCancelSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         customSnackBar(
+                          key: K.quotationCancelSuccessMessage,
                           context: context,
                           content: l10n.quotationCancelledSuccessfully,
                           backgroundColor: secondaryColor,
@@ -726,6 +726,7 @@ class _QuotationListViewState extends State<QuotationListView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               _buildActionButton(
+                key: K.quotationReplyButton,
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
                     '/artistQuotationResponse',
@@ -744,6 +745,7 @@ class _QuotationListViewState extends State<QuotationListView> {
               ),
               const SizedBox(width: 8),
               _buildActionButton(
+                key: K.quotationRejectButton,
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
                     '/artistQuotationResponse',
@@ -788,6 +790,7 @@ class _QuotationListViewState extends State<QuotationListView> {
                       child: InkerProgressIndicator(),
                     )
                   : _buildActionButton(
+                      key: K.quotationCancelButton,
                       onPressed: () => _showCancelConfirmationDialog(
                           context, quotation, l10n),
                       icon: Icons.cancel,
@@ -799,6 +802,7 @@ class _QuotationListViewState extends State<QuotationListView> {
         case QuotationStatus.quoted:
           final actions = [
             _ActionItem(
+              key: K.quotationAcceptButton,
               onPressed: () async {
                 final result = await Navigator.of(context).push(
                   MaterialPageRoute(
@@ -820,6 +824,7 @@ class _QuotationListViewState extends State<QuotationListView> {
               isPrimary: true,
             ),
             _ActionItem(
+              key: K.quotationAppealButton,
               onPressed: () async {
                 final result = await Navigator.of(context).push(
                   MaterialPageRoute(
@@ -841,6 +846,7 @@ class _QuotationListViewState extends State<QuotationListView> {
               isPrimary: false,
             ),
             _ActionItem(
+              key: K.quotationRejectButton,
               onPressed: () async {
                 final result = await Navigator.of(context).push(
                   MaterialPageRoute(
@@ -872,6 +878,7 @@ class _QuotationListViewState extends State<QuotationListView> {
   Widget _buildLimitedActions(List<_ActionItem> actions, S l10n) {
     if (actions.length <= 2) {
       return Row(
+        key: K.quotationActionsList,
         mainAxisAlignment: MainAxisAlignment.end,
         children: actions
             .map((action) => _buildActionButton(
@@ -884,6 +891,7 @@ class _QuotationListViewState extends State<QuotationListView> {
       );
     } else {
       return Row(
+        key: K.quotationActionsList,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           _buildActionButton(
@@ -913,12 +921,14 @@ class _QuotationListViewState extends State<QuotationListView> {
   }
 
   Widget _buildActionButton({
+    Key? key,
     required VoidCallback onPressed,
     required IconData icon,
     required String label,
     required bool isPrimary,
   }) {
     return ElevatedButton.icon(
+      key: key,
       onPressed: onPressed,
       icon: Icon(icon, size: 16),
       label: Text(label),
@@ -944,10 +954,12 @@ class _QuotationListViewState extends State<QuotationListView> {
           content: Text(l10n.cancelQuotationConfirmationMessage),
           actions: <Widget>[
             CupertinoDialogAction(
+              key: Keys.quotationNoCancelButton,
               child: Text(l10n.no),
               onPressed: () => Navigator.of(context).pop(),
             ),
             CupertinoDialogAction(
+              key: Keys.quotationConfirmCancelButton,
               child: Text(l10n.yes),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -965,10 +977,12 @@ class _QuotationListViewState extends State<QuotationListView> {
           content: Text(l10n.cancelQuotationConfirmationMessage),
           actions: <Widget>[
             TextButton(
+              key: Keys.quotationNoCancelButton,
               child: Text(l10n.no),
               onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
+              key: Keys.quotationConfirmCancelButton,
               child: Text(l10n.yes),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -988,12 +1002,14 @@ class _QuotationListViewState extends State<QuotationListView> {
 }
 
 class _ActionItem {
+  final Key key;
   final VoidCallback onPressed;
   final IconData icon;
   final String label;
   final bool isPrimary;
 
   _ActionItem({
+    required this.key,
     required this.onPressed,
     required this.icon,
     required this.label,
