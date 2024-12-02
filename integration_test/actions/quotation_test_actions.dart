@@ -218,7 +218,10 @@ class QuotationTestActions {
 
     await $(K.gridEventList)
         .containing(formattedTime)
-        .scrollTo(view: $(K.gridEventList))
+        .scrollTo(
+          view: $(K.gridEventList),
+          maxScrolls: 20,
+        )
         .tap();
 
     await $(K.scheduleWheelPicker).waitUntilVisible();
@@ -230,4 +233,33 @@ class QuotationTestActions {
         .which<Text>((widget) => widget.data?.contains(formattedTime) ?? false)
         .waitUntilVisible();
   }
+
+  static Future<void> customerAcceptQuotation(
+  PatrolIntegrationTester $, {
+  required String description,
+  required String additionalDetails,
+}) async {
+  // Navigate to received quotations tab
+  await $(K.receivedQuotationsTab).tap();
+  await $(QuotationListPage).waitUntilVisible();
+
+  // Find and tap on the quotation
+  await $(Text)
+      .which<Text>((widget) => widget.data?.contains(description) ?? false)
+      .waitUntilVisible();
+
+  // Tap accept button
+  await $(K.quotationAcceptButton).tap();
+
+  // Fill additional details
+  await $(K.quotationAdditionalDetailsField).enterText(additionalDetails);
+
+  // Submit acceptance
+  await $(K.quotationActionSubmitButton).tap();
+
+  // Verify success
+  await $(SuccessAnimationPage).waitUntilVisible();
+  await $(K.successAnimationPageDoneButton).tap();
+  await $(QuotationListPage).waitUntilVisible();
+}
 }

@@ -38,6 +38,7 @@ class Keys {
 
   // Artist profile keys
   static const createQuotationButton = Key('createQuotationButton');
+  static const artistProfileBackButton = Key('artist_profile_back_button');
 
   // Quotation keys
   static const createQuotationDescriptionField =
@@ -56,6 +57,7 @@ class Keys {
   static const quotationAcceptButton = Key('quotation_accept_button');
   static const quotationAppealButton = Key('quotation_appeal_button');
   static const quotationActionsList = Key('quotation_actions');
+  static getQuotationCardKey(String quotationId) => Key('quotation_card_$quotationId');
 
   // Quotation cancel keys
   static Key quotationConfirmCancelButton =
@@ -74,6 +76,9 @@ class Keys {
     static const quotationActionSubmitButton =
       Key('quotation_action_submit_button');
 
+  // Response Quotation by customer keys
+  static const quotationAppealReasonField = Key('quotation_appeal_reason_field');
+
   // Schedule Assistant Keys
   static const scheduleAssistantView = Key('schedule_assistant_view');
   static const timeCell = Key('schedule_assistant_time_cell');
@@ -87,4 +92,6 @@ class Keys {
 
   static const timeWheelHourWheel = Key('time_wheel_hour_wheel');
   static const timeWheelMinuteWheel = Key('time_wheel_minute_wheel');
+
+  static const receivedQuotationsTab = Key('Cotizaciones Recibidas');
 }

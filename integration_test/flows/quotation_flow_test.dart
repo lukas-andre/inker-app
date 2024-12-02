@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
@@ -21,40 +22,6 @@ void main() {
     tearDown(() async {
       await TestConfig.tearDownTests();
     });
-    patrolTest(
-      'Create quotation flow - happy path',
-      config: TestConfig.defaultConfig,
-      ($) async {
-        // Setup
-        await app.main();
-        await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
-          $,
-          email: AuthTestData.validCustomerCredentials['email']!,
-          password: AuthTestData.validCustomerCredentials['password']!,
-        );
-
-        await $(CustomerAppPage).waitUntilVisible();
-        await PermissionTestActions.handleGpsPermission($);
-
-        // Navigate to artist profile
-        await QuotationTestActions.navigateToArtistProfile(
-          $,
-          CustomerQuotationTestData.artistName,
-        );
-
-        // Create quotation
-        final tomorrow = DateTime.now().add(const Duration(days: 1));
-        await QuotationTestActions.createQuotation(
-          $,
-          description: CustomerQuotationTestData.quotationDescription,
-          date: tomorrow,
-        );
-
-        // Verify success
-        await QuotationTestActions.verifySuccessAndReturn($);
-      },
-    );
 
     patrolTest(
       'Create and cancel quotation flow',
@@ -87,7 +54,8 @@ void main() {
 
         await QuotationTestActions.verifySuccessAndReturn($);
 
-        await $.native.pressBack();
+        // Return to customer app
+        await $(K.artistProfileBackButton).tap();
 
         // Navigate to quotations and cancel
         await QuotationTestActions.navigateToQuotations($);
@@ -99,6 +67,7 @@ void main() {
         );
       },
     );
+
     patrolTest(
       'Create quotation as customer and reject as artist flow',
       config: TestConfig.defaultConfig,
@@ -131,7 +100,7 @@ void main() {
         await QuotationTestActions.verifySuccessAndReturn($);
 
         // Return to customer app
-        await $.native.pressBack();
+        await $(K.artistProfileBackButton).tap();
 
         // Logout customer
         await AuthTestActions.customerLogout($);
@@ -157,10 +126,10 @@ void main() {
     );
 
     patrolTest(
-      'Create quotation as customer and accept as artist flow',
+      'Complete quotation flow - artist accepts and customer confirms',
       config: TestConfig.defaultConfig,
       ($) async {
-        // 1. Customer Flow
+        // 1. Customer Flow - Create Quotation
         await app.main();
         await AuthTestActions.skipOnboarding($);
         await AuthTestActions.performLogin(
@@ -172,7 +141,6 @@ void main() {
         await $(CustomerAppPage).waitUntilVisible();
         await PermissionTestActions.handleGpsPermission($);
 
-        // Create quotation
         await QuotationTestActions.navigateToArtistProfile(
           $,
           CustomerQuotationTestData.artistName,
@@ -186,10 +154,14 @@ void main() {
         );
 
         await QuotationTestActions.verifySuccessAndReturn($);
-        await $.native.pressBack();
+
+        // Return to customer app
+        await $(K.artistProfileBackButton).tap();
+
+        // Logout customer
         await AuthTestActions.customerLogout($);
 
-        // 2. Artist Flow
+        // 2. Artist Flow - Accept Quotation
         await AuthTestActions.performLogin(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
@@ -199,13 +171,12 @@ void main() {
         await $(ArtistAppPage).waitUntilVisible();
         await $(QuotationListPage).waitUntilVisible();
 
-        // Accept quotation with all details
         final appointmentTime = DateTime(
           validDate.year,
           validDate.month,
           validDate.day,
-          10, // 10 AM
-          0, // 0 minutes
+          22,
+          0,
         );
 
         await QuotationTestActions.acceptQuotationByDescription(
@@ -214,6 +185,24 @@ void main() {
           estimatedCost: '150000',
           additionalDetails: 'Sesión de 2 horas para tatuaje de dragón japonés',
           startTime: appointmentTime,
+        );
+
+        await AuthTestActions.artistLogout($);
+
+        // 3. Customer Flow - Accept Artist's Quote
+        await AuthTestActions.performLogin(
+          $,
+          email: AuthTestData.validCustomerCredentials['email']!,
+          password: AuthTestData.validCustomerCredentials['password']!,
+        );
+
+        await $(CustomerAppPage).waitUntilVisible();
+        await QuotationTestActions.navigateToQuotations($);
+
+        await QuotationTestActions.customerAcceptQuotation(
+          $,
+          description: CustomerQuotationTestData.quotationDescription,
+          additionalDetails: 'Acepto los términos y el costo estimado',
         );
       },
     );

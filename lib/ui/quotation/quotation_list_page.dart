@@ -263,6 +263,7 @@ class _QuotationListViewState extends State<QuotationListView> {
                 ));
               },
               child: Container(
+                key: Key(option['label']),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: isSelected ? secondaryColor : tertiaryColor,
@@ -394,6 +395,7 @@ class _QuotationListViewState extends State<QuotationListView> {
         );
       },
       child: Card(
+        key: K.getQuotationCardKey(quotation.id.toString()),
         color: const Color(0xFF1F223C),
         margin: const EdgeInsets.only(bottom: 16),
         shape: RoundedRectangleBorder(
@@ -882,6 +884,7 @@ class _QuotationListViewState extends State<QuotationListView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: actions
             .map((action) => _buildActionButton(
+                  key: action.key,
                   onPressed: action.onPressed,
                   icon: action.icon,
                   label: action.label,
@@ -895,6 +898,7 @@ class _QuotationListViewState extends State<QuotationListView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           _buildActionButton(
+            key: actions[0].key,
             onPressed: actions[0].onPressed,
             icon: actions[0].icon,
             label: actions[0].label,
@@ -907,6 +911,7 @@ class _QuotationListViewState extends State<QuotationListView> {
             itemBuilder: (BuildContext context) =>
                 actions.skip(1).map((action) {
               return PopupMenuItem<VoidCallback>(
+                key: action.key,
                 value: action.onPressed,
                 child: ListTile(
                   leading: Icon(action.icon),

@@ -57,7 +57,10 @@ class AuthTestActions {
     PatrolIntegrationTester $,
   ) async {
     if (!$(ArtistAppPage).visible) {
-      await $.native.pressBack();
+      await $.native.swipe(
+        from: const Offset(0.5, 0.5),
+        to: const Offset(0.5, 0.1),
+      );
     }
 
     if (!$(K.artistProfileContent).visible) {
