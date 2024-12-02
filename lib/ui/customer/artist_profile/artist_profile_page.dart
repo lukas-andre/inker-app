@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
@@ -129,6 +130,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
+        key: K.artistProfileBackButton,
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         icon: SizedBox(
@@ -246,7 +248,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
         ),
         const SizedBox(width: 10),
         Expanded(
-          key: const Key('createQuotationButton'),
+          key: K.createQuotationButton,
           flex: 3,
           child: ElevatedButton(
             onPressed: () {

@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/c
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
@@ -230,6 +231,7 @@ class _CustomerQuotationResponseViewState
             const SizedBox(height: 24),
             Center(
               child: Container(
+                key: K.quotationActionSubmitButton,
                 margin: const EdgeInsets.only(top: 16, bottom: 36),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 48,
@@ -251,6 +253,7 @@ class _CustomerQuotationResponseViewState
 
   Widget _buildAppealReasonDropdown(S l10n) {
     return DropdownButtonFormField<QuotationCustomerAppealReason>(
+      key: K.quotationAppealReasonField,
       value: _appealReason,
       decoration: InputDecoration(
         labelText: l10n.appealReason,
@@ -264,6 +267,7 @@ class _CustomerQuotationResponseViewState
       dropdownColor: explorerSecondaryColor,
       items: QuotationCustomerAppealReason.values.map((reason) {
         return DropdownMenuItem(
+          key: Key(reason.index.toString()),
           value: reason,
           child: Text(
             _getTranslatedAppealReason(reason, l10n),
@@ -301,6 +305,7 @@ class _CustomerQuotationResponseViewState
 
   Widget _buildRejectionReasonDropdown(S l10n) {
     return DropdownButtonFormField<QuotationCustomerRejectReason>(
+      key: K.quotationRejectReasonField,
       value: _rejectionReason,
       decoration: InputDecoration(
         labelText: l10n.rejectionReason,
@@ -353,6 +358,7 @@ class _CustomerQuotationResponseViewState
 
   Widget _buildAdditionalDetailsField(S l10n) {
     return TextFormField(
+      key: K.quotationAdditionalDetailsField,
       controller: _additionalDetailsController,
       decoration: InputDecoration(
         labelText: l10n.additionalDetails,
