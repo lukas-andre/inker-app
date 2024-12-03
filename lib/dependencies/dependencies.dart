@@ -22,6 +22,7 @@ import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
+import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/review/review_service.dart';
@@ -78,6 +79,9 @@ List<RepositoryProvider> buildProviders() {
     ),
     RepositoryProvider<SettingsService>(
       create: (context) => ApiSettingsService(),
+    ),
+    RepositoryProvider<FcmService>(
+      create: (context) => FcmService(),
     ),
   ];
 }

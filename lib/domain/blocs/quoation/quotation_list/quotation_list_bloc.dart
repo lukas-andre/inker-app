@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 
@@ -15,7 +14,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
   final QuotationService _quotationService;
   final LocalSessionService _sessionService;
 
-  late bool _isArtist;
+  // late bool _isArtist;
 
   QuotationListBloc({
     required QuotationService quotationService,
@@ -42,7 +41,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
       return;
     }
 
-    _isArtist = session.user?.userType == UserType.artist;
+    // _isArtist = session.user?.userType == UserType.artist;
   }
 
   Future<void> _loadQuotations(
