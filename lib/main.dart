@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,18 +19,25 @@ Future<void> main() async {
     name: 'Inker',
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    badge: true,
+    sound: true,
+    alert: true,
+  );
+  final token = await FirebaseMessaging.instance.getToken();
+  dev.log(token ?? '', 'FirebaseMessaging');
   final remoteConfig = await RemoteConfigService.getInstance();
   dev.log(remoteConfig.inkerApiUrl, 'RemoteConfigService');
   OverlayStyle.apply();
 
   initializeDateFormatting('es_CL'); // initialize locale data
-
-  BlocOverrides.runZoned(
-    () {
-      runApp(const MyApp());
-    },
-    blocObserver: CustomBlocObserver(),
-  );
+  runApp(const MyApp());
+  // BlocOverrides.runZoned(
+  //   () {
+  //     runApp(const MyApp());
+  //   },
+  //   blocObserver: CustomBlocObserver(),
+  // );
 }
 
 class MyApp extends StatelessWidget {
