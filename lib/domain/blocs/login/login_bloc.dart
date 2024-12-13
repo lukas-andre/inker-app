@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus;
@@ -26,8 +29,16 @@ class CreateCustomerFailed implements Exception {}
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const className = 'LoginBloc';
+  final LoginUseCase _loginUseCase;
+  final GoogleSingInUseCase _googleSingInUsecase;
+  final AuthBloc _authBloc;
+  final CreateCustomerUseCase _createCustomerUseCase;
+
+  final String _deviceType;
+  late final String _fcmToken;
 
   LoginBloc({
+    required String deviceType,
     required LoginUseCase loginUseCase,
     required GoogleSingInUseCase googleSingInUseCase,
     required CreateCustomerUseCase createCustomerUseCase,
@@ -36,6 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _authBloc = authBloc,
         _googleSingInUsecase = googleSingInUseCase,
         _createCustomerUseCase = createCustomerUseCase,
+        _deviceType = deviceType,
         super(const LoginState()) {
     on<LoginIdentifierChanged>(
         (event, emit) => _mapUsernameChangedToState(event, emit));
@@ -60,12 +72,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginClearMessages>(
         (event, emit) => _mapLoginErrorMessageEmittedToState(event, emit));
+
+    _initializeFcmToken();
   }
 
-  final LoginUseCase _loginUseCase;
-  final GoogleSingInUseCase _googleSingInUsecase;
-  final AuthBloc _authBloc;
-  final CreateCustomerUseCase _createCustomerUseCase;
+
+  Future<void> _initializeFcmToken() async {
+    if (!Platform.isIOS) {
+      _fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
+    }
+  }
 
   void _mapUsernameChangedToState(
     LoginIdentifierChanged event,
@@ -99,7 +115,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         // TODO: add regex to validate if is a email or a username or a phone number
         final session = await _loginUseCase.execute(
-            state.identifier.value, state.password.value, LoginType.email);
+            state.identifier.value,
+            state.password.value,
+            LoginType.email,
+            _fcmToken,
+            _deviceType);
 
         if (session == null) {
           emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -158,7 +178,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final loginResult = await _loginUseCase.execute(
               result.googleUser!.email!,
               result.googleUser!.uid,
-              LoginType.google);
+              LoginType.google,
+              _fcmToken,
+              _deviceType);
 
           if (loginResult == null) {
             emit(state.copyWith(
@@ -226,7 +248,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
 
       final loginResult = await _loginUseCase.execute(
-          state.googleUser!.email!, state.googleUser!.uid, LoginType.google);
+          state.googleUser!.email!,
+          state.googleUser!.uid,
+          LoginType.google,
+          _fcmToken,
+          _deviceType);
 
       if (loginResult == null) {
         throw CustomerLoginFailed();

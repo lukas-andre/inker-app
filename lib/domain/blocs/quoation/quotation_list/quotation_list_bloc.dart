@@ -108,7 +108,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
           token: session.accessToken,
           quotationId: quotationId,
           action: CustomerQuotationAction.cancel,
-          cancelReason: QuotationCustomerCancelReason.other,
+          // cancelReason: QuotationCustomerCancelReason.other,
         );
 
         final updatedQuotations = currentState.quotations

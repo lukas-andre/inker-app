@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
 import 'package:inker_studio/dependencies/dependencies.dart';
-import 'package:inker_studio/domain/blocs/custom_bloc_observer.dart';
 import 'package:inker_studio/firebase_options.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/views/app_view.dart';
@@ -19,25 +20,23 @@ Future<void> main() async {
     name: 'Inker',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    badge: true,
-    sound: true,
-    alert: true,
-  );
-  final token = await FirebaseMessaging.instance.getToken();
-  dev.log(token ?? '', 'FirebaseMessaging');
+
+  if (!Platform.isIOS) {
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      badge: true,
+      sound: true,
+      alert: true,
+    );
+    final token = await FirebaseMessaging.instance.getToken();
+    dev.log(token ?? '', 'FirebaseMessaging');
+  }
+
   final remoteConfig = await RemoteConfigService.getInstance();
   dev.log(remoteConfig.inkerApiUrl, 'RemoteConfigService');
   OverlayStyle.apply();
 
   initializeDateFormatting('es_CL'); // initialize locale data
   runApp(const MyApp());
-  // BlocOverrides.runZoned(
-  //   () {
-  //     runApp(const MyApp());
-  //   },
-  //   blocObserver: CustomBlocObserver(),
-  // );
 }
 
 class MyApp extends StatelessWidget {
