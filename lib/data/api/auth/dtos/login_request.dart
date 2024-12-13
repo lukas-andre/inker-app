@@ -10,16 +10,23 @@ LoginRequest loginRequestFromJson(String str) =>
 
 String loginRequestToJson(LoginRequest data) => json.encode(data.toJson());
 
+
+
 @JsonSerializable()
 class LoginRequest extends Equatable {
   final String identifier;
   final String password;
   final String loginType;
+  final String fcmToken;
+  // Important: This field is not a Enum, it's a String that can be "android" or "ios"
+  final String deviceType;
 
   const LoginRequest(
       {required this.identifier,
       required this.password,
-      required this.loginType});
+      required this.loginType,
+      required this.fcmToken,
+      required this.deviceType});
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestFromJson(json);

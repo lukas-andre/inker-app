@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:inker_studio/dependencies/bloc_providers.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
@@ -32,21 +33,11 @@ import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
-import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
+import 'package:inker_studio/routes.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
-import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
-import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
+import 'package:inker_studio/ui/notifications/notifications_wrapper.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
-import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
-import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
-import 'package:inker_studio/ui/settings/languague_settings_page.dart';
-import 'package:inker_studio/ui/settings/privacy_policy_page.dart';
-import 'package:inker_studio/ui/settings/settings_page.dart';
-import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
-import 'package:inker_studio/ui/shared/edit_field_page.dart';
-import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
@@ -68,119 +59,153 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        // Providers independientes (sin dependencias)
         BlocProvider(create: (context) => GpsBloc(), lazy: false),
         BlocProvider(create: (context) => LocationBloc()),
-        BlocProvider(
-            create: (context) => MapBloc(locationBloc: context.read())),
+        BlocProvider(create: (context) => OnBoardingBloc()),
+        BlocProvider(create: (context) => RegisterBloc()),
+        BlocProvider(create: (context) => LocalizationCubit()),
+        BlocProvider(create: (context) => ArtistBioCubitCubit()),
+        BlocProvider(create: (context) => CustomerAppBloc()),
+        BlocProvider(create: (context) => ArtistAppBloc()),
+        BlocProvider(create: (context) => ArtistsListBloc()),
+
+        // Providers con dependencias simples
         BlocProvider(
           create: (context) => AppThemeCubit(context.read())..init(),
         ),
         BlocProvider(
-            create: (context) => AuthBloc(
-                authService: context.read(),
-                logoutUseCase: context.read(),
-                sessionService: context.read())),
+          create: (context) => AuthBloc(
+            authService: context.read(),
+            logoutUseCase: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+
+        // Map related providers
         BlocProvider(
-          create: (context) => OnBoardingBloc(),
+          create: (context) =>
+              MapBloc(locationBloc: context.read<LocationBloc>()),
+        ),
+
+        // Providers que dependen de MapBloc
+        BlocProvider(
+          create: (context) => ExplorerPageBloc(
+            mapBloc: context.read<MapBloc>(),
+            localSessionService: context.read(),
+            locationService: context.read(),
+            artistsListBloc: context.read<ArtistsListBloc>(),
+          ),
         ),
         BlocProvider(
-          create: (context) => RegisterBloc(),
+          create: (context) => DraggableArtistInfoSheetBloc(
+            mapBloc: context.read<MapBloc>(),
+          ),
         ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => DraggableArtistReviewSheetBloc(
+            mapBloc: context.read<MapBloc>(),
+            reviewService: context.read(),
+            localSessionService: context.read(),
+          ),
+        ),
+
+        // Registration related providers
         BlocProvider(
           create: (context) => RegisterArtistBloc(
-              placesService: context.read(),
-              createUserUseCase: context.read(),
-              localStorage: context.read()),
+            placesService: context.read(),
+            createUserUseCase: context.read(),
+            localStorage: context.read(),
+          ),
         ),
         BlocProvider(
           create: (context) => RegisterCustomerBloc(
-              placesService: context.read(),
-              createUserUseCase: context.read(),
-              localStorage: context.read()),
+            placesService: context.read(),
+            createUserUseCase: context.read(),
+            localStorage: context.read(),
+          ),
+        ),
+
+        // Artist related providers
+        BlocProvider(
+          create: (context) => ArtistAgendaBloc(
+            agendaService: context.read(),
+            sessionService: context.read(),
+          ),
         ),
         BlocProvider(
-            create: (context) => AccountVerificationBloc(
-                userService: context.read(), localStorage: context.read())),
-        BlocProvider(create: (context) => CustomerAppBloc()),
-        BlocProvider(create: (context) => ArtistAppBloc()),
-        BlocProvider(
-            create: (context) => ArtistAgendaBloc(
-                  agendaService: context.read(),
-                  sessionService: context.read(),
-                )),
-        BlocProvider(create: (context) => ArtistsListBloc()),
-        BlocProvider(
-            create: (context) => ArtistAgendaEventDetailBloc(
-                  agendaService: context.read(),
-                  sessionService: context.read(),
-                )),
-        BlocProvider(
-            create: (context) => ArtistAgendaCreateEventBloc(
-                  customerService: context.read(),
-                  sessionService: context.read(),
-                )),
-        BlocProvider(
-            create: (context) => ExplorerPageBloc(
-                  mapBloc: context.read(),
-                  localSessionService: context.read(),
-                  locationService: context.read(),
-                  artistsListBloc: context.read(),
-                )),
-        BlocProvider(
-            create: (context) => DraggableArtistInfoSheetBloc(
-                  mapBloc: context.read(),
-                )),
-        BlocProvider(
-            lazy: false,
-            create: (context) => DraggableArtistReviewSheetBloc(
-                  mapBloc: context.read(),
-                  reviewService: context.read(),
-                  localSessionService: context.read(),
-                )),
-        BlocProvider(
-            create: (context) => ArtistProfileBloc(
-                  agendaService: context.read(),
-                  sessionService: context.read(),
-                  artistsListBloc: context.read(),
-                )),
-        BlocProvider(
-            create: (context) => ArtistReviewsBloc(
-                  localSessionService: context.read(),
-                  reviewService: context.read(),
-                )),
-        BlocProvider(create: (context) => ArtistBioCubitCubit()),
-        BlocProvider(
-            create: (context) => ScheduleAssistantBloc(
-                agendaService: context.read(), sessionService: context.read())),
-        BlocProvider(
-            create: (context) => ArtistMyProfileBloc(
-                  context.read(),
-                )),
-        BlocProvider(
-            create: (context) => SettingsBloc(
-                  logoutUseCase: context.read(),
-                  sessionService: context.read(),
-                  settingsService: context.read(),
-                )),
-        BlocProvider(
-          create: (context) => LocalizationCubit(),
+          create: (context) => ArtistAgendaEventDetailBloc(
+            agendaService: context.read(),
+            sessionService: context.read(),
+          ),
         ),
         BlocProvider(
-            create: (context) => CustomerMyProfileBloc(
-                customerService: context.read(),
-                sessionService: context.read())),
+          create: (context) => ArtistAgendaCreateEventBloc(
+            customerService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
         BlocProvider(
-            create: (context) => CustomerQuotationResponseBloc(
-                quotationService: context.read(),
-                sessionService: context.read())),
+          create: (context) => ArtistProfileBloc(
+            agendaService: context.read(),
+            sessionService: context.read(),
+            artistsListBloc: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ArtistReviewsBloc(
+            localSessionService: context.read(),
+            reviewService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ArtistMyProfileBloc(
+            context.read(),
+          ),
+        ),
+
+        // Other providers
+        BlocProvider(
+          create: (context) => AccountVerificationBloc(
+            userService: context.read(),
+            localStorage: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ScheduleAssistantBloc(
+            agendaService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => SettingsBloc(
+            logoutUseCase: context.read(),
+            sessionService: context.read(),
+            settingsService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CustomerMyProfileBloc(
+            customerService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CustomerQuotationResponseBloc(
+            quotationService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+
+        // Notifications provider (should be last due to its dependencies)
         BlocProvider(
           lazy: false,
           create: (context) {
             final fcmService = context.read<FcmService>();
             final bloc = NotificationsBloc(fcmService)
               ..add(const NotificationsEvent.initialize());
-            fcmService
-                .setBloc(bloc); // Importante para la comunicación bidireccional
+            fcmService.setBloc(bloc);
             return bloc;
           },
         ),
@@ -188,153 +213,33 @@ class _AppViewState extends State<AppView> {
       child: BlocBuilder<LocalizationCubit, Locale>(builder: (context, locale) {
         return BlocBuilder<AppThemeCubit, bool>(builder: (context, themeState) {
           OverlayStyle.setWhite();
-          return BlocListener<NotificationsBloc, NotificationsState>(
-            listener: (context, state) {
-              state.when(
-                initial: () {},
-                loading: () {},
-                error: (_) {},
-                loaded: (fcmToken, permissionsGranted, pendingNavigation,
-                    lastMessage, lastMessageAppState) {
-                  if (lastMessageAppState == AppState.foreground) {
-                    print('Mensaje recibido en primer plano: ${lastMessage?.data}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(lastMessage?.notification?.title ?? ''))
-                    );
-                  }
-
-                  if (pendingNavigation != null) {
-                    Navigator.of(context).pushNamed(
-                      pendingNavigation.route,
-                      arguments: pendingNavigation.arguments,
-                    );
-
-                    // Marcar la notificación como manejada
-                    context.read<NotificationsBloc>().add(
-                          const NotificationsEvent.notificationHandled(),
-                        );
-                  }
-                },
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorKey: _navigatorKey,
+            theme: themeState ? ThemeData.dark() : ThemeData.light(),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('es', 'CL'),
+            ],
+            locale: locale,
+            builder: (context, child) {
+              return NotificationsWrapper(
+                navigatorKey: _navigatorKey,
+                child: BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) async {
+                    await _navigateByAuthStatus(context, state);
+                  },
+                  child: child!,
+                ),
               );
             },
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              navigatorKey: _navigatorKey,
-              theme: themeState ? ThemeData.dark() : ThemeData.light(),
-              localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', ''),
-                Locale('es', 'CL'),
-              ],
-              locale: locale,
-              builder: (context, child) {
-                return BlocListener<AuthBloc, AuthState>(
-                    listener: (context, state) async {
-                      await _navigateByAuthStatus(context, state);
-                    },
-                    child: child);
-              },
-              onGenerateRoute: (settings) {
-                if (settings.name == '/') {
-                  return MaterialPageRoute(
-                      builder: (context) => const SplashPage());
-                }
-
-                if (settings.name == '/createEvent') {
-                  return MaterialPageRoute(
-                      builder: (context) => const CreateEventPage());
-                }
-
-                if (settings.name == '/agendaEventDetail') {
-                  final args = settings.arguments;
-                  if (args is int) {
-                    return MaterialPageRoute(
-                      builder: (context) {
-                        return AgendaEventDetailPage(eventId: args);
-                      },
-                    );
-                  } else {
-                    return MaterialPageRoute(
-                      builder: (context) {
-                        return const ErrorPage(
-                          message:
-                              'Invalid argument type. Expected an integer.',
-                        );
-                      },
-                    );
-                  }
-                }
-
-                if (settings.name == '/settings') {
-                  return MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
-                  );
-                }
-
-                if (settings.name == '/languageSettings') {
-                  return MaterialPageRoute(
-                    builder: (context) => const LanguageSettingsPage(),
-                  );
-                }
-
-                if (settings.name == '/privacyPolicy') {
-                  return MaterialPageRoute(
-                    builder: (context) => const PrivacyPolicyPage(),
-                  );
-                }
-
-                if (settings.name == '/termsAndConditions') {
-                  return MaterialPageRoute(
-                    builder: (context) => const TermsAndConditionsPage(),
-                  );
-                }
-
-                if (settings.name == '/artistQuotationResponse') {
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return MaterialPageRoute(
-                    builder: (context) => ArtistQuotationResponsePage(
-                        quotationId: args['quotationId'],
-                        predefinedAction: args['predefinedAction']),
-                  );
-                }
-
-                if (settings.name == '/customerQuotationResponse') {
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return MaterialPageRoute(
-                    builder: (context) => CustomerQuotationResponsePage(
-                        quotationId: args['quotationId'],
-                        predefinedAction: args['predefinedAction']),
-                  );
-                }
-
-                if (settings.name == CreateQuotationPage.routeName) {
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return CreateQuotationPage.route(artistId: args['artistId']);
-                }
-
-                if (settings.name == '/editField') {
-                  final args = settings.arguments as EditFieldArguments;
-                  return MaterialPageRoute(
-                    builder: (context) {
-                      return EditFieldPage(arguments: args);
-                    },
-                  );
-                }
-
-                if (settings.name == '/artistProfile') {
-                  return MaterialPageRoute(
-                    builder: (context) => const ArtistMyProfilePage(),
-                  );
-                }
-
-                return null;
-              },
-            ),
+            onGenerateRoute: AppRoutes.onGenerateRoute,
           );
         });
       }),
@@ -361,23 +266,5 @@ class _AppViewState extends State<AppView> {
         NoContextNavigator.push(_navigator, const OnBoardingPage());
         break;
     }
-  }
-}
-
-class ErrorPage extends StatelessWidget {
-  final String message;
-
-  const ErrorPage({super.key, required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Error'),
-      ),
-      body: Center(
-        child: Text(message),
-      ),
-    );
   }
 }
