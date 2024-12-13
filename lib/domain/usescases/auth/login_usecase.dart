@@ -19,10 +19,14 @@ class LoginUseCase {
         _localSessionStorage = localSession;
 
   Future<Session?> execute(
-      String identifier, String password, String loginType) async {
+      String identifier, String password, String loginType, String fcmToken, String deviceType) async {
     try {
       LoginResponse loginResponse = await _authService.login(LoginRequest(
-          identifier: identifier, password: password, loginType: loginType));
+          identifier: identifier,
+          password: password,
+          loginType: loginType,
+          fcmToken: fcmToken,
+          deviceType: deviceType));
       dev.log('login response: $loginResponse', className);
 
       final user = _getUserFromLoginResponse(loginResponse);

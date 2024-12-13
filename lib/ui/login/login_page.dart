@@ -48,7 +48,8 @@ class LoginPage extends StatelessWidget {
             authBloc: context.read(),
             loginUseCase: context.read(),
             googleSingInUseCase: context.read(),
-            createCustomerUseCase: context.read()),
+            createCustomerUseCase: context.read(),
+            deviceType: Platform.isIOS ? 'ios' : 'android'),
         child: BlocListener<LoginBloc, LoginState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {

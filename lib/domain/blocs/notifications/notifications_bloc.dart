@@ -46,30 +46,30 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     if (state is _Loaded) {
       final currentState = state as _Loaded;
 
-      // Determinar la navegación basada en el tipo de mensaje
-      NavigationInfo? navigationInfo;
-      if (message.data['type'] != null) {
-        switch (message.data['type']) {
-          case 'new_quotation':
-            navigationInfo = NavigationInfo(
-              route: '/quotationDetail',
-              arguments: {'quotationId': message.data['quotation_id']},
-            );
-            break;
-          case 'quotation_response':
-            navigationInfo = NavigationInfo(
-              route: '/quotationResponse',
-              arguments: {'quotationId': message.data['quotation_id']},
-            );
-            break;
-          // Agrega más casos según necesites
-        }
-      }
+      // // Determinar la navegación basada en el tipo de mensaje
+      // NavigationInfo? navigationInfo;
+      // if (message.data['type'] != null) {
+      //   switch (message.data['type']) {
+      //     case 'new_quotation':
+      //       navigationInfo = NavigationInfo(
+      //         route: '/quotationDetail',
+      //         arguments: {'quotationId': message.data['quotation_id']},
+      //       );
+      //       break;
+      //     case 'quotation_response':
+      //       navigationInfo = NavigationInfo(
+      //         route: '/quotationResponse',
+      //         arguments: {'quotationId': message.data['quotation_id']},
+      //       );
+      //       break;
+      //     // Agrega más casos según necesites
+      //   }
+      // }
 
       emit(currentState.copyWith(
         lastMessage: message,
         lastMessageAppState: appState,
-        pendingNavigation: navigationInfo,
+        // pendingNavigation: navigationInfo,
       ));
     }
   }
