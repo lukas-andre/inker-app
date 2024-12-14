@@ -22,6 +22,8 @@ mixin _$QuotationListEvent {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +31,8 @@ mixin _$QuotationListEvent {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +40,8 @@ mixin _$QuotationListEvent {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +50,8 @@ mixin _$QuotationListEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +59,8 @@ mixin _$QuotationListEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +68,8 @@ mixin _$QuotationListEvent {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,6 +135,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
   }) {
     return started();
   }
@@ -133,6 +147,8 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
   }) {
     return started?.call();
   }
@@ -143,6 +159,8 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -157,6 +175,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
   }) {
     return started(this);
   }
@@ -167,6 +187,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
   }) {
     return started?.call(this);
   }
@@ -177,6 +199,8 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -278,6 +302,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
   }) {
     return loadQuotations(statuses, isNextPage);
   }
@@ -288,6 +314,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
   }) {
     return loadQuotations?.call(statuses, isNextPage);
   }
@@ -298,6 +326,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -312,6 +342,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
   }) {
     return loadQuotations(this);
   }
@@ -322,6 +354,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
   }) {
     return loadQuotations?.call(this);
   }
@@ -332,6 +366,8 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -423,6 +459,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     required TResult Function(List<String>? statuses, bool isNextPage)
         loadQuotations,
     required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
   }) {
     return cancelQuotation(quotationId);
   }
@@ -433,6 +471,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function()? started,
     TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
   }) {
     return cancelQuotation?.call(quotationId);
   }
@@ -443,6 +483,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function()? started,
     TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
     TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -457,6 +499,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     required TResult Function(_Started value) started,
     required TResult Function(_LoadQuotations value) loadQuotations,
     required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
   }) {
     return cancelQuotation(this);
   }
@@ -467,6 +511,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadQuotations value)? loadQuotations,
     TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
   }) {
     return cancelQuotation?.call(this);
   }
@@ -477,6 +523,8 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function(_Started value)? started,
     TResult Function(_LoadQuotations value)? loadQuotations,
     TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -493,6 +541,280 @@ abstract class _CancelQuotation implements QuotationListEvent {
   String get quotationId;
   @JsonKey(ignore: true)
   _$$CancelQuotationImplCopyWith<_$CancelQuotationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RefreshCurrentTabImplCopyWith<$Res> {
+  factory _$$RefreshCurrentTabImplCopyWith(_$RefreshCurrentTabImpl value,
+          $Res Function(_$RefreshCurrentTabImpl) then) =
+      __$$RefreshCurrentTabImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RefreshCurrentTabImplCopyWithImpl<$Res>
+    extends _$QuotationListEventCopyWithImpl<$Res, _$RefreshCurrentTabImpl>
+    implements _$$RefreshCurrentTabImplCopyWith<$Res> {
+  __$$RefreshCurrentTabImplCopyWithImpl(_$RefreshCurrentTabImpl _value,
+      $Res Function(_$RefreshCurrentTabImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
+  const _$RefreshCurrentTabImpl();
+
+  @override
+  String toString() {
+    return 'QuotationListEvent.refreshCurrentTab()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RefreshCurrentTabImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(List<String>? statuses, bool isNextPage)
+        loadQuotations,
+    required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
+  }) {
+    return refreshCurrentTab();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
+  }) {
+    return refreshCurrentTab?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
+    required TResult orElse(),
+  }) {
+    if (refreshCurrentTab != null) {
+      return refreshCurrentTab();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadQuotations value) loadQuotations,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
+  }) {
+    return refreshCurrentTab(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadQuotations value)? loadQuotations,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+  }) {
+    return refreshCurrentTab?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadQuotations value)? loadQuotations,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    required TResult orElse(),
+  }) {
+    if (refreshCurrentTab != null) {
+      return refreshCurrentTab(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshCurrentTab implements QuotationListEvent {
+  const factory _RefreshCurrentTab() = _$RefreshCurrentTabImpl;
+}
+
+/// @nodoc
+abstract class _$$MarkAsReadImplCopyWith<$Res> {
+  factory _$$MarkAsReadImplCopyWith(
+          _$MarkAsReadImpl value, $Res Function(_$MarkAsReadImpl) then) =
+      __$$MarkAsReadImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String quotationId});
+}
+
+/// @nodoc
+class __$$MarkAsReadImplCopyWithImpl<$Res>
+    extends _$QuotationListEventCopyWithImpl<$Res, _$MarkAsReadImpl>
+    implements _$$MarkAsReadImplCopyWith<$Res> {
+  __$$MarkAsReadImplCopyWithImpl(
+      _$MarkAsReadImpl _value, $Res Function(_$MarkAsReadImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+  }) {
+    return _then(_$MarkAsReadImpl(
+      null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MarkAsReadImpl implements _MarkAsRead {
+  const _$MarkAsReadImpl(this.quotationId);
+
+  @override
+  final String quotationId;
+
+  @override
+  String toString() {
+    return 'QuotationListEvent.markAsRead(quotationId: $quotationId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkAsReadImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quotationId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
+      __$$MarkAsReadImplCopyWithImpl<_$MarkAsReadImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(List<String>? statuses, bool isNextPage)
+        loadQuotations,
+    required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
+  }) {
+    return markAsRead(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
+  }) {
+    return markAsRead?.call(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(List<String>? statuses, bool isNextPage)? loadQuotations,
+    TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(quotationId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadQuotations value) loadQuotations,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
+  }) {
+    return markAsRead(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadQuotations value)? loadQuotations,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+  }) {
+    return markAsRead?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadQuotations value)? loadQuotations,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MarkAsRead implements QuotationListEvent {
+  const factory _MarkAsRead(final String quotationId) = _$MarkAsReadImpl;
+
+  String get quotationId;
+  @JsonKey(ignore: true)
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

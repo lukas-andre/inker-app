@@ -17,9 +17,9 @@ class QuotationStatusL10n {
       case QuotationStatus.accepted:
         return l10n.quotationStatusArtistAccepted;
       case QuotationStatus.rejected:
-        return l10n.quotationStatusArtistRejected;
+        return l10n.statusRejected;
       case QuotationStatus.canceled:
-        return l10n.quotationStatusArtistCanceled;
+        return l10n.cancelled;
     }
   }
 

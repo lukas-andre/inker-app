@@ -1,15 +1,12 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
-import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
 import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
+import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
+import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
@@ -26,13 +23,7 @@ class QuotationListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => QuotationListBloc(
-        quotationService: context.read(),
-        sessionService: context.read(),
-      )..add(const QuotationListEvent.started()),
-      child: const QuotationListView(),
-    );
+    return const QuotationListView();
   }
 }
 
@@ -57,6 +48,7 @@ class _QuotationListViewState extends State<QuotationListView> {
   @override
   void initState() {
     super.initState();
+    context.read<QuotationListBloc>().add(const QuotationListEvent.started());
     _scrollController.addListener(_onScroll);
   }
 
@@ -197,6 +189,10 @@ class _QuotationListViewState extends State<QuotationListView> {
                           backgroundColor: secondaryColor,
                         ),
                       );
+                      _quotationListBloc.add(QuotationListEvent.loadQuotations(
+                        _selectedStatuses,
+                        false,
+                      ));
                     }
                   },
                   builder: (context, state) {
@@ -374,14 +370,14 @@ class _QuotationListViewState extends State<QuotationListView> {
     String? cancellingQuotationId,
   ) {
     final isArtist = session.user?.userType == 'ARTIST';
+    final isUnread =
+        isArtist ? !quotation.readByArtist : !quotation.readByCustomer;
     final statusText =
         QuotationStatusL10n.getStatus(quotation.status, l10n, isArtist);
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
-
     final counterpartInfo = isArtist
-        ? CounterpartInfo.fromCustomer(
-            quotation.customer)
+        ? CounterpartInfo.fromCustomer(quotation.customer)
         : CounterpartInfo.fromArtist(quotation.artist);
 
     return GestureDetector(
@@ -396,38 +392,97 @@ class _QuotationListViewState extends State<QuotationListView> {
       },
       child: Card(
         key: K.getQuotationCardKey(quotation.id.toString()),
-        color: const Color(0xFF1F223C),
+        color: isUnread ? const Color(0xFF252A47) : const Color(0xFF1F223C),
         margin: const EdgeInsets.only(bottom: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Color(0xFF777E91)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCounterpartHeader(counterpartInfo, isArtist),
-              const SizedBox(height: 16),
-              _buildStatusAndDate(statusText, statusColor, statusIcon,
-                  quotation.createdAt, l10n),
-              const SizedBox(height: 16),
-              _buildDescription(quotation.description),
-              const SizedBox(height: 16),
-              if (quotation.location != null) ...[
-                _buildLocation(quotation.location!),
-                const SizedBox(height: 16),
-              ],
-              if (quotation.estimatedCost != null ||
-                  quotation.appointmentDate != null ||
-                  quotation.appointmentDuration != null)
-                _buildQuotationDetails(quotation, l10n),
-              const SizedBox(height: 16),
-              _buildImagesSection(quotation, l10n),
-              const SizedBox(height: 16),
-              _buildActions(quotation, session, l10n, cancellingQuotationId),
-            ],
+          side: BorderSide(
+            color: isUnread ? secondaryColor : const Color(0xFF777E91),
+            width: isUnread ? 2.0 : 1.0,
           ),
+        ),
+        child: Stack(
+          children: [
+            if (isUnread)
+              Positioned(
+                top: 0,
+                right: 24,
+                child: Container(
+                  width: 32,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(4),
+                      bottomRight: Radius.circular(4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: secondaryColor.withOpacity(0.3),
+                        blurRadius: 4,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: _buildCounterpartHeader(
+                              counterpartInfo, isArtist)),
+                      if (isUnread)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: secondaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: secondaryColor),
+                          ),
+                          child: Text(
+                            l10n.newRequest,
+                            style: TextStyleTheme.caption.copyWith(
+                              color: secondaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _buildStatusAndDate(
+                    statusText,
+                    statusColor,
+                    statusIcon,
+                    quotation.createdAt,
+                    l10n,
+                  ),
+                  const SizedBox(height: 16),
+                  _buildDescription(quotation.description),
+                  const SizedBox(height: 16),
+                  if (quotation.location != null) ...[
+                    _buildLocation(quotation.location!),
+                    const SizedBox(height: 16),
+                  ],
+                  if (quotation.estimatedCost != null ||
+                      quotation.appointmentDate != null ||
+                      quotation.appointmentDuration != null)
+                    _buildQuotationDetails(quotation, l10n),
+                  const SizedBox(height: 16),
+                  _buildImagesSection(quotation, l10n),
+                  const SizedBox(height: 16),
+                  _buildActions(
+                      quotation, session, l10n, cancellingQuotationId),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -715,166 +770,39 @@ class _QuotationListViewState extends State<QuotationListView> {
     S l10n,
     String? cancellingQuotationId,
   ) {
-    final isArtist = session.user?.userType == 'ARTIST';
-    final isCancelling = cancellingQuotationId == quotation.id.toString();
-
-    // Acciones para el Artista
-    if (isArtist) {
-      switch (quotation.status) {
-        case QuotationStatus.pending:
-        case QuotationStatus.appealed:
-          // El artista puede responder o rechazar la cotización
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buildActionButton(
-                key: K.quotationReplyButton,
-                onPressed: () async {
-                  final result = await Navigator.of(context).pushNamed(
-                    '/artistQuotationResponse',
-                    arguments: {'quotationId': quotation.id.toString()},
-                  );
-                  if (result == true) {
-                    _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                      _selectedStatuses,
-                      false,
-                    ));
-                  }
-                },
-                icon: Icons.reply,
-                label: l10n.reply,
-                isPrimary: true,
-              ),
-              const SizedBox(width: 8),
-              _buildActionButton(
-                key: K.quotationRejectButton,
-                onPressed: () async {
-                  final result = await Navigator.of(context).pushNamed(
-                    '/artistQuotationResponse',
-                    arguments: {
-                      'quotationId': quotation.id.toString(),
-                      'predefinedAction':
-                          quotation.status == QuotationStatus.pending
-                              ? ArtistQuotationAction.reject
-                              : ArtistQuotationAction.rejectAppeal,
-                    },
-                  );
-                  if (result == true) {
-                    _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                      _selectedStatuses,
-                      false,
-                    ));
-                  }
-                },
-                icon: Icons.cancel,
-                label: l10n.reject,
-                isPrimary: false,
-              ),
-            ],
-          );
-        default:
-          return const SizedBox.shrink();
-      }
+    if (cancellingQuotationId == quotation.id.toString()) {
+      return const Center(
+        child: SizedBox(
+          width: 24,
+          height: 24,
+          child: InkerProgressIndicator(),
+        ),
+      );
     }
 
-    // Acciones para el Cliente
-    else {
-      switch (quotation.status) {
-        case QuotationStatus.pending:
-          // El cliente puede cancelar la cotización
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              isCancelling
-                  ? const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: InkerProgressIndicator(),
-                    )
-                  : _buildActionButton(
-                      key: K.quotationCancelButton,
-                      onPressed: () => _showCancelConfirmationDialog(
-                          context, quotation, l10n),
-                      icon: Icons.cancel,
-                      label: l10n.cancel,
-                      isPrimary: false,
-                    ),
-            ],
-          );
-        case QuotationStatus.quoted:
-          final actions = [
-            _ActionItem(
-              key: K.quotationAcceptButton,
-              onPressed: () async {
-                final result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CustomerQuotationResponsePage(
-                      quotationId: quotation.id.toString(),
-                      predefinedAction: CustomerQuotationAction.accept,
-                    ),
-                  ),
-                );
-                if (result == true) {
-                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                    _selectedStatuses,
-                    false,
-                  ));
-                }
-              },
-              icon: Icons.check,
-              label: l10n.accept,
-              isPrimary: true,
-            ),
-            _ActionItem(
-              key: K.quotationAppealButton,
-              onPressed: () async {
-                final result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CustomerQuotationResponsePage(
-                      quotationId: quotation.id.toString(),
-                      predefinedAction: CustomerQuotationAction.appeal,
-                    ),
-                  ),
-                );
-                if (result == true) {
-                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                    _selectedStatuses,
-                    false,
-                  ));
-                }
-              },
-              icon: Icons.edit,
-              label: l10n.appeal,
-              isPrimary: false,
-            ),
-            _ActionItem(
-              key: K.quotationRejectButton,
-              onPressed: () async {
-                final result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CustomerQuotationResponsePage(
-                      quotationId: quotation.id.toString(),
-                      predefinedAction: CustomerQuotationAction.reject,
-                    ),
-                  ),
-                );
-                if (result == true) {
-                  _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                    _selectedStatuses,
-                    false,
-                  ));
-                }
-              },
-              icon: Icons.cancel,
-              label: l10n.reject,
-              isPrimary: false,
-            ),
-          ];
-          return _buildLimitedActions(actions, l10n);
-        default:
-          return const SizedBox.shrink();
-      }
-    }
+    return QuotationActionButtons(
+      actionManager: QuotationActionManager(
+        context: context,
+        quotation: quotation,
+        session: session,
+        l10n: l10n,
+        onActionExecuted: (actionType, quotationId) {
+          // Manejar las acciones ejecutadas
+          switch (actionType) {
+            case QuotationActionType.cancel:
+              _quotationListBloc.add(
+                QuotationListEvent.cancelQuotation(quotationId),
+              );
+              break;
+            default:
+              // Recargar la lista después de cualquier otra acción
+              _quotationListBloc.add(
+                QuotationListEvent.loadQuotations(_selectedStatuses, false),
+              );
+          }
+        },
+      ),
+    );
   }
 
   Widget _buildLimitedActions(List<_ActionItem> actions, S l10n) {
@@ -947,62 +875,6 @@ class _QuotationListViewState extends State<QuotationListView> {
         ),
       ),
     );
-  }
-
-  void _showCancelConfirmationDialog(
-      BuildContext context, Quotation quotation, S l10n) {
-    if (Platform.isIOS) {
-      showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(l10n.cancelQuotationConfirmationTitle),
-          content: Text(l10n.cancelQuotationConfirmationMessage),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              key: Keys.quotationNoCancelButton,
-              child: Text(l10n.no),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            CupertinoDialogAction(
-              key: Keys.quotationConfirmCancelButton,
-              child: Text(l10n.yes),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _cancelQuotation(quotation);
-              },
-            ),
-          ],
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text(l10n.cancelQuotationConfirmationTitle),
-          content: Text(l10n.cancelQuotationConfirmationMessage),
-          actions: <Widget>[
-            TextButton(
-              key: Keys.quotationNoCancelButton,
-              child: Text(l10n.no),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              key: Keys.quotationConfirmCancelButton,
-              child: Text(l10n.yes),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _cancelQuotation(quotation);
-              },
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  void _cancelQuotation(Quotation quotation) {
-    _quotationListBloc
-        .add(QuotationListEvent.cancelQuotation(quotation.id.toString()));
   }
 }
 
