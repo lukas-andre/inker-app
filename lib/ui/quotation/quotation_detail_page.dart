@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
@@ -8,6 +9,8 @@ import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
+import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
+import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 
 class QuotationDetailsPage extends StatelessWidget {
   final Quotation quotation;
@@ -17,14 +20,22 @@ class QuotationDetailsPage extends StatelessWidget {
     required this.quotation,
   });
 
+
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final counterpartInfo = isArtist
         ? CounterpartInfo.fromCustomer(quotation.customer)
         : CounterpartInfo.fromArtist(quotation.artist);
-        
+    final bloc = context.read<QuotationListBloc>();
+
+    if ((quotation.readByArtist == false && isArtist) ||
+        (quotation.readByCustomer == false && !isArtist)) {
+      bloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
+    }
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -32,22 +43,57 @@ class QuotationDetailsPage extends StatelessWidget {
         backgroundColor: primaryColor,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-              _CounterpartHeader(
-              info: counterpartInfo,
-              isArtist: isArtist,
-              quotation: quotation,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _CounterpartHeader(
+                    info: counterpartInfo,
+                    isArtist: isArtist,
+                    quotation: quotation,
+                  ),
+                  _MainQuotationInfo(quotation: quotation),
+                  if (quotation.history != null &&
+                      quotation.history!.isNotEmpty)
+                    _QuotationTimeline(history: quotation.history!),
+                  QuotationImages(quotation: quotation),
+                ],
+              ),
             ),
-            _MainQuotationInfo(quotation: quotation),
-            if (quotation.history != null && quotation.history!.isNotEmpty)
-              _QuotationTimeline(history: quotation.history!),
-            QuotationImages(quotation: quotation),
-            // QuotationDetails(quotation: quotation),
-          ],
-        ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: explorerSecondaryColor,
+              border: Border(
+                top: BorderSide(
+                  color: tertiaryColor.withOpacity(0.2),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: QuotationActionButtons(
+              actionManager: QuotationActionManager(
+                context: context,
+                quotation: quotation,
+                session: context.read<AuthBloc>().state.session,
+                l10n: l10n,
+                onActionExecuted: (actionType, quotationId) async {
+                  if (actionType == QuotationActionType.cancel) {
+                    bloc.add(QuotationListEvent.cancelQuotation(quotationId));
+                    await Future.delayed(const Duration(seconds: 1));
+                    if (!context.mounted) return;
+                    Navigator.of(context).pop(true);
+                    bloc.add(const QuotationListEvent.refreshCurrentTab());
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -67,7 +113,7 @@ class _CounterpartHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    
+
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
       color: explorerSecondaryColor,

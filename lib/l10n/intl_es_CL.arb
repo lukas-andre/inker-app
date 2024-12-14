@@ -912,7 +912,7 @@
     "description": "Estado mostrado al cliente cuando la cotización está aceptada"
   },
   
-  "quotationStatusCustomerRejected": "Rechazado por Ti",
+  "quotationStatusCustomerRejected": "Rechazado",
   "@quotationStatusCustomerRejected": {
     "description": "Estado mostrado al cliente cuando la cotización está rechazada"
   },

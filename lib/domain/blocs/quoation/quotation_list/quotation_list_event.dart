@@ -1,4 +1,4 @@
-part of 'quotation_list_bloc.dart';
+  part of 'quotation_list_bloc.dart';
 
 @freezed
 class QuotationListEvent with _$QuotationListEvent {
@@ -7,4 +7,6 @@ class QuotationListEvent with _$QuotationListEvent {
       List<String>? statuses, bool isNextPage) = _LoadQuotations;
   const factory QuotationListEvent.cancelQuotation(String quotationId) =
       _CancelQuotation;
+  const factory QuotationListEvent.refreshCurrentTab() = _RefreshCurrentTab;
+  const factory QuotationListEvent.markAsRead(String quotationId) = _MarkAsRead;
 }
