@@ -214,4 +214,17 @@ class ApiQuotationService implements QuotationService {
     });
     return request;
   }
+
+  @override
+  Future<void> markAsRead({
+    required String token,
+    required String quotationId,
+  }) async {
+    await _httpClient.post(
+      path: '$_basePath/$quotationId/mark-as-read',
+      token: token,
+      body: {},
+      fromJson: (json) => null,
+    );
+  }
 }

@@ -59,6 +59,10 @@ mixin _$Quotation {
   Customer? get customer => throw _privateConstructorUsedError;
   Artist? get artist => throw _privateConstructorUsedError;
   Location? get location => throw _privateConstructorUsedError;
+  bool get readByArtist => throw _privateConstructorUsedError;
+  bool get readByCustomer => throw _privateConstructorUsedError;
+  DateTime? get artistReadAt => throw _privateConstructorUsedError;
+  DateTime? get customerReadAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -102,7 +106,11 @@ abstract class $QuotationCopyWith<$Res> {
       List<QuotationHistory>? history,
       Customer? customer,
       Artist? artist,
-      Location? location});
+      Location? location,
+      bool readByArtist,
+      bool readByCustomer,
+      DateTime? artistReadAt,
+      DateTime? customerReadAt});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
@@ -155,6 +163,10 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? customer = freezed,
     Object? artist = freezed,
     Object? location = freezed,
+    Object? readByArtist = null,
+    Object? readByCustomer = null,
+    Object? artistReadAt = freezed,
+    Object? customerReadAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -281,6 +293,22 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as Location?,
+      readByArtist: null == readByArtist
+          ? _value.readByArtist
+          : readByArtist // ignore: cast_nullable_to_non_nullable
+              as bool,
+      readByCustomer: null == readByCustomer
+          ? _value.readByCustomer
+          : readByCustomer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      artistReadAt: freezed == artistReadAt
+          ? _value.artistReadAt
+          : artistReadAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      customerReadAt: freezed == customerReadAt
+          ? _value.customerReadAt
+          : customerReadAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -384,7 +412,11 @@ abstract class _$$QuotationImplCopyWith<$Res>
       List<QuotationHistory>? history,
       Customer? customer,
       Artist? artist,
-      Location? location});
+      Location? location,
+      bool readByArtist,
+      bool readByCustomer,
+      DateTime? artistReadAt,
+      DateTime? customerReadAt});
 
   @override
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
@@ -440,6 +472,10 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? customer = freezed,
     Object? artist = freezed,
     Object? location = freezed,
+    Object? readByArtist = null,
+    Object? readByCustomer = null,
+    Object? artistReadAt = freezed,
+    Object? customerReadAt = freezed,
   }) {
     return _then(_$QuotationImpl(
       id: null == id
@@ -566,6 +602,22 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as Location?,
+      readByArtist: null == readByArtist
+          ? _value.readByArtist
+          : readByArtist // ignore: cast_nullable_to_non_nullable
+              as bool,
+      readByCustomer: null == readByCustomer
+          ? _value.readByCustomer
+          : readByCustomer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      artistReadAt: freezed == artistReadAt
+          ? _value.artistReadAt
+          : artistReadAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      customerReadAt: freezed == customerReadAt
+          ? _value.customerReadAt
+          : customerReadAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -604,7 +656,11 @@ class _$QuotationImpl implements _Quotation {
       final List<QuotationHistory>? history,
       this.customer,
       this.artist,
-      this.location})
+      this.location,
+      this.readByArtist = false,
+      this.readByCustomer = false,
+      this.artistReadAt,
+      this.customerReadAt})
       : _history = history;
 
   factory _$QuotationImpl.fromJson(Map<String, dynamic> json) =>
@@ -680,10 +736,20 @@ class _$QuotationImpl implements _Quotation {
   final Artist? artist;
   @override
   final Location? location;
+  @override
+  @JsonKey()
+  final bool readByArtist;
+  @override
+  @JsonKey()
+  final bool readByCustomer;
+  @override
+  final DateTime? artistReadAt;
+  @override
+  final DateTime? customerReadAt;
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt)';
   }
 
   @override
@@ -748,7 +814,15 @@ class _$QuotationImpl implements _Quotation {
                 other.customer == customer) &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.readByArtist, readByArtist) ||
+                other.readByArtist == readByArtist) &&
+            (identical(other.readByCustomer, readByCustomer) ||
+                other.readByCustomer == readByCustomer) &&
+            (identical(other.artistReadAt, artistReadAt) ||
+                other.artistReadAt == artistReadAt) &&
+            (identical(other.customerReadAt, customerReadAt) ||
+                other.customerReadAt == customerReadAt));
   }
 
   @JsonKey(ignore: true)
@@ -785,7 +859,11 @@ class _$QuotationImpl implements _Quotation {
         const DeepCollectionEquality().hash(_history),
         customer,
         artist,
-        location
+        location,
+        readByArtist,
+        readByCustomer,
+        artistReadAt,
+        customerReadAt
       ]);
 
   @JsonKey(ignore: true)
@@ -834,7 +912,11 @@ abstract class _Quotation implements Quotation {
       final List<QuotationHistory>? history,
       final Customer? customer,
       final Artist? artist,
-      final Location? location}) = _$QuotationImpl;
+      final Location? location,
+      final bool readByArtist,
+      final bool readByCustomer,
+      final DateTime? artistReadAt,
+      final DateTime? customerReadAt}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
@@ -901,6 +983,14 @@ abstract class _Quotation implements Quotation {
   Artist? get artist;
   @override
   Location? get location;
+  @override
+  bool get readByArtist;
+  @override
+  bool get readByCustomer;
+  @override
+  DateTime? get artistReadAt;
+  @override
+  DateTime? get customerReadAt;
   @override
   @JsonKey(ignore: true)
   _$$QuotationImplCopyWith<_$QuotationImpl> get copyWith =>

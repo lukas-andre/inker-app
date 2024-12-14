@@ -49,6 +49,10 @@ class Quotation with _$Quotation {
     Customer? customer,
     Artist? artist,
     Location? location,
+    @Default(false) bool readByArtist,
+    @Default(false) bool readByCustomer,
+    DateTime? artistReadAt,
+    DateTime? customerReadAt,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>

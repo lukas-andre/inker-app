@@ -37,4 +37,6 @@ abstract class QuotationService {
     QuotationCustomerCancelReason? cancelReason,
     String? additionalDetails,
   });
+
+  Future<void> markAsRead({required String token, required String quotationId});
 }

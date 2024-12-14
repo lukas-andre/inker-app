@@ -29,8 +29,18 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
             _loadQuotations(emit, statuses, isNextPage),
         cancelQuotation: (String quotationId) async =>
             _cancelQuotation(emit, quotationId),
+        refreshCurrentTab: () async => _refreshCurrentTab(emit),
+        markAsRead: (String quotationId) async =>
+            _markAsRead(emit, quotationId),
       );
     });
+  }
+
+  Future<void> _refreshCurrentTab(Emitter<QuotationListState> emit) async {
+    final currentState = state;
+    if (currentState is QuotationListLoaded) {
+      await _loadQuotations(emit, currentState.statuses, false);
+    }
   }
 
   Future<void> _started(Emitter<QuotationListState> emit) async {
@@ -124,6 +134,41 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
       }
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
+    }
+  }
+
+  Future<void> _markAsRead(
+      Emitter<QuotationListState> emit, String quotationId) async {
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const QuotationListState.error('No se ha iniciado sesión.'));
+        return;
+      }
+
+      final currentState = state;
+      if (currentState is QuotationListLoaded) {
+        final updatedQuotations = currentState.quotations.map((quotation) {
+          if (quotation.id.toString() == quotationId) {
+            if (session.user?.userType == 'ARTIST') {
+              return quotation.copyWith(readByArtist: true);
+            } else {
+              return quotation.copyWith(readByCustomer: true);
+            }
+          }
+          return quotation;
+        }).toList();
+
+        emit(currentState.copyWith(quotations: updatedQuotations));
+
+        await _quotationService.markAsRead(
+          token: session.accessToken,
+          quotationId: quotationId,
+        );
+      }
+    } catch (e) {
+      emit(QuotationListState.error(e.toString()));
+      add(const QuotationListEvent.refreshCurrentTab());
     }
   }
 }

@@ -76,6 +76,14 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           ? null
           : Location.fromJson(
               Map<String, dynamic>.from(json['location'] as Map)),
+      readByArtist: json['readByArtist'] as bool? ?? false,
+      readByCustomer: json['readByCustomer'] as bool? ?? false,
+      artistReadAt: json['artistReadAt'] == null
+          ? null
+          : DateTime.parse(json['artistReadAt'] as String),
+      customerReadAt: json['customerReadAt'] == null
+          ? null
+          : DateTime.parse(json['customerReadAt'] as String),
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -125,6 +133,10 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('customer', instance.customer?.toJson());
   writeNotNull('artist', instance.artist?.toJson());
   writeNotNull('location', instance.location?.toJson());
+  val['readByArtist'] = instance.readByArtist;
+  val['readByCustomer'] = instance.readByCustomer;
+  writeNotNull('artistReadAt', instance.artistReadAt?.toIso8601String());
+  writeNotNull('customerReadAt', instance.customerReadAt?.toIso8601String());
   return val;
 }
 
