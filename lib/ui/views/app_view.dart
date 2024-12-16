@@ -30,6 +30,7 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
+import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
@@ -82,6 +83,7 @@ class _AppViewState extends State<AppView> {
             sessionService: context.read(),
           ),
         ),
+
 
         // Map related providers
         BlocProvider(

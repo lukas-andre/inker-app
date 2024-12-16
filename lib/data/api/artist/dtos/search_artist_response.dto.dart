@@ -7,8 +7,8 @@ part 'search_artist_response.dto.g.dart';
 @freezed
 class SearchArtistResponseDto with _$SearchArtistResponseDto {
   const factory SearchArtistResponseDto({
-    required List<Artist> artists,
-    required MetadataDto metadata,
+    @Default([]) List<Artist> artists,
+    @JsonKey(name: 'meta') required MetadataDto metadata,
   }) = _SearchArtistResponseDto;
 
   factory SearchArtistResponseDto.fromJson(Map<String, dynamic> json) =>
@@ -18,10 +18,10 @@ class SearchArtistResponseDto with _$SearchArtistResponseDto {
 @freezed
 class MetadataDto with _$MetadataDto {
   const factory MetadataDto({
-    required int total,
-    required int page,
-    required int limit,
-    required int totalPages,
+    @Default(0) int total,
+    @Default(1) int page,
+    @Default(10) int limit,
+    @Default(0) int totalPages,
   }) = _MetadataDto;
 
   factory MetadataDto.fromJson(Map<String, dynamic> json) =>

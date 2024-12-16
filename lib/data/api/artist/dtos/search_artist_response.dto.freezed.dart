@@ -22,6 +22,7 @@ SearchArtistResponseDto _$SearchArtistResponseDtoFromJson(
 /// @nodoc
 mixin _$SearchArtistResponseDto {
   List<Artist> get artists => throw _privateConstructorUsedError;
+  @JsonKey(name: 'meta')
   MetadataDto get metadata => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ abstract class $SearchArtistResponseDtoCopyWith<$Res> {
           $Res Function(SearchArtistResponseDto) then) =
       _$SearchArtistResponseDtoCopyWithImpl<$Res, SearchArtistResponseDto>;
   @useResult
-  $Res call({List<Artist> artists, MetadataDto metadata});
+  $Res call(
+      {List<Artist> artists, @JsonKey(name: 'meta') MetadataDto metadata});
 
   $MetadataDtoCopyWith<$Res> get metadata;
 }
@@ -88,7 +90,8 @@ abstract class _$$SearchArtistResponseDtoImplCopyWith<$Res>
       __$$SearchArtistResponseDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Artist> artists, MetadataDto metadata});
+  $Res call(
+      {List<Artist> artists, @JsonKey(name: 'meta') MetadataDto metadata});
 
   @override
   $MetadataDtoCopyWith<$Res> get metadata;
@@ -127,7 +130,8 @@ class __$$SearchArtistResponseDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SearchArtistResponseDtoImpl implements _SearchArtistResponseDto {
   const _$SearchArtistResponseDtoImpl(
-      {required final List<Artist> artists, required this.metadata})
+      {final List<Artist> artists = const [],
+      @JsonKey(name: 'meta') required this.metadata})
       : _artists = artists;
 
   factory _$SearchArtistResponseDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -135,6 +139,7 @@ class _$SearchArtistResponseDtoImpl implements _SearchArtistResponseDto {
 
   final List<Artist> _artists;
   @override
+  @JsonKey()
   List<Artist> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
@@ -142,6 +147,7 @@ class _$SearchArtistResponseDtoImpl implements _SearchArtistResponseDto {
   }
 
   @override
+  @JsonKey(name: 'meta')
   final MetadataDto metadata;
 
   @override
@@ -181,8 +187,9 @@ class _$SearchArtistResponseDtoImpl implements _SearchArtistResponseDto {
 
 abstract class _SearchArtistResponseDto implements SearchArtistResponseDto {
   const factory _SearchArtistResponseDto(
-      {required final List<Artist> artists,
-      required final MetadataDto metadata}) = _$SearchArtistResponseDtoImpl;
+          {final List<Artist> artists,
+          @JsonKey(name: 'meta') required final MetadataDto metadata}) =
+      _$SearchArtistResponseDtoImpl;
 
   factory _SearchArtistResponseDto.fromJson(Map<String, dynamic> json) =
       _$SearchArtistResponseDtoImpl.fromJson;
@@ -190,6 +197,7 @@ abstract class _SearchArtistResponseDto implements SearchArtistResponseDto {
   @override
   List<Artist> get artists;
   @override
+  @JsonKey(name: 'meta')
   MetadataDto get metadata;
   @override
   @JsonKey(ignore: true)
@@ -314,21 +322,22 @@ class __$$MetadataDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MetadataDtoImpl implements _MetadataDto {
   const _$MetadataDtoImpl(
-      {required this.total,
-      required this.page,
-      required this.limit,
-      required this.totalPages});
+      {this.total = 0, this.page = 1, this.limit = 10, this.totalPages = 0});
 
   factory _$MetadataDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$MetadataDtoImplFromJson(json);
 
   @override
+  @JsonKey()
   final int total;
   @override
+  @JsonKey()
   final int page;
   @override
+  @JsonKey()
   final int limit;
   @override
+  @JsonKey()
   final int totalPages;
 
   @override
@@ -368,10 +377,10 @@ class _$MetadataDtoImpl implements _MetadataDto {
 
 abstract class _MetadataDto implements MetadataDto {
   const factory _MetadataDto(
-      {required final int total,
-      required final int page,
-      required final int limit,
-      required final int totalPages}) = _$MetadataDtoImpl;
+      {final int total,
+      final int page,
+      final int limit,
+      final int totalPages}) = _$MetadataDtoImpl;
 
   factory _MetadataDto.fromJson(Map<String, dynamic> json) =
       _$MetadataDtoImpl.fromJson;
