@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 

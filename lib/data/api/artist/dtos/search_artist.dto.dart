@@ -9,7 +9,7 @@ class SearchArtistDto with _$SearchArtistDto {
     String? query,
     @Default(1) int page,
     @Default(10) int limit,
-    int? minRating,
+    double? minRating,
   }) = _SearchArtistDto;
 
   factory SearchArtistDto.fromJson(Map<String, dynamic> json) =>

@@ -11,7 +11,7 @@ _$SearchArtistDtoImpl _$$SearchArtistDtoImplFromJson(Map json) =>
       query: json['query'] as String?,
       page: (json['page'] as num?)?.toInt() ?? 1,
       limit: (json['limit'] as num?)?.toInt() ?? 10,
-      minRating: (json['minRating'] as num?)?.toInt(),
+      minRating: (json['minRating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$SearchArtistDtoImplToJson(
