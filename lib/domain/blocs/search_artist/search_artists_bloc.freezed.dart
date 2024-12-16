@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchArtistsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String query, int page) search,
+    required TResult Function(String query, int page, double minRating) search,
     required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String query, int page)? search,
+    TResult? Function(String query, int page, double minRating)? search,
     TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String query, int page)? search,
+    TResult Function(String query, int page, double minRating)? search,
     TResult Function()? clear,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$SearchImplCopyWith<$Res> {
           _$SearchImpl value, $Res Function(_$SearchImpl) then) =
       __$$SearchImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String query, int page});
+  $Res call({String query, int page, double minRating});
 }
 
 /// @nodoc
@@ -96,6 +96,7 @@ class __$$SearchImplCopyWithImpl<$Res>
   $Res call({
     Object? query = null,
     Object? page = null,
+    Object? minRating = null,
   }) {
     return _then(_$SearchImpl(
       query: null == query
@@ -106,6 +107,10 @@ class __$$SearchImplCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      minRating: null == minRating
+          ? _value.minRating
+          : minRating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -113,17 +118,20 @@ class __$$SearchImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SearchImpl implements _Search {
-  const _$SearchImpl({required this.query, this.page = 1});
+  const _$SearchImpl({required this.query, this.page = 1, this.minRating = 0});
 
   @override
   final String query;
   @override
   @JsonKey()
   final int page;
+  @override
+  @JsonKey()
+  final double minRating;
 
   @override
   String toString() {
-    return 'SearchArtistsEvent.search(query: $query, page: $page)';
+    return 'SearchArtistsEvent.search(query: $query, page: $page, minRating: $minRating)';
   }
 
   @override
@@ -132,11 +140,13 @@ class _$SearchImpl implements _Search {
         (other.runtimeType == runtimeType &&
             other is _$SearchImpl &&
             (identical(other.query, query) || other.query == query) &&
-            (identical(other.page, page) || other.page == page));
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.minRating, minRating) ||
+                other.minRating == minRating));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query, page);
+  int get hashCode => Object.hash(runtimeType, query, page, minRating);
 
   @JsonKey(ignore: true)
   @override
@@ -147,30 +157,30 @@ class _$SearchImpl implements _Search {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String query, int page) search,
+    required TResult Function(String query, int page, double minRating) search,
     required TResult Function() clear,
   }) {
-    return search(query, page);
+    return search(query, page, minRating);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String query, int page)? search,
+    TResult? Function(String query, int page, double minRating)? search,
     TResult? Function()? clear,
   }) {
-    return search?.call(query, page);
+    return search?.call(query, page, minRating);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String query, int page)? search,
+    TResult Function(String query, int page, double minRating)? search,
     TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (search != null) {
-      return search(query, page);
+      return search(query, page, minRating);
     }
     return orElse();
   }
@@ -208,11 +218,14 @@ class _$SearchImpl implements _Search {
 }
 
 abstract class _Search implements SearchArtistsEvent {
-  const factory _Search({required final String query, final int page}) =
-      _$SearchImpl;
+  const factory _Search(
+      {required final String query,
+      final int page,
+      final double minRating}) = _$SearchImpl;
 
   String get query;
   int get page;
+  double get minRating;
   @JsonKey(ignore: true)
   _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -256,7 +269,7 @@ class _$ClearImpl implements _Clear {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String query, int page) search,
+    required TResult Function(String query, int page, double minRating) search,
     required TResult Function() clear,
   }) {
     return clear();
@@ -265,7 +278,7 @@ class _$ClearImpl implements _Clear {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String query, int page)? search,
+    TResult? Function(String query, int page, double minRating)? search,
     TResult? Function()? clear,
   }) {
     return clear?.call();
@@ -274,7 +287,7 @@ class _$ClearImpl implements _Clear {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String query, int page)? search,
+    TResult Function(String query, int page, double minRating)? search,
     TResult Function()? clear,
     required TResult orElse(),
   }) {

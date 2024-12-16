@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'dart:convert';

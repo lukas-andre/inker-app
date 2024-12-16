@@ -1,5 +1,5 @@
 // Primero creamos una clase que contenga toda la información que necesitamos mostrar
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 
 class CounterpartInfo {

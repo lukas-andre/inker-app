@@ -3,11 +3,11 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerSearchBar extends StatelessWidget {
-  final Function(String) onSearch;
-  
+  final VoidCallback? onTap;
+
   const ExplorerSearchBar({
     super.key,
-    required this.onSearch,
+    this.onTap,
   });
 
   @override
@@ -21,13 +21,13 @@ class ExplorerSearchBar extends StatelessWidget {
           height: 40,
           width: size.width * 0.9,
           child: TextField(
+            onTap: onTap,
             keyboardType: TextInputType.text,
             style: TextStyleTheme.copyWith(
               fontSize: 16,
               color: const Color(0xff777E91),
             ),
             cursorColor: const Color(0xff777E91),
-            onChanged: onSearch,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(9),
               label: Padding(
@@ -46,25 +46,6 @@ class ExplorerSearchBar extends StatelessWidget {
               fillColor: inputBackgroundColor,
               floatingLabelBehavior: FloatingLabelBehavior.never,
               prefixIcon: const Icon(Icons.search, color: Colors.white),
-              suffixIcon: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Icon(Icons.filter_list_outlined, color: Colors.white),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Filtrar',
-                      style: TextStyleTheme.copyWith(
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                  ],
-                ),
-              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: BorderSide.none,

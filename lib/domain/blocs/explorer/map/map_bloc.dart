@@ -13,6 +13,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'
         MarkerId;
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/layout/marker_helper.dart';
 import 'package:inker_studio/utils/styles/map_style.dart';

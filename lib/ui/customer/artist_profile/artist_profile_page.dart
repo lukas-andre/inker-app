@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
@@ -89,7 +89,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                 onToggleDescription: _onToggleDescription),
             const SizedBox(height: 12),
             // _buildBioInfoRow(context),
-            // const SizedBox(height: 12),
+            const SizedBox(height: 12),
           ],
         ),
       ),
@@ -239,11 +239,13 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                     shape: const StadiumBorder(),
                     backgroundColor: const Color(0x00131527),
                   ),
-                  child: Text(
-                    artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
-                    style: TextStyleTheme.copyWith(
-                        color: Colors.white, fontSize: 16),
-                  ),
+                  child: artist.isFollowedByUser == null
+                      ? const SizedBox()
+                      : Text(
+                          artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
+                          style: TextStyleTheme.copyWith(
+                              color: Colors.white, fontSize: 16),
+                        ),
                 ),
         ),
         const SizedBox(width: 10),

@@ -83,8 +83,13 @@ class _AppViewState extends State<AppView> {
             sessionService: context.read(),
           ),
         ),
+        BlocProvider(
+          create: (context) => SearchArtistsBloc(
+            artistService: context.read(),
+          ),
+        ),
 
-
+        // Map related providers
         // Map related providers
         BlocProvider(
           create: (context) =>

@@ -8,25 +8,28 @@ part 'artist.g.dart';
 class Artist with _$Artist {
   const factory Artist({
     required int id,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required int userId,
-    required String username,
-    required String firstName,
-    required String lastName,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? userId,
+    String? username,
+    String? firstName,
+    String? lastName,
     String? shortDescription,
     String? profileThumbnail,
     int? profileThumbnailVersion,
     List<String>? tags,
     List<String>? genres,
-    @Default(0.0) double rating,
+    String? rating,
     String? studioPhoto,
     int? studioPhotoVersion,
     DateTime? deletedAt,
     Contact? contact,
-    @Default([]) List<Service> services,
     @Default(0) int followers,
     @Default(0) int follows,
+    bool? isFollowedByUser,
+    String? distanceUnit,
+    double? distance,
+    Review? review,
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
@@ -35,13 +38,13 @@ class Artist with _$Artist {
 @freezed
 class Contact with _$Contact {
   const factory Contact({
-    required int id,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+     int? id,
+     DateTime? createdAt,
+     DateTime? updatedAt,
     required String email,
     required String phone,
-    required String phoneDialCode,
-    required String phoneCountryIsoCode,
+    String? phoneDialCode,
+    String? phoneCountryIsoCode,
   }) = _Contact;
 
   factory Contact.fromJson(Map<String, dynamic> json) =>
@@ -64,3 +67,16 @@ class Service with _$Service {
 
 Artist artistFromJson(String str) => Artist.fromJson(json.decode(str));
 String artistToJson(Artist data) => json.encode(data.toJson());
+
+
+@freezed
+class Review with _$Review {
+  const factory Review({
+    int? artistId,
+    double? value,
+    Map<String, int>? detail,
+    int? count,
+  }) = _Review;
+
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+}

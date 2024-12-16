@@ -18,7 +18,7 @@ class SearchArtistsBloc extends Bloc<SearchArtistsEvent, SearchArtistsState> {
        super(const SearchArtistsState.initial()) {
     on<SearchArtistsEvent>((event, emit) async {
       await event.when(
-        search: (String query, int page) async {
+        search: (String query, int page, double minRating) async {
           try {
             emit(const SearchArtistsState.loading());
             
@@ -26,6 +26,7 @@ class SearchArtistsBloc extends Bloc<SearchArtistsEvent, SearchArtistsState> {
               query: query,
               page: page,
               limit: 20,
+              minRating: minRating,
             );
             
             final result = await _artistService.searchArtists(searchParams);
