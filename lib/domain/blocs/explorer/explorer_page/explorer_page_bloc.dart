@@ -6,6 +6,7 @@ import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_requ
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
+import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -19,21 +20,41 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
   final ArtistsListBloc _artistsListBloc;
   final LocationService _locationService;
   final LocalSessionService _localSessionService;
+  final LocationBloc _locationBloc;
 
   ExplorerPageBloc({
     required MapBloc mapBloc,
     required LocationService locationService,
     required LocalSessionService localSessionService,
     required ArtistsListBloc artistsListBloc,
+    required LocationBloc locationBloc,
   })  : _locationService = locationService,
         _localSessionService = localSessionService,
         _mapBloc = mapBloc,
         _artistsListBloc = artistsListBloc,
+        _locationBloc = locationBloc,
         super(const ExplorerPageState(
             view: ExplorerView.list, isLoading: false, firstLoad: true)) {
     on<ExplorerPageEventViewChanged>(_explorerPageEventViewChangedToState);
     on<ExplorerPageFetchArtists>(_explorerPageFetchArtistsToState);
+    on<ExplorerPageUpdateRange>(_onUpdateRange);
   }
+ void _onUpdateRange(
+  ExplorerPageUpdateRange event,
+  Emitter<ExplorerPageState> emit,
+) {
+  emit(state.copyWith(range: event.range));
+  
+  // Actualizar círculo en el mapa
+  final location = _locationBloc.state.lastKnownLocation;
+  if (location != null) {
+    _mapBloc.add(UpdateSearchRadiusEvent(
+      radiusInKm: event.range,
+      center: location,
+    ));
+  }
+}
+
 
   Future<void> drawMarkers(
       List<FindArtistByLocationResponse> artistFounded) async {
@@ -81,7 +102,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
       final response = await _locationService.getArtistByLocation(
           token,
           FindArtistByLocationRequest(
-              range: 5.0,
+              range: state.range,
               lat: event.location.latitude,
               lng: event.location.longitude));
       if (state.firstLoad) {
