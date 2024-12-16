@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
 import 'package:inker_studio/utils/api/http_logger.dart';
 

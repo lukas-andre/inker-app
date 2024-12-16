@@ -23,7 +23,7 @@ mixin _$SearchArtistDto {
   String? get query => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   int get limit => throw _privateConstructorUsedError;
-  int? get minRating => throw _privateConstructorUsedError;
+  double? get minRating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $SearchArtistDtoCopyWith<$Res> {
           SearchArtistDto value, $Res Function(SearchArtistDto) then) =
       _$SearchArtistDtoCopyWithImpl<$Res, SearchArtistDto>;
   @useResult
-  $Res call({String? query, int page, int limit, int? minRating});
+  $Res call({String? query, int page, int limit, double? minRating});
 }
 
 /// @nodoc
@@ -74,7 +74,7 @@ class _$SearchArtistDtoCopyWithImpl<$Res, $Val extends SearchArtistDto>
       minRating: freezed == minRating
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
     ) as $Val);
   }
 }
@@ -87,7 +87,7 @@ abstract class _$$SearchArtistDtoImplCopyWith<$Res>
       __$$SearchArtistDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? query, int page, int limit, int? minRating});
+  $Res call({String? query, int page, int limit, double? minRating});
 }
 
 /// @nodoc
@@ -122,7 +122,7 @@ class __$$SearchArtistDtoImplCopyWithImpl<$Res>
       minRating: freezed == minRating
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
     ));
   }
 }
@@ -145,7 +145,7 @@ class _$SearchArtistDtoImpl implements _SearchArtistDto {
   @JsonKey()
   final int limit;
   @override
-  final int? minRating;
+  final double? minRating;
 
   @override
   String toString() {
@@ -188,7 +188,7 @@ abstract class _SearchArtistDto implements SearchArtistDto {
       {final String? query,
       final int page,
       final int limit,
-      final int? minRating}) = _$SearchArtistDtoImpl;
+      final double? minRating}) = _$SearchArtistDtoImpl;
 
   factory _SearchArtistDto.fromJson(Map<String, dynamic> json) =
       _$SearchArtistDtoImpl.fromJson;
@@ -200,7 +200,7 @@ abstract class _SearchArtistDto implements SearchArtistDto {
   @override
   int get limit;
   @override
-  int? get minRating;
+  double? get minRating;
   @override
   @JsonKey(ignore: true)
   _$$SearchArtistDtoImplCopyWith<_$SearchArtistDtoImpl> get copyWith =>

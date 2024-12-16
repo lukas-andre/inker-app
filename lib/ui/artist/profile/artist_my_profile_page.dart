@@ -216,7 +216,7 @@ class ArtistMyProfilePage extends StatelessWidget {
             _buildNonEditableField(
               context: context,
               label: S.of(context).username,
-              value: artist.username,
+              value: artist.username ?? '',
             ),
             _buildEditableField(
               context: context,

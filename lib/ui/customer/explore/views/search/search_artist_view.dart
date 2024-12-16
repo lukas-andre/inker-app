@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
-import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -13,107 +14,240 @@ class SearchArtistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Material(
-      // Agregamos el widget Material aquí
-      type: MaterialType.transparency,
-      child: Container(
-        decoration: BoxDecoration(color: primaryColor),
-        width: size.width,
-        child: SafeArea(
-          child: Column(
-            children: [
-              ExplorerSearchBar(
-                onSearch: (query) {
-                  context.read<SearchArtistsBloc>().add(
-                        SearchArtistsEvent.search(query: query),
-                      );
+      color: primaryColor,
+      child: SafeArea(
+        child: Column(
+          children: [
+            _SearchHeader(),
+            Expanded(
+              child: BlocBuilder<SearchArtistsBloc, SearchArtistsState>(
+                builder: (context, state) {
+                  return state.when(
+                    initial: () => const Center(
+                      child: Text(
+                        'Busca artistas por nombre o estilo',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    loading: () => const Center(
+                      child: InkerProgressIndicator(),
+                    ),
+                    success: (artists, metadata, query) => artists.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No se encontraron resultados',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : GridView.count(
+                            crossAxisCount: 2,
+                            padding: const EdgeInsets.all(10),
+                            childAspectRatio: 0.65,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 10,
+                            children: List.generate(
+                              artists.length,
+                              (index) => _ArtistGridItem(
+                                key: Key('searchArtistItem$index'),
+                                artist: artists[index],
+                              ),
+                            ),
+                          ),
+                    error: (message) => Center(
+                      child: Text(
+                        'Error: $message',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
                 },
               ),
-              Expanded(
-                child: BlocBuilder<SearchArtistsBloc, SearchArtistsState>(
-                  builder: (context, state) {
-                    return state.when(
-                      initial: () => const Center(
-                        child: Text(
-                          'Busca artistas por nombre o estilo',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      success: (artists, metadata, query) => GridView.count(
-                        crossAxisCount: 2,
-                        padding: const EdgeInsets.all(10),
-                        childAspectRatio: 0.65,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 10,
-                        children: List.generate(
-                          artists.length,
-                          (index) => _ArtistGridItem(
-                            key: Key('searchArtistItem$index'),
-                            artist: artists[index],
-                          ),
-                        ),
-                      ),
-                      error: (message) => Center(
-                        child: Text(
-                          'Error: $message',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class _SearchResultGrid extends StatelessWidget {
+class _SearchHeader extends StatefulWidget {
+  @override
+  State<_SearchHeader> createState() => _SearchHeaderState();
+}
+
+class _SearchHeaderState extends State<_SearchHeader> {
+  bool _showFilters = false;
+  double _minimumRating = 0.0;
+  
+  void _clearFilters() {
+    setState(() {
+      _minimumRating = 0.0;
+    });
+    final bloc = context.read<SearchArtistsBloc>();
+    final currentState = bloc.state;
+    currentState.whenOrNull(
+      success: (_, __, query) {
+        bloc.add(SearchArtistsEvent.search(query: query));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: BlocBuilder<SearchArtistsBloc, SearchArtistsState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const Center(
-              child: Text(
-                'Busca artistas por nombre o estilo',
-                style: TextStyleTheme.instance,
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white.withOpacity(0.1),
+                width: 1,
               ),
             ),
-            loading: () => const Center(
-              child: InkerProgressIndicator(),
-            ),
-            success: (artists, metadata, query) => GridView.count(
-              crossAxisCount: 2,
-              padding: const EdgeInsets.all(10),
-              childAspectRatio: 0.65,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 10,
-              children: List.generate(
-                artists.length,
-                (index) => _ArtistGridItem(
-                  key: Key('searchArtistItem$index'),
-                  artist: artists[index],
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop(context),
+              ),
+              Expanded(
+                child: TextField(
+                  autofocus: true,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Buscar artistas...',
+                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                  onChanged: (query) {
+                    context.read<SearchArtistsBloc>().add(
+                          SearchArtistsEvent.search(
+                            query: query,
+                            minRating: _minimumRating > 0 ? _minimumRating : 0,
+                          ),
+                        );
+                  },
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.tune,
+                  color: _showFilters ? Colors.blue : Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _showFilters = !_showFilters;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        if (_showFilters)
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white.withOpacity(0.1),
+                  width: 1,
                 ),
               ),
             ),
-            error: (message) => Center(
-              child: Text(
-                'Error: $message',
-                style: TextStyleTheme.instance,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Filtros',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: _minimumRating > 0 ? _clearFilters : null,
+                      icon: const Icon(Icons.clear_all),
+                      label: const Text('Limpiar'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        disabledForegroundColor: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.amber, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Rating mínimo: ${_minimumRating.toStringAsFixed(1)}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Slider(
+                        value: _minimumRating,
+                        min: 0,
+                        max: 5,
+                        divisions: 10,
+                        activeColor: Colors.amber,
+                        inactiveColor: Colors.amber.withOpacity(0.3),
+                        label: _minimumRating.toStringAsFixed(1),
+                        onChanged: (value) {
+                          setState(() {
+                            _minimumRating = value;
+                          });
+                          final bloc = context.read<SearchArtistsBloc>();
+                          final currentState = bloc.state;
+                          currentState.whenOrNull(
+                            success: (artists, metadata, query) {
+                              bloc.add(SearchArtistsEvent.search(
+                                query: query,
+                                minRating: value,
+                              ));
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        BlocBuilder<SearchArtistsBloc, SearchArtistsState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              success: (artists, metadata, _) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${metadata.total} ${metadata.total == 1 ? 'artista encontrado' : 'artistas encontrados'}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
+      ],
     );
   }
 }
@@ -129,10 +263,10 @@ class _ArtistGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => InkerNavigator.push(
-      //   context,
-      //   const ArtistProfilePage(artist: null),
-      // ),
+      onTap: () => InkerNavigator.push(
+        context,
+        ArtistProfilePage(artist: artist),
+      ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
@@ -149,8 +283,8 @@ class _ArtistGridItem extends StatelessWidget {
             Expanded(
               flex: 6,
               child: _StudioImage(
-                imageUrl: artist.studioPhoto ??
-                    'https://d1riey1i0e5tx2.cloudfront.net/artist/default_studio.jpeg',
+                imageUrl: artist.studioPhoto ?? 
+                  'https://d1riey1i0e5tx2.cloudfront.net/artist/default_studio.jpeg',
               ),
             ),
             Padding(
@@ -220,14 +354,23 @@ class _ArtistInfo extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              if (artist.rating != null)
-                Text(
-                  'Rating: ${artist.rating}',
-                  style: TextStyleTheme.copyWith(
-                    fontSize: 12,
-                    color: Colors.white.withOpacity(0.8),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                    size: 16,
                   ),
-                ),
+                  const SizedBox(width: 4),
+                  Text(
+                    artist.rating ?? '',
+                    style: TextStyleTheme.copyWith(
+                      fontSize: 12,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
