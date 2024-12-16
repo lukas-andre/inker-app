@@ -103,6 +103,7 @@ class _AppViewState extends State<AppView> {
             localSessionService: context.read(),
             locationService: context.read(),
             artistsListBloc: context.read<ArtistsListBloc>(),
+            locationBloc: context.read<LocationBloc>(),
           ),
         ),
         BlocProvider(

@@ -21,3 +21,24 @@ class ExplorerPageFetchArtists extends ExplorerPageEvent {
   @override
   List<Object> get props => [location];
 }
+
+class ExplorerPageUpdateRange extends ExplorerPageEvent {
+  final double range;
+  const ExplorerPageUpdateRange({required this.range});
+  @override
+  List<Object> get props => [range];
+}
+
+
+class UpdateSearchRadiusEvent extends MapEvent {
+  final double radiusInKm;
+  final LatLng center;
+  
+  const UpdateSearchRadiusEvent({
+    required this.radiusInKm,
+    required this.center,
+  });
+  
+  @override
+  List<Object> get props => [radiusInKm, center];
+}

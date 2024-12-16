@@ -4,14 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'
-    show
-        CameraPosition,
-        CameraUpdate,
-        GoogleMapController,
-        LatLng,
-        Marker,
-        MarkerId;
+    show CameraPosition, CameraUpdate, Circle, CircleId, GoogleMapController, LatLng, Marker, MarkerId;
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -42,7 +37,35 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<DeselectAllMarkerEvent>(_onDeselectAllMarkerEvent);
     on<MapDraggableScrollableNotificationEvent>(
         _onMapDraggableScrollableNotificationEvent);
+    on<UpdateSearchRadiusEvent>(_onUpdateSearchRadius);
+
+    _locationStateSubscription?.cancel();
+    _locationStateSubscription = _locationBloc.stream.listen((locationState) {
+      if (locationState.lastKnownLocation != null) {
+        add(UpdateSearchRadiusEvent(radiusInKm: 5.0, center: locationState.lastKnownLocation!));
+      }
+    });
   }
+
+    void _onUpdateSearchRadius(
+    UpdateSearchRadiusEvent event,
+    Emitter<MapState> emit,
+  ) {
+    final circle = Circle(
+      circleId: const CircleId('searchRadius'),
+      center: event.center,
+      radius: event.radiusInKm * 1000, // convertir a metros
+      fillColor: Colors.blue.withOpacity(0.1),
+      strokeColor: Colors.blue.withOpacity(0.5),
+      strokeWidth: 2,
+    );
+
+    emit(state.copyWith(
+      searchRadius: circle,
+      currentLocation: event.center,
+    ));
+  }
+
 
   Artist? get selectedArtist {
     if (state.selectedMarker == null) return null;

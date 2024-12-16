@@ -71,6 +71,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         localSessionService: context.read(),
         locationService: context.read(),
         artistsListBloc: context.read<ArtistsListBloc>(),
+        locationBloc: context.read<LocationBloc>(),
       ),
     ),
     BlocProvider(
