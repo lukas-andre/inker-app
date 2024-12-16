@@ -1,5 +1,7 @@
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/search_artist.dto.dart';
+import 'package:inker_studio/data/api/artist/dtos/search_artist_response.dto.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
@@ -112,6 +114,34 @@ class ApiArtistService implements ArtistService {
       dev.logError(e, stackTrace);
       if (e is CustomHttpException) {
         throw Exception('Failed to update studio photo: ${e.message}');
+      }
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SearchArtistResponseDto> searchArtists(
+      SearchArtistDto searchParams) async {
+    try {
+      final token = await _getToken();
+      final queryParams = {
+        if (searchParams.query != null) 'query': searchParams.query!,
+        'page': searchParams.page.toString(),
+        'limit': searchParams.limit.toString(),
+        if (searchParams.minRating != null)
+          'minRating': searchParams.minRating!.toString(),
+      };
+
+      return await _httpClient.get(
+        path: '$_basePath/search',
+        token: token,
+        queryParams: queryParams,
+        fromJson: SearchArtistResponseDto.fromJson,
+      );
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      if (e is CustomHttpException) {
+        throw Exception('Failed to search artists: ${e.message}');
       }
       rethrow;
     }
