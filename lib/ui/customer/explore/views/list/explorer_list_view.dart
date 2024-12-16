@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
+import 'package:inker_studio/domain/services/artist/artist_service.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
+import 'package:inker_studio/ui/customer/explore/views/search/search_artist_view.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -27,7 +30,21 @@ class ExplorerListView extends StatelessWidget {
             child: Column(
               children: [
                 const ExplorerListViewTitle(),
-                const ExplorerSearchBar(),
+                ExplorerSearchBar(
+                  onSearch: (query) {
+                    // Navegar a la vista de búsqueda cuando el usuario escriba
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) => SearchArtistsBloc(
+                            artistService: context.read<ArtistService>(),
+                          )..add(SearchArtistsEvent.search(query: query)),
+                          child: const SearchArtistView(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 const RowSpacer(space: 20),
                 ExplorerResultList(),
               ],
