@@ -1106,5 +1106,40 @@
     "description": "Text shown to indicate a location",
     "type": "text",
     "placeholders": {}
+  },
+  "reset": "Restablecer",
+  "@reset": {
+    "description": "Action to reset something."
+  },
+  "range": "Rango",
+  "@range": {
+    "description": "The distance in kilometers to search for artists."
+  },
+  "km": "km",
+  "@km": {
+    "description": "The unit of distance in kilometers."
+  },
+  "resetRange": "Restablecer Rango",
+  "@resetRange": {
+    "description": "Action to reset the range of search."
+  },
+  "searchRadius": "Radio de búsqueda",
+  "@searchRadius": {
+    "description": "The radius in kilometers to search for artists."
+  },
+  "artistsFound": "{artistsFound} artistas encontrados en {range}km",
+  "@artistsFound": {
+    "description": "Text showing the number of artists found in a given range",
+    "type": "text",
+    "placeholders": {
+      "artistsFound": {
+        "type": "int",
+        "example": "10"
+      },
+      "range": {
+        "type": "double",
+        "example": "5.0"
+      }
+    }
   }
 }

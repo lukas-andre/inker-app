@@ -4,6 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 
 class ExplorerMapView extends StatelessWidget {
@@ -88,11 +91,8 @@ class _RangeControl extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  '${state.artistFounded.length} artistas encontrados en ${state.range.toStringAsFixed(1)}km',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
+                  S.of(context).artistsFound(state.artistFounded.length, state.range),
+                  style: TextStyleTheme.subtitle2.copyWith(color: Colors.white),
                 ),
               ),
 
@@ -118,18 +118,15 @@ class _RangeControl extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.radio_button_checked,
                             size: 18,
-                            color: Colors.blue,
+                            color: secondaryColor,
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Radio de búsqueda',
-                            style: TextStyle(
-                              color: Colors.grey[800],
-                              fontWeight: FontWeight.w500,
-                            ),
+                            S.of(context).searchRadius,
+                            style: TextStyleTheme.subtitle2.copyWith(color: Colors.grey[800], fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
@@ -151,11 +148,8 @@ class _RangeControl extends StatelessWidget {
                             minimumSize: const Size(0, 0),
                           ),
                           child: Text(
-                            'Restablecer',
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontSize: 12,
-                            ),
+                            S.of(context).reset,
+                            style: TextStyleTheme.subtitle2.copyWith(color: secondaryColor, fontWeight: FontWeight.w500),
                           ),
                         ),
                     ],
@@ -169,8 +163,8 @@ class _RangeControl extends StatelessWidget {
                           min: 0.5,
                           max: 10.0,
                           divisions: 19,
-                          activeColor: Colors.blue,
-                          inactiveColor: Colors.blue.withOpacity(0.2),
+                          activeColor: secondaryColor,
+                          inactiveColor: secondaryColor.withOpacity(0.2),
                           label: '${state.range.toStringAsFixed(1)} km',
                           onChanged: state.isLoading 
                             ? null 
@@ -194,10 +188,7 @@ class _RangeControl extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           '${state.range.toStringAsFixed(1)}km',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: TextStyleTheme.subtitle2.copyWith(color: Colors.grey[600], fontWeight: FontWeight.w500),
                         ),
                       ),
                     ],

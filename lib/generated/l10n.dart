@@ -2261,10 +2261,10 @@ class S {
     );
   }
 
-  /// `Rechazado por Ti`
+  /// `Rechazado`
   String get quotationStatusCustomerRejected {
     return Intl.message(
-      'Rechazado por Ti',
+      'Rechazado',
       name: 'quotationStatusCustomerRejected',
       desc: 'Estado mostrado al cliente cuando la cotización está rechazada',
       args: [],
@@ -2651,6 +2651,66 @@ class S {
       name: 'location',
       desc: 'Text shown to indicate a location',
       args: [],
+    );
+  }
+
+  /// `Restablecer`
+  String get reset {
+    return Intl.message(
+      'Restablecer',
+      name: 'reset',
+      desc: 'Action to reset something.',
+      args: [],
+    );
+  }
+
+  /// `Rango`
+  String get range {
+    return Intl.message(
+      'Rango',
+      name: 'range',
+      desc: 'The distance in kilometers to search for artists.',
+      args: [],
+    );
+  }
+
+  /// `km`
+  String get km {
+    return Intl.message(
+      'km',
+      name: 'km',
+      desc: 'The unit of distance in kilometers.',
+      args: [],
+    );
+  }
+
+  /// `Restablecer Rango`
+  String get resetRange {
+    return Intl.message(
+      'Restablecer Rango',
+      name: 'resetRange',
+      desc: 'Action to reset the range of search.',
+      args: [],
+    );
+  }
+
+  /// `Radio de búsqueda`
+  String get searchRadius {
+    return Intl.message(
+      'Radio de búsqueda',
+      name: 'searchRadius',
+      desc: 'The radius in kilometers to search for artists.',
+      args: [],
+    );
+  }
+
+  /// `{artistsFound} artistas encontrados en {range}km`
+  String artistsFound(int artistsFound, double range) {
+    return Intl.message(
+      '$artistsFound artistas encontrados en ${range}km',
+      name: 'artistsFound',
+      desc: 'Text showing the number of artists found in a given range',
+      args: [artistsFound, range],
     );
   }
 }
