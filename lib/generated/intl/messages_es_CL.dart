@@ -20,26 +20,29 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es_CL';
 
-  static String m0(count) =>
-      "${Intl.plural(count, one: 'hace 1 día', other: 'hace ${count} días')}";
+  static String m0(artistsFound, range) =>
+      "${artistsFound} artistas encontrados en ${range}km";
 
   static String m1(count) =>
+      "${Intl.plural(count, one: 'hace 1 día', other: 'hace ${count} días')}";
+
+  static String m2(count) =>
       "${Intl.plural(count, one: 'hace 1 hora', other: 'hace ${count} horas')}";
 
-  static String m2(hoursv2, minutesv2) =>
+  static String m3(hoursv2, minutesv2) =>
       "${hoursv2} horas y ${minutesv2} minutos";
 
-  static String m3(hoursv2) => "${hoursv2} horas";
+  static String m4(hoursv2) => "${hoursv2} horas";
 
-  static String m4(count) =>
+  static String m5(count) =>
       "${Intl.plural(count, one: 'hace 1 minuto', other: 'hace ${count} minutos')}";
 
-  static String m5(minutesv2) => "${minutesv2} minutos";
-
-  static String m6(count) =>
-      "${Intl.plural(count, one: 'hace 1 mes', other: 'hace ${count} meses')}";
+  static String m6(minutesv2) => "${minutesv2} minutos";
 
   static String m7(count) =>
+      "${Intl.plural(count, one: 'hace 1 mes', other: 'hace ${count} meses')}";
+
+  static String m8(count) =>
       "${Intl.plural(count, one: 'hace 1 año', other: 'hace ${count} años')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -86,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas cerrar sesión?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
+        "artistsFound": m0,
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Esperando Artista"),
         "awaitingCustomer":
@@ -150,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createdAt": MessageLookupByLibrary.simpleMessage("Creado en"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Estado Actual"),
         "customer": MessageLookupByLibrary.simpleMessage("Cliente"),
-        "daysAgo": m0,
+        "daysAgo": m1,
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Eliminar Cuenta"),
@@ -202,13 +206,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "haircut": MessageLookupByLibrary.simpleMessage("Corte de Pelo"),
         "hour": MessageLookupByLibrary.simpleMessage("Hora"),
         "hours": MessageLookupByLibrary.simpleMessage("horas"),
-        "hoursAgo": m1,
-        "hoursAndMinutes": m2,
-        "hoursv2": m3,
+        "hoursAgo": m2,
+        "hoursAndMinutes": m3,
+        "hoursv2": m4,
         "invalidNumber":
             MessageLookupByLibrary.simpleMessage("Número Inválido"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Rango Inválido"),
         "justNow": MessageLookupByLibrary.simpleMessage("Ahora mismo"),
+        "km": MessageLookupByLibrary.simpleMessage("km"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
@@ -222,9 +227,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
-        "minutesAgo": m4,
-        "minutesv2": m5,
-        "monthsAgo": m6,
+        "minutesAgo": m5,
+        "minutesv2": m6,
+        "monthsAgo": m7,
         "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
         "newRequest": MessageLookupByLibrary.simpleMessage("Nueva Solicitud"),
@@ -309,7 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quotationStatusCustomerQuoted":
             MessageLookupByLibrary.simpleMessage("Cotización Recibida"),
         "quotationStatusCustomerRejected":
-            MessageLookupByLibrary.simpleMessage("Rechazado por Ti"),
+            MessageLookupByLibrary.simpleMessage("Rechazado"),
         "quote": MessageLookupByLibrary.simpleMessage("Cotización"),
         "quoteDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
@@ -317,6 +322,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quotedTheRequest":
             MessageLookupByLibrary.simpleMessage("Cotizó la solicitud"),
         "quotes": MessageLookupByLibrary.simpleMessage("Cotizaciones"),
+        "range": MessageLookupByLibrary.simpleMessage("Rango"),
         "rating": MessageLookupByLibrary.simpleMessage("Calificación"),
         "receivedQuotation":
             MessageLookupByLibrary.simpleMessage("Cotización Recibida"),
@@ -358,6 +364,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requests": MessageLookupByLibrary.simpleMessage("Solicitudes"),
         "requiredField":
             MessageLookupByLibrary.simpleMessage("Campo Requerido"),
+        "reset": MessageLookupByLibrary.simpleMessage("Restablecer"),
+        "resetRange": MessageLookupByLibrary.simpleMessage("Restablecer Rango"),
         "resetZoom": MessageLookupByLibrary.simpleMessage("Restablecer Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
@@ -370,6 +378,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleInfo":
             MessageLookupByLibrary.simpleMessage("Información de Agenda"),
         "scheduled": MessageLookupByLibrary.simpleMessage("Agendado"),
+        "searchRadius":
+            MessageLookupByLibrary.simpleMessage("Radio de búsqueda"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Seleccionar Fecha"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Seleccionar Fecha y Hora"),
@@ -422,7 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo"),
-        "yearsAgo": m7,
+        "yearsAgo": m8,
         "yes": MessageLookupByLibrary.simpleMessage("Sí"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Acercar"),

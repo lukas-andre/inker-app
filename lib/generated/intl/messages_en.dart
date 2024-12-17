@@ -20,26 +20,29 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) =>
-      "${Intl.plural(count, one: '1 day ago', other: '${count} days ago')}";
+  static String m0(artistsFound, range) =>
+      "${artistsFound} artists found in ${range}km";
 
   static String m1(count) =>
+      "${Intl.plural(count, one: '1 day ago', other: '${count} days ago')}";
+
+  static String m2(count) =>
       "${Intl.plural(count, one: '1 hour ago', other: '${count} hours ago')}";
 
-  static String m2(hoursv2, minutesv2) =>
+  static String m3(hoursv2, minutesv2) =>
       "${hoursv2} hours and ${minutesv2} minutes";
 
-  static String m3(hoursv2) => "${hoursv2} hours";
+  static String m4(hoursv2) => "${hoursv2} hours";
 
-  static String m4(count) =>
+  static String m5(count) =>
       "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
 
-  static String m5(minutesv2) => "${minutesv2} minutes";
-
-  static String m6(count) =>
-      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+  static String m6(minutesv2) => "${minutesv2} minutes";
 
   static String m7(count) =>
+      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+
+  static String m8(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -83,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artist"),
+        "artistsFound": m0,
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
         "awaitingCustomer":
@@ -145,7 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createdAt": MessageLookupByLibrary.simpleMessage("Created At"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Current Status"),
         "customer": MessageLookupByLibrary.simpleMessage("Customer"),
-        "daysAgo": m0,
+        "daysAgo": m1,
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
@@ -192,11 +196,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "haircut": MessageLookupByLibrary.simpleMessage("Haircut"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
-        "hoursAgo": m1,
-        "hoursAndMinutes": m2,
-        "hoursv2": m3,
+        "hoursAgo": m2,
+        "hoursAndMinutes": m3,
+        "hoursv2": m4,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
+        "km": MessageLookupByLibrary.simpleMessage("km"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locale": MessageLookupByLibrary.simpleMessage("en"),
@@ -210,9 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Member since"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
-        "minutesAgo": m4,
-        "minutesv2": m5,
-        "monthsAgo": m6,
+        "minutesAgo": m5,
+        "minutesv2": m6,
+        "monthsAgo": m7,
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
         "newRequest": MessageLookupByLibrary.simpleMessage("New Request"),
@@ -299,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quotedTheRequest":
             MessageLookupByLibrary.simpleMessage("Quoted the request"),
         "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
+        "range": MessageLookupByLibrary.simpleMessage("Range"),
         "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "receivedQuotation":
             MessageLookupByLibrary.simpleMessage("Received Quotation"),
@@ -338,6 +344,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request Details"),
         "requests": MessageLookupByLibrary.simpleMessage("Requests"),
         "requiredField": MessageLookupByLibrary.simpleMessage("Required Field"),
+        "reset": MessageLookupByLibrary.simpleMessage("Reset"),
+        "resetRange": MessageLookupByLibrary.simpleMessage("Reset Range"),
         "resetZoom": MessageLookupByLibrary.simpleMessage("Reset Zoom"),
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Respond to Quotation"),
@@ -349,6 +357,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
         "scheduleInfo": MessageLookupByLibrary.simpleMessage("Schedule Info"),
         "scheduled": MessageLookupByLibrary.simpleMessage("Scheduled"),
+        "searchRadius": MessageLookupByLibrary.simpleMessage("Search Radius"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Select Date & Time"),
@@ -399,7 +408,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
-        "yearsAgo": m7,
+        "yearsAgo": m8,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Zoom In"),

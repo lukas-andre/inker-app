@@ -1099,5 +1099,40 @@
   "location": "Location",
   "@location": {
     "description": "The physical place where something is located."
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Action to reset something."
+  },
+  "range": "Range",
+  "@range": {
+    "description": "The distance in kilometers to search for artists."
+  },
+  "km": "km",
+  "@km": {
+    "description": "The unit of distance in kilometers."
+  },
+  "resetRange": "Reset Range",
+  "@resetRange": {
+    "description": "Action to reset the range of search."
+  },
+  "searchRadius": "Search Radius",
+  "@searchRadius": {
+    "description": "The radius in kilometers to search for artists."
+  },
+  "artistsFound": "{artistsFound} artists found in {range}km",
+  "@artistsFound": {
+    "description": "Text showing the number of artists found in a given range",
+    "type": "text",
+    "placeholders": {
+      "artistsFound": {
+        "type": "int",
+        "example": "10"
+      },
+      "range": {
+        "type": "double",
+        "example": "5.0"
+      }
+    }
   }
 }
