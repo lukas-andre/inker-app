@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
+import 'package:inker_studio/domain/errors/remote/json_parse_exception.dart';
+import 'package:inker_studio/domain/errors/remote/resource_not_found.dart';
 import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -17,9 +22,6 @@ class ApiSettingsService extends SettingsService {
 
   @override
   Future<Settings> loadSettings({required String token}) async {
-    return Settings.initial();
-    // Cuando se necesite implementar:
-    /*
     try {
       return await _httpClient.get(
         path: _basePath,
@@ -41,7 +43,6 @@ class ApiSettingsService extends SettingsService {
       dev.logError(e, StackTrace.current);
       rethrow;
     }
-    */
   }
 
   @override
