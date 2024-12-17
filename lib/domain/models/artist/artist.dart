@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+
 part 'artist.freezed.dart';
 part 'artist.g.dart';
 
