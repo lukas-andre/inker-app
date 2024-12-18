@@ -60,10 +60,10 @@ class ApiAuthService extends AuthService {
       );
     } on CustomHttpException catch (e) {
       switch (e.statusCode) {
-        case HttpStatus.conflict:
+        case HttpStatus.badRequest:
           throw InvalidCredentialsException();
           
-        case HttpStatus.badRequest:
+        case HttpStatus.conflict:
           if (e.message.contains('User is not active')) {
             throw UserIsNotActiveException();
           }

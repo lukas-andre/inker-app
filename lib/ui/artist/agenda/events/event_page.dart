@@ -23,8 +23,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           S.of(context).eventDetails,
-          style: TextStyleTheme.copyWith(
-              color: Colors.white, fontWeight: FontWeight.normal, fontSize: 24),
+          style: TextStyleTheme.headline2,
         ),
         backgroundColor: primaryColor,
         elevation: 1.0,
@@ -35,27 +34,17 @@ class AgendaEventDetailPage extends StatelessWidget {
           ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            loaded: (data) {
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ListView(
-                  children: [
-                    _buildEventInfoSection(context, data),
-                    const SizedBox(height: 20),
-                    _buildDescriptionSection(context, data),
-                    const SizedBox(height: 20),
-                    _buildWorkEvidenceSection(context, data),
-                    const SizedBox(height: 20),
-                    _buildLocationDetailsSection(context, data),
-                    const SizedBox(height: 80), // Space for buttons
-                  ],
-                ),
-              );
-            },
-            error: (message) =>
-                Center(child: Text('Error loading event details: $message')),
+            initial: () => const Center(
+                child: CircularProgressIndicator(color: Colors.white)),
+            loading: () => const Center(
+                child: CircularProgressIndicator(color: Colors.white)),
+            loaded: (data) => _buildContent(context, data),
+            error: (message) => Center(
+              child: Text(
+                'Error loading event details: $message',
+                style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
+              ),
+            ),
           );
         },
       ),
@@ -64,7 +53,7 @@ class AgendaEventDetailPage extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             loaded: (data) => !data.event.done
-                ? _buildButtonsSection(context, data)
+                ? _buildActionButtons(context, data)
                 : const SizedBox(),
             orElse: () => const SizedBox(),
           );
@@ -73,154 +62,249 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEventInfoSection(
-      BuildContext context, AgendaEventDetailResponse data) {
-    final DateFormat dateFormat = DateFormat('d MMMM yyyy', Intl.defaultLocale);
-    final DateFormat timeFormat = DateFormat('Hm', Intl.defaultLocale);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildInfoRow(
-          context,
-          icon: Icons.event,
-          text: data.event.title,
-          textStyle: TextStyleTheme.copyWith(
-            color: Colors.white54,
-            fontWeight: FontWeight.bold,
-            fontSize: 24.0,
-          ),
-        ),
-        const SizedBox(height: 10),
-        _buildInfoRow(
-          context,
-          icon: Icons.calendar_today,
-          text:
-              '${dateFormat.format(data.event.start)} [${timeFormat.format(data.event.start)} - ${timeFormat.format(data.event.end)}]',
-          textStyle: TextStyleTheme.copyWith(
-            color: Colors.grey[500],
-            fontWeight: FontWeight.normal,
-            fontSize: 14.0,
-          ),
-        ),
-        const SizedBox(height: 10),
-        _buildInfoRow(
-          context,
-          icon: data.event.done ? Icons.check_circle : Icons.schedule,
-          text: data.event.done
-              ? S.of(context).completed
-              : S.of(context).upcomming,
-          iconColor: data.event.done ? Colors.green : Colors.orange,
-          textStyle: TextStyleTheme.copyWith(
-            color: data.event.done ? Colors.green : Colors.orange,
-            fontWeight: FontWeight.normal,
-            fontSize: 14.0,
-          ),
-        ),
-      ],
+  Widget _buildContent(BuildContext context, AgendaEventDetailResponse data) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildMainEventCard(context, data),
+          const SizedBox(height: 16),
+          _buildDescriptionCard(context, data),
+          if (data.event.workEvidence != null) ...[
+            const SizedBox(height: 16),
+            _buildWorkEvidenceCard(context, data),
+          ],
+          const SizedBox(height: 16),
+          _buildLocationCard(context, data),
+          const SizedBox(height: 80),
+        ],
+      ),
     );
   }
 
-  Widget _buildDescriptionSection(
+  Widget _buildMainEventCard(
       BuildContext context, AgendaEventDetailResponse data) {
-    return _buildSection(
-      context,
-      icon: Icons.description,
-      title: S.of(context).description,
-      content: Text(
-        data.event.info,
-        style: TextStyleTheme.copyWith(
-          color: const Color(0xff707070),
-          fontWeight: FontWeight.normal,
-          fontSize: 14.0,
+    final DateFormat dateFormat = DateFormat('d MMMM yyyy', Intl.defaultLocale);
+    final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
+
+    return Card(
+      margin: const EdgeInsets.all(16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(
+                        int.parse(data.event.color.replaceAll('#', '0xFF'))),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    data.event.title,
+                    style: TextStyleTheme.headline3,
+                  ),
+                ),
+                _StatusChip(isDone: data.event.done),
+              ],
+            ),
+            const Divider(height: 32),
+            _InfoRow(
+              icon: Icons.calendar_today,
+              title: S.of(context).date,
+              content: dateFormat.format(data.event.start),
+            ),
+            const SizedBox(height: 12),
+            _InfoRow(
+              icon: Icons.access_time,
+              title: S.of(context).time,
+              content:
+                  '${timeFormat.format(data.event.start)} - ${timeFormat.format(data.event.end)}',
+            ),
+            if (data.event.quotationId != null) ...[
+              const SizedBox(height: 12),
+              _InfoRow(
+                icon: Icons.description_outlined,
+                title: S.of(context).quotationNumber,
+                content: '#${data.event.quotationId}',
+              ),
+            ],
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildWorkEvidenceSection(
+  Widget _buildDescriptionCard(
       BuildContext context, AgendaEventDetailResponse data) {
-    return _buildSection(
-      context,
-      icon: Icons.photo_library,
-      title: S.of(context).workEvidence,
-      content: data.event.workEvidence != null
-          ? GridView.builder(
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              S.of(context).description,
+              style: TextStyleTheme.subtitle1,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              data.event.info,
+              style: TextStyleTheme.bodyText1.copyWith(height: 1.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWorkEvidenceCard(
+      BuildContext context, AgendaEventDetailResponse data) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              S.of(context).workEvidence,
+              style: TextStyleTheme.subtitle1,
+            ),
+            const SizedBox(height: 16),
+            GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
               ),
               itemCount: data.event.workEvidence!.metadata.length,
               itemBuilder: (context, index) {
                 final metadata = data.event.workEvidence!.metadata[index];
-                return Image.network(metadata.url);
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    metadata.url,
+                    fit: BoxFit.cover,
+                  ),
+                );
               },
-            )
-          : Text(
-              S.of(context).noWorkEvidence,
-              style: TextStyleTheme.copyWith(
-                color: const Color(0xff707070),
-                fontWeight: FontWeight.normal,
-                fontSize: 14.0,
-              ),
             ),
-    );
-  }
-
-  Widget _buildLocationDetailsSection(
-      BuildContext context, AgendaEventDetailResponse data) {
-    return _buildSection(
-      context,
-      icon: Icons.location_on,
-      title: S.of(context).locationDetails,
-      content: InkWell(
-        onTap: () => _openMap(context, data.location.lat, data.location.lng,
-            S.of(context).eventLocation),
-        child: Text(
-          data.location.formattedAddress,
-          style: const TextStyle(
-            color: Colors.blue,
-            decoration: TextDecoration.underline,
-          ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildButtonsSection(
+  Widget _buildLocationCard(
+      BuildContext context, AgendaEventDetailResponse data) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              S.of(context).location,
+              style: TextStyleTheme.subtitle1,
+            ),
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () => _openMap(
+                context,
+                data.location.lat,
+                data.location.lng,
+                data.location.formattedAddress,
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: secondaryColor,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.location.formattedAddress,
+                          style: TextStyleTheme.bodyText1.copyWith(
+                            color: secondaryColor,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        if (data.location.name != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            data.location.name!,
+                            style: TextStyleTheme.caption.copyWith(
+                              color: tertiaryColor,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(
       BuildContext context, AgendaEventDetailResponse data) {
     return Container(
-      color: primaryColor,
+      color: explorerSecondaryColor,
       padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.edit, color: Colors.white),
-            label: Text(
-              S.of(context).edit,
-              style: TextStyleTheme.copyWith(
-                color: Colors.white,
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.edit, color: Colors.white),
+              label: Text(
+                S.of(context).edit,
+                style: TextStyleTheme.button,
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: secondaryColor,
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
-            ),
           ),
-          const SizedBox(height: 10),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.cancel, color: Colors.white),
-            label: Text(
-              S.of(context).cancel,
-              style: TextStyleTheme.copyWith(color: Colors.white),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+          const SizedBox(width: 16),
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.cancel, color: Colors.white),
+              label: Text(
+                S.of(context).cancel,
+                style: TextStyleTheme.button,
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
             ),
           ),
         ],
@@ -228,56 +312,75 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(BuildContext context,
-      {required IconData icon,
-      required String text,
-      Color? iconColor,
-      required TextStyle textStyle}) {
+  void _openMap(BuildContext context, double latitude, double longitude,
+      String title) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    if (availableMaps.isNotEmpty) {
+      await availableMaps.first.showMarker(
+        coords: Coords(latitude, longitude),
+        title: title,
+      );
+    }
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String content;
+
+  const _InfoRow({
+    required this.icon,
+    required this.title,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: iconColor ?? Colors.white54),
-        const SizedBox(width: 8),
-        Expanded(child: Text(text, style: textStyle)),
-      ],
-    );
-  }
-
-  Widget _buildSection(BuildContext context,
-      {required IconData icon,
-      required String title,
-      required Widget content}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+        Icon(icon, color: tertiaryColor, size: 20),
+        const SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: Colors.white54),
-            const SizedBox(width: 8),
             Text(
               title,
-              style: TextStyleTheme.copyWith(
-                fontSize: 18,
-                color: Colors.white54,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              content,
+              style: TextStyleTheme.bodyText1,
             ),
           ],
         ),
-        const SizedBox(height: 10),
-        content,
       ],
     );
   }
+}
 
-  void _openMap(BuildContext context, double latitude, double longitude,
-      String mapTitle) async {
-    final availableMaps = await MapLauncher.installedMaps;
-    if (availableMaps.isNotEmpty) {
-      final map = availableMaps.first;
-      await map.showMarker(
-        coords: Coords(latitude, longitude),
-        title: mapTitle,
-      );
-    }
+class _StatusChip extends StatelessWidget {
+  final bool isDone;
+
+  const _StatusChip({required this.isDone});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isDone ? Colors.green : Colors.orange;
+    final text = isDone ? S.of(context).completed : S.of(context).upcomming;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color),
+      ),
+      child: Text(
+        text,
+        style: TextStyleTheme.caption.copyWith(color: color),
+      ),
+    );
   }
 }

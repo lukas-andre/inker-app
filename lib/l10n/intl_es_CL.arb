@@ -1141,5 +1141,97 @@
         "example": "5.0"
       }
     }
+  },
+  "time": "Tiempo",
+  "@time": {
+    "description": "The time of an event or appointment."
+  },
+  "quotationNumber": "Número de Cotización",
+  "@quotationNumber": {
+    "description": "The number of a quotation."
+  },
+  "date": "Fecha",
+  "@date": {
+    "description": "The date of an event or appointment."
+  },
+  "applicationSettings": "Configuración de la aplicación",
+  "@applicationSettings": {
+    "description": "Settings for the application."
+  },
+  "notificationsDescription": "Habilitar o deshabilitar notificaciones.",
+  "@notificationsDescription": {
+    "description": "Descripción para las notificaciones."
+  },
+  "locationServicesDescription": "Habilitar o deshabilitar servicios de ubicación.",
+  "@locationServicesDescription": {
+    "description": "Descripción para los servicios de ubicación."
+  },
+  "notificationsPermissionRequired": "Permiso de notificaciones requerido",
+  "@notificationsPermissionRequired": {
+    "description": "Mensaje mostrado cuando se requiere permiso de notificaciones."
+  },
+  "locationPermissionRequired": "Permiso de ubicación requerido",
+  "@locationPermissionRequired": {
+    "description": "Mensaje mostrado cuando se requiere permiso de ubicación."
+  },
+  "accountSettings": "Configuración de la cuenta",
+  "@accountSettings": {
+    "description": "Settings for the account."
+  },
+  "changePassword": "Cambiar contraseña",
+  "@changePassword": {
+    "description": "Action to change the password."
+  },
+  "currentPassword": "Contraseña actual",
+  "@currentPassword": {
+    "description": "Label for the current password field."
+  },
+  "newPassword": "Nueva contraseña",
+  "@newPassword": {
+    "description": "Label for the new password field."
+  },
+  "confirmPassword": "Confirmar contraseña",
+  "@confirmPassword": {
+    "description": "Label for the confirm password field."
+  },
+  "passwordsDontMatch": "Las contraseñas no coinciden",
+  "@passwordsDontMatch": {
+    "description": "Message displayed when passwords don't match."
+  },
+  "passwordTooShort": "La contraseña es demasiado corta",
+  "@passwordTooShort": {
+    "description": "Message displayed when password is too short."
+  },
+  "required": "Requerido",
+  "@required": {
+    "description": "Message displayed when a field is required."
+  },
+  "confirmNewPassword": "Confirmar nueva contraseña",
+  "@confirmNewPassword": {
+    "description": "Label for the confirm new password field."
+  },
+  "passwordChangedSuccessfully": "Contraseña cambiada exitosamente",
+  "@passwordChangedSuccessfully": {
+    "description": "Message displayed when password is changed successfully."
+  },
+  "change": "Cambiar",
+  "@change": {
+    "description": "Action to change something."
+  },
+  "legal": "Legal",
+  "@legal": {
+    "description": "Settings related to legal matters."
+  },
+  "permissionRequired": "Permiso requerido",
+  "@permissionRequired": {
+    "description": "Message displayed when a permission is required."
+  },
+  "openSettings": "Abrir Configuraciones",
+  "@openSettings": {
+    "description": "Action to open the settings."
+  },
+  "deleteAccountWarning": "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta.",
+  "@deleteAccountWarning": {
+    "description": "Warning message displayed when deleting an account."
   }
 }

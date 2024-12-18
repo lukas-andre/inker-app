@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/ui/account_reactivation/account_reactivation_page.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/login/widgets/login_layout.dart';
+import 'package:inker_studio/ui/verification/verification_page.dart';
+import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -54,15 +57,17 @@ class LoginPage extends StatelessWidget {
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == FormzStatus.submissionFailure) {
+              if (state.userStatus == UserStatus.inactive) {
+                final snackBar = _getUserInactiveSnackBar(context);
+                
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
               if (state.loginStatus == LoginStatus.invalidCredentials) {
                 final snackBar = _getInvalidCredentialsSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
 
-              if (state.userStatus == UserStatus.inactive) {
-                final snackBar = _getUserInactiveSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
 
               if (state.loginStatus == LoginStatus.unknownError) {
                 final snackBar = _getUnknownErrorSnackBar();
@@ -83,7 +88,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  SnackBar _getUserInactiveSnackBar() {
+  SnackBar _getUserInactiveSnackBar(BuildContext context) {
     return customSnackBar(
         key: const Key(userInactiveSnackBarKey),
         content: userInactiveMessage,
@@ -93,7 +98,10 @@ class LoginPage extends StatelessWidget {
           disabledTextColor: Colors.white,
           textColor: Colors.white,
           onPressed: () {
-            //Do whatever you want
+            openModalBottomSheet(
+                context: context,
+                page: const AccountReactivationPage(),
+                enableDrag: false);
           },
         ));
   }

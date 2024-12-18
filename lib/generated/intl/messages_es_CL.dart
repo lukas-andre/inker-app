@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accepted": MessageLookupByLibrary.simpleMessage("Aceptado"),
         "acceptedTheQuotation":
             MessageLookupByLibrary.simpleMessage("aceptó la cotización"),
+        "accountSettings":
+            MessageLookupByLibrary.simpleMessage("Configuración de la cuenta"),
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
         "addDescription": MessageLookupByLibrary.simpleMessage(
             "Agrega una descripción sobre ti."),
@@ -78,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("El precio es demasiado alto"),
         "appealedTheQuotation":
             MessageLookupByLibrary.simpleMessage("Apeló la cotización"),
+        "applicationSettings": MessageLookupByLibrary.simpleMessage(
+            "Configuración de la aplicación"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Fecha de la Cita"),
         "appointmentDateChangedFrom": MessageLookupByLibrary.simpleMessage(
@@ -125,7 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancellationReason":
             MessageLookupByLibrary.simpleMessage("Motivo de Cancelación"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "change": MessageLookupByLibrary.simpleMessage("Cambiar"),
         "changeImage": MessageLookupByLibrary.simpleMessage("Cambiar Imagen"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
         "changeSelection":
             MessageLookupByLibrary.simpleMessage("Cambiar Selección"),
         "changedStatusFrom":
@@ -142,6 +149,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."),
         "confirmLogout":
             MessageLookupByLibrary.simpleMessage("Confirmar Cierre de Sesión"),
+        "confirmNewPassword":
+            MessageLookupByLibrary.simpleMessage("Confirmar nueva contraseña"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirmar contraseña"),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
@@ -152,12 +163,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
         "createdAt": MessageLookupByLibrary.simpleMessage("Creado en"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Contraseña actual"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Estado Actual"),
         "customer": MessageLookupByLibrary.simpleMessage("Cliente"),
+        "date": MessageLookupByLibrary.simpleMessage("Fecha"),
         "daysAgo": m1,
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "deleteAccount":
             MessageLookupByLibrary.simpleMessage("Eliminar Cuenta"),
+        "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta."),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
@@ -215,13 +231,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "justNow": MessageLookupByLibrary.simpleMessage("Ahora mismo"),
         "km": MessageLookupByLibrary.simpleMessage("km"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
+        "legal": MessageLookupByLibrary.simpleMessage("Legal"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
         "location": MessageLookupByLibrary.simpleMessage("Ubicación"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "locationPermissionRequired": MessageLookupByLibrary.simpleMessage(
+            "Permiso de ubicación requerido"),
         "locationServices":
             MessageLookupByLibrary.simpleMessage("Servicios de ubicación"),
+        "locationServicesDescription": MessageLookupByLibrary.simpleMessage(
+            "Habilitar o deshabilitar servicios de ubicación."),
         "logOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
@@ -232,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "monthsAgo": m7,
         "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
         "newRequest": MessageLookupByLibrary.simpleMessage("Nueva Solicitud"),
         "newRequests":
             MessageLookupByLibrary.simpleMessage("Nuevas Solicitudes"),
@@ -258,9 +280,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notificaciones"),
+        "notificationsDescription": MessageLookupByLibrary.simpleMessage(
+            "Habilitar o deshabilitar notificaciones."),
+        "notificationsPermissionRequired": MessageLookupByLibrary.simpleMessage(
+            "Permiso de notificaciones requerido"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "openSettings":
+            MessageLookupByLibrary.simpleMessage("Abrir Configuraciones"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
+        "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Contraseña cambiada exitosamente"),
+        "passwordTooShort": MessageLookupByLibrary.simpleMessage(
+            "La contraseña es demasiado corta"),
+        "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
+            "Las contraseñas no coinciden"),
         "pending": MessageLookupByLibrary.simpleMessage("Pendiente"),
+        "permissionRequired":
+            MessageLookupByLibrary.simpleMessage("Permiso requerido"),
         "phone": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
@@ -287,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cotización"),
         "quotationHistory":
             MessageLookupByLibrary.simpleMessage("Historial de Cotizaciones"),
+        "quotationNumber":
+            MessageLookupByLibrary.simpleMessage("Número de Cotización"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
             "Respuesta a la cotización enviada exitosamente"),
         "quotationResponseSuccessMessage": MessageLookupByLibrary.simpleMessage(
@@ -362,6 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Solicitud"),
         "requests": MessageLookupByLibrary.simpleMessage("Solicitudes"),
+        "required": MessageLookupByLibrary.simpleMessage("Requerido"),
         "requiredField":
             MessageLookupByLibrary.simpleMessage("Campo Requerido"),
         "reset": MessageLookupByLibrary.simpleMessage("Restablecer"),
@@ -421,6 +460,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Términos y condiciones"),
         "termsAndConditionsContent": MessageLookupByLibrary.simpleMessage(
             "Al usar esta aplicación, usted acepta los términos y condiciones aquí descritos."),
+        "time": MessageLookupByLibrary.simpleMessage("Tiempo"),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "Este horario no está disponible"),
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),

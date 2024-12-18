@@ -21,8 +21,8 @@ class EventItem with _$EventItem {
     required DateTime updatedAt,
     required int customerId,
     required String title,
-    required DateTime start,
-    required DateTime end,
+    @JsonKey(name: 'startDate') required DateTime start,
+    @JsonKey(name: 'endDate') required DateTime end,
     required String color,
     required String info,
     required bool notification,
@@ -30,6 +30,7 @@ class EventItem with _$EventItem {
     WorkEvidence? workEvidence,
     String? cancelationReason,
     DateTime? deletedAt,
+    required int quotationId,
   }) = _EventItem;
 
   factory EventItem.fromJson(Map<String, dynamic> json) =>
