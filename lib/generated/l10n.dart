@@ -2713,6 +2713,236 @@ class S {
       args: [artistsFound, range],
     );
   }
+
+  /// `Tiempo`
+  String get time {
+    return Intl.message(
+      'Tiempo',
+      name: 'time',
+      desc: 'The time of an event or appointment.',
+      args: [],
+    );
+  }
+
+  /// `Número de Cotización`
+  String get quotationNumber {
+    return Intl.message(
+      'Número de Cotización',
+      name: 'quotationNumber',
+      desc: 'The number of a quotation.',
+      args: [],
+    );
+  }
+
+  /// `Fecha`
+  String get date {
+    return Intl.message(
+      'Fecha',
+      name: 'date',
+      desc: 'The date of an event or appointment.',
+      args: [],
+    );
+  }
+
+  /// `Configuración de la aplicación`
+  String get applicationSettings {
+    return Intl.message(
+      'Configuración de la aplicación',
+      name: 'applicationSettings',
+      desc: 'Settings for the application.',
+      args: [],
+    );
+  }
+
+  /// `Habilitar o deshabilitar notificaciones.`
+  String get notificationsDescription {
+    return Intl.message(
+      'Habilitar o deshabilitar notificaciones.',
+      name: 'notificationsDescription',
+      desc: 'Descripción para las notificaciones.',
+      args: [],
+    );
+  }
+
+  /// `Habilitar o deshabilitar servicios de ubicación.`
+  String get locationServicesDescription {
+    return Intl.message(
+      'Habilitar o deshabilitar servicios de ubicación.',
+      name: 'locationServicesDescription',
+      desc: 'Descripción para los servicios de ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Permiso de notificaciones requerido`
+  String get notificationsPermissionRequired {
+    return Intl.message(
+      'Permiso de notificaciones requerido',
+      name: 'notificationsPermissionRequired',
+      desc: 'Mensaje mostrado cuando se requiere permiso de notificaciones.',
+      args: [],
+    );
+  }
+
+  /// `Permiso de ubicación requerido`
+  String get locationPermissionRequired {
+    return Intl.message(
+      'Permiso de ubicación requerido',
+      name: 'locationPermissionRequired',
+      desc: 'Mensaje mostrado cuando se requiere permiso de ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Configuración de la cuenta`
+  String get accountSettings {
+    return Intl.message(
+      'Configuración de la cuenta',
+      name: 'accountSettings',
+      desc: 'Settings for the account.',
+      args: [],
+    );
+  }
+
+  /// `Cambiar contraseña`
+  String get changePassword {
+    return Intl.message(
+      'Cambiar contraseña',
+      name: 'changePassword',
+      desc: 'Action to change the password.',
+      args: [],
+    );
+  }
+
+  /// `Contraseña actual`
+  String get currentPassword {
+    return Intl.message(
+      'Contraseña actual',
+      name: 'currentPassword',
+      desc: 'Label for the current password field.',
+      args: [],
+    );
+  }
+
+  /// `Nueva contraseña`
+  String get newPassword {
+    return Intl.message(
+      'Nueva contraseña',
+      name: 'newPassword',
+      desc: 'Label for the new password field.',
+      args: [],
+    );
+  }
+
+  /// `Confirmar contraseña`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirmar contraseña',
+      name: 'confirmPassword',
+      desc: 'Label for the confirm password field.',
+      args: [],
+    );
+  }
+
+  /// `Las contraseñas no coinciden`
+  String get passwordsDontMatch {
+    return Intl.message(
+      'Las contraseñas no coinciden',
+      name: 'passwordsDontMatch',
+      desc: 'Message displayed when passwords don\'t match.',
+      args: [],
+    );
+  }
+
+  /// `La contraseña es demasiado corta`
+  String get passwordTooShort {
+    return Intl.message(
+      'La contraseña es demasiado corta',
+      name: 'passwordTooShort',
+      desc: 'Message displayed when password is too short.',
+      args: [],
+    );
+  }
+
+  /// `Requerido`
+  String get required {
+    return Intl.message(
+      'Requerido',
+      name: 'required',
+      desc: 'Message displayed when a field is required.',
+      args: [],
+    );
+  }
+
+  /// `Confirmar nueva contraseña`
+  String get confirmNewPassword {
+    return Intl.message(
+      'Confirmar nueva contraseña',
+      name: 'confirmNewPassword',
+      desc: 'Label for the confirm new password field.',
+      args: [],
+    );
+  }
+
+  /// `Contraseña cambiada exitosamente`
+  String get passwordChangedSuccessfully {
+    return Intl.message(
+      'Contraseña cambiada exitosamente',
+      name: 'passwordChangedSuccessfully',
+      desc: 'Message displayed when password is changed successfully.',
+      args: [],
+    );
+  }
+
+  /// `Cambiar`
+  String get change {
+    return Intl.message(
+      'Cambiar',
+      name: 'change',
+      desc: 'Action to change something.',
+      args: [],
+    );
+  }
+
+  /// `Legal`
+  String get legal {
+    return Intl.message(
+      'Legal',
+      name: 'legal',
+      desc: 'Settings related to legal matters.',
+      args: [],
+    );
+  }
+
+  /// `Permiso requerido`
+  String get permissionRequired {
+    return Intl.message(
+      'Permiso requerido',
+      name: 'permissionRequired',
+      desc: 'Message displayed when a permission is required.',
+      args: [],
+    );
+  }
+
+  /// `Abrir Configuraciones`
+  String get openSettings {
+    return Intl.message(
+      'Abrir Configuraciones',
+      name: 'openSettings',
+      desc: 'Action to open the settings.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta.`
+  String get deleteAccountWarning {
+    return Intl.message(
+      '¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta.',
+      name: 'deleteAccountWarning',
+      desc: 'Warning message displayed when deleting an account.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

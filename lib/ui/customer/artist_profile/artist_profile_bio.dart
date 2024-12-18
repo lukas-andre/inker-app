@@ -98,7 +98,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
     if (shortDescription.length <= 100) {
       return Text(
         shortDescription,
-        style: TextStyleTheme.copyWith(fontSize: 16),
+        style: TextStyleTheme.copyWith(fontSize: 16, color: tertiaryColor),
       );
     }
 

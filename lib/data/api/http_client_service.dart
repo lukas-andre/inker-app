@@ -115,6 +115,9 @@ class HttpClientService {
         _handleError(response, requestBody: encodedBody);
       }
     } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
       _handleError(e, requestBody: encodedBody);
     }
   }
@@ -136,6 +139,9 @@ class HttpClientService {
 
       return _handleResponse(response, fromJson);
     } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
       _handleError(e);
     }
   }
@@ -171,6 +177,9 @@ class HttpClientService {
 
       return _handleResponse(response, fromJson);
     } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
       _handleError(e);
     }
   }
@@ -229,6 +238,9 @@ class HttpClientService {
         _handleError(response, requestBody: encodedBody);
       }
     } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
       _handleError(e, requestBody: encodedBody);
     }
   }
@@ -261,6 +273,9 @@ class HttpClientService {
         _handleError(response);
       }
     } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
       _handleError(e);
     }
   }
@@ -285,6 +300,9 @@ class HttpClientService {
           uri: error.request?.url,
         );
       } catch (e) {
+        if (e is CustomHttpException) {
+          rethrow;
+        }
         // Si falla el decode del JSON, loggeamos ambos errores
         HttpLogger.logError(
           'Failed to decode error response: $e\nOriginal error: $error',
@@ -332,5 +350,15 @@ class HttpClientService {
         HttpStatus.internalServerError,
       );
     }
+  }
+
+  Future<void> delete({
+    required String path,
+    required String token,
+    required Map<String, dynamic> body,
+  }) async {
+    final uri = await _buildUrl(path);
+    final headers = _buildHeaders(token);
+    await http.delete(uri, headers: headers, body: json.encode(body));
   }
 }

@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
         "acceptedTheQuotation":
             MessageLookupByLibrary.simpleMessage("accepted the quotation"),
+        "accountSettings":
+            MessageLookupByLibrary.simpleMessage("Account Settings"),
         "action": MessageLookupByLibrary.simpleMessage("Action"),
         "addDescription":
             MessageLookupByLibrary.simpleMessage("Add Description"),
@@ -75,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Price Change"),
         "appealedTheQuotation":
             MessageLookupByLibrary.simpleMessage("Appealed the quotation"),
+        "applicationSettings":
+            MessageLookupByLibrary.simpleMessage("Application Settings"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Appointment Date"),
         "appointmentDateChangedFrom": MessageLookupByLibrary.simpleMessage(
@@ -121,7 +125,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancellationReason":
             MessageLookupByLibrary.simpleMessage("Cancellation Reason"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "change": MessageLookupByLibrary.simpleMessage("Change"),
         "changeImage": MessageLookupByLibrary.simpleMessage("Change Image"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change Password"),
         "changeSelection":
             MessageLookupByLibrary.simpleMessage("Change Selection"),
         "changedStatusFrom":
@@ -137,6 +144,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmDeletionMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete your account? This action cannot be undone."),
         "confirmLogout": MessageLookupByLibrary.simpleMessage("Confirm Logout"),
+        "confirmNewPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm New Password"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirm Time Selection"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
@@ -147,11 +158,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Create Quotation"),
         "createdAt": MessageLookupByLibrary.simpleMessage("Created At"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Current Password"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Current Status"),
         "customer": MessageLookupByLibrary.simpleMessage("Customer"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "daysAgo": m1,
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account."),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
@@ -203,13 +219,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
         "km": MessageLookupByLibrary.simpleMessage("km"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "legal": MessageLookupByLibrary.simpleMessage("Legal"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Load More"),
         "locale": MessageLookupByLibrary.simpleMessage("en"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
+        "locationPermissionRequired": MessageLookupByLibrary.simpleMessage(
+            "Location permission required"),
         "locationServices":
             MessageLookupByLibrary.simpleMessage("Location Services"),
+        "locationServicesDescription": MessageLookupByLibrary.simpleMessage(
+            "Enable or disable location services."),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
@@ -220,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "monthsAgo": m7,
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "newRequest": MessageLookupByLibrary.simpleMessage("New Request"),
         "newRequests": MessageLookupByLibrary.simpleMessage("New Requests"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("Next Week"),
@@ -244,9 +266,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "note": MessageLookupByLibrary.simpleMessage("Note"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
+        "notificationsDescription": MessageLookupByLibrary.simpleMessage(
+            "Enable or disable notifications."),
+        "notificationsPermissionRequired": MessageLookupByLibrary.simpleMessage(
+            "Notifications permission required"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "openSettings": MessageLookupByLibrary.simpleMessage("Open Settings"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
+        "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Password changed successfully"),
+        "passwordTooShort":
+            MessageLookupByLibrary.simpleMessage("Password too short"),
+        "passwordsDontMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "pending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "permissionRequired":
+            MessageLookupByLibrary.simpleMessage("Permission required"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseSelectTimeRange":
@@ -270,6 +305,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quotation Details"),
         "quotationHistory":
             MessageLookupByLibrary.simpleMessage("Quotation History"),
+        "quotationNumber":
+            MessageLookupByLibrary.simpleMessage("Quotation Number"),
         "quotationResponseSuccess": MessageLookupByLibrary.simpleMessage(
             "Quotation response sent successfully"),
         "quotationResponseSuccessMessage": MessageLookupByLibrary.simpleMessage(
@@ -343,6 +380,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestDetails":
             MessageLookupByLibrary.simpleMessage("Request Details"),
         "requests": MessageLookupByLibrary.simpleMessage("Requests"),
+        "required": MessageLookupByLibrary.simpleMessage("Required"),
         "requiredField": MessageLookupByLibrary.simpleMessage("Required Field"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetRange": MessageLookupByLibrary.simpleMessage("Reset Range"),
@@ -398,6 +436,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsAndConditionsContent": MessageLookupByLibrary.simpleMessage(
             "By using this app, you agree to the terms and conditions outlined here."),
+        "time": MessageLookupByLibrary.simpleMessage("Time"),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "This time slot is unavailable"),
         "to": MessageLookupByLibrary.simpleMessage("To"),

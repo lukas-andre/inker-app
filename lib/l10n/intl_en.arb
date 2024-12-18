@@ -1134,5 +1134,98 @@
         "example": "5.0"
       }
     }
+  },
+  "time": "Time",
+  "@time": {
+    "description": "The time of an event or appointment."
+  },
+  "quotationNumber": "Quotation Number",
+  "@quotationNumber": {
+    "description": "The number of a quotation."
+  },
+  "date": "Date",
+  "@date": {
+    "description": "The date of an event or appointment."
+  },
+  "applicationSettings": "Application Settings",
+  "@applicationSettings": {
+    "description": "Settings for the application."
+  },
+
+  "notificationsDescription": "Enable or disable notifications.",
+  "@notificationsDescription": {
+    "description": "Description for notifications settings."
+  },
+  "locationServicesDescription": "Enable or disable location services.",
+  "@locationServicesDescription": {
+    "description": "Description for location services settings."
+  },
+  "notificationsPermissionRequired": "Notifications permission required",
+  "@notificationsPermissionRequired": {
+    "description": "Message displayed when notifications permission is required."
+  },
+  "locationPermissionRequired": "Location permission required",
+  "@locationPermissionRequired": {
+    "description": "Message displayed when location permission is required."
+  },
+  "accountSettings": "Account Settings",
+  "@accountSettings": {
+    "description": "Settings for the account."
+  },
+  "changePassword": "Change Password",
+  "@changePassword": {
+    "description": "Action to change the password."
+  },
+  "currentPassword": "Current Password",
+  "@currentPassword": {
+    "description": "Label for the current password field."
+  },
+  "newPassword": "New Password",
+  "@newPassword": {
+    "description": "Label for the new password field."
+  },
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {
+    "description": "Label for the confirm password field."
+  },
+  "passwordsDontMatch": "Passwords don't match",
+  "@passwordsDontMatch": {
+    "description": "Message displayed when passwords don't match."
+  },
+  "passwordTooShort": "Password too short",
+  "@passwordTooShort": {
+    "description": "Message displayed when password is too short."
+  },
+  "required": "Required",
+  "@required": {
+    "description": "Message displayed when a field is required."
+  },
+  "confirmNewPassword": "Confirm New Password",
+  "@confirmNewPassword": {
+    "description": "Label for the confirm new password field."
+  },
+  "passwordChangedSuccessfully": "Password changed successfully",
+  "@passwordChangedSuccessfully": {
+    "description": "Message displayed when password is changed successfully."
+  },
+  "change": "Change",
+  "@change": {
+    "description": "Action to change something."
+  },
+  "legal": "Legal",
+  "@legal": {
+    "description": "Settings related to legal matters."
+  },
+  "permissionRequired": "Permission required",
+  "@permissionRequired": {
+    "description": "Message displayed when a permission is required."
+  },
+  "openSettings": "Open Settings",
+  "@openSettings": {
+    "description": "Action to open the settings."
+  },
+  "deleteAccountWarning": "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account.",
+  "@deleteAccountWarning": {
+    "description": "Warning message displayed when deleting an account."
   }
 }
