@@ -514,11 +514,15 @@ class _TimelineItem extends StatelessWidget {
           Column(
             children: [
               Container(
-                width: 12,
-                height: 12,
+                width: isLast ? 16 : 12,
+                height: isLast ? 16 : 12,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _getStatusColor(history.newStatus),
+                  border: isLast ? Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ) : null,
                 ),
               ),
               if (!isLast)
@@ -536,12 +540,18 @@ class _TimelineItem extends StatelessWidget {
               children: [
                 Text(
                   _getStatusChangeText(history, l10n),
-                  style: TextStyleTheme.bodyText1,
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
+                    fontSize: isLast ? 16 : null,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   DateFormat('yyyy-MM-dd HH:mm').format(history.changedAt),
-                  style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                  style: TextStyleTheme.caption.copyWith(
+                    color: isLast ? Colors.white70 : tertiaryColor,
+                    fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
+                  ),
                 ),
                 ..._buildAdditionalDetails(history, l10n),
                 if (!isLast) const SizedBox(height: 16),

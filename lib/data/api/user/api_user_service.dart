@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/create_customer_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
+import 'package:inker_studio/data/api/user/dtos/send_verification_code_response.dart';
 import 'package:inker_studio/domain/errors/account_verification/hash_not_found_exception.dart';
 import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
@@ -162,10 +164,9 @@ class ApiUserService extends UserService {
 
   @override
   Future<bool> verifyAccountVerificationCode(
-    String userId,
-    String code,
-    NotificationType notificationType,
-  ) async {
+      {required String userId,
+      required String code,
+      required NotificationType notificationType}) async {
     try {
       await _httpClient.post<Map<String, dynamic>>(
         path: '$_basePath/$userId/validate-account-verification-code/$code',
@@ -228,6 +229,65 @@ class ApiUserService extends UserService {
         throw ResourceNotFound();
       }
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteAccount(String token, String password) async {
+    await _httpClient.delete(
+      path: '$_basePath/me',
+      token: token,
+      body: Map<String, dynamic>.from({
+        'password': password,
+      }),
+    );
+  }
+
+  @override
+  Future<SendVerificationCodeResponse>
+      sendAccountVerificationCodeByEmailOrPhone(
+          {String? phoneNumber,
+          String? email,
+          required NotificationType notificationType}) async {
+    try {
+      final response = await _httpClient.post<SendVerificationCodeResponse>(
+        path: '$_basePath/send-account-verification-code',
+        queryParams: {
+          'phoneNumber': phoneNumber,
+          'email': email,
+          'notificationType': notificationType.name,
+        },
+        fromJson: SendVerificationCodeResponse.fromJson,
+        body: {}, // Empty body for POST request
+      );
+      return response;
+    } on CustomHttpException catch (e) {
+      switch (e.statusCode) {
+        case HttpStatus.badRequest:
+          if (e.message.contains('Max SMS attempts reached')) {
+            throw MaxSMSTriesException();
+          } else if (e.message.contains('User already verified')) {
+            throw UserAlreadyVerified();
+          } else if (e.message.contains('User ID pipe failed')) {
+            throw UserIdPipeFailed();
+          }
+          throw BadRequest();
+
+        case HttpStatus.notAcceptable:
+          if (e.message.contains('User not accepted')) {
+            throw UserNotAccepted();
+          }
+          throw NotAcceptable();
+
+        case HttpStatus.unprocessableEntity:
+          if (e.message.contains('Problem creating verification hash')) {
+            throw ProblemCreatingVerificationHash();
+          }
+          throw UnprocessableEntity();
+
+        default:
+          rethrow;
+      }
     }
   }
 }
