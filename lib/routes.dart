@@ -3,6 +3,7 @@ import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
+import 'package:inker_studio/ui/password_recovery/password_recovery_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
@@ -118,6 +119,12 @@ class AppRoutes {
     if (settings.name == '/artistProfile') {
       return MaterialPageRoute(
         builder: (context) => const ArtistMyProfilePage(),
+      );
+    }
+
+    if (settings.name == '/passwordRecovery') {
+      return MaterialPageRoute(
+        builder: (context) => const PasswordRecoveryPage(),
       );
     }
 

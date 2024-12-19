@@ -170,7 +170,8 @@ class _AccountSettings extends StatelessWidget {
           leading: const Icon(Icons.lock_outline, color: Colors.white70),
           title: Text(S.of(context).changePassword, style: TextStyleTheme.bodyText1),
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
-          onTap: () => _showChangePasswordDialog(context),
+          // onTap: () => _showChangePasswordDialog(context),
+          onTap: () => Navigator.of(context).pushNamed('/passwordRecovery'),
         ),
         ListTile(
           key: const Key('logoutButton'),
