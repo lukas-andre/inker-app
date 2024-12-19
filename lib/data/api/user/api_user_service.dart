@@ -290,4 +290,31 @@ class ApiUserService extends UserService {
       }
     }
   }
+
+  @override
+  Future<void> sendPasswordRecoveryCode(
+      {String? phoneNumber, String? email, required NotificationType notificationType}) async {
+    await _httpClient.post<Map<String, dynamic>>(
+      path: '$_basePath/send-forgot-password-code',
+      queryParams: {
+        'email': email,
+        'notificationType': notificationType.name,
+      },
+      fromJson: (json) => json,
+      body: {}, // Empty body for POST request
+    );
+  }
+  
+  @override
+  Future<void> resetPassword(String code, String newPassword, String repeatPassword, String email) async {
+    await _httpClient.post<Map<String, dynamic>>(
+      path: '$_basePath/forgot-password/$code',
+      body: {
+        'password': newPassword,
+        'repeatedPassword': repeatPassword,
+        'email': email,
+      },
+      fromJson: (json) => json,
+    );
+  }
 }
