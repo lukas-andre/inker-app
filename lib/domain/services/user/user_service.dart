@@ -17,4 +17,8 @@ abstract class UserService {
   Future<bool> verifyAccountVerificationCode(
       {required String userId, required String code, required NotificationType notificationType});
   Future<void> deleteAccount(String token, String password);
+  Future<void> sendPasswordRecoveryCode(
+      {String? phoneNumber, String? email, required NotificationType notificationType});
+
+  Future<void> resetPassword(String code, String newPassword, String repeatPassword, String email);
 }
