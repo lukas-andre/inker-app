@@ -21,14 +21,16 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  if (!Platform.isIOS) {
-    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      badge: true,
-      sound: true,
-      alert: true,
-    );
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    badge: true,
+    sound: true,
+    alert: true,
+  );
+  try {
     final token = await FirebaseMessaging.instance.getToken();
     dev.log(token ?? '', 'FirebaseMessaging');
+  } catch (e) {
+    dev.log(e.toString(), 'FirebaseMessaging');
   }
 
   final remoteConfig = await RemoteConfigService.getInstance();

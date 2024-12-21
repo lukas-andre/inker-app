@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/ui/password_recovery/password_recovery_page.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
@@ -26,12 +27,17 @@ class ForgotMyPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      child: const Text(
-        'Olvide mi contraseña',
-        style:
-            TextStyle(color: Colors.white, fontFamily: 'Poppins', fontSize: 14),
+    return TextButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PasswordRecoveryPage()));
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        child: const Text(
+          'Olvide mi contraseña',
+          style:
+              TextStyle(color: Colors.white, fontFamily: 'Poppins', fontSize: 14),
+        ),
       ),
     );
   }

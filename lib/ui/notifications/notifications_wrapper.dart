@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -24,6 +26,9 @@ class NotificationsWrapper extends StatelessWidget {
 
     final state = navigatorKey?.currentState;
     if (state == null) {
+      return;
+    }
+    if (Platform.isIOS) {
       return;
     }
 

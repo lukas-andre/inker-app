@@ -99,6 +99,7 @@ class PasswordRecoveryView extends StatelessWidget {
     return Column(
       children: [
         TextField(
+          keyboardType: TextInputType.emailAddress,
           style: TextStyleTheme.bodyText1,
           decoration: InputDecoration(
             filled: true,

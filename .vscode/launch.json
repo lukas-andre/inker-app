@@ -54,6 +54,12 @@
             "type": "dart",
             "deviceId": "63E7569B-4004-49AE-A036-63AFF89C2FBF"
         },
+        {
+            "name": "iOS Lucas",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "00008140-000059E21193001C"
+        }
     ],
     "compounds": [
         {
