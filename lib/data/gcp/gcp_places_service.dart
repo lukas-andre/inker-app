@@ -38,7 +38,7 @@ class Suggestion {
     return 'Suggestion(description: $description, placeId: $placeId)';
   }
 }
-
+// TODO: use the new http client
 class GcpPlacesService implements PlacesService {
   final HttpClientConfig _httpConfig;
 
@@ -50,8 +50,10 @@ class GcpPlacesService implements PlacesService {
   GcpPlacesService()
       : _httpConfig = HttpClientConfig(basePath: ''),
         apiKey = Platform.isIOS
-            ? dotenv.env['GOOGLE_PLACES_KEY_IOS']
-            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'],
+            ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
+                const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
+            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
+                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID'),
         super();
 
   @override
