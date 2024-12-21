@@ -27,6 +27,7 @@ class GpsAccessScreen extends StatelessWidget {
 }
 
 class EnableGpsMessage extends StatelessWidget {
+  static const String enableGpsMessage = 'Debe habilitar el GPS para continuar';
   const EnableGpsMessage({
     super.key,
   });
@@ -34,13 +35,16 @@ class EnableGpsMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Debe habilitar el GPS para continuar',
+      enableGpsMessage,
       style: TextStyleTheme.copyWith(fontSize: 18),
     );
   }
 }
 
 class AccessButton extends StatelessWidget {
+  static const String title = 'Es necesario acceder al GPS';
+  static const String accessButtonText = 'Solicitar acceso';
+
   const AccessButton({
     super.key,
   });
@@ -54,12 +58,12 @@ class AccessButton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Es necesario acceder al GPS'),
+        const Text(title),
         const SizedBox(height: 30),
         Platform.isIOS
             ? CupertinoButton(
                 child: Text(
-                  'Solicitar Acceso',
+                  accessButtonText,
                   style: TextStyleTheme.copyWith(
                       fontSize: 18, color: CupertinoColors.activeBlue),
                 ),
@@ -71,7 +75,7 @@ class AccessButton extends StatelessWidget {
                 splashColor: Colors.transparent,
                 elevation: 0,
                 child: Text(
-                  'Solicitar acceso',
+                  accessButtonText,
                   style: TextStyleTheme.copyWith(
                       color: Colors.white, fontSize: 16),
                 ),

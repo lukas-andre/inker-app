@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_contact_button.dart';
+import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -56,7 +57,13 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                         fontWeight: FontWeight.w200),
                   ),
                   InkerStadiumButton(
-                    onTap: () {},
+                    onTap: () {
+                      if (artist?.id != null) {
+                        Navigator.of(context).push(
+                          CreateQuotationPage.route(artistId: artist!.id!),
+                        );
+                      }
+                    },
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
                     text: 'Reservar cita',
@@ -74,7 +81,6 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
       },
     );
   }
-
   void showNavigationOptions(
       BuildContext context, LatLng location, String locationName) async {
     final availableMaps = await MapLauncher.installedMaps;

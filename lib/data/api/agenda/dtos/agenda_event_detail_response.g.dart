@@ -29,8 +29,8 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       customerId: (json['customerId'] as num).toInt(),
       title: json['title'] as String,
-      start: DateTime.parse(json['start'] as String),
-      end: DateTime.parse(json['end'] as String),
+      start: DateTime.parse(json['startDate'] as String),
+      end: DateTime.parse(json['endDate'] as String),
       color: json['color'] as String,
       info: json['info'] as String,
       notification: json['notification'] as bool,
@@ -43,6 +43,7 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
+      quotationId: (json['quotationId'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
@@ -53,8 +54,8 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
     'updatedAt': instance.updatedAt.toIso8601String(),
     'customerId': instance.customerId,
     'title': instance.title,
-    'start': instance.start.toIso8601String(),
-    'end': instance.end.toIso8601String(),
+    'startDate': instance.start.toIso8601String(),
+    'endDate': instance.end.toIso8601String(),
     'color': instance.color,
     'info': instance.info,
     'notification': instance.notification,
@@ -70,6 +71,7 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
   writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
+  val['quotationId'] = instance.quotationId;
   return val;
 }
 

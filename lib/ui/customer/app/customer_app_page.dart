@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
-import 'package:inker_studio/ui/customer/profile/profile_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -14,16 +15,11 @@ class CustomerAppPage extends StatefulWidget {
 }
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   static const List<Widget> _pageWidgets = <Widget>[
-    Center(
-      child: Text('One'),
-    ),
     BuildMapPage(),
-    Center(
-      child: Text('Three'),
-    ),
-    ProfilePage()
+    QuotationListPage(),
+    CustomerMyProfilePage()
   ];
 
   @override
@@ -63,6 +59,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
             items: [
               for (int index = 0; index < icons.length; index++)
                 BottomNavigationBarItem(
+                  key: icons[index].key,
                   icon: icons[index].icon,
                   activeIcon: icons[index].selectedIcon,
                   label: icons[index].title,

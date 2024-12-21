@@ -1,43 +1,1231 @@
 {
   "@@locale": "en",
+  "locale": "en",
+  "@locale": {
+    "description": "The language and locale settings."
+  },
   "eventDetails": "Event Details",
+  "@eventDetails": {
+    "description": "Details of the event."
+  },
   "description": "Description",
+  "@description": {
+    "description": "A short explanation or description."
+  },
   "workEvidence": "Work Evidence",
+  "@workEvidence": {
+    "description": "Proof or evidence of work done."
+  },
   "noWorkEvidence": "No Work Evidence",
+  "@noWorkEvidence": {
+    "description": "Message displayed when there is no work evidence."
+  },
   "locationDetails": "Location Details",
+  "@locationDetails": {
+    "description": "Information about the location of the event."
+  },
   "editEvent": "Edit Event",
+  "@editEvent": {
+    "description": "Action to edit the event."
+  },
   "cancelEvent": "Cancel Event",
+  "@cancelEvent": {
+    "description": "Action to cancel the event."
+  },
   "upcomming": "Upcoming",
+  "@upcomming": {
+    "description": "Events that are scheduled to happen in the future."
+  },
   "completed": "Completed",
+  "@completed": {
+    "description": "Events that have already been completed."
+  },
   "cancelled": "Cancelled",
+  "@cancelled": {
+    "description": "Events that have been cancelled."
+  },
   "cancel": "Cancel",
+  "@cancel": {
+    "description": "Action to cancel an operation."
+  },
   "edit": "Edit",
+  "@edit": {
+    "description": "Action to modify or change something."
+  },
   "delete": "Delete",
+  "@delete": {
+    "description": "Action to remove or delete something."
+  },
   "confirm": "Confirm",
+  "@confirm": {
+    "description": "Action to confirm a choice or operation."
+  },
   "eventLocation": "Event Location",
+  "@eventLocation": {
+    "description": "The location where the event will take place."
+  },
   "createEvent": "Create Event",
+  "@createEvent": {
+    "description": "Action to create a new event."
+  },
+  "quoted": "Quoted",
+  "@quoted": {
+    "description": "Status indicating that a quotation has been made."
+  },
   "eventTitle": "Event Title",
+  "@eventTitle": {
+    "description": "The title or name of the event."
+  },
   "extraInfo": "Extra Info",
+  "@extraInfo": {
+    "description": "Additional information related to the event."
+  },
   "eventColor": "Event Color",
+  "@eventColor": {
+    "description": "The color associated with the event."
+  },
   "startDate": "Start Date",
+  "@startDate": {
+    "description": "The date when the event starts."
+  },
   "endDate": "End Date",
+  "@endDate": {
+    "description": "The date when the event ends."
+  },
   "notification": "Notification",
+  "@notification": {
+    "description": "A message or alert about something."
+  },
   "scheduleEvent": "Schedule Event",
+  "@scheduleEvent": {
+    "description": "Action to schedule an event."
+  },
   "guest": "Guest",
+  "@guest": {
+    "description": "A person invited to the event."
+  },
   "note": "Note",
+  "@note": {
+    "description": "A brief comment or annotation."
+  },
   "characters": "characters",
+  "@characters": {
+    "description": "A count of characters used."
+  },
   "sendMessage": "Send Message",
+  "@sendMessage": {
+    "description": "Action to send a message."
+  },
   "selectService": "Select Service",
+  "@selectService": {
+    "description": "Action to choose a service."
+  },
   "hour": "Hour",
+  "@hour": {
+    "description": "Unit of time measured in hours."
+  },
   "duration": "Duration",
+  "@duration": {
+    "description": "The length of time an event or appointment lasts."
+  },
   "tattoo": "Tattoo",
+  "@tattoo": {
+    "description": "A tattoo service."
+  },
   "barber": "Barber",
+  "@barber": {
+    "description": "A barber service."
+  },
   "piercing": "Piercing",
+  "@piercing": {
+    "description": "A piercing service."
+  },
   "haircut": "Haircut",
+  "@haircut": {
+    "description": "A haircut service."
+  },
   "makeup": "Makeup",
+  "@makeup": {
+    "description": "A makeup service."
+  },
   "nail": "Nail",
+  "@nail": {
+    "description": "A nail service."
+  },
   "other": "Other",
+  "@other": {
+    "description": "Another service type."
+  },
   "errorMsgGuestValidationError": "Please select guest",
+  "@errorMsgGuestValidationError": {
+    "description": "Error message displayed when no guest is selected."
+  },
   "errorMsgNotesValidationError": "Notes exceed the limit of characters",
-  "errorMsgHoursValidationError": "Please select hours"
+  "@errorMsgNotesValidationError": {
+    "description": "Error message displayed when notes exceed character limit."
+  },
+  "errorMsgHoursValidationError": "Please select hours",
+  "@errorMsgHoursValidationError": {
+    "description": "Error message displayed when no hours are selected."
+  },
+  "createQuotation": "Create Quotation",
+  "@createQuotation": {
+    "description": "Action to create a quotation."
+  },
+  "loadMore": "Load More",
+  "@loadMore": {
+    "description": "Action to load more items or content."
+  },
+  "reply": "Reply",
+  "@reply": {
+    "description": "Action to respond to a message."
+  },
+  "send": "Send",
+  "@send": {
+    "description": "Action to send something."
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Current state or condition of something."
+  },
+  "cancelQuotationConfirmationTitle": "Cancel Quotation",
+  "@cancelQuotationConfirmationTitle": {
+    "description": "Title for the cancel quotation confirmation message."
+  },
+  "cancelQuotationConfirmationMessage": "Are you sure you want to cancel this quotation?",
+  "@cancelQuotationConfirmationMessage": {
+    "description": "Message asking for confirmation to cancel a quotation."
+  },
+  "quotationCancelledSuccessfully": "Quotation cancelled successfully",
+  "@quotationCancelledSuccessfully": {
+    "description": "Message confirming that the quotation was cancelled."
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "Confirmation action for yes."
+  },
+  "no": "No",
+  "@no": {
+    "description": "Confirmation action for no."
+  },
+  "quotes": "Quotes",
+  "@quotes": {
+    "description": "A list or collection of quotations."
+  },
+  "quote": "Quote",
+  "@quote": {
+    "description": "A single quotation or price estimate."
+  },
+  "quoteDetails": "Quote Details",
+  "@quoteDetails": {
+    "description": "Information about a particular quotation."
+  },
+  "request": "Request",
+  "@request": {
+    "description": "An action to ask for something."
+  },
+  "requests": "Requests",
+  "@requests": {
+    "description": "A list or collection of requests."
+  },
+  "requestDetails": "Request Details",
+  "@requestDetails": {
+    "description": "Information about a particular request."
+  },
+  "respondToQuotation": "Respond to Quotation",
+  "@respondToQuotation": {
+    "description": "Action to reply to a quotation."
+  },
+  "quotationResponseSuccess": "Quotation response sent successfully",
+  "@quotationResponseSuccess": {
+    "description": "Message confirming that the quotation response was sent successfully."
+  },
+  "submit": "Submit",
+  "@submit": {
+    "description": "Action to submit something."
+  },
+  "action": "Action",
+  "@action": {
+    "description": "A general term for an operation or task."
+  },
+  "getArtistActionText": "Get Artist",
+  "@getArtistActionText": {
+    "description": "Action to retrieve information about an artist."
+  },
+  "estimatedCost": "Estimated Cost",
+  "@estimatedCost": {
+    "description": "The estimated cost of a service or product."
+  },
+  "appointmentDate": "Appointment Date",
+  "@appointmentDate": {
+    "description": "The date of the appointment."
+  },
+  "notSelected": "Not Selected",
+  "@notSelected": {
+    "description": "Message displayed when no item or option is selected."
+  },
+  "appointmentDuration": "Appointment Duration",
+  "@appointmentDuration": {
+    "description": "The length of time the appointment will last."
+  },
+  "requiredField": "Required Field",
+  "@requiredField": {
+    "description": "Indicates that a field is required."
+  },
+  "invalidNumber": "Invalid Number",
+  "@invalidNumber": {
+    "description": "Error message displayed when the input is not a valid number."
+  },
+  "additionalDetails": "Additional Details",
+  "@additionalDetails": {
+    "description": "Extra or supplementary information."
+  },
+  "rejectionReason": "Rejection Reason",
+  "@rejectionReason": {
+    "description": "The reason for rejecting something."
+  },
+  "proposedDesigns": "Proposed Designs",
+  "@proposedDesigns": {
+    "description": "Designs suggested or proposed for the project."
+  },
+  "reject": "Reject",
+  "@reject": {
+    "description": "Action to refuse or reject something."
+  },
+  "acceotAppeal": "Accept Appeal",
+  "@acceotAppeal": {
+    "description": "Action to accept an appeal."
+  },
+  "rejectAppeal": "Reject Appeal",
+  "@rejectAppeal": {
+    "description": "Action to refuse an appeal."
+  },
+  "quotationDetails": "Quotation Details",
+  "@quotationDetails": {
+    "description": "Information about a specific quotation."
+  },
+  "createdAt": "Created At",
+  "@createdAt": {
+    "description": "The date and time when something was created."
+  },
+  "referenceImages": "Reference Images",
+  "@referenceImages": {
+    "description": "Images used as reference for a design or idea."
+  },
+  "yourResponse": "Your Response",
+  "@yourResponse": {
+    "description": "Message to display the user's response."
+  },
+  "minutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@minutesAgo": {
+    "description": "Message indicating how many minutes ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of minutes that have passed."
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@hoursAgo": {
+    "description": "Message indicating how many hours ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of hours that have passed."
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+  "@daysAgo": {
+    "description": "Message indicating how many days ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of days that have passed."
+      }
+    }
+  },
+  "monthsAgo": "{count, plural, =1{1 month ago} other{{count} months ago}}",
+  "@monthsAgo": {
+    "description": "Message indicating how many months ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of months that have passed."
+      }
+    }
+  },
+  "yearsAgo": "{count, plural, =1{1 year ago} other{{count} years ago}}",
+  "@yearsAgo": {
+    "description": "Message indicating how many years ago something happened.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "The number of years that have passed."
+      }
+    }
+  },
+  "estimatedCostDisclaimer": "This is an estimated cost and may vary based on the final design or service",
+  "@estimatedCostDisclaimer": {
+    "description": "Disclaimer about the estimated cost."
+  },
+  "scheduleAssistant": "Schedule Assistant",
+  "@scheduleAssistant": {
+    "description": "Tool or feature to help schedule appointments."
+  },
+  "selectDateTime": "Select Date & Time",
+  "@selectDateTime": {
+    "description": "Prompt to choose a date and time."
+  },
+  "accept": "Accept",
+  "@accept": {
+    "description": "Action to agree or accept something."
+  },
+  "durationCannotBeZero": "Duration cannot be zero",
+  "@durationCannotBeZero": {
+    "description": "Error message when the duration is set to zero."
+  },
+  "appointmentDateTime": "Appointment Date & Time",
+  "@appointmentDateTime": {
+    "description": "The specific date and time of the appointment."
+  },
+  "selectDate": "Select Date",
+  "@selectDate": {
+    "description": "Prompt to choose a date."
+  },
+  "selectTime": "Select Time",
+  "@selectTime": {
+    "description": "Prompt to choose a time."
+  },
+  "selectDuration": "Select Duration",
+  "@selectDuration": {
+    "description": "Prompt to choose the duration of an event or appointment."
+  },
+  "tentativeEvent": "Tentative Event",
+  "@tentativeEvent": {
+    "description": "An event that is not yet confirmed."
+  },
+  "from": "From",
+  "@from": {
+    "description": "Indicates the starting point of something."
+  },
+  "to": "To",
+  "@to": {
+    "description": "Indicates the end point of something."
+  },
+  "minutes": "minutes",
+  "@minutes": {
+    "description": "Unit of time measured in minutes."
+  },
+  "hours": "hours",
+  "@hours": {
+    "description": "Unit of time measured in hours."
+  },
+  "noEventsToday": "No events scheduled for today",
+  "@noEventsToday": {
+    "description": "Message displayed when there are no events for the current day."
+  },
+  "conflictingEvent": "This time conflicts with an existing event",
+  "@conflictingEvent": {
+    "description": "Message displayed when an event conflicts with another."
+  },
+  "confirmTimeSelection": "Confirm Time Selection",
+  "@confirmTimeSelection": {
+    "description": "Action to confirm the selection of a time."
+  },
+  "changeSelection": "Change Selection",
+  "@changeSelection": {
+    "description": "Action to modify or change a previously made selection."
+  },
+  "eventOverlap": "Event Overlap",
+  "@eventOverlap": {
+    "description": "Indicates that two or more events overlap."
+  },
+  "eventOverlapMessage": "This event overlaps with an existing event. Do you want to proceed?",
+  "@eventOverlapMessage": {
+    "description": "Warning message about event overlap."
+  },
+  "proceed": "Proceed",
+  "@proceed": {
+    "description": "Action to move forward with something."
+  },
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "Action to return to a previous step or screen."
+  },
+  "zoomIn": "Zoom In",
+  "@zoomIn": {
+    "description": "Action to increase the zoom level."
+  },
+  "zoomOut": "Zoom Out",
+  "@zoomOut": {
+    "description": "Action to decrease the zoom level."
+  },
+  "resetZoom": "Reset Zoom",
+  "@resetZoom": {
+    "description": "Action to reset the zoom level to the default."
+  },
+  "today": "Today",
+  "@today": {
+    "description": "Indicates the current day."
+  },
+  "previousWeek": "Previous Week",
+  "@previousWeek": {
+    "description": "The week before the current one."
+  },
+  "nextWeek": "Next Week",
+  "@nextWeek": {
+    "description": "The week after the current one."
+  },
+  "timeSlotUnavailable": "This time slot is unavailable",
+  "@timeSlotUnavailable": {
+    "description": "Message displayed when a time slot is already booked."
+  },
+  "selectValidTimeRange": "Please select a valid time range",
+  "@selectValidTimeRange": {
+    "description": "Prompt to choose a valid range of time."
+  },
+  "quotationDate": "Quotation Date",
+  "@quotationDate": {
+    "description": "The date when a quotation was created."
+  },
+  "and": "and",
+  "@and": {
+    "description": "Connects two ideas or items."
+  },
+  "between": "between",
+  "@between": {
+    "description": "Indicates a range between two points."
+  },
+  "start": "Start",
+  "@start": {
+    "description": "Indicates the beginning of something."
+  },
+  "end": "End",
+  "@end": {
+    "description": "Indicates the conclusion of something."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Action to confirm or proceed."
+  },
+  "selectStartTime": "Select Start Time",
+  "@selectStartTime": {
+    "description": "Prompt to choose a start time."
+  },
+  "selectEndTime": "Select End Time",
+  "@selectEndTime": {
+    "description": "Prompt to choose an end time."
+  },
+  "pleaseSelectTimeRange": "Please select a time range",
+  "@pleaseSelectTimeRange": {
+    "description": "Prompt to choose a time range."
+  },
+  "scheduleInfo": "Schedule Info",
+  "@scheduleInfo": {
+    "description": "Information about the schedule of events or appointments."
+  },
+  "processingQuotation": "Processing Quotation",
+  "@processingQuotation": {
+    "description": "Message indicating that the system is processing a quotation."
+  },
+  "processingQuotationMessage": "Please wait while we process your quotation",
+  "@processingQuotationMessage": {
+    "description": "Message asking the user to wait while a quotation is processed."
+  },
+  "quotationResponseSuccessMessage": "Your response has been sent successfully",
+  "@quotationResponseSuccessMessage": {
+    "description": "Message confirming that the quotation response was sent successfully."
+  },
+  "error": "Error",
+  "@error": {
+    "description": "General error message."
+  },
+  "invalidRange": "Invalid Range",
+  "@invalidRange": {
+    "description": "Message displayed when a selected range is not valid."
+  },
+  "rejectReasonSchedulingConflict": "Scheduling Conflict",
+  "@rejectReasonSchedulingConflict": {
+    "description": "Rejection reason when there is a scheduling conflict."
+  },
+  "rejectReasonArtisticDisagreement": "Artistic Disagreement",
+  "@rejectReasonArtisticDisagreement": {
+    "description": "Rejection reason when there is a disagreement about the artistic aspect."
+  },
+  "rejectReasonInsufficientDetails": "Insufficient Details",
+  "@rejectReasonInsufficientDetails": {
+    "description": "Rejection reason when the quotation does not provide enough details."
+  },
+  "rejectReasonBeyondExpertise": "Beyond Expertise",
+  "@rejectReasonBeyondExpertise": {
+    "description": "Rejection reason when the work is outside the artist's area of expertise."
+  },
+  "rejectReasonOther": "Other",
+  "@rejectReasonOther": {
+    "description": "Rejection reason for any other unspecified reason."
+  },
+  "pending": "Pending",
+  "@pending": {
+    "description": "Status indicating that something is waiting for a decision or action."
+  },
+  "responded": "Responded",
+  "@responded": {
+    "description": "Status indicating that a response has been given."
+  },
+  "accepted": "Accepted",
+  "@accepted": {
+    "description": "Status indicating that something has been approved or agreed to."
+  },
+  "appeal": "Appeal",
+  "@appeal": {
+    "description": "A request for a review or reconsideration of a decision."
+  },
+  "newRequest": "New Request",
+  "@newRequest": {
+    "description": "A request that has just been made."
+  },
+  "awaitingCustomer": "Awaiting Customer",
+  "@awaitingCustomer": {
+    "description": "Status indicating that something is waiting for the customer."
+  },
+  "awaitingReply": "Awaiting Reply",
+  "@awaitingReply": {
+    "description": "Status indicating that something is waiting for a reply."
+  },
+  "scheduled": "Scheduled",
+  "@scheduled": {
+    "description": "Status indicating that something has been arranged or planned."
+  },
+  "awaitingArtist": "Awaiting Artist",
+  "@awaitingArtist": {
+    "description": "Status indicating that something is waiting for the artist."
+  },
+  "receivedQuotation": "Received Quotation",
+  "@receivedQuotation": {
+    "description": "Status indicating that a quotation has been received."
+  },
+  "newRequests": "New Requests",
+  "@newRequests": {
+    "description": "Requests that have just been made."
+  },
+  "receivedQuotations": "Received Quotations",
+  "@receivedQuotations": {
+    "description": "Quotations that have just been received."
+  },
+  "noQuotationsFound": "No quotations found",
+  "@noQuotationsFound": {
+    "description": "Message displayed when no quotations are found."
+  },
+  "myProfile": "My Profile",
+  "@myProfile": {
+    "description": "Information about the user's profile."
+  },
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+    "description": "Action to modify the user's profile."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Options or preferences that can be configured."
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Action to end the current session."
+  },
+  "deleteAccount": "Delete Account",
+  "@deleteAccount": {
+    "description": "Action to permanently remove the user's account."
+  },
+  "confirmDeletion": "Confirm Deletion",
+  "@confirmDeletion": {
+    "description": "Action to confirm the deletion of an account."
+  },
+  "confirmDeletionMessage": "Are you sure you want to delete your account? This action cannot be undone.",
+  "@confirmDeletionMessage": {
+    "description": "Message asking for confirmation to delete an account."
+  },
+  "addDescription": "Add Description",
+  "@addDescription": {
+    "description": "Action to include a description."
+  },
+  "followers": "Followers",
+  "@followers": {
+    "description": "People who follow or subscribe to something."
+  },
+  "following": "Following",
+  "@following": {
+    "description": "People who are followed or subscribed to."
+  },
+  "rating": "Rating",
+  "@rating": {
+    "description": "A score or grade given to something."
+  },
+  "noReviewsYet": "No reviews yet",
+  "@noReviewsYet": {
+    "description": "Message displayed when there are no reviews."
+  },
+  "fullName": "Full Name",
+  "@fullName": {
+    "description": "The complete name of a person."
+  },
+  "username": "Username",
+  "@username": {
+    "description": "A unique name used to identify a user."
+  },
+  "email": "Email",
+  "@email": {
+    "description": "A digital address used for communication."
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "A telephone number."
+  },
+  "address": "Address",
+  "@address": {
+    "description": "The location where someone lives or works."
+  },
+  "city": "City",
+  "@city": {
+    "description": "A large town or urban area."
+  },
+  "state": "State",
+  "@state": {
+    "description": "A region or territory of a country."
+  },
+  "genres": "Genres",
+  "@genres": {
+    "description": "Categories or types of art."
+  },
+  "tags": "Tags",
+  "@tags": {
+    "description": "Keywords or labels used to categorize something."
+  },
+  "studioPhoto": "Studio Photo",
+  "@studioPhoto": {
+    "description": "A picture of the artist's studio."
+  },
+  "updateStudioPhoto": "Update Studio Photo",
+  "@updateStudioPhoto": {
+    "description": "Action to change the picture of the artist's studio."
+  },
+  "addStudioPhoto": "Add Studio Photo",
+  "@addStudioPhoto": {
+    "description": "Action to include a picture of the artist's studio."
+  },
+  "shortDescription": "Short Description",
+  "@shortDescription": {
+    "description": "A brief summary or explanation."
+  },
+  "chooseImage": "Choose Image",
+  "@chooseImage": {
+    "description": "Action to select an image."
+  },
+  "profileImage": "Profile Image",
+  "@profileImage": {
+    "description": "A picture that represents the user's profile."
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Messages or alerts about recent activity."
+  },
+  "locationServices": "Location Services",
+  "@locationServices": {
+    "description": "Features that use the user's location."
+  },
+  "language": "Language",
+  "@language": {
+    "description": "The preferred language for the user interface."
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Rules or guidelines about the use of personal information."
+  },
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": {
+    "description": "The rules or guidelines for using a service."
+  },
+  "logOut": "Log Out",
+  "@logOut": {
+    "description": "Action to end the current session."
+  },
+  "confirmLogout": "Confirm Logout",
+  "@confirmLogout": {
+    "description": "Action to confirm the end of the current session."
+  },
+  "areYouSureLogout": "Are you sure you want to log out?",
+  "@areYouSureLogout": {
+    "description": "Message asking for confirmation to log out."
+  },
+  "noImageSelected": "No image selected",
+  "@noImageSelected": {
+    "description": "Message displayed when no image is chosen."
+  },
+  "privacyPolicyContent": "Your privacy is important to us. We do not collect personal information without your consent.",
+  "@privacyPolicyContent": {
+    "description": "Information about the privacy policy."
+  },
+  "termsAndConditionsContent": "By using this app, you agree to the terms and conditions outlined here.",
+  "@termsAndConditionsContent": {
+    "description": "Information about the terms and conditions."
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Action to finish or complete something."
+  },
+  "changeImage": "Change Image",
+  "@changeImage": {
+    "description": "Action to replace an image."
+  },
+  "saveChanges": "Save Changes",
+  "@saveChanges": {
+    "description": "Action to confirm and save changes."
+  },
+  "removeImage": "Remove Image",
+  "@removeImage": {
+    "description": "Action to delete an image."
+  },
+  "noStudioPhotoAvailable": "No studio photo available",
+  "@noStudioPhotoAvailable": {
+    "description": "Message displayed when there is no studio photo."
+  },
+  "services": "Services",
+  "@services": {
+    "description": "The different types of work or tasks offered."
+  },
+  "noServicesAvailable": "No services available",
+  "@noServicesAvailable": {
+    "description": "Message displayed when there are no services."
+  },
+  "contactInformation": "Contact Information",
+  "@contactInformation": {
+    "description": "Details for getting in touch with someone."
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Action to confirm and save changes."
+  },
+  "acceptQuotation": "Accept Quotation",
+  "@acceptQuotation": {
+    "description": "Action to agree to a quotation."
+  },
+  "rejectQuotation": "Reject Quotation",
+  "@rejectQuotation": {
+    "description": "Action to refuse a quotation."
+  },
+  "appealQuotation": "Appeal Quotation",
+  "@appealQuotation": {
+    "description": "Action to request a review of a quotation."
+  },
+  "cancelQuotation": "Cancel Quotation",
+  "@cancelQuotation": {
+    "description": "Action to revoke a quotation."
+  },
+  "appealReason": "Appeal Reason",
+  "@appealReason": {
+    "description": "The justification for requesting a review."
+  },
+  "appealReasonDateChange": "Date Change",
+  "@appealReasonDateChange": {
+    "description": "Reason for appeal when requesting a change of date."
+  },
+  "appealReasonPriceChange": "Price Change",
+  "@appealReasonPriceChange": {
+    "description": "Reason for appeal when requesting a change of price."
+  },
+  "appealReasonDesignChange": "Design Change",
+  "@appealReasonDesignChange": {
+    "description": "Reason for appeal when requesting a change of design."
+  },
+  "appealReasonOther": "Other",
+  "@appealReasonOther": {
+    "description": "Another reason for appeal."
+  },
+  "rejectReasonTooExpensive": "Too Expensive",
+  "@rejectReasonTooExpensive": {
+    "description": "Rejection reason when the price is too high."
+  },
+  "rejectReasonNotWhatIWanted": "Not What I Wanted",
+  "@rejectReasonNotWhatIWanted": {
+    "description": "Rejection reason when the design is not what was expected."
+  },
+  "rejectReasonChangedMyMind": "Changed My Mind",
+  "@rejectReasonChangedMyMind": {
+    "description": "Rejection reason when the customer changes their decision."
+  },
+  "rejectReasonFoundAnotherArtist": "Found Another Artist",
+  "@rejectReasonFoundAnotherArtist": {
+    "description": "Rejection reason when the customer chooses a different artist."
+  },
+  "quotationStatusArtistPending": "New Request",
+  "@quotationStatusArtistPending": {
+    "description": "Status shown to artist when quotation is pending"
+  },
+  
+  "quotationStatusArtistAppealed": "Appealed by Customer",
+  "@quotationStatusArtistAppealed": {
+    "description": "Status shown to artist when quotation is appealed"
+  },
+  
+  "quotationStatusArtistQuoted": "Awaiting Reply",
+  "@quotationStatusArtistQuoted": {
+    "description": "Status shown to artist when quotation is quoted"
+  },
+  
+  "quotationStatusArtistAccepted": "Scheduled",
+  "@quotationStatusArtistAccepted": {
+    "description": "Status shown to artist when quotation is accepted"
+  },
+  
+  "quotationStatusArtistRejected": "Rejected by Customer",
+  "@quotationStatusArtistRejected": {
+    "description": "Status shown to artist when quotation is rejected"
+  },
+  
+  "quotationStatusArtistCanceled": "Cancelled by You",
+  "@quotationStatusArtistCanceled": {
+    "description": "Status shown to artist when quotation is canceled"
+  },
+  
+  "quotationStatusCustomerPending": "Awaiting Reply",
+  "@quotationStatusCustomerPending": {
+    "description": "Status shown to customer when quotation is pending"
+  },
+  
+  "quotationStatusCustomerAppealed": "Awaiting Artist",
+  "@quotationStatusCustomerAppealed": {
+    "description": "Status shown to customer when quotation is appealed"
+  },
+  
+  "quotationStatusCustomerQuoted": "Received Quotation",
+  "@quotationStatusCustomerQuoted": {
+    "description": "Status shown to customer when quotation is quoted"
+  },
+  
+  "quotationStatusCustomerAccepted": "Scheduled",
+  "@quotationStatusCustomerAccepted": {
+    "description": "Status shown to customer when quotation is accepted"
+  },
+  
+  "quotationStatusCustomerRejected": "Rejected by You",
+  "@quotationStatusCustomerRejected": {
+    "description": "Status shown to customer when quotation is rejected"
+  },
+  
+  "quotationStatusCustomerCanceled": "Cancelled",
+  "@quotationStatusCustomerCanceled": {
+    "description": "Status shown to customer when quotation is canceled"
+  },
+  "currentStatus": "Current Status",
+  "@currentStatus": {
+    "description": "Field or label to display the current status of something."
+  },
+  "quotationHistory": "Quotation History",
+  "@quotationHistory": {
+    "description": "Field or label to display the history of quotations."
+  },
+  "changedStatusFrom": "changed the status from",
+  "@changedStatusFrom": {
+    "description": "Message indicating that the status of something has changed."
+  },
+  "quotedTheRequest": "Quoted the request",
+  "@quotedTheRequest": {
+    "description": "Message indicating that a request has been quoted."
+  },
+  "appealedTheQuotation": "Appealed the quotation",
+  "@appealedTheQuotation": {
+    "description": "Message indicating that a quotation has been appealed."
+  },
+  "statusPending": "Pending",
+  "@statusPending": {
+    "description": "Status indicating that something is waiting."
+  },
+  "statusQuoted": "Quoted",
+  "@statusQuoted": {
+    "description": "Status indicating that something has been quoted."
+  },
+  "statusAccepted": "Accepted",
+  "@statusAccepted": {
+    "description": "Status indicating that something has been accepted."
+  },
+  "statusRejected": "Rejected",
+  "@statusRejected": {
+    "description": "Status indicating that something has been rejected."
+  },
+  "statusCanceled": "Canceled",
+  "@statusCanceled": {
+    "description": "Status indicating that something has been canceled."
+  },
+  "statusAppealed": "Appealed",
+  "@statusAppealed": {
+    "description": "Status indicating that something has been appealed."
+  },
+  "artist": "Artist",
+  "@artist": {
+    "description": "A person who creates art."
+  },
+  "customer": "Customer",
+  "@customer": {
+    "description": "A person who buys goods or services."
+  },
+  "system": "System",
+  "@system": {
+    "description": "A set of things working together as a whole."
+  },
+  "viewDetails": "View Details",
+  "@viewDetails": {
+    "description": "Action to see more information."
+  },
+  "expand": "Expand",
+  "@expand": {
+    "description": "Action to show more content."
+  },
+  "collapse": "Collapse",
+  "@collapse": {
+    "description": "Action to hide content."
+  },
+  "hoursAndMinutes": "{hoursv2} hours and {minutesv2} minutes",
+  "@hoursAndMinutes": {
+    "description": "Text showing duration with both hours and minutes",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      },
+      "minutesv2": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+
+  "hoursv2": "{hoursv2} hours",
+  "@hoursv2": {
+    "description": "Text showing duration in hours only",
+    "placeholders": {
+      "hoursv2": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "minutesv2": "{minutesv2} minutes",
+  "@minutesv2": {
+    "description": "Text showing duration in minutes only",
+    "placeholders": {
+      "minutesv2": {
+        "type": "int",
+        "example": "45"
+      }
+    }
+  },
+  "cancellationReason": "Cancellation Reason",
+  "@cancellationReason": {
+    "description": "Label for showing the reason of cancellation"
+  },
+  "cancelReasonChangeOfMind": "Change of mind",
+  "@cancelReasonChangeOfMind": {
+    "description": "Cancellation reason when customer changes their mind"
+  },
+  "cancelReasonFoundAnotherArtist": "Found another artist",
+  "@cancelReasonFoundAnotherArtist": {
+    "description": "Cancellation reason when customer found another artist"
+  },
+  "cancelReasonFinancialReasons": "Financial reasons",
+  "@cancelReasonFinancialReasons": {
+    "description": "Cancellation reason due to financial issues"
+  },
+  "cancelReasonPersonalReasons": "Personal reasons",
+  "@cancelReasonPersonalReasons": {
+    "description": "Cancellation reason due to personal issues"
+  },
+  "cancelReasonOther": "Other",
+  "@cancelReasonOther": {
+    "description": "Cancellation reason when it doesn't fit other categories"
+  },
+  "cancelReasonNotAttended": "Appointment not attended",
+  "@cancelReasonNotAttended": {
+    "description": "System cancellation reason when appointment was missed"
+  },
+  "cancelReasonSystemTimeout": "System timeout",
+  "@cancelReasonSystemTimeout": {
+    "description": "System cancellation reason when request timed out"
+  },
+  "noImagesAvailable": "No images available",
+  "@noImagesAvailable": {
+    "description": "Message displayed when there are no images."
+  },
+  "acceptedTheQuotation": "accepted the quotation",
+  "@acceptedTheQuotation": {
+    "description": "Action text when a quotation is accepted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rejectedTheQuotation": "rejected the quotation",
+  "@rejectedTheQuotation": {
+    "description": "Action text when a quotation is rejected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "canceledTheQuotation": "canceled the quotation",
+  "@canceledTheQuotation": {
+    "description": "Action text when a quotation is canceled",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appointmentDateChangedFrom": "Appointment date changed from",
+  "@appointmentDateChangedFrom": {
+    "description": "Text shown when appointment date is changed, followed by the old and new dates",
+    "type": "text",
+    "placeholders": {}
+  },
+  "estimatedCostChangedFrom": "Estimated cost changed from",
+  "@estimatedCostChangedFrom": {
+    "description": "Text shown when estimated cost is changed, followed by the old and new amounts",
+    "type": "text",
+    "placeholders": {}
+  },
+  "memberSince": "Member since",
+  "@memberSince": {
+    "description": "Text shown when a user joined the platform",
+    "type": "text",
+    "placeholders": {}
+  },  
+  "notAvailable": "Not Available",
+  "@notAvailable": {
+    "description": "Indicates that something is not accessible or present."
+  },
+  "location": "Location",
+  "@location": {
+    "description": "The physical place where something is located."
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Action to reset something."
+  },
+  "range": "Range",
+  "@range": {
+    "description": "The distance in kilometers to search for artists."
+  },
+  "km": "km",
+  "@km": {
+    "description": "The unit of distance in kilometers."
+  },
+  "resetRange": "Reset Range",
+  "@resetRange": {
+    "description": "Action to reset the range of search."
+  },
+  "searchRadius": "Search Radius",
+  "@searchRadius": {
+    "description": "The radius in kilometers to search for artists."
+  },
+  "artistsFound": "{artistsFound} artists found in {range}km",
+  "@artistsFound": {
+    "description": "Text showing the number of artists found in a given range",
+    "type": "text",
+    "placeholders": {
+      "artistsFound": {
+        "type": "int",
+        "example": "10"
+      },
+      "range": {
+        "type": "double",
+        "example": "5.0"
+      }
+    }
+  },
+  "time": "Time",
+  "@time": {
+    "description": "The time of an event or appointment."
+  },
+  "quotationNumber": "Quotation Number",
+  "@quotationNumber": {
+    "description": "The number of a quotation."
+  },
+  "date": "Date",
+  "@date": {
+    "description": "The date of an event or appointment."
+  },
+  "applicationSettings": "Application Settings",
+  "@applicationSettings": {
+    "description": "Settings for the application."
+  },
+
+  "notificationsDescription": "Enable or disable notifications.",
+  "@notificationsDescription": {
+    "description": "Description for notifications settings."
+  },
+  "locationServicesDescription": "Enable or disable location services.",
+  "@locationServicesDescription": {
+    "description": "Description for location services settings."
+  },
+  "notificationsPermissionRequired": "Notifications permission required",
+  "@notificationsPermissionRequired": {
+    "description": "Message displayed when notifications permission is required."
+  },
+  "locationPermissionRequired": "Location permission required",
+  "@locationPermissionRequired": {
+    "description": "Message displayed when location permission is required."
+  },
+  "accountSettings": "Account Settings",
+  "@accountSettings": {
+    "description": "Settings for the account."
+  },
+  "changePassword": "Change Password",
+  "@changePassword": {
+    "description": "Action to change the password."
+  },
+  "currentPassword": "Current Password",
+  "@currentPassword": {
+    "description": "Label for the current password field."
+  },
+  "newPassword": "New Password",
+  "@newPassword": {
+    "description": "Label for the new password field."
+  },
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {
+    "description": "Label for the confirm password field."
+  },
+  "passwordsDontMatch": "Passwords don't match",
+  "@passwordsDontMatch": {
+    "description": "Message displayed when passwords don't match."
+  },
+  "passwordTooShort": "Password too short",
+  "@passwordTooShort": {
+    "description": "Message displayed when password is too short."
+  },
+  "required": "Required",
+  "@required": {
+    "description": "Message displayed when a field is required."
+  },
+  "confirmNewPassword": "Confirm New Password",
+  "@confirmNewPassword": {
+    "description": "Label for the confirm new password field."
+  },
+  "passwordChangedSuccessfully": "Password changed successfully",
+  "@passwordChangedSuccessfully": {
+    "description": "Message displayed when password is changed successfully."
+  },
+  "change": "Change",
+  "@change": {
+    "description": "Action to change something."
+  },
+  "legal": "Legal",
+  "@legal": {
+    "description": "Settings related to legal matters."
+  },
+  "permissionRequired": "Permission required",
+  "@permissionRequired": {
+    "description": "Message displayed when a permission is required."
+  },
+  "openSettings": "Open Settings",
+  "@openSettings": {
+    "description": "Action to open the settings."
+  },
+  "deleteAccountWarning": "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account.",
+  "@deleteAccountWarning": {
+    "description": "Warning message displayed when deleting an account."
+  }
 }

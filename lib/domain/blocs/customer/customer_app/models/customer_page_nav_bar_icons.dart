@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
 
 class CustomerPageNavBarIcons extends Equatable {
@@ -18,11 +19,14 @@ class PageNavBarIcon extends Equatable {
   final dynamic selectedIcon;
   final String? title;
   final int index;
-  const PageNavBarIcon(
-      {required this.icon,
-      required this.selectedIcon,
-      this.title,
-      required this.index});
+  final Key? key;
+  const PageNavBarIcon({
+    required this.icon,
+    required this.selectedIcon,
+    this.title,
+    required this.index,
+    this.key,
+  });
 
   @override
   List<Object?> get props => [icon, title, index];
@@ -35,24 +39,21 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
     const CustomerPageNavBarIcons(
   icons: [
     PageNavBarIcon(
-      icon: ImageIcon(feedIcon),
-      selectedIcon: ImageIcon(feedSelectedIcon),
-      title: 'Novedades',
-      index: 0,
-    ),
-    PageNavBarIcon(
+      key: K.exploreTab,
       icon: ImageIcon(exploreIcon),
       selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
       index: 1,
     ),
     PageNavBarIcon(
+      key: K.quotationsTab,
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
-      title: 'Guardados',
+      title: 'Cotizaciones',
       index: 2,
     ),
     PageNavBarIcon(
+      key: K.profileTab,
       icon: Icon(
         Icons.account_circle_outlined,
         size: 25,
