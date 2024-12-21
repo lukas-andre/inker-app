@@ -112,7 +112,10 @@ class _SearchHeaderState extends State<_SearchHeader> {
             children: [
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  FocusScope.of(context).unfocus();
+                },
               ),
               Expanded(
                 child: TextField(
