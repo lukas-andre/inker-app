@@ -148,4 +148,20 @@ class SqliteSessionService extends LocalSessionService {
 
     return await newSession(session);
   }
+
+  @override
+  Future<Session?> getActiveSession() async {
+    final List<Map<String, Object?>> result = (await SqliteService.instance
+        .query(sessionTable.getName(),
+            where: 'isActive = ?', whereArgs: [1], orderBy: 'createdAt DESC'));
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final Map<String, Object?> sessionMap = Map.of(result.first);
+    sessionMap['user'] = userFromJson(sessionMap['user'] as String).toJson();
+
+    return Session.fromMap(sessionMap);
+  }
 }

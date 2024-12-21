@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "attach debugger",
+            "request": "attach",
+            "type": "dart",
+            "cwd": "integration_test",
+            "vmServiceUri": "${command:dart.promptForVmService}"
+        },
+        {
             "name": "Flutter",
             "type": "dart",
             "request": "launch",
@@ -26,20 +33,50 @@
         {
             "name": "Android",
             "request": "launch",
-            "type":"dart",
-            "deviceId": "emulator-5556"
+            "type": "dart",
+            "deviceId": "emulator-5554",
         },
         {
             "name": "iOS",
             "request": "launch",
-            "type":"dart",
-            "deviceId": "00008101-001A20E91A12001E"
+            "type": "dart",
+            "deviceId": "1754FAB0-2C29-403E-BE59-08BB299F6D37"
         },
+        {
+            "name": "Android2",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5556",
+        },
+        {
+            "name": "iOS2",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "63E7569B-4004-49AE-A036-63AFF89C2FBF"
+        },
+        {
+            "name": "iOS Lucas",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "00008140-000059E21193001C"
+        }
     ],
     "compounds": [
         {
             "name": "All Mobiles",
-            "configurations": ["iOS","Android"]
+            "configurations": [
+                "iOS",
+                "Android"
+            ]
+        },
+        {
+            "name": "All Mobiles4",
+            "configurations": [
+                "iOS",
+                "Android",
+                "iOS2",
+                "Android2"
+            ]
         }
     ]
 }

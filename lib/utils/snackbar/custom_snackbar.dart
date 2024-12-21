@@ -9,8 +9,11 @@ SnackBar customSnackBar(
     double fontSize = 14,
     SnackBarAction? action,
     Duration? duration,
-    SnackBarBehavior? snackBarBehavior}) {
+    SnackBarBehavior? snackBarBehavior,
+    Key? key
+    }) {
   return SnackBar(
+    key: key ?? UniqueKey(),
     content: Text(
       content,
       style: TextStyle(

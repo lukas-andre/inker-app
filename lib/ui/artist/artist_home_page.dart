@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
+import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -16,12 +18,8 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   int _selectedIndex = 1;
   static const List<Widget> _pageWidgets = <Widget>[
     AgendaTablePage(),
-    Center(
-      child: Text('Three'),
-    ),
-    Center(
-      child: Text('Three'),
-    ),
+    QuotationListPage(),
+    ArtistMyProfilePage(),
   ];
 
   @override
@@ -61,6 +59,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
             items: [
               for (int index = 0; index < icons.length; index++)
                 BottomNavigationBarItem(
+                  key: icons[index].key,
                   icon: icons[index].icon,
                   activeIcon: icons[index].selectedIcon,
                   label: icons[index].title,
