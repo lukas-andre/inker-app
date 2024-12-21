@@ -4,13 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/ui/account_reactivation/account_reactivation_page.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/login/widgets/login_layout.dart';
+import 'package:inker_studio/ui/verification/verification_page.dart';
+import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
+  static const String invalidCredentialsMessage = 'Correo o contraseña incorrectos';
+  static const String invalidCredentialsSnackBarKey = 'invalidCredentialsSnackBarKey';
+  static const String userInactiveMessage = 'Lo sentimos tu usuario esta inactivo 😭';
+  static const String userInactiveSnackBarKey = 'userInactiveSnackBarKey';
+  static const String unknownErrorMessage = 'Correo o contraseña incorrectos 😭';
+  static const String unknownErrorSnackBarKey = 'unknownErrorSnackBarKey';
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const LoginPage());
@@ -41,20 +51,23 @@ class LoginPage extends StatelessWidget {
             authBloc: context.read(),
             loginUseCase: context.read(),
             googleSingInUseCase: context.read(),
-            createCustomerUseCase: context.read()),
+            createCustomerUseCase: context.read(),
+            deviceType: Platform.isIOS ? 'ios' : 'android'),
         child: BlocListener<LoginBloc, LoginState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == FormzStatus.submissionFailure) {
+              if (state.userStatus == UserStatus.inactive) {
+                final snackBar = _getUserInactiveSnackBar(context);
+                
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
               if (state.loginStatus == LoginStatus.invalidCredentials) {
                 final snackBar = _getInvalidCredentialsSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
 
-              if (state.userStatus == UserStatus.inactive) {
-                final snackBar = _getUserInactiveSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
 
               if (state.loginStatus == LoginStatus.unknownError) {
                 final snackBar = _getUnknownErrorSnackBar();
@@ -75,23 +88,28 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  SnackBar _getUserInactiveSnackBar() {
+  SnackBar _getUserInactiveSnackBar(BuildContext context) {
     return customSnackBar(
-        content: 'Lo sentimos tu usuario esta inactivo 😭',
+        key: const Key(userInactiveSnackBarKey),
+        content: userInactiveMessage,
         duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: 'Activar',
           disabledTextColor: Colors.white,
           textColor: Colors.white,
           onPressed: () {
-            //Do whatever you want
+            openModalBottomSheet(
+                context: context,
+                page: const AccountReactivationPage(),
+                enableDrag: false);
           },
         ));
   }
 
   SnackBar _getInvalidCredentialsSnackBar() {
     return customSnackBar(
-        content: 'Correo o contraseña incorrectos',
+        key: const Key(invalidCredentialsSnackBarKey),
+        content: invalidCredentialsMessage,
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',
@@ -105,7 +123,8 @@ class LoginPage extends StatelessWidget {
 
   SnackBar _getUnknownErrorSnackBar() {
     return customSnackBar(
-        content: 'Correo o contraseña incorrectos 😭',
+        key: const Key(unknownErrorSnackBarKey),
+        content: unknownErrorMessage,
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',

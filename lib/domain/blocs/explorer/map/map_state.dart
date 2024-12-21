@@ -7,13 +7,17 @@ class MapState extends Equatable {
   final bool isDragSheetOpen;
   final MarkerId? selectedMarker;
   final Map<Marker, FindArtistByLocationResponse> markers;
+  final Circle? searchRadius;
+  final LatLng? currentLocation;
 
   const MapState(
       {this.isFollowingUser = true,
       this.isMapInitialized = false,
       this.isDragSheetOpen = false,
       this.selectedMarker,
-      this.markers = const {}});
+      this.markers = const {},
+      this.searchRadius,
+      this.currentLocation});
 
   MapState copyWith({
     bool? isFollowingUser,
@@ -21,6 +25,8 @@ class MapState extends Equatable {
     bool? isDragSheetOpen,
     MarkerId? selectedMarker,
     Map<Marker, FindArtistByLocationResponse>? markers,
+    Circle? searchRadius,
+    LatLng? currentLocation,
   }) {
     return MapState(
       isFollowingUser: isFollowingUser ?? this.isFollowingUser,
@@ -28,6 +34,8 @@ class MapState extends Equatable {
       isDragSheetOpen: isDragSheetOpen ?? this.isDragSheetOpen,
       selectedMarker: selectedMarker ?? this.selectedMarker,
       markers: markers ?? this.markers,
+      searchRadius: searchRadius ?? this.searchRadius,
+      currentLocation: currentLocation ?? this.currentLocation,
     );
   }
 
@@ -38,5 +46,7 @@ class MapState extends Equatable {
         isDragSheetOpen,
         selectedMarker,
         markers,
+        searchRadius,
+        currentLocation,
       ];
 }

@@ -13,7 +13,7 @@ class SqliteCustomerService extends LocalCustomerService {
 
     try {
       final int result = await SqliteService.instance
-          .insert(customerTable.getName(), customer.toMap());
+          .insert(customerTable.getName(), customer.toJson());
       dev.log('result $result', className, 'saveCustomer');
 
       savedCustomer = await getCustomer();
@@ -36,7 +36,7 @@ class SqliteCustomerService extends LocalCustomerService {
 
     final customerMap = Map.of(queryResult.first);
 
-    return Customer.fromMap(customerMap);
+    return Customer.fromJson(customerMap);
   }
 
   @override

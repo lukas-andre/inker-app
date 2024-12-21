@@ -1,22 +1,21 @@
+import 'dart:convert';
 import 'dart:io';
-
-import 'package:http/http.dart' as http;
-import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/create_customer_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
-import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
-import 'package:inker_studio/data/api/user/errors/errors.dart';
+import 'package:inker_studio/data/api/user/dtos/send_verification_code_response.dart';
 import 'package:inker_studio/domain/errors/account_verification/hash_not_found_exception.dart';
 import 'package:inker_studio/domain/errors/account_verification/max_sms_tries_exception.dart';
 import 'package:inker_studio/domain/errors/artist/artist_already_exists_exception.dart';
-import 'package:inker_studio/domain/errors/customer/customer_exception.dart';
+import 'package:inker_studio/domain/errors/customer/customer_already_exists_exception.dart';
+import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
 import 'package:inker_studio/domain/errors/remote/conflict_exception.dart';
 import 'package:inker_studio/domain/errors/remote/http_conflict_exception.dart';
-import 'package:inker_studio/domain/errors/remote/http_exception.dart';
-import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
-import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
-import 'package:inker_studio/domain/errors/remote/unhandled_exception.dart';
+import 'package:inker_studio/domain/errors/remote/not_acceptable_exception.dart';
+import 'package:inker_studio/domain/errors/remote/resource_not_found.dart';
+import 'package:inker_studio/domain/errors/remote/un_processable_exception.dart';
 import 'package:inker_studio/domain/errors/user/activating_user_exception.dart';
 import 'package:inker_studio/domain/errors/user/problems_creating_verification_hash_exception.dart';
 import 'package:inker_studio/domain/errors/user/role_not_exists_exception.dart';
@@ -24,225 +23,298 @@ import 'package:inker_studio/domain/errors/user/user_already_exists_exception.da
 import 'package:inker_studio/domain/errors/user/user_already_verified_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_id_pipe_failed_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_not_accepted_exception.dart';
-import 'package:inker_studio/domain/models/notifications/notification_types.dart';
 import 'package:inker_studio/domain/models/user/user.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
-import 'package:inker_studio/utils/api/content_type.dart';
-import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/response_utils.dart';
+import 'package:inker_studio/domain/models/notifications/notification_types.dart';
 
 class ApiUserService extends UserService {
-  static const String className = 'ApiUserService';
+  static const String _basePath = 'users';
+  late final HttpClientService _httpClient;
 
-  final HttpClientConfig _httpConfig;
+  ApiUserService() {
+    _initializeHttpClient();
+  }
 
-  ApiUserService()
-      : _httpConfig = HttpClientConfig(basePath: 'users'),
-        super();
-
-  @override
-  Future<User> user() {
-    // TODO: implement user
-    throw UnimplementedError();
+  Future<void> _initializeHttpClient() async {
+    _httpClient = await HttpClientService.getInstance();
   }
 
   @override
   Future<GetUserBySocialMediaResponse?> getUserBySocialMediaAndEmail(
-      String socialMedia, String email) async {
-    final url = _httpConfig.url(
-        path: 'social-media',
-        queryParams: {'type': socialMedia, 'email': email});
-    dev.inspect(url, 'url');
-
-    final response = await http.get(url);
-
-    dev.inspect(response, 'getUserBySocialMediaAndEmail response');
-    dev.log('response ${response.statusCode}', className);
-
-    if (response.statusCode == HttpStatus.notFound) {
-      dev.log('response status ${response.statusCode}', 'if');
-      if (ResponseUtils.resourceNotFound(response.body)) {
-        dev.log('response body ${response.body}', 'responseUtils');
-        throw ResourceNotFound();
+    String socialMedia,
+    String email,
+  ) async {
+    try {
+      return await _httpClient.get<GetUserBySocialMediaResponse>(
+        path: '$_basePath/social-media',
+        queryParams: {
+          'type': socialMedia,
+          'email': email,
+        },
+        fromJson: GetUserBySocialMediaResponse.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      if (e.statusCode == HttpStatus.notFound) {
+        if (e.message.contains('Resource not found')) {
+          throw ResourceNotFound();
+        }
+        return null;
       }
-
-      return null;
-    } else if (response.statusCode >= HttpStatus.internalServerError) {
-      throw InternalServerException();
-    } else if (response.statusCode == HttpStatus.ok) {
-      try {
-        return getUserBySocialMediaResponseFromJson(response.body);
-      } catch (e, stackTrace) {
-        dev.logError(e, stackTrace);
-        throw JsonParseException();
-      }
+      rethrow;
     }
-    throw HttpException();
   }
 
   @override
   Future<dynamic> create(CreateUserRequest user) async {
-    final url = _httpConfig.surl(basePath: 'users');
-    final body = createUserRequestToJson(user);
     try {
-      final response =
-          await http.post(url, body: body, headers: acceptApplicationJson);
-      dev.inspect(response, 'createUser response');
-      dev.log('response ${response.statusCode}', className);
-
-      if (response.statusCode == HttpStatus.notFound) {
-        if (ResponseUtils.resourceNotFound(response.body)) {
-          dev.log('response body ${response.body}', 'responseUtils');
-          throw ResourceNotFound();
-        }
-        throw HttpNotFound();
+      if (user.userType == UserTypeEnum.artist) {
+        return await _httpClient.post<CreateArtistUserResponse>(
+          path: _basePath,
+          body: user.toJson(),
+          fromJson: CreateArtistUserResponse.fromJson,
+        );
+      } else {
+        return await _httpClient.post<CreateCustomerUserResponse>(
+          path: _basePath,
+          body: user.toJson(),
+          fromJson: CreateCustomerUserResponse.fromJson,
+        );
       }
-      if (response.statusCode == HttpStatus.conflict) {
-        if (response.body.contains('Role not exists')) {
-          throw RoleNotExistsException();
-        } else {
+    } on CustomHttpException catch (e) {
+      switch (e.statusCode) {
+        case HttpStatus.conflict:
+          if (e.message.contains('Role not exists')) {
+            throw RoleNotExistsException();
+          }
           throw HttpConflict();
-        }
-      } else if (response.statusCode == HttpStatus.badRequest) {
-        if (response.body.contains(userAlreadyExists)) {
-          throw UserAlreadyExistsException();
-        } else if (response.body.contains('Artist already exists')) {
-          throw ArtistAlreadyExistsException();
-        } else if (response.body.contains('Customer already exists')) {
-          throw CustomerAlreadyExistsException();
-        } else {
+
+        case HttpStatus.badRequest:
+          if (e.message.contains('User already exists')) {
+            throw UserAlreadyExistsException();
+          } else if (e.message.contains('Artist already exists')) {
+            throw ArtistAlreadyExistsException();
+          } else if (e.message.contains('Customer already exists')) {
+            throw CustomerAlreadyExistsException();
+          }
           throw BadRequest();
-        }
-      } else if (response.statusCode == HttpStatus.unprocessableEntity) {
-        if (response.body.contains(problemsSavingArtist)) {
-          throw ProblemsSavingArtist();
-        } else if (response.body.contains(problemsSavingAgendaForUser)) {
-          throw ProblemsSavingAgendaForUser();
-        } else if (response.body.contains(troubleSavingLocation)) {
-          throw TroubleSavingLocation();
-        } else {
+
+        case HttpStatus.unprocessableEntity:
+          if (e.message.contains('Problems saving artist')) {
+            throw ProblemsSavingArtist();
+          } else if (e.message.contains('Problems saving agenda')) {
+            throw ProblemsSavingAgendaForUser();
+          } else if (e.message.contains('Trouble saving location')) {
+            throw TroubleSavingLocation();
+          }
           throw UnprocessableEntity();
-        }
-      } else if (response.statusCode == HttpStatus.created) {
-        try {
-          return user.userType == UserTypeEnum.artist
-              ? createArtistUserResponseFromJson(response.body)
-              : createCustomerUserResponseFromJson(response.body);
-        } catch (e, stackTrace) {
-          dev.logError(e, stackTrace);
-          throw JsonParseException();
-        }
-      } else if (response.statusCode >= HttpStatus.internalServerError) {
-        throw InternalServerException();
+
+        default:
+          rethrow;
       }
-      throw UnHandledException();
-    } catch (e, stackTrace) {
-      dev.logError(e, stackTrace);
-      rethrow;
     }
   }
 
   @override
-  Future<bool> sendAccountVerificationCode(String userId, String phoneNumber,
-      NotificationType notificationType) async {
-    final url = _httpConfig.surl(
-        basePath: 'users',
-        path: '$userId/send-account-verification-code',
+  Future<bool> sendAccountVerificationCode(
+    String userId,
+    String phoneNumber,
+    NotificationType notificationType,
+  ) async {
+    try {
+      await _httpClient.post<Map<String, dynamic>>(
+        path: '$_basePath/$userId/send-account-verification-code',
         queryParams: {
           'phoneNumber': phoneNumber,
-          'notificationType': notificationType.name
-        });
-    try {
-      final response = await http.post(url);
-      dev.inspect(response, 'sendAccountVerificationCode response');
-      if (response.statusCode == HttpStatus.ok) {
-        return true;
-      } else if (response.statusCode == HttpStatus.notFound) {
-        if (ResponseUtils.resourceNotFound(response.body)) {
-          throw ResourceNotFound();
-        }
-        throw HttpNotFound();
-      } else if (response.statusCode == HttpStatus.badRequest) {
-        if (response.body.contains(maxSmsAttemptsReached)) {
-          throw MaxSMSTriesException();
-        }
-        if (response.body.contains(userAlreadyVerified)) {
-          throw UserAlreadyVerified();
-        }
-        if (response.body.contains(userIdPipeFailed)) {
-          throw UserIdPipeFailed();
-        }
-        throw BadRequest();
-      } else if (response.statusCode == HttpStatus.notAcceptable) {
-        if (response.body.contains(userNotAccepted)) {
-          throw UserNotAccepted();
-        }
-        throw NotAcceptable();
-      } else if (response.statusCode == HttpStatus.unprocessableEntity) {
-        if (response.body.contains(problemCreatingVerificationHash)) {
-          throw ProblemCreatingVerificationHash();
-        }
-      } else if (response.statusCode >= HttpStatus.internalServerError) {
-        throw InternalServerException();
+          'notificationType': notificationType.name,
+        },
+        fromJson: (json) => json,
+        body: {}, // Empty body for POST request
+      );
+      return true;
+    } on CustomHttpException catch (e) {
+      switch (e.statusCode) {
+        case HttpStatus.badRequest:
+          if (e.message.contains('Max SMS attempts reached')) {
+            throw MaxSMSTriesException();
+          } else if (e.message.contains('User already verified')) {
+            throw UserAlreadyVerified();
+          } else if (e.message.contains('User ID pipe failed')) {
+            throw UserIdPipeFailed();
+          }
+          throw BadRequest();
+
+        case HttpStatus.notAcceptable:
+          if (e.message.contains('User not accepted')) {
+            throw UserNotAccepted();
+          }
+          throw NotAcceptable();
+
+        case HttpStatus.unprocessableEntity:
+          if (e.message.contains('Problem creating verification hash')) {
+            throw ProblemCreatingVerificationHash();
+          }
+          throw UnprocessableEntity();
+
+        default:
+          rethrow;
       }
-      return false;
-    } catch (e, stackTrace) {
-      dev.logError(e, stackTrace);
-      rethrow;
     }
   }
 
   @override
   Future<bool> verifyAccountVerificationCode(
-      String userId, String code, NotificationType notificationType) async {
-    final url = _httpConfig.surl(
-        basePath: 'users',
-        path: '$userId/validate-account-verification-code/$code',
-        queryParams: {'notificationType': notificationType.name});
+      {required String userId,
+      required String code,
+      required NotificationType notificationType}) async {
     try {
-      final response = await http.post(url);
-      dev.inspect(response, 'sendAccountVerificationCode response');
-      if (response.statusCode == HttpStatus.ok) {
-        return true;
-      } else if (response.statusCode == HttpStatus.notFound) {
-        if (ResponseUtils.resourceNotFound(response.body)) {
+      await _httpClient.post<Map<String, dynamic>>(
+        path: '$_basePath/$userId/validate-account-verification-code/$code',
+        queryParams: {
+          'notificationType': notificationType.name,
+        },
+        fromJson: (json) => json,
+        body: {}, // Empty body for POST request
+      );
+      return true;
+    } on CustomHttpException catch (e) {
+      switch (e.statusCode) {
+        case HttpStatus.notFound:
+          if (e.message.contains('Hash not found')) {
+            throw HashNotFound();
+          }
           throw ResourceNotFound();
-        }
-        if (response.body.contains(hashNotFoundForUserId)) {
-          throw HashNotFound();
-        }
-        throw HttpNotFound();
-      } else if (response.statusCode == HttpStatus.badRequest) {
-        if (response.body.contains(userAlreadyVerified)) {
-          throw UserAlreadyVerified();
-        }
-        if (response.body.contains(userIdPipeFailed)) {
-          throw UserIdPipeFailed();
-        }
-        throw BadRequest();
-      } else if (response.statusCode == HttpStatus.notAcceptable) {
-        if (response.body.contains(userNotAccepted)) {
-          throw UserNotAccepted();
-        }
-        throw NotAcceptable();
-      } else if (response.statusCode == HttpStatus.unprocessableEntity) {
-        if (response.body.contains(errorActivatingUser)) {
-          throw ActivatingUserException();
-        }
-        throw UnprocessableEntity();
-      } else if (response.statusCode == HttpStatus.conflict) {
-        if (response.body.contains(invalidVerificationCode)) {
-          return false;
-        }
-        throw ConflictException();
-      } else if (response.statusCode >= HttpStatus.internalServerError) {
-        throw InternalServerException();
+
+        case HttpStatus.badRequest:
+          if (e.message.contains('User already verified')) {
+            throw UserAlreadyVerified();
+          } else if (e.message.contains('User ID pipe failed')) {
+            throw UserIdPipeFailed();
+          }
+          throw BadRequest();
+
+        case HttpStatus.notAcceptable:
+          if (e.message.contains('User not accepted')) {
+            throw UserNotAccepted();
+          }
+          throw NotAcceptable();
+
+        case HttpStatus.unprocessableEntity:
+          if (e.message.contains('Error activating user')) {
+            throw ActivatingUserException();
+          }
+          throw UnprocessableEntity();
+
+        case HttpStatus.conflict:
+          if (e.message.contains('Invalid verification code')) {
+            return false;
+          }
+          throw ConflictException();
+
+        default:
+          rethrow;
       }
-      return false;
-    } catch (e, stackTrace) {
-      dev.logError(e, stackTrace);
+    }
+  }
+
+  @override
+  Future<User> user() async {
+    try {
+      return await _httpClient.get<User>(
+        path: '$_basePath/me',
+        fromJson: User.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      if (e.statusCode == HttpStatus.notFound) {
+        throw ResourceNotFound();
+      }
       rethrow;
     }
+  }
+
+  @override
+  Future<void> deleteAccount(String token, String password) async {
+    await _httpClient.delete(
+      path: '$_basePath/me',
+      token: token,
+      body: Map<String, dynamic>.from({
+        'password': password,
+      }),
+    );
+  }
+
+  @override
+  Future<SendVerificationCodeResponse>
+      sendAccountVerificationCodeByEmailOrPhone(
+          {String? phoneNumber,
+          String? email,
+          required NotificationType notificationType}) async {
+    try {
+      final response = await _httpClient.post<SendVerificationCodeResponse>(
+        path: '$_basePath/send-account-verification-code',
+        queryParams: {
+          'phoneNumber': phoneNumber,
+          'email': email,
+          'notificationType': notificationType.name,
+        },
+        fromJson: SendVerificationCodeResponse.fromJson,
+        body: {}, // Empty body for POST request
+      );
+      return response;
+    } on CustomHttpException catch (e) {
+      switch (e.statusCode) {
+        case HttpStatus.badRequest:
+          if (e.message.contains('Max SMS attempts reached')) {
+            throw MaxSMSTriesException();
+          } else if (e.message.contains('User already verified')) {
+            throw UserAlreadyVerified();
+          } else if (e.message.contains('User ID pipe failed')) {
+            throw UserIdPipeFailed();
+          }
+          throw BadRequest();
+
+        case HttpStatus.notAcceptable:
+          if (e.message.contains('User not accepted')) {
+            throw UserNotAccepted();
+          }
+          throw NotAcceptable();
+
+        case HttpStatus.unprocessableEntity:
+          if (e.message.contains('Problem creating verification hash')) {
+            throw ProblemCreatingVerificationHash();
+          }
+          throw UnprocessableEntity();
+
+        default:
+          rethrow;
+      }
+    }
+  }
+
+  @override
+  Future<void> sendPasswordRecoveryCode(
+      {String? phoneNumber, String? email, required NotificationType notificationType}) async {
+    await _httpClient.post<Map<String, dynamic>>(
+      path: '$_basePath/send-forgot-password-code',
+      queryParams: {
+        'email': email,
+        'notificationType': notificationType.name,
+      },
+      fromJson: (json) => json,
+      body: {}, // Empty body for POST request
+    );
+  }
+  
+  @override
+  Future<void> resetPassword(String code, String newPassword, String repeatPassword, String email) async {
+    await _httpClient.post<Map<String, dynamic>>(
+      path: '$_basePath/forgot-password/$code',
+      body: {
+        'password': newPassword,
+        'repeatedPassword': repeatPassword,
+        'email': email,
+      },
+      fromJson: (json) => json,
+    );
   }
 }

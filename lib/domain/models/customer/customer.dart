@@ -1,7 +1,9 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'customer.g.dart';
+
+@JsonSerializable()
 class Customer extends Equatable {
   final int id;
   final int userId;
@@ -15,6 +17,8 @@ class Customer extends Equatable {
   final String? follows;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? tsv;
+  final DateTime? deletedAt;
 
   const Customer({
     required this.id,
@@ -29,7 +33,34 @@ class Customer extends Equatable {
     this.follows,
     this.createdAt,
     this.updatedAt,
+    this.tsv,
+    this.deletedAt,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        firstName,
+        contactEmail,
+        rating,
+        lastName,
+        contactPhoneNumber,
+        shortDescription,
+        profileThumbnail,
+        follows,
+        createdAt,
+        updatedAt,
+        tsv,
+        deletedAt,
+      ];
+
+  // Factory constructor que usa el método generado _$CustomerFromJson
+  factory Customer.fromJson(Map<String, dynamic> json) => 
+      _$CustomerFromJson(json);
+
+  // Método que usa el método generado _$CustomerToJson
+  Map<String, dynamic> toJson() => _$CustomerToJson(this);
 
   Customer copyWith({
     int? id,
@@ -44,6 +75,8 @@ class Customer extends Equatable {
     String? follows,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? tsv,
+    DateTime? deletedAt,
   }) {
     return Customer(
       id: id ?? this.id,
@@ -58,72 +91,13 @@ class Customer extends Equatable {
       follows: follows ?? this.follows,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      tsv: tsv ?? this.tsv,
+      deletedAt: deletedAt ?? this.deletedAt,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Customer.fromJson(String source) =>
-      Customer.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Customer(id: $id, userId: $userId, firstName: $firstName, contactEmail: $contactEmail, rating: $rating, lastName: $lastName, contactPhoneNumber: $contactPhoneNumber, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, follows: $follows, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      userId,
-      firstName,
-      contactEmail,
-      rating,
-      lastName,
-      contactPhoneNumber,
-      shortDescription,
-      profileThumbnail,
-      follows,
-      createdAt,
-      updatedAt,
-    ];
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'userId': userId,
-      'firstName': firstName,
-      'contactEmail': contactEmail,
-      'rating': rating,
-      'lastName': lastName,
-      'contactPhoneNumber': contactPhoneNumber,
-      'shortDescription': shortDescription,
-      'profileThumbnail': profileThumbnail,
-      'follows': follows,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'updatedAt': updatedAt?.millisecondsSinceEpoch,
-    };
-  }
-
-  factory Customer.fromMap(Map<String, dynamic> map) {
-    return Customer(
-      id: map['id']?.toInt() ?? 0,
-      userId: map['userId']?.toInt() ?? 0,
-      firstName: map['firstName'] ?? '',
-      contactEmail: map['contactEmail'] ?? '',
-      rating: map['rating']?.toInt() ?? 0,
-      lastName: map['lastName'],
-      contactPhoneNumber: map['contactPhoneNumber'],
-      shortDescription: map['shortDescription'],
-      profileThumbnail: map['profileThumbnail'],
-      follows: map['follows'],
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
-          : null,
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
-          : null,
-    );
+    return 'Customer(id: $id, userId: $userId, firstName: $firstName, lastName: $lastName, contactEmail: $contactEmail, contactPhoneNumber: $contactPhoneNumber, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, follows: $follows, rating: $rating, createdAt: $createdAt, updatedAt: $updatedAt, tsv: $tsv, deletedAt: $deletedAt)';
   }
 }

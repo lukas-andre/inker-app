@@ -161,4 +161,17 @@ class SqliteService implements DatabaseService {
     final db = await database;
     return await db.delete(databaseName, where: where, whereArgs: whereArgs);
   }
+
+  Future<void> resetDatabase() async {
+    final db = await database;
+    await _dropDatabaseTables(db);
+    await _createDatabaseTables(db);
+  }
+  
+  Future<void> closeDatabase() async {
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
+  }
 }

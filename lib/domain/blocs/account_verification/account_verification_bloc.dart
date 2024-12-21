@@ -59,7 +59,9 @@ class AccountVerificationBloc
       ));
       final verificationResult =
           await _userService.verifyAccountVerificationCode(
-              createdUser.userId.toString(), event.pin, NotificationType.phone);
+              userId: createdUser.userId.toString(),
+              code: event.pin,
+              notificationType: NotificationType.phone);
       emit(state.copyWith(
         isVerifying: false,
       ));

@@ -84,7 +84,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       );
                     } else {
                       // THIS IS ARTIST FOUND STATE
-                      return Stack(children: [
+                      return Stack(
+                        key: const Key('explorerPageStack'),
+                        children: [
                         ExplorerViewByType(
                             view: state.view,
                             lastLocation: locationState.lastKnownLocation!),

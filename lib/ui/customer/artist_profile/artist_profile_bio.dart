@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -98,7 +98,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
     if (shortDescription.length <= 100) {
       return Text(
         shortDescription,
-        style: TextStyleTheme.copyWith(fontSize: 16),
+        style: TextStyleTheme.copyWith(fontSize: 16, color: tertiaryColor),
       );
     }
 
@@ -108,7 +108,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             shortDescription,
-            style: TextStyleTheme.copyWith(fontSize: 12, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -138,7 +138,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             abbreviatedDescriptionWithElipsis,
-            style: TextStyleTheme.copyWith(fontSize: 12, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -152,7 +152,6 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               'Ver más',
               style: TextStyle(
                 color: Colors.blue,
-                // decoration: TextDecoration.underline,
               ),
             ),
           ),

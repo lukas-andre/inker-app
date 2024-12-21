@@ -1,0 +1,12 @@
+{
+  "android": {
+    "pixel_5": "emulator-5554"
+  },
+  "ios": {
+    "iphone_15_pro": "1754FAB0-2C29-403E-BE59-08BB299F6D37"
+  },
+  "macos": {
+    "macos": "macos",
+    "mac_designed_for_ipad": "mac-designed-for-ipad"
+  }
+}

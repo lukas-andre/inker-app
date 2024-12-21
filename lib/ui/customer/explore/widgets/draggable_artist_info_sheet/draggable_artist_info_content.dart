@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
-import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_bottom_bar.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_divider.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_rating_content.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/dragging_sheet_handler.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
+import 'package:inker_studio/ui/shared/artist_work_section.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
@@ -27,7 +28,11 @@ class DraggableArtistInfoContent extends StatelessWidget {
             context.read<DraggableArtistReviewSheetBloc>();
 
         final selectedArtist = mapBloc.selectedArtist;
-
+        if (selectedArtist != null) {
+          context
+              .read<ArtistProfileBloc>()
+              .add(ArtistProfileEvent.setArtist(selectedArtist));
+        }
         return Column(
           children: <Widget>[
             const SizedBox(height: 12),
@@ -40,7 +45,6 @@ class DraggableArtistInfoContent extends StatelessWidget {
             const DraggableArtistInfoBottomDivider(),
             const DraggableArtistRatingContent(),
             const SizedBox(height: 16),
-            const CustomHorizontallyScrollingRestaurants(),
             const SizedBox(height: 16),
             selectedArtist?.review != null
                 ? GestureDetector(
@@ -67,16 +71,10 @@ class DraggableArtistInfoContent extends StatelessWidget {
                   )
                 : Container(),
             const SizedBox(height: 24),
-            const CustomFeaturedListsText(),
-            const SizedBox(height: 16),
-            const CustomFeaturedItemsGrid(),
-            const SizedBox(height: 24),
-            const CustomRecentPhotosText(),
-            const SizedBox(height: 16),
-            const CustomRecentPhotoLarge(),
-            const SizedBox(height: 12),
-            const CustomRecentPhotosSmall(),
-            const SizedBox(height: bottomBarHeight + 16),
+            selectedArtist != null
+                ? ArtistWorksSection(artistId: selectedArtist.id)
+                : const SizedBox.shrink(),
+            const SizedBox(height: 100),
           ],
         );
       },
@@ -136,9 +134,8 @@ class DraggableInfoBody extends StatelessWidget {
       builder: (context, state) {
         final mapBloc = context.read<MapBloc>();
 
-        String artistUserName = 'Berlin';
-        String shortDescription =
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed nisl euismod, aliquam nisl sed, aliquam nisl. Sed sed nisl euismod, aliquam nisl sed, aliquam nisl.';
+        String artistUserName = 'No name';
+        String shortDescription = 'No description';
         String profileImageLink = defaultProfileImageLink;
 
         if (mapBloc.selectedArtist != null) {
@@ -184,162 +181,10 @@ class DraggableInfoBody extends StatelessWidget {
                   ),
                 ),
               ),
-              // const SizedBox(width: 8),
-              // Container(
-              //   height: 24,
-              //   width: 24,
-              //   child: const Icon(Icons.arrow_forward_ios,
-              //       size: 12, color: Colors.black54),
-              //   decoration: BoxDecoration(
-              //       color: Colors.grey[200],
-              //       borderRadius: BorderRadius.circular(16)),
-              // ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class CustomHorizontallyScrollingRestaurants extends StatelessWidget {
-  const CustomHorizontallyScrollingRestaurants({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 16),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CustomRestaurantCategory(),
-            SizedBox(width: 12),
-            CustomRestaurantCategory(),
-            SizedBox(width: 12),
-            CustomRestaurantCategory(),
-            SizedBox(width: 12),
-            CustomRestaurantCategory(),
-            SizedBox(width: 12),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomFeaturedListsText extends StatelessWidget {
-  const CustomFeaturedListsText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      //only to left align the text
-      child: Row(
-        children: [
-          Text('Trabajos realizados',
-              style: TextStyleTheme.copyWith(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomFeaturedItemsGrid extends StatelessWidget {
-  const CustomFeaturedItemsGrid({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GridView.count(
-        //to avoid scrolling conflict with the dragging sheet
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(0),
-        crossAxisCount: 2,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        shrinkWrap: true,
-        children: const <Widget>[
-          CustomFeaturedItem(),
-          CustomFeaturedItem(),
-          CustomFeaturedItem(),
-          CustomFeaturedItem(),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomRecentPhotosText extends StatelessWidget {
-  const CustomRecentPhotosText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 16),
-      child: Row(
-        children: <Widget>[
-          Text('Recent Photos', style: TextStyle(fontSize: 14)),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomRecentPhotoLarge extends StatelessWidget {
-  const CustomRecentPhotoLarge({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: CustomFeaturedItem(),
-    );
-  }
-}
-
-class CustomRecentPhotosSmall extends StatelessWidget {
-  const CustomRecentPhotosSmall({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CustomFeaturedItemsGrid();
-  }
-}
-
-class CustomRestaurantCategory extends StatelessWidget {
-  const CustomRestaurantCategory({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      decoration: BoxDecoration(
-        color: Colors.grey[500],
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
-  }
-}
-
-class CustomFeaturedItem extends StatelessWidget {
-  const CustomFeaturedItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.grey[500],
-        borderRadius: BorderRadius.circular(8),
-      ),
     );
   }
 }
