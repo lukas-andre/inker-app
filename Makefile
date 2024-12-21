@@ -101,3 +101,12 @@ help-test:
 	@echo "  make test-watch        - Run tests in watch mode"
 	@echo "  make test-coverage     - Generate test coverage report"
 	@echo "  make test-setup        - Setup test environment"
+
+
+.PHONY: build-ios
+build-ios:
+	flutter build ipa --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define=GOOGLE_PLACES_KEY_IOS=AIzaSyCj1eti303pto797lCPa7ChUyQ_TRaYpWg
+
+.PHONY: build-android
+build-android:
+	flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define=GOOGLE_PLACES_KEY_ANDROID=AIzaSyDsXkdSxDC9PUdc0xjb2j0eUFqM5I5fcVY
