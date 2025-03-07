@@ -51,7 +51,7 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
 
   void _setArtist(Emitter<ArtistProfileState> emit, Artist artist) {
     emit(ArtistProfileState.configured(artist: artist));
-    add(const ArtistProfileEvent.loadingWorks());
+    // add(const ArtistProfileEvent.loadingWorks());
   }
 
   void _loadedWorks(

@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 part 'create_quotation_page_event.dart';
 part 'create_quotation_page_state.dart';
@@ -61,6 +62,7 @@ class CreateQuotationPageBloc
         referenceImages: referenceImages,
       ));
     } catch (e) {
+      dev.log(e.toString(), 'error');
       emit(CreateQuotationPageState.error(e.toString(),
           referenceImages: state.referenceImages));
     }

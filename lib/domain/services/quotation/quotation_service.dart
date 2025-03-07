@@ -13,8 +13,14 @@ abstract class QuotationService {
     int page = 1,
     int limit = 10,
   });
+  
   Future<Quotation> getQuotationDetails(
       {required String token, required String quotationId});
+      
+  Future<Quotation> getQuotationById({
+    required String token,
+    required String quotationId,
+  });
 
   Future<void> processArtistAction({
     required String token,

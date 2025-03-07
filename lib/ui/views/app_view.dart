@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:inker_studio/dependencies/bloc_providers.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
@@ -33,8 +32,11 @@ import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
+import 'package:inker_studio/domain/mixins/authentication_handler.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
+import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/routes.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
@@ -54,12 +56,9 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState get _navigator => _navigatorKey.currentState!;
-
   @override
   Widget build(BuildContext context) {
+    AuthenticationHandler.init(context.read());
     return MultiBlocProvider(
       providers: [
         // Providers independientes (sin dependencias)
@@ -94,7 +93,6 @@ class _AppViewState extends State<AppView> {
           ),
         ),
 
-        // Map related providers
         // Map related providers
         BlocProvider(
           create: (context) =>
@@ -218,14 +216,21 @@ class _AppViewState extends State<AppView> {
           ),
         ),
 
-        // Notifications provider (should be last due to its dependencies)
+        // Notifications provider using the services registered at the app level
         BlocProvider(
           lazy: false,
           create: (context) {
             final fcmService = context.read<FcmService>();
-            final bloc = NotificationsBloc(fcmService)
+            final notificationsService = context.read<NotificationsService>();
+            final sessionService = context.read<LocalSessionService>();
+            
+            // Create and initialize the bloc
+            final bloc = NotificationsBloc(fcmService, notificationsService, sessionService)
               ..add(const NotificationsEvent.initialize());
+            
+            // Set up circular reference for FCM callbacks
             fcmService.setBloc(bloc);
+            
             return bloc;
           },
         ),
@@ -235,7 +240,7 @@ class _AppViewState extends State<AppView> {
           OverlayStyle.setWhite();
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            navigatorKey: _navigatorKey,
+            navigatorKey: AuthenticationHandler.navigatorKey,
             theme: themeState ? ThemeData.dark() : ThemeData.light(),
             localizationsDelegates: const [
               S.delegate,
@@ -250,7 +255,7 @@ class _AppViewState extends State<AppView> {
             locale: locale,
             builder: (context, child) {
               return NotificationsWrapper(
-                navigatorKey: _navigatorKey,
+                navigatorKey: AuthenticationHandler.navigatorKey,
                 child: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) async {
                     await _navigateByAuthStatus(context, state);
@@ -273,17 +278,17 @@ class _AppViewState extends State<AppView> {
         final String userType = state.session.user!.userType!;
         if (userType == UserType.customer) {
           NoContextNavigator.pushAndRemoveUntil(
-              _navigator, const CustomerAppPage());
+              AuthenticationHandler.navigatorKey.currentState!, const CustomerAppPage());
         }
 
         if (userType == UserType.artist) {
           NoContextNavigator.pushAndRemoveUntil(
-              _navigator, const ArtistAppPage());
+              AuthenticationHandler.navigatorKey.currentState!, const ArtistAppPage());
         }
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
-        NoContextNavigator.push(_navigator, const OnBoardingPage());
+        NoContextNavigator.push(AuthenticationHandler.navigatorKey.currentState!, const OnBoardingPage());
         break;
     }
   }
