@@ -1243,5 +1243,41 @@
   "noNotificationsMessage": "You don't have any notifications yet.",
   "@noNotificationsMessage": {
     "description": "Message displayed when there are no notifications."
+  },
+  "plsContactArtist": "Please contact the artist for further details.",
+  "@plsContactArtist": {
+    "description": "Message prompting the user to contact the artist."
+  },
+  "changeAppointmentInstruction": "Please provide the details for changing your appointment.",
+  "@changeAppointmentInstruction": {
+    "description": "Instruction for changing an appointment."
+  },
+  "changeAppointment": "Change Appointment",
+  "@changeAppointment": {
+    "description": "Label for the change appointment action."
+  },
+  "pleaseProvideReason": "Please provide a reason for cancellation.",
+  "@pleaseProvideReason": {
+    "description": "Prompt asking the user to provide a reason for cancellation."
+  },
+  "cancelAppointmentConfirmation": "Are you sure you want to cancel the appointment?",
+  "@cancelAppointmentConfirmation": {
+    "description": "Confirmation message displayed when canceling an appointment."
+  },
+  "cancelAppointment": "Cancel Appointment",
+  "@cancelAppointment": {
+    "description": "Label for the cancel appointment action."
+  },
+  "relatedQuotation": "Related Quotation",
+  "@relatedQuotation": {
+    "description": "Label for the related quotation section."
+  },
+  "appointmentDetails": "Appointment Details",
+  "@appointmentDetails": {
+    "description": "Label for the appointment details section."
+  },
+  "actionSuccessful": "Action successful",
+  "@actionSuccessful": {
+    "description": "Message displayed when an action is successful."
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
+import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
@@ -19,10 +21,17 @@ class CustomerAppPage extends StatefulWidget {
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 0;
-  static const List<Widget> _pageWidgets = <Widget>[
-    BuildMapPage(),
-    QuotationListPage(),
-    CustomerMyProfilePage()
+  List<Widget> get _pageWidgets => <Widget>[
+    const BuildMapPage(),
+    const QuotationListPage(),
+    BlocProvider(
+      create: (context) => AppointmentBloc(
+        appointmentService: context.read(),
+        sessionService: context.read(),
+      ),
+      child: const CustomerAppointmentsPage(),
+    ),
+    const CustomerMyProfilePage()
   ];
 
   @override
@@ -62,6 +71,8 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
         return const Text('Explorar');
       case 1:
         return const Text('Cotizaciones');
+      case 2:
+        return const Text('Mis Citas');
       default:
         return const Text('');
     }
@@ -73,7 +84,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final state = customerAppBloc.state;
     final icons = state.customerPageNavBarIcons.icons;
     return Scaffold(
-        appBar: _selectedIndex != 2 ? AppBar(
+        appBar: _selectedIndex != 3 ? AppBar(
           title: _getAppBarTitle(),
           elevation: 0,
           backgroundColor: primaryColor,
@@ -118,7 +129,10 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
         ) : null,
         body: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: _pageWidgets.elementAt(_selectedIndex)),
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: _pageWidgets,
+            )),
         bottomNavigationBar: Theme(
           data: ThemeData(
             splashColor: Colors.transparent,

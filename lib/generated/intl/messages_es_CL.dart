@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountSettings":
             MessageLookupByLibrary.simpleMessage("Configuración de la cuenta"),
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
+        "actionSuccessful":
+            MessageLookupByLibrary.simpleMessage("Acción exitosa"),
         "addDescription": MessageLookupByLibrary.simpleMessage(
             "Agrega una descripción sobre ti."),
         "addStudioPhoto":
@@ -88,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "La fecha de la cita cambió de"),
         "appointmentDateTime":
             MessageLookupByLibrary.simpleMessage("Fecha y Hora de la Cita"),
+        "appointmentDetails":
+            MessageLookupByLibrary.simpleMessage("Detalles de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
@@ -103,6 +107,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "barber": MessageLookupByLibrary.simpleMessage("Barbería"),
         "between": MessageLookupByLibrary.simpleMessage("entre"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "cancelAppointment":
+            MessageLookupByLibrary.simpleMessage("Cancelar Cita"),
+        "cancelAppointmentConfirmation": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro de que deseas cancelar la cita?"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancelar Evento"),
         "cancelQuotation":
             MessageLookupByLibrary.simpleMessage("Cancelar Cotización"),
@@ -130,6 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Motivo de Cancelación"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
         "change": MessageLookupByLibrary.simpleMessage("Cambiar"),
+        "changeAppointment":
+            MessageLookupByLibrary.simpleMessage("Cambiar Cita"),
+        "changeAppointmentInstruction": MessageLookupByLibrary.simpleMessage(
+            "Por favor, proporciona los detalles para cambiar tu cita."),
         "changeImage": MessageLookupByLibrary.simpleMessage("Cambiar Imagen"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
@@ -157,6 +169,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirmar Selección de Hora"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
             "Esta hora entra en conflicto con un evento existente"),
+        "contactArtist": MessageLookupByLibrary.simpleMessage(
+            "Por favor, contacta al artista para más detalles."),
         "contactInformation":
             MessageLookupByLibrary.simpleMessage("Información de Contacto"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
@@ -303,6 +317,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Permiso requerido"),
         "phone": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
+            "Por favor, proporciona una razón para la cancelación."),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
@@ -399,6 +415,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("rechazó la cotización"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Motivo de Rechazo"),
+        "relatedQuotation":
+            MessageLookupByLibrary.simpleMessage("Cotización Relacionada"),
         "removeImage": MessageLookupByLibrary.simpleMessage("Eliminar Imagen"),
         "reply": MessageLookupByLibrary.simpleMessage("Responder"),
         "request": MessageLookupByLibrary.simpleMessage("Solicitud"),

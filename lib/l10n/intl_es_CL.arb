@@ -1249,5 +1249,41 @@
   "noNotificationsMessage": "No tienes ninguna notificación todavía.",
   "@noNotificationsMessage": {
     "description": "Message displayed when there are no notifications."
+  },
+  "contactArtist": "Por favor, contacta al artista para más detalles.",
+  "@contactArtist": {
+    "description": "Mensaje que invita al usuario a contactar al artista."
+  },
+  "changeAppointmentInstruction": "Por favor, proporciona los detalles para cambiar tu cita.",
+  "@changeAppointmentInstruction": {
+    "description": "Instrucción para cambiar una cita."
+  },
+  "changeAppointment": "Cambiar Cita",
+  "@changeAppointment": {
+    "description": "Etiqueta para la acción de cambiar la cita."
+  },
+  "pleaseProvideReason": "Por favor, proporciona una razón para la cancelación.",
+  "@pleaseProvideReason": {
+    "description": "Mensaje que solicita al usuario que proporcione una razón para la cancelación."
+  },
+  "cancelAppointmentConfirmation": "¿Estás seguro de que deseas cancelar la cita?",
+  "@cancelAppointmentConfirmation": {
+    "description": "Mensaje de confirmación que se muestra al cancelar una cita."
+  },
+  "cancelAppointment": "Cancelar Cita",
+  "@cancelAppointment": {
+    "description": "Etiqueta para la acción de cancelar la cita."
+  },
+  "relatedQuotation": "Cotización Relacionada",
+  "@relatedQuotation": {
+    "description": "Etiqueta para la sección de cotización relacionada."
+  },
+  "appointmentDetails": "Detalles de la Cita",
+  "@appointmentDetails": {
+    "description": "Etiqueta para la sección de detalles de la cita."
+  },
+  "actionSuccessful": "Acción exitosa",
+  "@actionSuccessful": {
+    "description": "Mensaje mostrado cuando una acción es exitosa."
   }
 }

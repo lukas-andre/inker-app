@@ -11,6 +11,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_b
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer_my_profile/customer_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
@@ -173,6 +174,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => CustomerQuotationResponseBloc(
         quotationService: context.read(),
+        sessionService: context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => AppointmentBloc(
+        appointmentService: context.read(),
         sessionService: context.read(),
       ),
     ),
