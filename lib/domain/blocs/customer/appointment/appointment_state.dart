@@ -30,5 +30,5 @@ class AppointmentState with _$AppointmentState {
   
   const factory AppointmentState.actionFailed(String message) = _ActionFailed;
   
-  const factory AppointmentState.error(String message) = _Error;
+  const factory AppointmentState.error(String message, {String? preservedFilter}) = _Error;
 }

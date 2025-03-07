@@ -1879,7 +1879,7 @@ mixin _$AppointmentState {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1901,7 +1901,7 @@ mixin _$AppointmentState {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1923,7 +1923,7 @@ mixin _$AppointmentState {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2039,7 +2039,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return initial();
   }
@@ -2064,7 +2064,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return initial?.call();
   }
@@ -2089,7 +2089,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -2207,7 +2207,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return loading();
   }
@@ -2232,7 +2232,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return loading?.call();
   }
@@ -2257,7 +2257,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -2502,7 +2502,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return loaded(appointments, currentPage, totalPages, hasReachedMax,
         isLoadingMore, currentFilter, selectedAppointment);
@@ -2528,7 +2528,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return loaded?.call(appointments, currentPage, totalPages, hasReachedMax,
         isLoadingMore, currentFilter, selectedAppointment);
@@ -2554,7 +2554,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -2779,7 +2779,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return loadingMoreFailed(
         appointments, currentPage, totalPages, currentFilter, errorMessage);
@@ -2805,7 +2805,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return loadingMoreFailed?.call(
         appointments, currentPage, totalPages, currentFilter, errorMessage);
@@ -2831,7 +2831,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (loadingMoreFailed != null) {
@@ -2964,7 +2964,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return actionInProgress();
   }
@@ -2989,7 +2989,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return actionInProgress?.call();
   }
@@ -3014,7 +3014,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (actionInProgress != null) {
@@ -3132,7 +3132,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return actionSuccess();
   }
@@ -3157,7 +3157,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return actionSuccess?.call();
   }
@@ -3182,7 +3182,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (actionSuccess != null) {
@@ -3326,7 +3326,7 @@ class _$ActionFailedImpl implements _ActionFailed {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
     return actionFailed(message);
   }
@@ -3351,7 +3351,7 @@ class _$ActionFailedImpl implements _ActionFailed {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return actionFailed?.call(message);
   }
@@ -3376,7 +3376,7 @@ class _$ActionFailedImpl implements _ActionFailed {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (actionFailed != null) {
@@ -3450,7 +3450,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({String message, String? preservedFilter});
 }
 
 /// @nodoc
@@ -3465,12 +3465,17 @@ class __$$ErrorImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = null,
+    Object? preservedFilter = freezed,
   }) {
     return _then(_$ErrorImpl(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      preservedFilter: freezed == preservedFilter
+          ? _value.preservedFilter
+          : preservedFilter // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -3478,14 +3483,16 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl(this.message);
+  const _$ErrorImpl(this.message, {this.preservedFilter});
 
   @override
   final String message;
+  @override
+  final String? preservedFilter;
 
   @override
   String toString() {
-    return 'AppointmentState.error(message: $message)';
+    return 'AppointmentState.error(message: $message, preservedFilter: $preservedFilter)';
   }
 
   @override
@@ -3493,11 +3500,13 @@ class _$ErrorImpl implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.preservedFilter, preservedFilter) ||
+                other.preservedFilter == preservedFilter));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, message, preservedFilter);
 
   @JsonKey(ignore: true)
   @override
@@ -3525,9 +3534,9 @@ class _$ErrorImpl implements _Error {
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message) error,
+    required TResult Function(String message, String? preservedFilter) error,
   }) {
-    return error(message);
+    return error(message, preservedFilter);
   }
 
   @override
@@ -3550,9 +3559,9 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, String? preservedFilter)? error,
   }) {
-    return error?.call(message);
+    return error?.call(message, preservedFilter);
   }
 
   @override
@@ -3575,11 +3584,11 @@ class _$ErrorImpl implements _Error {
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message)? error,
+    TResult Function(String message, String? preservedFilter)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message);
+      return error(message, preservedFilter);
     }
     return orElse();
   }
@@ -3635,9 +3644,11 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements AppointmentState {
-  const factory _Error(final String message) = _$ErrorImpl;
+  const factory _Error(final String message, {final String? preservedFilter}) =
+      _$ErrorImpl;
 
   String get message;
+  String? get preservedFilter;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;

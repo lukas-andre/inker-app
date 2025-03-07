@@ -30,7 +30,12 @@ class ApiAppointmentService implements AppointmentService {
   }) async {
     final queryParams = <String, String>{};
 
-    if (status != null) queryParams['status'] = status;
+    if (status != null) {
+      // Convert from frontend status enum to backend status enum
+      final backendStatus = _mapAppStatusToBackendStatus(status);
+      queryParams['status'] = backendStatus;
+    }
+    
     if (page != null) queryParams['page'] = page.toString();
     if (limit != null) queryParams['limit'] = limit.toString();
 
@@ -56,7 +61,7 @@ class ApiAppointmentService implements AppointmentService {
         'Authorization': 'Bearer $token',
       };
       
-      print('Getting appointments from: $uri');
+      print('Getting appointments from: $uri with status: $status');
       
       final response = await http.get(uri, headers: headers);
       
@@ -82,6 +87,32 @@ class ApiAppointmentService implements AppointmentService {
     } catch (e) {
       print('Error fetching appointments: $e');
       return <Appointment>[];
+    }
+  }
+  
+  // Convert from frontend status enum to backend status string
+  String _mapAppStatusToBackendStatus(String appStatus) {
+    switch (appStatus) {
+      case 'scheduled':
+        return 'scheduled';
+      case 'inProgress':
+        return 'in_progress';
+      case 'completed':
+        return 'completed';
+      case 'rescheduled':
+        return 'rescheduled';
+      case 'waitingForPhotos':
+        return 'waiting_for_photos';
+      case 'waitingForReview':
+        return 'waiting_for_review';
+      case 'reviewed':
+        return 'reviewed';
+      case 'canceled':
+        return 'canceled';
+      case 'pending':
+        return 'pending';
+      default:
+        return appStatus;
     }
   }
 
