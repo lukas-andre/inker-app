@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
+import 'package:inker_studio/ui/customer/appointments/appointment_detail_page.dart';
+import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/password_recovery/password_recovery_page.dart';
@@ -298,6 +301,42 @@ class AppRoutes {
       return MaterialPageRoute(
         builder: (context) => const NotificationsPage(),
       );
+    }
+    
+    if (settings.name == '/appointments') {
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => AppointmentBloc(
+            appointmentService: context.read(),
+            sessionService: context.read(),
+          ),
+          child: const CustomerAppointmentsPage(),
+        ),
+      );
+    }
+    
+    if (settings.name == '/appointmentDetail') {
+      final args = settings.arguments as Map<String, dynamic>;
+      if (args.containsKey('appointmentId')) {
+        final appointmentId = args['appointmentId'] as int;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => AppointmentBloc(
+              appointmentService: context.read(),
+              sessionService: context.read(),
+            ),
+            child: AppointmentDetailPage(
+              appointmentId: appointmentId,
+            ),
+          ),
+        );
+      } else {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(
+            message: 'Appointment ID is required',
+          ),
+        );
+      }
     }
 
     return null;

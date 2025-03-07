@@ -19,6 +19,7 @@ class Keys {
   static const quotationsTab = Key('quotationsTab');
   static const exploreTab = Key('exploreTab');
   static const agendaTab = Key('agendaTab');
+  static const appointmentsTab = Key('appointmentsTab');
   static const settingsButton = Key('settingsButton');
 
   // Settings page keys
