@@ -183,30 +183,29 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         return;
       }
       
-      // Check if we already have this quotation in our state
-      if (state is QuotationListLoaded) {
-        final currentState = state as QuotationListLoaded;
-        final existingQuotation = currentState.quotations.where(
-          (q) => q.id.toString() == quotationId
-        ).toList();
-        
-        if (existingQuotation.isNotEmpty) {
-          // We already have the quotation, no need to fetch it again
-          return;
-        }
-      }
-      
-      // If we don't have the quotation yet or state is not loaded,
-      // fetch it from the server with special single quotation API call
+      // Always fetch the latest data from the server to ensure we have current state
       final quotation = await _quotationService.getQuotationById(
         token: session.accessToken,
         quotationId: quotationId,
       );
       
-      // If we already have a loaded state, add this quotation to it
+      // If we already have a loaded state, update the quotation or add it
       if (state is QuotationListLoaded) {
         final currentState = state as QuotationListLoaded;
-        final updatedQuotations = [...currentState.quotations, quotation];
+        
+        // Replace the quotation if it exists, otherwise add it
+        final existingIndex = currentState.quotations.indexWhere(
+          (q) => q.id.toString() == quotationId
+        );
+        
+        List<Quotation> updatedQuotations;
+        
+        if (existingIndex >= 0) {
+          updatedQuotations = [...currentState.quotations];
+          updatedQuotations[existingIndex] = quotation;
+        } else {
+          updatedQuotations = [...currentState.quotations, quotation];
+        }
         
         emit(currentState.copyWith(
           quotations: updatedQuotations,

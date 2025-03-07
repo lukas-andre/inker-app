@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/artist_quotation_response/artist_quotation_response_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -124,8 +125,18 @@ class _ArtistQuotationResponseViewState
                   l10n.quotationResponseSuccess,
                   l10n.quotationResponseSuccessMessage,
                   onComplete: () {
-                    // Pop back to the quotation details page and refresh
-                    Navigator.of(context).pop(true);
+                    // Refresh the quotation in the bloc first, then return with success
+                    context.read<QuotationListBloc>().add(
+                          QuotationListEvent.getQuotationById(widget.quotationId),
+                        );
+                    
+                    // Add a slight delay to allow the update to propagate
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      if (context.mounted) {
+                        // Pop back to the quotation details page with result=true to trigger refresh
+                        Navigator.of(context).pop(true);
+                      }
+                    });
                   },
                 );
               },
