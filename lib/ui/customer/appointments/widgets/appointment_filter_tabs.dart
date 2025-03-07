@@ -11,7 +11,7 @@ class AppointmentFilterTabs extends StatefulWidget {
     this.currentFilter,
     required this.onFilterChanged,
   }) : super(key: key);
-
+  
   @override
   State<AppointmentFilterTabs> createState() => _AppointmentFilterTabsState();
 }
@@ -28,15 +28,28 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
     'canceled',
   ];
 
+  // Keep track of the last selected index to prevent unwanted jumps
+  // Using static variable to ensure persistence across widget rebuilds and state changes
+  static int _lastSelectedIndex = 0;
+  static String? _lastSelectedFilter;
+  bool _ignoreTabChange = false;
+  
   @override
   void initState() {
     super.initState();
-    // Set initial tab based on current filter
-    int initialIndex = 0;
+    
+    // Determine initial index - prioritize current filter from widget, then last selected
+    int initialIndex = _lastSelectedIndex;
+    
     if (widget.currentFilter != null) {
-      final index = _filters.indexOf(widget.currentFilter!);
-      if (index >= 0) {
-        initialIndex = index;
+      // If widget has a filter, use it unless it's the same as our last filter
+      if (widget.currentFilter != _lastSelectedFilter) {
+        final index = _filters.indexOf(widget.currentFilter!);
+        if (index >= 0) {
+          initialIndex = index;
+          _lastSelectedIndex = index;
+          _lastSelectedFilter = widget.currentFilter;
+        }
       }
     }
     
@@ -47,7 +60,10 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
     );
     
     _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
+      // Only trigger callback when user changes tab (not programmatic changes)
+      if (!_tabController.indexIsChanging && !_ignoreTabChange) {
+        _lastSelectedIndex = _tabController.index;
+        _lastSelectedFilter = _filters[_tabController.index];
         widget.onFilterChanged(_filters[_tabController.index]);
       }
     });
@@ -57,12 +73,28 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
   void didUpdateWidget(AppointmentFilterTabs oldWidget) {
     super.didUpdateWidget(oldWidget);
     
-    // Update tab controller if filter changes externally
+    // Only use the widget's filter if it's explicitly changing from the old widget
     if (widget.currentFilter != oldWidget.currentFilter && widget.currentFilter != null) {
-      final index = _filters.indexOf(widget.currentFilter!);
-      if (index >= 0 && index != _tabController.index) {
-        _tabController.animateTo(index);
+      // If the new filter is different from our tracked filter, it's coming from a state change
+      if (widget.currentFilter != _lastSelectedFilter) {
+        final index = _filters.indexOf(widget.currentFilter!);
+        
+        if (index >= 0) {
+          // External filter change - don't update our tracking, just show the right tab
+          _ignoreTabChange = true;
+          if (index != _tabController.index) {
+            _tabController.animateTo(index);
+          }
+          _ignoreTabChange = false;
+        }
       }
+    }
+    
+    // Always make sure tab controller shows our last selected index (preventing tab jumps)
+    if (_tabController.index != _lastSelectedIndex && _lastSelectedFilter != null) {
+      _ignoreTabChange = true;
+      _tabController.animateTo(_lastSelectedIndex);
+      _ignoreTabChange = false;
     }
   }
 
@@ -74,6 +106,18 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
 
   @override
   Widget build(BuildContext context) {
+    // Make sure the tab controller is at the correct index on every rebuild
+    if (_tabController.index != _lastSelectedIndex) {
+      // Use Future.microtask to avoid build phase issues
+      Future.microtask(() {
+        if (mounted) {
+          _ignoreTabChange = true;
+          _tabController.animateTo(_lastSelectedIndex);
+          _ignoreTabChange = false;
+        }
+      });
+    }
+    
     return Container(
       height: 48,
       decoration: BoxDecoration(

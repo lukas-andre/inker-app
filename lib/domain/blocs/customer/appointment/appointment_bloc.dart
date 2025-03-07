@@ -41,19 +41,34 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     add(const AppointmentEvent.loadAppointments());
   }
 
+  // Keep track of the current filter across states
+  String? _currentTabFilter;
+
   Future<void> _loadAppointments(
     Emitter<AppointmentState> emit,
     String? status,
     bool isRefresh,
   ) async {
-    if (!isRefresh) {
+    // Preserve the filter regardless of state transitions
+    if (status != null) {
+      _currentTabFilter = status;
+    }
+    
+    // Only emit loading if we're not refreshing or if explicitly changing filters
+    final currentState = state;
+    final stateFilter = currentState is _Loaded ? currentState.currentFilter : null;
+    
+    if (!isRefresh && stateFilter != status) {
       emit(const AppointmentState.loading());
     }
 
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        emit(const AppointmentState.error('No active session found'));
+        emit(AppointmentState.error(
+          'No active session found',
+          preservedFilter: _currentTabFilter,
+        ));
         return;
       }
 
@@ -71,7 +86,10 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         currentFilter: status,
       ));
     } catch (e) {
-      emit(AppointmentState.error(e.toString()));
+      emit(AppointmentState.error(
+        e.toString(),
+        preservedFilter: _currentTabFilter,
+      ));
     }
   }
 
@@ -149,7 +167,12 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        emit(const AppointmentState.error('No active session found'));
+        // Use our tracked filter or the current state's filter
+        final currentFilter = currentState is _Loaded ? currentState.currentFilter : _currentTabFilter;
+        emit(AppointmentState.error(
+          'No active session found',
+          preservedFilter: currentFilter,
+        ));
         return;
       }
 
@@ -169,7 +192,12 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         ));
       }
     } catch (e) {
-      emit(AppointmentState.error(e.toString()));
+      // Use our tracked filter or the current state's filter
+      final currentFilter = currentState is _Loaded ? currentState.currentFilter : _currentTabFilter;
+      emit(AppointmentState.error(
+        e.toString(),
+        preservedFilter: currentFilter,
+      ));
     }
   }
 
@@ -268,12 +296,31 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     Emitter<AppointmentState> emit,
     String status,
   ) async {
+    // Always update our tracked filter immediately
+    _currentTabFilter = status;
+    
     final currentState = state;
+    
+    // If we're already filtering by this status, do nothing
     if (currentState is _Loaded && currentState.currentFilter == status) {
-      return; // Already filtering by this status
+      return;
+    }
+    
+    // Immediately emit a state that preserves the selected filter
+    // This prevents the UI from jumping back to the default tab
+    if (currentState is _Loaded) {
+      // Keep the same data but update the filter to prevent tab flickering
+      emit(currentState.copyWith(
+        isLoadingMore: true, // Show loading indicator
+        currentFilter: status, // Immediately update the filter
+      ));
+    } else {
+      // For other states (error, initial), immediately emit a loading state
+      emit(const AppointmentState.loading());
     }
 
-    add(AppointmentEvent.loadAppointments(status: status));
+    // Continue with loading appointments
+    add(AppointmentEvent.loadAppointments(status: status, isRefresh: true));
   }
   
   Future<void> _rsvpForAppointment(
