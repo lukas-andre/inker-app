@@ -54,27 +54,49 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
       backgroundColor: primaryColor,
       body: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
-          return state.when(
-            initial: () => const Center(child: InkerProgressIndicator()),
-            loading: () => const Center(child: InkerProgressIndicator()),
-            loaded: (appointments, currentPage, totalPages, hasReachedMax, isLoadingMore, currentFilter, selectedAppointment) {
-              if (appointments.isEmpty) {
-                return const EmptyState(
-                  icon: Icons.calendar_today,
-                  title: 'No hay citas programadas',
-                  message: 'Cuando tengas citas programadas con artistas, aparecerán aquí.',
-                );
-              }
-              return Column(
-                children: [
-                  AppointmentFilterTabs(
-                    currentFilter: currentFilter,
-                    onFilterChanged: (filter) {
-                      context.read<AppointmentBloc>().add(AppointmentEvent.filterByStatus(filter));
-                    },
-                  ),
-                  Expanded(
-                    child: RefreshIndicator(
+          // Extract current filter if available
+          String? currentFilter = state.maybeWhen(
+            loaded: (_, __, ___, ____, _____, currentFilter, ______) => currentFilter,
+            loadingMoreFailed: (_, __, ___, currentFilter, ____) => currentFilter,
+            error: (_, preservedFilter) => preservedFilter,
+            orElse: () => null,
+          );
+          
+          // Always show filter tabs at the top, regardless of state
+          return Column(
+            children: [
+              // Filter tabs are always visible
+              AppointmentFilterTabs(
+                currentFilter: currentFilter ?? 'all',
+                onFilterChanged: (filter) {
+                  context.read<AppointmentBloc>().add(
+                    AppointmentEvent.loadAppointments(status: filter),
+                  );
+                },
+              ),
+              
+              // Content area changes based on state
+              Expanded(
+                child: state.when(
+                  initial: () => const Center(child: InkerProgressIndicator()),
+                  loading: () => const Center(child: InkerProgressIndicator()),
+                  loaded: (appointments, currentPage, totalPages, hasReachedMax, isLoadingMore, currentFilter, selectedAppointment) {
+                    if (appointments.isEmpty) {
+                      // Use different message based on the filter
+                      String title;
+                      if (currentFilter == null || currentFilter == 'all') {
+                        title = 'No hay citas programadas';
+                      } else {
+                        title = 'No hay citas con este estado';
+                      }
+                      
+                      return EmptyState(
+                        icon: Icons.calendar_today,
+                        title: title,
+                        message: 'Prueba con otro filtro o regresa más tarde.',
+                      );
+                    }
+                    return RefreshIndicator(
                       onRefresh: () {
                         context.read<AppointmentBloc>().add(
                           AppointmentEvent.loadAppointments(
@@ -128,128 +150,128 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                           );
                         },
                       ),
-                    ),
-                  ),
-                ],
-              );
-            },
-            loadingMoreFailed: (appointments, currentPage, totalPages, currentFilter, errorMessage) {
-              if (appointments.isEmpty) {
-                return const EmptyState(
-                  icon: Icons.calendar_today,
-                  title: 'No hay citas programadas',
-                  message: 'Cuando tengas citas programadas con artistas, aparecerán aquí.',
-                );
-              }
-              
-              return Column(
-                children: [
-                  AppointmentFilterTabs(
-                    currentFilter: currentFilter,
-                    onFilterChanged: (filter) {
-                      context.read<AppointmentBloc>().add(AppointmentEvent.filterByStatus(filter));
-                    },
-                  ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        ListView.builder(
-                          controller: _scrollController,
-                          itemCount: appointments.length + 1, // +1 for error message
-                          itemBuilder: (context, index) {
-                            if (index == appointments.length) {
-                              return Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        'Error al cargar más citas',
-                                        style: TextStyleTheme.subtitle2.copyWith(color: Colors.white),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          context.read<AppointmentBloc>().add(
-                                            const AppointmentEvent.loadMoreAppointments(),
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: secondaryColor,
-                                        ),
-                                        child: const Text('Reintentar'),
-                                      ),
-                                    ],
+                    );
+                  },
+                  loadingMoreFailed: (appointments, currentPage, totalPages, currentFilter, errorMessage) {
+                    if (appointments.isEmpty) {
+                      // Use different message based on the filter
+                      String title;
+                      if (currentFilter == null || currentFilter == 'all') {
+                        title = 'No hay citas programadas';
+                      } else {
+                        title = 'No hay citas con este estado';
+                      }
+                      
+                      return EmptyState(
+                        icon: Icons.calendar_today,
+                        title: title,
+                        message: 'Prueba con otro filtro o regresa más tarde.',
+                      );
+                    }
+                    
+                    return ListView.builder(
+                      controller: _scrollController,
+                      itemCount: appointments.length + 1, // +1 for error message
+                      itemBuilder: (context, index) {
+                        if (index == appointments.length) {
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Error al cargar más citas',
+                                    style: TextStyleTheme.subtitle2.copyWith(color: Colors.white),
                                   ),
-                                ),
+                                  const SizedBox(height: 8),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      context.read<AppointmentBloc>().add(
+                                        const AppointmentEvent.loadMoreAppointments(),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: secondaryColor,
+                                    ),
+                                    child: const Text('Reintentar'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                        
+                        final appointment = appointments[index];
+                        return AppointmentCard(
+                          key: ValueKey(appointment.id),
+                          appointment: appointment,
+                          onTap: () {
+                            // If not read, mark as read
+                            if (appointment.readByCustomer == false) {
+                              context.read<AppointmentBloc>().add(
+                                AppointmentEvent.markAsRead(appointment.id),
                               );
                             }
                             
-                            final appointment = appointments[index];
-                            return AppointmentCard(
-                              key: ValueKey(appointment.id),
-                              appointment: appointment,
-                              onTap: () {
-                                // If not read, mark as read
-                                if (appointment.readByCustomer == false) {
-                                  context.read<AppointmentBloc>().add(
-                                    AppointmentEvent.markAsRead(appointment.id),
-                                  );
-                                }
-                                
-                                // Navigate to appointment detail
-                                Navigator.pushNamed(
-                                  context,
-                                  '/appointmentDetail',
-                                  arguments: {
-                                    'appointmentId': appointment.id,
-                                  },
-                                );
+                            // Navigate to appointment detail
+                            Navigator.pushNamed(
+                              context,
+                              '/appointmentDetail',
+                              arguments: {
+                                'appointmentId': appointment.id,
                               },
                             );
                           },
-                        ),
-                      ],
-                    ),
+                        );
+                      },
+                    );
+                  },
+                  actionInProgress: () => const Center(child: InkerProgressIndicator()),
+                  actionSuccess: () => const Center(child: Text('Acción completada con éxito')),
+                  actionFailed: (message) => Center(
+                    child: Text('Error: $message'),
                   ),
-                ],
-              );
-            },
-            actionInProgress: () => const Center(child: InkerProgressIndicator()),
-            actionSuccess: () => const Center(child: Text('Acción completada con éxito')),
-            actionFailed: (message) => Center(
-              child: Text('Error: $message'),
-            ),
-            error: (message) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, color: Colors.red, size: 48),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Error al cargar las citas',
-                    style: TextStyleTheme.headline3.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    message,
-                    style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<AppointmentBloc>().add(const AppointmentEvent.started());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    ),
-                    child: const Text('Reintentar'),
-                  ),
-                ],
+                  error: (message, preservedFilter) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error_outline, color: Colors.red, size: 48),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Error al cargar las citas',
+                            style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                          ),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text(
+                              message,
+                              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Retry with preserved filter
+                              context.read<AppointmentBloc>().add(
+                                AppointmentEvent.loadAppointments(status: preservedFilter),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: secondaryColor,
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                            ),
+                            child: const Text('Reintentar'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
+            ],
           );
         },
       ),
