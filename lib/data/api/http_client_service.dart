@@ -38,7 +38,19 @@ class HttpClientService {
       {Map<String, dynamic>? queryParams}) async {
     await _remoteConfig.fetchAndActivate();
     final baseUrl = _remoteConfig.inkerApiUrl;
-    return Uri.https(baseUrl, path, queryParams);
+
+    // Clean the baseUrl to extract just the domain
+    final cleanBaseUrl = baseUrl
+        .replaceAll('https://', '')
+        .replaceAll('http://', '')
+        .split('/')
+        .first; // Remove any paths
+
+    // If your remote config includes /api in the path, merge it with the incoming path
+    final fullPath =
+        baseUrl.contains('/api') ? '/api/$path'.replaceAll('//', '/') : path;
+
+    return Uri.https(cleanBaseUrl, fullPath, queryParams);
   }
 
   Map<String, String> _buildHeaders(String? token) {
@@ -49,7 +61,7 @@ class HttpClientService {
     return headers;
   }
 
-  getBaseUrl() async {
+  Future<String> getBaseUrl() async {
     await _remoteConfig.fetchAndActivate();
     return _remoteConfig.inkerApiUrl;
   }

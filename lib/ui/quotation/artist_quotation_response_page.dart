@@ -124,6 +124,7 @@ class _ArtistQuotationResponseViewState
                   l10n.quotationResponseSuccess,
                   l10n.quotationResponseSuccessMessage,
                   onComplete: () {
+                    // Pop back to the quotation details page and refresh
                     Navigator.of(context).pop(true);
                   },
                 );

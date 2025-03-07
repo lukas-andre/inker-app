@@ -2943,6 +2943,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Reintentar`
+  String get retry {
+    return Intl.message(
+      'Reintentar',
+      name: 'retry',
+      desc: 'Action to retry something.',
+      args: [],
+    );
+  }
+
+  /// `No hay notificaciones`
+  String get noNotificationsTitle {
+    return Intl.message(
+      'No hay notificaciones',
+      name: 'noNotificationsTitle',
+      desc: 'Title displayed when there are no notifications.',
+      args: [],
+    );
+  }
+
+  /// `No tienes ninguna notificación todavía.`
+  String get noNotificationsMessage {
+    return Intl.message(
+      'No tienes ninguna notificación todavía.',
+      name: 'noNotificationsMessage',
+      desc: 'Message displayed when there are no notifications.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

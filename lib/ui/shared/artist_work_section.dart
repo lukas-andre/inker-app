@@ -22,6 +22,7 @@ class ArtistWorksSection extends StatelessWidget {
         sessionService: context.read(),
       )..add(WorksEvent.loadWorks(artistId)),
       child: BlocBuilder<WorksBloc, WorksState>(
+        buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           return state.when(
             initial: () => const SizedBox.shrink(),

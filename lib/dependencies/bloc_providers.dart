@@ -28,6 +28,8 @@ import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
+import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 
@@ -180,7 +182,9 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       lazy: false,
       create: (context) {
         final fcmService = context.read<FcmService>();
-        final bloc = NotificationsBloc(fcmService)
+        final notificationsService = context.read<NotificationsService>();
+        final sessionService = context.read<LocalSessionService>();
+        final bloc = NotificationsBloc(fcmService, notificationsService, sessionService)
           ..add(const NotificationsEvent.initialize());
         fcmService.setBloc(bloc);
         return bloc;
