@@ -252,6 +252,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No image selected"),
         "noImagesAvailable":
             MessageLookupByLibrary.simpleMessage("No images available"),
+        "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any notifications yet."),
+        "noNotificationsTitle":
+            MessageLookupByLibrary.simpleMessage("No notifications"),
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
@@ -388,6 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Respond to Quotation"),
         "responded": MessageLookupByLibrary.simpleMessage("Responded"),
+        "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "scheduleAssistant":

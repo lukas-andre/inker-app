@@ -38,16 +38,22 @@ Future<void> main() async {
   OverlayStyle.apply();
 
   initializeDateFormatting('es_CL'); // initialize locale data
-  runApp(const MyApp());
+  
+  // Build the providers asynchronously before running the app
+  final providers = await buildProviders();
+  
+  runApp(MyApp(providers: providers));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final List<RepositoryProvider> providers;
+  
+  const MyApp({super.key, required this.providers});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: buildProviders(),
+      providers: providers,
       child: const AppView(),
     );
   }

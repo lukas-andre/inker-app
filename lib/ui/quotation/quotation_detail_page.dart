@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -30,13 +31,21 @@ class QuotationDetailsPage extends StatelessWidget {
         ? CounterpartInfo.fromCustomer(quotation.customer)
         : CounterpartInfo.fromArtist(quotation.artist);
     final bloc = context.read<QuotationListBloc>();
+    final notificationsBloc = context.read<NotificationsBloc>();
 
+    // Mark quotation as read when viewed
     if ((quotation.readByArtist == false && isArtist) ||
         (quotation.readByCustomer == false && !isArtist)) {
       bloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
     }
 
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        // Refresh notifications when going back
+        notificationsBloc.add(const NotificationsEvent.refreshNotifications());
+        return true;
+      },
+      child: Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
@@ -82,19 +91,28 @@ class QuotationDetailsPage extends StatelessWidget {
                 session: context.read<AuthBloc>().state.session,
                 l10n: l10n,
                 onActionExecuted: (actionType, quotationId) async {
+                  // Handle any action type
+                  bloc.add(const QuotationListEvent.refreshCurrentTab());
+                  
                   if (actionType == QuotationActionType.cancel) {
                     bloc.add(QuotationListEvent.cancelQuotation(quotationId));
                     await Future.delayed(const Duration(seconds: 1));
                     if (!context.mounted) return;
                     Navigator.of(context).pop(true);
-                    bloc.add(const QuotationListEvent.refreshCurrentTab());
+                  } else {
+                    // For other actions, refresh the current quotation
+                    bloc.add(QuotationListEvent.getQuotationById(quotationId));
                   }
+                  
+                  // Clear notifications related to this quotation
+                  notificationsBloc.add(NotificationsEvent.clearQuotationNotifications(quotationId));
                 },
               ),
             ),
           ),
         ],
       ),
+    ),
     );
   }
 }

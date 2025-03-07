@@ -108,6 +108,20 @@ class ApiQuotationService implements QuotationService {
       fromJson: (json) => Quotation.fromJson(json),
     );
   }
+  
+  @override
+  Future<Quotation> getQuotationById({
+    required String token,
+    required String quotationId,
+  }) async {
+    // This implementation is the same as getQuotationDetails
+    // but we keep them separate in case the API changes in the future
+    return await _httpClient.get(
+      path: '$_basePath/$quotationId',
+      token: token,
+      fromJson: (json) => Quotation.fromJson(json),
+    );
+  }
 
   @override
   Future<void> processArtistAction({
@@ -122,8 +136,26 @@ class ApiQuotationService implements QuotationService {
     List<XFile>? proposedDesigns,
   }) async {
     final List<http.MultipartFile> files = [];
+    
+    // Map the frontend enum to backend enum values
+    String actionValue;
+    switch (action) {
+      case ArtistQuotationAction.quote:
+        actionValue = 'quote';
+        break;
+      case ArtistQuotationAction.reject:
+        actionValue = 'reject';
+        break;
+      case ArtistQuotationAction.acceptAppeal:
+        actionValue = 'accept_appeal';
+        break;
+      case ArtistQuotationAction.rejectAppeal:
+        actionValue = 'reject_appeal';
+        break;
+    }
+    
     final Map<String, String> fields = {
-      'action': action.toString().split('.').last.toSnakeCase(),
+      'action': actionValue,
       // TODO: Handle empty estimated cost
       if (estimatedCost != null && !estimatedCost.isEmpty) ...{
         'estimatedCost[amount]': estimatedCost.amount.toString(),

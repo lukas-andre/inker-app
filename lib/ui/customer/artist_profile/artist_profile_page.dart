@@ -8,11 +8,10 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
-import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
+import 'package:inker_studio/ui/shared/artist_work_section.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/constants.dart';
-import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfilePage extends StatefulWidget {
@@ -107,20 +106,12 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
-          BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Divider(color: tertiaryColor),
-                  const SizedBox(height: 12),
-                  state is ArtistProfileStateLoadingWorks
-                      ? const InkerProgressIndicator()
-                      : ArtistGallery(
-                          works: state.works?.items ?? [],
-                        ),
-                ],
-              );
-            },
+          Column(
+            children: [
+              Divider(color: tertiaryColor),
+              const SizedBox(height: 12),
+              ArtistWorksSection(artistId: widget._artist.id),
+            ],
           ),
         ],
       ),
@@ -206,7 +197,9 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
             backgroundColor: secondaryColor,
             radius: 12,
             child: Text(
-              widget._artist.review?.value?.toString() ?? '',
+              (widget._artist.review?.value != null
+                  ? (widget._artist.review!.value! * 100).ceil() / 100
+                  : '').toString(),
               style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 12),
             ),
           ),
@@ -255,7 +248,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(
-                CreateQuotationPage.route(artistId: widget._artist.id!),
+                CreateQuotationPage.route(artistId: widget._artist.id),
               );
             },
             style: ElevatedButton.styleFrom(

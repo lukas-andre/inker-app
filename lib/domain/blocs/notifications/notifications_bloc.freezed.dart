@@ -23,6 +23,12 @@ mixin _$NotificationsEvent {
         notificationReceived,
     required TResult Function(bool granted) permissionUpdated,
     required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +38,12 @@ mixin _$NotificationsEvent {
         notificationReceived,
     TResult? Function(bool granted)? permissionUpdated,
     TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +53,12 @@ mixin _$NotificationsEvent {
         notificationReceived,
     TResult Function(bool granted)? permissionUpdated,
     TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -50,6 +68,13 @@ mixin _$NotificationsEvent {
     required TResult Function(_NotificationReceived value) notificationReceived,
     required TResult Function(_PermissionUpdated value) permissionUpdated,
     required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +83,13 @@ mixin _$NotificationsEvent {
     TResult? Function(_NotificationReceived value)? notificationReceived,
     TResult? Function(_PermissionUpdated value)? permissionUpdated,
     TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,6 +98,13 @@ mixin _$NotificationsEvent {
     TResult Function(_NotificationReceived value)? notificationReceived,
     TResult Function(_PermissionUpdated value)? permissionUpdated,
     TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,6 +171,12 @@ class _$InitializeImpl implements _Initialize {
         notificationReceived,
     required TResult Function(bool granted) permissionUpdated,
     required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
   }) {
     return initialize();
   }
@@ -144,6 +189,12 @@ class _$InitializeImpl implements _Initialize {
         notificationReceived,
     TResult? Function(bool granted)? permissionUpdated,
     TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
   }) {
     return initialize?.call();
   }
@@ -156,6 +207,12 @@ class _$InitializeImpl implements _Initialize {
         notificationReceived,
     TResult Function(bool granted)? permissionUpdated,
     TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -171,6 +228,13 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(_NotificationReceived value) notificationReceived,
     required TResult Function(_PermissionUpdated value) permissionUpdated,
     required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
   }) {
     return initialize(this);
   }
@@ -182,6 +246,13 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(_NotificationReceived value)? notificationReceived,
     TResult? Function(_PermissionUpdated value)? permissionUpdated,
     TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
   }) {
     return initialize?.call(this);
   }
@@ -193,6 +264,13 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(_NotificationReceived value)? notificationReceived,
     TResult Function(_PermissionUpdated value)? permissionUpdated,
     TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -287,6 +365,12 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
         notificationReceived,
     required TResult Function(bool granted) permissionUpdated,
     required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
   }) {
     return notificationReceived(message, appState);
   }
@@ -299,6 +383,12 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
         notificationReceived,
     TResult? Function(bool granted)? permissionUpdated,
     TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
   }) {
     return notificationReceived?.call(message, appState);
   }
@@ -311,6 +401,12 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
         notificationReceived,
     TResult Function(bool granted)? permissionUpdated,
     TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (notificationReceived != null) {
@@ -326,6 +422,13 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
     required TResult Function(_NotificationReceived value) notificationReceived,
     required TResult Function(_PermissionUpdated value) permissionUpdated,
     required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
   }) {
     return notificationReceived(this);
   }
@@ -337,6 +440,13 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
     TResult? Function(_NotificationReceived value)? notificationReceived,
     TResult? Function(_PermissionUpdated value)? permissionUpdated,
     TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
   }) {
     return notificationReceived?.call(this);
   }
@@ -348,6 +458,13 @@ class _$NotificationReceivedImpl implements _NotificationReceived {
     TResult Function(_NotificationReceived value)? notificationReceived,
     TResult Function(_PermissionUpdated value)? permissionUpdated,
     TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (notificationReceived != null) {
@@ -439,6 +556,12 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
         notificationReceived,
     required TResult Function(bool granted) permissionUpdated,
     required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
   }) {
     return permissionUpdated(granted);
   }
@@ -451,6 +574,12 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
         notificationReceived,
     TResult? Function(bool granted)? permissionUpdated,
     TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
   }) {
     return permissionUpdated?.call(granted);
   }
@@ -463,6 +592,12 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
         notificationReceived,
     TResult Function(bool granted)? permissionUpdated,
     TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (permissionUpdated != null) {
@@ -478,6 +613,13 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
     required TResult Function(_NotificationReceived value) notificationReceived,
     required TResult Function(_PermissionUpdated value) permissionUpdated,
     required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
   }) {
     return permissionUpdated(this);
   }
@@ -489,6 +631,13 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
     TResult? Function(_NotificationReceived value)? notificationReceived,
     TResult? Function(_PermissionUpdated value)? permissionUpdated,
     TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
   }) {
     return permissionUpdated?.call(this);
   }
@@ -500,6 +649,13 @@ class _$PermissionUpdatedImpl implements _PermissionUpdated {
     TResult Function(_NotificationReceived value)? notificationReceived,
     TResult Function(_PermissionUpdated value)? permissionUpdated,
     TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (permissionUpdated != null) {
@@ -563,6 +719,12 @@ class _$NotificationHandledImpl implements _NotificationHandled {
         notificationReceived,
     required TResult Function(bool granted) permissionUpdated,
     required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
   }) {
     return notificationHandled();
   }
@@ -575,6 +737,12 @@ class _$NotificationHandledImpl implements _NotificationHandled {
         notificationReceived,
     TResult? Function(bool granted)? permissionUpdated,
     TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
   }) {
     return notificationHandled?.call();
   }
@@ -587,6 +755,12 @@ class _$NotificationHandledImpl implements _NotificationHandled {
         notificationReceived,
     TResult Function(bool granted)? permissionUpdated,
     TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (notificationHandled != null) {
@@ -602,6 +776,13 @@ class _$NotificationHandledImpl implements _NotificationHandled {
     required TResult Function(_NotificationReceived value) notificationReceived,
     required TResult Function(_PermissionUpdated value) permissionUpdated,
     required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
   }) {
     return notificationHandled(this);
   }
@@ -613,6 +794,13 @@ class _$NotificationHandledImpl implements _NotificationHandled {
     TResult? Function(_NotificationReceived value)? notificationReceived,
     TResult? Function(_PermissionUpdated value)? permissionUpdated,
     TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
   }) {
     return notificationHandled?.call(this);
   }
@@ -624,6 +812,13 @@ class _$NotificationHandledImpl implements _NotificationHandled {
     TResult Function(_NotificationReceived value)? notificationReceived,
     TResult Function(_PermissionUpdated value)? permissionUpdated,
     TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
     required TResult orElse(),
   }) {
     if (notificationHandled != null) {
@@ -638,6 +833,1088 @@ abstract class _NotificationHandled implements NotificationsEvent {
 }
 
 /// @nodoc
+abstract class _$$GetNotificationsImplCopyWith<$Res> {
+  factory _$$GetNotificationsImplCopyWith(_$GetNotificationsImpl value,
+          $Res Function(_$GetNotificationsImpl) then) =
+      __$$GetNotificationsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int page, int limit});
+}
+
+/// @nodoc
+class __$$GetNotificationsImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res, _$GetNotificationsImpl>
+    implements _$$GetNotificationsImplCopyWith<$Res> {
+  __$$GetNotificationsImplCopyWithImpl(_$GetNotificationsImpl _value,
+      $Res Function(_$GetNotificationsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+    Object? limit = null,
+  }) {
+    return _then(_$GetNotificationsImpl(
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetNotificationsImpl implements _GetNotifications {
+  const _$GetNotificationsImpl({this.page = 1, this.limit = 10});
+
+  @override
+  @JsonKey()
+  final int page;
+  @override
+  @JsonKey()
+  final int limit;
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.getNotifications(page: $page, limit: $limit)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetNotificationsImpl &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.limit, limit) || other.limit == limit));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, page, limit);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetNotificationsImplCopyWith<_$GetNotificationsImpl> get copyWith =>
+      __$$GetNotificationsImplCopyWithImpl<_$GetNotificationsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return getNotifications(page, limit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return getNotifications?.call(page, limit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (getNotifications != null) {
+      return getNotifications(page, limit);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return getNotifications(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return getNotifications?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (getNotifications != null) {
+      return getNotifications(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetNotifications implements NotificationsEvent {
+  const factory _GetNotifications({final int page, final int limit}) =
+      _$GetNotificationsImpl;
+
+  int get page;
+  int get limit;
+  @JsonKey(ignore: true)
+  _$$GetNotificationsImplCopyWith<_$GetNotificationsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkAsReadImplCopyWith<$Res> {
+  factory _$$MarkAsReadImplCopyWith(
+          _$MarkAsReadImpl value, $Res Function(_$MarkAsReadImpl) then) =
+      __$$MarkAsReadImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$MarkAsReadImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res, _$MarkAsReadImpl>
+    implements _$$MarkAsReadImplCopyWith<$Res> {
+  __$$MarkAsReadImplCopyWithImpl(
+      _$MarkAsReadImpl _value, $Res Function(_$MarkAsReadImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$MarkAsReadImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MarkAsReadImpl implements _MarkAsRead {
+  const _$MarkAsReadImpl(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.markAsRead(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkAsReadImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
+      __$$MarkAsReadImplCopyWithImpl<_$MarkAsReadImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return markAsRead(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return markAsRead?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return markAsRead(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return markAsRead?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MarkAsRead implements NotificationsEvent {
+  const factory _MarkAsRead(final String id) = _$MarkAsReadImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkAllAsReadImplCopyWith<$Res> {
+  factory _$$MarkAllAsReadImplCopyWith(
+          _$MarkAllAsReadImpl value, $Res Function(_$MarkAllAsReadImpl) then) =
+      __$$MarkAllAsReadImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MarkAllAsReadImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res, _$MarkAllAsReadImpl>
+    implements _$$MarkAllAsReadImplCopyWith<$Res> {
+  __$$MarkAllAsReadImplCopyWithImpl(
+      _$MarkAllAsReadImpl _value, $Res Function(_$MarkAllAsReadImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MarkAllAsReadImpl implements _MarkAllAsRead {
+  const _$MarkAllAsReadImpl();
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.markAllAsRead()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MarkAllAsReadImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return markAllAsRead();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return markAllAsRead?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (markAllAsRead != null) {
+      return markAllAsRead();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return markAllAsRead(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return markAllAsRead?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (markAllAsRead != null) {
+      return markAllAsRead(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MarkAllAsRead implements NotificationsEvent {
+  const factory _MarkAllAsRead() = _$MarkAllAsReadImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteNotificationImplCopyWith<$Res> {
+  factory _$$DeleteNotificationImplCopyWith(_$DeleteNotificationImpl value,
+          $Res Function(_$DeleteNotificationImpl) then) =
+      __$$DeleteNotificationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$DeleteNotificationImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res, _$DeleteNotificationImpl>
+    implements _$$DeleteNotificationImplCopyWith<$Res> {
+  __$$DeleteNotificationImplCopyWithImpl(_$DeleteNotificationImpl _value,
+      $Res Function(_$DeleteNotificationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$DeleteNotificationImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteNotificationImpl implements _DeleteNotification {
+  const _$DeleteNotificationImpl(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.deleteNotification(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteNotificationImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteNotificationImplCopyWith<_$DeleteNotificationImpl> get copyWith =>
+      __$$DeleteNotificationImplCopyWithImpl<_$DeleteNotificationImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return deleteNotification(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return deleteNotification?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (deleteNotification != null) {
+      return deleteNotification(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return deleteNotification(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return deleteNotification?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (deleteNotification != null) {
+      return deleteNotification(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteNotification implements NotificationsEvent {
+  const factory _DeleteNotification(final String id) = _$DeleteNotificationImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$DeleteNotificationImplCopyWith<_$DeleteNotificationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RefreshNotificationsImplCopyWith<$Res> {
+  factory _$$RefreshNotificationsImplCopyWith(_$RefreshNotificationsImpl value,
+          $Res Function(_$RefreshNotificationsImpl) then) =
+      __$$RefreshNotificationsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RefreshNotificationsImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res, _$RefreshNotificationsImpl>
+    implements _$$RefreshNotificationsImplCopyWith<$Res> {
+  __$$RefreshNotificationsImplCopyWithImpl(_$RefreshNotificationsImpl _value,
+      $Res Function(_$RefreshNotificationsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RefreshNotificationsImpl implements _RefreshNotifications {
+  const _$RefreshNotificationsImpl();
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.refreshNotifications()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RefreshNotificationsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return refreshNotifications();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return refreshNotifications?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (refreshNotifications != null) {
+      return refreshNotifications();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return refreshNotifications(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return refreshNotifications?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (refreshNotifications != null) {
+      return refreshNotifications(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshNotifications implements NotificationsEvent {
+  const factory _RefreshNotifications() = _$RefreshNotificationsImpl;
+}
+
+/// @nodoc
+abstract class _$$ClearQuotationNotificationsImplCopyWith<$Res> {
+  factory _$$ClearQuotationNotificationsImplCopyWith(
+          _$ClearQuotationNotificationsImpl value,
+          $Res Function(_$ClearQuotationNotificationsImpl) then) =
+      __$$ClearQuotationNotificationsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String quotationId});
+}
+
+/// @nodoc
+class __$$ClearQuotationNotificationsImplCopyWithImpl<$Res>
+    extends _$NotificationsEventCopyWithImpl<$Res,
+        _$ClearQuotationNotificationsImpl>
+    implements _$$ClearQuotationNotificationsImplCopyWith<$Res> {
+  __$$ClearQuotationNotificationsImplCopyWithImpl(
+      _$ClearQuotationNotificationsImpl _value,
+      $Res Function(_$ClearQuotationNotificationsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+  }) {
+    return _then(_$ClearQuotationNotificationsImpl(
+      null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ClearQuotationNotificationsImpl
+    implements _ClearQuotationNotifications {
+  const _$ClearQuotationNotificationsImpl(this.quotationId);
+
+  @override
+  final String quotationId;
+
+  @override
+  String toString() {
+    return 'NotificationsEvent.clearQuotationNotifications(quotationId: $quotationId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClearQuotationNotificationsImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quotationId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClearQuotationNotificationsImplCopyWith<_$ClearQuotationNotificationsImpl>
+      get copyWith => __$$ClearQuotationNotificationsImplCopyWithImpl<
+          _$ClearQuotationNotificationsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(RemoteMessage message, AppState appState)
+        notificationReceived,
+    required TResult Function(bool granted) permissionUpdated,
+    required TResult Function() notificationHandled,
+    required TResult Function(int page, int limit) getNotifications,
+    required TResult Function(String id) markAsRead,
+    required TResult Function() markAllAsRead,
+    required TResult Function(String id) deleteNotification,
+    required TResult Function() refreshNotifications,
+    required TResult Function(String quotationId) clearQuotationNotifications,
+  }) {
+    return clearQuotationNotifications(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult? Function(bool granted)? permissionUpdated,
+    TResult? Function()? notificationHandled,
+    TResult? Function(int page, int limit)? getNotifications,
+    TResult? Function(String id)? markAsRead,
+    TResult? Function()? markAllAsRead,
+    TResult? Function(String id)? deleteNotification,
+    TResult? Function()? refreshNotifications,
+    TResult? Function(String quotationId)? clearQuotationNotifications,
+  }) {
+    return clearQuotationNotifications?.call(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(RemoteMessage message, AppState appState)?
+        notificationReceived,
+    TResult Function(bool granted)? permissionUpdated,
+    TResult Function()? notificationHandled,
+    TResult Function(int page, int limit)? getNotifications,
+    TResult Function(String id)? markAsRead,
+    TResult Function()? markAllAsRead,
+    TResult Function(String id)? deleteNotification,
+    TResult Function()? refreshNotifications,
+    TResult Function(String quotationId)? clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (clearQuotationNotifications != null) {
+      return clearQuotationNotifications(quotationId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_NotificationReceived value) notificationReceived,
+    required TResult Function(_PermissionUpdated value) permissionUpdated,
+    required TResult Function(_NotificationHandled value) notificationHandled,
+    required TResult Function(_GetNotifications value) getNotifications,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_MarkAllAsRead value) markAllAsRead,
+    required TResult Function(_DeleteNotification value) deleteNotification,
+    required TResult Function(_RefreshNotifications value) refreshNotifications,
+    required TResult Function(_ClearQuotationNotifications value)
+        clearQuotationNotifications,
+  }) {
+    return clearQuotationNotifications(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_NotificationReceived value)? notificationReceived,
+    TResult? Function(_PermissionUpdated value)? permissionUpdated,
+    TResult? Function(_NotificationHandled value)? notificationHandled,
+    TResult? Function(_GetNotifications value)? getNotifications,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult? Function(_DeleteNotification value)? deleteNotification,
+    TResult? Function(_RefreshNotifications value)? refreshNotifications,
+    TResult? Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+  }) {
+    return clearQuotationNotifications?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_NotificationReceived value)? notificationReceived,
+    TResult Function(_PermissionUpdated value)? permissionUpdated,
+    TResult Function(_NotificationHandled value)? notificationHandled,
+    TResult Function(_GetNotifications value)? getNotifications,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_MarkAllAsRead value)? markAllAsRead,
+    TResult Function(_DeleteNotification value)? deleteNotification,
+    TResult Function(_RefreshNotifications value)? refreshNotifications,
+    TResult Function(_ClearQuotationNotifications value)?
+        clearQuotationNotifications,
+    required TResult orElse(),
+  }) {
+    if (clearQuotationNotifications != null) {
+      return clearQuotationNotifications(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearQuotationNotifications implements NotificationsEvent {
+  const factory _ClearQuotationNotifications(final String quotationId) =
+      _$ClearQuotationNotificationsImpl;
+
+  String get quotationId;
+  @JsonKey(ignore: true)
+  _$$ClearQuotationNotificationsImplCopyWith<_$ClearQuotationNotificationsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$NotificationsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -648,7 +1925,15 @@ mixin _$NotificationsState {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -662,7 +1947,15 @@ mixin _$NotificationsState {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -676,7 +1969,15 @@ mixin _$NotificationsState {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -772,7 +2073,15 @@ class _$InitialImpl implements _Initial {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -789,7 +2098,15 @@ class _$InitialImpl implements _Initial {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -806,7 +2123,15 @@ class _$InitialImpl implements _Initial {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -904,7 +2229,15 @@ class _$LoadingImpl implements _Loading {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -921,7 +2254,15 @@ class _$LoadingImpl implements _Loading {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -938,7 +2279,15 @@ class _$LoadingImpl implements _Loading {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1002,7 +2351,15 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       bool permissionsGranted,
       NavigationInfo? pendingNavigation,
       RemoteMessage? lastMessage,
-      AppState? lastMessageAppState});
+      AppState? lastMessageAppState,
+      List<InkerNotification>? notifications,
+      bool isLoading,
+      bool isRefreshing,
+      bool hasError,
+      String? errorMessage,
+      int currentPage,
+      int totalPages,
+      int unreadCount});
 
   $NavigationInfoCopyWith<$Res>? get pendingNavigation;
 }
@@ -1023,6 +2380,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
     Object? pendingNavigation = freezed,
     Object? lastMessage = freezed,
     Object? lastMessageAppState = freezed,
+    Object? notifications = freezed,
+    Object? isLoading = null,
+    Object? isRefreshing = null,
+    Object? hasError = null,
+    Object? errorMessage = freezed,
+    Object? currentPage = null,
+    Object? totalPages = null,
+    Object? unreadCount = null,
   }) {
     return _then(_$LoadedImpl(
       fcmToken: null == fcmToken
@@ -1045,6 +2410,38 @@ class __$$LoadedImplCopyWithImpl<$Res>
           ? _value.lastMessageAppState
           : lastMessageAppState // ignore: cast_nullable_to_non_nullable
               as AppState?,
+      notifications: freezed == notifications
+          ? _value._notifications
+          : notifications // ignore: cast_nullable_to_non_nullable
+              as List<InkerNotification>?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isRefreshing: null == isRefreshing
+          ? _value.isRefreshing
+          : isRefreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasError: null == hasError
+          ? _value.hasError
+          : hasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPages: null == totalPages
+          ? _value.totalPages
+          : totalPages // ignore: cast_nullable_to_non_nullable
+              as int,
+      unreadCount: null == unreadCount
+          ? _value.unreadCount
+          : unreadCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -1069,7 +2466,16 @@ class _$LoadedImpl implements _Loaded {
       this.permissionsGranted = false,
       this.pendingNavigation,
       this.lastMessage,
-      this.lastMessageAppState});
+      this.lastMessageAppState,
+      final List<InkerNotification>? notifications,
+      this.isLoading = false,
+      this.isRefreshing = false,
+      this.hasError = false,
+      this.errorMessage,
+      this.currentPage = 1,
+      this.totalPages = 1,
+      this.unreadCount = 0})
+      : _notifications = notifications;
 
   @override
   final String fcmToken;
@@ -1082,10 +2488,42 @@ class _$LoadedImpl implements _Loaded {
   final RemoteMessage? lastMessage;
   @override
   final AppState? lastMessageAppState;
+// New properties for notification page
+  final List<InkerNotification>? _notifications;
+// New properties for notification page
+  @override
+  List<InkerNotification>? get notifications {
+    final value = _notifications;
+    if (value == null) return null;
+    if (_notifications is EqualUnmodifiableListView) return _notifications;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isRefreshing;
+  @override
+  @JsonKey()
+  final bool hasError;
+  @override
+  final String? errorMessage;
+  @override
+  @JsonKey()
+  final int currentPage;
+  @override
+  @JsonKey()
+  final int totalPages;
+  @override
+  @JsonKey()
+  final int unreadCount;
 
   @override
   String toString() {
-    return 'NotificationsState.loaded(fcmToken: $fcmToken, permissionsGranted: $permissionsGranted, pendingNavigation: $pendingNavigation, lastMessage: $lastMessage, lastMessageAppState: $lastMessageAppState)';
+    return 'NotificationsState.loaded(fcmToken: $fcmToken, permissionsGranted: $permissionsGranted, pendingNavigation: $pendingNavigation, lastMessage: $lastMessage, lastMessageAppState: $lastMessageAppState, notifications: $notifications, isLoading: $isLoading, isRefreshing: $isRefreshing, hasError: $hasError, errorMessage: $errorMessage, currentPage: $currentPage, totalPages: $totalPages, unreadCount: $unreadCount)';
   }
 
   @override
@@ -1102,12 +2540,41 @@ class _$LoadedImpl implements _Loaded {
             (identical(other.lastMessage, lastMessage) ||
                 other.lastMessage == lastMessage) &&
             (identical(other.lastMessageAppState, lastMessageAppState) ||
-                other.lastMessageAppState == lastMessageAppState));
+                other.lastMessageAppState == lastMessageAppState) &&
+            const DeepCollectionEquality()
+                .equals(other._notifications, _notifications) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isRefreshing, isRefreshing) ||
+                other.isRefreshing == isRefreshing) &&
+            (identical(other.hasError, hasError) ||
+                other.hasError == hasError) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.totalPages, totalPages) ||
+                other.totalPages == totalPages) &&
+            (identical(other.unreadCount, unreadCount) ||
+                other.unreadCount == unreadCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fcmToken, permissionsGranted,
-      pendingNavigation, lastMessage, lastMessageAppState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      fcmToken,
+      permissionsGranted,
+      pendingNavigation,
+      lastMessage,
+      lastMessageAppState,
+      const DeepCollectionEquality().hash(_notifications),
+      isLoading,
+      isRefreshing,
+      hasError,
+      errorMessage,
+      currentPage,
+      totalPages,
+      unreadCount);
 
   @JsonKey(ignore: true)
   @override
@@ -1125,12 +2592,32 @@ class _$LoadedImpl implements _Loaded {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(fcmToken, permissionsGranted, pendingNavigation, lastMessage,
-        lastMessageAppState);
+    return loaded(
+        fcmToken,
+        permissionsGranted,
+        pendingNavigation,
+        lastMessage,
+        lastMessageAppState,
+        notifications,
+        isLoading,
+        isRefreshing,
+        hasError,
+        errorMessage,
+        currentPage,
+        totalPages,
+        unreadCount);
   }
 
   @override
@@ -1143,12 +2630,32 @@ class _$LoadedImpl implements _Loaded {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(fcmToken, permissionsGranted, pendingNavigation,
-        lastMessage, lastMessageAppState);
+    return loaded?.call(
+        fcmToken,
+        permissionsGranted,
+        pendingNavigation,
+        lastMessage,
+        lastMessageAppState,
+        notifications,
+        isLoading,
+        isRefreshing,
+        hasError,
+        errorMessage,
+        currentPage,
+        totalPages,
+        unreadCount);
   }
 
   @override
@@ -1161,14 +2668,34 @@ class _$LoadedImpl implements _Loaded {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(fcmToken, permissionsGranted, pendingNavigation,
-          lastMessage, lastMessageAppState);
+      return loaded(
+          fcmToken,
+          permissionsGranted,
+          pendingNavigation,
+          lastMessage,
+          lastMessageAppState,
+          notifications,
+          isLoading,
+          isRefreshing,
+          hasError,
+          errorMessage,
+          currentPage,
+          totalPages,
+          unreadCount);
     }
     return orElse();
   }
@@ -1217,13 +2744,29 @@ abstract class _Loaded implements NotificationsState {
       final bool permissionsGranted,
       final NavigationInfo? pendingNavigation,
       final RemoteMessage? lastMessage,
-      final AppState? lastMessageAppState}) = _$LoadedImpl;
+      final AppState? lastMessageAppState,
+      final List<InkerNotification>? notifications,
+      final bool isLoading,
+      final bool isRefreshing,
+      final bool hasError,
+      final String? errorMessage,
+      final int currentPage,
+      final int totalPages,
+      final int unreadCount}) = _$LoadedImpl;
 
   String get fcmToken;
   bool get permissionsGranted;
   NavigationInfo? get pendingNavigation;
   RemoteMessage? get lastMessage;
-  AppState? get lastMessageAppState;
+  AppState? get lastMessageAppState; // New properties for notification page
+  List<InkerNotification>? get notifications;
+  bool get isLoading;
+  bool get isRefreshing;
+  bool get hasError;
+  String? get errorMessage;
+  int get currentPage;
+  int get totalPages;
+  int get unreadCount;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1300,7 +2843,15 @@ class _$ErrorImpl implements _Error {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1317,7 +2868,15 @@ class _$ErrorImpl implements _Error {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1334,7 +2893,15 @@ class _$ErrorImpl implements _Error {
             bool permissionsGranted,
             NavigationInfo? pendingNavigation,
             RemoteMessage? lastMessage,
-            AppState? lastMessageAppState)?
+            AppState? lastMessageAppState,
+            List<InkerNotification>? notifications,
+            bool isLoading,
+            bool isRefreshing,
+            bool hasError,
+            String? errorMessage,
+            int currentPage,
+            int totalPages,
+            int unreadCount)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1395,7 +2962,7 @@ abstract class _Error implements NotificationsState {
 /// @nodoc
 mixin _$NavigationInfo {
   String get route => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get arguments => throw _privateConstructorUsedError;
+  dynamic get arguments => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationInfoCopyWith<NavigationInfo> get copyWith =>
@@ -1408,7 +2975,7 @@ abstract class $NavigationInfoCopyWith<$Res> {
           NavigationInfo value, $Res Function(NavigationInfo) then) =
       _$NavigationInfoCopyWithImpl<$Res, NavigationInfo>;
   @useResult
-  $Res call({String route, Map<String, dynamic>? arguments});
+  $Res call({String route, dynamic arguments});
 }
 
 /// @nodoc
@@ -1435,7 +3002,7 @@ class _$NavigationInfoCopyWithImpl<$Res, $Val extends NavigationInfo>
       arguments: freezed == arguments
           ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as dynamic,
     ) as $Val);
   }
 }
@@ -1448,7 +3015,7 @@ abstract class _$$NavigationInfoImplCopyWith<$Res>
       __$$NavigationInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String route, Map<String, dynamic>? arguments});
+  $Res call({String route, dynamic arguments});
 }
 
 /// @nodoc
@@ -1471,9 +3038,9 @@ class __$$NavigationInfoImplCopyWithImpl<$Res>
           : route // ignore: cast_nullable_to_non_nullable
               as String,
       arguments: freezed == arguments
-          ? _value._arguments
+          ? _value.arguments
           : arguments // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as dynamic,
     ));
   }
 }
@@ -1481,21 +3048,12 @@ class __$$NavigationInfoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NavigationInfoImpl implements _NavigationInfo {
-  const _$NavigationInfoImpl(
-      {required this.route, final Map<String, dynamic>? arguments})
-      : _arguments = arguments;
+  const _$NavigationInfoImpl({required this.route, this.arguments});
 
   @override
   final String route;
-  final Map<String, dynamic>? _arguments;
   @override
-  Map<String, dynamic>? get arguments {
-    final value = _arguments;
-    if (value == null) return null;
-    if (_arguments is EqualUnmodifiableMapView) return _arguments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
+  final dynamic arguments;
 
   @override
   String toString() {
@@ -1508,13 +3066,12 @@ class _$NavigationInfoImpl implements _NavigationInfo {
         (other.runtimeType == runtimeType &&
             other is _$NavigationInfoImpl &&
             (identical(other.route, route) || other.route == route) &&
-            const DeepCollectionEquality()
-                .equals(other._arguments, _arguments));
+            const DeepCollectionEquality().equals(other.arguments, arguments));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, route, const DeepCollectionEquality().hash(_arguments));
+      runtimeType, route, const DeepCollectionEquality().hash(arguments));
 
   @JsonKey(ignore: true)
   @override
@@ -1527,12 +3084,12 @@ class _$NavigationInfoImpl implements _NavigationInfo {
 abstract class _NavigationInfo implements NavigationInfo {
   const factory _NavigationInfo(
       {required final String route,
-      final Map<String, dynamic>? arguments}) = _$NavigationInfoImpl;
+      final dynamic arguments}) = _$NavigationInfoImpl;
 
   @override
   String get route;
   @override
-  Map<String, dynamic>? get arguments;
+  dynamic get arguments;
   @override
   @JsonKey(ignore: true)
   _$$NavigationInfoImplCopyWith<_$NavigationInfoImpl> get copyWith =>

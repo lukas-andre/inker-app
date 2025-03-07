@@ -32,6 +32,8 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         refreshCurrentTab: () async => _refreshCurrentTab(emit),
         markAsRead: (String quotationId) async =>
             _markAsRead(emit, quotationId),
+        getQuotationById: (String quotationId) async =>
+            _getQuotationById(emit, quotationId),
       );
     });
   }
@@ -169,6 +171,59 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
       add(const QuotationListEvent.refreshCurrentTab());
+    }
+  }
+  
+  Future<void> _getQuotationById(
+      Emitter<QuotationListState> emit, String quotationId) async {
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const QuotationListState.error('No se ha iniciado sesión.'));
+        return;
+      }
+      
+      // Check if we already have this quotation in our state
+      if (state is QuotationListLoaded) {
+        final currentState = state as QuotationListLoaded;
+        final existingQuotation = currentState.quotations.where(
+          (q) => q.id.toString() == quotationId
+        ).toList();
+        
+        if (existingQuotation.isNotEmpty) {
+          // We already have the quotation, no need to fetch it again
+          return;
+        }
+      }
+      
+      // If we don't have the quotation yet or state is not loaded,
+      // fetch it from the server with special single quotation API call
+      final quotation = await _quotationService.getQuotationById(
+        token: session.accessToken,
+        quotationId: quotationId,
+      );
+      
+      // If we already have a loaded state, add this quotation to it
+      if (state is QuotationListLoaded) {
+        final currentState = state as QuotationListLoaded;
+        final updatedQuotations = [...currentState.quotations, quotation];
+        
+        emit(currentState.copyWith(
+          quotations: updatedQuotations,
+        ));
+      } else {
+        // If we don't have a loaded state yet, create one with just this quotation
+        emit(QuotationListState.loaded(
+          quotations: [quotation],
+          session: session,
+          statuses: null,
+          isLoadingMore: false,
+          currentPage: 1,
+          totalItems: 1, 
+        ));
+      }
+    } catch (e) {
+      emit(QuotationListState.error(e.toString()));
     }
   }
 }

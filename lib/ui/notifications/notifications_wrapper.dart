@@ -87,7 +87,11 @@ class NotificationsWrapper extends StatelessWidget {
       onTap: (_) {
         _.dismiss();
         if (data['quotationId'] != null) {
-          state.pushNamed('/quotationList');
+          // Navigate to the specific quotation instead of the list
+          state.pushNamed(
+            '/quotationDetail',
+            arguments: {'quotationId': data['quotationId']},
+          );
           context.read<NotificationsBloc>().add(
                 const NotificationsEvent.notificationHandled(),
               );
@@ -129,7 +133,7 @@ class NotificationsWrapper extends StatelessWidget {
           loading: () {},
           error: (_) {},
           loaded: (fcmToken, permissionsGranted, pendingNavigation, lastMessage,
-              lastMessageAppState) {
+              lastMessageAppState, _, __, ___, ____, _____, ______, _______, ________) {
             if (lastMessageAppState == AppState.foreground &&
                 lastMessage != null) {
               _showCustomNotification(

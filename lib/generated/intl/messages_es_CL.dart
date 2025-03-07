@@ -265,6 +265,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se ha seleccionado ninguna imagen"),
         "noImagesAvailable":
             MessageLookupByLibrary.simpleMessage("No hay imágenes disponibles"),
+        "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
+            "No tienes ninguna notificación todavía."),
+        "noNotificationsTitle":
+            MessageLookupByLibrary.simpleMessage("No hay notificaciones"),
         "noQuotationsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron cotizaciones"),
         "noReviewsYet":
@@ -409,6 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
         "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
+        "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar Cambios"),
         "scheduleAssistant":

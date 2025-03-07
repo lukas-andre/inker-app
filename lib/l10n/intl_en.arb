@@ -1227,5 +1227,17 @@
   "deleteAccountWarning": "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account.",
   "@deleteAccountWarning": {
     "description": "Warning message displayed when deleting an account."
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Action to retry something."
+  },
+  "noNotificationsTitle": "No notifications",
+  "@noNotificationsTitle": {
+    "description": "Title displayed when there are no notifications."
+  },
+  "noNotificationsMessage": "You don't have any notifications yet.",
+  "@noNotificationsMessage": {
+    "description": "Message displayed when there are no notifications."
   }
 }

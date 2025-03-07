@@ -142,7 +142,10 @@ class QuotationActionManager {
         action.routeName!,
         arguments: action.routeArguments,
       );
+      
+      // If action was completed successfully
       if (result == true) {
+        // Notify that an action was executed so we can update UI
         onActionExecuted(action.type, quotation.id.toString());
       }
     } else {

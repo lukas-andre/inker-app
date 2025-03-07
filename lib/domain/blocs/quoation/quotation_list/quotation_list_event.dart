@@ -9,4 +9,5 @@ class QuotationListEvent with _$QuotationListEvent {
       _CancelQuotation;
   const factory QuotationListEvent.refreshCurrentTab() = _RefreshCurrentTab;
   const factory QuotationListEvent.markAsRead(String quotationId) = _MarkAsRead;
+  const factory QuotationListEvent.getQuotationById(String quotationId) = _GetQuotationById;
 }
