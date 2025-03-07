@@ -53,6 +53,21 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
       index: 2,
     ),
     PageNavBarIcon(
+      key: K.appointmentsTab,
+      icon: Icon(
+        Icons.calendar_today_outlined,
+        size: 22,
+        color: Colors.white,
+      ),
+      selectedIcon: Icon(
+        Icons.calendar_today,
+        size: 22,
+        color: Colors.white,
+      ),
+      title: 'Citas',
+      index: 3,
+    ),
+    PageNavBarIcon(
       key: K.profileTab,
       icon: Icon(
         Icons.account_circle_outlined,
@@ -65,7 +80,7 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
         color: Colors.white,
       ),
       title: 'Perfil',
-      index: 3,
+      index: 4,
     ),
   ],
 );

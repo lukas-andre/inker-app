@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountSettings":
             MessageLookupByLibrary.simpleMessage("Account Settings"),
         "action": MessageLookupByLibrary.simpleMessage("Action"),
+        "actionSuccessful":
+            MessageLookupByLibrary.simpleMessage("Action successful"),
         "addDescription":
             MessageLookupByLibrary.simpleMessage("Add Description"),
         "addStudioPhoto":
@@ -85,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Appointment date changed from"),
         "appointmentDateTime":
             MessageLookupByLibrary.simpleMessage("Appointment Date & Time"),
+        "appointmentDetails":
+            MessageLookupByLibrary.simpleMessage("Appointment Details"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +103,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "barber": MessageLookupByLibrary.simpleMessage("Barber"),
         "between": MessageLookupByLibrary.simpleMessage("between"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancelAppointment":
+            MessageLookupByLibrary.simpleMessage("Cancel Appointment"),
+        "cancelAppointmentConfirmation": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to cancel the appointment?"),
         "cancelEvent": MessageLookupByLibrary.simpleMessage("Cancel Event"),
         "cancelQuotation":
             MessageLookupByLibrary.simpleMessage("Cancel Quotation"),
@@ -126,6 +134,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cancellation Reason"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
+        "changeAppointment":
+            MessageLookupByLibrary.simpleMessage("Change Appointment"),
+        "changeAppointmentInstruction": MessageLookupByLibrary.simpleMessage(
+            "Please provide the details for changing your appointment."),
         "changeImage": MessageLookupByLibrary.simpleMessage("Change Image"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
@@ -288,6 +300,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Permission required"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
+            "Please provide a reason for cancellation."),
         "pleaseSelectTimeRange":
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
@@ -379,6 +393,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("rejected the quotation"),
         "rejectionReason":
             MessageLookupByLibrary.simpleMessage("Rejection Reason"),
+        "relatedQuotation":
+            MessageLookupByLibrary.simpleMessage("Related Quotation"),
         "removeImage": MessageLookupByLibrary.simpleMessage("Remove Image"),
         "reply": MessageLookupByLibrary.simpleMessage("Reply"),
         "request": MessageLookupByLibrary.simpleMessage("Request"),

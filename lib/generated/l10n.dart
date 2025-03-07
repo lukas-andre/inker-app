@@ -2983,6 +2983,97 @@ class S {
       args: [],
     );
   }
+
+  /// `Por favor, contacta al artista para más detalles.`
+  String get contactArtist {
+    return Intl.message(
+      'Por favor, contacta al artista para más detalles.',
+      name: 'contactArtist',
+      desc: 'Mensaje que invita al usuario a contactar al artista.',
+      args: [],
+    );
+  }
+
+  /// `Por favor, proporciona los detalles para cambiar tu cita.`
+  String get changeAppointmentInstruction {
+    return Intl.message(
+      'Por favor, proporciona los detalles para cambiar tu cita.',
+      name: 'changeAppointmentInstruction',
+      desc: 'Instrucción para cambiar una cita.',
+      args: [],
+    );
+  }
+
+  /// `Cambiar Cita`
+  String get changeAppointment {
+    return Intl.message(
+      'Cambiar Cita',
+      name: 'changeAppointment',
+      desc: 'Etiqueta para la acción de cambiar la cita.',
+      args: [],
+    );
+  }
+
+  /// `Por favor, proporciona una razón para la cancelación.`
+  String get pleaseProvideReason {
+    return Intl.message(
+      'Por favor, proporciona una razón para la cancelación.',
+      name: 'pleaseProvideReason',
+      desc:
+          'Mensaje que solicita al usuario que proporcione una razón para la cancelación.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas cancelar la cita?`
+  String get cancelAppointmentConfirmation {
+    return Intl.message(
+      '¿Estás seguro de que deseas cancelar la cita?',
+      name: 'cancelAppointmentConfirmation',
+      desc: 'Mensaje de confirmación que se muestra al cancelar una cita.',
+      args: [],
+    );
+  }
+
+  /// `Cancelar Cita`
+  String get cancelAppointment {
+    return Intl.message(
+      'Cancelar Cita',
+      name: 'cancelAppointment',
+      desc: 'Etiqueta para la acción de cancelar la cita.',
+      args: [],
+    );
+  }
+
+  /// `Cotización Relacionada`
+  String get relatedQuotation {
+    return Intl.message(
+      'Cotización Relacionada',
+      name: 'relatedQuotation',
+      desc: 'Etiqueta para la sección de cotización relacionada.',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Cita`
+  String get appointmentDetails {
+    return Intl.message(
+      'Detalles de la Cita',
+      name: 'appointmentDetails',
+      desc: 'Etiqueta para la sección de detalles de la cita.',
+      args: [],
+    );
+  }
+
+  /// `Acción exitosa`
+  String get actionSuccessful {
+    return Intl.message(
+      'Acción exitosa',
+      name: 'actionSuccessful',
+      desc: 'Mensaje mostrado cuando una acción es exitosa.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
