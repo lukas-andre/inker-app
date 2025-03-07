@@ -353,6 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Received Quotations"),
         "referenceImages":
             MessageLookupByLibrary.simpleMessage("Reference Images"),
+        "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
         "rejectAppeal": MessageLookupByLibrary.simpleMessage("Reject Appeal"),
         "rejectQuotation":

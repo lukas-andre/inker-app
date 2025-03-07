@@ -8,6 +8,10 @@
   "@eventDetails": {
     "description": "Details of the event."
   },
+  "refresh": "Refresh",
+  "@refresh": {
+    "description": "Action to refresh something."
+  },
   "description": "Description",
   "@description": {
     "description": "A short explanation or description."

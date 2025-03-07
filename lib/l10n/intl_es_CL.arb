@@ -8,6 +8,10 @@
   "@eventDetails": {
     "description": "Título de la sección de detalles del evento."
   },
+  "refresh": "Actualizar",
+  "@refresh": {
+    "description": "Acción para actualizar algo."
+  },
   "description": "Descripción",
   "@description": {
     "description": "Etiqueta de descripción para un evento o cotización."

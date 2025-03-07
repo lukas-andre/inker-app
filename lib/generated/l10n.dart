@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Actualizar`
+  String get refresh {
+    return Intl.message(
+      'Actualizar',
+      name: 'refresh',
+      desc: 'Acción para actualizar algo.',
+      args: [],
+    );
+  }
+
   /// `Descripción`
   String get description {
     return Intl.message(

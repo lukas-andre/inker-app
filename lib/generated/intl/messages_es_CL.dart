@@ -372,6 +372,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cotizaciones Recibidas"),
         "referenceImages":
             MessageLookupByLibrary.simpleMessage("Imágenes de Referencia"),
+        "refresh": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "reject": MessageLookupByLibrary.simpleMessage("Rechazar"),
         "rejectAppeal":
             MessageLookupByLibrary.simpleMessage("Rechazar Apelación"),

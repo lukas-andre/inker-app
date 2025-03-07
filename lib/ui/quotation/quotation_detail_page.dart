@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 
-class QuotationDetailsPage extends StatelessWidget {
+class QuotationDetailsPage extends StatefulWidget {
   final Quotation quotation;
 
   const QuotationDetailsPage({
@@ -21,6 +21,86 @@ class QuotationDetailsPage extends StatelessWidget {
     required this.quotation,
   });
 
+  @override
+  State<QuotationDetailsPage> createState() => _QuotationDetailsPageState();
+}
+
+class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
+  late Quotation _currentQuotation;
+  late QuotationListBloc _bloc;
+  late NotificationsBloc _notificationsBloc;
+  bool _isRefreshing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentQuotation = widget.quotation;
+    _bloc = context.read<QuotationListBloc>();
+    _notificationsBloc = context.read<NotificationsBloc>();
+
+    // Mark quotation as read when viewed
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    if ((_currentQuotation.readByArtist == false && isArtist) ||
+        (_currentQuotation.readByCustomer == false && !isArtist)) {
+      _bloc.add(QuotationListEvent.markAsRead(_currentQuotation.id.toString()));
+    }
+
+    // Get fresh data without showing loading indicator
+    _bloc.add(QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
+  }
+
+  // Method to refresh the quotation data
+  Future<void> _refreshQuotation() async {
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    // Get the latest quotation data
+    _bloc.add(
+        QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
+        
+    // Safety timeout to ensure loading indicator doesn't get stuck
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted && _isRefreshing) {
+        setState(() {
+          _isRefreshing = false;
+        });
+      }
+    });
+  }
+
+  // Updates the current quotation when the bloc state changes
+  void _updateQuotationFromState() {
+    final state = _bloc.state;
+    if (state is QuotationListLoaded) {
+      final updatedQuotation = state.quotations.firstWhere(
+        (q) => q.id == _currentQuotation.id,
+        orElse: () => _currentQuotation,
+      );
+
+      if (updatedQuotation.id == _currentQuotation.id) {
+        // Always update the UI when we have a matching quotation, even if it seems identical
+        // Sometimes backend updates don't change all properties but we still need to refresh
+        setState(() {
+          _currentQuotation = updatedQuotation;
+          _isRefreshing = false;
+        });
+      } else {
+        // If no matching quotation found, still reset the refreshing state
+        if (_isRefreshing) {
+          setState(() {
+            _isRefreshing = false;
+          });
+        }
+      }
+    } else if (_isRefreshing && state is QuotationListError) {
+      // Reset refreshing flag on error too
+      setState(() {
+        _isRefreshing = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,91 +108,122 @@ class QuotationDetailsPage extends StatelessWidget {
     final isArtist =
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final counterpartInfo = isArtist
-        ? CounterpartInfo.fromCustomer(quotation.customer)
-        : CounterpartInfo.fromArtist(quotation.artist);
-    final bloc = context.read<QuotationListBloc>();
-    final notificationsBloc = context.read<NotificationsBloc>();
-
-    // Mark quotation as read when viewed
-    if ((quotation.readByArtist == false && isArtist) ||
-        (quotation.readByCustomer == false && !isArtist)) {
-      bloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
-    }
+        ? CounterpartInfo.fromCustomer(_currentQuotation.customer)
+        : CounterpartInfo.fromArtist(_currentQuotation.artist);
 
     return WillPopScope(
       onWillPop: () async {
         // Refresh notifications when going back
-        notificationsBloc.add(const NotificationsEvent.refreshNotifications());
+        _notificationsBloc.add(const NotificationsEvent.refreshNotifications());
         return true;
       },
       child: Scaffold(
-      backgroundColor: primaryColor,
-      appBar: AppBar(
-        title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _CounterpartHeader(
-                    info: counterpartInfo,
-                    isArtist: isArtist,
-                    quotation: quotation,
-                  ),
-                  _MainQuotationInfo(quotation: quotation),
-                  if (quotation.history != null &&
-                      quotation.history!.isNotEmpty)
-                    _QuotationTimeline(history: quotation.history!),
-                  QuotationImages(quotation: quotation),
-                ],
-              ),
+        appBar: AppBar(
+          title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
+          backgroundColor: primaryColor,
+          iconTheme: const IconThemeData(color: Colors.white),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: _refreshQuotation,
+              tooltip: l10n.refresh,
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: explorerSecondaryColor,
-              border: Border(
-                top: BorderSide(
-                  color: tertiaryColor.withOpacity(0.2),
-                  width: 1,
+          ],
+        ),
+        body: BlocListener<QuotationListBloc, QuotationListState>(
+          listener: (context, state) {
+            _updateQuotationFromState();
+          },
+          child: Column(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: _isRefreshing ? 3 : 0,
+                child: LinearProgressIndicator(
+                  backgroundColor: primaryColor,
+                  valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                 ),
               ),
-            ),
-            child: QuotationActionButtons(
-              actionManager: QuotationActionManager(
-                context: context,
-                quotation: quotation,
-                session: context.read<AuthBloc>().state.session,
-                l10n: l10n,
-                onActionExecuted: (actionType, quotationId) async {
-                  // Handle any action type
-                  bloc.add(const QuotationListEvent.refreshCurrentTab());
-                  
-                  if (actionType == QuotationActionType.cancel) {
-                    bloc.add(QuotationListEvent.cancelQuotation(quotationId));
-                    await Future.delayed(const Duration(seconds: 1));
-                    if (!context.mounted) return;
-                    Navigator.of(context).pop(true);
-                  } else {
-                    // For other actions, refresh the current quotation
-                    bloc.add(QuotationListEvent.getQuotationById(quotationId));
-                  }
-                  
-                  // Clear notifications related to this quotation
-                  notificationsBloc.add(NotificationsEvent.clearQuotationNotifications(quotationId));
-                },
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: _refreshQuotation,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _CounterpartHeader(
+                          info: counterpartInfo,
+                          isArtist: isArtist,
+                          quotation: _currentQuotation,
+                        ),
+                        _MainQuotationInfo(quotation: _currentQuotation),
+                        if (_currentQuotation.history != null &&
+                            _currentQuotation.history!.isNotEmpty)
+                          _QuotationTimeline(
+                              history: _currentQuotation.history!),
+                        QuotationImages(quotation: _currentQuotation),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: explorerSecondaryColor,
+                  border: Border(
+                    top: BorderSide(
+                      color: tertiaryColor.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: QuotationActionButtons(
+                  actionManager: QuotationActionManager(
+                    context: context,
+                    quotation: _currentQuotation,
+                    session: context.read<AuthBloc>().state.session,
+                    l10n: l10n,
+                    onActionExecuted: (actionType, quotationId) async {
+                      // Handle any action type
+                      _bloc.add(const QuotationListEvent.refreshCurrentTab());
+
+                      if (actionType == QuotationActionType.cancel) {
+                        _bloc.add(
+                            QuotationListEvent.cancelQuotation(quotationId));
+                        await Future.delayed(const Duration(seconds: 1));
+                        if (!context.mounted) return;
+                        Navigator.of(context).pop(true);
+                      } else {
+                        // Refresh the current quotation after a delay to allow backend to process
+                        // Use a longer delay to ensure the backend has processed the action
+                        await Future.delayed(const Duration(seconds: 1));
+                        if (context.mounted) {
+                          _refreshQuotation();
+
+                          // Try another refresh after a bit longer if needed
+                          Future.delayed(const Duration(seconds: 2), () {
+                            if (context.mounted) {
+                              _refreshQuotation();
+                            }
+                          });
+                        }
+                      }
+
+                      // Clear notifications related to this quotation
+                      _notificationsBloc.add(
+                          NotificationsEvent.clearQuotationNotifications(
+                              quotationId));
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    ),
     );
   }
 }
@@ -537,10 +648,12 @@ class _TimelineItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _getStatusColor(history.newStatus),
-                  border: isLast ? Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ) : null,
+                  border: isLast
+                      ? Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        )
+                      : null,
                 ),
               ),
               if (!isLast)
