@@ -44,6 +44,9 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
           ? null
           : DateTime.parse(json['deletedAt'] as String),
       quotationId: (json['quotationId'] as num).toInt(),
+      notes: json['notes'] as String?,
+      preparationTimeMinutes: (json['preparationTimeMinutes'] as num?)?.toInt(),
+      cleanupTimeMinutes: (json['cleanupTimeMinutes'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
@@ -72,6 +75,9 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
   val['quotationId'] = instance.quotationId;
+  writeNotNull('notes', instance.notes);
+  writeNotNull('preparationTimeMinutes', instance.preparationTimeMinutes);
+  writeNotNull('cleanupTimeMinutes', instance.cleanupTimeMinutes);
   return val;
 }
 

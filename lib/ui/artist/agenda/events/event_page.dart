@@ -275,39 +275,410 @@ class AgendaEventDetailPage extends StatelessWidget {
     return Container(
       color: explorerSecondaryColor,
       padding: const EdgeInsets.all(16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.edit, color: Colors.white),
-              label: Text(
-                S.of(context).edit,
-                style: TextStyleTheme.button,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () => _showNotesDialog(context, data),
+                  icon: const Icon(Icons.note_add, color: Colors.white),
+                  label: Text(
+                    'Añadir Notas',
+                    style: TextStyleTheme.button,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
-                padding: const EdgeInsets.symmetric(vertical: 12),
+              const SizedBox(width: 16),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () => _showRescheduleDialog(context, data),
+                  icon: const Icon(Icons.schedule, color: Colors.white),
+                  label: Text(
+                    'Reprogramar',
+                    style: TextStyleTheme.button,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amber,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
               ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit, color: Colors.white),
+                  label: Text(
+                    S.of(context).edit,
+                    style: TextStyleTheme.button,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.cancel, color: Colors.white),
+                  label: Text(
+                    S.of(context).cancel,
+                    style: TextStyleTheme.button,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+  
+  void _showNotesDialog(BuildContext context, AgendaEventDetailResponse data) {
+    final TextEditingController notesController = TextEditingController();
+    notesController.text = data.event.notes ?? '';
+    final bloc = context.read<ArtistAgendaEventDetailBloc>();
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: explorerSecondaryColor,
+        title: Text(
+          'Notas de la Cita',
+          style: TextStyleTheme.subtitle1,
+        ),
+        content: TextField(
+          controller: notesController,
+          style: TextStyleTheme.bodyText1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            hintText: 'Añade notas sobre la cita...',
+            hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white54),
+            fillColor: primaryColor,
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none,
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.cancel, color: Colors.white),
-              label: Text(
-                S.of(context).cancel,
-                style: TextStyleTheme.button,
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancelar',
+              style: TextStyleTheme.button.copyWith(color: Colors.white70),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Save notes logic
+              bloc.add(ArtistAgendaEventDetailEvent.updateNotes(
+                agendaId: 1, // Replace with actual agenda ID
+                eventId: data.event.id,
+                notes: notesController.text,
+              ));
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Notas guardadas correctamente'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: secondaryColor,
+            ),
+            child: Text(
+              'Guardar',
+              style: TextStyleTheme.button,
             ),
           ),
         ],
+      ),
+    );
+  }
+  
+  void _showRescheduleDialog(BuildContext context, AgendaEventDetailResponse data) {
+    final TextEditingController reasonController = TextEditingController();
+    DateTime? newStartDate = data.event.start;
+    DateTime? newEndDate = data.event.end;
+    final difference = data.event.end.difference(data.event.start);
+    final bloc = context.read<ArtistAgendaEventDetailBloc>();
+    
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            backgroundColor: explorerSecondaryColor,
+            title: Text(
+              'Reprogramar Cita',
+              style: TextStyleTheme.subtitle1,
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Fecha y hora actual:',
+                    style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${DateFormat('d MMM yyyy, HH:mm').format(data.event.start)} - ${DateFormat('HH:mm').format(data.event.end)}',
+                    style: TextStyleTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Nueva fecha:',
+                    style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                  ),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: () async {
+                      final date = await showDatePicker(
+                        context: context,
+                        initialDate: newStartDate,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                        builder: (context, child) {
+                          return Theme(
+                            data: ThemeData.dark().copyWith(
+                              colorScheme: ColorScheme.dark(
+                                primary: secondaryColor,
+                                onPrimary: Colors.white,
+                                surface: primaryColor,
+                                onSurface: Colors.white,
+                              ),
+                              dialogBackgroundColor: primaryColor,
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
+                      
+                      if (date != null) {
+                        setState(() {
+                          newStartDate = DateTime(
+                            date.year,
+                            date.month,
+                            date.day,
+                            newStartDate?.hour ?? 0,
+                            newStartDate?.minute ?? 0,
+                          );
+                          newEndDate = newStartDate?.add(difference) ?? newStartDate;
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.calendar_today, color: secondaryColor),
+                          const SizedBox(width: 8),
+                          Text(
+                            DateFormat('d MMMM yyyy').format(newStartDate ?? DateTime.now()),
+                            style: TextStyleTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Nueva hora de inicio:',
+                    style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                  ),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: () async {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(newStartDate ?? DateTime.now()),
+                        builder: (context, child) {
+                          return Theme(
+                            data: ThemeData.dark().copyWith(
+                              colorScheme: ColorScheme.dark(
+                                primary: secondaryColor,
+                                onPrimary: Colors.white,
+                                surface: primaryColor,
+                                onSurface: Colors.white,
+                              ),
+                              dialogBackgroundColor: primaryColor,
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
+                      
+                      if (time != null) {
+                        setState(() {
+                          newStartDate = DateTime(
+                            newStartDate?.year ?? DateTime.now().year,
+                            newStartDate?.month ?? DateTime.now().month,
+                            newStartDate?.day ?? DateTime.now().day,
+                            time.hour,
+                            time.minute,
+                          );
+                          newEndDate = newStartDate?.add(difference) ?? newStartDate;
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.access_time, color: secondaryColor),
+                          const SizedBox(width: 8),
+                          Text(
+                            DateFormat('HH:mm').format(newStartDate ?? DateTime.now()),
+                            style: TextStyleTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Nueva hora de finalización:',
+                    style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                  ),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: () async {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(newEndDate ?? DateTime.now()),
+                        builder: (context, child) {
+                          return Theme(
+                            data: ThemeData.dark().copyWith(
+                              colorScheme: ColorScheme.dark(
+                                primary: secondaryColor,
+                                onPrimary: Colors.white,
+                                surface: primaryColor,
+                                onSurface: Colors.white,
+                              ),
+                              dialogBackgroundColor: primaryColor,
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
+                      
+                      if (time != null) {
+                        setState(() {
+                          newEndDate = DateTime(
+                            newEndDate?.year ?? DateTime.now().year,
+                            newEndDate?.month ?? DateTime.now().month,
+                            newEndDate?.day ?? DateTime.now().day,
+                            time.hour,
+                            time.minute,
+                          );
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.access_time, color: secondaryColor),
+                          const SizedBox(width: 8),
+                          Text(
+                            DateFormat('HH:mm').format(newEndDate ?? DateTime.now()),
+                            style: TextStyleTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: reasonController,
+                    style: TextStyleTheme.bodyText1,
+                    decoration: InputDecoration(
+                      labelText: 'Motivo de reprogramación',
+                      labelStyle: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                      fillColor: primaryColor,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'Cancelar',
+                  style: TextStyleTheme.button.copyWith(color: Colors.white70),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Reschedule the event
+                  bloc.add(ArtistAgendaEventDetailEvent.rescheduleEvent(
+                    agendaId: 1, // Replace with actual agenda ID
+                    eventId: data.event.id,
+                    newStartDate: newStartDate ?? DateTime.now(),
+                    newEndDate: newEndDate ?? DateTime.now(),
+                    reason: reasonController.text.isNotEmpty 
+                        ? reasonController.text 
+                        : null,
+                  ));
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Cita reprogramada correctamente'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: secondaryColor,
+                ),
+                child: Text(
+                  'Reprogramar',
+                  style: TextStyleTheme.button,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

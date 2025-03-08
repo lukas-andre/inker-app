@@ -30,4 +30,73 @@ abstract class AgendaService {
     required DateTime startDate,
     required DateTime endDate,
   });
+  
+  // New methods for agenda settings
+  Future<void> updateWorkingHours({
+    required String token,
+    required int agendaId,
+    required String workingHoursStart,
+    required String workingHoursEnd,
+    required List<String> workingDays,
+  });
+  
+  Future<void> addUnavailableTime({
+    required String token,
+    required int agendaId,
+    required DateTime startDate,
+    required DateTime endDate,
+    String? reason,
+  });
+  
+  Future<List<dynamic>> getUnavailableTime({
+    required String token,
+    required int agendaId,
+  });
+  
+  Future<void> deleteUnavailableTime({
+    required String token,
+    required int agendaId,
+    required int unavailableTimeId,
+  });
+  
+  Future<void> updateAgendaSettings({
+    required String token,
+    required int agendaId,
+    required bool isPublic,
+    required bool isOpen,
+  });
+  
+  Future<Map<String, dynamic>> getAgendaSettings({
+    required String token,
+    required int agendaId,
+  });
+  
+  Future<void> rescheduleEvent({
+    required String token,
+    required int agendaId,
+    required int eventId,
+    required DateTime newStartDate,
+    required DateTime newEndDate,
+    String? reason,
+  });
+  
+  Future<void> updateEventNotes({
+    required String token,
+    required int agendaId,
+    required int eventId,
+    required String notes,
+  });
+  
+  Future<List<dynamic>> getArtistAvailability({
+    required String token,
+    required int artistId,
+    DateTime? fromDate,
+    DateTime? toDate,
+    int? duration,
+  });
+  
+  Future<List<dynamic>> getQuotationAvailableSlots({
+    required String token,
+    required int quotationId,
+  });
 }

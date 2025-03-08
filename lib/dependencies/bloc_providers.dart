@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/account_verification/account_verificat
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
@@ -123,6 +124,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => ArtistAgendaCreateEventBloc(
         customerService: context.read(),
+        sessionService: context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistAgendaSettingsBloc(
+        agendaService: context.read(),
         sessionService: context.read(),
       ),
     ),

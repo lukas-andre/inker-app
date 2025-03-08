@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
+import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -53,6 +55,26 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         elevation: 4.0,
         shadowColor: Colors.black54,
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => ArtistAgendaSettingsBloc(
+                      agendaService: context.read(),
+                      sessionService: context.read(),
+                    ),
+                    child: const AgendaSettingsPage(),
+                  ),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(
               Icons.refresh,

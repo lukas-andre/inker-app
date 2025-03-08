@@ -13,6 +13,7 @@ class ArtistAgendaEventDetailBloc
     extends Bloc<ArtistAgendaEventDetailEvent, ArtistAgendaEventDetailState> {
   final AgendaService _agendaService;
   final LocalSessionService _sessionService;
+  int? _currentEventId;
 
   ArtistAgendaEventDetailBloc({
     required AgendaService agendaService,
@@ -22,7 +23,14 @@ class ArtistAgendaEventDetailBloc
         super(const ArtistAgendaEventDetailState.initial()) {
     on<ArtistAgendaEventDetailEvent>((event, emit) async {
       await event.when(
-        started: (eventId) async => _fetchEventDetails(emit, eventId),
+        started: (eventId) async {
+          _currentEventId = eventId;
+          await _fetchEventDetails(emit, eventId);
+        },
+        updateNotes: (agendaId, eventId, notes) async => 
+            _updateEventNotes(emit, agendaId, eventId, notes),
+        rescheduleEvent: (agendaId, eventId, newStartDate, newEndDate, reason) async => 
+            _rescheduleEvent(emit, agendaId, eventId, newStartDate, newEndDate, reason),
       );
     });
   }
@@ -39,6 +47,66 @@ class ArtistAgendaEventDetailBloc
       final response =
           await _agendaService.getEvent(token: token, eventId: eventId);
       emit(ArtistAgendaEventDetailState.loaded(response));
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+  
+  Future<void> _updateEventNotes(
+      Emitter<ArtistAgendaEventDetailState> emit, 
+      int agendaId, 
+      int eventId, 
+      String notes) async {
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        throw Exception('No active session token found');
+      }
+
+      await _agendaService.updateEventNotes(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        notes: notes,
+      );
+      
+      // Refresh event details after updating notes
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+  
+  Future<void> _rescheduleEvent(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      int agendaId,
+      int eventId,
+      DateTime newStartDate,
+      DateTime newEndDate,
+      String? reason) async {
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        throw Exception('No active session token found');
+      }
+
+      await _agendaService.rescheduleEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        newStartDate: newStartDate,
+        newEndDate: newEndDate,
+        reason: reason,
+      );
+      
+      // Refresh event details after rescheduling
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      }
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
       emit(ArtistAgendaEventDetailState.error(e.toString()));
