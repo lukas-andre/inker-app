@@ -226,6 +226,9 @@ mixin _$AgendaEventDetailEvent {
   String? get cancelationReason => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   int get quotationId => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  int? get preparationTimeMinutes => throw _privateConstructorUsedError;
+  int? get cleanupTimeMinutes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -254,7 +257,10 @@ abstract class $AgendaEventDetailEventCopyWith<$Res> {
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId});
+      int quotationId,
+      String? notes,
+      int? preparationTimeMinutes,
+      int? cleanupTimeMinutes});
 
   $AgendaEventDetailWorkEvidenceCopyWith<$Res>? get workEvidence;
 }
@@ -288,6 +294,9 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
     Object? quotationId = null,
+    Object? notes = freezed,
+    Object? preparationTimeMinutes = freezed,
+    Object? cleanupTimeMinutes = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -350,6 +359,18 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
               as int,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      preparationTimeMinutes: freezed == preparationTimeMinutes
+          ? _value.preparationTimeMinutes
+          : preparationTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cleanupTimeMinutes: freezed == cleanupTimeMinutes
+          ? _value.cleanupTimeMinutes
+          : cleanupTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -391,7 +412,10 @@ abstract class _$$AgendaEventDetailEventImplCopyWith<$Res>
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId});
+      int quotationId,
+      String? notes,
+      int? preparationTimeMinutes,
+      int? cleanupTimeMinutes});
 
   @override
   $AgendaEventDetailWorkEvidenceCopyWith<$Res>? get workEvidence;
@@ -425,6 +449,9 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
     Object? quotationId = null,
+    Object? notes = freezed,
+    Object? preparationTimeMinutes = freezed,
+    Object? cleanupTimeMinutes = freezed,
   }) {
     return _then(_$AgendaEventDetailEventImpl(
       id: null == id
@@ -487,6 +514,18 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
               as int,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      preparationTimeMinutes: freezed == preparationTimeMinutes
+          ? _value.preparationTimeMinutes
+          : preparationTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cleanupTimeMinutes: freezed == cleanupTimeMinutes
+          ? _value.cleanupTimeMinutes
+          : cleanupTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -509,7 +548,10 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       this.workEvidence,
       this.cancelationReason,
       this.deletedAt,
-      required this.quotationId});
+      required this.quotationId,
+      this.notes,
+      this.preparationTimeMinutes,
+      this.cleanupTimeMinutes});
 
   factory _$AgendaEventDetailEventImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgendaEventDetailEventImplFromJson(json);
@@ -546,10 +588,16 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   final DateTime? deletedAt;
   @override
   final int quotationId;
+  @override
+  final String? notes;
+  @override
+  final int? preparationTimeMinutes;
+  @override
+  final int? cleanupTimeMinutes;
 
   @override
   String toString() {
-    return 'AgendaEventDetailEvent(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, start: $start, end: $end, color: $color, info: $info, notification: $notification, done: $done, workEvidence: $workEvidence, cancelationReason: $cancelationReason, deletedAt: $deletedAt, quotationId: $quotationId)';
+    return 'AgendaEventDetailEvent(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, start: $start, end: $end, color: $color, info: $info, notification: $notification, done: $done, workEvidence: $workEvidence, cancelationReason: $cancelationReason, deletedAt: $deletedAt, quotationId: $quotationId, notes: $notes, preparationTimeMinutes: $preparationTimeMinutes, cleanupTimeMinutes: $cleanupTimeMinutes)';
   }
 
   @override
@@ -579,7 +627,12 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt) &&
             (identical(other.quotationId, quotationId) ||
-                other.quotationId == quotationId));
+                other.quotationId == quotationId) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.preparationTimeMinutes, preparationTimeMinutes) ||
+                other.preparationTimeMinutes == preparationTimeMinutes) &&
+            (identical(other.cleanupTimeMinutes, cleanupTimeMinutes) ||
+                other.cleanupTimeMinutes == cleanupTimeMinutes));
   }
 
   @JsonKey(ignore: true)
@@ -600,7 +653,10 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       workEvidence,
       cancelationReason,
       deletedAt,
-      quotationId);
+      quotationId,
+      notes,
+      preparationTimeMinutes,
+      cleanupTimeMinutes);
 
   @JsonKey(ignore: true)
   @override
@@ -633,7 +689,10 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
       final AgendaEventDetailWorkEvidence? workEvidence,
       final String? cancelationReason,
       final DateTime? deletedAt,
-      required final int quotationId}) = _$AgendaEventDetailEventImpl;
+      required final int quotationId,
+      final String? notes,
+      final int? preparationTimeMinutes,
+      final int? cleanupTimeMinutes}) = _$AgendaEventDetailEventImpl;
 
   factory _AgendaEventDetailEvent.fromJson(Map<String, dynamic> json) =
       _$AgendaEventDetailEventImpl.fromJson;
@@ -670,6 +729,12 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   DateTime? get deletedAt;
   @override
   int get quotationId;
+  @override
+  String? get notes;
+  @override
+  int? get preparationTimeMinutes;
+  @override
+  int? get cleanupTimeMinutes;
   @override
   @JsonKey(ignore: true)
   _$$AgendaEventDetailEventImplCopyWith<_$AgendaEventDetailEventImpl>

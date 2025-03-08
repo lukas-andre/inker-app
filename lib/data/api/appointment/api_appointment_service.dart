@@ -250,12 +250,6 @@ class ApiAppointmentService implements AppointmentService {
           try {
             print('Event detail response: $json');
 
-            // Create default values for fallback
-            final defaultArtist = {
-              'id': 1,
-              'displayName': 'Artist',
-              'profileImageUrl': null
-            };
 
             final defaultLocation = {
               'id': 1,

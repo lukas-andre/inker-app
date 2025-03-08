@@ -39,6 +39,9 @@ class AgendaEventDetailEvent with _$AgendaEventDetailEvent {
     String? cancelationReason,
     DateTime? deletedAt,
     required int quotationId,
+    String? notes,
+    int? preparationTimeMinutes,
+    int? cleanupTimeMinutes,
   }) = _AgendaEventDetailEvent;
 
   factory AgendaEventDetailEvent.fromJson(Map<String, dynamic> json) =>

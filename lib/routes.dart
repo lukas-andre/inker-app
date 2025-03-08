@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
@@ -42,7 +43,13 @@ class AppRoutes {
       if (args is int) {
         return MaterialPageRoute(
           builder: (context) {
-            return AgendaEventDetailPage(eventId: args);
+            return BlocProvider(
+              create: (context) => ArtistAgendaEventDetailBloc(
+                agendaService: context.read(),
+                sessionService: context.read(),
+              ),
+              child: AgendaEventDetailPage(eventId: args),
+            );
           },
         );
       } else {
