@@ -20,32 +20,51 @@ mixin _$ArtistAgendaEventDetailEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int eventId) started,
+    required TResult Function(int agendaId, int eventId, String notes)
+        updateNotes,
+    required TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)
+        rescheduleEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int eventId)? started,
+    TResult? Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult? Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int eventId)? started,
+    TResult Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -158,6 +177,11 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int eventId) started,
+    required TResult Function(int agendaId, int eventId, String notes)
+        updateNotes,
+    required TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)
+        rescheduleEvent,
   }) {
     return started(eventId);
   }
@@ -166,6 +190,10 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int eventId)? started,
+    TResult? Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult? Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
   }) {
     return started?.call(eventId);
   }
@@ -174,6 +202,10 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int eventId)? started,
+    TResult Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -186,6 +218,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
   }) {
     return started(this);
   }
@@ -194,6 +228,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
   }) {
     return started?.call(this);
   }
@@ -202,6 +238,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -219,6 +257,387 @@ abstract class _Started implements ArtistAgendaEventDetailEvent {
   @override
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateNotesImplCopyWith<$Res>
+    implements $ArtistAgendaEventDetailEventCopyWith<$Res> {
+  factory _$$UpdateNotesImplCopyWith(
+          _$UpdateNotesImpl value, $Res Function(_$UpdateNotesImpl) then) =
+      __$$UpdateNotesImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int agendaId, int eventId, String notes});
+}
+
+/// @nodoc
+class __$$UpdateNotesImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailEventCopyWithImpl<$Res, _$UpdateNotesImpl>
+    implements _$$UpdateNotesImplCopyWith<$Res> {
+  __$$UpdateNotesImplCopyWithImpl(
+      _$UpdateNotesImpl _value, $Res Function(_$UpdateNotesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? agendaId = null,
+    Object? eventId = null,
+    Object? notes = null,
+  }) {
+    return _then(_$UpdateNotesImpl(
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as int,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateNotesImpl implements _UpdateNotes {
+  const _$UpdateNotesImpl(
+      {required this.agendaId, required this.eventId, required this.notes});
+
+  @override
+  final int agendaId;
+  @override
+  final int eventId;
+  @override
+  final String notes;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailEvent.updateNotes(agendaId: $agendaId, eventId: $eventId, notes: $notes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateNotesImpl &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.notes, notes) || other.notes == notes));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, agendaId, eventId, notes);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateNotesImplCopyWith<_$UpdateNotesImpl> get copyWith =>
+      __$$UpdateNotesImplCopyWithImpl<_$UpdateNotesImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int eventId) started,
+    required TResult Function(int agendaId, int eventId, String notes)
+        updateNotes,
+    required TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)
+        rescheduleEvent,
+  }) {
+    return updateNotes(agendaId, eventId, notes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int eventId)? started,
+    TResult? Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult? Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+  }) {
+    return updateNotes?.call(agendaId, eventId, notes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int eventId)? started,
+    TResult Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    required TResult orElse(),
+  }) {
+    if (updateNotes != null) {
+      return updateNotes(agendaId, eventId, notes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
+  }) {
+    return updateNotes(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
+  }) {
+    return updateNotes?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
+    required TResult orElse(),
+  }) {
+    if (updateNotes != null) {
+      return updateNotes(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateNotes implements ArtistAgendaEventDetailEvent {
+  const factory _UpdateNotes(
+      {required final int agendaId,
+      required final int eventId,
+      required final String notes}) = _$UpdateNotesImpl;
+
+  int get agendaId;
+  @override
+  int get eventId;
+  String get notes;
+  @override
+  @JsonKey(ignore: true)
+  _$$UpdateNotesImplCopyWith<_$UpdateNotesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RescheduleEventImplCopyWith<$Res>
+    implements $ArtistAgendaEventDetailEventCopyWith<$Res> {
+  factory _$$RescheduleEventImplCopyWith(_$RescheduleEventImpl value,
+          $Res Function(_$RescheduleEventImpl) then) =
+      __$$RescheduleEventImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int agendaId,
+      int eventId,
+      DateTime newStartDate,
+      DateTime newEndDate,
+      String? reason});
+}
+
+/// @nodoc
+class __$$RescheduleEventImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailEventCopyWithImpl<$Res,
+        _$RescheduleEventImpl> implements _$$RescheduleEventImplCopyWith<$Res> {
+  __$$RescheduleEventImplCopyWithImpl(
+      _$RescheduleEventImpl _value, $Res Function(_$RescheduleEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? agendaId = null,
+    Object? eventId = null,
+    Object? newStartDate = null,
+    Object? newEndDate = null,
+    Object? reason = freezed,
+  }) {
+    return _then(_$RescheduleEventImpl(
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as int,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
+      newStartDate: null == newStartDate
+          ? _value.newStartDate
+          : newStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      newEndDate: null == newEndDate
+          ? _value.newEndDate
+          : newEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      reason: freezed == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RescheduleEventImpl implements _RescheduleEvent {
+  const _$RescheduleEventImpl(
+      {required this.agendaId,
+      required this.eventId,
+      required this.newStartDate,
+      required this.newEndDate,
+      this.reason});
+
+  @override
+  final int agendaId;
+  @override
+  final int eventId;
+  @override
+  final DateTime newStartDate;
+  @override
+  final DateTime newEndDate;
+  @override
+  final String? reason;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailEvent.rescheduleEvent(agendaId: $agendaId, eventId: $eventId, newStartDate: $newStartDate, newEndDate: $newEndDate, reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RescheduleEventImpl &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.newStartDate, newStartDate) ||
+                other.newStartDate == newStartDate) &&
+            (identical(other.newEndDate, newEndDate) ||
+                other.newEndDate == newEndDate) &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, agendaId, eventId, newStartDate, newEndDate, reason);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RescheduleEventImplCopyWith<_$RescheduleEventImpl> get copyWith =>
+      __$$RescheduleEventImplCopyWithImpl<_$RescheduleEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int eventId) started,
+    required TResult Function(int agendaId, int eventId, String notes)
+        updateNotes,
+    required TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)
+        rescheduleEvent,
+  }) {
+    return rescheduleEvent(agendaId, eventId, newStartDate, newEndDate, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int eventId)? started,
+    TResult? Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult? Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+  }) {
+    return rescheduleEvent?.call(
+        agendaId, eventId, newStartDate, newEndDate, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int eventId)? started,
+    TResult Function(int agendaId, int eventId, String notes)? updateNotes,
+    TResult Function(int agendaId, int eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    required TResult orElse(),
+  }) {
+    if (rescheduleEvent != null) {
+      return rescheduleEvent(
+          agendaId, eventId, newStartDate, newEndDate, reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
+  }) {
+    return rescheduleEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
+  }) {
+    return rescheduleEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
+    required TResult orElse(),
+  }) {
+    if (rescheduleEvent != null) {
+      return rescheduleEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RescheduleEvent implements ArtistAgendaEventDetailEvent {
+  const factory _RescheduleEvent(
+      {required final int agendaId,
+      required final int eventId,
+      required final DateTime newStartDate,
+      required final DateTime newEndDate,
+      final String? reason}) = _$RescheduleEventImpl;
+
+  int get agendaId;
+  @override
+  int get eventId;
+  DateTime get newStartDate;
+  DateTime get newEndDate;
+  String? get reason;
+  @override
+  @JsonKey(ignore: true)
+  _$$RescheduleEventImplCopyWith<_$RescheduleEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

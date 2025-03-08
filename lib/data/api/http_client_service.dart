@@ -71,6 +71,7 @@ class HttpClientService {
     required T Function(Map<String, dynamic>) fromJson,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool expectListResponse = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
     final headers = _buildHeaders(token);
@@ -85,7 +86,36 @@ class HttpClientService {
       HttpLogger.logResponse(response, duration: stopwatch.elapsed);
 
       if (response.statusCode == HttpStatus.ok) {
-        return fromJson(json.decode(response.body));
+        final decoded = json.decode(response.body);
+        
+        // If we expect a Map but got a List, handle it gracefully
+        if (decoded is List && !expectListResponse) {
+          // For list responses, we might want to handle them specifically in the calling code
+          // Here we'll check what we should do based on the fromJson function
+          if ((T == List<dynamic>) || (T == List<Object>)) {
+            return decoded as T;
+          }
+          
+          // If the API returns an empty list, return an empty map
+          if (decoded.isEmpty) {
+            return fromJson({});
+          }
+          
+          // If the API returns a list with one item and we expect a map, try to use the first item
+          if (decoded.length == 1 && decoded[0] is Map<String, dynamic>) {
+            return fromJson(decoded[0] as Map<String, dynamic>);
+          }
+          
+          // Otherwise, wrap the list in a map
+          return fromJson({'items': decoded});
+        }
+        
+        if (decoded is Map<String, dynamic>) {
+          return fromJson(decoded);
+        }
+        
+        // If we got null or an unexpected type, return an empty result
+        return fromJson({});
       } else {
         _handleError(response);
       }
@@ -143,13 +173,37 @@ class HttpClientService {
   }) async {
     try {
       final uri = await _buildUrl(path, queryParams: queryParams);
+      final headers = _buildHeaders(token);
+      final encodedBody = json.encode(body);
+      
+      HttpLogger.logRequest('PUT', uri, headers: headers, body: encodedBody);
+      
+      final stopwatch = Stopwatch()..start();
       final response = await http.put(
         uri,
-        headers: _buildHeaders(token),
-        body: json.encode(body),
+        headers: headers,
+        body: encodedBody,
       );
-
-      return _handleResponse(response, fromJson);
+      stopwatch.stop();
+      
+      HttpLogger.logResponse(response, duration: stopwatch.elapsed);
+      
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (response.statusCode == HttpStatus.noContent || response.body.isEmpty) {
+          return fromJson({});
+        }
+        try {
+          return fromJson(json.decode(response.body));
+        } catch (e) {
+          // Handle empty or invalid responses more gracefully
+          if (fromJson == null || T == Null) {
+            return null as T;
+          }
+          return fromJson({});
+        }
+      } else {
+        _handleError(response, requestBody: encodedBody);
+      }
     } catch (e) {
       if (e is CustomHttpException) {
         rethrow;
