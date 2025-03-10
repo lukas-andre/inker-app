@@ -8,7 +8,12 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 
 class CalendarDayPicker extends StatefulWidget {
-  const CalendarDayPicker({super.key});
+  final Function(DateTime)? onDateSelected;
+
+  const CalendarDayPicker({
+    super.key,
+    this.onDateSelected,
+  });
 
   @override
   _CalendarDayPickerState createState() => _CalendarDayPickerState();
@@ -50,9 +55,18 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
           setState(() {
             _focusedDay = focusedDay;
           });
+          
+          // Update the bloc state
           context.read<ArtistAgendaCreateEventBloc>().add(
               ArtistAgendaCreateEventEvent.dateChanged(
                   selectedDay.toIso8601String()));
+          
+          // Notify parent widget about the date change
+          if (widget.onDateSelected != null) {
+            widget.onDateSelected!(selectedDay);
+          }
+          
+          print('CalendarDayPicker: Day selected: ${selectedDay.toIso8601String()}');
         },
         onFormatChanged: (format) {
           setState(() {

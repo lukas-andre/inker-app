@@ -9,7 +9,14 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class EnhancedDateRangePicker extends StatefulWidget {
-  const EnhancedDateRangePicker({super.key});
+  // Adding a parameter for the selected date to explicitly connect this component
+  // with the calendar date picker
+  final DateTime? initialDate;
+
+  const EnhancedDateRangePicker({
+    super.key,
+    this.initialDate,
+  });
 
   @override
   _EnhancedDateRangePickerState createState() => _EnhancedDateRangePickerState();
@@ -34,6 +41,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
   String _timeRange = '';
   bool _isCustomDuration = false;
   bool _isInitialized = false;
+  String _lastSelectedDate = '';
   
   @override
   void initState() {
@@ -42,9 +50,52 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
     // Initialize from existing time in the bloc state
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateControllersFromState();
+      
+      // Store the initial date from the bloc
+      final state = context.read<ArtistAgendaCreateEventBloc>().state;
+      _lastSelectedDate = state.date;
+      
+      // If widget has an explicit initialDate, update the bloc with it
+      if (widget.initialDate != null) {
+        final dateFormatted = DateFormat('yyyy-MM-dd').format(widget.initialDate!);
+        if (dateFormatted != _lastSelectedDate) {
+          print('EnhancedDateRangePicker: Updating date from prop: $dateFormatted');
+          context.read<ArtistAgendaCreateEventBloc>().add(
+            ArtistAgendaCreateEventEvent.dateChanged(dateFormatted),
+          );
+          _lastSelectedDate = dateFormatted;
+          
+          // Also trigger a refresh of available time slots for the provided date
+          _refreshAvailableTimeSlots(dateFormatted);
+        }
+      }
     });
   }
   
+  @override
+  void didUpdateWidget(EnhancedDateRangePicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    
+    // React to changes in initialDate prop
+    if (widget.initialDate != oldWidget.initialDate && widget.initialDate != null) {
+      final dateFormatted = DateFormat('yyyy-MM-dd').format(widget.initialDate!);
+      if (dateFormatted != _lastSelectedDate) {
+        print('EnhancedDateRangePicker.didUpdateWidget: Date changed to: $dateFormatted');
+        
+        // Update the bloc
+        context.read<ArtistAgendaCreateEventBloc>().add(
+          ArtistAgendaCreateEventEvent.dateChanged(dateFormatted),
+        );
+        
+        // Update our tracking variable
+        _lastSelectedDate = dateFormatted;
+        
+        // Refresh available time slots
+        _refreshAvailableTimeSlots(dateFormatted);
+      }
+    }
+  }
+
   @override
   void dispose() {
     _startTimeController.dispose();
@@ -158,6 +209,12 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ArtistAgendaCreateEventBloc, ArtistAgendaCreateEventState>(
+      listenWhen: (previous, current) {
+        // Listen for changes in date, startTime, or endTime
+        return previous.date != current.date || 
+               previous.startTime != current.startTime || 
+               previous.endTime != current.endTime;
+      },
       listener: (context, state) {
         // Only update from state changes if not already initialized or if there's a mismatch
         if (!_isInitialized || 
@@ -179,6 +236,15 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
               _isInitialized = true;
             }
           });
+        }
+        
+        // Check if the date has changed
+        if (state.date != _lastSelectedDate && state.date.isNotEmpty) {
+          print('Date changed from $_lastSelectedDate to ${state.date}');
+          _lastSelectedDate = state.date;
+          
+          // The date has changed! Let's make sure we update the available time slots
+          _refreshAvailableTimeSlots(state.date);
         }
       },
       child: Column(
@@ -705,91 +771,199 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
       }
     }
     
-    // Get current date from the bloc
-    final state = context.read<ArtistAgendaCreateEventBloc>().state;
-    final dateString = state.date;
-    
+    // Try to get the current date from multiple sources, in order of priority:
+    // 1. The initialDate prop (if available)
+    // 2. The current date from the bloc
+    // 3. Today's date as fallback
     DateTime selectedDate;
-    if (dateString.isNotEmpty) {
-      try {
-        final dateParts = dateString.split('-');
-        selectedDate = DateTime(
-          int.parse(dateParts[0]), 
-          int.parse(dateParts[1]), 
-          int.parse(dateParts[2])
-        );
-      } catch (e) {
+    
+    // First check if we have an initialDate prop
+    if (widget.initialDate != null) {
+      selectedDate = widget.initialDate!;
+      print('EnhancedDateRangePicker: Using initialDate from props: ${selectedDate.toIso8601String()}');
+    } else {
+      // Next, try to get the date from the bloc
+      final state = context.read<ArtistAgendaCreateEventBloc>().state;
+      final dateString = state.date;
+      
+      if (dateString.isNotEmpty) {
+        try {
+          final dateParts = dateString.split('-');
+          selectedDate = DateTime(
+            int.parse(dateParts[0]), 
+            int.parse(dateParts[1]), 
+            int.parse(dateParts[2])
+          );
+          print('EnhancedDateRangePicker: Using date from bloc: ${selectedDate.toIso8601String()}');
+        } catch (e) {
+          // Use today as fallback
+          selectedDate = DateTime.now();
+          print('Error parsing date: $e, defaulting to today');
+        }
+      } else {
         // Use today as fallback
         selectedDate = DateTime.now();
+        print('No date in state, defaulting to today');
       }
-    } else {
-      // Use today as fallback
-      selectedDate = DateTime.now();
     }
     
-    // Get the blocs we need to pass to the dialog
-    final availableTimeSlotsBloc = context.read<AvailableTimeSlotsBloc>();
+    print('Current selected date for time slots: ${selectedDate.toString()}');
+    
+    // Create a new bloc instance specifically for this dialog
+    // This ensures we don't have state conflicts with other parts of the UI
+    final dialogTimeSlotsBloc = AvailableTimeSlotsBloc(
+      agendaService: context.read(),
+      sessionService: context.read(),
+    );
+    
+    // Fetch available time slots before showing the dialog
+    dialogTimeSlotsBloc.add(
+      AvailableTimeSlotsEvent.getAvailableTimeSlots(
+        artistId: 1, // TODO: Get actual artist ID from context/state
+        date: selectedDate,
+        durationMinutes: durationMinutes,
+      ),
+    );
     
     // Show dialog with available time slots
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return BlocProvider<AvailableTimeSlotsBloc>.value(
-          value: availableTimeSlotsBloc,
-          child: AlertDialog(
-            backgroundColor: primaryColor,
-            title: Text('Available Time Slots', 
-              style: TextStyleTheme.headline3.copyWith(color: Colors.white),
-            ),
-            content: SizedBox(
-              width: double.maxFinite,
-              height: 400, // Set a fixed height for the dialog
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Available slots for ${DateFormat('EEEE, MMMM d').format(selectedDate)}',
-                    style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+          value: dialogTimeSlotsBloc,
+          child: StatefulBuilder(
+            builder: (context, setDialogState) {
+              // Create a formatter for the displayed date
+              final dateFormatter = DateFormat('EEEE, d MMMM', 'es');
+              
+              return AlertDialog(
+                backgroundColor: primaryColor,
+                title: Text('Horarios Disponibles', 
+                  style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                ),
+                content: SizedBox(
+                  width: double.maxFinite,
+                  height: 400, // Set a fixed height for the dialog
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Date and duration display with update capability
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Horarios para ${dateFormatter.format(selectedDate)}',
+                                  style: TextStyleTheme.bodyText1.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Duración: $durationMinutes minutos',
+                                  style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          // Refresh button
+                          IconButton(
+                            icon: Icon(Icons.refresh, color: Colors.white70),
+                            onPressed: () {
+                              // Show a date picker to change the date for time slots
+                              showDatePicker(
+                                context: context,
+                                initialDate: selectedDate,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime.now().add(const Duration(days: 365)),
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.dark().copyWith(
+                                      colorScheme: ColorScheme.dark(
+                                        primary: secondaryColor,
+                                        onPrimary: Colors.white,
+                                        surface: primaryColor,
+                                        onSurface: Colors.white,
+                                      ),
+                                      dialogBackgroundColor: primaryColor,
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              ).then((newDate) {
+                                if (newDate != null) {
+                                  // Update the state in the parent widget
+                                  context.read<ArtistAgendaCreateEventBloc>().add(
+                                    ArtistAgendaCreateEventEvent.dateChanged(
+                                      newDate.toIso8601String(),
+                                    ),
+                                  );
+                                  
+                                  // Update the dialog state
+                                  setDialogState(() {
+                                    selectedDate = newDate;
+                                  });
+                                  
+                                  // Fetch new time slots for the selected date
+                                  dialogTimeSlotsBloc.add(const AvailableTimeSlotsEvent.resetState());
+                                  dialogTimeSlotsBloc.add(
+                                    AvailableTimeSlotsEvent.getAvailableTimeSlots(
+                                      artistId: 1,
+                                      date: newDate,
+                                      durationMinutes: durationMinutes,
+                                    ),
+                                  );
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      
+                      // Available time slots widget
+                      Expanded(
+                        child: AvailableTimeSlotsWidget(
+                          artistId: 1, // TODO: Get actual artist ID from context/state
+                          selectedDate: selectedDate,
+                          durationMinutes: durationMinutes,
+                          onTimeSlotSelected: (startTime, endTime) {
+                            setState(() {
+                              _startTimeController.text = DateFormat('HH:mm').format(startTime);
+                              _endTimeController.text = DateFormat('HH:mm').format(endTime);
+                              _calculateTimeRange();
+                            });
+                            Navigator.of(dialogContext).pop();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Duration: $durationMinutes minutes',
-                    style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  // This will take the available space in the dialog
-                  Expanded(
-                    child: AvailableTimeSlotsWidget(
-                      artistId: 1, // TODO: Get actual artist ID from context/state
-                      selectedDate: selectedDate,
-                      durationMinutes: durationMinutes,
-                      onTimeSlotSelected: (startTime, endTime) {
-                        setState(() {
-                          _startTimeController.text = DateFormat('HH:mm').format(startTime);
-                          _endTimeController.text = DateFormat('HH:mm').format(endTime);
-                          _calculateTimeRange();
-                        });
-                        Navigator.of(dialogContext).pop();
-                      },
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Cancelar', 
+                      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
                     ),
+                    onPressed: () {
+                      // Clean up the bloc when dialog is closed
+                      dialogTimeSlotsBloc.close();
+                      Navigator.of(dialogContext).pop();
+                    },
                   ),
                 ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                child: Text('Cancel', 
-                  style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
-                ),
-                onPressed: () {
-                  Navigator.of(dialogContext).pop();
-                },
-              ),
-            ],
+              );
+            }
           ),
         );
       },
-    );
+    ).then((_) {
+      // Clean up the bloc when dialog is closed
+      dialogTimeSlotsBloc.close();
+    });
   }
   
   // Build a button for selecting an available time slot
@@ -913,5 +1087,55 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
         );
       },
     );
+  }
+  
+  // Helper method to refresh available time slots when the date changes
+  void _refreshAvailableTimeSlots(String dateString) {
+    try {
+      // Parse the selected date
+      final dateParts = dateString.split('-');
+      final selectedDate = DateTime(
+        int.parse(dateParts[0]), 
+        int.parse(dateParts[1]), 
+        int.parse(dateParts[2])
+      );
+      
+      // Get the AvailableTimeSlotsBloc
+      final availableTimeSlotsBloc = context.read<AvailableTimeSlotsBloc>();
+        
+      // Calculate duration in minutes based on current state
+      int durationMinutes = 60; // Default
+      if (!_isCustomDuration && _selectedDuration['minutes'] != null) {
+        durationMinutes = _selectedDuration['minutes'] as int;
+      } else if (_startTimeController.text.isNotEmpty && _endTimeController.text.isNotEmpty) {
+        try {
+          final startTime = DateFormat('HH:mm').parse(_startTimeController.text);
+          final endTime = DateFormat('HH:mm').parse(_endTimeController.text);
+          durationMinutes = endTime.difference(startTime).inMinutes;
+        } catch (e) {
+          print('Error calculating duration: $e');
+        }
+      }
+      
+      print('Refreshing available time slots for date: ${selectedDate.toString()} with duration: $durationMinutes minutes');
+      
+      // Trigger refresh of available time slots for the new date - always use the WidgetsBinding
+      // to ensure this happens after the current build cycle
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // IMPORTANT: We need to reset the state first to ensure the UI updates properly
+        availableTimeSlotsBloc.add(const AvailableTimeSlotsEvent.resetState());
+        
+        // Then fetch available time slots for the new date
+        availableTimeSlotsBloc.add(
+          AvailableTimeSlotsEvent.getAvailableTimeSlots(
+            artistId: 1, // TODO: Get actual artist ID from context/state
+            date: selectedDate,
+            durationMinutes: durationMinutes,
+          ),
+        );
+      });
+    } catch (e) {
+      print('Error refreshing available time slots: $e');
+    }
   }
 }

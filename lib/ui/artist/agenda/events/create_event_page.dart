@@ -38,6 +38,7 @@ class EventFormPage extends StatefulWidget {
 
 class _EventFormPageState extends State<EventFormPage> {
   final _formKey = GlobalKey<FormState>();
+  DateTime _selectedDate = DateTime.now(); // Add state to track the selected date
 
   @override
   void initState() {
@@ -48,12 +49,22 @@ class _EventFormPageState extends State<EventFormPage> {
               widget.eventToEdit!,
             ),
           );
+          
+      // If editing, try to parse the date from event details
+      if (widget.eventToEdit!.startDate != null) {
+        try {
+          _selectedDate = widget.eventToEdit!.startDate!;
+        } catch (e) {
+          print('Error parsing date from event: $e');
+        }
+      }
     } else {
       // Initialize an empty form for creating a new event
       context.read<ArtistAgendaCreateEventBloc>().add(
             const ArtistAgendaCreateEventEvent.formInitialized(),
           );
     }
+    
     super.initState();
   }
 
@@ -120,12 +131,22 @@ class _EventFormPageState extends State<EventFormPage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 12),
-                        const CalendarDayPicker(),
+                        // Use the calendar day picker with a callback
+                        CalendarDayPicker(
+                          onDateSelected: (date) {
+                            setState(() {
+                              _selectedDate = date;
+                              print('EventFormPage: Date updated to: ${date.toIso8601String()}');
+                            });
+                          },
+                        ),
                         const SizedBox(height: 12),
-                        // Wrap with BlocProvider to provide AvailableTimeSlotsBloc
+                        // Pass the selected date to the EnhancedDateRangePicker
                         BlocProvider<AvailableTimeSlotsBloc>.value(
                           value: context.read<AvailableTimeSlotsBloc>(),
-                          child: const EnhancedDateRangePicker(),
+                          child: EnhancedDateRangePicker(
+                            initialDate: _selectedDate,
+                          ),
                         ),
                         const SizedBox(height: 12),
                       ],

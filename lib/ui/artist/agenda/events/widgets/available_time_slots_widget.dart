@@ -25,10 +25,30 @@ class AvailableTimeSlotsWidget extends StatefulWidget {
 }
 
 class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
+  late DateTime _currentDate;
+  
   @override
   void initState() {
     super.initState();
+    _currentDate = widget.selectedDate;
     _loadTimeSlots();
+  }
+  
+  @override
+  void didUpdateWidget(AvailableTimeSlotsWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    
+    // If the selected date has changed, reload the time slots
+    if (widget.selectedDate != oldWidget.selectedDate || 
+        widget.durationMinutes != oldWidget.durationMinutes ||
+        widget.artistId != oldWidget.artistId) {
+      
+      // Update our tracked date and reload
+      _currentDate = widget.selectedDate;
+      _loadTimeSlots();
+      
+      print('AvailableTimeSlotsWidget updated with date: ${widget.selectedDate.toIso8601String()}');
+    }
   }
   
   // Helper method to safely parse DateTime values from API responses
@@ -83,28 +103,26 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
     return DateTime.now();
   }
 
-  @override
-  void didUpdateWidget(AvailableTimeSlotsWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    
-    // Reload if any of these parameters change
-    if (widget.artistId != oldWidget.artistId ||
-        widget.selectedDate.day != oldWidget.selectedDate.day ||
-        widget.selectedDate.month != oldWidget.selectedDate.month ||
-        widget.selectedDate.year != oldWidget.selectedDate.year ||
-        widget.durationMinutes != oldWidget.durationMinutes) {
-      _loadTimeSlots();
-    }
-  }
+  // Este método ya está implementado arriba con código mejorado
 
   void _loadTimeSlots() {
-    context.read<AvailableTimeSlotsBloc>().add(
-          AvailableTimeSlotsEvent.getAvailableTimeSlots(
-            artistId: widget.artistId,
-            date: widget.selectedDate,
-            durationMinutes: widget.durationMinutes,
-          ),
-        );
+    print('Loading time slots for date: ${widget.selectedDate.toString()} with duration: ${widget.durationMinutes} minutes');
+    
+    // First, reset the state to ensure we get a fresh loading state
+    context.read<AvailableTimeSlotsBloc>().add(const AvailableTimeSlotsEvent.resetState());
+    
+    // Then load the new slots for the current date
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<AvailableTimeSlotsBloc>().add(
+              AvailableTimeSlotsEvent.getAvailableTimeSlots(
+                artistId: widget.artistId,
+                date: widget.selectedDate,
+                durationMinutes: widget.durationMinutes,
+              ),
+            );
+      }
+    });
   }
 
   @override
