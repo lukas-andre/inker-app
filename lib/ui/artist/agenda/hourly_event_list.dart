@@ -4,16 +4,20 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
-// Clase auxiliar para organizar información de eventos
+// Helper class to organize event information
 class EventInfo {
   final ArtistAgendaEventDetails event;
-  final double offset;
+  final double top;
   final double height;
+  final int column;
+  final int maxColumns;
 
   EventInfo({
     required this.event,
-    required this.offset,
+    required this.top,
     required this.height,
+    this.column = 0,
+    this.maxColumns = 1,
   });
 }
 
@@ -39,6 +43,9 @@ class _HourlyEventListState extends State<HourlyEventList> {
   // Current hour indicator offset
   late double _currentTimeOffset;
   late bool _showCurrentTime;
+
+  // Timeline width
+  final double _timelineWidth = 60.0;
 
   @override
   void initState() {
@@ -66,17 +73,16 @@ class _HourlyEventListState extends State<HourlyEventList> {
     }
 
     // Find earliest and latest hours from events
-    // Usamos una lista para todos los eventos, incluso los que cruzan varias horas
     final List<int> allHours = [];
 
     for (final event in widget.events) {
-      // Añadimos la hora de inicio
+      // Add start hour
       allHours.add(event.startDate.hour);
 
-      // Añadimos la hora de fin
+      // Add end hour
       allHours.add(event.endDate.hour);
 
-      // Para eventos que cruzan múltiples horas, añadimos también las intermedias
+      // For events that span multiple hours, add intermediate hours
       if (event.endDate.hour > event.startDate.hour) {
         for (int h = event.startDate.hour + 1; h < event.endDate.hour; h++) {
           allHours.add(h);
@@ -84,7 +90,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
       }
     }
 
-    // Encontramos la hora más temprana y la más tardía
+    // Find earliest and latest hours
     _startHour = allHours.isEmpty
         ? 8
         : allHours.reduce((min, hour) => hour < min ? hour : min);
@@ -92,15 +98,14 @@ class _HourlyEventListState extends State<HourlyEventList> {
         ? 20
         : allHours.reduce((max, hour) => hour > max ? hour : max) + 1;
 
-    // Aseguramos un rango mínimo de 12 horas
+    // Ensure a minimum range of 12 hours
     if (_endHour - _startHour < 12) {
-      // Si el rango es menor, extendemos igualmente en ambas direcciones
       final int midPoint = (_startHour + _endHour) ~/ 2;
       _startHour = midPoint - 6;
       _endHour = midPoint + 6;
     }
 
-    // Limitamos al rango de 24 horas
+    // Limit to 24-hour range
     _startHour = _startHour < 0 ? 0 : _startHour;
     _endHour = _endHour > 24 ? 24 : _endHour;
   }
@@ -146,7 +151,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
 
   // Helper method to get event color based on properties
   Color _getEventColor(ArtistAgendaEventDetails event) {
-    // Check if it's a unavailable time by examining title
+    // Check if it's unavailable time by examining title
     if (event.title.toLowerCase().contains('unavailable') ||
         event.title.toLowerCase().contains('blocked')) {
       return Colors.grey.shade700;
@@ -160,28 +165,22 @@ class _HourlyEventListState extends State<HourlyEventList> {
     final displayHour = hour % 12 == 0 ? 12 : hour % 12;
     final amPm = hour < 12 ? 'AM' : 'PM';
 
-    return Container(
-      width: 80,
+    return SizedBox(
+      width: _timelineWidth,
       height: _hourHeight,
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-      decoration: BoxDecoration(
-        border: Border(
-          right: BorderSide(
-            color: tertiaryColor.withOpacity(0.3),
-            width: 1.0,
-          ),
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SizedBox(height: _hourHeight * 0.05),
-          Text(
-            '$displayHour:00 $amPm',
-            style: TextStyleTheme.copyWith(
-              color: Colors.white70,
-              fontWeight: FontWeight.normal,
-              fontSize: 13.0,
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              '$displayHour:00 $amPm',
+              style: TextStyleTheme.copyWith(
+                color: Colors.white70,
+                fontWeight: FontWeight.normal,
+                fontSize: 13.0,
+              ),
             ),
           ),
         ],
@@ -190,21 +189,29 @@ class _HourlyEventListState extends State<HourlyEventList> {
   }
 
   Widget _buildEventCard(
-      ArtistAgendaEventDetails event, double top, double height) {
+      ArtistAgendaEventDetails event, double top, double height, int column, int maxColumns) {
     final eventColor = _getEventColor(event);
     final isDark = eventColor.computeLuminance() < 0.5;
     final textColor = isDark ? Colors.white : Colors.black87;
 
-    // Aumentamos la altura mínima para evitar el overflow
-    final minimumHeight = 50.0; // Cambiado de 30.0 a 50.0
+    // Minimum height for very short events (30 pixels)
+    final minimumHeight = 30.0;
     final effectiveHeight = height < minimumHeight ? minimumHeight : height;
+    
+    // Determine content complexity based on available height
+    final bool isVeryShortEvent = effectiveHeight <= 35;
+    final bool isShortEvent = effectiveHeight <= 50;
+    final bool isMediumEvent = effectiveHeight <= 70;
 
-    // Añadimos un margen negativo para compensar el posicionamiento
-    final effectiveTop = top > 0 ? top : 0;
+    // Calculate width based on columns
+    final columnWidth = (column / maxColumns);
+    final columnWidthPercentage = 1.0 / maxColumns;
 
-    return Container(
-      margin: EdgeInsets.only(top: effectiveTop.toDouble()),
-      padding: const EdgeInsets.only(left: 84.0, right: 10.0),
+    return Positioned(
+      top: top,
+      left: _timelineWidth + (MediaQuery.of(context).size.width - _timelineWidth) * columnWidth,
+      width: (MediaQuery.of(context).size.width - _timelineWidth) * columnWidthPercentage * 0.95,
+      height: effectiveHeight,
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(
@@ -214,83 +221,106 @@ class _HourlyEventListState extends State<HourlyEventList> {
           );
         },
         child: Container(
-          height: effectiveHeight,
-          margin: const EdgeInsets.symmetric(vertical: 2.0),
+          margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 1.0),
           decoration: BoxDecoration(
             color: eventColor,
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(6.0),
             boxShadow: [
               BoxShadow(
                 color: Colors.black26,
-                offset: const Offset(1, 2),
-                blurRadius: 4.0,
-                spreadRadius: 0.5,
+                offset: const Offset(0, 1),
+                blurRadius: 2.0,
+                spreadRadius: 0.2,
               ),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Título del evento
-                Text(
-                  event.title,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyleTheme.copyWith(
-                    color: textColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                // Horario - Corregimos el overflow usando Row con Flexible
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time,
-                      color: textColor.withOpacity(0.8),
-                      size: 12.0,
-                    ),
-                    const SizedBox(width: 4.0),
-                    Flexible(
-                      child: Text(
-                        '${DateFormat('h:mm a').format(event.startDate)} - ${DateFormat('h:mm a').format(event.endDate)}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyleTheme.copyWith(
-                          color: textColor.withOpacity(0.8),
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                // Descripción (si hay suficiente espacio)
-                if (event.description.isNotEmpty && effectiveHeight > 50) ...[
-                  const SizedBox(height: 4.0),
-                  Expanded(
+          child: isVeryShortEvent
+              // Very short event - just show title with smaller padding
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  child: Center(
                     child: Text(
-                      event.description,
+                      event.title,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: effectiveHeight > 100 ? 3 : 1,
                       style: TextStyleTheme.copyWith(
-                        color: textColor.withOpacity(0.7),
-                        fontWeight: FontWeight.normal,
+                        color: textColor,
+                        fontWeight: FontWeight.bold,
                         fontSize: 12.0,
                       ),
                     ),
                   ),
-                ],
-              ],
-            ),
-          ),
+                )
+              : Padding(
+                  // Adjust padding based on event height
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isShortEvent ? 6.0 : 8.0,
+                    vertical: isShortEvent ? 3.0 : 6.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Event title - always shown
+                      Text(
+                        event.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyleTheme.copyWith(
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: isShortEvent ? 12.0 : 14.0,
+                        ),
+                      ),
+                      
+                      // Time info - shown only if enough space
+                      if (!isShortEvent) ...[
+                        SizedBox(height: isShortEvent ? 2.0 : 4.0),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              color: textColor.withOpacity(0.8),
+                              size: 12.0,
+                            ),
+                            const SizedBox(width: 4.0),
+                            Flexible(
+                              child: Text(
+                                '${DateFormat('h:mm a').format(event.startDate)} - ${DateFormat('h:mm a').format(event.endDate)}',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyleTheme.copyWith(
+                                  color: textColor.withOpacity(0.8),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      
+                      // Description shown only for larger events
+                      if (!isMediumEvent && event.description.isNotEmpty) ...[
+                        const SizedBox(height: 4.0),
+                        Expanded(
+                          child: Text(
+                            event.description,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: effectiveHeight > 100 ? 3 : 1,
+                            style: TextStyleTheme.copyWith(
+                              color: textColor.withOpacity(0.7),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
         ),
       ),
     );
   }
 
-  Widget _buildCurrentTimeIndicator(double height) {
+  Widget _buildCurrentTimeIndicator() {
     final now = DateTime.now();
     final currentHour = now.hour;
 
@@ -301,20 +331,19 @@ class _HourlyEventListState extends State<HourlyEventList> {
       return const SizedBox.shrink();
     }
 
-    // Calculamos la posición correcta basada en la hora actual
+    // Calculate position based on current time
     final hourOffset = currentHour - _startHour;
     final minuteOffset = now.minute / 60.0;
     final position = (hourOffset + minuteOffset) * _hourHeight;
 
-    // Este widget se insertará en la posición correcta dentro de la lista
-    return Container(
-      height: 20, // Altura para el indicador de tiempo
-      margin: EdgeInsets.only(top: position - 10), // Centramos la línea
-      padding: EdgeInsets.zero,
+    return Positioned(
+      top: position - 1,
+      left: 0,
+      right: 0,
       child: Row(
         children: [
           Container(
-            margin: const EdgeInsets.only(left: 4),
+            margin: const EdgeInsets.only(left: 4, right: 4),
             width: 10,
             height: 10,
             decoration: const BoxDecoration(
@@ -325,7 +354,6 @@ class _HourlyEventListState extends State<HourlyEventList> {
           Expanded(
             child: Container(
               height: 2,
-              margin: const EdgeInsets.only(left: 4, top: 4),
               color: Colors.red,
             ),
           ),
@@ -346,7 +374,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
       onScaleUpdate: (details) {
         if (_isZooming) {
           setState(() {
-            _hourHeight = (_previousScale * details.scale).clamp(40.0, 150.0);
+            _hourHeight = (_previousScale * details.scale).clamp(40.0, 200.0);
           });
         }
       },
@@ -365,98 +393,104 @@ class _HourlyEventListState extends State<HourlyEventList> {
         },
         child: LayoutBuilder(
           builder: (context, constraints) {
-            // Calculamos las posiciones de los eventos para cada hora
-            final eventsByHour = _organizeEventsByHour();
-
-            return SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  // Indicador de hora actual
-                  _buildCurrentTimeIndicator(constraints.maxHeight),
-
-                  // Construimos las horas y dentro de cada hora sus eventos
-                  ...[
-                    for (int hourIndex = _startHour;
-                        hourIndex < _endHour;
-                        hourIndex++)
+            // Process and organize events with overlap handling
+            final eventInfoList = _processEvents();
+            
+            return Stack(
+              children: [
+                // Scrollable timeline and hour grid
+                SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Stack(
+                    children: [
+                      // Hours timeline
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Fila de la hora
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Columna de tiempo
-                              _buildTimeline(hourIndex),
-
-                              // Línea divisoria de hora
-                              Expanded(
-                                child: Container(
-                                  height: _hourHeight,
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: tertiaryColor.withOpacity(0.3),
-                                        width: 1.0,
+                          for (int hour = _startHour; hour < _endHour; hour++)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Time column
+                                _buildTimeline(hour),
+                                
+                                // Hour divider
+                                Expanded(
+                                  child: Container(
+                                    height: _hourHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: tertiaryColor.withOpacity(0.3),
+                                          width: 1.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // Líneas para marcar cuartos de hora
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: _hourHeight * 0.25,
-                                        left: 0,
-                                        right: 0,
-                                        child: Container(
-                                          height: 1.0,
-                                          color:
-                                              tertiaryColor.withOpacity(0.08),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: _hourHeight * 0.5,
-                                        left: 0,
-                                        right: 0,
-                                        child: Container(
-                                          height: 1.0,
-                                          color:
-                                              tertiaryColor.withOpacity(0.15),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: _hourHeight * 0.75,
-                                        left: 0,
-                                        right: 0,
-                                        child: Container(
-                                          height: 1.0,
-                                          color:
-                                              tertiaryColor.withOpacity(0.08),
-                                        ),
-                                      ),
-                                    ],
+                                    // Quarter-hour markers
+                                    child: Stack(
+                                      children: [
+                                        for (double fraction in [0.25, 0.5, 0.75])
+                                          Positioned(
+                                            top: _hourHeight * fraction,
+                                            left: 0,
+                                            right: 0,
+                                            child: Container(
+                                              height: 1.0,
+                                              color: tertiaryColor.withOpacity(
+                                                fraction == 0.5 ? 0.15 : 0.08,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          // Eventos que comienzan en esta hora
-                          if (eventsByHour.containsKey(hourIndex))
-                            ...eventsByHour[hourIndex]!.map((eventInfo) {
-                              return _buildEventCard(
-                                eventInfo.event,
-                                eventInfo.offset -
-                                    _hourHeight, // Ajustamos la posición
-                                eventInfo.height,
-                              );
-                            }).toList(),
+                              ],
+                            ),
                         ],
                       ),
-                  ],
-                ],
-              ),
+                      
+                      // Event cards positioned over the timeline
+                      ...eventInfoList.map((eventInfo) {
+                        // Calculate absolute position in the grid
+                        final hourOffset = eventInfo.event.startDate.hour - _startHour;
+                        final minuteOffset = eventInfo.event.startDate.minute / 60.0;
+                        final topPosition = (hourOffset + minuteOffset) * _hourHeight;
+                        
+                        return _buildEventCard(
+                          eventInfo.event,
+                          topPosition,
+                          eventInfo.height,
+                          eventInfo.column,
+                          eventInfo.maxColumns,
+                        );
+                      }),
+                      
+                      // Current time indicator
+                      _buildCurrentTimeIndicator(),
+                    ],
+                  ),
+                ),
+                
+                // Right edge shadow gradient for visual depth
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                  width: 8,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          Colors.black.withOpacity(0.2),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         ),
@@ -464,57 +498,53 @@ class _HourlyEventListState extends State<HourlyEventList> {
     );
   }
 
-  // Organiza los eventos por hora y calcula sus posiciones
-  Map<int, List<EventInfo>> _organizeEventsByHour() {
-    final Map<int, List<EventInfo>> eventsByHour = {};
+  // Process events and handle overlapping events (similar to Google Calendar)
+  List<EventInfo> _processEvents() {
+    if (widget.events.isEmpty) return [];
 
     // Sort events by start time
     final sortedEvents = List<ArtistAgendaEventDetails>.from(widget.events)
       ..sort((a, b) => a.startDate.compareTo(b.startDate));
 
+    // First pass: Calculate base positions and durations
+    final List<EventInfo> eventInfoList = [];
+    
     for (final event in sortedEvents) {
-      // Verificamos si el evento está completamente fuera del rango visible
+      // Skip events outside visible range
       if (event.endDate.hour < _startHour || event.startDate.hour >= _endHour) {
         continue;
       }
 
-      // Para eventos que cruzan el límite inferior, ajustamos
+      // Calculate effective start time
       int effectiveStartHour = event.startDate.hour;
       double minuteOffset = event.startDate.minute / 60.0;
 
-      // Si el evento comienza antes del rango visible
+      // Adjust for events that start before visible range
       if (effectiveStartHour < _startHour) {
         effectiveStartHour = _startHour;
-        minuteOffset = 0; // Comienza al inicio de la primera hora visible
+        minuteOffset = 0;
       }
 
-      // Este offset es para posicionar el evento dentro de la hora correcta
-      final topOffset = minuteOffset * _hourHeight;
-
-      // Calculate height based on duration
+      // Calculate height based on event duration
       double height;
-
-      // Si el evento termina en la misma hora
+      
       if (event.endDate.hour == effectiveStartHour) {
-        // Calculamos la duración dentro de la misma hora
+        // Event ends in the same hour
         int endMinute = event.endDate.minute;
         int startMinute = (effectiveStartHour == event.startDate.hour)
             ? event.startDate.minute
             : 0;
         final durationFraction = (endMinute - startMinute) / 60.0;
         height = durationFraction * _hourHeight;
-      }
-      // Si el evento se extiende a otra hora
-      else {
-        // Primero calculamos cuánto tiempo queda en la hora actual
+      } else {
+        // Event spans multiple hours
         final minutesInCurrentHour = 60 -
             (effectiveStartHour == event.startDate.hour
                 ? event.startDate.minute
                 : 0);
-
-        // Luego, calculamos cuántas horas completas abarca el evento
+        
+        // Calculate full hours the event spans
         int fullHours = 0;
-        // Si el evento termina después del rango visible
         if (event.endDate.hour > _endHour) {
           fullHours = _endHour - effectiveStartHour - 1;
           height = ((minutesInCurrentHour / 60.0) + fullHours) * _hourHeight;
@@ -528,25 +558,142 @@ class _HourlyEventListState extends State<HourlyEventList> {
         }
       }
 
-      // Garantizamos altura mínima para visibilidad
-      final minimumHeight = 50.0; // Aumentado de 30.0 a 50.0
-      height = height < minimumHeight ? minimumHeight : height;
+      // Ensure minimum height
+      height = height < 30.0 ? 30.0 : height;
 
-      // Añadimos el evento a la hora correspondiente
-      if (!eventsByHour.containsKey(effectiveStartHour)) {
-        eventsByHour[effectiveStartHour] = [];
-      }
-
-      eventsByHour[effectiveStartHour]!.add(
+      // Add event info
+      eventInfoList.add(
         EventInfo(
           event: event,
-          offset: topOffset,
+          top: 0, // Will be calculated in second pass
           height: height,
         ),
       );
     }
 
-    return eventsByHour;
+    // Second pass: Handle overlapping events (Google Calendar style)
+    // Group events that overlap in time
+    List<List<EventInfo>> eventGroups = [];
+    
+    for (var eventInfo in eventInfoList) {
+      // Try to add to an existing group
+      bool added = false;
+      
+      for (var group in eventGroups) {
+        // Check if this event overlaps with any event in the group
+        bool overlapsWithGroup = group.any((groupEvent) =>
+            _eventsOverlap(eventInfo.event, groupEvent.event));
+        
+        if (overlapsWithGroup) {
+          group.add(eventInfo);
+          added = true;
+          break;
+        }
+      }
+      
+      // If didn't fit in any group, create a new group
+      if (!added) {
+        eventGroups.add([eventInfo]);
+      }
+    }
+    
+    // Third pass: Assign columns within each group
+    List<EventInfo> finalEventList = [];
+    
+    for (var group in eventGroups) {
+      if (group.length == 1) {
+        // Single event in group, no need for column assignment
+        finalEventList.add(
+          EventInfo(
+            event: group[0].event,
+            top: 0, // Will be calculated
+            height: group[0].height,
+            column: 0,
+            maxColumns: 1,
+          ),
+        );
+      } else {
+        // Multiple events in group need column assignment
+        int maxColumn = 0;
+        Map<String, int> eventColumns = {};
+        
+        // Sort by start date to process earliest events first
+        group.sort((a, b) => a.event.startDate.compareTo(b.event.startDate));
+        
+        for (var eventInfo in group) {
+          // Find available column
+          int column = 0;
+          
+          while (true) {
+            // Check if column is already occupied by an overlapping event
+            bool columnAvailable = true;
+            
+            for (var otherEventId in eventColumns.keys) {
+              var otherEvent = group.firstWhere(
+                (e) => e.event.id == otherEventId,
+              ).event;
+              
+              if (eventColumns[otherEventId] == column &&
+                  _eventsOverlap(eventInfo.event, otherEvent)) {
+                columnAvailable = false;
+                break;
+              }
+            }
+            
+            if (columnAvailable) {
+              break;
+            }
+            
+            column++;
+          }
+          
+          // Assign column
+          eventColumns[eventInfo.event.id] = column;
+          if (column > maxColumn) maxColumn = column;
+        }
+        
+        // Create final EventInfo objects with column assignment
+        for (var eventInfo in group) {
+          finalEventList.add(
+            EventInfo(
+              event: eventInfo.event,
+              top: 0, // Will be calculated
+              height: eventInfo.height,
+              column: eventColumns[eventInfo.event.id]!,
+              maxColumns: maxColumn + 1,
+            ),
+          );
+        }
+      }
+    }
+    
+    // Fourth pass: Calculate absolute positions for all events
+    for (var i = 0; i < finalEventList.length; i++) {
+      final eventInfo = finalEventList[i];
+      
+      // Calculate absolute top position
+      final event = eventInfo.event;
+      int effectiveStartHour = event.startDate.hour < _startHour ? _startHour : event.startDate.hour;
+      double minuteOffset = event.startDate.hour < _startHour ? 0 : event.startDate.minute / 60.0;
+      
+      final top = (effectiveStartHour - _startHour + minuteOffset) * _hourHeight;
+      
+      // Update with final position
+      finalEventList[i] = EventInfo(
+        event: eventInfo.event,
+        top: top,
+        height: eventInfo.height,
+        column: eventInfo.column,
+        maxColumns: eventInfo.maxColumns,
+      );
+    }
+    
+    return finalEventList;
+  }
+  
+  // Helper function to check if two events overlap in time
+  bool _eventsOverlap(ArtistAgendaEventDetails a, ArtistAgendaEventDetails b) {
+    return (a.startDate.isBefore(b.endDate) && a.endDate.isAfter(b.startDate));
   }
 
   @override
