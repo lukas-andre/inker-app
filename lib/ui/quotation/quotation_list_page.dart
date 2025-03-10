@@ -19,16 +19,20 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class QuotationListPage extends StatelessWidget {
-  const QuotationListPage({super.key});
+  final bool hideHeader;
+  
+  const QuotationListPage({super.key, this.hideHeader = false});
 
   @override
   Widget build(BuildContext context) {
-    return const QuotationListView();
+    return QuotationListView(hideHeader: hideHeader);
   }
 }
 
 class QuotationListView extends StatefulWidget {
-  const QuotationListView({super.key});
+  final bool hideHeader;
+  
+  const QuotationListView({super.key, this.hideHeader = false});
 
   @override
   State<QuotationListView> createState() => _QuotationListViewState();
@@ -166,13 +170,15 @@ class _QuotationListViewState extends State<QuotationListView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Título
-              Text(
-                _isArtist ? l10n.requests : l10n.quotes,
-                style: TextStyleTheme.headline1
-                    .copyWith(color: const Color(0xFFF2F2F2)),
-              ),
-              const SizedBox(height: 16),
+              // Title - only show if hideHeader is false
+              if (!widget.hideHeader) ...[
+                Text(
+                  _isArtist ? l10n.requests : l10n.quotes,
+                  style: TextStyleTheme.headline1
+                      .copyWith(color: const Color(0xFFF2F2F2)),
+                ),
+                const SizedBox(height: 16),
+              ],
               // Filtros con FilterChips
               _buildFilterChips(l10n),
               const SizedBox(height: 16),
