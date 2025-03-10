@@ -29,6 +29,7 @@ import 'package:inker_studio/domain/blocs/register/customer/register_customer_bl
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
+import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -161,6 +162,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     ),
     BlocProvider(
       create: (context) => ScheduleAssistantBloc(
+        agendaService: context.read(),
+        sessionService: context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => AvailableTimeSlotsBloc(
         agendaService: context.read(),
         sessionService: context.read(),
       ),

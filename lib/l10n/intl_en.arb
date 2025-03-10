@@ -1279,5 +1279,29 @@
   "actionSuccessful": "Action successful",
   "@actionSuccessful": {
     "description": "Message displayed when an action is successful."
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Label for the update action."
+  },
+  "startTime": "Start Time",
+  "@startTime": {
+    "description": "Label for the start time field."
+  },
+  "customRange": "Custom Range",
+  "@customRange": {
+    "description": "Label for the custom date range selection."
+  },
+  "endTime": "End Time",
+  "@endTime": {
+    "description": "Label for the end time field."
+  },
+  "errorMsgEndTimeMustBeAfterStart": "End time must be after start time.",
+  "@errorMsgEndTimeMustBeAfterStart": {
+    "description": "Error message displayed when the end time is not after the start time."
+  },
+  "errorMsgInvalidTimeFormat": "Invalid time format. Please use HH:mm.",
+  "@errorMsgInvalidTimeFormat": {
+    "description": "Error message displayed when the time format is invalid."
   }
 }
