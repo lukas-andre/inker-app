@@ -22,7 +22,9 @@ enum CalendarViewType {
 }
 
 class AgendaTablePage extends StatefulWidget {
-  const AgendaTablePage({super.key});
+  final bool hideHeader;
+  
+  const AgendaTablePage({super.key, this.hideHeader = false});
 
   @override
   _AgendaTablePageState createState() => _AgendaTablePageState();
@@ -627,7 +629,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
     super.build(context);
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
+      appBar: widget.hideHeader ? null : AppBar(
         title: Text(
           'Agenda',
           style: TextStyleTheme.copyWith(
