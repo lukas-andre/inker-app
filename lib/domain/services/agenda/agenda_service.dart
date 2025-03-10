@@ -99,4 +99,11 @@ abstract class AgendaService {
     required String token,
     required int quotationId,
   });
+  
+  Future<List<dynamic>> getArtistAvailableTimeSlots({
+    required String token,
+    required int artistId,
+    required DateTime date,
+    required int durationMinutes,
+  });
 }

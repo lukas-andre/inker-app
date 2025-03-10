@@ -173,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current Password"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Current Status"),
+        "customRange": MessageLookupByLibrary.simpleMessage("Custom Range"),
         "customer": MessageLookupByLibrary.simpleMessage("Customer"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "daysAgo": m1,
@@ -191,11 +192,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
+        "endTime": MessageLookupByLibrary.simpleMessage("End Time"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
+            "End time must be after start time."),
         "errorMsgGuestValidationError":
             MessageLookupByLibrary.simpleMessage("Please select guest"),
         "errorMsgHoursValidationError":
             MessageLookupByLibrary.simpleMessage("Please select hours"),
+        "errorMsgInvalidTimeFormat": MessageLookupByLibrary.simpleMessage(
+            "Invalid time format. Please use HH:mm."),
         "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
             "Notes exceed the limit of characters"),
         "estimatedCost": MessageLookupByLibrary.simpleMessage("Estimated Cost"),
@@ -439,6 +445,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Short Description"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
+        "startTime": MessageLookupByLibrary.simpleMessage("Start Time"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "statusAccepted": MessageLookupByLibrary.simpleMessage("Accepted"),
@@ -464,6 +471,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updateStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Update Studio Photo"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

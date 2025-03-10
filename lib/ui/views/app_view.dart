@@ -32,6 +32,7 @@ import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
+import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/domain/mixins/authentication_handler.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
@@ -186,6 +187,12 @@ class _AppViewState extends State<AppView> {
         ),
         BlocProvider(
           create: (context) => ScheduleAssistantBloc(
+            agendaService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => AvailableTimeSlotsBloc(
             agendaService: context.read(),
             sessionService: context.read(),
           ),

@@ -19,62 +19,77 @@ mixin _$ArtistAgendaCreateEventEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,11 +155,14 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
     return formInitialized();
   }
@@ -153,11 +171,13 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
     return formInitialized?.call();
   }
@@ -166,11 +186,13 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (formInitialized != null) {
@@ -183,11 +205,14 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return formInitialized(this);
   }
@@ -196,11 +221,14 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return formInitialized?.call(this);
   }
@@ -209,11 +237,13 @@ class _$FormInitializedImpl implements _FormInitialized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (formInitialized != null) {
@@ -225,6 +255,194 @@ class _$FormInitializedImpl implements _FormInitialized {
 
 abstract class _FormInitialized implements ArtistAgendaCreateEventEvent {
   const factory _FormInitialized() = _$FormInitializedImpl;
+}
+
+/// @nodoc
+abstract class _$$FormInitializedWithEventImplCopyWith<$Res> {
+  factory _$$FormInitializedWithEventImplCopyWith(
+          _$FormInitializedWithEventImpl value,
+          $Res Function(_$FormInitializedWithEventImpl) then) =
+      __$$FormInitializedWithEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ArtistAgendaEventDetails event});
+
+  $ArtistAgendaEventDetailsCopyWith<$Res> get event;
+}
+
+/// @nodoc
+class __$$FormInitializedWithEventImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaCreateEventEventCopyWithImpl<$Res,
+        _$FormInitializedWithEventImpl>
+    implements _$$FormInitializedWithEventImplCopyWith<$Res> {
+  __$$FormInitializedWithEventImplCopyWithImpl(
+      _$FormInitializedWithEventImpl _value,
+      $Res Function(_$FormInitializedWithEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? event = null,
+  }) {
+    return _then(_$FormInitializedWithEventImpl(
+      null == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as ArtistAgendaEventDetails,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistAgendaEventDetailsCopyWith<$Res> get event {
+    return $ArtistAgendaEventDetailsCopyWith<$Res>(_value.event, (value) {
+      return _then(_value.copyWith(event: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$FormInitializedWithEventImpl implements _FormInitializedWithEvent {
+  const _$FormInitializedWithEventImpl(this.event);
+
+  @override
+  final ArtistAgendaEventDetails event;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaCreateEventEvent.formInitializedWithEvent(event: $event)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FormInitializedWithEventImpl &&
+            (identical(other.event, event) || other.event == event));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, event);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FormInitializedWithEventImplCopyWith<_$FormInitializedWithEventImpl>
+      get copyWith => __$$FormInitializedWithEventImplCopyWithImpl<
+          _$FormInitializedWithEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
+    required TResult Function(CustomerDTO? guest) guestChanged,
+    required TResult Function(String notes) notesChanged,
+    required TResult Function(String date) dateChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
+    required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
+  }) {
+    return formInitializedWithEvent(event);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(String date)? dateChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
+    TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
+  }) {
+    return formInitializedWithEvent?.call(event);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
+    TResult Function(CustomerDTO? guest)? guestChanged,
+    TResult Function(String notes)? notesChanged,
+    TResult Function(String date)? dateChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
+    TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
+    required TResult orElse(),
+  }) {
+    if (formInitializedWithEvent != null) {
+      return formInitializedWithEvent(event);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
+    required TResult Function(_GuestChanged value) guestChanged,
+    required TResult Function(_NotesChanged value) notesChanged,
+    required TResult Function(_DateChanged value) dateChanged,
+    required TResult Function(_TimeChanged value) timeChanged,
+    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
+  }) {
+    return formInitializedWithEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
+    TResult? Function(_GuestChanged value)? guestChanged,
+    TResult? Function(_NotesChanged value)? notesChanged,
+    TResult? Function(_DateChanged value)? dateChanged,
+    TResult? Function(_TimeChanged value)? timeChanged,
+    TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
+  }) {
+    return formInitializedWithEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
+    TResult Function(_GuestChanged value)? guestChanged,
+    TResult Function(_NotesChanged value)? notesChanged,
+    TResult Function(_DateChanged value)? dateChanged,
+    TResult Function(_TimeChanged value)? timeChanged,
+    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
+    required TResult orElse(),
+  }) {
+    if (formInitializedWithEvent != null) {
+      return formInitializedWithEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FormInitializedWithEvent
+    implements ArtistAgendaCreateEventEvent {
+  const factory _FormInitializedWithEvent(
+      final ArtistAgendaEventDetails event) = _$FormInitializedWithEventImpl;
+
+  ArtistAgendaEventDetails get event;
+  @JsonKey(ignore: true)
+  _$$FormInitializedWithEventImplCopyWith<_$FormInitializedWithEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -306,11 +524,14 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
     return guestChanged(guest);
   }
@@ -319,11 +540,13 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
     return guestChanged?.call(guest);
   }
@@ -332,11 +555,13 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (guestChanged != null) {
@@ -349,11 +574,14 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return guestChanged(this);
   }
@@ -362,11 +590,14 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return guestChanged?.call(this);
   }
@@ -375,11 +606,13 @@ class _$GuestChangedImpl implements _GuestChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (guestChanged != null) {
@@ -463,11 +696,14 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
     return notesChanged(notes);
   }
@@ -476,11 +712,13 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
     return notesChanged?.call(notes);
   }
@@ -489,11 +727,13 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (notesChanged != null) {
@@ -506,11 +746,14 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return notesChanged(this);
   }
@@ -519,11 +762,14 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return notesChanged?.call(this);
   }
@@ -532,11 +778,13 @@ class _$NotesChangedImpl implements _NotesChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (notesChanged != null) {
@@ -620,11 +868,14 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
     return dateChanged(date);
   }
@@ -633,11 +884,13 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
     return dateChanged?.call(date);
   }
@@ -646,11 +899,13 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (dateChanged != null) {
@@ -663,11 +918,14 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return dateChanged(this);
   }
@@ -676,11 +934,14 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return dateChanged?.call(this);
   }
@@ -689,11 +950,13 @@ class _$DateChangedImpl implements _DateChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (dateChanged != null) {
@@ -718,7 +981,7 @@ abstract class _$$TimeChangedImplCopyWith<$Res> {
           _$TimeChangedImpl value, $Res Function(_$TimeChangedImpl) then) =
       __$$TimeChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String time});
+  $Res call({String startTime, String endTime});
 }
 
 /// @nodoc
@@ -732,12 +995,17 @@ class __$$TimeChangedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? time = null,
+    Object? startTime = null,
+    Object? endTime = null,
   }) {
     return _then(_$TimeChangedImpl(
-      null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
+      null == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -746,14 +1014,16 @@ class __$$TimeChangedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TimeChangedImpl implements _TimeChanged {
-  const _$TimeChangedImpl(this.time);
+  const _$TimeChangedImpl(this.startTime, this.endTime);
 
   @override
-  final String time;
+  final String startTime;
+  @override
+  final String endTime;
 
   @override
   String toString() {
-    return 'ArtistAgendaCreateEventEvent.timeChanged(time: $time)';
+    return 'ArtistAgendaCreateEventEvent.timeChanged(startTime: $startTime, endTime: $endTime)';
   }
 
   @override
@@ -761,11 +1031,13 @@ class _$TimeChangedImpl implements _TimeChanged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TimeChangedImpl &&
-            (identical(other.time, time) || other.time == time));
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, time);
+  int get hashCode => Object.hash(runtimeType, startTime, endTime);
 
   @JsonKey(ignore: true)
   @override
@@ -777,41 +1049,48 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
-    return timeChanged(time);
+    return timeChanged(startTime, endTime);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
-    return timeChanged?.call(time);
+    return timeChanged?.call(startTime, endTime);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (timeChanged != null) {
-      return timeChanged(time);
+      return timeChanged(startTime, endTime);
     }
     return orElse();
   }
@@ -820,11 +1099,14 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return timeChanged(this);
   }
@@ -833,11 +1115,14 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return timeChanged?.call(this);
   }
@@ -846,11 +1131,13 @@ class _$TimeChangedImpl implements _TimeChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (timeChanged != null) {
@@ -861,9 +1148,11 @@ class _$TimeChangedImpl implements _TimeChanged {
 }
 
 abstract class _TimeChanged implements ArtistAgendaCreateEventEvent {
-  const factory _TimeChanged(final String time) = _$TimeChangedImpl;
+  const factory _TimeChanged(final String startTime, final String endTime) =
+      _$TimeChangedImpl;
 
-  String get time;
+  String get startTime;
+  String get endTime;
   @JsonKey(ignore: true)
   _$$TimeChangedImplCopyWith<_$TimeChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -908,11 +1197,14 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
     required TResult Function(CustomerDTO? guest) guestChanged,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String date) dateChanged,
-    required TResult Function(String time) timeChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
     required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
   }) {
     return formSubmitted();
   }
@@ -921,11 +1213,13 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult? Function(CustomerDTO? guest)? guestChanged,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String date)? dateChanged,
-    TResult? Function(String time)? timeChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
     TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
   }) {
     return formSubmitted?.call();
   }
@@ -934,11 +1228,13 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
     TResult Function(CustomerDTO? guest)? guestChanged,
     TResult Function(String notes)? notesChanged,
     TResult Function(String date)? dateChanged,
-    TResult Function(String time)? timeChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
     TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -951,11 +1247,14 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
     required TResult Function(_GuestChanged value) guestChanged,
     required TResult Function(_NotesChanged value) notesChanged,
     required TResult Function(_DateChanged value) dateChanged,
     required TResult Function(_TimeChanged value) timeChanged,
     required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
   }) {
     return formSubmitted(this);
   }
@@ -964,11 +1263,14 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
     TResult? Function(_GuestChanged value)? guestChanged,
     TResult? Function(_NotesChanged value)? notesChanged,
     TResult? Function(_DateChanged value)? dateChanged,
     TResult? Function(_TimeChanged value)? timeChanged,
     TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
   }) {
     return formSubmitted?.call(this);
   }
@@ -977,11 +1279,13 @@ class _$FormSubmittedImpl implements _FormSubmitted {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
     TResult Function(_GuestChanged value)? guestChanged,
     TResult Function(_NotesChanged value)? notesChanged,
     TResult Function(_DateChanged value)? dateChanged,
     TResult Function(_TimeChanged value)? timeChanged,
     TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
     required TResult orElse(),
   }) {
     if (formSubmitted != null) {
@@ -996,13 +1300,160 @@ abstract class _FormSubmitted implements ArtistAgendaCreateEventEvent {
 }
 
 /// @nodoc
+abstract class _$$EventUpdatedImplCopyWith<$Res> {
+  factory _$$EventUpdatedImplCopyWith(
+          _$EventUpdatedImpl value, $Res Function(_$EventUpdatedImpl) then) =
+      __$$EventUpdatedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EventUpdatedImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaCreateEventEventCopyWithImpl<$Res, _$EventUpdatedImpl>
+    implements _$$EventUpdatedImplCopyWith<$Res> {
+  __$$EventUpdatedImplCopyWithImpl(
+      _$EventUpdatedImpl _value, $Res Function(_$EventUpdatedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EventUpdatedImpl implements _EventUpdated {
+  const _$EventUpdatedImpl();
+
+  @override
+  String toString() {
+    return 'ArtistAgendaCreateEventEvent.eventUpdated()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EventUpdatedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() formInitialized,
+    required TResult Function(ArtistAgendaEventDetails event)
+        formInitializedWithEvent,
+    required TResult Function(CustomerDTO? guest) guestChanged,
+    required TResult Function(String notes) notesChanged,
+    required TResult Function(String date) dateChanged,
+    required TResult Function(String startTime, String endTime) timeChanged,
+    required TResult Function() formSubmitted,
+    required TResult Function() eventUpdated,
+  }) {
+    return eventUpdated();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? formInitialized,
+    TResult? Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
+    TResult? Function(CustomerDTO? guest)? guestChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(String date)? dateChanged,
+    TResult? Function(String startTime, String endTime)? timeChanged,
+    TResult? Function()? formSubmitted,
+    TResult? Function()? eventUpdated,
+  }) {
+    return eventUpdated?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? formInitialized,
+    TResult Function(ArtistAgendaEventDetails event)? formInitializedWithEvent,
+    TResult Function(CustomerDTO? guest)? guestChanged,
+    TResult Function(String notes)? notesChanged,
+    TResult Function(String date)? dateChanged,
+    TResult Function(String startTime, String endTime)? timeChanged,
+    TResult Function()? formSubmitted,
+    TResult Function()? eventUpdated,
+    required TResult orElse(),
+  }) {
+    if (eventUpdated != null) {
+      return eventUpdated();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FormInitialized value) formInitialized,
+    required TResult Function(_FormInitializedWithEvent value)
+        formInitializedWithEvent,
+    required TResult Function(_GuestChanged value) guestChanged,
+    required TResult Function(_NotesChanged value) notesChanged,
+    required TResult Function(_DateChanged value) dateChanged,
+    required TResult Function(_TimeChanged value) timeChanged,
+    required TResult Function(_FormSubmitted value) formSubmitted,
+    required TResult Function(_EventUpdated value) eventUpdated,
+  }) {
+    return eventUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FormInitialized value)? formInitialized,
+    TResult? Function(_FormInitializedWithEvent value)?
+        formInitializedWithEvent,
+    TResult? Function(_GuestChanged value)? guestChanged,
+    TResult? Function(_NotesChanged value)? notesChanged,
+    TResult? Function(_DateChanged value)? dateChanged,
+    TResult? Function(_TimeChanged value)? timeChanged,
+    TResult? Function(_FormSubmitted value)? formSubmitted,
+    TResult? Function(_EventUpdated value)? eventUpdated,
+  }) {
+    return eventUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FormInitialized value)? formInitialized,
+    TResult Function(_FormInitializedWithEvent value)? formInitializedWithEvent,
+    TResult Function(_GuestChanged value)? guestChanged,
+    TResult Function(_NotesChanged value)? notesChanged,
+    TResult Function(_DateChanged value)? dateChanged,
+    TResult Function(_TimeChanged value)? timeChanged,
+    TResult Function(_FormSubmitted value)? formSubmitted,
+    TResult Function(_EventUpdated value)? eventUpdated,
+    required TResult orElse(),
+  }) {
+    if (eventUpdated != null) {
+      return eventUpdated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EventUpdated implements ArtistAgendaCreateEventEvent {
+  const factory _EventUpdated() = _$EventUpdatedImpl;
+}
+
+/// @nodoc
 mixin _$ArtistAgendaCreateEventState {
   CustomerDTO? get selectedGuest => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
-  String get time => throw _privateConstructorUsedError;
+  String get time =>
+      throw _privateConstructorUsedError; // Legacy field, kept for backward compatibility
+  String get startTime => throw _privateConstructorUsedError;
+  String get endTime => throw _privateConstructorUsedError;
   String? get guestError => throw _privateConstructorUsedError;
   String? get notesError => throw _privateConstructorUsedError;
+  String? get timeError => throw _privateConstructorUsedError;
+  bool get isEditing => throw _privateConstructorUsedError;
+  String get eventId => throw _privateConstructorUsedError;
   ArtistAgendaCreateEventStatus get status =>
       throw _privateConstructorUsedError;
 
@@ -1024,8 +1475,13 @@ abstract class $ArtistAgendaCreateEventStateCopyWith<$Res> {
       String notes,
       String date,
       String time,
+      String startTime,
+      String endTime,
       String? guestError,
       String? notesError,
+      String? timeError,
+      bool isEditing,
+      String eventId,
       ArtistAgendaCreateEventStatus status});
 
   $CustomerDTOCopyWith<$Res>? get selectedGuest;
@@ -1049,8 +1505,13 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
     Object? notes = null,
     Object? date = null,
     Object? time = null,
+    Object? startTime = null,
+    Object? endTime = null,
     Object? guestError = freezed,
     Object? notesError = freezed,
+    Object? timeError = freezed,
+    Object? isEditing = null,
+    Object? eventId = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -1070,6 +1531,14 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      startTime: null == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      endTime: null == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String,
       guestError: freezed == guestError
           ? _value.guestError
           : guestError // ignore: cast_nullable_to_non_nullable
@@ -1078,6 +1547,18 @@ class _$ArtistAgendaCreateEventStateCopyWithImpl<$Res,
           ? _value.notesError
           : notesError // ignore: cast_nullable_to_non_nullable
               as String?,
+      timeError: freezed == timeError
+          ? _value.timeError
+          : timeError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isEditing: null == isEditing
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1112,8 +1593,13 @@ abstract class _$$ArtistAgendaCreateEventStateImplCopyWith<$Res>
       String notes,
       String date,
       String time,
+      String startTime,
+      String endTime,
       String? guestError,
       String? notesError,
+      String? timeError,
+      bool isEditing,
+      String eventId,
       ArtistAgendaCreateEventStatus status});
 
   @override
@@ -1137,8 +1623,13 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
     Object? notes = null,
     Object? date = null,
     Object? time = null,
+    Object? startTime = null,
+    Object? endTime = null,
     Object? guestError = freezed,
     Object? notesError = freezed,
+    Object? timeError = freezed,
+    Object? isEditing = null,
+    Object? eventId = null,
     Object? status = null,
   }) {
     return _then(_$ArtistAgendaCreateEventStateImpl(
@@ -1158,6 +1649,14 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      startTime: null == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      endTime: null == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String,
       guestError: freezed == guestError
           ? _value.guestError
           : guestError // ignore: cast_nullable_to_non_nullable
@@ -1166,6 +1665,18 @@ class __$$ArtistAgendaCreateEventStateImplCopyWithImpl<$Res>
           ? _value.notesError
           : notesError // ignore: cast_nullable_to_non_nullable
               as String?,
+      timeError: freezed == timeError
+          ? _value.timeError
+          : timeError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isEditing: null == isEditing
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1183,8 +1694,13 @@ class _$ArtistAgendaCreateEventStateImpl
       this.notes = '',
       this.date = '',
       this.time = '',
+      this.startTime = '',
+      this.endTime = '',
       this.guestError,
       this.notesError,
+      this.timeError,
+      this.isEditing = false,
+      this.eventId = '',
       this.status = ArtistAgendaCreateEventStatus.initial});
 
   @override
@@ -1198,17 +1714,32 @@ class _$ArtistAgendaCreateEventStateImpl
   @override
   @JsonKey()
   final String time;
+// Legacy field, kept for backward compatibility
+  @override
+  @JsonKey()
+  final String startTime;
+  @override
+  @JsonKey()
+  final String endTime;
   @override
   final String? guestError;
   @override
   final String? notesError;
+  @override
+  final String? timeError;
+  @override
+  @JsonKey()
+  final bool isEditing;
+  @override
+  @JsonKey()
+  final String eventId;
   @override
   @JsonKey()
   final ArtistAgendaCreateEventStatus status;
 
   @override
   String toString() {
-    return 'ArtistAgendaCreateEventState(selectedGuest: $selectedGuest, notes: $notes, date: $date, time: $time, guestError: $guestError, notesError: $notesError, status: $status)';
+    return 'ArtistAgendaCreateEventState(selectedGuest: $selectedGuest, notes: $notes, date: $date, time: $time, startTime: $startTime, endTime: $endTime, guestError: $guestError, notesError: $notesError, timeError: $timeError, isEditing: $isEditing, eventId: $eventId, status: $status)';
   }
 
   @override
@@ -1221,16 +1752,36 @@ class _$ArtistAgendaCreateEventStateImpl
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.time, time) || other.time == time) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.guestError, guestError) ||
                 other.guestError == guestError) &&
             (identical(other.notesError, notesError) ||
                 other.notesError == notesError) &&
+            (identical(other.timeError, timeError) ||
+                other.timeError == timeError) &&
+            (identical(other.isEditing, isEditing) ||
+                other.isEditing == isEditing) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedGuest, notes, date, time,
-      guestError, notesError, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      selectedGuest,
+      notes,
+      date,
+      time,
+      startTime,
+      endTime,
+      guestError,
+      notesError,
+      timeError,
+      isEditing,
+      eventId,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -1248,8 +1799,13 @@ abstract class _ArtistAgendaCreateEventState
           final String notes,
           final String date,
           final String time,
+          final String startTime,
+          final String endTime,
           final String? guestError,
           final String? notesError,
+          final String? timeError,
+          final bool isEditing,
+          final String eventId,
           final ArtistAgendaCreateEventStatus status}) =
       _$ArtistAgendaCreateEventStateImpl;
 
@@ -1261,10 +1817,20 @@ abstract class _ArtistAgendaCreateEventState
   String get date;
   @override
   String get time;
+  @override // Legacy field, kept for backward compatibility
+  String get startTime;
+  @override
+  String get endTime;
   @override
   String? get guestError;
   @override
   String? get notesError;
+  @override
+  String? get timeError;
+  @override
+  bool get isEditing;
+  @override
+  String get eventId;
   @override
   ArtistAgendaCreateEventStatus get status;
   @override

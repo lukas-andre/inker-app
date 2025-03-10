@@ -180,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Contraseña actual"),
         "currentStatus": MessageLookupByLibrary.simpleMessage("Estado Actual"),
+        "customRange":
+            MessageLookupByLibrary.simpleMessage("Rango Personalizado"),
         "customer": MessageLookupByLibrary.simpleMessage("Cliente"),
         "date": MessageLookupByLibrary.simpleMessage("Fecha"),
         "daysAgo": m1,
@@ -199,11 +201,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
+        "endTime": MessageLookupByLibrary.simpleMessage("Hora de Fin"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
+            "La hora de fin debe ser después de la hora de inicio."),
         "errorMsgGuestValidationError": MessageLookupByLibrary.simpleMessage(
             "Por favor seleccione un invitado"),
         "errorMsgHoursValidationError": MessageLookupByLibrary.simpleMessage(
             "Por favor seleccione una hora"),
+        "errorMsgInvalidTimeFormat": MessageLookupByLibrary.simpleMessage(
+            "Formato de hora inválido. Por favor, usa HH:mm."),
         "errorMsgNotesValidationError": MessageLookupByLibrary.simpleMessage(
             "Notas superan el límite de caracteres"),
         "estimatedCost": MessageLookupByLibrary.simpleMessage("Costo Estimado"),
@@ -465,6 +472,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Descripción Corta"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
+        "startTime": MessageLookupByLibrary.simpleMessage("Hora de Inicio"),
         "state": MessageLookupByLibrary.simpleMessage("Estado"),
         "status": MessageLookupByLibrary.simpleMessage("Estado"),
         "statusAccepted": MessageLookupByLibrary.simpleMessage("Aceptado"),
@@ -490,6 +498,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),
         "today": MessageLookupByLibrary.simpleMessage("Hoy"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
+        "update": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "updateStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Actualizar foto del estudio"),
         "username": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),

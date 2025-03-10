@@ -1285,5 +1285,29 @@
   "actionSuccessful": "Acción exitosa",
   "@actionSuccessful": {
     "description": "Mensaje mostrado cuando una acción es exitosa."
+  },
+  "update": "Actualizar",
+  "@update": {
+    "description": "Etiqueta para la acción de actualizar."
+  },
+  "startTime": "Hora de Inicio",
+  "@startTime": {
+    "description": "Etiqueta para el campo de hora de inicio."
+  },
+  "customRange": "Rango Personalizado",
+  "@customRange": {
+    "description": "Etiqueta para la selección de rango de fechas personalizado."
+  },
+  "endTime": "Hora de Fin",
+  "@endTime": {
+    "description": "Etiqueta para el campo de hora de fin."
+  },
+  "errorMsgEndTimeMustBeAfterStart": "La hora de fin debe ser después de la hora de inicio.",
+  "@errorMsgEndTimeMustBeAfterStart": {
+    "description": "Mensaje de error mostrado cuando la hora de fin no es después de la hora de inicio."
+  },
+  "errorMsgInvalidTimeFormat": "Formato de hora inválido. Por favor, usa HH:mm.",
+  "@errorMsgInvalidTimeFormat": {
+    "description": "Mensaje de error mostrado cuando el formato de hora es inválido."
   }
 }
