@@ -21,9 +21,11 @@ class AvailableTimeSlotsBloc
     on<AvailableTimeSlotsEvent>((event, emit) async {
       await event.when(
         getAvailableTimeSlots: (artistId, date, durationMinutes) async {
+          print('Bloc: Getting available slots for date: ${date.toIso8601String()}');
           await _getAvailableTimeSlots(emit, artistId, date, durationMinutes);
         },
         resetState: () async {
+          print('Bloc: Resetting state to initial');
           emit(const AvailableTimeSlotsState.initial());
         },
       );
@@ -37,6 +39,7 @@ class AvailableTimeSlotsBloc
     int durationMinutes,
   ) async {
     emit(const AvailableTimeSlotsState.loading());
+    print('Fetching available time slots for: ${date.toIso8601String()}');
 
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -53,11 +56,14 @@ class AvailableTimeSlotsBloc
       );
 
       if (availableTimeSlots.isEmpty) {
+        print('No time slots found for date: ${date.toIso8601String()}');
         emit(const AvailableTimeSlotsState.empty());
       } else {
+        print('Loaded ${availableTimeSlots.length} time slots for date: ${date.toIso8601String()}');
         emit(AvailableTimeSlotsState.loaded(availableTimeSlots));
       }
     } catch (e) {
+      print('Error fetching time slots: $e');
       emit(AvailableTimeSlotsState.error(e.toString()));
     }
   }
