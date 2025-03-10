@@ -240,15 +240,23 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
                                 if (isPreferred)
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
-                                    child: Text(
-                                      isToday ? "Today" : "Recommended",
-                                      style: TextStyleTheme.bodyText2.copyWith(
-                                        color: Colors.greenAccent,
-                                        fontSize: 12,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.greenAccent.withOpacity(0.2),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      child: Text(
+                                        isToday ? "Today" : "Best",
+                                        style: TextStyleTheme.bodyText2.copyWith(
+                                          color: Colors.greenAccent,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                Icon(
+                                const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.white70,
                                   size: 16,
