@@ -463,6 +463,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
     return DropdownButtonFormField<String>(
       value: _selectedDuration['label'] as String,
       dropdownColor: primaryColor,
+      isExpanded: true,
       decoration: InputDecoration(
         labelText: S.of(context).duration,
         labelStyle: TextStyleTheme.copyWith(color: Colors.white54),
@@ -473,13 +474,10 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
       items: _durations.map((Map<String, dynamic> duration) {
         return DropdownMenuItem<String>(
           value: duration['label'] as String,
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 150),
-            child: Text(
-              duration['label'] as String,
-              style: const TextStyle(color: Colors.white),
-              overflow: TextOverflow.ellipsis,
-            ),
+          child: Text(
+            duration['label'] as String,
+            style: const TextStyle(color: Colors.white),
+            overflow: TextOverflow.ellipsis,
           ),
         );
       }).toList(),
