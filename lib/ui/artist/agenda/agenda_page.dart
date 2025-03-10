@@ -58,25 +58,26 @@ class _AgendaTablePageState extends State<AgendaTablePage>
       DateTime day, List<ArtistAgendaEventDetails> allEvents) {
     final firstDayOfWeek = day.subtract(Duration(days: day.weekday - 1));
     final lastDayOfWeek = firstDayOfWeek.add(const Duration(days: 6));
-    
+
     return allEvents.where((event) {
-      return (event.startDate.isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
-              event.startDate.isBefore(lastDayOfWeek.add(const Duration(days: 1))));
+      return (event.startDate
+              .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
+          event.startDate.isBefore(lastDayOfWeek.add(const Duration(days: 1))));
     }).toList();
   }
 
   // Helper method to get event color based on properties
   Color _getEventColor(ArtistAgendaEventDetails event) {
     // Check if it's a meeting or unavailable time by examining title
-    if (event.title.toLowerCase().contains('unavailable') || 
+    if (event.title.toLowerCase().contains('unavailable') ||
         event.title.toLowerCase().contains('blocked')) {
       return Colors.grey.shade700;
     }
-    
+
     // Regular appointment
     return secondaryColor;
   }
-  
+
   Widget _buildViewSelector(DateTime focusedDay) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -96,8 +97,8 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.day;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                  ArtistAgendaEvent.formatChanged(CalendarFormat.week),
-                );
+                      ArtistAgendaEvent.formatChanged(CalendarFormat.week),
+                    );
               },
             ),
           ),
@@ -110,8 +111,8 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.week;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                  ArtistAgendaEvent.formatChanged(CalendarFormat.week),
-                );
+                      ArtistAgendaEvent.formatChanged(CalendarFormat.week),
+                    );
               },
             ),
           ),
@@ -124,8 +125,8 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.month;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                  ArtistAgendaEvent.formatChanged(CalendarFormat.month),
-                );
+                      ArtistAgendaEvent.formatChanged(CalendarFormat.month),
+                    );
               },
             ),
           ),
@@ -163,9 +164,9 @@ class _AgendaTablePageState extends State<AgendaTablePage>
   Widget _buildEventMarker(
       ArtistAgendaEventDetails event, DateTime day, Color eventColor) {
     return Container(
-      width: 10,
-      height: 10,
-      margin: const EdgeInsets.symmetric(horizontal: 1.5),
+      width: 8,
+      height: 8,
+      margin: const EdgeInsets.symmetric(horizontal: 1.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: eventColor,
@@ -173,10 +174,10 @@ class _AgendaTablePageState extends State<AgendaTablePage>
     );
   }
 
-  Widget _buildDayCalendar(
-      DateTime focusedDay, DateTime selectedDay, List<ArtistAgendaEventDetails> events) {
+  Widget _buildDayCalendar(DateTime focusedDay, DateTime selectedDay,
+      List<ArtistAgendaEventDetails> events) {
     final dayEvents = _getEventsForDay(selectedDay, events);
-    
+
     return Column(
       children: [
         Padding(
@@ -186,10 +187,11 @@ class _AgendaTablePageState extends State<AgendaTablePage>
               IconButton(
                 icon: const Icon(Icons.chevron_left, color: Colors.white),
                 onPressed: () {
-                  final previousDay = selectedDay.subtract(const Duration(days: 1));
+                  final previousDay =
+                      selectedDay.subtract(const Duration(days: 1));
                   context.read<ArtistAgendaBloc>().add(
-                    ArtistAgendaEvent.daySelected(previousDay, previousDay),
-                  );
+                        ArtistAgendaEvent.daySelected(previousDay, previousDay),
+                      );
                 },
               ),
               Expanded(
@@ -208,8 +210,8 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                 onPressed: () {
                   final nextDay = selectedDay.add(const Duration(days: 1));
                   context.read<ArtistAgendaBloc>().add(
-                    ArtistAgendaEvent.daySelected(nextDay, nextDay),
-                  );
+                        ArtistAgendaEvent.daySelected(nextDay, nextDay),
+                      );
                 },
               ),
             ],
@@ -226,17 +228,17 @@ class _AgendaTablePageState extends State<AgendaTablePage>
     );
   }
 
-  Widget _buildWeekCalendar(
-      DateTime focusedDay, DateTime selectedDay, List<ArtistAgendaEventDetails> events) {
+  Widget _buildWeekCalendar(DateTime focusedDay, DateTime selectedDay,
+      List<ArtistAgendaEventDetails> events) {
     final weekEvents = _getEventsForWeek(focusedDay, events);
-    
+
     return Column(
       children: [
         TableCalendar<ArtistAgendaEventDetails>(
           calendarBuilders: CalendarBuilders(
             markerBuilder: (context, date, events) {
               if (events.isEmpty) return null;
-              
+
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: events.take(3).map((event) {
@@ -303,9 +305,11 @@ class _AgendaTablePageState extends State<AgendaTablePage>
             formatButtonVisible: false,
             titleCentered: true,
             titleTextFormatter: (date, locale) =>
-              DateFormat('MMMM yyyy', locale).format(date),
-            leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
-            rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
+                DateFormat('MMMM yyyy', locale).format(date),
+            leftChevronIcon:
+                const Icon(Icons.chevron_left, color: Colors.white),
+            rightChevronIcon:
+                const Icon(Icons.chevron_right, color: Colors.white),
             titleTextStyle: TextStyleTheme.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -317,8 +321,8 @@ class _AgendaTablePageState extends State<AgendaTablePage>
               _selectedDay = selectedDay;
             });
             context.read<ArtistAgendaBloc>().add(
-              ArtistAgendaEvent.daySelected(selectedDay, focusedDay),
-            );
+                  ArtistAgendaEvent.daySelected(selectedDay, focusedDay),
+                );
           },
         ),
         const SizedBox(height: 8.0),
@@ -332,175 +336,183 @@ class _AgendaTablePageState extends State<AgendaTablePage>
     );
   }
 
-  Widget _buildMonthCalendar(
-      DateTime focusedDay, DateTime selectedDay, List<ArtistAgendaEventDetails> events) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Calculate appropriate sizes for this layout
-        final calendarHeight = constraints.maxHeight * 0.56; // 56% for calendar
-        
-        return Column(
-          children: [
-            SizedBox(
-              height: calendarHeight,
-              child: TableCalendar<ArtistAgendaEventDetails>(
-                calendarBuilders: CalendarBuilders(
-                  markerBuilder: (context, date, events) {
-                    if (events.isEmpty) return null;
-                    
-                    return Positioned(
-                      bottom: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: events.take(3).map((event) {
-                          return _buildEventMarker(event, date, _getEventColor(event));
-                        }).toList(),
+  Widget _buildMonthCalendar(DateTime focusedDay, DateTime selectedDay,
+      List<ArtistAgendaEventDetails> events) {
+    return Column(
+      children: [
+        // Calendar with fixed height
+        Container(
+          // height: 320, // Fixed height for the calendar
+          margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+          child: TableCalendar<ArtistAgendaEventDetails>(
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, date, events) {
+                if (events.isEmpty) return null;
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: events.take(3).map((event) {
+                    return Container(
+                      width: 6,
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _getEventColor(event),
                       ),
                     );
-                  },
-                ),
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
-                focusedDay: focusedDay,
-                selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-                calendarFormat: CalendarFormat.month,
-                rangeSelectionMode: RangeSelectionMode.toggledOff,
-                eventLoader: (day) => _getEventsForDay(day, events),
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: TextStyleTheme.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  weekendStyle: TextStyleTheme.copyWith(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-                calendarStyle: CalendarStyle(
-                  isTodayHighlighted: true,
-                  selectedDecoration: BoxDecoration(
-                    color: secondaryColor,
-                    shape: BoxShape.circle,
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: tertiaryColor.withOpacity(0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  weekendTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  selectedTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  todayTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  defaultTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  outsideTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white38,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                ),
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextFormatter: (date, locale) =>
-                    DateFormat('MMMM yyyy', locale).format(date),
-                  leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
-                  rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
-                  titleTextStyle: TextStyleTheme.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                  });
-                  context.read<ArtistAgendaBloc>().add(
-                    ArtistAgendaEvent.daySelected(selectedDay, focusedDay),
-                  );
-                },
+                  }).toList(),
+                );
+              },
+            ),
+            firstDay: kFirstDay,
+            lastDay: kLastDay,
+            focusedDay: focusedDay,
+            selectedDayPredicate: (day) => isSameDay(selectedDay, day),
+            calendarFormat: CalendarFormat.month,
+            rangeSelectionMode: RangeSelectionMode.toggledOff,
+            eventLoader: (day) => _getEventsForDay(day, events),
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            calendarStyle: CalendarStyle(
+              isTodayHighlighted: true,
+              selectedDecoration: BoxDecoration(
+                color: secondaryColor,
+                shape: BoxShape.circle,
+              ),
+              todayDecoration: BoxDecoration(
+                color: tertiaryColor.withOpacity(0.5),
+                shape: BoxShape.circle,
+              ),
+              weekendTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white70,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+              ),
+              selectedTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              todayTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+              ),
+              defaultTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+              ),
+              outsideTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white38,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
               ),
             ),
-            const SizedBox(height: 8.0),
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        'Events for ${DateFormat('MMM d, yyyy').format(selectedDay)}',
+            headerStyle: HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+              titleTextFormatter: (date, locale) =>
+                  DateFormat('MMMM yyyy', locale).format(date),
+              leftChevronIcon:
+                  const Icon(Icons.chevron_left, color: Colors.white),
+              rightChevronIcon:
+                  const Icon(Icons.chevron_right, color: Colors.white),
+              titleTextStyle: TextStyleTheme.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+              });
+              context.read<ArtistAgendaBloc>().add(
+                    ArtistAgendaEvent.daySelected(selectedDay, focusedDay),
+                  );
+            },
+          ),
+        ),
+
+        // Clear separation between calendar and events list
+        const SizedBox(height: 16.0),
+  
+
+        // Events section - now in its own container with fixed constraints
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: Colors.black12),
+            ),
+            margin: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header for the events section
+                Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey.shade800,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.event,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        DateFormat('EEEE, MMMM d').format(selectedDay),
                         style: TextStyleTheme.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Expanded(
-                      child: _buildDayEventsList(_getEventsForDay(selectedDay, events)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+
+                // Event list
+                Expanded(
+                  child: _buildEventList(_getEventsForDay(selectedDay, events)),
+                ),
+              ],
             ),
-          ],
-        );
-      }
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildDayEventsList(List<ArtistAgendaEventDetails> dayEvents) {
+  Widget _buildEventList(List<ArtistAgendaEventDetails> dayEvents) {
     if (dayEvents.isEmpty) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 20),
-                    Icon(Icons.event_busy, color: tertiaryColor, size: 36),
-                    const SizedBox(height: 12),
-                    Text(
-                      'No events for this day',
-                      style: TextStyleTheme.copyWith(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.event_busy, color: tertiaryColor, size: 32),
+            const SizedBox(height: 8),
+            Text(
+              'No events for this day',
+              style: TextStyleTheme.copyWith(
+                color: Colors.white70,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
               ),
             ),
-          );
-        }
+          ],
+        ),
       );
     }
 
@@ -509,27 +521,21 @@ class _AgendaTablePageState extends State<AgendaTablePage>
       ..sort((a, b) => a.startDate.compareTo(b.startDate));
 
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      physics: const AlwaysScrollableScrollPhysics(), // Always allow scrolling
+      padding: const EdgeInsets.all(12.0),
       itemCount: sortedDayEvents.length,
       itemBuilder: (context, index) {
         final event = sortedDayEvents[index];
-        return _buildEventCard(event);
+        return _buildCompactEventCard(event);
       },
     );
   }
 
-  Widget _buildEventCard(ArtistAgendaEventDetails event) {
+  Widget _buildCompactEventCard(ArtistAgendaEventDetails event) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 12.0),
-      color: Colors.black45,
-      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 8.0),
+      color: Colors.black54,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: _getEventColor(event),
-          width: 2,
-        ),
+        borderRadius: BorderRadius.circular(8.0),
       ),
       child: InkWell(
         onTap: () {
@@ -539,67 +545,76 @@ class _AgendaTablePageState extends State<AgendaTablePage>
             arguments: int.parse(event.id),
           );
         },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        borderRadius: BorderRadius.circular(8.0),
+        child: Container(
+          height: 72.0, // Fixed height for all events in month view
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 12,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _getEventColor(event),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
+              // Vertical color bar
+              Container(
+                width: 4,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: _getEventColor(event),
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+              ),
+              const SizedBox(width: 12.0),
+
+              // Event content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Event title
+                    Text(
                       event.title,
                       style: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14.0,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(
-                    Icons.access_time,
-                    color: tertiaryColor,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${DateFormat('h:mm a').format(event.startDate)} - ${DateFormat('h:mm a').format(event.endDate)}',
-                    style: TextStyleTheme.copyWith(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
+                    const SizedBox(height: 4.0),
+
+                    // Time range
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.access_time,
+                          color: Colors.white70,
+                          size: 14.0,
+                        ),
+                        const SizedBox(width: 4.0),
+                        Text(
+                          '${DateFormat('h:mm a').format(event.startDate)} - ${DateFormat('h:mm a').format(event.endDate)}',
+                          style: TextStyleTheme.copyWith(
+                            color: Colors.white70,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              if (event.description.isNotEmpty) ...[
-                const SizedBox(height: 8),
-                Text(
-                  event.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyleTheme.copyWith(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
+
+                    // Description (only if there's room)
+                    if (event.description.isNotEmpty)
+                      Flexible(
+                        child: Text(
+                          event.description,
+                          style: TextStyleTheme.copyWith(
+                            color: Colors.white60,
+                            fontSize: 12.0,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                  ],
                 ),
-              ],
+              ),
             ],
           ),
         ),
@@ -616,10 +631,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         title: Text(
           'Agenda',
           style: TextStyleTheme.copyWith(
-            color: Colors.white, 
-            fontWeight: FontWeight.bold, 
-            fontSize: 24
-          ),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
         backgroundColor: primaryColor,
         elevation: 4.0,
@@ -668,8 +680,9 @@ class _AgendaTablePageState extends State<AgendaTablePage>
               final currentSelectedDay = selectedDay ?? focusedDay;
 
               // Create a mutable copy of the events list before sorting
-              final sortedEvents = List<ArtistAgendaEventDetails>.from(allEvents)
-                ..sort((a, b) => a.startDate.compareTo(b.startDate));
+              final sortedEvents =
+                  List<ArtistAgendaEventDetails>.from(allEvents)
+                    ..sort((a, b) => a.startDate.compareTo(b.startDate));
 
               return Column(
                 children: [
@@ -678,10 +691,13 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
                       child: _currentView == CalendarViewType.day
-                          ? _buildDayCalendar(focusedDay, currentSelectedDay, sortedEvents)
+                          ? _buildDayCalendar(
+                              focusedDay, currentSelectedDay, sortedEvents)
                           : _currentView == CalendarViewType.week
-                              ? _buildWeekCalendar(focusedDay, currentSelectedDay, sortedEvents)
-                              : _buildMonthCalendar(focusedDay, currentSelectedDay, sortedEvents),
+                              ? _buildWeekCalendar(
+                                  focusedDay, currentSelectedDay, sortedEvents)
+                              : _buildMonthCalendar(
+                                  focusedDay, currentSelectedDay, sortedEvents),
                     ),
                   ),
                 ],
