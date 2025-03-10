@@ -8,9 +8,14 @@ class ArtistAgendaCreateEventState with _$ArtistAgendaCreateEventState {
     CustomerDTO? selectedGuest,
     @Default('') String notes,
     @Default('') String date,
-    @Default('') String time,
+    @Default('') String time, // Legacy field, kept for backward compatibility
+    @Default('') String startTime,
+    @Default('') String endTime,
     String? guestError,
     String? notesError,
+    String? timeError,
+    @Default(false) bool isEditing,
+    @Default('') String eventId,
     @Default(ArtistAgendaCreateEventStatus.initial)
     ArtistAgendaCreateEventStatus status,
   }) = _ArtistAgendaCreateEventState;

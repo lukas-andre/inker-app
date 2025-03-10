@@ -7,23 +7,33 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CreateEventButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final bool isEditing;
 
   const CreateEventButton({
     super.key,
     required this.formKey,
+    this.isEditing = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       height: 50,
       child: ElevatedButton(
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            context.read<ArtistAgendaCreateEventBloc>().add(
-                  const ArtistAgendaCreateEventEvent.formSubmitted(),
-                );
+            if (isEditing) {
+              context.read<ArtistAgendaCreateEventBloc>().add(
+                const ArtistAgendaCreateEventEvent.eventUpdated(),
+              );
+            } else {
+              context.read<ArtistAgendaCreateEventBloc>().add(
+                const ArtistAgendaCreateEventEvent.formSubmitted(),
+              );
+            }
           }
         },
         style: ElevatedButton.styleFrom(
@@ -32,7 +42,7 @@ class CreateEventButton extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Text(
-          S.of(context).scheduleEvent,
+          isEditing ? l10n.update : l10n.scheduleEvent,
           style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
         ),
       ),

@@ -350,8 +350,68 @@ class ApiAgendaService extends AgendaService {
     return await _httpClient.getList(
       path: 'quotations/$quotationId/available-slots',
       token: token,
-      fromJson: (json) => null,
+      fromJson: (json) => json,
     );
+  }
+  
+  @override
+  Future<List<dynamic>> getArtistAvailableTimeSlots({
+    required String token,
+    required int artistId,
+    required DateTime date,
+    required int durationMinutes,
+  }) async {
+    try {
+      // Use the dedicated endpoint for suggested time slots
+      return await _httpClient.getList(
+        path: '$_basePath/artists/$artistId/available-slots',
+        token: token,
+        queryParams: {
+          'date': date.toIso8601String(),
+          'duration': durationMinutes.toString(),
+          'suggestionsCount': '8' // Request more suggestions
+        },
+        fromJson: (json) => json,
+      );
+    } catch (e) {
+      print('Error getting artist available time slots: $e');
+      // If the specific endpoint fails, fall back to the availability endpoint
+      try {
+        final fromDate = date;
+        final toDate = DateTime(date.year, date.month, date.day + 7); // Look ahead 7 days
+        
+        final availabilityData = await _httpClient.getList(
+          path: '$_basePath/artists/$artistId/availability',
+          token: token,
+          queryParams: {
+            'fromDate': fromDate.toIso8601String(),
+            'toDate': toDate.toIso8601String(),
+            'duration': durationMinutes.toString()
+          },
+          fromJson: (json) => json,
+        );
+        
+        // Extract all slots from all days
+        List<dynamic> allSlots = [];
+        for (final day in availabilityData) {
+          if (day is Map<String, dynamic> && day.containsKey('slots')) {
+            allSlots.addAll(day['slots'] ?? []);
+          }
+        }
+        
+        // Sort by start time
+        allSlots.sort((a, b) {
+          final aStart = DateTime.parse(a['startTime']);
+          final bStart = DateTime.parse(b['startTime']);
+          return aStart.compareTo(bStart);
+        });
+        
+        return allSlots.take(8).toList();
+      } catch (fallbackError) {
+        print('Fallback also failed: $fallbackError');
+        return []; // Return empty list if both attempts fail
+      }
+    }
   }
 
   @override

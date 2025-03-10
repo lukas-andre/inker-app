@@ -3074,6 +3074,67 @@ class S {
       args: [],
     );
   }
+
+  /// `Actualizar`
+  String get update {
+    return Intl.message(
+      'Actualizar',
+      name: 'update',
+      desc: 'Etiqueta para la acción de actualizar.',
+      args: [],
+    );
+  }
+
+  /// `Hora de Inicio`
+  String get startTime {
+    return Intl.message(
+      'Hora de Inicio',
+      name: 'startTime',
+      desc: 'Etiqueta para el campo de hora de inicio.',
+      args: [],
+    );
+  }
+
+  /// `Rango Personalizado`
+  String get customRange {
+    return Intl.message(
+      'Rango Personalizado',
+      name: 'customRange',
+      desc: 'Etiqueta para la selección de rango de fechas personalizado.',
+      args: [],
+    );
+  }
+
+  /// `Hora de Fin`
+  String get endTime {
+    return Intl.message(
+      'Hora de Fin',
+      name: 'endTime',
+      desc: 'Etiqueta para el campo de hora de fin.',
+      args: [],
+    );
+  }
+
+  /// `La hora de fin debe ser después de la hora de inicio.`
+  String get errorMsgEndTimeMustBeAfterStart {
+    return Intl.message(
+      'La hora de fin debe ser después de la hora de inicio.',
+      name: 'errorMsgEndTimeMustBeAfterStart',
+      desc:
+          'Mensaje de error mostrado cuando la hora de fin no es después de la hora de inicio.',
+      args: [],
+    );
+  }
+
+  /// `Formato de hora inválido. Por favor, usa HH:mm.`
+  String get errorMsgInvalidTimeFormat {
+    return Intl.message(
+      'Formato de hora inválido. Por favor, usa HH:mm.',
+      name: 'errorMsgInvalidTimeFormat',
+      desc: 'Mensaje de error mostrado cuando el formato de hora es inválido.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
