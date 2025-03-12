@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:inker_studio/data/api/account_verification/api_account_verification_service_impl.dart';
 import 'package:inker_studio/data/api/agenda/api_agenda_service.dart';
 import 'package:inker_studio/data/api/appointment/api_appointment_service.dart';

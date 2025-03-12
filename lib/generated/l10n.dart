@@ -3165,6 +3165,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Administrar Ubicaciones`
+  String get manageLocations {
+    return Intl.message(
+      'Administrar Ubicaciones',
+      name: 'manageLocations',
+      desc: 'Título para la página de administración de ubicaciones.',
+      args: [],
+    );
+  }
+
+  /// `Agregar Ubicación`
+  String get addLocation {
+    return Intl.message(
+      'Agregar Ubicación',
+      name: 'addLocation',
+      desc: 'Etiqueta para la acción de agregar ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Editar Ubicación`
+  String get editLocation {
+    return Intl.message(
+      'Editar Ubicación',
+      name: 'editLocation',
+      desc: 'Etiqueta para la acción de editar ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Ubicación`
+  String get deleteLocation {
+    return Intl.message(
+      'Eliminar Ubicación',
+      name: 'deleteLocation',
+      desc: 'Etiqueta para la acción de eliminar ubicación.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro que deseas eliminar`
+  String get areYouSureDelete {
+    return Intl.message(
+      '¿Estás seguro que deseas eliminar',
+      name: 'areYouSureDelete',
+      desc: 'Mensaje de confirmación para acciones de eliminación.',
+      args: [],
+    );
+  }
+
+  /// `No hay ubicaciones disponibles`
+  String get noLocationsAvailable {
+    return Intl.message(
+      'No hay ubicaciones disponibles',
+      name: 'noLocationsAvailable',
+      desc: 'Mensaje mostrado cuando no hay ubicaciones disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Nombre de la Ubicación`
+  String get locationName {
+    return Intl.message(
+      'Nombre de la Ubicación',
+      name: 'locationName',
+      desc: 'Etiqueta para el nombre de la ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Ingresa el nombre de la ubicación`
+  String get enterLocationName {
+    return Intl.message(
+      'Ingresa el nombre de la ubicación',
+      name: 'enterLocationName',
+      desc: 'Texto de ayuda para ingresar el nombre de la ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Ingresa la dirección`
+  String get enterAddress {
+    return Intl.message(
+      'Ingresa la dirección',
+      name: 'enterAddress',
+      desc: 'Texto de ayuda para ingresar la dirección.',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Dirección`
+  String get addressDetails {
+    return Intl.message(
+      'Detalles de la Dirección',
+      name: 'addressDetails',
+      desc: 'Etiqueta para la sección de detalles de la dirección.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

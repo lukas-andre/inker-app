@@ -1315,5 +1315,46 @@
   "errorMsgEventCreationFailed": "Event creation failed. Please try again.",
   "@errorMsgEventCreationFailed": {
     "description": "Error message displayed when event creation fails."
+  },
+  "manageLocations": "Manage Locations",
+  "@manageLocations": {
+    "description": "Title for the location management page."
+  },
+  "addLocation": "Add Location",
+  "@addLocation": {
+    "description": "Label for the add location action."
+  },
+  "editLocation": "Edit Location",
+  "@editLocation": {
+    "description": "Label for the edit location action."
+  },
+  "deleteLocation": "Delete Location",
+  "@deleteLocation": {
+    "description": "Label for the delete location action."
+  },
+  "areYouSureDelete": "Are you sure you want to delete",
+  "@areYouSureDelete": {
+    "description": "Confirmation message for deletion actions."
+  },
+  "noLocationsAvailable": "No locations available",
+  "@noLocationsAvailable": {
+    "description": "Message displayed when no locations are available."
+  },
+  "locationName": "Location Name",
+  "@locationName": {
+    "description": "Label for the location name field."
+  },
+  "enterLocationName": "Enter location name",
+  "@enterLocationName": {
+    "description": "Placeholder text for the location name input field."
+  },
+  "enterAddress": "Enter address",
+  "@enterAddress": {
+    "description": "Placeholder text for the address input field."
+  },
+  "addressDetails": "Address Details",
+  "@addressDetails": {
+    "description": "Label for the address details section."
   }
+
 }

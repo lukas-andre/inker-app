@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/data/api/location/dtos/artist_location_dto.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_request.dart';
 import 'package:inker_studio/data/api/location/dtos/find_artist_by_location_response.dart';
 import 'package:inker_studio/data/api/location/errors/errors.dart';
@@ -61,6 +62,114 @@ class ApiLocationService implements LocationService {
     } catch (e, stackTrace) {
       dev.logError(e, stackTrace);
       throw JsonParseException();
+    }
+  }
+  
+  @override
+  Future<List<ArtistLocationDto>> getArtistLocations(String token, int artistId) async {
+    try {
+      return await _httpClient.getList(
+        path: 'locations/artist/$artistId/locations',
+        token: token,
+        fromJson: ArtistLocationDto.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      dev.logError(e, StackTrace.current);
+      _handleHttpException(e);
+      rethrow;
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      throw JsonParseException();
+    }
+  }
+  
+  @override
+  Future<ArtistLocationDto> createArtistLocation(
+      String token, int artistId, CreateArtistLocationRequest request) async {
+    try {
+      return await _httpClient.post(
+        path: 'locations/artist/$artistId/locations',
+        token: token,
+        body: request.toJson(),
+        fromJson: ArtistLocationDto.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      dev.logError(e, StackTrace.current);
+      _handleHttpException(e);
+      rethrow;
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      throw JsonParseException();
+    }
+  }
+  
+  @override
+  Future<ArtistLocationDto> updateArtistLocation(
+      String token, int artistId, int locationId, UpdateArtistLocationRequest request) async {
+    try {
+      return await _httpClient.put(
+        path: 'locations/artist/$artistId/locations/$locationId',
+        token: token,
+        body: request.toJson(),
+        fromJson: ArtistLocationDto.fromJson,
+      );
+    } on CustomHttpException catch (e) {
+      dev.logError(e, StackTrace.current);
+      _handleHttpException(e);
+      rethrow;
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      throw JsonParseException();
+    }
+  }
+  
+  @override
+  Future<bool> deleteArtistLocation(String token, int artistId, int locationId) async {
+    try {
+      // For DELETE endpoints that return a boolean result
+      final response = await _httpClient.post(
+        path: 'locations/artist/$artistId/locations/$locationId',
+        token: token,
+        body: {},
+        fromJson: (json) => json['success'] == true,
+      );
+      return response;
+    } on CustomHttpException catch (e) {
+      dev.logError(e, StackTrace.current);
+      _handleHttpException(e);
+      rethrow;
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      throw JsonParseException();
+    }
+  }
+  
+  void _handleHttpException(CustomHttpException e) {
+    if (e.statusCode == HttpStatus.badRequest) {
+      throw BadRequest(message: e.message);
+    }
+    
+    if (e.statusCode == HttpStatus.unauthorized) {
+      throw Unauthorized(message: e.message);
+    }
+    
+    if (e.statusCode == HttpStatus.forbidden) {
+      throw Forbidden(message: e.message);
+    }
+    
+    if (e.statusCode == HttpStatus.notFound) {
+      if (ResponseUtils.resourceNotFound(e.message)) {
+        throw ResourceNotFound();
+      }
+      throw HttpNotFound();
+    }
+    
+    if (e.statusCode == HttpStatus.unprocessableEntity) {
+      throw UnprocessableEntity();
+    }
+    
+    if (e.statusCode >= HttpStatus.internalServerError) {
+      throw InternalServerException();
     }
   }
 }

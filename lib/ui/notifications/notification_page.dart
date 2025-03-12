@@ -67,6 +67,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+                iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           l10n.notifications,
           style: TextStyleTheme.headline2,

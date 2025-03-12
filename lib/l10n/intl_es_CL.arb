@@ -1321,5 +1321,46 @@
   "errorMsgEventCreationFailed": "La creación del evento falló. Por favor, inténtalo de nuevo.",
   "@errorMsgEventCreationFailed": {
     "description": "Mensaje de error mostrado cuando la creación del evento falla."
+  },
+  "manageLocations": "Administrar Ubicaciones",
+  "@manageLocations": {
+    "description": "Título para la página de administración de ubicaciones."
+  },
+  "addLocation": "Agregar Ubicación",
+  "@addLocation": {
+    "description": "Etiqueta para la acción de agregar ubicación."
+  },
+  "editLocation": "Editar Ubicación",
+  "@editLocation": {
+    "description": "Etiqueta para la acción de editar ubicación."
+  },
+  "deleteLocation": "Eliminar Ubicación",
+  "@deleteLocation": {
+    "description": "Etiqueta para la acción de eliminar ubicación."
+  },
+  "areYouSureDelete": "¿Estás seguro que deseas eliminar",
+  "@areYouSureDelete": {
+    "description": "Mensaje de confirmación para acciones de eliminación."
+  },
+  "noLocationsAvailable": "No hay ubicaciones disponibles",
+  "@noLocationsAvailable": {
+    "description": "Mensaje mostrado cuando no hay ubicaciones disponibles."
+  },
+  "locationName": "Nombre de la Ubicación",
+  "@locationName": {
+    "description": "Etiqueta para el nombre de la ubicación."
+  },
+  "enterLocationName": "Ingresa el nombre de la ubicación",
+  "@enterLocationName": {
+    "description": "Texto de ayuda para ingresar el nombre de la ubicación."
+  },
+  "enterAddress": "Ingresa la dirección",
+  "@enterAddress": {
+    "description": "Texto de ayuda para ingresar la dirección."
+  },
+  "addressDetails": "Detalles de la Dirección",
+  "@addressDetails": {
+    "description": "Etiqueta para la sección de detalles de la dirección."
   }
+
 }
