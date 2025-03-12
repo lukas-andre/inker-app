@@ -62,11 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Acción exitosa"),
         "addDescription": MessageLookupByLibrary.simpleMessage(
             "Agrega una descripción sobre ti."),
+        "addLocation":
+            MessageLookupByLibrary.simpleMessage("Agregar Ubicación"),
         "addStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Agregar foto del estudio"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "address": MessageLookupByLibrary.simpleMessage("Dirección"),
+        "addressDetails":
+            MessageLookupByLibrary.simpleMessage("Detalles de la Dirección"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
         "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
         "appealQuotation":
@@ -94,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
+        "areYouSureDelete": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro que deseas eliminar"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas cerrar sesión?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
@@ -190,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Eliminar Cuenta"),
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta."),
+        "deleteLocation":
+            MessageLookupByLibrary.simpleMessage("Eliminar Ubicación"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
@@ -197,11 +205,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "La duración no puede ser cero"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Editar Evento"),
+        "editLocation":
+            MessageLookupByLibrary.simpleMessage("Editar Ubicación"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Editar Perfil"),
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "endTime": MessageLookupByLibrary.simpleMessage("Hora de Fin"),
+        "enterAddress":
+            MessageLookupByLibrary.simpleMessage("Ingresa la dirección"),
+        "enterLocationName": MessageLookupByLibrary.simpleMessage(
+            "Ingresa el nombre de la ubicación"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "La hora de fin debe ser después de la hora de inicio."),
@@ -264,6 +278,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "location": MessageLookupByLibrary.simpleMessage("Ubicación"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Ubicación"),
+        "locationName":
+            MessageLookupByLibrary.simpleMessage("Nombre de la Ubicación"),
         "locationPermissionRequired": MessageLookupByLibrary.simpleMessage(
             "Permiso de ubicación requerido"),
         "locationServices":
@@ -273,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "manageLocations":
+            MessageLookupByLibrary.simpleMessage("Administrar Ubicaciones"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m5,
@@ -292,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se ha seleccionado ninguna imagen"),
         "noImagesAvailable":
             MessageLookupByLibrary.simpleMessage("No hay imágenes disponibles"),
+        "noLocationsAvailable": MessageLookupByLibrary.simpleMessage(
+            "No hay ubicaciones disponibles"),
         "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
             "No tienes ninguna notificación todavía."),
         "noNotificationsTitle":

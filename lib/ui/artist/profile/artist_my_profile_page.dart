@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/services/location/location_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/artist/locations/artist_location_manager_page.dart';
 import 'package:inker_studio/ui/artist/profile/profile_picture.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -158,7 +162,41 @@ class ArtistMyProfilePage extends StatelessWidget {
               ),
             ),
           ),
+          _buildManageLocationsButton(context, artist),
         ],
+      ),
+    );
+  }
+  
+  Widget _buildManageLocationsButton(BuildContext context, Artist artist) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: ElevatedButton.icon(
+        onPressed: () => _navigateToLocationManager(context, artist),
+        icon: const Icon(Icons.location_on),
+        label: Text(S.of(context).manageLocations),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: secondaryColor,
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+      ),
+    );
+  }
+  
+  void _navigateToLocationManager(BuildContext context, Artist artist) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => ArtistLocationBloc(
+            context.read<LocationService>(),
+            context.read<LocalSessionService>(),
+          ),
+          child: ArtistLocationManagerPage(artistId: artist.id),
+        ),
       ),
     );
   }
