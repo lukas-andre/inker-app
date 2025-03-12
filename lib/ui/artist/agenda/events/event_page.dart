@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
+import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -158,7 +162,7 @@ class AgendaEventDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              data.event.info,
+              data.event.info ?? 'No hay descripción :(',
               style: TextStyleTheme.bodyText1.copyWith(height: 1.5),
             ),
           ],
@@ -317,7 +321,7 @@ class AgendaEventDetailPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _navigateToEditEvent(context, data),
                   icon: const Icon(Icons.edit, color: Colors.white),
                   label: Text(
                     S.of(context).edit,
@@ -692,6 +696,84 @@ class AgendaEventDetailPage extends StatelessWidget {
         title: title,
       );
     }
+  }
+  
+  void _navigateToEditEvent(BuildContext context, AgendaEventDetailResponse data) {
+    // Show alert dialog with warning about customer reselection
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: explorerSecondaryColor,
+        title: Text(
+          S.of(context).edit,
+          style: TextStyleTheme.subtitle1,
+        ),
+        content: Text(
+          'Al editar este evento, deberás volver a seleccionar el cliente. ¿Deseas continuar?',
+          style: TextStyleTheme.bodyText1,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              S.of(context).cancel,
+              style: TextStyleTheme.button.copyWith(color: Colors.white70),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext); // Close dialog
+              
+              // Convert AgendaEventDetailResponse to ArtistAgendaEventDetails
+              final eventDetails = _convertToEventDetails(data);
+              
+              // Navigate to the edit page with required bloc providers
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(
+                        value: context.read<ArtistAgendaCreateEventBloc>(),
+                      ),
+                      BlocProvider.value(
+                        value: context.read<AvailableTimeSlotsBloc>(),
+                      ),
+                    ],
+                    child: EventFormPage.edit(
+                      eventToEdit: eventDetails,
+                      title: S.of(context).editEvent,
+                    ),
+                  ),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: secondaryColor,
+            ),
+            child: Text(
+              S.of(context).confirm,
+              style: TextStyleTheme.button,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  // Helper method to convert AgendaEventDetailResponse to ArtistAgendaEventDetails
+  ArtistAgendaEventDetails _convertToEventDetails(AgendaEventDetailResponse data) {
+    return ArtistAgendaEventDetails(
+      id: data.event.id.toString(),
+      title: data.event.title,
+      description: data.event.info ?? '',
+      startDate: data.event.start,
+      endDate: data.event.end,
+      location: data.location.formattedAddress,
+      notes: data.event.notes,
+      // Note: We can also store the customerId for potential use in the form
+      // but we don't directly pass a CustomerDTO object
+    );
   }
 }
 

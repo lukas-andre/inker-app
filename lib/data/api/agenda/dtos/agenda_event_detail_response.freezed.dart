@@ -218,14 +218,14 @@ mixin _$AgendaEventDetailEvent {
   @JsonKey(name: 'endDate')
   DateTime get end => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
-  String get info => throw _privateConstructorUsedError;
+  String? get info => throw _privateConstructorUsedError;
   bool get notification => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
   AgendaEventDetailWorkEvidence? get workEvidence =>
       throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
-  int get quotationId => throw _privateConstructorUsedError;
+  int? get quotationId => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   int? get preparationTimeMinutes => throw _privateConstructorUsedError;
   int? get cleanupTimeMinutes => throw _privateConstructorUsedError;
@@ -251,13 +251,13 @@ abstract class $AgendaEventDetailEventCopyWith<$Res> {
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
       String color,
-      String info,
+      String? info,
       bool notification,
       bool done,
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId,
+      int? quotationId,
       String? notes,
       int? preparationTimeMinutes,
       int? cleanupTimeMinutes});
@@ -287,13 +287,13 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
     Object? start = null,
     Object? end = null,
     Object? color = null,
-    Object? info = null,
+    Object? info = freezed,
     Object? notification = null,
     Object? done = null,
     Object? workEvidence = freezed,
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
-    Object? quotationId = null,
+    Object? quotationId = freezed,
     Object? notes = freezed,
     Object? preparationTimeMinutes = freezed,
     Object? cleanupTimeMinutes = freezed,
@@ -331,10 +331,10 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      info: null == info
+      info: freezed == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       notification: null == notification
           ? _value.notification
           : notification // ignore: cast_nullable_to_non_nullable
@@ -355,10 +355,10 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      quotationId: null == quotationId
+      quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -406,13 +406,13 @@ abstract class _$$AgendaEventDetailEventImplCopyWith<$Res>
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
       String color,
-      String info,
+      String? info,
       bool notification,
       bool done,
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId,
+      int? quotationId,
       String? notes,
       int? preparationTimeMinutes,
       int? cleanupTimeMinutes});
@@ -442,13 +442,13 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
     Object? start = null,
     Object? end = null,
     Object? color = null,
-    Object? info = null,
+    Object? info = freezed,
     Object? notification = null,
     Object? done = null,
     Object? workEvidence = freezed,
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
-    Object? quotationId = null,
+    Object? quotationId = freezed,
     Object? notes = freezed,
     Object? preparationTimeMinutes = freezed,
     Object? cleanupTimeMinutes = freezed,
@@ -486,10 +486,10 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      info: null == info
+      info: freezed == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       notification: null == notification
           ? _value.notification
           : notification // ignore: cast_nullable_to_non_nullable
@@ -510,10 +510,10 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      quotationId: null == quotationId
+      quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -542,13 +542,13 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       @JsonKey(name: 'startDate') required this.start,
       @JsonKey(name: 'endDate') required this.end,
       required this.color,
-      required this.info,
+      this.info,
       required this.notification,
       required this.done,
       this.workEvidence,
       this.cancelationReason,
       this.deletedAt,
-      required this.quotationId,
+      this.quotationId,
       this.notes,
       this.preparationTimeMinutes,
       this.cleanupTimeMinutes});
@@ -575,7 +575,7 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   @override
   final String color;
   @override
-  final String info;
+  final String? info;
   @override
   final bool notification;
   @override
@@ -587,7 +587,7 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   @override
   final DateTime? deletedAt;
   @override
-  final int quotationId;
+  final int? quotationId;
   @override
   final String? notes;
   @override
@@ -683,13 +683,13 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
       @JsonKey(name: 'startDate') required final DateTime start,
       @JsonKey(name: 'endDate') required final DateTime end,
       required final String color,
-      required final String info,
+      final String? info,
       required final bool notification,
       required final bool done,
       final AgendaEventDetailWorkEvidence? workEvidence,
       final String? cancelationReason,
       final DateTime? deletedAt,
-      required final int quotationId,
+      final int? quotationId,
       final String? notes,
       final int? preparationTimeMinutes,
       final int? cleanupTimeMinutes}) = _$AgendaEventDetailEventImpl;
@@ -716,7 +716,7 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   @override
   String get color;
   @override
-  String get info;
+  String? get info;
   @override
   bool get notification;
   @override
@@ -728,7 +728,7 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   @override
   DateTime? get deletedAt;
   @override
-  int get quotationId;
+  int? get quotationId;
   @override
   String? get notes;
   @override

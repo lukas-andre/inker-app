@@ -1309,5 +1309,17 @@
   "errorMsgInvalidTimeFormat": "Formato de hora inválido. Por favor, usa HH:mm.",
   "@errorMsgInvalidTimeFormat": {
     "description": "Mensaje de error mostrado cuando el formato de hora es inválido."
+  },
+  "eventUpdatedSuccessfully": "Evento actualizado con éxito.",
+  "@eventUpdatedSuccessfully": {
+    "description": "Mensaje mostrado cuando un evento se actualiza con éxito."
+  },
+  "eventCreatedSuccessfully": "Evento creado con éxito.",
+  "@eventCreatedSuccessfully": {
+    "description": "Mensaje mostrado cuando un nuevo evento se crea con éxito."
+  },
+  "errorMsgEventCreationFailed": "La creación del evento falló. Por favor, inténtalo de nuevo.",
+  "@errorMsgEventCreationFailed": {
+    "description": "Mensaje de error mostrado cuando la creación del evento falla."
   }
 }

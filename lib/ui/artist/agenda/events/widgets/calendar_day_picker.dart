@@ -56,17 +56,19 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
             _focusedDay = focusedDay;
           });
           
-          // Update the bloc state
+          // Format the date as YYYY-MM-DD for the API
+          final String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
+          
+          // Update the bloc state with the correctly formatted date
           context.read<ArtistAgendaCreateEventBloc>().add(
-              ArtistAgendaCreateEventEvent.dateChanged(
-                  selectedDay.toIso8601String()));
+              ArtistAgendaCreateEventEvent.dateChanged(formattedDate));
           
           // Notify parent widget about the date change
           if (widget.onDateSelected != null) {
             widget.onDateSelected!(selectedDay);
           }
           
-          print('CalendarDayPicker: Day selected: ${selectedDay.toIso8601String()}');
+          print('CalendarDayPicker: Day selected: $formattedDate');
         },
         onFormatChanged: (format) {
           setState(() {

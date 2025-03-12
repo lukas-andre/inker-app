@@ -106,4 +106,22 @@ abstract class AgendaService {
     required DateTime date,
     required int durationMinutes,
   });
+  
+  Future<void> createEvent({
+    required String token,
+    required int agendaId,
+    required DateTime start,
+    required DateTime end,
+    required String title,
+    required String info,
+    required String color,
+    required bool notification,
+    required int customerId,
+  });
+  
+  Future<void> updateEvent({
+    required String token,
+    required int eventId,
+    required Map<String, dynamic> updatedFields,
+  });
 }

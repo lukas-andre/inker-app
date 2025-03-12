@@ -1303,5 +1303,17 @@
   "errorMsgInvalidTimeFormat": "Invalid time format. Please use HH:mm.",
   "@errorMsgInvalidTimeFormat": {
     "description": "Error message displayed when the time format is invalid."
+  },
+  "eventUpdatedSuccessfully": "Event updated successfully.",
+  "@eventUpdatedSuccessfully": {
+    "description": "Message displayed when an event is successfully updated."
+  },
+  "eventCreatedSuccessfully": "Event created successfully.",
+  "@eventCreatedSuccessfully": {
+    "description": "Message displayed when a new event is successfully created."
+  },
+  "errorMsgEventCreationFailed": "Event creation failed. Please try again.",
+  "@errorMsgEventCreationFailed": {
+    "description": "Error message displayed when event creation fails."
   }
 }

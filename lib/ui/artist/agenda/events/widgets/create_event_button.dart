@@ -18,12 +18,20 @@ class CreateEventButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
+    final state = context.watch<ArtistAgendaCreateEventBloc>().state;
+    
+    // Check validation status for visual feedback
+    bool isGuestValid = state.selectedGuest != null;
+    bool isTimeValid = state.startTime.isNotEmpty && state.endTime.isNotEmpty;
+    bool isDateValid = state.date.isNotEmpty;
+    bool isNotesValid = state.notesError == null;
+    bool isFormValid = isGuestValid && isTimeValid && isDateValid && isNotesValid;
     
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: isFormValid ? () {
           if (formKey.currentState!.validate()) {
             if (isEditing) {
               context.read<ArtistAgendaCreateEventBloc>().add(
@@ -35,15 +43,20 @@ class CreateEventButton extends StatelessWidget {
               );
             }
           }
-        },
+        } : null, // Disable button if form is invalid
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: isFormValid ? secondaryColor : Colors.grey.shade700,
           padding: const EdgeInsets.symmetric(vertical: 0.0),
           shape: const StadiumBorder(),
+          disabledBackgroundColor: Colors.grey.shade700,
+          disabledForegroundColor: Colors.white70,
         ),
         child: Text(
           isEditing ? l10n.update : l10n.scheduleEvent,
-          style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
+          style: TextStyleTheme.copyWith(
+            color: Colors.white, 
+            fontSize: 16,
+          ),
         ),
       ),
     );

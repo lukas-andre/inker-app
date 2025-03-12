@@ -15,7 +15,7 @@ _$EventItemImpl _$$EventItemImplFromJson(Map json) => _$EventItemImpl(
       start: DateTime.parse(json['startDate'] as String),
       end: DateTime.parse(json['endDate'] as String),
       color: json['color'] as String,
-      info: json['info'] as String,
+      info: json['info'] as String?,
       notification: json['notification'] as bool,
       done: json['done'] as bool,
       workEvidence: json['workEvidence'] == null
@@ -26,7 +26,7 @@ _$EventItemImpl _$$EventItemImplFromJson(Map json) => _$EventItemImpl(
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num).toInt(),
+      quotationId: (json['quotationId'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
@@ -39,9 +39,6 @@ Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
     'startDate': instance.start.toIso8601String(),
     'endDate': instance.end.toIso8601String(),
     'color': instance.color,
-    'info': instance.info,
-    'notification': instance.notification,
-    'done': instance.done,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -50,10 +47,13 @@ Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
     }
   }
 
+  writeNotNull('info', instance.info);
+  val['notification'] = instance.notification;
+  val['done'] = instance.done;
   writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
-  val['quotationId'] = instance.quotationId;
+  writeNotNull('quotationId', instance.quotationId);
   return val;
 }
 

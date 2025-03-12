@@ -115,7 +115,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
         return ArtistAgendaEventDetails(
           id: event.id.toString(),
           title: event.title,
-          description: event.info,
+          description: event.info ?? '',
           startDate: event.start,
           endDate: event.end,
           location: '',

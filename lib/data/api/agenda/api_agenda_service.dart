@@ -191,6 +191,106 @@ class ApiAgendaService extends AgendaService {
   }
   
   @override
+  Future<void> createEvent({
+    required String token,
+    required int agendaId,
+    required DateTime start,
+    required DateTime end,
+    required String title,
+    required String info,
+    required String color,
+    required bool notification,
+    required int customerId,
+  }) async {
+    try {
+      // Format dates to match API expectation: YYYY-MM-DD HH:MM:SS
+      final formattedStart = _formatDateTimeForApi(start);
+      final formattedEnd = _formatDateTimeForApi(end);
+
+      await _httpClient.post(
+        path: '$_basePath/event',
+        token: token,
+        body: {
+          'agendaId': agendaId,
+          'start': formattedStart,
+          'end': formattedEnd,
+          'title': title,
+          'info': info,
+          'color': color,
+          'notification': notification,
+          'customerId': customerId,
+        },
+        fromJson: (json) => null,
+      );
+    } catch (e) {
+      print('Error creating event: $e');
+      rethrow; // Propagate error to allow proper error handling in bloc
+    }
+  }
+  
+  // Helper method to format DateTime to the required format: YYYY-MM-DD HH:MM:SS
+  String _formatDateTimeForApi(DateTime dateTime) {
+    final year = dateTime.year.toString().padLeft(4, '0');
+    final month = dateTime.month.toString().padLeft(2, '0');
+    final day = dateTime.day.toString().padLeft(2, '0');
+    final hour = dateTime.hour.toString().padLeft(2, '0');
+    final minute = dateTime.minute.toString().padLeft(2, '0');
+    final second = dateTime.second.toString().padLeft(2, '0');
+    
+    return '$year-$month-$day $hour:$minute:$second';
+  }
+
+  @override
+  Future<void> updateEvent({
+    required String token,
+    required int eventId,
+    required Map<String, dynamic> updatedFields,
+  }) async {
+    try {
+      // Format date fields if present
+      final formattedFields = Map<String, dynamic>.from(updatedFields);
+      
+      if (formattedFields.containsKey('start')) {
+        if (formattedFields['start'] is DateTime) {
+          formattedFields['start'] = _formatDateTimeForApi(formattedFields['start'] as DateTime);
+        } else if (formattedFields['start'] is String) {
+          try {
+            // Try to parse ISO string to DateTime and then format
+            final dateTime = DateTime.parse(formattedFields['start'] as String);
+            formattedFields['start'] = _formatDateTimeForApi(dateTime);
+          } catch (e) {
+            // If it's not a valid ISO string, leave it as is
+            print('Warning: Could not parse start date: ${formattedFields['start']}');
+          }
+        }
+      }
+      
+      if (formattedFields.containsKey('end')) {
+        if (formattedFields['end'] is DateTime) {
+          formattedFields['end'] = _formatDateTimeForApi(formattedFields['end'] as DateTime);
+        } else if (formattedFields['end'] is String) {
+          try {
+            final dateTime = DateTime.parse(formattedFields['end'] as String);
+            formattedFields['end'] = _formatDateTimeForApi(dateTime);
+          } catch (e) {
+            print('Warning: Could not parse end date: ${formattedFields['end']}');
+          }
+        }
+      }
+      
+      await _httpClient.put(
+        path: '$_basePath/event/$eventId',
+        token: token,
+        body: formattedFields,
+        fromJson: (json) => null,
+      );
+    } catch (e) {
+      print('Error updating event: $e');
+      rethrow; // Propagate error to allow proper error handling in bloc
+    }
+  }
+  
+  @override
   Future<Map<String, dynamic>> getAgendaSettings({
     required String token,
     required int agendaId,

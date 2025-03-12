@@ -129,7 +129,7 @@ class _EventFormPageState extends State<EventFormPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      children: [
+                      children: [ 
                         const SizedBox(height: 12),
                         // Use the calendar day picker with a callback
                         CalendarDayPicker(
@@ -156,15 +156,45 @@ class _EventFormPageState extends State<EventFormPage> {
                 const SizedBox(height: 40),
                 
                 // Action Buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const MessageButton(),
-                    CreateEventButton(
-                      formKey: _formKey,
-                      isEditing: widget.isEditing,
-                    ),
-                  ],
+                BlocConsumer<ArtistAgendaCreateEventBloc, ArtistAgendaCreateEventState>(
+                  listenWhen: (previous, current) => previous.status != current.status,
+                  listener: (context, state) {
+                    if (state.status == ArtistAgendaCreateEventStatus.success) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            widget.isEditing 
+                                ? S.of(context).eventUpdatedSuccessfully 
+                                : S.of(context).eventCreatedSuccessfully,
+                          ),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.of(context).pop();
+                    } else if (state.status == ArtistAgendaCreateEventStatus.failure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(S.of(context).errorMsgEventCreationFailed),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const MessageButton(),
+                        if (state.status == ArtistAgendaCreateEventStatus.loading)
+                          CircularProgressIndicator(color: secondaryColor)
+                        else
+                          CreateEventButton(
+                            formKey: _formKey,
+                            isEditing: widget.isEditing,
+                          ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),

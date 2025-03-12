@@ -54,7 +54,7 @@ class ScheduleAssistantBloc
         return EventDetails(
           id: event.id.toString(),
           title: event.title,
-          description: event.info,
+          description: event.info ?? '',
           startDate: event.start,
           endDate: event.end,
           location: '',
