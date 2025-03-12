@@ -205,6 +205,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "La hora de fin debe ser después de la hora de inicio."),
+        "errorMsgEventCreationFailed": MessageLookupByLibrary.simpleMessage(
+            "La creación del evento falló. Por favor, inténtalo de nuevo."),
         "errorMsgGuestValidationError": MessageLookupByLibrary.simpleMessage(
             "Por favor seleccione un invitado"),
         "errorMsgHoursValidationError": MessageLookupByLibrary.simpleMessage(
@@ -219,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "estimatedCostDisclaimer": MessageLookupByLibrary.simpleMessage(
             "El costo estimado es solo una estimación y puede variar según el trabajo real"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Color del Evento"),
+        "eventCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Evento creado con éxito."),
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Detalles del Evento"),
         "eventLocation":
@@ -228,6 +232,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventOverlapMessage": MessageLookupByLibrary.simpleMessage(
             "Este evento se superpone con un evento existente. ¿Deseas continuar?"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Título del Evento"),
+        "eventUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Evento actualizado con éxito."),
         "expand": MessageLookupByLibrary.simpleMessage("Expandir"),
         "extraInfo":
             MessageLookupByLibrary.simpleMessage("Información Adicional"),

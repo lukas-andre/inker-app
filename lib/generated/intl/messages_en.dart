@@ -196,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "End time must be after start time."),
+        "errorMsgEventCreationFailed": MessageLookupByLibrary.simpleMessage(
+            "Event creation failed. Please try again."),
         "errorMsgGuestValidationError":
             MessageLookupByLibrary.simpleMessage("Please select guest"),
         "errorMsgHoursValidationError":
@@ -210,12 +212,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "estimatedCostDisclaimer": MessageLookupByLibrary.simpleMessage(
             "This is an estimated cost and may vary based on the final design or service"),
         "eventColor": MessageLookupByLibrary.simpleMessage("Event Color"),
+        "eventCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Event created successfully."),
         "eventDetails": MessageLookupByLibrary.simpleMessage("Event Details"),
         "eventLocation": MessageLookupByLibrary.simpleMessage("Event Location"),
         "eventOverlap": MessageLookupByLibrary.simpleMessage("Event Overlap"),
         "eventOverlapMessage": MessageLookupByLibrary.simpleMessage(
             "This event overlaps with an existing event. Do you want to proceed?"),
         "eventTitle": MessageLookupByLibrary.simpleMessage("Event Title"),
+        "eventUpdatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Event updated successfully."),
         "expand": MessageLookupByLibrary.simpleMessage("Expand"),
         "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),

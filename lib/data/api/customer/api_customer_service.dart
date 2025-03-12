@@ -58,12 +58,14 @@ class ApiCustomerService implements CustomerService {
   @override
   Future<SearchCustomerResponse> searchByTerm(String token, String term) async {
     try {
-      return await _httpClient.get(
+      final customers = await _httpClient.getList(
         path: 'customers/search',
         token: token,
         queryParams: {'term': term},
-        fromJson: (json) => SearchCustomerResponse.fromJson(json),
+        fromJson: (json) => CustomerDTO.fromJson(json),
       );
+
+      return SearchCustomerResponse(customers: customers);
     } on CustomHttpException catch (e) {
       dev.logError(e, StackTrace.current);
       
