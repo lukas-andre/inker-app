@@ -12,7 +12,7 @@ class NotesField extends StatefulWidget {
 }
 
 class _NotesFieldState extends State<NotesField> {
-  static const int maxNoteLength = 10;
+  static const int maxNoteLength = 250;
   final TextEditingController _controller = TextEditingController();
 
   @override

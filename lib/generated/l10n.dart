@@ -3135,6 +3135,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Evento actualizado con éxito.`
+  String get eventUpdatedSuccessfully {
+    return Intl.message(
+      'Evento actualizado con éxito.',
+      name: 'eventUpdatedSuccessfully',
+      desc: 'Mensaje mostrado cuando un evento se actualiza con éxito.',
+      args: [],
+    );
+  }
+
+  /// `Evento creado con éxito.`
+  String get eventCreatedSuccessfully {
+    return Intl.message(
+      'Evento creado con éxito.',
+      name: 'eventCreatedSuccessfully',
+      desc: 'Mensaje mostrado cuando un nuevo evento se crea con éxito.',
+      args: [],
+    );
+  }
+
+  /// `La creación del evento falló. Por favor, inténtalo de nuevo.`
+  String get errorMsgEventCreationFailed {
+    return Intl.message(
+      'La creación del evento falló. Por favor, inténtalo de nuevo.',
+      name: 'errorMsgEventCreationFailed',
+      desc: 'Mensaje de error mostrado cuando la creación del evento falla.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -32,7 +32,7 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       start: DateTime.parse(json['startDate'] as String),
       end: DateTime.parse(json['endDate'] as String),
       color: json['color'] as String,
-      info: json['info'] as String,
+      info: json['info'] as String?,
       notification: json['notification'] as bool,
       done: json['done'] as bool,
       workEvidence: json['workEvidence'] == null
@@ -43,7 +43,7 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num).toInt(),
+      quotationId: (json['quotationId'] as num?)?.toInt(),
       notes: json['notes'] as String?,
       preparationTimeMinutes: (json['preparationTimeMinutes'] as num?)?.toInt(),
       cleanupTimeMinutes: (json['cleanupTimeMinutes'] as num?)?.toInt(),
@@ -60,9 +60,6 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
     'startDate': instance.start.toIso8601String(),
     'endDate': instance.end.toIso8601String(),
     'color': instance.color,
-    'info': instance.info,
-    'notification': instance.notification,
-    'done': instance.done,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -71,10 +68,13 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
     }
   }
 
+  writeNotNull('info', instance.info);
+  val['notification'] = instance.notification;
+  val['done'] = instance.done;
   writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
-  val['quotationId'] = instance.quotationId;
+  writeNotNull('quotationId', instance.quotationId);
   writeNotNull('notes', instance.notes);
   writeNotNull('preparationTimeMinutes', instance.preparationTimeMinutes);
   writeNotNull('cleanupTimeMinutes', instance.cleanupTimeMinutes);

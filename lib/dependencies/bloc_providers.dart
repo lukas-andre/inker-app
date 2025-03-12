@@ -126,6 +126,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       create: (context) => ArtistAgendaCreateEventBloc(
         customerService: context.read(),
         sessionService: context.read(),
+        agendaService: context.read(),
       ),
     ),
     BlocProvider(

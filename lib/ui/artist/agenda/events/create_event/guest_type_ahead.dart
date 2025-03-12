@@ -30,7 +30,7 @@ class GuestTypeAheadField extends StatelessWidget {
       },
       loadingBuilder: (context) => Container(
         height: 40,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: primaryColor,
         ),
         child: const Center(

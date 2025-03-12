@@ -150,6 +150,9 @@ class HttpClientService {
 
       if (response.statusCode == HttpStatus.ok ||
           response.statusCode == HttpStatus.created) {
+        if (response.body.isEmpty) {
+          return fromJson({});
+        }
         return fromJson(json.decode(response.body));
       } else if (response.statusCode == HttpStatus.noContent) {
         return fromJson({});
