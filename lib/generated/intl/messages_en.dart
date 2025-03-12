@@ -60,11 +60,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Action successful"),
         "addDescription":
             MessageLookupByLibrary.simpleMessage("Add Description"),
+        "addLocation": MessageLookupByLibrary.simpleMessage("Add Location"),
         "addStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Add Studio Photo"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Additional Details"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
+        "addressDetails":
+            MessageLookupByLibrary.simpleMessage("Address Details"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appeal": MessageLookupByLibrary.simpleMessage("Appeal"),
         "appealQuotation":
@@ -91,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Appointment Details"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
+        "areYouSureDelete": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artist"),
@@ -181,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account."),
+        "deleteLocation":
+            MessageLookupByLibrary.simpleMessage("Delete Location"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
@@ -188,11 +195,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Duration cannot be zero"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editEvent": MessageLookupByLibrary.simpleMessage("Edit Event"),
+        "editLocation": MessageLookupByLibrary.simpleMessage("Edit Location"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
         "endTime": MessageLookupByLibrary.simpleMessage("End Time"),
+        "enterAddress": MessageLookupByLibrary.simpleMessage("Enter address"),
+        "enterLocationName":
+            MessageLookupByLibrary.simpleMessage("Enter location name"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "End time must be after start time."),
@@ -249,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "locationDetails":
             MessageLookupByLibrary.simpleMessage("Location Details"),
+        "locationName": MessageLookupByLibrary.simpleMessage("Location Name"),
         "locationPermissionRequired": MessageLookupByLibrary.simpleMessage(
             "Location permission required"),
         "locationServices":
@@ -258,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
+        "manageLocations":
+            MessageLookupByLibrary.simpleMessage("Manage Locations"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Member since"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
         "minutesAgo": m5,
@@ -276,6 +290,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No image selected"),
         "noImagesAvailable":
             MessageLookupByLibrary.simpleMessage("No images available"),
+        "noLocationsAvailable":
+            MessageLookupByLibrary.simpleMessage("No locations available"),
         "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any notifications yet."),
         "noNotificationsTitle":

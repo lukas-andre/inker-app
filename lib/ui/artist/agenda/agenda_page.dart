@@ -99,7 +99,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.day;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                      ArtistAgendaEvent.formatChanged(CalendarFormat.week),
+                      const ArtistAgendaEvent.formatChanged(CalendarFormat.week),
                     );
               },
             ),
@@ -113,7 +113,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.week;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                      ArtistAgendaEvent.formatChanged(CalendarFormat.week),
+                      const ArtistAgendaEvent.formatChanged(CalendarFormat.week),
                     );
               },
             ),
@@ -127,7 +127,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
                   _currentView = CalendarViewType.month;
                 });
                 context.read<ArtistAgendaBloc>().add(
-                      ArtistAgendaEvent.formatChanged(CalendarFormat.month),
+                      const ArtistAgendaEvent.formatChanged(CalendarFormat.month),
                     );
               },
             ),

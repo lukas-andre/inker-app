@@ -10,6 +10,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cub
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
@@ -30,6 +31,7 @@ import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
@@ -151,6 +153,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => ArtistMyProfileBloc(
         context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistLocationBloc(
+        context.read<LocationService>(),
+        context.read<LocalSessionService>(),
       ),
     ),
 
