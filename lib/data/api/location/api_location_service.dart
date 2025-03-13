@@ -127,13 +127,12 @@ class ApiLocationService implements LocationService {
   Future<bool> deleteArtistLocation(String token, int artistId, int locationId) async {
     try {
       // For DELETE endpoints that return a boolean result
-      final response = await _httpClient.post(
+      await _httpClient.delete(
         path: 'locations/artist/$artistId/locations/$locationId',
         token: token,
         body: {},
-        fromJson: (json) => json['success'] == true,
       );
-      return response;
+      return true;
     } on CustomHttpException catch (e) {
       dev.logError(e, StackTrace.current);
       _handleHttpException(e);

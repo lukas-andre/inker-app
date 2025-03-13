@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:collection';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/config/http_client_config.dart';
@@ -38,9 +40,71 @@ class Suggestion {
     return 'Suggestion(description: $description, placeId: $placeId)';
   }
 }
-// TODO: use the new http client
+
+/// Rate limiter for Google Places API to prevent quota exhaustion
+class RateLimiter {
+  final int maxRequestsPerMinute;
+  final Queue<DateTime> _requestTimestamps = Queue();
+  final Map<String, dynamic> _cache = {};
+  final Duration _cacheExpiry;
+  
+  RateLimiter({
+    this.maxRequestsPerMinute = 10, // Default rate limit of 10 requests per minute
+    Duration? cacheExpiry,
+  }) : _cacheExpiry = cacheExpiry ?? const Duration(hours: 1);
+  
+  /// Check if we can make a new request. If not, waits until it's possible.
+  Future<void> throttle() async {
+    final now = DateTime.now();
+    
+    // Remove timestamps older than 1 minute
+    while (_requestTimestamps.isNotEmpty && 
+           now.difference(_requestTimestamps.first).inMinutes >= 1) {
+      _requestTimestamps.removeFirst();
+    }
+    
+    // If we've reached the limit, wait until we can make another request
+    if (_requestTimestamps.length >= maxRequestsPerMinute) {
+      final oldestTimestamp = _requestTimestamps.first;
+      final waitTime = Duration(minutes: 1) - now.difference(oldestTimestamp);
+      if (waitTime.inMilliseconds > 0) {
+        await Future.delayed(waitTime);
+      }
+      // Clean outdated timestamps after waiting
+      return throttle();
+    }
+    
+    // Add current timestamp to the queue
+    _requestTimestamps.add(now);
+  }
+  
+  /// Store response in cache
+  void cacheResponse(String key, dynamic response) {
+    _cache[key] = {
+      'data': response,
+      'timestamp': DateTime.now()
+    };
+  }
+  
+  /// Get cached response if available and not expired
+  dynamic getCachedResponse(String key) {
+    final cachedItem = _cache[key];
+    if (cachedItem != null) {
+      final timestamp = cachedItem['timestamp'] as DateTime;
+      if (DateTime.now().difference(timestamp) < _cacheExpiry) {
+        return cachedItem['data'];
+      } else {
+        // Remove expired cache entry
+        _cache.remove(key);
+      }
+    }
+    return null;
+  }
+}
+
 class GcpPlacesService implements PlacesService {
   final HttpClientConfig _httpConfig;
+  final RateLimiter _rateLimiter = RateLimiter();
 
   //https://developers.google.com/maps/faq#languagesupport
   final lang = 'es-419';
@@ -59,6 +123,16 @@ class GcpPlacesService implements PlacesService {
   @override
   // https://developers.google.com/maps/documentation/places/web-service/autocomplete#maps_http_places_autocomplete_amoeba-sh
   Future<List<Prediction>> getAutoComplete(String input) async {
+    // Check cache first
+    final cacheKey = 'autocomplete_$input';
+    final cachedResult = _rateLimiter.getCachedResponse(cacheKey);
+    if (cachedResult != null) {
+      return cachedResult as List<Prediction>;
+    }
+    
+    // Apply rate limiting
+    await _rateLimiter.throttle();
+    
     final uri =
         Uri.https('maps.googleapis.com', '/maps/api/place/autocomplete/json', {
       'language': lang,
@@ -72,6 +146,8 @@ class GcpPlacesService implements PlacesService {
     if (response.statusCode == 200) {
       final prediction = PredictionResult.fromRawJson(response.body);
       if (prediction.status == 'OK') {
+        // Cache the result
+        _rateLimiter.cacheResponse(cacheKey, prediction.predictions);
         return prediction.predictions;
       }
 
@@ -90,6 +166,16 @@ class GcpPlacesService implements PlacesService {
 
   @override
   Future<PlaceDetailsResult?> getPlaceDetails(String id) async {
+    // Check cache first
+    final cacheKey = 'placedetails_$id';
+    final cachedResult = _rateLimiter.getCachedResponse(cacheKey);
+    if (cachedResult != null) {
+      return cachedResult as PlaceDetailsResult?;
+    }
+    
+    // Apply rate limiting
+    await _rateLimiter.throttle();
+
     final uri =
         Uri.https('maps.googleapis.com', '/maps/api/place/details/json', {
       'key': apiKey,
@@ -104,6 +190,8 @@ class GcpPlacesService implements PlacesService {
     if (response.statusCode == 200) {
       final details = PlaceDetailsResponse.fromRawJson(response.body);
       if (details.status == 'OK') {
+        // Cache the result
+        _rateLimiter.cacheResponse(cacheKey, details.result);
         return details.result;
       }
 
