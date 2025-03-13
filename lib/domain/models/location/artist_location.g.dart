@@ -15,7 +15,8 @@ _$ArtistLocationImpl _$$ArtistLocationImplFromJson(Map json) =>
       shortAddress1: json['shortAddress1'] as String?,
       address2: json['address2'] as String,
       address3: json['address3'] as String?,
-      addressType: json['addressType'] as String?,
+      addressType:
+          $enumDecodeNullable(_$AddressTypeEnumMap, json['addressType']),
       state: json['state'] as String?,
       city: json['city'] as String,
       country: json['country'] as String?,
@@ -54,7 +55,7 @@ Map<String, dynamic> _$$ArtistLocationImplToJson(
   writeNotNull('shortAddress1', instance.shortAddress1);
   val['address2'] = instance.address2;
   writeNotNull('address3', instance.address3);
-  writeNotNull('addressType', instance.addressType);
+  writeNotNull('addressType', _$AddressTypeEnumMap[instance.addressType]);
   writeNotNull('state', instance.state);
   val['city'] = instance.city;
   writeNotNull('country', instance.country);
@@ -70,3 +71,10 @@ Map<String, dynamic> _$$ArtistLocationImplToJson(
   writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
   return val;
 }
+
+const _$AddressTypeEnumMap = {
+  AddressType.HOME: 'HOME',
+  AddressType.DEPARTMENT: 'DEPARTMENT',
+  AddressType.STUDIO: 'STUDIO',
+  AddressType.OFFICE: 'OFFICE',
+};

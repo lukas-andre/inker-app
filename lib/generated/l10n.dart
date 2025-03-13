@@ -3265,6 +3265,17 @@ class S {
       args: [],
     );
   }
+
+  /// `No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación.`
+  String get cannotDeleteLastLocation {
+    return Intl.message(
+      'No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación.',
+      name: 'cannotDeleteLastLocation',
+      desc:
+          'Mensaje de error mostrado al intentar eliminar la última ubicación.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

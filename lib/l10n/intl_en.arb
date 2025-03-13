@@ -1355,6 +1355,9 @@
   "addressDetails": "Address Details",
   "@addressDetails": {
     "description": "Label for the address details section."
+  },
+  "cannotDeleteLastLocation": "Cannot delete the last location. Artists must have at least one location.",
+  "@cannotDeleteLastLocation": {
+    "description": "Error message shown when trying to delete the last location."
   }
-
 }

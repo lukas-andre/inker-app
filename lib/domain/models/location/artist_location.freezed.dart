@@ -27,7 +27,7 @@ mixin _$ArtistLocation {
   String? get shortAddress1 => throw _privateConstructorUsedError;
   String get address2 => throw _privateConstructorUsedError;
   String? get address3 => throw _privateConstructorUsedError;
-  String? get addressType => throw _privateConstructorUsedError;
+  AddressType? get addressType => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
@@ -62,7 +62,7 @@ abstract class $ArtistLocationCopyWith<$Res> {
       String? shortAddress1,
       String address2,
       String? address3,
-      String? addressType,
+      AddressType? addressType,
       String? state,
       String city,
       String? country,
@@ -145,7 +145,7 @@ class _$ArtistLocationCopyWithImpl<$Res, $Val extends ArtistLocation>
       addressType: freezed == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as AddressType?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -218,7 +218,7 @@ abstract class _$$ArtistLocationImplCopyWith<$Res>
       String? shortAddress1,
       String address2,
       String? address3,
-      String? addressType,
+      AddressType? addressType,
       String? state,
       String city,
       String? country,
@@ -299,7 +299,7 @@ class __$$ArtistLocationImplCopyWithImpl<$Res>
       addressType: freezed == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as AddressType?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -401,7 +401,7 @@ class _$ArtistLocationImpl implements _ArtistLocation {
   @override
   final String? address3;
   @override
-  final String? addressType;
+  final AddressType? addressType;
   @override
   final String? state;
   @override
@@ -535,7 +535,7 @@ abstract class _ArtistLocation implements ArtistLocation {
       final String? shortAddress1,
       required final String address2,
       final String? address3,
-      final String? addressType,
+      final AddressType? addressType,
       final String? state,
       required final String city,
       final String? country,
@@ -568,7 +568,7 @@ abstract class _ArtistLocation implements ArtistLocation {
   @override
   String? get address3;
   @override
-  String? get addressType;
+  AddressType? get addressType;
   @override
   String? get state;
   @override

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/location/dtos/artist_location_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/models/location/artist_location.dart';
+import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/shared/location/location_input_page.dart';
@@ -196,17 +198,29 @@ class ArtistLocationManagerPage extends StatelessWidget {
 
       final locationOrder = currentLocations.length;
 
+      // Create a viewport object from the result
+      Map<String, dynamic>? viewportMap = result['viewport'] as Map<String, dynamic>?;
+      
+      // Extract address type from result
+      AddressType addressType = result['addressType'] as AddressType? ?? AddressType.STUDIO;
+      
       final newLocation = ArtistLocation(
         artistId: artistId,
         name: result['name'] as String,
-        address1: result['address1'] as String,
-        address2: result['address2'] as String,
-        city: result['city'] as String,
+        address1: result['address1'] as String? ?? '',
+        shortAddress1: result['shortAddress1'] as String? ?? '',
+        address2: result['address2'] as String? ?? '',
+        address3: result['address3'] as String?,
+        addressType: addressType,
+        state: result['state'] as String? ?? '',
+        city: result['city'] as String? ?? '',
+        country: result['country'] as String? ?? '',
+        formattedAddress: result['formattedAddress'] as String?,
         lat: result['lat'] as double,
         lng: result['lng'] as double,
-        formattedAddress: result['formattedAddress'] as String?,
+        viewport: viewportMap,
         locationOrder: locationOrder,
-        googlePlaceId: result['placeId'] as String?,
+        googlePlaceId: result['googlePlaceId'] as String?,
       );
 
       bloc.add(ArtistLocationEvent.createLocation(artistId, newLocation));
@@ -224,7 +238,12 @@ class ArtistLocationManagerPage extends StatelessWidget {
           initialName: location.name,
           initialAddress: location.formattedAddress ??
               '${location.address1}, ${location.address2}, ${location.city}',
-          initialLatLng: LatLng(location.lat, location.lng),
+          initialLatLng: LatLng(
+            lat: location.lat, 
+            lng: location.lng,
+          ),
+          initialPlaceId: location.googlePlaceId,
+          initialAddressType: location.addressType,
         ),
       ),
     );
@@ -232,15 +251,27 @@ class ArtistLocationManagerPage extends StatelessWidget {
     if (result != null && context.mounted) {
       final bloc = BlocProvider.of<ArtistLocationBloc>(context);
 
+      // Extract viewport from the result
+      Map<String, dynamic>? viewportMap = result['viewport'] as Map<String, dynamic>?;
+      
+      // Extract address type from result
+      AddressType addressType = result['addressType'] as AddressType? ?? location.addressType ?? AddressType.STUDIO;
+      
       final updatedLocation = location.copyWith(
         name: result['name'] as String,
-        address1: result['address1'] as String,
-        address2: result['address2'] as String,
-        city: result['city'] as String,
+        address1: result['address1'] as String? ?? location.address1,
+        shortAddress1: result['shortAddress1'] as String? ?? location.shortAddress1,
+        address2: result['address2'] as String? ?? location.address2,
+        address3: result['address3'] as String? ?? location.address3,
+        addressType: addressType,
+        state: result['state'] as String? ?? location.state,
+        city: result['city'] as String? ?? location.city,
+        country: result['country'] as String? ?? location.country,
+        formattedAddress: result['formattedAddress'] as String?,
         lat: result['lat'] as double,
         lng: result['lng'] as double,
-        formattedAddress: result['formattedAddress'] as String?,
-        googlePlaceId: result['placeId'] as String?,
+        viewport: viewportMap ?? location.viewport,
+        googlePlaceId: result['googlePlaceId'] as String?,
       );
 
       bloc.add(ArtistLocationEvent.updateLocation(
@@ -250,6 +281,24 @@ class ArtistLocationManagerPage extends StatelessWidget {
 
   Future<void> _confirmDeleteLocation(
       BuildContext context, ArtistLocation location) async {
+    final bloc = BlocProvider.of<ArtistLocationBloc>(context);
+    final currentLocations = bloc.state.maybeWhen(
+      loaded: (locations) => locations,
+      orElse: () => <ArtistLocation>[],
+    );
+    
+    // Check if this is the last location
+    if (currentLocations.length <= 1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.of(context).cannotDeleteLastLocation ?? 
+              'Cannot delete the last location. Artists must have at least one location.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -275,15 +324,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
     );
 
     if (result == true && context.mounted) {
-      final bloc = BlocProvider.of<ArtistLocationBloc>(context);
       bloc.add(ArtistLocationEvent.deleteLocation(artistId, location.id!));
     }
   }
-}
-
-class LatLng {
-  final double latitude;
-  final double longitude;
-
-  const LatLng(this.latitude, this.longitude);
 }

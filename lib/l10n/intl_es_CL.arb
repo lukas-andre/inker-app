@@ -1361,6 +1361,10 @@
   "addressDetails": "Detalles de la Dirección",
   "@addressDetails": {
     "description": "Etiqueta para la sección de detalles de la dirección."
+  },
+  "cannotDeleteLastLocation": "No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación.",
+  "@cannotDeleteLastLocation": {
+    "description": "Mensaje de error mostrado al intentar eliminar la última ubicación."
   }
 
 }

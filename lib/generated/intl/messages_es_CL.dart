@@ -143,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancellationReason":
             MessageLookupByLibrary.simpleMessage("Motivo de Cancelación"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "cannotDeleteLastLocation": MessageLookupByLibrary.simpleMessage(
+            "No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación."),
         "change": MessageLookupByLibrary.simpleMessage("Cambiar"),
         "changeAppointment":
             MessageLookupByLibrary.simpleMessage("Cambiar Cita"),

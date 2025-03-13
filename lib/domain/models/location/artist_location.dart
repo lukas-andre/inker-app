@@ -14,7 +14,7 @@ class ArtistLocation with _$ArtistLocation {
     String? shortAddress1,
     required String address2,
     String? address3,
-    String? addressType,
+    AddressType? addressType,
     String? state,
     required String city,
     String? country,
@@ -42,7 +42,7 @@ class ArtistLocation with _$ArtistLocation {
       shortAddress1: dto.shortAddress1,
       address2: dto.address2,
       address3: dto.address3,
-      addressType: dto.addressType,
+      addressType: dto.addressType, // Now it's an enum
       state: dto.state,
       city: dto.city,
       country: dto.country,
