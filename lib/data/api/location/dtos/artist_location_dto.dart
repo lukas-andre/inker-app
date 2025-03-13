@@ -2,6 +2,47 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'artist_location_dto.g.dart';
 
+enum AddressType {
+  HOME,
+  DEPARTMENT,
+  STUDIO,
+  OFFICE,
+}
+
+// Extension for converting enum to string
+extension AddressTypeExtension on AddressType {
+  String get value {
+    switch (this) {
+      case AddressType.HOME:
+        return 'HOME';
+      case AddressType.DEPARTMENT:
+        return 'DEPARTMENT';
+      case AddressType.STUDIO:
+        return 'STUDIO';
+      case AddressType.OFFICE:
+        return 'OFFICE';
+    }
+  }
+}
+
+// Extension for converting string to enum
+extension StringToAddressTypeExtension on String {
+  AddressType toAddressType() {
+    switch (this.toUpperCase()) {
+      case 'HOME':
+        return AddressType.HOME;
+      case 'DEPARTMENT':
+        return AddressType.DEPARTMENT;
+      case 'STUDIO':
+        return AddressType.STUDIO;
+      case 'OFFICE':
+        return AddressType.OFFICE;
+      default:
+        return AddressType.STUDIO; // Default for safety
+    }
+  }
+}
+
 @JsonSerializable()
 class ArtistLocationDto {
   final int? id;
@@ -11,7 +52,13 @@ class ArtistLocationDto {
   final String? shortAddress1;
   final String address2;
   final String? address3;
-  final String? addressType;
+  
+  @JsonKey(
+    toJson: _addressTypeToJson,
+    fromJson: _addressTypeFromJson,
+  )
+  final AddressType addressType;
+  
   final String? state;
   final String city;
   final String? country;
@@ -34,7 +81,7 @@ class ArtistLocationDto {
     this.shortAddress1,
     required this.address2,
     this.address3,
-    this.addressType,
+    required this.addressType,
     this.state,
     required this.city,
     this.country,
@@ -54,16 +101,28 @@ class ArtistLocationDto {
       _$ArtistLocationDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ArtistLocationDtoToJson(this);
+  
+  // Helper methods for JSON serialization
+  static String _addressTypeToJson(AddressType addressType) => addressType.value;
+  static AddressType _addressTypeFromJson(String? addressType) => 
+      addressType != null ? addressType.toAddressType() : AddressType.STUDIO;
 }
 
 @JsonSerializable()
 class CreateArtistLocationRequest {
+  final int artistId;
   final String name;
   final String address1;
   final String? shortAddress1;
   final String address2;
   final String? address3;
-  final String? addressType;
+  
+  @JsonKey(
+    toJson: _addressTypeToJson,
+    fromJson: _addressTypeFromJson,
+  )
+  final AddressType addressType;
+  
   final String? state;
   final String city;
   final String? country;
@@ -76,12 +135,13 @@ class CreateArtistLocationRequest {
   final String? profileThumbnail;
 
   CreateArtistLocationRequest({
+    required this.artistId,
     required this.name,
     required this.address1,
     this.shortAddress1,
     required this.address2,
     this.address3,
-    this.addressType,
+    required this.addressType,
     this.state,
     required this.city,
     this.country,
@@ -98,6 +158,11 @@ class CreateArtistLocationRequest {
       _$CreateArtistLocationRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateArtistLocationRequestToJson(this);
+  
+  // Helper methods for JSON serialization
+  static String _addressTypeToJson(AddressType addressType) => addressType.value;
+  static AddressType _addressTypeFromJson(String? addressType) => 
+      addressType != null ? addressType.toAddressType() : AddressType.STUDIO;
 }
 
 @JsonSerializable()
@@ -107,7 +172,13 @@ class UpdateArtistLocationRequest {
   final String? shortAddress1;
   final String? address2;
   final String? address3;
-  final String? addressType;
+  
+  @JsonKey(
+    toJson: _addressTypeToJsonNullable,
+    fromJson: _addressTypeFromJsonNullable,
+  )
+  final AddressType? addressType;
+  
   final String? state;
   final String? city;
   final String? country;
@@ -119,6 +190,9 @@ class UpdateArtistLocationRequest {
   final String? googlePlaceId;
   final String? profileThumbnail;
   final bool? isActive;
+  
+  // Always include artistId
+  final int artistId;
 
   UpdateArtistLocationRequest({
     this.name,
@@ -138,10 +212,18 @@ class UpdateArtistLocationRequest {
     this.googlePlaceId,
     this.profileThumbnail,
     this.isActive,
+    required this.artistId,
   });
 
   factory UpdateArtistLocationRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateArtistLocationRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateArtistLocationRequestToJson(this);
+  
+  // Helper methods for JSON serialization
+  static String? _addressTypeToJsonNullable(AddressType? addressType) => 
+      addressType?.value;
+  
+  static AddressType? _addressTypeFromJsonNullable(String? addressType) => 
+      addressType != null ? addressType.toAddressType() : null;
 }

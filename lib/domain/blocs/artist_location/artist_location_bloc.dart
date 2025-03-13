@@ -60,12 +60,13 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
       }
       
       final request = CreateArtistLocationRequest(
+        artistId: artistId,
         name: location.name,
         address1: location.address1,
         shortAddress1: location.shortAddress1,
         address2: location.address2,
         address3: location.address3,
-        addressType: location.addressType,
+        addressType: location.addressType!,
         state: location.state,
         city: location.city,
         country: location.country,
@@ -131,6 +132,7 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
         googlePlaceId: location.googlePlaceId,
         profileThumbnail: location.profileThumbnail,
         isActive: location.isActive,
+        artistId: artistId, // Include the artistId
       );
       
       final locationDto = await _locationService.updateArtistLocation(
