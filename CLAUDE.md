@@ -1,0 +1,24 @@
+# CLAUDE.md - Inker Studio Project Guide
+
+## Development Commands
+- Build code-generation: `make build` or `dart run build_runner build`
+- Generate i18n: `make intl` or `dart run intl_utils:generate`
+- Build all: `make build-all`
+- Run tests: `flutter test path/to/test_file.dart`
+- Run single integration test: `make test-specific test=integration_test/path/to/test_file.dart device=<device_id>`
+- Run test with coverage: `make test-coverage`
+- Linting: `flutter analyze`
+- Build iOS: `make build-ios`
+- Build Android: `make build-android`
+
+## Code Style Guidelines
+- **Architecture**: Clean architecture (data/domain/ui layers)
+- **Imports**: Order by 1) Dart, 2) Packages, 3) Project, 4) Part directives
+- **Naming**: PascalCase for classes, camelCase for variables/methods, snake_case for files
+- **State Management**: BLoC pattern with Events and States as immutable classes + Freezed for State and Event classes + BlocProvider for dependency injection 
+- **Models**: Use Freezed for immutable data classes with code generation
+- **Strings**: Prefer single quotes (`'text'` not `"text"`)
+- **Dependency Injection**: Constructor-based injection with RepositoryProvider/BlocProvider
+- **Error Handling**: Custom exceptions, try-catch blocks, error states in BLoCs
+- **Comments**: Use doc comments `///` for public APIs
+- **Formatting**: Follow analysis_options.yaml rules, use flutter_lints
