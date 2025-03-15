@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/data/api/stencil/stencil_client_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
+import 'package:inker_studio/ui/artist/stencil/add_stencil_page.dart';
+import 'package:inker_studio/ui/artist/stencil/stencil_detail_page.dart';
+import 'package:inker_studio/ui/artist/stencil/stencil_gallery_page.dart';
 import 'package:inker_studio/ui/customer/appointments/appointment_detail_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
@@ -294,7 +303,13 @@ class AppRoutes {
 
     if (settings.name == '/artistProfile') {
       return MaterialPageRoute(
-        builder: (context) => const ArtistMyProfilePage(),
+        builder: (context) {
+          // Aseguramos que el bloc esté disponible cuando se navega directamente a esta ruta
+          return BlocProvider.value(
+            value: context.read<ArtistStencilBloc>(),
+            child: const ArtistMyProfilePage(),
+          );
+        },
       );
     }
 
@@ -341,6 +356,43 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const ErrorPage(
             message: 'Appointment ID is required',
+          ),
+        );
+      }
+    }
+
+    // Stencil-related routes
+    if (settings.name == '/stencils') {
+      return MaterialPageRoute(
+        builder: (context) {
+          // Use the global ArtistStencilBloc instead of creating a new one
+          return const StencilGalleryPage();
+        },
+      );
+    }
+    
+    if (settings.name == '/stencils/add') {
+      return MaterialPageRoute(
+        builder: (context) {
+          // Use the global ArtistStencilBloc instead of creating a new one
+          return const AddStencilPage();
+        },
+      );
+    }
+    
+    if (settings.name == '/stencils/detail') {
+      if (settings.arguments is Stencil) {
+        final stencil = settings.arguments as Stencil;
+        return MaterialPageRoute(
+          builder: (context) {
+            // Use the global ArtistStencilBloc instead of creating a new one
+            return StencilDetailPage(stencil: stencil);
+          },
+        );
+      } else {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(
+            message: 'Invalid argument type. Expected a Stencil object.',
           ),
         );
       }

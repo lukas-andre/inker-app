@@ -11,6 +11,7 @@ import 'package:inker_studio/data/api/notifications/api_notifications_service.da
 import 'package:inker_studio/data/api/quotation/api_quotation_service.dart';
 import 'package:inker_studio/data/api/review/api_review_service.dart';
 import 'package:inker_studio/data/api/settings/api_settings_service.dart';
+import 'package:inker_studio/data/api/stencil/stencil_client_service.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
@@ -34,6 +35,7 @@ import 'package:inker_studio/domain/services/appointment/appointment_service.dar
 import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
 import 'package:inker_studio/domain/usescases/auth/login_usecase.dart';
@@ -64,6 +66,7 @@ Future<List<RepositoryProvider>> buildProviders() async {
         create: (context) => ApiArtistService(
               sessionService: context.read(),
             )),
+
     RepositoryProvider<AuthService>(
         create: (context) => ApiAuthService(context.read())),
     RepositoryProvider<ReviewService>(create: (_) => ApiReviewService()),
@@ -105,6 +108,9 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Finally create NotificationsService that depends on ApiNotificationsService
     RepositoryProvider<NotificationsService>(
       create: (context) => NotificationsServiceImpl(context.read<ApiNotificationsService>()),
+    ),
+    RepositoryProvider<StencilService>(
+      create: (context) => StencilClientService(context.read<HttpClientService>()),
     ),
   ];
 }
