@@ -12,6 +12,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_b
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
@@ -35,6 +36,7 @@ import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 
@@ -153,6 +155,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => ArtistMyProfileBloc(
         context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistStencilBloc(
+        context.read<StencilService>(),
+        context.read<LocalSessionService>(),
       ),
     ),
     BlocProvider(

@@ -526,8 +526,7 @@ class S {
     return Intl.message(
       'Estado',
       name: 'status',
-      desc:
-          'Campo o etiqueta para mostrar el estado de un evento o cotización.',
+      desc: 'Etiqueta para el estado',
       args: [],
     );
   }
@@ -568,7 +567,7 @@ class S {
     return Intl.message(
       'Sí',
       name: 'yes',
-      desc: 'Botón o etiqueta para confirmar algo con \'Sí\'.',
+      desc: 'Respuesta afirmativa',
       args: [],
     );
   }
@@ -578,7 +577,7 @@ class S {
     return Intl.message(
       'No',
       name: 'no',
-      desc: 'Botón o etiqueta para denegar algo con \'No\'.',
+      desc: 'Respuesta negativa',
       args: [],
     );
   }
@@ -3273,6 +3272,417 @@ class S {
       name: 'cannotDeleteLastLocation',
       desc:
           'Mensaje de error mostrado al intentar eliminar la última ubicación.',
+      args: [],
+    );
+  }
+
+  /// `Por favor selecciona una imagen`
+  String get pleaseSelectAnImage {
+    return Intl.message(
+      'Por favor selecciona una imagen',
+      name: 'pleaseSelectAnImage',
+      desc: 'Mensaje mostrado cuando no se selecciona una imagen',
+      args: [],
+    );
+  }
+
+  /// `Agregar Plantilla`
+  String get addStencil {
+    return Intl.message(
+      'Agregar Plantilla',
+      name: 'addStencil',
+      desc: 'Acción para agregar una nueva plantilla',
+      args: [],
+    );
+  }
+
+  /// `Plantilla creada exitosamente`
+  String get stencilCreatedSuccessfully {
+    return Intl.message(
+      'Plantilla creada exitosamente',
+      name: 'stencilCreatedSuccessfully',
+      desc: 'Mensaje mostrado cuando se crea una plantilla exitosamente',
+      args: [],
+    );
+  }
+
+  /// `Toca para seleccionar una imagen`
+  String get tapToSelectImage {
+    return Intl.message(
+      'Toca para seleccionar una imagen',
+      name: 'tapToSelectImage',
+      desc: 'Instrucción para tocar y seleccionar una imagen',
+      args: [],
+    );
+  }
+
+  /// `Título`
+  String get title {
+    return Intl.message(
+      'Título',
+      name: 'title',
+      desc: 'Etiqueta para el campo de título',
+      args: [],
+    );
+  }
+
+  /// `Por favor ingresa un título`
+  String get pleaseEnterATitle {
+    return Intl.message(
+      'Por favor ingresa un título',
+      name: 'pleaseEnterATitle',
+      desc: 'Mensaje de validación cuando el título está vacío',
+      args: [],
+    );
+  }
+
+  /// `Fuente`
+  String get source {
+    return Intl.message(
+      'Fuente',
+      name: 'source',
+      desc: 'Etiqueta de fuente',
+      args: [],
+    );
+  }
+
+  /// `Plantilla Destacada`
+  String get featuredStencil {
+    return Intl.message(
+      'Plantilla Destacada',
+      name: 'featuredStencil',
+      desc: 'Etiqueta para la opción de plantilla destacada',
+      args: [],
+    );
+  }
+
+  /// `La plantilla será destacada en el perfil`
+  String get stencilWillBeHighlightedInProfile {
+    return Intl.message(
+      'La plantilla será destacada en el perfil',
+      name: 'stencilWillBeHighlightedInProfile',
+      desc: 'Descripción para la opción de plantilla destacada',
+      args: [],
+    );
+  }
+
+  /// `Ocultar Plantilla`
+  String get hideStencil {
+    return Intl.message(
+      'Ocultar Plantilla',
+      name: 'hideStencil',
+      desc: 'Etiqueta para la opción de ocultar plantilla',
+      args: [],
+    );
+  }
+
+  /// `La plantilla será ocultada del público`
+  String get stencilWillBeHiddenFromPublicView {
+    return Intl.message(
+      'La plantilla será ocultada del público',
+      name: 'stencilWillBeHiddenFromPublicView',
+      desc: 'Descripción para la opción de ocultar plantilla',
+      args: [],
+    );
+  }
+
+  /// `Guardar Plantilla`
+  String get saveStencil {
+    return Intl.message(
+      'Guardar Plantilla',
+      name: 'saveStencil',
+      desc: 'Botón para guardar plantilla',
+      args: [],
+    );
+  }
+
+  /// `El título no puede estar vacío`
+  String get titleCannotBeEmpty {
+    return Intl.message(
+      'El título no puede estar vacío',
+      name: 'titleCannotBeEmpty',
+      desc: 'Mensaje de error cuando el título está vacío',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Plantilla`
+  String get deleteStencil {
+    return Intl.message(
+      'Eliminar Plantilla',
+      name: 'deleteStencil',
+      desc: 'Acción para eliminar una plantilla',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro que deseas eliminar esta plantilla?`
+  String get areYouSureYouWantToDeleteThisStencil {
+    return Intl.message(
+      '¿Estás seguro que deseas eliminar esta plantilla?',
+      name: 'areYouSureYouWantToDeleteThisStencil',
+      desc: 'Mensaje de confirmación para eliminar una plantilla',
+      args: [],
+    );
+  }
+
+  /// `Editar Plantilla`
+  String get editStencil {
+    return Intl.message(
+      'Editar Plantilla',
+      name: 'editStencil',
+      desc: 'Acción para editar una plantilla',
+      args: [],
+    );
+  }
+
+  /// `Detalles de la Plantilla`
+  String get stencilDetails {
+    return Intl.message(
+      'Detalles de la Plantilla',
+      name: 'stencilDetails',
+      desc: 'Título para la pantalla de detalles de la plantilla',
+      args: [],
+    );
+  }
+
+  /// `Plantilla actualizada exitosamente`
+  String get stencilUpdatedSuccessfully {
+    return Intl.message(
+      'Plantilla actualizada exitosamente',
+      name: 'stencilUpdatedSuccessfully',
+      desc: 'Mensaje mostrado cuando una plantilla se actualiza exitosamente',
+      args: [],
+    );
+  }
+
+  /// `Plantilla eliminada exitosamente`
+  String get stencilDeletedSuccessfully {
+    return Intl.message(
+      'Plantilla eliminada exitosamente',
+      name: 'stencilDeletedSuccessfully',
+      desc: 'Mensaje mostrado cuando una plantilla se elimina exitosamente',
+      args: [],
+    );
+  }
+
+  /// `Toca para cambiar la imagen`
+  String get tapToChangeImage {
+    return Intl.message(
+      'Toca para cambiar la imagen',
+      name: 'tapToChangeImage',
+      desc: 'Instrucción para tocar y cambiar una imagen',
+      args: [],
+    );
+  }
+
+  /// `Vistas`
+  String get views {
+    return Intl.message(
+      'Vistas',
+      name: 'views',
+      desc: 'Etiqueta para contador de vistas',
+      args: [],
+    );
+  }
+
+  /// `Me gusta`
+  String get likes {
+    return Intl.message(
+      'Me gusta',
+      name: 'likes',
+      desc: 'Etiqueta para contador de me gusta',
+      args: [],
+    );
+  }
+
+  /// `Creada`
+  String get created {
+    return Intl.message(
+      'Creada',
+      name: 'created',
+      desc: 'Etiqueta para la fecha de creación',
+      args: [],
+    );
+  }
+
+  /// `Última Actualización`
+  String get lastUpdated {
+    return Intl.message(
+      'Última Actualización',
+      name: 'lastUpdated',
+      desc: 'Etiqueta para la fecha de última actualización',
+      args: [],
+    );
+  }
+
+  /// `Oculta`
+  String get hidden {
+    return Intl.message(
+      'Oculta',
+      name: 'hidden',
+      desc: 'Etiqueta para estado oculto',
+      args: [],
+    );
+  }
+
+  /// `Visible`
+  String get visible {
+    return Intl.message(
+      'Visible',
+      name: 'visible',
+      desc: 'Etiqueta para estado visible',
+      args: [],
+    );
+  }
+
+  /// `Destacada`
+  String get featured {
+    return Intl.message(
+      'Destacada',
+      name: 'featured',
+      desc: 'Etiqueta para estado destacado',
+      args: [],
+    );
+  }
+
+  /// `Galería de Plantillas`
+  String get stencilGallery {
+    return Intl.message(
+      'Galería de Plantillas',
+      name: 'stencilGallery',
+      desc: 'Título para la pantalla de galería de plantillas',
+      args: [],
+    );
+  }
+
+  /// `Mostrando todas las plantillas`
+  String get showingAllStencils {
+    return Intl.message(
+      'Mostrando todas las plantillas',
+      name: 'showingAllStencils',
+      desc:
+          'Mensaje cuando se muestran todas las plantillas incluidas las ocultas',
+      args: [],
+    );
+  }
+
+  /// `Ocultando plantillas ocultas`
+  String get hidingHiddenStencils {
+    return Intl.message(
+      'Ocultando plantillas ocultas',
+      name: 'hidingHiddenStencils',
+      desc: 'Mensaje cuando no se muestran plantillas ocultas',
+      args: [],
+    );
+  }
+
+  /// `Plantillas Destacadas`
+  String get featuredStencils {
+    return Intl.message(
+      'Plantillas Destacadas',
+      name: 'featuredStencils',
+      desc: 'Título para la sección de plantillas destacadas',
+      args: [],
+    );
+  }
+
+  /// `Todas las Plantillas`
+  String get allStencils {
+    return Intl.message(
+      'Todas las Plantillas',
+      name: 'allStencils',
+      desc: 'Título para la sección de todas las plantillas',
+      args: [],
+    );
+  }
+
+  /// `Otras Plantillas`
+  String get allOtherStencils {
+    return Intl.message(
+      'Otras Plantillas',
+      name: 'allOtherStencils',
+      desc: 'Título para la sección de plantillas no destacadas',
+      args: [],
+    );
+  }
+
+  /// `Quitar destacado`
+  String get unfeature {
+    return Intl.message(
+      'Quitar destacado',
+      name: 'unfeature',
+      desc: 'Acción para quitar estado destacado',
+      args: [],
+    );
+  }
+
+  /// `Destacar`
+  String get feature {
+    return Intl.message(
+      'Destacar',
+      name: 'feature',
+      desc: 'Acción para agregar estado destacado',
+      args: [],
+    );
+  }
+
+  /// `Mostrar`
+  String get show {
+    return Intl.message(
+      'Mostrar',
+      name: 'show',
+      desc: 'Acción para hacer visible',
+      args: [],
+    );
+  }
+
+  /// `Ocultar`
+  String get hide {
+    return Intl.message(
+      'Ocultar',
+      name: 'hide',
+      desc: 'Acción para ocultar',
+      args: [],
+    );
+  }
+
+  /// `Aún No Hay Plantillas`
+  String get noStencilsYet {
+    return Intl.message(
+      'Aún No Hay Plantillas',
+      name: 'noStencilsYet',
+      desc: 'Mensaje cuando no existen plantillas',
+      args: [],
+    );
+  }
+
+  /// `Agrega tu primera plantilla para comenzar`
+  String get addYourFirstStencil {
+    return Intl.message(
+      'Agrega tu primera plantilla para comenzar',
+      name: 'addYourFirstStencil',
+      desc: 'Instrucción para agregar la primera plantilla',
+      args: [],
+    );
+  }
+
+  /// `Error Cargando Plantillas`
+  String get errorLoadingStencils {
+    return Intl.message(
+      'Error Cargando Plantillas',
+      name: 'errorLoadingStencils',
+      desc: 'Mensaje de error cuando las plantillas no se pueden cargar',
+      args: [],
+    );
+  }
+
+  /// `Por favor intenta más tarde`
+  String get tryAgainLater {
+    return Intl.message(
+      'Por favor intenta más tarde',
+      name: 'tryAgainLater',
+      desc: 'Sugerencia para intentar más tarde',
       args: [],
     );
   }

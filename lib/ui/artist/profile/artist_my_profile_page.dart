@@ -3,18 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/locations/artist_location_manager_page.dart';
-import 'package:inker_studio/ui/artist/profile/profile_picture.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
-class ArtistMyProfilePage extends StatelessWidget {
+class ArtistMyProfilePage extends StatefulWidget {
   const ArtistMyProfilePage({super.key});
 
   static const String kFullName = 'fullName';
@@ -28,11 +29,20 @@ class ArtistMyProfilePage extends StatelessWidget {
   static const String kPhone = 'phone';
 
   @override
-  Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<ArtistMyProfileBloc>(context);
-    bloc.state.whenOrNull(
-        initial: () => bloc.add(const ArtistProfileEvent.loadProfile()));
+  State<ArtistMyProfilePage> createState() => _ArtistMyProfilePageState();
+}
 
+class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Cargar stencils al iniciar la página
+    final bloc = context.read<ArtistMyProfileBloc>();
+    bloc.add(const ArtistProfileEvent.loadProfile());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
       body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
@@ -71,8 +81,8 @@ class ArtistMyProfilePage extends StatelessWidget {
               _buildQuickActions(context),
               _buildArtistStats(context, artist),
               _buildProfileDetails(context, artist),
-              _buildPortfolioSection(context, artist),
-              _buildStencilGallery(context),
+              _buildPortfolioSection(artist),
+              _buildStencilGallery(),
               _buildContactInfo(context, artist),
             ],
           ),
@@ -172,19 +182,19 @@ class ArtistMyProfilePage extends StatelessWidget {
             context,
             icon: Icons.brush,
             label: "Add Work",
-            onTap: () {},
+            onTap: () => _navigateToAddWork(context),
           ),
           _buildActionButton(
             context,
             icon: Icons.image,
             label: "Add Stencil",
-            onTap: () {},
+            onTap: () => _navigateToAddStencil(context),
           ),
           _buildActionButton(
             context,
             icon: Icons.location_on,
             label: "Location",
-            onTap: () {},
+            onTap: () => _navigateToLocationManager(context),
           ),
         ],
       ),
@@ -231,6 +241,17 @@ class ArtistMyProfilePage extends StatelessWidget {
       ),
     );
   }
+  
+  void _navigateToAddWork(BuildContext context) {
+    // Navigate to the add stencil page but pre-set it as a work type
+    Navigator.pushNamed(context, '/stencils/add');
+  }
+  
+  void _navigateToAddStencil(BuildContext context) {
+    // Simply navigate to the route, our updated route handler will handle the bloc
+    Navigator.pushNamed(context, '/stencils/add');
+  }
+  
 
   Widget _buildArtistStats(BuildContext context, Artist artist) {
     return Container(
@@ -284,230 +305,402 @@ class ArtistMyProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildPortfolioSection(BuildContext context, Artist artist) {
-    // Dummy data for portfolio
-    final dummyPortfolio = [
-      'https://images.unsplash.com/photo-1590246814288-997d61a10aa5?q=80&w=300',
-      'https://images.unsplash.com/photo-1595862678508-b8107d1e0432?q=80&w=300',
-      'https://images.unsplash.com/photo-1565058381756-57c69c7b51d1?q=80&w=300',
-      'https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=300',
-    ];
-
-    return Container(
-      margin: const EdgeInsets.only(top: 16.0),
-      padding: const EdgeInsets.all(16.0),
-      color: HSLColor.fromColor(primaryColor).withLightness(0.13).toColor(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Portfolio",
-                style: TextStyleTheme.headline3.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.add, color: secondaryColor, size: 18),
-                label: Text(
-                  "Add Work",
-                  style: TextStyleTheme.button.copyWith(color: secondaryColor),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 180,
-            child: dummyPortfolio.isEmpty
-                ? _buildEmptySection(
-                    context,
-                    "No tattoo works added yet",
-                    "Add photos of your best tattoo work to showcase your style",
-                    Icons.photo_album,
-                  )
-                : ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: dummyPortfolio.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 150,
-                        margin: const EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
+  Widget _buildPortfolioSection(Artist artist) {
+    return BlocProvider(
+      create: (context) {
+        final sessionService = context.read<LocalSessionService>();
+        final stencilBloc = ArtistStencilBloc(
+          context.read<StencilService>(),
+          sessionService,
+        );
+        stencilBloc.add(const ArtistStencilEvent.loadStencils(true));
+        return stencilBloc;
+      },
+      child: BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
+        builder: (context, state) {
+          return Container(
+            margin: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.all(16.0),
+            color: HSLColor.fromColor(primaryColor).withLightness(0.13).toColor(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Tattoo Works",
+                        style: TextStyleTheme.headline3.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image.network(
-                                dummyPortfolio[index],
-                                fit: BoxFit.cover,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.black.withOpacity(0.7),
-                                      ],
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Work #${index + 1}",
-                                    style: TextStyleTheme.caption.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStencilGallery(BuildContext context) {
-    // Dummy data for stencils
-    final dummyStencils = [
-      'https://images.unsplash.com/photo-1576119438483-6083d9c71637?q=80&w=300',
-      'https://images.unsplash.com/photo-1554756790-9a4a63984b23?q=80&w=300',
-      'https://images.unsplash.com/photo-1572328992812-378ab9c98a59?q=80&w=300',
-    ];
-
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      color: primaryColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Stencil Gallery",
-                style: TextStyleTheme.headline3.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.add, color: secondaryColor, size: 18),
-                label: Text(
-                  "Add Stencil",
-                  style: TextStyleTheme.button.copyWith(color: secondaryColor),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 180,
-            child: dummyStencils.isEmpty
-                ? _buildEmptySection(
-                    context,
-                    "No stencils added yet",
-                    "Add your stencil designs to showcase your style",
-                    Icons.brush,
-                  )
-                : GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 1.0,
+                      ),
                     ),
-                    itemCount: dummyStencils.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: Colors.grey.shade700,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Botón más compacto para "Add Work"
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, '/stencils/add'),
+                          icon: Icon(Icons.add_circle_outline, color: secondaryColor, size: 22),
+                          tooltip: "Add Work",
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          constraints: const BoxConstraints(),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image.network(
-                                dummyStencils[index],
-                                fit: BoxFit.cover,
+                        // Botón más compacto para "Manage"
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, '/stencils'),
+                          icon: Icon(Icons.grid_view, color: secondaryColor, size: 22),
+                          tooltip: "Manage Works",
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          constraints: const BoxConstraints(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 180,
+                  child: state.when(
+                    initial: () => const Center(child: InkerProgressIndicator()),
+                    loading: () => const Center(child: InkerProgressIndicator()),
+                    loaded: (stencils) {
+                      // Filter only non-featured stencils (regular works)
+                      final works = stencils.where((s) => !s.isFeatured && !s.isHidden).toList();
+                      
+                      if (works.isEmpty) {
+                        return _buildEmptySection(
+                          context,
+                          "No tattoo works added yet",
+                          "Add photos of your best tattoo work to showcase your style",
+                          Icons.photo_album,
+                        );
+                      }
+                      
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: works.length,
+                        itemBuilder: (context, index) {
+                          final work = works[index];
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context, 
+                              '/stencils/detail',
+                              arguments: work,
+                            ),
+                            child: Container(
+                              width: 150,
+                              margin: const EdgeInsets.only(right: 12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.black.withOpacity(0.7),
-                                      ],
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Image.network(
+                                      work.thumbnailUrl ?? work.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.image_not_supported,
+                                              color: Colors.grey.shade400,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  child: Text(
-                                    "Stencil #${index + 1}",
-                                    style: TextStyleTheme.caption.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8, horizontal: 12),
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black.withOpacity(0.7),
+                                            ],
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              work.title,
+                                              style: TextStyleTheme.caption.copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            if (work.viewCount > 0)
+                                              Text(
+                                                "${work.viewCount} ${work.viewCount == 1 ? 'view' : 'views'}",
+                                                style: TextStyleTheme.caption.copyWith(
+                                                  color: Colors.white.withOpacity(0.7),
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       );
                     },
+                    detailLoading: () => const Center(child: InkerProgressIndicator()),
+                    detailLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    submitting: () => const Center(child: InkerProgressIndicator()),
+                    stencilCreated: (_) => const Center(child: InkerProgressIndicator()),
+                    stencilUpdated: (_) => const Center(child: InkerProgressIndicator()),
+                    stencilDeleted: () => const Center(child: InkerProgressIndicator()),
+                    viewRecorded: (_, __) => const Center(child: InkerProgressIndicator()),
+                    stencilLiked: (_, __) => const Center(child: InkerProgressIndicator()),
+                    tagSuggestionsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    popularTagsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    error: (message) => _buildEmptySection(
+                      context,
+                      "Error loading works",
+                      "Try refreshing the page: $message",
+                      Icons.refresh,
+                    ),
                   ),
-          ),
-        ],
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
+  Widget _buildStencilGallery() {
+    return BlocProvider(
+      create: (context) {
+        final sessionService = context.read<LocalSessionService>();
+        final stencilBloc = ArtistStencilBloc(
+          context.read<StencilService>(),
+          sessionService,
+        );
+        stencilBloc.add(const ArtistStencilEvent.loadStencils(true));
+        return stencilBloc;
+      },
+      child: BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
+        builder: (context, state) {
+          return Container(
+            padding: const EdgeInsets.all(16.0),
+            color: primaryColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Stencil Gallery",
+                        style: TextStyleTheme.headline3.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Botón más compacto para "Add"
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, '/stencils/add'),
+                          icon: Icon(Icons.add_circle_outline, color: secondaryColor, size: 22),
+                          tooltip: "Add Stencil",
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          constraints: const BoxConstraints(),
+                        ),
+                        // Botón más compacto para "View All"
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, '/stencils'),
+                          icon: Icon(Icons.grid_view, color: secondaryColor, size: 22),
+                          tooltip: "View All Stencils",
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          constraints: const BoxConstraints(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 180,
+                  child: state.when(
+                    initial: () => const Center(child: InkerProgressIndicator()),
+                    loading: () => const Center(child: InkerProgressIndicator()),
+                    loaded: (stencils) {
+                      final featured = stencils.where((s) => s.isFeatured).take(5).toList();
+                      
+                      if (stencils.isEmpty) {
+                        return _buildEmptySection(
+                          context,
+                          "No stencils added yet",
+                          "Add your stencil designs to showcase your style",
+                          Icons.brush,
+                        );
+                      }
+                      
+                      return GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 1.0,
+                        ),
+                        itemCount: featured.isEmpty ? stencils.take(5).length : featured.length,
+                        itemBuilder: (context, index) {
+                          final stencil = featured.isEmpty ? stencils[index] : featured[index];
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context, 
+                              '/stencils/detail',
+                              arguments: stencil,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Colors.grey.shade700,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Image.network(
+                                      stencil.thumbnailUrl ?? stencil.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.image_not_supported,
+                                              color: Colors.grey.shade400,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    if (stencil.isFeatured)
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            color: secondaryColor,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.star,
+                                            color: Colors.white,
+                                            size: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8, horizontal: 12),
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black.withOpacity(0.7),
+                                            ],
+                                          ),
+                                        ),
+                                        child: Text(
+                                          stencil.title,
+                                          style: TextStyleTheme.caption.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    detailLoading: () => const Center(child: InkerProgressIndicator()),
+                    detailLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    submitting: () => const Center(child: InkerProgressIndicator()),
+                    stencilCreated: (_) => const Center(child: InkerProgressIndicator()),
+                    stencilUpdated: (_) => const Center(child: InkerProgressIndicator()),
+                    stencilDeleted: () => const Center(child: InkerProgressIndicator()),
+                    viewRecorded: (_, __) => const Center(child: InkerProgressIndicator()),
+                    stencilLiked: (_, __) => const Center(child: InkerProgressIndicator()),
+                    tagSuggestionsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    popularTagsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    error: (message) => _buildEmptySection(
+                      context,
+                      "Error loading stencils",
+                      "Try refreshing the page: $message",
+                      Icons.refresh,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+  
   Widget _buildEmptySection(
     BuildContext context,
     String title,
@@ -582,7 +775,7 @@ class ArtistMyProfilePage extends StatelessWidget {
                 type: EditFieldType.text,
                 initialValue: artist.contact?.email ?? '',
                 label: S.of(context).email,
-                labelKey: kEmail,
+                labelKey: ArtistMyProfilePage.kEmail,
               ),
             ),
           ),
@@ -598,7 +791,7 @@ class ArtistMyProfilePage extends StatelessWidget {
                 type: EditFieldType.text,
                 initialValue: artist.contact?.phone ?? '',
                 label: S.of(context).phone,
-                labelKey: kPhone,
+                labelKey: ArtistMyProfilePage.kPhone,
               ),
             ),
           ),
@@ -667,9 +860,9 @@ class ArtistMyProfilePage extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
-        onPressed: () => _navigateToLocationManager(context, artist),
-        icon: const Icon(Icons.location_on),
-        label: Text(S.of(context).manageLocations),
+        onPressed: () => _navigateToLocationManager(context),
+        icon: const Icon(Icons.location_on, color: Colors.white),
+        label: Text(S.of(context).manageLocations, style: TextStyleTheme.button),
         style: ElevatedButton.styleFrom(
           backgroundColor: secondaryColor,
           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -681,7 +874,11 @@ class ArtistMyProfilePage extends StatelessWidget {
     );
   }
   
-  void _navigateToLocationManager(BuildContext context, Artist artist) {
+  Future<void> _navigateToLocationManager(BuildContext context) async {
+    final session = await context.read<LocalSessionService>().getActiveSession();
+    if (session == null || session.user == null || session.user!.userTypeId == null) {
+      return;
+    }
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -690,7 +887,7 @@ class ArtistMyProfilePage extends StatelessWidget {
             context.read<LocationService>(),
             context.read<LocalSessionService>(),
           ),
-          child: ArtistLocationManagerPage(artistId: artist.id),
+          child: ArtistLocationManagerPage(artistId: session.user!.userTypeId!),
         ),
       ),
     );
@@ -709,7 +906,7 @@ class ArtistMyProfilePage extends StatelessWidget {
                 type: EditFieldType.image,
                 initialValue: artist.profileThumbnail,
                 label: S.of(context).profileImage,
-                labelKey: kProfileImage,
+                labelKey: ArtistMyProfilePage.kProfileImage,
               ),
             ),
             child: Stack(
@@ -827,7 +1024,7 @@ class ArtistMyProfilePage extends StatelessWidget {
                       type: EditFieldType.text,
                       initialValue: artist.shortDescription,
                       label: S.of(context).shortDescription,
-                      labelKey: kDescription,
+                      labelKey: ArtistMyProfilePage.kDescription,
                     ),
                   ),
                 ),
@@ -874,7 +1071,7 @@ class ArtistMyProfilePage extends StatelessWidget {
           type: EditFieldType.image,
           initialValue: artist.studioPhoto,
           label: S.of(context).studioPhoto,
-          labelKey: kStudioPhoto,
+          labelKey: ArtistMyProfilePage.kStudioPhoto,
         ),
       ),
       child: Container(
@@ -949,7 +1146,7 @@ class ArtistMyProfilePage extends StatelessWidget {
                           type: EditFieldType.image,
                           initialValue: artist.studioPhoto,
                           label: S.of(context).studioPhoto,
-                          labelKey: kStudioPhoto,
+                          labelKey: ArtistMyProfilePage.kStudioPhoto,
                         ),
                       ),
                       icon: const Icon(Icons.add_a_photo),
@@ -987,48 +1184,48 @@ class ArtistMyProfilePage extends StatelessWidget {
     if (result != null) {
       final bloc = context.read<ArtistMyProfileBloc>();
       switch (result.labelKey) {
-        case kFullName:
+        case ArtistMyProfilePage.kFullName:
           final names = (result.value as String).split(' ');
           bloc.add(ArtistProfileEvent.updateName(
             firstName: names.first,
             lastName: names.length > 1 ? names.sublist(1).join(' ') : '',
           ));
           break;
-        case kUsername:
+        case ArtistMyProfilePage.kUsername:
           bloc.add(ArtistProfileEvent.updateUsername(result.value as String));
           break;
-        case kDescription:
+        case ArtistMyProfilePage.kDescription:
           bloc.add(
               ArtistProfileEvent.updateDescription(result.value as String));
           break;
-        case kGenres:
+        case ArtistMyProfilePage.kGenres:
           bloc.add(ArtistProfileEvent.updateGenres((result.value as String)
               .split(',')
               .map((s) => s.trim())
               .toList()));
           break;
-        case kTags:
+        case ArtistMyProfilePage.kTags:
           bloc.add(ArtistProfileEvent.updateTags((result.value as String)
               .split(',')
               .map((s) => s.trim())
               .toList()));
           break;
-        case kProfileImage:
+        case ArtistMyProfilePage.kProfileImage:
           if (result.value != null) {
             bloc.add(
                 ArtistProfileEvent.updateProfileImage(result.value as XFile));
           }
           break;
-        case kStudioPhoto:
+        case ArtistMyProfilePage.kStudioPhoto:
           if (result.value != null) {
             bloc.add(
                 ArtistProfileEvent.updateStudioPhoto(result.value as XFile));
           }
           break;
-        case kEmail:
+        case ArtistMyProfilePage.kEmail:
           bloc.add(ArtistProfileEvent.updateEmail(result.value as String));
           break;
-        case kPhone:
+        case ArtistMyProfilePage.kPhone:
           bloc.add(ArtistProfileEvent.updatePhone(result.value as String));
           break;
       }
