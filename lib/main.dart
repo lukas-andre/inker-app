@@ -52,6 +52,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Verify that all required providers are available
+    dev.log('Providers count: ${providers.length}', 'MyApp');
+    
+    // Just log that we're initializing the app
+    dev.log('Initializing app with repository providers', 'MyApp');
+    
     return MultiRepositoryProvider(
       providers: providers,
       child: const AppView(),

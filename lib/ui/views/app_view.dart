@@ -11,6 +11,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_b
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_status.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
@@ -38,6 +39,7 @@ import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/routes.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
@@ -76,6 +78,13 @@ class _AppViewState extends State<AppView> {
           userService: context.read(),
           localSessionService: context.read(),
         )),
+        // StencilBloc para gestionar stencils en toda la app
+        BlocProvider(
+          create: (context) => ArtistStencilBloc(
+            context.read<StencilService>(),
+            context.read<LocalSessionService>(),
+          ),
+        ),
 
         // Providers con dependencias simples
         BlocProvider(

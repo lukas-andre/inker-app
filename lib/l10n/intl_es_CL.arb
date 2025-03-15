@@ -1365,6 +1365,181 @@
   "cannotDeleteLastLocation": "No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación.",
   "@cannotDeleteLastLocation": {
     "description": "Mensaje de error mostrado al intentar eliminar la última ubicación."
+  },
+  "pleaseSelectAnImage": "Por favor selecciona una imagen",
+  "@pleaseSelectAnImage": {
+    "description": "Mensaje mostrado cuando no se selecciona una imagen"
+  },
+  "addStencil": "Agregar Plantilla",
+  "@addStencil": {
+    "description": "Acción para agregar una nueva plantilla"
+  },
+  "stencilCreatedSuccessfully": "Plantilla creada exitosamente",
+  "@stencilCreatedSuccessfully": {
+    "description": "Mensaje mostrado cuando se crea una plantilla exitosamente"
+  },
+  "tapToSelectImage": "Toca para seleccionar una imagen",
+  "@tapToSelectImage": {
+    "description": "Instrucción para tocar y seleccionar una imagen"
+  },
+  "title": "Título",
+  "@title": {
+    "description": "Etiqueta para el campo de título"
+  },
+  "pleaseEnterATitle": "Por favor ingresa un título",
+  "@pleaseEnterATitle": {
+    "description": "Mensaje de validación cuando el título está vacío"
+  },
+  "source": "Fuente",
+  "@source": {
+    "description": "Etiqueta de fuente"
+  },
+  "featuredStencil": "Plantilla Destacada",
+  "@featuredStencil": {
+    "description": "Etiqueta para la opción de plantilla destacada"
+  },
+  "stencilWillBeHighlightedInProfile": "La plantilla será destacada en el perfil",
+  "@stencilWillBeHighlightedInProfile": {
+    "description": "Descripción para la opción de plantilla destacada"
+  },
+  "hideStencil": "Ocultar Plantilla",
+  "@hideStencil": {
+    "description": "Etiqueta para la opción de ocultar plantilla"
+  },
+  "stencilWillBeHiddenFromPublicView": "La plantilla será ocultada del público",
+  "@stencilWillBeHiddenFromPublicView": {
+    "description": "Descripción para la opción de ocultar plantilla"
+  },
+  "saveStencil": "Guardar Plantilla",
+  "@saveStencil": {
+    "description": "Botón para guardar plantilla"
+  },
+  "titleCannotBeEmpty": "El título no puede estar vacío",
+  "@titleCannotBeEmpty": {
+    "description": "Mensaje de error cuando el título está vacío"
+  },
+  "deleteStencil": "Eliminar Plantilla",
+  "@deleteStencil": {
+    "description": "Acción para eliminar una plantilla"
+  },
+  "areYouSureYouWantToDeleteThisStencil": "¿Estás seguro que deseas eliminar esta plantilla?",
+  "@areYouSureYouWantToDeleteThisStencil": {
+    "description": "Mensaje de confirmación para eliminar una plantilla"
+  },
+  "editStencil": "Editar Plantilla",
+  "@editStencil": {
+    "description": "Acción para editar una plantilla"
+  },
+  "stencilDetails": "Detalles de la Plantilla",
+  "@stencilDetails": {
+    "description": "Título para la pantalla de detalles de la plantilla"
+  },
+  "stencilUpdatedSuccessfully": "Plantilla actualizada exitosamente",
+  "@stencilUpdatedSuccessfully": {
+    "description": "Mensaje mostrado cuando una plantilla se actualiza exitosamente"
+  },
+  "stencilDeletedSuccessfully": "Plantilla eliminada exitosamente",
+  "@stencilDeletedSuccessfully": {
+    "description": "Mensaje mostrado cuando una plantilla se elimina exitosamente"
+  },
+  "tapToChangeImage": "Toca para cambiar la imagen",
+  "@tapToChangeImage": {
+    "description": "Instrucción para tocar y cambiar una imagen"
+  },
+  "views": "Vistas",
+  "@views": {
+    "description": "Etiqueta para contador de vistas"
+  },
+  "likes": "Me gusta",
+  "@likes": {
+    "description": "Etiqueta para contador de me gusta"
+  },
+  "created": "Creada",
+  "@created": {
+    "description": "Etiqueta para la fecha de creación"
+  },
+  "lastUpdated": "Última Actualización",
+  "@lastUpdated": {
+    "description": "Etiqueta para la fecha de última actualización"
+  },
+  "status": "Estado",
+  "@status": {
+    "description": "Etiqueta para el estado"
+  },
+  "hidden": "Oculta",
+  "@hidden": {
+    "description": "Etiqueta para estado oculto"
+  },
+  "visible": "Visible",
+  "@visible": {
+    "description": "Etiqueta para estado visible"
+  },
+  "featured": "Destacada",
+  "@featured": {
+    "description": "Etiqueta para estado destacado"
+  },
+  "yes": "Sí",
+  "@yes": {
+    "description": "Respuesta afirmativa"
+  },
+  "no": "No",
+  "@no": {
+    "description": "Respuesta negativa"
+  },
+  "stencilGallery": "Galería de Plantillas",
+  "@stencilGallery": {
+    "description": "Título para la pantalla de galería de plantillas"
+  },
+  "showingAllStencils": "Mostrando todas las plantillas",
+  "@showingAllStencils": {
+    "description": "Mensaje cuando se muestran todas las plantillas incluidas las ocultas"
+  },
+  "hidingHiddenStencils": "Ocultando plantillas ocultas",
+  "@hidingHiddenStencils": {
+    "description": "Mensaje cuando no se muestran plantillas ocultas"
+  },
+  "featuredStencils": "Plantillas Destacadas",
+  "@featuredStencils": {
+    "description": "Título para la sección de plantillas destacadas"
+  },
+  "allStencils": "Todas las Plantillas",
+  "@allStencils": {
+    "description": "Título para la sección de todas las plantillas"
+  },
+  "allOtherStencils": "Otras Plantillas",
+  "@allOtherStencils": {
+    "description": "Título para la sección de plantillas no destacadas"
+  },
+  "unfeature": "Quitar destacado",
+  "@unfeature": {
+    "description": "Acción para quitar estado destacado"
+  },
+  "feature": "Destacar",
+  "@feature": {
+    "description": "Acción para agregar estado destacado"
+  },
+  "show": "Mostrar",
+  "@show": {
+    "description": "Acción para hacer visible"
+  },
+  "hide": "Ocultar",
+  "@hide": {
+    "description": "Acción para ocultar"
+  },
+  "noStencilsYet": "Aún No Hay Plantillas",
+  "@noStencilsYet": {
+    "description": "Mensaje cuando no existen plantillas"
+  },
+  "addYourFirstStencil": "Agrega tu primera plantilla para comenzar",
+  "@addYourFirstStencil": {
+    "description": "Instrucción para agregar la primera plantilla"
+  },
+  "errorLoadingStencils": "Error Cargando Plantillas",
+  "@errorLoadingStencils": {
+    "description": "Mensaje de error cuando las plantillas no se pueden cargar"
+  },
+  "tryAgainLater": "Por favor intenta más tarde",
+  "@tryAgainLater": {
+    "description": "Sugerencia para intentar más tarde"
   }
-
 }

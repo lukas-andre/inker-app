@@ -190,7 +190,7 @@
   },
   "status": "Status",
   "@status": {
-    "description": "Current state or condition of something."
+    "description": "Label for status"
   },
   "cancelQuotationConfirmationTitle": "Cancel Quotation",
   "@cancelQuotationConfirmationTitle": {
@@ -206,11 +206,11 @@
   },
   "yes": "Yes",
   "@yes": {
-    "description": "Confirmation action for yes."
+    "description": "Affirmative response"
   },
   "no": "No",
   "@no": {
-    "description": "Confirmation action for no."
+    "description": "Negative response"
   },
   "quotes": "Quotes",
   "@quotes": {
@@ -1359,5 +1359,169 @@
   "cannotDeleteLastLocation": "Cannot delete the last location. Artists must have at least one location.",
   "@cannotDeleteLastLocation": {
     "description": "Error message shown when trying to delete the last location."
+  },
+  "pleaseSelectAnImage": "Please select an image",
+  "@pleaseSelectAnImage": {
+    "description": "Message displayed when no image is selected"
+  },
+  "addStencil": "Add Stencil",
+  "@addStencil": {
+    "description": "Action to add a new stencil"
+  },
+  "stencilCreatedSuccessfully": "Stencil created successfully",
+  "@stencilCreatedSuccessfully": {
+    "description": "Message displayed when a stencil is created successfully"
+  },
+  "tapToSelectImage": "Tap to select an image",
+  "@tapToSelectImage": {
+    "description": "Instruction to tap to select an image"
+  },
+  "title": "Title",
+  "@title": {
+    "description": "Title field label"
+  },
+  "pleaseEnterATitle": "Please enter a title",
+  "@pleaseEnterATitle": {
+    "description": "Validation message when title is empty"
+  },
+  "source": "Source",
+  "@source": {
+    "description": "Source label"
+  },
+  "featuredStencil": "Featured Stencil",
+  "@featuredStencil": {
+    "description": "Label for featured stencil option"
+  },
+  "stencilWillBeHighlightedInProfile": "Stencil will be highlighted in profile",
+  "@stencilWillBeHighlightedInProfile": {
+    "description": "Description for featured stencil option"
+  },
+  "hideStencil": "Hide Stencil",
+  "@hideStencil": {
+    "description": "Label for hiding stencil option"
+  },
+  "stencilWillBeHiddenFromPublicView": "Stencil will be hidden from public view",
+  "@stencilWillBeHiddenFromPublicView": {
+    "description": "Description for hiding stencil option"
+  },
+  "saveStencil": "Save Stencil",
+  "@saveStencil": {
+    "description": "Button to save stencil"
+  },
+  "titleCannotBeEmpty": "Title cannot be empty",
+  "@titleCannotBeEmpty": {
+    "description": "Error message when title is empty"
+  },
+  "deleteStencil": "Delete Stencil",
+  "@deleteStencil": {
+    "description": "Action to delete a stencil"
+  },
+  "areYouSureYouWantToDeleteThisStencil": "Are you sure you want to delete this stencil?",
+  "@areYouSureYouWantToDeleteThisStencil": {
+    "description": "Confirmation message for deleting a stencil"
+  },
+  "editStencil": "Edit Stencil",
+  "@editStencil": {
+    "description": "Action to edit a stencil"
+  },
+  "stencilDetails": "Stencil Details",
+  "@stencilDetails": {
+    "description": "Title for stencil details screen"
+  },
+  "stencilUpdatedSuccessfully": "Stencil updated successfully",
+  "@stencilUpdatedSuccessfully": {
+    "description": "Message displayed when a stencil is updated successfully"
+  },
+  "stencilDeletedSuccessfully": "Stencil deleted successfully",
+  "@stencilDeletedSuccessfully": {
+    "description": "Message displayed when a stencil is deleted successfully"
+  },
+  "tapToChangeImage": "Tap to change image",
+  "@tapToChangeImage": {
+    "description": "Instruction to tap to change an image"
+  },
+  "views": "Views",
+  "@views": {
+    "description": "Label for view count"
+  },
+  "likes": "Likes",
+  "@likes": {
+    "description": "Label for like count"
+  },
+  "created": "Created",
+  "@created": {
+    "description": "Label for creation date"
+  },
+  "lastUpdated": "Last Updated",
+  "@lastUpdated": {
+    "description": "Label for last update date"
+  },
+  "hidden": "Hidden",
+  "@hidden": {
+    "description": "Label for hidden status"
+  },
+  "visible": "Visible",
+  "@visible": {
+    "description": "Label for visible status"
+  },
+  "featured": "Featured",
+  "@featured": {
+    "description": "Label for featured status"
+  },
+  "stencilGallery": "Stencil Gallery",
+  "@stencilGallery": {
+    "description": "Title for stencil gallery screen"
+  },
+  "showingAllStencils": "Showing all stencils",
+  "@showingAllStencils": {
+    "description": "Message when showing all stencils including hidden ones"
+  },
+  "hidingHiddenStencils": "Hiding hidden stencils",
+  "@hidingHiddenStencils": {
+    "description": "Message when not showing hidden stencils"
+  },
+  "featuredStencils": "Featured Stencils",
+  "@featuredStencils": {
+    "description": "Title for featured stencils section"
+  },
+  "allStencils": "All Stencils",
+  "@allStencils": {
+    "description": "Title for all stencils section"
+  },
+  "allOtherStencils": "All Other Stencils",
+  "@allOtherStencils": {
+    "description": "Title for non-featured stencils section"
+  },
+  "unfeature": "Unfeature",
+  "@unfeature": {
+    "description": "Action to remove featured status"
+  },
+  "feature": "Feature",
+  "@feature": {
+    "description": "Action to add featured status"
+  },
+  "show": "Show",
+  "@show": {
+    "description": "Action to make visible"
+  },
+  "hide": "Hide",
+  "@hide": {
+    "description": "Action to hide"
+  },
+  "noStencilsYet": "No Stencils Yet",
+  "@noStencilsYet": {
+    "description": "Message when no stencils exist"
+  },
+  "addYourFirstStencil": "Add your first stencil to get started",
+  "@addYourFirstStencil": {
+    "description": "Instruction to add first stencil"
+  },
+  "errorLoadingStencils": "Error Loading Stencils",
+  "@errorLoadingStencils": {
+    "description": "Error message when stencils fail to load"
+  },
+  "tryAgainLater": "Please try again later",
+  "@tryAgainLater": {
+    "description": "Suggestion to try again later"
   }
 }

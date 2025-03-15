@@ -64,13 +64,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "Agrega una descripción sobre ti."),
         "addLocation":
             MessageLookupByLibrary.simpleMessage("Agregar Ubicación"),
+        "addStencil": MessageLookupByLibrary.simpleMessage("Agregar Plantilla"),
         "addStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Agregar foto del estudio"),
+        "addYourFirstStencil": MessageLookupByLibrary.simpleMessage(
+            "Agrega tu primera plantilla para comenzar"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "address": MessageLookupByLibrary.simpleMessage("Dirección"),
         "addressDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Dirección"),
+        "allOtherStencils":
+            MessageLookupByLibrary.simpleMessage("Otras Plantillas"),
+        "allStencils":
+            MessageLookupByLibrary.simpleMessage("Todas las Plantillas"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
         "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
         "appealQuotation":
@@ -102,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Estás seguro que deseas eliminar"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas cerrar sesión?"),
+        "areYouSureYouWantToDeleteThisStencil":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Estás seguro que deseas eliminar esta plantilla?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
         "artistsFound": m0,
         "awaitingArtist":
@@ -184,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
+        "created": MessageLookupByLibrary.simpleMessage("Creada"),
         "createdAt": MessageLookupByLibrary.simpleMessage("Creado en"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Contraseña actual"),
@@ -200,6 +211,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y eliminará todos los datos asociados a tu cuenta."),
         "deleteLocation":
             MessageLookupByLibrary.simpleMessage("Eliminar Ubicación"),
+        "deleteStencil":
+            MessageLookupByLibrary.simpleMessage("Eliminar Plantilla"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
@@ -210,6 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editLocation":
             MessageLookupByLibrary.simpleMessage("Editar Ubicación"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Editar Perfil"),
+        "editStencil": MessageLookupByLibrary.simpleMessage("Editar Plantilla"),
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
@@ -219,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterLocationName": MessageLookupByLibrary.simpleMessage(
             "Ingresa el nombre de la ubicación"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorLoadingStencils":
+            MessageLookupByLibrary.simpleMessage("Error Cargando Plantillas"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "La hora de fin debe ser después de la hora de inicio."),
         "errorMsgEventCreationFailed": MessageLookupByLibrary.simpleMessage(
@@ -253,6 +269,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "expand": MessageLookupByLibrary.simpleMessage("Expandir"),
         "extraInfo":
             MessageLookupByLibrary.simpleMessage("Información Adicional"),
+        "feature": MessageLookupByLibrary.simpleMessage("Destacar"),
+        "featured": MessageLookupByLibrary.simpleMessage("Destacada"),
+        "featuredStencil":
+            MessageLookupByLibrary.simpleMessage("Plantilla Destacada"),
+        "featuredStencils":
+            MessageLookupByLibrary.simpleMessage("Plantillas Destacadas"),
         "followers": MessageLookupByLibrary.simpleMessage("Seguidores"),
         "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
@@ -263,6 +285,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "goBack": MessageLookupByLibrary.simpleMessage("Volver"),
         "guest": MessageLookupByLibrary.simpleMessage("Invitado"),
         "haircut": MessageLookupByLibrary.simpleMessage("Corte de Pelo"),
+        "hidden": MessageLookupByLibrary.simpleMessage("Oculta"),
+        "hide": MessageLookupByLibrary.simpleMessage("Ocultar"),
+        "hideStencil":
+            MessageLookupByLibrary.simpleMessage("Ocultar Plantilla"),
+        "hidingHiddenStencils": MessageLookupByLibrary.simpleMessage(
+            "Ocultando plantillas ocultas"),
         "hour": MessageLookupByLibrary.simpleMessage("Hora"),
         "hours": MessageLookupByLibrary.simpleMessage("horas"),
         "hoursAgo": m2,
@@ -274,7 +302,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "justNow": MessageLookupByLibrary.simpleMessage("Ahora mismo"),
         "km": MessageLookupByLibrary.simpleMessage("km"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
+        "lastUpdated":
+            MessageLookupByLibrary.simpleMessage("Última Actualización"),
         "legal": MessageLookupByLibrary.simpleMessage("Legal"),
+        "likes": MessageLookupByLibrary.simpleMessage("Me gusta"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
         "location": MessageLookupByLibrary.simpleMessage("Ubicación"),
@@ -324,6 +355,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aún no hay reseñas"),
         "noServicesAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay servicios disponibles"),
+        "noStencilsYet":
+            MessageLookupByLibrary.simpleMessage("Aún No Hay Plantillas"),
         "noStudioPhotoAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay foto del estudio disponible"),
         "noWorkEvidence":
@@ -352,8 +385,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Permiso requerido"),
         "phone": MessageLookupByLibrary.simpleMessage("Teléfono"),
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
+        "pleaseEnterATitle":
+            MessageLookupByLibrary.simpleMessage("Por favor ingresa un título"),
         "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
             "Por favor, proporciona una razón para la cancelación."),
+        "pleaseSelectAnImage": MessageLookupByLibrary.simpleMessage(
+            "Por favor selecciona una imagen"),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Semana Anterior"),
@@ -470,6 +507,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar Cambios"),
+        "saveStencil":
+            MessageLookupByLibrary.simpleMessage("Guardar Plantilla"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Asistente de agenda"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Agendar cita"),
@@ -498,6 +537,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
         "shortDescription":
             MessageLookupByLibrary.simpleMessage("Descripción Corta"),
+        "show": MessageLookupByLibrary.simpleMessage("Mostrar"),
+        "showingAllStencils": MessageLookupByLibrary.simpleMessage(
+            "Mostrando todas las plantillas"),
+        "source": MessageLookupByLibrary.simpleMessage("Fuente"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startDate": MessageLookupByLibrary.simpleMessage("Fecha de Inicio"),
         "startTime": MessageLookupByLibrary.simpleMessage("Hora de Inicio"),
@@ -509,10 +552,30 @@ class MessageLookup extends MessageLookupByLibrary {
         "statusPending": MessageLookupByLibrary.simpleMessage("Pendiente"),
         "statusQuoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
         "statusRejected": MessageLookupByLibrary.simpleMessage("Rechazado"),
+        "stencilCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Plantilla creada exitosamente"),
+        "stencilDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Plantilla eliminada exitosamente"),
+        "stencilDetails":
+            MessageLookupByLibrary.simpleMessage("Detalles de la Plantilla"),
+        "stencilGallery":
+            MessageLookupByLibrary.simpleMessage("Galería de Plantillas"),
+        "stencilUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Plantilla actualizada exitosamente"),
+        "stencilWillBeHiddenFromPublicView":
+            MessageLookupByLibrary.simpleMessage(
+                "La plantilla será ocultada del público"),
+        "stencilWillBeHighlightedInProfile":
+            MessageLookupByLibrary.simpleMessage(
+                "La plantilla será destacada en el perfil"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
         "tags": MessageLookupByLibrary.simpleMessage("Etiquetas"),
+        "tapToChangeImage":
+            MessageLookupByLibrary.simpleMessage("Toca para cambiar la imagen"),
+        "tapToSelectImage": MessageLookupByLibrary.simpleMessage(
+            "Toca para seleccionar una imagen"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
         "tentativeEvent":
             MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
@@ -523,14 +586,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "time": MessageLookupByLibrary.simpleMessage("Tiempo"),
         "timeSlotUnavailable": MessageLookupByLibrary.simpleMessage(
             "Este horario no está disponible"),
+        "title": MessageLookupByLibrary.simpleMessage("Título"),
+        "titleCannotBeEmpty": MessageLookupByLibrary.simpleMessage(
+            "El título no puede estar vacío"),
         "to": MessageLookupByLibrary.simpleMessage("Hasta"),
         "today": MessageLookupByLibrary.simpleMessage("Hoy"),
+        "tryAgainLater":
+            MessageLookupByLibrary.simpleMessage("Por favor intenta más tarde"),
+        "unfeature": MessageLookupByLibrary.simpleMessage("Quitar destacado"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Se acerca"),
         "update": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "updateStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Actualizar foto del estudio"),
         "username": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
+        "views": MessageLookupByLibrary.simpleMessage("Vistas"),
+        "visible": MessageLookupByLibrary.simpleMessage("Visible"),
         "workEvidence":
             MessageLookupByLibrary.simpleMessage("Evidencia del Trabajo"),
         "yearsAgo": m8,
