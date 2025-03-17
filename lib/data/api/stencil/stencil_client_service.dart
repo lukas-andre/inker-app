@@ -74,9 +74,12 @@ class StencilClientService implements StencilService {
         return response;
       } else {
         // If image file is provided, use multipart request
+        final baseUrl = await _httpClient.getBaseUrl();
+        final uri = Uri.https(baseUrl, '/stencils');
+
         final request = http.MultipartRequest(
           'POST',
-          Uri.parse('${_httpClient.getBaseUrl()}/stencils'),
+          uri,
         );
 
         // Add the file
@@ -98,6 +101,8 @@ class StencilClientService implements StencilService {
           }
         });
 
+        request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+
         // Send the request
         final streamedResponse = await request.send();
         final response = await http.Response.fromStream(streamedResponse);
@@ -116,8 +121,8 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<Stencil> updateStencil(
-      int id, UpdateStencilDto updateStencilDto, XFile? imageFile, String token) async {
+  Future<Stencil> updateStencil(int id, UpdateStencilDto updateStencilDto,
+      XFile? imageFile, String token) async {
     try {
       if (imageFile == null) {
         // If no image file is provided, use the imageUrl from DTO
@@ -130,9 +135,12 @@ class StencilClientService implements StencilService {
         return response;
       } else {
         // If image file is provided, use multipart request
+        final baseUrl = await _httpClient.getBaseUrl();
+        final uri = Uri.https(baseUrl, '/stencils/$id');
+
         final request = http.MultipartRequest(
           'PUT',
-          Uri.parse('${_httpClient.getBaseUrl()}/stencils/$id'),
+          uri,
         );
 
         // Add the file
@@ -154,7 +162,8 @@ class StencilClientService implements StencilService {
           }
         });
 
-  
+        request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+
         // Send the request
         final streamedResponse = await request.send();
         final response = await http.Response.fromStream(streamedResponse);
@@ -229,8 +238,9 @@ class StencilClientService implements StencilService {
           'limit': limit.toString(),
         },
         fromJson: (data) => List<TagSuggestionResponseDto>.from(
-          (data as List<dynamic>).map((item) => TagSuggestionResponseDto.fromJson(item as Map<String, dynamic>))
-        ),
+            (data as List<dynamic>).map((item) =>
+                TagSuggestionResponseDto.fromJson(
+                    item as Map<String, dynamic>))),
         token: token,
       );
 
@@ -242,7 +252,8 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token) async {
+  Future<List<TagSuggestionResponseDto>> getPopularTags(
+      int limit, String token) async {
     try {
       final response = await _httpClient.get(
         path: '/stencil-search/tags/popular',
@@ -250,8 +261,9 @@ class StencilClientService implements StencilService {
           'limit': limit.toString(),
         },
         fromJson: (data) => List<TagSuggestionResponseDto>.from(
-          (data as List<dynamic>).map((item) => TagSuggestionResponseDto.fromJson(item as Map<String, dynamic>))
-        ),
+            (data as List<dynamic>).map((item) =>
+                TagSuggestionResponseDto.fromJson(
+                    item as Map<String, dynamic>))),
         token: token,
       );
 

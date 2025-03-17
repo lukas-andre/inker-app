@@ -154,18 +154,19 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       appBar: AppBar(
         title: Text(_isEditing
             ? S.of(context).editStencil
-            : S.of(context).stencilDetails),
+            : S.of(context).stencilDetails, style: TextStyleTheme.headline3),
         backgroundColor: primaryColor,
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            icon: Icon(_isEditing ? Icons.check : Icons.edit),
+            icon: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: _toggleEditing,
             tooltip: _isEditing ? S.of(context).save : S.of(context).edit,
           ),
           if (!_isEditing)
             IconButton(
-              icon: const Icon(Icons.delete),
+              icon: const Icon(Icons.delete, color: Colors.white),
               onPressed: _deleteStencil,
               tooltip: S.of(context).delete,
             ),

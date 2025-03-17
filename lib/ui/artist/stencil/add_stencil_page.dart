@@ -38,7 +38,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    
+
     if (image != null) {
       setState(() {
         _selectedImage = image;
@@ -63,16 +63,16 @@ class _AddStencilPageState extends State<AddStencilPage> {
       });
 
       context.read<ArtistStencilBloc>().add(
-        ArtistStencilEvent.createStencil(
-          title: _titleController.text,
-          description: _descriptionController.text,
-          source: _selectedSource,
-          isFeatured: _isFeatured,
-          isHidden: _isHidden,
-          tagIds: _selectedTags.isEmpty ? null : _selectedTags,
-          imageFile: _selectedImage,
-        ),
-      );
+            ArtistStencilEvent.createStencil(
+              title: _titleController.text,
+              description: _descriptionController.text,
+              source: _selectedSource,
+              isFeatured: _isFeatured,
+              isHidden: _isHidden,
+              tagIds: _selectedTags.isEmpty ? null : _selectedTags,
+              imageFile: _selectedImage,
+            ),
+          );
     }
   }
 
@@ -116,7 +116,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
           if (_isLoading) {
             return const Center(child: InkerProgressIndicator());
           }
-          
+
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Form(
@@ -153,7 +153,8 @@ class _AddStencilPageState extends State<AddStencilPage> {
           width: double.infinity,
           height: 200,
           decoration: BoxDecoration(
-            color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+            color:
+                HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: secondaryColor.withOpacity(0.5)),
           ),
@@ -193,9 +194,11 @@ class _AddStencilPageState extends State<AddStencilPage> {
       style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
       decoration: InputDecoration(
         labelText: S.of(context).title,
-        labelStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+        labelStyle:
+            TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
         filled: true,
-        fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        fillColor:
+            HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade800),
@@ -225,9 +228,11 @@ class _AddStencilPageState extends State<AddStencilPage> {
       maxLines: 4,
       decoration: InputDecoration(
         labelText: S.of(context).description,
-        labelStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+        labelStyle:
+            TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
         filled: true,
-        fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        fillColor:
+            HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade800),
@@ -258,7 +263,8 @@ class _AddStencilPageState extends State<AddStencilPage> {
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            color:
+                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.grey.shade800),
           ),

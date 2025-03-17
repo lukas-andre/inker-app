@@ -173,6 +173,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
       maxWidth: 1024,
       maxHeight: 1024,
     );
+
     if (pickedFile != null) {
       setState(() {
         _imageFile = pickedFile;
