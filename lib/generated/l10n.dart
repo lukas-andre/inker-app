@@ -3686,6 +3686,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Buscar o crear etiquetas`
+  String get searchOrCreateTags {
+    return Intl.message(
+      'Buscar o crear etiquetas',
+      name: 'searchOrCreateTags',
+      desc: 'Placeholder for tag search field',
+      args: [],
+    );
+  }
+
+  /// `Agrega etiquetas para hacer tu plantilla más visible`
+  String get addTagsToMakeYourStencilMoreDiscoverable {
+    return Intl.message(
+      'Agrega etiquetas para hacer tu plantilla más visible',
+      name: 'addTagsToMakeYourStencilMoreDiscoverable',
+      desc: 'Helper text for adding tags',
+      args: [],
+    );
+  }
+
+  /// `Crear nueva etiqueta`
+  String get createNewTag {
+    return Intl.message(
+      'Crear nueva etiqueta',
+      name: 'createNewTag',
+      desc: 'Action to create a new tag',
+      args: [],
+    );
+  }
+
+  /// `Sugerencias`
+  String get suggestions {
+    return Intl.message(
+      'Sugerencias',
+      name: 'suggestions',
+      desc: 'Label for tag suggestions',
+      args: [],
+    );
+  }
+
+  /// `Etiquetas Populares`
+  String get popularTags {
+    return Intl.message(
+      'Etiquetas Populares',
+      name: 'popularTags',
+      desc: 'Label for popular tags section',
+      args: [],
+    );
+  }
+
+  /// `No hay plantillas con la etiqueta '{tagName}'`
+  String noStencilsWithTag(String tagName) {
+    return Intl.message(
+      'No hay plantillas con la etiqueta \'$tagName\'',
+      name: 'noStencilsWithTag',
+      desc: 'Message when no stencils have a specific tag',
+      args: [tagName],
+    );
+  }
+
+  /// `Limpiar Filtro`
+  String get clearFilter {
+    return Intl.message(
+      'Limpiar Filtro',
+      name: 'clearFilter',
+      desc: 'Action to remove tag filter',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

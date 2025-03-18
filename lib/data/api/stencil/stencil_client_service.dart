@@ -25,6 +25,10 @@ class StencilClientService implements StencilService {
         'limit': params.limit.toString(),
         if (params.featured != null) 'featured': params.featured.toString(),
         'includeHidden': params.includeHidden.toString(),
+        if (params.tagIds != null && params.tagIds!.isNotEmpty)
+          'tagIds': params.tagIds!.join(','),
+        if (params.searchText != null && params.searchText!.isNotEmpty)
+          'searchText': params.searchText!,
       };
 
       final response = await _httpClient.get(
@@ -96,7 +100,11 @@ class StencilClientService implements StencilService {
         final Map<String, dynamic> dto = createStencilDto.toJson();
         dto.forEach((key, value) {
           if (value != null) {
-            request.fields[key] = value.toString();
+            if (key == 'tagIds' && value is List) {
+              request.fields[key] = json.encode(value);
+            } else {
+              request.fields[key] = value.toString();
+            }
           }
         });
 
@@ -157,7 +165,11 @@ class StencilClientService implements StencilService {
         final Map<String, dynamic> dto = updateStencilDto.toJson();
         dto.forEach((key, value) {
           if (value != null) {
-            request.fields[key] = value.toString();
+            if (key == 'tagIds' && value is List) {
+              request.fields[key] = json.encode(value);
+            } else {
+              request.fields[key] = value.toString();
+            }
           }
         });
 
@@ -269,6 +281,26 @@ class StencilClientService implements StencilService {
       return response;
     } catch (e) {
       log('Error getting popular tags: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TagSuggestionResponseDto> createTag(
+      String name, String token) async {
+    try {
+      final createTagDto = CreateTagDto(name: name);
+      
+      final response = await _httpClient.post(
+        path: '/tags',
+        body: createTagDto.toJson(),
+        fromJson: (data) => TagSuggestionResponseDto.fromJson(data),
+        token: token,
+      );
+      
+      return response;
+    } catch (e) {
+      log('Error creating tag: $e');
       rethrow;
     }
   }

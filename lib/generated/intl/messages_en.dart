@@ -42,7 +42,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m7(count) =>
       "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
 
-  static String m8(count) =>
+  static String m8(tagName) => "No stencils with tag \'${tagName}\'";
+
+  static String m9(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -64,6 +66,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "addStencil": MessageLookupByLibrary.simpleMessage("Add Stencil"),
         "addStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Add Studio Photo"),
+        "addTagsToMakeYourStencilMoreDiscoverable":
+            MessageLookupByLibrary.simpleMessage(
+                "Add tags to make your stencil more discoverable"),
         "addYourFirstStencil": MessageLookupByLibrary.simpleMessage(
             "Add your first stencil to get started"),
         "additionalDetails":
@@ -164,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "characters": MessageLookupByLibrary.simpleMessage("characters"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "clearFilter": MessageLookupByLibrary.simpleMessage("Clear Filter"),
         "collapse": MessageLookupByLibrary.simpleMessage("Collapse"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
@@ -183,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactInformation":
             MessageLookupByLibrary.simpleMessage("Contact Information"),
         "createEvent": MessageLookupByLibrary.simpleMessage("Create Event"),
+        "createNewTag": MessageLookupByLibrary.simpleMessage("Create new tag"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Create Quotation"),
         "created": MessageLookupByLibrary.simpleMessage("Created"),
@@ -330,6 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
         "noServicesAvailable":
             MessageLookupByLibrary.simpleMessage("No services available"),
+        "noStencilsWithTag": m8,
         "noStencilsYet":
             MessageLookupByLibrary.simpleMessage("No Stencils Yet"),
         "noStudioPhotoAvailable":
@@ -367,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select an image"),
         "pleaseSelectTimeRange":
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
+        "popularTags": MessageLookupByLibrary.simpleMessage("Popular Tags"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacyPolicyContent": MessageLookupByLibrary.simpleMessage(
@@ -481,6 +490,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
         "scheduleInfo": MessageLookupByLibrary.simpleMessage("Schedule Info"),
         "scheduled": MessageLookupByLibrary.simpleMessage("Scheduled"),
+        "searchOrCreateTags":
+            MessageLookupByLibrary.simpleMessage("Search or create tags"),
         "searchRadius": MessageLookupByLibrary.simpleMessage("Search Radius"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
@@ -534,6 +545,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Stencil will be highlighted in profile"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Studio Photo"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "tags": MessageLookupByLibrary.simpleMessage("Tags"),
         "tapToChangeImage":
@@ -567,7 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "views": MessageLookupByLibrary.simpleMessage("Views"),
         "visible": MessageLookupByLibrary.simpleMessage("Visible"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
-        "yearsAgo": m8,
+        "yearsAgo": m9,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Zoom In"),
