@@ -39,6 +39,8 @@ mixin _$ArtistStencilEvent {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +66,8 @@ mixin _$ArtistStencilEvent {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,6 +93,8 @@ mixin _$ArtistStencilEvent {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -105,6 +111,8 @@ mixin _$ArtistStencilEvent {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -120,6 +128,8 @@ mixin _$ArtistStencilEvent {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -135,6 +145,8 @@ mixin _$ArtistStencilEvent {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -245,6 +257,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return loadStencils(includeHidden);
   }
@@ -273,6 +287,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return loadStencils?.call(includeHidden);
   }
@@ -301,6 +317,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencils != null) {
@@ -323,6 +341,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return loadStencils(this);
   }
@@ -341,6 +361,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return loadStencils?.call(this);
   }
@@ -359,6 +381,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencils != null) {
@@ -464,6 +488,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return loadStencilDetail(stencilId);
   }
@@ -492,6 +518,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return loadStencilDetail?.call(stencilId);
   }
@@ -520,6 +548,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencilDetail != null) {
@@ -542,6 +572,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return loadStencilDetail(this);
   }
@@ -560,6 +592,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return loadStencilDetail?.call(this);
   }
@@ -578,6 +612,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencilDetail != null) {
@@ -750,6 +786,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return createStencil(
         title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -779,6 +817,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return createStencil?.call(
         title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -808,6 +848,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (createStencil != null) {
@@ -831,6 +873,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return createStencil(this);
   }
@@ -849,6 +893,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return createStencil?.call(this);
   }
@@ -867,6 +913,8 @@ class _$CreateStencilImpl implements _CreateStencil {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (createStencil != null) {
@@ -1065,6 +1113,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return updateStencil(
         stencilId, title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -1094,6 +1144,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return updateStencil?.call(
         stencilId, title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -1123,6 +1175,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (updateStencil != null) {
@@ -1146,6 +1200,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return updateStencil(this);
   }
@@ -1164,6 +1220,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return updateStencil?.call(this);
   }
@@ -1182,6 +1240,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (updateStencil != null) {
@@ -1299,6 +1359,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return deleteStencil(stencilId);
   }
@@ -1327,6 +1389,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return deleteStencil?.call(stencilId);
   }
@@ -1355,6 +1419,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (deleteStencil != null) {
@@ -1377,6 +1443,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return deleteStencil(this);
   }
@@ -1395,6 +1463,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return deleteStencil?.call(this);
   }
@@ -1413,6 +1483,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (deleteStencil != null) {
@@ -1527,6 +1599,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return toggleFeatured(stencil);
   }
@@ -1555,6 +1629,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return toggleFeatured?.call(stencil);
   }
@@ -1583,6 +1659,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleFeatured != null) {
@@ -1605,6 +1683,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return toggleFeatured(this);
   }
@@ -1623,6 +1703,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return toggleFeatured?.call(this);
   }
@@ -1641,6 +1723,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleFeatured != null) {
@@ -1755,6 +1839,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return toggleVisibility(stencil);
   }
@@ -1783,6 +1869,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return toggleVisibility?.call(stencil);
   }
@@ -1811,6 +1899,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleVisibility != null) {
@@ -1833,6 +1923,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return toggleVisibility(this);
   }
@@ -1851,6 +1943,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return toggleVisibility?.call(this);
   }
@@ -1869,6 +1963,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleVisibility != null) {
@@ -1974,6 +2070,8 @@ class _$RecordViewImpl implements _RecordView {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return recordView(stencilId);
   }
@@ -2002,6 +2100,8 @@ class _$RecordViewImpl implements _RecordView {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return recordView?.call(stencilId);
   }
@@ -2030,6 +2130,8 @@ class _$RecordViewImpl implements _RecordView {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (recordView != null) {
@@ -2052,6 +2154,8 @@ class _$RecordViewImpl implements _RecordView {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return recordView(this);
   }
@@ -2070,6 +2174,8 @@ class _$RecordViewImpl implements _RecordView {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return recordView?.call(this);
   }
@@ -2088,6 +2194,8 @@ class _$RecordViewImpl implements _RecordView {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (recordView != null) {
@@ -2192,6 +2300,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return likeStencil(stencilId);
   }
@@ -2220,6 +2330,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return likeStencil?.call(stencilId);
   }
@@ -2248,6 +2360,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (likeStencil != null) {
@@ -2270,6 +2384,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return likeStencil(this);
   }
@@ -2288,6 +2404,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return likeStencil?.call(this);
   }
@@ -2306,6 +2424,8 @@ class _$LikeStencilImpl implements _LikeStencil {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (likeStencil != null) {
@@ -2410,6 +2530,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return getTagSuggestions(prefix);
   }
@@ -2438,6 +2560,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return getTagSuggestions?.call(prefix);
   }
@@ -2466,6 +2590,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getTagSuggestions != null) {
@@ -2488,6 +2614,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return getTagSuggestions(this);
   }
@@ -2506,6 +2634,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return getTagSuggestions?.call(this);
   }
@@ -2524,6 +2654,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getTagSuggestions != null) {
@@ -2602,6 +2734,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     required TResult Function(int stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
   }) {
     return getPopularTags();
   }
@@ -2630,6 +2764,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     TResult? Function(int stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
   }) {
     return getPopularTags?.call();
   }
@@ -2658,6 +2794,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     TResult Function(int stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getPopularTags != null) {
@@ -2680,6 +2818,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     required TResult Function(_LikeStencil value) likeStencil,
     required TResult Function(_GetTagSuggestions value) getTagSuggestions,
     required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
   }) {
     return getPopularTags(this);
   }
@@ -2698,6 +2838,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     TResult? Function(_LikeStencil value)? likeStencil,
     TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
   }) {
     return getPopularTags?.call(this);
   }
@@ -2716,6 +2858,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
     TResult Function(_LikeStencil value)? likeStencil,
     TResult Function(_GetTagSuggestions value)? getTagSuggestions,
     TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getPopularTags != null) {
@@ -2727,6 +2871,466 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
 
 abstract class _GetPopularTags implements ArtistStencilEvent {
   const factory _GetPopularTags() = _$GetPopularTagsImpl;
+}
+
+/// @nodoc
+abstract class _$$CreateTagImplCopyWith<$Res> {
+  factory _$$CreateTagImplCopyWith(
+          _$CreateTagImpl value, $Res Function(_$CreateTagImpl) then) =
+      __$$CreateTagImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$CreateTagImplCopyWithImpl<$Res>
+    extends _$ArtistStencilEventCopyWithImpl<$Res, _$CreateTagImpl>
+    implements _$$CreateTagImplCopyWith<$Res> {
+  __$$CreateTagImplCopyWithImpl(
+      _$CreateTagImpl _value, $Res Function(_$CreateTagImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$CreateTagImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CreateTagImpl implements _CreateTag {
+  const _$CreateTagImpl(this.name);
+
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'ArtistStencilEvent.createTag(name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateTagImpl &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateTagImplCopyWith<_$CreateTagImpl> get copyWith =>
+      __$$CreateTagImplCopyWithImpl<_$CreateTagImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool includeHidden) loadStencils,
+    required TResult Function(int stencilId) loadStencilDetail,
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+        createStencil,
+    required TResult Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)
+        updateStencil,
+    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(Stencil stencil) toggleFeatured,
+    required TResult Function(Stencil stencil) toggleVisibility,
+    required TResult Function(int stencilId) recordView,
+    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String prefix) getTagSuggestions,
+    required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
+  }) {
+    return createTag(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool includeHidden)? loadStencils,
+    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+        createStencil,
+    TResult? Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)?
+        updateStencil,
+    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(Stencil stencil)? toggleFeatured,
+    TResult? Function(Stencil stencil)? toggleVisibility,
+    TResult? Function(int stencilId)? recordView,
+    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String prefix)? getTagSuggestions,
+    TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
+  }) {
+    return createTag?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool includeHidden)? loadStencils,
+    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+        createStencil,
+    TResult Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)?
+        updateStencil,
+    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(Stencil stencil)? toggleFeatured,
+    TResult Function(Stencil stencil)? toggleVisibility,
+    TResult Function(int stencilId)? recordView,
+    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String prefix)? getTagSuggestions,
+    TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
+    required TResult orElse(),
+  }) {
+    if (createTag != null) {
+      return createTag(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStencils value) loadStencils,
+    required TResult Function(_LoadStencilDetail value) loadStencilDetail,
+    required TResult Function(_CreateStencil value) createStencil,
+    required TResult Function(_UpdateStencil value) updateStencil,
+    required TResult Function(_DeleteStencil value) deleteStencil,
+    required TResult Function(_ToggleFeatured value) toggleFeatured,
+    required TResult Function(_ToggleVisibility value) toggleVisibility,
+    required TResult Function(_RecordView value) recordView,
+    required TResult Function(_LikeStencil value) likeStencil,
+    required TResult Function(_GetTagSuggestions value) getTagSuggestions,
+    required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
+  }) {
+    return createTag(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStencils value)? loadStencils,
+    TResult? Function(_LoadStencilDetail value)? loadStencilDetail,
+    TResult? Function(_CreateStencil value)? createStencil,
+    TResult? Function(_UpdateStencil value)? updateStencil,
+    TResult? Function(_DeleteStencil value)? deleteStencil,
+    TResult? Function(_ToggleFeatured value)? toggleFeatured,
+    TResult? Function(_ToggleVisibility value)? toggleVisibility,
+    TResult? Function(_RecordView value)? recordView,
+    TResult? Function(_LikeStencil value)? likeStencil,
+    TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
+    TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
+  }) {
+    return createTag?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStencils value)? loadStencils,
+    TResult Function(_LoadStencilDetail value)? loadStencilDetail,
+    TResult Function(_CreateStencil value)? createStencil,
+    TResult Function(_UpdateStencil value)? updateStencil,
+    TResult Function(_DeleteStencil value)? deleteStencil,
+    TResult Function(_ToggleFeatured value)? toggleFeatured,
+    TResult Function(_ToggleVisibility value)? toggleVisibility,
+    TResult Function(_RecordView value)? recordView,
+    TResult Function(_LikeStencil value)? likeStencil,
+    TResult Function(_GetTagSuggestions value)? getTagSuggestions,
+    TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
+    required TResult orElse(),
+  }) {
+    if (createTag != null) {
+      return createTag(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateTag implements ArtistStencilEvent {
+  const factory _CreateTag(final String name) = _$CreateTagImpl;
+
+  String get name;
+  @JsonKey(ignore: true)
+  _$$CreateTagImplCopyWith<_$CreateTagImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterStencilsByTagImplCopyWith<$Res> {
+  factory _$$FilterStencilsByTagImplCopyWith(_$FilterStencilsByTagImpl value,
+          $Res Function(_$FilterStencilsByTagImpl) then) =
+      __$$FilterStencilsByTagImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int tagId});
+}
+
+/// @nodoc
+class __$$FilterStencilsByTagImplCopyWithImpl<$Res>
+    extends _$ArtistStencilEventCopyWithImpl<$Res, _$FilterStencilsByTagImpl>
+    implements _$$FilterStencilsByTagImplCopyWith<$Res> {
+  __$$FilterStencilsByTagImplCopyWithImpl(_$FilterStencilsByTagImpl _value,
+      $Res Function(_$FilterStencilsByTagImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tagId = null,
+  }) {
+    return _then(_$FilterStencilsByTagImpl(
+      null == tagId
+          ? _value.tagId
+          : tagId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
+  const _$FilterStencilsByTagImpl(this.tagId);
+
+  @override
+  final int tagId;
+
+  @override
+  String toString() {
+    return 'ArtistStencilEvent.filterStencilsByTag(tagId: $tagId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterStencilsByTagImpl &&
+            (identical(other.tagId, tagId) || other.tagId == tagId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, tagId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterStencilsByTagImplCopyWith<_$FilterStencilsByTagImpl> get copyWith =>
+      __$$FilterStencilsByTagImplCopyWithImpl<_$FilterStencilsByTagImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool includeHidden) loadStencils,
+    required TResult Function(int stencilId) loadStencilDetail,
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+        createStencil,
+    required TResult Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)
+        updateStencil,
+    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(Stencil stencil) toggleFeatured,
+    required TResult Function(Stencil stencil) toggleVisibility,
+    required TResult Function(int stencilId) recordView,
+    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String prefix) getTagSuggestions,
+    required TResult Function() getPopularTags,
+    required TResult Function(String name) createTag,
+    required TResult Function(int tagId) filterStencilsByTag,
+  }) {
+    return filterStencilsByTag(tagId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool includeHidden)? loadStencils,
+    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+        createStencil,
+    TResult? Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)?
+        updateStencil,
+    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(Stencil stencil)? toggleFeatured,
+    TResult? Function(Stencil stencil)? toggleVisibility,
+    TResult? Function(int stencilId)? recordView,
+    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String prefix)? getTagSuggestions,
+    TResult? Function()? getPopularTags,
+    TResult? Function(String name)? createTag,
+    TResult? Function(int tagId)? filterStencilsByTag,
+  }) {
+    return filterStencilsByTag?.call(tagId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool includeHidden)? loadStencils,
+    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+        createStencil,
+    TResult Function(
+            int stencilId,
+            String? title,
+            String? description,
+            bool? isFeatured,
+            bool? isHidden,
+            List<int>? tagIds,
+            XFile? imageFile)?
+        updateStencil,
+    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(Stencil stencil)? toggleFeatured,
+    TResult Function(Stencil stencil)? toggleVisibility,
+    TResult Function(int stencilId)? recordView,
+    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String prefix)? getTagSuggestions,
+    TResult Function()? getPopularTags,
+    TResult Function(String name)? createTag,
+    TResult Function(int tagId)? filterStencilsByTag,
+    required TResult orElse(),
+  }) {
+    if (filterStencilsByTag != null) {
+      return filterStencilsByTag(tagId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStencils value) loadStencils,
+    required TResult Function(_LoadStencilDetail value) loadStencilDetail,
+    required TResult Function(_CreateStencil value) createStencil,
+    required TResult Function(_UpdateStencil value) updateStencil,
+    required TResult Function(_DeleteStencil value) deleteStencil,
+    required TResult Function(_ToggleFeatured value) toggleFeatured,
+    required TResult Function(_ToggleVisibility value) toggleVisibility,
+    required TResult Function(_RecordView value) recordView,
+    required TResult Function(_LikeStencil value) likeStencil,
+    required TResult Function(_GetTagSuggestions value) getTagSuggestions,
+    required TResult Function(_GetPopularTags value) getPopularTags,
+    required TResult Function(_CreateTag value) createTag,
+    required TResult Function(_FilterStencilsByTag value) filterStencilsByTag,
+  }) {
+    return filterStencilsByTag(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStencils value)? loadStencils,
+    TResult? Function(_LoadStencilDetail value)? loadStencilDetail,
+    TResult? Function(_CreateStencil value)? createStencil,
+    TResult? Function(_UpdateStencil value)? updateStencil,
+    TResult? Function(_DeleteStencil value)? deleteStencil,
+    TResult? Function(_ToggleFeatured value)? toggleFeatured,
+    TResult? Function(_ToggleVisibility value)? toggleVisibility,
+    TResult? Function(_RecordView value)? recordView,
+    TResult? Function(_LikeStencil value)? likeStencil,
+    TResult? Function(_GetTagSuggestions value)? getTagSuggestions,
+    TResult? Function(_GetPopularTags value)? getPopularTags,
+    TResult? Function(_CreateTag value)? createTag,
+    TResult? Function(_FilterStencilsByTag value)? filterStencilsByTag,
+  }) {
+    return filterStencilsByTag?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStencils value)? loadStencils,
+    TResult Function(_LoadStencilDetail value)? loadStencilDetail,
+    TResult Function(_CreateStencil value)? createStencil,
+    TResult Function(_UpdateStencil value)? updateStencil,
+    TResult Function(_DeleteStencil value)? deleteStencil,
+    TResult Function(_ToggleFeatured value)? toggleFeatured,
+    TResult Function(_ToggleVisibility value)? toggleVisibility,
+    TResult Function(_RecordView value)? recordView,
+    TResult Function(_LikeStencil value)? likeStencil,
+    TResult Function(_GetTagSuggestions value)? getTagSuggestions,
+    TResult Function(_GetPopularTags value)? getPopularTags,
+    TResult Function(_CreateTag value)? createTag,
+    TResult Function(_FilterStencilsByTag value)? filterStencilsByTag,
+    required TResult orElse(),
+  }) {
+    if (filterStencilsByTag != null) {
+      return filterStencilsByTag(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilterStencilsByTag implements ArtistStencilEvent {
+  const factory _FilterStencilsByTag(final int tagId) =
+      _$FilterStencilsByTagImpl;
+
+  int get tagId;
+  @JsonKey(ignore: true)
+  _$$FilterStencilsByTagImplCopyWith<_$FilterStencilsByTagImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2748,6 +3352,8 @@ mixin _$ArtistStencilState {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -2768,6 +3374,8 @@ mixin _$ArtistStencilState {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -2788,6 +3396,8 @@ mixin _$ArtistStencilState {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -2807,6 +3417,8 @@ mixin _$ArtistStencilState {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -2825,6 +3437,8 @@ mixin _$ArtistStencilState {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -2843,6 +3457,8 @@ mixin _$ArtistStencilState {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -2920,6 +3536,8 @@ class _$InitialImpl implements _Initial {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -2943,6 +3561,8 @@ class _$InitialImpl implements _Initial {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -2966,6 +3586,8 @@ class _$InitialImpl implements _Initial {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2991,6 +3613,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -3012,6 +3636,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -3033,6 +3659,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3100,6 +3728,8 @@ class _$LoadingImpl implements _Loading {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -3123,6 +3753,8 @@ class _$LoadingImpl implements _Loading {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -3146,6 +3778,8 @@ class _$LoadingImpl implements _Loading {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3171,6 +3805,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -3192,6 +3828,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -3213,6 +3851,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3312,6 +3952,8 @@ class _$LoadedImpl implements _Loaded {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loaded(stencils);
@@ -3335,6 +3977,8 @@ class _$LoadedImpl implements _Loaded {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(stencils);
@@ -3358,6 +4002,8 @@ class _$LoadedImpl implements _Loaded {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3383,6 +4029,8 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return loaded(this);
@@ -3404,6 +4052,8 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return loaded?.call(this);
@@ -3425,6 +4075,8 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3497,6 +4149,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoading();
@@ -3520,6 +4174,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoading?.call();
@@ -3543,6 +4199,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3568,6 +4226,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return detailLoading(this);
@@ -3589,6 +4249,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return detailLoading?.call(this);
@@ -3610,6 +4272,8 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3713,6 +4377,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoaded(stencil);
@@ -3736,6 +4402,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoaded?.call(stencil);
@@ -3759,6 +4427,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3784,6 +4454,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return detailLoaded(this);
@@ -3805,6 +4477,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return detailLoaded?.call(this);
@@ -3826,6 +4500,8 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3898,6 +4574,8 @@ class _$SubmittingImpl implements _Submitting {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return submitting();
@@ -3921,6 +4599,8 @@ class _$SubmittingImpl implements _Submitting {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return submitting?.call();
@@ -3944,6 +4624,8 @@ class _$SubmittingImpl implements _Submitting {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3969,6 +4651,8 @@ class _$SubmittingImpl implements _Submitting {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return submitting(this);
@@ -3990,6 +4674,8 @@ class _$SubmittingImpl implements _Submitting {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return submitting?.call(this);
@@ -4011,6 +4697,8 @@ class _$SubmittingImpl implements _Submitting {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -4115,6 +4803,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilCreated(stencil);
@@ -4138,6 +4828,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilCreated?.call(stencil);
@@ -4161,6 +4853,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4186,6 +4880,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return stencilCreated(this);
@@ -4207,6 +4903,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return stencilCreated?.call(this);
@@ -4228,6 +4926,8 @@ class _$StencilCreatedImpl implements _StencilCreated {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -4337,6 +5037,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilUpdated(stencil);
@@ -4360,6 +5062,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilUpdated?.call(stencil);
@@ -4383,6 +5087,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4408,6 +5114,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return stencilUpdated(this);
@@ -4429,6 +5137,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return stencilUpdated?.call(this);
@@ -4450,6 +5160,8 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -4522,6 +5234,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilDeleted();
@@ -4545,6 +5259,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilDeleted?.call();
@@ -4568,6 +5284,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4593,6 +5311,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return stencilDeleted(this);
@@ -4614,6 +5334,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return stencilDeleted?.call(this);
@@ -4635,6 +5357,8 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -4738,6 +5462,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return viewRecorded(stencilId, viewCount);
@@ -4761,6 +5487,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return viewRecorded?.call(stencilId, viewCount);
@@ -4784,6 +5512,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4809,6 +5539,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return viewRecorded(this);
@@ -4830,6 +5562,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return viewRecorded?.call(this);
@@ -4851,6 +5585,8 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -4961,6 +5697,8 @@ class _$StencilLikedImpl implements _StencilLiked {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilLiked(stencilId, likeCount);
@@ -4984,6 +5722,8 @@ class _$StencilLikedImpl implements _StencilLiked {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilLiked?.call(stencilId, likeCount);
@@ -5007,6 +5747,8 @@ class _$StencilLikedImpl implements _StencilLiked {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5032,6 +5774,8 @@ class _$StencilLikedImpl implements _StencilLiked {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return stencilLiked(this);
@@ -5053,6 +5797,8 @@ class _$StencilLikedImpl implements _StencilLiked {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return stencilLiked?.call(this);
@@ -5074,6 +5820,8 @@ class _$StencilLikedImpl implements _StencilLiked {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -5185,6 +5933,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return tagSuggestionsLoaded(suggestions);
@@ -5208,6 +5958,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return tagSuggestionsLoaded?.call(suggestions);
@@ -5231,6 +5983,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5256,6 +6010,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return tagSuggestionsLoaded(this);
@@ -5277,6 +6033,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return tagSuggestionsLoaded?.call(this);
@@ -5298,6 +6056,8 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -5408,6 +6168,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return popularTagsLoaded(popularTags);
@@ -5431,6 +6193,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return popularTagsLoaded?.call(popularTags);
@@ -5454,6 +6218,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5479,6 +6245,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return popularTagsLoaded(this);
@@ -5500,6 +6268,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return popularTagsLoaded?.call(this);
@@ -5521,6 +6291,8 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -5539,6 +6311,481 @@ abstract class _PopularTagsLoaded implements ArtistStencilState {
   List<TagSuggestionResponseDto> get popularTags;
   @JsonKey(ignore: true)
   _$$PopularTagsLoadedImplCopyWith<_$PopularTagsLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TagCreatedImplCopyWith<$Res> {
+  factory _$$TagCreatedImplCopyWith(
+          _$TagCreatedImpl value, $Res Function(_$TagCreatedImpl) then) =
+      __$$TagCreatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TagSuggestionResponseDto tag});
+
+  $TagSuggestionResponseDtoCopyWith<$Res> get tag;
+}
+
+/// @nodoc
+class __$$TagCreatedImplCopyWithImpl<$Res>
+    extends _$ArtistStencilStateCopyWithImpl<$Res, _$TagCreatedImpl>
+    implements _$$TagCreatedImplCopyWith<$Res> {
+  __$$TagCreatedImplCopyWithImpl(
+      _$TagCreatedImpl _value, $Res Function(_$TagCreatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tag = null,
+  }) {
+    return _then(_$TagCreatedImpl(
+      null == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagSuggestionResponseDto,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TagSuggestionResponseDtoCopyWith<$Res> get tag {
+    return $TagSuggestionResponseDtoCopyWith<$Res>(_value.tag, (value) {
+      return _then(_value.copyWith(tag: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$TagCreatedImpl implements _TagCreated {
+  const _$TagCreatedImpl(this.tag);
+
+  @override
+  final TagSuggestionResponseDto tag;
+
+  @override
+  String toString() {
+    return 'ArtistStencilState.tagCreated(tag: $tag)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TagCreatedImpl &&
+            (identical(other.tag, tag) || other.tag == tag));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, tag);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TagCreatedImplCopyWith<_$TagCreatedImpl> get copyWith =>
+      __$$TagCreatedImplCopyWithImpl<_$TagCreatedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Stencil> stencils) loaded,
+    required TResult Function() detailLoading,
+    required TResult Function(Stencil stencil) detailLoaded,
+    required TResult Function() submitting,
+    required TResult Function(Stencil stencil) stencilCreated,
+    required TResult Function(Stencil stencil) stencilUpdated,
+    required TResult Function() stencilDeleted,
+    required TResult Function(int stencilId, int viewCount) viewRecorded,
+    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(List<TagSuggestionResponseDto> suggestions)
+        tagSuggestionsLoaded,
+    required TResult Function(List<TagSuggestionResponseDto> popularTags)
+        popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(String message) error,
+  }) {
+    return tagCreated(tag);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<Stencil> stencils)? loaded,
+    TResult? Function()? detailLoading,
+    TResult? Function(Stencil stencil)? detailLoaded,
+    TResult? Function()? submitting,
+    TResult? Function(Stencil stencil)? stencilCreated,
+    TResult? Function(Stencil stencil)? stencilUpdated,
+    TResult? Function()? stencilDeleted,
+    TResult? Function(int stencilId, int viewCount)? viewRecorded,
+    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(List<TagSuggestionResponseDto> suggestions)?
+        tagSuggestionsLoaded,
+    TResult? Function(List<TagSuggestionResponseDto> popularTags)?
+        popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(String message)? error,
+  }) {
+    return tagCreated?.call(tag);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Stencil> stencils)? loaded,
+    TResult Function()? detailLoading,
+    TResult Function(Stencil stencil)? detailLoaded,
+    TResult Function()? submitting,
+    TResult Function(Stencil stencil)? stencilCreated,
+    TResult Function(Stencil stencil)? stencilUpdated,
+    TResult Function()? stencilDeleted,
+    TResult Function(int stencilId, int viewCount)? viewRecorded,
+    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(List<TagSuggestionResponseDto> suggestions)?
+        tagSuggestionsLoaded,
+    TResult Function(List<TagSuggestionResponseDto> popularTags)?
+        popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (tagCreated != null) {
+      return tagCreated(tag);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_DetailLoading value) detailLoading,
+    required TResult Function(_DetailLoaded value) detailLoaded,
+    required TResult Function(_Submitting value) submitting,
+    required TResult Function(_StencilCreated value) stencilCreated,
+    required TResult Function(_StencilUpdated value) stencilUpdated,
+    required TResult Function(_StencilDeleted value) stencilDeleted,
+    required TResult Function(_ViewRecorded value) viewRecorded,
+    required TResult Function(_StencilLiked value) stencilLiked,
+    required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
+    required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
+    required TResult Function(_Error value) error,
+  }) {
+    return tagCreated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_DetailLoading value)? detailLoading,
+    TResult? Function(_DetailLoaded value)? detailLoaded,
+    TResult? Function(_Submitting value)? submitting,
+    TResult? Function(_StencilCreated value)? stencilCreated,
+    TResult? Function(_StencilUpdated value)? stencilUpdated,
+    TResult? Function(_StencilDeleted value)? stencilDeleted,
+    TResult? Function(_ViewRecorded value)? viewRecorded,
+    TResult? Function(_StencilLiked value)? stencilLiked,
+    TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
+    TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
+    TResult? Function(_Error value)? error,
+  }) {
+    return tagCreated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_DetailLoading value)? detailLoading,
+    TResult Function(_DetailLoaded value)? detailLoaded,
+    TResult Function(_Submitting value)? submitting,
+    TResult Function(_StencilCreated value)? stencilCreated,
+    TResult Function(_StencilUpdated value)? stencilUpdated,
+    TResult Function(_StencilDeleted value)? stencilDeleted,
+    TResult Function(_ViewRecorded value)? viewRecorded,
+    TResult Function(_StencilLiked value)? stencilLiked,
+    TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
+    TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (tagCreated != null) {
+      return tagCreated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _TagCreated implements ArtistStencilState {
+  const factory _TagCreated(final TagSuggestionResponseDto tag) =
+      _$TagCreatedImpl;
+
+  TagSuggestionResponseDto get tag;
+  @JsonKey(ignore: true)
+  _$$TagCreatedImplCopyWith<_$TagCreatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilteredByTagImplCopyWith<$Res> {
+  factory _$$FilteredByTagImplCopyWith(
+          _$FilteredByTagImpl value, $Res Function(_$FilteredByTagImpl) then) =
+      __$$FilteredByTagImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Stencil> stencils, int tagId});
+}
+
+/// @nodoc
+class __$$FilteredByTagImplCopyWithImpl<$Res>
+    extends _$ArtistStencilStateCopyWithImpl<$Res, _$FilteredByTagImpl>
+    implements _$$FilteredByTagImplCopyWith<$Res> {
+  __$$FilteredByTagImplCopyWithImpl(
+      _$FilteredByTagImpl _value, $Res Function(_$FilteredByTagImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? stencils = null,
+    Object? tagId = null,
+  }) {
+    return _then(_$FilteredByTagImpl(
+      null == stencils
+          ? _value._stencils
+          : stencils // ignore: cast_nullable_to_non_nullable
+              as List<Stencil>,
+      null == tagId
+          ? _value.tagId
+          : tagId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilteredByTagImpl implements _FilteredByTag {
+  const _$FilteredByTagImpl(final List<Stencil> stencils, this.tagId)
+      : _stencils = stencils;
+
+  final List<Stencil> _stencils;
+  @override
+  List<Stencil> get stencils {
+    if (_stencils is EqualUnmodifiableListView) return _stencils;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stencils);
+  }
+
+  @override
+  final int tagId;
+
+  @override
+  String toString() {
+    return 'ArtistStencilState.filteredByTag(stencils: $stencils, tagId: $tagId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilteredByTagImpl &&
+            const DeepCollectionEquality().equals(other._stencils, _stencils) &&
+            (identical(other.tagId, tagId) || other.tagId == tagId));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_stencils), tagId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilteredByTagImplCopyWith<_$FilteredByTagImpl> get copyWith =>
+      __$$FilteredByTagImplCopyWithImpl<_$FilteredByTagImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Stencil> stencils) loaded,
+    required TResult Function() detailLoading,
+    required TResult Function(Stencil stencil) detailLoaded,
+    required TResult Function() submitting,
+    required TResult Function(Stencil stencil) stencilCreated,
+    required TResult Function(Stencil stencil) stencilUpdated,
+    required TResult Function() stencilDeleted,
+    required TResult Function(int stencilId, int viewCount) viewRecorded,
+    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(List<TagSuggestionResponseDto> suggestions)
+        tagSuggestionsLoaded,
+    required TResult Function(List<TagSuggestionResponseDto> popularTags)
+        popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(String message) error,
+  }) {
+    return filteredByTag(stencils, tagId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<Stencil> stencils)? loaded,
+    TResult? Function()? detailLoading,
+    TResult? Function(Stencil stencil)? detailLoaded,
+    TResult? Function()? submitting,
+    TResult? Function(Stencil stencil)? stencilCreated,
+    TResult? Function(Stencil stencil)? stencilUpdated,
+    TResult? Function()? stencilDeleted,
+    TResult? Function(int stencilId, int viewCount)? viewRecorded,
+    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(List<TagSuggestionResponseDto> suggestions)?
+        tagSuggestionsLoaded,
+    TResult? Function(List<TagSuggestionResponseDto> popularTags)?
+        popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(String message)? error,
+  }) {
+    return filteredByTag?.call(stencils, tagId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Stencil> stencils)? loaded,
+    TResult Function()? detailLoading,
+    TResult Function(Stencil stencil)? detailLoaded,
+    TResult Function()? submitting,
+    TResult Function(Stencil stencil)? stencilCreated,
+    TResult Function(Stencil stencil)? stencilUpdated,
+    TResult Function()? stencilDeleted,
+    TResult Function(int stencilId, int viewCount)? viewRecorded,
+    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(List<TagSuggestionResponseDto> suggestions)?
+        tagSuggestionsLoaded,
+    TResult Function(List<TagSuggestionResponseDto> popularTags)?
+        popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (filteredByTag != null) {
+      return filteredByTag(stencils, tagId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_DetailLoading value) detailLoading,
+    required TResult Function(_DetailLoaded value) detailLoaded,
+    required TResult Function(_Submitting value) submitting,
+    required TResult Function(_StencilCreated value) stencilCreated,
+    required TResult Function(_StencilUpdated value) stencilUpdated,
+    required TResult Function(_StencilDeleted value) stencilDeleted,
+    required TResult Function(_ViewRecorded value) viewRecorded,
+    required TResult Function(_StencilLiked value) stencilLiked,
+    required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
+    required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
+    required TResult Function(_Error value) error,
+  }) {
+    return filteredByTag(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_DetailLoading value)? detailLoading,
+    TResult? Function(_DetailLoaded value)? detailLoaded,
+    TResult? Function(_Submitting value)? submitting,
+    TResult? Function(_StencilCreated value)? stencilCreated,
+    TResult? Function(_StencilUpdated value)? stencilUpdated,
+    TResult? Function(_StencilDeleted value)? stencilDeleted,
+    TResult? Function(_ViewRecorded value)? viewRecorded,
+    TResult? Function(_StencilLiked value)? stencilLiked,
+    TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
+    TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
+    TResult? Function(_Error value)? error,
+  }) {
+    return filteredByTag?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_DetailLoading value)? detailLoading,
+    TResult Function(_DetailLoaded value)? detailLoaded,
+    TResult Function(_Submitting value)? submitting,
+    TResult Function(_StencilCreated value)? stencilCreated,
+    TResult Function(_StencilUpdated value)? stencilUpdated,
+    TResult Function(_StencilDeleted value)? stencilDeleted,
+    TResult Function(_ViewRecorded value)? viewRecorded,
+    TResult Function(_StencilLiked value)? stencilLiked,
+    TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
+    TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (filteredByTag != null) {
+      return filteredByTag(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilteredByTag implements ArtistStencilState {
+  const factory _FilteredByTag(final List<Stencil> stencils, final int tagId) =
+      _$FilteredByTagImpl;
+
+  List<Stencil> get stencils;
+  int get tagId;
+  @JsonKey(ignore: true)
+  _$$FilteredByTagImplCopyWith<_$FilteredByTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -5621,6 +6868,8 @@ class _$ErrorImpl implements _Error {
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
+    required TResult Function(TagSuggestionResponseDto tag) tagCreated,
+    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -5644,6 +6893,8 @@ class _$ErrorImpl implements _Error {
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -5667,6 +6918,8 @@ class _$ErrorImpl implements _Error {
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
+    TResult Function(TagSuggestionResponseDto tag)? tagCreated,
+    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5692,6 +6945,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_StencilLiked value) stencilLiked,
     required TResult Function(_TagSuggestionsLoaded value) tagSuggestionsLoaded,
     required TResult Function(_PopularTagsLoaded value) popularTagsLoaded,
+    required TResult Function(_TagCreated value) tagCreated,
+    required TResult Function(_FilteredByTag value) filteredByTag,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -5713,6 +6968,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_StencilLiked value)? stencilLiked,
     TResult? Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult? Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult? Function(_TagCreated value)? tagCreated,
+    TResult? Function(_FilteredByTag value)? filteredByTag,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -5734,6 +6991,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(_StencilLiked value)? stencilLiked,
     TResult Function(_TagSuggestionsLoaded value)? tagSuggestionsLoaded,
     TResult Function(_PopularTagsLoaded value)? popularTagsLoaded,
+    TResult Function(_TagCreated value)? tagCreated,
+    TResult Function(_FilteredByTag value)? filteredByTag,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

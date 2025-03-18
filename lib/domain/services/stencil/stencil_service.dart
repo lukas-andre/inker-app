@@ -13,4 +13,5 @@ abstract class StencilService {
   Future<int> likeStencil(int id, String token);
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
+  Future<TagSuggestionResponseDto> createTag(String name, String token);
 }

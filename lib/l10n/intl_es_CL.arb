@@ -1541,5 +1541,39 @@
   "tryAgainLater": "Por favor intenta más tarde",
   "@tryAgainLater": {
     "description": "Sugerencia para intentar más tarde"
+  },
+  "searchOrCreateTags": "Buscar o crear etiquetas",
+  "@searchOrCreateTags": {
+    "description": "Placeholder for tag search field"
+  },
+  "addTagsToMakeYourStencilMoreDiscoverable": "Agrega etiquetas para hacer tu plantilla más visible",
+  "@addTagsToMakeYourStencilMoreDiscoverable": {
+    "description": "Helper text for adding tags"
+  },
+  "createNewTag": "Crear nueva etiqueta",
+  "@createNewTag": {
+    "description": "Action to create a new tag"
+  },
+  "suggestions": "Sugerencias",
+  "@suggestions": {
+    "description": "Label for tag suggestions"
+  },
+  "popularTags": "Etiquetas Populares",
+  "@popularTags": {
+    "description": "Label for popular tags section"
+  },
+  "noStencilsWithTag": "No hay plantillas con la etiqueta '{tagName}'",
+  "@noStencilsWithTag": {
+    "description": "Message when no stencils have a specific tag",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "clearFilter": "Limpiar Filtro",
+  "@clearFilter": {
+    "description": "Action to remove tag filter"
   }
 }
