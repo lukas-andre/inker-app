@@ -26,7 +26,6 @@ mixin _$CreateStencilDto {
   String? get thumbnailUrl => throw _privateConstructorUsedError;
   bool get isFeatured => throw _privateConstructorUsedError;
   int get orderPosition => throw _privateConstructorUsedError;
-  StencilSource get source => throw _privateConstructorUsedError;
   bool get isHidden => throw _privateConstructorUsedError;
   List<int>? get tagIds => throw _privateConstructorUsedError;
 
@@ -49,7 +48,6 @@ abstract class $CreateStencilDtoCopyWith<$Res> {
       String? thumbnailUrl,
       bool isFeatured,
       int orderPosition,
-      StencilSource source,
       bool isHidden,
       List<int>? tagIds});
 }
@@ -73,7 +71,6 @@ class _$CreateStencilDtoCopyWithImpl<$Res, $Val extends CreateStencilDto>
     Object? thumbnailUrl = freezed,
     Object? isFeatured = null,
     Object? orderPosition = null,
-    Object? source = null,
     Object? isHidden = null,
     Object? tagIds = freezed,
   }) {
@@ -102,10 +99,6 @@ class _$CreateStencilDtoCopyWithImpl<$Res, $Val extends CreateStencilDto>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource,
       isHidden: null == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -133,7 +126,6 @@ abstract class _$$CreateStencilDtoImplCopyWith<$Res>
       String? thumbnailUrl,
       bool isFeatured,
       int orderPosition,
-      StencilSource source,
       bool isHidden,
       List<int>? tagIds});
 }
@@ -155,7 +147,6 @@ class __$$CreateStencilDtoImplCopyWithImpl<$Res>
     Object? thumbnailUrl = freezed,
     Object? isFeatured = null,
     Object? orderPosition = null,
-    Object? source = null,
     Object? isHidden = null,
     Object? tagIds = freezed,
   }) {
@@ -184,10 +175,6 @@ class __$$CreateStencilDtoImplCopyWithImpl<$Res>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource,
       isHidden: null == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -210,7 +197,6 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
       this.thumbnailUrl,
       this.isFeatured = false,
       this.orderPosition = 0,
-      required this.source,
       this.isHidden = false,
       final List<int>? tagIds})
       : _tagIds = tagIds;
@@ -233,8 +219,6 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
   @JsonKey()
   final int orderPosition;
   @override
-  final StencilSource source;
-  @override
   @JsonKey()
   final bool isHidden;
   final List<int>? _tagIds;
@@ -249,7 +233,7 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
 
   @override
   String toString() {
-    return 'CreateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, tagIds: $tagIds)';
+    return 'CreateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, tagIds: $tagIds)';
   }
 
   @override
@@ -268,7 +252,6 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
                 other.isFeatured == isFeatured) &&
             (identical(other.orderPosition, orderPosition) ||
                 other.orderPosition == orderPosition) &&
-            (identical(other.source, source) || other.source == source) &&
             (identical(other.isHidden, isHidden) ||
                 other.isHidden == isHidden) &&
             const DeepCollectionEquality().equals(other._tagIds, _tagIds));
@@ -284,7 +267,6 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
       thumbnailUrl,
       isFeatured,
       orderPosition,
-      source,
       isHidden,
       const DeepCollectionEquality().hash(_tagIds));
 
@@ -311,7 +293,6 @@ abstract class _CreateStencilDto implements CreateStencilDto {
       final String? thumbnailUrl,
       final bool isFeatured,
       final int orderPosition,
-      required final StencilSource source,
       final bool isHidden,
       final List<int>? tagIds}) = _$CreateStencilDtoImpl;
 
@@ -330,8 +311,6 @@ abstract class _CreateStencilDto implements CreateStencilDto {
   bool get isFeatured;
   @override
   int get orderPosition;
-  @override
-  StencilSource get source;
   @override
   bool get isHidden;
   @override
@@ -354,7 +333,6 @@ mixin _$UpdateStencilDto {
   String? get thumbnailUrl => throw _privateConstructorUsedError;
   bool? get isFeatured => throw _privateConstructorUsedError;
   int? get orderPosition => throw _privateConstructorUsedError;
-  StencilSource? get source => throw _privateConstructorUsedError;
   bool? get isHidden => throw _privateConstructorUsedError;
   List<int>? get tagIds => throw _privateConstructorUsedError;
 
@@ -377,7 +355,6 @@ abstract class $UpdateStencilDtoCopyWith<$Res> {
       String? thumbnailUrl,
       bool? isFeatured,
       int? orderPosition,
-      StencilSource? source,
       bool? isHidden,
       List<int>? tagIds});
 }
@@ -401,7 +378,6 @@ class _$UpdateStencilDtoCopyWithImpl<$Res, $Val extends UpdateStencilDto>
     Object? thumbnailUrl = freezed,
     Object? isFeatured = freezed,
     Object? orderPosition = freezed,
-    Object? source = freezed,
     Object? isHidden = freezed,
     Object? tagIds = freezed,
   }) {
@@ -430,10 +406,6 @@ class _$UpdateStencilDtoCopyWithImpl<$Res, $Val extends UpdateStencilDto>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int?,
-      source: freezed == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource?,
       isHidden: freezed == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -461,7 +433,6 @@ abstract class _$$UpdateStencilDtoImplCopyWith<$Res>
       String? thumbnailUrl,
       bool? isFeatured,
       int? orderPosition,
-      StencilSource? source,
       bool? isHidden,
       List<int>? tagIds});
 }
@@ -483,7 +454,6 @@ class __$$UpdateStencilDtoImplCopyWithImpl<$Res>
     Object? thumbnailUrl = freezed,
     Object? isFeatured = freezed,
     Object? orderPosition = freezed,
-    Object? source = freezed,
     Object? isHidden = freezed,
     Object? tagIds = freezed,
   }) {
@@ -512,10 +482,6 @@ class __$$UpdateStencilDtoImplCopyWithImpl<$Res>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int?,
-      source: freezed == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource?,
       isHidden: freezed == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -538,7 +504,6 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
       this.thumbnailUrl,
       this.isFeatured,
       this.orderPosition,
-      this.source,
       this.isHidden,
       final List<int>? tagIds})
       : _tagIds = tagIds;
@@ -559,8 +524,6 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
   @override
   final int? orderPosition;
   @override
-  final StencilSource? source;
-  @override
   final bool? isHidden;
   final List<int>? _tagIds;
   @override
@@ -574,7 +537,7 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
 
   @override
   String toString() {
-    return 'UpdateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, tagIds: $tagIds)';
+    return 'UpdateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, tagIds: $tagIds)';
   }
 
   @override
@@ -593,7 +556,6 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
                 other.isFeatured == isFeatured) &&
             (identical(other.orderPosition, orderPosition) ||
                 other.orderPosition == orderPosition) &&
-            (identical(other.source, source) || other.source == source) &&
             (identical(other.isHidden, isHidden) ||
                 other.isHidden == isHidden) &&
             const DeepCollectionEquality().equals(other._tagIds, _tagIds));
@@ -609,7 +571,6 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
       thumbnailUrl,
       isFeatured,
       orderPosition,
-      source,
       isHidden,
       const DeepCollectionEquality().hash(_tagIds));
 
@@ -636,7 +597,6 @@ abstract class _UpdateStencilDto implements UpdateStencilDto {
       final String? thumbnailUrl,
       final bool? isFeatured,
       final int? orderPosition,
-      final StencilSource? source,
       final bool? isHidden,
       final List<int>? tagIds}) = _$UpdateStencilDtoImpl;
 
@@ -655,8 +615,6 @@ abstract class _UpdateStencilDto implements UpdateStencilDto {
   bool? get isFeatured;
   @override
   int? get orderPosition;
-  @override
-  StencilSource? get source;
   @override
   bool? get isHidden;
   @override

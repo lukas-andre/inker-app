@@ -521,10 +521,6 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           S.of(context).stencilDetails,
           [
             _buildInfoItem(
-              S.of(context).source,
-              widget.stencil.source == StencilSource.app ? 'App' : 'External',
-            ),
-            _buildInfoItem(
               S.of(context).created,
               _formatDate(widget.stencil.createdAt),
             ),

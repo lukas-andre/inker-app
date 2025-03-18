@@ -8,7 +8,6 @@ class ArtistStencilEvent with _$ArtistStencilEvent {
   const factory ArtistStencilEvent.createStencil({
     required String title,
     String? description,
-    required StencilSource source,
     @Default(false) bool isFeatured,
     @Default(false) bool isHidden,
     List<int>? tagIds,

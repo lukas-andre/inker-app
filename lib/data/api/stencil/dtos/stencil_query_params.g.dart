@@ -11,7 +11,6 @@ _$StencilQueryParamsImpl _$$StencilQueryParamsImplFromJson(Map json) =>
       page: (json['page'] as num?)?.toInt() ?? 1,
       limit: (json['limit'] as num?)?.toInt() ?? 10,
       featured: json['featured'] as bool?,
-      source: $enumDecodeNullable(_$StencilSourceEnumMap, json['source']),
       includeHidden: json['includeHidden'] as bool? ?? false,
     );
 
@@ -29,15 +28,9 @@ Map<String, dynamic> _$$StencilQueryParamsImplToJson(
   }
 
   writeNotNull('featured', instance.featured);
-  writeNotNull('source', _$StencilSourceEnumMap[instance.source]);
   val['includeHidden'] = instance.includeHidden;
   return val;
 }
-
-const _$StencilSourceEnumMap = {
-  StencilSource.app: 'APP',
-  StencilSource.external: 'EXTERNAL',
-};
 
 _$PaginatedStencilResponseImpl _$$PaginatedStencilResponseImplFromJson(
         Map json) =>

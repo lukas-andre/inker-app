@@ -14,7 +14,6 @@ _$CreateStencilDtoImpl _$$CreateStencilDtoImplFromJson(Map json) =>
       thumbnailUrl: json['thumbnailUrl'] as String?,
       isFeatured: json['isFeatured'] as bool? ?? false,
       orderPosition: (json['orderPosition'] as num?)?.toInt() ?? 0,
-      source: $enumDecode(_$StencilSourceEnumMap, json['source']),
       isHidden: json['isHidden'] as bool? ?? false,
       tagIds: (json['tagIds'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
@@ -38,16 +37,10 @@ Map<String, dynamic> _$$CreateStencilDtoImplToJson(
   writeNotNull('thumbnailUrl', instance.thumbnailUrl);
   val['isFeatured'] = instance.isFeatured;
   val['orderPosition'] = instance.orderPosition;
-  val['source'] = _$StencilSourceEnumMap[instance.source]!;
   val['isHidden'] = instance.isHidden;
   writeNotNull('tagIds', instance.tagIds);
   return val;
 }
-
-const _$StencilSourceEnumMap = {
-  StencilSource.app: 'APP',
-  StencilSource.external: 'EXTERNAL',
-};
 
 _$UpdateStencilDtoImpl _$$UpdateStencilDtoImplFromJson(Map json) =>
     _$UpdateStencilDtoImpl(
@@ -57,7 +50,6 @@ _$UpdateStencilDtoImpl _$$UpdateStencilDtoImplFromJson(Map json) =>
       thumbnailUrl: json['thumbnailUrl'] as String?,
       isFeatured: json['isFeatured'] as bool?,
       orderPosition: (json['orderPosition'] as num?)?.toInt(),
-      source: $enumDecodeNullable(_$StencilSourceEnumMap, json['source']),
       isHidden: json['isHidden'] as bool?,
       tagIds: (json['tagIds'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
@@ -80,7 +72,6 @@ Map<String, dynamic> _$$UpdateStencilDtoImplToJson(
   writeNotNull('thumbnailUrl', instance.thumbnailUrl);
   writeNotNull('isFeatured', instance.isFeatured);
   writeNotNull('orderPosition', instance.orderPosition);
-  writeNotNull('source', _$StencilSourceEnumMap[instance.source]);
   writeNotNull('isHidden', instance.isHidden);
   writeNotNull('tagIds', instance.tagIds);
   return val;
