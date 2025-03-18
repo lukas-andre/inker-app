@@ -24,7 +24,6 @@ class StencilClientService implements StencilService {
         'page': params.page.toString(),
         'limit': params.limit.toString(),
         if (params.featured != null) 'featured': params.featured.toString(),
-        if (params.source != null) 'source': params.source.toString(),
         'includeHidden': params.includeHidden.toString(),
       };
 

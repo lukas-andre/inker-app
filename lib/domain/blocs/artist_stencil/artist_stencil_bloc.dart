@@ -21,9 +21,9 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       await event.when(
         loadStencils: (includeHidden) => _loadStencils(includeHidden, emit),
         loadStencilDetail: (stencilId) => _loadStencilDetail(stencilId, emit),
-        createStencil: (title, description, source, isFeatured, isHidden,
+        createStencil: (title, description, isFeatured, isHidden,
                 tagIds, imageFile) =>
-            _createStencil(title, description, source, isFeatured, isHidden,
+            _createStencil(title, description, isFeatured, isHidden,
                 tagIds, imageFile, emit),
         updateStencil: (stencilId, title, description, isFeatured, isHidden,
                 tagIds, imageFile) =>
@@ -90,7 +90,6 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   Future<void> _createStencil(
       String title,
       String? description,
-      StencilSource source,
       bool isFeatured,
       bool isHidden,
       List<int>? tagIds,
@@ -107,7 +106,6 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       final createDto = CreateStencilDto(
         title: title,
         description: description,
-        source: source,
         isFeatured: isFeatured,
         isHidden: isHidden,
         tagIds: tagIds,
