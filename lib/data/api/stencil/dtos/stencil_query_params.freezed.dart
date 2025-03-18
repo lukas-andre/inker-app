@@ -24,6 +24,8 @@ mixin _$StencilQueryParams {
   int get limit => throw _privateConstructorUsedError;
   bool? get featured => throw _privateConstructorUsedError;
   bool get includeHidden => throw _privateConstructorUsedError;
+  List<int>? get tagIds => throw _privateConstructorUsedError;
+  String? get searchText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +39,13 @@ abstract class $StencilQueryParamsCopyWith<$Res> {
           StencilQueryParams value, $Res Function(StencilQueryParams) then) =
       _$StencilQueryParamsCopyWithImpl<$Res, StencilQueryParams>;
   @useResult
-  $Res call({int page, int limit, bool? featured, bool includeHidden});
+  $Res call(
+      {int page,
+      int limit,
+      bool? featured,
+      bool includeHidden,
+      List<int>? tagIds,
+      String? searchText});
 }
 
 /// @nodoc
@@ -57,6 +65,8 @@ class _$StencilQueryParamsCopyWithImpl<$Res, $Val extends StencilQueryParams>
     Object? limit = null,
     Object? featured = freezed,
     Object? includeHidden = null,
+    Object? tagIds = freezed,
+    Object? searchText = freezed,
   }) {
     return _then(_value.copyWith(
       page: null == page
@@ -75,6 +85,14 @@ class _$StencilQueryParamsCopyWithImpl<$Res, $Val extends StencilQueryParams>
           ? _value.includeHidden
           : includeHidden // ignore: cast_nullable_to_non_nullable
               as bool,
+      tagIds: freezed == tagIds
+          ? _value.tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +105,13 @@ abstract class _$$StencilQueryParamsImplCopyWith<$Res>
       __$$StencilQueryParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int page, int limit, bool? featured, bool includeHidden});
+  $Res call(
+      {int page,
+      int limit,
+      bool? featured,
+      bool includeHidden,
+      List<int>? tagIds,
+      String? searchText});
 }
 
 /// @nodoc
@@ -105,6 +129,8 @@ class __$$StencilQueryParamsImplCopyWithImpl<$Res>
     Object? limit = null,
     Object? featured = freezed,
     Object? includeHidden = null,
+    Object? tagIds = freezed,
+    Object? searchText = freezed,
   }) {
     return _then(_$StencilQueryParamsImpl(
       page: null == page
@@ -123,6 +149,14 @@ class __$$StencilQueryParamsImplCopyWithImpl<$Res>
           ? _value.includeHidden
           : includeHidden // ignore: cast_nullable_to_non_nullable
               as bool,
+      tagIds: freezed == tagIds
+          ? _value._tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -134,7 +168,10 @@ class _$StencilQueryParamsImpl implements _StencilQueryParams {
       {this.page = 1,
       this.limit = 10,
       this.featured,
-      this.includeHidden = false});
+      this.includeHidden = false,
+      final List<int>? tagIds,
+      this.searchText})
+      : _tagIds = tagIds;
 
   factory _$StencilQueryParamsImpl.fromJson(Map<String, dynamic> json) =>
       _$$StencilQueryParamsImplFromJson(json);
@@ -150,10 +187,22 @@ class _$StencilQueryParamsImpl implements _StencilQueryParams {
   @override
   @JsonKey()
   final bool includeHidden;
+  final List<int>? _tagIds;
+  @override
+  List<int>? get tagIds {
+    final value = _tagIds;
+    if (value == null) return null;
+    if (_tagIds is EqualUnmodifiableListView) return _tagIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? searchText;
 
   @override
   String toString() {
-    return 'StencilQueryParams(page: $page, limit: $limit, featured: $featured, includeHidden: $includeHidden)';
+    return 'StencilQueryParams(page: $page, limit: $limit, featured: $featured, includeHidden: $includeHidden, tagIds: $tagIds, searchText: $searchText)';
   }
 
   @override
@@ -166,13 +215,16 @@ class _$StencilQueryParamsImpl implements _StencilQueryParams {
             (identical(other.featured, featured) ||
                 other.featured == featured) &&
             (identical(other.includeHidden, includeHidden) ||
-                other.includeHidden == includeHidden));
+                other.includeHidden == includeHidden) &&
+            const DeepCollectionEquality().equals(other._tagIds, _tagIds) &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, page, limit, featured, includeHidden);
+  int get hashCode => Object.hash(runtimeType, page, limit, featured,
+      includeHidden, const DeepCollectionEquality().hash(_tagIds), searchText);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +246,9 @@ abstract class _StencilQueryParams implements StencilQueryParams {
       {final int page,
       final int limit,
       final bool? featured,
-      final bool includeHidden}) = _$StencilQueryParamsImpl;
+      final bool includeHidden,
+      final List<int>? tagIds,
+      final String? searchText}) = _$StencilQueryParamsImpl;
 
   factory _StencilQueryParams.fromJson(Map<String, dynamic> json) =
       _$StencilQueryParamsImpl.fromJson;
@@ -207,6 +261,10 @@ abstract class _StencilQueryParams implements StencilQueryParams {
   bool? get featured;
   @override
   bool get includeHidden;
+  @override
+  List<int>? get tagIds;
+  @override
+  String? get searchText;
   @override
   @JsonKey(ignore: true)
   _$$StencilQueryParamsImplCopyWith<_$StencilQueryParamsImpl> get copyWith =>

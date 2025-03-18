@@ -15,5 +15,7 @@ class ArtistStencilState with _$ArtistStencilState {
   const factory ArtistStencilState.stencilLiked(int stencilId, int likeCount) = _StencilLiked;
   const factory ArtistStencilState.tagSuggestionsLoaded(List<TagSuggestionResponseDto> suggestions) = _TagSuggestionsLoaded;
   const factory ArtistStencilState.popularTagsLoaded(List<TagSuggestionResponseDto> popularTags) = _PopularTagsLoaded;
+  const factory ArtistStencilState.tagCreated(TagSuggestionResponseDto tag) = _TagCreated;
+  const factory ArtistStencilState.filteredByTag(List<Stencil> stencils, int tagId) = _FilteredByTag;
   const factory ArtistStencilState.error(String message) = _Error;
 }

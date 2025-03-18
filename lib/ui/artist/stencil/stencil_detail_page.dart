@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -23,11 +25,18 @@ class StencilDetailPage extends StatefulWidget {
 class _StencilDetailPageState extends State<StencilDetailPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _tagController = TextEditingController();
+  final _searchDebounce = _Debounce(milliseconds: 500);
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
   XFile? _selectedImage;
   bool _isLoading = false;
+  bool _isFetchingTags = false;
+  bool _showTagSuggestions = false;
+  List<TagSuggestionResponseDto> _tagSuggestions = [];
+  List<TagSuggestionResponseDto> _selectedTagsObjects = [];
+  List<int> _selectedTagIds = [];
 
   @override
   void initState() {
@@ -36,6 +45,18 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     _descriptionController.text = widget.stencil.description ?? '';
     _isFeatured = widget.stencil.isFeatured;
     _isHidden = widget.stencil.isHidden;
+    
+    // Initialize tags from stencil
+    if (widget.stencil.tags != null && widget.stencil.tags!.isNotEmpty) {
+      _selectedTagIds = widget.stencil.tags!.map((tag) => tag.id).toList();
+      _selectedTagsObjects = widget.stencil.tags!
+          .map((tag) => TagSuggestionResponseDto(
+                id: tag.id,
+                name: tag.name,
+                count: tag.count,
+              ))
+          .toList();
+    }
 
     // Record a view when the detail page is opened
     context.read<ArtistStencilBloc>().add(
@@ -47,7 +68,64 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
+    _tagController.dispose();
+    _searchDebounce.dispose();
     super.dispose();
+  }
+  
+  void _loadPopularTags() {
+    context.read<ArtistStencilBloc>().add(
+      const ArtistStencilEvent.getPopularTags(),
+    );
+  }
+  
+  void _searchTags(String query) {
+    if (query.isEmpty) {
+      _loadPopularTags();
+      return;
+    }
+    
+    _searchDebounce.run(() {
+      setState(() {
+        _isFetchingTags = true;
+      });
+      
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.getTagSuggestions(query),
+      );
+    });
+  }
+
+  void _addTag(TagSuggestionResponseDto tag) {
+    if (!_selectedTagIds.contains(tag.id)) {
+      setState(() {
+        _selectedTagsObjects.add(tag);
+        _selectedTagIds.add(tag.id);
+        _tagController.clear();
+        _showTagSuggestions = false;
+      });
+    }
+  }
+
+  void _removeTag(TagSuggestionResponseDto tag) {
+    setState(() {
+      _selectedTagsObjects.removeWhere((t) => t.id == tag.id);
+      _selectedTagIds.removeWhere((id) => id == tag.id);
+    });
+  }
+
+  void _createNewTag(String name) {
+    if (name.isEmpty) return;
+    
+    setState(() {
+      _isFetchingTags = true;
+    });
+    
+    context.read<ArtistStencilBloc>().add(
+      ArtistStencilEvent.createTag(name),
+    );
+    
+    _tagController.clear();
   }
 
   Future<void> _pickImage() async {
@@ -85,9 +163,13 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               description: _descriptionController.text,
               isFeatured: _isFeatured,
               isHidden: _isHidden,
+              tagIds: _selectedTagIds.isEmpty ? null : _selectedTagIds,
               imageFile: _selectedImage,
             ),
           );
+    } else {
+      // Load popular tags when entering edit mode
+      _loadPopularTags();
     }
 
     setState(() {
@@ -196,9 +278,30 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               );
               Navigator.pop(context);
             },
+            tagSuggestionsLoaded: (suggestions) {
+              setState(() {
+                _tagSuggestions = suggestions;
+                _isFetchingTags = false;
+                _showTagSuggestions = suggestions.isNotEmpty;
+              });
+            },
+            popularTagsLoaded: (popularTags) {
+              setState(() {
+                _tagSuggestions = popularTags;
+                _isFetchingTags = false;
+                _showTagSuggestions = popularTags.isNotEmpty && _isEditing;
+              });
+            },
+            tagCreated: (tag) {
+              setState(() {
+                _isFetchingTags = false;
+                _addTag(tag);
+              });
+            },
             error: (message) {
               setState(() {
                 _isLoading = false;
+                _isFetchingTags = false;
               });
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
@@ -425,6 +528,14 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           ),
         ),
         const SizedBox(height: 16),
+        _buildTagField(),
+        if (_showTagSuggestions) 
+          _buildTagSuggestions(),
+        if (_selectedTagsObjects.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          _buildSelectedTags(),
+        ],
+        const SizedBox(height: 16),
         SwitchListTile(
           title: Text(
             S.of(context).featuredStencil,
@@ -470,6 +581,170 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           contentPadding: EdgeInsets.zero,
         ),
       ],
+    );
+  }
+  
+  Widget _buildTagField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          S.of(context).tags,
+          style: TextStyleTheme.bodyText1.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          S.of(context).addTagsToMakeYourStencilMoreDiscoverable,
+          style: TextStyleTheme.caption.copyWith(
+            color: Colors.grey.shade400,
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: _tagController,
+          style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: S.of(context).searchOrCreateTags,
+            hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+            filled: true,
+            fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            prefixIcon: Icon(Icons.search, color: Colors.grey.shade400),
+            suffixIcon: _isFetchingTags 
+                ? Container(
+                    width: 20,
+                    height: 20,
+                    padding: const EdgeInsets.all(12),
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                    ),
+                  )
+                : IconButton(
+                    icon: Icon(Icons.add, color: Colors.grey.shade400),
+                    onPressed: () => _createNewTag(_tagController.text.trim()),
+                    tooltip: S.of(context).createNewTag,
+                  ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade800),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade800),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: secondaryColor),
+            ),
+          ),
+          onChanged: _searchTags,
+          onTap: () {
+            if (_tagController.text.isEmpty) {
+              _loadPopularTags();
+            }
+            setState(() {
+              _showTagSuggestions = true;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTagSuggestions() {
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade800),
+      ),
+      constraints: const BoxConstraints(maxHeight: 200),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                _tagController.text.isEmpty
+                    ? S.of(context).popularTags
+                    : S.of(context).suggestions,
+                style: TextStyleTheme.caption.copyWith(
+                  color: Colors.grey.shade400,
+                ),
+              ),
+            ),
+            ..._tagSuggestions.map((tag) => _buildTagSuggestionItem(tag)),
+            if (_tagController.text.isNotEmpty)
+              ListTile(
+                title: Text(
+                  S.of(context).createNewTag + ': "${_tagController.text}"',
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: secondaryColor,
+                  ),
+                ),
+                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
+                onTap: () => _createNewTag(_tagController.text.trim()),
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTagSuggestionItem(TagSuggestionResponseDto tag) {
+    final bool isSelected = _selectedTagIds.contains(tag.id);
+    
+    return ListTile(
+      title: Text(
+        tag.name,
+        style: TextStyleTheme.bodyText2.copyWith(
+          color: isSelected ? secondaryColor : Colors.white,
+        ),
+      ),
+      trailing: tag.count != null && tag.count! > 0
+          ? Text(
+              '${tag.count}',
+              style: TextStyleTheme.caption.copyWith(
+                color: Colors.grey.shade400,
+              ),
+            )
+          : null,
+      leading: isSelected
+          ? const Icon(Icons.check_circle, color: secondaryColor)
+          : const Icon(Icons.add_circle_outline, color: Colors.grey),
+      onTap: () => _addTag(tag),
+      contentPadding: EdgeInsets.zero,
+      dense: true,
+    );
+  }
+
+  Widget _buildSelectedTags() {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: _selectedTagsObjects.map((tag) {
+        return Chip(
+          label: Text(
+            tag.name,
+            style: TextStyleTheme.caption.copyWith(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: secondaryColor.withOpacity(0.2),
+          side: BorderSide(color: secondaryColor.withOpacity(0.5)),
+          deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white70),
+          onDeleted: () => _removeTag(tag),
+        );
+      }).toList(),
     );
   }
 
@@ -651,18 +926,39 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   }
 
   Widget _buildTagChip(Tag tag) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: secondaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: secondaryColor.withOpacity(0.5)),
-      ),
-      child: Text(
-        tag.name,
-        style: TextStyleTheme.caption.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        // Navigate to the gallery with this tag filter
+        // First filter the stencils by this tag
+        context.read<ArtistStencilBloc>().add(
+          ArtistStencilEvent.filterStencilsByTag(tag.id),
+        );
+        
+        // Then navigate to the gallery
+        Navigator.pushNamed(
+          context, 
+          '/stencils/gallery',
+        ).then((_) {
+          // When we return, load the stencil again
+          context.read<ArtistStencilBloc>().add(
+            ArtistStencilEvent.loadStencilDetail(widget.stencil.id),
+          );
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: secondaryColor.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: secondaryColor.withOpacity(0.5)),
+        ),
+        child: Text(
+          tag.name,
+          style: TextStyleTheme.caption.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -670,5 +966,23 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
+  }
+}
+
+class _Debounce {
+  final int milliseconds;
+  Timer? _timer;
+
+  _Debounce({required this.milliseconds});
+
+  void run(VoidCallback action) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+
+  void dispose() {
+    _timer?.cancel();
   }
 }

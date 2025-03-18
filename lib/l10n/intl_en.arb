@@ -1523,5 +1523,39 @@
   "tryAgainLater": "Please try again later",
   "@tryAgainLater": {
     "description": "Suggestion to try again later"
+  },
+  "searchOrCreateTags": "Search or create tags",
+  "@searchOrCreateTags": {
+    "description": "Placeholder for tag search field"
+  },
+  "addTagsToMakeYourStencilMoreDiscoverable": "Add tags to make your stencil more discoverable",
+  "@addTagsToMakeYourStencilMoreDiscoverable": {
+    "description": "Helper text for adding tags"
+  },
+  "createNewTag": "Create new tag",
+  "@createNewTag": {
+    "description": "Action to create a new tag"
+  },
+  "suggestions": "Suggestions",
+  "@suggestions": {
+    "description": "Label for tag suggestions"
+  },
+  "popularTags": "Popular Tags",
+  "@popularTags": {
+    "description": "Label for popular tags section"
+  },
+  "noStencilsWithTag": "No stencils with tag '{tagName}'",
+  "@noStencilsWithTag": {
+    "description": "Message when no stencils have a specific tag",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "clearFilter": "Clear Filter",
+  "@clearFilter": {
+    "description": "Action to remove tag filter"
   }
 }

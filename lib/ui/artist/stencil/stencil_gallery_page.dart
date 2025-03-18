@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -17,22 +18,62 @@ class StencilGalleryPage extends StatefulWidget {
 
 class _StencilGalleryPageState extends State<StencilGalleryPage> {
   bool _showHidden = true;
+  int? _activeTagFilter;
+  List<TagSuggestionResponseDto> _popularTags = [];
+  bool _isLoadingTags = false;
   
   @override
   void initState() {
     super.initState();
     _loadStencils();
+    _loadPopularTags();
   }
 
   void _loadStencils() {
-    context.read<ArtistStencilBloc>().add(ArtistStencilEvent.loadStencils(_showHidden));
+    if (_activeTagFilter != null) {
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.filterStencilsByTag(_activeTagFilter!),
+      );
+    } else {
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.loadStencils(_showHidden),
+      );
+    }
+  }
+
+  void _loadPopularTags() {
+    setState(() {
+      _isLoadingTags = true;
+    });
+    
+    context.read<ArtistStencilBloc>().add(
+      const ArtistStencilEvent.getPopularTags(),
+    );
   }
 
   void _toggleShowHidden() {
     setState(() {
       _showHidden = !_showHidden;
+      _activeTagFilter = null;
     });
     _loadStencils();
+  }
+
+  void _filterByTag(int tagId) {
+    if (_activeTagFilter == tagId) {
+      // Clear filter if already active
+      setState(() {
+        _activeTagFilter = null;
+      });
+      _loadStencils();
+    } else {
+      setState(() {
+        _activeTagFilter = tagId;
+      });
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.filterStencilsByTag(tagId),
+      );
+    }
   }
 
   void _navigateToAddStencil() {
@@ -82,7 +123,16 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
       body: BlocConsumer<ArtistStencilBloc, ArtistStencilState>(
         listener: (context, state) {
           state.maybeWhen(
+            popularTagsLoaded: (tags) {
+              setState(() {
+                _popularTags = tags;
+                _isLoadingTags = false;
+              });
+            },
             error: (message) {
+              setState(() {
+                _isLoadingTags = false;
+              });
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
                   content: message,
@@ -98,6 +148,10 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
             initial: () => const Center(child: InkerProgressIndicator()),
             loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (stencils) => _buildGallery(stencils),
+            filteredByTag: (stencils, tagId) {
+              _activeTagFilter = tagId;
+              return _buildGallery(stencils);
+            },
             submitting: () => const Center(child: InkerProgressIndicator()),
             error: (_) => _buildErrorView(),
             orElse: () => const Center(child: InkerProgressIndicator()),
@@ -108,7 +162,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
   }
 
   Widget _buildGallery(List<Stencil> stencils) {
-    if (stencils.isEmpty) {
+    if (stencils.isEmpty && _activeTagFilter == null) {
       return _buildEmptyView();
     }
 
@@ -117,6 +171,18 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
 
     return CustomScrollView(
       slivers: [
+        if (_popularTags.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: _buildTagsList(),
+          ),
+          SliverToBoxAdapter(
+            child: const Divider(color: Colors.grey, height: 32),
+          ),
+        ],
+        if (stencils.isEmpty && _activeTagFilter != null)
+          SliverToBoxAdapter(
+            child: _buildEmptyTagFilterView(),
+          ),
         if (featured.isNotEmpty) ...[
           SliverToBoxAdapter(
             child: Padding(
@@ -144,36 +210,123 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
             ),
           ),
         ],
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(16, featured.isEmpty ? 16 : 24, 16, 8),
-            child: Text(
-              featured.isEmpty ? S.of(context).allStencils : S.of(context).allOtherStencils,
+        if (regular.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, featured.isEmpty ? 16 : 24, 16, 8),
+              child: Text(
+                featured.isEmpty ? S.of(context).allStencils : S.of(context).allOtherStencils,
+                style: TextStyleTheme.headline3.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return _buildStencilItem(regular[index]);
+                },
+                childCount: regular.length,
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildTagsList() {
+    return Container(
+      height: 50,
+      margin: const EdgeInsets.only(top: 16),
+      child: _isLoadingTags
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: _popularTags.length,
+              itemBuilder: (context, index) {
+                final tag = _popularTags[index];
+                final isActive = _activeTagFilter == tag.id;
+                
+                return Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(
+                      tag.name,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: isActive ? Colors.white : Colors.grey.shade300,
+                      ),
+                    ),
+                    selected: isActive,
+                    showCheckmark: false,
+                    backgroundColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                    selectedColor: secondaryColor,
+                    onSelected: (_) => _filterByTag(tag.id),
+                  ),
+                );
+              },
+            ),
+    );
+  }
+
+  Widget _buildEmptyTagFilterView() {
+    final selectedTag = _popularTags.firstWhere(
+      (tag) => tag.id == _activeTagFilter,
+      orElse: () => const TagSuggestionResponseDto(id: 0, name: 'Unknown'),
+    );
+    
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.filter_list,
+              size: 72,
+              color: Colors.grey.shade600,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              S.of(context).noStencilsWithTag(selectedTag.name),
               style: TextStyleTheme.headline3.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.all(16),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return _buildStencilItem(regular[index]);
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() {
+                  _activeTagFilter = null;
+                });
+                _loadStencils();
               },
-              childCount: regular.length,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: secondaryColor,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: const Icon(Icons.clear_all, color: Colors.white),
+              label: Text(S.of(context).clearFilter, style: TextStyleTheme.button),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -294,6 +447,34 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                  if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 20,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: stencil.tags!.length > 2 ? 2 : stencil.tags!.length,
+                        itemBuilder: (context, index) {
+                          final tag = stencil.tags![index];
+                          return Container(
+                            margin: const EdgeInsets.only(right: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: secondaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              tag.name,
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -427,6 +608,40 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 20,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: stencil.tags!.length > 2 ? 2 : stencil.tags!.length,
+                        itemBuilder: (context, index) {
+                          final tag = stencil.tags![index];
+                          return GestureDetector(
+                            onTap: () => _filterByTag(tag.id),
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: _activeTagFilter == tag.id
+                                    ? secondaryColor
+                                    : secondaryColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                tag.name,
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

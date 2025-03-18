@@ -31,4 +31,6 @@ class ArtistStencilEvent with _$ArtistStencilEvent {
   const factory ArtistStencilEvent.likeStencil(int stencilId) = _LikeStencil;
   const factory ArtistStencilEvent.getTagSuggestions(String prefix) = _GetTagSuggestions;
   const factory ArtistStencilEvent.getPopularTags() = _GetPopularTags;
+  const factory ArtistStencilEvent.createTag(String name) = _CreateTag;
+  const factory ArtistStencilEvent.filterStencilsByTag(int tagId) = _FilterStencilsByTag;
 }

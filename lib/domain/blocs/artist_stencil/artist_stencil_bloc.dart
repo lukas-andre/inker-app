@@ -36,6 +36,8 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
         likeStencil: (stencilId) => _likeStencil(stencilId, emit),
         getTagSuggestions: (prefix) => _getTagSuggestions(prefix, emit),
         getPopularTags: () => _getPopularTags(emit),
+        createTag: (name) => _createTag(name, emit),
+        filterStencilsByTag: (tagId) => _filterStencilsByTag(tagId, emit),
       );
     });
   }
@@ -290,6 +292,53 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       final popularTags =
           await _stencilService.getPopularTags(20, session.accessToken);
       emit(ArtistStencilState.popularTagsLoaded(popularTags));
+    } catch (e) {
+      emit(ArtistStencilState.error(e.toString()));
+    }
+  }
+  
+  Future<void> _createTag(
+      String name, Emitter<ArtistStencilState> emit) async {
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const ArtistStencilState.error('No session found'));
+        return;
+      }
+
+      final createdTag = await _stencilService.createTag(
+          name, session.accessToken);
+      emit(ArtistStencilState.tagCreated(createdTag));
+    } catch (e) {
+      emit(ArtistStencilState.error(e.toString()));
+    }
+  }
+  
+  Future<void> _filterStencilsByTag(
+      int tagId, Emitter<ArtistStencilState> emit) async {
+    emit(const ArtistStencilState.loading());
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const ArtistStencilState.error('No session found'));
+        return;
+      }
+
+      final artistId = session.user!.userTypeId;
+      if (artistId == null) {
+        emit(const ArtistStencilState.error('No artist ID found in session'));
+        return;
+      }
+
+      final params = StencilQueryParams(
+        includeHidden: true,
+        limit: 50,
+        tagIds: [tagId],
+      );
+
+      final stencils = await _stencilService.getStencilsByArtistId(
+          artistId, params, session.accessToken);
+      emit(ArtistStencilState.filteredByTag(stencils, tagId));
     } catch (e) {
       emit(ArtistStencilState.error(e.toString()));
     }

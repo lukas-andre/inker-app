@@ -10,6 +10,8 @@ class StencilQueryParams with _$StencilQueryParams {
     @Default(10) int limit,
     bool? featured,
     @Default(false) bool includeHidden,
+    List<int>? tagIds,
+    String? searchText,
   }) = _StencilQueryParams;
 
   factory StencilQueryParams.fromJson(Map<String, dynamic> json) =>

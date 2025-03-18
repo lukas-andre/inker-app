@@ -12,6 +12,10 @@ _$StencilQueryParamsImpl _$$StencilQueryParamsImplFromJson(Map json) =>
       limit: (json['limit'] as num?)?.toInt() ?? 10,
       featured: json['featured'] as bool?,
       includeHidden: json['includeHidden'] as bool? ?? false,
+      tagIds: (json['tagIds'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
+      searchText: json['searchText'] as String?,
     );
 
 Map<String, dynamic> _$$StencilQueryParamsImplToJson(
@@ -29,6 +33,8 @@ Map<String, dynamic> _$$StencilQueryParamsImplToJson(
 
   writeNotNull('featured', instance.featured);
   val['includeHidden'] = instance.includeHidden;
+  writeNotNull('tagIds', instance.tagIds);
+  writeNotNull('searchText', instance.searchText);
   return val;
 }
 
