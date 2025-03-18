@@ -30,7 +30,6 @@ mixin _$Stencil {
   int? get thumbnailVersion => throw _privateConstructorUsedError;
   bool get isFeatured => throw _privateConstructorUsedError;
   int get orderPosition => throw _privateConstructorUsedError;
-  StencilSource get source => throw _privateConstructorUsedError;
   bool get isHidden => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -61,7 +60,6 @@ abstract class $StencilCopyWith<$Res> {
       int? thumbnailVersion,
       bool isFeatured,
       int orderPosition,
-      StencilSource source,
       bool isHidden,
       DateTime createdAt,
       DateTime updatedAt,
@@ -95,7 +93,6 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
     Object? thumbnailVersion = freezed,
     Object? isFeatured = null,
     Object? orderPosition = null,
-    Object? source = null,
     Object? isHidden = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -146,10 +143,6 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource,
       isHidden: null == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -204,7 +197,6 @@ abstract class _$$StencilImplCopyWith<$Res> implements $StencilCopyWith<$Res> {
       int? thumbnailVersion,
       bool isFeatured,
       int orderPosition,
-      StencilSource source,
       bool isHidden,
       DateTime createdAt,
       DateTime updatedAt,
@@ -236,7 +228,6 @@ class __$$StencilImplCopyWithImpl<$Res>
     Object? thumbnailVersion = freezed,
     Object? isFeatured = null,
     Object? orderPosition = null,
-    Object? source = null,
     Object? isHidden = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -287,10 +278,6 @@ class __$$StencilImplCopyWithImpl<$Res>
           ? _value.orderPosition
           : orderPosition // ignore: cast_nullable_to_non_nullable
               as int,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource,
       isHidden: null == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -341,7 +328,6 @@ class _$StencilImpl implements _Stencil {
       this.thumbnailVersion,
       this.isFeatured = false,
       this.orderPosition = 0,
-      required this.source,
       this.isHidden = false,
       required this.createdAt,
       required this.updatedAt,
@@ -378,8 +364,6 @@ class _$StencilImpl implements _Stencil {
   @JsonKey()
   final int orderPosition;
   @override
-  final StencilSource source;
-  @override
   @JsonKey()
   final bool isHidden;
   @override
@@ -410,7 +394,7 @@ class _$StencilImpl implements _Stencil {
 
   @override
   String toString() {
-    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser)';
+    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser)';
   }
 
   @override
@@ -436,7 +420,6 @@ class _$StencilImpl implements _Stencil {
                 other.isFeatured == isFeatured) &&
             (identical(other.orderPosition, orderPosition) ||
                 other.orderPosition == orderPosition) &&
-            (identical(other.source, source) || other.source == source) &&
             (identical(other.isHidden, isHidden) ||
                 other.isHidden == isHidden) &&
             (identical(other.createdAt, createdAt) ||
@@ -456,28 +439,26 @@ class _$StencilImpl implements _Stencil {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        artistId,
-        title,
-        description,
-        imageUrl,
-        imageVersion,
-        thumbnailUrl,
-        thumbnailVersion,
-        isFeatured,
-        orderPosition,
-        source,
-        isHidden,
-        createdAt,
-        updatedAt,
-        deletedAt,
-        const DeepCollectionEquality().hash(_tags),
-        viewCount,
-        likeCount,
-        isLikedByUser
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      artistId,
+      title,
+      description,
+      imageUrl,
+      imageVersion,
+      thumbnailUrl,
+      thumbnailVersion,
+      isFeatured,
+      orderPosition,
+      isHidden,
+      createdAt,
+      updatedAt,
+      deletedAt,
+      const DeepCollectionEquality().hash(_tags),
+      viewCount,
+      likeCount,
+      isLikedByUser);
 
   @JsonKey(ignore: true)
   @override
@@ -505,7 +486,6 @@ abstract class _Stencil implements Stencil {
       final int? thumbnailVersion,
       final bool isFeatured,
       final int orderPosition,
-      required final StencilSource source,
       final bool isHidden,
       required final DateTime createdAt,
       required final DateTime updatedAt,
@@ -537,8 +517,6 @@ abstract class _Stencil implements Stencil {
   bool get isFeatured;
   @override
   int get orderPosition;
-  @override
-  StencilSource get source;
   @override
   bool get isHidden;
   @override

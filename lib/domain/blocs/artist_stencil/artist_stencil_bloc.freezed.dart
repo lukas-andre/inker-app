@@ -20,14 +20,8 @@ mixin _$ArtistStencilEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -51,14 +45,8 @@ mixin _$ArtistStencilEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -82,14 +70,8 @@ mixin _$ArtistStencilEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -244,14 +226,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -278,14 +254,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -312,14 +282,8 @@ class _$LoadStencilsImpl implements _LoadStencils {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -481,14 +445,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -515,14 +473,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -549,14 +501,8 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -660,7 +606,6 @@ abstract class _$$CreateStencilImplCopyWith<$Res> {
   $Res call(
       {String title,
       String? description,
-      StencilSource source,
       bool isFeatured,
       bool isHidden,
       List<int>? tagIds,
@@ -680,7 +625,6 @@ class __$$CreateStencilImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? description = freezed,
-    Object? source = null,
     Object? isFeatured = null,
     Object? isHidden = null,
     Object? tagIds = freezed,
@@ -695,10 +639,6 @@ class __$$CreateStencilImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as StencilSource,
       isFeatured: null == isFeatured
           ? _value.isFeatured
           : isFeatured // ignore: cast_nullable_to_non_nullable
@@ -725,7 +665,6 @@ class _$CreateStencilImpl implements _CreateStencil {
   const _$CreateStencilImpl(
       {required this.title,
       this.description,
-      required this.source,
       this.isFeatured = false,
       this.isHidden = false,
       final List<int>? tagIds,
@@ -736,8 +675,6 @@ class _$CreateStencilImpl implements _CreateStencil {
   final String title;
   @override
   final String? description;
-  @override
-  final StencilSource source;
   @override
   @JsonKey()
   final bool isFeatured;
@@ -759,7 +696,7 @@ class _$CreateStencilImpl implements _CreateStencil {
 
   @override
   String toString() {
-    return 'ArtistStencilEvent.createStencil(title: $title, description: $description, source: $source, isFeatured: $isFeatured, isHidden: $isHidden, tagIds: $tagIds, imageFile: $imageFile)';
+    return 'ArtistStencilEvent.createStencil(title: $title, description: $description, isFeatured: $isFeatured, isHidden: $isHidden, tagIds: $tagIds, imageFile: $imageFile)';
   }
 
   @override
@@ -770,7 +707,6 @@ class _$CreateStencilImpl implements _CreateStencil {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.source, source) || other.source == source) &&
             (identical(other.isFeatured, isFeatured) ||
                 other.isFeatured == isFeatured) &&
             (identical(other.isHidden, isHidden) ||
@@ -781,15 +717,8 @@ class _$CreateStencilImpl implements _CreateStencil {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      title,
-      description,
-      source,
-      isFeatured,
-      isHidden,
-      const DeepCollectionEquality().hash(_tagIds),
-      imageFile);
+  int get hashCode => Object.hash(runtimeType, title, description, isFeatured,
+      isHidden, const DeepCollectionEquality().hash(_tagIds), imageFile);
 
   @JsonKey(ignore: true)
   @override
@@ -802,14 +731,8 @@ class _$CreateStencilImpl implements _CreateStencil {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -829,7 +752,7 @@ class _$CreateStencilImpl implements _CreateStencil {
     required TResult Function() getPopularTags,
   }) {
     return createStencil(
-        title, description, source, isFeatured, isHidden, tagIds, imageFile);
+        title, description, isFeatured, isHidden, tagIds, imageFile);
   }
 
   @override
@@ -837,14 +760,8 @@ class _$CreateStencilImpl implements _CreateStencil {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -864,7 +781,7 @@ class _$CreateStencilImpl implements _CreateStencil {
     TResult? Function()? getPopularTags,
   }) {
     return createStencil?.call(
-        title, description, source, isFeatured, isHidden, tagIds, imageFile);
+        title, description, isFeatured, isHidden, tagIds, imageFile);
   }
 
   @override
@@ -872,14 +789,8 @@ class _$CreateStencilImpl implements _CreateStencil {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -901,7 +812,7 @@ class _$CreateStencilImpl implements _CreateStencil {
   }) {
     if (createStencil != null) {
       return createStencil(
-          title, description, source, isFeatured, isHidden, tagIds, imageFile);
+          title, description, isFeatured, isHidden, tagIds, imageFile);
     }
     return orElse();
   }
@@ -969,7 +880,6 @@ abstract class _CreateStencil implements ArtistStencilEvent {
   const factory _CreateStencil(
       {required final String title,
       final String? description,
-      required final StencilSource source,
       final bool isFeatured,
       final bool isHidden,
       final List<int>? tagIds,
@@ -977,7 +887,6 @@ abstract class _CreateStencil implements ArtistStencilEvent {
 
   String get title;
   String? get description;
-  StencilSource get source;
   bool get isFeatured;
   bool get isHidden;
   List<int>? get tagIds;
@@ -1137,14 +1046,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -1172,14 +1075,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -1207,14 +1104,8 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -1389,14 +1280,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -1423,14 +1308,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -1457,14 +1336,8 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -1635,14 +1508,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -1669,14 +1536,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -1703,14 +1564,8 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -1881,14 +1736,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -1915,14 +1764,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -1949,14 +1792,8 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -2118,14 +1955,8 @@ class _$RecordViewImpl implements _RecordView {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -2152,14 +1983,8 @@ class _$RecordViewImpl implements _RecordView {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -2186,14 +2011,8 @@ class _$RecordViewImpl implements _RecordView {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -2354,14 +2173,8 @@ class _$LikeStencilImpl implements _LikeStencil {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -2388,14 +2201,8 @@ class _$LikeStencilImpl implements _LikeStencil {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -2422,14 +2229,8 @@ class _$LikeStencilImpl implements _LikeStencil {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -2590,14 +2391,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -2624,14 +2419,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -2658,14 +2447,8 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,
@@ -2800,14 +2583,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
     required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)
+    required TResult Function(String title, String? description,
+            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
         createStencil,
     required TResult Function(
             int stencilId,
@@ -2834,14 +2611,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
     TResult? Function(int stencilId)? loadStencilDetail,
-    TResult? Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult? Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
             int stencilId,
@@ -2868,14 +2639,8 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
     TResult Function(int stencilId)? loadStencilDetail,
-    TResult Function(
-            String title,
-            String? description,
-            StencilSource source,
-            bool isFeatured,
-            bool isHidden,
-            List<int>? tagIds,
-            XFile? imageFile)?
+    TResult Function(String title, String? description, bool isFeatured,
+            bool isHidden, List<int>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
             int stencilId,

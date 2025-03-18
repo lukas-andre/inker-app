@@ -17,7 +17,6 @@ _$StencilImpl _$$StencilImplFromJson(Map json) => _$StencilImpl(
       thumbnailVersion: (json['thumbnailVersion'] as num?)?.toInt(),
       isFeatured: json['isFeatured'] as bool? ?? false,
       orderPosition: (json['orderPosition'] as num?)?.toInt() ?? 0,
-      source: $enumDecode(_$StencilSourceEnumMap, json['source']),
       isHidden: json['isHidden'] as bool? ?? false,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
@@ -52,7 +51,6 @@ Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
   writeNotNull('thumbnailVersion', instance.thumbnailVersion);
   val['isFeatured'] = instance.isFeatured;
   val['orderPosition'] = instance.orderPosition;
-  val['source'] = _$StencilSourceEnumMap[instance.source]!;
   val['isHidden'] = instance.isHidden;
   val['createdAt'] = instance.createdAt.toIso8601String();
   val['updatedAt'] = instance.updatedAt.toIso8601String();
@@ -63,11 +61,6 @@ Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
   val['isLikedByUser'] = instance.isLikedByUser;
   return val;
 }
-
-const _$StencilSourceEnumMap = {
-  StencilSource.app: 'APP',
-  StencilSource.external: 'EXTERNAL',
-};
 
 _$TagImpl _$$TagImplFromJson(Map json) => _$TagImpl(
       id: (json['id'] as num).toInt(),

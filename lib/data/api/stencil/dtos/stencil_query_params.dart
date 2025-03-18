@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inker_studio/domain/models/stencil/stencil.dart';
 
 part 'stencil_query_params.freezed.dart';
 part 'stencil_query_params.g.dart';
@@ -10,7 +9,6 @@ class StencilQueryParams with _$StencilQueryParams {
     @Default(1) int page,
     @Default(10) int limit,
     bool? featured,
-    StencilSource? source,
     @Default(false) bool includeHidden,
   }) = _StencilQueryParams;
 

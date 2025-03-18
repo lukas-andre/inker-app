@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inker_studio/domain/models/stencil/stencil.dart';
 
 part 'stencil_dto.freezed.dart';
 part 'stencil_dto.g.dart';
@@ -13,7 +12,6 @@ class CreateStencilDto with _$CreateStencilDto {
     String? thumbnailUrl,
     @Default(false) bool isFeatured,
     @Default(0) int orderPosition,
-    required StencilSource source,
     @Default(false) bool isHidden,
     List<int>? tagIds,
   }) = _CreateStencilDto;
@@ -31,7 +29,6 @@ class UpdateStencilDto with _$UpdateStencilDto {
     String? thumbnailUrl,
     bool? isFeatured,
     int? orderPosition,
-    StencilSource? source,
     bool? isHidden,
     List<int>? tagIds,
   }) = _UpdateStencilDto;

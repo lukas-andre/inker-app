@@ -4,13 +4,6 @@ import 'dart:convert';
 part 'stencil.freezed.dart';
 part 'stencil.g.dart';
 
-enum StencilSource {
-  @JsonValue('APP')
-  app,
-  @JsonValue('EXTERNAL')
-  external
-}
-
 @freezed
 class Stencil with _$Stencil {
   const factory Stencil({
@@ -24,7 +17,6 @@ class Stencil with _$Stencil {
     int? thumbnailVersion,
     @Default(false) bool isFeatured,
     @Default(0) int orderPosition,
-    required StencilSource source,
     @Default(false) bool isHidden,
     required DateTime createdAt,
     required DateTime updatedAt,

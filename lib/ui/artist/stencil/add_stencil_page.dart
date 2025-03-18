@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
-import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -24,7 +23,6 @@ class _AddStencilPageState extends State<AddStencilPage> {
   XFile? _selectedImage;
   bool _isFeatured = false;
   bool _isHidden = false;
-  StencilSource _selectedSource = StencilSource.app;
   List<int> _selectedTags = [];
   bool _isLoading = false;
 
@@ -66,7 +64,6 @@ class _AddStencilPageState extends State<AddStencilPage> {
             ArtistStencilEvent.createStencil(
               title: _titleController.text,
               description: _descriptionController.text,
-              source: _selectedSource,
               isFeatured: _isFeatured,
               isHidden: _isHidden,
               tagIds: _selectedTags.isEmpty ? null : _selectedTags,
@@ -130,8 +127,6 @@ class _AddStencilPageState extends State<AddStencilPage> {
                   const SizedBox(height: 16),
                   _buildDescriptionField(),
                   const SizedBox(height: 24),
-                  _buildSourceSelector(),
-                  const SizedBox(height: 16),
                   _buildFeaturedSwitch(),
                   _buildHiddenSwitch(),
                   const SizedBox(height: 24),
@@ -246,70 +241,6 @@ class _AddStencilPageState extends State<AddStencilPage> {
           borderSide: BorderSide(color: secondaryColor),
         ),
       ),
-    );
-  }
-
-  Widget _buildSourceSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).source,
-          style: TextStyleTheme.subtitle1.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey.shade800),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: RadioListTile<StencilSource>(
-                  title: Text(
-                    'App',
-                    style: TextStyleTheme.bodyText1.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  value: StencilSource.app,
-                  groupValue: _selectedSource,
-                  onChanged: (StencilSource? value) {
-                    setState(() {
-                      _selectedSource = value!;
-                    });
-                  },
-                  activeColor: secondaryColor,
-                ),
-              ),
-              Expanded(
-                child: RadioListTile<StencilSource>(
-                  title: Text(
-                    'External',
-                    style: TextStyleTheme.bodyText1.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                  value: StencilSource.external,
-                  groupValue: _selectedSource,
-                  onChanged: (StencilSource? value) {
-                    setState(() {
-                      _selectedSource = value!;
-                    });
-                  },
-                  activeColor: secondaryColor,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
