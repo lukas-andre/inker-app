@@ -37,9 +37,16 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   }
 
   void _loadWorks() {
-    context
-        .read<ArtistWorkBloc>()
-        .add(ArtistWorkEvent.loadWorks(_showHidden));
+    // Si hay un filtro de tag activo, aplicarlo, de lo contrario cargar todos
+    if (_filterTagId != null) {
+      context
+          .read<ArtistWorkBloc>()
+          .add(ArtistWorkEvent.filterWorksByTag(_filterTagId!));
+    } else {
+      context
+          .read<ArtistWorkBloc>()
+          .add(ArtistWorkEvent.loadWorks(_showHidden));
+    }
   }
 
   void _toggleSelectMode() {
@@ -251,7 +258,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                                 style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                               ),
                             );
-                          }).toList(),
+                          }),
                         ],
                       ),
                     ),
@@ -356,17 +363,36 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
             workDeleted: () => _loadWorks(),
             workUpdated: (_) => _loadWorks(),
             workCreated: (_) => _loadWorks(),
-            filteredByTag: (_, tagId) {
-              setState(() {
-                _filterTagId = tagId;
-              });
+            filteredByTag: (works, tagId) {
+              // Obtener el nombre del tag para mostrar en el filtro
+              if (works.isNotEmpty && works.first.tags != null) {
+                final tag = works.first.tags!.firstWhere(
+                  (t) => t.id == tagId,
+                  orElse: () => const Tag(id: 0, name: '', count: 0),
+                );
+                
+                setState(() {
+                  _filterTagId = tagId;
+                  _filterTag = tag.id != 0 ? tag.name : null;
+                });
+              } else {
+                setState(() {
+                  _filterTagId = tagId;
+                });
+              }
             },
             orElse: () {},
           );
         },
         builder: (context, state) {
+          // Cargar trabajos automáticamente al entrar a la galería
+          // si aún no están cargados
           return state.maybeWhen(
-            initial: () => const Center(child: InkerProgressIndicator()),
+            initial: () {
+              // Load works if in initial state
+              _loadWorks();
+              return const Center(child: InkerProgressIndicator());
+            },
             loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (works) => _buildWorksGrid(works),
             filteredByTag: (filteredWorks, tagId) => _buildWorksGrid(filteredWorks),
@@ -377,9 +403,27 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            orElse: () => const Center(child: InkerProgressIndicator()),
+            orElse: () => _buildEmptyLoadingState(),
           );
         },
+      ),
+    );
+  }
+  
+  Widget _buildEmptyLoadingState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+          Text(
+            'Cargando trabajos...',
+            style: TextStyleTheme.subtitle1.copyWith(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          const InkerProgressIndicator(radius: 16)
+        ],
       ),
     );
   }
@@ -548,7 +592,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 context,
                 '/works/detail',
                 arguments: work,
-              ),
+              ).then((_) => _loadWorks()),
       onLongPress: _isSelectMode ? null : () => _toggleSelectMode(),
       child: Stack(
         children: [
