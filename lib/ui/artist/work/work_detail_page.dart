@@ -170,6 +170,11 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               source: _source,
             ),
           );
+      
+      // Cargar también los detalles del trabajo para actualizar la vista
+      context.read<ArtistWorkBloc>().add(
+            ArtistWorkEvent.loadWorkDetail(widget.work.id),
+          );
     } else {
       // Load popular tags when entering edit mode
       _loadPopularTags();
@@ -260,17 +265,71 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       body: BlocConsumer<ArtistWorkBloc, ArtistWorkState>(
         listener: (context, state) {
           state.maybeWhen(
-            workUpdated: (_) {
+            workUpdated: (updatedWork) {
               setState(() {
                 _isLoading = false;
                 _isEditing = false;
+                
+                // Actualizar también los datos locales con la información actualizada
+                _titleController.text = updatedWork.title;
+                _descriptionController.text = updatedWork.description ?? '';
+                _isFeatured = updatedWork.isFeatured;
+                _isHidden = updatedWork.isHidden;
+                _source = updatedWork.source;
+                
+                // Actualizar también los tags
+                if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
+                  _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
+                  _selectedTagsObjects = updatedWork.tags!
+                      .map((tag) => TagSuggestionResponseDto(
+                            id: tag.id,
+                            name: tag.name,
+                            count: tag.count,
+                          ))
+                      .toList();
+                } else {
+                  _selectedTagIds = [];
+                  _selectedTagsObjects = [];
+                }
               });
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
                   content: S.of(context).workUpdatedSuccessfully,
                   backgroundColor: Colors.green,
                 ),
               );
+              
+              // Recargar los detalles del trabajo para asegurar consistencia
+              context.read<ArtistWorkBloc>().add(
+                ArtistWorkEvent.loadWorkDetail(widget.work.id),
+              );
+            },
+            detailLoaded: (updatedWork) {
+              // Actualizar los campos con los datos más recientes
+              if (updatedWork.id == widget.work.id) {
+                if (!_isEditing) { // Solo actualizamos si no estamos en modo edición
+                  setState(() {
+                    _titleController.text = updatedWork.title;
+                    _descriptionController.text = updatedWork.description ?? '';
+                    _isFeatured = updatedWork.isFeatured;
+                    _isHidden = updatedWork.isHidden;
+                    _source = updatedWork.source;
+                    
+                    // Actualizar también los tags
+                    if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
+                      _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
+                      _selectedTagsObjects = updatedWork.tags!
+                          .map((tag) => TagSuggestionResponseDto(
+                                id: tag.id,
+                                name: tag.name,
+                                count: tag.count,
+                              ))
+                          .toList();
+                    }
+                  });
+                }
+              }
             },
             workDeleted: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -986,8 +1045,6 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   Widget _buildTagChip(Tag tag) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
-        // Navigate to the gallery with this tag filter
         // First filter the works by this tag
         context.read<ArtistWorkBloc>().add(
           ArtistWorkEvent.filterWorksByTag(tag.id),
