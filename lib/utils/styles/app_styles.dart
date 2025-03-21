@@ -4,11 +4,11 @@ EdgeInsetsGeometry inputContentPadding =
     const EdgeInsets.only(left: 28, top: 40);
 
 const Color primaryColor = Color(0xFF141D3C);
-Color secondaryColor = const Color(0xff7450ff);
-Color tertiaryColor = const Color(0xff686D90);
-Color quaternaryColor = const Color(0xffF2F2F2);
-Color yellowColor = const Color(0xffFDD22E);
-Color greyColor = const Color(0xFF707070);
+const Color secondaryColor = Color(0xff7450ff);
+const Color tertiaryColor = Color(0xff686D90);
+const Color quaternaryColor = Color(0xffF2F2F2);
+const Color yellowColor = Color(0xffFDD22E);
+const Color greyColor = Color(0xFF707070);
 
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();
