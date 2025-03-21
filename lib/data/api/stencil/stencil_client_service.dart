@@ -101,7 +101,7 @@ class StencilClientService implements StencilService {
         dto.forEach((key, value) {
           if (value != null) {
             if (key == 'tagIds' && value is List) {
-              request.fields[key] = json.encode(value);
+              request.fields[key] = value.join(',');
             } else {
               request.fields[key] = value.toString();
             }
@@ -209,10 +209,16 @@ class StencilClientService implements StencilService {
   @override
   Future<int> recordStencilView(int id, String token) async {
     try {
+      final createInteractionDto = {
+        'interactionType': 'view',
+        'entityType': 'stencil',
+        'entityId': id,
+      };
+      
       final response = await _httpClient.post(
-        path: '/stencils/$id/view',
-        body: {},
-        fromJson: (data) => data['views'] as int,
+        path: '/interactions',
+        body: createInteractionDto,
+        fromJson: (data) => data['id'] as int,
         token: token,
       );
       return response;
@@ -225,10 +231,16 @@ class StencilClientService implements StencilService {
   @override
   Future<int> likeStencil(int id, String token) async {
     try {
+      final createInteractionDto = {
+        'interactionType': 'like',
+        'entityType': 'stencil',
+        'entityId': id,
+      };
+      
       final response = await _httpClient.post(
-        path: '/stencils/$id/like',
-        body: {},
-        fromJson: (data) => data['likes'] as int,
+        path: '/interactions',
+        body: createInteractionDto,
+        fromJson: (data) => data['id'] as int,
         token: token,
       );
       return response;
@@ -242,16 +254,13 @@ class StencilClientService implements StencilService {
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(
       String prefix, int limit, String token) async {
     try {
-      final response = await _httpClient.get(
+      final response = await _httpClient.getList(
         path: '/stencil-search/tags/suggest',
         queryParams: {
           'prefix': prefix,
           'limit': limit.toString(),
         },
-        fromJson: (data) => List<TagSuggestionResponseDto>.from(
-            (data as List<dynamic>).map((item) =>
-                TagSuggestionResponseDto.fromJson(
-                    item as Map<String, dynamic>))),
+        fromJson: (data) => TagSuggestionResponseDto.fromJson(data),
         token: token,
       );
 
@@ -271,16 +280,24 @@ class StencilClientService implements StencilService {
         queryParams: {
           'limit': limit.toString(),
         },
-        fromJson: (data) => List<TagSuggestionResponseDto>.from(
-            (data as List<dynamic>).map((item) =>
-                TagSuggestionResponseDto.fromJson(
-                    item as Map<String, dynamic>))),
+        fromJson: (data) {
+          // Handle case when data is an empty array
+          if (data.isEmpty) {
+            return <TagSuggestionResponseDto>[];
+          }
+
+          // Handle normal case with data
+          return List<TagSuggestionResponseDto>.from(
+              (data as List<dynamic>).map((item) =>
+                  TagSuggestionResponseDto.fromJson(
+                      item as Map<String, dynamic>)));
+        },
         token: token,
       );
-
+      
       return response;
     } catch (e) {
-      log('Error getting popular tags: $e');
+      // Handle error case
       rethrow;
     }
   }
@@ -292,7 +309,7 @@ class StencilClientService implements StencilService {
       final createTagDto = CreateTagDto(name: name);
       
       final response = await _httpClient.post(
-        path: '/tags',
+        path: 'stencil-search/tags',
         body: createTagDto.toJson(),
         fromJson: (data) => TagSuggestionResponseDto.fromJson(data),
         token: token,
