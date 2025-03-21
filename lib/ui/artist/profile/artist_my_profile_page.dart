@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
@@ -201,7 +203,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
     );
   }
 
-  Widget _buildActionButton(BuildContext context, {
+  Widget _buildActionButton(
+    BuildContext context, {
     required IconData icon,
     required String label,
     required VoidCallback onTap,
@@ -241,17 +244,16 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       ),
     );
   }
-  
+
   void _navigateToAddWork(BuildContext context) {
     // Navigate to the add stencil page but pre-set it as a work type
     Navigator.pushNamed(context, '/stencils/add');
   }
-  
+
   void _navigateToAddStencil(BuildContext context) {
     // Simply navigate to the route, our updated route handler will handle the bloc
     Navigator.pushNamed(context, '/stencils/add');
   }
-  
 
   Widget _buildArtistStats(BuildContext context, Artist artist) {
     return Container(
@@ -321,7 +323,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
           return Container(
             margin: const EdgeInsets.only(top: 16.0),
             padding: const EdgeInsets.all(16.0),
-            color: HSLColor.fromColor(primaryColor).withLightness(0.13).toColor(),
+            color:
+                HSLColor.fromColor(primaryColor).withLightness(0.13).toColor(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -342,16 +345,20 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                       children: [
                         // Botón más compacto para "Add Work"
                         IconButton(
-                          onPressed: () => Navigator.pushNamed(context, '/stencils/add'),
-                          icon: Icon(Icons.add_circle_outline, color: secondaryColor, size: 22),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/stencils/add'),
+                          icon: Icon(Icons.add_circle_outline,
+                              color: secondaryColor, size: 22),
                           tooltip: "Add Work",
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
                         // Botón más compacto para "Manage"
                         IconButton(
-                          onPressed: () => Navigator.pushNamed(context, '/stencils'),
-                          icon: Icon(Icons.grid_view, color: secondaryColor, size: 22),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/stencils'),
+                          icon: Icon(Icons.grid_view,
+                              color: secondaryColor, size: 22),
                           tooltip: "Manage Works",
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -364,12 +371,16 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                 SizedBox(
                   height: 180,
                   child: state.when(
-                    initial: () => const Center(child: InkerProgressIndicator()),
-                    loading: () => const Center(child: InkerProgressIndicator()),
+                    initial: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    loading: () =>
+                        const Center(child: InkerProgressIndicator()),
                     loaded: (stencils) {
                       // Filter only non-featured stencils (regular works)
-                      final works = stencils.where((s) => !s.isFeatured && !s.isHidden).toList();
-                      
+                      final works = stencils
+                          .where((s) => !s.isFeatured && !s.isHidden)
+                          .toList();
+
                       if (works.isEmpty) {
                         return _buildEmptySection(
                           context,
@@ -378,7 +389,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                           Icons.photo_album,
                         );
                       }
-                      
+
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: works.length,
@@ -386,7 +397,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                           final work = works[index];
                           return GestureDetector(
                             onTap: () => Navigator.pushNamed(
-                              context, 
+                              context,
                               '/stencils/detail',
                               arguments: work,
                             ),
@@ -411,9 +422,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                     Image.network(
                                       work.thumbnailUrl ?? work.imageUrl,
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
                                         return Container(
-                                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                                          color:
+                                              HSLColor.fromColor(primaryColor)
+                                                  .withLightness(0.15)
+                                                  .toColor(),
                                           child: Center(
                                             child: Icon(
                                               Icons.image_not_supported,
@@ -442,11 +457,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                           ),
                                         ),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               work.title,
-                                              style: TextStyleTheme.caption.copyWith(
+                                              style: TextStyleTheme.caption
+                                                  .copyWith(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -456,8 +473,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                             if (work.viewCount > 0)
                                               Text(
                                                 "${work.viewCount} ${work.viewCount == 1 ? 'view' : 'views'}",
-                                                style: TextStyleTheme.caption.copyWith(
-                                                  color: Colors.white.withOpacity(0.7),
+                                                style: TextStyleTheme.caption
+                                                    .copyWith(
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
                                                   fontSize: 10,
                                                 ),
                                               ),
@@ -473,22 +492,39 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         },
                       );
                     },
-                    detailLoading: () => const Center(child: InkerProgressIndicator()),
-                    detailLoaded: (_) => const Center(child: InkerProgressIndicator()),
-                    submitting: () => const Center(child: InkerProgressIndicator()),
-                    stencilCreated: (_) => const Center(child: InkerProgressIndicator()),
-                    stencilUpdated: (_) => const Center(child: InkerProgressIndicator()),
-                    stencilDeleted: () => const Center(child: InkerProgressIndicator()),
-                    viewRecorded: (_, __) => const Center(child: InkerProgressIndicator()),
-                    stencilLiked: (_, __) => const Center(child: InkerProgressIndicator()),
-                    tagSuggestionsLoaded: (_) => const Center(child: InkerProgressIndicator()),
-                    popularTagsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    detailLoading: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    detailLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    submitting: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilCreated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilUpdated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilDeleted: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    viewRecorded: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilLiked: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
+                    tagSuggestionsLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    popularTagsLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
                     error: (message) => _buildEmptySection(
                       context,
                       "Error loading works",
                       "Try refreshing the page: $message",
                       Icons.refresh,
                     ),
+                    tagCreated: (TagSuggestionResponseDto tag) {
+                      print(tag);
+                    },
+                    filteredByTag: (List<Stencil> stencils, int tagId) {
+                      print(stencils);
+                      print(tagId);
+                    },
                   ),
                 ),
               ],
@@ -535,16 +571,20 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                       children: [
                         // Botón más compacto para "Add"
                         IconButton(
-                          onPressed: () => Navigator.pushNamed(context, '/stencils/add'),
-                          icon: Icon(Icons.add_circle_outline, color: secondaryColor, size: 22),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/stencils/add'),
+                          icon: Icon(Icons.add_circle_outline,
+                              color: secondaryColor, size: 22),
                           tooltip: "Add Stencil",
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
                         // Botón más compacto para "View All"
                         IconButton(
-                          onPressed: () => Navigator.pushNamed(context, '/stencils'),
-                          icon: Icon(Icons.grid_view, color: secondaryColor, size: 22),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/stencils'),
+                          icon: Icon(Icons.grid_view,
+                              color: secondaryColor, size: 22),
                           tooltip: "View All Stencils",
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -557,11 +597,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                 SizedBox(
                   height: 180,
                   child: state.when(
-                    initial: () => const Center(child: InkerProgressIndicator()),
-                    loading: () => const Center(child: InkerProgressIndicator()),
+                    initial: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    loading: () =>
+                        const Center(child: InkerProgressIndicator()),
                     loaded: (stencils) {
-                      final featured = stencils.where((s) => s.isFeatured).take(5).toList();
-                      
+                      final featured =
+                          stencils.where((s) => s.isFeatured).take(5).toList();
+
                       if (stencils.isEmpty) {
                         return _buildEmptySection(
                           context,
@@ -570,20 +613,25 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                           Icons.brush,
                         );
                       }
-                      
+
                       return GridView.builder(
                         scrollDirection: Axis.horizontal,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           mainAxisSpacing: 10,
                           childAspectRatio: 1.0,
                         ),
-                        itemCount: featured.isEmpty ? stencils.take(5).length : featured.length,
+                        itemCount: featured.isEmpty
+                            ? stencils.take(5).length
+                            : featured.length,
                         itemBuilder: (context, index) {
-                          final stencil = featured.isEmpty ? stencils[index] : featured[index];
+                          final stencil = featured.isEmpty
+                              ? stencils[index]
+                              : featured[index];
                           return GestureDetector(
                             onTap: () => Navigator.pushNamed(
-                              context, 
+                              context,
                               '/stencils/detail',
                               arguments: stencil,
                             ),
@@ -609,9 +657,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                     Image.network(
                                       stencil.thumbnailUrl ?? stencil.imageUrl,
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
                                         return Container(
-                                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                                          color:
+                                              HSLColor.fromColor(primaryColor)
+                                                  .withLightness(0.15)
+                                                  .toColor(),
                                           child: Center(
                                             child: Icon(
                                               Icons.image_not_supported,
@@ -658,7 +710,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                         ),
                                         child: Text(
                                           stencil.title,
-                                          style: TextStyleTheme.caption.copyWith(
+                                          style:
+                                              TextStyleTheme.caption.copyWith(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -675,22 +728,39 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         },
                       );
                     },
-                    detailLoading: () => const Center(child: InkerProgressIndicator()),
-                    detailLoaded: (_) => const Center(child: InkerProgressIndicator()),
-                    submitting: () => const Center(child: InkerProgressIndicator()),
-                    stencilCreated: (_) => const Center(child: InkerProgressIndicator()),
-                    stencilUpdated: (_) => const Center(child: InkerProgressIndicator()),
-                    stencilDeleted: () => const Center(child: InkerProgressIndicator()),
-                    viewRecorded: (_, __) => const Center(child: InkerProgressIndicator()),
-                    stencilLiked: (_, __) => const Center(child: InkerProgressIndicator()),
-                    tagSuggestionsLoaded: (_) => const Center(child: InkerProgressIndicator()),
-                    popularTagsLoaded: (_) => const Center(child: InkerProgressIndicator()),
+                    detailLoading: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    detailLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    submitting: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilCreated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilUpdated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilDeleted: () =>
+                        const Center(child: InkerProgressIndicator()),
+                    viewRecorded: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
+                    stencilLiked: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
+                    tagSuggestionsLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    popularTagsLoaded: (_) =>
+                        const Center(child: InkerProgressIndicator()),
                     error: (message) => _buildEmptySection(
                       context,
                       "Error loading stencils",
                       "Try refreshing the page: $message",
                       Icons.refresh,
                     ),
+                    tagCreated: (TagSuggestionResponseDto tag) {
+                      print(tag);
+                    },
+                    filteredByTag: (List<Stencil> stencils, int tagId) {
+                      print(stencils);
+                      print(tagId);
+                    },
                   ),
                 ),
               ],
@@ -700,7 +770,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       ),
     );
   }
-  
+
   Widget _buildEmptySection(
     BuildContext context,
     String title,
@@ -801,7 +871,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       ),
     );
   }
-  
+
   Widget _buildInfoTile({
     required BuildContext context,
     required IconData icon,
@@ -843,7 +913,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                   Text(
                     value.isEmpty ? "Not set" : value,
                     style: TextStyleTheme.bodyText2.copyWith(
-                      color: value.isEmpty ? Colors.grey.shade600 : Colors.white,
+                      color:
+                          value.isEmpty ? Colors.grey.shade600 : Colors.white,
                     ),
                   ),
                 ],
@@ -855,14 +926,15 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       ),
     );
   }
-  
+
   Widget _buildManageLocationsButton(BuildContext context, Artist artist) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
         onPressed: () => _navigateToLocationManager(context),
         icon: const Icon(Icons.location_on, color: Colors.white),
-        label: Text(S.of(context).manageLocations, style: TextStyleTheme.button),
+        label:
+            Text(S.of(context).manageLocations, style: TextStyleTheme.button),
         style: ElevatedButton.styleFrom(
           backgroundColor: secondaryColor,
           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -873,10 +945,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       ),
     );
   }
-  
+
   Future<void> _navigateToLocationManager(BuildContext context) async {
-    final session = await context.read<LocalSessionService>().getActiveSession();
-    if (session == null || session.user == null || session.user!.userTypeId == null) {
+    final session =
+        await context.read<LocalSessionService>().getActiveSession();
+    if (session == null ||
+        session.user == null ||
+        session.user!.userTypeId == null) {
       return;
     }
     Navigator.push(
@@ -928,10 +1003,12 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.grey.shade800,
-                    backgroundImage: artist.profileThumbnail != null && artist.profileThumbnail!.isNotEmpty
+                    backgroundImage: artist.profileThumbnail != null &&
+                            artist.profileThumbnail!.isNotEmpty
                         ? NetworkImage(artist.profileThumbnail!)
                         : null,
-                    child: artist.profileThumbnail == null || artist.profileThumbnail!.isEmpty
+                    child: artist.profileThumbnail == null ||
+                            artist.profileThumbnail!.isEmpty
                         ? Icon(
                             Icons.person,
                             size: 60,
@@ -980,7 +1057,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-          if (artist.shortDescription != null && artist.shortDescription!.isNotEmpty)
+          if (artist.shortDescription != null &&
+              artist.shortDescription!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: Text(
@@ -1034,15 +1112,22 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                color: HSLColor.fromColor(primaryColor)
+                    .withLightness(0.15)
+                    .toColor(),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.grey.shade800),
               ),
               child: Text(
-                artist.shortDescription ?? "Add a short description about yourself and your tattoo style...",
+                artist.shortDescription ??
+                    "Add a short description about yourself and your tattoo style...",
                 style: TextStyleTheme.bodyText1.copyWith(
-                  color: artist.shortDescription != null ? Colors.white : Colors.grey.shade600,
-                  fontStyle: artist.shortDescription != null ? FontStyle.normal : FontStyle.italic,
+                  color: artist.shortDescription != null
+                      ? Colors.white
+                      : Colors.grey.shade600,
+                  fontStyle: artist.shortDescription != null
+                      ? FontStyle.normal
+                      : FontStyle.italic,
                 ),
               ),
             ),
@@ -1115,7 +1200,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.edit, color: Colors.white, size: 20),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 20),
                     ),
                   ),
                 ],

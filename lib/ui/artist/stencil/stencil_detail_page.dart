@@ -16,7 +16,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 class StencilDetailPage extends StatefulWidget {
   final Stencil stencil;
 
-  const StencilDetailPage({Key? key, required this.stencil}) : super(key: key);
+  const StencilDetailPage({super.key, required this.stencil});
 
   @override
   State<StencilDetailPage> createState() => _StencilDetailPageState();
@@ -397,7 +397,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.edit,
                               color: Colors.white,
                               size: 40,
@@ -617,7 +617,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                     width: 20,
                     height: 20,
                     padding: const EdgeInsets.all(12),
-                    child: const CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                     ),
@@ -684,12 +684,12 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             if (_tagController.text.isNotEmpty)
               ListTile(
                 title: Text(
-                  S.of(context).createNewTag + ': "${_tagController.text}"',
+                  '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
                     color: secondaryColor,
                   ),
                 ),
-                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading: Icon(Icons.add_circle_outline, color: secondaryColor),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,
@@ -719,7 +719,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             )
           : null,
       leading: isSelected
-          ? const Icon(Icons.check_circle, color: secondaryColor)
+          ? Icon(Icons.check_circle, color: secondaryColor)
           : const Icon(Icons.add_circle_outline, color: Colors.grey),
       onTap: () => _addTag(tag),
       contentPadding: EdgeInsets.zero,

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
-import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
