@@ -3756,6 +3756,336 @@ class S {
       args: [],
     );
   }
+
+  /// `Agregar Trabajo`
+  String get addWork {
+    return Intl.message(
+      'Agregar Trabajo',
+      name: 'addWork',
+      desc: 'Action to add a new work',
+      args: [],
+    );
+  }
+
+  /// `Trabajo creado exitosamente`
+  String get workCreatedSuccessfully {
+    return Intl.message(
+      'Trabajo creado exitosamente',
+      name: 'workCreatedSuccessfully',
+      desc: 'Message displayed when a work is created successfully',
+      args: [],
+    );
+  }
+
+  /// `Agrega etiquetas para hacer tu trabajo más visible`
+  String get addTagsToMakeYourWorkMoreDiscoverable {
+    return Intl.message(
+      'Agrega etiquetas para hacer tu trabajo más visible',
+      name: 'addTagsToMakeYourWorkMoreDiscoverable',
+      desc: 'Helper text for adding tags to works',
+      args: [],
+    );
+  }
+
+  /// `Trabajo Destacado`
+  String get featuredWork {
+    return Intl.message(
+      'Trabajo Destacado',
+      name: 'featuredWork',
+      desc: 'Label for featured work option',
+      args: [],
+    );
+  }
+
+  /// `El trabajo será destacado en el perfil`
+  String get workWillBeHighlightedInProfile {
+    return Intl.message(
+      'El trabajo será destacado en el perfil',
+      name: 'workWillBeHighlightedInProfile',
+      desc: 'Description for featured work option',
+      args: [],
+    );
+  }
+
+  /// `Ocultar Trabajo`
+  String get hideWork {
+    return Intl.message(
+      'Ocultar Trabajo',
+      name: 'hideWork',
+      desc: 'Label for hiding work option',
+      args: [],
+    );
+  }
+
+  /// `El trabajo será ocultado de la vista pública`
+  String get workWillBeHiddenFromPublicView {
+    return Intl.message(
+      'El trabajo será ocultado de la vista pública',
+      name: 'workWillBeHiddenFromPublicView',
+      desc: 'Description for hiding work option',
+      args: [],
+    );
+  }
+
+  /// `Guardar Trabajo`
+  String get saveWork {
+    return Intl.message(
+      'Guardar Trabajo',
+      name: 'saveWork',
+      desc: 'Button to save work',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Trabajo`
+  String get deleteWork {
+    return Intl.message(
+      'Eliminar Trabajo',
+      name: 'deleteWork',
+      desc: 'Action to delete a work',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro que deseas eliminar este trabajo?`
+  String get areYouSureYouWantToDeleteThisWork {
+    return Intl.message(
+      '¿Estás seguro que deseas eliminar este trabajo?',
+      name: 'areYouSureYouWantToDeleteThisWork',
+      desc: 'Confirmation message for deleting a work',
+      args: [],
+    );
+  }
+
+  /// `Editar Trabajo`
+  String get editWork {
+    return Intl.message(
+      'Editar Trabajo',
+      name: 'editWork',
+      desc: 'Action to edit a work',
+      args: [],
+    );
+  }
+
+  /// `Detalles del Trabajo`
+  String get workDetails {
+    return Intl.message(
+      'Detalles del Trabajo',
+      name: 'workDetails',
+      desc: 'Label for work details section',
+      args: [],
+    );
+  }
+
+  /// `Trabajo actualizado exitosamente`
+  String get workUpdatedSuccessfully {
+    return Intl.message(
+      'Trabajo actualizado exitosamente',
+      name: 'workUpdatedSuccessfully',
+      desc: 'Message displayed when a work is updated successfully',
+      args: [],
+    );
+  }
+
+  /// `Trabajo eliminado exitosamente`
+  String get workDeletedSuccessfully {
+    return Intl.message(
+      'Trabajo eliminado exitosamente',
+      name: 'workDeletedSuccessfully',
+      desc: 'Message displayed when a work is deleted successfully',
+      args: [],
+    );
+  }
+
+  /// `Eliminar Trabajos Seleccionados`
+  String get deleteSelectedWorks {
+    return Intl.message(
+      'Eliminar Trabajos Seleccionados',
+      name: 'deleteSelectedWorks',
+      desc: 'Action to delete multiple selected works',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro que deseas eliminar estos trabajos?`
+  String get areYouSureYouWantToDeleteTheseWorks {
+    return Intl.message(
+      '¿Estás seguro que deseas eliminar estos trabajos?',
+      name: 'areYouSureYouWantToDeleteTheseWorks',
+      desc: 'Confirmation message for deleting multiple works',
+      args: [],
+    );
+  }
+
+  /// `Mostrar Trabajos Ocultos`
+  String get showHiddenWorks {
+    return Intl.message(
+      'Mostrar Trabajos Ocultos',
+      name: 'showHiddenWorks',
+      desc: 'Option to display hidden works',
+      args: [],
+    );
+  }
+
+  /// `Filtrar por Fuente`
+  String get filterBySource {
+    return Intl.message(
+      'Filtrar por Fuente',
+      name: 'filterBySource',
+      desc: 'Label for source filtering option',
+      args: [],
+    );
+  }
+
+  /// `Todas las Fuentes`
+  String get allSources {
+    return Intl.message(
+      'Todas las Fuentes',
+      name: 'allSources',
+      desc: 'Option to show works from all sources',
+      args: [],
+    );
+  }
+
+  /// `Seleccionado`
+  String get selected {
+    return Intl.message(
+      'Seleccionado',
+      name: 'selected',
+      desc: 'Label indicating items are selected',
+      args: [],
+    );
+  }
+
+  /// `Trabajos`
+  String get works {
+    return Intl.message(
+      'Trabajos',
+      name: 'works',
+      desc: 'Label for works section',
+      args: [],
+    );
+  }
+
+  /// `Cambiar Visibilidad`
+  String get toggleVisibility {
+    return Intl.message(
+      'Cambiar Visibilidad',
+      name: 'toggleVisibility',
+      desc: 'Action to change visibility status',
+      args: [],
+    );
+  }
+
+  /// `Cambiar Destacado`
+  String get toggleFeatured {
+    return Intl.message(
+      'Cambiar Destacado',
+      name: 'toggleFeatured',
+      desc: 'Action to change featured status',
+      args: [],
+    );
+  }
+
+  /// `Filtrar`
+  String get filter {
+    return Intl.message(
+      'Filtrar',
+      name: 'filter',
+      desc: 'Label for filter action',
+      args: [],
+    );
+  }
+
+  /// `Selección Múltiple`
+  String get selectMultiple {
+    return Intl.message(
+      'Selección Múltiple',
+      name: 'selectMultiple',
+      desc: 'Action to enable multiple selection mode',
+      args: [],
+    );
+  }
+
+  /// `No Se Encontraron Trabajos`
+  String get noWorksFound {
+    return Intl.message(
+      'No Se Encontraron Trabajos',
+      name: 'noWorksFound',
+      desc: 'Message when no works are available',
+      args: [],
+    );
+  }
+
+  /// `Intenta quitar los filtros`
+  String get tryRemovingFilters {
+    return Intl.message(
+      'Intenta quitar los filtros',
+      name: 'tryRemovingFilters',
+      desc: 'Suggestion to remove filters to see more results',
+      args: [],
+    );
+  }
+
+  /// `Agrega algunos trabajos a tu galería`
+  String get addSomeWorksToYourGallery {
+    return Intl.message(
+      'Agrega algunos trabajos a tu galería',
+      name: 'addSomeWorksToYourGallery',
+      desc: 'Suggestion to add works when gallery is empty',
+      args: [],
+    );
+  }
+
+  /// `Limpiar Filtros`
+  String get clearFilters {
+    return Intl.message(
+      'Limpiar Filtros',
+      name: 'clearFilters',
+      desc: 'Action to remove all filters',
+      args: [],
+    );
+  }
+
+  /// `Filtrando por etiqueta: {tagName}`
+  String filteringByTag(String tagName) {
+    return Intl.message(
+      'Filtrando por etiqueta: $tagName',
+      name: 'filteringByTag',
+      desc: 'Message showing current tag filter',
+      args: [tagName],
+    );
+  }
+
+  /// `Filtrando por fuente: {sourceName}`
+  String filteringBySource(String sourceName) {
+    return Intl.message(
+      'Filtrando por fuente: $sourceName',
+      name: 'filteringBySource',
+      desc: 'Message showing current source filter',
+      args: [sourceName],
+    );
+  }
+
+  /// `Aplicar`
+  String get apply {
+    return Intl.message(
+      'Aplicar',
+      name: 'apply',
+      desc: 'Action to apply filters',
+      args: [],
+    );
+  }
+
+  /// `Filtros`
+  String get filters {
+    return Intl.message(
+      'Filtros',
+      name: 'filters',
+      desc: 'Label for filters section',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

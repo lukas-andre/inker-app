@@ -4,18 +4,24 @@ import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/stencil/stencil_client_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/artist/stencil/add_stencil_page.dart';
 import 'package:inker_studio/ui/artist/stencil/stencil_detail_page.dart';
 import 'package:inker_studio/ui/artist/stencil/stencil_gallery_page.dart';
+import 'package:inker_studio/ui/artist/work/add_work_page.dart';
+import 'package:inker_studio/ui/artist/work/work_detail_page.dart';
+import 'package:inker_studio/ui/artist/work/work_gallery_page.dart';
 import 'package:inker_studio/ui/customer/appointments/appointment_detail_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
@@ -393,6 +399,52 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const ErrorPage(
             message: 'Invalid argument type. Expected a Stencil object.',
+          ),
+        );
+      }
+    }
+    
+    // Work-related routes
+    if (settings.name == '/works') {
+      return MaterialPageRoute(
+        builder: (context) {
+          // Use the global ArtistWorkBloc instead of creating a new one
+          return BlocProvider.value(
+            value: context.read<ArtistWorkBloc>(),
+            child: const WorkGalleryPage(),
+          );
+        },
+      );
+    }
+    
+    if (settings.name == '/works/add') {
+      return MaterialPageRoute(
+        builder: (context) {
+          // Use the global ArtistWorkBloc instead of creating a new one
+          return BlocProvider.value(
+            value: context.read<ArtistWorkBloc>(),
+            child: const AddWorkPage(),
+          );
+        },
+      );
+    }
+    
+    if (settings.name == '/works/detail') {
+      if (settings.arguments is Work) {
+        final work = settings.arguments as Work;
+        return MaterialPageRoute(
+          builder: (context) {
+            // Use the global ArtistWorkBloc instead of creating a new one
+            return BlocProvider.value(
+              value: context.read<ArtistWorkBloc>(),
+              child: WorkDetailPage(work: work),
+            );
+          },
+        );
+      } else {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(
+            message: 'Invalid argument type. Expected a Work object.',
           ),
         );
       }

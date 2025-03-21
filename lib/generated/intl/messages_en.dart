@@ -26,25 +26,29 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(count) =>
       "${Intl.plural(count, one: '1 day ago', other: '${count} days ago')}";
 
-  static String m2(count) =>
+  static String m2(sourceName) => "Filtering by source: ${sourceName}";
+
+  static String m3(tagName) => "Filtering by tag: ${tagName}";
+
+  static String m4(count) =>
       "${Intl.plural(count, one: '1 hour ago', other: '${count} hours ago')}";
 
-  static String m3(hoursv2, minutesv2) =>
+  static String m5(hoursv2, minutesv2) =>
       "${hoursv2} hours and ${minutesv2} minutes";
 
-  static String m4(hoursv2) => "${hoursv2} hours";
-
-  static String m5(count) =>
-      "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
-
-  static String m6(minutesv2) => "${minutesv2} minutes";
+  static String m6(hoursv2) => "${hoursv2} hours";
 
   static String m7(count) =>
-      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+      "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
 
-  static String m8(tagName) => "No stencils with tag \'${tagName}\'";
+  static String m8(minutesv2) => "${minutesv2} minutes";
 
   static String m9(count) =>
+      "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
+
+  static String m10(tagName) => "No stencils with tag \'${tagName}\'";
+
+  static String m11(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -63,12 +67,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDescription":
             MessageLookupByLibrary.simpleMessage("Add Description"),
         "addLocation": MessageLookupByLibrary.simpleMessage("Add Location"),
+        "addSomeWorksToYourGallery": MessageLookupByLibrary.simpleMessage(
+            "Add some works to your gallery"),
         "addStencil": MessageLookupByLibrary.simpleMessage("Add Stencil"),
         "addStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Add Studio Photo"),
         "addTagsToMakeYourStencilMoreDiscoverable":
             MessageLookupByLibrary.simpleMessage(
                 "Add tags to make your stencil more discoverable"),
+        "addTagsToMakeYourWorkMoreDiscoverable":
+            MessageLookupByLibrary.simpleMessage(
+                "Add tags to make your work more discoverable"),
+        "addWork": MessageLookupByLibrary.simpleMessage("Add Work"),
         "addYourFirstStencil": MessageLookupByLibrary.simpleMessage(
             "Add your first stencil to get started"),
         "additionalDetails":
@@ -78,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Address Details"),
         "allOtherStencils":
             MessageLookupByLibrary.simpleMessage("All Other Stencils"),
+        "allSources": MessageLookupByLibrary.simpleMessage("All Sources"),
         "allStencils": MessageLookupByLibrary.simpleMessage("All Stencils"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appeal": MessageLookupByLibrary.simpleMessage("Appeal"),
@@ -95,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Appealed the quotation"),
         "applicationSettings":
             MessageLookupByLibrary.simpleMessage("Application Settings"),
+        "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Appointment Date"),
         "appointmentDateChangedFrom": MessageLookupByLibrary.simpleMessage(
@@ -109,9 +121,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to log out?"),
+        "areYouSureYouWantToDeleteTheseWorks":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to delete these works?"),
         "areYouSureYouWantToDeleteThisStencil":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to delete this stencil?"),
+        "areYouSureYouWantToDeleteThisWork":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to delete this work?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artist"),
         "artistsFound": m0,
         "awaitingArtist":
@@ -170,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose Image"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "clearFilter": MessageLookupByLibrary.simpleMessage("Clear Filter"),
+        "clearFilters": MessageLookupByLibrary.simpleMessage("Clear Filters"),
         "collapse": MessageLookupByLibrary.simpleMessage("Collapse"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
@@ -207,7 +226,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account."),
         "deleteLocation":
             MessageLookupByLibrary.simpleMessage("Delete Location"),
+        "deleteSelectedWorks":
+            MessageLookupByLibrary.simpleMessage("Delete Selected Works"),
         "deleteStencil": MessageLookupByLibrary.simpleMessage("Delete Stencil"),
+        "deleteWork": MessageLookupByLibrary.simpleMessage("Delete Work"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
@@ -218,6 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit Location"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "editStencil": MessageLookupByLibrary.simpleMessage("Edit Stencil"),
+        "editWork": MessageLookupByLibrary.simpleMessage("Edit Work"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
         "endDate": MessageLookupByLibrary.simpleMessage("End Date"),
@@ -264,6 +287,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Featured Stencil"),
         "featuredStencils":
             MessageLookupByLibrary.simpleMessage("Featured Stencils"),
+        "featuredWork": MessageLookupByLibrary.simpleMessage("Featured Work"),
+        "filter": MessageLookupByLibrary.simpleMessage("Filter"),
+        "filterBySource":
+            MessageLookupByLibrary.simpleMessage("Filter by Source"),
+        "filteringBySource": m2,
+        "filteringByTag": m3,
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),
         "following": MessageLookupByLibrary.simpleMessage("Following"),
         "from": MessageLookupByLibrary.simpleMessage("From"),
@@ -277,13 +307,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "hidden": MessageLookupByLibrary.simpleMessage("Hidden"),
         "hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "hideStencil": MessageLookupByLibrary.simpleMessage("Hide Stencil"),
+        "hideWork": MessageLookupByLibrary.simpleMessage("Hide Work"),
         "hidingHiddenStencils":
             MessageLookupByLibrary.simpleMessage("Hiding hidden stencils"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
-        "hoursAgo": m2,
-        "hoursAndMinutes": m3,
-        "hoursv2": m4,
+        "hoursAgo": m4,
+        "hoursAndMinutes": m5,
+        "hoursv2": m6,
         "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid Number"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Invalid Range"),
         "km": MessageLookupByLibrary.simpleMessage("km"),
@@ -310,9 +341,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Manage Locations"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Member since"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
-        "minutesAgo": m5,
-        "minutesv2": m6,
-        "monthsAgo": m7,
+        "minutesAgo": m7,
+        "minutesv2": m8,
+        "monthsAgo": m9,
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nail": MessageLookupByLibrary.simpleMessage("Nail"),
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
@@ -337,13 +368,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
         "noServicesAvailable":
             MessageLookupByLibrary.simpleMessage("No services available"),
-        "noStencilsWithTag": m8,
+        "noStencilsWithTag": m10,
         "noStencilsYet":
             MessageLookupByLibrary.simpleMessage("No Stencils Yet"),
         "noStudioPhotoAvailable":
             MessageLookupByLibrary.simpleMessage("No studio photo available"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
+        "noWorksFound": MessageLookupByLibrary.simpleMessage("No Works Found"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Not Available"),
         "notSelected": MessageLookupByLibrary.simpleMessage("Not Selected"),
         "note": MessageLookupByLibrary.simpleMessage("Note"),
@@ -485,6 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
         "saveStencil": MessageLookupByLibrary.simpleMessage("Save Stencil"),
+        "saveWork": MessageLookupByLibrary.simpleMessage("Save Work"),
         "scheduleAssistant":
             MessageLookupByLibrary.simpleMessage("Schedule Assistant"),
         "scheduleEvent": MessageLookupByLibrary.simpleMessage("Schedule Event"),
@@ -500,12 +533,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select Duration"),
         "selectEndTime":
             MessageLookupByLibrary.simpleMessage("Select End Time"),
+        "selectMultiple":
+            MessageLookupByLibrary.simpleMessage("Select Multiple"),
         "selectService": MessageLookupByLibrary.simpleMessage("Select Service"),
         "selectStartTime":
             MessageLookupByLibrary.simpleMessage("Select Start Time"),
         "selectTime": MessageLookupByLibrary.simpleMessage("Select Time"),
         "selectValidTimeRange": MessageLookupByLibrary.simpleMessage(
             "Please select a valid time range"),
+        "selected": MessageLookupByLibrary.simpleMessage("Selected"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Send Message"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
@@ -513,6 +549,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shortDescription":
             MessageLookupByLibrary.simpleMessage("Short Description"),
         "show": MessageLookupByLibrary.simpleMessage("Show"),
+        "showHiddenWorks":
+            MessageLookupByLibrary.simpleMessage("Show Hidden Works"),
         "showingAllStencils":
             MessageLookupByLibrary.simpleMessage("Showing all stencils"),
         "source": MessageLookupByLibrary.simpleMessage("Source"),
@@ -567,8 +605,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Title cannot be empty"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
+        "toggleFeatured":
+            MessageLookupByLibrary.simpleMessage("Toggle Featured"),
+        "toggleVisibility":
+            MessageLookupByLibrary.simpleMessage("Toggle Visibility"),
         "tryAgainLater":
             MessageLookupByLibrary.simpleMessage("Please try again later"),
+        "tryRemovingFilters":
+            MessageLookupByLibrary.simpleMessage("Try removing filters"),
         "unfeature": MessageLookupByLibrary.simpleMessage("Unfeature"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
@@ -578,8 +622,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
         "views": MessageLookupByLibrary.simpleMessage("Views"),
         "visible": MessageLookupByLibrary.simpleMessage("Visible"),
+        "workCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Work created successfully"),
+        "workDeletedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Work deleted successfully"),
+        "workDetails": MessageLookupByLibrary.simpleMessage("Work Details"),
         "workEvidence": MessageLookupByLibrary.simpleMessage("Work Evidence"),
-        "yearsAgo": m9,
+        "workUpdatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Work updated successfully"),
+        "workWillBeHiddenFromPublicView": MessageLookupByLibrary.simpleMessage(
+            "Work will be hidden from public view"),
+        "workWillBeHighlightedInProfile": MessageLookupByLibrary.simpleMessage(
+            "Work will be highlighted in profile"),
+        "works": MessageLookupByLibrary.simpleMessage("Works"),
+        "yearsAgo": m11,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Zoom In"),
