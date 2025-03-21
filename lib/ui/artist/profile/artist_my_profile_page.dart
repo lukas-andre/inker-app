@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
+import 'package:inker_studio/data/api/work/dtos/work_dto.dart' as work_dto;
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/locations/artist_location_manager_page.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
@@ -246,8 +250,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
   }
 
   void _navigateToAddWork(BuildContext context) {
-    // Navigate to the add stencil page but pre-set it as a work type
-    Navigator.pushNamed(context, '/stencils/add');
+    // Navigate to the dedicated work add page
+    Navigator.pushNamed(context, '/works/add');
   }
 
   void _navigateToAddStencil(BuildContext context) {
@@ -267,11 +271,29 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildStatItem(context, "Works", "24"),
+          BlocBuilder<ArtistWorkBloc, ArtistWorkState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                initial: () => _buildStatItem(context, "Works", "0"),
+                loading: () => _buildStatItem(context, "Works", "0"),
+                error: (_) => _buildStatItem(context, "Works", "0"),
+                orElse: () => _buildStatItem(context, "Works", "0"),
+              );
+            },
+          ),
           _buildVerticalDivider(),
-          _buildStatItem(context, "Stencils", "15"),
+          BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                initial: () => _buildStatItem(context, "Stencils", "0"),
+                loading: () => _buildStatItem(context, "Stencils", "0"),
+                error: (_) => _buildStatItem(context, "Stencils", "0"),
+                orElse: () => _buildStatItem(context, "Stencils", "0"),
+              );
+            },
+          ),
           _buildVerticalDivider(),
-          _buildStatItem(context, "Clients", "18"),
+          _buildStatItem(context, "Clients", "0"),
         ],
       ),
     );
@@ -311,14 +333,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
     return BlocProvider(
       create: (context) {
         final sessionService = context.read<LocalSessionService>();
-        final stencilBloc = ArtistStencilBloc(
-          context.read<StencilService>(),
+        final workBloc = ArtistWorkBloc(
+          context.read<WorkService>(),
           sessionService,
         );
-        stencilBloc.add(const ArtistStencilEvent.loadStencils(true));
-        return stencilBloc;
+        workBloc.add(const ArtistWorkEvent.loadWorks());
+        return workBloc;
       },
-      child: BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
+      child: BlocBuilder<ArtistWorkBloc, ArtistWorkState>(
         builder: (context, state) {
           return Container(
             margin: const EdgeInsets.only(top: 16.0),
@@ -346,8 +368,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         // Botón más compacto para "Add Work"
                         IconButton(
                           onPressed: () =>
-                              Navigator.pushNamed(context, '/stencils/add'),
-                          icon: Icon(Icons.add_circle_outline,
+                              Navigator.pushNamed(context, '/works/add'),
+                          icon: const Icon(Icons.add_circle_outline,
                               color: secondaryColor, size: 22),
                           tooltip: "Add Work",
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -356,7 +378,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         // Botón más compacto para "Manage"
                         IconButton(
                           onPressed: () =>
-                              Navigator.pushNamed(context, '/stencils'),
+                              Navigator.pushNamed(context, '/works'),
                           icon: Icon(Icons.grid_view,
                               color: secondaryColor, size: 22),
                           tooltip: "Manage Works",
@@ -375,12 +397,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         const Center(child: InkerProgressIndicator()),
                     loading: () =>
                         const Center(child: InkerProgressIndicator()),
-                    loaded: (stencils) {
-                      // Filter only non-featured stencils (regular works)
-                      final works = stencils
-                          .where((s) => !s.isFeatured && !s.isHidden)
-                          .toList();
-
+                    loaded: (works) {
                       if (works.isEmpty) {
                         return _buildEmptySection(
                           context,
@@ -398,7 +415,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                           return GestureDetector(
                             onTap: () => Navigator.pushNamed(
                               context,
-                              '/stencils/detail',
+                              '/works/detail',
                               arguments: work,
                             ),
                             child: Container(
@@ -484,6 +501,26 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                                         ),
                                       ),
                                     ),
+                                    if (work.source == work_dto.WorkSource.external) 
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: secondaryColor,
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: Text(
+                                            "External",
+                                            style: TextStyleTheme.caption.copyWith(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                   ],
                                 ),
                               ),
@@ -498,15 +535,15 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                         const Center(child: InkerProgressIndicator()),
                     submitting: () =>
                         const Center(child: InkerProgressIndicator()),
-                    stencilCreated: (_) =>
+                    workCreated: (_) =>
                         const Center(child: InkerProgressIndicator()),
-                    stencilUpdated: (_) =>
+                    workUpdated: (_) =>
                         const Center(child: InkerProgressIndicator()),
-                    stencilDeleted: () =>
+                    workDeleted: () =>
                         const Center(child: InkerProgressIndicator()),
                     viewRecorded: (_, __) =>
                         const Center(child: InkerProgressIndicator()),
-                    stencilLiked: (_, __) =>
+                    workLiked: (_, __) =>
                         const Center(child: InkerProgressIndicator()),
                     tagSuggestionsLoaded: (_) =>
                         const Center(child: InkerProgressIndicator()),
@@ -518,13 +555,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                       "Try refreshing the page: $message",
                       Icons.refresh,
                     ),
-                    tagCreated: (TagSuggestionResponseDto tag) {
-                      print(tag);
-                    },
-                    filteredByTag: (List<Stencil> stencils, int tagId) {
-                      print(stencils);
-                      print(tagId);
-                    },
+                    tagCreated: (_) => const Center(child: InkerProgressIndicator()),
+                    filteredByTag: (_, __) => const Center(child: InkerProgressIndicator()),
                   ),
                 ),
               ],
@@ -754,13 +786,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                       "Try refreshing the page: $message",
                       Icons.refresh,
                     ),
-                    tagCreated: (TagSuggestionResponseDto tag) {
-                      print(tag);
-                    },
-                    filteredByTag: (List<Stencil> stencils, int tagId) {
-                      print(stencils);
-                      print(tagId);
-                    },
+                    tagCreated: (_) => const Center(child: InkerProgressIndicator()),
+                    filteredByTag: (_, __) => const Center(child: InkerProgressIndicator()),
                   ),
                 ),
               ],

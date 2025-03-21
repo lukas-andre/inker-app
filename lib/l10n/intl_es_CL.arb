@@ -1575,5 +1575,149 @@
   "clearFilter": "Limpiar Filtro",
   "@clearFilter": {
     "description": "Action to remove tag filter"
+  },
+  "addWork": "Agregar Trabajo",
+  "@addWork": {
+    "description": "Action to add a new work"
+  },
+  "workCreatedSuccessfully": "Trabajo creado exitosamente",
+  "@workCreatedSuccessfully": {
+    "description": "Message displayed when a work is created successfully"
+  },
+  "addTagsToMakeYourWorkMoreDiscoverable": "Agrega etiquetas para hacer tu trabajo más visible",
+  "@addTagsToMakeYourWorkMoreDiscoverable": {
+    "description": "Helper text for adding tags to works"
+  },
+  "featuredWork": "Trabajo Destacado",
+  "@featuredWork": {
+    "description": "Label for featured work option"
+  },
+  "workWillBeHighlightedInProfile": "El trabajo será destacado en el perfil",
+  "@workWillBeHighlightedInProfile": {
+    "description": "Description for featured work option"
+  },
+  "hideWork": "Ocultar Trabajo",
+  "@hideWork": {
+    "description": "Label for hiding work option"
+  },
+  "workWillBeHiddenFromPublicView": "El trabajo será ocultado de la vista pública",
+  "@workWillBeHiddenFromPublicView": {
+    "description": "Description for hiding work option"
+  },
+  "saveWork": "Guardar Trabajo",
+  "@saveWork": {
+    "description": "Button to save work"
+  },
+  "deleteWork": "Eliminar Trabajo",
+  "@deleteWork": {
+    "description": "Action to delete a work"
+  },
+  "areYouSureYouWantToDeleteThisWork": "¿Estás seguro que deseas eliminar este trabajo?",
+  "@areYouSureYouWantToDeleteThisWork": {
+    "description": "Confirmation message for deleting a work"
+  },
+  "editWork": "Editar Trabajo",
+  "@editWork": {
+    "description": "Action to edit a work"
+  },
+  "workDetails": "Detalles del Trabajo",
+  "@workDetails": {
+    "description": "Label for work details section"
+  },
+  "workUpdatedSuccessfully": "Trabajo actualizado exitosamente",
+  "@workUpdatedSuccessfully": {
+    "description": "Message displayed when a work is updated successfully"
+  },
+  "workDeletedSuccessfully": "Trabajo eliminado exitosamente",
+  "@workDeletedSuccessfully": {
+    "description": "Message displayed when a work is deleted successfully"
+  },
+  "deleteSelectedWorks": "Eliminar Trabajos Seleccionados",
+  "@deleteSelectedWorks": {
+    "description": "Action to delete multiple selected works"
+  },
+  "areYouSureYouWantToDeleteTheseWorks": "¿Estás seguro que deseas eliminar estos trabajos?",
+  "@areYouSureYouWantToDeleteTheseWorks": {
+    "description": "Confirmation message for deleting multiple works"
+  },
+  "showHiddenWorks": "Mostrar Trabajos Ocultos",
+  "@showHiddenWorks": {
+    "description": "Option to display hidden works"
+  },
+  "filterBySource": "Filtrar por Fuente",
+  "@filterBySource": {
+    "description": "Label for source filtering option"
+  },
+  "allSources": "Todas las Fuentes",
+  "@allSources": {
+    "description": "Option to show works from all sources"
+  },
+  "selected": "Seleccionado",
+  "@selected": {
+    "description": "Label indicating items are selected"
+  },
+  "works": "Trabajos",
+  "@works": {
+    "description": "Label for works section"
+  },
+  "toggleVisibility": "Cambiar Visibilidad",
+  "@toggleVisibility": {
+    "description": "Action to change visibility status"
+  },
+  "toggleFeatured": "Cambiar Destacado",
+  "@toggleFeatured": {
+    "description": "Action to change featured status"
+  },
+  "filter": "Filtrar",
+  "@filter": {
+    "description": "Label for filter action"
+  },
+  "selectMultiple": "Selección Múltiple",
+  "@selectMultiple": {
+    "description": "Action to enable multiple selection mode"
+  },
+  "noWorksFound": "No Se Encontraron Trabajos",
+  "@noWorksFound": {
+    "description": "Message when no works are available"
+  },
+  "tryRemovingFilters": "Intenta quitar los filtros",
+  "@tryRemovingFilters": {
+    "description": "Suggestion to remove filters to see more results"
+  },
+  "addSomeWorksToYourGallery": "Agrega algunos trabajos a tu galería",
+  "@addSomeWorksToYourGallery": {
+    "description": "Suggestion to add works when gallery is empty"
+  },
+  "clearFilters": "Limpiar Filtros",
+  "@clearFilters": {
+    "description": "Action to remove all filters"
+  },
+  "filteringByTag": "Filtrando por etiqueta: {tagName}",
+  "@filteringByTag": {
+    "description": "Message showing current tag filter",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "filteringBySource": "Filtrando por fuente: {sourceName}",
+  "@filteringBySource": {
+    "description": "Message showing current source filter",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "APP"
+      }
+    }
+  },
+  "apply": "Aplicar",
+  "@apply": {
+    "description": "Action to apply filters"
+  },
+  "filters": "Filtros",
+  "@filters": {
+    "description": "Label for filters section"
   }
 }
