@@ -1,0 +1,17 @@
+import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
+import 'package:inker_studio/data/api/work/dtos/work_query_params.dart';
+import 'package:inker_studio/domain/models/work/work.dart';
+
+abstract class WorkService {
+  Future<List<Work>> getWorksByArtistId(int artistId, WorkQueryParams params, String token);
+  Future<Work> getWorkById(int id, String token);
+  Future<Work> createWork(CreateWorkDto createWorkDto, XFile? imageFile, String token);
+  Future<Work> updateWork(int id, UpdateWorkDto updateWorkDto, XFile? imageFile, String token);
+  Future<void> deleteWork(int id, String token);
+  Future<int> recordWorkView(int id, String token);
+  Future<int> likeWork(int id, String token);
+  Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
+  Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
+  Future<TagSuggestionResponseDto> createTag(String name, String token);
+}

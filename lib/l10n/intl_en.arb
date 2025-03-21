@@ -1557,5 +1557,149 @@
   "clearFilter": "Clear Filter",
   "@clearFilter": {
     "description": "Action to remove tag filter"
+  },
+  "addWork": "Add Work",
+  "@addWork": {
+    "description": "Action to add a new work"
+  },
+  "workCreatedSuccessfully": "Work created successfully",
+  "@workCreatedSuccessfully": {
+    "description": "Message displayed when a work is created successfully"
+  },
+  "addTagsToMakeYourWorkMoreDiscoverable": "Add tags to make your work more discoverable",
+  "@addTagsToMakeYourWorkMoreDiscoverable": {
+    "description": "Helper text for adding tags to work"
+  },
+  "featuredWork": "Featured Work",
+  "@featuredWork": {
+    "description": "Label for featured work option"
+  },
+  "workWillBeHighlightedInProfile": "Work will be highlighted in profile",
+  "@workWillBeHighlightedInProfile": {
+    "description": "Description for featured work option"
+  },
+  "hideWork": "Hide Work",
+  "@hideWork": {
+    "description": "Label for hiding work option"
+  },
+  "workWillBeHiddenFromPublicView": "Work will be hidden from public view",
+  "@workWillBeHiddenFromPublicView": {
+    "description": "Description for hiding work option"
+  },
+  "saveWork": "Save Work",
+  "@saveWork": {
+    "description": "Button to save work"
+  },
+  "deleteWork": "Delete Work",
+  "@deleteWork": {
+    "description": "Action to delete a work"
+  },
+  "areYouSureYouWantToDeleteThisWork": "Are you sure you want to delete this work?",
+  "@areYouSureYouWantToDeleteThisWork": {
+    "description": "Confirmation message for deleting a work"
+  },
+  "editWork": "Edit Work",
+  "@editWork": {
+    "description": "Title for work editing mode"
+  },
+  "workDetails": "Work Details",
+  "@workDetails": {
+    "description": "Title for work details page"
+  },
+  "workUpdatedSuccessfully": "Work updated successfully",
+  "@workUpdatedSuccessfully": {
+    "description": "Message displayed when a work is updated successfully"
+  },
+  "workDeletedSuccessfully": "Work deleted successfully",
+  "@workDeletedSuccessfully": {
+    "description": "Message displayed when a work is deleted successfully"
+  },
+  "deleteSelectedWorks": "Delete Selected Works",
+  "@deleteSelectedWorks": {
+    "description": "Action to delete multiple selected works"
+  },
+  "areYouSureYouWantToDeleteTheseWorks": "Are you sure you want to delete these works?",
+  "@areYouSureYouWantToDeleteTheseWorks": {
+    "description": "Confirmation message for deleting multiple works"
+  },
+  "showHiddenWorks": "Show Hidden Works",
+  "@showHiddenWorks": {
+    "description": "Option to display hidden works"
+  },
+  "filterBySource": "Filter by Source",
+  "@filterBySource": {
+    "description": "Label for source filtering option"
+  },
+  "allSources": "All Sources",
+  "@allSources": {
+    "description": "Option to show works from all sources"
+  },
+  "selected": "Selected",
+  "@selected": {
+    "description": "Label indicating items are selected"
+  },
+  "works": "Works",
+  "@works": {
+    "description": "Label for works section"
+  },
+  "toggleVisibility": "Toggle Visibility",
+  "@toggleVisibility": {
+    "description": "Action to change visibility status"
+  },
+  "toggleFeatured": "Toggle Featured",
+  "@toggleFeatured": {
+    "description": "Action to change featured status"
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Label for filter action"
+  },
+  "selectMultiple": "Select Multiple",
+  "@selectMultiple": {
+    "description": "Action to enable multiple selection mode"
+  },
+  "noWorksFound": "No Works Found",
+  "@noWorksFound": {
+    "description": "Message when no works are available"
+  },
+  "tryRemovingFilters": "Try removing filters",
+  "@tryRemovingFilters": {
+    "description": "Suggestion to remove filters to see more results"
+  },
+  "addSomeWorksToYourGallery": "Add some works to your gallery",
+  "@addSomeWorksToYourGallery": {
+    "description": "Suggestion to add works when gallery is empty"
+  },
+  "clearFilters": "Clear Filters",
+  "@clearFilters": {
+    "description": "Action to remove all filters"
+  },
+  "filteringByTag": "Filtering by tag: {tagName}",
+  "@filteringByTag": {
+    "description": "Message showing current tag filter",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "filteringBySource": "Filtering by source: {sourceName}",
+  "@filteringBySource": {
+    "description": "Message showing current source filter",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "APP"
+      }
+    }
+  },
+  "apply": "Apply",
+  "@apply": {
+    "description": "Action to apply filters"
+  },
+  "filters": "Filters",
+  "@filters": {
+    "description": "Label for filters section"
   }
 }
