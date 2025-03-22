@@ -21,6 +21,8 @@ class UpdateContactDto with _$UpdateContactDto {
   const factory UpdateContactDto({
     String? email,
     String? phone,
+    String? phoneDialCode,
+    String? phoneCountryIsoCode,
   }) = _UpdateContactDto;
 
   factory UpdateContactDto.fromJson(Map<String, dynamic> json) =>
