@@ -175,8 +175,8 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
           SliverToBoxAdapter(
             child: _buildTagsList(),
           ),
-          SliverToBoxAdapter(
-            child: const Divider(color: Colors.grey, height: 32),
+          const SliverToBoxAdapter(
+            child: Divider(color: Colors.grey, height: 32),
           ),
         ],
         if (stencils.isEmpty && _activeTagFilter != null)

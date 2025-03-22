@@ -80,9 +80,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
 
   void _toggleFeaturedForSelected() {
     for (final work in _selectedWorks) {
-      context
-          .read<ArtistWorkBloc>()
-          .add(ArtistWorkEvent.toggleFeatured(work));
+      context.read<ArtistWorkBloc>().add(ArtistWorkEvent.toggleFeatured(work));
     }
     setState(() {
       _isSelectMode = false;
@@ -164,7 +162,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   void _showFilterModal() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+      backgroundColor:
+          HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -222,7 +221,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                      color: HSLColor.fromColor(primaryColor)
+                          .withLightness(0.15)
+                          .toColor(),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey.shade800),
                     ),
@@ -230,12 +231,17 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                       child: DropdownButton<WorkSource?>(
                         value: _filterSource,
                         isExpanded: true,
-                        dropdownColor: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
-                        style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
-                        icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                        dropdownColor: HSLColor.fromColor(primaryColor)
+                            .withLightness(0.2)
+                            .toColor(),
+                        style: TextStyleTheme.bodyText1
+                            .copyWith(color: Colors.white),
+                        icon: const Icon(Icons.arrow_drop_down,
+                            color: Colors.white),
                         hint: Text(
                           S.of(context).allSources,
-                          style: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+                          style: TextStyleTheme.bodyText1
+                              .copyWith(color: Colors.grey.shade400),
                         ),
                         onChanged: (WorkSource? newValue) {
                           setState(() {
@@ -247,15 +253,19 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                             value: null,
                             child: Text(
                               S.of(context).allSources,
-                              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                              style: TextStyleTheme.bodyText1
+                                  .copyWith(color: Colors.white),
                             ),
                           ),
-                          ...WorkSource.values.map<DropdownMenuItem<WorkSource>>((WorkSource value) {
+                          ...WorkSource.values
+                              .map<DropdownMenuItem<WorkSource>>(
+                                  (WorkSource value) {
                             return DropdownMenuItem<WorkSource>(
                               value: value,
                               child: Text(
                                 value == WorkSource.app ? 'APP' : 'EXTERNAL',
-                                style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                                style: TextStyleTheme.bodyText1
+                                    .copyWith(color: Colors.white),
                               ),
                             );
                           }),
@@ -329,8 +339,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete, color: Colors.white),
-                  onPressed:
-                      _selectedWorks.isNotEmpty ? _deleteSelected : null,
+                  onPressed: _selectedWorks.isNotEmpty ? _deleteSelected : null,
                   tooltip: S.of(context).delete,
                 ),
                 IconButton(
@@ -352,7 +361,10 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.add, color: Colors.white),
-                  onPressed: () => Navigator.pushNamed(context, '/works/add'),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/works/add').then((result) {
+                    _loadWorks();
+                  }),
                   tooltip: S.of(context).addWork,
                 ),
               ],
@@ -370,7 +382,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                   (t) => t.id == tagId,
                   orElse: () => const Tag(id: 0, name: '', count: 0),
                 );
-                
+
                 setState(() {
                   _filterTagId = tagId;
                   _filterTag = tag.id != 0 ? tag.name : null;
@@ -395,7 +407,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
             },
             loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (works) => _buildWorksGrid(works),
-            filteredByTag: (filteredWorks, tagId) => _buildWorksGrid(filteredWorks),
+            filteredByTag: (filteredWorks, tagId) =>
+                _buildWorksGrid(filteredWorks),
             error: (message) => Center(
               child: Text(
                 '${S.of(context).error}: $message',
@@ -409,20 +422,19 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
       ),
     );
   }
-  
+
   Widget _buildEmptyLoadingState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const InkerProgressIndicator(radius: 16),
           const SizedBox(height: 16),
           Text(
-            'Cargando trabajos...',
+            'Loading works...',
             style: TextStyleTheme.subtitle1.copyWith(color: Colors.white),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
-          const InkerProgressIndicator(radius: 16)
         ],
       ),
     );
@@ -487,7 +499,13 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
               )
             else
               ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/works/add'),
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/works/add').then((result) {
+                  // Only reload if a work was created (result == true)
+                  if (result == true) {
+                    _loadWorks();
+                  }
+                }),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: secondaryColor,
                   padding:
@@ -514,8 +532,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
               children: [
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: HSLColor.fromColor(primaryColor)
                           .withLightness(0.15)
@@ -535,7 +553,10 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                           )
                         else if (_filterSource != null)
                           Text(
-                            S.of(context).filteringBySource(_filterSource == WorkSource.app ? 'APP' : 'EXTERNAL'),
+                            S.of(context).filteringBySource(
+                                _filterSource == WorkSource.app
+                                    ? 'APP'
+                                    : 'EXTERNAL'),
                             style: TextStyleTheme.bodyText2.copyWith(
                               color: Colors.white,
                             ),
@@ -598,8 +619,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color:
-                  HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+              color: HSLColor.fromColor(primaryColor)
+                  .withLightness(0.15)
+                  .toColor(),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isSelected ? secondaryColor : Colors.grey.shade800,

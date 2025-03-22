@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart' as work_dto;
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
-import 'package:inker_studio/domain/models/stencil/stencil.dart';
-import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
@@ -38,18 +35,18 @@ class ArtistMyProfilePage extends StatefulWidget {
   State<ArtistMyProfilePage> createState() => _ArtistMyProfilePageState();
 }
 
-class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with AutomaticKeepAliveClientMixin {
+class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    // Cargar stencils al iniciar la página
     final bloc = context.read<ArtistMyProfileBloc>();
     bloc.add(const ArtistProfileEvent.loadProfile());
   }
-  
+
   @override
   bool get wantKeepAlive => true;
-  
+
   Future<void> _refreshProfile() async {
     final bloc = context.read<ArtistMyProfileBloc>();
     bloc.add(const ArtistProfileEvent.loadProfile());
@@ -57,7 +54,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required by AutomaticKeepAliveClientMixin
+    super.build(context);
     return Scaffold(
       backgroundColor: primaryColor,
       body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
@@ -285,11 +282,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildStatItem(context, S.of(context).works, artist.worksCount?.toString() ?? "0"),
+          _buildStatItem(context, S.of(context).works,
+              artist.worksCount?.toString() ?? "0"),
           _buildVerticalDivider(),
-          _buildStatItem(context, S.of(context).stencils, artist.stencilsCount?.toString() ?? "0"),
+          _buildStatItem(context, S.of(context).stencils,
+              artist.stencilsCount?.toString() ?? "0"),
           _buildVerticalDivider(),
-          _buildStatItem(context, S.of(context).followers, artist.followers.toString()),
+          _buildStatItem(
+              context, S.of(context).followers, artist.followers.toString()),
         ],
       ),
     );
@@ -351,7 +351,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                   children: [
                     Expanded(
                       child: Text(
-                        "Tattoo Works",
+                        S.of(context).tattooWorks,
                         style: TextStyleTheme.headline3.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -367,7 +367,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                               Navigator.pushNamed(context, '/works/add'),
                           icon: const Icon(Icons.add_circle_outline,
                               color: secondaryColor, size: 22),
-                          tooltip: "Add Work",
+                          tooltip: S.of(context).addWork,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
@@ -375,9 +375,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/works'),
-                          icon: Icon(Icons.grid_view,
+                          icon: const Icon(Icons.grid_view,
                               color: secondaryColor, size: 22),
-                          tooltip: "Manage Works",
+                          tooltip: S.of(context).manageWorks,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
@@ -397,8 +397,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                       if (works.isEmpty) {
                         return _buildEmptySection(
                           context,
-                          "No tattoo works added yet",
-                          "Add photos of your best tattoo work to showcase your style",
+                          S.of(context).noTattooWorksAddedYet,
+                          S
+                              .of(context)
+                              .addPhotosOfYourBestTattooWorkToShowcaseYourStyle,
                           Icons.photo_album,
                         );
                       }
@@ -497,19 +499,23 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                                         ),
                                       ),
                                     ),
-                                    if (work.source == work_dto.WorkSource.external) 
+                                    if (work.source ==
+                                        work_dto.WorkSource.external)
                                       Positioned(
                                         top: 8,
                                         right: 8,
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6, vertical: 2),
                                           decoration: BoxDecoration(
                                             color: secondaryColor,
-                                            borderRadius: BorderRadius.circular(4),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                           ),
                                           child: Text(
                                             "External",
-                                            style: TextStyleTheme.caption.copyWith(
+                                            style:
+                                                TextStyleTheme.caption.copyWith(
                                               color: Colors.white,
                                               fontSize: 10,
                                               fontWeight: FontWeight.bold,
@@ -547,12 +553,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                         const Center(child: InkerProgressIndicator()),
                     error: (message) => _buildEmptySection(
                       context,
-                      "Error loading works",
-                      "Try refreshing the page: $message",
+                      S.of(context).errorLoadingWorks,
+                      S.of(context).tryRefreshingThePage(message),
                       Icons.refresh,
                     ),
-                    tagCreated: (_) => const Center(child: InkerProgressIndicator()),
-                    filteredByTag: (_, __) => const Center(child: InkerProgressIndicator()),
+                    tagCreated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    filteredByTag: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
                   ),
                 ),
               ],
@@ -601,9 +609,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/stencils/add'),
-                          icon: Icon(Icons.add_circle_outline,
+                          icon: const Icon(Icons.add_circle_outline,
                               color: secondaryColor, size: 22),
-                          tooltip: "Add Stencil",
+                          tooltip: S.of(context).addStencil,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
@@ -611,9 +619,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/stencils'),
-                          icon: Icon(Icons.grid_view,
+                          icon: const Icon(Icons.grid_view,
                               color: secondaryColor, size: 22),
-                          tooltip: "View All Stencils",
+                          tooltip: S.of(context).viewAllStencils,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
                         ),
@@ -636,8 +644,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                       if (stencils.isEmpty) {
                         return _buildEmptySection(
                           context,
-                          "No stencils added yet",
-                          "Add your stencil designs to showcase your style",
+                          S.of(context).noStencilsAddedYet,
+                          S
+                              .of(context)
+                              .addYourStencilDesignsToShowcaseYourStyle,
                           Icons.brush,
                         );
                       }
@@ -778,12 +788,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                         const Center(child: InkerProgressIndicator()),
                     error: (message) => _buildEmptySection(
                       context,
-                      "Error loading stencils",
-                      "Try refreshing the page: $message",
+                      S.of(context).errorLoadingStencils,
+                      S.of(context).tryRefreshingThePage(message),
                       Icons.refresh,
                     ),
-                    tagCreated: (_) => const Center(child: InkerProgressIndicator()),
-                    filteredByTag: (_, __) => const Center(child: InkerProgressIndicator()),
+                    tagCreated: (_) =>
+                        const Center(child: InkerProgressIndicator()),
+                    filteredByTag: (_, __) =>
+                        const Center(child: InkerProgressIndicator()),
                   ),
                 ),
               ],
@@ -918,14 +930,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                 Text(
                   value.isEmpty ? "Not set" : value,
                   style: TextStyleTheme.bodyText2.copyWith(
-                    color:
-                        value.isEmpty ? Colors.grey.shade600 : Colors.white,
+                    color: value.isEmpty ? Colors.grey.shade600 : Colors.white,
                   ),
                 ),
               ],
             ),
           ),
-          if (isEditable && onTap != null) 
+          if (isEditable && onTap != null)
             Icon(Icons.edit, color: Colors.grey.shade600, size: 16),
         ],
       ),
@@ -975,8 +986,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
 
   Widget _buildProfileHeader(BuildContext context, Artist artist) {
     final ratingValue = artist.review?.avgRating ?? artist.review?.value;
-    final ratingDisplay = ratingValue != null ? ratingValue.toStringAsFixed(1) : null;
-    
+    final ratingDisplay = ratingValue?.toStringAsFixed(1);
+
     return Padding(
       key: const Key('artistProfileHeader'),
       padding: const EdgeInsets.all(16.0),
@@ -1127,7 +1138,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
   Widget _buildProfileDetails(BuildContext context, Artist artist) {
     final ratingValue = artist.review?.avgRating ?? artist.review?.value;
     final reviewCount = artist.review?.count ?? 0;
-    
+
     return Container(
       key: const Key('artistProfileDetails'),
       color: primaryColor,
@@ -1142,7 +1153,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Reviews",
+                    S.of(context).reviews,
                     style: TextStyleTheme.headline3.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -1162,7 +1173,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: secondaryColor,
                             shape: BoxShape.circle,
                           ),
@@ -1191,7 +1202,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Average Rating",
+                                S.of(context).averageRating,
                                 style: TextStyleTheme.subtitle1.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -1212,19 +1223,19 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
                   const SizedBox(height: 16),
                 ],
               ),
-          
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "About Me",
+                  S.of(context).aboutMe,
                   style: TextStyleTheme.headline3.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.edit, color: secondaryColor, size: 20),
+                  icon: const Icon(Icons.edit, color: secondaryColor, size: 20),
                   onPressed: () => _navigateToEditField(
                     context,
                     EditFieldArguments(
@@ -1249,7 +1260,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with Automati
               ),
               child: Text(
                 artist.shortDescription ??
-                    "Add a short description about yourself and your tattoo style...",
+                    S
+                        .of(context)
+                        .addAShortDescriptionAboutYourselfAndYourTattooStyle,
                 style: TextStyleTheme.bodyText1.copyWith(
                   color: artist.shortDescription != null
                       ? Colors.white
