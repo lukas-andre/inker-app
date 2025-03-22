@@ -49,11 +49,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m10(tagName) =>
       "No hay plantillas con la etiqueta \'${tagName}\'";
 
-  static String m11(count) =>
+  static String m11(message) => "Intenta refrescar la página: ${message}";
+
+  static String m12(count) =>
       "${Intl.plural(count, one: 'hace 1 año', other: 'hace ${count} años')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "aboutMe": MessageLookupByLibrary.simpleMessage("Sobre Mí"),
         "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "acceptAppeal":
             MessageLookupByLibrary.simpleMessage("Aceptar Apelación"),
@@ -67,10 +70,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "action": MessageLookupByLibrary.simpleMessage("Acción"),
         "actionSuccessful":
             MessageLookupByLibrary.simpleMessage("Acción exitosa"),
+        "addAShortDescriptionAboutYourselfAndYourTattooStyle":
+            MessageLookupByLibrary.simpleMessage(
+                "Agrega una breve descripción sobre ti y tu estilo de tatuaje"),
         "addDescription": MessageLookupByLibrary.simpleMessage(
             "Agrega una descripción sobre ti."),
         "addLocation":
             MessageLookupByLibrary.simpleMessage("Agregar Ubicación"),
+        "addPhotosOfYourBestTattooWorkToShowcaseYourStyle":
+            MessageLookupByLibrary.simpleMessage(
+                "Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo"),
         "addSomeWorksToYourGallery": MessageLookupByLibrary.simpleMessage(
             "Agrega algunos trabajos a tu galería"),
         "addStencil": MessageLookupByLibrary.simpleMessage("Agregar Plantilla"),
@@ -88,6 +97,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "addWork": MessageLookupByLibrary.simpleMessage("Agregar Trabajo"),
         "addYourFirstStencil": MessageLookupByLibrary.simpleMessage(
             "Agrega tu primera plantilla para comenzar"),
+        "addYourStencilDesignsToShowcaseYourStyle":
+            MessageLookupByLibrary.simpleMessage(
+                "Agrega tus diseños de stencil para mostrar tu estilo"),
         "additionalDetails":
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "address": MessageLookupByLibrary.simpleMessage("Dirección"),
@@ -143,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "¿Estás seguro que deseas eliminar este trabajo?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
         "artistsFound": m0,
+        "averageRating":
+            MessageLookupByLibrary.simpleMessage("Calificación Promedio"),
         "awaitingArtist":
             MessageLookupByLibrary.simpleMessage("Esperando Artista"),
         "awaitingCustomer":
@@ -272,6 +286,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorLoadingStencils":
             MessageLookupByLibrary.simpleMessage("Error Cargando Plantillas"),
+        "errorLoadingWorks":
+            MessageLookupByLibrary.simpleMessage("Error al cargar trabajos"),
         "errorMsgEndTimeMustBeAfterStart": MessageLookupByLibrary.simpleMessage(
             "La hora de fin debe ser después de la hora de inicio."),
         "errorMsgEventCreationFailed": MessageLookupByLibrary.simpleMessage(
@@ -370,6 +386,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeup": MessageLookupByLibrary.simpleMessage("Makeup"),
         "manageLocations":
             MessageLookupByLibrary.simpleMessage("Administrar Ubicaciones"),
+        "manageWorks":
+            MessageLookupByLibrary.simpleMessage("Administrar Trabajos"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m7,
@@ -401,11 +419,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aún no hay reseñas"),
         "noServicesAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay servicios disponibles"),
+        "noStencilsAddedYet": MessageLookupByLibrary.simpleMessage(
+            "No hay stencils agregados aún"),
         "noStencilsWithTag": m10,
         "noStencilsYet":
             MessageLookupByLibrary.simpleMessage("Aún No Hay Plantillas"),
         "noStudioPhotoAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay foto del estudio disponible"),
+        "noTattooWorksAddedYet": MessageLookupByLibrary.simpleMessage(
+            "No hay trabajos de tatuaje agregados aún"),
         "noUnavailableTimesConfigured": MessageLookupByLibrary.simpleMessage(
             "No hay tiempos no disponibles configurados"),
         "noWorkEvidence":
@@ -569,6 +591,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
         "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
         "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
+        "reviews": MessageLookupByLibrary.simpleMessage("Reseñas"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar Cambios"),
         "saveConfiguration":
@@ -656,6 +679,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tapToSelectImage": MessageLookupByLibrary.simpleMessage(
             "Toca para seleccionar una imagen"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
+        "tattooWorks":
+            MessageLookupByLibrary.simpleMessage("Trabajos de Tatuaje"),
         "tentativeEvent":
             MessageLookupByLibrary.simpleMessage("Evento Tentativo"),
         "termsAndConditions":
@@ -676,6 +701,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cambiar Visibilidad"),
         "tryAgainLater":
             MessageLookupByLibrary.simpleMessage("Por favor intenta más tarde"),
+        "tryRefreshingThePage": m11,
         "tryRemovingFilters":
             MessageLookupByLibrary.simpleMessage("Intenta quitar los filtros"),
         "unavailableTime":
@@ -688,6 +714,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateStudioPhoto":
             MessageLookupByLibrary.simpleMessage("Actualizar foto del estudio"),
         "username": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
+        "viewAllStencils":
+            MessageLookupByLibrary.simpleMessage("Ver Todos los Stencils"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
         "views": MessageLookupByLibrary.simpleMessage("Vistas"),
         "visibilitySettings": MessageLookupByLibrary.simpleMessage(
@@ -710,7 +738,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "workingHours":
             MessageLookupByLibrary.simpleMessage("Horario de Trabajo"),
         "works": MessageLookupByLibrary.simpleMessage("Trabajos"),
-        "yearsAgo": m11,
+        "yearsAgo": m12,
         "yes": MessageLookupByLibrary.simpleMessage("Sí"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Acercar"),

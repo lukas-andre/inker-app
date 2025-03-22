@@ -4276,6 +4276,136 @@ class S {
       args: [],
     );
   }
+
+  /// `No hay trabajos de tatuaje agregados aún`
+  String get noTattooWorksAddedYet {
+    return Intl.message(
+      'No hay trabajos de tatuaje agregados aún',
+      name: 'noTattooWorksAddedYet',
+      desc: 'Message shown when artist has no tattoo works',
+      args: [],
+    );
+  }
+
+  /// `Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo`
+  String get addPhotosOfYourBestTattooWorkToShowcaseYourStyle {
+    return Intl.message(
+      'Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo',
+      name: 'addPhotosOfYourBestTattooWorkToShowcaseYourStyle',
+      desc: 'Suggestion for artists to add tattoo works',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar trabajos`
+  String get errorLoadingWorks {
+    return Intl.message(
+      'Error al cargar trabajos',
+      name: 'errorLoadingWorks',
+      desc: 'Error message when works cannot be loaded',
+      args: [],
+    );
+  }
+
+  /// `Intenta refrescar la página: {message}`
+  String tryRefreshingThePage(String message) {
+    return Intl.message(
+      'Intenta refrescar la página: $message',
+      name: 'tryRefreshingThePage',
+      desc: 'Suggestion to refresh the page when there\'s an error',
+      args: [message],
+    );
+  }
+
+  /// `Ver Todos los Stencils`
+  String get viewAllStencils {
+    return Intl.message(
+      'Ver Todos los Stencils',
+      name: 'viewAllStencils',
+      desc: 'Button text to view all stencils',
+      args: [],
+    );
+  }
+
+  /// `No hay stencils agregados aún`
+  String get noStencilsAddedYet {
+    return Intl.message(
+      'No hay stencils agregados aún',
+      name: 'noStencilsAddedYet',
+      desc: 'Message shown when artist has no stencils',
+      args: [],
+    );
+  }
+
+  /// `Agrega tus diseños de stencil para mostrar tu estilo`
+  String get addYourStencilDesignsToShowcaseYourStyle {
+    return Intl.message(
+      'Agrega tus diseños de stencil para mostrar tu estilo',
+      name: 'addYourStencilDesignsToShowcaseYourStyle',
+      desc: 'Suggestion for artists to add stencil designs',
+      args: [],
+    );
+  }
+
+  /// `Reseñas`
+  String get reviews {
+    return Intl.message(
+      'Reseñas',
+      name: 'reviews',
+      desc: 'Label for reviews section',
+      args: [],
+    );
+  }
+
+  /// `Calificación Promedio`
+  String get averageRating {
+    return Intl.message(
+      'Calificación Promedio',
+      name: 'averageRating',
+      desc: 'Label for average rating display',
+      args: [],
+    );
+  }
+
+  /// `Sobre Mí`
+  String get aboutMe {
+    return Intl.message(
+      'Sobre Mí',
+      name: 'aboutMe',
+      desc: 'Section title for artist bio',
+      args: [],
+    );
+  }
+
+  /// `Agrega una breve descripción sobre ti y tu estilo de tatuaje`
+  String get addAShortDescriptionAboutYourselfAndYourTattooStyle {
+    return Intl.message(
+      'Agrega una breve descripción sobre ti y tu estilo de tatuaje',
+      name: 'addAShortDescriptionAboutYourselfAndYourTattooStyle',
+      desc: 'Placeholder text for empty artist bio',
+      args: [],
+    );
+  }
+
+  /// `Trabajos de Tatuaje`
+  String get tattooWorks {
+    return Intl.message(
+      'Trabajos de Tatuaje',
+      name: 'tattooWorks',
+      desc: 'Section title for tattoo works gallery',
+      args: [],
+    );
+  }
+
+  /// `Administrar Trabajos`
+  String get manageWorks {
+    return Intl.message(
+      'Administrar Trabajos',
+      name: 'manageWorks',
+      desc: 'Button text to manage tattoo works',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

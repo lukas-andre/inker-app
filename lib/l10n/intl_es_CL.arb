@@ -1799,5 +1799,64 @@
   "retry": "Reintentar",
   "@retry": {
     "description": "Button text to retry an action"
+  },
+  
+  "noTattooWorksAddedYet": "No hay trabajos de tatuaje agregados aún",
+  "@noTattooWorksAddedYet": {
+    "description": "Message shown when artist has no tattoo works"
+  },
+  "addPhotosOfYourBestTattooWorkToShowcaseYourStyle": "Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo",
+  "@addPhotosOfYourBestTattooWorkToShowcaseYourStyle": {
+    "description": "Suggestion for artists to add tattoo works"
+  },
+  "errorLoadingWorks": "Error al cargar trabajos",
+  "@errorLoadingWorks": {
+    "description": "Error message when works cannot be loaded"
+  },
+  "tryRefreshingThePage": "Intenta refrescar la página: {message}",
+  "@tryRefreshingThePage": {
+    "description": "Suggestion to refresh the page when there's an error",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "viewAllStencils": "Ver Todos los Stencils",
+  "@viewAllStencils": {
+    "description": "Button text to view all stencils"
+  },
+  "noStencilsAddedYet": "No hay stencils agregados aún",
+  "@noStencilsAddedYet": {
+    "description": "Message shown when artist has no stencils"
+  },
+  "addYourStencilDesignsToShowcaseYourStyle": "Agrega tus diseños de stencil para mostrar tu estilo",
+  "@addYourStencilDesignsToShowcaseYourStyle": {
+    "description": "Suggestion for artists to add stencil designs"
+  },
+  "reviews": "Reseñas",
+  "@reviews": {
+    "description": "Label for reviews section"
+  },
+  "averageRating": "Calificación Promedio",
+  "@averageRating": {
+    "description": "Label for average rating display"
+  },
+  "aboutMe": "Sobre Mí",
+  "@aboutMe": {
+    "description": "Section title for artist bio"
+  },
+  "addAShortDescriptionAboutYourselfAndYourTattooStyle": "Agrega una breve descripción sobre ti y tu estilo de tatuaje",
+  "@addAShortDescriptionAboutYourselfAndYourTattooStyle": {
+    "description": "Placeholder text for empty artist bio"
+  },
+  "tattooWorks": "Trabajos de Tatuaje",
+  "@tattooWorks": {
+    "description": "Section title for tattoo works gallery"
+  },
+  "manageWorks": "Administrar Trabajos",
+  "@manageWorks": {
+    "description": "Button text to manage tattoo works"
   }
 }
