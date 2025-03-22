@@ -168,7 +168,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
                   backgroundColor: Colors.green,
                 ),
               );
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
             tagSuggestionsLoaded: (suggestions) {
               setState(() {
