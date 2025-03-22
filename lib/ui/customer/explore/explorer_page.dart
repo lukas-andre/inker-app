@@ -8,11 +8,14 @@ import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.d
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_sheet.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_switch_view_buttons.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ExplorerPage extends StatefulWidget {
-  const ExplorerPage({super.key});
+  final bool hideHeader;
+
+  const ExplorerPage({super.key, this.hideHeader = false});
 
   @override
   State<ExplorerPage> createState() => _ExplorerPageState();
@@ -39,6 +42,21 @@ class _ExplorerPageState extends State<ExplorerPage> {
         return GestureDetector(
           onTap: (() => FocusScope.of(context).unfocus()),
           child: Scaffold(
+            // Si hideHeader es true, no mostramos un AppBar propio, ya que lo gestiona la página principal
+            appBar: widget.hideHeader
+                ? null
+                : AppBar(
+                    title: Text(
+                      'Explorar',
+                      style: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    elevation: 0,
+                    backgroundColor: primaryColor,
+                  ),
             backgroundColor: primaryColor,
             body: BlocBuilder<LocationBloc, LocationState>(
               buildWhen: (previous, current) =>
@@ -85,14 +103,14 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     } else {
                       // THIS IS ARTIST FOUND STATE
                       return Stack(
-                        key: const Key('explorerPageStack'),
-                        children: [
-                        ExplorerViewByType(
-                            view: state.view,
-                            lastLocation: locationState.lastKnownLocation!),
-                        const ExplorerSwitchViewButtons(),
-                        const DraggableArtistInfoSheet(),
-                      ]);
+                          key: const Key('explorerPageStack'),
+                          children: [
+                            ExplorerViewByType(
+                                view: state.view,
+                                lastLocation: locationState.lastKnownLocation!),
+                            const ExplorerSwitchViewButtons(),
+                            const DraggableArtistInfoSheet(),
+                          ]);
                     }
                   },
                 );
@@ -101,15 +119,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
             floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startDocked,
-            // floatingActionButton: state.view == ExplorerView.list
-            //     ? null
-            //     : Column(
-            //         mainAxisAlignment: MainAxisAlignment.end,
-            //         children: const [
-            //           ButtonCurrentLocation(),
-            //           ButtonFollowLocation()
-            //         ],
-            //       ),
           ),
         );
       },

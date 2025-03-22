@@ -22,16 +22,16 @@ class CustomerAppPage extends StatefulWidget {
 class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 0;
   List<Widget> get _pageWidgets => <Widget>[
-    const BuildMapPage(),
-    const QuotationListPage(),
+    const BuildMapPage(hideHeader: true),
+    const QuotationListPage(hideHeader: true),
     BlocProvider(
       create: (context) => AppointmentBloc(
         appointmentService: context.read(),
         sessionService: context.read(),
       ),
-      child: const CustomerAppointmentsPage(),
+      child: const CustomerAppointmentsPage(hideHeader: true),
     ),
-    const CustomerMyProfilePage()
+    const CustomerMyProfilePage(hideHeader: true)
   ];
 
   @override
@@ -65,17 +65,87 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     });
   }
   
-  Widget _getAppBarTitle() {
+  String _getAppBarTitle() {
     switch (_selectedIndex) {
       case 0:
-        return const Text('Explorar');
+        return 'Explorar';
       case 1:
-        return const Text('Cotizaciones');
+        return 'Cotizaciones';
       case 2:
-        return const Text('Mis Citas');
+        return 'Mis Citas';
       default:
-        return const Text('');
+        return '';
     }
+  }
+  
+  // Get the appropriate action buttons based on the selected tab
+  List<Widget> _getAppBarActions() {
+    final List<Widget> actions = [];
+    
+    // Add page-specific action buttons based on selected index
+    if (_selectedIndex == 0) {  // Explorar page
+      // Aquí podrías agregar botones específicos para la página de exploración
+      // Similar a la implementación en artist_home_page.dart
+    } else if (_selectedIndex == 1) { // Cotizaciones page
+      // Aquí podrías agregar botones específicos para la página de cotizaciones
+    } else if (_selectedIndex == 2) { // Citas page
+      // Acciones específicas para la página de citas
+      actions.add(
+        IconButton(
+          icon: const Icon(
+            Icons.refresh,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // Refresh appointments logic
+          },
+        ),
+      );
+    }
+    
+    // Add notification badge for all pages except profile
+    if (_selectedIndex != 3) {
+      actions.add(
+        BlocBuilder<NotificationsBloc, NotificationsState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => NotificationBadge(
+                count: 0,
+                onTap: () {
+                  Navigator.of(context).pushNamed(NotificationsPage.routeName);
+                },
+              ),
+              loading: () => NotificationBadge(
+                count: 0,
+                onTap: () {
+                  Navigator.of(context).pushNamed(NotificationsPage.routeName);
+                },
+              ),
+              loaded: (fcmToken, permissionsGranted, pendingNavigation, 
+                  lastMessage, lastMessageAppState, notifications, 
+                  isLoading, isRefreshing, hasError, errorMessage, 
+                  currentPage, totalPages, unreadCount) {
+                return NotificationBadge(
+                  count: unreadCount,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(NotificationsPage.routeName);
+                  },
+                );
+              },
+              error: (message) => NotificationBadge(
+                count: 0,
+                onTap: () {
+                  Navigator.of(context).pushNamed(NotificationsPage.routeName);
+                },
+              ),
+            );
+          },
+        )
+      );
+      actions.add(const SizedBox(width: 8));
+    }
+    
+    return actions;
   }
 
   @override
@@ -85,47 +155,17 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final icons = state.customerPageNavBarIcons.icons;
     return Scaffold(
         appBar: _selectedIndex != 3 ? AppBar(
-          title: _getAppBarTitle(),
+          title: Text(
+            _getAppBarTitle(),
+            style: TextStyleTheme.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
           elevation: 0,
           backgroundColor: primaryColor,
-          actions: [
-            BlocBuilder<NotificationsBloc, NotificationsState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: () => NotificationBadge(
-                    count: 0,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                    },
-                  ),
-                  loading: () => NotificationBadge(
-                    count: 0,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                    },
-                  ),
-                  loaded: (fcmToken, permissionsGranted, pendingNavigation, 
-                      lastMessage, lastMessageAppState, notifications, 
-                      isLoading, isRefreshing, hasError, errorMessage, 
-                      currentPage, totalPages, unreadCount) {
-                    return NotificationBadge(
-                      count: unreadCount,
-                      onTap: () {
-                        Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                      },
-                    );
-                  },
-                  error: (message) => NotificationBadge(
-                    count: 0,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                    },
-                  ),
-                );
-              },
-            ),
-            const SizedBox(width: 8),
-          ],
+          actions: _getAppBarActions(),
         ) : null,
         body: SizedBox(
             height: MediaQuery.of(context).size.height,

@@ -10,8 +10,9 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerAppointmentsPage extends StatefulWidget {
   static const String routeName = '/appointments';
+  final bool hideHeader;
 
-  const CustomerAppointmentsPage({super.key});
+  const CustomerAppointmentsPage({super.key, this.hideHeader = false});
 
   @override
   State<CustomerAppointmentsPage> createState() => _CustomerAppointmentsPageState();
@@ -51,6 +52,19 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
+      // Si hideHeader es true, no mostramos un AppBar propio, ya que lo gestiona la página principal
+      appBar: widget.hideHeader ? null : AppBar(
+        title: Text(
+          'Mis Citas', 
+          style: TextStyleTheme.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: primaryColor,
+      ),
       body: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
           // Extract current filter if available

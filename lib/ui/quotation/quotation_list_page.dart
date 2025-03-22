@@ -168,14 +168,27 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     final l10n = S.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFF141D3C),
+      // Si hideHeader es true, no mostramos un AppBar propio, ya que lo gestiona la página principal
+      appBar: widget.hideHeader ? null : AppBar(
+        backgroundColor: primaryColor,
+        title: Text(
+          _isArtist ? l10n.requests : l10n.quotes,
+          style: TextStyleTheme.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title - only show if hideHeader is false
-              if (!widget.hideHeader) ...[
+              // Ya no necesitamos mostrar el título aquí, lo hace el AppBar
+              if (false) ...[
                 Text(
                   _isArtist ? l10n.requests : l10n.quotes,
                   style: TextStyleTheme.headline1
