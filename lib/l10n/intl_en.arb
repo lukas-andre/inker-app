@@ -1709,5 +1709,77 @@
   "stencils": "Stencils",
   "@stencils": {
     "description": "Label for stencils section"
+  },
+  "agendaSettings": "Agenda Settings",
+  "@agendaSettings": {
+    "description": "Title for agenda settings page"
+  },
+  "workingHours": "Working Hours",
+  "@workingHours": {
+    "description": "Tab title for working hours section"
+  },
+  "unavailableTimes": "Unavailable Times",
+  "@unavailableTimes": {
+    "description": "Tab title for unavailable times section"
+  },
+  "visibilitySettings": "Visibility Settings",
+  "@visibilitySettings": {
+    "description": "Title for visibility settings section"
+  },
+  "publicAgenda": "Public Agenda",
+  "@publicAgenda": {
+    "description": "Label for public agenda toggle"
+  },
+  "publicAgendaDescription": "Make your agenda visible to clients",
+  "@publicAgendaDescription": {
+    "description": "Description for public agenda setting"
+  },
+  "openForReservations": "Open for Reservations",
+  "@openForReservations": {
+    "description": "Label for open for reservations toggle"
+  },
+  "openForReservationsDescription": "Allow clients to book appointments",
+  "@openForReservationsDescription": {
+    "description": "Description for open for reservations setting"
+  },
+  "saveConfiguration": "Save Configuration",
+  "@saveConfiguration": {
+    "description": "Button text to save agenda settings"
+  },
+  "pleaseSelectADateRange": "Please select a date range",
+  "@pleaseSelectADateRange": {
+    "description": "Error message when no date range is selected"
+  },
+  "unavailableTime": "Unavailable Time",
+  "@unavailableTime": {
+    "description": "Default reason for unavailable time"
+  },
+  "addUnavailableTime": "Add Unavailable Time",
+  "@addUnavailableTime": {
+    "description": "Title for adding unavailable time section"
+  },
+  "selectDates": "Select Dates",
+  "@selectDates": {
+    "description": "Button text to select date range"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Label for reason field"
+  },
+  "optional": "Optional",
+  "@optional": {
+    "description": "Indicator for optional fields"
+  },
+  "addTime": "Add Time",
+  "@addTime": {
+    "description": "Button text to add unavailable time"
+  },
+  "noUnavailableTimesConfigured": "No unavailable times configured",
+  "@noUnavailableTimesConfigured": {
+    "description": "Message when no unavailable times are set"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button text to retry an action"
   }
 }
