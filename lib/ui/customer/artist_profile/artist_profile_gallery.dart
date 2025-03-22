@@ -34,9 +34,9 @@ class ArtistGallery extends StatelessWidget {
         backgroundColor: Colors.transparent,
         builder: (context) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),

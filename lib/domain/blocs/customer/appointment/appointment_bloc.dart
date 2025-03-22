@@ -158,11 +158,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         orElse: () => null as Appointment,
       );
 
-      if (existingAppointment != null) {
-        emit(currentState.copyWith(selectedAppointment: existingAppointment));
-        return;
-      }
-    }
+      emit(currentState.copyWith(selectedAppointment: existingAppointment));
+      return;
+        }
 
     try {
       final token = await _sessionService.getActiveSessionToken();

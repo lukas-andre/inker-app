@@ -17,8 +17,8 @@ class ImageCacheSettings extends StatefulWidget {
 class _ImageCacheSettingsState extends State<ImageCacheSettings> {
   final CachedImageManager _cacheManager = CachedImageManager();
   bool _isLoading = false;
-  String _cacheSize = "Calculando...";
-  String _fileCount = "...";
+  String _cacheSize = 'Calculando...';
+  String _fileCount = '...';
   bool _isClearing = false;
 
   @override
@@ -50,19 +50,19 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
         // Convertir a MB con 2 decimales
         final sizeMB = (totalSize / (1024 * 1024)).toStringAsFixed(2);
         setState(() {
-          _cacheSize = "$sizeMB MB";
-          _fileCount = "$fileCount";
+          _cacheSize = '$sizeMB MB';
+          _fileCount = '$fileCount';
         });
       } else {
         setState(() {
-          _cacheSize = "0 MB";
-          _fileCount = "0";
+          _cacheSize = '0 MB';
+          _fileCount = '0';
         });
       }
     } catch (e) {
       setState(() {
-        _cacheSize = "Error al calcular";
-        _fileCount = "-";
+        _cacheSize = 'Error al calcular';
+        _fileCount = '-';
       });
     } finally {
       setState(() {
@@ -90,7 +90,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              "Caché de imágenes limpiada",
+              'Caché de imágenes limpiada',
               style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
             ),
             backgroundColor: Colors.green,
@@ -104,7 +104,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              "Error al limpiar la caché",
+              'Error al limpiar la caché',
               style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
             ),
             backgroundColor: Colors.red,
@@ -137,14 +137,14 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
           children: [
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.image,
                   color: secondaryColor,
                   size: 24,
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  "Caché de imágenes",
+                  'Caché de imágenes',
                   style: TextStyleTheme.subtitle1.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -153,9 +153,9 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
               ],
             ),
             const SizedBox(height: 16),
-            _buildCacheInfoRow("Tamaño actual:", _cacheSize),
+            _buildCacheInfoRow('Tamaño actual:', _cacheSize),
             const SizedBox(height: 8),
-            _buildCacheInfoRow("Archivos en caché:", _fileCount),
+            _buildCacheInfoRow('Archivos en caché:', _fileCount),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -172,7 +172,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
                           ),
                         )
                       : const Icon(Icons.cleaning_services, size: 18),
-                  label: Text("Limpiar caché"),
+                  label: const Text('Limpiar caché'),
                   style: TextButton.styleFrom(
                     backgroundColor: secondaryColor,
                     foregroundColor: Colors.white,
@@ -186,7 +186,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
             ),
             const SizedBox(height: 12),
             Text(
-              "La limpieza de caché puede ayudar a liberar espacio pero requerirá volver a descargar las imágenes durante su próxima visita. Inker almacena en caché las imágenes por hasta 7 días para mejorar el rendimiento.",
+              'La limpieza de caché puede ayudar a liberar espacio pero requerirá volver a descargar las imágenes durante su próxima visita. Inker almacena en caché las imágenes por hasta 7 días para mejorar el rendimiento.',
               style: TextStyleTheme.caption.copyWith(
                 color: Colors.grey.shade400,
               ),

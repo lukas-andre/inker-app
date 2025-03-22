@@ -199,7 +199,7 @@ class HttpClientService {
           return fromJson(json.decode(response.body));
         } catch (e) {
           // Handle empty or invalid responses more gracefully
-          if (fromJson == null || T == Null) {
+          if (T == Null) {
             return null as T;
           }
           return fromJson({});

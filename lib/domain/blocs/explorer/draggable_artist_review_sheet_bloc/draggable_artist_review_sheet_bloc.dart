@@ -38,7 +38,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
           _currentArtistId != mapBloc.selectedArtist!.id) {
         add(const DraggableArtistReviewSheetEvent.draggableClearReviews());
         add(DraggableArtistReviewSheetEvent.loadReviews(
-            artistId: mapBloc.selectedArtist!.id!));
+            artistId: mapBloc.selectedArtist!.id));
       }
     });
 

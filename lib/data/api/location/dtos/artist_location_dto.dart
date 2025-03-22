@@ -28,7 +28,7 @@ extension AddressTypeExtension on AddressType {
 // Extension for converting string to enum
 extension StringToAddressTypeExtension on String {
   AddressType toAddressType() {
-    switch (this.toUpperCase()) {
+    switch (toUpperCase()) {
       case 'HOME':
         return AddressType.HOME;
       case 'DEPARTMENT':
@@ -225,5 +225,5 @@ class UpdateArtistLocationRequest {
       addressType?.value;
   
   static AddressType? _addressTypeFromJsonNullable(String? addressType) => 
-      addressType != null ? addressType.toAddressType() : null;
+      addressType?.toAddressType();
 }

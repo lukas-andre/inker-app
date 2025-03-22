@@ -140,7 +140,7 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 height: _isRefreshing ? 3 : 0,
-                child: LinearProgressIndicator(
+                child: const LinearProgressIndicator(
                   backgroundColor: primaryColor,
                   valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                 ),
@@ -311,7 +311,7 @@ class _CounterpartHeader extends StatelessWidget {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.email_outlined,
                               size: 16,
                               color: tertiaryColor,
@@ -338,7 +338,7 @@ class _CounterpartHeader extends StatelessWidget {
               const Divider(height: 32),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     size: 20,
                     color: tertiaryColor,
@@ -405,7 +405,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.calendar_today,
                             size: 16,
                             color: tertiaryColor,

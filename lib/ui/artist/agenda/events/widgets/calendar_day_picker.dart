@@ -77,9 +77,9 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
         },
         calendarStyle: CalendarStyle(
           selectedDecoration:
-              BoxDecoration(color: secondaryColor, shape: BoxShape.circle),
+              const BoxDecoration(color: secondaryColor, shape: BoxShape.circle),
           todayDecoration:
-              BoxDecoration(color: tertiaryColor, shape: BoxShape.circle),
+              const BoxDecoration(color: tertiaryColor, shape: BoxShape.circle),
           weekendTextStyle: TextStyleTheme.copyWith(
               color: secondaryColor,
               fontWeight: FontWeight.normal,

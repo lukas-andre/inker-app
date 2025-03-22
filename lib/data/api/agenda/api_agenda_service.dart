@@ -301,24 +301,9 @@ class ApiAgendaService extends AgendaService {
         token: token,
         fromJson: (json) {
           // Check if the response is null
-          if (json == null) {
-            return _getDefaultSettings();
-          }
-          
-          // Make sure we're working with a Map
-          if (json is! Map<String, dynamic>) {
-            return _getDefaultSettings();
-          }
-          
-          // Apply default values for any missing fields
           return _applyDefaultSettings(json);
         },
       );
-      
-      // Double-check the type
-      if (response is! Map<String, dynamic>) {
-        return _getDefaultSettings();
-      }
       
       return response;
     } catch (e) {
@@ -494,7 +479,7 @@ class ApiAgendaService extends AgendaService {
         // Extract all slots from all days
         List<dynamic> allSlots = [];
         for (final day in availabilityData) {
-          if (day is Map<String, dynamic> && day.containsKey('slots')) {
+          if (day.containsKey('slots')) {
             allSlots.addAll(day['slots'] ?? []);
           }
         }

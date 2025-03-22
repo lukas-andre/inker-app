@@ -30,8 +30,8 @@ class _AddWorkPageState extends State<AddWorkPage> {
   bool _isHidden = false;
   WorkSource _source = WorkSource.app;
   List<TagSuggestionResponseDto> _tagSuggestions = [];
-  List<TagSuggestionResponseDto> _selectedTagsObjects = [];
-  List<int> _selectedTagIds = [];
+  final List<TagSuggestionResponseDto> _selectedTagsObjects = [];
+  final List<int> _selectedTagIds = [];
   bool _isLoading = false;
   bool _isFetchingTags = false;
   bool _showTagSuggestions = false;
@@ -331,7 +331,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: secondaryColor),
+          borderSide: const BorderSide(color: secondaryColor),
         ),
       ),
       validator: (value) {
@@ -365,7 +365,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: secondaryColor),
+          borderSide: const BorderSide(color: secondaryColor),
         ),
       ),
     );
@@ -473,7 +473,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
           onChanged: _searchTags,
@@ -520,7 +520,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
             if (_tagController.text.isNotEmpty)
               ListTile(
                 title: Text(
-                  S.of(context).createNewTag + ': "${_tagController.text}"',
+                  '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
                     color: secondaryColor,
                   ),

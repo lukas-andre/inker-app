@@ -51,14 +51,12 @@ class _EventFormPageState extends State<EventFormPage> {
           );
           
       // If editing, try to parse the date from event details
-      if (widget.eventToEdit!.startDate != null) {
-        try {
-          _selectedDate = widget.eventToEdit!.startDate!;
-        } catch (e) {
-          print('Error parsing date from event: $e');
-        }
+      try {
+        _selectedDate = widget.eventToEdit!.startDate;
+      } catch (e) {
+        print('Error parsing date from event: $e');
       }
-    } else {
+        } else {
       // Initialize an empty form for creating a new event
       context.read<ArtistAgendaCreateEventBloc>().add(
             const ArtistAgendaCreateEventEvent.formInitialized(),
@@ -186,7 +184,7 @@ class _EventFormPageState extends State<EventFormPage> {
                       children: [
                         const MessageButton(),
                         if (state.status == ArtistAgendaCreateEventStatus.loading)
-                          CircularProgressIndicator(color: secondaryColor)
+                          const CircularProgressIndicator(color: secondaryColor)
                         else
                           CreateEventButton(
                             formKey: _formKey,

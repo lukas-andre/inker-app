@@ -408,10 +408,10 @@ class _LocationInputPageState extends State<LocationInputPage> {
           color: inputBackgroundColor,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
+            SizedBox(
               width: 20,
               height: 20,
               child: CircularProgressIndicator(
@@ -419,10 +419,10 @@ class _LocationInputPageState extends State<LocationInputPage> {
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Text(
               'Buscando lugares...',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontFamily: 'Poppins',
@@ -535,7 +535,7 @@ class _LocationInputPageState extends State<LocationInputPage> {
           const SizedBox(height: 16.0),
           if (place.geometry?.location != null) Row(
             children: [
-              Icon(Icons.location_on, color: secondaryColor, size: 16.0),
+              const Icon(Icons.location_on, color: secondaryColor, size: 16.0),
               const SizedBox(width: 8.0),
               Text(
                 '${place.geometry!.location!.lat}, ${place.geometry!.location!.lng}',

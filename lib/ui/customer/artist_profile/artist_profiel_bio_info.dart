@@ -46,7 +46,7 @@ class ArtistProfileBioInfoRow extends StatelessWidget {
                   InkerNavigator.push(
                       context,
                       ArtistProfileReviewsPage(
-                        artistId: state.artist!.id!,
+                        artistId: state.artist!.id,
                       ));
                 },
                 child: Text('Opiniones  👉',

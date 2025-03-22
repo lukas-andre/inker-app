@@ -54,7 +54,7 @@ class DraggableArtistInfoContent extends StatelessWidget {
                               DraggableArtistInfoSheetView.reviews));
                       draggableArtistReviewSheetBloc.add(
                           DraggableArtistReviewSheetEvent.loadReviews(
-                              artistId: selectedArtist!.id!));
+                              artistId: selectedArtist!.id));
                     },
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

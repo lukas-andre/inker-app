@@ -107,9 +107,9 @@ class _ApplicationSettings extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.image, color: Colors.white70),
-          title: Text("Caché de imágenes", style: TextStyleTheme.bodyText1),
+          title: Text('Caché de imágenes', style: TextStyleTheme.bodyText1),
           subtitle: Text(
-            "Administra el almacenamiento de imágenes",
+            'Administra el almacenamiento de imágenes',
             style: TextStyleTheme.caption.copyWith(color: Colors.grey),
           ),
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
@@ -136,7 +136,7 @@ class _ApplicationSettings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Gestión de caché",
+                    'Gestión de caché',
                     style: TextStyleTheme.headline3.copyWith(color: Colors.white),
                   ),
                   IconButton(
@@ -155,7 +155,7 @@ class _ApplicationSettings extends StatelessWidget {
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: Text("Cerrar"),
+                child: const Text('Cerrar'),
               ),
             ],
           ),
@@ -532,7 +532,7 @@ class _PasswordFieldState extends State<_PasswordField> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: secondaryColor),
         ),
         errorBorder: const OutlineInputBorder(

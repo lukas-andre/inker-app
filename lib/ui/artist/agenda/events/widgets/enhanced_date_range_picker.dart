@@ -429,7 +429,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.assistant_outlined, color: Colors.white, size: 18),
+                      const Icon(Icons.assistant_outlined, color: Colors.white, size: 18),
                       const SizedBox(width: 8),
                       Text(
                         'View available time slots',
@@ -737,7 +737,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.access_time, size: 14, color: Colors.white70),
+                    const Icon(Icons.access_time, size: 14, color: Colors.white70),
                     const SizedBox(width: 4),
                     Text(time, style: TextStyleTheme.bodyText2.copyWith(
                       color: Colors.white70
@@ -869,7 +869,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                           
                           // Refresh button
                           IconButton(
-                            icon: Icon(Icons.refresh, color: Colors.white70),
+                            icon: const Icon(Icons.refresh, color: Colors.white70),
                             onPressed: () {
                               // Show a date picker to change the date for time slots
                               showDatePicker(
@@ -880,7 +880,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                                 builder: (BuildContext context, Widget? child) {
                                   return Theme(
                                     data: ThemeData.dark().copyWith(
-                                      colorScheme: ColorScheme.dark(
+                                      colorScheme: const ColorScheme.dark(
                                         primary: secondaryColor,
                                         onPrimary: Colors.white,
                                         surface: primaryColor,
@@ -1006,7 +1006,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
               fontWeight: FontWeight.bold,
               color: Colors.white
             )),
-            Icon(Icons.check_circle_outline, color: Colors.white),
+            const Icon(Icons.check_circle_outline, color: Colors.white),
           ],
         ),
       ),

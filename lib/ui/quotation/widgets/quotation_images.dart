@@ -207,7 +207,7 @@ class _ImageTile extends StatelessWidget {
   ) {
     return Container(
       color: Colors.grey[850],
-      child: Center(
+      child: const Center(
         child: Icon(
           Icons.error_outline,
           color: tertiaryColor,

@@ -307,10 +307,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildStatItem(context, S.of(context).works,
-              artist.worksCount?.toString() ?? "0"),
+              artist.worksCount?.toString() ?? '0'),
           _buildVerticalDivider(),
           _buildStatItem(context, S.of(context).stencils,
-              artist.stencilsCount?.toString() ?? "0"),
+              artist.stencilsCount?.toString() ?? '0'),
           _buildVerticalDivider(),
           _buildStatItem(
               context, S.of(context).followers, artist.followers.toString()),
@@ -523,7 +523,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                                 BorderRadius.circular(4),
                                           ),
                                           child: Text(
-                                            "External",
+                                            'External',
                                             style:
                                                 TextStyleTheme.caption.copyWith(
                                               color: Colors.white,
@@ -714,7 +714,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                         right: 8,
                                         child: Container(
                                           padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: secondaryColor,
                                             shape: BoxShape.circle,
                                           ),
@@ -924,7 +924,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   ),
                 ),
                 Text(
-                  value.isEmpty ? "Not set" : value,
+                  value.isEmpty ? 'Not set' : value,
                   style: TextStyleTheme.bodyText2.copyWith(
                     color: value.isEmpty ? Colors.grey.shade600 : Colors.white,
                   ),

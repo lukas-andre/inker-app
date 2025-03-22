@@ -215,20 +215,20 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               appointment.title,
               style: TextStyleTheme.bodyText1.copyWith(height: 1.5),
             ),
-            if (appointment.artistId != null) ...[
-              const SizedBox(height: 16),
-              const Divider(),
-              const SizedBox(height: 16),
-              Text(
-                'Here should be the notes',
-                style: TextStyleTheme.subtitle2,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Here should be the notes',
-                style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70, height: 1.5),
-              ),
-            ],
+            ...[
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 16),
+            Text(
+              'Here should be the notes',
+              style: TextStyleTheme.subtitle2,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Here should be the notes',
+              style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70, height: 1.5),
+            ),
+          ],
           ],
         ),
       ),
@@ -260,7 +260,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     color: secondaryColor,
                     size: 24,
@@ -277,15 +277,15 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             decoration: TextDecoration.underline,
                           ),
                         ),
-                        if (appointment.location.name != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            appointment.location.name,
-                            style: TextStyleTheme.caption.copyWith(
-                              color: tertiaryColor,
-                            ),
+                        ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          appointment.location.name,
+                          style: TextStyleTheme.caption.copyWith(
+                            color: tertiaryColor,
                           ),
-                        ],
+                        ),
+                      ],
                       ],
                     ),
                   ),
@@ -365,7 +365,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.description_outlined,
                 color: secondaryColor,
                 size: 24,
@@ -530,7 +530,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 label: const Text('Contactar'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  side: BorderSide(color: tertiaryColor),
+                  side: const BorderSide(color: tertiaryColor),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
@@ -587,10 +587,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
             subtitle: Text(artistName),
           ),
           const Divider(),
-          if (artistContact != null && artistContact.email != null)
+          if (artistContact != null)
             ListTile(
               leading: const Icon(Icons.email),
-              title: Text(artistContact.email!),
+              title: Text(artistContact.email),
               onTap: () async {
                 final url = 'mailto:${artistContact.email}';
                 // if (await canLaunchUrlString(url)) {
@@ -599,10 +599,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 if (context.mounted) Navigator.pop(context);
               },
             ),
-          if (artistContact != null && artistContact.phone != null)
+          if (artistContact != null)
             ListTile(
               leading: const Icon(Icons.phone),
-              title: Text(artistContact.phone!),
+              title: Text(artistContact.phone),
               onTap: () async {
                 final url = 'tel:${artistContact.phone}';
                 // if (await canLaunchUrlString(url)) {

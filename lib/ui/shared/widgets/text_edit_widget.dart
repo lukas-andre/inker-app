@@ -10,12 +10,12 @@ class TextEditWidget extends StatefulWidget {
   final void Function(String?) onSaved;
 
   const TextEditWidget({
-    Key? key,
+    super.key,
     this.initialValue,
     required this.label,
     this.validator,
     required this.onSaved,
-  }) : super(key: key);
+  });
 
   @override
   _TextEditWidgetState createState() => _TextEditWidgetState();
@@ -70,7 +70,7 @@ class _TextEditWidgetState extends State<TextEditWidget> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: secondaryColor),
+                borderSide: const BorderSide(color: secondaryColor),
               ),
             ),
             validator: widget.validator,

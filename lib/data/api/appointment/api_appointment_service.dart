@@ -164,7 +164,7 @@ class ApiAppointmentService implements AppointmentService {
         } catch (e) {
           print('Error parsing dates: $e');
           startDate = DateTime.now();
-          endDate = DateTime.now().add(Duration(hours: 1));
+          endDate = DateTime.now().add(const Duration(hours: 1));
         }
         
         // Get status 
@@ -309,7 +309,7 @@ class ApiAppointmentService implements AppointmentService {
               'startDate':
                   event['startDate'] ?? DateTime.now().toIso8601String(),
               'endDate': event['endDate'] ??
-                  DateTime.now().add(Duration(hours: 1)).toIso8601String(),
+                  DateTime.now().add(const Duration(hours: 1)).toIso8601String(),
               'status':
                   _mapBackendStatusToAppStatus(event['status'] ?? 'scheduled'),
               'color': event['color'] ?? '#000000',
@@ -346,7 +346,7 @@ class ApiAppointmentService implements AppointmentService {
         title: 'Error: Could not load appointment',
         info: 'There was an error loading this appointment',
         startDate: DateTime.now(),
-        endDate: DateTime.now().add(Duration(hours: 1)),
+        endDate: DateTime.now().add(const Duration(hours: 1)),
         status: AppointmentStatus.scheduled,
         color: '#FF0000',
         notification: false,

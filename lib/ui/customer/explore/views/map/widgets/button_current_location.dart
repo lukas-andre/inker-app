@@ -18,7 +18,7 @@ class ButtonCurrentLocation extends StatelessWidget {
         backgroundColor: Colors.white,
         maxRadius: 25,
         child: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.my_location,
             color: primaryColor,
           ),

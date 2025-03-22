@@ -95,7 +95,7 @@ class ArtistAgendaSettingsBloc
       dev.logError(e, stacktrace);
 
       // Instead of showing an error, provide default settings
-      final defaultSettings = const AgendaSettings(
+      const defaultSettings = AgendaSettings(
         workingHoursStart: '09:00',
         workingHoursEnd: '18:00',
         workingDays: ['1', '2', '3', '4', '5'],
@@ -103,7 +103,7 @@ class ArtistAgendaSettingsBloc
         isOpen: true,
       );
 
-      add(ArtistAgendaSettingsEvent.settingsLoaded(defaultSettings));
+      add(const ArtistAgendaSettingsEvent.settingsLoaded(defaultSettings));
     }
   }
 
@@ -131,20 +131,18 @@ class ArtistAgendaSettingsBloc
       final List<UnavailableTimeBlock> unavailableTimes = [];
 
       // Handle potential type issues with the response
-      if (unavailableTimesResponse is List) {
-        for (final block in unavailableTimesResponse) {
-          if (block != null) {
-            // Use the safe constructor that handles potential format issues
-            final timeBlock = UnavailableTimeBlock.fromDynamic(block);
+      for (final block in unavailableTimesResponse) {
+        if (block != null) {
+          // Use the safe constructor that handles potential format issues
+          final timeBlock = UnavailableTimeBlock.fromDynamic(block);
 
-            // Only add valid blocks (with valid IDs)
-            if (timeBlock.id > 0) {
-              unavailableTimes.add(timeBlock);
-            }
+          // Only add valid blocks (with valid IDs)
+          if (timeBlock.id > 0) {
+            unavailableTimes.add(timeBlock);
           }
         }
       }
-
+    
       add(ArtistAgendaSettingsEvent.unavailableTimesLoaded(unavailableTimes));
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);

@@ -310,11 +310,11 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               // Immediately update the work data with what we got from the update response
               setState(() {
                 _currentWork = updatedWork; // Store the complete updatedWork object
-                if (updatedWork.title != null) _titleController.text = updatedWork.title;
+                _titleController.text = updatedWork.title;
                 if (updatedWork.description != null) _descriptionController.text = updatedWork.description ?? '';
-                if (updatedWork.isFeatured != null) _isFeatured = updatedWork.isFeatured;
-                if (updatedWork.isHidden != null) _isHidden = updatedWork.isHidden;
-                if (updatedWork.source != null) _source = updatedWork.source;
+                _isFeatured = updatedWork.isFeatured;
+                _isHidden = updatedWork.isHidden;
+                _source = updatedWork.source;
               });
               
               // Reload the work detail from the backend to ensure all data is fresh and consistent
@@ -566,7 +566,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
         ),
@@ -592,7 +592,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
         ),
@@ -757,7 +757,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
           onChanged: _searchTags,
@@ -809,7 +809,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                     color: secondaryColor,
                   ),
                 ),
-                leading: Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,

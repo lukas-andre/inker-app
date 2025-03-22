@@ -68,11 +68,11 @@ class CalendarDayPickerV3 extends StatelessWidget {
 
   CalendarStyle _defaultCalendarStyle() {
     return CalendarStyle(
-      selectedDecoration: BoxDecoration(
+      selectedDecoration: const BoxDecoration(
         color: secondaryColor,
         shape: BoxShape.circle,
       ),
-      todayDecoration: BoxDecoration(
+      todayDecoration: const BoxDecoration(
         color: tertiaryColor,
         shape: BoxShape.circle,
       ),

@@ -22,7 +22,7 @@ class ExplorerListView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          decoration: BoxDecoration(color: primaryColor),
+          decoration: const BoxDecoration(color: primaryColor),
           width: size.width,
           child: SafeArea(
             child: Column(

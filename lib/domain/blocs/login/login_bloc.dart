@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;

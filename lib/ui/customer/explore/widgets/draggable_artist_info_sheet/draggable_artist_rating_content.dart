@@ -168,7 +168,7 @@ class _RatingProgressBar extends StatelessWidget {
         child: LinearProgressIndicator(
           value: value,
           backgroundColor: greyColor.withOpacity(0.3),
-          valueColor: AlwaysStoppedAnimation<Color>(yellowColor),
+          valueColor: const AlwaysStoppedAnimation<Color>(yellowColor),
         ),
       ),
     );

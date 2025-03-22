@@ -20,7 +20,7 @@ class ExplorerSwitchButton extends StatelessWidget {
     const selectedTextColor = Colors.white;
     final unselectedTextColor =
         selectedView == ExplorerView.map ? Colors.black : Colors.white;
-    final selectedBackgroundColor = secondaryColor;
+    const selectedBackgroundColor = secondaryColor;
     final unselectedBackgroundColor = selectedView == ExplorerView.map
         ? Colors.white
         : explorerSecondaryColor;

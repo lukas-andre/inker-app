@@ -108,7 +108,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
         [
           Column(
             children: [
-              Divider(color: tertiaryColor),
+              const Divider(color: tertiaryColor),
               const SizedBox(height: 12),
               ArtistWorksSection(artistId: widget._artist.id),
             ],
@@ -200,7 +200,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
             backgroundColor: secondaryColor,
             radius: 12,
             child: Text(
-              (hasReview ? (reviewValue! * 100).ceil() / 100 : '').toString(),
+              (hasReview ? (reviewValue * 100).ceil() / 100 : '').toString(),
               style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 12),
             ),
           ),

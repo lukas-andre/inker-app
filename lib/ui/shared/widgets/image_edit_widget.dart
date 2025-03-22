@@ -61,7 +61,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
             if (loadingProgress == null) return child;
             return Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                valueColor: const AlwaysStoppedAnimation<Color>(secondaryColor),
                 value: loadingProgress.expectedTotalBytes != null
                     ? loadingProgress.cumulativeBytesLoaded / 
                         (loadingProgress.expectedTotalBytes ?? 1)
@@ -196,7 +196,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: Text(
                 widget.label,
-                style: TextStyle(
+                style: const TextStyle(
                   color: quaternaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -226,7 +226,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
               label: Text(S.of(context).changeImage),
               style: OutlinedButton.styleFrom(
                 foregroundColor: secondaryColor,
-                side: BorderSide(color: secondaryColor),
+                side: const BorderSide(color: secondaryColor),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
