@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
-import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
-import 'package:inker_studio/ui/customer/explore/views/search/search_artist_view.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -23,20 +21,7 @@ class ExplorerListView extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // Eliminamos el título "Descubrir" para optimizar espacio
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: ExplorerSearchBar(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const SearchArtistView(),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Ya no necesitamos la barra de búsqueda aquí, se ha movido al AppBar
             Expanded(
               child: ExplorerResultList(),
             ),
