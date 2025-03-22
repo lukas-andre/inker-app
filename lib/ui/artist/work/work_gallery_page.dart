@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -23,6 +24,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   String? _filterTag;
   int? _filterTagId;
   WorkSource? _filterSource;
+  
+  // Instancia del gestor de caché
+  final _imageCache = CachedImageManager();
 
   @override
   void initState() {
@@ -46,6 +50,24 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
       context
           .read<ArtistWorkBloc>()
           .add(ArtistWorkEvent.loadWorks(_showHidden));
+    }
+  }
+  
+  // Método para precargar imágenes de la galería
+  void _preloadWorkImages(List<Work> works) {
+    if (works.isEmpty || !mounted) return;
+    
+    // Extraer URLs de imágenes de works
+    final imageUrls = works.map((work) => 
+      work.thumbnailUrl ?? work.imageUrl
+    ).where((url) => url.isNotEmpty).toList();
+    
+    // Precargar las primeras 20 imágenes para rendimiento óptimo
+    if (imageUrls.isNotEmpty) {
+      _imageCache.preloadImages(
+        imageUrls.take(20).toList(),
+        context,
+      );
     }
   }
 
@@ -372,13 +394,17 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
       body: BlocConsumer<ArtistWorkBloc, ArtistWorkState>(
         listener: (context, state) {
           state.maybeWhen(
-            workDeleted: () => _loadWorks(),
-            workUpdated: (_) => _loadWorks(),
-            workCreated: (_) => _loadWorks(),
-            filteredByTag: (works, tagId) {
+            loaded: (works) {
+              // Precargar imágenes cuando se cargan los works
+              _preloadWorkImages(works);
+            },
+            filteredByTag: (filteredWorks, tagId) {
+              // Precargar imágenes cuando se filtran por tag
+              _preloadWorkImages(filteredWorks);
+              
               // Obtener el nombre del tag para mostrar en el filtro
-              if (works.isNotEmpty && works.first.tags != null) {
-                final tag = works.first.tags!.firstWhere(
+              if (filteredWorks.isNotEmpty && filteredWorks.first.tags != null) {
+                final tag = filteredWorks.first.tags!.firstWhere(
                   (t) => t.id == tagId,
                   orElse: () => const Tag(id: 0, name: '', count: 0),
                 );
@@ -393,6 +419,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 });
               }
             },
+            workDeleted: () => _loadWorks(),
+            workUpdated: (_) => _loadWorks(),
+            workCreated: (_) => _loadWorks(),
             orElse: () {},
           );
         },
@@ -647,25 +676,12 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
                         ),
-                        child: Hero(
-                          tag: 'work_image_${work.id}',
-                          child: Image.network(
-                            work.thumbnailUrl ?? work.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: HSLColor.fromColor(primaryColor)
-                                    .withLightness(0.2)
-                                    .toColor(),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    color: Colors.grey.shade400,
-                                    size: 40,
-                                  ),
-                                ),
-                              );
-                            },
+                        child: _imageCache.buildHeroCachedImage(
+                          imageUrl: work.thumbnailUrl ?? work.imageUrl,
+                          heroTag: 'work_image_${work.id}',
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            topRight: Radius.circular(12),
                           ),
                         ),
                       ),

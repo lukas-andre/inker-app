@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dar
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -22,6 +23,9 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
   List<TagSuggestionResponseDto> _popularTags = [];
   bool _isLoadingTags = false;
   
+  // Instancia del gestor de caché
+  final _imageCache = CachedImageManager();
+  
   @override
   void initState() {
     super.initState();
@@ -37,6 +41,24 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
     } else {
       context.read<ArtistStencilBloc>().add(
         ArtistStencilEvent.loadStencils(_showHidden),
+      );
+    }
+  }
+
+  // Método para precargar imágenes de la galería
+  void _preloadStencilImages(List<Stencil> stencils) {
+    if (stencils.isEmpty || !mounted) return;
+    
+    // Extraer URLs de imágenes de stencils
+    final imageUrls = stencils.map((stencil) => 
+      stencil.thumbnailUrl ?? stencil.imageUrl
+    ).where((url) => url.isNotEmpty).toList();
+    
+    // Precargar las primeras 20 imágenes para rendimiento óptimo
+    if (imageUrls.isNotEmpty) {
+      _imageCache.preloadImages(
+        imageUrls.take(20).toList(),
+        context,
       );
     }
   }
@@ -123,6 +145,14 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
       body: BlocConsumer<ArtistStencilBloc, ArtistStencilState>(
         listener: (context, state) {
           state.maybeWhen(
+            loaded: (stencils) {
+              // Precargar imágenes cuando se cargan los stencils
+              _preloadStencilImages(stencils);
+            },
+            filteredByTag: (stencils, _) {
+              // Precargar imágenes cuando se filtran por tag
+              _preloadStencilImages(stencils);
+            },
             popularTagsLoaded: (tags) {
               setState(() {
                 _popularTags = tags;
@@ -354,21 +384,10 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () => _navigateToStencilDetail(stencil),
-                child: Image.network(
-                  stencil.thumbnailUrl ?? stencil.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-                      child: Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          color: Colors.grey.shade400,
-                          size: 40,
-                        ),
-                      ),
-                    );
-                  },
+                child: _imageCache.buildHeroCachedImage(
+                  imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                  heroTag: 'stencil_${stencil.id}',
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -535,21 +554,10 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () => _navigateToStencilDetail(stencil),
-                child: Image.network(
-                  stencil.thumbnailUrl ?? stencil.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-                      child: Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          color: Colors.grey.shade400,
-                          size: 40,
-                        ),
-                      ),
-                    );
-                  },
+                child: _imageCache.buildHeroCachedImage(
+                  imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                  heroTag: 'stencil_${stencil.id}',
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
