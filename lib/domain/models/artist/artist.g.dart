@@ -42,6 +42,10 @@ _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
       review: json['review'] == null
           ? null
           : Review.fromJson(Map<String, dynamic>.from(json['review'] as Map)),
+      worksCount: (json['worksCount'] as num?)?.toInt(),
+      stencilsCount: (json['stencilsCount'] as num?)?.toInt(),
+      visibleWorksCount: (json['visibleWorksCount'] as num?)?.toInt(),
+      visibleStencilsCount: (json['visibleStencilsCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
@@ -77,6 +81,10 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
   writeNotNull('distanceUnit', instance.distanceUnit);
   writeNotNull('distance', instance.distance);
   writeNotNull('review', instance.review?.toJson());
+  writeNotNull('worksCount', instance.worksCount);
+  writeNotNull('stencilsCount', instance.stencilsCount);
+  writeNotNull('visibleWorksCount', instance.visibleWorksCount);
+  writeNotNull('visibleStencilsCount', instance.visibleStencilsCount);
   return val;
 }
 
@@ -137,6 +145,7 @@ _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
         (k, e) => MapEntry(k as String, (e as num).toInt()),
       ),
       count: (json['count'] as num?)?.toInt(),
+      avgRating: (json['avgRating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
@@ -152,5 +161,6 @@ Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
   writeNotNull('value', instance.value);
   writeNotNull('detail', instance.detail);
   writeNotNull('count', instance.count);
+  writeNotNull('avgRating', instance.avgRating);
   return val;
 }

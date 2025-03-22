@@ -606,6 +606,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statusPending": MessageLookupByLibrary.simpleMessage("Pendiente"),
         "statusQuoted": MessageLookupByLibrary.simpleMessage("Cotizado"),
         "statusRejected": MessageLookupByLibrary.simpleMessage("Rechazado"),
+        "stencil": MessageLookupByLibrary.simpleMessage("Plantilla"),
         "stencilCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Plantilla creada exitosamente"),
         "stencilDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -622,6 +623,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stencilWillBeHighlightedInProfile":
             MessageLookupByLibrary.simpleMessage(
                 "La plantilla será destacada en el perfil"),
+        "stencils": MessageLookupByLibrary.simpleMessage("Plantillas"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Sugerencias"),

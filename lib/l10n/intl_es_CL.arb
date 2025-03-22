@@ -1719,5 +1719,13 @@
   "filters": "Filtros",
   "@filters": {
     "description": "Label for filters section"
+  },
+  "stencil": "Plantilla",
+  "@stencil": {
+    "description": "Label for stencil section"
+  },
+  "stencils": "Plantillas",
+  "@stencils": {
+    "description": "Label for stencils section"
   }
 }

@@ -178,11 +178,14 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
   }
 
   Widget _buildReviewAvatar() {
+    final reviewValue = widget._artist.review?.avgRating ?? widget._artist.review?.value;
+    final hasReview = reviewValue != null;
+    
     return Positioned(
       top: 0,
       right: 0,
       child: Visibility(
-        visible: widget._artist.review?.value != null,
+        visible: hasReview,
         child: Container(
           width: 30,
           height: 30,
@@ -197,9 +200,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
             backgroundColor: secondaryColor,
             radius: 12,
             child: Text(
-              (widget._artist.review?.value != null
-                  ? (widget._artist.review!.value! * 100).ceil() / 100
-                  : '').toString(),
+              (hasReview ? (reviewValue! * 100).ceil() / 100 : '').toString(),
               style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 12),
             ),
           ),
