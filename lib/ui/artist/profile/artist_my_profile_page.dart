@@ -848,15 +848,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
             icon: Icons.email,
             label: S.of(context).email,
             value: artist.contact?.email ?? '',
-            onTap: () => _navigateToEditField(
-              context,
-              EditFieldArguments(
-                type: EditFieldType.text,
-                initialValue: artist.contact?.email ?? '',
-                label: S.of(context).email,
-                labelKey: ArtistMyProfilePage.kEmail,
-              ),
-            ),
+            isEditable: false,
           ),
           const SizedBox(height: 8),
           _buildInfoTile(
@@ -864,15 +856,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
             icon: Icons.phone,
             label: S.of(context).phone,
             value: artist.contact?.phone ?? '',
-            onTap: () => _navigateToEditField(
-              context,
-              EditFieldArguments(
-                type: EditFieldType.text,
-                initialValue: artist.contact?.phone ?? '',
-                label: S.of(context).phone,
-                labelKey: ArtistMyProfilePage.kPhone,
-              ),
-            ),
+            isEditable: false,
           ),
           const SizedBox(height: 16),
           _buildManageLocationsButton(context, artist),
@@ -886,52 +870,50 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
     required IconData icon,
     required String label,
     required String value,
-    required VoidCallback onTap,
+    VoidCallback? onTap,
+    bool isEditable = true,
   }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade800),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: secondaryColor, size: 20),
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade800),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: secondaryColor.withOpacity(0.2),
+              shape: BoxShape.circle,
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: TextStyleTheme.caption.copyWith(
-                      color: Colors.grey.shade400,
-                    ),
+            child: Icon(icon, color: secondaryColor, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyleTheme.caption.copyWith(
+                    color: Colors.grey.shade400,
                   ),
-                  Text(
-                    value.isEmpty ? "Not set" : value,
-                    style: TextStyleTheme.bodyText2.copyWith(
-                      color:
-                          value.isEmpty ? Colors.grey.shade600 : Colors.white,
-                    ),
+                ),
+                Text(
+                  value.isEmpty ? "Not set" : value,
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color:
+                        value.isEmpty ? Colors.grey.shade600 : Colors.white,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
+          if (isEditable && onTap != null) 
             Icon(Icons.edit, color: Colors.grey.shade600, size: 16),
-          ],
-        ),
+        ],
       ),
     );
   }
