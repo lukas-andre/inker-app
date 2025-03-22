@@ -38,7 +38,7 @@ class ArtistMyProfilePage extends StatefulWidget {
   State<ArtistMyProfilePage> createState() => _ArtistMyProfilePageState();
 }
 
-class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
+class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -46,9 +46,18 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
     final bloc = context.read<ArtistMyProfileBloc>();
     bloc.add(const ArtistProfileEvent.loadProfile());
   }
+  
+  @override
+  bool get wantKeepAlive => true;
+  
+  Future<void> _refreshProfile() async {
+    final bloc = context.read<ArtistMyProfileBloc>();
+    bloc.add(const ArtistProfileEvent.loadProfile());
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required by AutomaticKeepAliveClientMixin
     return Scaffold(
       backgroundColor: primaryColor,
       body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
@@ -76,24 +85,29 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
   }
 
   Widget _buildProfileContent(BuildContext context, Artist artist) {
-    return CustomScrollView(
-      key: const Key('artistProfileContent'),
-      slivers: [
-        _buildAppBar(context, artist),
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              _buildProfileHeader(context, artist),
-              _buildQuickActions(context),
-              _buildArtistStats(context, artist),
-              _buildProfileDetails(context, artist),
-              _buildPortfolioSection(artist),
-              _buildStencilGallery(),
-              _buildContactInfo(context, artist),
-            ],
+    return RefreshIndicator(
+      onRefresh: _refreshProfile,
+      color: secondaryColor,
+      backgroundColor: primaryColor,
+      child: CustomScrollView(
+        key: const Key('artistProfileContent'),
+        slivers: [
+          _buildAppBar(context, artist),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                _buildProfileHeader(context, artist),
+                _buildQuickActions(context),
+                _buildArtistStats(context, artist),
+                _buildProfileDetails(context, artist),
+                _buildPortfolioSection(artist),
+                _buildStencilGallery(),
+                _buildContactInfo(context, artist),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

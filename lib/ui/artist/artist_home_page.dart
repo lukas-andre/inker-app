@@ -176,9 +176,9 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
         backgroundColor: primaryColor,
         actions: _getAppBarActions(),
       ) : null,
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: _pageWidgets.elementAt(_selectedIndex)
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pageWidgets,
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
