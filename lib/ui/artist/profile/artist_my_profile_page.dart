@@ -17,6 +17,7 @@ import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
 
 class ArtistMyProfilePage extends StatefulWidget {
   const ArtistMyProfilePage({super.key});
@@ -37,11 +38,34 @@ class ArtistMyProfilePage extends StatefulWidget {
 
 class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
     with AutomaticKeepAliveClientMixin {
+  final _imageCache = CachedImageManager();
+
   @override
   void initState() {
     super.initState();
     final bloc = context.read<ArtistMyProfileBloc>();
     bloc.add(const ArtistProfileEvent.loadProfile());
+
+    // Precargar la imagen de perfil y las imágenes críticas
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final artistBloc = context.read<ArtistMyProfileBloc>();
+      final state = artistBloc.state;
+      
+      // Si el perfil ya está cargado, precargamos sus imágenes
+      state.maybeWhen(
+        loaded: (artist) {
+          if (artist.profileThumbnail != null && artist.profileThumbnail!.isNotEmpty) {
+            _imageCache.preloadCriticalImages(
+              context,
+              profileImageUrl: artist.profileThumbnail,
+              // Podríamos agregar otras imágenes importantes aquí si existen
+              additionalUrls: null,
+            );
+          }
+        },
+        orElse: () {},
+      );
+    });
   }
 
   @override
@@ -351,7 +375,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   children: [
                     Expanded(
                       child: Text(
-                        S.of(context).tattooWorks,
+                        S.of(context).works,
                         style: TextStyleTheme.headline3.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -434,25 +458,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                 child: Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.network(
-                                      work.thumbnailUrl ?? work.imageUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color:
-                                              HSLColor.fromColor(primaryColor)
-                                                  .withLightness(0.15)
-                                                  .toColor(),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.image_not_supported,
-                                              color: Colors.grey.shade400,
-                                              size: 40,
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                    _imageCache.buildThumbnail(
+                                      imageUrl: work.thumbnailUrl ?? work.imageUrl,
+                                      width: 160,
+                                      height: 160,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     Positioned(
                                       bottom: 0,
@@ -595,7 +605,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   children: [
                     Expanded(
                       child: Text(
-                        "Stencil Gallery",
+                        S.of(context).stencils,
                         style: TextStyleTheme.headline3.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -692,25 +702,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                 child: Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.network(
-                                      stencil.thumbnailUrl ?? stencil.imageUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color:
-                                              HSLColor.fromColor(primaryColor)
-                                                  .withLightness(0.15)
-                                                  .toColor(),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.image_not_supported,
-                                              color: Colors.grey.shade400,
-                                              size: 40,
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                    _imageCache.buildThumbnail(
+                                      imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                                      width: 160,
+                                      height: 160,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     if (stencil.isFeatured)
                                       Positioned(
@@ -1019,21 +1015,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       ),
                     ],
                   ),
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.grey.shade800,
-                    backgroundImage: artist.profileThumbnail != null &&
-                            artist.profileThumbnail!.isNotEmpty
-                        ? NetworkImage(artist.profileThumbnail!)
-                        : null,
-                    child: artist.profileThumbnail == null ||
-                            artist.profileThumbnail!.isEmpty
-                        ? Icon(
-                            Icons.person,
-                            size: 60,
-                            color: Colors.grey.shade500,
-                          )
-                        : null,
+                  child: _imageCache.buildProfileImage(
+                    imageUrl: artist.profileThumbnail ?? '',
+                    size: 120,
+                    heroTag: 'profile_${artist.id}',
                   ),
                 ),
                 Positioned(

@@ -12,6 +12,8 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class StencilDetailPage extends StatefulWidget {
   final Stencil stencil;
@@ -27,6 +29,8 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   final _descriptionController = TextEditingController();
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
+  final _imageCache = CachedImageManager();
+  
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
@@ -47,6 +51,16 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     _descriptionController.text = _currentStencil!.description ?? '';
     _isFeatured = _currentStencil!.isFeatured;
     _isHidden = _currentStencil!.isHidden;
+    
+    // Precargar la imagen principal al iniciar la página
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_currentStencil != null) {
+        _imageCache.preloadCriticalImages(
+          context,
+          profileImageUrl: _currentStencil!.imageUrl,
+        );
+      }
+    });
     
     // Initialize tags from stencil
     if (_currentStencil!.tags != null && _currentStencil!.tags!.isNotEmpty) {
@@ -429,23 +443,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               ? Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      stencil.imageUrl,
+                    _imageCache.buildCachedImage(
+                      imageUrl: stencil.imageUrl,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: HSLColor.fromColor(primaryColor)
-                              .withLightness(0.15)
-                              .toColor(),
-                          child: Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              color: Colors.grey.shade400,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      },
                     ),
                     Container(
                       color: Colors.black.withOpacity(0.3),
@@ -474,23 +474,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                 )
               : Hero(
                   tag: 'stencil_image_${stencil.id}',
-                  child: Image.network(
-                    stencil.imageUrl,
+                  child: _imageCache.buildCachedImage(
+                    imageUrl: stencil.imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: HSLColor.fromColor(primaryColor)
-                            .withLightness(0.15)
-                            .toColor(),
-                        child: Center(
-                          child: Icon(
-                            Icons.image_not_supported,
-                            color: Colors.grey.shade400,
-                            size: 40,
-                          ),
-                        ),
-                      );
-                    },
                   ),
                 ),
         ),
@@ -513,7 +499,10 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             itemCount: 1,
             builder: (context, index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: NetworkImage(imageUrl),
+                imageProvider: CachedNetworkImageProvider(
+                  imageUrl,
+                  cacheManager: CachedImageManager.customCacheManager,
+                ),
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
               );

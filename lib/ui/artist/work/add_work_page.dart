@@ -7,6 +7,7 @@ import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
@@ -34,6 +35,9 @@ class _AddWorkPageState extends State<AddWorkPage> {
   bool _isLoading = false;
   bool _isFetchingTags = false;
   bool _showTagSuggestions = false;
+  
+  // Gestor de caché para optimizar el manejo de imágenes
+  final _imageCache = CachedImageManager();
 
   @override
   void initState() {
@@ -60,7 +64,13 @@ class _AddWorkPageState extends State<AddWorkPage> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+      // Optimizar calidad de imagen para subida
+      maxWidth: 1920,
+      maxHeight: 1920,
+      imageQuality: 85, // Balancear calidad/tamaño
+    );
 
     if (image != null) {
       setState(() {
@@ -264,6 +274,18 @@ class _AddWorkPageState extends State<AddWorkPage> {
                   child: Image.file(
                     File(_selectedImage!.path),
                     fit: BoxFit.cover,
+                    // Implementar un placeholder animado mientras se carga la imagen
+                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return AnimatedOpacity(
+                        opacity: frame == null ? 0 : 1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                        child: child,
+                      );
+                    },
                   ),
                 )
               : Column(

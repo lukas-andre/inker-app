@@ -7,6 +7,7 @@ import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/image/image_cache_settings.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -104,7 +105,62 @@ class _ApplicationSettings extends StatelessWidget {
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
           onTap: () => Navigator.of(context).pushNamed('/languageSettings'),
         ),
+        ListTile(
+          leading: const Icon(Icons.image, color: Colors.white70),
+          title: Text("Caché de imágenes", style: TextStyleTheme.bodyText1),
+          subtitle: Text(
+            "Administra el almacenamiento de imágenes",
+            style: TextStyleTheme.caption.copyWith(color: Colors.grey),
+          ),
+          trailing: const Icon(Icons.chevron_right, color: Colors.white70),
+          onTap: () => _showImageCacheSettingsDialog(context),
+        ),
       ],
+    );
+  }
+
+  void _showImageCacheSettingsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: explorerSecondaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Gestión de caché",
+                    style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white70),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              const ImageCacheSettings(),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                style: TextButton.styleFrom(
+                  backgroundColor: secondaryColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+                child: Text("Cerrar"),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

@@ -12,6 +12,8 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class WorkDetailPage extends StatefulWidget {
   final Work work;
@@ -27,6 +29,8 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   final _descriptionController = TextEditingController();
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
+  final _imageCache = CachedImageManager();
+  
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
@@ -49,6 +53,16 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
     _isFeatured = _currentWork!.isFeatured;
     _isHidden = _currentWork!.isHidden;
     _source = _currentWork!.source;
+    
+    // Precargar la imagen principal al iniciar la página
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_currentWork != null) {
+        _imageCache.preloadCriticalImages(
+          context,
+          profileImageUrl: _currentWork!.imageUrl,
+        );
+      }
+    });
     
     // Initialize tags from work
     if (_currentWork!.tags != null && _currentWork!.tags!.isNotEmpty) {
@@ -453,23 +467,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               ? Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      work.imageUrl,
+                    _imageCache.buildCachedImage(
+                      imageUrl: work.imageUrl,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: HSLColor.fromColor(primaryColor)
-                              .withLightness(0.15)
-                              .toColor(),
-                          child: Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              color: Colors.grey.shade400,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      },
                     ),
                     Container(
                       color: Colors.black.withOpacity(0.3),
@@ -498,23 +498,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                 )
               : Hero(
                   tag: 'work_image_${work.id}',
-                  child: Image.network(
-                    work.imageUrl,
+                  child: _imageCache.buildCachedImage(
+                    imageUrl: work.imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: HSLColor.fromColor(primaryColor)
-                            .withLightness(0.15)
-                            .toColor(),
-                        child: Center(
-                          child: Icon(
-                            Icons.image_not_supported,
-                            color: Colors.grey.shade400,
-                            size: 40,
-                          ),
-                        ),
-                      );
-                    },
                   ),
                 ),
         ),
@@ -537,7 +523,10 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             itemCount: 1,
             builder: (context, index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: NetworkImage(imageUrl),
+                imageProvider: CachedNetworkImageProvider(
+                  imageUrl,
+                  cacheManager: CachedImageManager.customCacheManager,
+                ),
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
               );
