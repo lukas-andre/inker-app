@@ -108,7 +108,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                             ExplorerViewByType(
                                 view: state.view,
                                 lastLocation: locationState.lastKnownLocation!),
-                            const ExplorerSwitchViewButtons(),
+                            // Eliminamos los botones de cambio de vista ya que están en la barra de navegación
                             const DraggableArtistInfoSheet(),
                           ]);
                     }
