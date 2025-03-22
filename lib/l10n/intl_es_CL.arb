@@ -1727,5 +1727,77 @@
   "stencils": "Plantillas",
   "@stencils": {
     "description": "Label for stencils section"
+  },
+  "agendaSettings": "Configuración de Agenda",
+  "@agendaSettings": {
+    "description": "Title for agenda settings page"
+  },
+  "workingHours": "Horario de Trabajo",
+  "@workingHours": {
+    "description": "Label for working hours tab"
+  },
+  "unavailableTimes": "Tiempos No Disponibles",
+  "@unavailableTimes": {
+    "description": "Label for unavailable times tab"
+  },
+  "visibilitySettings": "Configuración de Visibilidad",
+  "@visibilitySettings": {
+    "description": "Title for visibility settings section"
+  },
+  "publicAgenda": "Agenda Pública",
+  "@publicAgenda": {
+    "description": "Label for public agenda toggle"
+  },
+  "publicAgendaDescription": "Permite que los clientes vean tu disponibilidad",
+  "@publicAgendaDescription": {
+    "description": "Description for public agenda setting"
+  },
+  "openForReservations": "Abierto para Reservas",
+  "@openForReservations": {
+    "description": "Label for open for reservations toggle"
+  },
+  "openForReservationsDescription": "Permite que los clientes reserven citas",
+  "@openForReservationsDescription": {
+    "description": "Description for open for reservations setting"
+  },
+  "saveConfiguration": "Guardar Configuración",
+  "@saveConfiguration": {
+    "description": "Button text to save agenda settings"
+  },
+  "pleaseSelectADateRange": "Por favor selecciona un rango de fechas",
+  "@pleaseSelectADateRange": {
+    "description": "Error message when no date range is selected"
+  },
+  "unavailableTime": "Tiempo No Disponible",
+  "@unavailableTime": {
+    "description": "Default reason for unavailable time"
+  },
+  "addUnavailableTime": "Agregar Tiempo No Disponible",
+  "@addUnavailableTime": {
+    "description": "Title for adding unavailable time section"
+  },
+  "selectDates": "Seleccionar Fechas",
+  "@selectDates": {
+    "description": "Button text to select date range"
+  },
+  "reason": "Motivo",
+  "@reason": {
+    "description": "Label for reason field"
+  },
+  "optional": "Opcional",
+  "@optional": {
+    "description": "Indicator for optional fields"
+  },
+  "addTime": "Agregar Tiempo",
+  "@addTime": {
+    "description": "Button text to add unavailable time"
+  },
+  "noUnavailableTimesConfigured": "No hay tiempos no disponibles configurados",
+  "@noUnavailableTimesConfigured": {
+    "description": "Message when no unavailable times are set"
+  },
+  "retry": "Reintentar",
+  "@retry": {
+    "description": "Button text to retry an action"
   }
 }

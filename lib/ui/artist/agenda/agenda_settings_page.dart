@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_settings.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -47,13 +48,14 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(
-          'Configuración de Agenda',
+          S.of(context).agendaSettings,
           style: TextStyleTheme.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         elevation: 4.0,
         shadowColor: Colors.black54,
@@ -62,9 +64,9 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
           indicatorColor: secondaryColor,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          tabs: const [
-            Tab(text: 'Horarios'),
-            Tab(text: 'Tiempo no disponible'),
+          tabs: [
+            Tab(text: S.of(context).workingHours),
+            Tab(text: S.of(context).unavailableTimes),
           ],
         ),
       ),
@@ -114,7 +116,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
                     backgroundColor: secondaryColor,
                   ),
                   child: Text(
-                    'Reintentar',
+                    S.of(context).retry,
                     style: TextStyleTheme.copyWith(
                       color: Colors.white,
                     ),
@@ -166,7 +168,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
                     backgroundColor: secondaryColor,
                   ),
                   child: Text(
-                    'Reintentar',
+                    S.of(context).retry,
                     style: TextStyleTheme.copyWith(
                       color: Colors.white,
                     ),
@@ -245,7 +247,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.dark(
+            colorScheme: const ColorScheme.dark(
               primary: secondaryColor,
               onPrimary: Colors.white,
               surface: primaryColor,
@@ -271,7 +273,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.dark(
+            colorScheme: const ColorScheme.dark(
               primary: secondaryColor,
               onPrimary: Colors.white,
               surface: primaryColor,
@@ -384,7 +386,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                       color: Colors.white70,
                     ),
                   ),
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.access_time,
                     color: secondaryColor,
                   ),
@@ -405,7 +407,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                       color: Colors.white70,
                     ),
                   ),
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.access_time,
                     color: secondaryColor,
                   ),
@@ -443,7 +445,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
 
           // Public/Private & Open/Closed Settings
           Text(
-            'Configuración de Visibilidad',
+            S.of(context).visibilitySettings,
             style: TextStyleTheme.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -453,13 +455,13 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
           const SizedBox(height: 16),
           SwitchListTile(
             title: Text(
-              'Agenda Pública',
+              S.of(context).publicAgenda,
               style: TextStyleTheme.copyWith(
                 color: Colors.white,
               ),
             ),
             subtitle: Text(
-              'Los clientes pueden ver tu disponibilidad',
+              S.of(context).publicAgendaDescription,
               style: TextStyleTheme.copyWith(
                 color: Colors.white70,
                 fontSize: 12,
@@ -475,13 +477,13 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
           ),
           SwitchListTile(
             title: Text(
-              'Abierto para Reservas',
+              S.of(context).openForReservations,
               style: TextStyleTheme.copyWith(
                 color: Colors.white,
               ),
             ),
             subtitle: Text(
-              'Los clientes pueden reservar citas',
+              S.of(context).openForReservationsDescription,
               style: TextStyleTheme.copyWith(
                 color: Colors.white70,
                 fontSize: 12,
@@ -517,7 +519,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                   )
                 : const Icon(Icons.save, color: Colors.white),
               label: Text(
-                'Guardar Configuración',
+                S.of(context).saveConfiguration,
                 style: TextStyleTheme.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -590,7 +592,7 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.dark(
+            colorScheme: const ColorScheme.dark(
               primary: secondaryColor,
               onPrimary: Colors.white,
               surface: primaryColor,
@@ -613,8 +615,8 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
   void _addUnavailableTime() {
     if (_selectedDateRange == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Por favor selecciona un rango de fechas'),
+        SnackBar(
+          content: Text(S.of(context).pleaseSelectADateRange),
           backgroundColor: Colors.red,
         ),
       );
@@ -624,7 +626,7 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
     // Add time block with reason
     final reason = _reasonController.text.isNotEmpty
         ? _reasonController.text
-        : 'Tiempo no disponible';
+        : S.of(context).unavailableTime;
 
     context.read<ArtistAgendaSettingsBloc>().add(
           ArtistAgendaSettingsEvent.addUnavailableTime(
@@ -660,43 +662,71 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
         children: [
           // Add new unavailable time
           Card(
-            color: tertiaryColor,
+            elevation: 4,
+            margin: const EdgeInsets.only(bottom: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            color: primaryColor,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Agregar Tiempo No Disponible',
-                    style: TextStyleTheme.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.block_flipped,
+                        color: secondaryColor,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        S.of(context).addUnavailableTime,
+                        style: TextStyleTheme.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
+                  const Divider(
+                    color: tertiaryColor,
+                    thickness: 1,
+                    height: 30,
+                  ),
+                  const SizedBox(height: 8),
                   InkWell(
                     onTap: _selectDateRange,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 12,
+                        vertical: 14,
                         horizontal: 16,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: secondaryColor),
-                        borderRadius: BorderRadius.circular(4),
+                        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: tertiaryColor.withOpacity(0.5)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.date_range,
                             color: secondaryColor,
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 12),
                           Expanded(
                             child: _selectedDateRange == null
                                 ? Text(
-                                    'Seleccionar fechas',
+                                    S.of(context).selectDates,
                                     style: TextStyleTheme.copyWith(
                                       color: Colors.white70,
                                     ),
@@ -708,50 +738,83 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                                     ),
                                   ),
                           ),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            color: secondaryColor,
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   TextField(
                     controller: _reasonController,
                     style: TextStyleTheme.copyWith(color: Colors.white),
+                    cursorColor: secondaryColor,
                     decoration: InputDecoration(
-                      labelText: 'Razón (opcional)',
-                      labelStyle:
-                          TextStyleTheme.copyWith(color: Colors.white70),
+                      labelText: S.of(context).reason,
+                      labelStyle: TextStyleTheme.copyWith(color: Colors.white70),
+                      hintText: S.of(context).optional,
+                      hintStyle: TextStyleTheme.copyWith(
+                          color: Colors.white30, fontSize: 14),
+                      filled: true,
+                      fillColor: HSLColor.fromColor(primaryColor).withLightness(0.10).toColor(),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: secondaryColor),
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: tertiaryColor.withOpacity(0.5)),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: secondaryColor),
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: secondaryColor),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.description_outlined,
+                        color: Colors.white70,
+                        size: 20,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
+                    height: 50,
                     child: ElevatedButton(
                       onPressed: widget.isSaving ? null : _addUnavailableTime,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: secondaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 2,
                       ),
                       child: widget.isSaving
                           ? const SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: 24,
+                              width: 24,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 color: Colors.white,
                               ),
                             )
-                          : Text(
-                              'Agregar',
-                              style: TextStyleTheme.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.add),
+                                const SizedBox(width: 8),
+                                Text(
+                                  S.of(context).addTime,
+                                  style: TextStyleTheme.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
                     ),
                   ),
@@ -762,29 +825,60 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
           const SizedBox(height: 16),
 
           // List of unavailable times
-          Text(
-            'Tiempos No Disponibles',
-            style: TextStyleTheme.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.schedule,
+                  color: secondaryColor,
+                  size: 22,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  S.of(context).unavailableTimes,
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
 
           // Loading indicator or list
           widget.isLoading
               ? const Center(child: InkerProgressIndicator())
               : widget.unavailableTimes.isEmpty
                   ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'No hay tiempos no disponibles configurados',
-                          style: TextStyleTheme.copyWith(
-                            color: Colors.white70,
-                          ),
-                          textAlign: TextAlign.center,
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 32),
+                        padding: const EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: tertiaryColor.withOpacity(0.5)),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.event_available,
+                              color: tertiaryColor,
+                              size: 48,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              S.of(context).noUnavailableTimesConfigured,
+                              style: TextStyleTheme.copyWith(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     )
@@ -799,27 +893,77 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                             return const SizedBox.shrink();
                           }
                           
-                          return Card(
-                            color: quaternaryColor,
-                            margin: const EdgeInsets.only(bottom: 8),
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              color: HSLColor.fromColor(primaryColor).withLightness(0.17).toColor(),
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
                             child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              leading: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.do_not_disturb_on_outlined,
+                                  color: secondaryColor,
+                                ),
+                              ),
                               title: Text(
-                                timeBlock.reason ?? 'Tiempo no disponible',
+                                timeBlock.reason ?? S.of(context).unavailableTime,
                                 style: TextStyleTheme.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              subtitle: Text(
-                                '${DateFormat('dd/MM/yyyy').format(timeBlock.startDate)} - ${DateFormat('dd/MM/yyyy').format(timeBlock.endDate)}',
-                                style: TextStyleTheme.copyWith(
-                                  color: Colors.white70,
-                                ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.calendar_month,
+                                        color: tertiaryColor,
+                                        size: 14,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '${DateFormat('dd/MM/yyyy').format(timeBlock.startDate)} - ${DateFormat('dd/MM/yyyy').format(timeBlock.endDate)}',
+                                        style: TextStyleTheme.copyWith(
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
+                                icon: Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.delete_outline,
+                                    color: Colors.red,
+                                    size: 20,
+                                  ),
                                 ),
                                 onPressed: () =>
                                     _deleteUnavailableTime(timeBlock.id),
