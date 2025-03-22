@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "addTagsToMakeYourWorkMoreDiscoverable":
             MessageLookupByLibrary.simpleMessage(
                 "Add tags to make your work more discoverable"),
+        "addTime": MessageLookupByLibrary.simpleMessage("Add Time"),
+        "addUnavailableTime":
+            MessageLookupByLibrary.simpleMessage("Add Unavailable Time"),
         "addWork": MessageLookupByLibrary.simpleMessage("Add Work"),
         "addYourFirstStencil": MessageLookupByLibrary.simpleMessage(
             "Add your first stencil to get started"),
@@ -86,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "addressDetails":
             MessageLookupByLibrary.simpleMessage("Address Details"),
+        "agendaSettings":
+            MessageLookupByLibrary.simpleMessage("Agenda Settings"),
         "allOtherStencils":
             MessageLookupByLibrary.simpleMessage("All Other Stencils"),
         "allSources": MessageLookupByLibrary.simpleMessage("All Sources"),
@@ -373,6 +378,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No Stencils Yet"),
         "noStudioPhotoAvailable":
             MessageLookupByLibrary.simpleMessage("No studio photo available"),
+        "noUnavailableTimesConfigured": MessageLookupByLibrary.simpleMessage(
+            "No unavailable times configured"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
         "noWorksFound": MessageLookupByLibrary.simpleMessage("No Works Found"),
@@ -386,7 +393,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "notificationsPermissionRequired": MessageLookupByLibrary.simpleMessage(
             "Notifications permission required"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "openForReservations":
+            MessageLookupByLibrary.simpleMessage("Open for Reservations"),
+        "openForReservationsDescription": MessageLookupByLibrary.simpleMessage(
+            "Allow clients to book appointments"),
         "openSettings": MessageLookupByLibrary.simpleMessage("Open Settings"),
+        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Password changed successfully"),
@@ -403,6 +415,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter a title"),
         "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
             "Please provide a reason for cancellation."),
+        "pleaseSelectADateRange":
+            MessageLookupByLibrary.simpleMessage("Please select a date range"),
         "pleaseSelectAnImage":
             MessageLookupByLibrary.simpleMessage("Please select an image"),
         "pleaseSelectTimeRange":
@@ -420,6 +434,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileImage": MessageLookupByLibrary.simpleMessage("Profile Image"),
         "proposedDesigns":
             MessageLookupByLibrary.simpleMessage("Proposed Designs"),
+        "publicAgenda": MessageLookupByLibrary.simpleMessage("Public Agenda"),
+        "publicAgendaDescription": MessageLookupByLibrary.simpleMessage(
+            "Make your agenda visible to clients"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Quotation cancelled successfully"),
         "quotationDate": MessageLookupByLibrary.simpleMessage("Quotation Date"),
@@ -465,6 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
         "range": MessageLookupByLibrary.simpleMessage("Range"),
         "rating": MessageLookupByLibrary.simpleMessage("Rating"),
+        "reason": MessageLookupByLibrary.simpleMessage("Reason"),
         "receivedQuotation":
             MessageLookupByLibrary.simpleMessage("Received Quotation"),
         "receivedQuotations":
@@ -516,6 +534,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
+        "saveConfiguration":
+            MessageLookupByLibrary.simpleMessage("Save Configuration"),
         "saveStencil": MessageLookupByLibrary.simpleMessage("Save Stencil"),
         "saveWork": MessageLookupByLibrary.simpleMessage("Save Work"),
         "scheduleAssistant":
@@ -529,6 +549,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Select Date & Time"),
+        "selectDates": MessageLookupByLibrary.simpleMessage("Select Dates"),
         "selectDuration":
             MessageLookupByLibrary.simpleMessage("Select Duration"),
         "selectEndTime":
@@ -615,6 +636,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please try again later"),
         "tryRemovingFilters":
             MessageLookupByLibrary.simpleMessage("Try removing filters"),
+        "unavailableTime":
+            MessageLookupByLibrary.simpleMessage("Unavailable Time"),
+        "unavailableTimes":
+            MessageLookupByLibrary.simpleMessage("Unavailable Times"),
         "unfeature": MessageLookupByLibrary.simpleMessage("Unfeature"),
         "upcomming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
@@ -623,6 +648,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
         "views": MessageLookupByLibrary.simpleMessage("Views"),
+        "visibilitySettings":
+            MessageLookupByLibrary.simpleMessage("Visibility Settings"),
         "visible": MessageLookupByLibrary.simpleMessage("Visible"),
         "workCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Work created successfully"),
@@ -636,6 +663,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Work will be hidden from public view"),
         "workWillBeHighlightedInProfile": MessageLookupByLibrary.simpleMessage(
             "Work will be highlighted in profile"),
+        "workingHours": MessageLookupByLibrary.simpleMessage("Working Hours"),
         "works": MessageLookupByLibrary.simpleMessage("Works"),
         "yearsAgo": m11,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),

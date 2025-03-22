@@ -2958,7 +2958,7 @@ class S {
     return Intl.message(
       'Reintentar',
       name: 'retry',
-      desc: 'Action to retry something.',
+      desc: 'Button text to retry an action',
       args: [],
     );
   }
@@ -4103,6 +4103,176 @@ class S {
       'Plantillas',
       name: 'stencils',
       desc: 'Label for stencils section',
+      args: [],
+    );
+  }
+
+  /// `Configuración de Agenda`
+  String get agendaSettings {
+    return Intl.message(
+      'Configuración de Agenda',
+      name: 'agendaSettings',
+      desc: 'Title for agenda settings page',
+      args: [],
+    );
+  }
+
+  /// `Horario de Trabajo`
+  String get workingHours {
+    return Intl.message(
+      'Horario de Trabajo',
+      name: 'workingHours',
+      desc: 'Label for working hours tab',
+      args: [],
+    );
+  }
+
+  /// `Tiempos No Disponibles`
+  String get unavailableTimes {
+    return Intl.message(
+      'Tiempos No Disponibles',
+      name: 'unavailableTimes',
+      desc: 'Label for unavailable times tab',
+      args: [],
+    );
+  }
+
+  /// `Configuración de Visibilidad`
+  String get visibilitySettings {
+    return Intl.message(
+      'Configuración de Visibilidad',
+      name: 'visibilitySettings',
+      desc: 'Title for visibility settings section',
+      args: [],
+    );
+  }
+
+  /// `Agenda Pública`
+  String get publicAgenda {
+    return Intl.message(
+      'Agenda Pública',
+      name: 'publicAgenda',
+      desc: 'Label for public agenda toggle',
+      args: [],
+    );
+  }
+
+  /// `Permite que los clientes vean tu disponibilidad`
+  String get publicAgendaDescription {
+    return Intl.message(
+      'Permite que los clientes vean tu disponibilidad',
+      name: 'publicAgendaDescription',
+      desc: 'Description for public agenda setting',
+      args: [],
+    );
+  }
+
+  /// `Abierto para Reservas`
+  String get openForReservations {
+    return Intl.message(
+      'Abierto para Reservas',
+      name: 'openForReservations',
+      desc: 'Label for open for reservations toggle',
+      args: [],
+    );
+  }
+
+  /// `Permite que los clientes reserven citas`
+  String get openForReservationsDescription {
+    return Intl.message(
+      'Permite que los clientes reserven citas',
+      name: 'openForReservationsDescription',
+      desc: 'Description for open for reservations setting',
+      args: [],
+    );
+  }
+
+  /// `Guardar Configuración`
+  String get saveConfiguration {
+    return Intl.message(
+      'Guardar Configuración',
+      name: 'saveConfiguration',
+      desc: 'Button text to save agenda settings',
+      args: [],
+    );
+  }
+
+  /// `Por favor selecciona un rango de fechas`
+  String get pleaseSelectADateRange {
+    return Intl.message(
+      'Por favor selecciona un rango de fechas',
+      name: 'pleaseSelectADateRange',
+      desc: 'Error message when no date range is selected',
+      args: [],
+    );
+  }
+
+  /// `Tiempo No Disponible`
+  String get unavailableTime {
+    return Intl.message(
+      'Tiempo No Disponible',
+      name: 'unavailableTime',
+      desc: 'Default reason for unavailable time',
+      args: [],
+    );
+  }
+
+  /// `Agregar Tiempo No Disponible`
+  String get addUnavailableTime {
+    return Intl.message(
+      'Agregar Tiempo No Disponible',
+      name: 'addUnavailableTime',
+      desc: 'Title for adding unavailable time section',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Fechas`
+  String get selectDates {
+    return Intl.message(
+      'Seleccionar Fechas',
+      name: 'selectDates',
+      desc: 'Button text to select date range',
+      args: [],
+    );
+  }
+
+  /// `Motivo`
+  String get reason {
+    return Intl.message(
+      'Motivo',
+      name: 'reason',
+      desc: 'Label for reason field',
+      args: [],
+    );
+  }
+
+  /// `Opcional`
+  String get optional {
+    return Intl.message(
+      'Opcional',
+      name: 'optional',
+      desc: 'Indicator for optional fields',
+      args: [],
+    );
+  }
+
+  /// `Agregar Tiempo`
+  String get addTime {
+    return Intl.message(
+      'Agregar Tiempo',
+      name: 'addTime',
+      desc: 'Button text to add unavailable time',
+      args: [],
+    );
+  }
+
+  /// `No hay tiempos no disponibles configurados`
+  String get noUnavailableTimesConfigured {
+    return Intl.message(
+      'No hay tiempos no disponibles configurados',
+      name: 'noUnavailableTimesConfigured',
+      desc: 'Message when no unavailable times are set',
       args: [],
     );
   }
