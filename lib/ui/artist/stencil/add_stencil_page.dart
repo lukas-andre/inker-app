@@ -500,8 +500,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: secondaryColor.withOpacity(0.2),
-          side: BorderSide(color: secondaryColor.withOpacity(0.5)),
+          backgroundColor: redColor,
           deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white70),
           onDeleted: () => _removeTag(tag),
         );

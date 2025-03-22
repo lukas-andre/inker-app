@@ -164,7 +164,7 @@ class RegisterArtistPage4Layout extends StatelessWidget {
                 )
               ],
             ),
-            Row(
+            const Row(
               children: [RegisterArtistAddressInput()],
             ),
             AnimatedSwitcher(

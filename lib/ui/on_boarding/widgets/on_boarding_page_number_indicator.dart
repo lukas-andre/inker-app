@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class OnBoardingPageNumberIndicator extends StatelessWidget {
   const OnBoardingPageNumberIndicator({super.key});
@@ -20,7 +21,7 @@ class OnBoardingPageNumberIndicator extends StatelessWidget {
             child: Container(
                 height: 25,
                 decoration: const ShapeDecoration(
-                  color: Color(0xffff076a),
+                  color: redColor,
                   shape: StadiumBorder(),
                 ),
                 child: Center(
