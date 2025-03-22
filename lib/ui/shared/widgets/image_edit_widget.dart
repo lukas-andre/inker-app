@@ -33,7 +33,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(24.0),
             child: Center(
               child: _buildImageContent(),
             ),
@@ -46,118 +46,204 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
 
   Widget _buildImageContent() {
     if (_isNewImageSelected && _imageFile != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+      return _buildImageContainer(
         child: Image.file(
           File(_imageFile!.path),
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
         ),
       );
     } else if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+      return _buildImageContainer(
         child: Image.network(
           widget.initialValue!,
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded / 
+                        (loadingProgress.expectedTotalBytes ?? 1)
+                    : null,
+              ),
+            );
+          },
         ),
       );
     } else {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.image_not_supported,
-              size: 48,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              S.of(context).noImageSelected,
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.grey[400]),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.add_a_photo),
-              label: Text(S.of(context).chooseImage),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: secondaryColor,
-              ),
-            ),
-          ],
-        ),
-      );
+      return _buildEmptyImageContainer();
     }
+  }
+
+  Widget _buildImageContainer({required Widget child}) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.0),
+        child: child,
+      ),
+    );
+  }
+
+  Widget _buildEmptyImageContainer() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.image_outlined,
+            size: 56,
+            color: quaternaryColor.withOpacity(0.8),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            S.of(context).noImageSelected,
+            style: TextStyleTheme.bodyText1.copyWith(
+              color: quaternaryColor.withOpacity(0.9),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          _buildSimpleButton(
+            onPressed: _pickImage,
+            icon: Icons.add_photo_alternate_rounded,
+            label: S.of(context).chooseImage,
+            color: secondaryColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSimpleButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required String label,
+    required Color color,
+    Color? textColor,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(12),
+      child: Ink(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: textColor ?? Colors.white,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  color: textColor ?? Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildBottomButtons() {
     return Container(
       color: primaryColor,
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_isNewImageSelected)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _removeImage,
-                icon: const Icon(Icons.delete_forever, color: Colors.white),
-                label: Text(
-                  S.of(context).removeImage,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ),
-          if (_isNewImageSelected) const SizedBox(height: 8.0),
           if (_isNewImageSelected || widget.initialValue != null)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _pickImage,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                widget.label,
+                style: TextStyle(
+                  color: quaternaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                child: Text(
-                  S.of(context).changeImage,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          if (_hasChanges)
+            ElevatedButton.icon(
+              onPressed: _saveChanges,
+              icon: const Icon(Icons.check_circle_outline),
+              label: Text(S.of(context).saveChanges),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF50C878),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
-          if (_hasChanges) ...[
-            const SizedBox(height: 8.0),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _saveChanges,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+          const SizedBox(height: 12),
+          if (_isNewImageSelected || widget.initialValue != null)
+            OutlinedButton.icon(
+              onPressed: _pickImage,
+              icon: const Icon(Icons.photo_library),
+              label: Text(S.of(context).changeImage),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: secondaryColor,
+                side: BorderSide(color: secondaryColor),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  S.of(context).saveChanges,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
+              ),
+            ),
+          if (_isNewImageSelected) ...[
+            const SizedBox(height: 12),
+            TextButton.icon(
+              onPressed: _removeImage,
+              icon: const Icon(Icons.delete_outline),
+              label: Text(S.of(context).removeImage),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.redAccent.shade200,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
