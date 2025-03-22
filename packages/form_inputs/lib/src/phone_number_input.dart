@@ -45,8 +45,8 @@ class PhoneNumber extends Equatable {
 class PhoneNumberInput
     extends FormzInput<PhoneNumber, PhoneNumberValidationError> {
   const PhoneNumberInput.pure() : super.pure(const PhoneNumber.pure());
-  const PhoneNumberInput.dirty([PhoneNumber value = const PhoneNumber.pure()])
-      : super.dirty(value);
+  const PhoneNumberInput.dirty([super.value = const PhoneNumber.pure()])
+      : super.dirty();
 
   @override
   PhoneNumberValidationError? validator(PhoneNumber value) {
