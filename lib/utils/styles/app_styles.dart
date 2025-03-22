@@ -9,6 +9,7 @@ const Color tertiaryColor = Color(0xff686D90);
 const Color quaternaryColor = Color(0xffF2F2F2);
 const Color yellowColor = Color(0xffFDD22E);
 const Color greyColor = Color(0xFF707070);
+const Color redColor = Color(0xffff076a);
 
 Color inputBackgroundColor =
     HSLColor.fromColor(const Color(0xff262639)).withLightness(0.3).toColor();

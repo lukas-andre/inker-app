@@ -57,7 +57,7 @@ class InkerChip extends StatelessWidget {
       child: Container(
         decoration: ShapeDecoration(
             shape: const StadiumBorder(),
-            color: active ? const Color(0xffFF076A) : inputBackgroundColor),
+            color: active ? redColor : inputBackgroundColor),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Center(
