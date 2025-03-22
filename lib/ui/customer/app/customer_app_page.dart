@@ -8,6 +8,7 @@ import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart'
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
+import 'package:inker_studio/ui/customer/explore/views/search/search_artist_view.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
@@ -87,6 +88,79 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     
     // Add page-specific action buttons based on selected index
     if (_selectedIndex == 0) {  // Explorar page
+      // Barra de búsqueda en la parte superior central
+      if (MediaQuery.of(context).size.width > 380) {
+        // Si hay suficiente espacio añadimos la barra de búsqueda en el AppBar
+        actions.add(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SearchArtistView(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: explorerSecondaryColor.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 12),
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: secondaryColor.withOpacity(0.8),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.search, color: Colors.white, size: 16),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Buscar artistas...',
+                        style: TextStyleTheme.copyWith(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          color: explorerSecondaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.tune, color: Colors.white, size: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      } else {
+        // Para pantallas pequeñas, solo mostramos un icono de búsqueda
+        actions.add(
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SearchArtistView(),
+                ),
+              );
+            },
+          ),
+        );
+      }
+      
       // Añadir botones de cambio de vista (mapa/lista) en el AppBar
       actions.add(
         BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
