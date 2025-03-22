@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +93,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         children: [
           Expanded(
             child: _buildViewButton(
-              title: 'Day',
+              title: S.of(context).day,
               isSelected: _currentView == CalendarViewType.day,
               onTap: () {
                 setState(() {
@@ -106,7 +107,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
           ),
           Expanded(
             child: _buildViewButton(
-              title: 'Week',
+              title: S.of(context).week,
               isSelected: _currentView == CalendarViewType.week,
               onTap: () {
                 setState(() {
@@ -120,7 +121,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
           ),
           Expanded(
             child: _buildViewButton(
-              title: 'Month',
+              title: S.of(context).month,
               isSelected: _currentView == CalendarViewType.month,
               onTap: () {
                 setState(() {
@@ -274,7 +275,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
           },
           calendarStyle: CalendarStyle(
             outsideDaysVisible: false,
-            selectedDecoration: BoxDecoration(
+            selectedDecoration: const BoxDecoration(
               color: secondaryColor,
               shape: BoxShape.circle,
             ),
@@ -378,7 +379,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
               isTodayHighlighted: true,
-              selectedDecoration: BoxDecoration(
+              selectedDecoration: const BoxDecoration(
                 color: secondaryColor,
                 shape: BoxShape.circle,
               ),
@@ -503,10 +504,10 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.event_busy, color: tertiaryColor, size: 32),
+            const Icon(Icons.event_busy, color: tertiaryColor, size: 32),
             const SizedBox(height: 8),
             Text(
-              'No events for this day',
+              S.of(context).noEventsForThisDay,
               style: TextStyleTheme.copyWith(
                 color: Colors.white70,
                 fontWeight: FontWeight.normal,
@@ -631,7 +632,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
       backgroundColor: primaryColor,
       appBar: widget.hideHeader ? null : AppBar(
         title: Text(
-          'Agenda',
+          S.of(context).agenda,
           style: TextStyleTheme.copyWith(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
@@ -706,7 +707,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
               );
             },
             error: (message) =>
-                Center(child: Text('Error loading events: $message')),
+                Center(child: Text(S.of(context).errorLoadingEvents(message))),
           );
         },
       ),

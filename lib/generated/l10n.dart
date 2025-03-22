@@ -4406,6 +4406,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Día`
+  String get day {
+    return Intl.message(
+      'Día',
+      name: 'day',
+      desc: 'Label for day view in calendar',
+      args: [],
+    );
+  }
+
+  /// `Semana`
+  String get week {
+    return Intl.message(
+      'Semana',
+      name: 'week',
+      desc: 'Label for week view in calendar',
+      args: [],
+    );
+  }
+
+  /// `Mes`
+  String get month {
+    return Intl.message(
+      'Mes',
+      name: 'month',
+      desc: 'Label for month view in calendar',
+      args: [],
+    );
+  }
+
+  /// `No hay eventos para este día`
+  String get noEventsForThisDay {
+    return Intl.message(
+      'No hay eventos para este día',
+      name: 'noEventsForThisDay',
+      desc: 'Message shown when there are no events for the selected day',
+      args: [],
+    );
+  }
+
+  /// `Agenda`
+  String get agenda {
+    return Intl.message(
+      'Agenda',
+      name: 'agenda',
+      desc: 'Title for the agenda/calendar page',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar eventos: {message}`
+  String errorLoadingEvents(String message) {
+    return Intl.message(
+      'Error al cargar eventos: $message',
+      name: 'errorLoadingEvents',
+      desc: 'Error message when events cannot be loaded',
+      args: [message],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

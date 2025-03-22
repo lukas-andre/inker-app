@@ -26,32 +26,34 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(count) =>
       "${Intl.plural(count, one: 'hace 1 día', other: 'hace ${count} días')}";
 
-  static String m2(sourceName) => "Filtrando por fuente: ${sourceName}";
+  static String m2(message) => "Error al cargar eventos: ${message}";
 
-  static String m3(tagName) => "Filtrando por etiqueta: ${tagName}";
+  static String m3(sourceName) => "Filtrando por fuente: ${sourceName}";
 
-  static String m4(count) =>
+  static String m4(tagName) => "Filtrando por etiqueta: ${tagName}";
+
+  static String m5(count) =>
       "${Intl.plural(count, one: 'hace 1 hora', other: 'hace ${count} horas')}";
 
-  static String m5(hoursv2, minutesv2) =>
+  static String m6(hoursv2, minutesv2) =>
       "${hoursv2} horas y ${minutesv2} minutos";
 
-  static String m6(hoursv2) => "${hoursv2} horas";
+  static String m7(hoursv2) => "${hoursv2} horas";
 
-  static String m7(count) =>
+  static String m8(count) =>
       "${Intl.plural(count, one: 'hace 1 minuto', other: 'hace ${count} minutos')}";
 
-  static String m8(minutesv2) => "${minutesv2} minutos";
+  static String m9(minutesv2) => "${minutesv2} minutos";
 
-  static String m9(count) =>
+  static String m10(count) =>
       "${Intl.plural(count, one: 'hace 1 mes', other: 'hace ${count} meses')}";
 
-  static String m10(tagName) =>
+  static String m11(tagName) =>
       "No hay plantillas con la etiqueta \'${tagName}\'";
 
-  static String m11(message) => "Intenta refrescar la página: ${message}";
+  static String m12(message) => "Intenta refrescar la página: ${message}";
 
-  static String m12(count) =>
+  static String m13(count) =>
       "${Intl.plural(count, one: 'hace 1 año', other: 'hace ${count} años')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -105,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Dirección"),
         "addressDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Dirección"),
+        "agenda": MessageLookupByLibrary.simpleMessage("Agenda"),
         "agendaSettings":
             MessageLookupByLibrary.simpleMessage("Configuración de Agenda"),
         "allOtherStencils":
@@ -250,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rango Personalizado"),
         "customer": MessageLookupByLibrary.simpleMessage("Cliente"),
         "date": MessageLookupByLibrary.simpleMessage("Fecha"),
+        "day": MessageLookupByLibrary.simpleMessage("Día"),
         "daysAgo": m1,
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "deleteAccount":
@@ -284,6 +288,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterLocationName": MessageLookupByLibrary.simpleMessage(
             "Ingresa el nombre de la ubicación"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorLoadingEvents": m2,
         "errorLoadingStencils":
             MessageLookupByLibrary.simpleMessage("Error Cargando Plantillas"),
         "errorLoadingWorks":
@@ -333,8 +338,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "filter": MessageLookupByLibrary.simpleMessage("Filtrar"),
         "filterBySource":
             MessageLookupByLibrary.simpleMessage("Filtrar por Fuente"),
-        "filteringBySource": m2,
-        "filteringByTag": m3,
+        "filteringBySource": m3,
+        "filteringByTag": m4,
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
         "followers": MessageLookupByLibrary.simpleMessage("Seguidores"),
         "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
@@ -355,9 +360,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ocultando plantillas ocultas"),
         "hour": MessageLookupByLibrary.simpleMessage("Hora"),
         "hours": MessageLookupByLibrary.simpleMessage("horas"),
-        "hoursAgo": m4,
-        "hoursAndMinutes": m5,
-        "hoursv2": m6,
+        "hoursAgo": m5,
+        "hoursAndMinutes": m6,
+        "hoursv2": m7,
         "invalidNumber":
             MessageLookupByLibrary.simpleMessage("Número Inválido"),
         "invalidRange": MessageLookupByLibrary.simpleMessage("Rango Inválido"),
@@ -390,9 +395,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Administrar Trabajos"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
-        "minutesAgo": m7,
-        "minutesv2": m8,
-        "monthsAgo": m9,
+        "minutesAgo": m8,
+        "minutesv2": m9,
+        "month": MessageLookupByLibrary.simpleMessage("Mes"),
+        "monthsAgo": m10,
         "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
@@ -401,6 +407,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nuevas Solicitudes"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("Semana Siguiente"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noEventsForThisDay": MessageLookupByLibrary.simpleMessage(
+            "No hay eventos para este día"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
             "No hay eventos programados para hoy"),
         "noImageSelected": MessageLookupByLibrary.simpleMessage(
@@ -421,7 +429,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "No hay servicios disponibles"),
         "noStencilsAddedYet": MessageLookupByLibrary.simpleMessage(
             "No hay stencils agregados aún"),
-        "noStencilsWithTag": m10,
+        "noStencilsWithTag": m11,
         "noStencilsYet":
             MessageLookupByLibrary.simpleMessage("Aún No Hay Plantillas"),
         "noStudioPhotoAvailable": MessageLookupByLibrary.simpleMessage(
@@ -701,7 +709,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cambiar Visibilidad"),
         "tryAgainLater":
             MessageLookupByLibrary.simpleMessage("Por favor intenta más tarde"),
-        "tryRefreshingThePage": m11,
+        "tryRefreshingThePage": m12,
         "tryRemovingFilters":
             MessageLookupByLibrary.simpleMessage("Intenta quitar los filtros"),
         "unavailableTime":
@@ -721,6 +729,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "visibilitySettings": MessageLookupByLibrary.simpleMessage(
             "Configuración de Visibilidad"),
         "visible": MessageLookupByLibrary.simpleMessage("Visible"),
+        "week": MessageLookupByLibrary.simpleMessage("Semana"),
         "workCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Trabajo creado exitosamente"),
         "workDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -738,7 +747,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "workingHours":
             MessageLookupByLibrary.simpleMessage("Horario de Trabajo"),
         "works": MessageLookupByLibrary.simpleMessage("Trabajos"),
-        "yearsAgo": m12,
+        "yearsAgo": m13,
         "yes": MessageLookupByLibrary.simpleMessage("Sí"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Acercar"),
