@@ -43,6 +43,10 @@ mixin _$Artist {
   String? get distanceUnit => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   Review? get review => throw _privateConstructorUsedError;
+  int? get worksCount => throw _privateConstructorUsedError;
+  int? get stencilsCount => throw _privateConstructorUsedError;
+  int? get visibleWorksCount => throw _privateConstructorUsedError;
+  int? get visibleStencilsCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -77,7 +81,11 @@ abstract class $ArtistCopyWith<$Res> {
       bool? isFollowedByUser,
       String? distanceUnit,
       double? distance,
-      Review? review});
+      Review? review,
+      int? worksCount,
+      int? stencilsCount,
+      int? visibleWorksCount,
+      int? visibleStencilsCount});
 
   $ContactCopyWith<$Res>? get contact;
   $ReviewCopyWith<$Res>? get review;
@@ -119,6 +127,10 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? distanceUnit = freezed,
     Object? distance = freezed,
     Object? review = freezed,
+    Object? worksCount = freezed,
+    Object? stencilsCount = freezed,
+    Object? visibleWorksCount = freezed,
+    Object? visibleStencilsCount = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -213,6 +225,22 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
+      worksCount: freezed == worksCount
+          ? _value.worksCount
+          : worksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencilsCount: freezed == stencilsCount
+          ? _value.stencilsCount
+          : stencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleWorksCount: freezed == visibleWorksCount
+          ? _value.visibleWorksCount
+          : visibleWorksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleStencilsCount: freezed == visibleStencilsCount
+          ? _value.visibleStencilsCount
+          : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -271,7 +299,11 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       bool? isFollowedByUser,
       String? distanceUnit,
       double? distance,
-      Review? review});
+      Review? review,
+      int? worksCount,
+      int? stencilsCount,
+      int? visibleWorksCount,
+      int? visibleStencilsCount});
 
   @override
   $ContactCopyWith<$Res>? get contact;
@@ -313,6 +345,10 @@ class __$$ArtistImplCopyWithImpl<$Res>
     Object? distanceUnit = freezed,
     Object? distance = freezed,
     Object? review = freezed,
+    Object? worksCount = freezed,
+    Object? stencilsCount = freezed,
+    Object? visibleWorksCount = freezed,
+    Object? visibleStencilsCount = freezed,
   }) {
     return _then(_$ArtistImpl(
       id: null == id
@@ -407,6 +443,22 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
+      worksCount: freezed == worksCount
+          ? _value.worksCount
+          : worksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencilsCount: freezed == stencilsCount
+          ? _value.stencilsCount
+          : stencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleWorksCount: freezed == visibleWorksCount
+          ? _value.visibleWorksCount
+          : visibleWorksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleStencilsCount: freezed == visibleStencilsCount
+          ? _value.visibleStencilsCount
+          : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -437,7 +489,11 @@ class _$ArtistImpl implements _Artist {
       this.isFollowedByUser,
       this.distanceUnit,
       this.distance,
-      this.review})
+      this.review,
+      this.worksCount,
+      this.stencilsCount,
+      this.visibleWorksCount,
+      this.visibleStencilsCount})
       : _tags = tags,
         _genres = genres;
 
@@ -508,10 +564,18 @@ class _$ArtistImpl implements _Artist {
   final double? distance;
   @override
   final Review? review;
+  @override
+  final int? worksCount;
+  @override
+  final int? stencilsCount;
+  @override
+  final int? visibleWorksCount;
+  @override
+  final int? visibleStencilsCount;
 
   @override
   String toString() {
-    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review)';
+    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review, worksCount: $worksCount, stencilsCount: $stencilsCount, visibleWorksCount: $visibleWorksCount, visibleStencilsCount: $visibleStencilsCount)';
   }
 
   @override
@@ -557,7 +621,15 @@ class _$ArtistImpl implements _Artist {
                 other.distanceUnit == distanceUnit) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
-            (identical(other.review, review) || other.review == review));
+            (identical(other.review, review) || other.review == review) &&
+            (identical(other.worksCount, worksCount) ||
+                other.worksCount == worksCount) &&
+            (identical(other.stencilsCount, stencilsCount) ||
+                other.stencilsCount == stencilsCount) &&
+            (identical(other.visibleWorksCount, visibleWorksCount) ||
+                other.visibleWorksCount == visibleWorksCount) &&
+            (identical(other.visibleStencilsCount, visibleStencilsCount) ||
+                other.visibleStencilsCount == visibleStencilsCount));
   }
 
   @JsonKey(ignore: true)
@@ -586,7 +658,11 @@ class _$ArtistImpl implements _Artist {
         isFollowedByUser,
         distanceUnit,
         distance,
-        review
+        review,
+        worksCount,
+        stencilsCount,
+        visibleWorksCount,
+        visibleStencilsCount
       ]);
 
   @JsonKey(ignore: true)
@@ -627,7 +703,11 @@ abstract class _Artist implements Artist {
       final bool? isFollowedByUser,
       final String? distanceUnit,
       final double? distance,
-      final Review? review}) = _$ArtistImpl;
+      final Review? review,
+      final int? worksCount,
+      final int? stencilsCount,
+      final int? visibleWorksCount,
+      final int? visibleStencilsCount}) = _$ArtistImpl;
 
   factory _Artist.fromJson(Map<String, dynamic> json) = _$ArtistImpl.fromJson;
 
@@ -677,6 +757,14 @@ abstract class _Artist implements Artist {
   double? get distance;
   @override
   Review? get review;
+  @override
+  int? get worksCount;
+  @override
+  int? get stencilsCount;
+  @override
+  int? get visibleWorksCount;
+  @override
+  int? get visibleStencilsCount;
   @override
   @JsonKey(ignore: true)
   _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>
@@ -1174,6 +1262,7 @@ mixin _$Review {
   double? get value => throw _privateConstructorUsedError;
   Map<String, int>? get detail => throw _privateConstructorUsedError;
   int? get count => throw _privateConstructorUsedError;
+  double? get avgRating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1186,7 +1275,11 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {int? artistId, double? value, Map<String, int>? detail, int? count});
+      {int? artistId,
+      double? value,
+      Map<String, int>? detail,
+      int? count,
+      double? avgRating});
 }
 
 /// @nodoc
@@ -1206,6 +1299,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? value = freezed,
     Object? detail = freezed,
     Object? count = freezed,
+    Object? avgRating = freezed,
   }) {
     return _then(_value.copyWith(
       artistId: freezed == artistId
@@ -1224,6 +1318,10 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
+      avgRating: freezed == avgRating
+          ? _value.avgRating
+          : avgRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -1236,7 +1334,11 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? artistId, double? value, Map<String, int>? detail, int? count});
+      {int? artistId,
+      double? value,
+      Map<String, int>? detail,
+      int? count,
+      double? avgRating});
 }
 
 /// @nodoc
@@ -1254,6 +1356,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
     Object? value = freezed,
     Object? detail = freezed,
     Object? count = freezed,
+    Object? avgRating = freezed,
   }) {
     return _then(_$ReviewImpl(
       artistId: freezed == artistId
@@ -1272,6 +1375,10 @@ class __$$ReviewImplCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
+      avgRating: freezed == avgRating
+          ? _value.avgRating
+          : avgRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -1280,7 +1387,11 @@ class __$$ReviewImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ReviewImpl implements _Review {
   const _$ReviewImpl(
-      {this.artistId, this.value, final Map<String, int>? detail, this.count})
+      {this.artistId,
+      this.value,
+      final Map<String, int>? detail,
+      this.count,
+      this.avgRating})
       : _detail = detail;
 
   factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
@@ -1302,10 +1413,12 @@ class _$ReviewImpl implements _Review {
 
   @override
   final int? count;
+  @override
+  final double? avgRating;
 
   @override
   String toString() {
-    return 'Review(artistId: $artistId, value: $value, detail: $detail, count: $count)';
+    return 'Review(artistId: $artistId, value: $value, detail: $detail, count: $count, avgRating: $avgRating)';
   }
 
   @override
@@ -1317,13 +1430,15 @@ class _$ReviewImpl implements _Review {
                 other.artistId == artistId) &&
             (identical(other.value, value) || other.value == value) &&
             const DeepCollectionEquality().equals(other._detail, _detail) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.avgRating, avgRating) ||
+                other.avgRating == avgRating));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, artistId, value,
-      const DeepCollectionEquality().hash(_detail), count);
+      const DeepCollectionEquality().hash(_detail), count, avgRating);
 
   @JsonKey(ignore: true)
   @override
@@ -1344,7 +1459,8 @@ abstract class _Review implements Review {
       {final int? artistId,
       final double? value,
       final Map<String, int>? detail,
-      final int? count}) = _$ReviewImpl;
+      final int? count,
+      final double? avgRating}) = _$ReviewImpl;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
@@ -1356,6 +1472,8 @@ abstract class _Review implements Review {
   Map<String, int>? get detail;
   @override
   int? get count;
+  @override
+  double? get avgRating;
   @override
   @JsonKey(ignore: true)
   _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>

@@ -187,19 +187,19 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
           _buildActionButton(
             context,
             icon: Icons.brush,
-            label: "Add Work",
+            label: S.of(context).addWork,
             onTap: () => _navigateToAddWork(context),
           ),
           _buildActionButton(
             context,
             icon: Icons.image,
-            label: "Add Stencil",
+            label: S.of(context).addStencil,
             onTap: () => _navigateToAddStencil(context),
           ),
           _buildActionButton(
             context,
             icon: Icons.location_on,
-            label: "Location",
+            label: S.of(context).location,
             onTap: () => _navigateToLocationManager(context),
           ),
         ],
@@ -271,29 +271,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          BlocBuilder<ArtistWorkBloc, ArtistWorkState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                initial: () => _buildStatItem(context, "Works", "0"),
-                loading: () => _buildStatItem(context, "Works", "0"),
-                error: (_) => _buildStatItem(context, "Works", "0"),
-                orElse: () => _buildStatItem(context, "Works", "0"),
-              );
-            },
-          ),
+          _buildStatItem(context, S.of(context).works, artist.worksCount?.toString() ?? "0"),
           _buildVerticalDivider(),
-          BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                initial: () => _buildStatItem(context, "Stencils", "0"),
-                loading: () => _buildStatItem(context, "Stencils", "0"),
-                error: (_) => _buildStatItem(context, "Stencils", "0"),
-                orElse: () => _buildStatItem(context, "Stencils", "0"),
-              );
-            },
-          ),
+          _buildStatItem(context, S.of(context).stencils, artist.stencilsCount?.toString() ?? "0"),
           _buildVerticalDivider(),
-          _buildStatItem(context, "Clients", "0"),
+          _buildStatItem(context, S.of(context).followers, artist.followers.toString()),
         ],
       ),
     );
@@ -996,6 +978,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
   }
 
   Widget _buildProfileHeader(BuildContext context, Artist artist) {
+    final ratingValue = artist.review?.avgRating ?? artist.review?.value;
+    final ratingDisplay = ratingValue != null ? ratingValue.toStringAsFixed(1) : null;
+    
     return Padding(
       key: const Key('artistProfileHeader'),
       padding: const EdgeInsets.all(16.0),
@@ -1061,6 +1046,47 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
                     ),
                   ),
                 ),
+                if (ratingDisplay != null)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: secondaryColor,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: primaryColor, width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              ratingDisplay,
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.white,
+                              size: 8,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -1103,6 +1129,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
   }
 
   Widget _buildProfileDetails(BuildContext context, Artist artist) {
+    final ratingValue = artist.review?.avgRating ?? artist.review?.value;
+    final reviewCount = artist.review?.count ?? 0;
+    
     return Container(
       key: const Key('artistProfileDetails'),
       color: primaryColor,
@@ -1111,6 +1140,83 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Add a reviews section if there are reviews
+            if (ratingValue != null && ratingValue > 0)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Reviews",
+                    style: TextStyleTheme.headline3.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: HSLColor.fromColor(primaryColor)
+                          .withLightness(0.15)
+                          .toColor(),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey.shade800),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                ratingValue.toStringAsFixed(1),
+                                style: TextStyleTheme.subtitle1.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 2),
+                              const Icon(
+                                Icons.star,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Average Rating",
+                                style: TextStyleTheme.subtitle1.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "$reviewCount ${reviewCount == 1 ? 'review' : 'reviews'}",
+                                style: TextStyleTheme.bodyText2.copyWith(
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+          
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

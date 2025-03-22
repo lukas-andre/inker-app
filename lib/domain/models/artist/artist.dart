@@ -30,6 +30,10 @@ class Artist with _$Artist {
     String? distanceUnit,
     double? distance,
     Review? review,
+    int? worksCount,
+    int? stencilsCount,
+    int? visibleWorksCount,
+    int? visibleStencilsCount,
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
@@ -68,7 +72,6 @@ class Service with _$Service {
 Artist artistFromJson(String str) => Artist.fromJson(json.decode(str));
 String artistToJson(Artist data) => json.encode(data.toJson());
 
-
 @freezed
 class Review with _$Review {
   const factory Review({
@@ -76,6 +79,7 @@ class Review with _$Review {
     double? value,
     Map<String, int>? detail,
     int? count,
+    double? avgRating,
   }) = _Review;
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);

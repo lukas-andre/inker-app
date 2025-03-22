@@ -4086,6 +4086,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Plantilla`
+  String get stencil {
+    return Intl.message(
+      'Plantilla',
+      name: 'stencil',
+      desc: 'Label for stencil section',
+      args: [],
+    );
+  }
+
+  /// `Plantillas`
+  String get stencils {
+    return Intl.message(
+      'Plantillas',
+      name: 'stencils',
+      desc: 'Label for stencils section',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

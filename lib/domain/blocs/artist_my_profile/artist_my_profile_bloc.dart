@@ -55,6 +55,9 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
         shortDescription: artist.shortDescription,
         contact: UpdateContactDto(
           email: artist.contact?.email,
+          phone: artist.contact?.phone,
+          phoneDialCode: artist.contact?.phoneDialCode,
+          phoneCountryIsoCode: artist.contact?.phoneCountryIsoCode,
         ),
       ));
       emit(ArtistProfileState.loaded(artist));
