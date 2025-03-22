@@ -1232,10 +1232,6 @@
   "@deleteAccountWarning": {
     "description": "Warning message displayed when deleting an account."
   },
-  "retry": "Retry",
-  "@retry": {
-    "description": "Action to retry something."
-  },
   "noNotificationsTitle": "No notifications",
   "@noNotificationsTitle": {
     "description": "Title displayed when there are no notifications."

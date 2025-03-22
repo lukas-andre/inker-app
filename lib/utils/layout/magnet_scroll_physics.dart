@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 /// A scroll physics that always lands on specific points.
 class MagnetScrollPhysics extends ScrollPhysics {
@@ -111,5 +111,5 @@ class MagnetScrollPhysics extends ScrollPhysics {
     double? minScrollExtent,
     double? maxScrollExtent,
   ) =>
-      Math.min(Math.max(offset!, minScrollExtent!), maxScrollExtent!);
+      math.min(math.max(offset!, minScrollExtent!), maxScrollExtent!);
 }

@@ -188,10 +188,6 @@
   "@send": {
     "description": "Botón para enviar un formulario o mensaje."
   },
-  "status": "Estado",
-  "@status": {
-    "description": "Campo o etiqueta para mostrar el estado de un evento o cotización."
-  },
   "cancelQuotationConfirmationTitle": "Cancelar Cotización",
   "@cancelQuotationConfirmationTitle": {
     "description": "Título del mensaje de confirmación para cancelar una cotización."
@@ -203,14 +199,6 @@
   "quotationCancelledSuccessfully": "Cotización cancelada exitosamente",
   "@quotationCancelledSuccessfully": {
     "description": "Mensaje mostrado cuando una cotización ha sido cancelada exitosamente."
-  },
-  "yes": "Sí",
-  "@yes": {
-    "description": "Botón o etiqueta para confirmar algo con 'Sí'."
-  },
-  "no": "No",
-  "@no": {
-    "description": "Botón o etiqueta para denegar algo con 'No'."
   },
   "quotes": "Cotizaciones",
   "@quotes": {
@@ -1238,10 +1226,7 @@
   "@deleteAccountWarning": {
     "description": "Warning message displayed when deleting an account."
   },
-  "retry": "Reintentar",
-  "@retry": {
-    "description": "Action to retry something."
-  },
+
   "noNotificationsTitle": "No hay notificaciones",
   "@noNotificationsTitle": {
     "description": "Title displayed when there are no notifications."

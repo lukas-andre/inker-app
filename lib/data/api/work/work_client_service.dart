@@ -8,11 +8,9 @@ import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_query_params.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
-import 'package:inker_studio/utils/api/http_logger.dart';
 
 class WorkClientService implements WorkService {
   final HttpClientService _httpClient;
-  final HttpLogger _logger = HttpLogger();
 
   WorkClientService(this._httpClient);
 

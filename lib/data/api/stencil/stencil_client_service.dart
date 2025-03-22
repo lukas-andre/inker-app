@@ -8,11 +8,9 @@ import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_query_params.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
-import 'package:inker_studio/utils/api/http_logger.dart';
 
 class StencilClientService implements StencilService {
   final HttpClientService _httpClient;
-  final HttpLogger _logger = HttpLogger();
 
   StencilClientService(this._httpClient);
 
