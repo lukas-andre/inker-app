@@ -4,13 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
-import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_list_view_title.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/widgets/explorer_search_bar.dart';
 import 'package:inker_studio/ui/customer/explore/views/search/search_artist_view.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerListView extends StatelessWidget {
@@ -19,31 +17,32 @@ class ExplorerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Row(
-      children: [
-        Container(
-          decoration: const BoxDecoration(color: primaryColor),
-          width: size.width,
-          child: SafeArea(
-            child: Column(
-              children: [
-                const ExplorerListViewTitle(),
-                ExplorerSearchBar(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SearchArtistView(),
-                      ),
-                    );
-                  },
-                ),
-                const RowSpacer(space: 20),
-                ExplorerResultList(),
-              ],
+    return Container(
+      decoration: const BoxDecoration(color: primaryColor),
+      width: size.width,
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Eliminamos el título "Descubrir" para optimizar espacio
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: ExplorerSearchBar(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SearchArtistView(),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
+            Expanded(
+              child: ExplorerResultList(),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -75,10 +74,11 @@ class ExplorerResultList extends StatelessWidget {
           return GridView.count(
             key: const Key('artistGridView'),
             crossAxisCount: 2,
-            padding: const EdgeInsets.all(10),
-            childAspectRatio: 0.65,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 10,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            childAspectRatio:
+                0.75, // Ajustamos la proporción para mostrar más de la imagen
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
             children: List.generate(
               state.artists.length,
               (index) => _ArtistGridItem(
@@ -113,28 +113,73 @@ class _ArtistGridItem extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(16),
+          color: explorerSecondaryColor, // Color más oscuro para la card
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 6,
-              child: _StudioImage(
-                imageUrl: artist.studioPhoto ?? defaultImage,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Imagen del estudio
+              Expanded(
+                flex: 7, // Mayor proporción de imagen
+                child: _StudioImage(
+                  imageUrl: artist.studioPhoto ?? defaultImage,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _ArtistInfo(artist: artist),
-            ),
-          ],
+              // Información del artista con diseño mejorado
+              Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      explorerSecondaryColor.withOpacity(0.9),
+                      explorerSecondaryColor,
+                    ],
+                  ),
+                ),
+                child: _ArtistInfo(artist: artist),
+              ),
+              // Indicador para artistas destacados (si tienen cierta calificación)
+              if (artist.rating != null && double.parse(artist.rating!) >= 4.5)
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: const BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star, color: Colors.white, size: 14),
+                      const SizedBox(width: 4),
+                      Text(
+                        "Artista destacado",
+                        style: TextStyleTheme.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -174,39 +219,100 @@ class _ArtistInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-          radius: 20,
-          backgroundImage: NetworkImage(
-            artist.profileThumbnail ??
-                'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg',
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '@${artist.username!}',
-                style: TextStyleTheme.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+        // Fila superior con avatar y nombre de usuario
+        Row(
+          children: [
+            // Avatar con borde para destacar
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: secondaryColor,
+                  width: 2,
                 ),
-                overflow: TextOverflow.ellipsis,
+                boxShadow: [
+                  BoxShadow(
+                    color: secondaryColor.withOpacity(0.3),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
+              child: CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(
+                  artist.profileThumbnail ??
+                      'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg',
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            // Información principal
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '@${artist.username!}',
+                    style: TextStyleTheme.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  // Distancia con icono y estilo más moderno
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        size: 12,
+                        color: secondaryColor,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        '${(artist.distance! * 1000).toInt()} metros',
+                        style: TextStyleTheme.copyWith(
+                          fontSize: 12,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        // Calificación con estrellas si está disponible
+        if (artist.rating != null)
+          Row(
+            children: [
+              ...List.generate(5, (index) {
+                return Icon(
+                  index < (double.parse(artist.rating!).round())
+                      ? Icons.star
+                      : Icons.star_border,
+                  color: yellowColor,
+                  size: 14,
+                );
+              }),
+              const SizedBox(width: 5),
               Text(
-                '${(artist.distance! * 1000).toInt()} mt',
+                artist.rating!,
                 style: TextStyleTheme.copyWith(
                   fontSize: 12,
-                  color: Colors.white.withOpacity(0.8),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
               ),
             ],
           ),
-        ),
       ],
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
@@ -9,6 +11,7 @@ import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
+import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -84,8 +87,47 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     
     // Add page-specific action buttons based on selected index
     if (_selectedIndex == 0) {  // Explorar page
-      // Aquí podrías agregar botones específicos para la página de exploración
-      // Similar a la implementación en artist_home_page.dart
+      // Añadir botones de cambio de vista (mapa/lista) en el AppBar
+      actions.add(
+        BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Botón de Lista
+                IconButton(
+                  icon: Icon(
+                    Icons.grid_view_rounded,
+                    color: state.view == ExplorerView.list ? secondaryColor : Colors.white,
+                  ),
+                  onPressed: () {
+                    context.read<ExplorerPageBloc>().add(
+                      const ExplorerPageEventViewChanged(view: ExplorerView.list)
+                    );
+                    context
+                      .read<MapBloc>()
+                      .add(const DeselectAllMarkerEvent(closeDragSheet: true));
+                    OverlayStyle.setWhite();
+                  },
+                ),
+                // Botón de Mapa
+                IconButton(
+                  icon: Icon(
+                    Icons.map_rounded,
+                    color: state.view == ExplorerView.map ? secondaryColor : Colors.white,
+                  ),
+                  onPressed: () {
+                    context.read<ExplorerPageBloc>().add(
+                      const ExplorerPageEventViewChanged(view: ExplorerView.map)
+                    );
+                    OverlayStyle.setBlack();
+                  },
+                ),
+              ],
+            );
+          },
+        ),
+      );
     } else if (_selectedIndex == 1) { // Cotizaciones page
       // Aquí podrías agregar botones específicos para la página de cotizaciones
     } else if (_selectedIndex == 2) { // Citas page
