@@ -1203,7 +1203,7 @@ mixin _$AgendaEventDetailLocation {
   String get address1 => throw _privateConstructorUsedError;
   String get shortAddress1 => throw _privateConstructorUsedError;
   String get address2 => throw _privateConstructorUsedError;
-  String get address3 => throw _privateConstructorUsedError;
+  String? get address3 => throw _privateConstructorUsedError;
   String get addressType => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
@@ -1238,7 +1238,7 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       String address1,
       String shortAddress1,
       String address2,
-      String address3,
+      String? address3,
       String addressType,
       String state,
       String city,
@@ -1277,7 +1277,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = null,
+    Object? address3 = freezed,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1317,10 +1317,10 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
               as String,
-      address3: null == address3
+      address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       addressType: null == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
@@ -1410,7 +1410,7 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
       String address1,
       String shortAddress1,
       String address2,
-      String address3,
+      String? address3,
       String addressType,
       String state,
       String city,
@@ -1450,7 +1450,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = null,
+    Object? address3 = freezed,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1490,10 +1490,10 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
               as String,
-      address3: null == address3
+      address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       addressType: null == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
@@ -1560,7 +1560,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       required this.address1,
       required this.shortAddress1,
       required this.address2,
-      required this.address3,
+      this.address3,
       required this.addressType,
       required this.state,
       required this.city,
@@ -1591,7 +1591,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   @override
   final String address2;
   @override
-  final String address3;
+  final String? address3;
   @override
   final String addressType;
   @override
@@ -1713,7 +1713,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       required final String address1,
       required final String shortAddress1,
       required final String address2,
-      required final String address3,
+      final String? address3,
       required final String addressType,
       required final String state,
       required final String city,
@@ -1744,7 +1744,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   @override
   String get address2;
   @override
-  String get address3;
+  String? get address3;
   @override
   String get addressType;
   @override
