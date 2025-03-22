@@ -31,6 +31,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   bool _isFeatured = false;
   bool _isHidden = false;
   WorkSource _source = WorkSource.app;
+  Work? _currentWork;
   XFile? _selectedImage;
   bool _isLoading = false;
   bool _isFetchingTags = false;
@@ -42,16 +43,17 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   @override
   void initState() {
     super.initState();
-    _titleController.text = widget.work.title;
-    _descriptionController.text = widget.work.description ?? '';
-    _isFeatured = widget.work.isFeatured;
-    _isHidden = widget.work.isHidden;
-    _source = widget.work.source;
+    _currentWork = widget.work;
+    _titleController.text = _currentWork!.title;
+    _descriptionController.text = _currentWork!.description ?? '';
+    _isFeatured = _currentWork!.isFeatured;
+    _isHidden = _currentWork!.isHidden;
+    _source = _currentWork!.source;
     
     // Initialize tags from work
-    if (widget.work.tags != null && widget.work.tags!.isNotEmpty) {
-      _selectedTagIds = widget.work.tags!.map((tag) => tag.id).toList();
-      _selectedTagsObjects = widget.work.tags!
+    if (_currentWork!.tags != null && _currentWork!.tags!.isNotEmpty) {
+      _selectedTagIds = _currentWork!.tags!.map((tag) => tag.id).toList();
+      _selectedTagsObjects = _currentWork!.tags!
           .map((tag) => TagSuggestionResponseDto(
                 id: tag.id,
                 name: tag.name,
@@ -62,7 +64,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
     // Record a view when the detail page is opened
     context.read<ArtistWorkBloc>().add(
-          ArtistWorkEvent.recordView(widget.work.id),
+          ArtistWorkEvent.recordView(_currentWork!.id),
         );
   }
 
@@ -142,6 +144,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   }
 
   void _toggleEditing() {
+    // Use the updated work data when available
+    final work = _currentWork ?? widget.work;
+    
     if (_isEditing) {
       // Save changes
       if (_titleController.text.isEmpty) {
@@ -154,13 +159,12 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         return;
       }
 
-      setState(() {
-        _isLoading = true;
-      });
+      // No necesitamos establecer _isLoading aquí, ya lo haremos en el listener 
+      // cuando recibamos el estado submitting
 
       context.read<ArtistWorkBloc>().add(
             ArtistWorkEvent.updateWork(
-              workId: widget.work.id,
+              workId: work.id,
               title: _titleController.text,
               description: _descriptionController.text,
               isFeatured: _isFeatured,
@@ -170,22 +174,28 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               source: _source,
             ),
           );
-      
-      // Cargar también los detalles del trabajo para actualizar la vista
-      context.read<ArtistWorkBloc>().add(
-            ArtistWorkEvent.loadWorkDetail(widget.work.id),
-          );
+      // No necesitamos llamar a loadWorkDetail aquí porque ya lo haremos en el listener
+      // cuando recibamos el estado workUpdated
     } else {
       // Load popular tags when entering edit mode
       _loadPopularTags();
+      setState(() {
+        _isEditing = true;
+      });
     }
-
-    setState(() {
-      _isEditing = !_isEditing;
-    });
+    // Solo actualizamos _isEditing a false cuando recibimos workUpdated
+    // para evitar cambiar el estado antes de completar la actualización
+    if (!_isEditing) {
+      setState(() {
+        _isEditing = true;
+      });
+    }
   }
 
   void _deleteWork() {
+    // Use the updated work data when available
+    final work = _currentWork ?? widget.work;
+    
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -221,7 +231,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                   _isLoading = true;
                 });
                 context.read<ArtistWorkBloc>().add(
-                      ArtistWorkEvent.deleteWork(widget.work.id),
+                      ArtistWorkEvent.deleteWork(work.id),
                     );
               },
               child: Text(
@@ -265,32 +275,15 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       body: BlocConsumer<ArtistWorkBloc, ArtistWorkState>(
         listener: (context, state) {
           state.maybeWhen(
+            submitting: () {
+              setState(() {
+                _isLoading = true;
+              });
+            },
             workUpdated: (updatedWork) {
               setState(() {
                 _isLoading = false;
                 _isEditing = false;
-                
-                // Actualizar también los datos locales con la información actualizada
-                _titleController.text = updatedWork.title;
-                _descriptionController.text = updatedWork.description ?? '';
-                _isFeatured = updatedWork.isFeatured;
-                _isHidden = updatedWork.isHidden;
-                _source = updatedWork.source;
-                
-                // Actualizar también los tags
-                if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
-                  _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
-                  _selectedTagsObjects = updatedWork.tags!
-                      .map((tag) => TagSuggestionResponseDto(
-                            id: tag.id,
-                            name: tag.name,
-                            count: tag.count,
-                          ))
-                      .toList();
-                } else {
-                  _selectedTagIds = [];
-                  _selectedTagsObjects = [];
-                }
               });
               
               ScaffoldMessenger.of(context).showSnackBar(
@@ -300,36 +293,53 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                 ),
               );
               
-              // Recargar los detalles del trabajo para asegurar consistencia
+              // Immediately update the work data with what we got from the update response
+              setState(() {
+                _currentWork = updatedWork; // Store the complete updatedWork object
+                if (updatedWork.title != null) _titleController.text = updatedWork.title;
+                if (updatedWork.description != null) _descriptionController.text = updatedWork.description ?? '';
+                if (updatedWork.isFeatured != null) _isFeatured = updatedWork.isFeatured;
+                if (updatedWork.isHidden != null) _isHidden = updatedWork.isHidden;
+                if (updatedWork.source != null) _source = updatedWork.source;
+              });
+              
+              // Reload the work detail from the backend to ensure all data is fresh and consistent
+              final work = _currentWork ?? widget.work;
               context.read<ArtistWorkBloc>().add(
-                ArtistWorkEvent.loadWorkDetail(widget.work.id),
+                ArtistWorkEvent.loadWorkDetail(work.id),
               );
             },
             detailLoaded: (updatedWork) {
-              // Actualizar los campos con los datos más recientes
-              if (updatedWork.id == widget.work.id) {
-                if (!_isEditing) { // Solo actualizamos si no estamos en modo edición
-                  setState(() {
-                    _titleController.text = updatedWork.title;
-                    _descriptionController.text = updatedWork.description ?? '';
-                    _isFeatured = updatedWork.isFeatured;
-                    _isHidden = updatedWork.isHidden;
-                    _source = updatedWork.source;
-                    
-                    // Actualizar también los tags
-                    if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
-                      _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
-                      _selectedTagsObjects = updatedWork.tags!
-                          .map((tag) => TagSuggestionResponseDto(
-                                id: tag.id,
-                                name: tag.name,
-                                count: tag.count,
-                              ))
-                          .toList();
-                    }
-                  });
+              // Siempre actualizar los datos cuando se carga un detalle
+              setState(() {
+                _isLoading = false; // Asegurar que se quite el indicador de carga
+                
+                if (updatedWork.id == widget.work.id) {
+                  _titleController.text = updatedWork.title;
+                  _descriptionController.text = updatedWork.description ?? '';
+                  _isFeatured = updatedWork.isFeatured;
+                  _isHidden = updatedWork.isHidden;
+                  _source = updatedWork.source;
+                  
+                  // Update the widget's work reference to ensure all UI elements use the latest data
+                  _currentWork = updatedWork;
+                  
+                  // Actualizar también los tags
+                  if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
+                    _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
+                    _selectedTagsObjects = updatedWork.tags!
+                        .map((tag) => TagSuggestionResponseDto(
+                              id: tag.id,
+                              name: tag.name,
+                              count: tag.count,
+                            ))
+                        .toList();
+                  } else {
+                    _selectedTagIds = [];
+                    _selectedTagsObjects = [];
+                  }
                 }
-              }
+              });
             },
             workDeleted: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -376,20 +386,25 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           );
         },
         builder: (context, state) {
-          if (_isLoading) {
-            return const Center(child: InkerProgressIndicator());
-          }
-
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildWorkImage(),
-                const SizedBox(height: 24),
-                _isEditing ? _buildEditForm() : _buildWorkDetails(),
-              ],
-            ),
+          return state.maybeWhen(
+            submitting: () => const Center(child: InkerProgressIndicator()),
+            orElse: () {
+              if (_isLoading) {
+                return const Center(child: InkerProgressIndicator());
+              }
+              
+              return SingleChildScrollView(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildWorkImage(),
+                    const SizedBox(height: 24),
+                    _isEditing ? _buildEditForm() : _buildWorkDetails(),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
@@ -397,6 +412,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   }
 
   Widget _buildWorkImage() {
+    // Use the updated work data when available
+    final work = _currentWork ?? widget.work;
+    
     if (_isEditing && _selectedImage != null) {
       return GestureDetector(
         onTap: _isEditing ? _pickImage : null,
@@ -414,7 +432,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
     return GestureDetector(
       onTap:
-          _isEditing ? _pickImage : () => _openGallery(widget.work.imageUrl),
+          _isEditing ? _pickImage : () => _openGallery(work.imageUrl),
       child: Container(
         width: double.infinity,
         height: 300,
@@ -436,7 +454,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                   fit: StackFit.expand,
                   children: [
                     Image.network(
-                      widget.work.imageUrl,
+                      work.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
@@ -479,9 +497,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                   ],
                 )
               : Hero(
-                  tag: 'work_image_${widget.work.id}',
+                  tag: 'work_image_${work.id}',
                   child: Image.network(
-                    widget.work.imageUrl,
+                    work.imageUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -862,6 +880,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   }
 
   Widget _buildWorkDetails() {
+    // Use the updated work data when available
+    final work = _currentWork ?? widget.work;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -870,7 +891,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           children: [
             Expanded(
               child: Text(
-                widget.work.title,
+                work.title,
                 style: TextStyleTheme.headline2.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -881,13 +902,13 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               children: [
                 _buildStatusBadge(
                   icon: Icons.remove_red_eye,
-                  count: widget.work.viewCount,
+                  count: work.viewCount,
                   tooltip: S.of(context).views,
                 ),
                 const SizedBox(width: 16),
                 _buildStatusBadge(
                   icon: Icons.favorite,
-                  count: widget.work.likeCount,
+                  count: work.likeCount,
                   tooltip: S.of(context).likes,
                 ),
               ],
@@ -895,10 +916,10 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           ],
         ),
         const SizedBox(height: 16),
-        if (widget.work.description != null &&
-            widget.work.description!.isNotEmpty) ...[
+        if (work.description != null &&
+            work.description!.isNotEmpty) ...[
           Text(
-            widget.work.description!,
+            work.description!,
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.grey.shade300,
             ),
@@ -910,29 +931,29 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           [
             _buildInfoItem(
               S.of(context).created,
-              _formatDate(widget.work.createdAt),
+              _formatDate(work.createdAt),
             ),
             _buildInfoItem(
               S.of(context).lastUpdated,
-              _formatDate(widget.work.updatedAt),
+              _formatDate(work.updatedAt),
             ),
             _buildInfoItem(
               S.of(context).status,
-              widget.work.isHidden
+              work.isHidden
                   ? S.of(context).hidden
                   : S.of(context).visible,
             ),
             _buildInfoItem(
               S.of(context).featured,
-              widget.work.isFeatured ? S.of(context).yes : S.of(context).no,
+              work.isFeatured ? S.of(context).yes : S.of(context).no,
             ),
             _buildInfoItem(
               S.of(context).source,
-              widget.work.source == WorkSource.app ? 'APP' : 'EXTERNAL',
+              work.source == WorkSource.app ? 'APP' : 'EXTERNAL',
             ),
           ],
         ),
-        if (widget.work.tags != null && widget.work.tags!.isNotEmpty) ...[
+        if (work.tags != null && work.tags!.isNotEmpty) ...[
           const SizedBox(height: 24),
           Text(
             S.of(context).tags,
@@ -946,7 +967,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             spacing: 8,
             runSpacing: 8,
             children:
-                widget.work.tags!.map((tag) => _buildTagChip(tag)).toList(),
+                work.tags!.map((tag) => _buildTagChip(tag)).toList(),
           ),
         ],
       ],
@@ -1043,6 +1064,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   }
 
   Widget _buildTagChip(Tag tag) {
+    // Use the updated work data when available
+    final work = _currentWork ?? widget.work;
+    
     return GestureDetector(
       onTap: () {
         // First filter the works by this tag
@@ -1057,7 +1081,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         ).then((_) {
           // When we return, load the work again
           context.read<ArtistWorkBloc>().add(
-            ArtistWorkEvent.loadWorkDetail(widget.work.id),
+            ArtistWorkEvent.loadWorkDetail(work.id),
           );
         });
       },
