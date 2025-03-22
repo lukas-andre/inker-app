@@ -118,7 +118,7 @@ class _RangeControl extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.radio_button_checked,
                             size: 18,
                             color: secondaryColor,

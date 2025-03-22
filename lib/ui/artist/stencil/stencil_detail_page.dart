@@ -295,10 +295,10 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               // Immediately update the stencil data with what we got from the update response
               setState(() {
                 _currentStencil = updatedStencil; // Store the complete updatedStencil object
-                if (updatedStencil.title != null) _titleController.text = updatedStencil.title;
+                _titleController.text = updatedStencil.title;
                 if (updatedStencil.description != null) _descriptionController.text = updatedStencil.description ?? '';
-                if (updatedStencil.isFeatured != null) _isFeatured = updatedStencil.isFeatured;
-                if (updatedStencil.isHidden != null) _isHidden = updatedStencil.isHidden;
+                _isFeatured = updatedStencil.isFeatured;
+                _isHidden = updatedStencil.isHidden;
               });
               
               // Reload the stencil detail from the backend to ensure all data is fresh and consistent
@@ -542,7 +542,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
         ),
@@ -568,7 +568,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
         ),
@@ -662,7 +662,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                     width: 20,
                     height: 20,
                     padding: const EdgeInsets.all(12),
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                     ),
@@ -682,7 +682,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: secondaryColor),
+              borderSide: const BorderSide(color: secondaryColor),
             ),
           ),
           onChanged: _searchTags,
@@ -734,7 +734,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                     color: secondaryColor,
                   ),
                 ),
-                leading: Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,
@@ -764,7 +764,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             )
           : null,
       leading: isSelected
-          ? Icon(Icons.check_circle, color: secondaryColor)
+          ? const Icon(Icons.check_circle, color: secondaryColor)
           : const Icon(Icons.add_circle_outline, color: Colors.grey),
       onTap: () => _addTag(tag),
       contentPadding: EdgeInsets.zero,

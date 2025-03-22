@@ -13,12 +13,12 @@ class AvailableTimeSlotsWidget extends StatefulWidget {
   final Function(DateTime, DateTime) onTimeSlotSelected;
 
   const AvailableTimeSlotsWidget({
-    Key? key,
+    super.key,
     required this.artistId,
     required this.selectedDate,
     required this.durationMinutes,
     required this.onTimeSlotSelected,
-  }) : super(key: key);
+  });
 
   @override
   _AvailableTimeSlotsWidgetState createState() => _AvailableTimeSlotsWidgetState();
@@ -247,7 +247,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
                                         borderRadius: BorderRadius.circular(8.0),
                                       ),
                                       child: Text(
-                                        isToday ? "Today" : "Best",
+                                        isToday ? 'Today' : 'Best',
                                         style: TextStyleTheme.bodyText2.copyWith(
                                           color: Colors.greenAccent,
                                           fontSize: 12,

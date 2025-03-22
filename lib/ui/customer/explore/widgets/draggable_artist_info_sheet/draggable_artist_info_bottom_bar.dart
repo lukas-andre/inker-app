@@ -60,7 +60,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     onTap: () {
                       if (artist?.id != null) {
                         Navigator.of(context).push(
-                          CreateQuotationPage.route(artistId: artist!.id!),
+                          CreateQuotationPage.route(artistId: artist!.id),
                         );
                       }
                     },

@@ -367,7 +367,7 @@ class _CustomerQuotationResponseViewState
         filled: true,
         border: inputBorder,
         focusedBorder: focusedBorder,
-        prefixIcon: Icon(Icons.notes, color: tertiaryColor),
+        prefixIcon: const Icon(Icons.notes, color: tertiaryColor),
       ),
       style: TextStyleTheme.bodyText1,
       maxLines: 3,

@@ -217,9 +217,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         return Container(
           key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: primaryColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -453,9 +453,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         return Container(
           key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: primaryColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [

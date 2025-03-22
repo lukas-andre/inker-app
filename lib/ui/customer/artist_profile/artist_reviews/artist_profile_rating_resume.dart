@@ -127,7 +127,7 @@ class ArtistProfileRatingDetailBars extends StatelessWidget {
                               child: LinearProgressIndicator(
                                   value: e.value,
                                   backgroundColor: greyColor,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                  valueColor: const AlwaysStoppedAnimation<Color>(
                                       yellowColor)),
                             ),
                           ],

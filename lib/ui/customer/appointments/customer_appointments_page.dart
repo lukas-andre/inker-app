@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
-import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/ui/customer/appointments/widgets/appointment_card.dart';
 import 'package:inker_studio/ui/customer/appointments/widgets/appointment_filter_tabs.dart';
 import 'package:inker_studio/ui/shared/empty_state.dart';
@@ -12,7 +11,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 class CustomerAppointmentsPage extends StatefulWidget {
   static const String routeName = '/appointments';
 
-  const CustomerAppointmentsPage({Key? key}) : super(key: key);
+  const CustomerAppointmentsPage({super.key});
 
   @override
   State<CustomerAppointmentsPage> createState() => _CustomerAppointmentsPageState();

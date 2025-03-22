@@ -8,7 +8,7 @@ class DraggableArtistInfoBottomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return const Divider(
       endIndent: 16,
       indent: 16,
       color: greyColor,

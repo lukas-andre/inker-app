@@ -9,10 +9,10 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const AppointmentCard({
-    Key? key,
+    super.key,
     required this.appointment,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ class AppointmentCard extends StatelessWidget {
                               Container(
                                 width: 10,
                                 height: 10,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: secondaryColor,
                                   shape: BoxShape.circle,
                                 ),
@@ -148,7 +148,7 @@ class AppointmentCard extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_today,
                           size: 16,
                           color: tertiaryColor,
@@ -170,7 +170,7 @@ class AppointmentCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.access_time,
                         size: 16,
                         color: tertiaryColor,
@@ -192,7 +192,7 @@ class AppointmentCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on_outlined,
                         size: 16,
                         color: tertiaryColor,

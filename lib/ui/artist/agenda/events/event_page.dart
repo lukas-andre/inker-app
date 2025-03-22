@@ -236,7 +236,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     color: secondaryColor,
                     size: 24,

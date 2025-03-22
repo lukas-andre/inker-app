@@ -61,9 +61,9 @@ class CustomerActionButtons extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: isPrimary ? primaryColor : Colors.white,
         foregroundColor: isPrimary ? Colors.white : primaryColor,
-        side: BorderSide(color: primaryColor),
+        side: const BorderSide(color: primaryColor),
         textStyle: TextStyleTheme.button,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     );
   }

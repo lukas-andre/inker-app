@@ -104,12 +104,12 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
           border: inputBorder,
           focusedBorder: focusedBorder,
           errorText: _errorText,
-          prefixIcon: Icon(Icons.attach_money, color: tertiaryColor),
+          prefixIcon: const Icon(Icons.attach_money, color: tertiaryColor),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.info_outline, color: tertiaryColor),
+                icon: const Icon(Icons.info_outline, color: tertiaryColor),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -118,7 +118,7 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.close, color: tertiaryColor),
+                icon: const Icon(Icons.close, color: tertiaryColor),
                 onPressed: () {
                   widget.controller.clear();
                   widget.onChanged('');
