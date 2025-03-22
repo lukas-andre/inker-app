@@ -30,6 +30,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
+  Stencil? _currentStencil;
   XFile? _selectedImage;
   bool _isLoading = false;
   bool _isFetchingTags = false;
@@ -41,15 +42,16 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   @override
   void initState() {
     super.initState();
-    _titleController.text = widget.stencil.title;
-    _descriptionController.text = widget.stencil.description ?? '';
-    _isFeatured = widget.stencil.isFeatured;
-    _isHidden = widget.stencil.isHidden;
+    _currentStencil = widget.stencil;
+    _titleController.text = _currentStencil!.title;
+    _descriptionController.text = _currentStencil!.description ?? '';
+    _isFeatured = _currentStencil!.isFeatured;
+    _isHidden = _currentStencil!.isHidden;
     
     // Initialize tags from stencil
-    if (widget.stencil.tags != null && widget.stencil.tags!.isNotEmpty) {
-      _selectedTagIds = widget.stencil.tags!.map((tag) => tag.id).toList();
-      _selectedTagsObjects = widget.stencil.tags!
+    if (_currentStencil!.tags != null && _currentStencil!.tags!.isNotEmpty) {
+      _selectedTagIds = _currentStencil!.tags!.map((tag) => tag.id).toList();
+      _selectedTagsObjects = _currentStencil!.tags!
           .map((tag) => TagSuggestionResponseDto(
                 id: tag.id,
                 name: tag.name,
@@ -60,7 +62,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
     // Record a view when the detail page is opened
     context.read<ArtistStencilBloc>().add(
-          ArtistStencilEvent.recordView(widget.stencil.id),
+          ArtistStencilEvent.recordView(_currentStencil!.id),
         );
   }
 
@@ -140,6 +142,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   }
 
   void _toggleEditing() {
+    // Use the updated stencil data when available
+    final stencil = _currentStencil ?? widget.stencil;
+    
     if (_isEditing) {
       // Save changes
       if (_titleController.text.isEmpty) {
@@ -158,7 +163,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
       context.read<ArtistStencilBloc>().add(
             ArtistStencilEvent.updateStencil(
-              stencilId: widget.stencil.id,
+              stencilId: stencil.id,
               title: _titleController.text,
               description: _descriptionController.text,
               isFeatured: _isFeatured,
@@ -167,17 +172,20 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               imageFile: _selectedImage,
             ),
           );
+      // Don't set _isEditing to false here, we'll do it in the listener when we receive the update confirmation
     } else {
       // Load popular tags when entering edit mode
       _loadPopularTags();
+      setState(() {
+        _isEditing = true;
+      });
     }
-
-    setState(() {
-      _isEditing = !_isEditing;
-    });
   }
 
   void _deleteStencil() {
+    // Use the updated stencil data when available
+    final stencil = _currentStencil ?? widget.stencil;
+    
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -213,7 +221,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                   _isLoading = true;
                 });
                 context.read<ArtistStencilBloc>().add(
-                      ArtistStencilEvent.deleteStencil(widget.stencil.id),
+                      ArtistStencilEvent.deleteStencil(stencil.id),
                     );
               },
               child: Text(
@@ -257,17 +265,62 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       body: BlocConsumer<ArtistStencilBloc, ArtistStencilState>(
         listener: (context, state) {
           state.maybeWhen(
-            stencilUpdated: (_) {
+            stencilUpdated: (updatedStencil) {
               setState(() {
                 _isLoading = false;
                 _isEditing = false;
               });
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
                   content: S.of(context).stencilUpdatedSuccessfully,
                   backgroundColor: Colors.green,
                 ),
               );
+              
+              // Immediately update the stencil data with what we got from the update response
+              setState(() {
+                _currentStencil = updatedStencil; // Store the complete updatedStencil object
+                if (updatedStencil.title != null) _titleController.text = updatedStencil.title;
+                if (updatedStencil.description != null) _descriptionController.text = updatedStencil.description ?? '';
+                if (updatedStencil.isFeatured != null) _isFeatured = updatedStencil.isFeatured;
+                if (updatedStencil.isHidden != null) _isHidden = updatedStencil.isHidden;
+              });
+              
+              // Reload the stencil detail from the backend to ensure all data is fresh and consistent
+              final stencil = _currentStencil ?? widget.stencil;
+              context.read<ArtistStencilBloc>().add(
+                ArtistStencilEvent.loadStencilDetail(stencil.id),
+              );
+            },
+            detailLoaded: (updatedStencil) {
+              // Update the state with freshly loaded stencil data
+              setState(() {
+                _isLoading = false; // Ensure loading indicator is hidden
+                
+                if (updatedStencil.id == widget.stencil.id) {
+                  _currentStencil = updatedStencil;
+                  _titleController.text = updatedStencil.title;
+                  _descriptionController.text = updatedStencil.description ?? '';
+                  _isFeatured = updatedStencil.isFeatured;
+                  _isHidden = updatedStencil.isHidden;
+                  
+                  // Update tags as well
+                  if (updatedStencil.tags != null && updatedStencil.tags!.isNotEmpty) {
+                    _selectedTagIds = updatedStencil.tags!.map((tag) => tag.id).toList();
+                    _selectedTagsObjects = updatedStencil.tags!
+                        .map((tag) => TagSuggestionResponseDto(
+                              id: tag.id,
+                              name: tag.name,
+                              count: tag.count,
+                            ))
+                        .toList();
+                  } else {
+                    _selectedTagIds = [];
+                    _selectedTagsObjects = [];
+                  }
+                }
+              });
             },
             stencilDeleted: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -335,6 +388,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   }
 
   Widget _buildStencilImage() {
+    // Use the updated stencil data when available
+    final stencil = _currentStencil ?? widget.stencil;
+    
     if (_isEditing && _selectedImage != null) {
       return GestureDetector(
         onTap: _isEditing ? _pickImage : null,
@@ -352,7 +408,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
     return GestureDetector(
       onTap:
-          _isEditing ? _pickImage : () => _openGallery(widget.stencil.imageUrl),
+          _isEditing ? _pickImage : () => _openGallery(stencil.imageUrl),
       child: Container(
         width: double.infinity,
         height: 300,
@@ -374,7 +430,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                   fit: StackFit.expand,
                   children: [
                     Image.network(
-                      widget.stencil.imageUrl,
+                      stencil.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
@@ -417,9 +473,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                   ],
                 )
               : Hero(
-                  tag: 'stencil_image_${widget.stencil.id}',
+                  tag: 'stencil_image_${stencil.id}',
                   child: Image.network(
-                    widget.stencil.imageUrl,
+                    stencil.imageUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -749,6 +805,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   }
 
   Widget _buildStencilDetails() {
+    // Use the updated stencil data when available
+    final stencil = _currentStencil ?? widget.stencil;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -757,7 +816,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           children: [
             Expanded(
               child: Text(
-                widget.stencil.title,
+                stencil.title,
                 style: TextStyleTheme.headline2.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -768,13 +827,13 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               children: [
                 _buildStatusBadge(
                   icon: Icons.remove_red_eye,
-                  count: widget.stencil.viewCount,
+                  count: stencil.viewCount,
                   tooltip: S.of(context).views,
                 ),
                 const SizedBox(width: 16),
                 _buildStatusBadge(
                   icon: Icons.favorite,
-                  count: widget.stencil.likeCount,
+                  count: stencil.likeCount,
                   tooltip: S.of(context).likes,
                 ),
               ],
@@ -782,10 +841,10 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           ],
         ),
         const SizedBox(height: 16),
-        if (widget.stencil.description != null &&
-            widget.stencil.description!.isNotEmpty) ...[
+        if (stencil.description != null &&
+            stencil.description!.isNotEmpty) ...[
           Text(
-            widget.stencil.description!,
+            stencil.description!,
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.grey.shade300,
             ),
@@ -797,25 +856,25 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           [
             _buildInfoItem(
               S.of(context).created,
-              _formatDate(widget.stencil.createdAt),
+              _formatDate(stencil.createdAt),
             ),
             _buildInfoItem(
               S.of(context).lastUpdated,
-              _formatDate(widget.stencil.updatedAt),
+              _formatDate(stencil.updatedAt),
             ),
             _buildInfoItem(
               S.of(context).status,
-              widget.stencil.isHidden
+              stencil.isHidden
                   ? S.of(context).hidden
                   : S.of(context).visible,
             ),
             _buildInfoItem(
               S.of(context).featured,
-              widget.stencil.isFeatured ? S.of(context).yes : S.of(context).no,
+              stencil.isFeatured ? S.of(context).yes : S.of(context).no,
             ),
           ],
         ),
-        if (widget.stencil.tags != null && widget.stencil.tags!.isNotEmpty) ...[
+        if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
           const SizedBox(height: 24),
           Text(
             S.of(context).tags,
@@ -829,7 +888,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             spacing: 8,
             runSpacing: 8,
             children:
-                widget.stencil.tags!.map((tag) => _buildTagChip(tag)).toList(),
+                stencil.tags!.map((tag) => _buildTagChip(tag)).toList(),
           ),
         ],
       ],
@@ -926,6 +985,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   }
 
   Widget _buildTagChip(Tag tag) {
+    // Use the updated stencil data when available
+    final stencil = _currentStencil ?? widget.stencil;
+    
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
@@ -942,7 +1004,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         ).then((_) {
           // When we return, load the stencil again
           context.read<ArtistStencilBloc>().add(
-            ArtistStencilEvent.loadStencilDetail(widget.stencil.id),
+            ArtistStencilEvent.loadStencilDetail(stencil.id),
           );
         });
       },
