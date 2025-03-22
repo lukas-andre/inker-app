@@ -308,12 +308,12 @@ class _ArtistQuotationResponseViewState
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: Icon(Icons.calendar_today, color: tertiaryColor),
+                prefixIcon: const Icon(Icons.calendar_today, color: tertiaryColor),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.info_outline, color: tertiaryColor),
+                      icon: const Icon(Icons.info_outline, color: tertiaryColor),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.scheduleInfo)),
@@ -351,7 +351,7 @@ class _ArtistQuotationResponseViewState
                 bottom: 0,
                 child: Center(
                   child: IconButton(
-                    icon: Icon(Icons.close, color: tertiaryColor),
+                    icon: const Icon(Icons.close, color: tertiaryColor),
                     onPressed: () {
                       setState(() {
                         _appointmentStartDate = null;
@@ -512,7 +512,7 @@ class _ArtistQuotationResponseViewState
         filled: true,
         border: inputBorder,
         focusedBorder: focusedBorder,
-        prefixIcon: Icon(Icons.notes, color: tertiaryColor),
+        prefixIcon: const Icon(Icons.notes, color: tertiaryColor),
       ),
       style: TextStyleTheme.bodyText1,
       maxLines: 3,
@@ -607,7 +607,7 @@ class _ArtistQuotationResponseViewState
           top: 0,
           right: 0,
           child: IconButton(
-            icon: Icon(Icons.close, color: quaternaryColor),
+            icon: const Icon(Icons.close, color: quaternaryColor),
             onPressed: () {
               setState(() {
                 _proposedDesigns.remove(file);
@@ -629,7 +629,7 @@ class _ArtistQuotationResponseViewState
           border: Border.all(color: tertiaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(Icons.add_photo_alternate, size: 40, color: tertiaryColor),
+        child: const Icon(Icons.add_photo_alternate, size: 40, color: tertiaryColor),
       ),
     );
   }

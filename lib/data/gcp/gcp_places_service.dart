@@ -66,7 +66,7 @@ class RateLimiter {
     // If we've reached the limit, wait until we can make another request
     if (_requestTimestamps.length >= maxRequestsPerMinute) {
       final oldestTimestamp = _requestTimestamps.first;
-      final waitTime = Duration(minutes: 1) - now.difference(oldestTimestamp);
+      final waitTime = const Duration(minutes: 1) - now.difference(oldestTimestamp);
       if (waitTime.inMilliseconds > 0) {
         await Future.delayed(waitTime);
       }

@@ -72,7 +72,7 @@ class GuestChip extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: Icon(Icons.close, color: tertiaryColor),
+            icon: const Icon(Icons.close, color: tertiaryColor),
             onPressed: onDeleted,
           ),
         ],

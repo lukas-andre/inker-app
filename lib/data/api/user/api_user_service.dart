@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';

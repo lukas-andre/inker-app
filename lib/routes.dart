@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/data/api/http_client_service.dart';
-import 'package:inker_studio/data/api/stencil/stencil_client_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
@@ -10,9 +8,6 @@ import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
-import 'package:inker_studio/domain/services/session/local_session_service.dart';
-import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
-import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
@@ -80,7 +75,7 @@ class AppRoutes {
 
     if (settings.name == '/settings') {
       return MaterialPageRoute(
-        builder: (context) => SettingsPage(),
+        builder: (context) => const SettingsPage(),
       );
     }
 

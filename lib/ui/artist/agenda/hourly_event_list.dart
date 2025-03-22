@@ -195,7 +195,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
     final textColor = isDark ? Colors.white : Colors.black87;
 
     // Minimum height for very short events (30 pixels)
-    final minimumHeight = 30.0;
+    const minimumHeight = 30.0;
     final effectiveHeight = height < minimumHeight ? minimumHeight : height;
     
     // Determine content complexity based on available height
@@ -225,10 +225,10 @@ class _HourlyEventListState extends State<HourlyEventList> {
           decoration: BoxDecoration(
             color: eventColor,
             borderRadius: BorderRadius.circular(6.0),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
-                offset: const Offset(0, 1),
+                offset: Offset(0, 1),
                 blurRadius: 2.0,
                 spreadRadius: 0.2,
               ),

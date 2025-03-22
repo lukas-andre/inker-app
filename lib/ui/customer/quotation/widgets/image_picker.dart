@@ -84,7 +84,7 @@ class ImagePickerWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: secondaryColor, width: 2),
         ),
-        child: Icon(
+        child: const Icon(
           Icons.add_photo_alternate,
           color: secondaryColor,
           size: 40,

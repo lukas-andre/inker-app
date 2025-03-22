@@ -46,7 +46,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                   current.lastKnownLocation != null,
               builder: (context, locationState) {
                 if (locationState.lastKnownLocation == null) {
-                  return Center(
+                  return const Center(
                     child: InkerProgressIndicator(
                       color: secondaryColor,
                     ),
@@ -67,7 +67,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
                     // TODO: THIS IS LOADING STATE
                     if (state.isLoading) {
-                      return Center(
+                      return const Center(
                         child: InkerProgressIndicator(
                           color: secondaryColor,
                         ),
@@ -76,7 +76,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
                     // THIS IS EMPTY ARTIST STATE
                     if (state.artistFounded.isEmpty) {
-                      return Center(
+                      return const Center(
                         child: Text(
                           'No artist found',
                           style: TextStyle(color: secondaryColor),

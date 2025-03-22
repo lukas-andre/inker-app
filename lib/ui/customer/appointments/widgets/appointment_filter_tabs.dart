@@ -7,10 +7,10 @@ class AppointmentFilterTabs extends StatefulWidget {
   final Function(String) onFilterChanged;
 
   const AppointmentFilterTabs({
-    Key? key,
+    super.key,
     this.currentFilter,
     required this.onFilterChanged,
-  }) : super(key: key);
+  });
   
   @override
   State<AppointmentFilterTabs> createState() => _AppointmentFilterTabsState();
@@ -138,14 +138,14 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.6),
         labelStyle: TextStyleTheme.subtitle2,
-        tabs: [
-          const Tab(text: 'Todas'),
-          const Tab(text: 'Programadas'),
-          const Tab(text: 'En Progreso'),
-          const Tab(text: 'Esperando Fotos'),
-          const Tab(text: 'Por Reseñar'),
-          const Tab(text: 'Completadas'),
-          const Tab(text: 'Canceladas'),
+        tabs: const [
+          Tab(text: 'Todas'),
+          Tab(text: 'Programadas'),
+          Tab(text: 'En Progreso'),
+          Tab(text: 'Esperando Fotos'),
+          Tab(text: 'Por Reseñar'),
+          Tab(text: 'Completadas'),
+          Tab(text: 'Canceladas'),
         ],
       ),
     );
