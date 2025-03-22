@@ -1839,5 +1839,35 @@
   "manageWorks": "Manage Works",
   "@manageWorks": {
     "description": "Button text to manage tattoo works"
+  },
+  "day": "Day",
+  "@day": {
+    "description": "Label for day view in calendar"
+  },
+  "week": "Week",
+  "@week": {
+    "description": "Label for week view in calendar"
+  },
+  "month": "Month",
+  "@month": {
+    "description": "Label for month view in calendar"
+  },
+  "noEventsForThisDay": "No events for this day",
+  "@noEventsForThisDay": {
+    "description": "Message shown when there are no events for the selected day"
+  },
+  "agenda": "Agenda",
+  "@agenda": {
+    "description": "Title for the agenda/calendar page"
+  },
+  "errorLoadingEvents": "Error loading events: {message}",
+  "@errorLoadingEvents": {
+    "description": "Error message when events cannot be loaded",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
   }
 }
