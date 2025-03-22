@@ -38,7 +38,7 @@ class QuotationListView extends StatefulWidget {
   State<QuotationListView> createState() => _QuotationListViewState();
 }
 
-class _QuotationListViewState extends State<QuotationListView> {
+class _QuotationListViewState extends State<QuotationListView> with AutomaticKeepAliveClientMixin {
   late QuotationListBloc _quotationListBloc;
   late bool _isArtist;
   final ScrollController _scrollController = ScrollController();
@@ -78,6 +78,9 @@ class _QuotationListViewState extends State<QuotationListView> {
     final currentScroll = _scrollController.position.pixels;
     return currentScroll >= (maxScroll * 0.9);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
@@ -161,6 +164,7 @@ class _QuotationListViewState extends State<QuotationListView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required by AutomaticKeepAliveClientMixin
     final l10n = S.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFF141D3C),
