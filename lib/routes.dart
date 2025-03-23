@@ -37,6 +37,7 @@ import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/ui/views/error_view.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/immersive_viewer/immersive_viewer_page.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -419,6 +420,32 @@ class AppRoutes {
           );
         },
       );
+    }
+    
+    // Immersive viewer route
+    if (settings.name == '/immersive_viewer') {
+      // The immersive viewer accepts either a work or stencil in the arguments
+      if (settings.arguments is Map<String, dynamic>) {
+        final args = settings.arguments as Map<String, dynamic>;
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => 
+            ImmersiveViewerPage.fromArguments(context, args),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            // Use a fade transition for smooth opening of images
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 200),
+        );
+      } else {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(
+            message: 'Invalid argument type. Expected a Map with work or stencil.',
+          ),
+        );
+      }
     }
     
     if (settings.name == '/works/add') {
