@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dar
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
@@ -19,6 +20,7 @@ import 'package:inker_studio/ui/artist/work/work_detail_page.dart';
 import 'package:inker_studio/ui/artist/work/work_gallery_page.dart';
 import 'package:inker_studio/ui/customer/appointments/appointment_detail_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/password_recovery/password_recovery_page.dart';
@@ -360,6 +362,13 @@ class AppRoutes {
           ),
         );
       }
+    }
+
+    if (settings.name == '/artist-profile-reviews') {
+      final args = settings.arguments as Artist;
+      return MaterialPageRoute(
+        builder: (context) => ArtistProfileReviewsPage(artistId: args.id),
+      );
     }
 
     // Stencil-related routes
