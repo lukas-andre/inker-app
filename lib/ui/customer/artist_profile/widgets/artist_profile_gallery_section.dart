@@ -107,7 +107,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
         }
         
         return Container(
-          height: 500, // Fixed height for the gallery section
+          height: 700, // Increased height to allow more content scrolling
           color: primaryColor, // Ensure the background color is primaryColor
           child: BlocProvider(
             create: (context) => ArtistPortfolioCubit(

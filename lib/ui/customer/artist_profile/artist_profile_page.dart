@@ -130,10 +130,10 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                       ),
                     ),
                     
-                    // Bottom Padding
-                    // SliverToBoxAdapter(
-                    //   child: SizedBox(height: 80), // Space for floating button
-                    // ),
+                    // Extra space at the bottom for more scrolling
+                    SliverToBoxAdapter(
+                      child: SizedBox(height: 100),
+                    ),
                   ],
                 ),
               );

@@ -102,7 +102,7 @@ class ArtistProfileHeader extends StatelessWidget {
           // Back button
           if (onBackPressed != null)
             Positioned(
-              top: 50,
+              top: MediaQuery.of(context).padding.top + 16, // Ajustado para considerar la barra de estado
               left: 16,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
@@ -133,7 +133,7 @@ class ArtistProfileHeader extends StatelessWidget {
             ),
             
           // Artist rating
-          _buildRatingBadge(),
+          _buildRatingBadge(context),
           
           // Profile image
           Positioned(
@@ -233,34 +233,44 @@ class ArtistProfileHeader extends StatelessWidget {
     );
   }
   
-  Widget _buildRatingBadge() {
+  Widget _buildRatingBadge(BuildContext context) {
     final ratingValue = artist.review?.avgRating ?? 
                        (artist.review?.value != null ? double.parse(artist.rating ?? "0.0") : 0.0);
     final hasRating = ratingValue != null && ratingValue > 0;
     
     if (!hasRating) return const SizedBox.shrink();
     
+    // Calcular la posición correcta considerando la barra de estado
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    
     return Positioned(
-      top: 16,
+      top: statusBarHeight + 16, // Ajustado para considerar la barra de estado
       right: 16,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8), // Increased padding
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Row(
           children: [
             const Icon(
               Icons.star,
               color: secondaryColor,
-              size: 20, // Increased from 18 to 20
+              size: 20,
             ),
-            const SizedBox(width: 6), // Increased from 4 to 6
+            const SizedBox(width: 6),
             Text(
               ratingValue.toStringAsFixed(1),
               style: const TextStyle(
-                fontSize: 16, // Increased from 14 to 16
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
