@@ -45,52 +45,23 @@ _$PaginatedStencilSearchResponseDtoImpl
     _$$PaginatedStencilSearchResponseDtoImplFromJson(Map json) =>
         _$PaginatedStencilSearchResponseDtoImpl(
           items: (json['items'] as List<dynamic>)
-              .map((e) => StencilWithRelevanceDto.fromJson(
-                  Map<String, dynamic>.from(e as Map)))
+              .map((e) => Stencil.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList(),
+          currentPage: (json['page'] as num).toInt(),
+          limit: (json['limit'] as num).toInt(),
           total: (json['total'] as num).toInt(),
-          currentPage: (json['currentPage'] as num).toInt(),
-          pageSize: (json['pageSize'] as num).toInt(),
-          totalPages: (json['totalPages'] as num).toInt(),
+          totalPages: (json['pages'] as num).toInt(),
         );
 
 Map<String, dynamic> _$$PaginatedStencilSearchResponseDtoImplToJson(
         _$PaginatedStencilSearchResponseDtoImpl instance) =>
     <String, dynamic>{
       'items': instance.items.map((e) => e.toJson()).toList(),
+      'page': instance.currentPage,
+      'limit': instance.limit,
       'total': instance.total,
-      'currentPage': instance.currentPage,
-      'pageSize': instance.pageSize,
-      'totalPages': instance.totalPages,
+      'pages': instance.totalPages,
     };
-
-_$StencilWithRelevanceDtoImpl _$$StencilWithRelevanceDtoImplFromJson(
-        Map json) =>
-    _$StencilWithRelevanceDtoImpl(
-      stencil:
-          Stencil.fromJson(Map<String, dynamic>.from(json['stencil'] as Map)),
-      relevanceScore: (json['relevanceScore'] as num).toDouble(),
-      scoreComponents: (json['scoreComponents'] as Map?)?.map(
-        (k, e) => MapEntry(k as String, (e as num).toDouble()),
-      ),
-    );
-
-Map<String, dynamic> _$$StencilWithRelevanceDtoImplToJson(
-    _$StencilWithRelevanceDtoImpl instance) {
-  final val = <String, dynamic>{
-    'stencil': instance.stencil.toJson(),
-    'relevanceScore': instance.relevanceScore,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('scoreComponents', instance.scoreComponents);
-  return val;
-}
 
 _$SearchRankingInfoDtoImpl _$$SearchRankingInfoDtoImplFromJson(Map json) =>
     _$SearchRankingInfoDtoImpl(

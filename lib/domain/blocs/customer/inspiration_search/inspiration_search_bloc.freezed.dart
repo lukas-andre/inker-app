@@ -2617,8 +2617,8 @@ mixin _$InspirationSearchState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2637,8 +2637,8 @@ mixin _$InspirationSearchState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2657,8 +2657,8 @@ mixin _$InspirationSearchState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2765,8 +2765,8 @@ class _$InspirationSearchState_InitialImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2788,8 +2788,8 @@ class _$InspirationSearchState_InitialImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2811,8 +2811,8 @@ class _$InspirationSearchState_InitialImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2922,8 +2922,8 @@ class _$InspirationSearchState_LoadingImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2945,8 +2945,8 @@ class _$InspirationSearchState_LoadingImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -2968,8 +2968,8 @@ class _$InspirationSearchState_LoadingImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3041,8 +3041,8 @@ abstract class _$$InspirationSearchState_LoadedImplCopyWith<$Res> {
       __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<WorkWithRelevanceDto> works,
-      List<StencilWithRelevanceDto> stencils,
+      {List<Work> works,
+      List<Stencil> stencils,
       ContentType contentType,
       List<int> selectedTagIds,
       String searchQuery,
@@ -3083,11 +3083,11 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
       works: null == works
           ? _value._works
           : works // ignore: cast_nullable_to_non_nullable
-              as List<WorkWithRelevanceDto>,
+              as List<Work>,
       stencils: null == stencils
           ? _value._stencils
           : stencils // ignore: cast_nullable_to_non_nullable
-              as List<StencilWithRelevanceDto>,
+              as List<Stencil>,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -3133,8 +3133,8 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
 class _$InspirationSearchState_LoadedImpl
     implements InspirationSearchState_Loaded {
   const _$InspirationSearchState_LoadedImpl(
-      {required final List<WorkWithRelevanceDto> works,
-      required final List<StencilWithRelevanceDto> stencils,
+      {required final List<Work> works,
+      required final List<Stencil> stencils,
       required this.contentType,
       required final List<int> selectedTagIds,
       required this.searchQuery,
@@ -3149,17 +3149,17 @@ class _$InspirationSearchState_LoadedImpl
         _selectedTagIds = selectedTagIds,
         _popularTags = popularTags;
 
-  final List<WorkWithRelevanceDto> _works;
+  final List<Work> _works;
   @override
-  List<WorkWithRelevanceDto> get works {
+  List<Work> get works {
     if (_works is EqualUnmodifiableListView) return _works;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_works);
   }
 
-  final List<StencilWithRelevanceDto> _stencils;
+  final List<Stencil> _stencils;
   @override
-  List<StencilWithRelevanceDto> get stencils {
+  List<Stencil> get stencils {
     if (_stencils is EqualUnmodifiableListView) return _stencils;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_stencils);
@@ -3257,8 +3257,8 @@ class _$InspirationSearchState_LoadedImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3291,8 +3291,8 @@ class _$InspirationSearchState_LoadedImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3325,8 +3325,8 @@ class _$InspirationSearchState_LoadedImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3397,8 +3397,8 @@ class _$InspirationSearchState_LoadedImpl
 
 abstract class InspirationSearchState_Loaded implements InspirationSearchState {
   const factory InspirationSearchState_Loaded(
-          {required final List<WorkWithRelevanceDto> works,
-          required final List<StencilWithRelevanceDto> stencils,
+          {required final List<Work> works,
+          required final List<Stencil> stencils,
           required final ContentType contentType,
           required final List<int> selectedTagIds,
           required final String searchQuery,
@@ -3410,8 +3410,8 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
           final List<TagSuggestionResponseDto> popularTags}) =
       _$InspirationSearchState_LoadedImpl;
 
-  List<WorkWithRelevanceDto> get works;
-  List<StencilWithRelevanceDto> get stencils;
+  List<Work> get works;
+  List<Stencil> get stencils;
   ContentType get contentType;
   List<int> get selectedTagIds;
   String get searchQuery;
@@ -3500,8 +3500,8 @@ class _$InspirationSearchState_ErrorImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3523,8 +3523,8 @@ class _$InspirationSearchState_ErrorImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,
@@ -3546,8 +3546,8 @@ class _$InspirationSearchState_ErrorImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-            List<WorkWithRelevanceDto> works,
-            List<StencilWithRelevanceDto> stencils,
+            List<Work> works,
+            List<Stencil> stencils,
             ContentType contentType,
             List<int> selectedTagIds,
             String searchQuery,

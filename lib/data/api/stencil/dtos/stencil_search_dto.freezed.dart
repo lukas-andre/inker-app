@@ -333,10 +333,12 @@ PaginatedStencilSearchResponseDto _$PaginatedStencilSearchResponseDtoFromJson(
 
 /// @nodoc
 mixin _$PaginatedStencilSearchResponseDto {
-  List<StencilWithRelevanceDto> get items => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
+  List<Stencil> get items => throw _privateConstructorUsedError;
+  @JsonKey(name: 'page')
   int get currentPage => throw _privateConstructorUsedError;
-  int get pageSize => throw _privateConstructorUsedError;
+  int get limit => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pages')
   int get totalPages => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -354,11 +356,11 @@ abstract class $PaginatedStencilSearchResponseDtoCopyWith<$Res> {
           PaginatedStencilSearchResponseDto>;
   @useResult
   $Res call(
-      {List<StencilWithRelevanceDto> items,
+      {List<Stencil> items,
+      @JsonKey(name: 'page') int currentPage,
+      int limit,
       int total,
-      int currentPage,
-      int pageSize,
-      int totalPages});
+      @JsonKey(name: 'pages') int totalPages});
 }
 
 /// @nodoc
@@ -376,27 +378,27 @@ class _$PaginatedStencilSearchResponseDtoCopyWithImpl<$Res,
   @override
   $Res call({
     Object? items = null,
-    Object? total = null,
     Object? currentPage = null,
-    Object? pageSize = null,
+    Object? limit = null,
+    Object? total = null,
     Object? totalPages = null,
   }) {
     return _then(_value.copyWith(
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<StencilWithRelevanceDto>,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Stencil>,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: null == pageSize
-          ? _value.pageSize
-          : pageSize // ignore: cast_nullable_to_non_nullable
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       totalPages: null == totalPages
           ? _value.totalPages
@@ -416,11 +418,11 @@ abstract class _$$PaginatedStencilSearchResponseDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<StencilWithRelevanceDto> items,
+      {List<Stencil> items,
+      @JsonKey(name: 'page') int currentPage,
+      int limit,
       int total,
-      int currentPage,
-      int pageSize,
-      int totalPages});
+      @JsonKey(name: 'pages') int totalPages});
 }
 
 /// @nodoc
@@ -437,27 +439,27 @@ class __$$PaginatedStencilSearchResponseDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? items = null,
-    Object? total = null,
     Object? currentPage = null,
-    Object? pageSize = null,
+    Object? limit = null,
+    Object? total = null,
     Object? totalPages = null,
   }) {
     return _then(_$PaginatedStencilSearchResponseDtoImpl(
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<StencilWithRelevanceDto>,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Stencil>,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: null == pageSize
-          ? _value.pageSize
-          : pageSize // ignore: cast_nullable_to_non_nullable
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       totalPages: null == totalPages
           ? _value.totalPages
@@ -472,37 +474,39 @@ class __$$PaginatedStencilSearchResponseDtoImplCopyWithImpl<$Res>
 class _$PaginatedStencilSearchResponseDtoImpl
     implements _PaginatedStencilSearchResponseDto {
   const _$PaginatedStencilSearchResponseDtoImpl(
-      {required final List<StencilWithRelevanceDto> items,
+      {required final List<Stencil> items,
+      @JsonKey(name: 'page') required this.currentPage,
+      required this.limit,
       required this.total,
-      required this.currentPage,
-      required this.pageSize,
-      required this.totalPages})
+      @JsonKey(name: 'pages') required this.totalPages})
       : _items = items;
 
   factory _$PaginatedStencilSearchResponseDtoImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$PaginatedStencilSearchResponseDtoImplFromJson(json);
 
-  final List<StencilWithRelevanceDto> _items;
+  final List<Stencil> _items;
   @override
-  List<StencilWithRelevanceDto> get items {
+  List<Stencil> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
   @override
-  final int total;
-  @override
+  @JsonKey(name: 'page')
   final int currentPage;
   @override
-  final int pageSize;
+  final int limit;
   @override
+  final int total;
+  @override
+  @JsonKey(name: 'pages')
   final int totalPages;
 
   @override
   String toString() {
-    return 'PaginatedStencilSearchResponseDto(items: $items, total: $total, currentPage: $currentPage, pageSize: $pageSize, totalPages: $totalPages)';
+    return 'PaginatedStencilSearchResponseDto(items: $items, currentPage: $currentPage, limit: $limit, total: $total, totalPages: $totalPages)';
   }
 
   @override
@@ -511,11 +515,10 @@ class _$PaginatedStencilSearchResponseDtoImpl
         (other.runtimeType == runtimeType &&
             other is _$PaginatedStencilSearchResponseDtoImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.total, total) || other.total == total) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
-            (identical(other.pageSize, pageSize) ||
-                other.pageSize == pageSize) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
+            (identical(other.total, total) || other.total == total) &&
             (identical(other.totalPages, totalPages) ||
                 other.totalPages == totalPages));
   }
@@ -525,9 +528,9 @@ class _$PaginatedStencilSearchResponseDtoImpl
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_items),
-      total,
       currentPage,
-      pageSize,
+      limit,
+      total,
       totalPages);
 
   @JsonKey(ignore: true)
@@ -549,242 +552,33 @@ class _$PaginatedStencilSearchResponseDtoImpl
 abstract class _PaginatedStencilSearchResponseDto
     implements PaginatedStencilSearchResponseDto {
   const factory _PaginatedStencilSearchResponseDto(
-      {required final List<StencilWithRelevanceDto> items,
-      required final int total,
-      required final int currentPage,
-      required final int pageSize,
-      required final int totalPages}) = _$PaginatedStencilSearchResponseDtoImpl;
+          {required final List<Stencil> items,
+          @JsonKey(name: 'page') required final int currentPage,
+          required final int limit,
+          required final int total,
+          @JsonKey(name: 'pages') required final int totalPages}) =
+      _$PaginatedStencilSearchResponseDtoImpl;
 
   factory _PaginatedStencilSearchResponseDto.fromJson(
           Map<String, dynamic> json) =
       _$PaginatedStencilSearchResponseDtoImpl.fromJson;
 
   @override
-  List<StencilWithRelevanceDto> get items;
+  List<Stencil> get items;
+  @override
+  @JsonKey(name: 'page')
+  int get currentPage;
+  @override
+  int get limit;
   @override
   int get total;
   @override
-  int get currentPage;
-  @override
-  int get pageSize;
-  @override
+  @JsonKey(name: 'pages')
   int get totalPages;
   @override
   @JsonKey(ignore: true)
   _$$PaginatedStencilSearchResponseDtoImplCopyWith<
           _$PaginatedStencilSearchResponseDtoImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-StencilWithRelevanceDto _$StencilWithRelevanceDtoFromJson(
-    Map<String, dynamic> json) {
-  return _StencilWithRelevanceDto.fromJson(json);
-}
-
-/// @nodoc
-mixin _$StencilWithRelevanceDto {
-  Stencil get stencil => throw _privateConstructorUsedError;
-  double get relevanceScore => throw _privateConstructorUsedError;
-  Map<String, double>? get scoreComponents =>
-      throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $StencilWithRelevanceDtoCopyWith<StencilWithRelevanceDto> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $StencilWithRelevanceDtoCopyWith<$Res> {
-  factory $StencilWithRelevanceDtoCopyWith(StencilWithRelevanceDto value,
-          $Res Function(StencilWithRelevanceDto) then) =
-      _$StencilWithRelevanceDtoCopyWithImpl<$Res, StencilWithRelevanceDto>;
-  @useResult
-  $Res call(
-      {Stencil stencil,
-      double relevanceScore,
-      Map<String, double>? scoreComponents});
-
-  $StencilCopyWith<$Res> get stencil;
-}
-
-/// @nodoc
-class _$StencilWithRelevanceDtoCopyWithImpl<$Res,
-        $Val extends StencilWithRelevanceDto>
-    implements $StencilWithRelevanceDtoCopyWith<$Res> {
-  _$StencilWithRelevanceDtoCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? stencil = null,
-    Object? relevanceScore = null,
-    Object? scoreComponents = freezed,
-  }) {
-    return _then(_value.copyWith(
-      stencil: null == stencil
-          ? _value.stencil
-          : stencil // ignore: cast_nullable_to_non_nullable
-              as Stencil,
-      relevanceScore: null == relevanceScore
-          ? _value.relevanceScore
-          : relevanceScore // ignore: cast_nullable_to_non_nullable
-              as double,
-      scoreComponents: freezed == scoreComponents
-          ? _value.scoreComponents
-          : scoreComponents // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $StencilCopyWith<$Res> get stencil {
-    return $StencilCopyWith<$Res>(_value.stencil, (value) {
-      return _then(_value.copyWith(stencil: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$StencilWithRelevanceDtoImplCopyWith<$Res>
-    implements $StencilWithRelevanceDtoCopyWith<$Res> {
-  factory _$$StencilWithRelevanceDtoImplCopyWith(
-          _$StencilWithRelevanceDtoImpl value,
-          $Res Function(_$StencilWithRelevanceDtoImpl) then) =
-      __$$StencilWithRelevanceDtoImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Stencil stencil,
-      double relevanceScore,
-      Map<String, double>? scoreComponents});
-
-  @override
-  $StencilCopyWith<$Res> get stencil;
-}
-
-/// @nodoc
-class __$$StencilWithRelevanceDtoImplCopyWithImpl<$Res>
-    extends _$StencilWithRelevanceDtoCopyWithImpl<$Res,
-        _$StencilWithRelevanceDtoImpl>
-    implements _$$StencilWithRelevanceDtoImplCopyWith<$Res> {
-  __$$StencilWithRelevanceDtoImplCopyWithImpl(
-      _$StencilWithRelevanceDtoImpl _value,
-      $Res Function(_$StencilWithRelevanceDtoImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? stencil = null,
-    Object? relevanceScore = null,
-    Object? scoreComponents = freezed,
-  }) {
-    return _then(_$StencilWithRelevanceDtoImpl(
-      stencil: null == stencil
-          ? _value.stencil
-          : stencil // ignore: cast_nullable_to_non_nullable
-              as Stencil,
-      relevanceScore: null == relevanceScore
-          ? _value.relevanceScore
-          : relevanceScore // ignore: cast_nullable_to_non_nullable
-              as double,
-      scoreComponents: freezed == scoreComponents
-          ? _value._scoreComponents
-          : scoreComponents // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$StencilWithRelevanceDtoImpl implements _StencilWithRelevanceDto {
-  const _$StencilWithRelevanceDtoImpl(
-      {required this.stencil,
-      required this.relevanceScore,
-      final Map<String, double>? scoreComponents})
-      : _scoreComponents = scoreComponents;
-
-  factory _$StencilWithRelevanceDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$StencilWithRelevanceDtoImplFromJson(json);
-
-  @override
-  final Stencil stencil;
-  @override
-  final double relevanceScore;
-  final Map<String, double>? _scoreComponents;
-  @override
-  Map<String, double>? get scoreComponents {
-    final value = _scoreComponents;
-    if (value == null) return null;
-    if (_scoreComponents is EqualUnmodifiableMapView) return _scoreComponents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
-  @override
-  String toString() {
-    return 'StencilWithRelevanceDto(stencil: $stencil, relevanceScore: $relevanceScore, scoreComponents: $scoreComponents)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StencilWithRelevanceDtoImpl &&
-            (identical(other.stencil, stencil) || other.stencil == stencil) &&
-            (identical(other.relevanceScore, relevanceScore) ||
-                other.relevanceScore == relevanceScore) &&
-            const DeepCollectionEquality()
-                .equals(other._scoreComponents, _scoreComponents));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, stencil, relevanceScore,
-      const DeepCollectionEquality().hash(_scoreComponents));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$StencilWithRelevanceDtoImplCopyWith<_$StencilWithRelevanceDtoImpl>
-      get copyWith => __$$StencilWithRelevanceDtoImplCopyWithImpl<
-          _$StencilWithRelevanceDtoImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$StencilWithRelevanceDtoImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _StencilWithRelevanceDto implements StencilWithRelevanceDto {
-  const factory _StencilWithRelevanceDto(
-          {required final Stencil stencil,
-          required final double relevanceScore,
-          final Map<String, double>? scoreComponents}) =
-      _$StencilWithRelevanceDtoImpl;
-
-  factory _StencilWithRelevanceDto.fromJson(Map<String, dynamic> json) =
-      _$StencilWithRelevanceDtoImpl.fromJson;
-
-  @override
-  Stencil get stencil;
-  @override
-  double get relevanceScore;
-  @override
-  Map<String, double>? get scoreComponents;
-  @override
-  @JsonKey(ignore: true)
-  _$$StencilWithRelevanceDtoImplCopyWith<_$StencilWithRelevanceDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
