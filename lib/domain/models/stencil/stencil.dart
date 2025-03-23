@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'dart:convert';
+
+import 'package:inker_studio/domain/models/work/work.dart';
 
 part 'stencil.freezed.dart';
 part 'stencil.g.dart';
@@ -28,17 +31,6 @@ class Stencil with _$Stencil {
   }) = _Stencil;
 
   factory Stencil.fromJson(Map<String, dynamic> json) => _$StencilFromJson(json);
-}
-
-@freezed
-class Tag with _$Tag {
-  const factory Tag({
-    required int id,
-    required String name,
-    @Default(0) int count,
-  }) = _Tag;
-
-  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }
 
 Stencil stencilFromJson(String str) => Stencil.fromJson(json.decode(str));

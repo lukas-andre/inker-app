@@ -707,7 +707,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
               );
             },
             error: (message) =>
-                Center(child: Text(S.of(context).errorLoadingEvents(message))),
+                Center(child: Text('Error loading events: $message')),
           );
         },
       ),

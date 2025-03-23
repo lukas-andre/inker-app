@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
+import 'package:inker_studio/domain/models/tag/tag.dart';
 
 part 'work.freezed.dart';
 part 'work.g.dart';
@@ -28,16 +29,4 @@ class Work with _$Work {
   }) = _Work;
 
   factory Work.fromJson(Map<String, dynamic> json) => _$WorkFromJson(json);
-}
-
-@freezed
-class Tag with _$Tag {
-  const factory Tag({
-    required int id,
-    required String name,
-    String? createdBy,
-    int? count,
-  }) = _Tag;
-
-  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }

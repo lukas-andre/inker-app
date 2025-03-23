@@ -66,27 +66,3 @@ const _$WorkSourceEnumMap = {
   WorkSource.app: 'APP',
   WorkSource.external: 'EXTERNAL',
 };
-
-_$TagImpl _$$TagImplFromJson(Map json) => _$TagImpl(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      createdBy: json['createdBy'] as String?,
-      count: (json['count'] as num?)?.toInt(),
-    );
-
-Map<String, dynamic> _$$TagImplToJson(_$TagImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdBy', instance.createdBy);
-  writeNotNull('count', instance.count);
-  return val;
-}
