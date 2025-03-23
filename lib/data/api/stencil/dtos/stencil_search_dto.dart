@@ -24,27 +24,15 @@ class StencilSearchQueryDto with _$StencilSearchQueryDto {
 @freezed
 class PaginatedStencilSearchResponseDto with _$PaginatedStencilSearchResponseDto {
   const factory PaginatedStencilSearchResponseDto({
-    required List<StencilWithRelevanceDto> items,
+    required List<Stencil> items,
+    @JsonKey(name: 'page') required int currentPage,
+    required int limit,
     required int total,
-    required int currentPage,
-    required int pageSize,
-    required int totalPages,
+    @JsonKey(name: 'pages') required int totalPages,
   }) = _PaginatedStencilSearchResponseDto;
 
   factory PaginatedStencilSearchResponseDto.fromJson(Map<String, dynamic> json) =>
       _$PaginatedStencilSearchResponseDtoFromJson(json);
-}
-
-@freezed
-class StencilWithRelevanceDto with _$StencilWithRelevanceDto {
-  const factory StencilWithRelevanceDto({
-    required Stencil stencil,
-    required double relevanceScore,
-    Map<String, double>? scoreComponents,
-  }) = _StencilWithRelevanceDto;
-
-  factory StencilWithRelevanceDto.fromJson(Map<String, dynamic> json) =>
-      _$StencilWithRelevanceDtoFromJson(json);
 }
 
 

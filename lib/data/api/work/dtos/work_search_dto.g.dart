@@ -47,50 +47,23 @@ _$PaginatedWorkSearchResponseDtoImpl
     _$$PaginatedWorkSearchResponseDtoImplFromJson(Map json) =>
         _$PaginatedWorkSearchResponseDtoImpl(
           items: (json['items'] as List<dynamic>)
-              .map((e) => WorkWithRelevanceDto.fromJson(
-                  Map<String, dynamic>.from(e as Map)))
+              .map((e) => Work.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList(),
+          currentPage: (json['page'] as num).toInt(),
+          limit: (json['limit'] as num).toInt(),
           total: (json['total'] as num).toInt(),
-          currentPage: (json['currentPage'] as num).toInt(),
-          pageSize: (json['pageSize'] as num).toInt(),
-          totalPages: (json['totalPages'] as num).toInt(),
+          totalPages: (json['pages'] as num).toInt(),
         );
 
 Map<String, dynamic> _$$PaginatedWorkSearchResponseDtoImplToJson(
         _$PaginatedWorkSearchResponseDtoImpl instance) =>
     <String, dynamic>{
       'items': instance.items.map((e) => e.toJson()).toList(),
+      'page': instance.currentPage,
+      'limit': instance.limit,
       'total': instance.total,
-      'currentPage': instance.currentPage,
-      'pageSize': instance.pageSize,
-      'totalPages': instance.totalPages,
+      'pages': instance.totalPages,
     };
-
-_$WorkWithRelevanceDtoImpl _$$WorkWithRelevanceDtoImplFromJson(Map json) =>
-    _$WorkWithRelevanceDtoImpl(
-      work: Work.fromJson(Map<String, dynamic>.from(json['work'] as Map)),
-      relevanceScore: (json['relevanceScore'] as num).toDouble(),
-      scoreComponents: (json['scoreComponents'] as Map?)?.map(
-        (k, e) => MapEntry(k as String, (e as num).toDouble()),
-      ),
-    );
-
-Map<String, dynamic> _$$WorkWithRelevanceDtoImplToJson(
-    _$WorkWithRelevanceDtoImpl instance) {
-  final val = <String, dynamic>{
-    'work': instance.work.toJson(),
-    'relevanceScore': instance.relevanceScore,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('scoreComponents', instance.scoreComponents);
-  return val;
-}
 
 _$SearchRankingInfoDtoImpl _$$SearchRankingInfoDtoImplFromJson(Map json) =>
     _$SearchRankingInfoDtoImpl(
