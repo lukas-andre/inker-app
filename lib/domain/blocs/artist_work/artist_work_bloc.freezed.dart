@@ -6636,8 +6636,6 @@ abstract class _$$TagCreatedImplCopyWith<$Res> {
       __$$TagCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({TagSuggestionResponseDto tag});
-
-  $TagSuggestionResponseDtoCopyWith<$Res> get tag;
 }
 
 /// @nodoc
@@ -6651,22 +6649,14 @@ class __$$TagCreatedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tag = null,
+    Object? tag = freezed,
   }) {
     return _then(_$TagCreatedImpl(
-      null == tag
+      freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagSuggestionResponseDto,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TagSuggestionResponseDtoCopyWith<$Res> get tag {
-    return $TagSuggestionResponseDtoCopyWith<$Res>(_value.tag, (value) {
-      return _then(_value.copyWith(tag: value));
-    });
   }
 }
 
@@ -6688,11 +6678,12 @@ class _$TagCreatedImpl implements _TagCreated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TagCreatedImpl &&
-            (identical(other.tag, tag) || other.tag == tag));
+            const DeepCollectionEquality().equals(other.tag, tag));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tag);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(tag));
 
   @JsonKey(ignore: true)
   @override

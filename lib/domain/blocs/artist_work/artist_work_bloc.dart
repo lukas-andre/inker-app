@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_query_params.dart';
 import 'package:inker_studio/domain/models/work/work.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
