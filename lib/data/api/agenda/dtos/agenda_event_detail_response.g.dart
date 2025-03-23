@@ -131,7 +131,6 @@ _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
       address1: json['address1'] as String,
       shortAddress1: json['shortAddress1'] as String,
       address2: json['address2'] as String,
-      address3: json['address3'] as String?,
       addressType: json['addressType'] as String,
       state: json['state'] as String,
       city: json['city'] as String,
@@ -144,6 +143,7 @@ _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
       location: AgendaEventDetailLocationCoordinates.fromJson(
           Map<String, dynamic>.from(json['location'] as Map)),
       artistId: (json['artistId'] as num?)?.toInt(),
+      address3: json['address3'] as String?,
       name: json['name'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,
       googlePlaceId: json['googlePlaceId'] as String?,
@@ -158,6 +158,15 @@ Map<String, dynamic> _$$AgendaEventDetailLocationImplToJson(
     'address1': instance.address1,
     'shortAddress1': instance.shortAddress1,
     'address2': instance.address2,
+    'addressType': instance.addressType,
+    'state': instance.state,
+    'city': instance.city,
+    'country': instance.country,
+    'formattedAddress': instance.formattedAddress,
+    'lat': instance.lat,
+    'lng': instance.lng,
+    'viewport': instance.viewport.toJson(),
+    'location': instance.location.toJson(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -166,17 +175,8 @@ Map<String, dynamic> _$$AgendaEventDetailLocationImplToJson(
     }
   }
 
-  writeNotNull('address3', instance.address3);
-  val['addressType'] = instance.addressType;
-  val['state'] = instance.state;
-  val['city'] = instance.city;
-  val['country'] = instance.country;
-  val['formattedAddress'] = instance.formattedAddress;
-  val['lat'] = instance.lat;
-  val['lng'] = instance.lng;
-  val['viewport'] = instance.viewport.toJson();
-  val['location'] = instance.location.toJson();
   writeNotNull('artistId', instance.artistId);
+  writeNotNull('address3', instance.address3);
   writeNotNull('name', instance.name);
   writeNotNull('profileThumbnail', instance.profileThumbnail);
   writeNotNull('googlePlaceId', instance.googlePlaceId);

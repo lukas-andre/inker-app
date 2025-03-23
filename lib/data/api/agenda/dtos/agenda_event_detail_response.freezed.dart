@@ -1203,7 +1203,6 @@ mixin _$AgendaEventDetailLocation {
   String get address1 => throw _privateConstructorUsedError;
   String get shortAddress1 => throw _privateConstructorUsedError;
   String get address2 => throw _privateConstructorUsedError;
-  String? get address3 => throw _privateConstructorUsedError;
   String get addressType => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
@@ -1215,6 +1214,7 @@ mixin _$AgendaEventDetailLocation {
   AgendaEventDetailLocationCoordinates get location =>
       throw _privateConstructorUsedError;
   int? get artistId => throw _privateConstructorUsedError;
+  String? get address3 => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   String? get googlePlaceId => throw _privateConstructorUsedError;
@@ -1238,7 +1238,6 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       String address1,
       String shortAddress1,
       String address2,
-      String? address3,
       String addressType,
       String state,
       String city,
@@ -1249,6 +1248,7 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
       int? artistId,
+      String? address3,
       String? name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -1277,7 +1277,6 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = freezed,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1288,6 +1287,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
     Object? viewport = null,
     Object? location = null,
     Object? artistId = freezed,
+    Object? address3 = freezed,
     Object? name = freezed,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
@@ -1317,10 +1317,6 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
               as String,
-      address3: freezed == address3
-          ? _value.address3
-          : address3 // ignore: cast_nullable_to_non_nullable
-              as String?,
       addressType: null == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
@@ -1361,6 +1357,10 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int?,
+      address3: freezed == address3
+          ? _value.address3
+          : address3 // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1410,7 +1410,6 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
       String address1,
       String shortAddress1,
       String address2,
-      String? address3,
       String addressType,
       String state,
       String city,
@@ -1421,6 +1420,7 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
       int? artistId,
+      String? address3,
       String? name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -1450,7 +1450,6 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = freezed,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1461,6 +1460,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
     Object? viewport = null,
     Object? location = null,
     Object? artistId = freezed,
+    Object? address3 = freezed,
     Object? name = freezed,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
@@ -1490,10 +1490,6 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
               as String,
-      address3: freezed == address3
-          ? _value.address3
-          : address3 // ignore: cast_nullable_to_non_nullable
-              as String?,
       addressType: null == addressType
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
@@ -1534,6 +1530,10 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int?,
+      address3: freezed == address3
+          ? _value.address3
+          : address3 // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1560,7 +1560,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       required this.address1,
       required this.shortAddress1,
       required this.address2,
-      this.address3,
       required this.addressType,
       required this.state,
       required this.city,
@@ -1571,6 +1570,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       required this.viewport,
       required this.location,
       this.artistId,
+      this.address3,
       this.name,
       this.profileThumbnail,
       this.googlePlaceId});
@@ -1590,8 +1590,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   final String shortAddress1;
   @override
   final String address2;
-  @override
-  final String? address3;
   @override
   final String addressType;
   @override
@@ -1613,6 +1611,8 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   @override
   final int? artistId;
   @override
+  final String? address3;
+  @override
   final String? name;
   @override
   final String? profileThumbnail;
@@ -1621,7 +1621,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
 
   @override
   String toString() {
-    return 'AgendaEventDetailLocation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
+    return 'AgendaEventDetailLocation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, address3: $address3, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
   }
 
   @override
@@ -1640,8 +1640,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
                 other.shortAddress1 == shortAddress1) &&
             (identical(other.address2, address2) ||
                 other.address2 == address2) &&
-            (identical(other.address3, address3) ||
-                other.address3 == address3) &&
             (identical(other.addressType, addressType) ||
                 other.addressType == addressType) &&
             (identical(other.state, state) || other.state == state) &&
@@ -1657,6 +1655,8 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
                 other.location == location) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
+            (identical(other.address3, address3) ||
+                other.address3 == address3) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.profileThumbnail, profileThumbnail) ||
                 other.profileThumbnail == profileThumbnail) &&
@@ -1674,7 +1674,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
         address1,
         shortAddress1,
         address2,
-        address3,
         addressType,
         state,
         city,
@@ -1685,6 +1684,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
         viewport,
         location,
         artistId,
+        address3,
         name,
         profileThumbnail,
         googlePlaceId
@@ -1713,7 +1713,6 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       required final String address1,
       required final String shortAddress1,
       required final String address2,
-      final String? address3,
       required final String addressType,
       required final String state,
       required final String city,
@@ -1724,6 +1723,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       required final AgendaEventDetailViewport viewport,
       required final AgendaEventDetailLocationCoordinates location,
       final int? artistId,
+      final String? address3,
       final String? name,
       final String? profileThumbnail,
       final String? googlePlaceId}) = _$AgendaEventDetailLocationImpl;
@@ -1744,8 +1744,6 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   @override
   String get address2;
   @override
-  String? get address3;
-  @override
   String get addressType;
   @override
   String get state;
@@ -1765,6 +1763,8 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   AgendaEventDetailLocationCoordinates get location;
   @override
   int? get artistId;
+  @override
+  String? get address3;
   @override
   String? get name;
   @override
