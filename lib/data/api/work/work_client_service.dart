@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_query_params.dart';
+import 'package:inker_studio/data/api/work/dtos/work_search_dto.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
 
@@ -13,6 +15,67 @@ class WorkClientService implements WorkService {
   final HttpClientService _httpClient;
 
   WorkClientService(this._httpClient);
+  
+  @override
+  Future<PaginatedWorkSearchResponseDto> searchWorks(
+      WorkSearchQueryDto queryParams, String token) async {
+    try {
+      final params = <String, String>{
+        'page': queryParams.page.toString(),
+        'limit': queryParams.limit.toString(),
+        'includeHidden': queryParams.includeHidden.toString(),
+        'sortBy': queryParams.sortBy,
+      };
+      
+      if (queryParams.query != null && queryParams.query!.isNotEmpty) {
+        params['query'] = queryParams.query!;
+      }
+      
+      if (queryParams.tagIds != null && queryParams.tagIds!.isNotEmpty) {
+        params['tagIds'] = queryParams.tagIds!.join(',');
+      }
+      
+      if (queryParams.artistId != null) {
+        params['artistId'] = queryParams.artistId.toString();
+      }
+      
+      if (queryParams.onlyFeatured != null) {
+        params['onlyFeatured'] = queryParams.onlyFeatured.toString();
+      }
+      
+      if (queryParams.source != null) {
+        params['source'] = queryParams.source!;
+      }
+      
+      final response = await _httpClient.get(
+        path: '/work-search',
+        queryParams: params,
+        fromJson: (data) => PaginatedWorkSearchResponseDto.fromJson(data),
+        token: token,
+      );
+      
+      return response;
+    } catch (e) {
+      log('Error searching works: $e');
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<List<SearchRankingInfoDto>> getWorkSearchRankingInfo(String token) async {
+    try {
+      final response = await _httpClient.getList(
+        path: '/work-search/ranking-info',
+        fromJson: (data) => SearchRankingInfoDto.fromJson(data),
+        token: token,
+      );
+      
+      return response;
+    } catch (e) {
+      log('Error getting work search ranking info: $e');
+      rethrow;
+    }
+  }
 
   @override
   Future<List<Work>> getWorksByArtistId(

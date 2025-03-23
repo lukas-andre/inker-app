@@ -1,6 +1,8 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_query_params.dart';
+import 'package:inker_studio/data/api/stencil/dtos/stencil_search_dto.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 
 abstract class StencilService {
@@ -14,4 +16,6 @@ abstract class StencilService {
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);
+  Future<PaginatedStencilSearchResponseDto> searchStencils(StencilSearchQueryDto queryParams, String token);
+  Future<List<SearchRankingInfoDto>> getStencilSearchRankingInfo(String token);
 }
