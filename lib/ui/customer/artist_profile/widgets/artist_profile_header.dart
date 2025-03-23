@@ -24,14 +24,11 @@ class ArtistProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Column(
-        children: [
-          _buildProfileHeader(context),
-          const SizedBox(height: 24), // Add extra space after the header
-        ],
-      ),
+    return Column(
+      children: [
+        _buildProfileHeader(context),
+        const SizedBox(height: 24), // Add extra space after the header
+      ],
     );
   }
 
@@ -41,7 +38,7 @@ class ArtistProfileHeader extends StatelessWidget {
     final bannerHeight = MediaQuery.of(context).size.height * 0.3; // 30% of screen height for banner
     final profileSize = screenWidth * 0.4; // 40% of screen width for profile pic
 
-    return Container(
+    return SizedBox(
       height: bannerHeight + (profileSize / 2) + 110, // Banner + half profile + info space + buttons
       width: double.infinity,
       child: Stack(
@@ -85,17 +82,6 @@ class ArtistProfileHeader extends StatelessWidget {
                         ),
                       ),
                     ),
-                
-                // Blur overlay - reduced intensity
-                ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), // Reduced blur for better visibility
-                    child: Container(
-                      color: Colors.black.withOpacity(0.1), // Reduced opacity significantly
-                    ),
-                  ),
-                ),
-                
                 // Gradient overlay
                 Container(
                   decoration: BoxDecoration(
@@ -116,7 +102,7 @@ class ArtistProfileHeader extends StatelessWidget {
           // Back button
           if (onBackPressed != null)
             Positioned(
-              top: 16,
+              top: 50,
               left: 16,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
