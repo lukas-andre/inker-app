@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_dto.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_query_params.dart';
+import 'package:inker_studio/data/api/stencil/dtos/stencil_search_dto.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 
@@ -13,6 +15,63 @@ class StencilClientService implements StencilService {
   final HttpClientService _httpClient;
 
   StencilClientService(this._httpClient);
+  
+  @override
+  Future<PaginatedStencilSearchResponseDto> searchStencils(
+      StencilSearchQueryDto queryParams, String token) async {
+    try {
+      final params = <String, String>{
+        'page': queryParams.page.toString(),
+        'limit': queryParams.limit.toString(),
+        'includeHidden': queryParams.includeHidden.toString(),
+        'sortBy': queryParams.sortBy,
+      };
+      
+      if (queryParams.query != null && queryParams.query!.isNotEmpty) {
+        params['query'] = queryParams.query!;
+      }
+      
+      if (queryParams.tagIds != null && queryParams.tagIds!.isNotEmpty) {
+        params['tagIds'] = queryParams.tagIds!.join(',');
+      }
+      
+      if (queryParams.artistId != null) {
+        params['artistId'] = queryParams.artistId.toString();
+      }
+      
+      if (queryParams.status != null) {
+        params['status'] = queryParams.status!;
+      }
+      
+      final response = await _httpClient.get(
+        path: '/stencil-search',
+        queryParams: params,
+        fromJson: (data) => PaginatedStencilSearchResponseDto.fromJson(data),
+        token: token,
+      );
+      
+      return response;
+    } catch (e) {
+      log('Error searching stencils: $e');
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<List<SearchRankingInfoDto>> getStencilSearchRankingInfo(String token) async {
+    try {
+      final response = await _httpClient.getList(
+        path: '/stencil-search/ranking-info',
+        fromJson: (data) => SearchRankingInfoDto.fromJson(data),
+        token: token,
+      );
+      
+      return response;
+    } catch (e) {
+      log('Error getting stencil search ranking info: $e');
+      rethrow;
+    }
+  }
 
   @override
   Future<List<Stencil>> getStencilsByArtistId(

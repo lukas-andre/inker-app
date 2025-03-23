@@ -16,6 +16,7 @@ import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dar
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer_my_profile/customer_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
@@ -37,6 +38,7 @@ import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 
@@ -212,6 +214,15 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       create: (context) => AppointmentBloc(
         appointmentService: context.read(),
         sessionService: context.read(),
+      ),
+    ),
+    
+    // Inspiration search provider
+    BlocProvider(
+      create: (context) => InspirationSearchBloc(
+        stencilService: context.read<StencilService>(),
+        workService: context.read<WorkService>(),
+        sessionService: context.read<LocalSessionService>(),
       ),
     ),
 

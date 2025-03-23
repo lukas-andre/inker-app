@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/search/search_artist_view.dart';
+import 'package:inker_studio/ui/customer/inspiration_search/inspiration_search_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
@@ -27,6 +29,14 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 0;
   List<Widget> get _pageWidgets => <Widget>[
     const BuildMapPage(hideHeader: true),
+    BlocProvider(
+      create: (context) => InspirationSearchBloc(
+        stencilService: context.read(),
+        workService: context.read(),
+        sessionService: context.read(),
+      ),
+      child: const InspirationSearchPage(hideHeader: true),
+    ),
     const QuotationListPage(hideHeader: true),
     BlocProvider(
       create: (context) => AppointmentBloc(
@@ -74,8 +84,10 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       case 0:
         return 'Explorar';
       case 1:
-        return 'Cotizaciones';
+        return 'Inspiración';
       case 2:
+        return 'Cotizaciones';
+      case 3:
         return 'Mis Citas';
       default:
         return '';
@@ -202,9 +214,19 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           },
         ),
       );
-    } else if (_selectedIndex == 1) { // Cotizaciones page
+    } else if (_selectedIndex == 1) { // Inspiración page
+      actions.add(
+        IconButton(
+          icon: const Icon(Icons.tune, color: Colors.white),
+          onPressed: () {
+            // Show filters dialog
+            // This would typically open a dialog with filters for the inspiration search
+          },
+        ),
+      );
+    } else if (_selectedIndex == 2) { // Cotizaciones page
       // Aquí podrías agregar botones específicos para la página de cotizaciones
-    } else if (_selectedIndex == 2) { // Citas page
+    } else if (_selectedIndex == 3) { // Citas page
       // Acciones específicas para la página de citas
       actions.add(
         IconButton(
@@ -220,7 +242,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     }
     
     // Add notification badge for all pages except profile
-    if (_selectedIndex != 3) {
+    if (_selectedIndex != 4) {
       actions.add(
         BlocBuilder<NotificationsBloc, NotificationsState>(
           builder: (context, state) {
