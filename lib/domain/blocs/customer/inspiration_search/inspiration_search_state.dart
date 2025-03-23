@@ -59,8 +59,8 @@ class InspirationSearchState with _$InspirationSearchState {
   const factory InspirationSearchState.loading() = InspirationSearchState_Loading;
   
   const factory InspirationSearchState.loaded({
-    required List<WorkWithRelevanceDto> works,
-    required List<StencilWithRelevanceDto> stencils,
+    required List<Work> works,
+    required List<Stencil> stencils,
     required ContentType contentType,
     required List<int> selectedTagIds,
     required String searchQuery,

@@ -25,27 +25,15 @@ class WorkSearchQueryDto with _$WorkSearchQueryDto {
 @freezed
 class PaginatedWorkSearchResponseDto with _$PaginatedWorkSearchResponseDto {
   const factory PaginatedWorkSearchResponseDto({
-    required List<WorkWithRelevanceDto> items,
+    required List<Work> items,
+    @JsonKey(name: 'page') required int currentPage,
+    required int limit,
     required int total,
-    required int currentPage,
-    required int pageSize,
-    required int totalPages,
+    @JsonKey(name: 'pages') required int totalPages,
   }) = _PaginatedWorkSearchResponseDto;
 
   factory PaginatedWorkSearchResponseDto.fromJson(Map<String, dynamic> json) =>
       _$PaginatedWorkSearchResponseDtoFromJson(json);
-}
-
-@freezed
-class WorkWithRelevanceDto with _$WorkWithRelevanceDto {
-  const factory WorkWithRelevanceDto({
-    required Work work,
-    required double relevanceScore,
-    Map<String, double>? scoreComponents,
-  }) = _WorkWithRelevanceDto;
-
-  factory WorkWithRelevanceDto.fromJson(Map<String, dynamic> json) =>
-      _$WorkWithRelevanceDtoFromJson(json);
 }
 
 @freezed

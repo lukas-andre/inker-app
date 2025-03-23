@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
-import 'package:inker_studio/data/api/stencil/dtos/stencil_search_dto.dart';
-import 'package:inker_studio/data/api/work/dtos/work_search_dto.dart';
 import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
@@ -16,9 +14,9 @@ class InspirationSearchPage extends StatefulWidget {
   final bool hideHeader;
 
   const InspirationSearchPage({
-    Key? key,
+    super.key,
     this.hideHeader = false,
-  }) : super(key: key);
+  });
 
   @override
   _InspirationSearchPageState createState() => _InspirationSearchPageState();
@@ -475,8 +473,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
   }
 
   Widget _buildResultsView({
-    required List<WorkWithRelevanceDto> works,
-    required List<StencilWithRelevanceDto> stencils,
+    required List<Work> works,
+    required List<Stencil> stencils,
     required ContentType contentType,
     required List<int> selectedTagIds,
     required List<TagSuggestionResponseDto> popularTags,
@@ -608,7 +606,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
                                     );
                               }
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.close,
                               size: 16.0,
                               color: secondaryColor,
@@ -642,7 +640,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
     );
   }
 
-  Widget _buildWorksGrid(List<WorkWithRelevanceDto> works) {
+  Widget _buildWorksGrid(List<Work> works) {
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       shrinkWrap: true,
@@ -655,15 +653,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
       ),
       itemCount: works.length,
       itemBuilder: (context, index) {
-        final workItem = works[index];
-        final work = workItem.work;
-
+        final work = works[index];
         return _buildWorkCard(work);
       },
     );
   }
 
-  Widget _buildStencilsGrid(List<StencilWithRelevanceDto> stencils) {
+  Widget _buildStencilsGrid(List<Stencil> stencils) {
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       shrinkWrap: true,
@@ -676,9 +672,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
       ),
       itemCount: stencils.length,
       itemBuilder: (context, index) {
-        final stencilItem = stencils[index];
-        final stencil = stencilItem.stencil;
-
+        final stencil = stencils[index];
         return _buildStencilCard(stencil);
       },
     );
@@ -688,6 +682,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
     return GestureDetector(
       onTap: () {
         // Navigate to work detail page
+        Navigator.of(context).pushNamed(
+          '/works/detail',
+          arguments: work,
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -802,6 +800,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage> {
     return GestureDetector(
       onTap: () {
         // Navigate to stencil detail page
+        Navigator.of(context).pushNamed(
+          '/stencils/detail',
+          arguments: stencil,
+        );
       },
       child: Container(
         decoration: BoxDecoration(

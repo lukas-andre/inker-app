@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/stencil/dtos/stencil_search_dto.dart';
-import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_search_dto.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
@@ -328,8 +329,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
           case ContentType.both:
             // If either works or stencils are empty, fetch those
             if (currentState.works.isEmpty || currentState.stencils.isEmpty) {
-              List<WorkWithRelevanceDto> works = currentState.works;
-              List<StencilWithRelevanceDto> stencils = currentState.stencils;
+              List<Work> works = currentState.works;
+              List<Stencil> stencils = currentState.stencils;
               
               if (currentState.works.isEmpty) {
                 final workParams = WorkSearchQueryDto(
@@ -392,8 +393,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
           return;
         }
         
-        List<WorkWithRelevanceDto> works = const [];
-        List<StencilWithRelevanceDto> stencils = const [];
+        List<Work> works = const [];
+        List<Stencil> stencils = const [];
         int currentWorkPage = 0;
         int currentStencilPage = 0;
         bool hasMoreWorks = false;
@@ -539,8 +540,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         return;
       }
       
-      List<WorkWithRelevanceDto> works = const [];
-      List<StencilWithRelevanceDto> stencils = const [];
+      List<Work> works = const [];
+      List<Stencil> stencils = const [];
       int currentWorkPage = 0;
       int currentStencilPage = 0;
       bool hasMoreWorks = false;
@@ -642,8 +643,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         return;
       }
       
-      List<WorkWithRelevanceDto> works = const [];
-      List<StencilWithRelevanceDto> stencils = const [];
+      List<Work> works = const [];
+      List<Stencil> stencils = const [];
       int currentWorkPage = 0;
       int currentStencilPage = 0;
       bool hasMoreWorks = false;

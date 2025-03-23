@@ -348,10 +348,12 @@ PaginatedWorkSearchResponseDto _$PaginatedWorkSearchResponseDtoFromJson(
 
 /// @nodoc
 mixin _$PaginatedWorkSearchResponseDto {
-  List<WorkWithRelevanceDto> get items => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
+  List<Work> get items => throw _privateConstructorUsedError;
+  @JsonKey(name: 'page')
   int get currentPage => throw _privateConstructorUsedError;
-  int get pageSize => throw _privateConstructorUsedError;
+  int get limit => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pages')
   int get totalPages => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -369,11 +371,11 @@ abstract class $PaginatedWorkSearchResponseDtoCopyWith<$Res> {
           PaginatedWorkSearchResponseDto>;
   @useResult
   $Res call(
-      {List<WorkWithRelevanceDto> items,
+      {List<Work> items,
+      @JsonKey(name: 'page') int currentPage,
+      int limit,
       int total,
-      int currentPage,
-      int pageSize,
-      int totalPages});
+      @JsonKey(name: 'pages') int totalPages});
 }
 
 /// @nodoc
@@ -391,27 +393,27 @@ class _$PaginatedWorkSearchResponseDtoCopyWithImpl<$Res,
   @override
   $Res call({
     Object? items = null,
-    Object? total = null,
     Object? currentPage = null,
-    Object? pageSize = null,
+    Object? limit = null,
+    Object? total = null,
     Object? totalPages = null,
   }) {
     return _then(_value.copyWith(
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<WorkWithRelevanceDto>,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Work>,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: null == pageSize
-          ? _value.pageSize
-          : pageSize // ignore: cast_nullable_to_non_nullable
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       totalPages: null == totalPages
           ? _value.totalPages
@@ -431,11 +433,11 @@ abstract class _$$PaginatedWorkSearchResponseDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<WorkWithRelevanceDto> items,
+      {List<Work> items,
+      @JsonKey(name: 'page') int currentPage,
+      int limit,
       int total,
-      int currentPage,
-      int pageSize,
-      int totalPages});
+      @JsonKey(name: 'pages') int totalPages});
 }
 
 /// @nodoc
@@ -452,27 +454,27 @@ class __$$PaginatedWorkSearchResponseDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? items = null,
-    Object? total = null,
     Object? currentPage = null,
-    Object? pageSize = null,
+    Object? limit = null,
+    Object? total = null,
     Object? totalPages = null,
   }) {
     return _then(_$PaginatedWorkSearchResponseDtoImpl(
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<WorkWithRelevanceDto>,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Work>,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: null == pageSize
-          ? _value.pageSize
-          : pageSize // ignore: cast_nullable_to_non_nullable
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       totalPages: null == totalPages
           ? _value.totalPages
@@ -487,37 +489,39 @@ class __$$PaginatedWorkSearchResponseDtoImplCopyWithImpl<$Res>
 class _$PaginatedWorkSearchResponseDtoImpl
     implements _PaginatedWorkSearchResponseDto {
   const _$PaginatedWorkSearchResponseDtoImpl(
-      {required final List<WorkWithRelevanceDto> items,
+      {required final List<Work> items,
+      @JsonKey(name: 'page') required this.currentPage,
+      required this.limit,
       required this.total,
-      required this.currentPage,
-      required this.pageSize,
-      required this.totalPages})
+      @JsonKey(name: 'pages') required this.totalPages})
       : _items = items;
 
   factory _$PaginatedWorkSearchResponseDtoImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$PaginatedWorkSearchResponseDtoImplFromJson(json);
 
-  final List<WorkWithRelevanceDto> _items;
+  final List<Work> _items;
   @override
-  List<WorkWithRelevanceDto> get items {
+  List<Work> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
   @override
-  final int total;
-  @override
+  @JsonKey(name: 'page')
   final int currentPage;
   @override
-  final int pageSize;
+  final int limit;
   @override
+  final int total;
+  @override
+  @JsonKey(name: 'pages')
   final int totalPages;
 
   @override
   String toString() {
-    return 'PaginatedWorkSearchResponseDto(items: $items, total: $total, currentPage: $currentPage, pageSize: $pageSize, totalPages: $totalPages)';
+    return 'PaginatedWorkSearchResponseDto(items: $items, currentPage: $currentPage, limit: $limit, total: $total, totalPages: $totalPages)';
   }
 
   @override
@@ -526,11 +530,10 @@ class _$PaginatedWorkSearchResponseDtoImpl
         (other.runtimeType == runtimeType &&
             other is _$PaginatedWorkSearchResponseDtoImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.total, total) || other.total == total) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
-            (identical(other.pageSize, pageSize) ||
-                other.pageSize == pageSize) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
+            (identical(other.total, total) || other.total == total) &&
             (identical(other.totalPages, totalPages) ||
                 other.totalPages == totalPages));
   }
@@ -540,9 +543,9 @@ class _$PaginatedWorkSearchResponseDtoImpl
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_items),
-      total,
       currentPage,
-      pageSize,
+      limit,
+      total,
       totalPages);
 
   @JsonKey(ignore: true)
@@ -564,233 +567,32 @@ class _$PaginatedWorkSearchResponseDtoImpl
 abstract class _PaginatedWorkSearchResponseDto
     implements PaginatedWorkSearchResponseDto {
   const factory _PaginatedWorkSearchResponseDto(
-      {required final List<WorkWithRelevanceDto> items,
-      required final int total,
-      required final int currentPage,
-      required final int pageSize,
-      required final int totalPages}) = _$PaginatedWorkSearchResponseDtoImpl;
+          {required final List<Work> items,
+          @JsonKey(name: 'page') required final int currentPage,
+          required final int limit,
+          required final int total,
+          @JsonKey(name: 'pages') required final int totalPages}) =
+      _$PaginatedWorkSearchResponseDtoImpl;
 
   factory _PaginatedWorkSearchResponseDto.fromJson(Map<String, dynamic> json) =
       _$PaginatedWorkSearchResponseDtoImpl.fromJson;
 
   @override
-  List<WorkWithRelevanceDto> get items;
+  List<Work> get items;
+  @override
+  @JsonKey(name: 'page')
+  int get currentPage;
+  @override
+  int get limit;
   @override
   int get total;
   @override
-  int get currentPage;
-  @override
-  int get pageSize;
-  @override
+  @JsonKey(name: 'pages')
   int get totalPages;
   @override
   @JsonKey(ignore: true)
   _$$PaginatedWorkSearchResponseDtoImplCopyWith<
           _$PaginatedWorkSearchResponseDtoImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-WorkWithRelevanceDto _$WorkWithRelevanceDtoFromJson(Map<String, dynamic> json) {
-  return _WorkWithRelevanceDto.fromJson(json);
-}
-
-/// @nodoc
-mixin _$WorkWithRelevanceDto {
-  Work get work => throw _privateConstructorUsedError;
-  double get relevanceScore => throw _privateConstructorUsedError;
-  Map<String, double>? get scoreComponents =>
-      throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WorkWithRelevanceDtoCopyWith<WorkWithRelevanceDto> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WorkWithRelevanceDtoCopyWith<$Res> {
-  factory $WorkWithRelevanceDtoCopyWith(WorkWithRelevanceDto value,
-          $Res Function(WorkWithRelevanceDto) then) =
-      _$WorkWithRelevanceDtoCopyWithImpl<$Res, WorkWithRelevanceDto>;
-  @useResult
-  $Res call(
-      {Work work, double relevanceScore, Map<String, double>? scoreComponents});
-
-  $WorkCopyWith<$Res> get work;
-}
-
-/// @nodoc
-class _$WorkWithRelevanceDtoCopyWithImpl<$Res,
-        $Val extends WorkWithRelevanceDto>
-    implements $WorkWithRelevanceDtoCopyWith<$Res> {
-  _$WorkWithRelevanceDtoCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? work = null,
-    Object? relevanceScore = null,
-    Object? scoreComponents = freezed,
-  }) {
-    return _then(_value.copyWith(
-      work: null == work
-          ? _value.work
-          : work // ignore: cast_nullable_to_non_nullable
-              as Work,
-      relevanceScore: null == relevanceScore
-          ? _value.relevanceScore
-          : relevanceScore // ignore: cast_nullable_to_non_nullable
-              as double,
-      scoreComponents: freezed == scoreComponents
-          ? _value.scoreComponents
-          : scoreComponents // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $WorkCopyWith<$Res> get work {
-    return $WorkCopyWith<$Res>(_value.work, (value) {
-      return _then(_value.copyWith(work: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$WorkWithRelevanceDtoImplCopyWith<$Res>
-    implements $WorkWithRelevanceDtoCopyWith<$Res> {
-  factory _$$WorkWithRelevanceDtoImplCopyWith(_$WorkWithRelevanceDtoImpl value,
-          $Res Function(_$WorkWithRelevanceDtoImpl) then) =
-      __$$WorkWithRelevanceDtoImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Work work, double relevanceScore, Map<String, double>? scoreComponents});
-
-  @override
-  $WorkCopyWith<$Res> get work;
-}
-
-/// @nodoc
-class __$$WorkWithRelevanceDtoImplCopyWithImpl<$Res>
-    extends _$WorkWithRelevanceDtoCopyWithImpl<$Res, _$WorkWithRelevanceDtoImpl>
-    implements _$$WorkWithRelevanceDtoImplCopyWith<$Res> {
-  __$$WorkWithRelevanceDtoImplCopyWithImpl(_$WorkWithRelevanceDtoImpl _value,
-      $Res Function(_$WorkWithRelevanceDtoImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? work = null,
-    Object? relevanceScore = null,
-    Object? scoreComponents = freezed,
-  }) {
-    return _then(_$WorkWithRelevanceDtoImpl(
-      work: null == work
-          ? _value.work
-          : work // ignore: cast_nullable_to_non_nullable
-              as Work,
-      relevanceScore: null == relevanceScore
-          ? _value.relevanceScore
-          : relevanceScore // ignore: cast_nullable_to_non_nullable
-              as double,
-      scoreComponents: freezed == scoreComponents
-          ? _value._scoreComponents
-          : scoreComponents // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WorkWithRelevanceDtoImpl implements _WorkWithRelevanceDto {
-  const _$WorkWithRelevanceDtoImpl(
-      {required this.work,
-      required this.relevanceScore,
-      final Map<String, double>? scoreComponents})
-      : _scoreComponents = scoreComponents;
-
-  factory _$WorkWithRelevanceDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WorkWithRelevanceDtoImplFromJson(json);
-
-  @override
-  final Work work;
-  @override
-  final double relevanceScore;
-  final Map<String, double>? _scoreComponents;
-  @override
-  Map<String, double>? get scoreComponents {
-    final value = _scoreComponents;
-    if (value == null) return null;
-    if (_scoreComponents is EqualUnmodifiableMapView) return _scoreComponents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
-  @override
-  String toString() {
-    return 'WorkWithRelevanceDto(work: $work, relevanceScore: $relevanceScore, scoreComponents: $scoreComponents)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WorkWithRelevanceDtoImpl &&
-            (identical(other.work, work) || other.work == work) &&
-            (identical(other.relevanceScore, relevanceScore) ||
-                other.relevanceScore == relevanceScore) &&
-            const DeepCollectionEquality()
-                .equals(other._scoreComponents, _scoreComponents));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, work, relevanceScore,
-      const DeepCollectionEquality().hash(_scoreComponents));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WorkWithRelevanceDtoImplCopyWith<_$WorkWithRelevanceDtoImpl>
-      get copyWith =>
-          __$$WorkWithRelevanceDtoImplCopyWithImpl<_$WorkWithRelevanceDtoImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WorkWithRelevanceDtoImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _WorkWithRelevanceDto implements WorkWithRelevanceDto {
-  const factory _WorkWithRelevanceDto(
-      {required final Work work,
-      required final double relevanceScore,
-      final Map<String, double>? scoreComponents}) = _$WorkWithRelevanceDtoImpl;
-
-  factory _WorkWithRelevanceDto.fromJson(Map<String, dynamic> json) =
-      _$WorkWithRelevanceDtoImpl.fromJson;
-
-  @override
-  Work get work;
-  @override
-  double get relevanceScore;
-  @override
-  Map<String, double>? get scoreComponents;
-  @override
-  @JsonKey(ignore: true)
-  _$$WorkWithRelevanceDtoImplCopyWith<_$WorkWithRelevanceDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
