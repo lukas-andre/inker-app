@@ -34,6 +34,7 @@ mixin _$Work {
   bool get isHidden => throw _privateConstructorUsedError;
   int get viewCount => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
+  Artist? get artist => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
@@ -64,10 +65,13 @@ abstract class $WorkCopyWith<$Res> {
       bool isHidden,
       int viewCount,
       int likeCount,
+      Artist? artist,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? deletedAt,
       List<Tag>? tags});
+
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -97,6 +101,7 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
     Object? isHidden = null,
     Object? viewCount = null,
     Object? likeCount = null,
+    Object? artist = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? deletedAt = freezed,
@@ -159,6 +164,10 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -176,6 +185,18 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistCopyWith<$Res>? get artist {
+    if (_value.artist == null) {
+      return null;
+    }
+
+    return $ArtistCopyWith<$Res>(_value.artist!, (value) {
+      return _then(_value.copyWith(artist: value) as $Val);
+    });
   }
 }
 
@@ -201,10 +222,14 @@ abstract class _$$WorkImplCopyWith<$Res> implements $WorkCopyWith<$Res> {
       bool isHidden,
       int viewCount,
       int likeCount,
+      Artist? artist,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? deletedAt,
       List<Tag>? tags});
+
+  @override
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -231,6 +256,7 @@ class __$$WorkImplCopyWithImpl<$Res>
     Object? isHidden = null,
     Object? viewCount = null,
     Object? likeCount = null,
+    Object? artist = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? deletedAt = freezed,
@@ -293,6 +319,10 @@ class __$$WorkImplCopyWithImpl<$Res>
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -331,6 +361,7 @@ class _$WorkImpl implements _Work {
       this.isHidden = false,
       this.viewCount = 0,
       this.likeCount = 0,
+      this.artist,
       required this.createdAt,
       required this.updatedAt,
       this.deletedAt,
@@ -374,6 +405,8 @@ class _$WorkImpl implements _Work {
   @JsonKey()
   final int likeCount;
   @override
+  final Artist? artist;
+  @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
@@ -391,7 +424,7 @@ class _$WorkImpl implements _Work {
 
   @override
   String toString() {
-    return 'Work(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, imageVersion: $imageVersion, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, viewCount: $viewCount, likeCount: $likeCount, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags)';
+    return 'Work(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, imageVersion: $imageVersion, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, viewCount: $viewCount, likeCount: $likeCount, artist: $artist, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags)';
   }
 
   @override
@@ -424,6 +457,7 @@ class _$WorkImpl implements _Work {
                 other.viewCount == viewCount) &&
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
+            (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -435,26 +469,28 @@ class _$WorkImpl implements _Work {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      artistId,
-      title,
-      description,
-      imageUrl,
-      thumbnailUrl,
-      imageVersion,
-      thumbnailVersion,
-      isFeatured,
-      orderPosition,
-      source,
-      isHidden,
-      viewCount,
-      likeCount,
-      createdAt,
-      updatedAt,
-      deletedAt,
-      const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        artistId,
+        title,
+        description,
+        imageUrl,
+        thumbnailUrl,
+        imageVersion,
+        thumbnailVersion,
+        isFeatured,
+        orderPosition,
+        source,
+        isHidden,
+        viewCount,
+        likeCount,
+        artist,
+        createdAt,
+        updatedAt,
+        deletedAt,
+        const DeepCollectionEquality().hash(_tags)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -486,6 +522,7 @@ abstract class _Work implements Work {
       final bool isHidden,
       final int viewCount,
       final int likeCount,
+      final Artist? artist,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       final DateTime? deletedAt,
@@ -521,6 +558,8 @@ abstract class _Work implements Work {
   int get viewCount;
   @override
   int get likeCount;
+  @override
+  Artist? get artist;
   @override
   DateTime get createdAt;
   @override
