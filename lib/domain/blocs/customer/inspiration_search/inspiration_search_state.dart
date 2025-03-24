@@ -70,6 +70,7 @@ class InspirationSearchState with _$InspirationSearchState {
     required int currentStencilPage,
     required bool hasMoreStencils,
     @Default([]) List<TagSuggestionResponseDto> popularTags,
+    @Default([]) List<TagSuggestionResponseDto> searchedTags,
   }) = InspirationSearchState_Loaded;
   
   const factory InspirationSearchState.error({
