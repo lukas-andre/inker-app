@@ -21,6 +21,9 @@ _$WorkImpl _$$WorkImplFromJson(Map json) => _$WorkImpl(
       isHidden: json['isHidden'] as bool? ?? false,
       viewCount: (json['viewCount'] as num?)?.toInt() ?? 0,
       likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
+      artist: json['artist'] == null
+          ? null
+          : Artist.fromJson(Map<String, dynamic>.from(json['artist'] as Map)),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       deletedAt: json['deletedAt'] == null
@@ -55,6 +58,7 @@ Map<String, dynamic> _$$WorkImplToJson(_$WorkImpl instance) {
   val['isHidden'] = instance.isHidden;
   val['viewCount'] = instance.viewCount;
   val['likeCount'] = instance.likeCount;
+  writeNotNull('artist', instance.artist?.toJson());
   val['createdAt'] = instance.createdAt.toIso8601String();
   val['updatedAt'] = instance.updatedAt.toIso8601String();
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());

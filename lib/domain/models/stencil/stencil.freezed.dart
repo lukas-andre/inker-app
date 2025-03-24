@@ -35,6 +35,7 @@ mixin _$Stencil {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   List<Tag>? get tags => throw _privateConstructorUsedError;
+  Artist? get artist => throw _privateConstructorUsedError;
   int get viewCount => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   bool get isLikedByUser => throw _privateConstructorUsedError;
@@ -65,9 +66,12 @@ abstract class $StencilCopyWith<$Res> {
       DateTime updatedAt,
       DateTime? deletedAt,
       List<Tag>? tags,
+      Artist? artist,
       int viewCount,
       int likeCount,
       bool isLikedByUser});
+
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -98,6 +102,7 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
     Object? updatedAt = null,
     Object? deletedAt = freezed,
     Object? tags = freezed,
+    Object? artist = freezed,
     Object? viewCount = null,
     Object? likeCount = null,
     Object? isLikedByUser = null,
@@ -163,6 +168,10 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>?,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
       viewCount: null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -176,6 +185,18 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
           : isLikedByUser // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ArtistCopyWith<$Res>? get artist {
+    if (_value.artist == null) {
+      return null;
+    }
+
+    return $ArtistCopyWith<$Res>(_value.artist!, (value) {
+      return _then(_value.copyWith(artist: value) as $Val);
+    });
   }
 }
 
@@ -202,9 +223,13 @@ abstract class _$$StencilImplCopyWith<$Res> implements $StencilCopyWith<$Res> {
       DateTime updatedAt,
       DateTime? deletedAt,
       List<Tag>? tags,
+      Artist? artist,
       int viewCount,
       int likeCount,
       bool isLikedByUser});
+
+  @override
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -233,6 +258,7 @@ class __$$StencilImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? deletedAt = freezed,
     Object? tags = freezed,
+    Object? artist = freezed,
     Object? viewCount = null,
     Object? likeCount = null,
     Object? isLikedByUser = null,
@@ -298,6 +324,10 @@ class __$$StencilImplCopyWithImpl<$Res>
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>?,
+      artist: freezed == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as Artist?,
       viewCount: null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -333,6 +363,7 @@ class _$StencilImpl implements _Stencil {
       required this.updatedAt,
       this.deletedAt,
       final List<Tag>? tags,
+      this.artist,
       this.viewCount = 0,
       this.likeCount = 0,
       this.isLikedByUser = false})
@@ -383,6 +414,8 @@ class _$StencilImpl implements _Stencil {
   }
 
   @override
+  final Artist? artist;
+  @override
   @JsonKey()
   final int viewCount;
   @override
@@ -394,7 +427,7 @@ class _$StencilImpl implements _Stencil {
 
   @override
   String toString() {
-    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser)';
+    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, artist: $artist, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser)';
   }
 
   @override
@@ -429,6 +462,7 @@ class _$StencilImpl implements _Stencil {
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt) &&
             const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.viewCount, viewCount) ||
                 other.viewCount == viewCount) &&
             (identical(other.likeCount, likeCount) ||
@@ -439,26 +473,28 @@ class _$StencilImpl implements _Stencil {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      artistId,
-      title,
-      description,
-      imageUrl,
-      imageVersion,
-      thumbnailUrl,
-      thumbnailVersion,
-      isFeatured,
-      orderPosition,
-      isHidden,
-      createdAt,
-      updatedAt,
-      deletedAt,
-      const DeepCollectionEquality().hash(_tags),
-      viewCount,
-      likeCount,
-      isLikedByUser);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        artistId,
+        title,
+        description,
+        imageUrl,
+        imageVersion,
+        thumbnailUrl,
+        thumbnailVersion,
+        isFeatured,
+        orderPosition,
+        isHidden,
+        createdAt,
+        updatedAt,
+        deletedAt,
+        const DeepCollectionEquality().hash(_tags),
+        artist,
+        viewCount,
+        likeCount,
+        isLikedByUser
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -491,6 +527,7 @@ abstract class _Stencil implements Stencil {
       required final DateTime updatedAt,
       final DateTime? deletedAt,
       final List<Tag>? tags,
+      final Artist? artist,
       final int viewCount,
       final int likeCount,
       final bool isLikedByUser}) = _$StencilImpl;
@@ -527,6 +564,8 @@ abstract class _Stencil implements Stencil {
   DateTime? get deletedAt;
   @override
   List<Tag>? get tags;
+  @override
+  Artist? get artist;
   @override
   int get viewCount;
   @override

@@ -1871,20 +1871,91 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4.0),
+                    const SizedBox(height: 8.0),
                     Row(
                       children: [
-                        Icon(Icons.person,
-                            size: 14.0, color: Colors.grey.shade600),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            'por ${work.artistId} arreglar',
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.grey.shade600,
+                        if (work.artist?.profileThumbnail != null)
+                          Container(
+                            width: 24.0,
+                            height: 24.0,
+                            margin: const EdgeInsets.only(right: 8.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          )
+                        else
+                          Container(
+                            width: 24.0,
+                            height: 24.0,
+                            margin: const EdgeInsets.only(right: 8.0),
+                            decoration: BoxDecoration(
+                              color: redColor.withOpacity(0.2),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                            ),
+                            child: Icon(Icons.person, size: 14.0, color: redColor),
+                          ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                work.artist?.firstName != null && work.artist?.lastName != null
+                                    ? '${work.artist!.firstName} ${work.artist!.lastName}'
+                                    : work.artist?.username ?? 'Artista',
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (work.artist?.rating != null) ...[
+                                const SizedBox(height: 2.0),
+                                Row(
+                                  children: [
+                                    Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                    const SizedBox(width: 2.0),
+                                    Text(
+                                      work.artist!.rating!,
+                                      style: TextStyleTheme.caption.copyWith(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    if (work.artist?.followers != null && work.artist!.followers > 0) ...[
+                                      const SizedBox(width: 6.0),
+                                      Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                      const SizedBox(width: 2.0),
+                                      Text(
+                                        _formatFollowerCount(work.artist!.followers),
+                                        style: TextStyleTheme.caption.copyWith(
+                                          color: Colors.grey.shade600,
+                                          fontSize: 10.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 12.0,
+                            color: primaryColor,
                           ),
                         ),
                       ],
@@ -1996,20 +2067,91 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4.0),
+                    const SizedBox(height: 8.0),
                     Row(
                       children: [
-                        Icon(Icons.person,
-                            size: 14.0, color: Colors.grey.shade600),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            'por ${stencil.artistId} arreglar',
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.grey.shade600,
+                        if (stencil.artist?.profileThumbnail != null)
+                          Container(
+                            width: 24.0,
+                            height: 24.0,
+                            margin: const EdgeInsets.only(right: 8.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(stencil.artist!.profileThumbnail!),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          )
+                        else
+                          Container(
+                            width: 24.0,
+                            height: 24.0,
+                            margin: const EdgeInsets.only(right: 8.0),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.2),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                            ),
+                            child: Icon(Icons.person, size: 14.0, color: primaryColor),
+                          ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                stencil.artist?.firstName != null && stencil.artist?.lastName != null
+                                    ? '${stencil.artist!.firstName} ${stencil.artist!.lastName}'
+                                    : stencil.artist?.username ?? 'Artista',
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (stencil.artist?.rating != null) ...[
+                                const SizedBox(height: 2.0),
+                                Row(
+                                  children: [
+                                    Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                    const SizedBox(width: 2.0),
+                                    Text(
+                                      stencil.artist!.rating!,
+                                      style: TextStyleTheme.caption.copyWith(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    if (stencil.artist?.followers != null && stencil.artist!.followers > 0) ...[
+                                      const SizedBox(width: 6.0),
+                                      Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                      const SizedBox(width: 2.0),
+                                      Text(
+                                        _formatFollowerCount(stencil.artist!.followers),
+                                        style: TextStyleTheme.caption.copyWith(
+                                          color: Colors.grey.shade600,
+                                          fontSize: 10.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios, 
+                            size: 12.0,
+                            color: primaryColor,
                           ),
                         ),
                       ],
@@ -2022,5 +2164,16 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         ),
       ),
     );
+  }
+
+  // Helper method to format follower count (e.g., 1500 -> 1.5K)
+  String _formatFollowerCount(int count) {
+    if (count >= 1000000) {
+      return '${(count / 1000000).toStringAsFixed(1)}M';
+    } else if (count >= 1000) {
+      return '${(count / 1000).toStringAsFixed(1)}K';
+    } else {
+      return count.toString();
+    }
   }
 }
