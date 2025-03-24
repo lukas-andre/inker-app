@@ -948,125 +948,107 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
     InspirationSearchEventClearFilters event,
     Emitter<InspirationSearchState> emit,
   ) async {
-    // Uso correcto del patrón Freezed
-    state.maybeMap(
-      loaded: (currentState) async {
-        try {
-          emit(const InspirationSearchState.loading());
-          
-          final session = await _sessionService.getActiveSession();
-          if (session == null) {
-            emit(const InspirationSearchState.error(message: 'No active session found'));
-            return;
+    final currentState = state;
+    if (currentState is! InspirationSearchState_Loaded) return;
+    
+    try {
+      // Primero emitimos el estado de carga
+      emit(const InspirationSearchState.loading());
+      
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const InspirationSearchState.error(message: 'No active session found'));
+        return;
+      }
+      
+      // Variables para almacenar resultados
+      List<Work> works = [];
+      List<Stencil> stencils = [];
+      int currentWorkPage = 0;
+      int currentStencilPage = 0;
+      bool hasMoreWorks = false;
+      bool hasMoreStencils = false;
+      
+      // Crear parámetros para las consultas
+      final workParams = WorkSearchQueryDto(
+        query: currentState.searchQuery,
+        sortBy: currentState.sortType.name,
+        page: 1,
+        limit: currentState.contentType == ContentType.both ? 5 : 10,
+      );
+      
+      final stencilParams = StencilSearchQueryDto(
+        query: currentState.searchQuery,
+        sortBy: currentState.sortType.name,
+        page: 1,
+        limit: currentState.contentType == ContentType.both ? 5 : 10,
+      );
+      
+      // Realizar las consultas según el tipo de contenido
+      switch (currentState.contentType) {
+        case ContentType.works:
+          try {
+            final workResults = await _workService.searchWorks(workParams, session.accessToken);
+            works = workResults.items;
+            currentWorkPage = 1;
+            hasMoreWorks = workResults.currentPage < workResults.totalPages;
+          } catch (e) {
+            print('Error clearing work filters: $e');
           }
+          break;
           
-          List<Work> works = const [];
-          List<Stencil> stencils = const [];
-          int currentWorkPage = 0;
-          int currentStencilPage = 0;
-          bool hasMoreWorks = false;
-          bool hasMoreStencils = false;
-          
-          switch (currentState.contentType) {
-            case ContentType.works:
-              final workParams = WorkSearchQueryDto(
-                query: currentState.searchQuery,
-                sortBy: currentState.sortType.name,
-                page: 1,
-                limit: 10,
-              );
-              
-              try {
-                final workResults = await _workService.searchWorks(workParams, session.accessToken);
-                works = workResults.items;
-                currentWorkPage = 1;
-                hasMoreWorks = workResults.currentPage < workResults.totalPages;
-              } catch (e) {
-                print('Error clearing work filters: $e');
-              }
-              break;
-              
-            case ContentType.stencils:
-              final stencilParams = StencilSearchQueryDto(
-                query: currentState.searchQuery,
-                sortBy: currentState.sortType.name,
-                page: 1,
-                limit: 10,
-              );
-              
-              try {
-                final stencilResults = await _stencilService.searchStencils(stencilParams, session.accessToken);
-                stencils = stencilResults.items;
-                currentStencilPage = 1;
-                hasMoreStencils = stencilResults.currentPage < stencilResults.totalPages;
-              } catch (e) {
-                print('Error clearing stencil filters: $e');
-              }
-              break;
-              
-            case ContentType.both:
-              final workParams = WorkSearchQueryDto(
-                query: currentState.searchQuery,
-                sortBy: currentState.sortType.name,
-                page: 1,
-                limit: 5,
-              );
-              
-              final stencilParams = StencilSearchQueryDto(
-                query: currentState.searchQuery,
-                sortBy: currentState.sortType.name,
-                page: 1,
-                limit: 5,
-              );
-              
-              // Ejecutar en paralelo con manejo de errores
-              await Future.wait([
-                Future(() async {
-                  try {
-                    final workResults = await _workService.searchWorks(workParams, session.accessToken);
-                    works = workResults.items;
-                    currentWorkPage = 1;
-                    hasMoreWorks = workResults.currentPage < workResults.totalPages;
-                  } catch (e) {
-                    print('Error clearing work filters: $e');
-                  }
-                }),
-                Future(() async {
-                  try {
-                    final stencilResults = await _stencilService.searchStencils(stencilParams, session.accessToken);
-                    stencils = stencilResults.items;
-                    currentStencilPage = 1;
-                    hasMoreStencils = stencilResults.currentPage < stencilResults.totalPages;
-                  } catch (e) {
-                    print('Error clearing stencil filters: $e');
-                  }
-                }),
-              ]);
-              break;
+        case ContentType.stencils:
+          try {
+            final stencilResults = await _stencilService.searchStencils(stencilParams, session.accessToken);
+            stencils = stencilResults.items;
+            currentStencilPage = 1;
+            hasMoreStencils = stencilResults.currentPage < stencilResults.totalPages;
+          } catch (e) {
+            print('Error clearing stencil filters: $e');
           }
+          break;
           
-          emit(InspirationSearchState.loaded(
-            works: works,
-            stencils: stencils,
-            contentType: currentState.contentType,
-            selectedTagIds: const [],
-            searchQuery: currentState.searchQuery,
-            sortType: currentState.sortType,
-            currentWorkPage: currentWorkPage,
-            hasMoreWorks: hasMoreWorks,
-            currentStencilPage: currentStencilPage,
-            hasMoreStencils: hasMoreStencils,
-            popularTags: currentState.popularTags,
-            searchedTags: currentState.searchedTags,
-          ));
-        } catch (e) {
-          emit(InspirationSearchState.error(message: 'Failed to clear filters: $e'));
-        }
-      },
-      orElse: () {
-        // No hacer nada si no estamos en estado loaded
-      },
-    );
+        case ContentType.both:
+          try {
+            // En lugar de usar Future.wait, hacemos las llamadas de manera secuencial
+            // para evitar problemas con operaciones asíncronas anidadas
+            final workResults = await _workService.searchWorks(workParams, session.accessToken);
+            works = workResults.items;
+            currentWorkPage = 1;
+            hasMoreWorks = workResults.currentPage < workResults.totalPages;
+            
+            final stencilResults = await _stencilService.searchStencils(stencilParams, session.accessToken);
+            stencils = stencilResults.items;
+            currentStencilPage = 1;
+            hasMoreStencils = stencilResults.currentPage < stencilResults.totalPages;
+          } catch (e) {
+            print('Error clearing filters: $e');
+          }
+          break;
+      }
+      
+      // Ahora que todas las operaciones asíncronas han terminado, emitimos el estado final
+      if (!emit.isDone) {
+        emit(InspirationSearchState.loaded(
+          works: works,
+          stencils: stencils,
+          contentType: currentState.contentType,
+          selectedTagIds: const [],
+          searchQuery: currentState.searchQuery,
+          sortType: currentState.sortType,
+          currentWorkPage: currentWorkPage,
+          hasMoreWorks: hasMoreWorks,
+          currentStencilPage: currentStencilPage,
+          hasMoreStencils: hasMoreStencils,
+          popularTags: currentState.popularTags,
+          searchedTags: currentState.searchedTags,
+        ));
+      }
+    } catch (e) {
+      if (!emit.isDone) {
+        emit(InspirationSearchState.error(message: 'Failed to clear filters: $e'));
+      }
+    }
   }
 
   Future<void> _mapResetToState(

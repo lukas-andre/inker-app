@@ -102,100 +102,104 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
 
   void _onScroll() {
     final state = context.read<InspirationSearchBloc>().state;
-    if (state is InspirationSearchState_Loaded &&
-        _scrollController.position.extentAfter < 300) {
-      if (state.contentType == ContentType.works && state.hasMoreWorks) {
-        context.read<InspirationSearchBloc>().add(
-              const InspirationSearchEvent.loadMoreWorks(),
-            );
+    state.whenOrNull(
+      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
+               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
+               popularTags, searchedTags) {
+        if (_scrollController.position.extentAfter < 300) {
+          if (contentType == ContentType.works && hasMoreWorks) {
+            context.read<InspirationSearchBloc>().add(
+                  const InspirationSearchEvent.loadMoreWorks(),
+                );
 
-        // Precargar las próximas imágenes que estarán visibles
-        if (state.works.isNotEmpty) {
-          final int totalWorks = state.works.length;
-          if (totalWorks > 4) {
-            // Precargar las últimas 4 imágenes (que probablemente estarán visibles pronto)
-            final List<String> imageUrls = [];
-            final start = totalWorks > 8
-                ? totalWorks - 4
-                : totalWorks - (totalWorks ~/ 2);
-            for (int i = start; i < totalWorks; i++) {
-              imageUrls.add(state.works[i].imageUrl);
+            // Precargar las próximas imágenes que estarán visibles
+            if (works.isNotEmpty) {
+              final int totalWorks = works.length;
+              if (totalWorks > 4) {
+                // Precargar las últimas 4 imágenes (que probablemente estarán visibles pronto)
+                final List<String> imageUrls = [];
+                final start = totalWorks > 8
+                    ? totalWorks - 4
+                    : totalWorks - (totalWorks ~/ 2);
+                for (int i = start; i < totalWorks; i++) {
+                  imageUrls.add(works[i].imageUrl);
+                }
+                if (imageUrls.isNotEmpty) {
+                  _imageCache.preloadImages(imageUrls, context);
+                }
+              }
             }
+          } else if (contentType == ContentType.stencils && hasMoreStencils) {
+            context.read<InspirationSearchBloc>().add(
+                  const InspirationSearchEvent.loadMoreStencils(),
+                );
+
+            // Precargar las próximas imágenes que estarán visibles
+            if (stencils.isNotEmpty) {
+              final int totalStencils = stencils.length;
+              if (totalStencils > 4) {
+                // Precargar las últimas 4 imágenes (que probablemente estarán visibles pronto)
+                final List<String> imageUrls = [];
+                final start = totalStencils > 8
+                    ? totalStencils - 4
+                    : totalStencils - (totalStencils ~/ 2);
+                for (int i = start; i < totalStencils; i++) {
+                  imageUrls.add(stencils[i].imageUrl);
+                }
+                if (imageUrls.isNotEmpty) {
+                  _imageCache.preloadImages(imageUrls, context);
+                }
+              }
+            }
+          } else if (contentType == ContentType.both) {
+            if (hasMoreWorks) {
+              context.read<InspirationSearchBloc>().add(
+                    const InspirationSearchEvent.loadMoreWorks(),
+                  );
+            }
+            if (hasMoreStencils) {
+              context.read<InspirationSearchBloc>().add(
+                    const InspirationSearchEvent.loadMoreStencils(),
+                  );
+            }
+
+            // Precargar imágenes cuando se cargan más resultados en modo "ambos"
+            final List<String> imageUrls = [];
+
+            // Precargar trabajos
+            if (works.isNotEmpty) {
+              final int totalWorks = works.length;
+              if (totalWorks > 4) {
+                final start = totalWorks > 8
+                    ? totalWorks - 4
+                    : totalWorks - (totalWorks ~/ 2);
+                for (int i = start; i < totalWorks; i++) {
+                  imageUrls.add(works[i].imageUrl);
+                }
+              }
+            }
+
+            // Precargar stencils
+            if (stencils.isNotEmpty) {
+              final int totalStencils = stencils.length;
+              if (totalStencils > 4) {
+                final start = totalStencils > 8
+                    ? totalStencils - 4
+                    : totalStencils - (totalStencils ~/ 2);
+                for (int i = start; i < totalStencils; i++) {
+                  imageUrls.add(stencils[i].imageUrl);
+                }
+              }
+            }
+
+            // Precargar todas las imágenes recopiladas
             if (imageUrls.isNotEmpty) {
               _imageCache.preloadImages(imageUrls, context);
             }
           }
         }
-      } else if (state.contentType == ContentType.stencils &&
-          state.hasMoreStencils) {
-        context.read<InspirationSearchBloc>().add(
-              const InspirationSearchEvent.loadMoreStencils(),
-            );
-
-        // Precargar las próximas imágenes que estarán visibles
-        if (state.stencils.isNotEmpty) {
-          final int totalStencils = state.stencils.length;
-          if (totalStencils > 4) {
-            // Precargar las últimas 4 imágenes (que probablemente estarán visibles pronto)
-            final List<String> imageUrls = [];
-            final start = totalStencils > 8
-                ? totalStencils - 4
-                : totalStencils - (totalStencils ~/ 2);
-            for (int i = start; i < totalStencils; i++) {
-              imageUrls.add(state.stencils[i].imageUrl);
-            }
-            if (imageUrls.isNotEmpty) {
-              _imageCache.preloadImages(imageUrls, context);
-            }
-          }
-        }
-      } else if (state.contentType == ContentType.both) {
-        if (state.hasMoreWorks) {
-          context.read<InspirationSearchBloc>().add(
-                const InspirationSearchEvent.loadMoreWorks(),
-              );
-        }
-        if (state.hasMoreStencils) {
-          context.read<InspirationSearchBloc>().add(
-                const InspirationSearchEvent.loadMoreStencils(),
-              );
-        }
-
-        // Precargar imágenes cuando se cargan más resultados en modo "ambos"
-        final List<String> imageUrls = [];
-
-        // Precargar trabajos
-        if (state.works.isNotEmpty) {
-          final int totalWorks = state.works.length;
-          if (totalWorks > 4) {
-            final start = totalWorks > 8
-                ? totalWorks - 4
-                : totalWorks - (totalWorks ~/ 2);
-            for (int i = start; i < totalWorks; i++) {
-              imageUrls.add(state.works[i].imageUrl);
-            }
-          }
-        }
-
-        // Precargar stencils
-        if (state.stencils.isNotEmpty) {
-          final int totalStencils = state.stencils.length;
-          if (totalStencils > 4) {
-            final start = totalStencils > 8
-                ? totalStencils - 4
-                : totalStencils - (totalStencils ~/ 2);
-            for (int i = start; i < totalStencils; i++) {
-              imageUrls.add(state.stencils[i].imageUrl);
-            }
-          }
-        }
-
-        // Precargar todas las imágenes recopiladas
-        if (imageUrls.isNotEmpty) {
-          _imageCache.preloadImages(imageUrls, context);
-        }
-      }
-    }
+      },
+    );
   }
 
   void _addSelectedTag(TagSuggestionResponseDto tag) {
@@ -1741,10 +1745,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Widget _buildDefaultFilterBar() {
     // Obtener el tipo de contenido actual del bloc si está disponible
     ContentType selectedType = ContentType.both;
+    
     final currentState = context.read<InspirationSearchBloc>().state;
-    if (currentState is InspirationSearchState_Loaded) {
-      selectedType = currentState.contentType;
-    }
+    currentState.whenOrNull(
+      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
+               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
+               popularTags, searchedTags) {
+        selectedType = contentType;
+      },
+    );
 
     return Container(
       height: 50.0,
@@ -1772,17 +1781,21 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     // Evitar multiples cambios de estado que pueden causar problemas
     final currentState = context.read<InspirationSearchBloc>().state;
 
-    if (currentState is InspirationSearchState_Loaded &&
-        currentState.contentType != newContentType) {
-      context.read<InspirationSearchBloc>().add(
-            InspirationSearchEvent.changeContentType(
-              contentType: newContentType,
-            ),
-          );
-    } else {
-      print(
-          'Ignoring content type change: not in loaded state or already at target type');
-    }
+    currentState.whenOrNull(
+      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
+               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
+               popularTags, searchedTags) {
+        if (contentType != newContentType) {
+          context.read<InspirationSearchBloc>().add(
+                InspirationSearchEvent.changeContentType(
+                  contentType: newContentType,
+                ),
+              );
+        } else {
+          print('Ignoring content type change: already at target type');
+        }
+      },
+    ) ?? print('Ignoring content type change: not in loaded state');
   }
 
   // Método para actualizar tags seleccionados de forma más segura
