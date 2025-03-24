@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'dart:convert';
 
@@ -25,6 +26,7 @@ class Stencil with _$Stencil {
     required DateTime updatedAt,
     DateTime? deletedAt,
     List<Tag>? tags,
+    Artist? artist,
     @Default(0) int viewCount,
     @Default(0) int likeCount,
     @Default(false) bool isLikedByUser,

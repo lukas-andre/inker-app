@@ -26,6 +26,9 @@ _$StencilImpl _$$StencilImplFromJson(Map json) => _$StencilImpl(
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
+      artist: json['artist'] == null
+          ? null
+          : Artist.fromJson(Map<String, dynamic>.from(json['artist'] as Map)),
       viewCount: (json['viewCount'] as num?)?.toInt() ?? 0,
       likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
       isLikedByUser: json['isLikedByUser'] as bool? ?? false,
@@ -56,6 +59,7 @@ Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
   val['updatedAt'] = instance.updatedAt.toIso8601String();
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
   writeNotNull('tags', instance.tags?.map((e) => e.toJson()).toList());
+  writeNotNull('artist', instance.artist?.toJson());
   val['viewCount'] = instance.viewCount;
   val['likeCount'] = instance.likeCount;
   val['isLikedByUser'] = instance.isLikedByUser;
