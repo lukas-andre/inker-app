@@ -32,6 +32,7 @@ mixin _$InspirationSearchEvent {
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -50,6 +51,7 @@ mixin _$InspirationSearchEvent {
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -68,6 +70,7 @@ mixin _$InspirationSearchEvent {
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -92,6 +95,8 @@ mixin _$InspirationSearchEvent {
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -114,6 +119,7 @@ mixin _$InspirationSearchEvent {
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -134,6 +140,7 @@ mixin _$InspirationSearchEvent {
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -272,6 +279,7 @@ class _$InspirationSearchEventSearchWorksImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -293,6 +301,7 @@ class _$InspirationSearchEventSearchWorksImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -314,6 +323,7 @@ class _$InspirationSearchEventSearchWorksImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -344,6 +354,8 @@ class _$InspirationSearchEventSearchWorksImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -369,6 +381,7 @@ class _$InspirationSearchEventSearchWorksImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -392,6 +405,7 @@ class _$InspirationSearchEventSearchWorksImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -531,6 +545,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -552,6 +567,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -573,6 +589,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -603,6 +620,8 @@ class _$InspirationSearchEventSearchStencilsImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -628,6 +647,7 @@ class _$InspirationSearchEventSearchStencilsImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -651,6 +671,7 @@ class _$InspirationSearchEventSearchStencilsImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -790,6 +811,7 @@ class _$InspirationSearchEventSearchBothImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -811,6 +833,7 @@ class _$InspirationSearchEventSearchBothImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -832,6 +855,7 @@ class _$InspirationSearchEventSearchBothImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -862,6 +886,8 @@ class _$InspirationSearchEventSearchBothImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -887,6 +913,7 @@ class _$InspirationSearchEventSearchBothImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -910,6 +937,7 @@ class _$InspirationSearchEventSearchBothImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -995,6 +1023,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -1016,6 +1045,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -1037,6 +1067,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -1067,6 +1098,8 @@ class _$InspirationSearchEventLoadMoreWorksImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -1092,6 +1125,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -1115,6 +1149,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -1190,6 +1225,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -1211,6 +1247,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -1232,6 +1269,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -1262,6 +1300,8 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -1287,6 +1327,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -1310,6 +1351,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -1415,6 +1457,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -1436,6 +1479,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -1457,6 +1501,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -1487,6 +1532,8 @@ class _$InspirationSearchEventChangeContentTypeImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -1512,6 +1559,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -1535,6 +1583,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -1645,6 +1694,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -1666,6 +1716,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -1687,6 +1738,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -1717,6 +1769,8 @@ class _$InspirationSearchEventChangeSortTypeImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -1742,6 +1796,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -1765,6 +1820,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -1847,6 +1903,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -1868,6 +1925,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -1889,6 +1947,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -1919,6 +1978,8 @@ class _$InspirationSearchEventGetPopularTagsImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -1944,6 +2005,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -1967,6 +2029,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -1983,6 +2046,241 @@ abstract class InspirationSearchEventGetPopularTags
     implements InspirationSearchEvent {
   const factory InspirationSearchEventGetPopularTags() =
       _$InspirationSearchEventGetPopularTagsImpl;
+}
+
+/// @nodoc
+abstract class _$$InspirationSearchEventSearchTagsImplCopyWith<$Res> {
+  factory _$$InspirationSearchEventSearchTagsImplCopyWith(
+          _$InspirationSearchEventSearchTagsImpl value,
+          $Res Function(_$InspirationSearchEventSearchTagsImpl) then) =
+      __$$InspirationSearchEventSearchTagsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
+}
+
+/// @nodoc
+class __$$InspirationSearchEventSearchTagsImplCopyWithImpl<$Res>
+    extends _$InspirationSearchEventCopyWithImpl<$Res,
+        _$InspirationSearchEventSearchTagsImpl>
+    implements _$$InspirationSearchEventSearchTagsImplCopyWith<$Res> {
+  __$$InspirationSearchEventSearchTagsImplCopyWithImpl(
+      _$InspirationSearchEventSearchTagsImpl _value,
+      $Res Function(_$InspirationSearchEventSearchTagsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$InspirationSearchEventSearchTagsImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InspirationSearchEventSearchTagsImpl
+    implements InspirationSearchEventSearchTags {
+  const _$InspirationSearchEventSearchTagsImpl({required this.query});
+
+  @override
+  final String query;
+
+  @override
+  String toString() {
+    return 'InspirationSearchEvent.searchTags(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InspirationSearchEventSearchTagsImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InspirationSearchEventSearchTagsImplCopyWith<
+          _$InspirationSearchEventSearchTagsImpl>
+      get copyWith => __$$InspirationSearchEventSearchTagsImplCopyWithImpl<
+          _$InspirationSearchEventSearchTagsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String? query, List<int>? tagIds, SortType? sortBy)
+        searchWorks,
+    required TResult Function(
+            String? query, List<int>? tagIds, SortType? sortBy)
+        searchStencils,
+    required TResult Function(
+            String? query, List<int>? tagIds, SortType? sortBy)
+        searchBoth,
+    required TResult Function() loadMoreWorks,
+    required TResult Function() loadMoreStencils,
+    required TResult Function(ContentType contentType) changeContentType,
+    required TResult Function(SortType sortType) changeSortType,
+    required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
+    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function() clearFilters,
+    required TResult Function() reset,
+  }) {
+    return searchTags(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchWorks,
+    TResult? Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchStencils,
+    TResult? Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchBoth,
+    TResult? Function()? loadMoreWorks,
+    TResult? Function()? loadMoreStencils,
+    TResult? Function(ContentType contentType)? changeContentType,
+    TResult? Function(SortType sortType)? changeSortType,
+    TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
+    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function()? clearFilters,
+    TResult? Function()? reset,
+  }) {
+    return searchTags?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchWorks,
+    TResult Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchStencils,
+    TResult Function(String? query, List<int>? tagIds, SortType? sortBy)?
+        searchBoth,
+    TResult Function()? loadMoreWorks,
+    TResult Function()? loadMoreStencils,
+    TResult Function(ContentType contentType)? changeContentType,
+    TResult Function(SortType sortType)? changeSortType,
+    TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
+    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function()? clearFilters,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (searchTags != null) {
+      return searchTags(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InspirationSearchEventSearchWorks value)
+        searchWorks,
+    required TResult Function(InspirationSearchEventSearchStencils value)
+        searchStencils,
+    required TResult Function(InspirationSearchEventSearchBoth value)
+        searchBoth,
+    required TResult Function(InspirationSearchEventLoadMoreWorks value)
+        loadMoreWorks,
+    required TResult Function(InspirationSearchEventLoadMoreStencils value)
+        loadMoreStencils,
+    required TResult Function(InspirationSearchEventChangeContentType value)
+        changeContentType,
+    required TResult Function(InspirationSearchEventChangeSortType value)
+        changeSortType,
+    required TResult Function(InspirationSearchEventGetPopularTags value)
+        getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
+    required TResult Function(InspirationSearchEventFilterByTags value)
+        filterByTags,
+    required TResult Function(InspirationSearchEventClearFilters value)
+        clearFilters,
+    required TResult Function(InspirationSearchEventReset value) reset,
+  }) {
+    return searchTags(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InspirationSearchEventSearchWorks value)? searchWorks,
+    TResult? Function(InspirationSearchEventSearchStencils value)?
+        searchStencils,
+    TResult? Function(InspirationSearchEventSearchBoth value)? searchBoth,
+    TResult? Function(InspirationSearchEventLoadMoreWorks value)? loadMoreWorks,
+    TResult? Function(InspirationSearchEventLoadMoreStencils value)?
+        loadMoreStencils,
+    TResult? Function(InspirationSearchEventChangeContentType value)?
+        changeContentType,
+    TResult? Function(InspirationSearchEventChangeSortType value)?
+        changeSortType,
+    TResult? Function(InspirationSearchEventGetPopularTags value)?
+        getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
+    TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
+    TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
+    TResult? Function(InspirationSearchEventReset value)? reset,
+  }) {
+    return searchTags?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InspirationSearchEventSearchWorks value)? searchWorks,
+    TResult Function(InspirationSearchEventSearchStencils value)?
+        searchStencils,
+    TResult Function(InspirationSearchEventSearchBoth value)? searchBoth,
+    TResult Function(InspirationSearchEventLoadMoreWorks value)? loadMoreWorks,
+    TResult Function(InspirationSearchEventLoadMoreStencils value)?
+        loadMoreStencils,
+    TResult Function(InspirationSearchEventChangeContentType value)?
+        changeContentType,
+    TResult Function(InspirationSearchEventChangeSortType value)?
+        changeSortType,
+    TResult Function(InspirationSearchEventGetPopularTags value)?
+        getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
+    TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
+    TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
+    TResult Function(InspirationSearchEventReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (searchTags != null) {
+      return searchTags(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InspirationSearchEventSearchTags
+    implements InspirationSearchEvent {
+  const factory InspirationSearchEventSearchTags(
+      {required final String query}) = _$InspirationSearchEventSearchTagsImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$InspirationSearchEventSearchTagsImplCopyWith<
+          _$InspirationSearchEventSearchTagsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2077,6 +2375,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -2098,6 +2397,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -2119,6 +2419,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -2149,6 +2450,8 @@ class _$InspirationSearchEventFilterByTagsImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -2174,6 +2477,7 @@ class _$InspirationSearchEventFilterByTagsImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -2197,6 +2501,7 @@ class _$InspirationSearchEventFilterByTagsImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -2279,6 +2584,7 @@ class _$InspirationSearchEventClearFiltersImpl
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -2300,6 +2606,7 @@ class _$InspirationSearchEventClearFiltersImpl
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -2321,6 +2628,7 @@ class _$InspirationSearchEventClearFiltersImpl
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -2351,6 +2659,8 @@ class _$InspirationSearchEventClearFiltersImpl
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -2376,6 +2686,7 @@ class _$InspirationSearchEventClearFiltersImpl
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -2399,6 +2710,7 @@ class _$InspirationSearchEventClearFiltersImpl
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -2473,6 +2785,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     required TResult Function(ContentType contentType) changeContentType,
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
+    required TResult Function(String query) searchTags,
     required TResult Function(List<int> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
@@ -2494,6 +2807,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     TResult? Function(ContentType contentType)? changeContentType,
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
+    TResult? Function(String query)? searchTags,
     TResult? Function(List<int> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
@@ -2515,6 +2829,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     TResult Function(ContentType contentType)? changeContentType,
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
+    TResult Function(String query)? searchTags,
     TResult Function(List<int> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
@@ -2545,6 +2860,8 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
         changeSortType,
     required TResult Function(InspirationSearchEventGetPopularTags value)
         getPopularTags,
+    required TResult Function(InspirationSearchEventSearchTags value)
+        searchTags,
     required TResult Function(InspirationSearchEventFilterByTags value)
         filterByTags,
     required TResult Function(InspirationSearchEventClearFilters value)
@@ -2570,6 +2887,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
         changeSortType,
     TResult? Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult? Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult? Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult? Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult? Function(InspirationSearchEventReset value)? reset,
@@ -2593,6 +2911,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
         changeSortType,
     TResult Function(InspirationSearchEventGetPopularTags value)?
         getPopularTags,
+    TResult Function(InspirationSearchEventSearchTags value)? searchTags,
     TResult Function(InspirationSearchEventFilterByTags value)? filterByTags,
     TResult Function(InspirationSearchEventClearFilters value)? clearFilters,
     TResult Function(InspirationSearchEventReset value)? reset,
@@ -2627,7 +2946,8 @@ mixin _$InspirationSearchState {
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -2647,7 +2967,8 @@ mixin _$InspirationSearchState {
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -2667,7 +2988,8 @@ mixin _$InspirationSearchState {
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2775,7 +3097,8 @@ class _$InspirationSearchState_InitialImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -2798,7 +3121,8 @@ class _$InspirationSearchState_InitialImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -2821,7 +3145,8 @@ class _$InspirationSearchState_InitialImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2932,7 +3257,8 @@ class _$InspirationSearchState_LoadingImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -2955,7 +3281,8 @@ class _$InspirationSearchState_LoadingImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -2978,7 +3305,8 @@ class _$InspirationSearchState_LoadingImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3051,7 +3379,8 @@ abstract class _$$InspirationSearchState_LoadedImplCopyWith<$Res> {
       bool hasMoreWorks,
       int currentStencilPage,
       bool hasMoreStencils,
-      List<TagSuggestionResponseDto> popularTags});
+      List<TagSuggestionResponseDto> popularTags,
+      List<TagSuggestionResponseDto> searchedTags});
 }
 
 /// @nodoc
@@ -3078,6 +3407,7 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
     Object? currentStencilPage = null,
     Object? hasMoreStencils = null,
     Object? popularTags = null,
+    Object? searchedTags = null,
   }) {
     return _then(_$InspirationSearchState_LoadedImpl(
       works: null == works
@@ -3124,6 +3454,10 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
           ? _value._popularTags
           : popularTags // ignore: cast_nullable_to_non_nullable
               as List<TagSuggestionResponseDto>,
+      searchedTags: null == searchedTags
+          ? _value._searchedTags
+          : searchedTags // ignore: cast_nullable_to_non_nullable
+              as List<TagSuggestionResponseDto>,
     ));
   }
 }
@@ -3143,11 +3477,13 @@ class _$InspirationSearchState_LoadedImpl
       required this.hasMoreWorks,
       required this.currentStencilPage,
       required this.hasMoreStencils,
-      final List<TagSuggestionResponseDto> popularTags = const []})
+      final List<TagSuggestionResponseDto> popularTags = const [],
+      final List<TagSuggestionResponseDto> searchedTags = const []})
       : _works = works,
         _stencils = stencils,
         _selectedTagIds = selectedTagIds,
-        _popularTags = popularTags;
+        _popularTags = popularTags,
+        _searchedTags = searchedTags;
 
   final List<Work> _works;
   @override
@@ -3196,9 +3532,18 @@ class _$InspirationSearchState_LoadedImpl
     return EqualUnmodifiableListView(_popularTags);
   }
 
+  final List<TagSuggestionResponseDto> _searchedTags;
+  @override
+  @JsonKey()
+  List<TagSuggestionResponseDto> get searchedTags {
+    if (_searchedTags is EqualUnmodifiableListView) return _searchedTags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchedTags);
+  }
+
   @override
   String toString() {
-    return 'InspirationSearchState.loaded(works: $works, stencils: $stencils, contentType: $contentType, selectedTagIds: $selectedTagIds, searchQuery: $searchQuery, sortType: $sortType, currentWorkPage: $currentWorkPage, hasMoreWorks: $hasMoreWorks, currentStencilPage: $currentStencilPage, hasMoreStencils: $hasMoreStencils, popularTags: $popularTags)';
+    return 'InspirationSearchState.loaded(works: $works, stencils: $stencils, contentType: $contentType, selectedTagIds: $selectedTagIds, searchQuery: $searchQuery, sortType: $sortType, currentWorkPage: $currentWorkPage, hasMoreWorks: $hasMoreWorks, currentStencilPage: $currentStencilPage, hasMoreStencils: $hasMoreStencils, popularTags: $popularTags, searchedTags: $searchedTags)';
   }
 
   @override
@@ -3225,7 +3570,9 @@ class _$InspirationSearchState_LoadedImpl
             (identical(other.hasMoreStencils, hasMoreStencils) ||
                 other.hasMoreStencils == hasMoreStencils) &&
             const DeepCollectionEquality()
-                .equals(other._popularTags, _popularTags));
+                .equals(other._popularTags, _popularTags) &&
+            const DeepCollectionEquality()
+                .equals(other._searchedTags, _searchedTags));
   }
 
   @override
@@ -3241,7 +3588,8 @@ class _$InspirationSearchState_LoadedImpl
       hasMoreWorks,
       currentStencilPage,
       hasMoreStencils,
-      const DeepCollectionEquality().hash(_popularTags));
+      const DeepCollectionEquality().hash(_popularTags),
+      const DeepCollectionEquality().hash(_searchedTags));
 
   @JsonKey(ignore: true)
   @override
@@ -3267,7 +3615,8 @@ class _$InspirationSearchState_LoadedImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -3282,7 +3631,8 @@ class _$InspirationSearchState_LoadedImpl
         hasMoreWorks,
         currentStencilPage,
         hasMoreStencils,
-        popularTags);
+        popularTags,
+        searchedTags);
   }
 
   @override
@@ -3301,7 +3651,8 @@ class _$InspirationSearchState_LoadedImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3316,7 +3667,8 @@ class _$InspirationSearchState_LoadedImpl
         hasMoreWorks,
         currentStencilPage,
         hasMoreStencils,
-        popularTags);
+        popularTags,
+        searchedTags);
   }
 
   @override
@@ -3335,7 +3687,8 @@ class _$InspirationSearchState_LoadedImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3352,7 +3705,8 @@ class _$InspirationSearchState_LoadedImpl
           hasMoreWorks,
           currentStencilPage,
           hasMoreStencils,
-          popularTags);
+          popularTags,
+          searchedTags);
     }
     return orElse();
   }
@@ -3407,7 +3761,8 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
           required final bool hasMoreWorks,
           required final int currentStencilPage,
           required final bool hasMoreStencils,
-          final List<TagSuggestionResponseDto> popularTags}) =
+          final List<TagSuggestionResponseDto> popularTags,
+          final List<TagSuggestionResponseDto> searchedTags}) =
       _$InspirationSearchState_LoadedImpl;
 
   List<Work> get works;
@@ -3421,6 +3776,7 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
   int get currentStencilPage;
   bool get hasMoreStencils;
   List<TagSuggestionResponseDto> get popularTags;
+  List<TagSuggestionResponseDto> get searchedTags;
   @JsonKey(ignore: true)
   _$$InspirationSearchState_LoadedImplCopyWith<
           _$InspirationSearchState_LoadedImpl>
@@ -3510,7 +3866,8 @@ class _$InspirationSearchState_ErrorImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -3533,7 +3890,8 @@ class _$InspirationSearchState_ErrorImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3556,7 +3914,8 @@ class _$InspirationSearchState_ErrorImpl
             bool hasMoreWorks,
             int currentStencilPage,
             bool hasMoreStencils,
-            List<TagSuggestionResponseDto> popularTags)?
+            List<TagSuggestionResponseDto> popularTags,
+            List<TagSuggestionResponseDto> searchedTags)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

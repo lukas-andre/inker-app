@@ -5,34 +5,34 @@ class EmptyState extends StatelessWidget {
   final IconData icon;
   final String title;
   final String message;
-  final Widget? action;
+  final Widget? actionButton;
 
   const EmptyState({
-    super.key,
+    Key? key,
     required this.icon,
     required this.title,
     required this.message,
-    this.action,
-  });
+    this.actionButton,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              size: 80.0,
-              color: Colors.grey[400],
+              size: 64.0,
+              color: Colors.white.withOpacity(0.5),
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 16.0),
             Text(
               title,
               style: TextStyleTheme.headline3.copyWith(
-                color: Colors.grey[700],
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
@@ -40,14 +40,14 @@ class EmptyState extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               message,
-              style: TextStyleTheme.bodyText1.copyWith(
-                color: Colors.grey[600],
+              style: TextStyleTheme.bodyText2.copyWith(
+                color: Colors.white.withOpacity(0.7),
               ),
               textAlign: TextAlign.center,
             ),
-            if (action != null) ...[
+            if (actionButton != null) ...[
               const SizedBox(height: 24.0),
-              action!,
+              actionButton!,
             ],
           ],
         ),

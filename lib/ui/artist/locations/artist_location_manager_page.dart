@@ -85,7 +85,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
       return EmptyState(
         icon: Icons.location_off,
         message: S.of(context).noLocationsAvailable,
-        action: TextButton.icon(
+        actionButton: TextButton.icon(
           onPressed: () => _navigateToAddLocation(context),
           icon: const Icon(Icons.add_location_alt),
           label: Text(S.of(context).addLocation,
