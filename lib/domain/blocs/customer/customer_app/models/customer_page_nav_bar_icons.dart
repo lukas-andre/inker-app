@@ -43,29 +43,29 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
       icon: ImageIcon(exploreIcon),
       selectedIcon: ImageIcon(exploreSelectedIcon),
       title: 'Buscar',
-      index: 1,
-    ),
-    PageNavBarIcon(
-      key: Key('inspirationTab'),
-      icon: Icon(
-        Icons.style_outlined,
-        size: 22,
-        color: Colors.white,
-      ),
-      selectedIcon: Icon(
-        Icons.style,
-        size: 22,
-        color: Colors.white,
-      ),
-      title: 'Inspiración',
-      index: 2,
+      index: 0,
     ),
     PageNavBarIcon(
       key: K.quotationsTab,
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
       title: 'Cotizaciones',
-      index: 3,
+      index: 1,
+    ),
+    PageNavBarIcon(
+      key: Key('inspirationTab'),
+      icon: Icon(
+        Icons.style_outlined,
+        size: 26,
+        color: Colors.white,
+      ),
+      selectedIcon: Icon(
+        Icons.style,
+        size: 26,
+        color: Colors.white,
+      ),
+      title: 'Inspiración',
+      index: 2,
     ),
     PageNavBarIcon(
       key: K.appointmentsTab,
@@ -80,7 +80,7 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
         color: Colors.white,
       ),
       title: 'Citas',
-      index: 4,
+      index: 3,
     ),
     PageNavBarIcon(
       key: K.profileTab,
@@ -95,7 +95,7 @@ CustomerPageNavBarIcons kCustomerPageNavBarIcons =
         color: Colors.white,
       ),
       title: 'Perfil',
-      index: 5,
+      index: 4,
     ),
   ],
 );
