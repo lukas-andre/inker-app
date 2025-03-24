@@ -1559,9 +1559,14 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     // Precargar imágenes en segundo plano para mejorar el rendimiento
     _precacheImages(works, stencils);
 
-    // Manejar actualizaciones de tags de forma más segura
+    // Movemos la actualización de tags a un postFrameCallback para evitar setState durante build
     if (mounted) {
-      _updateSelectedTags(selectedTagIds, popularTags, searchedTags);
+      // Usamos addPostFrameCallback para evitar setState durante el build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _updateSelectedTags(selectedTagIds, popularTags, searchedTags);
+        }
+      });
     }
 
     // Check if there are ANY results to show based on the content type
