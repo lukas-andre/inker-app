@@ -36,6 +36,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   final _imageCache = CachedImageManager();
   Timer? _debounce;
   List<TagSuggestionResponseDto> _selectedTagsLocal = [];
+  // Set para mantener los IDs de tags que el usuario ha ocultado temporalmente
+  Set<int> _hiddenTagIds = {};
 
   @override
   void initState() {
@@ -88,6 +90,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
 
   void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    // Cuando el usuario escribe, limpiamos la lista de tags ocultos
+    if (_searchController.text.trim().isNotEmpty) {
+      setState(() {
+        _hiddenTagIds.clear();
+      });
+    }
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
       final query = _searchController.text.trim();
@@ -337,6 +346,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
             ),
           );
     }
+  }
+
+  // Método para ocultar un tag temporalmente
+  void _hideTag(TagSuggestionResponseDto tag) {
+    setState(() {
+      _hiddenTagIds.add(tag.id);
+    });
   }
 
   @override
@@ -764,874 +780,219 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           // Tag suggestions from search
           BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
             builder: (context, state) {
-              if (state is InspirationSearchState_Loaded &&
-                  state.searchedTags.isNotEmpty &&
-                  _searchController.text.trim().isNotEmpty) {
-                return Container(
-                  margin: const EdgeInsets.only(top: 12.0),
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  decoration: BoxDecoration(
-                    color: explorerSecondaryColor.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 4.0),
-                        child: Text(
-                          'Etiquetas sugeridas:',
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+              return state.whenOrNull(
+                loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
+                        currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
+                        popularTags, searchedTags) {
+                  if (searchedTags.isNotEmpty && _searchController.text.trim().isNotEmpty) {
+                    // Filtrar los tags ocultos para no mostrarlos
+                    final visibleTags = searchedTags
+                        .where((tag) => !_hiddenTagIds.contains(tag.id))
+                        // Filter out already selected tags
+                        .where((tag) => !_selectedTagsLocal.any((t) => t.id == tag.id))
+                        .toList();
+                        
+                    if (visibleTags.isEmpty) {
+                      return const SizedBox(height: 12.0);
+                    }
+                    
+                    return Container(
+                      margin: const EdgeInsets.only(top: 12.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      decoration: BoxDecoration(
+                        color: explorerSecondaryColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 8.0),
-                        child: Row(
-                          children: state.searchedTags
-                              // Filter out already selected tags
-                              .where((tag) => !_selectedTagsLocal
-                                  .any((t) => t.id == tag.id))
-                              .map((tag) => Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: GestureDetector(
-                                      onTap: () => _addSelectedTag(tag),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12.0,
-                                          vertical: 8.0,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: redColor.withOpacity(0.7),
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 4.0,
-                                              offset: const Offset(0, 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 4.0),
+                            child: Text(
+                              'Etiquetas sugeridas:',
+                              style: TextStyleTheme.bodyText2.copyWith(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 8.0),
+                            child: Row(
+                              children: visibleTags.map((tag) => Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: redColor.withOpacity(0.7),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 4.0,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => _addSelectedTag(tag),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0,
+                                            vertical: 8.0,
+                                          ),
+                                          child: Text(
+                                            tag.name,
+                                            style: TextStyleTheme.bodyText2.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                          ],
-                                        ),
-                                        child: Text(
-                                          tag.name,
-                                          style:
-                                              TextStyleTheme.bodyText2.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ))
-                              .toList(),
-                        ),
+                                      // Añadir botón para ocultar el tag
+                                      GestureDetector(
+                                        onTap: () => _hideTag(tag),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 8.0),
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                              color: Colors.black26,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.close,
+                                              color: Colors.white70,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )).toList(),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              }
-              return const SizedBox(height: 12.0);
+                    );
+                  }
+                  return const SizedBox(height: 12.0);
+                },
+              ) ?? const SizedBox(height: 12.0);
             },
           ),
 
           // Tags populares
           BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
             builder: (context, state) {
-              if (state is InspirationSearchState_Loaded &&
-                  state.popularTags.isNotEmpty &&
-                  _searchController.text.trim().isEmpty) {
-                // Show the most popular tags (top 5)
-                final displayTags = state.popularTags.take(5).toList();
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, bottom: 8.0, top: 12.0),
-                      child: Text(
-                        'Etiquetas populares:',
-                        style: TextStyleTheme.bodyText2.copyWith(
-                          color: Colors.white70,
-                          fontWeight: FontWeight.w600,
+              return state.whenOrNull(
+                loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
+                         currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
+                         popularTags, searchedTags) {
+                  if (popularTags.isNotEmpty && _searchController.text.trim().isEmpty) {
+                    // Filtrar los tags populares para no mostrar los ocultos
+                    final visibleTags = popularTags
+                        .where((tag) => !_hiddenTagIds.contains(tag.id))
+                        // Filter out already selected tags
+                        .where((tag) => !_selectedTagsLocal.any((t) => t.id == tag.id))
+                        .take(5) // Show the most popular tags (top 5)
+                        .toList();
+                        
+                    if (visibleTags.isEmpty) {
+                      return const SizedBox.shrink();
+                    }
+                    
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, bottom: 8.0, top: 12.0),
+                          child: Text(
+                            'Etiquetas populares:',
+                            style: TextStyleTheme.bodyText2.copyWith(
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: displayTags
-                            // Filter out already selected tags
-                            .where((tag) =>
-                                !_selectedTagsLocal.any((t) => t.id == tag.id))
-                            .map((tag) => _buildTagChip(tag))
-                            .toList(),
-                      ),
-                    ),
-                  ],
-                );
-              }
-              return const SizedBox.shrink();
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: visibleTags.map((tag) => Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: redColor.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 4.0,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => _addSelectedTag(tag),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0,
+                                          vertical: 8.0,
+                                        ),
+                                        child: Text(
+                                          tag.name,
+                                          style: TextStyleTheme.bodyText2.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // Añadir botón para ocultar el tag
+                                    GestureDetector(
+                                      onTap: () => _hideTag(tag),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.black26,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.close,
+                                            color: Colors.white70,
+                                            size: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )).toList(),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ) ?? const SizedBox.shrink();
             },
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildTagChip(TagSuggestionResponseDto tag) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: GestureDetector(
-        onTap: () => _addSelectedTag(tag),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 8.0,
-          ),
-          decoration: BoxDecoration(
-            color: redColor.withOpacity(0.7),
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4.0,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Text(
-            tag.name,
-            style: TextStyleTheme.bodyText2.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildResultsView({
-    required List<Work> works,
-    required List<Stencil> stencils,
-    required ContentType contentType,
-    required List<int> selectedTagIds,
-    required List<TagSuggestionResponseDto> popularTags,
-    required List<TagSuggestionResponseDto> searchedTags,
-  }) {
-    // Debug print to help diagnose the issue
-    print(
-        'Building results view: contentType=$contentType, works=${works.length}, stencils=${stencils.length}');
-
-    // Precargar imágenes en segundo plano para mejorar el rendimiento
-    _precacheImages(works, stencils);
-
-    // Manejar actualizaciones de tags de forma más segura
-    if (mounted) {
-      _updateSelectedTags(selectedTagIds, popularTags, searchedTags);
-    }
-
-    // Check if there are ANY results to show based on the content type
-    final bool hasAnyResults;
-
-    // Determinar si hay resultados más claramente basado en el contentType
-    if (contentType == ContentType.both) {
-      hasAnyResults = works.isNotEmpty || stencils.isNotEmpty;
-    } else if (contentType == ContentType.works) {
-      hasAnyResults = works.isNotEmpty;
-    } else {
-      // ContentType.stencils
-      hasAnyResults = stencils.isNotEmpty;
-    }
-
-    if (!hasAnyResults) {
-      return EmptyState(
-        icon: Icons.search_off,
-        title: 'No se encontraron resultados',
-        message: selectedTagIds.isNotEmpty || _searchController.text.isNotEmpty
-            ? 'Prueba con otra búsqueda o filtros diferentes'
-            : 'Prueba con otra búsqueda o filtros',
-        actionButton: selectedTagIds.isNotEmpty
-            ? ElevatedButton.icon(
-                onPressed: _clearAllFilters,
-                icon: const Icon(Icons.filter_alt_off),
-                label: const Text("Limpiar filtros"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: redColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 10.0,
-                  ),
-                ),
-              )
-            : null,
-      );
-    }
-
-    // We DEFINITELY have something to show at this point
-    print(
-        'Rendering results: hasWorks=${works.isNotEmpty}, hasStencils=${stencils.isNotEmpty}');
-
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            color: primaryColor,
-            child: ListView(
-              controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(top: 16.0, bottom: 24.0),
-              children: [
-                // For "both" content type or specifically "works", show works section if there are any
-                if ((contentType == ContentType.both ||
-                        contentType == ContentType.works) &&
-                    works.isNotEmpty) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 12.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: redColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: const Icon(Icons.brush,
-                              color: Colors.white, size: 16.0),
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          'Tatuajes',
-                          style: TextStyleTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  _buildWorksGrid(works),
-                  const SizedBox(height: 24.0),
-                ],
-
-                // For "both" content type or specifically "stencils", show stencils section if there are any
-                if ((contentType == ContentType.both ||
-                        contentType == ContentType.stencils) &&
-                    stencils.isNotEmpty) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 12.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: secondaryColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: const Icon(Icons.image,
-                              color: Colors.white, size: 16.0),
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          'Stencils',
-                          style: TextStyleTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  _buildStencilsGrid(stencils),
-                ],
-
-                // Show messages about missing content types if in "both" mode
-                if (contentType == ContentType.both) ...[
-                  if (works.isEmpty && stencils.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Text(
-                          'No se encontraron tatuajes con los criterios actuales.',
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  if (stencils.isEmpty && works.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Text(
-                          'No se encontraron stencils con los criterios actuales.',
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Método para precargar imágenes de los resultados
-  void _precacheImages(List<Work> works, List<Stencil> stencils) {
-    // Evitamos bloquear la UI usando microtask
-    Future.microtask(() {
-      final List<String> imageUrls = [];
-
-      // Limitamos la cantidad de imágenes precargadas para evitar sobrecargar la memoria
-      // Primero las obras visibles (las primeras 6 o menos)
-      if (works.isNotEmpty) {
-        final visibleWorks = works.length > 6 ? works.sublist(0, 6) : works;
-        for (final work in visibleWorks) {
-          imageUrls.add(work.imageUrl);
-        }
-      }
-
-      // Luego los stencils visibles (los primeros 6 o menos)
-      if (stencils.isNotEmpty) {
-        final visibleStencils =
-            stencils.length > 6 ? stencils.sublist(0, 6) : stencils;
-        for (final stencil in visibleStencils) {
-          imageUrls.add(stencil.imageUrl);
-        }
-      }
-
-      // Precargar las imágenes si hay URLs válidas
-      if (imageUrls.isNotEmpty) {
-        _imageCache.preloadImages(imageUrls, context);
-      }
-    });
-  }
-
-  Widget _buildWorksGrid(List<Work> works) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 16.0,
-        childAspectRatio: 0.75,
-      ),
-      itemCount: works.length,
-      itemBuilder: (context, index) {
-        final work = works[index];
-        return _buildWorkCard(work);
-      },
-    );
-  }
-
-  Widget _buildStencilsGrid(List<Stencil> stencils) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 16.0,
-        childAspectRatio: 0.75,
-      ),
-      itemCount: stencils.length,
-      itemBuilder: (context, index) {
-        final stencil = stencils[index];
-        return _buildStencilCard(stencil);
-      },
-    );
-  }
-
-  Widget _buildWorkCard(Work work) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to work detail page using the immersive viewer
-        Navigator.pushNamed(context, '/immersive_viewer',
-            arguments: {'work': work});
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8.0,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Hero(
-                      tag: 'work_${work.id}',
-                      child: CachedNetworkImage(
-                        imageUrl: work.imageUrl,
-                        fit: BoxFit.cover,
-                        memCacheWidth: 800,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          color: HSLColor.fromColor(primaryColor)
-                              .withLightness(0.15)
-                              .toColor(),
-                          child: const Icon(Icons.error,
-                              color: redColor, size: 24),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 8.0,
-                      right: 8.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: redColor,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 4.0,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          'Tatuaje',
-                          style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      work.title,
-                      style: TextStyleTheme.bodyText2.copyWith(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        Icon(Icons.person,
-                            size: 14.0, color: Colors.grey.shade600),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            'por ${work.artistId} arreglar',
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.grey.shade600,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStencilCard(Stencil stencil) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to stencil detail page using the immersive viewer
-        Navigator.pushNamed(context, '/immersive_viewer',
-            arguments: {'stencil': stencil});
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8.0,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Hero(
-                      tag: 'stencil_${stencil.id}',
-                      child: CachedNetworkImage(
-                        imageUrl: stencil.imageUrl,
-                        fit: BoxFit.cover,
-                        memCacheWidth: 800,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          color: HSLColor.fromColor(primaryColor)
-                              .withLightness(0.15)
-                              .toColor(),
-                          child: const Icon(Icons.error,
-                              color: redColor, size: 24),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 8.0,
-                      right: 8.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 4.0,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          'Stencil',
-                          style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      stencil.title,
-                      style: TextStyleTheme.bodyText2.copyWith(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        Icon(Icons.person,
-                            size: 14.0, color: Colors.grey.shade600),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            'por ${stencil.artistId} arreglar',
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.grey.shade600,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInitialView() {
-    return BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
-      builder: (context, state) {
-        if (state is InspirationSearchState_Loaded &&
-            state.popularTags.isNotEmpty) {
-          return Container(
-            color: explorerSecondaryColor,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 24.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      'Explora la inspiración',
-                      style: TextStyleTheme.headline3.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      'Encuentra diseños y tatuajes hechos por artistas',
-                      style: TextStyleTheme.bodyText1
-                          .copyWith(color: Colors.white70),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  // Botón de búsqueda para activar el buscador
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _isSearchExpanded = true;
-                        });
-                        _animationController.forward();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: redColor,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 12.0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        elevation: 3,
-                      ),
-                      icon: const Icon(Icons.search, color: Colors.white),
-                      label: Text(
-                        'Buscar inspiración',
-                        style: TextStyleTheme.subtitle1.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.local_fire_department, color: redColor),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          'Etiquetas populares',
-                          style: TextStyleTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      children: state.popularTags.map((tag) {
-                        return GestureDetector(
-                          onTap: () {
-                            _addSelectedTag(tag);
-                            // Expandir el buscador después de seleccionar un tag
-                            setState(() {
-                              _isSearchExpanded = true;
-                            });
-                            _animationController.forward();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0,
-                              vertical: 8.0,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  primaryColor.withOpacity(0.8),
-                                  redColor.withOpacity(0.8),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(16.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  blurRadius: 4.0,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              tag.name,
-                              style: TextStyleTheme.bodyText2.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  const SizedBox(height: 32.0),
-                ],
-              ),
-            ),
-          );
-        }
-
-        return Container(
-          color: explorerSecondaryColor,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: redColor.withOpacity(0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.image_search,
-                    size: 64.0,
-                    color: redColor,
-                  ),
-                ),
-                const SizedBox(height: 24.0),
-                Text(
-                  'Busca inspiración para tu próximo tatuaje',
-                  style: TextStyleTheme.subtitle1.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Text(
-                    'Explora diseños y trabajos de artistas',
-                    style: TextStyleTheme.bodyText2
-                        .copyWith(color: Colors.white60),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 32.0),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _isSearchExpanded = true;
-                    });
-                    _animationController.forward();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0,
-                      vertical: 12.0,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  icon: const Icon(Icons.search, color: Colors.white),
-                  label: Text(
-                    'Comenzar a buscar',
-                    style: TextStyleTheme.subtitle1.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -1906,6 +1267,752 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
             color: Colors.white,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             fontSize: 12.0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Método para precargar imágenes de los resultados
+  void _precacheImages(List<Work> works, List<Stencil> stencils) {
+    // Evitamos bloquear la UI usando microtask
+    Future.microtask(() {
+      final List<String> imageUrls = [];
+
+      // Limitamos la cantidad de imágenes precargadas para evitar sobrecargar la memoria
+      // Primero las obras visibles (las primeras 6 o menos)
+      if (works.isNotEmpty) {
+        final visibleWorks = works.length > 6 ? works.sublist(0, 6) : works;
+        for (final work in visibleWorks) {
+          imageUrls.add(work.imageUrl);
+        }
+      }
+
+      // Luego los stencils visibles (los primeros 6 o menos)
+      if (stencils.isNotEmpty) {
+        final visibleStencils =
+            stencils.length > 6 ? stencils.sublist(0, 6) : stencils;
+        for (final stencil in visibleStencils) {
+          imageUrls.add(stencil.imageUrl);
+        }
+      }
+
+      // Precargar las imágenes si hay URLs válidas
+      if (imageUrls.isNotEmpty) {
+        _imageCache.preloadImages(imageUrls, context);
+      }
+    });
+  }
+
+  Widget _buildInitialView() {
+    return BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
+      builder: (context, state) {
+        return state.whenOrNull(
+          loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
+                  currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
+                  popularTags, searchedTags) {
+            if (popularTags.isNotEmpty) {
+              return Container(
+                color: explorerSecondaryColor,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Explora la inspiración',
+                          style: TextStyleTheme.headline3.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Encuentra diseños y tatuajes hechos por artistas',
+                          style: TextStyleTheme.bodyText1
+                              .copyWith(color: Colors.white70),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      // Botón de búsqueda para activar el buscador
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              _isSearchExpanded = true;
+                            });
+                            _animationController.forward();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: redColor,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 12.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            elevation: 3,
+                          ),
+                          icon: const Icon(Icons.search, color: Colors.white),
+                          label: Text(
+                            'Buscar inspiración',
+                            style: TextStyleTheme.subtitle1.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.local_fire_department, color: redColor),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              'Etiquetas populares',
+                              style: TextStyleTheme.subtitle1.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Wrap(
+                          spacing: 8.0,
+                          runSpacing: 8.0,
+                          children: popularTags.map((tag) {
+                            // Filtrar tags ocultos
+                            if (_hiddenTagIds.contains(tag.id) || 
+                                _selectedTagsLocal.any((t) => t.id == tag.id)) {
+                              return const SizedBox.shrink();
+                            }
+                            
+                            return GestureDetector(
+                              onTap: () {
+                                _addSelectedTag(tag);
+                                // Expandir el buscador después de seleccionar un tag
+                                setState(() {
+                                  _isSearchExpanded = true;
+                                });
+                                _animationController.forward();
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 8.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      primaryColor.withOpacity(0.8),
+                                      redColor.withOpacity(0.8),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      blurRadius: 4.0,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      tag.name,
+                                      style: TextStyleTheme.bodyText2.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    GestureDetector(
+                                      onTap: () => _hideTag(tag),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.black26,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.white70,
+                                          size: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 32.0),
+                    ],
+                  ),
+                ),
+              );
+            }
+          },
+        ) ?? Container(
+          color: explorerSecondaryColor,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: redColor.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.image_search,
+                    size: 64.0,
+                    color: redColor,
+                  ),
+                ),
+                const SizedBox(height: 24.0),
+                Text(
+                  'Busca inspiración para tu próximo tatuaje',
+                  style: TextStyleTheme.subtitle1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Text(
+                    'Explora diseños y trabajos de artistas',
+                    style: TextStyleTheme.bodyText2
+                        .copyWith(color: Colors.white60),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 32.0),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isSearchExpanded = true;
+                    });
+                    _animationController.forward();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: redColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 12.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                  ),
+                  icon: const Icon(Icons.search, color: Colors.white),
+                  label: Text(
+                    'Comenzar a buscar',
+                    style: TextStyleTheme.subtitle1.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildResultsView({
+    required List<Work> works,
+    required List<Stencil> stencils,
+    required ContentType contentType,
+    required List<int> selectedTagIds,
+    required List<TagSuggestionResponseDto> popularTags,
+    required List<TagSuggestionResponseDto> searchedTags,
+  }) {
+    // Debug print to help diagnose the issue
+    print(
+        'Building results view: contentType=$contentType, works=${works.length}, stencils=${stencils.length}');
+
+    // Precargar imágenes en segundo plano para mejorar el rendimiento
+    _precacheImages(works, stencils);
+
+    // Manejar actualizaciones de tags de forma más segura
+    if (mounted) {
+      _updateSelectedTags(selectedTagIds, popularTags, searchedTags);
+    }
+
+    // Check if there are ANY results to show based on the content type
+    final bool hasAnyResults;
+
+    // Determinar si hay resultados más claramente basado en el contentType
+    if (contentType == ContentType.both) {
+      hasAnyResults = works.isNotEmpty || stencils.isNotEmpty;
+    } else if (contentType == ContentType.works) {
+      hasAnyResults = works.isNotEmpty;
+    } else {
+      // ContentType.stencils
+      hasAnyResults = stencils.isNotEmpty;
+    }
+
+    if (!hasAnyResults) {
+      return EmptyState(
+        icon: Icons.search_off,
+        title: 'No se encontraron resultados',
+        message: selectedTagIds.isNotEmpty || _searchController.text.isNotEmpty
+            ? 'Prueba con otra búsqueda o filtros diferentes'
+            : 'Prueba con otra búsqueda o filtros',
+        actionButton: selectedTagIds.isNotEmpty
+            ? ElevatedButton.icon(
+                onPressed: _clearAllFilters,
+                icon: const Icon(Icons.filter_alt_off),
+                label: const Text("Limpiar filtros"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: redColor,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 10.0,
+                  ),
+                ),
+              )
+            : null,
+      );
+    }
+
+    // We DEFINITELY have something to show at this point
+    print(
+        'Rendering results: hasWorks=${works.isNotEmpty}, hasStencils=${stencils.isNotEmpty}');
+
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            color: primaryColor,
+            child: ListView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(top: 16.0, bottom: 24.0),
+              children: [
+                // For "both" content type or specifically "works", show works section if there are any
+                if ((contentType == ContentType.both ||
+                        contentType == ContentType.works) &&
+                    works.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 12.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: redColor,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: const Icon(Icons.brush,
+                              color: Colors.white, size: 16.0),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          'Tatuajes',
+                          style: TextStyleTheme.subtitle1.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildWorksGrid(works),
+                  const SizedBox(height: 24.0),
+                ],
+
+                // For "both" content type or specifically "stencils", show stencils section if there are any
+                if ((contentType == ContentType.both ||
+                        contentType == ContentType.stencils) &&
+                    stencils.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 12.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: const Icon(Icons.image,
+                              color: Colors.white, size: 16.0),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          'Stencils',
+                          style: TextStyleTheme.subtitle1.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildStencilsGrid(stencils),
+                ],
+
+                // Show messages about missing content types if in "both" mode
+                if (contentType == ContentType.both) ...[
+                  if (works.isEmpty && stencils.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Text(
+                          'No se encontraron tatuajes con los criterios actuales.',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  if (stencils.isEmpty && works.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Text(
+                          'No se encontraron stencils con los criterios actuales.',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWorksGrid(List<Work> works) {
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16.0,
+        crossAxisSpacing: 16.0,
+        childAspectRatio: 0.75,
+      ),
+      itemCount: works.length,
+      itemBuilder: (context, index) {
+        final work = works[index];
+        return _buildWorkCard(work);
+      },
+    );
+  }
+
+  Widget _buildStencilsGrid(List<Stencil> stencils) {
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16.0,
+        crossAxisSpacing: 16.0,
+        childAspectRatio: 0.75,
+      ),
+      itemCount: stencils.length,
+      itemBuilder: (context, index) {
+        final stencil = stencils[index];
+        return _buildStencilCard(stencil);
+      },
+    );
+  }
+  
+  Widget _buildWorkCard(Work work) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to work detail page using the immersive viewer
+        Navigator.pushNamed(context, '/immersive_viewer',
+            arguments: {'work': work});
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Hero(
+                      tag: 'work_${work.id}',
+                      child: CachedNetworkImage(
+                        imageUrl: work.imageUrl,
+                        fit: BoxFit.cover,
+                        memCacheWidth: 800,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.0,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          color: HSLColor.fromColor(primaryColor)
+                              .withLightness(0.15)
+                              .toColor(),
+                          child: const Icon(Icons.error,
+                              color: redColor, size: 24),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 8.0,
+                      right: 8.0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: redColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 4.0,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'Tatuaje',
+                          style: TextStyleTheme.caption.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      work.title,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Icon(Icons.person,
+                            size: 14.0, color: Colors.grey.shade600),
+                        const SizedBox(width: 4.0),
+                        Expanded(
+                          child: Text(
+                            'por ${work.artistId} arreglar',
+                            style: TextStyleTheme.caption.copyWith(
+                              color: Colors.grey.shade600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStencilCard(Stencil stencil) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to stencil detail page using the immersive viewer
+        Navigator.pushNamed(context, '/immersive_viewer',
+            arguments: {'stencil': stencil});
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Hero(
+                      tag: 'stencil_${stencil.id}',
+                      child: CachedNetworkImage(
+                        imageUrl: stencil.imageUrl,
+                        fit: BoxFit.cover,
+                        memCacheWidth: 800,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.0,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          color: HSLColor.fromColor(primaryColor)
+                              .withLightness(0.15)
+                              .toColor(),
+                          child: const Icon(Icons.error,
+                              color: redColor, size: 24),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 8.0,
+                      right: 8.0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 4.0,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'Stencil',
+                          style: TextStyleTheme.caption.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      stencil.title,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Icon(Icons.person,
+                            size: 14.0, color: Colors.grey.shade600),
+                        const SizedBox(width: 4.0),
+                        Expanded(
+                          child: Text(
+                            'por ${stencil.artistId} arreglar',
+                            style: TextStyleTheme.caption.copyWith(
+                              color: Colors.grey.shade600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
