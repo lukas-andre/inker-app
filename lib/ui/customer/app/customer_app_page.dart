@@ -26,9 +26,10 @@ class CustomerAppPage extends StatefulWidget {
 }
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   List<Widget> get _pageWidgets => <Widget>[
     const BuildMapPage(hideHeader: true),
+    const QuotationListPage(hideHeader: true),
     BlocProvider(
       create: (context) => InspirationSearchBloc(
         stencilService: context.read(),
@@ -37,7 +38,6 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       ),
       child: const InspirationSearchPage(hideHeader: true),
     ),
-    const QuotationListPage(hideHeader: true),
     BlocProvider(
       create: (context) => AppointmentBloc(
         appointmentService: context.read(),
@@ -84,9 +84,9 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       case 0:
         return 'Explorar';
       case 1:
-        return 'Inspiración';
-      case 2:
         return 'Cotizaciones';
+      case 2:
+        return 'Inspiración';
       case 3:
         return 'Mis Citas';
       default:
@@ -214,18 +214,18 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           },
         ),
       );
-    } else if (_selectedIndex == 1) { // Inspiración page
-      // actions.add(
-        // IconButton(
-        //   icon: const Icon(Icons.tune, color: Colors.white),
-        //   onPressed: () {
-        //     // Show filters dialog
-        //     // This would typically open a dialog with filters for the inspiration search
-        //   },
-        // ),
-      // );
-    } else if (_selectedIndex == 2) { // Cotizaciones page
+    } else if (_selectedIndex == 1) { // Cotizaciones page
       // Aquí podrías agregar botones específicos para la página de cotizaciones
+    } else if (_selectedIndex == 2) { // Inspiración page
+      // Add filter button or other controls for inspiration search
+      // actions.add(
+      //   IconButton(
+      //     icon: const Icon(Icons.tune, color: Colors.white),
+      //     onPressed: () {
+      //       // Show filters dialog for inspiration search
+      //     },
+      //   ),
+      // );
     } else if (_selectedIndex == 3) { // Citas page
       // Acciones específicas para la página de citas
       actions.add(
@@ -292,7 +292,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final state = customerAppBloc.state;
     final icons = state.customerPageNavBarIcons.icons;
     return Scaffold(
-        appBar: _selectedIndex != 3 ? AppBar(
+        appBar: _selectedIndex != 4 ? AppBar(
           title: Text(
             _getAppBarTitle(),
             style: TextStyleTheme.copyWith(
@@ -329,8 +329,30 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
               for (int index = 0; index < icons.length; index++)
                 BottomNavigationBarItem(
                   key: icons[index].key,
-                  icon: icons[index].icon,
-                  activeIcon: icons[index].selectedIcon,
+                  icon: index == 2 
+                      ? Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: _selectedIndex == 2 ? secondaryColor : primaryColor,
+                            shape: BoxShape.circle,
+                            boxShadow: _selectedIndex == 2 
+                                ? [BoxShadow(color: secondaryColor.withOpacity(0.6), blurRadius: 10, spreadRadius: 2)] 
+                                : null,
+                          ),
+                          child: icons[index].icon,
+                        ) 
+                      : icons[index].icon,
+                  activeIcon: index == 2 
+                      ? Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(color: secondaryColor.withOpacity(0.6), blurRadius: 10, spreadRadius: 2)],
+                          ),
+                          child: icons[index].selectedIcon,
+                        ) 
+                      : icons[index].selectedIcon,
                   label: icons[index].title,
                 )
             ],
