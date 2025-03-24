@@ -215,15 +215,15 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
         ),
       );
     } else if (_selectedIndex == 1) { // Inspiración page
-      actions.add(
-        IconButton(
-          icon: const Icon(Icons.tune, color: Colors.white),
-          onPressed: () {
-            // Show filters dialog
-            // This would typically open a dialog with filters for the inspiration search
-          },
-        ),
-      );
+      // actions.add(
+        // IconButton(
+        //   icon: const Icon(Icons.tune, color: Colors.white),
+        //   onPressed: () {
+        //     // Show filters dialog
+        //     // This would typically open a dialog with filters for the inspiration search
+        //   },
+        // ),
+      // );
     } else if (_selectedIndex == 2) { // Cotizaciones page
       // Aquí podrías agregar botones específicos para la página de cotizaciones
     } else if (_selectedIndex == 3) { // Citas page

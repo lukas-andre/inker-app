@@ -34,6 +34,10 @@ class InspirationSearchEvent with _$InspirationSearchEvent {
   
   const factory InspirationSearchEvent.getPopularTags() = InspirationSearchEventGetPopularTags;
   
+  const factory InspirationSearchEvent.searchTags({
+    required String query,
+  }) = InspirationSearchEventSearchTags;
+  
   const factory InspirationSearchEvent.filterByTags({
     required List<int> tagIds,
   }) = InspirationSearchEventFilterByTags;
