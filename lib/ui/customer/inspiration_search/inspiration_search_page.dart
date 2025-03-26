@@ -11,6 +11,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
 import 'dart:async';
 import 'package:collection/collection.dart';
 
@@ -1737,21 +1738,22 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   }
 
   Widget _buildWorksGrid(List<Work> works) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 16.0,
-        childAspectRatio: 0.75,
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        physics: const BouncingScrollPhysics(),
+        itemCount: works.length,
+        itemBuilder: (context, index) {
+          final work = works[index];
+          return Container(
+            width: 230,
+            margin: const EdgeInsets.only(right: 16.0),
+            child: _buildWorkCard(work),
+          );
+        },
       ),
-      itemCount: works.length,
-      itemBuilder: (context, index) {
-        final work = works[index];
-        return _buildWorkCard(work);
-      },
     );
   }
 
@@ -1777,9 +1779,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Widget _buildWorkCard(Work work) {
     return GestureDetector(
       onTap: () {
-        // Navigate to work detail page using the immersive viewer
-        Navigator.pushNamed(context, '/immersive_viewer',
-            arguments: {'work': work});
+        // Navigate to vertical immersive viewer with all works
+        _navigateToVerticalImmersiveViewer(work: work);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -1799,6 +1800,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
+                flex: 3,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
@@ -1808,10 +1810,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         imageUrl: work.imageUrl,
                         fit: BoxFit.cover,
                         memCacheWidth: 800,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
+                        placeholder: (context, url) => Container(
+                          color: HSLColor.fromColor(primaryColor)
+                              .withLightness(0.1)
+                              .toColor(),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2.0,
+                            ),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
@@ -1854,113 +1861,120 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      work.title,
-                      style: TextStyleTheme.bodyText2.copyWith(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
+              Expanded(
+                flex: 2,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        work.title,
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        if (work.artist?.profileThumbnail != null)
-                          Container(
-                            width: 24.0,
-                            height: 24.0,
-                            margin: const EdgeInsets.only(right: 8.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        else
-                          Container(
-                            width: 24.0,
-                            height: 24.0,
-                            margin: const EdgeInsets.only(right: 8.0),
-                            decoration: BoxDecoration(
-                              color: redColor.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                              border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
-                            ),
-                            child: Icon(Icons.person, size: 14.0, color: redColor),
-                          ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                work.artist?.firstName != null && work.artist?.lastName != null
-                                    ? '${work.artist!.firstName} ${work.artist!.lastName}'
-                                    : work.artist?.username ?? 'Artista',
-                                style: TextStyleTheme.caption.copyWith(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold,
+                      const SizedBox(height: 8.0),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            if (work.artist?.profileThumbnail != null)
+                              Container(
+                                width: 24.0,
+                                height: 24.0,
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                  image: DecorationImage(
+                                    image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              )
+                            else
+                              Container(
+                                width: 24.0,
+                                height: 24.0,
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: redColor.withOpacity(0.2),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                ),
+                                child: Icon(Icons.person, size: 14.0, color: redColor),
                               ),
-                              if (work.artist?.rating != null) ...[
-                                const SizedBox(height: 2.0),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, size: 12.0, color: Colors.amber),
-                                    const SizedBox(width: 2.0),
-                                    Text(
-                                      work.artist!.rating!,
-                                      style: TextStyleTheme.caption.copyWith(
-                                        color: Colors.grey.shade600,
-                                        fontSize: 10.0,
-                                      ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    work.artist?.firstName != null && work.artist?.lastName != null
+                                        ? '${work.artist!.firstName} ${work.artist!.lastName}'
+                                        : work.artist?.username ?? 'Artista',
+                                    style: TextStyleTheme.caption.copyWith(
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    if (work.artist?.followers != null && work.artist!.followers > 0) ...[
-                                      const SizedBox(width: 6.0),
-                                      Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
-                                      const SizedBox(width: 2.0),
-                                      Text(
-                                        _formatFollowerCount(work.artist!.followers),
-                                        style: TextStyleTheme.caption.copyWith(
-                                          color: Colors.grey.shade600,
-                                          fontSize: 10.0,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  if (work.artist?.rating != null) ...[
+                                    const SizedBox(height: 2.0),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                        const SizedBox(width: 2.0),
+                                        Text(
+                                          work.artist!.rating!,
+                                          style: TextStyleTheme.caption.copyWith(
+                                            color: Colors.grey.shade600,
+                                            fontSize: 10.0,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        if (work.artist?.followers != null && work.artist!.followers > 0) ...[
+                                          const SizedBox(width: 6.0),
+                                          Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                          const SizedBox(width: 2.0),
+                                          Text(
+                                            _formatFollowerCount(work.artist!.followers),
+                                            style: TextStyleTheme.caption.copyWith(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
                                   ],
-                                ),
-                              ],
-                            ],
-                          ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(4.0),
+                              decoration: BoxDecoration(
+                                color: primaryColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                size: 12.0,
+                                color: primaryColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 12.0,
-                            color: primaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -1973,9 +1987,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Widget _buildStencilCard(Stencil stencil) {
     return GestureDetector(
       onTap: () {
-        // Navigate to stencil detail page using the immersive viewer
-        Navigator.pushNamed(context, '/immersive_viewer',
-            arguments: {'stencil': stencil});
+        // Navigate to vertical immersive viewer with all stencils
+        _navigateToVerticalImmersiveViewer(stencil: stencil);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -2004,10 +2017,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         imageUrl: stencil.imageUrl,
                         fit: BoxFit.cover,
                         memCacheWidth: 800,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
+                        placeholder: (context, url) => Container(
+                          color: HSLColor.fromColor(primaryColor)
+                              .withLightness(0.1)
+                              .toColor(),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white, 
+                              strokeWidth: 2.0,
+                            ),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
@@ -2163,6 +2181,48 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           ),
         ),
       ),
+    );
+  }
+
+  // Method to navigate to the vertical immersive viewer
+  void _navigateToVerticalImmersiveViewer({Work? work, Stencil? stencil}) {
+    // Get current state
+    final state = context.read<InspirationSearchBloc>().state;
+    
+    state.whenOrNull(
+      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
+               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
+               popularTags, searchedTags) {
+        // Determine initial position
+        int initialWorkIndex = 0;
+        int initialStencilIndex = 0;
+        bool startWithStencils = false;
+        
+        if (work != null) {
+          // Find the index of the selected work
+          initialWorkIndex = works.indexWhere((w) => w.id == work.id);
+          if (initialWorkIndex < 0) initialWorkIndex = 0;
+          startWithStencils = false;
+        } else if (stencil != null) {
+          // Find the index of the selected stencil
+          initialStencilIndex = stencils.indexWhere((s) => s.id == stencil.id);
+          if (initialStencilIndex < 0) initialStencilIndex = 0;
+          startWithStencils = true;
+        }
+        
+        // Navigate to vertical immersive viewer
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => VerticalImmersiveViewerPage(
+              works: works,
+              stencils: stencils,
+              initialWorkIndex: initialWorkIndex,
+              initialStencilIndex: initialStencilIndex,
+              startWithStencils: startWithStencils,
+            ),
+          ),
+        );
+      },
     );
   }
 
