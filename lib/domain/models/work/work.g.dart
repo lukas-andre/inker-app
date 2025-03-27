@@ -21,6 +21,10 @@ _$WorkImpl _$$WorkImplFromJson(Map json) => _$WorkImpl(
       isHidden: json['isHidden'] as bool? ?? false,
       viewCount: (json['viewCount'] as num?)?.toInt() ?? 0,
       likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
+      userHasLiked: json['userHasLiked'] as bool? ?? false,
+      metrics: json['metrics'] == null
+          ? null
+          : Metrics.fromJson(Map<String, dynamic>.from(json['metrics'] as Map)),
       artist: json['artist'] == null
           ? null
           : Artist.fromJson(Map<String, dynamic>.from(json['artist'] as Map)),
@@ -58,6 +62,8 @@ Map<String, dynamic> _$$WorkImplToJson(_$WorkImpl instance) {
   val['isHidden'] = instance.isHidden;
   val['viewCount'] = instance.viewCount;
   val['likeCount'] = instance.likeCount;
+  val['userHasLiked'] = instance.userHasLiked;
+  writeNotNull('metrics', instance.metrics?.toJson());
   writeNotNull('artist', instance.artist?.toJson());
   val['createdAt'] = instance.createdAt.toIso8601String();
   val['updatedAt'] = instance.updatedAt.toIso8601String();

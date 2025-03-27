@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/models/metrics/metrics.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 
 part 'work.freezed.dart';
@@ -23,6 +24,8 @@ class Work with _$Work {
     @Default(false) bool isHidden,
     @Default(0) int viewCount,
     @Default(0) int likeCount,
+    @Default(false) bool userHasLiked,
+    Metrics? metrics,
     Artist? artist,
     required DateTime createdAt,
     required DateTime updatedAt,

@@ -34,6 +34,8 @@ mixin _$Work {
   bool get isHidden => throw _privateConstructorUsedError;
   int get viewCount => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
+  bool get userHasLiked => throw _privateConstructorUsedError;
+  Metrics? get metrics => throw _privateConstructorUsedError;
   Artist? get artist => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -65,6 +67,8 @@ abstract class $WorkCopyWith<$Res> {
       bool isHidden,
       int viewCount,
       int likeCount,
+      bool userHasLiked,
+      Metrics? metrics,
       Artist? artist,
       DateTime createdAt,
       DateTime updatedAt,
@@ -101,6 +105,8 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
     Object? isHidden = null,
     Object? viewCount = null,
     Object? likeCount = null,
+    Object? userHasLiked = null,
+    Object? metrics = freezed,
     Object? artist = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -164,6 +170,14 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
+      userHasLiked: null == userHasLiked
+          ? _value.userHasLiked
+          : userHasLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      metrics: freezed == metrics
+          ? _value.metrics
+          : metrics // ignore: cast_nullable_to_non_nullable
+              as Metrics?,
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -222,6 +236,8 @@ abstract class _$$WorkImplCopyWith<$Res> implements $WorkCopyWith<$Res> {
       bool isHidden,
       int viewCount,
       int likeCount,
+      bool userHasLiked,
+      Metrics? metrics,
       Artist? artist,
       DateTime createdAt,
       DateTime updatedAt,
@@ -256,6 +272,8 @@ class __$$WorkImplCopyWithImpl<$Res>
     Object? isHidden = null,
     Object? viewCount = null,
     Object? likeCount = null,
+    Object? userHasLiked = null,
+    Object? metrics = freezed,
     Object? artist = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -319,6 +337,14 @@ class __$$WorkImplCopyWithImpl<$Res>
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
+      userHasLiked: null == userHasLiked
+          ? _value.userHasLiked
+          : userHasLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      metrics: freezed == metrics
+          ? _value.metrics
+          : metrics // ignore: cast_nullable_to_non_nullable
+              as Metrics?,
       artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -361,6 +387,8 @@ class _$WorkImpl implements _Work {
       this.isHidden = false,
       this.viewCount = 0,
       this.likeCount = 0,
+      this.userHasLiked = false,
+      this.metrics,
       this.artist,
       required this.createdAt,
       required this.updatedAt,
@@ -405,6 +433,11 @@ class _$WorkImpl implements _Work {
   @JsonKey()
   final int likeCount;
   @override
+  @JsonKey()
+  final bool userHasLiked;
+  @override
+  final Metrics? metrics;
+  @override
   final Artist? artist;
   @override
   final DateTime createdAt;
@@ -424,7 +457,7 @@ class _$WorkImpl implements _Work {
 
   @override
   String toString() {
-    return 'Work(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, imageVersion: $imageVersion, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, viewCount: $viewCount, likeCount: $likeCount, artist: $artist, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags)';
+    return 'Work(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, imageVersion: $imageVersion, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, source: $source, isHidden: $isHidden, viewCount: $viewCount, likeCount: $likeCount, userHasLiked: $userHasLiked, metrics: $metrics, artist: $artist, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags)';
   }
 
   @override
@@ -457,6 +490,9 @@ class _$WorkImpl implements _Work {
                 other.viewCount == viewCount) &&
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
+            (identical(other.userHasLiked, userHasLiked) ||
+                other.userHasLiked == userHasLiked) &&
+            (identical(other.metrics, metrics) || other.metrics == metrics) &&
             (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -485,6 +521,8 @@ class _$WorkImpl implements _Work {
         isHidden,
         viewCount,
         likeCount,
+        userHasLiked,
+        metrics,
         artist,
         createdAt,
         updatedAt,
@@ -522,6 +560,8 @@ abstract class _Work implements Work {
       final bool isHidden,
       final int viewCount,
       final int likeCount,
+      final bool userHasLiked,
+      final Metrics? metrics,
       final Artist? artist,
       required final DateTime createdAt,
       required final DateTime updatedAt,
@@ -558,6 +598,10 @@ abstract class _Work implements Work {
   int get viewCount;
   @override
   int get likeCount;
+  @override
+  bool get userHasLiked;
+  @override
+  Metrics? get metrics;
   @override
   Artist? get artist;
   @override

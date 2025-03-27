@@ -52,6 +52,7 @@ import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
+import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -80,6 +81,13 @@ class _AppViewState extends State<AppView> {
           userService: context.read(),
           localSessionService: context.read(),
         )),
+        // Analytics bloc to track user interactions
+        BlocProvider(
+          create: (context) => AnalyticsBloc(
+            analyticsService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
         // StencilBloc para gestionar stencils en toda la app
         BlocProvider(
           create: (context) => ArtistStencilBloc(
