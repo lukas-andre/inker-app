@@ -39,6 +39,7 @@ mixin _$Stencil {
   int get viewCount => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   bool get isLikedByUser => throw _privateConstructorUsedError;
+  Metrics? get metrics => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,7 +70,8 @@ abstract class $StencilCopyWith<$Res> {
       Artist? artist,
       int viewCount,
       int likeCount,
-      bool isLikedByUser});
+      bool isLikedByUser,
+      Metrics? metrics});
 
   $ArtistCopyWith<$Res>? get artist;
 }
@@ -106,6 +108,7 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
     Object? viewCount = null,
     Object? likeCount = null,
     Object? isLikedByUser = null,
+    Object? metrics = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -184,6 +187,10 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
           ? _value.isLikedByUser
           : isLikedByUser // ignore: cast_nullable_to_non_nullable
               as bool,
+      metrics: freezed == metrics
+          ? _value.metrics
+          : metrics // ignore: cast_nullable_to_non_nullable
+              as Metrics?,
     ) as $Val);
   }
 
@@ -226,7 +233,8 @@ abstract class _$$StencilImplCopyWith<$Res> implements $StencilCopyWith<$Res> {
       Artist? artist,
       int viewCount,
       int likeCount,
-      bool isLikedByUser});
+      bool isLikedByUser,
+      Metrics? metrics});
 
   @override
   $ArtistCopyWith<$Res>? get artist;
@@ -262,6 +270,7 @@ class __$$StencilImplCopyWithImpl<$Res>
     Object? viewCount = null,
     Object? likeCount = null,
     Object? isLikedByUser = null,
+    Object? metrics = freezed,
   }) {
     return _then(_$StencilImpl(
       id: null == id
@@ -340,6 +349,10 @@ class __$$StencilImplCopyWithImpl<$Res>
           ? _value.isLikedByUser
           : isLikedByUser // ignore: cast_nullable_to_non_nullable
               as bool,
+      metrics: freezed == metrics
+          ? _value.metrics
+          : metrics // ignore: cast_nullable_to_non_nullable
+              as Metrics?,
     ));
   }
 }
@@ -366,7 +379,8 @@ class _$StencilImpl implements _Stencil {
       this.artist,
       this.viewCount = 0,
       this.likeCount = 0,
-      this.isLikedByUser = false})
+      this.isLikedByUser = false,
+      this.metrics})
       : _tags = tags;
 
   factory _$StencilImpl.fromJson(Map<String, dynamic> json) =>
@@ -424,10 +438,12 @@ class _$StencilImpl implements _Stencil {
   @override
   @JsonKey()
   final bool isLikedByUser;
+  @override
+  final Metrics? metrics;
 
   @override
   String toString() {
-    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, artist: $artist, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser)';
+    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, artist: $artist, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser, metrics: $metrics)';
   }
 
   @override
@@ -468,7 +484,8 @@ class _$StencilImpl implements _Stencil {
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
             (identical(other.isLikedByUser, isLikedByUser) ||
-                other.isLikedByUser == isLikedByUser));
+                other.isLikedByUser == isLikedByUser) &&
+            (identical(other.metrics, metrics) || other.metrics == metrics));
   }
 
   @JsonKey(ignore: true)
@@ -493,7 +510,8 @@ class _$StencilImpl implements _Stencil {
         artist,
         viewCount,
         likeCount,
-        isLikedByUser
+        isLikedByUser,
+        metrics
       ]);
 
   @JsonKey(ignore: true)
@@ -530,7 +548,8 @@ abstract class _Stencil implements Stencil {
       final Artist? artist,
       final int viewCount,
       final int likeCount,
-      final bool isLikedByUser}) = _$StencilImpl;
+      final bool isLikedByUser,
+      final Metrics? metrics}) = _$StencilImpl;
 
   factory _Stencil.fromJson(Map<String, dynamic> json) = _$StencilImpl.fromJson;
 
@@ -572,6 +591,8 @@ abstract class _Stencil implements Stencil {
   int get likeCount;
   @override
   bool get isLikedByUser;
+  @override
+  Metrics? get metrics;
   @override
   @JsonKey(ignore: true)
   _$$StencilImplCopyWith<_$StencilImpl> get copyWith =>
