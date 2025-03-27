@@ -466,20 +466,121 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   
   // Handle double tap - like the current item
   void _handleDoubleTap() {
-    // Record the like
-    _recordLike();
+    // Toggle like
+    bool isCurrentlyLiked = false;
+    int contentId = 0;
+    ContentType contentType = ContentType.work;
+    
+    setState(() {
+      if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+        final stencil = _stencils[_currentStencilIndex];
+        isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
+        contentId = stencil.id;
+        contentType = ContentType.stencil;
+        // Toggle like state
+        final newLikeState = !isCurrentlyLiked;
+        
+        // Immediate UI update
+        _updateLikeState(contentId, contentType, newLikeState);
+      } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+        final work = _works[_currentWorkIndex];
+        isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
+        contentId = work.id;
+        contentType = ContentType.work;
+        // Toggle like state
+        final newLikeState = !isCurrentlyLiked;
+        
+        // Immediate UI update
+        _updateLikeState(contentId, contentType, newLikeState);
+      }
+    });
+    
+    // Record the like/unlike action
+    context.read<AnalyticsBloc>().add(
+      AnalyticsEvent.recordContentLike(
+        contentId: contentId,
+        contentType: contentType,
+      ),
+    );
     
     // Show like animation
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.favorite, color: Colors.white),
+            Icon(Icons.favorite, color: Colors.white),
             const SizedBox(width: 8),
             Text(
-              _viewingStencils 
-                ? 'Te gusta este stencil' 
-                : 'Te gusta este tatuaje'
+              isCurrentlyLiked
+                ? (_viewingStencils 
+                  ? 'Ya no te gusta este stencil' 
+                  : 'Ya no te gusta este tatuaje')
+                : (_viewingStencils 
+                  ? 'Te gusta este stencil' 
+                  : 'Te gusta este tatuaje')
+            ),
+          ],
+        ),
+        backgroundColor: redColor,
+        duration: const Duration(seconds: 1),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+  
+  // Handle like button tap
+  void _handleLikeButtonTap() {
+    int contentId = 0;
+    ContentType contentType = ContentType.work;
+    bool isCurrentlyLiked = false;
+    
+    setState(() {
+      if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+        final stencil = _stencils[_currentStencilIndex];
+        isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
+        contentId = stencil.id;
+        contentType = ContentType.stencil;
+        // Toggle like state
+        final newLikeState = !isCurrentlyLiked;
+        
+        // Immediate UI update
+        _updateLikeState(contentId, contentType, newLikeState);
+      } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+        final work = _works[_currentWorkIndex];
+        isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
+        contentId = work.id;
+        contentType = ContentType.work;
+        // Toggle like state
+        final newLikeState = !isCurrentlyLiked;
+        
+        // Immediate UI update
+        _updateLikeState(contentId, contentType, newLikeState);
+      }
+    });
+    
+    // Record the like/unlike action
+    context.read<AnalyticsBloc>().add(
+      AnalyticsEvent.recordContentLike(
+        contentId: contentId,
+        contentType: contentType,
+      ),
+    );
+    
+    // Show like animation
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.favorite, color: Colors.white),
+            const SizedBox(width: 8),
+            Text(
+              !isCurrentlyLiked
+                ? (_viewingStencils 
+                  ? 'Te gusta este stencil' 
+                  : 'Te gusta este tatuaje')
+                : (_viewingStencils 
+                  ? 'Ya no te gusta este stencil' 
+                  : 'Ya no te gusta este tatuaje')
             ),
           ],
         ),
@@ -848,17 +949,20 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   Widget _buildStatItem(IconData icon, String count, String label, {double iconSize = 24, bool isLiked = false}) {
     return Column(
       children: [
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon, 
-            color: icon == Icons.favorite && isLiked ? redColor : Colors.white, 
-            size: iconSize
+        GestureDetector(
+          onTap: icon == Icons.favorite ? _handleLikeButtonTap : null,
+          child: Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.5),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon, 
+              color: icon == Icons.favorite && isLiked ? redColor : Colors.white, 
+              size: iconSize
+            ),
           ),
         ),
         if (count.isNotEmpty) ...[
