@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/models/metrics/metrics.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'dart:convert';
-
-import 'package:inker_studio/domain/models/work/work.dart';
 
 part 'stencil.freezed.dart';
 part 'stencil.g.dart';
@@ -30,6 +29,7 @@ class Stencil with _$Stencil {
     @Default(0) int viewCount,
     @Default(0) int likeCount,
     @Default(false) bool isLikedByUser,
+    Metrics? metrics,
   }) = _Stencil;
 
   factory Stencil.fromJson(Map<String, dynamic> json) => _$StencilFromJson(json);

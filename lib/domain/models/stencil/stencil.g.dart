@@ -32,6 +32,9 @@ _$StencilImpl _$$StencilImplFromJson(Map json) => _$StencilImpl(
       viewCount: (json['viewCount'] as num?)?.toInt() ?? 0,
       likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
       isLikedByUser: json['isLikedByUser'] as bool? ?? false,
+      metrics: json['metrics'] == null
+          ? null
+          : Metrics.fromJson(Map<String, dynamic>.from(json['metrics'] as Map)),
     );
 
 Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
@@ -63,5 +66,6 @@ Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
   val['viewCount'] = instance.viewCount;
   val['likeCount'] = instance.likeCount;
   val['isLikedByUser'] = instance.isLikedByUser;
+  writeNotNull('metrics', instance.metrics?.toJson());
   return val;
 }

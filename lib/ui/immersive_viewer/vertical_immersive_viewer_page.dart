@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
+import 'package:inker_studio/domain/models/analytics/content_type.dart';
+import 'package:inker_studio/domain/models/analytics/view_source.dart';
+import 'package:inker_studio/domain/models/metrics/metrics.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
@@ -55,6 +59,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   late int _currentWorkIndex;
   late int _currentStencilIndex;
   
+  // Mutable copies of works and stencils
+  late List<Work> _works;
+  late List<Stencil> _stencils;
+  
   // Controller for the page view
   late PageController _pageController;
   
@@ -68,14 +76,21 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   // Flag to track double tap for like
   DateTime? _lastTapTime;
   
+  // For tracking view duration
+  DateTime? _contentViewStartTime;
+  
   @override
   void initState() {
     super.initState();
     
+    // Create mutable copies of the lists
+    _works = List.from(widget.works);
+    _stencils = List.from(widget.stencils);
+    
     // Initialize state
-    _viewingStencils = widget.startWithStencils && widget.stencils.isNotEmpty;
-    _currentWorkIndex = widget.initialWorkIndex.clamp(0, widget.works.isNotEmpty ? widget.works.length - 1 : 0);
-    _currentStencilIndex = widget.initialStencilIndex.clamp(0, widget.stencils.isNotEmpty ? widget.stencils.length - 1 : 0);
+    _viewingStencils = widget.startWithStencils && _stencils.isNotEmpty;
+    _currentWorkIndex = widget.initialWorkIndex.clamp(0, _works.isNotEmpty ? _works.length - 1 : 0);
+    _currentStencilIndex = widget.initialStencilIndex.clamp(0, _stencils.isNotEmpty ? _stencils.length - 1 : 0);
     
     // Initialize page controller with the appropriate initial page
     _pageController = PageController(
@@ -84,10 +99,177 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     
     // Preload nearby images
     _preloadImages();
+    
+    // Record initial view
+    _recordInitialView();
+  }
+  
+  void _recordInitialView() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Start tracking the view time
+      _contentViewStartTime = DateTime.now();
+      
+      // Record the initial view
+      if (_viewingStencils && _stencils.isNotEmpty) {
+        _recordView(
+          contentId: _stencils[_currentStencilIndex].id,
+          contentType: ContentType.stencil,
+        );
+      } else if (_works.isNotEmpty) {
+        _recordView(
+          contentId: _works[_currentWorkIndex].id,
+          contentType: ContentType.work,
+        );
+      }
+    });
+  }
+  
+  void _recordView({
+    required int contentId,
+    required ContentType contentType,
+    ViewSource viewSource = ViewSource.direct,
+  }) {
+    context.read<AnalyticsBloc>().add(
+      AnalyticsEvent.recordContentView(
+        contentId: contentId,
+        contentType: contentType,
+        viewSource: viewSource,
+      ),
+    );
+  }
+  
+  void _recordViewDuration() {
+    if (_contentViewStartTime == null) return;
+    
+    final viewDuration = DateTime.now().difference(_contentViewStartTime!).inSeconds;
+    _contentViewStartTime = DateTime.now(); // Reset for next view
+    
+    // Only track if meaningful duration (more than 1 second)
+    if (viewDuration > 1) {
+      if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+        context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.recordContentView(
+            contentId: _stencils[_currentStencilIndex].id,
+            contentType: ContentType.stencil,
+            viewDurationSeconds: viewDuration,
+          ),
+        );
+      } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+        context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.recordContentView(
+            contentId: _works[_currentWorkIndex].id,
+            contentType: ContentType.work,
+            viewDurationSeconds: viewDuration,
+          ),
+        );
+      }
+    }
+  }
+  
+  void _recordLike() {
+    if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+      context.read<AnalyticsBloc>().add(
+        AnalyticsEvent.recordContentLike(
+          contentId: _stencils[_currentStencilIndex].id,
+          contentType: ContentType.stencil,
+        ),
+      );
+    } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+      context.read<AnalyticsBloc>().add(
+        AnalyticsEvent.recordContentLike(
+          contentId: _works[_currentWorkIndex].id,
+          contentType: ContentType.work,
+        ),
+      );
+    }
+  }
+  
+  // Update the local state when a like is recorded
+  void _updateLikeState(int contentId, ContentType contentType, bool isLiked) {
+    setState(() {
+      if (contentType == ContentType.work) {
+        final index = _works.indexWhere((work) => work.id == contentId);
+        if (index != -1) {
+          final work = _works[index];
+          
+          // Create updated metrics
+          final updatedMetrics = Metrics(
+            viewCount: work.metrics?.viewCount ?? work.viewCount,
+            likeCount: isLiked 
+              ? (work.metrics?.likeCount ?? work.likeCount) + 1 
+              : (work.metrics?.likeCount ?? work.likeCount) - 1,
+            userHasLiked: isLiked,
+          );
+                  
+          _works[index] = Work(
+            id: work.id,
+            artistId: work.artistId,
+            title: work.title,
+            description: work.description,
+            imageUrl: work.imageUrl,
+            thumbnailUrl: work.thumbnailUrl,
+            imageVersion: work.imageVersion,
+            thumbnailVersion: work.thumbnailVersion,
+            isFeatured: work.isFeatured,
+            orderPosition: work.orderPosition,
+            source: work.source,
+            isHidden: work.isHidden,
+            viewCount: work.viewCount,
+            likeCount: work.likeCount,
+            userHasLiked: isLiked,
+            metrics: updatedMetrics,
+            artist: work.artist,
+            createdAt: work.createdAt,
+            updatedAt: work.updatedAt,
+            deletedAt: work.deletedAt,
+            tags: work.tags,
+          );
+        }
+      } else if (contentType == ContentType.stencil) {
+        final index = _stencils.indexWhere((stencil) => stencil.id == contentId);
+        if (index != -1) {
+          final stencil = _stencils[index];
+          
+          // Create updated metrics
+          final updatedMetrics = Metrics(
+            viewCount: stencil.metrics?.viewCount ?? stencil.viewCount,
+            likeCount: isLiked 
+              ? (stencil.metrics?.likeCount ?? stencil.likeCount) + 1 
+              : (stencil.metrics?.likeCount ?? stencil.likeCount) - 1,
+            userHasLiked: isLiked,
+          );
+                  
+          _stencils[index] = Stencil(
+            id: stencil.id,
+            artistId: stencil.artistId,
+            title: stencil.title,
+            description: stencil.description,
+            imageUrl: stencil.imageUrl,
+            imageVersion: stencil.imageVersion,
+            thumbnailUrl: stencil.thumbnailUrl,
+            thumbnailVersion: stencil.thumbnailVersion,
+            isFeatured: stencil.isFeatured,
+            orderPosition: stencil.orderPosition,
+            isHidden: stencil.isHidden,
+            createdAt: stencil.createdAt,
+            updatedAt: stencil.updatedAt,
+            deletedAt: stencil.deletedAt,
+            tags: stencil.tags,
+            artist: stencil.artist,
+            viewCount: stencil.viewCount,
+            likeCount: stencil.likeCount,
+            isLikedByUser: isLiked,
+            metrics: updatedMetrics,
+          );
+        }
+      }
+    });
   }
   
   @override
   void dispose() {
+    // Record final view duration before closing
+    _recordViewDuration();
     _pageController.dispose();
     super.dispose();
   }
@@ -98,33 +280,33 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     
     if (_viewingStencils) {
       // Preload current stencil and a few next/previous ones
-      final int startIdx = (_currentStencilIndex - 2).clamp(0, widget.stencils.length - 1);
-      final int endIdx = (_currentStencilIndex + 2).clamp(0, widget.stencils.length - 1);
+      final int startIdx = (_currentStencilIndex - 2).clamp(0, _stencils.length - 1);
+      final int endIdx = (_currentStencilIndex + 2).clamp(0, _stencils.length - 1);
       
       for (int i = startIdx; i <= endIdx; i++) {
-        if (i >= 0 && i < widget.stencils.length) {
-          imagesToPreload.add(widget.stencils[i].imageUrl);
+        if (i >= 0 && i < _stencils.length) {
+          imagesToPreload.add(_stencils[i].imageUrl);
         }
       }
       
       // If near the end of stencils, prepare to show first work
-      if (_currentStencilIndex >= widget.stencils.length - 3 && widget.works.isNotEmpty) {
-        imagesToPreload.add(widget.works[0].imageUrl);
+      if (_currentStencilIndex >= _stencils.length - 3 && _works.isNotEmpty) {
+        imagesToPreload.add(_works[0].imageUrl);
       }
     } else {
       // Preload current work and a few next/previous ones
-      final int startIdx = (_currentWorkIndex - 2).clamp(0, widget.works.length - 1);
-      final int endIdx = (_currentWorkIndex + 2).clamp(0, widget.works.length - 1);
+      final int startIdx = (_currentWorkIndex - 2).clamp(0, _works.length - 1);
+      final int endIdx = (_currentWorkIndex + 2).clamp(0, _works.length - 1);
       
       for (int i = startIdx; i <= endIdx; i++) {
-        if (i >= 0 && i < widget.works.length) {
-          imagesToPreload.add(widget.works[i].imageUrl);
+        if (i >= 0 && i < _works.length) {
+          imagesToPreload.add(_works[i].imageUrl);
         }
       }
       
       // If near the end of works, prepare to show first stencil
-      if (_currentWorkIndex >= widget.works.length - 3 && widget.stencils.isNotEmpty) {
-        imagesToPreload.add(widget.stencils[0].imageUrl);
+      if (_currentWorkIndex >= _works.length - 3 && _stencils.isNotEmpty) {
+        imagesToPreload.add(_stencils[0].imageUrl);
       }
     }
     
@@ -136,14 +318,23 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   
   // Handle page changes
   void _onPageChanged(int index) {
+    // Record view duration for the previous content
+    _recordViewDuration();
+    
     if (_viewingStencils) {
-      if (index >= 0 && index < widget.stencils.length) {
+      if (index >= 0 && index < _stencils.length) {
         setState(() {
           _currentStencilIndex = index;
           _showEndOfCategory = false;
           _endOfCategoryMessage = '';
         });
-      } else if (index >= widget.stencils.length) {
+        
+        // Record view for new stencil
+        _recordView(
+          contentId: _stencils[index].id,
+          contentType: ContentType.stencil,
+        );
+      } else if (index >= _stencils.length) {
         // End of stencils
         setState(() {
           _showEndOfCategory = true;
@@ -151,13 +342,19 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         });
       }
     } else {
-      if (index >= 0 && index < widget.works.length) {
+      if (index >= 0 && index < _works.length) {
         setState(() {
           _currentWorkIndex = index;
           _showEndOfCategory = false;
           _endOfCategoryMessage = '';
         });
-      } else if (index >= widget.works.length) {
+        
+        // Record view for new work
+        _recordView(
+          contentId: _works[index].id,
+          contentType: ContentType.work,
+        );
+      } else if (index >= _works.length) {
         // End of works
         setState(() {
           _showEndOfCategory = true;
@@ -172,7 +369,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   
   // Switch to viewing works
   void _switchToWorks() {
-    if (widget.works.isEmpty) return;
+    if (_works.isEmpty) return;
+    
+    // Record view duration for the previous content
+    _recordViewDuration();
     
     setState(() {
       _viewingStencils = false;
@@ -183,11 +383,22 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     
     _pageController = PageController(initialPage: 0);
     _preloadImages();
+    
+    // Record new view
+    if (_works.isNotEmpty) {
+      _recordView(
+        contentId: _works[0].id,
+        contentType: ContentType.work,
+      );
+    }
   }
   
   // Switch to viewing stencils
   void _switchToStencils() {
-    if (widget.stencils.isEmpty) return;
+    if (_stencils.isEmpty) return;
+    
+    // Record view duration for the previous content
+    _recordViewDuration();
     
     setState(() {
       _viewingStencils = true;
@@ -198,10 +409,21 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     
     _pageController = PageController(initialPage: 0);
     _preloadImages();
+    
+    // Record new view
+    if (_stencils.isNotEmpty) {
+      _recordView(
+        contentId: _stencils[0].id,
+        contentType: ContentType.stencil,
+      );
+    }
   }
   
   // Return to the beginning of the current category
   void _returnToStart() {
+    // Record view duration for the previous content
+    _recordViewDuration();
+    
     setState(() {
       _showEndOfCategory = false;
       _endOfCategoryMessage = '';
@@ -215,6 +437,19 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     
     _pageController.jumpToPage(0);
     _preloadImages();
+    
+    // Record new view
+    if (_viewingStencils && _stencils.isNotEmpty) {
+      _recordView(
+        contentId: _stencils[0].id,
+        contentType: ContentType.stencil,
+      );
+    } else if (!_viewingStencils && _works.isNotEmpty) {
+      _recordView(
+        contentId: _works[0].id,
+        contentType: ContentType.work,
+      );
+    }
   }
   
   // Handle taps on the content - double tap to like
@@ -231,6 +466,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   
   // Handle double tap - like the current item
   void _handleDoubleTap() {
+    // Record the like
+    _recordLike();
+    
     // Show like animation
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -250,50 +488,59 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         behavior: SnackBarBehavior.floating,
       ),
     );
-    
-    // Here you would typically call an API to register the like
   }
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Main content
-          _buildMainContent(),
-          
-          // Top back button
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            left: 16,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 24,
+    return BlocListener<AnalyticsBloc, AnalyticsState>(
+      listener: (context, state) {
+        // Listen for like updates
+        state.maybeWhen(
+          contentLikeUpdated: (contentId, contentType, isLiked) {
+            _updateLikeState(contentId, contentType, isLiked);
+          },
+          orElse: () {},
+        );
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            // Main content
+            _buildMainContent(),
+            
+            // Top back button
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 10,
+              left: 16,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.6),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 24,
+                  ),
                 ),
               ),
             ),
-          ),
-          
-          // End of category overlay if needed
-          if (_showEndOfCategory)
-            _buildEndOfCategoryOverlay(),
-        ],
+            
+            // End of category overlay if needed
+            if (_showEndOfCategory)
+              _buildEndOfCategoryOverlay(),
+          ],
+        ),
       ),
     );
   }
   
   Widget _buildMainContent() {
-    final List<dynamic> items = _viewingStencils ? widget.stencils : widget.works;
+    final List<dynamic> items = _viewingStencils ? _stencils : _works;
     
     if (items.isEmpty) {
       return Center(
@@ -311,9 +558,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                if (_viewingStencils && widget.works.isNotEmpty) {
+                if (_viewingStencils && _works.isNotEmpty) {
                   _switchToWorks();
-                } else if (!_viewingStencils && widget.stencils.isNotEmpty) {
+                } else if (!_viewingStencils && _stencils.isNotEmpty) {
                   _switchToStencils();
                 } else {
                   Navigator.of(context).pop();
@@ -324,9 +571,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 foregroundColor: Colors.white,
               ),
               child: Text(
-                _viewingStencils && widget.works.isNotEmpty
+                _viewingStencils && _works.isNotEmpty
                   ? 'Ver tatuajes'
-                  : (!_viewingStencils && widget.stencils.isNotEmpty
+                  : (!_viewingStencils && _stencils.isNotEmpty
                      ? 'Ver stencils'
                      : 'Volver')
               ),
@@ -404,7 +651,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 // Views stat
                 _buildStatItem(
                   Icons.visibility_rounded,
-                  '${work.viewCount}',
+                  '${work.metrics?.viewCount ?? work.viewCount}',
                   'vistas',
                 ),
                 const SizedBox(height: 20),
@@ -412,8 +659,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 // Likes stat
                 _buildStatItem(
                   Icons.favorite,
-                  '${work.likeCount}',
+                  '${work.metrics?.likeCount ?? work.likeCount}',
                   'me gusta',
+                  isLiked: work.metrics?.userHasLiked ?? work.userHasLiked,
                 ),
                 const SizedBox(height: 20),
                 
@@ -524,7 +772,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 // Views stat
                 _buildStatItem(
                   Icons.visibility_rounded,
-                  '${stencil.viewCount}',
+                  '${stencil.metrics?.viewCount ?? stencil.viewCount}',
                   'vistas',
                 ),
                 const SizedBox(height: 20),
@@ -532,8 +780,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 // Likes stat
                 _buildStatItem(
                   Icons.favorite,
-                  '${stencil.likeCount}',
+                  '${stencil.metrics?.likeCount ?? stencil.likeCount}',
                   'me gusta',
+                  isLiked: stencil.metrics?.userHasLiked ?? stencil.isLikedByUser,
                 ),
                 const SizedBox(height: 20),
                 
@@ -596,7 +845,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   }
   
   // Build a stat item with icon and text in TikTok style
-  Widget _buildStatItem(IconData icon, String count, String label, {double iconSize = 24}) {
+  Widget _buildStatItem(IconData icon, String count, String label, {double iconSize = 24, bool isLiked = false}) {
     return Column(
       children: [
         Container(
@@ -606,7 +855,11 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
             color: Colors.black.withOpacity(0.5),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, color: Colors.white, size: iconSize),
+          child: Icon(
+            icon, 
+            color: icon == Icons.favorite && isLiked ? redColor : Colors.white, 
+            size: iconSize
+          ),
         ),
         if (count.isNotEmpty) ...[
           const SizedBox(height: 4),
@@ -772,9 +1025,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: _viewingStencils && widget.works.isNotEmpty
+                  onPressed: _viewingStencils && _works.isNotEmpty
                     ? _switchToWorks
-                    : (!_viewingStencils && widget.stencils.isNotEmpty
+                    : (!_viewingStencils && _stencils.isNotEmpty
                        ? _switchToStencils
                        : () => Navigator.of(context).pop()),
                   style: ElevatedButton.styleFrom(
@@ -785,9 +1038,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     ),
                   ),
                   child: Text(
-                    _viewingStencils && widget.works.isNotEmpty
+                    _viewingStencils && _works.isNotEmpty
                       ? 'Ver tatuajes'
-                      : (!_viewingStencils && widget.stencils.isNotEmpty
+                      : (!_viewingStencils && _stencils.isNotEmpty
                          ? 'Ver stencils'
                          : 'Volver a la búsqueda')
                   ),
