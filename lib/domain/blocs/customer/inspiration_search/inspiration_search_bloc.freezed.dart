@@ -3073,7 +3073,9 @@ mixin _$InspirationSearchState {
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -3094,7 +3096,9 @@ mixin _$InspirationSearchState {
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -3115,7 +3119,9 @@ mixin _$InspirationSearchState {
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3224,7 +3230,9 @@ class _$InspirationSearchState_InitialImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -3248,7 +3256,9 @@ class _$InspirationSearchState_InitialImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3272,7 +3282,9 @@ class _$InspirationSearchState_InitialImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3384,7 +3396,9 @@ class _$InspirationSearchState_LoadingImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -3408,7 +3422,9 @@ class _$InspirationSearchState_LoadingImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3432,7 +3448,9 @@ class _$InspirationSearchState_LoadingImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3506,7 +3524,9 @@ abstract class _$$InspirationSearchState_LoadedImplCopyWith<$Res> {
       int currentStencilPage,
       bool hasMoreStencils,
       List<TagSuggestionResponseDto> popularTags,
-      List<TagSuggestionResponseDto> searchedTags});
+      List<TagSuggestionResponseDto> searchedTags,
+      bool isLoadingMoreWorks,
+      bool isLoadingMoreStencils});
 }
 
 /// @nodoc
@@ -3534,6 +3554,8 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
     Object? hasMoreStencils = null,
     Object? popularTags = null,
     Object? searchedTags = null,
+    Object? isLoadingMoreWorks = null,
+    Object? isLoadingMoreStencils = null,
   }) {
     return _then(_$InspirationSearchState_LoadedImpl(
       works: null == works
@@ -3584,6 +3606,14 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
           ? _value._searchedTags
           : searchedTags // ignore: cast_nullable_to_non_nullable
               as List<TagSuggestionResponseDto>,
+      isLoadingMoreWorks: null == isLoadingMoreWorks
+          ? _value.isLoadingMoreWorks
+          : isLoadingMoreWorks // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMoreStencils: null == isLoadingMoreStencils
+          ? _value.isLoadingMoreStencils
+          : isLoadingMoreStencils // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -3604,7 +3634,9 @@ class _$InspirationSearchState_LoadedImpl
       required this.currentStencilPage,
       required this.hasMoreStencils,
       final List<TagSuggestionResponseDto> popularTags = const [],
-      final List<TagSuggestionResponseDto> searchedTags = const []})
+      final List<TagSuggestionResponseDto> searchedTags = const [],
+      this.isLoadingMoreWorks = false,
+      this.isLoadingMoreStencils = false})
       : _works = works,
         _stencils = stencils,
         _selectedTagIds = selectedTagIds,
@@ -3668,8 +3700,15 @@ class _$InspirationSearchState_LoadedImpl
   }
 
   @override
+  @JsonKey()
+  final bool isLoadingMoreWorks;
+  @override
+  @JsonKey()
+  final bool isLoadingMoreStencils;
+
+  @override
   String toString() {
-    return 'InspirationSearchState.loaded(works: $works, stencils: $stencils, contentType: $contentType, selectedTagIds: $selectedTagIds, searchQuery: $searchQuery, sortType: $sortType, currentWorkPage: $currentWorkPage, hasMoreWorks: $hasMoreWorks, currentStencilPage: $currentStencilPage, hasMoreStencils: $hasMoreStencils, popularTags: $popularTags, searchedTags: $searchedTags)';
+    return 'InspirationSearchState.loaded(works: $works, stencils: $stencils, contentType: $contentType, selectedTagIds: $selectedTagIds, searchQuery: $searchQuery, sortType: $sortType, currentWorkPage: $currentWorkPage, hasMoreWorks: $hasMoreWorks, currentStencilPage: $currentStencilPage, hasMoreStencils: $hasMoreStencils, popularTags: $popularTags, searchedTags: $searchedTags, isLoadingMoreWorks: $isLoadingMoreWorks, isLoadingMoreStencils: $isLoadingMoreStencils)';
   }
 
   @override
@@ -3698,7 +3737,11 @@ class _$InspirationSearchState_LoadedImpl
             const DeepCollectionEquality()
                 .equals(other._popularTags, _popularTags) &&
             const DeepCollectionEquality()
-                .equals(other._searchedTags, _searchedTags));
+                .equals(other._searchedTags, _searchedTags) &&
+            (identical(other.isLoadingMoreWorks, isLoadingMoreWorks) ||
+                other.isLoadingMoreWorks == isLoadingMoreWorks) &&
+            (identical(other.isLoadingMoreStencils, isLoadingMoreStencils) ||
+                other.isLoadingMoreStencils == isLoadingMoreStencils));
   }
 
   @override
@@ -3715,7 +3758,9 @@ class _$InspirationSearchState_LoadedImpl
       currentStencilPage,
       hasMoreStencils,
       const DeepCollectionEquality().hash(_popularTags),
-      const DeepCollectionEquality().hash(_searchedTags));
+      const DeepCollectionEquality().hash(_searchedTags),
+      isLoadingMoreWorks,
+      isLoadingMoreStencils);
 
   @JsonKey(ignore: true)
   @override
@@ -3742,7 +3787,9 @@ class _$InspirationSearchState_LoadedImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -3758,7 +3805,9 @@ class _$InspirationSearchState_LoadedImpl
         currentStencilPage,
         hasMoreStencils,
         popularTags,
-        searchedTags);
+        searchedTags,
+        isLoadingMoreWorks,
+        isLoadingMoreStencils);
   }
 
   @override
@@ -3778,7 +3827,9 @@ class _$InspirationSearchState_LoadedImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3794,7 +3845,9 @@ class _$InspirationSearchState_LoadedImpl
         currentStencilPage,
         hasMoreStencils,
         popularTags,
-        searchedTags);
+        searchedTags,
+        isLoadingMoreWorks,
+        isLoadingMoreStencils);
   }
 
   @override
@@ -3814,7 +3867,9 @@ class _$InspirationSearchState_LoadedImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3832,7 +3887,9 @@ class _$InspirationSearchState_LoadedImpl
           currentStencilPage,
           hasMoreStencils,
           popularTags,
-          searchedTags);
+          searchedTags,
+          isLoadingMoreWorks,
+          isLoadingMoreStencils);
     }
     return orElse();
   }
@@ -3877,19 +3934,20 @@ class _$InspirationSearchState_LoadedImpl
 
 abstract class InspirationSearchState_Loaded implements InspirationSearchState {
   const factory InspirationSearchState_Loaded(
-          {required final List<Work> works,
-          required final List<Stencil> stencils,
-          required final ContentType contentType,
-          required final List<int> selectedTagIds,
-          required final String searchQuery,
-          required final SortType sortType,
-          required final int currentWorkPage,
-          required final bool hasMoreWorks,
-          required final int currentStencilPage,
-          required final bool hasMoreStencils,
-          final List<TagSuggestionResponseDto> popularTags,
-          final List<TagSuggestionResponseDto> searchedTags}) =
-      _$InspirationSearchState_LoadedImpl;
+      {required final List<Work> works,
+      required final List<Stencil> stencils,
+      required final ContentType contentType,
+      required final List<int> selectedTagIds,
+      required final String searchQuery,
+      required final SortType sortType,
+      required final int currentWorkPage,
+      required final bool hasMoreWorks,
+      required final int currentStencilPage,
+      required final bool hasMoreStencils,
+      final List<TagSuggestionResponseDto> popularTags,
+      final List<TagSuggestionResponseDto> searchedTags,
+      final bool isLoadingMoreWorks,
+      final bool isLoadingMoreStencils}) = _$InspirationSearchState_LoadedImpl;
 
   List<Work> get works;
   List<Stencil> get stencils;
@@ -3903,6 +3961,8 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
   bool get hasMoreStencils;
   List<TagSuggestionResponseDto> get popularTags;
   List<TagSuggestionResponseDto> get searchedTags;
+  bool get isLoadingMoreWorks;
+  bool get isLoadingMoreStencils;
   @JsonKey(ignore: true)
   _$$InspirationSearchState_LoadedImplCopyWith<
           _$InspirationSearchState_LoadedImpl>
@@ -3993,7 +4053,9 @@ class _$InspirationSearchState_ErrorImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -4017,7 +4079,9 @@ class _$InspirationSearchState_ErrorImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -4041,7 +4105,9 @@ class _$InspirationSearchState_ErrorImpl
             int currentStencilPage,
             bool hasMoreStencils,
             List<TagSuggestionResponseDto> popularTags,
-            List<TagSuggestionResponseDto> searchedTags)?
+            List<TagSuggestionResponseDto> searchedTags,
+            bool isLoadingMoreWorks,
+            bool isLoadingMoreStencils)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

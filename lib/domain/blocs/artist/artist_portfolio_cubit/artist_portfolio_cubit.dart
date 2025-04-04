@@ -87,4 +87,24 @@ class ArtistPortfolioCubit extends Cubit<ArtistPortfolioState> {
   void refresh(int artistId) {
     loadArtistPortfolio(artistId);
   }
+  
+  // Método para actualizar las listas de trabajos y stencils
+  void updatePortfolioItems({
+    List<Work>? works,
+    List<Stencil>? stencils,
+  }) {
+    final currentState = state;
+    if (currentState is _Loaded) {
+      // Si hay trabajos actualizados, usarlos; de lo contrario, usar los actuales
+      final updatedWorks = works ?? currentState.works;
+      // Si hay stencils actualizados, usarlos; de lo contrario, usar los actuales
+      final updatedStencils = stencils ?? currentState.stencils;
+      
+      // Emitir un nuevo estado con las listas actualizadas
+      emit(ArtistPortfolioState.loaded(
+        stencils: updatedStencils,
+        works: updatedWorks,
+      ));
+    }
+  }
 }

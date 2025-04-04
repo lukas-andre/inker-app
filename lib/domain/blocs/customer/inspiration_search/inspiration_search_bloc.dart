@@ -316,9 +316,16 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
     final currentState = state;
     if (currentState is! InspirationSearchState_Loaded) return;
     
+    // Evitar múltiples solicitudes si ya está cargando o no hay más para cargar
+    if (currentState.isLoadingMoreWorks || !currentState.hasMoreWorks) return;
+    
     try {
+      // Marcar que estamos cargando más obras
+      emit(currentState.copyWith(isLoadingMoreWorks: true));
+      
       final session = await _sessionService.getActiveSession();
       if (session == null) {
+        emit(currentState.copyWith(isLoadingMoreWorks: false));
         emit(const InspirationSearchState.error(message: 'No active session found'));
         return;
       }
@@ -339,8 +346,13 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         works: [...currentState.works, ...workResults.items],
         currentWorkPage: nextPage,
         hasMoreWorks: workResults.currentPage < workResults.totalPages,
+        isLoadingMoreWorks: false, // Restablecer la bandera de carga
       ));
     } catch (e) {
+      // En caso de error, restablecer la bandera de carga
+      if (currentState is InspirationSearchState_Loaded) {
+        emit(currentState.copyWith(isLoadingMoreWorks: false));
+      }
       emit(InspirationSearchState.error(message: 'Failed to load more works: $e'));
     }
   }
@@ -352,9 +364,16 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
     final currentState = state;
     if (currentState is! InspirationSearchState_Loaded) return;
     
+    // Evitar múltiples solicitudes si ya está cargando o no hay más para cargar
+    if (currentState.isLoadingMoreStencils || !currentState.hasMoreStencils) return;
+    
     try {
+      // Marcar que estamos cargando más stencils
+      emit(currentState.copyWith(isLoadingMoreStencils: true));
+      
       final session = await _sessionService.getActiveSession();
       if (session == null) {
+        emit(currentState.copyWith(isLoadingMoreStencils: false));
         emit(const InspirationSearchState.error(message: 'No active session found'));
         return;
       }
@@ -375,8 +394,13 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         stencils: [...currentState.stencils, ...stencilResults.items],
         currentStencilPage: nextPage,
         hasMoreStencils: stencilResults.currentPage < stencilResults.totalPages,
+        isLoadingMoreStencils: false, // Restablecer la bandera de carga
       ));
     } catch (e) {
+      // En caso de error, restablecer la bandera de carga
+      if (currentState is InspirationSearchState_Loaded) {
+        emit(currentState.copyWith(isLoadingMoreStencils: false));
+      }
       emit(InspirationSearchState.error(message: 'Failed to load more stencils: $e'));
     }
   }
