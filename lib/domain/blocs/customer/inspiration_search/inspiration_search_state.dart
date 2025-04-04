@@ -71,6 +71,8 @@ class InspirationSearchState with _$InspirationSearchState {
     required bool hasMoreStencils,
     @Default([]) List<TagSuggestionResponseDto> popularTags,
     @Default([]) List<TagSuggestionResponseDto> searchedTags,
+    @Default(false) bool isLoadingMoreWorks,
+    @Default(false) bool isLoadingMoreStencils,
   }) = InspirationSearchState_Loaded;
   
   const factory InspirationSearchState.error({
