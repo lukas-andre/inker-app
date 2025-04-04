@@ -185,19 +185,17 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   }
   
   // Update the local state when a like is recorded
-  void _updateLikeState(int contentId, ContentType contentType, bool isLiked) {
+  void _updateLikeState(int contentId, ContentType contentType, bool isLiked, int likeCount) {
     setState(() {
       if (contentType == ContentType.work) {
         final index = _works.indexWhere((work) => work.id == contentId);
         if (index != -1) {
           final work = _works[index];
           
-          // Create updated metrics
+          // Crear métricas actualizadas con contador exacto proporcionado por el bloc
           final updatedMetrics = Metrics(
             viewCount: work.metrics?.viewCount ?? work.viewCount,
-            likeCount: isLiked 
-              ? (work.metrics?.likeCount ?? work.likeCount) + 1 
-              : (work.metrics?.likeCount ?? work.likeCount) - 1,
+            likeCount: likeCount, // Usar exactamente el valor proporcionado
             userHasLiked: isLiked,
           );
                   
@@ -215,7 +213,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
             source: work.source,
             isHidden: work.isHidden,
             viewCount: work.viewCount,
-            likeCount: work.likeCount,
+            likeCount: likeCount, // Usar exactamente el valor proporcionado
             userHasLiked: isLiked,
             metrics: updatedMetrics,
             artist: work.artist,
@@ -230,12 +228,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         if (index != -1) {
           final stencil = _stencils[index];
           
-          // Create updated metrics
+          // Crear métricas actualizadas con contador exacto proporcionado por el bloc
           final updatedMetrics = Metrics(
             viewCount: stencil.metrics?.viewCount ?? stencil.viewCount,
-            likeCount: isLiked 
-              ? (stencil.metrics?.likeCount ?? stencil.likeCount) + 1 
-              : (stencil.metrics?.likeCount ?? stencil.likeCount) - 1,
+            likeCount: likeCount, // Usar exactamente el valor proporcionado
             userHasLiked: isLiked,
           );
                   
@@ -257,7 +253,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
             tags: stencil.tags,
             artist: stencil.artist,
             viewCount: stencil.viewCount,
-            likeCount: stencil.likeCount,
+            likeCount: likeCount, // Usar exactamente el valor proporcionado
             isLikedByUser: isLiked,
             metrics: updatedMetrics,
           );
@@ -471,31 +467,21 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     int contentId = 0;
     ContentType contentType = ContentType.work;
     
-    setState(() {
-      if (_viewingStencils && _currentStencilIndex < _stencils.length) {
-        final stencil = _stencils[_currentStencilIndex];
-        isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
-        contentId = stencil.id;
-        contentType = ContentType.stencil;
-        // Toggle like state
-        final newLikeState = !isCurrentlyLiked;
-        
-        // Immediate UI update
-        _updateLikeState(contentId, contentType, newLikeState);
-      } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
-        final work = _works[_currentWorkIndex];
-        isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
-        contentId = work.id;
-        contentType = ContentType.work;
-        // Toggle like state
-        final newLikeState = !isCurrentlyLiked;
-        
-        // Immediate UI update
-        _updateLikeState(contentId, contentType, newLikeState);
-      }
-    });
+    if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+      final stencil = _stencils[_currentStencilIndex];
+      isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
+      contentId = stencil.id;
+      contentType = ContentType.stencil;
+    } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+      final work = _works[_currentWorkIndex];
+      isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
+      contentId = work.id;
+      contentType = ContentType.work;
+    } else {
+      return; // No hay elemento seleccionado
+    }
     
-    // Record the like/unlike action
+    // Record the like/unlike action - esto actualizará la UI mediante el bloc listener
     context.read<AnalyticsBloc>().add(
       AnalyticsEvent.recordContentLike(
         contentId: contentId,
@@ -534,31 +520,21 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     ContentType contentType = ContentType.work;
     bool isCurrentlyLiked = false;
     
-    setState(() {
-      if (_viewingStencils && _currentStencilIndex < _stencils.length) {
-        final stencil = _stencils[_currentStencilIndex];
-        isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
-        contentId = stencil.id;
-        contentType = ContentType.stencil;
-        // Toggle like state
-        final newLikeState = !isCurrentlyLiked;
-        
-        // Immediate UI update
-        _updateLikeState(contentId, contentType, newLikeState);
-      } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
-        final work = _works[_currentWorkIndex];
-        isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
-        contentId = work.id;
-        contentType = ContentType.work;
-        // Toggle like state
-        final newLikeState = !isCurrentlyLiked;
-        
-        // Immediate UI update
-        _updateLikeState(contentId, contentType, newLikeState);
-      }
-    });
+    if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+      final stencil = _stencils[_currentStencilIndex];
+      isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
+      contentId = stencil.id;
+      contentType = ContentType.stencil;
+    } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
+      final work = _works[_currentWorkIndex];
+      isCurrentlyLiked = work.metrics?.userHasLiked ?? work.userHasLiked;
+      contentId = work.id;
+      contentType = ContentType.work;
+    } else {
+      return; // No hay elemento seleccionado
+    }
     
-    // Record the like/unlike action
+    // Record the like/unlike action - esto actualizará la UI mediante el bloc listener
     context.read<AnalyticsBloc>().add(
       AnalyticsEvent.recordContentLike(
         contentId: contentId,
@@ -597,44 +573,60 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       listener: (context, state) {
         // Listen for like updates
         state.maybeWhen(
-          contentLikeUpdated: (contentId, contentType, isLiked) {
-            _updateLikeState(contentId, contentType, isLiked);
+          contentLikeUpdated: (contentId, contentType, isLiked, likeCount) {
+            _updateLikeState(contentId, contentType, isLiked, likeCount);
           },
           orElse: () {},
         );
       },
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            // Main content
-            _buildMainContent(),
-            
-            // Top back button
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 10,
-              left: 16,
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 24,
+      child: WillPopScope(
+        onWillPop: () async {
+          // Al cerrar con botón de atrás, también devuelve las listas actualizadas
+          Navigator.of(context).pop({
+            'works': _works,
+            'stencils': _stencils,
+          });
+          return false; // Manejamos la navegación manualmente
+        },
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: [
+              // Main content
+              _buildMainContent(),
+              
+              // Top back button
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 10,
+                left: 16,
+                child: GestureDetector(
+                  onTap: () {
+                    // Al cerrar, devuelve las listas actualizadas de works y stencils
+                    Navigator.of(context).pop({
+                      'works': _works,
+                      'stencils': _stencils,
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                 ),
               ),
-            ),
-            
-            // End of category overlay if needed
-            if (_showEndOfCategory)
-              _buildEndOfCategoryOverlay(),
-          ],
+              
+              // End of category overlay if needed
+              if (_showEndOfCategory)
+                _buildEndOfCategoryOverlay(),
+            ],
+          ),
         ),
       ),
     );
@@ -1133,7 +1125,13 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     ? _switchToWorks
                     : (!_viewingStencils && _stencils.isNotEmpty
                        ? _switchToStencils
-                       : () => Navigator.of(context).pop()),
+                       : () {
+                          // Regresar a la página anterior con los datos actualizados
+                          Navigator.of(context).pop({
+                            'works': _works,
+                            'stencils': _stencils,
+                          });
+                        }),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: redColor,
                     padding: const EdgeInsets.symmetric(

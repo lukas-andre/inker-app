@@ -1611,129 +1611,146 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     print(
         'Rendering results: hasWorks=${works.isNotEmpty}, hasStencils=${stencils.isNotEmpty}');
 
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            color: primaryColor,
-            child: ListView(
-              controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(top: 16.0, bottom: 24.0),
-              children: [
-                // For "both" content type or specifically "works", show works section if there are any
-                if ((contentType == ContentType.both ||
-                        contentType == ContentType.works) &&
-                    works.isNotEmpty) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 12.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: redColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: const Icon(Icons.brush,
-                              color: Colors.white, size: 16.0),
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          'Tatuajes',
-                          style: TextStyleTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  _buildWorksGrid(works),
-                  const SizedBox(height: 24.0),
-                ],
-
-                // For "both" content type or specifically "stencils", show stencils section if there are any
-                if ((contentType == ContentType.both ||
-                        contentType == ContentType.stencils) &&
-                    stencils.isNotEmpty) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 12.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: secondaryColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: const Icon(Icons.image,
-                              color: Colors.white, size: 16.0),
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          'Stencils',
-                          style: TextStyleTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  _buildStencilsGrid(stencils),
-                ],
-
-                // Show messages about missing content types if in "both" mode
-                if (contentType == ContentType.both) ...[
-                  if (works.isEmpty && stencils.isNotEmpty)
+    return RefreshIndicator(
+      onRefresh: () async {
+        // Use searchBoth event with current parameters to refresh
+        final currentState = context.read<InspirationSearchBloc>().state;
+        context.read<InspirationSearchBloc>().add(
+          InspirationSearchEvent.searchBoth(
+            query: _searchController.text,
+            tagIds: selectedTagIds,
+            sortBy: currentState.maybeMap(
+              loaded: (state) => state.sortType,
+              orElse: () => SortType.relevance,
+            ),
+            skipCache: true,  // Skip cache on pull-to-refresh
+          ),
+        );
+      },
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: primaryColor,
+              child: ListView(
+                controller: _scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(top: 16.0, bottom: 24.0),
+                children: [
+                  // For "both" content type or specifically "works", show works section if there are any
+                  if ((contentType == ContentType.both ||
+                          contentType == ContentType.works) &&
+                      works.isNotEmpty) ...[
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Text(
-                          'No se encontraron tatuajes con los criterios actuales.',
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
+                          left: 16.0, right: 16.0, bottom: 12.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6.0),
+                            decoration: BoxDecoration(
+                              color: redColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: const Icon(Icons.brush,
+                                color: Colors.white, size: 16.0),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            'Tatuajes',
+                            style: TextStyleTheme.subtitle1.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  if (stencils.isEmpty && works.isNotEmpty)
+                    _buildWorksGrid(works),
+                    const SizedBox(height: 24.0),
+                  ],
+
+                  // For "both" content type or specifically "stencils", show stencils section if there are any
+                  if ((contentType == ContentType.both ||
+                          contentType == ContentType.stencils) &&
+                      stencils.isNotEmpty) ...[
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Text(
-                          'No se encontraron stencils con los criterios actuales.',
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
+                          left: 16.0, right: 16.0, bottom: 12.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6.0),
+                            decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: const Icon(Icons.image,
+                                color: Colors.white, size: 16.0),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            'Stencils',
+                            style: TextStyleTheme.subtitle1.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    _buildStencilsGrid(stencils),
+                  ],
+
+                  // Show messages about missing content types if in "both" mode
+                  if (contentType == ContentType.both) ...[
+                    if (works.isEmpty && stencils.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Text(
+                            'No se encontraron tatuajes con los criterios actuales.',
+                            style: TextStyleTheme.bodyText2.copyWith(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    if (stencils.isEmpty && works.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, right: 16.0, top: 16.0, bottom: 12.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Text(
+                            'No se encontraron stencils con los criterios actuales.',
+                            style: TextStyleTheme.bodyText2.copyWith(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -2221,7 +2238,50 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               startWithStencils: startWithStencils,
             ),
           ),
-        );
+        ).then((updatedContent) {
+          // Si el contenido fue actualizado (likes, etc.), actualizar el estado local
+          if (updatedContent != null) {
+            final List<Work>? updatedWorks = updatedContent is Map ? updatedContent['works'] : null;
+            final List<Stencil>? updatedStencils = updatedContent is Map ? updatedContent['stencils'] : null;
+            
+            if (updatedWorks != null || updatedStencils != null) {
+              // Actualizar el bloc con los datos actualizados
+              InspirationSearchState_Loaded currentState = state as InspirationSearchState_Loaded;
+              
+              // Emitir un nuevo estado con las actualizaciones
+              context.read<InspirationSearchBloc>().emit(
+                InspirationSearchState.loaded(
+                  works: updatedWorks ?? currentState.works,
+                  stencils: updatedStencils ?? currentState.stencils,
+                  contentType: currentState.contentType,
+                  selectedTagIds: currentState.selectedTagIds,
+                  searchQuery: currentState.searchQuery,
+                  sortType: currentState.sortType,
+                  currentWorkPage: currentState.currentWorkPage,
+                  hasMoreWorks: currentState.hasMoreWorks,
+                  currentStencilPage: currentState.currentStencilPage,
+                  hasMoreStencils: currentState.hasMoreStencils,
+                  popularTags: currentState.popularTags,
+                  searchedTags: currentState.searchedTags,
+                ),
+              );
+              return;
+            }
+          }
+          
+          // Si no hay actualizaciones específicas, actualizar con searchBoth
+          final currentBlocState = context.read<InspirationSearchBloc>().state;
+          if (currentBlocState is InspirationSearchState_Loaded) {
+            // Use searchBoth event with current parameters to refresh
+            context.read<InspirationSearchBloc>().add(
+              InspirationSearchEvent.searchBoth(
+                query: currentBlocState.searchQuery,
+                tagIds: currentBlocState.selectedTagIds,
+                sortBy: currentBlocState.sortType,
+              ),
+            );
+          }
+        });
       },
     );
   }

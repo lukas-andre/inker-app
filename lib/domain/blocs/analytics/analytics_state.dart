@@ -28,6 +28,7 @@ class AnalyticsState with _$AnalyticsState {
     required int contentId,
     required ContentType contentType,
     required bool isLiked,
+    required int likeCount,
   }) = _ContentLikeUpdated;
 
   /// Error state
