@@ -18,7 +18,7 @@ class WorkClientService implements WorkService {
   
   @override
   Future<PaginatedWorkSearchResponseDto> searchWorks(
-      WorkSearchQueryDto queryParams, String token) async {
+      WorkSearchQueryDto queryParams, String token, {bool skipCache = false}) async {
     try {
       final params = <String, String>{
         'page': queryParams.page.toString(),
@@ -52,6 +52,7 @@ class WorkClientService implements WorkService {
         queryParams: params,
         fromJson: (data) => PaginatedWorkSearchResponseDto.fromJson(data),
         token: token,
+        skipCache: skipCache,
       );
       
       return response;

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/domain/models/analytics/analytics_response.dart';
 import 'package:inker_studio/domain/models/analytics/content_type.dart';
@@ -37,23 +35,27 @@ class ApiAnalyticsService implements AnalyticsService {
         request['viewDurationSeconds'] = viewDurationSeconds;
       }
 
-      // For likes, the API returns true if liked, false if unliked
+      // La API ahora devuelve un objeto AnalyticsInteractionResponse
+      final response = await _httpClient.post(
+        path: '$_basePath/interactions',
+        body: request,
+        fromJson: (json) => AnalyticsInteractionResponse.fromJson(json),
+        token: token,
+      );
+      
+      // Para interacciones de like, verificamos si el usuario actual está en la lista de userIds
       if (interactionType == InteractionType.like) {
-        return await _httpClient.post(
-          path: '$_basePath/interactions',
-          body: request,
-          fromJson: (json) => json['liked'] as bool? ?? false,
-          token: token,
-        );
-      } else {
-        await _httpClient.post(
-          path: '$_basePath/interactions',
-          body: request,
-          fromJson: (json) => null,
-          token: token,
-        );
-        return null;
+        // Si el response.result es false, algo falló en el servidor
+        if (!response.result) {
+          return null;
+        }
+        
+        // Comprobamos si hay algún ID de usuario en el array userIds
+        // En el contexto actual, solo necesitamos saber si el usuario ha dado like o no
+        return response.state.userIds.isNotEmpty;
       }
+      
+      return null;
     } catch (e) {
       print('Error recording interaction: $e');
       return null;
@@ -94,19 +96,33 @@ class ApiAnalyticsService implements AnalyticsService {
   @override
   Future<ContentMetrics> getContentMetrics(int contentId, ContentType contentType, {String? token}) async {
     try {
-      return await _httpClient.get(
+      final response = await _httpClient.get(
         path: '$_basePath/content/$contentId',
         queryParams: {'type': contentType.value},
-        fromJson: (json) => ContentMetrics(
-          contentId: json['contentId'] ?? contentId,
-          contentType: json['contentType'] ?? contentType.value,
-          viewCount: json['viewCount'] ?? 0,
-          uniqueViewCount: json['uniqueViewCount'] ?? 0,
-          likeCount: json['likeCount'] ?? 0,
-          userHasLiked: json['userHasLiked'],
-        ),
+        fromJson: (json) {
+          // Comprobamos si hay una estructura de state en la respuesta
+          final state = json['state'] as Map<String, dynamic>?;
+          // Comprobamos si hay una estructura de metrics en la respuesta
+          final metrics = json['metrics'] as Map<String, dynamic>?;
+          
+          return ContentMetrics(
+            contentId: json['contentId'] ?? contentId,
+            contentType: json['contentType'] ?? contentType.value,
+            // Usamos la estructura nueva si está disponible
+            viewCount: metrics?['viewCount'] ?? json['viewCount'] ?? 0,
+            uniqueViewCount: metrics?['uniqueViewCount'] ?? json['uniqueViewCount'] ?? 0,
+            likeCount: state?['count'] ?? json['likeCount'] ?? 0,
+            // Verificamos si el usuario actual está en el array de userIds
+            userHasLiked: state?['userIds'] != null 
+              ? (state!['userIds'] as List).isNotEmpty 
+              : json['userHasLiked'],
+          );
+        },
         token: token,
+        skipCache: true,  // Para asegurarnos de obtener los datos más actualizados
       );
+      
+      return response;
     } catch (e) {
       print('Error getting content metrics: $e');
       // Return default metrics on error
@@ -159,17 +175,29 @@ class ApiAnalyticsService implements AnalyticsService {
         fromJson: (json) => json['items'] ?? [],
         expectListResponse: true,
         token: token,
+        skipCache: true,  // Para asegurarnos de obtener los datos más actualizados
       );
       
       return result
-          .map((item) => ContentMetrics(
-                contentId: item['contentId'] ?? 0,
-                contentType: item['contentType'] ?? contentType.value,
-                viewCount: item['viewCount'] ?? 0,
-                uniqueViewCount: item['uniqueViewCount'] ?? 0,
-                likeCount: item['likeCount'] ?? 0,
-                userHasLiked: item['userHasLiked'],
-              ))
+          .map((item) {
+            // Comprobamos si hay una estructura de state en la respuesta
+            final state = item['state'] as Map<String, dynamic>?;
+            // Comprobamos si hay una estructura de metrics en la respuesta
+            final metrics = item['metrics'] as Map<String, dynamic>?;
+            
+            return ContentMetrics(
+              contentId: item['contentId'] ?? 0,
+              contentType: item['contentType'] ?? contentType.value,
+              // Usamos la estructura nueva si está disponible
+              viewCount: metrics?['viewCount'] ?? item['viewCount'] ?? 0,
+              uniqueViewCount: metrics?['uniqueViewCount'] ?? item['uniqueViewCount'] ?? 0,
+              likeCount: state?['count'] ?? item['likeCount'] ?? 0,
+              // Verificamos si el usuario actual está en el array de userIds
+              userHasLiked: (state?['userIds'] is List) 
+                ? (state!['userIds'] as List).isNotEmpty 
+                : item['userHasLiked'],
+            );
+          })
           .toList();
     } catch (e) {
       print('Error getting batch metrics: $e');

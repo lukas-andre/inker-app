@@ -101,4 +101,77 @@ class FollowerMetrics with _$FollowerMetrics {
 
   factory FollowerMetrics.fromJson(Map<String, dynamic> json) =>
       _$FollowerMetricsFromJson(json);
+}
+
+/// Respuesta de interacción de analytics
+class AnalyticsInteractionResponse {
+  /// Indica si la operación fue exitosa
+  final bool result;
+  
+  /// Estado actual de la interacción
+  final InteractionState state;
+  
+  /// Métricas adicionales relacionadas con la interacción
+  final InteractionMetrics metrics;
+  
+  const AnalyticsInteractionResponse({
+    required this.result,
+    required this.state,
+    required this.metrics,
+  });
+  
+  factory AnalyticsInteractionResponse.fromJson(Map<String, dynamic> json) {
+    return AnalyticsInteractionResponse(
+      result: json['result'] ?? false,
+      state: InteractionState.fromJson(json['state'] ?? {}),
+      metrics: InteractionMetrics.fromJson(json['metrics'] ?? {}),
+    );
+  }
+}
+
+/// Estado de una interacción
+class InteractionState {
+  /// Contador de interacciones (likes, views, etc.)
+  final int count;
+  
+  /// IDs de usuarios que han interactuado
+  final List<int> userIds;
+  
+  const InteractionState({
+    required this.count,
+    required this.userIds,
+  });
+  
+  factory InteractionState.fromJson(Map<String, dynamic> json) {
+    return InteractionState(
+      count: json['count'] ?? 0,
+      userIds: List<int>.from(json['userIds'] ?? []),
+    );
+  }
+}
+
+/// Métricas adicionales para interacciones
+class InteractionMetrics {
+  /// Contador de vistas
+  final int viewCount;
+  
+  /// Contador de vistas únicas
+  final int uniqueViewCount;
+  
+  /// Tasa de engagement (opcional)
+  final double? engagementRate;
+  
+  const InteractionMetrics({
+    required this.viewCount,
+    required this.uniqueViewCount,
+    this.engagementRate,
+  });
+  
+  factory InteractionMetrics.fromJson(Map<String, dynamic> json) {
+    return InteractionMetrics(
+      viewCount: json['viewCount'] ?? 0,
+      uniqueViewCount: json['uniqueViewCount'] ?? 0,
+      engagementRate: json['engagementRate']?.toDouble(),
+    );
+  }
 } 

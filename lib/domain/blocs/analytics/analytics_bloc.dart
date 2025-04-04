@@ -50,7 +50,8 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
+
+      // Record the view in analytics service
       await _analyticsService.recordInteraction(
         contentId: event.contentId,
         contentType: event.contentType,
@@ -59,9 +60,9 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         viewDurationSeconds: event.viewDurationSeconds,
         token: session.accessToken,
       );
-      // No state change needed for recording views
     } catch (e) {
-      emit(AnalyticsState.error(message: 'Failed to record view: $e'));
+      // Don't emit an error for view tracking failures
+      print('View tracking error: $e');
     }
   }
 
@@ -75,23 +76,44 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
+
+      // Obtener métricas actuales para saber el estado actual
+      final metrics = await _analyticsService.getContentMetrics(
+        event.contentId,
+        event.contentType,
+        token: session.accessToken,
+      );
+
+      // Determinar el estado actual de like
+      final bool currentLikeState = metrics.userHasLiked ?? false;
       
-      final bool? isLiked = await _analyticsService.recordInteraction(
+      // Invertir el estado (si tenía like, quitarlo; si no tenía, ponerlo)
+      final bool newLikeState = !currentLikeState;
+      
+      // Emitir estado optimista con un cambio simple en el contador de likes
+      // Si estamos dando like, sumar 1; si estamos quitando like, restar 1
+      final int likeCountDelta = newLikeState ? 1 : -1;
+      
+      emit(AnalyticsState.contentLikeUpdated(
+        contentId: event.contentId,
+        contentType: event.contentType,
+        isLiked: newLikeState,
+        likeCount: metrics.likeCount + likeCountDelta,
+      ));
+
+      // Enviar la interacción al backend, pero ignorar la respuesta para la UI
+      await _analyticsService.recordInteraction(
         contentId: event.contentId,
         contentType: event.contentType,
         interactionType: InteractionType.like,
         token: session.accessToken,
       );
-
-      if (isLiked != null) {
-        emit(AnalyticsState.contentLikeUpdated(
-          contentId: event.contentId,
-          contentType: event.contentType,
-          isLiked: isLiked,
-        ));
-      }
+      
+      // No actualizamos el estado independientemente de lo que responda el servidor
+      
     } catch (e) {
-      emit(AnalyticsState.error(message: 'Failed to record like: $e'));
+      print('Like tracking error: $e');
+      // No interrumpir el flujo de la UI con un estado de error
     }
   }
 
@@ -105,7 +127,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
+
       await _analyticsService.recordInteraction(
         contentId: event.contentId,
         contentType: event.contentType,
@@ -128,8 +150,9 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
-      await _analyticsService.recordArtistView(event.artistId, token: session.accessToken);
+
+      await _analyticsService.recordArtistView(event.artistId,
+          token: session.accessToken);
       // No state change needed for recording artist views
     } catch (e) {
       emit(AnalyticsState.error(message: 'Failed to record artist view: $e'));
@@ -146,7 +169,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
+
       await _analyticsService.recordArtistFollow(
         event.artistId,
         fromContentView: event.fromContentView,
@@ -164,19 +187,19 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   ) async {
     try {
       emit(const AnalyticsState.loading());
-      
+
       final session = await _sessionService.getActiveSession();
       if (session == null) {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
+
       final metrics = await _analyticsService.getContentMetrics(
         event.contentId,
         event.contentType,
         token: session.accessToken,
       );
-      
+
       emit(AnalyticsState.contentMetricsLoaded(metrics: metrics));
     } catch (e) {
       emit(AnalyticsState.error(message: 'Failed to get content metrics: $e'));
@@ -189,15 +212,16 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   ) async {
     try {
       emit(const AnalyticsState.loading());
-      
+
       final session = await _sessionService.getActiveSession();
       if (session == null) {
         emit(const AnalyticsState.error(message: 'No active session'));
         return;
       }
-      
-      final metrics = await _analyticsService.getArtistMetrics(event.artistId, token: session.accessToken);
-      
+
+      final metrics = await _analyticsService.getArtistMetrics(event.artistId,
+          token: session.accessToken);
+
       emit(AnalyticsState.artistMetricsLoaded(metrics: metrics));
     } catch (e) {
       emit(AnalyticsState.error(message: 'Failed to get artist metrics: $e'));
@@ -210,15 +234,15 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   ) async {
     try {
       emit(const AnalyticsState.loading());
-      
+
       final metrics = await _analyticsService.getBatchContentMetrics(
         event.contentIds,
         event.contentType,
       );
-      
+
       emit(AnalyticsState.batchContentMetricsLoaded(metrics: metrics));
     } catch (e) {
       emit(AnalyticsState.error(message: 'Failed to get batch metrics: $e'));
     }
   }
-} 
+}

@@ -1786,7 +1786,7 @@ mixin _$AnalyticsState {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) =>
@@ -1798,7 +1798,8 @@ mixin _$AnalyticsState {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) =>
@@ -1810,7 +1811,8 @@ mixin _$AnalyticsState {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1918,7 +1920,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -1933,7 +1935,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -1948,7 +1951,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2058,7 +2062,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2073,7 +2077,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -2088,7 +2093,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2236,7 +2242,7 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2251,7 +2257,8 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -2266,7 +2273,8 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2419,7 +2427,7 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2434,7 +2442,8 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -2449,7 +2458,8 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2602,7 +2612,7 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2617,7 +2627,8 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -2632,7 +2643,8 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2710,7 +2722,8 @@ abstract class _$$ContentLikeUpdatedImplCopyWith<$Res> {
           $Res Function(_$ContentLikeUpdatedImpl) then) =
       __$$ContentLikeUpdatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int contentId, ContentType contentType, bool isLiked});
+  $Res call(
+      {int contentId, ContentType contentType, bool isLiked, int likeCount});
 }
 
 /// @nodoc
@@ -2727,6 +2740,7 @@ class __$$ContentLikeUpdatedImplCopyWithImpl<$Res>
     Object? contentId = null,
     Object? contentType = null,
     Object? isLiked = null,
+    Object? likeCount = null,
   }) {
     return _then(_$ContentLikeUpdatedImpl(
       contentId: null == contentId
@@ -2741,6 +2755,10 @@ class __$$ContentLikeUpdatedImplCopyWithImpl<$Res>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      likeCount: null == likeCount
+          ? _value.likeCount
+          : likeCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -2751,7 +2769,8 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
   const _$ContentLikeUpdatedImpl(
       {required this.contentId,
       required this.contentType,
-      required this.isLiked});
+      required this.isLiked,
+      required this.likeCount});
 
   @override
   final int contentId;
@@ -2759,10 +2778,12 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
   final ContentType contentType;
   @override
   final bool isLiked;
+  @override
+  final int likeCount;
 
   @override
   String toString() {
-    return 'AnalyticsState.contentLikeUpdated(contentId: $contentId, contentType: $contentType, isLiked: $isLiked)';
+    return 'AnalyticsState.contentLikeUpdated(contentId: $contentId, contentType: $contentType, isLiked: $isLiked, likeCount: $likeCount)';
   }
 
   @override
@@ -2774,11 +2795,14 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
                 other.contentId == contentId) &&
             (identical(other.contentType, contentType) ||
                 other.contentType == contentType) &&
-            (identical(other.isLiked, isLiked) || other.isLiked == isLiked));
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.likeCount, likeCount) ||
+                other.likeCount == likeCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, contentId, contentType, isLiked);
+  int get hashCode =>
+      Object.hash(runtimeType, contentId, contentType, isLiked, likeCount);
 
   @JsonKey(ignore: true)
   @override
@@ -2797,11 +2821,11 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
-    return contentLikeUpdated(contentId, contentType, isLiked);
+    return contentLikeUpdated(contentId, contentType, isLiked, likeCount);
   }
 
   @override
@@ -2812,11 +2836,12 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
-    return contentLikeUpdated?.call(contentId, contentType, isLiked);
+    return contentLikeUpdated?.call(contentId, contentType, isLiked, likeCount);
   }
 
   @override
@@ -2827,13 +2852,14 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (contentLikeUpdated != null) {
-      return contentLikeUpdated(contentId, contentType, isLiked);
+      return contentLikeUpdated(contentId, contentType, isLiked, likeCount);
     }
     return orElse();
   }
@@ -2892,11 +2918,13 @@ abstract class _ContentLikeUpdated implements AnalyticsState {
   const factory _ContentLikeUpdated(
       {required final int contentId,
       required final ContentType contentType,
-      required final bool isLiked}) = _$ContentLikeUpdatedImpl;
+      required final bool isLiked,
+      required final int likeCount}) = _$ContentLikeUpdatedImpl;
 
   int get contentId;
   ContentType get contentType;
   bool get isLiked;
+  int get likeCount;
   @JsonKey(ignore: true)
   _$$ContentLikeUpdatedImplCopyWith<_$ContentLikeUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2973,7 +3001,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
     required TResult Function(
-            int contentId, ContentType contentType, bool isLiked)
+            int contentId, ContentType contentType, bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2988,7 +3016,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
   }) {
@@ -3003,7 +3032,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked)?
+    TResult Function(int contentId, ContentType contentType, bool isLiked,
+            int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
     required TResult orElse(),
