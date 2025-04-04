@@ -16,6 +16,7 @@ abstract class StencilService {
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);
-  Future<PaginatedStencilSearchResponseDto> searchStencils(StencilSearchQueryDto queryParams, String token);
+  Future<PaginatedStencilSearchResponseDto> searchStencils(
+      StencilSearchQueryDto queryParams, String token, {bool skipCache = false});
   Future<List<SearchRankingInfoDto>> getStencilSearchRankingInfo(String token);
 }

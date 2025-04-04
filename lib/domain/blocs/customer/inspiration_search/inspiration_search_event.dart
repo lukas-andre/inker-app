@@ -6,18 +6,21 @@ class InspirationSearchEvent with _$InspirationSearchEvent {
     String? query,
     List<int>? tagIds,
     SortType? sortBy,
+    @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchWorks;
   
   const factory InspirationSearchEvent.searchStencils({
     String? query,
     List<int>? tagIds,
     SortType? sortBy,
+    @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchStencils;
   
   const factory InspirationSearchEvent.searchBoth({
     String? query,
     List<int>? tagIds,
     SortType? sortBy,
+    @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchBoth;
   
   const factory InspirationSearchEvent.loadMoreWorks() = InspirationSearchEventLoadMoreWorks;

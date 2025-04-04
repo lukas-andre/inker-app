@@ -53,10 +53,13 @@ class HttpClientService {
     return Uri.https(cleanBaseUrl, fullPath, queryParams);
   }
 
-  Map<String, String> _buildHeaders(String? token) {
+  Map<String, String> _buildHeaders(String? token, {bool skipCache = false}) {
     final headers = Map<String, String>.from(_defaultHeaders);
     if (token != null) {
       headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+    }
+    if (skipCache) {
+      headers['Cache-Control'] = 'no-cache';
     }
     return headers;
   }
@@ -72,9 +75,10 @@ class HttpClientService {
     String? token,
     Map<String, dynamic>? queryParams,
     bool expectListResponse = false,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
 
     HttpLogger.logRequest('GET', uri, headers: headers);
 
@@ -130,9 +134,10 @@ class HttpClientService {
     required Map<String, dynamic> body,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
     final encodedBody = json.encode(body);
 
     HttpLogger.logRequest('POST', uri, headers: headers, body: encodedBody);
@@ -173,10 +178,11 @@ class HttpClientService {
     required Map<String, dynamic> body,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     try {
       final uri = await _buildUrl(path, queryParams: queryParams);
-      final headers = _buildHeaders(token);
+      final headers = _buildHeaders(token, skipCache: skipCache);
       final encodedBody = json.encode(body);
       
       HttpLogger.logRequest('PUT', uri, headers: headers, body: encodedBody);
@@ -314,15 +320,15 @@ class HttpClientService {
     }
   }
 
-  // También podemos agregar el equivalente para GET si lo necesitas
   Future<List<T>> getList<T>({
     required String path,
     required T Function(Map<String, dynamic>) fromJson,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
 
     HttpLogger.logRequest('GET', uri, headers: headers);
 

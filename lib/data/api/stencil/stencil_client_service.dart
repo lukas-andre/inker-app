@@ -18,7 +18,7 @@ class StencilClientService implements StencilService {
   
   @override
   Future<PaginatedStencilSearchResponseDto> searchStencils(
-      StencilSearchQueryDto queryParams, String token) async {
+      StencilSearchQueryDto queryParams, String token, {bool skipCache = false}) async {
     try {
       final params = <String, String>{
         'page': queryParams.page.toString(),
@@ -48,6 +48,7 @@ class StencilClientService implements StencilService {
         queryParams: params,
         fromJson: (data) => PaginatedStencilSearchResponseDto.fromJson(data),
         token: token,
+        skipCache: skipCache,
       );
       
       return response;

@@ -71,7 +71,11 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         limit: 10,
       );
       
-      final workResults = await _workService.searchWorks(queryParams, session.accessToken);
+      final workResults = await _workService.searchWorks(
+        queryParams, 
+        session.accessToken,
+        skipCache: event.skipCache,
+      );
       
       // Preservar las etiquetas existentes usando maybeMap
       final popularTags = state.maybeMap(
@@ -124,7 +128,11 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         limit: 10,
       );
       
-      final stencilResults = await _stencilService.searchStencils(queryParams, session.accessToken);
+      final stencilResults = await _stencilService.searchStencils(
+        queryParams, 
+        session.accessToken,
+        skipCache: event.skipCache,
+      );
       
       // Preservar las etiquetas existentes usando maybeMap
       final popularTags = state.maybeMap(
@@ -166,6 +174,7 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       // Debug print
       print('Searching for both works and stencils with query: ${event.query}');
       print('Sort type: ${event.sortBy?.name ?? 'relevance'}');
+      print('Skip cache: ${event.skipCache}');
       
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -204,7 +213,11 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         // Search for works
         Future(() async {
           try {
-            final workResults = await _workService.searchWorks(workParams, session.accessToken);
+            final workResults = await _workService.searchWorks(
+              workParams, 
+              session.accessToken,
+              skipCache: event.skipCache,
+            );
             works = workResults.items;
             hasMoreWorks = workResults.currentPage < workResults.totalPages;
             currentWorkPage = workResults.currentPage;
@@ -218,7 +231,11 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
         // Search for stencils
         Future(() async {
           try {
-            final stencilResults = await _stencilService.searchStencils(stencilParams, session.accessToken);
+            final stencilResults = await _stencilService.searchStencils(
+              stencilParams, 
+              session.accessToken,
+              skipCache: event.skipCache,
+            );
             stencils = stencilResults.items;
             hasMoreStencils = stencilResults.currentPage < stencilResults.totalPages;
             currentStencilPage = stencilResults.currentPage;

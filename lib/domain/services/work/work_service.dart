@@ -16,6 +16,6 @@ abstract class WorkService {
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);
-  Future<PaginatedWorkSearchResponseDto> searchWorks(WorkSearchQueryDto queryParams, String token);
+  Future<PaginatedWorkSearchResponseDto> searchWorks(WorkSearchQueryDto queryParams, String token, {bool skipCache = false});
   Future<List<SearchRankingInfoDto>> getWorkSearchRankingInfo(String token);
 }
