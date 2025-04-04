@@ -7,6 +7,9 @@ import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:inker_studio/domain/models/metrics/metrics.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/models/tag/tag.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -22,6 +25,9 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
   final int initialWorkIndex;
   final int initialStencilIndex;
   final bool startWithStencils;
+  
+  // View source tracking for analytics
+  final ViewSource viewSource;
 
   const VerticalImmersiveViewerPage({
     Key? key,
@@ -30,6 +36,7 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
     this.initialWorkIndex = 0,
     this.initialStencilIndex = 0,
     this.startWithStencils = false,
+    this.viewSource = ViewSource.direct,
   }) : super(key: key);
 
   @override
@@ -49,6 +56,7 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
       initialWorkIndex: initialWorkIndex,
       initialStencilIndex: initialStencilIndex,
       startWithStencils: startWithStencils,
+      viewSource: ViewSource.search,
     );
   }
 }
@@ -114,11 +122,13 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         _recordView(
           contentId: _stencils[_currentStencilIndex].id,
           contentType: ContentType.stencil,
+          viewSource: widget.viewSource,
         );
       } else if (_works.isNotEmpty) {
         _recordView(
           contentId: _works[_currentWorkIndex].id,
           contentType: ContentType.work,
+          viewSource: widget.viewSource,
         );
       }
     });
@@ -127,13 +137,13 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   void _recordView({
     required int contentId,
     required ContentType contentType,
-    ViewSource viewSource = ViewSource.direct,
+    ViewSource? viewSource,
   }) {
     context.read<AnalyticsBloc>().add(
       AnalyticsEvent.recordContentView(
         contentId: contentId,
         contentType: contentType,
-        viewSource: viewSource,
+        viewSource: viewSource ?? widget.viewSource,
       ),
     );
   }
@@ -567,6 +577,21 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     );
   }
   
+  // Método para navegar al perfil del artista desde el visor
+  void _navigateToArtistProfile(Artist artist) {
+    // Grabar evento de vista del artista
+    context.read<AnalyticsBloc>().add(
+      AnalyticsEvent.recordArtistView(
+        artistId: artist.id,
+      ),
+    );
+    
+    // Navegar al perfil
+    Navigator.of(context).push(
+      ArtistProfilePage.route(artist),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocListener<AnalyticsBloc, AnalyticsState>(
@@ -778,6 +803,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               title: work.title,
               description: work.description,
               tags: work.tags,
+              artist: work.artist,
             ),
           ),
           
@@ -899,6 +925,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               title: stencil.title,
               description: stencil.description,
               tags: stencil.tags,
+              artist: stencil.artist,
             ),
           ),
           
@@ -990,7 +1017,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   Widget _buildInfoPanel({
     required String title,
     String? description,
-    List<dynamic>? tags,
+    List<Tag>? tags,
+    Artist? artist,
   }) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -1009,6 +1037,92 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Artist info if available - Show at the top
+          if (artist != null) ...[
+            GestureDetector(
+              onTap: () => _navigateToArtistProfile(artist),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Row(
+                  children: [
+                    if (artist.profileThumbnail != null)
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: CachedNetworkImageProvider(artist.profileThumbnail!),
+                            fit: BoxFit.cover,
+                          ),
+                          border: Border.all(color: Colors.white.withOpacity(0.5), width: 1),
+                        ),
+                      )
+                    else
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: redColor.withOpacity(0.3),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white.withOpacity(0.5), width: 1),
+                        ),
+                        child: const Icon(Icons.person, size: 24, color: Colors.white),
+                      ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            artist.firstName != null && artist.lastName != null
+                                ? '${artist.firstName} ${artist.lastName}'
+                                : artist.username ?? 'Artista',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              shadows: [
+                                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                              ],
+                            ),
+                          ),
+                          if (artist.rating != null)
+                            Text(
+                              'Rating: ${artist.rating}',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                                fontSize: 12,
+                                shadows: const [
+                                  Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: redColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Ver perfil',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+          
+          // Tags first
           if (tags != null && tags.isNotEmpty)
             SizedBox(
               height: 30,
@@ -1018,6 +1132,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
             ),
           const SizedBox(height: 8),
+          
+          // Title
           Text(
             title,
             style: const TextStyle(
@@ -1029,6 +1145,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ],
             ),
           ),
+          
+          // Description if available
           if (description != null && description.isNotEmpty) ...[
             const SizedBox(height: 4),
             Text(

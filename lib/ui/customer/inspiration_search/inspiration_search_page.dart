@@ -12,6 +12,10 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
+import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'dart:async';
 import 'package:collection/collection.dart';
 
@@ -115,9 +119,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     state.whenOrNull(
       loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
                currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
-               popularTags, searchedTags) {
+               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
         if (_scrollController.position.extentAfter < 300) {
-          if (contentType == ContentType.works && hasMoreWorks) {
+          if (contentType == ContentType.works && hasMoreWorks && !isLoadingMoreWorks) {
             context.read<InspirationSearchBloc>().add(
                   const InspirationSearchEvent.loadMoreWorks(),
                 );
@@ -139,7 +143,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 }
               }
             }
-          } else if (contentType == ContentType.stencils && hasMoreStencils) {
+          } else if (contentType == ContentType.stencils && hasMoreStencils && !isLoadingMoreStencils) {
             context.read<InspirationSearchBloc>().add(
                   const InspirationSearchEvent.loadMoreStencils(),
                 );
@@ -162,12 +166,12 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               }
             }
           } else if (contentType == ContentType.both) {
-            if (hasMoreWorks) {
+            if (hasMoreWorks && !isLoadingMoreWorks) {
               context.read<InspirationSearchBloc>().add(
                     const InspirationSearchEvent.loadMoreWorks(),
                   );
             }
-            if (hasMoreStencils) {
+            if (hasMoreStencils && !isLoadingMoreStencils) {
               context.read<InspirationSearchBloc>().add(
                     const InspirationSearchEvent.loadMoreStencils(),
                   );
@@ -383,7 +387,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       currentStencilPage,
                       hasMoreStencils,
                       popularTags,
-                      searchedTags) {
+                      searchedTags,
+                      isLoadingMoreWorks,
+                      isLoadingMoreStencils) {
                     // Print debug info
                     print(
                         'InspirationSearchPage loaded state: contentType=$contentType, works=${works.length}, stencils=${stencils.length}');
@@ -423,6 +429,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       selectedTagIds: selectedTagIds,
                       popularTags: popularTags,
                       searchedTags: searchedTags,
+                      isLoadingMoreWorks: isLoadingMoreWorks,
+                      isLoadingMoreStencils: isLoadingMoreStencils,
                     );
                   },
                   error: (message) => ErrorState(
@@ -784,7 +792,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               return state.whenOrNull(
                 loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
                         currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                        popularTags, searchedTags) {
+                        popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
                   if (searchedTags.isNotEmpty && _searchController.text.trim().isNotEmpty) {
                     // Filtrar los tags ocultos para no mostrarlos
                     final visibleTags = searchedTags
@@ -896,7 +904,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               return state.whenOrNull(
                 loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
                          currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                         popularTags, searchedTags) {
+                         popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
                   if (popularTags.isNotEmpty && _searchController.text.trim().isEmpty) {
                     // Filtrar los tags populares para no mostrar los ocultos
                     final visibleTags = popularTags
@@ -1014,7 +1022,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               currentStencilPage,
               hasMoreStencils,
               popularTags,
-              searchedTags) {
+              searchedTags,
+              isLoadingMoreWorks,
+              isLoadingMoreStencils) {
             // Check if we need to show a notification about partial results
             bool showPartialResultsInfo = false;
             String partialResultsMessage = '';
@@ -1112,7 +1122,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     currentState.whenOrNull(
       loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
                currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-               popularTags, searchedTags) {
+               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
         selectedType = contentType;
       },
     );
@@ -1146,7 +1156,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     currentState.whenOrNull(
       loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
                currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-               popularTags, searchedTags) {
+               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
         if (contentType != newContentType) {
           context.read<InspirationSearchBloc>().add(
                 InspirationSearchEvent.changeContentType(
@@ -1311,7 +1321,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         return state.whenOrNull(
           loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
                   currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                  popularTags, searchedTags) {
+                  popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
             if (popularTags.isNotEmpty) {
               return Container(
                 color: explorerSecondaryColor,
@@ -1552,6 +1562,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     required List<int> selectedTagIds,
     required List<TagSuggestionResponseDto> popularTags,
     required List<TagSuggestionResponseDto> searchedTags,
+    bool isLoadingMoreWorks = false,
+    bool isLoadingMoreStencils = false,
   }) {
     // Debug print to help diagnose the issue
     print(
@@ -1619,10 +1631,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           InspirationSearchEvent.searchBoth(
             query: _searchController.text,
             tagIds: selectedTagIds,
-            sortBy: currentState.maybeMap(
-              loaded: (state) => state.sortType,
-              orElse: () => SortType.relevance,
-            ),
+            sortBy: _getCurrentSortType(),
             skipCache: true,  // Skip cache on pull-to-refresh
           ),
         );
@@ -1900,94 +1909,104 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       ),
                       const SizedBox(height: 8.0),
                       Expanded(
-                        child: Row(
-                          children: [
-                            if (work.artist?.profileThumbnail != null)
-                              Container(
-                                width: 24.0,
-                                height: 24.0,
-                                margin: const EdgeInsets.only(right: 8.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            else
-                              Container(
-                                width: 24.0,
-                                height: 24.0,
-                                margin: const EdgeInsets.only(right: 8.0),
-                                decoration: BoxDecoration(
-                                  color: redColor.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
-                                ),
-                                child: Icon(Icons.person, size: 14.0, color: redColor),
-                              ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    work.artist?.firstName != null && work.artist?.lastName != null
-                                        ? '${work.artist!.firstName} ${work.artist!.lastName}'
-                                        : work.artist?.username ?? 'Artista',
-                                    style: TextStyleTheme.caption.copyWith(
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.bold,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (work.artist?.id != null) {
+                              _navigateToArtistProfile(
+                                artist: work.artist!,
+                                viewSource: ViewSource.search,
+                              );
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              if (work.artist?.profileThumbnail != null)
+                                Container(
+                                  width: 24.0,
+                                  height: 24.0,
+                                  margin: const EdgeInsets.only(right: 8.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
+                                      fit: BoxFit.cover,
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  if (work.artist?.rating != null) ...[
-                                    const SizedBox(height: 2.0),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.star, size: 12.0, color: Colors.amber),
-                                        const SizedBox(width: 2.0),
-                                        Text(
-                                          work.artist!.rating!,
-                                          style: TextStyleTheme.caption.copyWith(
-                                            color: Colors.grey.shade600,
-                                            fontSize: 10.0,
-                                          ),
-                                        ),
-                                        if (work.artist?.followers != null && work.artist!.followers > 0) ...[
-                                          const SizedBox(width: 6.0),
-                                          Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                )
+                              else
+                                Container(
+                                  width: 24.0,
+                                  height: 24.0,
+                                  margin: const EdgeInsets.only(right: 8.0),
+                                  decoration: BoxDecoration(
+                                    color: redColor.withOpacity(0.2),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                  ),
+                                  child: Icon(Icons.person, size: 14.0, color: redColor),
+                                ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      work.artist?.firstName != null && work.artist?.lastName != null
+                                          ? '${work.artist!.firstName} ${work.artist!.lastName}'
+                                          : work.artist?.username ?? 'Artista',
+                                      style: TextStyleTheme.caption.copyWith(
+                                        color: primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    if (work.artist?.rating != null) ...[
+                                      const SizedBox(height: 2.0),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.star, size: 12.0, color: Colors.amber),
                                           const SizedBox(width: 2.0),
                                           Text(
-                                            _formatFollowerCount(work.artist!.followers),
+                                            work.artist!.rating!,
                                             style: TextStyleTheme.caption.copyWith(
                                               color: Colors.grey.shade600,
                                               fontSize: 10.0,
                                             ),
                                           ),
+                                          if (work.artist?.followers != null && work.artist!.followers > 0) ...[
+                                            const SizedBox(width: 6.0),
+                                            Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                            const SizedBox(width: 2.0),
+                                            Text(
+                                              _formatFollowerCount(work.artist!.followers),
+                                              style: TextStyleTheme.caption.copyWith(
+                                                color: Colors.grey.shade600,
+                                                fontSize: 10.0,
+                                              ),
+                                            ),
+                                          ],
                                         ],
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ],
-                                ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(4.0),
-                              decoration: BoxDecoration(
-                                color: primaryColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(4.0),
+                              Container(
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: BoxDecoration(
+                                  color: primaryColor.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12.0,
+                                  color: primaryColor,
+                                ),
                               ),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                size: 12.0,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -2103,93 +2122,103 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        if (stencil.artist?.profileThumbnail != null)
-                          Container(
-                            width: 24.0,
-                            height: 24.0,
-                            margin: const EdgeInsets.only(right: 8.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(stencil.artist!.profileThumbnail!),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        else
-                          Container(
-                            width: 24.0,
-                            height: 24.0,
-                            margin: const EdgeInsets.only(right: 8.0),
-                            decoration: BoxDecoration(
-                              color: primaryColor.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                              border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
-                            ),
-                            child: Icon(Icons.person, size: 14.0, color: primaryColor),
-                          ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                stencil.artist?.firstName != null && stencil.artist?.lastName != null
-                                    ? '${stencil.artist!.firstName} ${stencil.artist!.lastName}'
-                                    : stencil.artist?.username ?? 'Artista',
-                                style: TextStyleTheme.caption.copyWith(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        if (stencil.artist?.id != null) {
+                          _navigateToArtistProfile(
+                            artist: stencil.artist!,
+                            viewSource: ViewSource.search,
+                          );
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          if (stencil.artist?.profileThumbnail != null)
+                            Container(
+                              width: 24.0,
+                              height: 24.0,
+                              margin: const EdgeInsets.only(right: 8.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(stencil.artist!.profileThumbnail!),
+                                  fit: BoxFit.cover,
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                              if (stencil.artist?.rating != null) ...[
-                                const SizedBox(height: 2.0),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, size: 12.0, color: Colors.amber),
-                                    const SizedBox(width: 2.0),
-                                    Text(
-                                      stencil.artist!.rating!,
-                                      style: TextStyleTheme.caption.copyWith(
-                                        color: Colors.grey.shade600,
-                                        fontSize: 10.0,
-                                      ),
-                                    ),
-                                    if (stencil.artist?.followers != null && stencil.artist!.followers > 0) ...[
-                                      const SizedBox(width: 6.0),
-                                      Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                            )
+                          else
+                            Container(
+                              width: 24.0,
+                              height: 24.0,
+                              margin: const EdgeInsets.only(right: 8.0),
+                              decoration: BoxDecoration(
+                                color: primaryColor.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                              ),
+                              child: Icon(Icons.person, size: 14.0, color: primaryColor),
+                            ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  stencil.artist?.firstName != null && stencil.artist?.lastName != null
+                                      ? '${stencil.artist!.firstName} ${stencil.artist!.lastName}'
+                                      : stencil.artist?.username ?? 'Artista',
+                                  style: TextStyleTheme.caption.copyWith(
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                if (stencil.artist?.rating != null) ...[
+                                  const SizedBox(height: 2.0),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.star, size: 12.0, color: Colors.amber),
                                       const SizedBox(width: 2.0),
                                       Text(
-                                        _formatFollowerCount(stencil.artist!.followers),
+                                        stencil.artist!.rating!,
                                         style: TextStyleTheme.caption.copyWith(
                                           color: Colors.grey.shade600,
                                           fontSize: 10.0,
                                         ),
                                       ),
+                                      if (stencil.artist?.followers != null && stencil.artist!.followers > 0) ...[
+                                        const SizedBox(width: 6.0),
+                                        Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                        const SizedBox(width: 2.0),
+                                        Text(
+                                          _formatFollowerCount(stencil.artist!.followers),
+                                          style: TextStyleTheme.caption.copyWith(
+                                            color: Colors.grey.shade600,
+                                            fontSize: 10.0,
+                                          ),
+                                        ),
+                                      ],
                                     ],
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ],
-                            ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(4.0),
+                          Container(
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Icon(
+                              Icons.arrow_forward_ios, 
+                              size: 12.0,
+                              color: primaryColor,
+                            ),
                           ),
-                          child: Icon(
-                            Icons.arrow_forward_ios, 
-                            size: 12.0,
-                            color: primaryColor,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -2209,7 +2238,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     state.whenOrNull(
       loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
                currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
-               popularTags, searchedTags) {
+               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
         // Determine initial position
         int initialWorkIndex = 0;
         int initialStencilIndex = 0;
@@ -2236,6 +2265,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               initialWorkIndex: initialWorkIndex,
               initialStencilIndex: initialStencilIndex,
               startWithStencils: startWithStencils,
+              viewSource: ViewSource.search,
             ),
           ),
         ).then((updatedContent) {
@@ -2263,6 +2293,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   hasMoreStencils: currentState.hasMoreStencils,
                   popularTags: currentState.popularTags,
                   searchedTags: currentState.searchedTags,
+                  isLoadingMoreWorks: false,
+                  isLoadingMoreStencils: false,
                 ),
               );
               return;
@@ -2286,6 +2318,24 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     );
   }
 
+  // Método para navegar al perfil de un artista con tracking de analytics
+  void _navigateToArtistProfile({
+    required Artist artist,
+    required ViewSource viewSource,
+  }) {
+    // Registrar la vista del artista con analytics
+    context.read<AnalyticsBloc>().add(
+      AnalyticsEvent.recordArtistView(
+        artistId: artist.id,
+      ),
+    );
+
+    // Navegar al perfil del artista
+    Navigator.of(context).push(
+      ArtistProfilePage.route(artist),
+    );
+  }
+
   // Helper method to format follower count (e.g., 1500 -> 1.5K)
   String _formatFollowerCount(int count) {
     if (count >= 1000000) {
@@ -2295,5 +2345,14 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     } else {
       return count.toString();
     }
+  }
+
+  // Método para obtener el SortType actual del estado
+  SortType _getCurrentSortType() {
+    final currentState = context.read<InspirationSearchBloc>().state;
+    return currentState.maybeMap(
+      loaded: (state) => state.sortType,
+      orElse: () => SortType.relevance,
+    );
   }
 }
