@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
@@ -53,6 +54,8 @@ class Quotation with _$Quotation {
     @Default(false) bool readByCustomer,
     DateTime? artistReadAt,
     DateTime? customerReadAt,
+    int? stencilId,
+    Stencil? stencil,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>

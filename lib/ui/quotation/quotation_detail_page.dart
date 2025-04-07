@@ -12,6 +12,8 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class QuotationDetailsPage extends StatefulWidget {
   final Quotation quotation;
@@ -464,6 +466,23 @@ class _MainQuotationInfo extends StatelessWidget {
     final l10n = S.of(context);
     final List<Widget> widgets = [];
 
+    // Stencil (si existe)
+    if (quotation.stencil != null) {
+      widgets.addAll([
+        const Divider(height: 24),
+        Text(
+          'Diseño seleccionado',
+          style: TextStyleTheme.subtitle2.copyWith(
+            color: tertiaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _StencilPreviewWidget(stencil: quotation.stencil!),
+        const SizedBox(height: 16),
+      ]);
+    }
+
     // Costo estimado (si existe)
     if (quotation.estimatedCost != null) {
       widgets.addAll([
@@ -914,5 +933,82 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
     }
+  }
+}
+
+class _StencilPreviewWidget extends StatelessWidget {
+  final Stencil stencil;
+
+  const _StencilPreviewWidget({required this.stencil});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(primaryColor).withLightness(0.25).toColor(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(12),
+            ),
+            child: AspectRatio(
+              aspectRatio: 1.5,
+              child: CachedNetworkImage(
+                imageUrl: stencil.imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  child: const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  child: const Icon(Icons.error, color: redColor, size: 32),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  stencil.title,
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                if (stencil.description != null && stencil.description!.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    stencil.description!,
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -63,6 +63,8 @@ mixin _$Quotation {
   bool get readByCustomer => throw _privateConstructorUsedError;
   DateTime? get artistReadAt => throw _privateConstructorUsedError;
   DateTime? get customerReadAt => throw _privateConstructorUsedError;
+  int? get stencilId => throw _privateConstructorUsedError;
+  Stencil? get stencil => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -110,13 +112,16 @@ abstract class $QuotationCopyWith<$Res> {
       bool readByArtist,
       bool readByCustomer,
       DateTime? artistReadAt,
-      DateTime? customerReadAt});
+      DateTime? customerReadAt,
+      int? stencilId,
+      Stencil? stencil});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
   $MoneyCopyWith<$Res>? get estimatedCost;
   $ArtistCopyWith<$Res>? get artist;
   $LocationCopyWith<$Res>? get location;
+  $StencilCopyWith<$Res>? get stencil;
 }
 
 /// @nodoc
@@ -167,6 +172,8 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? readByCustomer = null,
     Object? artistReadAt = freezed,
     Object? customerReadAt = freezed,
+    Object? stencilId = freezed,
+    Object? stencil = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -309,6 +316,14 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.customerReadAt
           : customerReadAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      stencilId: freezed == stencilId
+          ? _value.stencilId
+          : stencilId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencil: freezed == stencil
+          ? _value.stencil
+          : stencil // ignore: cast_nullable_to_non_nullable
+              as Stencil?,
     ) as $Val);
   }
 
@@ -371,6 +386,18 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       return _then(_value.copyWith(location: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StencilCopyWith<$Res>? get stencil {
+    if (_value.stencil == null) {
+      return null;
+    }
+
+    return $StencilCopyWith<$Res>(_value.stencil!, (value) {
+      return _then(_value.copyWith(stencil: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -416,7 +443,9 @@ abstract class _$$QuotationImplCopyWith<$Res>
       bool readByArtist,
       bool readByCustomer,
       DateTime? artistReadAt,
-      DateTime? customerReadAt});
+      DateTime? customerReadAt,
+      int? stencilId,
+      Stencil? stencil});
 
   @override
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
@@ -428,6 +457,8 @@ abstract class _$$QuotationImplCopyWith<$Res>
   $ArtistCopyWith<$Res>? get artist;
   @override
   $LocationCopyWith<$Res>? get location;
+  @override
+  $StencilCopyWith<$Res>? get stencil;
 }
 
 /// @nodoc
@@ -476,6 +507,8 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? readByCustomer = null,
     Object? artistReadAt = freezed,
     Object? customerReadAt = freezed,
+    Object? stencilId = freezed,
+    Object? stencil = freezed,
   }) {
     return _then(_$QuotationImpl(
       id: null == id
@@ -618,6 +651,14 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.customerReadAt
           : customerReadAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      stencilId: freezed == stencilId
+          ? _value.stencilId
+          : stencilId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencil: freezed == stencil
+          ? _value.stencil
+          : stencil // ignore: cast_nullable_to_non_nullable
+              as Stencil?,
     ));
   }
 }
@@ -660,7 +701,9 @@ class _$QuotationImpl implements _Quotation {
       this.readByArtist = false,
       this.readByCustomer = false,
       this.artistReadAt,
-      this.customerReadAt})
+      this.customerReadAt,
+      this.stencilId,
+      this.stencil})
       : _history = history;
 
   factory _$QuotationImpl.fromJson(Map<String, dynamic> json) =>
@@ -746,10 +789,14 @@ class _$QuotationImpl implements _Quotation {
   final DateTime? artistReadAt;
   @override
   final DateTime? customerReadAt;
+  @override
+  final int? stencilId;
+  @override
+  final Stencil? stencil;
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil)';
   }
 
   @override
@@ -822,7 +869,10 @@ class _$QuotationImpl implements _Quotation {
             (identical(other.artistReadAt, artistReadAt) ||
                 other.artistReadAt == artistReadAt) &&
             (identical(other.customerReadAt, customerReadAt) ||
-                other.customerReadAt == customerReadAt));
+                other.customerReadAt == customerReadAt) &&
+            (identical(other.stencilId, stencilId) ||
+                other.stencilId == stencilId) &&
+            (identical(other.stencil, stencil) || other.stencil == stencil));
   }
 
   @JsonKey(ignore: true)
@@ -863,7 +913,9 @@ class _$QuotationImpl implements _Quotation {
         readByArtist,
         readByCustomer,
         artistReadAt,
-        customerReadAt
+        customerReadAt,
+        stencilId,
+        stencil
       ]);
 
   @JsonKey(ignore: true)
@@ -916,7 +968,9 @@ abstract class _Quotation implements Quotation {
       final bool readByArtist,
       final bool readByCustomer,
       final DateTime? artistReadAt,
-      final DateTime? customerReadAt}) = _$QuotationImpl;
+      final DateTime? customerReadAt,
+      final int? stencilId,
+      final Stencil? stencil}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
@@ -991,6 +1045,10 @@ abstract class _Quotation implements Quotation {
   DateTime? get artistReadAt;
   @override
   DateTime? get customerReadAt;
+  @override
+  int? get stencilId;
+  @override
+  Stencil? get stencil;
   @override
   @JsonKey(ignore: true)
   _$$QuotationImplCopyWith<_$QuotationImpl> get copyWith =>

@@ -13,6 +13,7 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 
 /// Vertical immersive viewer for tattoos (works) and stencils that allows
 /// swiping up/down to navigate between items
@@ -592,6 +593,30 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     );
   }
   
+  // Método para navegar a la pantalla de cotización con el stencil seleccionado
+  void _navigateToQuotation(int artistId) {
+    if (_viewingStencils && _currentStencilIndex < _stencils.length) {
+      final stencil = _stencils[_currentStencilIndex];
+      
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CreateQuotationPage(
+            artistId: artistId,
+            stencil: stencil,
+          ),
+        ),
+      ).then((_) {
+        // Mostrar mensaje de confirmación al regresar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Regresaste a la galería'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      });
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocListener<AnalyticsBloc, AnalyticsState>(
@@ -1162,6 +1187,40 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+            ),
+          ],
+          
+          // Agregar botón de cotización si es un stencil y tiene artista asociado
+          if (_viewingStencils && artist != null) ...[
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () => _navigateToQuotation(artist.id),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: redColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20, 
+                      vertical: 10
+                    ),
+                    elevation: 5,
+                    shadowColor: Colors.black54,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  icon: const Icon(Icons.request_quote, color: Colors.white),
+                  label: const Text(
+                    'Cotizar este diseño',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
           const SizedBox(height: 10),

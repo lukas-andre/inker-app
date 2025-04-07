@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_works_cubit/artist_works_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_portfolio_cubit/artist_portfolio_cubit.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
-import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
@@ -21,10 +19,10 @@ class ArtistProfileGallerySection extends StatefulWidget {
   final VoidCallback onReviewsPressed;
 
   const ArtistProfileGallerySection({
-    Key? key,
+    super.key,
     required this.artistId,
     required this.onReviewsPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<ArtistProfileGallerySection> createState() => _ArtistProfileGallerySectionState();
