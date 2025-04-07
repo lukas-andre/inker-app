@@ -22,11 +22,11 @@ class ArtistPortfolioGallery extends StatefulWidget {
   final bool isMinimalist;
 
   const ArtistPortfolioGallery({
-    Key? key,
+    super.key,
     required this.works,
     required this.artistId,
     this.isMinimalist = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ArtistPortfolioGallery> createState() => _ArtistPortfolioGalleryState();

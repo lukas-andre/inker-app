@@ -153,7 +153,7 @@ class _ArtistGridItem extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.white, size: 14),
                       const SizedBox(width: 4),
                       Text(
-                        "Artista destacado",
+                        'Artista destacado',
                         style: TextStyleTheme.copyWith(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

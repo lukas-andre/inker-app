@@ -350,10 +350,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       ));
     } catch (e) {
       // En caso de error, restablecer la bandera de carga
-      if (currentState is InspirationSearchState_Loaded) {
-        emit(currentState.copyWith(isLoadingMoreWorks: false));
-      }
-      emit(InspirationSearchState.error(message: 'Failed to load more works: $e'));
+      emit(currentState.copyWith(isLoadingMoreWorks: false));
+          emit(InspirationSearchState.error(message: 'Failed to load more works: $e'));
     }
   }
 
@@ -398,10 +396,8 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       ));
     } catch (e) {
       // En caso de error, restablecer la bandera de carga
-      if (currentState is InspirationSearchState_Loaded) {
-        emit(currentState.copyWith(isLoadingMoreStencils: false));
-      }
-      emit(InspirationSearchState.error(message: 'Failed to load more stencils: $e'));
+      emit(currentState.copyWith(isLoadingMoreStencils: false));
+          emit(InspirationSearchState.error(message: 'Failed to load more stencils: $e'));
     }
   }
 

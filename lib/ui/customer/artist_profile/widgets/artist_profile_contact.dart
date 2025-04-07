@@ -9,9 +9,9 @@ class ArtistProfileContact extends StatelessWidget {
   final Artist artist;
 
   const ArtistProfileContact({
-    Key? key,
+    super.key,
     required this.artist,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -330,16 +330,16 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
                               color: secondaryColor,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.star,
                                   color: Colors.white,
                                   size: 12,
                                 ),
-                                const SizedBox(width: 4),
-                                const Text(
+                                SizedBox(width: 4),
+                                Text(
                                   'Destacado',
                                   style: TextStyle(
                                     color: Colors.white,
