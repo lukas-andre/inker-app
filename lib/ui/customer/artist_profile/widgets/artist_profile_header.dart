@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -15,12 +14,12 @@ class ArtistProfileHeader extends StatelessWidget {
   final bool isFollowing;
 
   const ArtistProfileHeader({
-    Key? key,
+    super.key,
     required this.artist,
     required this.onFollowPressed,
     required this.isFollowing,
     this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -235,8 +234,8 @@ class ArtistProfileHeader extends StatelessWidget {
   
   Widget _buildRatingBadge(BuildContext context) {
     final ratingValue = artist.review?.avgRating ?? 
-                       (artist.review?.value != null ? double.parse(artist.rating ?? "0.0") : 0.0);
-    final hasRating = ratingValue != null && ratingValue > 0;
+                       (artist.review?.value != null ? double.parse(artist.rating ?? '0.0') : 0.0);
+    final hasRating = ratingValue > 0;
     
     if (!hasRating) return const SizedBox.shrink();
     
@@ -291,7 +290,7 @@ class ArtistProfileHeader extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24), // Increased from 20 to 24
           side: isFollowing 
-              ? BorderSide(color: secondaryColor, width: 1.5) 
+              ? const BorderSide(color: secondaryColor, width: 1.5) 
               : BorderSide.none,
         ),
         minimumSize: const Size(140, 40), // Increased size for better touch target

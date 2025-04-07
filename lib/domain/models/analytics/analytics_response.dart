@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inker_studio/domain/models/analytics/content_type.dart';
 
 part 'analytics_response.freezed.dart';
 part 'analytics_response.g.dart';

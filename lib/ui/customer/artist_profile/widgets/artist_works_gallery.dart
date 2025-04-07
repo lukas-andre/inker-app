@@ -10,10 +10,10 @@ class ArtistWorksGallery extends StatelessWidget {
   final bool isMinimalist;
 
   const ArtistWorksGallery({
-    Key? key, 
+    super.key, 
     required this.works,
     this.isMinimalist = false,
-  }) : super(key: key);
+  });
 
   List<String> _getImageUrls(WorkEvidence? workEvidence) {
     final List<String> urls = [];
@@ -45,8 +45,8 @@ class ArtistWorksGallery extends StatelessWidget {
               right: isMinimalist ? 18 : 24,
               bottom: isMinimalist ? 16 : 20,
             ),
-            child: Text(
-              "Trabajos",
+            child: const Text(
+              'Trabajos',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -128,7 +128,7 @@ class ArtistWorksGallery extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            "${_getImageUrls(works.first.workEvidence).length}",
+                                            '${_getImageUrls(works.first.workEvidence).length}',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 12,

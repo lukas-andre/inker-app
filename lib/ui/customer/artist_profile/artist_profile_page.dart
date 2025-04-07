@@ -160,7 +160,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                     ),
                     
                     // Extra space at the bottom for more scrolling
-                    SliverToBoxAdapter(
+                    const SliverToBoxAdapter(
                       child: SizedBox(height: 100),
                     ),
                   ],
