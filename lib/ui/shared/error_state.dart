@@ -8,11 +8,11 @@ class ErrorState extends StatelessWidget {
   final VoidCallback? onRetry;
   
   const ErrorState({
-    Key? key,
+    super.key,
     required this.message,
     this.details,
     this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ErrorState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.error_outline,
               size: 64.0,
               color: redColor,

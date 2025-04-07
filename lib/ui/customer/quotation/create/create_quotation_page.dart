@@ -55,11 +55,9 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
       final stencil = widget.stencil!;
       final stencilTitle = stencil.title;
       
-      _descriptionController.text = 'Solicito cotización para el diseño "$stencilTitle" ' +
-          (stencil.description != null && stencil.description!.isNotEmpty 
+      _descriptionController.text = 'Solicito cotización para el diseño "$stencilTitle" ${stencil.description != null && stencil.description!.isNotEmpty 
               ? 'con descripción: ${stencil.description}. ' 
-              : '. ') +
-          'Me gustaría obtener más información sobre tamaños, precios y disponibilidad.';
+              : '. '}Me gustaría obtener más información sobre tamaños, precios y disponibilidad.';
     }
   }
 

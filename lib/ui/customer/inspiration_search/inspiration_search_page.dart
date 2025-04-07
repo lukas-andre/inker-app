@@ -42,7 +42,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Timer? _debounce;
   List<TagSuggestionResponseDto> _selectedTagsLocal = [];
   // Set para mantener los IDs de tags que el usuario ha ocultado temporalmente
-  Set<int> _hiddenTagIds = {};
+  final Set<int> _hiddenTagIds = {};
 
   @override
   void initState() {
@@ -409,7 +409,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             ? ElevatedButton.icon(
                                 onPressed: _clearAllFilters,
                                 icon: const Icon(Icons.filter_alt_off),
-                                label: const Text("Limpiar filtros"),
+                                label: const Text('Limpiar filtros'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: redColor,
                                   padding: const EdgeInsets.symmetric(
@@ -548,7 +548,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   }
 
   Widget _buildSelectedTagsChips() {
-    return Container(
+    return SizedBox(
       height: 40,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -579,7 +579,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       onTap: () => _removeSelectedTag(tag),
                       child: Container(
                         padding: const EdgeInsets.all(2.0),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: redColor,
                           shape: BoxShape.circle,
                         ),
@@ -767,7 +767,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           const SizedBox(width: 4.0),
                           Container(
                             padding: const EdgeInsets.all(2.0),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: redColor,
                               shape: BoxShape.circle,
                             ),
@@ -1387,7 +1387,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Row(
                           children: [
-                            Icon(Icons.local_fire_department, color: redColor),
+                            const Icon(Icons.local_fire_department, color: redColor),
                             const SizedBox(width: 8.0),
                             Text(
                               'Etiquetas populares',
@@ -1482,6 +1482,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 ),
               );
             }
+            return null;
           },
         ) ?? Container(
           color: explorerSecondaryColor,
@@ -1606,7 +1607,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
             ? ElevatedButton.icon(
                 onPressed: _clearAllFilters,
                 icon: const Icon(Icons.filter_alt_off),
-                label: const Text("Limpiar filtros"),
+                label: const Text('Limpiar filtros'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: redColor,
                   padding: const EdgeInsets.symmetric(
@@ -1764,7 +1765,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   }
 
   Widget _buildWorksGrid(List<Work> works) {
-    return Container(
+    return SizedBox(
       height: 300,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -1944,7 +1945,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                     shape: BoxShape.circle,
                                     border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
                                   ),
-                                  child: Icon(Icons.person, size: 14.0, color: redColor),
+                                  child: const Icon(Icons.person, size: 14.0, color: redColor),
                                 ),
                               Expanded(
                                 child: Column(
@@ -1966,7 +1967,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                       const SizedBox(height: 2.0),
                                       Row(
                                         children: [
-                                          Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                          const Icon(Icons.star, size: 12.0, color: Colors.amber),
                                           const SizedBox(width: 2.0),
                                           Text(
                                             work.artist!.rating!,
@@ -1999,7 +2000,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   color: primaryColor.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12.0,
                                   color: primaryColor,
@@ -2157,7 +2158,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                 shape: BoxShape.circle,
                                 border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
                               ),
-                              child: Icon(Icons.person, size: 14.0, color: primaryColor),
+                              child: const Icon(Icons.person, size: 14.0, color: primaryColor),
                             ),
                           Expanded(
                             child: Column(
@@ -2178,7 +2179,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   const SizedBox(height: 2.0),
                                   Row(
                                     children: [
-                                      Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                      const Icon(Icons.star, size: 12.0, color: Colors.amber),
                                       const SizedBox(width: 2.0),
                                       Text(
                                         stencil.artist!.rating!,
@@ -2211,7 +2212,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                               color: primaryColor.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_forward_ios, 
                               size: 12.0,
                               color: primaryColor,

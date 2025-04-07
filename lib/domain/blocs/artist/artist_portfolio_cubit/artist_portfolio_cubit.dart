@@ -41,7 +41,7 @@ class ArtistPortfolioCubit extends Cubit<ArtistPortfolioState> {
       // Cargar stenciles del artista
       List<Stencil> stencils = [];
       try {
-        final params = StencilQueryParams(
+        const params = StencilQueryParams(
           limit: 20,
           page: 1,
           includeHidden: false,
@@ -59,7 +59,7 @@ class ArtistPortfolioCubit extends Cubit<ArtistPortfolioState> {
       // Cargar trabajos individuales del artista
       List<Work> works = [];
       try {
-        final params = WorkQueryParams(
+        const params = WorkQueryParams(
           limit: 20,
           page: 1,
           includeHidden: false,

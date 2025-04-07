@@ -12,10 +12,10 @@ class ImmersiveViewerPage extends StatelessWidget {
   final Stencil? stencil;
   
   const ImmersiveViewerPage({
-    Key? key,
+    super.key,
     this.work,
     this.stencil,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +67,8 @@ class _ImmersiveWorkViewer extends StatefulWidget {
   final Work work;
   
   const _ImmersiveWorkViewer({
-    Key? key,
     required this.work,
-  }) : super(key: key);
+  });
   
   @override
   State<_ImmersiveWorkViewer> createState() => _ImmersiveWorkViewerState();
@@ -600,9 +599,8 @@ class _ImmersiveStencilViewer extends StatefulWidget {
   final Stencil stencil;
   
   const _ImmersiveStencilViewer({
-    Key? key,
     required this.stencil,
-  }) : super(key: key);
+  });
   
   @override
   State<_ImmersiveStencilViewer> createState() => _ImmersiveStencilViewerState();

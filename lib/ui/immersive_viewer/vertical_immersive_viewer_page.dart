@@ -31,14 +31,14 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
   final ViewSource viewSource;
 
   const VerticalImmersiveViewerPage({
-    Key? key,
+    super.key,
     required this.works,
     required this.stencils,
     this.initialWorkIndex = 0,
     this.initialStencilIndex = 0,
     this.startWithStencils = false,
     this.viewSource = ViewSource.direct,
-  }) : super(key: key);
+  });
 
   @override
   State<VerticalImmersiveViewerPage> createState() => _VerticalImmersiveViewerPageState();
@@ -505,7 +505,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       SnackBar(
         content: Row(
           children: [
-            Icon(Icons.favorite, color: Colors.white),
+            const Icon(Icons.favorite, color: Colors.white),
             const SizedBox(width: 8),
             Text(
               isCurrentlyLiked
@@ -558,7 +558,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       SnackBar(
         content: Row(
           children: [
-            Icon(Icons.favorite, color: Colors.white),
+            const Icon(Icons.favorite, color: Colors.white),
             const SizedBox(width: 8),
             Text(
               !isCurrentlyLiked
@@ -1124,21 +1124,6 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                               ),
                             ),
                         ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: redColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Text(
-                        'Ver perfil',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                     ),
                   ],
