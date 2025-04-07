@@ -53,6 +53,7 @@ class ApiQuotationService implements QuotationService {
         'description': quotation.description,
         'customerId': quotation.customerId.toString(),
         'artistId': quotation.artistId.toString(),
+        if (quotation.stencilId != null) 'stencilId': quotation.stencilId.toString(),
       },
     );
 
