@@ -84,6 +84,10 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       customerReadAt: json['customerReadAt'] == null
           ? null
           : DateTime.parse(json['customerReadAt'] as String),
+      stencilId: (json['stencilId'] as num?)?.toInt(),
+      stencil: json['stencil'] == null
+          ? null
+          : Stencil.fromJson(Map<String, dynamic>.from(json['stencil'] as Map)),
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -137,6 +141,8 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   val['readByCustomer'] = instance.readByCustomer;
   writeNotNull('artistReadAt', instance.artistReadAt?.toIso8601String());
   writeNotNull('customerReadAt', instance.customerReadAt?.toIso8601String());
+  writeNotNull('stencilId', instance.stencilId);
+  writeNotNull('stencil', instance.stencil?.toJson());
   return val;
 }
 
