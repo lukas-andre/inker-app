@@ -10,7 +10,7 @@ part 'analytics_request.g.dart';
 @freezed
 class RecordInteractionRequest with _$RecordInteractionRequest {
   const factory RecordInteractionRequest({
-    required int contentId,
+    required String contentId,
     required ContentType contentType,
     required InteractionType interactionType,
     ViewSource? viewSource,
@@ -25,7 +25,7 @@ class RecordInteractionRequest with _$RecordInteractionRequest {
 @freezed
 class RecordArtistViewRequest with _$RecordArtistViewRequest {
   const factory RecordArtistViewRequest({
-    required int artistId,
+    required String artistId,
   }) = _RecordArtistViewRequest;
 
   factory RecordArtistViewRequest.fromJson(Map<String, dynamic> json) =>
@@ -36,7 +36,7 @@ class RecordArtistViewRequest with _$RecordArtistViewRequest {
 @freezed
 class RecordArtistFollowRequest with _$RecordArtistFollowRequest {
   const factory RecordArtistFollowRequest({
-    required int artistId,
+    required String artistId,
     @Default(false) bool fromContentView,
   }) = _RecordArtistFollowRequest;
 
@@ -48,7 +48,7 @@ class RecordArtistFollowRequest with _$RecordArtistFollowRequest {
 @freezed
 class BatchMetricsRequest with _$BatchMetricsRequest {
   const factory BatchMetricsRequest({
-    required List<int> contentIds,
+    required List<String> contentIds,
     required ContentType contentType,
   }) = _BatchMetricsRequest;
 

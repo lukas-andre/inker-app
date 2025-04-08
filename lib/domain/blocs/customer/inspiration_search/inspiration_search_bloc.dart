@@ -692,7 +692,7 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       }
       
       // Create a map to track unique tags by ID
-      final Map<int, TagSuggestionResponseDto> tagMap = {};
+      final Map<String, TagSuggestionResponseDto> tagMap = {};
       
       try {
         // Get popular tags from stencil service
@@ -771,7 +771,7 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       }
       
       // Create sets to track unique tags by ID to avoid duplicates when merging
-      final Map<int, TagSuggestionResponseDto> tagMap = {};
+      final Map<String, TagSuggestionResponseDto> tagMap = {};
       
       try {
         // Get tag suggestions from work service
@@ -864,7 +864,7 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       
       // Merge with existing selectedTagIds to avoid replacing them
       // Create a Set to ensure uniqueness
-      final Set<int> mergedTagIds = Set<int>.from(currentState.selectedTagIds);
+      final Set<String> mergedTagIds = Set<String>.from(currentState.selectedTagIds);
       
       // If any of the new tag IDs are already selected, remove them (toggle behavior)
       for (final tagId in event.tagIds) {
@@ -876,7 +876,7 @@ class InspirationSearchBloc extends Bloc<InspirationSearchEvent, InspirationSear
       }
       
       // Convert set back to list
-      final List<int> finalTagIds = mergedTagIds.toList();
+      final List<String> finalTagIds = mergedTagIds.toList();
       
       List<Work> works = const [];
       List<Stencil> stencils = const [];

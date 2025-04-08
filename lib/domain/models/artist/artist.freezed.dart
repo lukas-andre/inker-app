@@ -20,10 +20,10 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Artist {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get userId => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
@@ -59,10 +59,10 @@ abstract class $ArtistCopyWith<$Res> {
       _$ArtistCopyWithImpl<$Res, Artist>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? userId,
+      String? userId,
       String? username,
       String? firstName,
       String? lastName,
@@ -136,7 +136,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -148,7 +148,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -277,10 +277,10 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? userId,
+      String? userId,
       String? username,
       String? firstName,
       String? lastName,
@@ -354,7 +354,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -366,7 +366,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -501,13 +501,13 @@ class _$ArtistImpl implements _Artist {
       _$$ArtistImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? userId;
+  final String? userId;
   @override
   final String? username;
   @override
@@ -681,10 +681,10 @@ class _$ArtistImpl implements _Artist {
 
 abstract class _Artist implements Artist {
   const factory _Artist(
-      {required final int id,
+      {required final String id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? userId,
+      final String? userId,
       final String? username,
       final String? firstName,
       final String? lastName,
@@ -712,13 +712,13 @@ abstract class _Artist implements Artist {
   factory _Artist.fromJson(Map<String, dynamic> json) = _$ArtistImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get userId;
+  String? get userId;
   @override
   String? get username;
   @override
@@ -777,7 +777,7 @@ Contact _$ContactFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Contact {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -796,7 +796,7 @@ abstract class $ContactCopyWith<$Res> {
       _$ContactCopyWithImpl<$Res, Contact>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
       String email,
@@ -830,7 +830,7 @@ class _$ContactCopyWithImpl<$Res, $Val extends Contact>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -867,7 +867,7 @@ abstract class _$$ContactImplCopyWith<$Res> implements $ContactCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
       String email,
@@ -899,7 +899,7 @@ class __$$ContactImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -944,7 +944,7 @@ class _$ContactImpl implements _Contact {
       _$$ContactImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
@@ -1002,7 +1002,7 @@ class _$ContactImpl implements _Contact {
 
 abstract class _Contact implements Contact {
   const factory _Contact(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       required final String email,
@@ -1013,7 +1013,7 @@ abstract class _Contact implements Contact {
   factory _Contact.fromJson(Map<String, dynamic> json) = _$ContactImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
@@ -1038,7 +1038,7 @@ Service _$ServiceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Service {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -1055,7 +1055,7 @@ abstract class $ServiceCopyWith<$Res> {
       _$ServiceCopyWithImpl<$Res, Service>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -1085,7 +1085,7 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1114,7 +1114,7 @@ abstract class _$$ServiceImplCopyWith<$Res> implements $ServiceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -1142,7 +1142,7 @@ class __$$ServiceImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1177,7 +1177,7 @@ class _$ServiceImpl implements _Service {
       _$$ServiceImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -1228,7 +1228,7 @@ class _$ServiceImpl implements _Service {
 
 abstract class _Service implements Service {
   const factory _Service(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String name,
@@ -1237,7 +1237,7 @@ abstract class _Service implements Service {
   factory _Service.fromJson(Map<String, dynamic> json) = _$ServiceImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -1258,7 +1258,7 @@ Review _$ReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Review {
-  int? get artistId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   double? get value => throw _privateConstructorUsedError;
   Map<String, int>? get detail => throw _privateConstructorUsedError;
   int? get count => throw _privateConstructorUsedError;
@@ -1275,7 +1275,7 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {int? artistId,
+      {String? artistId,
       double? value,
       Map<String, int>? detail,
       int? count,
@@ -1305,7 +1305,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -1334,7 +1334,7 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? artistId,
+      {String? artistId,
       double? value,
       Map<String, int>? detail,
       int? count,
@@ -1362,7 +1362,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -1398,7 +1398,7 @@ class _$ReviewImpl implements _Review {
       _$$ReviewImplFromJson(json);
 
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   final double? value;
   final Map<String, int>? _detail;
@@ -1456,7 +1456,7 @@ class _$ReviewImpl implements _Review {
 
 abstract class _Review implements Review {
   const factory _Review(
-      {final int? artistId,
+      {final String? artistId,
       final double? value,
       final Map<String, int>? detail,
       final int? count,
@@ -1465,7 +1465,7 @@ abstract class _Review implements Review {
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   double? get value;
   @override

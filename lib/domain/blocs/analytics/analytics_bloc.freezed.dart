@@ -18,54 +18,57 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AnalyticsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) =>
@@ -136,7 +139,7 @@ abstract class _$$RecordContentViewImplCopyWith<$Res> {
       __$$RecordContentViewImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int contentId,
+      {String contentId,
       ContentType contentType,
       ViewSource? viewSource,
       int? viewDurationSeconds});
@@ -162,7 +165,7 @@ class __$$RecordContentViewImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -189,7 +192,7 @@ class _$RecordContentViewImpl implements _RecordContentView {
       this.viewDurationSeconds});
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
   @override
@@ -231,20 +234,20 @@ class _$RecordContentViewImpl implements _RecordContentView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return recordContentView(
@@ -254,19 +257,20 @@ class _$RecordContentViewImpl implements _RecordContentView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return recordContentView?.call(
@@ -276,17 +280,19 @@ class _$RecordContentViewImpl implements _RecordContentView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -351,12 +357,12 @@ class _$RecordContentViewImpl implements _RecordContentView {
 
 abstract class _RecordContentView implements AnalyticsEvent {
   const factory _RecordContentView(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType,
       final ViewSource? viewSource,
       final int? viewDurationSeconds}) = _$RecordContentViewImpl;
 
-  int get contentId;
+  String get contentId;
   ContentType get contentType;
   ViewSource? get viewSource;
   int? get viewDurationSeconds;
@@ -371,7 +377,7 @@ abstract class _$$RecordContentLikeImplCopyWith<$Res> {
           $Res Function(_$RecordContentLikeImpl) then) =
       __$$RecordContentLikeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int contentId, ContentType contentType});
+  $Res call({String contentId, ContentType contentType});
 }
 
 /// @nodoc
@@ -392,7 +398,7 @@ class __$$RecordContentLikeImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -408,7 +414,7 @@ class _$RecordContentLikeImpl implements _RecordContentLike {
       {required this.contentId, required this.contentType});
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
 
@@ -441,20 +447,20 @@ class _$RecordContentLikeImpl implements _RecordContentLike {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return recordContentLike(contentId, contentType);
@@ -463,19 +469,20 @@ class _$RecordContentLikeImpl implements _RecordContentLike {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return recordContentLike?.call(contentId, contentType);
@@ -484,17 +491,19 @@ class _$RecordContentLikeImpl implements _RecordContentLike {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -558,10 +567,10 @@ class _$RecordContentLikeImpl implements _RecordContentLike {
 
 abstract class _RecordContentLike implements AnalyticsEvent {
   const factory _RecordContentLike(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType}) = _$RecordContentLikeImpl;
 
-  int get contentId;
+  String get contentId;
   ContentType get contentType;
   @JsonKey(ignore: true)
   _$$RecordContentLikeImplCopyWith<_$RecordContentLikeImpl> get copyWith =>
@@ -575,7 +584,7 @@ abstract class _$$RecordContentImpressionImplCopyWith<$Res> {
           $Res Function(_$RecordContentImpressionImpl) then) =
       __$$RecordContentImpressionImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int contentId, ContentType contentType});
+  $Res call({String contentId, ContentType contentType});
 }
 
 /// @nodoc
@@ -597,7 +606,7 @@ class __$$RecordContentImpressionImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -613,7 +622,7 @@ class _$RecordContentImpressionImpl implements _RecordContentImpression {
       {required this.contentId, required this.contentType});
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
 
@@ -646,20 +655,20 @@ class _$RecordContentImpressionImpl implements _RecordContentImpression {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return recordContentImpression(contentId, contentType);
@@ -668,19 +677,20 @@ class _$RecordContentImpressionImpl implements _RecordContentImpression {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return recordContentImpression?.call(contentId, contentType);
@@ -689,17 +699,19 @@ class _$RecordContentImpressionImpl implements _RecordContentImpression {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -763,10 +775,10 @@ class _$RecordContentImpressionImpl implements _RecordContentImpression {
 
 abstract class _RecordContentImpression implements AnalyticsEvent {
   const factory _RecordContentImpression(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType}) = _$RecordContentImpressionImpl;
 
-  int get contentId;
+  String get contentId;
   ContentType get contentType;
   @JsonKey(ignore: true)
   _$$RecordContentImpressionImplCopyWith<_$RecordContentImpressionImpl>
@@ -779,7 +791,7 @@ abstract class _$$RecordArtistViewImplCopyWith<$Res> {
           $Res Function(_$RecordArtistViewImpl) then) =
       __$$RecordArtistViewImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -799,7 +811,7 @@ class __$$RecordArtistViewImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -810,7 +822,7 @@ class _$RecordArtistViewImpl implements _RecordArtistView {
   const _$RecordArtistViewImpl({required this.artistId});
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -839,20 +851,20 @@ class _$RecordArtistViewImpl implements _RecordArtistView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return recordArtistView(artistId);
@@ -861,19 +873,20 @@ class _$RecordArtistViewImpl implements _RecordArtistView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return recordArtistView?.call(artistId);
@@ -882,17 +895,19 @@ class _$RecordArtistViewImpl implements _RecordArtistView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -955,10 +970,10 @@ class _$RecordArtistViewImpl implements _RecordArtistView {
 }
 
 abstract class _RecordArtistView implements AnalyticsEvent {
-  const factory _RecordArtistView({required final int artistId}) =
+  const factory _RecordArtistView({required final String artistId}) =
       _$RecordArtistViewImpl;
 
-  int get artistId;
+  String get artistId;
   @JsonKey(ignore: true)
   _$$RecordArtistViewImplCopyWith<_$RecordArtistViewImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -970,7 +985,7 @@ abstract class _$$RecordArtistFollowImplCopyWith<$Res> {
           $Res Function(_$RecordArtistFollowImpl) then) =
       __$$RecordArtistFollowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId, bool fromContentView});
+  $Res call({String artistId, bool fromContentView});
 }
 
 /// @nodoc
@@ -991,7 +1006,7 @@ class __$$RecordArtistFollowImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       fromContentView: null == fromContentView
           ? _value.fromContentView
           : fromContentView // ignore: cast_nullable_to_non_nullable
@@ -1007,7 +1022,7 @@ class _$RecordArtistFollowImpl implements _RecordArtistFollow {
       {required this.artistId, this.fromContentView = false});
 
   @override
-  final int artistId;
+  final String artistId;
   @override
   @JsonKey()
   final bool fromContentView;
@@ -1041,20 +1056,20 @@ class _$RecordArtistFollowImpl implements _RecordArtistFollow {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return recordArtistFollow(artistId, fromContentView);
@@ -1063,19 +1078,20 @@ class _$RecordArtistFollowImpl implements _RecordArtistFollow {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return recordArtistFollow?.call(artistId, fromContentView);
@@ -1084,17 +1100,19 @@ class _$RecordArtistFollowImpl implements _RecordArtistFollow {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -1158,10 +1176,10 @@ class _$RecordArtistFollowImpl implements _RecordArtistFollow {
 
 abstract class _RecordArtistFollow implements AnalyticsEvent {
   const factory _RecordArtistFollow(
-      {required final int artistId,
+      {required final String artistId,
       final bool fromContentView}) = _$RecordArtistFollowImpl;
 
-  int get artistId;
+  String get artistId;
   bool get fromContentView;
   @JsonKey(ignore: true)
   _$$RecordArtistFollowImplCopyWith<_$RecordArtistFollowImpl> get copyWith =>
@@ -1174,7 +1192,7 @@ abstract class _$$GetContentMetricsImplCopyWith<$Res> {
           $Res Function(_$GetContentMetricsImpl) then) =
       __$$GetContentMetricsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int contentId, ContentType contentType});
+  $Res call({String contentId, ContentType contentType});
 }
 
 /// @nodoc
@@ -1195,7 +1213,7 @@ class __$$GetContentMetricsImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -1211,7 +1229,7 @@ class _$GetContentMetricsImpl implements _GetContentMetrics {
       {required this.contentId, required this.contentType});
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
 
@@ -1244,20 +1262,20 @@ class _$GetContentMetricsImpl implements _GetContentMetrics {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return getContentMetrics(contentId, contentType);
@@ -1266,19 +1284,20 @@ class _$GetContentMetricsImpl implements _GetContentMetrics {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return getContentMetrics?.call(contentId, contentType);
@@ -1287,17 +1306,19 @@ class _$GetContentMetricsImpl implements _GetContentMetrics {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -1361,10 +1382,10 @@ class _$GetContentMetricsImpl implements _GetContentMetrics {
 
 abstract class _GetContentMetrics implements AnalyticsEvent {
   const factory _GetContentMetrics(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType}) = _$GetContentMetricsImpl;
 
-  int get contentId;
+  String get contentId;
   ContentType get contentType;
   @JsonKey(ignore: true)
   _$$GetContentMetricsImplCopyWith<_$GetContentMetricsImpl> get copyWith =>
@@ -1377,7 +1398,7 @@ abstract class _$$GetArtistMetricsImplCopyWith<$Res> {
           $Res Function(_$GetArtistMetricsImpl) then) =
       __$$GetArtistMetricsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -1397,7 +1418,7 @@ class __$$GetArtistMetricsImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1408,7 +1429,7 @@ class _$GetArtistMetricsImpl implements _GetArtistMetrics {
   const _$GetArtistMetricsImpl({required this.artistId});
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -1437,20 +1458,20 @@ class _$GetArtistMetricsImpl implements _GetArtistMetrics {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return getArtistMetrics(artistId);
@@ -1459,19 +1480,20 @@ class _$GetArtistMetricsImpl implements _GetArtistMetrics {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return getArtistMetrics?.call(artistId);
@@ -1480,17 +1502,19 @@ class _$GetArtistMetricsImpl implements _GetArtistMetrics {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -1553,10 +1577,10 @@ class _$GetArtistMetricsImpl implements _GetArtistMetrics {
 }
 
 abstract class _GetArtistMetrics implements AnalyticsEvent {
-  const factory _GetArtistMetrics({required final int artistId}) =
+  const factory _GetArtistMetrics({required final String artistId}) =
       _$GetArtistMetricsImpl;
 
-  int get artistId;
+  String get artistId;
   @JsonKey(ignore: true)
   _$$GetArtistMetricsImplCopyWith<_$GetArtistMetricsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1569,7 +1593,7 @@ abstract class _$$GetBatchContentMetricsImplCopyWith<$Res> {
           $Res Function(_$GetBatchContentMetricsImpl) then) =
       __$$GetBatchContentMetricsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<int> contentIds, ContentType contentType});
+  $Res call({List<String> contentIds, ContentType contentType});
 }
 
 /// @nodoc
@@ -1591,7 +1615,7 @@ class __$$GetBatchContentMetricsImplCopyWithImpl<$Res>
       contentIds: null == contentIds
           ? _value._contentIds
           : contentIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -1604,12 +1628,12 @@ class __$$GetBatchContentMetricsImplCopyWithImpl<$Res>
 
 class _$GetBatchContentMetricsImpl implements _GetBatchContentMetrics {
   const _$GetBatchContentMetricsImpl(
-      {required final List<int> contentIds, required this.contentType})
+      {required final List<String> contentIds, required this.contentType})
       : _contentIds = contentIds;
 
-  final List<int> _contentIds;
+  final List<String> _contentIds;
   @override
-  List<int> get contentIds {
+  List<String> get contentIds {
     if (_contentIds is EqualUnmodifiableListView) return _contentIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_contentIds);
@@ -1648,20 +1672,20 @@ class _$GetBatchContentMetricsImpl implements _GetBatchContentMetrics {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int contentId, ContentType contentType,
+    required TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)
         recordContentView,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentLike,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         recordContentImpression,
-    required TResult Function(int artistId) recordArtistView,
-    required TResult Function(int artistId, bool fromContentView)
+    required TResult Function(String artistId) recordArtistView,
+    required TResult Function(String artistId, bool fromContentView)
         recordArtistFollow,
-    required TResult Function(int contentId, ContentType contentType)
+    required TResult Function(String contentId, ContentType contentType)
         getContentMetrics,
-    required TResult Function(int artistId) getArtistMetrics,
-    required TResult Function(List<int> contentIds, ContentType contentType)
+    required TResult Function(String artistId) getArtistMetrics,
+    required TResult Function(List<String> contentIds, ContentType contentType)
         getBatchContentMetrics,
   }) {
     return getBatchContentMetrics(contentIds, contentType);
@@ -1670,19 +1694,20 @@ class _$GetBatchContentMetricsImpl implements _GetBatchContentMetrics {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int contentId, ContentType contentType,
+    TResult? Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentLike,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult? Function(int artistId)? recordArtistView,
-    TResult? Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult? Function(int contentId, ContentType contentType)?
+    TResult? Function(String artistId)? recordArtistView,
+    TResult? Function(String artistId, bool fromContentView)?
+        recordArtistFollow,
+    TResult? Function(String contentId, ContentType contentType)?
         getContentMetrics,
-    TResult? Function(int artistId)? getArtistMetrics,
-    TResult? Function(List<int> contentIds, ContentType contentType)?
+    TResult? Function(String artistId)? getArtistMetrics,
+    TResult? Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
   }) {
     return getBatchContentMetrics?.call(contentIds, contentType);
@@ -1691,17 +1716,19 @@ class _$GetBatchContentMetricsImpl implements _GetBatchContentMetrics {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int contentId, ContentType contentType,
+    TResult Function(String contentId, ContentType contentType,
             ViewSource? viewSource, int? viewDurationSeconds)?
         recordContentView,
-    TResult Function(int contentId, ContentType contentType)? recordContentLike,
-    TResult Function(int contentId, ContentType contentType)?
+    TResult Function(String contentId, ContentType contentType)?
+        recordContentLike,
+    TResult Function(String contentId, ContentType contentType)?
         recordContentImpression,
-    TResult Function(int artistId)? recordArtistView,
-    TResult Function(int artistId, bool fromContentView)? recordArtistFollow,
-    TResult Function(int contentId, ContentType contentType)? getContentMetrics,
-    TResult Function(int artistId)? getArtistMetrics,
-    TResult Function(List<int> contentIds, ContentType contentType)?
+    TResult Function(String artistId)? recordArtistView,
+    TResult Function(String artistId, bool fromContentView)? recordArtistFollow,
+    TResult Function(String contentId, ContentType contentType)?
+        getContentMetrics,
+    TResult Function(String artistId)? getArtistMetrics,
+    TResult Function(List<String> contentIds, ContentType contentType)?
         getBatchContentMetrics,
     required TResult orElse(),
   }) {
@@ -1765,10 +1792,10 @@ class _$GetBatchContentMetricsImpl implements _GetBatchContentMetrics {
 
 abstract class _GetBatchContentMetrics implements AnalyticsEvent {
   const factory _GetBatchContentMetrics(
-      {required final List<int> contentIds,
+      {required final List<String> contentIds,
       required final ContentType contentType}) = _$GetBatchContentMetricsImpl;
 
-  List<int> get contentIds;
+  List<String> get contentIds;
   ContentType get contentType;
   @JsonKey(ignore: true)
   _$$GetBatchContentMetricsImplCopyWith<_$GetBatchContentMetricsImpl>
@@ -1785,8 +1812,8 @@ mixin _$AnalyticsState {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) =>
@@ -1798,7 +1825,7 @@ mixin _$AnalyticsState {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -1811,7 +1838,7 @@ mixin _$AnalyticsState {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -1919,8 +1946,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -1935,7 +1962,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -1951,7 +1978,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2061,8 +2088,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2077,7 +2104,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -2093,7 +2120,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2241,8 +2268,8 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2257,7 +2284,7 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -2273,7 +2300,7 @@ class _$ContentMetricsLoadedImpl implements _ContentMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2426,8 +2453,8 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2442,7 +2469,7 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -2458,7 +2485,7 @@ class _$ArtistMetricsLoadedImpl implements _ArtistMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2611,8 +2638,8 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2627,7 +2654,7 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -2643,7 +2670,7 @@ class _$BatchContentMetricsLoadedImpl implements _BatchContentMetricsLoaded {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2723,7 +2750,7 @@ abstract class _$$ContentLikeUpdatedImplCopyWith<$Res> {
       __$$ContentLikeUpdatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int contentId, ContentType contentType, bool isLiked, int likeCount});
+      {String contentId, ContentType contentType, bool isLiked, int likeCount});
 }
 
 /// @nodoc
@@ -2746,7 +2773,7 @@ class __$$ContentLikeUpdatedImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -2773,7 +2800,7 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
       required this.likeCount});
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
   @override
@@ -2820,8 +2847,8 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -2836,7 +2863,7 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -2852,7 +2879,7 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,
@@ -2916,12 +2943,12 @@ class _$ContentLikeUpdatedImpl implements _ContentLikeUpdated {
 
 abstract class _ContentLikeUpdated implements AnalyticsState {
   const factory _ContentLikeUpdated(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType,
       required final bool isLiked,
       required final int likeCount}) = _$ContentLikeUpdatedImpl;
 
-  int get contentId;
+  String get contentId;
   ContentType get contentType;
   bool get isLiked;
   int get likeCount;
@@ -3000,8 +3027,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(ArtistMetrics metrics) artistMetricsLoaded,
     required TResult Function(List<ContentMetrics> metrics)
         batchContentMetricsLoaded,
-    required TResult Function(
-            int contentId, ContentType contentType, bool isLiked, int likeCount)
+    required TResult Function(String contentId, ContentType contentType,
+            bool isLiked, int likeCount)
         contentLikeUpdated,
     required TResult Function(String message) error,
   }) {
@@ -3016,7 +3043,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult? Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult? Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult? Function(int contentId, ContentType contentType, bool isLiked,
+    TResult? Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult? Function(String message)? error,
@@ -3032,7 +3059,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(ContentMetrics metrics)? contentMetricsLoaded,
     TResult Function(ArtistMetrics metrics)? artistMetricsLoaded,
     TResult Function(List<ContentMetrics> metrics)? batchContentMetricsLoaded,
-    TResult Function(int contentId, ContentType contentType, bool isLiked,
+    TResult Function(String contentId, ContentType contentType, bool isLiked,
             int likeCount)?
         contentLikeUpdated,
     TResult Function(String message)? error,

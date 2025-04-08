@@ -11,7 +11,7 @@ part 'works_bloc.freezed.dart';
 class WorksBloc extends Bloc<WorksEvent, WorksState> {
   final AgendaService _agendaService;
   final LocalSessionService _sessionService;
-  int? _currentArtistId;
+  String? _currentArtistId;
 
   WorksBloc({
     required AgendaService agendaService,
@@ -33,9 +33,9 @@ class WorksBloc extends Bloc<WorksEvent, WorksState> {
     });
   }
 
-  Future<void> _loadWorks(Emitter<WorksState> emit, int artistId) async {
+  Future<void> _loadWorks(Emitter<WorksState> emit, String artistId) async {
     emit(const WorksState.loading());
-    
+
     try {
       final token = await _sessionService.getActiveSessionToken();
       final works = await _agendaService.getArtistWorks(

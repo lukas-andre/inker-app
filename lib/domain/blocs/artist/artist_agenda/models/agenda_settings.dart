@@ -16,7 +16,7 @@ class AgendaSettings with _$AgendaSettings {
 @freezed
 class UnavailableTimeBlock with _$UnavailableTimeBlock {
   const factory UnavailableTimeBlock({
-    required int id,
+    required String id,
     required DateTime startDate,
     required DateTime endDate,
     String? reason,
@@ -27,7 +27,7 @@ class UnavailableTimeBlock with _$UnavailableTimeBlock {
     if (json == null || json is! Map<String, dynamic>) {
       // Return a placeholder block if input is invalid
       return UnavailableTimeBlock(
-        id: -1,
+        id: '',
         startDate: DateTime.now(),
         endDate: DateTime.now().add(const Duration(hours: 1)),
         reason: 'Invalid data',
@@ -35,7 +35,7 @@ class UnavailableTimeBlock with _$UnavailableTimeBlock {
     }
     
     try {
-      final id = json['id'] is int ? json['id'] : -1;
+      final id = json['id'] is String ? json['id'] : '';
       
       // Parse dates safely
       DateTime startDate;
@@ -67,7 +67,7 @@ class UnavailableTimeBlock with _$UnavailableTimeBlock {
     } catch (e) {
       // Return a placeholder on any error
       return UnavailableTimeBlock(
-        id: -1,
+        id: '',
         startDate: DateTime.now(),
         endDate: DateTime.now().add(const Duration(hours: 1)),
         reason: 'Error parsing data',

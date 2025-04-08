@@ -7,8 +7,8 @@ part of 'stencil.dart';
 // **************************************************************************
 
 _$StencilImpl _$$StencilImplFromJson(Map json) => _$StencilImpl(
-      id: (json['id'] as num).toInt(),
-      artistId: (json['artistId'] as num).toInt(),
+      id: json['id'] as String,
+      artistId: json['artistId'] as String,
       title: json['title'] as String,
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String,

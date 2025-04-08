@@ -1,5 +1,5 @@
 abstract class AccountVerificationService {
-  Future<bool> sendSMS(int userId, String phoneNumber);
+  Future<bool> sendSMS(String userId, String phoneNumber);
 
-  Future<bool> validateVerificationCode(int userId, String code);
+  Future<bool> validateVerificationCode(String userId, String code);
 }

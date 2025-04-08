@@ -21,15 +21,16 @@ mixin _$AppointmentEvent {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,14 +39,14 @@ mixin _$AppointmentEvent {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,14 +55,14 @@ mixin _$AppointmentEvent {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) =>
@@ -169,15 +170,16 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return started();
@@ -189,14 +191,14 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return started?.call();
@@ -208,14 +210,14 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -362,15 +364,16 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return loadAppointments(status, isRefresh);
@@ -382,14 +385,14 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return loadAppointments?.call(status, isRefresh);
@@ -401,14 +404,14 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -526,15 +529,16 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return loadMoreAppointments();
@@ -546,14 +550,14 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return loadMoreAppointments?.call();
@@ -565,14 +569,14 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -647,7 +651,7 @@ abstract class _$$GetAppointmentByIdImplCopyWith<$Res> {
           $Res Function(_$GetAppointmentByIdImpl) then) =
       __$$GetAppointmentByIdImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int id});
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -667,7 +671,7 @@ class __$$GetAppointmentByIdImplCopyWithImpl<$Res>
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -678,7 +682,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   const _$GetAppointmentByIdImpl(this.id);
 
   @override
-  final int id;
+  final String id;
 
   @override
   String toString() {
@@ -709,15 +713,16 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return getAppointmentById(id);
@@ -729,14 +734,14 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return getAppointmentById?.call(id);
@@ -748,14 +753,14 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -821,9 +826,9 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
 }
 
 abstract class _GetAppointmentById implements AppointmentEvent {
-  const factory _GetAppointmentById(final int id) = _$GetAppointmentByIdImpl;
+  const factory _GetAppointmentById(final String id) = _$GetAppointmentByIdImpl;
 
-  int get id;
+  String get id;
   @JsonKey(ignore: true)
   _$$GetAppointmentByIdImplCopyWith<_$GetAppointmentByIdImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -837,7 +842,7 @@ abstract class _$$RequestAppointmentChangeImplCopyWith<$Res> {
       __$$RequestAppointmentChangeImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int appointmentId,
+      {String appointmentId,
       DateTime? newStartDate,
       DateTime? newEndDate,
       String? reason});
@@ -864,7 +869,7 @@ class __$$RequestAppointmentChangeImplCopyWithImpl<$Res>
       appointmentId: null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       newStartDate: freezed == newStartDate
           ? _value.newStartDate
           : newStartDate // ignore: cast_nullable_to_non_nullable
@@ -891,7 +896,7 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
       this.reason});
 
   @override
-  final int appointmentId;
+  final String appointmentId;
   @override
   final DateTime? newStartDate;
   @override
@@ -935,15 +940,16 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return requestAppointmentChange(
@@ -956,14 +962,14 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return requestAppointmentChange?.call(
@@ -976,14 +982,14 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -1051,12 +1057,12 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
 
 abstract class _RequestAppointmentChange implements AppointmentEvent {
   const factory _RequestAppointmentChange(
-      {required final int appointmentId,
+      {required final String appointmentId,
       final DateTime? newStartDate,
       final DateTime? newEndDate,
       final String? reason}) = _$RequestAppointmentChangeImpl;
 
-  int get appointmentId;
+  String get appointmentId;
   DateTime? get newStartDate;
   DateTime? get newEndDate;
   String? get reason;
@@ -1071,7 +1077,7 @@ abstract class _$$CancelAppointmentImplCopyWith<$Res> {
           $Res Function(_$CancelAppointmentImpl) then) =
       __$$CancelAppointmentImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int appointmentId, String reason});
+  $Res call({String appointmentId, String reason});
 }
 
 /// @nodoc
@@ -1092,7 +1098,7 @@ class __$$CancelAppointmentImplCopyWithImpl<$Res>
       appointmentId: null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       reason: null == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
@@ -1108,7 +1114,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
       {required this.appointmentId, required this.reason});
 
   @override
-  final int appointmentId;
+  final String appointmentId;
   @override
   final String reason;
 
@@ -1143,15 +1149,16 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return cancelAppointment(appointmentId, reason);
@@ -1163,14 +1170,14 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return cancelAppointment?.call(appointmentId, reason);
@@ -1182,14 +1189,14 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -1256,10 +1263,10 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
 
 abstract class _CancelAppointment implements AppointmentEvent {
   const factory _CancelAppointment(
-      {required final int appointmentId,
+      {required final String appointmentId,
       required final String reason}) = _$CancelAppointmentImpl;
 
-  int get appointmentId;
+  String get appointmentId;
   String get reason;
   @JsonKey(ignore: true)
   _$$CancelAppointmentImplCopyWith<_$CancelAppointmentImpl> get copyWith =>
@@ -1272,7 +1279,7 @@ abstract class _$$MarkAsReadImplCopyWith<$Res> {
           _$MarkAsReadImpl value, $Res Function(_$MarkAsReadImpl) then) =
       __$$MarkAsReadImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int appointmentId});
+  $Res call({String appointmentId});
 }
 
 /// @nodoc
@@ -1292,7 +1299,7 @@ class __$$MarkAsReadImplCopyWithImpl<$Res>
       null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1303,7 +1310,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
   const _$MarkAsReadImpl(this.appointmentId);
 
   @override
-  final int appointmentId;
+  final String appointmentId;
 
   @override
   String toString() {
@@ -1334,15 +1341,16 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return markAsRead(appointmentId);
@@ -1354,14 +1362,14 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return markAsRead?.call(appointmentId);
@@ -1373,14 +1381,14 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -1446,9 +1454,9 @@ class _$MarkAsReadImpl implements _MarkAsRead {
 }
 
 abstract class _MarkAsRead implements AppointmentEvent {
-  const factory _MarkAsRead(final int appointmentId) = _$MarkAsReadImpl;
+  const factory _MarkAsRead(final String appointmentId) = _$MarkAsReadImpl;
 
-  int get appointmentId;
+  String get appointmentId;
   @JsonKey(ignore: true)
   _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1522,15 +1530,16 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return filterByStatus(status);
@@ -1542,14 +1551,14 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return filterByStatus?.call(status);
@@ -1561,14 +1570,14 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -1648,7 +1657,7 @@ abstract class _$$RsvpForAppointmentImplCopyWith<$Res> {
           $Res Function(_$RsvpForAppointmentImpl) then) =
       __$$RsvpForAppointmentImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int appointmentId, int agendaId, bool willAttend});
+  $Res call({String appointmentId, String agendaId, bool willAttend});
 }
 
 /// @nodoc
@@ -1670,11 +1679,11 @@ class __$$RsvpForAppointmentImplCopyWithImpl<$Res>
       appointmentId: null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       agendaId: null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       willAttend: null == willAttend
           ? _value.willAttend
           : willAttend // ignore: cast_nullable_to_non_nullable
@@ -1692,9 +1701,9 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
       required this.willAttend});
 
   @override
-  final int appointmentId;
+  final String appointmentId;
   @override
-  final int agendaId;
+  final String agendaId;
   @override
   final bool willAttend;
 
@@ -1733,15 +1742,16 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     required TResult Function() started,
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
-    required TResult Function(int id) getAppointmentById,
-    required TResult Function(int appointmentId, DateTime? newStartDate,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
-    required TResult Function(int appointmentId, String reason)
+    required TResult Function(String appointmentId, String reason)
         cancelAppointment,
-    required TResult Function(int appointmentId) markAsRead,
+    required TResult Function(String appointmentId) markAsRead,
     required TResult Function(String status) filterByStatus,
-    required TResult Function(int appointmentId, int agendaId, bool willAttend)
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
   }) {
     return rsvpForAppointment(appointmentId, agendaId, willAttend);
@@ -1753,14 +1763,14 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult? Function()? started,
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
-    TResult? Function(int id)? getAppointmentById,
-    TResult? Function(int appointmentId, DateTime? newStartDate,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult? Function(int appointmentId, String reason)? cancelAppointment,
-    TResult? Function(int appointmentId)? markAsRead,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
     TResult? Function(String status)? filterByStatus,
-    TResult? Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
   }) {
     return rsvpForAppointment?.call(appointmentId, agendaId, willAttend);
@@ -1772,14 +1782,14 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult Function()? started,
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
-    TResult Function(int id)? getAppointmentById,
-    TResult Function(int appointmentId, DateTime? newStartDate,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
-    TResult Function(int appointmentId, String reason)? cancelAppointment,
-    TResult Function(int appointmentId)? markAsRead,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
     TResult Function(String status)? filterByStatus,
-    TResult Function(int appointmentId, int agendaId, bool willAttend)?
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
     required TResult orElse(),
   }) {
@@ -1846,12 +1856,12 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
 
 abstract class _RsvpForAppointment implements AppointmentEvent {
   const factory _RsvpForAppointment(
-      {required final int appointmentId,
-      required final int agendaId,
+      {required final String appointmentId,
+      required final String agendaId,
       required final bool willAttend}) = _$RsvpForAppointmentImpl;
 
-  int get appointmentId;
-  int get agendaId;
+  String get appointmentId;
+  String get agendaId;
   bool get willAttend;
   @JsonKey(ignore: true)
   _$$RsvpForAppointmentImplCopyWith<_$RsvpForAppointmentImpl> get copyWith =>

@@ -18,7 +18,7 @@ class AgendaSettingsPage extends StatefulWidget {
 class _AgendaSettingsPageState extends State<AgendaSettingsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final int _agendaId = 1; // Replace with actual agenda ID from user data
+  final String _agendaId = ''; // Replace with actual agenda ID from user data
 
   @override
   void initState() {
@@ -185,7 +185,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
 
 class _WorkingHoursForm extends StatefulWidget {
   final AgendaSettings settings;
-  final int agendaId;
+  final String agendaId;
   final bool isSaving;
 
   const _WorkingHoursForm({
@@ -553,7 +553,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
 
 class _UnavailableTimesList extends StatefulWidget {
   final List<UnavailableTimeBlock> unavailableTimes;
-  final int agendaId;
+  final String agendaId;
   final bool isLoading;
   final bool isSaving;
 
@@ -644,7 +644,7 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
     });
   }
 
-  void _deleteUnavailableTime(int unavailableTimeId) {
+  void _deleteUnavailableTime(String unavailableTimeId) {
     context.read<ArtistAgendaSettingsBloc>().add(
           ArtistAgendaSettingsEvent.deleteUnavailableTime(
             agendaId: widget.agendaId,

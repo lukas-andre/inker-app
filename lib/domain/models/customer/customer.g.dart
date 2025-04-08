@@ -7,8 +7,8 @@ part of 'customer.dart';
 // **************************************************************************
 
 Customer _$CustomerFromJson(Map json) => Customer(
-      id: (json['id'] as num).toInt(),
-      userId: (json['userId'] as num).toInt(),
+      id: json['id'] as String,
+      userId: json['userId'] as String,
       firstName: json['firstName'] as String,
       contactEmail: json['contactEmail'] as String,
       rating: (json['rating'] as num).toInt(),

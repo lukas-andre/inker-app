@@ -18,21 +18,22 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AvailableTimeSlotsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId, DateTime date, int durationMinutes)
+    required TResult Function(
+            String artistId, DateTime date, int durationMinutes)
         getAvailableTimeSlots,
     required TResult Function() resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId, DateTime date, int durationMinutes)?
+    TResult? Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult? Function()? resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId, DateTime date, int durationMinutes)?
+    TResult Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -86,7 +87,7 @@ abstract class _$$GetAvailableTimeSlotsImplCopyWith<$Res> {
           $Res Function(_$GetAvailableTimeSlotsImpl) then) =
       __$$GetAvailableTimeSlotsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId, DateTime date, int durationMinutes});
+  $Res call({String artistId, DateTime date, int durationMinutes});
 }
 
 /// @nodoc
@@ -109,7 +110,7 @@ class __$$GetAvailableTimeSlotsImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -131,7 +132,7 @@ class _$GetAvailableTimeSlotsImpl implements _GetAvailableTimeSlots {
       required this.durationMinutes});
 
   @override
-  final int artistId;
+  final String artistId;
   @override
   final DateTime date;
   @override
@@ -167,7 +168,8 @@ class _$GetAvailableTimeSlotsImpl implements _GetAvailableTimeSlots {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId, DateTime date, int durationMinutes)
+    required TResult Function(
+            String artistId, DateTime date, int durationMinutes)
         getAvailableTimeSlots,
     required TResult Function() resetState,
   }) {
@@ -177,7 +179,7 @@ class _$GetAvailableTimeSlotsImpl implements _GetAvailableTimeSlots {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId, DateTime date, int durationMinutes)?
+    TResult? Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult? Function()? resetState,
   }) {
@@ -187,7 +189,7 @@ class _$GetAvailableTimeSlotsImpl implements _GetAvailableTimeSlots {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId, DateTime date, int durationMinutes)?
+    TResult Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult Function()? resetState,
     required TResult orElse(),
@@ -233,11 +235,11 @@ class _$GetAvailableTimeSlotsImpl implements _GetAvailableTimeSlots {
 
 abstract class _GetAvailableTimeSlots implements AvailableTimeSlotsEvent {
   const factory _GetAvailableTimeSlots(
-      {required final int artistId,
+      {required final String artistId,
       required final DateTime date,
       required final int durationMinutes}) = _$GetAvailableTimeSlotsImpl;
 
-  int get artistId;
+  String get artistId;
   DateTime get date;
   int get durationMinutes;
   @JsonKey(ignore: true)
@@ -283,7 +285,8 @@ class _$ResetStateImpl implements _ResetState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId, DateTime date, int durationMinutes)
+    required TResult Function(
+            String artistId, DateTime date, int durationMinutes)
         getAvailableTimeSlots,
     required TResult Function() resetState,
   }) {
@@ -293,7 +296,7 @@ class _$ResetStateImpl implements _ResetState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId, DateTime date, int durationMinutes)?
+    TResult? Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult? Function()? resetState,
   }) {
@@ -303,7 +306,7 @@ class _$ResetStateImpl implements _ResetState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId, DateTime date, int durationMinutes)?
+    TResult Function(String artistId, DateTime date, int durationMinutes)?
         getAvailableTimeSlots,
     TResult Function()? resetState,
     required TResult orElse(),

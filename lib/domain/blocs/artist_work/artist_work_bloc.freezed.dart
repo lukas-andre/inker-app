@@ -19,103 +19,103 @@ mixin _$ArtistWorkEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -258,35 +258,35 @@ class _$LoadWorksImpl implements _LoadWorks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return loadWorks(includeHidden);
   }
@@ -295,35 +295,35 @@ class _$LoadWorksImpl implements _LoadWorks {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return loadWorks?.call(includeHidden);
   }
@@ -332,35 +332,35 @@ class _$LoadWorksImpl implements _LoadWorks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (loadWorks != null) {
@@ -449,7 +449,7 @@ abstract class _$$LoadWorkDetailImplCopyWith<$Res> {
           $Res Function(_$LoadWorkDetailImpl) then) =
       __$$LoadWorkDetailImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId});
+  $Res call({String workId});
 }
 
 /// @nodoc
@@ -469,7 +469,7 @@ class __$$LoadWorkDetailImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -480,7 +480,7 @@ class _$LoadWorkDetailImpl implements _LoadWorkDetail {
   const _$LoadWorkDetailImpl(this.workId);
 
   @override
-  final int workId;
+  final String workId;
 
   @override
   String toString() {
@@ -509,35 +509,35 @@ class _$LoadWorkDetailImpl implements _LoadWorkDetail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return loadWorkDetail(workId);
   }
@@ -546,35 +546,35 @@ class _$LoadWorkDetailImpl implements _LoadWorkDetail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return loadWorkDetail?.call(workId);
   }
@@ -583,35 +583,35 @@ class _$LoadWorkDetailImpl implements _LoadWorkDetail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (loadWorkDetail != null) {
@@ -686,9 +686,9 @@ class _$LoadWorkDetailImpl implements _LoadWorkDetail {
 }
 
 abstract class _LoadWorkDetail implements ArtistWorkEvent {
-  const factory _LoadWorkDetail(final int workId) = _$LoadWorkDetailImpl;
+  const factory _LoadWorkDetail(final String workId) = _$LoadWorkDetailImpl;
 
-  int get workId;
+  String get workId;
   @JsonKey(ignore: true)
   _$$LoadWorkDetailImplCopyWith<_$LoadWorkDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -705,7 +705,7 @@ abstract class _$$CreateWorkImplCopyWith<$Res> {
       String? description,
       bool isFeatured,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       WorkSource source});
 }
@@ -749,7 +749,7 @@ class __$$CreateWorkImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
@@ -770,7 +770,7 @@ class _$CreateWorkImpl implements _CreateWork {
       this.description,
       this.isFeatured = false,
       this.isHidden = false,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.imageFile,
       this.source = WorkSource.app})
       : _tagIds = tagIds;
@@ -785,9 +785,9 @@ class _$CreateWorkImpl implements _CreateWork {
   @override
   @JsonKey()
   final bool isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -845,35 +845,35 @@ class _$CreateWorkImpl implements _CreateWork {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return createWork(
         title, description, isFeatured, isHidden, tagIds, imageFile, source);
@@ -883,35 +883,35 @@ class _$CreateWorkImpl implements _CreateWork {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return createWork?.call(
         title, description, isFeatured, isHidden, tagIds, imageFile, source);
@@ -921,35 +921,35 @@ class _$CreateWorkImpl implements _CreateWork {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (createWork != null) {
@@ -1030,7 +1030,7 @@ abstract class _CreateWork implements ArtistWorkEvent {
       final String? description,
       final bool isFeatured,
       final bool isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final XFile? imageFile,
       final WorkSource source}) = _$CreateWorkImpl;
 
@@ -1038,7 +1038,7 @@ abstract class _CreateWork implements ArtistWorkEvent {
   String? get description;
   bool get isFeatured;
   bool get isHidden;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   XFile? get imageFile;
   WorkSource get source;
   @JsonKey(ignore: true)
@@ -1053,12 +1053,12 @@ abstract class _$$UpdateWorkImplCopyWith<$Res> {
       __$$UpdateWorkImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int workId,
+      {String workId,
       String? title,
       String? description,
       bool? isFeatured,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       WorkSource? source});
 }
@@ -1087,7 +1087,7 @@ class __$$UpdateWorkImplCopyWithImpl<$Res>
       workId: null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -1107,7 +1107,7 @@ class __$$UpdateWorkImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
@@ -1129,13 +1129,13 @@ class _$UpdateWorkImpl implements _UpdateWork {
       this.description,
       this.isFeatured,
       this.isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.imageFile,
       this.source})
       : _tagIds = tagIds;
 
   @override
-  final int workId;
+  final String workId;
   @override
   final String? title;
   @override
@@ -1144,9 +1144,9 @@ class _$UpdateWorkImpl implements _UpdateWork {
   final bool? isFeatured;
   @override
   final bool? isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -1205,35 +1205,35 @@ class _$UpdateWorkImpl implements _UpdateWork {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return updateWork(workId, title, description, isFeatured, isHidden, tagIds,
         imageFile, source);
@@ -1243,35 +1243,35 @@ class _$UpdateWorkImpl implements _UpdateWork {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return updateWork?.call(workId, title, description, isFeatured, isHidden,
         tagIds, imageFile, source);
@@ -1281,35 +1281,35 @@ class _$UpdateWorkImpl implements _UpdateWork {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (updateWork != null) {
@@ -1386,21 +1386,21 @@ class _$UpdateWorkImpl implements _UpdateWork {
 
 abstract class _UpdateWork implements ArtistWorkEvent {
   const factory _UpdateWork(
-      {required final int workId,
+      {required final String workId,
       final String? title,
       final String? description,
       final bool? isFeatured,
       final bool? isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final XFile? imageFile,
       final WorkSource? source}) = _$UpdateWorkImpl;
 
-  int get workId;
+  String get workId;
   String? get title;
   String? get description;
   bool? get isFeatured;
   bool? get isHidden;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   XFile? get imageFile;
   WorkSource? get source;
   @JsonKey(ignore: true)
@@ -1414,7 +1414,7 @@ abstract class _$$DeleteWorkImplCopyWith<$Res> {
           _$DeleteWorkImpl value, $Res Function(_$DeleteWorkImpl) then) =
       __$$DeleteWorkImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId});
+  $Res call({String workId});
 }
 
 /// @nodoc
@@ -1434,7 +1434,7 @@ class __$$DeleteWorkImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1445,7 +1445,7 @@ class _$DeleteWorkImpl implements _DeleteWork {
   const _$DeleteWorkImpl(this.workId);
 
   @override
-  final int workId;
+  final String workId;
 
   @override
   String toString() {
@@ -1473,35 +1473,35 @@ class _$DeleteWorkImpl implements _DeleteWork {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return deleteWork(workId);
   }
@@ -1510,35 +1510,35 @@ class _$DeleteWorkImpl implements _DeleteWork {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return deleteWork?.call(workId);
   }
@@ -1547,35 +1547,35 @@ class _$DeleteWorkImpl implements _DeleteWork {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (deleteWork != null) {
@@ -1650,9 +1650,9 @@ class _$DeleteWorkImpl implements _DeleteWork {
 }
 
 abstract class _DeleteWork implements ArtistWorkEvent {
-  const factory _DeleteWork(final int workId) = _$DeleteWorkImpl;
+  const factory _DeleteWork(final String workId) = _$DeleteWorkImpl;
 
-  int get workId;
+  String get workId;
   @JsonKey(ignore: true)
   _$$DeleteWorkImplCopyWith<_$DeleteWorkImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1734,35 +1734,35 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return toggleFeatured(work);
   }
@@ -1771,35 +1771,35 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return toggleFeatured?.call(work);
   }
@@ -1808,35 +1808,35 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (toggleFeatured != null) {
@@ -1995,35 +1995,35 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return toggleVisibility(work);
   }
@@ -2032,35 +2032,35 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return toggleVisibility?.call(work);
   }
@@ -2069,35 +2069,35 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (toggleVisibility != null) {
@@ -2186,7 +2186,7 @@ abstract class _$$RecordViewImplCopyWith<$Res> {
           _$RecordViewImpl value, $Res Function(_$RecordViewImpl) then) =
       __$$RecordViewImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId});
+  $Res call({String workId});
 }
 
 /// @nodoc
@@ -2206,7 +2206,7 @@ class __$$RecordViewImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2217,7 +2217,7 @@ class _$RecordViewImpl implements _RecordView {
   const _$RecordViewImpl(this.workId);
 
   @override
-  final int workId;
+  final String workId;
 
   @override
   String toString() {
@@ -2245,35 +2245,35 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return recordView(workId);
   }
@@ -2282,35 +2282,35 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return recordView?.call(workId);
   }
@@ -2319,35 +2319,35 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (recordView != null) {
@@ -2422,9 +2422,9 @@ class _$RecordViewImpl implements _RecordView {
 }
 
 abstract class _RecordView implements ArtistWorkEvent {
-  const factory _RecordView(final int workId) = _$RecordViewImpl;
+  const factory _RecordView(final String workId) = _$RecordViewImpl;
 
-  int get workId;
+  String get workId;
   @JsonKey(ignore: true)
   _$$RecordViewImplCopyWith<_$RecordViewImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2436,7 +2436,7 @@ abstract class _$$LikeWorkImplCopyWith<$Res> {
           _$LikeWorkImpl value, $Res Function(_$LikeWorkImpl) then) =
       __$$LikeWorkImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId});
+  $Res call({String workId});
 }
 
 /// @nodoc
@@ -2456,7 +2456,7 @@ class __$$LikeWorkImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2467,7 +2467,7 @@ class _$LikeWorkImpl implements _LikeWork {
   const _$LikeWorkImpl(this.workId);
 
   @override
-  final int workId;
+  final String workId;
 
   @override
   String toString() {
@@ -2495,35 +2495,35 @@ class _$LikeWorkImpl implements _LikeWork {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return likeWork(workId);
   }
@@ -2532,35 +2532,35 @@ class _$LikeWorkImpl implements _LikeWork {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return likeWork?.call(workId);
   }
@@ -2569,35 +2569,35 @@ class _$LikeWorkImpl implements _LikeWork {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (likeWork != null) {
@@ -2672,9 +2672,9 @@ class _$LikeWorkImpl implements _LikeWork {
 }
 
 abstract class _LikeWork implements ArtistWorkEvent {
-  const factory _LikeWork(final int workId) = _$LikeWorkImpl;
+  const factory _LikeWork(final String workId) = _$LikeWorkImpl;
 
-  int get workId;
+  String get workId;
   @JsonKey(ignore: true)
   _$$LikeWorkImplCopyWith<_$LikeWorkImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2746,35 +2746,35 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return getTagSuggestions(prefix);
   }
@@ -2783,35 +2783,35 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return getTagSuggestions?.call(prefix);
   }
@@ -2820,35 +2820,35 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (getTagSuggestions != null) {
@@ -2971,35 +2971,35 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return getPopularTags();
   }
@@ -3008,35 +3008,35 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return getPopularTags?.call();
   }
@@ -3045,35 +3045,35 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (getPopularTags != null) {
@@ -3216,35 +3216,35 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return createTag(name);
   }
@@ -3253,35 +3253,35 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return createTag?.call(name);
   }
@@ -3290,35 +3290,35 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (createTag != null) {
@@ -3407,7 +3407,7 @@ abstract class _$$FilterWorksByTagImplCopyWith<$Res> {
           $Res Function(_$FilterWorksByTagImpl) then) =
       __$$FilterWorksByTagImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int tagId});
+  $Res call({String tagId});
 }
 
 /// @nodoc
@@ -3427,7 +3427,7 @@ class __$$FilterWorksByTagImplCopyWithImpl<$Res>
       null == tagId
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -3438,7 +3438,7 @@ class _$FilterWorksByTagImpl implements _FilterWorksByTag {
   const _$FilterWorksByTagImpl(this.tagId);
 
   @override
-  final int tagId;
+  final String tagId;
 
   @override
   String toString() {
@@ -3467,35 +3467,35 @@ class _$FilterWorksByTagImpl implements _FilterWorksByTag {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadWorks,
-    required TResult Function(int workId) loadWorkDetail,
+    required TResult Function(String workId) loadWorkDetail,
     required TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)
         createWork,
     required TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)
         updateWork,
-    required TResult Function(int workId) deleteWork,
+    required TResult Function(String workId) deleteWork,
     required TResult Function(Work work) toggleFeatured,
     required TResult Function(Work work) toggleVisibility,
-    required TResult Function(int workId) recordView,
-    required TResult Function(int workId) likeWork,
+    required TResult Function(String workId) recordView,
+    required TResult Function(String workId) likeWork,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterWorksByTag,
+    required TResult Function(String tagId) filterWorksByTag,
   }) {
     return filterWorksByTag(tagId);
   }
@@ -3504,35 +3504,35 @@ class _$FilterWorksByTagImpl implements _FilterWorksByTag {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadWorks,
-    TResult? Function(int workId)? loadWorkDetail,
+    TResult? Function(String workId)? loadWorkDetail,
     TResult? Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult? Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult? Function(int workId)? deleteWork,
+    TResult? Function(String workId)? deleteWork,
     TResult? Function(Work work)? toggleFeatured,
     TResult? Function(Work work)? toggleVisibility,
-    TResult? Function(int workId)? recordView,
-    TResult? Function(int workId)? likeWork,
+    TResult? Function(String workId)? recordView,
+    TResult? Function(String workId)? likeWork,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterWorksByTag,
+    TResult? Function(String tagId)? filterWorksByTag,
   }) {
     return filterWorksByTag?.call(tagId);
   }
@@ -3541,35 +3541,35 @@ class _$FilterWorksByTagImpl implements _FilterWorksByTag {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadWorks,
-    TResult Function(int workId)? loadWorkDetail,
+    TResult Function(String workId)? loadWorkDetail,
     TResult Function(
             String title,
             String? description,
             bool isFeatured,
             bool isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource source)?
         createWork,
     TResult Function(
-            int workId,
+            String workId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile,
             WorkSource? source)?
         updateWork,
-    TResult Function(int workId)? deleteWork,
+    TResult Function(String workId)? deleteWork,
     TResult Function(Work work)? toggleFeatured,
     TResult Function(Work work)? toggleVisibility,
-    TResult Function(int workId)? recordView,
-    TResult Function(int workId)? likeWork,
+    TResult Function(String workId)? recordView,
+    TResult Function(String workId)? likeWork,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterWorksByTag,
+    TResult Function(String tagId)? filterWorksByTag,
     required TResult orElse(),
   }) {
     if (filterWorksByTag != null) {
@@ -3644,9 +3644,9 @@ class _$FilterWorksByTagImpl implements _FilterWorksByTag {
 }
 
 abstract class _FilterWorksByTag implements ArtistWorkEvent {
-  const factory _FilterWorksByTag(final int tagId) = _$FilterWorksByTagImpl;
+  const factory _FilterWorksByTag(final String tagId) = _$FilterWorksByTagImpl;
 
-  int get tagId;
+  String get tagId;
   @JsonKey(ignore: true)
   _$$FilterWorksByTagImplCopyWith<_$FilterWorksByTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3665,14 +3665,14 @@ mixin _$ArtistWorkState {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -3687,14 +3687,14 @@ mixin _$ArtistWorkState {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -3709,14 +3709,14 @@ mixin _$ArtistWorkState {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -3849,14 +3849,14 @@ class _$InitialImpl implements _Initial {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -3874,14 +3874,14 @@ class _$InitialImpl implements _Initial {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -3899,14 +3899,14 @@ class _$InitialImpl implements _Initial {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4041,14 +4041,14 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -4066,14 +4066,14 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -4091,14 +4091,14 @@ class _$LoadingImpl implements _Loading {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4265,14 +4265,14 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loaded(works);
@@ -4290,14 +4290,14 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(works);
@@ -4315,14 +4315,14 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4462,14 +4462,14 @@ class _$DetailLoadingImpl implements _DetailLoading {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoading();
@@ -4487,14 +4487,14 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoading?.call();
@@ -4512,14 +4512,14 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4690,14 +4690,14 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoaded(work);
@@ -4715,14 +4715,14 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoaded?.call(work);
@@ -4740,14 +4740,14 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4887,14 +4887,14 @@ class _$SubmittingImpl implements _Submitting {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return submitting();
@@ -4912,14 +4912,14 @@ class _$SubmittingImpl implements _Submitting {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return submitting?.call();
@@ -4937,14 +4937,14 @@ class _$SubmittingImpl implements _Submitting {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5115,14 +5115,14 @@ class _$WorkCreatedImpl implements _WorkCreated {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return workCreated(work);
@@ -5140,14 +5140,14 @@ class _$WorkCreatedImpl implements _WorkCreated {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return workCreated?.call(work);
@@ -5165,14 +5165,14 @@ class _$WorkCreatedImpl implements _WorkCreated {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5348,14 +5348,14 @@ class _$WorkUpdatedImpl implements _WorkUpdated {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return workUpdated(work);
@@ -5373,14 +5373,14 @@ class _$WorkUpdatedImpl implements _WorkUpdated {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return workUpdated?.call(work);
@@ -5398,14 +5398,14 @@ class _$WorkUpdatedImpl implements _WorkUpdated {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5545,14 +5545,14 @@ class _$WorkDeletedImpl implements _WorkDeleted {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return workDeleted();
@@ -5570,14 +5570,14 @@ class _$WorkDeletedImpl implements _WorkDeleted {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return workDeleted?.call();
@@ -5595,14 +5595,14 @@ class _$WorkDeletedImpl implements _WorkDeleted {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5696,7 +5696,7 @@ abstract class _$$ViewRecordedImplCopyWith<$Res> {
           _$ViewRecordedImpl value, $Res Function(_$ViewRecordedImpl) then) =
       __$$ViewRecordedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId, int viewCount});
+  $Res call({String workId, int viewCount});
 }
 
 /// @nodoc
@@ -5717,7 +5717,7 @@ class __$$ViewRecordedImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -5732,7 +5732,7 @@ class _$ViewRecordedImpl implements _ViewRecorded {
   const _$ViewRecordedImpl(this.workId, this.viewCount);
 
   @override
-  final int workId;
+  final String workId;
   @override
   final int viewCount;
 
@@ -5772,14 +5772,14 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return viewRecorded(workId, viewCount);
@@ -5797,14 +5797,14 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return viewRecorded?.call(workId, viewCount);
@@ -5822,14 +5822,14 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5914,10 +5914,10 @@ class _$ViewRecordedImpl implements _ViewRecorded {
 }
 
 abstract class _ViewRecorded implements ArtistWorkState {
-  const factory _ViewRecorded(final int workId, final int viewCount) =
+  const factory _ViewRecorded(final String workId, final int viewCount) =
       _$ViewRecordedImpl;
 
-  int get workId;
+  String get workId;
   int get viewCount;
   @JsonKey(ignore: true)
   _$$ViewRecordedImplCopyWith<_$ViewRecordedImpl> get copyWith =>
@@ -5930,7 +5930,7 @@ abstract class _$$WorkLikedImplCopyWith<$Res> {
           _$WorkLikedImpl value, $Res Function(_$WorkLikedImpl) then) =
       __$$WorkLikedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int workId, int likeCount});
+  $Res call({String workId, int likeCount});
 }
 
 /// @nodoc
@@ -5951,7 +5951,7 @@ class __$$WorkLikedImplCopyWithImpl<$Res>
       null == workId
           ? _value.workId
           : workId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
@@ -5966,7 +5966,7 @@ class _$WorkLikedImpl implements _WorkLiked {
   const _$WorkLikedImpl(this.workId, this.likeCount);
 
   @override
-  final int workId;
+  final String workId;
   @override
   final int likeCount;
 
@@ -6006,14 +6006,14 @@ class _$WorkLikedImpl implements _WorkLiked {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return workLiked(workId, likeCount);
@@ -6031,14 +6031,14 @@ class _$WorkLikedImpl implements _WorkLiked {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return workLiked?.call(workId, likeCount);
@@ -6056,14 +6056,14 @@ class _$WorkLikedImpl implements _WorkLiked {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6148,10 +6148,10 @@ class _$WorkLikedImpl implements _WorkLiked {
 }
 
 abstract class _WorkLiked implements ArtistWorkState {
-  const factory _WorkLiked(final int workId, final int likeCount) =
+  const factory _WorkLiked(final String workId, final int likeCount) =
       _$WorkLikedImpl;
 
-  int get workId;
+  String get workId;
   int get likeCount;
   @JsonKey(ignore: true)
   _$$WorkLikedImplCopyWith<_$WorkLikedImpl> get copyWith =>
@@ -6242,14 +6242,14 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return tagSuggestionsLoaded(suggestions);
@@ -6267,14 +6267,14 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return tagSuggestionsLoaded?.call(suggestions);
@@ -6292,14 +6292,14 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6477,14 +6477,14 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return popularTagsLoaded(popularTags);
@@ -6502,14 +6502,14 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return popularTagsLoaded?.call(popularTags);
@@ -6527,14 +6527,14 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6712,14 +6712,14 @@ class _$TagCreatedImpl implements _TagCreated {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return tagCreated(tag);
@@ -6737,14 +6737,14 @@ class _$TagCreatedImpl implements _TagCreated {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return tagCreated?.call(tag);
@@ -6762,14 +6762,14 @@ class _$TagCreatedImpl implements _TagCreated {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6869,7 +6869,7 @@ abstract class _$$FilteredByTagImplCopyWith<$Res> {
           _$FilteredByTagImpl value, $Res Function(_$FilteredByTagImpl) then) =
       __$$FilteredByTagImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Work> works, int tagId});
+  $Res call({List<Work> works, String tagId});
 }
 
 /// @nodoc
@@ -6894,7 +6894,7 @@ class __$$FilteredByTagImplCopyWithImpl<$Res>
       null == tagId
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -6914,7 +6914,7 @@ class _$FilteredByTagImpl implements _FilteredByTag {
   }
 
   @override
-  final int tagId;
+  final String tagId;
 
   @override
   String toString() {
@@ -6952,14 +6952,14 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return filteredByTag(works, tagId);
@@ -6977,14 +6977,14 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return filteredByTag?.call(works, tagId);
@@ -7002,14 +7002,14 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -7094,11 +7094,11 @@ class _$FilteredByTagImpl implements _FilteredByTag {
 }
 
 abstract class _FilteredByTag implements ArtistWorkState {
-  const factory _FilteredByTag(final List<Work> works, final int tagId) =
+  const factory _FilteredByTag(final List<Work> works, final String tagId) =
       _$FilteredByTagImpl;
 
   List<Work> get works;
-  int get tagId;
+  String get tagId;
   @JsonKey(ignore: true)
   _$$FilteredByTagImplCopyWith<_$FilteredByTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -7177,14 +7177,14 @@ class _$ErrorImpl implements _Error {
     required TResult Function(Work work) workCreated,
     required TResult Function(Work work) workUpdated,
     required TResult Function() workDeleted,
-    required TResult Function(int workId, int viewCount) viewRecorded,
-    required TResult Function(int workId, int likeCount) workLiked,
+    required TResult Function(String workId, int viewCount) viewRecorded,
+    required TResult Function(String workId, int likeCount) workLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Work> works, int tagId) filteredByTag,
+    required TResult Function(List<Work> works, String tagId) filteredByTag,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -7202,14 +7202,14 @@ class _$ErrorImpl implements _Error {
     TResult? Function(Work work)? workCreated,
     TResult? Function(Work work)? workUpdated,
     TResult? Function()? workDeleted,
-    TResult? Function(int workId, int viewCount)? viewRecorded,
-    TResult? Function(int workId, int likeCount)? workLiked,
+    TResult? Function(String workId, int viewCount)? viewRecorded,
+    TResult? Function(String workId, int likeCount)? workLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Work> works, int tagId)? filteredByTag,
+    TResult? Function(List<Work> works, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -7227,14 +7227,14 @@ class _$ErrorImpl implements _Error {
     TResult Function(Work work)? workCreated,
     TResult Function(Work work)? workUpdated,
     TResult Function()? workDeleted,
-    TResult Function(int workId, int viewCount)? viewRecorded,
-    TResult Function(int workId, int likeCount)? workLiked,
+    TResult Function(String workId, int viewCount)? viewRecorded,
+    TResult Function(String workId, int likeCount)? workLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Work> works, int tagId)? filteredByTag,
+    TResult Function(List<Work> works, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

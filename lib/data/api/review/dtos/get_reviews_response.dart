@@ -41,15 +41,15 @@ class Meta with _$Meta {
 @freezed
 class ReviewItem with _$ReviewItem {
   const factory ReviewItem({
-    int? id,
+    String? id,
     DateTime? createdAt,
-    int? artistId,
-    int? eventId,
+    String? artistId,
+    String? eventId,
     int? value,
     String? header,
     String? content,
     ReviewReactions? reviewReactions,
-    int? createdBy,
+    String? createdBy,
     String? displayName,
     bool? isRated,
     CustomerReactionDetail? customerReactionDetail,
@@ -62,7 +62,7 @@ class ReviewItem with _$ReviewItem {
 @freezed
 class CustomerReactionDetail with _$CustomerReactionDetail {
   const factory CustomerReactionDetail({
-    int? reviewReactionId,
+    String? reviewReactionId,
     bool? liked,
     bool? disliked,
   }) = _CustomerReactionDetail;

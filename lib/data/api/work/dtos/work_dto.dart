@@ -20,7 +20,7 @@ class CreateWorkDto with _$CreateWorkDto {
     @Default(false) bool isFeatured,
     @Default(0) int orderPosition,
     @Default(false) bool isHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
     @Default(WorkSource.app) WorkSource source,
   }) = _CreateWorkDto;
 
@@ -38,7 +38,7 @@ class UpdateWorkDto with _$UpdateWorkDto {
     bool? isFeatured,
     int? orderPosition,
     bool? isHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
     WorkSource? source,
   }) = _UpdateWorkDto;
 

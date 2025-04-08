@@ -22,8 +22,8 @@ String findArtistByLocationResponseToJson(
 @freezed
 class FindArtistByLocationResponse with _$FindArtistByLocationResponse {
   const factory FindArtistByLocationResponse({
-    int? id,
-    int? artistId,
+    String? id,
+    String? artistId,
     String? name,
     String? country,
     String? address1,

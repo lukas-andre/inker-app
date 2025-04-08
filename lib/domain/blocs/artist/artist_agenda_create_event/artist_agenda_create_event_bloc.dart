@@ -153,7 +153,7 @@ class ArtistAgendaCreateEventBloc
       
       await _agendaService.updateEvent(
         token: session.accessToken,
-        eventId: int.parse(currentState.eventId),
+        eventId: currentState.eventId,
         updatedFields: updateFields,
       );
       

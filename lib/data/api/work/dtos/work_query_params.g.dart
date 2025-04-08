@@ -12,9 +12,8 @@ _$WorkQueryParamsImpl _$$WorkQueryParamsImplFromJson(Map json) =>
       limit: (json['limit'] as num?)?.toInt() ?? 10,
       featured: json['featured'] as bool?,
       includeHidden: json['includeHidden'] as bool? ?? false,
-      tagIds: (json['tagIds'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
+      tagIds:
+          (json['tagIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
       searchText: json['searchText'] as String?,
       source: json['source'] as String?,
     );

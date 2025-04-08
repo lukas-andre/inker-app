@@ -6,7 +6,7 @@ part 'location.g.dart';
 @freezed
 class Location with _$Location {
   const factory Location({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String address1,
@@ -22,7 +22,7 @@ class Location with _$Location {
     required double lng,
     required Viewport viewport,
     required GeoPoint location,
-    required int artistId,
+    required String artistId,
     required String name,
     String? profileThumbnail,
     String? googlePlaceId,

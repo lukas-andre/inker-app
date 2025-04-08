@@ -10,7 +10,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ScheduleAssistantPage extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   final DateTime? tentativeDate;
   final int? tentativeDuration;
 

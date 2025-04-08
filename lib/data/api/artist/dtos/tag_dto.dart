@@ -6,7 +6,7 @@ part 'tag_dto.g.dart';
 @freezed
 class TagSuggestionResponseDto with _$TagSuggestionResponseDto {
   const factory TagSuggestionResponseDto({
-    required int id,
+    required String id,
     required String name,
     int? count,
   }) = _TagSuggestionResponseDto;
@@ -29,7 +29,7 @@ class TagSuggestionQueryDto with _$TagSuggestionQueryDto {
 @freezed
 class TagDto with _$TagDto {
   const factory TagDto({
-    required int id,
+    required String id,
     required String name,
     String? createdBy,
     required DateTime createdAt,

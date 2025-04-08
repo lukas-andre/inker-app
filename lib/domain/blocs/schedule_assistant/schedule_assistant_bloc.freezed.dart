@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ScheduleAssistantEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int agendaId) started,
+    required TResult Function(String agendaId) started,
     required TResult Function(DateTime start, DateTime end) dateRangeChanged,
     required TResult Function(DateTime start, DateTime end) timeSlotSelected,
     required TResult Function(EventDetails event) eventCreated,
@@ -26,7 +26,7 @@ mixin _$ScheduleAssistantEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int agendaId)? started,
+    TResult? Function(String agendaId)? started,
     TResult? Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult? Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult? Function(EventDetails event)? eventCreated,
@@ -34,7 +34,7 @@ mixin _$ScheduleAssistantEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int agendaId)? started,
+    TResult Function(String agendaId)? started,
     TResult Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult Function(EventDetails event)? eventCreated,
@@ -93,7 +93,7 @@ abstract class _$$StartedImplCopyWith<$Res> {
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int agendaId});
+  $Res call({String agendaId});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$StartedImplCopyWithImpl<$Res>
       null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -124,7 +124,7 @@ class _$StartedImpl implements _Started {
   const _$StartedImpl(this.agendaId);
 
   @override
-  final int agendaId;
+  final String agendaId;
 
   @override
   String toString() {
@@ -152,7 +152,7 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int agendaId) started,
+    required TResult Function(String agendaId) started,
     required TResult Function(DateTime start, DateTime end) dateRangeChanged,
     required TResult Function(DateTime start, DateTime end) timeSlotSelected,
     required TResult Function(EventDetails event) eventCreated,
@@ -163,7 +163,7 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int agendaId)? started,
+    TResult? Function(String agendaId)? started,
     TResult? Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult? Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult? Function(EventDetails event)? eventCreated,
@@ -174,7 +174,7 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int agendaId)? started,
+    TResult Function(String agendaId)? started,
     TResult Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult Function(EventDetails event)? eventCreated,
@@ -225,9 +225,9 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements ScheduleAssistantEvent {
-  const factory _Started(final int agendaId) = _$StartedImpl;
+  const factory _Started(final String agendaId) = _$StartedImpl;
 
-  int get agendaId;
+  String get agendaId;
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -306,7 +306,7 @@ class _$DateRangeChangedImpl implements _DateRangeChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int agendaId) started,
+    required TResult Function(String agendaId) started,
     required TResult Function(DateTime start, DateTime end) dateRangeChanged,
     required TResult Function(DateTime start, DateTime end) timeSlotSelected,
     required TResult Function(EventDetails event) eventCreated,
@@ -317,7 +317,7 @@ class _$DateRangeChangedImpl implements _DateRangeChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int agendaId)? started,
+    TResult? Function(String agendaId)? started,
     TResult? Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult? Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult? Function(EventDetails event)? eventCreated,
@@ -328,7 +328,7 @@ class _$DateRangeChangedImpl implements _DateRangeChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int agendaId)? started,
+    TResult Function(String agendaId)? started,
     TResult Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult Function(EventDetails event)? eventCreated,
@@ -462,7 +462,7 @@ class _$TimeSlotSelectedImpl implements _TimeSlotSelected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int agendaId) started,
+    required TResult Function(String agendaId) started,
     required TResult Function(DateTime start, DateTime end) dateRangeChanged,
     required TResult Function(DateTime start, DateTime end) timeSlotSelected,
     required TResult Function(EventDetails event) eventCreated,
@@ -473,7 +473,7 @@ class _$TimeSlotSelectedImpl implements _TimeSlotSelected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int agendaId)? started,
+    TResult? Function(String agendaId)? started,
     TResult? Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult? Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult? Function(EventDetails event)? eventCreated,
@@ -484,7 +484,7 @@ class _$TimeSlotSelectedImpl implements _TimeSlotSelected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int agendaId)? started,
+    TResult Function(String agendaId)? started,
     TResult Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult Function(EventDetails event)? eventCreated,
@@ -619,7 +619,7 @@ class _$EventCreatedImpl implements _EventCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int agendaId) started,
+    required TResult Function(String agendaId) started,
     required TResult Function(DateTime start, DateTime end) dateRangeChanged,
     required TResult Function(DateTime start, DateTime end) timeSlotSelected,
     required TResult Function(EventDetails event) eventCreated,
@@ -630,7 +630,7 @@ class _$EventCreatedImpl implements _EventCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int agendaId)? started,
+    TResult? Function(String agendaId)? started,
     TResult? Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult? Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult? Function(EventDetails event)? eventCreated,
@@ -641,7 +641,7 @@ class _$EventCreatedImpl implements _EventCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int agendaId)? started,
+    TResult Function(String agendaId)? started,
     TResult Function(DateTime start, DateTime end)? dateRangeChanged,
     TResult Function(DateTime start, DateTime end)? timeSlotSelected,
     TResult Function(EventDetails event)? eventCreated,

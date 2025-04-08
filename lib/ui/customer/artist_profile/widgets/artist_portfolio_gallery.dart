@@ -18,7 +18,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistPortfolioGallery extends StatefulWidget {
   final List<Work> works;
-  final int artistId;
+  final String artistId;
   final bool isMinimalist;
 
   const ArtistPortfolioGallery({
@@ -49,7 +49,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
   }
 
   List<Work> get works => widget.works;
-  int get artistId => widget.artistId;
+  String get artistId => widget.artistId;
   bool get isMinimalist => widget.isMinimalist;
 
   @override

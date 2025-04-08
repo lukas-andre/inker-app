@@ -19,11 +19,11 @@ String quotationToJson(Quotation data) => json.encode(data.toJson());
 @freezed
 class Quotation with _$Quotation {
   const factory Quotation({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
-    required int artistId,
+    required String customerId,
+    required String artistId,
     required String description,
     MultimediasMetadata? referenceImages,
     MultimediasMetadata? proposedDesigns,
@@ -54,7 +54,7 @@ class Quotation with _$Quotation {
     @Default(false) bool readByCustomer,
     DateTime? artistReadAt,
     DateTime? customerReadAt,
-    int? stencilId,
+    String? stencilId,
     Stencil? stencil,
   }) = _Quotation;
 

@@ -7,10 +7,10 @@ part 'artist.g.dart';
 @freezed
 class Artist with _$Artist {
   const factory Artist({
-    required int id,
+    required String id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? userId,
+    String? userId,
     String? username,
     String? firstName,
     String? lastName,
@@ -42,9 +42,9 @@ class Artist with _$Artist {
 @freezed
 class Contact with _$Contact {
   const factory Contact({
-     int? id,
-     DateTime? createdAt,
-     DateTime? updatedAt,
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     required String email,
     required String phone,
     String? phoneDialCode,
@@ -58,7 +58,7 @@ class Contact with _$Contact {
 @freezed
 class Service with _$Service {
   const factory Service({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String name,
@@ -75,7 +75,7 @@ String artistToJson(Artist data) => json.encode(data.toJson());
 @freezed
 class Review with _$Review {
   const factory Review({
-    int? artistId,
+    String? artistId,
     double? value,
     Map<String, int>? detail,
     int? count,

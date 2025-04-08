@@ -7,7 +7,7 @@ import 'package:inker_studio/domain/models/analytics/analytics_response.dart';
 abstract class AnalyticsService {
   /// Records a content interaction such as view, like, etc.
   Future<bool?> recordInteraction({
-    required int contentId,
+    required String contentId,
     required ContentType contentType,
     required InteractionType interactionType,
     ViewSource? viewSource,
@@ -16,20 +16,20 @@ abstract class AnalyticsService {
   });
   
   /// Records a view of an artist profile
-  Future<void> recordArtistView(int artistId, {String? token});
+  Future<void> recordArtistView(String artistId, {String? token});
   
   /// Records a follow of an artist
-  Future<void> recordArtistFollow(int artistId, {bool fromContentView = false, String? token});
+  Future<void> recordArtistFollow(String artistId, {bool fromContentView = false, String? token});
   
   /// Gets metrics for a specific content item
-  Future<ContentMetrics> getContentMetrics(int contentId, ContentType contentType, {String? token});
+  Future<ContentMetrics> getContentMetrics(String contentId, ContentType contentType, {String? token});
   
   /// Gets metrics for a specific artist
-  Future<ArtistMetrics> getArtistMetrics(int artistId, {String? token});
+  Future<ArtistMetrics> getArtistMetrics(String artistId, {String? token});
   
   /// Gets batch metrics for multiple content items
   Future<List<ContentMetrics>> getBatchContentMetrics(
-    List<int> contentIds, 
+    List<String> contentIds, 
     ContentType contentType,
     {String? token}
   );

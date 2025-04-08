@@ -21,8 +21,8 @@ class CreateCustomerUserResponse {
     required this.createdAt,
   });
 
-  final int id;
-  final int userId;
+  final String id;
+  final String userId;
   final String firstName;
   final String lastName;
   final String contactEmail;

@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class AppointmentDetailPage extends StatefulWidget {
-  final int appointmentId;
+  final String appointmentId;
 
   const AppointmentDetailPage({
     super.key,

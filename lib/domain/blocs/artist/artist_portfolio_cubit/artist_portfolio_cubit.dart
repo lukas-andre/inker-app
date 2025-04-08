@@ -28,7 +28,7 @@ class ArtistPortfolioCubit extends Cubit<ArtistPortfolioState> {
     super(const ArtistPortfolioState.initial());
 
   /// Carga el portfolio completo del artista (stenciles y trabajos individuales)
-  Future<void> loadArtistPortfolio(int artistId) async {
+  Future<void> loadArtistPortfolio(String artistId) async {
     emit(const ArtistPortfolioState.loading());
 
     try {
@@ -84,7 +84,7 @@ class ArtistPortfolioCubit extends Cubit<ArtistPortfolioState> {
   }
   
   // Método para recargar el portfolio
-  void refresh(int artistId) {
+  void refresh(String artistId) {
     loadArtistPortfolio(artistId);
   }
   

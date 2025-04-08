@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleAssistantWidget extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   final Function(DateTime, DateTime) onTimeRangeSelected;
   final DateTime? initialStartTime;
   final DateTime? initialEndTime;

@@ -15,9 +15,8 @@ _$CreateStencilDtoImpl _$$CreateStencilDtoImplFromJson(Map json) =>
       isFeatured: json['isFeatured'] as bool? ?? false,
       orderPosition: (json['orderPosition'] as num?)?.toInt() ?? 0,
       isHidden: json['isHidden'] as bool? ?? false,
-      tagIds: (json['tagIds'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
+      tagIds:
+          (json['tagIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$CreateStencilDtoImplToJson(
@@ -51,9 +50,8 @@ _$UpdateStencilDtoImpl _$$UpdateStencilDtoImplFromJson(Map json) =>
       isFeatured: json['isFeatured'] as bool?,
       orderPosition: (json['orderPosition'] as num?)?.toInt(),
       isHidden: json['isHidden'] as bool?,
-      tagIds: (json['tagIds'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
+      tagIds:
+          (json['tagIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$UpdateStencilDtoImplToJson(

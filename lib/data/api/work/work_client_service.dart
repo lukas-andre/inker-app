@@ -80,7 +80,7 @@ class WorkClientService implements WorkService {
 
   @override
   Future<List<Work>> getWorksByArtistId(
-      int artistId, WorkQueryParams params, String token) async {
+      String artistId, WorkQueryParams params, String token) async {
     try {
       final queryParams = {
         'page': params.page.toString(),
@@ -111,7 +111,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<Work> getWorkById(int id, String token) async {
+  Future<Work> getWorkById(String id, String token) async {
     try {
       final response = await _httpClient.get(
         path: '/works/$id',
@@ -191,7 +191,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<Work> updateWork(int id, UpdateWorkDto updateWorkDto,
+  Future<Work> updateWork(String id, UpdateWorkDto updateWorkDto,
       XFile? imageFile, String token) async {
     try {
       if (imageFile == null) {
@@ -256,7 +256,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<void> deleteWork(int id, String token) async {
+  Future<void> deleteWork(String id, String token) async {
     try {
       await _httpClient.delete(
         path: '/works/$id',
@@ -270,7 +270,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<int> recordWorkView(int id, String token) async {
+  Future<int> recordWorkView(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'view',
@@ -292,7 +292,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<int> likeWork(int id, String token) async {
+  Future<int> likeWork(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'like',

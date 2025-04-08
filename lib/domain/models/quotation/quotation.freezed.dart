@@ -20,11 +20,11 @@ Quotation _$QuotationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Quotation {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  int get customerId => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   MultimediasMetadata? get referenceImages =>
       throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ mixin _$Quotation {
   bool get readByCustomer => throw _privateConstructorUsedError;
   DateTime? get artistReadAt => throw _privateConstructorUsedError;
   DateTime? get customerReadAt => throw _privateConstructorUsedError;
-  int? get stencilId => throw _privateConstructorUsedError;
+  String? get stencilId => throw _privateConstructorUsedError;
   Stencil? get stencil => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -78,11 +78,11 @@ abstract class $QuotationCopyWith<$Res> {
       _$QuotationCopyWithImpl<$Res, Quotation>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
-      int artistId,
+      String customerId,
+      String artistId,
       String description,
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
@@ -113,7 +113,7 @@ abstract class $QuotationCopyWith<$Res> {
       bool readByCustomer,
       DateTime? artistReadAt,
       DateTime? customerReadAt,
-      int? stencilId,
+      String? stencilId,
       Stencil? stencil});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
@@ -179,7 +179,7 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -191,11 +191,11 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -319,7 +319,7 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       stencilId: freezed == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       stencil: freezed == stencil
           ? _value.stencil
           : stencil // ignore: cast_nullable_to_non_nullable
@@ -409,11 +409,11 @@ abstract class _$$QuotationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
-      int artistId,
+      String customerId,
+      String artistId,
       String description,
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
@@ -444,7 +444,7 @@ abstract class _$$QuotationImplCopyWith<$Res>
       bool readByCustomer,
       DateTime? artistReadAt,
       DateTime? customerReadAt,
-      int? stencilId,
+      String? stencilId,
       Stencil? stencil});
 
   @override
@@ -514,7 +514,7 @@ class __$$QuotationImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -526,11 +526,11 @@ class __$$QuotationImplCopyWithImpl<$Res>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -654,7 +654,7 @@ class __$$QuotationImplCopyWithImpl<$Res>
       stencilId: freezed == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       stencil: freezed == stencil
           ? _value.stencil
           : stencil // ignore: cast_nullable_to_non_nullable
@@ -710,15 +710,15 @@ class _$QuotationImpl implements _Quotation {
       _$$QuotationImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final int customerId;
+  final String customerId;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String description;
   @override
@@ -790,7 +790,7 @@ class _$QuotationImpl implements _Quotation {
   @override
   final DateTime? customerReadAt;
   @override
-  final int? stencilId;
+  final String? stencilId;
   @override
   final Stencil? stencil;
 
@@ -934,11 +934,11 @@ class _$QuotationImpl implements _Quotation {
 
 abstract class _Quotation implements Quotation {
   const factory _Quotation(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final int customerId,
-      required final int artistId,
+      required final String customerId,
+      required final String artistId,
       required final String description,
       final MultimediasMetadata? referenceImages,
       final MultimediasMetadata? proposedDesigns,
@@ -969,22 +969,22 @@ abstract class _Quotation implements Quotation {
       final bool readByCustomer,
       final DateTime? artistReadAt,
       final DateTime? customerReadAt,
-      final int? stencilId,
+      final String? stencilId,
       final Stencil? stencil}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  int get customerId;
+  String get customerId;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get description;
   @override
@@ -1046,7 +1046,7 @@ abstract class _Quotation implements Quotation {
   @override
   DateTime? get customerReadAt;
   @override
-  int? get stencilId;
+  String? get stencilId;
   @override
   Stencil? get stencil;
   @override

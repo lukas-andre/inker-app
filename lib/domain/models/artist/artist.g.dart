@@ -7,14 +7,14 @@ part of 'artist.dart';
 // **************************************************************************
 
 _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      userId: (json['userId'] as num?)?.toInt(),
+      userId: json['userId'] as String?,
       username: json['username'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
@@ -89,7 +89,7 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
 }
 
 _$ContactImpl _$$ContactImplFromJson(Map json) => _$ContactImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -122,7 +122,7 @@ Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) {
 }
 
 _$ServiceImpl _$$ServiceImplFromJson(Map json) => _$ServiceImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       name: json['name'] as String,
@@ -139,7 +139,7 @@ Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>
     };
 
 _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
-      artistId: (json['artistId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
       value: (json['value'] as num?)?.toDouble(),
       detail: (json['detail'] as Map?)?.map(
         (k, e) => MapEntry(k as String, (e as num).toInt()),

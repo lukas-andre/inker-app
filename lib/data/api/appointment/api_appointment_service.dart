@@ -125,12 +125,12 @@ class ApiAppointmentService implements AppointmentService {
         
         // Create default objects
         const defaultArtist = Artist(
-          id: 1,
+          id: '',
           username: 'Artist',
         );
         
         var defaultLocation = Location(
-          id: 1,
+          id: '',
           name: 'Studio',
           address1: '',
           city: '',
@@ -152,7 +152,7 @@ class ApiAppointmentService implements AppointmentService {
             coordinates: [0, 0],
           ),
           shortAddress1: '',
-          artistId: 1,
+          artistId: '',
         );
 
         // Extract and safely parse dates
@@ -182,10 +182,10 @@ class ApiAppointmentService implements AppointmentService {
         
         // Create the appointment directly
         final appointment = Appointment(
-          id: event['id'] ?? 0,
-          eventId: event['id'] ?? 0,
-          customerId: event['customerId'] ?? 0,
-          artistId: 1, // Default value
+          id: event['id'] ?? '',
+          eventId: event['id'] ?? '',
+          customerId: event['customerId'] ?? '',
+          artistId: '', // Default value
           title: event['title'] ?? 'Appointment',
           info: event['info'] ?? '',
           startDate: startDate,
@@ -234,7 +234,7 @@ class ApiAppointmentService implements AppointmentService {
   @override
   Future<Appointment> getAppointmentById({
     required String token,
-    required int appointmentId,
+    required String appointmentId,
     bool isCustomer = false, // New parameter to indicate if the request is from a customer
   }) async {
     try {
@@ -341,8 +341,8 @@ class ApiAppointmentService implements AppointmentService {
       return Appointment(
         id: appointmentId,
         eventId: appointmentId,
-        customerId: 0,
-        artistId: 1,
+        customerId: '',
+        artistId: '',
         title: 'Error: Could not load appointment',
         info: 'There was an error loading this appointment',
         startDate: DateTime.now(),
@@ -351,9 +351,9 @@ class ApiAppointmentService implements AppointmentService {
         color: '#FF0000',
         notification: false,
         done: false,
-        artist: const Artist(id: 1, username: 'Unknown Artist'),
+        artist: const Artist(id: '', username: 'Unknown Artist'),
         location: Location(
-          id: 1,
+          id: '',
           name: 'Unknown Location',
           address1: '',
           city: '',
@@ -362,7 +362,7 @@ class ApiAppointmentService implements AppointmentService {
           lat: 0,
           lng: 0,
           createdAt: DateTime.now(),
-          artistId: 1,
+          artistId: '',
           updatedAt: DateTime.now(),
           shortAddress1: '',
           address2: '',
@@ -384,7 +384,7 @@ class ApiAppointmentService implements AppointmentService {
   @override
   Future<void> requestAppointmentChange({
     required String token,
-    required int appointmentId,
+    required String appointmentId,
     DateTime? newStartDate,
     DateTime? newEndDate,
     String? reason,
@@ -406,7 +406,7 @@ class ApiAppointmentService implements AppointmentService {
   @override
   Future<void> cancelAppointment({
     required String token,
-    required int appointmentId,
+    required String appointmentId,
     required String reason,
   }) async {
     // For cancellation, we need the agenda ID as well
@@ -426,7 +426,7 @@ class ApiAppointmentService implements AppointmentService {
   @override
   Future<void> markAppointmentAsRead({
     required String token,
-    required int appointmentId,
+    required String appointmentId,
   }) async {
     // This might not be directly supported in the backend
     // So we're keeping the original implementation
@@ -441,8 +441,8 @@ class ApiAppointmentService implements AppointmentService {
   @override
   Future<void> rsvpForAppointment({
     required String token,
-    required int appointmentId,
-    required int agendaId,
+    required String appointmentId,
+    required String agendaId,
     required bool willAttend,
   }) async {
     final queryParams = <String, String>{

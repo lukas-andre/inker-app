@@ -42,7 +42,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Timer? _debounce;
   List<TagSuggestionResponseDto> _selectedTagsLocal = [];
   // Set para mantener los IDs de tags que el usuario ha ocultado temporalmente
-  final Set<int> _hiddenTagIds = {};
+  final Set<String> _hiddenTagIds = {};
 
   @override
   void initState() {
@@ -1172,7 +1172,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
 
   // Método para actualizar tags seleccionados de forma más segura
   void _updateSelectedTags(
-      List<int> selectedTagIds,
+      List<String> selectedTagIds,
       List<TagSuggestionResponseDto> popularTags,
       List<TagSuggestionResponseDto> searchedTags) {
     if (selectedTagIds.isEmpty) {
@@ -1185,7 +1185,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     }
 
     // Mapa para búsqueda rápida de IDs de tags
-    final Map<int, TagSuggestionResponseDto> allTagsMap = {};
+    final Map<String, TagSuggestionResponseDto> allTagsMap = {};
 
     // Añadir todos los tags populares al mapa
     for (final tag in popularTags) {
@@ -1560,7 +1560,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     required List<Work> works,
     required List<Stencil> stencils,
     required ContentType contentType,
-    required List<int> selectedTagIds,
+    required List<String> selectedTagIds,
     required List<TagSuggestionResponseDto> popularTags,
     required List<TagSuggestionResponseDto> searchedTags,
     bool isLoadingMoreWorks = false,

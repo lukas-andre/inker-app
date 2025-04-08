@@ -115,7 +115,7 @@ extension on firebase_auth.User {
   domain.User get toUser {
     dev.log('metadata $metadata', 'GoogleAuthSer');
     return domain.User(
-        id: hashCode,
+        id: hashCode.toString(),
         uid: uid,
         email: email,
         fullname: displayName,

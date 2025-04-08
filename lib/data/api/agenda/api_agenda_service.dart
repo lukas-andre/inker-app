@@ -20,7 +20,7 @@ class ApiAgendaService extends AgendaService {
 
   @override
   Future<GetArtistWorksResponse> getArtistWorks({
-    required int artistId,
+    required String artistId,
     required int page,
     required int limit,
     required String token,
@@ -55,7 +55,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<AgendaEventDetailResponse> getEvent({
     required String token,
-    required int eventId,
+    required String eventId,
   }) async {
     return await _httpClient.get(
       path: '$_basePath/event/$eventId',
@@ -67,7 +67,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<List<EventItem>> getArtistEvents({
     required String token,
-    required int artistId,
+    required String artistId,
     required DateTime startDate,
     required DateTime endDate,
   }) async {
@@ -85,7 +85,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> updateWorkingHours({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required String workingHoursStart,
     required String workingHoursEnd,
     required List<String> workingDays,
@@ -111,7 +111,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> addUnavailableTime({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required DateTime startDate,
     required DateTime endDate,
     String? reason,
@@ -136,7 +136,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<List<dynamic>> getUnavailableTime({
     required String token,
-    required int agendaId,
+    required String agendaId,
   }) async {
     try {
       // Use getList for expecting List responses instead of get
@@ -155,8 +155,8 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> deleteUnavailableTime({
     required String token,
-    required int agendaId,
-    required int unavailableTimeId,
+    required String agendaId,
+    required String unavailableTimeId,
   }) async {
     await _httpClient.delete(
       path: '$_basePath/$agendaId/unavailable-time/$unavailableTimeId',
@@ -168,7 +168,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> updateAgendaSettings({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required bool isPublic,
     required bool isOpen,
   }) async {
@@ -193,14 +193,14 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> createEvent({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required DateTime start,
     required DateTime end,
     required String title,
     required String info,
     required String color,
     required bool notification,
-    required int customerId,
+    required String customerId,
   }) async {
     try {
       // Format dates to match API expectation: YYYY-MM-DD HH:MM:SS
@@ -243,7 +243,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> updateEvent({
     required String token,
-    required int eventId,
+    required String eventId,
     required Map<String, dynamic> updatedFields,
   }) async {
     try {
@@ -293,7 +293,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<Map<String, dynamic>> getAgendaSettings({
     required String token,
-    required int agendaId,
+    required String agendaId,
   }) async {
     try {
       final response = await _httpClient.get(
@@ -357,8 +357,8 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> rescheduleEvent({
     required String token,
-    required int agendaId,
-    required int eventId,
+    required String agendaId,
+    required String eventId,
     required DateTime newStartDate,
     required DateTime newEndDate,
     String? reason,
@@ -383,8 +383,8 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<void> updateEventNotes({
     required String token,
-    required int agendaId,
-    required int eventId,
+    required String agendaId,
+    required String eventId,
     required String notes,
   }) async {
     await _httpClient.put(
@@ -400,7 +400,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<List<dynamic>> getArtistAvailability({
     required String token,
-    required int artistId,
+    required String artistId,
     DateTime? fromDate,
     DateTime? toDate,
     int? duration,
@@ -430,7 +430,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<List<dynamic>> getQuotationAvailableSlots({
     required String token,
-    required int quotationId,
+    required String quotationId,
   }) async {
     return await _httpClient.getList(
       path: 'quotations/$quotationId/available-slots',
@@ -442,7 +442,7 @@ class ApiAgendaService extends AgendaService {
   @override
   Future<List<dynamic>> getArtistAvailableTimeSlots({
     required String token,
-    required int artistId,
+    required String artistId,
     required DateTime date,
     required int durationMinutes,
   }) async {

@@ -9,7 +9,7 @@ part of 'analytics_request.dart';
 _$RecordInteractionRequestImpl _$$RecordInteractionRequestImplFromJson(
         Map json) =>
     _$RecordInteractionRequestImpl(
-      contentId: (json['contentId'] as num).toInt(),
+      contentId: json['contentId'] as String,
       contentType: $enumDecode(_$ContentTypeEnumMap, json['contentType']),
       interactionType:
           $enumDecode(_$InteractionTypeEnumMap, json['interactionType']),
@@ -61,7 +61,7 @@ const _$ViewSourceEnumMap = {
 _$RecordArtistViewRequestImpl _$$RecordArtistViewRequestImplFromJson(
         Map json) =>
     _$RecordArtistViewRequestImpl(
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
     );
 
 Map<String, dynamic> _$$RecordArtistViewRequestImplToJson(
@@ -73,7 +73,7 @@ Map<String, dynamic> _$$RecordArtistViewRequestImplToJson(
 _$RecordArtistFollowRequestImpl _$$RecordArtistFollowRequestImplFromJson(
         Map json) =>
     _$RecordArtistFollowRequestImpl(
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
       fromContentView: json['fromContentView'] as bool? ?? false,
     );
 
@@ -87,7 +87,7 @@ Map<String, dynamic> _$$RecordArtistFollowRequestImplToJson(
 _$BatchMetricsRequestImpl _$$BatchMetricsRequestImplFromJson(Map json) =>
     _$BatchMetricsRequestImpl(
       contentIds: (json['contentIds'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
+          .map((e) => e as String)
           .toList(),
       contentType: $enumDecode(_$ContentTypeEnumMap, json['contentType']),
     );

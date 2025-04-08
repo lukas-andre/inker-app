@@ -8,7 +8,7 @@ part of 'analytics_response.dart';
 
 _$ContentMetricsImpl _$$ContentMetricsImplFromJson(Map json) =>
     _$ContentMetricsImpl(
-      contentId: (json['contentId'] as num).toInt(),
+      contentId: json['contentId'] as String,
       contentType: json['contentType'] as String,
       viewCount: (json['viewCount'] as num).toInt(),
       uniqueViewCount: (json['uniqueViewCount'] as num).toInt(),
@@ -60,7 +60,7 @@ Map<String, dynamic> _$$ContentMetricsImplToJson(
 
 _$ArtistMetricsImpl _$$ArtistMetricsImplFromJson(Map json) =>
     _$ArtistMetricsImpl(
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
       viewCount: (json['viewCount'] as num).toInt(),
       uniqueViewCount: (json['uniqueViewCount'] as num).toInt(),
       followers: json['followers'] == null

@@ -19,7 +19,7 @@ class StencilGalleryPage extends StatefulWidget {
 
 class _StencilGalleryPageState extends State<StencilGalleryPage> {
   bool _showHidden = true;
-  int? _activeTagFilter;
+  String? _activeTagFilter;
   List<TagSuggestionResponseDto> _popularTags = [];
   bool _isLoadingTags = false;
   
@@ -81,7 +81,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
     _loadStencils();
   }
 
-  void _filterByTag(int tagId) {
+  void _filterByTag(String tagId) {
     if (_activeTagFilter == tagId) {
       // Clear filter if already active
       setState(() {
@@ -313,7 +313,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
   Widget _buildEmptyTagFilterView() {
     final selectedTag = _popularTags.firstWhere(
       (tag) => tag.id == _activeTagFilter,
-      orElse: () => const TagSuggestionResponseDto(id: 0, name: 'Unknown'),
+      orElse: () => const TagSuggestionResponseDto(id: '', name: 'Unknown'),
     );
     
     return Center(

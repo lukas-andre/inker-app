@@ -45,8 +45,8 @@ extension StringToAddressTypeExtension on String {
 
 @JsonSerializable()
 class ArtistLocationDto {
-  final int? id;
-  final int artistId;
+  final String? id;
+  final String artistId;
   final String name;
   final String address1;
   final String? shortAddress1;
@@ -110,7 +110,7 @@ class ArtistLocationDto {
 
 @JsonSerializable()
 class CreateArtistLocationRequest {
-  final int artistId;
+  final String artistId;
   final String name;
   final String address1;
   final String? shortAddress1;
@@ -192,7 +192,7 @@ class UpdateArtistLocationRequest {
   final bool? isActive;
   
   // Always include artistId
-  final int artistId;
+  final String artistId;
 
   UpdateArtistLocationRequest({
     this.name,

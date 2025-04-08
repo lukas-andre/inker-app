@@ -18,14 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$InspirationSearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -33,21 +33,21 @@ mixin _$InspirationSearchEvent {
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -55,21 +55,21 @@ mixin _$InspirationSearchEvent {
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -77,7 +77,7 @@ mixin _$InspirationSearchEvent {
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -182,7 +182,7 @@ abstract class _$$InspirationSearchEventSearchWorksImplCopyWith<$Res> {
       __$$InspirationSearchEventSearchWorksImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? query, List<int>? tagIds, SortType? sortBy, bool skipCache});
+      {String? query, List<String>? tagIds, SortType? sortBy, bool skipCache});
 }
 
 /// @nodoc
@@ -211,7 +211,7 @@ class __$$InspirationSearchEventSearchWorksImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       sortBy: freezed == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -230,16 +230,16 @@ class _$InspirationSearchEventSearchWorksImpl
     implements InspirationSearchEventSearchWorks {
   const _$InspirationSearchEventSearchWorksImpl(
       {this.query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.sortBy,
       this.skipCache = false})
       : _tagIds = tagIds;
 
   @override
   final String? query;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -285,14 +285,14 @@ class _$InspirationSearchEventSearchWorksImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -300,7 +300,7 @@ class _$InspirationSearchEventSearchWorksImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -310,14 +310,14 @@ class _$InspirationSearchEventSearchWorksImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -325,7 +325,7 @@ class _$InspirationSearchEventSearchWorksImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -335,14 +335,14 @@ class _$InspirationSearchEventSearchWorksImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -350,7 +350,7 @@ class _$InspirationSearchEventSearchWorksImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -448,12 +448,12 @@ abstract class InspirationSearchEventSearchWorks
     implements InspirationSearchEvent {
   const factory InspirationSearchEventSearchWorks(
       {final String? query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final SortType? sortBy,
       final bool skipCache}) = _$InspirationSearchEventSearchWorksImpl;
 
   String? get query;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   SortType? get sortBy;
   bool get skipCache;
   @JsonKey(ignore: true)
@@ -470,7 +470,7 @@ abstract class _$$InspirationSearchEventSearchStencilsImplCopyWith<$Res> {
       __$$InspirationSearchEventSearchStencilsImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? query, List<int>? tagIds, SortType? sortBy, bool skipCache});
+      {String? query, List<String>? tagIds, SortType? sortBy, bool skipCache});
 }
 
 /// @nodoc
@@ -499,7 +499,7 @@ class __$$InspirationSearchEventSearchStencilsImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       sortBy: freezed == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -518,16 +518,16 @@ class _$InspirationSearchEventSearchStencilsImpl
     implements InspirationSearchEventSearchStencils {
   const _$InspirationSearchEventSearchStencilsImpl(
       {this.query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.sortBy,
       this.skipCache = false})
       : _tagIds = tagIds;
 
   @override
   final String? query;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -573,14 +573,14 @@ class _$InspirationSearchEventSearchStencilsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -588,7 +588,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -598,14 +598,14 @@ class _$InspirationSearchEventSearchStencilsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -613,7 +613,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -623,14 +623,14 @@ class _$InspirationSearchEventSearchStencilsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -638,7 +638,7 @@ class _$InspirationSearchEventSearchStencilsImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -736,12 +736,12 @@ abstract class InspirationSearchEventSearchStencils
     implements InspirationSearchEvent {
   const factory InspirationSearchEventSearchStencils(
       {final String? query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final SortType? sortBy,
       final bool skipCache}) = _$InspirationSearchEventSearchStencilsImpl;
 
   String? get query;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   SortType? get sortBy;
   bool get skipCache;
   @JsonKey(ignore: true)
@@ -758,7 +758,7 @@ abstract class _$$InspirationSearchEventSearchBothImplCopyWith<$Res> {
       __$$InspirationSearchEventSearchBothImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? query, List<int>? tagIds, SortType? sortBy, bool skipCache});
+      {String? query, List<String>? tagIds, SortType? sortBy, bool skipCache});
 }
 
 /// @nodoc
@@ -787,7 +787,7 @@ class __$$InspirationSearchEventSearchBothImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       sortBy: freezed == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -806,16 +806,16 @@ class _$InspirationSearchEventSearchBothImpl
     implements InspirationSearchEventSearchBoth {
   const _$InspirationSearchEventSearchBothImpl(
       {this.query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.sortBy,
       this.skipCache = false})
       : _tagIds = tagIds;
 
   @override
   final String? query;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -861,14 +861,14 @@ class _$InspirationSearchEventSearchBothImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -876,7 +876,7 @@ class _$InspirationSearchEventSearchBothImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -886,14 +886,14 @@ class _$InspirationSearchEventSearchBothImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -901,7 +901,7 @@ class _$InspirationSearchEventSearchBothImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -911,14 +911,14 @@ class _$InspirationSearchEventSearchBothImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -926,7 +926,7 @@ class _$InspirationSearchEventSearchBothImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -1024,12 +1024,12 @@ abstract class InspirationSearchEventSearchBoth
     implements InspirationSearchEvent {
   const factory InspirationSearchEventSearchBoth(
       {final String? query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final SortType? sortBy,
       final bool skipCache}) = _$InspirationSearchEventSearchBothImpl;
 
   String? get query;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   SortType? get sortBy;
   bool get skipCache;
   @JsonKey(ignore: true)
@@ -1081,14 +1081,14 @@ class _$InspirationSearchEventLoadMoreWorksImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -1096,7 +1096,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -1106,14 +1106,14 @@ class _$InspirationSearchEventLoadMoreWorksImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -1121,7 +1121,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -1131,14 +1131,14 @@ class _$InspirationSearchEventLoadMoreWorksImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -1146,7 +1146,7 @@ class _$InspirationSearchEventLoadMoreWorksImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -1289,14 +1289,14 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -1304,7 +1304,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -1314,14 +1314,14 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -1329,7 +1329,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -1339,14 +1339,14 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -1354,7 +1354,7 @@ class _$InspirationSearchEventLoadMoreStencilsImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -1527,14 +1527,14 @@ class _$InspirationSearchEventChangeContentTypeImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -1542,7 +1542,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -1552,14 +1552,14 @@ class _$InspirationSearchEventChangeContentTypeImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -1567,7 +1567,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -1577,14 +1577,14 @@ class _$InspirationSearchEventChangeContentTypeImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -1592,7 +1592,7 @@ class _$InspirationSearchEventChangeContentTypeImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -1770,14 +1770,14 @@ class _$InspirationSearchEventChangeSortTypeImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -1785,7 +1785,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -1795,14 +1795,14 @@ class _$InspirationSearchEventChangeSortTypeImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -1810,7 +1810,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -1820,14 +1820,14 @@ class _$InspirationSearchEventChangeSortTypeImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -1835,7 +1835,7 @@ class _$InspirationSearchEventChangeSortTypeImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -1985,14 +1985,14 @@ class _$InspirationSearchEventGetPopularTagsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -2000,7 +2000,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -2010,14 +2010,14 @@ class _$InspirationSearchEventGetPopularTagsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -2025,7 +2025,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -2035,14 +2035,14 @@ class _$InspirationSearchEventGetPopularTagsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -2050,7 +2050,7 @@ class _$InspirationSearchEventGetPopularTagsImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -2220,14 +2220,14 @@ class _$InspirationSearchEventSearchTagsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -2235,7 +2235,7 @@ class _$InspirationSearchEventSearchTagsImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -2245,14 +2245,14 @@ class _$InspirationSearchEventSearchTagsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -2260,7 +2260,7 @@ class _$InspirationSearchEventSearchTagsImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -2270,14 +2270,14 @@ class _$InspirationSearchEventSearchTagsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -2285,7 +2285,7 @@ class _$InspirationSearchEventSearchTagsImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -2398,7 +2398,7 @@ abstract class _$$InspirationSearchEventFilterByTagsImplCopyWith<$Res> {
           $Res Function(_$InspirationSearchEventFilterByTagsImpl) then) =
       __$$InspirationSearchEventFilterByTagsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<int> tagIds});
+  $Res call({List<String> tagIds});
 }
 
 /// @nodoc
@@ -2420,7 +2420,7 @@ class __$$InspirationSearchEventFilterByTagsImplCopyWithImpl<$Res>
       tagIds: null == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -2430,12 +2430,12 @@ class __$$InspirationSearchEventFilterByTagsImplCopyWithImpl<$Res>
 class _$InspirationSearchEventFilterByTagsImpl
     implements InspirationSearchEventFilterByTags {
   const _$InspirationSearchEventFilterByTagsImpl(
-      {required final List<int> tagIds})
+      {required final List<String> tagIds})
       : _tagIds = tagIds;
 
-  final List<int> _tagIds;
+  final List<String> _tagIds;
   @override
-  List<int> get tagIds {
+  List<String> get tagIds {
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tagIds);
@@ -2469,14 +2469,14 @@ class _$InspirationSearchEventFilterByTagsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -2484,7 +2484,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -2494,14 +2494,14 @@ class _$InspirationSearchEventFilterByTagsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -2509,7 +2509,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -2519,14 +2519,14 @@ class _$InspirationSearchEventFilterByTagsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -2534,7 +2534,7 @@ class _$InspirationSearchEventFilterByTagsImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -2631,10 +2631,10 @@ class _$InspirationSearchEventFilterByTagsImpl
 abstract class InspirationSearchEventFilterByTags
     implements InspirationSearchEvent {
   const factory InspirationSearchEventFilterByTags(
-          {required final List<int> tagIds}) =
+          {required final List<String> tagIds}) =
       _$InspirationSearchEventFilterByTagsImpl;
 
-  List<int> get tagIds;
+  List<String> get tagIds;
   @JsonKey(ignore: true)
   _$$InspirationSearchEventFilterByTagsImplCopyWith<
           _$InspirationSearchEventFilterByTagsImpl>
@@ -2684,14 +2684,14 @@ class _$InspirationSearchEventClearFiltersImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -2699,7 +2699,7 @@ class _$InspirationSearchEventClearFiltersImpl
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -2709,14 +2709,14 @@ class _$InspirationSearchEventClearFiltersImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -2724,7 +2724,7 @@ class _$InspirationSearchEventClearFiltersImpl
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -2734,14 +2734,14 @@ class _$InspirationSearchEventClearFiltersImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -2749,7 +2749,7 @@ class _$InspirationSearchEventClearFiltersImpl
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -2891,14 +2891,14 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchWorks,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchStencils,
-    required TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)
+    required TResult Function(String? query, List<String>? tagIds,
+            SortType? sortBy, bool skipCache)
         searchBoth,
     required TResult Function() loadMoreWorks,
     required TResult Function() loadMoreStencils,
@@ -2906,7 +2906,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     required TResult Function(SortType sortType) changeSortType,
     required TResult Function() getPopularTags,
     required TResult Function(String query) searchTags,
-    required TResult Function(List<int> tagIds) filterByTags,
+    required TResult Function(List<String> tagIds) filterByTags,
     required TResult Function() clearFilters,
     required TResult Function() reset,
   }) {
@@ -2916,14 +2916,14 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult? Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult? Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult? Function()? loadMoreWorks,
     TResult? Function()? loadMoreStencils,
@@ -2931,7 +2931,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     TResult? Function(SortType sortType)? changeSortType,
     TResult? Function()? getPopularTags,
     TResult? Function(String query)? searchTags,
-    TResult? Function(List<int> tagIds)? filterByTags,
+    TResult? Function(List<String> tagIds)? filterByTags,
     TResult? Function()? clearFilters,
     TResult? Function()? reset,
   }) {
@@ -2941,14 +2941,14 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchWorks,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchStencils,
-    TResult Function(
-            String? query, List<int>? tagIds, SortType? sortBy, bool skipCache)?
+    TResult Function(String? query, List<String>? tagIds, SortType? sortBy,
+            bool skipCache)?
         searchBoth,
     TResult Function()? loadMoreWorks,
     TResult Function()? loadMoreStencils,
@@ -2956,7 +2956,7 @@ class _$InspirationSearchEventResetImpl implements InspirationSearchEventReset {
     TResult Function(SortType sortType)? changeSortType,
     TResult Function()? getPopularTags,
     TResult Function(String query)? searchTags,
-    TResult Function(List<int> tagIds)? filterByTags,
+    TResult Function(List<String> tagIds)? filterByTags,
     TResult Function()? clearFilters,
     TResult Function()? reset,
     required TResult orElse(),
@@ -3065,7 +3065,7 @@ mixin _$InspirationSearchState {
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3088,7 +3088,7 @@ mixin _$InspirationSearchState {
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3111,7 +3111,7 @@ mixin _$InspirationSearchState {
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3222,7 +3222,7 @@ class _$InspirationSearchState_InitialImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3248,7 +3248,7 @@ class _$InspirationSearchState_InitialImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3274,7 +3274,7 @@ class _$InspirationSearchState_InitialImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3388,7 +3388,7 @@ class _$InspirationSearchState_LoadingImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3414,7 +3414,7 @@ class _$InspirationSearchState_LoadingImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3440,7 +3440,7 @@ class _$InspirationSearchState_LoadingImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3516,7 +3516,7 @@ abstract class _$$InspirationSearchState_LoadedImplCopyWith<$Res> {
       {List<Work> works,
       List<Stencil> stencils,
       ContentType contentType,
-      List<int> selectedTagIds,
+      List<String> selectedTagIds,
       String searchQuery,
       SortType sortType,
       int currentWorkPage,
@@ -3573,7 +3573,7 @@ class __$$InspirationSearchState_LoadedImplCopyWithImpl<$Res>
       selectedTagIds: null == selectedTagIds
           ? _value._selectedTagIds
           : selectedTagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
       searchQuery: null == searchQuery
           ? _value.searchQuery
           : searchQuery // ignore: cast_nullable_to_non_nullable
@@ -3626,7 +3626,7 @@ class _$InspirationSearchState_LoadedImpl
       {required final List<Work> works,
       required final List<Stencil> stencils,
       required this.contentType,
-      required final List<int> selectedTagIds,
+      required final List<String> selectedTagIds,
       required this.searchQuery,
       required this.sortType,
       required this.currentWorkPage,
@@ -3661,9 +3661,9 @@ class _$InspirationSearchState_LoadedImpl
 
   @override
   final ContentType contentType;
-  final List<int> _selectedTagIds;
+  final List<String> _selectedTagIds;
   @override
-  List<int> get selectedTagIds {
+  List<String> get selectedTagIds {
     if (_selectedTagIds is EqualUnmodifiableListView) return _selectedTagIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_selectedTagIds);
@@ -3779,7 +3779,7 @@ class _$InspirationSearchState_LoadedImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3819,7 +3819,7 @@ class _$InspirationSearchState_LoadedImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3859,7 +3859,7 @@ class _$InspirationSearchState_LoadedImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -3937,7 +3937,7 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
       {required final List<Work> works,
       required final List<Stencil> stencils,
       required final ContentType contentType,
-      required final List<int> selectedTagIds,
+      required final List<String> selectedTagIds,
       required final String searchQuery,
       required final SortType sortType,
       required final int currentWorkPage,
@@ -3952,7 +3952,7 @@ abstract class InspirationSearchState_Loaded implements InspirationSearchState {
   List<Work> get works;
   List<Stencil> get stencils;
   ContentType get contentType;
-  List<int> get selectedTagIds;
+  List<String> get selectedTagIds;
   String get searchQuery;
   SortType get sortType;
   int get currentWorkPage;
@@ -4045,7 +4045,7 @@ class _$InspirationSearchState_ErrorImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -4071,7 +4071,7 @@ class _$InspirationSearchState_ErrorImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,
@@ -4097,7 +4097,7 @@ class _$InspirationSearchState_ErrorImpl
             List<Work> works,
             List<Stencil> stencils,
             ContentType contentType,
-            List<int> selectedTagIds,
+            List<String> selectedTagIds,
             String searchQuery,
             SortType sortType,
             int currentWorkPage,

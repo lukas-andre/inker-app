@@ -10,7 +10,7 @@ class WorkQueryParams with _$WorkQueryParams {
     @Default(10) int limit,
     bool? featured,
     @Default(false) bool includeHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
     String? searchText,
     String? source,
   }) = _WorkQueryParams;

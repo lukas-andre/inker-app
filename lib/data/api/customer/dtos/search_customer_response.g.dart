@@ -7,10 +7,10 @@ part of 'search_customer_response.dart';
 // **************************************************************************
 
 _$CustomerDTOImpl _$$CustomerDTOImplFromJson(Map json) => _$CustomerDTOImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
-      userId: (json['userId'] as num).toInt(),
+      userId: json['userId'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       contactEmail: json['contactEmail'] as String,

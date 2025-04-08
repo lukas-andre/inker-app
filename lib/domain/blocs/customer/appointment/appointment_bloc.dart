@@ -147,7 +147,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   Future<void> _getAppointmentById(
     Emitter<AppointmentState> emit,
-    int id,
+    String id,
   ) async {
     final currentState = state;
     if (currentState is _Loaded) {
@@ -201,7 +201,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   Future<void> _requestAppointmentChange(
     Emitter<AppointmentState> emit,
-    int appointmentId,
+    String appointmentId,
     DateTime? newStartDate,
     DateTime? newEndDate,
     String? reason,
@@ -234,7 +234,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   Future<void> _cancelAppointment(
     Emitter<AppointmentState> emit,
-    int appointmentId,
+    String appointmentId,
     String reason,
   ) async {
     emit(const AppointmentState.actionInProgress());
@@ -263,7 +263,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   Future<void> _markAsRead(
     Emitter<AppointmentState> emit,
-    int appointmentId,
+    String appointmentId,
   ) async {
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -323,8 +323,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   
   Future<void> _rsvpForAppointment(
     Emitter<AppointmentState> emit,
-    int appointmentId,
-    int agendaId,
+    String appointmentId,
+    String agendaId,
     bool willAttend,
   ) async {
     emit(const AppointmentState.actionInProgress());

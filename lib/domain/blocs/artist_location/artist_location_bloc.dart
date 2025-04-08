@@ -26,7 +26,7 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
     });
   }
 
-  Future<void> _loadLocations(int artistId, Emitter<ArtistLocationState> emit) async {
+  Future<void> _loadLocations(String artistId, Emitter<ArtistLocationState> emit) async {
     emit(const ArtistLocationState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -47,7 +47,7 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
   }
 
   Future<void> _createLocation(
-      int artistId, ArtistLocation location, Emitter<ArtistLocationState> emit) async {
+      String artistId, ArtistLocation location, Emitter<ArtistLocationState> emit) async {
     // First get the current state to preserve existing locations
     final currentState = state;
     emit(const ArtistLocationState.loading());
@@ -97,7 +97,7 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
     }
   }
 
-  Future<void> _updateLocation(int artistId, int locationId,
+  Future<void> _updateLocation(String artistId, String locationId,
       ArtistLocation location, Emitter<ArtistLocationState> emit) async {
     final currentState = state;
     if (currentState is! _Loaded) {
@@ -152,7 +152,7 @@ class ArtistLocationBloc extends Bloc<ArtistLocationEvent, ArtistLocationState> 
   }
 
   Future<void> _deleteLocation(
-      int artistId, int locationId, Emitter<ArtistLocationState> emit) async {
+      String artistId, String locationId, Emitter<ArtistLocationState> emit) async {
     final currentState = state;
     if (currentState is! _Loaded) {
       emit(const ArtistLocationState.error('Cannot delete: locations not loaded'));

@@ -5,8 +5,8 @@ part 'customer.g.dart';
 
 @JsonSerializable()
 class Customer extends Equatable {
-  final int id;
-  final int userId;
+  final String id;
+  final String userId;
   final String firstName;
   final String contactEmail;
   final int rating;
@@ -63,8 +63,8 @@ class Customer extends Equatable {
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
 
   Customer copyWith({
-    int? id,
-    int? userId,
+    String? id,
+    String? userId,
     String? firstName,
     String? contactEmail,
     int? rating,

@@ -76,7 +76,7 @@ class StencilClientService implements StencilService {
 
   @override
   Future<List<Stencil>> getStencilsByArtistId(
-      int artistId, StencilQueryParams params, String token) async {
+      String artistId, StencilQueryParams params, String token) async {
     try {
       final queryParams = {
         'page': params.page.toString(),
@@ -106,7 +106,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<Stencil> getStencilById(int id, String token) async {
+  Future<Stencil> getStencilById(String id, String token) async {
     try {
       final response = await _httpClient.get(
         path: '/stencils/$id',
@@ -186,7 +186,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<Stencil> updateStencil(int id, UpdateStencilDto updateStencilDto,
+  Future<Stencil> updateStencil(String id, UpdateStencilDto updateStencilDto,
       XFile? imageFile, String token) async {
     try {
       if (imageFile == null) {
@@ -251,7 +251,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<void> deleteStencil(int id, String token) async {
+  Future<void> deleteStencil(String id, String token) async {
     try {
       await _httpClient.delete(
         path: '/stencils/$id',
@@ -265,7 +265,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<int> recordStencilView(int id, String token) async {
+  Future<int> recordStencilView(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'view',
@@ -287,7 +287,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<int> likeStencil(int id, String token) async {
+  Future<int> likeStencil(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'like',

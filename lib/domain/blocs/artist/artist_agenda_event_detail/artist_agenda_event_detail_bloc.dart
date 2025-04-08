@@ -13,7 +13,7 @@ class ArtistAgendaEventDetailBloc
     extends Bloc<ArtistAgendaEventDetailEvent, ArtistAgendaEventDetailState> {
   final AgendaService _agendaService;
   final LocalSessionService _sessionService;
-  int? _currentEventId;
+  String? _currentEventId;
 
   ArtistAgendaEventDetailBloc({
     required AgendaService agendaService,
@@ -36,7 +36,7 @@ class ArtistAgendaEventDetailBloc
   }
 
   Future<void> _fetchEventDetails(
-      Emitter<ArtistAgendaEventDetailState> emit, int eventId) async {
+      Emitter<ArtistAgendaEventDetailState> emit, String eventId) async {
     emit(const ArtistAgendaEventDetailState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -55,8 +55,8 @@ class ArtistAgendaEventDetailBloc
   
   Future<void> _updateEventNotes(
       Emitter<ArtistAgendaEventDetailState> emit, 
-      int agendaId, 
-      int eventId, 
+      String agendaId, 
+      String eventId, 
       String notes) async {
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -83,8 +83,8 @@ class ArtistAgendaEventDetailBloc
   
   Future<void> _rescheduleEvent(
       Emitter<ArtistAgendaEventDetailState> emit,
-      int agendaId,
-      int eventId,
+      String agendaId,
+      String eventId,
       DateTime newStartDate,
       DateTime newEndDate,
       String? reason) async {

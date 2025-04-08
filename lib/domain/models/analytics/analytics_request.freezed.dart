@@ -21,7 +21,7 @@ RecordInteractionRequest _$RecordInteractionRequestFromJson(
 
 /// @nodoc
 mixin _$RecordInteractionRequest {
-  int get contentId => throw _privateConstructorUsedError;
+  String get contentId => throw _privateConstructorUsedError;
   ContentType get contentType => throw _privateConstructorUsedError;
   InteractionType get interactionType => throw _privateConstructorUsedError;
   ViewSource? get viewSource => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $RecordInteractionRequestCopyWith<$Res> {
       _$RecordInteractionRequestCopyWithImpl<$Res, RecordInteractionRequest>;
   @useResult
   $Res call(
-      {int contentId,
+      {String contentId,
       ContentType contentType,
       InteractionType interactionType,
       ViewSource? viewSource,
@@ -71,7 +71,7 @@ class _$RecordInteractionRequestCopyWithImpl<$Res,
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$RecordInteractionRequestImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int contentId,
+      {String contentId,
       ContentType contentType,
       InteractionType interactionType,
       ViewSource? viewSource,
@@ -132,7 +132,7 @@ class __$$RecordInteractionRequestImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class _$RecordInteractionRequestImpl implements _RecordInteractionRequest {
       _$$RecordInteractionRequestImplFromJson(json);
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final ContentType contentType;
   @override
@@ -221,7 +221,7 @@ class _$RecordInteractionRequestImpl implements _RecordInteractionRequest {
 
 abstract class _RecordInteractionRequest implements RecordInteractionRequest {
   const factory _RecordInteractionRequest(
-      {required final int contentId,
+      {required final String contentId,
       required final ContentType contentType,
       required final InteractionType interactionType,
       final ViewSource? viewSource,
@@ -231,7 +231,7 @@ abstract class _RecordInteractionRequest implements RecordInteractionRequest {
       _$RecordInteractionRequestImpl.fromJson;
 
   @override
-  int get contentId;
+  String get contentId;
   @override
   ContentType get contentType;
   @override
@@ -253,7 +253,7 @@ RecordArtistViewRequest _$RecordArtistViewRequestFromJson(
 
 /// @nodoc
 mixin _$RecordArtistViewRequest {
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -267,7 +267,7 @@ abstract class $RecordArtistViewRequestCopyWith<$Res> {
           $Res Function(RecordArtistViewRequest) then) =
       _$RecordArtistViewRequestCopyWithImpl<$Res, RecordArtistViewRequest>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -290,7 +290,7 @@ class _$RecordArtistViewRequestCopyWithImpl<$Res,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ) as $Val);
   }
 }
@@ -304,7 +304,7 @@ abstract class _$$RecordArtistViewRequestImplCopyWith<$Res>
       __$$RecordArtistViewRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -326,7 +326,7 @@ class __$$RecordArtistViewRequestImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -340,7 +340,7 @@ class _$RecordArtistViewRequestImpl implements _RecordArtistViewRequest {
       _$$RecordArtistViewRequestImplFromJson(json);
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -376,14 +376,14 @@ class _$RecordArtistViewRequestImpl implements _RecordArtistViewRequest {
 }
 
 abstract class _RecordArtistViewRequest implements RecordArtistViewRequest {
-  const factory _RecordArtistViewRequest({required final int artistId}) =
+  const factory _RecordArtistViewRequest({required final String artistId}) =
       _$RecordArtistViewRequestImpl;
 
   factory _RecordArtistViewRequest.fromJson(Map<String, dynamic> json) =
       _$RecordArtistViewRequestImpl.fromJson;
 
   @override
-  int get artistId;
+  String get artistId;
   @override
   @JsonKey(ignore: true)
   _$$RecordArtistViewRequestImplCopyWith<_$RecordArtistViewRequestImpl>
@@ -397,7 +397,7 @@ RecordArtistFollowRequest _$RecordArtistFollowRequestFromJson(
 
 /// @nodoc
 mixin _$RecordArtistFollowRequest {
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   bool get fromContentView => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -412,7 +412,7 @@ abstract class $RecordArtistFollowRequestCopyWith<$Res> {
           $Res Function(RecordArtistFollowRequest) then) =
       _$RecordArtistFollowRequestCopyWithImpl<$Res, RecordArtistFollowRequest>;
   @useResult
-  $Res call({int artistId, bool fromContentView});
+  $Res call({String artistId, bool fromContentView});
 }
 
 /// @nodoc
@@ -436,7 +436,7 @@ class _$RecordArtistFollowRequestCopyWithImpl<$Res,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       fromContentView: null == fromContentView
           ? _value.fromContentView
           : fromContentView // ignore: cast_nullable_to_non_nullable
@@ -454,7 +454,7 @@ abstract class _$$RecordArtistFollowRequestImplCopyWith<$Res>
       __$$RecordArtistFollowRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId, bool fromContentView});
+  $Res call({String artistId, bool fromContentView});
 }
 
 /// @nodoc
@@ -477,7 +477,7 @@ class __$$RecordArtistFollowRequestImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       fromContentView: null == fromContentView
           ? _value.fromContentView
           : fromContentView // ignore: cast_nullable_to_non_nullable
@@ -496,7 +496,7 @@ class _$RecordArtistFollowRequestImpl implements _RecordArtistFollowRequest {
       _$$RecordArtistFollowRequestImplFromJson(json);
 
   @override
-  final int artistId;
+  final String artistId;
   @override
   @JsonKey()
   final bool fromContentView;
@@ -538,14 +538,14 @@ class _$RecordArtistFollowRequestImpl implements _RecordArtistFollowRequest {
 
 abstract class _RecordArtistFollowRequest implements RecordArtistFollowRequest {
   const factory _RecordArtistFollowRequest(
-      {required final int artistId,
+      {required final String artistId,
       final bool fromContentView}) = _$RecordArtistFollowRequestImpl;
 
   factory _RecordArtistFollowRequest.fromJson(Map<String, dynamic> json) =
       _$RecordArtistFollowRequestImpl.fromJson;
 
   @override
-  int get artistId;
+  String get artistId;
   @override
   bool get fromContentView;
   @override
@@ -560,7 +560,7 @@ BatchMetricsRequest _$BatchMetricsRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BatchMetricsRequest {
-  List<int> get contentIds => throw _privateConstructorUsedError;
+  List<String> get contentIds => throw _privateConstructorUsedError;
   ContentType get contentType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -575,7 +575,7 @@ abstract class $BatchMetricsRequestCopyWith<$Res> {
           BatchMetricsRequest value, $Res Function(BatchMetricsRequest) then) =
       _$BatchMetricsRequestCopyWithImpl<$Res, BatchMetricsRequest>;
   @useResult
-  $Res call({List<int> contentIds, ContentType contentType});
+  $Res call({List<String> contentIds, ContentType contentType});
 }
 
 /// @nodoc
@@ -598,7 +598,7 @@ class _$BatchMetricsRequestCopyWithImpl<$Res, $Val extends BatchMetricsRequest>
       contentIds: null == contentIds
           ? _value.contentIds
           : contentIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -615,7 +615,7 @@ abstract class _$$BatchMetricsRequestImplCopyWith<$Res>
       __$$BatchMetricsRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<int> contentIds, ContentType contentType});
+  $Res call({List<String> contentIds, ContentType contentType});
 }
 
 /// @nodoc
@@ -636,7 +636,7 @@ class __$$BatchMetricsRequestImplCopyWithImpl<$Res>
       contentIds: null == contentIds
           ? _value._contentIds
           : contentIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -649,15 +649,15 @@ class __$$BatchMetricsRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BatchMetricsRequestImpl implements _BatchMetricsRequest {
   const _$BatchMetricsRequestImpl(
-      {required final List<int> contentIds, required this.contentType})
+      {required final List<String> contentIds, required this.contentType})
       : _contentIds = contentIds;
 
   factory _$BatchMetricsRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$BatchMetricsRequestImplFromJson(json);
 
-  final List<int> _contentIds;
+  final List<String> _contentIds;
   @override
-  List<int> get contentIds {
+  List<String> get contentIds {
     if (_contentIds is EqualUnmodifiableListView) return _contentIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_contentIds);
@@ -704,14 +704,14 @@ class _$BatchMetricsRequestImpl implements _BatchMetricsRequest {
 
 abstract class _BatchMetricsRequest implements BatchMetricsRequest {
   const factory _BatchMetricsRequest(
-      {required final List<int> contentIds,
+      {required final List<String> contentIds,
       required final ContentType contentType}) = _$BatchMetricsRequestImpl;
 
   factory _BatchMetricsRequest.fromJson(Map<String, dynamic> json) =
       _$BatchMetricsRequestImpl.fromJson;
 
   @override
-  List<int> get contentIds;
+  List<String> get contentIds;
   @override
   ContentType get contentType;
   @override

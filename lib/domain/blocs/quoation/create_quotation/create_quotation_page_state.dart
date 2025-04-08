@@ -16,7 +16,7 @@ class CreateQuotationPageState with _$CreateQuotationPageState {
   }) = _ImageAdded;
 
   const factory CreateQuotationPageState.quotationCreated({
-    required int id,
+    required String id,
     required String message,
     required bool created,
     @Default([]) List<XFile> referenceImages,

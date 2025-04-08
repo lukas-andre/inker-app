@@ -7,10 +7,10 @@ part of 'appointment.dart';
 // **************************************************************************
 
 _$AppointmentImpl _$$AppointmentImplFromJson(Map json) => _$AppointmentImpl(
-      id: (json['id'] as num).toInt(),
-      eventId: (json['eventId'] as num).toInt(),
-      customerId: (json['customerId'] as num).toInt(),
-      artistId: (json['artistId'] as num).toInt(),
+      id: json['id'] as String,
+      eventId: json['eventId'] as String,
+      customerId: json['customerId'] as String,
+      artistId: json['artistId'] as String,
       title: json['title'] as String,
       info: json['info'] as String,
       startDate: DateTime.parse(json['startDate'] as String),
@@ -22,7 +22,7 @@ _$AppointmentImpl _$$AppointmentImplFromJson(Map json) => _$AppointmentImpl(
       color: json['color'] as String,
       notification: json['notification'] as bool,
       done: json['done'] as bool,
-      quotationId: (json['quotationId'] as num?)?.toInt(),
+      quotationId: json['quotationId'] as String?,
       cancelationReason: json['cancelationReason'] as String?,
       workEvidence: json['workEvidence'] == null
           ? null

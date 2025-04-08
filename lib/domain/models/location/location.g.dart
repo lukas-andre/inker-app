@@ -7,7 +7,7 @@ part of 'location.dart';
 // **************************************************************************
 
 _$LocationImpl _$$LocationImplFromJson(Map json) => _$LocationImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       address1: json['address1'] as String,
@@ -25,7 +25,7 @@ _$LocationImpl _$$LocationImplFromJson(Map json) => _$LocationImpl(
           Viewport.fromJson(Map<String, dynamic>.from(json['viewport'] as Map)),
       location:
           GeoPoint.fromJson(Map<String, dynamic>.from(json['location'] as Map)),
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
       name: json['name'] as String,
       profileThumbnail: json['profileThumbnail'] as String?,
       googlePlaceId: json['googlePlaceId'] as String?,

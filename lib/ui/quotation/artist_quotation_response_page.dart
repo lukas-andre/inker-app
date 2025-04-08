@@ -61,7 +61,7 @@ class _ArtistQuotationResponseViewState
   final _additionalDetailsController = TextEditingController();
 
   late ArtistQuotationResponseBloc _bloc;
-  late int artistId;
+  late String artistId;
   ArtistQuotationAction _action = ArtistQuotationAction.quote;
   QuotationArtistRejectReason? _rejectionReason;
   final List<XFile> _proposedDesigns = [];
@@ -82,7 +82,7 @@ class _ArtistQuotationResponseViewState
     _bloc = BlocProvider.of<ArtistQuotationResponseBloc>(context);
     _bloc.add(ArtistQuotationResponseEvent.loadQuotation(widget.quotationId));
     artistId =
-        BlocProvider.of<AuthBloc>(context).state.session.user?.userTypeId ?? 0;
+        BlocProvider.of<AuthBloc>(context).state.session.user?.userTypeId ?? '';
 
     if (widget.predefinedAction != null) {
       _action = widget.predefinedAction!;

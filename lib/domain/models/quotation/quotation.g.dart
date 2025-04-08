@@ -7,11 +7,11 @@ part of 'quotation.dart';
 // **************************************************************************
 
 _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num).toInt(),
-      artistId: (json['artistId'] as num).toInt(),
+      customerId: json['customerId'] as String,
+      artistId: json['artistId'] as String,
       description: json['description'] as String,
       referenceImages: json['referenceImages'] == null
           ? null
@@ -84,7 +84,7 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       customerReadAt: json['customerReadAt'] == null
           ? null
           : DateTime.parse(json['customerReadAt'] as String),
-      stencilId: (json['stencilId'] as num?)?.toInt(),
+      stencilId: json['stencilId'] as String?,
       stencil: json['stencil'] == null
           ? null
           : Stencil.fromJson(Map<String, dynamic>.from(json['stencil'] as Map)),

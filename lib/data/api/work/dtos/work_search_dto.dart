@@ -8,8 +8,8 @@ part 'work_search_dto.freezed.dart';
 class WorkSearchQueryDto with _$WorkSearchQueryDto {
   const factory WorkSearchQueryDto({
     String? query,
-    List<int>? tagIds,
-    int? artistId,
+    List<String>? tagIds,
+    String? artistId,
     bool? onlyFeatured,
     String? source,
     @Default(false) bool includeHidden,

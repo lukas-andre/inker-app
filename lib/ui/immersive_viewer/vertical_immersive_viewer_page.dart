@@ -136,7 +136,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   }
   
   void _recordView({
-    required int contentId,
+    required String contentId,
     required ContentType contentType,
     ViewSource? viewSource,
   }) {
@@ -196,7 +196,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   }
   
   // Update the local state when a like is recorded
-  void _updateLikeState(int contentId, ContentType contentType, bool isLiked, int likeCount) {
+  void _updateLikeState(String contentId, ContentType contentType, bool isLiked, int likeCount) {
     setState(() {
       if (contentType == ContentType.work) {
         final index = _works.indexWhere((work) => work.id == contentId);
@@ -475,7 +475,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   void _handleDoubleTap() {
     // Toggle like
     bool isCurrentlyLiked = false;
-    int contentId = 0;
+    String contentId = '';
     ContentType contentType = ContentType.work;
     
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
@@ -527,7 +527,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   
   // Handle like button tap
   void _handleLikeButtonTap() {
-    int contentId = 0;
+    String contentId = '';
     ContentType contentType = ContentType.work;
     bool isCurrentlyLiked = false;
     
@@ -594,7 +594,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   }
   
   // Método para navegar a la pantalla de cotización con el stencil seleccionado
-  void _navigateToQuotation(int artistId) {
+  void _navigateToQuotation(String artistId) {
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       final stencil = _stencils[_currentStencilIndex];
       

@@ -73,7 +73,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
 
   Future<void> _loadStencilDetail(
-      int stencilId, Emitter<ArtistStencilState> emit) async {
+      String stencilId, Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.detailLoading());
     try {
       final session = await _sessionService.getActiveSession();
@@ -95,7 +95,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       String? description,
       bool isFeatured,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.submitting());
@@ -126,12 +126,12 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
 
   Future<void> _updateStencil(
-      int stencilId,
+      String stencilId,
       String? title,
       String? description,
       bool? isFeatured,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.submitting());
@@ -162,7 +162,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
 
   Future<void> _deleteStencil(
-      int stencilId, Emitter<ArtistStencilState> emit) async {
+      String stencilId, Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.submitting());
     try {
       final session = await _sessionService.getActiveSession();
@@ -232,7 +232,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
 
   Future<void> _recordView(
-      int stencilId, Emitter<ArtistStencilState> emit) async {
+      String stencilId, Emitter<ArtistStencilState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -249,7 +249,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
 
   Future<void> _likeStencil(
-      int stencilId, Emitter<ArtistStencilState> emit) async {
+      String stencilId, Emitter<ArtistStencilState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -316,7 +316,7 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
   }
   
   Future<void> _filterStencilsByTag(
-      int tagId, Emitter<ArtistStencilState> emit) async {
+      String tagId, Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.loading());
     try {
       final session = await _sessionService.getActiveSession();
