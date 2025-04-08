@@ -22,8 +22,8 @@ StencilSearchQueryDto _$StencilSearchQueryDtoFromJson(
 /// @nodoc
 mixin _$StencilSearchQueryDto {
   String? get query => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   @JsonKey(name: 'status')
   String? get status => throw _privateConstructorUsedError;
   bool get includeHidden => throw _privateConstructorUsedError;
@@ -45,8 +45,8 @@ abstract class $StencilSearchQueryDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String? query,
-      List<int>? tagIds,
-      int? artistId,
+      List<String>? tagIds,
+      String? artistId,
       @JsonKey(name: 'status') String? status,
       bool includeHidden,
       String sortBy,
@@ -85,11 +85,11 @@ class _$StencilSearchQueryDtoCopyWithImpl<$Res,
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -125,8 +125,8 @@ abstract class _$$StencilSearchQueryDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? query,
-      List<int>? tagIds,
-      int? artistId,
+      List<String>? tagIds,
+      String? artistId,
       @JsonKey(name: 'status') String? status,
       bool includeHidden,
       String sortBy,
@@ -163,11 +163,11 @@ class __$$StencilSearchQueryDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class __$$StencilSearchQueryDtoImplCopyWithImpl<$Res>
 class _$StencilSearchQueryDtoImpl implements _StencilSearchQueryDto {
   const _$StencilSearchQueryDtoImpl(
       {this.query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.artistId,
       @JsonKey(name: 'status') this.status,
       this.includeHidden = false,
@@ -211,9 +211,9 @@ class _$StencilSearchQueryDtoImpl implements _StencilSearchQueryDto {
 
   @override
   final String? query;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -222,7 +222,7 @@ class _$StencilSearchQueryDtoImpl implements _StencilSearchQueryDto {
   }
 
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   @JsonKey(name: 'status')
   final String? status;
@@ -292,8 +292,8 @@ class _$StencilSearchQueryDtoImpl implements _StencilSearchQueryDto {
 abstract class _StencilSearchQueryDto implements StencilSearchQueryDto {
   const factory _StencilSearchQueryDto(
       {final String? query,
-      final List<int>? tagIds,
-      final int? artistId,
+      final List<String>? tagIds,
+      final String? artistId,
       @JsonKey(name: 'status') final String? status,
       final bool includeHidden,
       final String sortBy,
@@ -306,9 +306,9 @@ abstract class _StencilSearchQueryDto implements StencilSearchQueryDto {
   @override
   String? get query;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   @JsonKey(name: 'status')
   String? get status;

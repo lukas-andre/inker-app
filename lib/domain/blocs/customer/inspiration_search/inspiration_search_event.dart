@@ -4,21 +4,21 @@ part of 'inspiration_search_bloc.dart';
 class InspirationSearchEvent with _$InspirationSearchEvent {
   const factory InspirationSearchEvent.searchWorks({
     String? query,
-    List<int>? tagIds,
+    List<String>? tagIds,
     SortType? sortBy,
     @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchWorks;
   
   const factory InspirationSearchEvent.searchStencils({
     String? query,
-    List<int>? tagIds,
+    List<String>? tagIds,
     SortType? sortBy,
     @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchStencils;
   
   const factory InspirationSearchEvent.searchBoth({
     String? query,
-    List<int>? tagIds,
+    List<String>? tagIds,
     SortType? sortBy,
     @Default(false) bool skipCache,
   }) = InspirationSearchEventSearchBoth;
@@ -42,7 +42,7 @@ class InspirationSearchEvent with _$InspirationSearchEvent {
   }) = InspirationSearchEventSearchTags;
   
   const factory InspirationSearchEvent.filterByTags({
-    required List<int> tagIds,
+    required List<String> tagIds,
   }) = InspirationSearchEventFilterByTags;
   
   const factory InspirationSearchEvent.clearFilters() = InspirationSearchEventClearFilters;

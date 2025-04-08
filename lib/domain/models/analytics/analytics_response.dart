@@ -7,7 +7,7 @@ part 'analytics_response.g.dart';
 @freezed
 class ContentMetrics with _$ContentMetrics {
   const factory ContentMetrics({
-    required int contentId,
+    required String contentId,
     required String contentType,
     required int viewCount,
     required int uniqueViewCount,
@@ -28,7 +28,7 @@ class ContentMetrics with _$ContentMetrics {
 @freezed
 class ArtistMetrics with _$ArtistMetrics {
   const factory ArtistMetrics({
-    required int artistId,
+    required String artistId,
     required int viewCount,
     required int uniqueViewCount,
     FollowerMetrics? followers,

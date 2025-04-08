@@ -20,8 +20,8 @@ ArtistLocation _$ArtistLocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ArtistLocation {
-  int? get id => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get address1 => throw _privateConstructorUsedError;
   String? get shortAddress1 => throw _privateConstructorUsedError;
@@ -55,8 +55,8 @@ abstract class $ArtistLocationCopyWith<$Res> {
       _$ArtistLocationCopyWithImpl<$Res, ArtistLocation>;
   @useResult
   $Res call(
-      {int? id,
-      int artistId,
+      {String? id,
+      String artistId,
       String name,
       String address1,
       String? shortAddress1,
@@ -117,11 +117,11 @@ class _$ArtistLocationCopyWithImpl<$Res, $Val extends ArtistLocation>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -211,8 +211,8 @@ abstract class _$$ArtistLocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
-      int artistId,
+      {String? id,
+      String artistId,
       String name,
       String address1,
       String? shortAddress1,
@@ -271,11 +271,11 @@ class __$$ArtistLocationImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -387,9 +387,9 @@ class _$ArtistLocationImpl implements _ArtistLocation {
       _$$ArtistLocationImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String name;
   @override
@@ -528,8 +528,8 @@ class _$ArtistLocationImpl implements _ArtistLocation {
 
 abstract class _ArtistLocation implements ArtistLocation {
   const factory _ArtistLocation(
-      {final int? id,
-      required final int artistId,
+      {final String? id,
+      required final String artistId,
       required final String name,
       required final String address1,
       final String? shortAddress1,
@@ -554,9 +554,9 @@ abstract class _ArtistLocation implements ArtistLocation {
       _$ArtistLocationImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get name;
   @override

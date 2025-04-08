@@ -34,7 +34,7 @@ class AvailableTimeSlotsBloc
 
   Future<void> _getAvailableTimeSlots(
     Emitter<AvailableTimeSlotsState> emit,
-    int artistId,
+    String artistId,
     DateTime date,
     int durationMinutes,
   ) async {

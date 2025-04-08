@@ -8,8 +8,8 @@ part of 'artist_location.dart';
 
 _$ArtistLocationImpl _$$ArtistLocationImplFromJson(Map json) =>
     _$ArtistLocationImpl(
-      id: (json['id'] as num?)?.toInt(),
-      artistId: (json['artistId'] as num).toInt(),
+      id: json['id'] as String?,
+      artistId: json['artistId'] as String,
       name: json['name'] as String,
       address1: json['address1'] as String,
       shortAddress1: json['shortAddress1'] as String?,

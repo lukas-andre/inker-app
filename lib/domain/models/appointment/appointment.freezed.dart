@@ -20,10 +20,10 @@ Appointment _$AppointmentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Appointment {
-  int get id => throw _privateConstructorUsedError;
-  int get eventId => throw _privateConstructorUsedError;
-  int get customerId => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get eventId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get info => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ mixin _$Appointment {
   String get color => throw _privateConstructorUsedError;
   bool get notification => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
-  int? get quotationId => throw _privateConstructorUsedError;
+  String? get quotationId => throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   WorkEvidence? get workEvidence => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -55,10 +55,10 @@ abstract class $AppointmentCopyWith<$Res> {
       _$AppointmentCopyWithImpl<$Res, Appointment>;
   @useResult
   $Res call(
-      {int id,
-      int eventId,
-      int customerId,
-      int artistId,
+      {String id,
+      String eventId,
+      String customerId,
+      String artistId,
       String title,
       String info,
       DateTime startDate,
@@ -69,7 +69,7 @@ abstract class $AppointmentCopyWith<$Res> {
       String color,
       bool notification,
       bool done,
-      int? quotationId,
+      String? quotationId,
       String? cancelationReason,
       WorkEvidence? workEvidence,
       DateTime? createdAt,
@@ -121,19 +121,19 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -177,7 +177,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       cancelationReason: freezed == cancelationReason
           ? _value.cancelationReason
           : cancelationReason // ignore: cast_nullable_to_non_nullable
@@ -243,10 +243,10 @@ abstract class _$$AppointmentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      int eventId,
-      int customerId,
-      int artistId,
+      {String id,
+      String eventId,
+      String customerId,
+      String artistId,
       String title,
       String info,
       DateTime startDate,
@@ -257,7 +257,7 @@ abstract class _$$AppointmentImplCopyWith<$Res>
       String color,
       bool notification,
       bool done,
-      int? quotationId,
+      String? quotationId,
       String? cancelationReason,
       WorkEvidence? workEvidence,
       DateTime? createdAt,
@@ -310,19 +310,19 @@ class __$$AppointmentImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -366,7 +366,7 @@ class __$$AppointmentImplCopyWithImpl<$Res>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       cancelationReason: freezed == cancelationReason
           ? _value.cancelationReason
           : cancelationReason // ignore: cast_nullable_to_non_nullable
@@ -425,13 +425,13 @@ class _$AppointmentImpl implements _Appointment {
       _$$AppointmentImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
-  final int eventId;
+  final String eventId;
   @override
-  final int customerId;
+  final String customerId;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String title;
   @override
@@ -453,7 +453,7 @@ class _$AppointmentImpl implements _Appointment {
   @override
   final bool done;
   @override
-  final int? quotationId;
+  final String? quotationId;
   @override
   final String? cancelationReason;
   @override
@@ -555,10 +555,10 @@ class _$AppointmentImpl implements _Appointment {
 
 abstract class _Appointment implements Appointment {
   const factory _Appointment(
-      {required final int id,
-      required final int eventId,
-      required final int customerId,
-      required final int artistId,
+      {required final String id,
+      required final String eventId,
+      required final String customerId,
+      required final String artistId,
       required final String title,
       required final String info,
       required final DateTime startDate,
@@ -569,7 +569,7 @@ abstract class _Appointment implements Appointment {
       required final String color,
       required final bool notification,
       required final bool done,
-      final int? quotationId,
+      final String? quotationId,
       final String? cancelationReason,
       final WorkEvidence? workEvidence,
       final DateTime? createdAt,
@@ -581,13 +581,13 @@ abstract class _Appointment implements Appointment {
       _$AppointmentImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
-  int get eventId;
+  String get eventId;
   @override
-  int get customerId;
+  String get customerId;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get title;
   @override
@@ -609,7 +609,7 @@ abstract class _Appointment implements Appointment {
   @override
   bool get done;
   @override
-  int? get quotationId;
+  String? get quotationId;
   @override
   String? get cancelationReason;
   @override

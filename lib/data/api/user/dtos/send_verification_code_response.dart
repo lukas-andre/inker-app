@@ -20,7 +20,7 @@ class SendVerificationCodeResponse {
 
 @JsonSerializable()
 class SendVerificationCodeResponseData {
-  final int userId;
+  final String userId;
 
   const SendVerificationCodeResponseData({required this.userId});
 

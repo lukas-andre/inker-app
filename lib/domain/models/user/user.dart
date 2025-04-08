@@ -25,19 +25,19 @@ class User extends Equatable {
     this.profileThumbnail,
   });
 
-  final int id;
+  final String id;
   final String? uid;
   final String? email;
   final String? username;
   final String? fullname;
   final String? userType;
-  final int? userTypeId;
+  final String? userTypeId;
   final dynamic profileThumbnail;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   static const empty = User(
-    id: -1,
+    id: '',
   );
 
   /// Convenience getter to determine whether the current user is empty.

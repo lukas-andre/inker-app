@@ -29,7 +29,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
   bool _isHidden = false;
   List<TagSuggestionResponseDto> _tagSuggestions = [];
   final List<TagSuggestionResponseDto> _selectedTagsObjects = [];
-  final List<int> _selectedTagIds = [];
+  final List<String> _selectedTagIds = [];
   bool _isLoading = false;
   bool _isFetchingTags = false;
   bool _showTagSuggestions = false;

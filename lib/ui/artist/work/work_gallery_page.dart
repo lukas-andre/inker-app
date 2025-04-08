@@ -23,7 +23,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   bool _isSelectMode = false;
   bool _showHidden = false;
   String? _filterTag;
-  int? _filterTagId;
+  String? _filterTagId;
   WorkSource? _filterSource;
   
   // Instancia del gestor de caché
@@ -407,7 +407,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
               if (filteredWorks.isNotEmpty && filteredWorks.first.tags != null) {
                 final tag = filteredWorks.first.tags!.firstWhere(
                   (t) => t.id == tagId,
-                  orElse: () => const Tag(id: 0, name: '', count: 0),
+                  orElse: () => const Tag(id: '', name: '', count: 0),
                 );
 
                 setState(() {

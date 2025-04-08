@@ -20,8 +20,8 @@ Work _$WorkFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Work {
-  int get id => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
@@ -53,8 +53,8 @@ abstract class $WorkCopyWith<$Res> {
       _$WorkCopyWithImpl<$Res, Work>;
   @useResult
   $Res call(
-      {int id,
-      int artistId,
+      {String id,
+      String artistId,
       String title,
       String? description,
       String imageUrl,
@@ -117,11 +117,11 @@ class _$WorkCopyWithImpl<$Res, $Val extends Work>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -222,8 +222,8 @@ abstract class _$$WorkImplCopyWith<$Res> implements $WorkCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
-      int artistId,
+      {String id,
+      String artistId,
       String title,
       String? description,
       String imageUrl,
@@ -284,11 +284,11 @@ class __$$WorkImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -400,9 +400,9 @@ class _$WorkImpl implements _Work {
       _$$WorkImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String title;
   @override
@@ -546,8 +546,8 @@ class _$WorkImpl implements _Work {
 
 abstract class _Work implements Work {
   const factory _Work(
-      {required final int id,
-      required final int artistId,
+      {required final String id,
+      required final String artistId,
       required final String title,
       final String? description,
       required final String imageUrl,
@@ -571,9 +571,9 @@ abstract class _Work implements Work {
   factory _Work.fromJson(Map<String, dynamic> json) = _$WorkImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get title;
   @override

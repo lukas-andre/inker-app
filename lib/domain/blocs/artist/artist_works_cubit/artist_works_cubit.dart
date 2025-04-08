@@ -27,7 +27,7 @@ class ArtistWorksCubit extends Cubit<ArtistWorksState> {
     super(const ArtistWorksState.initial());
 
   // Carga ambos tipos de trabajos del artista (agenda y trabajos independientes)
-  Future<void> loadArtistWorks(int artistId) async {
+  Future<void> loadArtistWorks(String artistId) async {
     emit(const ArtistWorksState.loading());
 
     try {

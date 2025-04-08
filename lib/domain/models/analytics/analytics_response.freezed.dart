@@ -20,7 +20,7 @@ ContentMetrics _$ContentMetricsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ContentMetrics {
-  int get contentId => throw _privateConstructorUsedError;
+  String get contentId => throw _privateConstructorUsedError;
   String get contentType => throw _privateConstructorUsedError;
   int get viewCount => throw _privateConstructorUsedError;
   int get uniqueViewCount => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $ContentMetricsCopyWith<$Res> {
       _$ContentMetricsCopyWithImpl<$Res, ContentMetrics>;
   @useResult
   $Res call(
-      {int contentId,
+      {String contentId,
       String contentType,
       int viewCount,
       int uniqueViewCount,
@@ -92,7 +92,7 @@ class _$ContentMetricsCopyWithImpl<$Res, $Val extends ContentMetrics>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -194,7 +194,7 @@ abstract class _$$ContentMetricsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int contentId,
+      {String contentId,
       String contentType,
       int viewCount,
       int uniqueViewCount,
@@ -243,7 +243,7 @@ class __$$ContentMetricsImplCopyWithImpl<$Res>
       contentId: null == contentId
           ? _value.contentId
           : contentId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       contentType: null == contentType
           ? _value.contentType
           : contentType // ignore: cast_nullable_to_non_nullable
@@ -308,7 +308,7 @@ class _$ContentMetricsImpl implements _ContentMetrics {
       _$$ContentMetricsImplFromJson(json);
 
   @override
-  final int contentId;
+  final String contentId;
   @override
   final String contentType;
   @override
@@ -397,7 +397,7 @@ class _$ContentMetricsImpl implements _ContentMetrics {
 
 abstract class _ContentMetrics implements ContentMetrics {
   const factory _ContentMetrics(
-      {required final int contentId,
+      {required final String contentId,
       required final String contentType,
       required final int viewCount,
       required final int uniqueViewCount,
@@ -413,7 +413,7 @@ abstract class _ContentMetrics implements ContentMetrics {
       _$ContentMetricsImpl.fromJson;
 
   @override
-  int get contentId;
+  String get contentId;
   @override
   String get contentType;
   @override
@@ -446,7 +446,7 @@ ArtistMetrics _$ArtistMetricsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ArtistMetrics {
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   int get viewCount => throw _privateConstructorUsedError;
   int get uniqueViewCount => throw _privateConstructorUsedError;
   FollowerMetrics? get followers => throw _privateConstructorUsedError;
@@ -464,7 +464,7 @@ abstract class $ArtistMetricsCopyWith<$Res> {
       _$ArtistMetricsCopyWithImpl<$Res, ArtistMetrics>;
   @useResult
   $Res call(
-      {int artistId,
+      {String artistId,
       int viewCount,
       int uniqueViewCount,
       FollowerMetrics? followers});
@@ -494,7 +494,7 @@ class _$ArtistMetricsCopyWithImpl<$Res, $Val extends ArtistMetrics>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       viewCount: null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -532,7 +532,7 @@ abstract class _$$ArtistMetricsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int artistId,
+      {String artistId,
       int viewCount,
       int uniqueViewCount,
       FollowerMetrics? followers});
@@ -561,7 +561,7 @@ class __$$ArtistMetricsImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       viewCount: null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -591,7 +591,7 @@ class _$ArtistMetricsImpl implements _ArtistMetrics {
       _$$ArtistMetricsImplFromJson(json);
 
   @override
-  final int artistId;
+  final String artistId;
   @override
   final int viewCount;
   @override
@@ -640,7 +640,7 @@ class _$ArtistMetricsImpl implements _ArtistMetrics {
 
 abstract class _ArtistMetrics implements ArtistMetrics {
   const factory _ArtistMetrics(
-      {required final int artistId,
+      {required final String artistId,
       required final int viewCount,
       required final int uniqueViewCount,
       final FollowerMetrics? followers}) = _$ArtistMetricsImpl;
@@ -649,7 +649,7 @@ abstract class _ArtistMetrics implements ArtistMetrics {
       _$ArtistMetricsImpl.fromJson;
 
   @override
-  int get artistId;
+  String get artistId;
   @override
   int get viewCount;
   @override

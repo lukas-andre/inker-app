@@ -9,7 +9,7 @@ class SessionTable implements SqliteTable {
   String getCreateTableQuery() {
     return '''
       CREATE TABLE ${getName()}(
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         user TEXT,
         accessToken TEXT,
         sessionType TEXT,

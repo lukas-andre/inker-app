@@ -706,8 +706,8 @@ mixin _$CreateQuotationPageState {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -718,8 +718,8 @@ mixin _$CreateQuotationPageState {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) =>
@@ -729,8 +729,8 @@ mixin _$CreateQuotationPageState {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),
@@ -883,8 +883,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -898,8 +898,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) {
@@ -912,8 +912,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),
@@ -1055,8 +1055,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -1070,8 +1070,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) {
@@ -1084,8 +1084,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),
@@ -1236,8 +1236,8 @@ class _$ImageAddedImpl implements _ImageAdded {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -1251,8 +1251,8 @@ class _$ImageAddedImpl implements _ImageAdded {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) {
@@ -1265,8 +1265,8 @@ class _$ImageAddedImpl implements _ImageAdded {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),
@@ -1341,7 +1341,7 @@ abstract class _$$QuotationCreatedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id, String message, bool created, List<XFile> referenceImages});
+      {String id, String message, bool created, List<XFile> referenceImages});
 }
 
 /// @nodoc
@@ -1364,7 +1364,7 @@ class __$$QuotationCreatedImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1392,7 +1392,7 @@ class _$QuotationCreatedImpl implements _QuotationCreated {
       : _referenceImages = referenceImages;
 
   @override
-  final int id;
+  final String id;
   @override
   final String message;
   @override
@@ -1441,8 +1441,8 @@ class _$QuotationCreatedImpl implements _QuotationCreated {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -1456,8 +1456,8 @@ class _$QuotationCreatedImpl implements _QuotationCreated {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) {
@@ -1470,8 +1470,8 @@ class _$QuotationCreatedImpl implements _QuotationCreated {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),
@@ -1525,12 +1525,12 @@ class _$QuotationCreatedImpl implements _QuotationCreated {
 
 abstract class _QuotationCreated implements CreateQuotationPageState {
   const factory _QuotationCreated(
-      {required final int id,
+      {required final String id,
       required final String message,
       required final bool created,
       final List<XFile> referenceImages}) = _$QuotationCreatedImpl;
 
-  int get id;
+  String get id;
   String get message;
   bool get created;
   @override
@@ -1629,8 +1629,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(List<XFile> referenceImages) loading,
     required TResult Function(List<XFile> referenceImages, String message)
         imageAdded,
-    required TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)
+    required TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)
         quotationCreated,
     required TResult Function(String message, List<XFile> referenceImages)
         error,
@@ -1644,8 +1644,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(List<XFile> referenceImages)? initial,
     TResult? Function(List<XFile> referenceImages)? loading,
     TResult? Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult? Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult? Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult? Function(String message, List<XFile> referenceImages)? error,
   }) {
@@ -1658,8 +1658,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(List<XFile> referenceImages)? initial,
     TResult Function(List<XFile> referenceImages)? loading,
     TResult Function(List<XFile> referenceImages, String message)? imageAdded,
-    TResult Function(
-            int id, String message, bool created, List<XFile> referenceImages)?
+    TResult Function(String id, String message, bool created,
+            List<XFile> referenceImages)?
         quotationCreated,
     TResult Function(String message, List<XFile> referenceImages)? error,
     required TResult orElse(),

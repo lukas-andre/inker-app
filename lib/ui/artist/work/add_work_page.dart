@@ -32,7 +32,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
   WorkSource _source = WorkSource.app;
   List<TagSuggestionResponseDto> _tagSuggestions = [];
   final List<TagSuggestionResponseDto> _selectedTagsObjects = [];
-  final List<int> _selectedTagIds = [];
+  final List<String> _selectedTagIds = [];
   bool _isLoading = false;
   bool _isFetchingTags = false;
   bool _showTagSuggestions = false;

@@ -26,7 +26,7 @@ class GetUserBySocialMediaResponse extends Equatable {
   final String email;
   final String username;
   final String userType;
-  final int id;
+  final String id;
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<String> logins;

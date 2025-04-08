@@ -13,7 +13,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/arti
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
-  final int eventId;
+  final String eventId;
 
   const AgendaEventDetailPage({super.key, required this.eventId});
 

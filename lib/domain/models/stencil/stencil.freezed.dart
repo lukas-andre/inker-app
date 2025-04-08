@@ -20,8 +20,8 @@ Stencil _$StencilFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Stencil {
-  int get id => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
@@ -52,8 +52,8 @@ abstract class $StencilCopyWith<$Res> {
       _$StencilCopyWithImpl<$Res, Stencil>;
   @useResult
   $Res call(
-      {int id,
-      int artistId,
+      {String id,
+      String artistId,
       String title,
       String? description,
       String imageUrl,
@@ -114,11 +114,11 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -215,8 +215,8 @@ abstract class _$$StencilImplCopyWith<$Res> implements $StencilCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
-      int artistId,
+      {String id,
+      String artistId,
       String title,
       String? description,
       String imageUrl,
@@ -276,11 +276,11 @@ class __$$StencilImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -387,9 +387,9 @@ class _$StencilImpl implements _Stencil {
       _$$StencilImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String title;
   @override
@@ -530,8 +530,8 @@ class _$StencilImpl implements _Stencil {
 
 abstract class _Stencil implements Stencil {
   const factory _Stencil(
-      {required final int id,
-      required final int artistId,
+      {required final String id,
+      required final String artistId,
       required final String title,
       final String? description,
       required final String imageUrl,
@@ -554,9 +554,9 @@ abstract class _Stencil implements Stencil {
   factory _Stencil.fromJson(Map<String, dynamic> json) = _$StencilImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get title;
   @override

@@ -817,7 +817,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
     // Fetch available time slots before showing the dialog
     dialogTimeSlotsBloc.add(
       AvailableTimeSlotsEvent.getAvailableTimeSlots(
-        artistId: 1, // TODO: Get actual artist ID from context/state
+        artistId: '', // TODO: Get actual artist ID from context/state
         date: selectedDate,
         durationMinutes: durationMinutes,
       ),
@@ -909,7 +909,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                                   dialogTimeSlotsBloc.add(const AvailableTimeSlotsEvent.resetState());
                                   dialogTimeSlotsBloc.add(
                                     AvailableTimeSlotsEvent.getAvailableTimeSlots(
-                                      artistId: 1,
+                                      artistId: '',
                                       date: newDate,
                                       durationMinutes: durationMinutes,
                                     ),
@@ -925,7 +925,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                       // Available time slots widget
                       Expanded(
                         child: AvailableTimeSlotsWidget(
-                          artistId: 1, // TODO: Get actual artist ID from context/state
+                          artistId: '', // TODO: Get actual artist ID from context/state
                           selectedDate: selectedDate,
                           durationMinutes: durationMinutes,
                           onTimeSlotSelected: (startTime, endTime) {
@@ -1126,7 +1126,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
         // Then fetch available time slots for the new date
         availableTimeSlotsBloc.add(
           AvailableTimeSlotsEvent.getAvailableTimeSlots(
-            artistId: 1, // TODO: Get actual artist ID from context/state
+            artistId: '', // TODO: Get actual artist ID from context/state
             date: selectedDate,
             durationMinutes: durationMinutes,
           ),

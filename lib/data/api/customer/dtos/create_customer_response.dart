@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class CreateCustomerResponse extends Equatable {
-  final int id;
-  final int userId;
+  final String id;
+  final String userId;
   final String firstName;
   final String? lastName;
   final String? contactPhoneNumber;
@@ -28,8 +28,8 @@ class CreateCustomerResponse extends Equatable {
   });
 
   CreateCustomerResponse copyWith({
-    int? id,
-    int? userId,
+    String? id,
+    String? userId,
     String? firstName,
     String? lastName,
     String? contactPhoneNumber,
@@ -70,8 +70,8 @@ class CreateCustomerResponse extends Equatable {
 
   factory CreateCustomerResponse.fromMap(Map<String, dynamic> map) {
     return CreateCustomerResponse(
-      id: map['id']?.toInt() ?? 0,
-      userId: map['userId']?.toInt() ?? 0,
+      id: map['id'] ?? '',
+      userId: map['userId'] ?? '',
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'],
       contactPhoneNumber: map['contactPhoneNumber'],

@@ -137,7 +137,7 @@ class DraggableReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = context.read<AuthBloc>();
-    final customerId = authBloc.state.session.user?.userTypeId ?? 0;
+    final customerId = authBloc.state.session.user?.userTypeId ?? '';
 
     return Container(
       height: 100,

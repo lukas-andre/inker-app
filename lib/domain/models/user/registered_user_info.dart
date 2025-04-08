@@ -24,7 +24,7 @@ class RegisteredUserInfo extends Equatable {
     required this.email,
   });
 
-  final int userId;
+  final String userId;
   final String phoneNumber;
   final String email;
   final UserTypeEnum userType;

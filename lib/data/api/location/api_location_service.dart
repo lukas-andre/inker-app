@@ -66,7 +66,7 @@ class ApiLocationService implements LocationService {
   }
   
   @override
-  Future<List<ArtistLocationDto>> getArtistLocations(String token, int artistId) async {
+  Future<List<ArtistLocationDto>> getArtistLocations(String token, String artistId) async {
     try {
       return await _httpClient.getList(
         path: 'locations/artist/$artistId/locations',
@@ -85,7 +85,7 @@ class ApiLocationService implements LocationService {
   
   @override
   Future<ArtistLocationDto> createArtistLocation(
-      String token, int artistId, CreateArtistLocationRequest request) async {
+      String token, String artistId, CreateArtistLocationRequest request) async {
     try {
       return await _httpClient.post(
         path: 'locations/artist/$artistId/locations',
@@ -105,7 +105,7 @@ class ApiLocationService implements LocationService {
   
   @override
   Future<ArtistLocationDto> updateArtistLocation(
-      String token, int artistId, int locationId, UpdateArtistLocationRequest request) async {
+      String token, String artistId, String locationId, UpdateArtistLocationRequest request) async {
     try {
       return await _httpClient.put(
         path: 'locations/artist/$artistId/locations/$locationId',
@@ -124,7 +124,7 @@ class ApiLocationService implements LocationService {
   }
   
   @override
-  Future<bool> deleteArtistLocation(String token, int artistId, int locationId) async {
+  Future<bool> deleteArtistLocation(String token, String artistId, String locationId) async {
     try {
       // For DELETE endpoints that return a boolean result
       await _httpClient.delete(

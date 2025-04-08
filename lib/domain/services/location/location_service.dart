@@ -7,14 +7,14 @@ abstract class LocationService {
       String token, FindArtistByLocationRequest request);
       
   // Artist location management
-  Future<List<ArtistLocationDto>> getArtistLocations(String token, int artistId);
+  Future<List<ArtistLocationDto>> getArtistLocations(String token, String artistId);
   
   Future<ArtistLocationDto> createArtistLocation(
-      String token, int artistId, CreateArtistLocationRequest request);
+      String token, String artistId, CreateArtistLocationRequest request);
       
   Future<ArtistLocationDto> updateArtistLocation(
-      String token, int artistId, int locationId, UpdateArtistLocationRequest request);
+      String token, String artistId, String locationId, UpdateArtistLocationRequest request);
       
   Future<bool> deleteArtistLocation(
-      String token, int artistId, int locationId);
+      String token, String artistId, String locationId);
 }

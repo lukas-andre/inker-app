@@ -8,8 +8,8 @@ part 'stencil_search_dto.freezed.dart';
 class StencilSearchQueryDto with _$StencilSearchQueryDto {
   const factory StencilSearchQueryDto({
     String? query,
-    List<int>? tagIds,
-    int? artistId,
+    List<String>? tagIds,
+    String? artistId,
     @JsonKey(name: 'status') String? status,
     @Default(false) bool includeHidden,
     @Default('relevance') String sortBy,

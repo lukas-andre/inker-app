@@ -27,7 +27,7 @@ mixin _$CreateWorkDto {
   bool get isFeatured => throw _privateConstructorUsedError;
   int get orderPosition => throw _privateConstructorUsedError;
   bool get isHidden => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
   WorkSource get source => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $CreateWorkDtoCopyWith<$Res> {
       bool isFeatured,
       int orderPosition,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       WorkSource source});
 }
 
@@ -109,7 +109,7 @@ class _$CreateWorkDtoCopyWithImpl<$Res, $Val extends CreateWorkDto>
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       source: null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ abstract class _$$CreateWorkDtoImplCopyWith<$Res>
       bool isFeatured,
       int orderPosition,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       WorkSource source});
 }
 
@@ -191,7 +191,7 @@ class __$$CreateWorkDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       source: null == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -211,7 +211,7 @@ class _$CreateWorkDtoImpl implements _CreateWorkDto {
       this.isFeatured = false,
       this.orderPosition = 0,
       this.isHidden = false,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.source = WorkSource.app})
       : _tagIds = tagIds;
 
@@ -235,9 +235,9 @@ class _$CreateWorkDtoImpl implements _CreateWorkDto {
   @override
   @JsonKey()
   final bool isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -313,7 +313,7 @@ abstract class _CreateWorkDto implements CreateWorkDto {
       final bool isFeatured,
       final int orderPosition,
       final bool isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final WorkSource source}) = _$CreateWorkDtoImpl;
 
   factory _CreateWorkDto.fromJson(Map<String, dynamic> json) =
@@ -334,7 +334,7 @@ abstract class _CreateWorkDto implements CreateWorkDto {
   @override
   bool get isHidden;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
   WorkSource get source;
   @override
@@ -356,7 +356,7 @@ mixin _$UpdateWorkDto {
   bool? get isFeatured => throw _privateConstructorUsedError;
   int? get orderPosition => throw _privateConstructorUsedError;
   bool? get isHidden => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
   WorkSource? get source => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -379,7 +379,7 @@ abstract class $UpdateWorkDtoCopyWith<$Res> {
       bool? isFeatured,
       int? orderPosition,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       WorkSource? source});
 }
 
@@ -438,7 +438,7 @@ class _$UpdateWorkDtoCopyWithImpl<$Res, $Val extends UpdateWorkDto>
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -463,7 +463,7 @@ abstract class _$$UpdateWorkDtoImplCopyWith<$Res>
       bool? isFeatured,
       int? orderPosition,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       WorkSource? source});
 }
 
@@ -520,7 +520,7 @@ class __$$UpdateWorkDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -540,7 +540,7 @@ class _$UpdateWorkDtoImpl implements _UpdateWorkDto {
       this.isFeatured,
       this.orderPosition,
       this.isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.source})
       : _tagIds = tagIds;
 
@@ -561,9 +561,9 @@ class _$UpdateWorkDtoImpl implements _UpdateWorkDto {
   final int? orderPosition;
   @override
   final bool? isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -638,7 +638,7 @@ abstract class _UpdateWorkDto implements UpdateWorkDto {
       final bool? isFeatured,
       final int? orderPosition,
       final bool? isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final WorkSource? source}) = _$UpdateWorkDtoImpl;
 
   factory _UpdateWorkDto.fromJson(Map<String, dynamic> json) =
@@ -659,7 +659,7 @@ abstract class _UpdateWorkDto implements UpdateWorkDto {
   @override
   bool? get isHidden;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
   WorkSource? get source;
   @override

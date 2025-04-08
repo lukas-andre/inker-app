@@ -13,7 +13,7 @@ class ApiAnalyticsService implements AnalyticsService {
 
   @override
   Future<bool?> recordInteraction({
-    required int contentId,
+    required String contentId,
     required ContentType contentType,
     required InteractionType interactionType,
     ViewSource? viewSource,
@@ -63,7 +63,7 @@ class ApiAnalyticsService implements AnalyticsService {
   }
 
   @override
-  Future<void> recordArtistView(int artistId, {String? token}) async {
+  Future<void> recordArtistView(String artistId, {String? token}) async {
     try {
       await _httpClient.post(
         path: '$_basePath/interactions/artist/view',
@@ -77,7 +77,7 @@ class ApiAnalyticsService implements AnalyticsService {
   }
 
   @override
-  Future<void> recordArtistFollow(int artistId, {bool fromContentView = false, String? token}) async {
+  Future<void> recordArtistFollow(String artistId, {bool fromContentView = false, String? token}) async {
     try {
       await _httpClient.post(
         path: '$_basePath/interactions/artist/follow',
@@ -94,7 +94,7 @@ class ApiAnalyticsService implements AnalyticsService {
   }
 
   @override
-  Future<ContentMetrics> getContentMetrics(int contentId, ContentType contentType, {String? token}) async {
+  Future<ContentMetrics> getContentMetrics(String contentId, ContentType contentType, {String? token}) async {
     try {
       final response = await _httpClient.get(
         path: '$_basePath/content/$contentId',
@@ -137,7 +137,7 @@ class ApiAnalyticsService implements AnalyticsService {
   }
 
   @override
-  Future<ArtistMetrics> getArtistMetrics(int artistId, {String? token}) async {
+  Future<ArtistMetrics> getArtistMetrics(String artistId, {String? token}) async {
     try {
       return await _httpClient.get(
         path: '$_basePath/artist/$artistId',
@@ -161,7 +161,7 @@ class ApiAnalyticsService implements AnalyticsService {
 
   @override
   Future<List<ContentMetrics>> getBatchContentMetrics(
-    List<int> contentIds,
+    List<String> contentIds,
     ContentType contentType,
     {String? token}
   ) async {

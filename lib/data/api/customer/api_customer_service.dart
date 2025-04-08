@@ -112,7 +112,7 @@ class ApiCustomerService implements CustomerService {
 
   @override
   Future<Customer> updateProfilePicture(
-      int customerId, XFile image, String token) async {
+      String customerId, XFile image, String token) async {
     try {
       final files = [
         await MultipartFile.fromPath(

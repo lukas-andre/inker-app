@@ -235,7 +235,7 @@ abstract class _AgendaSettings implements AgendaSettings {
 
 /// @nodoc
 mixin _$UnavailableTimeBlock {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
   DateTime get endDate => throw _privateConstructorUsedError;
   String? get reason => throw _privateConstructorUsedError;
@@ -251,7 +251,7 @@ abstract class $UnavailableTimeBlockCopyWith<$Res> {
           $Res Function(UnavailableTimeBlock) then) =
       _$UnavailableTimeBlockCopyWithImpl<$Res, UnavailableTimeBlock>;
   @useResult
-  $Res call({int id, DateTime startDate, DateTime endDate, String? reason});
+  $Res call({String id, DateTime startDate, DateTime endDate, String? reason});
 }
 
 /// @nodoc
@@ -277,7 +277,7 @@ class _$UnavailableTimeBlockCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -302,7 +302,7 @@ abstract class _$$UnavailableTimeBlockImplCopyWith<$Res>
       __$$UnavailableTimeBlockImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, DateTime startDate, DateTime endDate, String? reason});
+  $Res call({String id, DateTime startDate, DateTime endDate, String? reason});
 }
 
 /// @nodoc
@@ -325,7 +325,7 @@ class __$$UnavailableTimeBlockImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -352,7 +352,7 @@ class _$UnavailableTimeBlockImpl implements _UnavailableTimeBlock {
       this.reason});
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime startDate;
   @override
@@ -391,13 +391,13 @@ class _$UnavailableTimeBlockImpl implements _UnavailableTimeBlock {
 
 abstract class _UnavailableTimeBlock implements UnavailableTimeBlock {
   const factory _UnavailableTimeBlock(
-      {required final int id,
+      {required final String id,
       required final DateTime startDate,
       required final DateTime endDate,
       final String? reason}) = _$UnavailableTimeBlockImpl;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get startDate;
   @override

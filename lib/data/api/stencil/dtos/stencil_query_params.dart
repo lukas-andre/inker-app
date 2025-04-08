@@ -10,7 +10,7 @@ class StencilQueryParams with _$StencilQueryParams {
     @Default(10) int limit,
     bool? featured,
     @Default(false) bool includeHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
     String? searchText,
   }) = _StencilQueryParams;
 

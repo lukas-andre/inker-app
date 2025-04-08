@@ -6,13 +6,13 @@ import 'package:inker_studio/data/api/work/dtos/work_search_dto.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 
 abstract class WorkService {
-  Future<List<Work>> getWorksByArtistId(int artistId, WorkQueryParams params, String token);
-  Future<Work> getWorkById(int id, String token);
+  Future<List<Work>> getWorksByArtistId(String artistId, WorkQueryParams params, String token);
+  Future<Work> getWorkById(String id, String token);
   Future<Work> createWork(CreateWorkDto createWorkDto, XFile? imageFile, String token);
-  Future<Work> updateWork(int id, UpdateWorkDto updateWorkDto, XFile? imageFile, String token);
-  Future<void> deleteWork(int id, String token);
-  Future<int> recordWorkView(int id, String token);
-  Future<int> likeWork(int id, String token);
+  Future<Work> updateWork(String id, UpdateWorkDto updateWorkDto, XFile? imageFile, String token);
+  Future<void> deleteWork(String id, String token);
+  Future<int> recordWorkView(String id, String token);
+  Future<int> likeWork(String id, String token);
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);

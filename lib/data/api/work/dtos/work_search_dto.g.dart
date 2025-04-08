@@ -9,10 +9,9 @@ part of 'work_search_dto.dart';
 _$WorkSearchQueryDtoImpl _$$WorkSearchQueryDtoImplFromJson(Map json) =>
     _$WorkSearchQueryDtoImpl(
       query: json['query'] as String?,
-      tagIds: (json['tagIds'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
-      artistId: (json['artistId'] as num?)?.toInt(),
+      tagIds:
+          (json['tagIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      artistId: json['artistId'] as String?,
       onlyFeatured: json['onlyFeatured'] as bool?,
       source: json['source'] as String?,
       includeHidden: json['includeHidden'] as bool? ?? false,
