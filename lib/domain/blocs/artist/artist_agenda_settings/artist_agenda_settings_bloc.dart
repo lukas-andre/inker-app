@@ -53,7 +53,7 @@ class ArtistAgendaSettingsBloc
   }
 
   Future<void> _loadSettings(
-      Emitter<ArtistAgendaSettingsState> emit, int agendaId) async {
+      Emitter<ArtistAgendaSettingsState> emit, String agendaId) async {
     emit(const ArtistAgendaSettingsStateLoading());
 
     try {
@@ -108,7 +108,7 @@ class ArtistAgendaSettingsBloc
   }
 
   Future<void> _loadUnavailableTimes(
-      Emitter<ArtistAgendaSettingsState> emit, int agendaId) async {
+      Emitter<ArtistAgendaSettingsState> emit, String agendaId) async {
     if (state is ArtistAgendaSettingsStateLoaded) {
       emit((state as ArtistAgendaSettingsStateLoaded)
           .copyWith(isLoadingUnavailableTimes: true));
@@ -137,7 +137,7 @@ class ArtistAgendaSettingsBloc
           final timeBlock = UnavailableTimeBlock.fromDynamic(block);
 
           // Only add valid blocks (with valid IDs)
-          if (timeBlock.id > 0) {
+          if (timeBlock.id.isNotEmpty) {
             unavailableTimes.add(timeBlock);
           }
         }
@@ -153,7 +153,7 @@ class ArtistAgendaSettingsBloc
 
   Future<void> _updateWorkingHours(
       Emitter<ArtistAgendaSettingsState> emit,
-      int agendaId,
+      String agendaId,
       String workingHoursStart,
       String workingHoursEnd,
       List<String> workingDays) async {
@@ -217,7 +217,7 @@ class ArtistAgendaSettingsBloc
   }
 
   Future<void> _updateAgendaSettings(Emitter<ArtistAgendaSettingsState> emit,
-      int agendaId, bool isPublic, bool isOpen) async {
+      String agendaId, bool isPublic, bool isOpen) async {
     if (state is ArtistAgendaSettingsStateLoaded) {
       emit((state as ArtistAgendaSettingsStateLoaded).copyWith(isSaving: true));
     } else {
@@ -267,7 +267,7 @@ class ArtistAgendaSettingsBloc
 
   Future<void> _addUnavailableTime(
       Emitter<ArtistAgendaSettingsState> emit,
-      int agendaId,
+      String agendaId,
       DateTime startDate,
       DateTime endDate,
       String? reason) async {
@@ -322,7 +322,7 @@ class ArtistAgendaSettingsBloc
   }
 
   Future<void> _deleteUnavailableTime(Emitter<ArtistAgendaSettingsState> emit,
-      int agendaId, int unavailableTimeId) async {
+      String agendaId, String unavailableTimeId) async {
     if (state is ArtistAgendaSettingsStateLoaded) {
       emit((state as ArtistAgendaSettingsStateLoaded).copyWith(isSaving: true));
     } else {

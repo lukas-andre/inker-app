@@ -9,10 +9,9 @@ part of 'stencil_search_dto.dart';
 _$StencilSearchQueryDtoImpl _$$StencilSearchQueryDtoImplFromJson(Map json) =>
     _$StencilSearchQueryDtoImpl(
       query: json['query'] as String?,
-      tagIds: (json['tagIds'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
-      artistId: (json['artistId'] as num?)?.toInt(),
+      tagIds:
+          (json['tagIds'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      artistId: json['artistId'] as String?,
       status: json['status'] as String?,
       includeHidden: json['includeHidden'] as bool? ?? false,
       sortBy: json['sortBy'] as String? ?? 'relevance',

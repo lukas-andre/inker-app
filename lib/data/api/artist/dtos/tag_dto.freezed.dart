@@ -21,7 +21,7 @@ TagSuggestionResponseDto _$TagSuggestionResponseDtoFromJson(
 
 /// @nodoc
 mixin _$TagSuggestionResponseDto {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int? get count => throw _privateConstructorUsedError;
 
@@ -37,7 +37,7 @@ abstract class $TagSuggestionResponseDtoCopyWith<$Res> {
           $Res Function(TagSuggestionResponseDto) then) =
       _$TagSuggestionResponseDtoCopyWithImpl<$Res, TagSuggestionResponseDto>;
   @useResult
-  $Res call({int id, String name, int? count});
+  $Res call({String id, String name, int? count});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$TagSuggestionResponseDtoCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ abstract class _$$TagSuggestionResponseDtoImplCopyWith<$Res>
       __$$TagSuggestionResponseDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, int? count});
+  $Res call({String id, String name, int? count});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class __$$TagSuggestionResponseDtoImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ class _$TagSuggestionResponseDtoImpl implements _TagSuggestionResponseDto {
       _$$TagSuggestionResponseDtoImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
@@ -173,7 +173,7 @@ class _$TagSuggestionResponseDtoImpl implements _TagSuggestionResponseDto {
 
 abstract class _TagSuggestionResponseDto implements TagSuggestionResponseDto {
   const factory _TagSuggestionResponseDto(
-      {required final int id,
+      {required final String id,
       required final String name,
       final int? count}) = _$TagSuggestionResponseDtoImpl;
 
@@ -181,7 +181,7 @@ abstract class _TagSuggestionResponseDto implements TagSuggestionResponseDto {
       _$TagSuggestionResponseDtoImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override
@@ -358,7 +358,7 @@ TagDto _$TagDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TagDto {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get createdBy => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -375,7 +375,7 @@ abstract class $TagDtoCopyWith<$Res> {
       _$TagDtoCopyWithImpl<$Res, TagDto>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String name,
       String? createdBy,
       DateTime createdAt,
@@ -405,7 +405,7 @@ class _$TagDtoCopyWithImpl<$Res, $Val extends TagDto>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -434,7 +434,7 @@ abstract class _$$TagDtoImplCopyWith<$Res> implements $TagDtoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String name,
       String? createdBy,
       DateTime createdAt,
@@ -462,7 +462,7 @@ class __$$TagDtoImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -497,7 +497,7 @@ class _$TagDtoImpl implements _TagDto {
       _$$TagDtoImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
@@ -548,7 +548,7 @@ class _$TagDtoImpl implements _TagDto {
 
 abstract class _TagDto implements TagDto {
   const factory _TagDto(
-      {required final int id,
+      {required final String id,
       required final String name,
       final String? createdBy,
       required final DateTime createdAt,
@@ -557,7 +557,7 @@ abstract class _TagDto implements TagDto {
   factory _TagDto.fromJson(Map<String, dynamic> json) = _$TagDtoImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override

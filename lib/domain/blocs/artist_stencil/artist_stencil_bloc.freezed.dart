@@ -19,82 +19,87 @@ mixin _$ArtistStencilEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -237,28 +242,33 @@ class _$LoadStencilsImpl implements _LoadStencils {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return loadStencils(includeHidden);
   }
@@ -267,28 +277,28 @@ class _$LoadStencilsImpl implements _LoadStencils {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return loadStencils?.call(includeHidden);
   }
@@ -297,28 +307,28 @@ class _$LoadStencilsImpl implements _LoadStencils {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencils != null) {
@@ -407,7 +417,7 @@ abstract class _$$LoadStencilDetailImplCopyWith<$Res> {
           $Res Function(_$LoadStencilDetailImpl) then) =
       __$$LoadStencilDetailImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId});
+  $Res call({String stencilId});
 }
 
 /// @nodoc
@@ -427,7 +437,7 @@ class __$$LoadStencilDetailImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -438,7 +448,7 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   const _$LoadStencilDetailImpl(this.stencilId);
 
   @override
-  final int stencilId;
+  final String stencilId;
 
   @override
   String toString() {
@@ -468,28 +478,33 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return loadStencilDetail(stencilId);
   }
@@ -498,28 +513,28 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return loadStencilDetail?.call(stencilId);
   }
@@ -528,28 +543,28 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (loadStencilDetail != null) {
@@ -624,10 +639,10 @@ class _$LoadStencilDetailImpl implements _LoadStencilDetail {
 }
 
 abstract class _LoadStencilDetail implements ArtistStencilEvent {
-  const factory _LoadStencilDetail(final int stencilId) =
+  const factory _LoadStencilDetail(final String stencilId) =
       _$LoadStencilDetailImpl;
 
-  int get stencilId;
+  String get stencilId;
   @JsonKey(ignore: true)
   _$$LoadStencilDetailImplCopyWith<_$LoadStencilDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -644,7 +659,7 @@ abstract class _$$CreateStencilImplCopyWith<$Res> {
       String? description,
       bool isFeatured,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile});
 }
 
@@ -686,7 +701,7 @@ class __$$CreateStencilImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
@@ -703,7 +718,7 @@ class _$CreateStencilImpl implements _CreateStencil {
       this.description,
       this.isFeatured = false,
       this.isHidden = false,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.imageFile})
       : _tagIds = tagIds;
 
@@ -717,9 +732,9 @@ class _$CreateStencilImpl implements _CreateStencil {
   @override
   @JsonKey()
   final bool isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -766,28 +781,33 @@ class _$CreateStencilImpl implements _CreateStencil {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return createStencil(
         title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -797,28 +817,28 @@ class _$CreateStencilImpl implements _CreateStencil {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return createStencil?.call(
         title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -828,28 +848,28 @@ class _$CreateStencilImpl implements _CreateStencil {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (createStencil != null) {
@@ -930,14 +950,14 @@ abstract class _CreateStencil implements ArtistStencilEvent {
       final String? description,
       final bool isFeatured,
       final bool isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final XFile? imageFile}) = _$CreateStencilImpl;
 
   String get title;
   String? get description;
   bool get isFeatured;
   bool get isHidden;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   XFile? get imageFile;
   @JsonKey(ignore: true)
   _$$CreateStencilImplCopyWith<_$CreateStencilImpl> get copyWith =>
@@ -951,12 +971,12 @@ abstract class _$$UpdateStencilImplCopyWith<$Res> {
       __$$UpdateStencilImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int stencilId,
+      {String stencilId,
       String? title,
       String? description,
       bool? isFeatured,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile});
 }
 
@@ -983,7 +1003,7 @@ class __$$UpdateStencilImplCopyWithImpl<$Res>
       stencilId: null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -1003,7 +1023,7 @@ class __$$UpdateStencilImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
@@ -1021,12 +1041,12 @@ class _$UpdateStencilImpl implements _UpdateStencil {
       this.description,
       this.isFeatured,
       this.isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.imageFile})
       : _tagIds = tagIds;
 
   @override
-  final int stencilId;
+  final String stencilId;
   @override
   final String? title;
   @override
@@ -1035,9 +1055,9 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   final bool? isFeatured;
   @override
   final bool? isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -1093,28 +1113,33 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return updateStencil(
         stencilId, title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -1124,28 +1149,28 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return updateStencil?.call(
         stencilId, title, description, isFeatured, isHidden, tagIds, imageFile);
@@ -1155,28 +1180,28 @@ class _$UpdateStencilImpl implements _UpdateStencil {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (updateStencil != null) {
@@ -1253,20 +1278,20 @@ class _$UpdateStencilImpl implements _UpdateStencil {
 
 abstract class _UpdateStencil implements ArtistStencilEvent {
   const factory _UpdateStencil(
-      {required final int stencilId,
+      {required final String stencilId,
       final String? title,
       final String? description,
       final bool? isFeatured,
       final bool? isHidden,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       final XFile? imageFile}) = _$UpdateStencilImpl;
 
-  int get stencilId;
+  String get stencilId;
   String? get title;
   String? get description;
   bool? get isFeatured;
   bool? get isHidden;
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   XFile? get imageFile;
   @JsonKey(ignore: true)
   _$$UpdateStencilImplCopyWith<_$UpdateStencilImpl> get copyWith =>
@@ -1279,7 +1304,7 @@ abstract class _$$DeleteStencilImplCopyWith<$Res> {
           _$DeleteStencilImpl value, $Res Function(_$DeleteStencilImpl) then) =
       __$$DeleteStencilImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId});
+  $Res call({String stencilId});
 }
 
 /// @nodoc
@@ -1299,7 +1324,7 @@ class __$$DeleteStencilImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1310,7 +1335,7 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   const _$DeleteStencilImpl(this.stencilId);
 
   @override
-  final int stencilId;
+  final String stencilId;
 
   @override
   String toString() {
@@ -1339,28 +1364,33 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return deleteStencil(stencilId);
   }
@@ -1369,28 +1399,28 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return deleteStencil?.call(stencilId);
   }
@@ -1399,28 +1429,28 @@ class _$DeleteStencilImpl implements _DeleteStencil {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (deleteStencil != null) {
@@ -1495,9 +1525,9 @@ class _$DeleteStencilImpl implements _DeleteStencil {
 }
 
 abstract class _DeleteStencil implements ArtistStencilEvent {
-  const factory _DeleteStencil(final int stencilId) = _$DeleteStencilImpl;
+  const factory _DeleteStencil(final String stencilId) = _$DeleteStencilImpl;
 
-  int get stencilId;
+  String get stencilId;
   @JsonKey(ignore: true)
   _$$DeleteStencilImplCopyWith<_$DeleteStencilImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1579,28 +1609,33 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return toggleFeatured(stencil);
   }
@@ -1609,28 +1644,28 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return toggleFeatured?.call(stencil);
   }
@@ -1639,28 +1674,28 @@ class _$ToggleFeaturedImpl implements _ToggleFeatured {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleFeatured != null) {
@@ -1819,28 +1854,33 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return toggleVisibility(stencil);
   }
@@ -1849,28 +1889,28 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return toggleVisibility?.call(stencil);
   }
@@ -1879,28 +1919,28 @@ class _$ToggleVisibilityImpl implements _ToggleVisibility {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (toggleVisibility != null) {
@@ -1990,7 +2030,7 @@ abstract class _$$RecordViewImplCopyWith<$Res> {
           _$RecordViewImpl value, $Res Function(_$RecordViewImpl) then) =
       __$$RecordViewImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId});
+  $Res call({String stencilId});
 }
 
 /// @nodoc
@@ -2010,7 +2050,7 @@ class __$$RecordViewImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2021,7 +2061,7 @@ class _$RecordViewImpl implements _RecordView {
   const _$RecordViewImpl(this.stencilId);
 
   @override
-  final int stencilId;
+  final String stencilId;
 
   @override
   String toString() {
@@ -2050,28 +2090,33 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return recordView(stencilId);
   }
@@ -2080,28 +2125,28 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return recordView?.call(stencilId);
   }
@@ -2110,28 +2155,28 @@ class _$RecordViewImpl implements _RecordView {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (recordView != null) {
@@ -2206,9 +2251,9 @@ class _$RecordViewImpl implements _RecordView {
 }
 
 abstract class _RecordView implements ArtistStencilEvent {
-  const factory _RecordView(final int stencilId) = _$RecordViewImpl;
+  const factory _RecordView(final String stencilId) = _$RecordViewImpl;
 
-  int get stencilId;
+  String get stencilId;
   @JsonKey(ignore: true)
   _$$RecordViewImplCopyWith<_$RecordViewImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2220,7 +2265,7 @@ abstract class _$$LikeStencilImplCopyWith<$Res> {
           _$LikeStencilImpl value, $Res Function(_$LikeStencilImpl) then) =
       __$$LikeStencilImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId});
+  $Res call({String stencilId});
 }
 
 /// @nodoc
@@ -2240,7 +2285,7 @@ class __$$LikeStencilImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2251,7 +2296,7 @@ class _$LikeStencilImpl implements _LikeStencil {
   const _$LikeStencilImpl(this.stencilId);
 
   @override
-  final int stencilId;
+  final String stencilId;
 
   @override
   String toString() {
@@ -2280,28 +2325,33 @@ class _$LikeStencilImpl implements _LikeStencil {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return likeStencil(stencilId);
   }
@@ -2310,28 +2360,28 @@ class _$LikeStencilImpl implements _LikeStencil {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return likeStencil?.call(stencilId);
   }
@@ -2340,28 +2390,28 @@ class _$LikeStencilImpl implements _LikeStencil {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (likeStencil != null) {
@@ -2436,9 +2486,9 @@ class _$LikeStencilImpl implements _LikeStencil {
 }
 
 abstract class _LikeStencil implements ArtistStencilEvent {
-  const factory _LikeStencil(final int stencilId) = _$LikeStencilImpl;
+  const factory _LikeStencil(final String stencilId) = _$LikeStencilImpl;
 
-  int get stencilId;
+  String get stencilId;
   @JsonKey(ignore: true)
   _$$LikeStencilImplCopyWith<_$LikeStencilImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2510,28 +2560,33 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return getTagSuggestions(prefix);
   }
@@ -2540,28 +2595,28 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return getTagSuggestions?.call(prefix);
   }
@@ -2570,28 +2625,28 @@ class _$GetTagSuggestionsImpl implements _GetTagSuggestions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getTagSuggestions != null) {
@@ -2714,28 +2769,33 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return getPopularTags();
   }
@@ -2744,28 +2804,28 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return getPopularTags?.call();
   }
@@ -2774,28 +2834,28 @@ class _$GetPopularTagsImpl implements _GetPopularTags {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (getPopularTags != null) {
@@ -2938,28 +2998,33 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return createTag(name);
   }
@@ -2968,28 +3033,28 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return createTag?.call(name);
   }
@@ -2998,28 +3063,28 @@ class _$CreateTagImpl implements _CreateTag {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (createTag != null) {
@@ -3108,7 +3173,7 @@ abstract class _$$FilterStencilsByTagImplCopyWith<$Res> {
           $Res Function(_$FilterStencilsByTagImpl) then) =
       __$$FilterStencilsByTagImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int tagId});
+  $Res call({String tagId});
 }
 
 /// @nodoc
@@ -3128,7 +3193,7 @@ class __$$FilterStencilsByTagImplCopyWithImpl<$Res>
       null == tagId
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -3139,7 +3204,7 @@ class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
   const _$FilterStencilsByTagImpl(this.tagId);
 
   @override
-  final int tagId;
+  final String tagId;
 
   @override
   String toString() {
@@ -3168,28 +3233,33 @@ class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool includeHidden) loadStencils,
-    required TResult Function(int stencilId) loadStencilDetail,
-    required TResult Function(String title, String? description,
-            bool isFeatured, bool isHidden, List<int>? tagIds, XFile? imageFile)
+    required TResult Function(String stencilId) loadStencilDetail,
+    required TResult Function(
+            String title,
+            String? description,
+            bool isFeatured,
+            bool isHidden,
+            List<String>? tagIds,
+            XFile? imageFile)
         createStencil,
     required TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)
         updateStencil,
-    required TResult Function(int stencilId) deleteStencil,
+    required TResult Function(String stencilId) deleteStencil,
     required TResult Function(Stencil stencil) toggleFeatured,
     required TResult Function(Stencil stencil) toggleVisibility,
-    required TResult Function(int stencilId) recordView,
-    required TResult Function(int stencilId) likeStencil,
+    required TResult Function(String stencilId) recordView,
+    required TResult Function(String stencilId) likeStencil,
     required TResult Function(String prefix) getTagSuggestions,
     required TResult Function() getPopularTags,
     required TResult Function(String name) createTag,
-    required TResult Function(int tagId) filterStencilsByTag,
+    required TResult Function(String tagId) filterStencilsByTag,
   }) {
     return filterStencilsByTag(tagId);
   }
@@ -3198,28 +3268,28 @@ class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool includeHidden)? loadStencils,
-    TResult? Function(int stencilId)? loadStencilDetail,
+    TResult? Function(String stencilId)? loadStencilDetail,
     TResult? Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult? Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult? Function(int stencilId)? deleteStencil,
+    TResult? Function(String stencilId)? deleteStencil,
     TResult? Function(Stencil stencil)? toggleFeatured,
     TResult? Function(Stencil stencil)? toggleVisibility,
-    TResult? Function(int stencilId)? recordView,
-    TResult? Function(int stencilId)? likeStencil,
+    TResult? Function(String stencilId)? recordView,
+    TResult? Function(String stencilId)? likeStencil,
     TResult? Function(String prefix)? getTagSuggestions,
     TResult? Function()? getPopularTags,
     TResult? Function(String name)? createTag,
-    TResult? Function(int tagId)? filterStencilsByTag,
+    TResult? Function(String tagId)? filterStencilsByTag,
   }) {
     return filterStencilsByTag?.call(tagId);
   }
@@ -3228,28 +3298,28 @@ class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool includeHidden)? loadStencils,
-    TResult Function(int stencilId)? loadStencilDetail,
+    TResult Function(String stencilId)? loadStencilDetail,
     TResult Function(String title, String? description, bool isFeatured,
-            bool isHidden, List<int>? tagIds, XFile? imageFile)?
+            bool isHidden, List<String>? tagIds, XFile? imageFile)?
         createStencil,
     TResult Function(
-            int stencilId,
+            String stencilId,
             String? title,
             String? description,
             bool? isFeatured,
             bool? isHidden,
-            List<int>? tagIds,
+            List<String>? tagIds,
             XFile? imageFile)?
         updateStencil,
-    TResult Function(int stencilId)? deleteStencil,
+    TResult Function(String stencilId)? deleteStencil,
     TResult Function(Stencil stencil)? toggleFeatured,
     TResult Function(Stencil stencil)? toggleVisibility,
-    TResult Function(int stencilId)? recordView,
-    TResult Function(int stencilId)? likeStencil,
+    TResult Function(String stencilId)? recordView,
+    TResult Function(String stencilId)? likeStencil,
     TResult Function(String prefix)? getTagSuggestions,
     TResult Function()? getPopularTags,
     TResult Function(String name)? createTag,
-    TResult Function(int tagId)? filterStencilsByTag,
+    TResult Function(String tagId)? filterStencilsByTag,
     required TResult orElse(),
   }) {
     if (filterStencilsByTag != null) {
@@ -3324,10 +3394,10 @@ class _$FilterStencilsByTagImpl implements _FilterStencilsByTag {
 }
 
 abstract class _FilterStencilsByTag implements ArtistStencilEvent {
-  const factory _FilterStencilsByTag(final int tagId) =
+  const factory _FilterStencilsByTag(final String tagId) =
       _$FilterStencilsByTagImpl;
 
-  int get tagId;
+  String get tagId;
   @JsonKey(ignore: true)
   _$$FilterStencilsByTagImplCopyWith<_$FilterStencilsByTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3346,14 +3416,15 @@ mixin _$ArtistStencilState {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -3368,14 +3439,14 @@ mixin _$ArtistStencilState {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -3390,14 +3461,14 @@ mixin _$ArtistStencilState {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -3530,14 +3601,15 @@ class _$InitialImpl implements _Initial {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -3555,14 +3627,14 @@ class _$InitialImpl implements _Initial {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -3580,14 +3652,14 @@ class _$InitialImpl implements _Initial {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3722,14 +3794,15 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -3747,14 +3820,14 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -3772,14 +3845,14 @@ class _$LoadingImpl implements _Loading {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3946,14 +4019,15 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return loaded(stencils);
@@ -3971,14 +4045,14 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(stencils);
@@ -3996,14 +4070,14 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4143,14 +4217,15 @@ class _$DetailLoadingImpl implements _DetailLoading {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoading();
@@ -4168,14 +4243,14 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoading?.call();
@@ -4193,14 +4268,14 @@ class _$DetailLoadingImpl implements _DetailLoading {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4371,14 +4446,15 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return detailLoaded(stencil);
@@ -4396,14 +4472,14 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return detailLoaded?.call(stencil);
@@ -4421,14 +4497,14 @@ class _$DetailLoadedImpl implements _DetailLoaded {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4568,14 +4644,15 @@ class _$SubmittingImpl implements _Submitting {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return submitting();
@@ -4593,14 +4670,14 @@ class _$SubmittingImpl implements _Submitting {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return submitting?.call();
@@ -4618,14 +4695,14 @@ class _$SubmittingImpl implements _Submitting {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -4797,14 +4874,15 @@ class _$StencilCreatedImpl implements _StencilCreated {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilCreated(stencil);
@@ -4822,14 +4900,14 @@ class _$StencilCreatedImpl implements _StencilCreated {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilCreated?.call(stencil);
@@ -4847,14 +4925,14 @@ class _$StencilCreatedImpl implements _StencilCreated {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5031,14 +5109,15 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilUpdated(stencil);
@@ -5056,14 +5135,14 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilUpdated?.call(stencil);
@@ -5081,14 +5160,14 @@ class _$StencilUpdatedImpl implements _StencilUpdated {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5228,14 +5307,15 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilDeleted();
@@ -5253,14 +5333,14 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilDeleted?.call();
@@ -5278,14 +5358,14 @@ class _$StencilDeletedImpl implements _StencilDeleted {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5379,7 +5459,7 @@ abstract class _$$ViewRecordedImplCopyWith<$Res> {
           _$ViewRecordedImpl value, $Res Function(_$ViewRecordedImpl) then) =
       __$$ViewRecordedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId, int viewCount});
+  $Res call({String stencilId, int viewCount});
 }
 
 /// @nodoc
@@ -5400,7 +5480,7 @@ class __$$ViewRecordedImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == viewCount
           ? _value.viewCount
           : viewCount // ignore: cast_nullable_to_non_nullable
@@ -5415,7 +5495,7 @@ class _$ViewRecordedImpl implements _ViewRecorded {
   const _$ViewRecordedImpl(this.stencilId, this.viewCount);
 
   @override
-  final int stencilId;
+  final String stencilId;
   @override
   final int viewCount;
 
@@ -5456,14 +5536,15 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return viewRecorded(stencilId, viewCount);
@@ -5481,14 +5562,14 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return viewRecorded?.call(stencilId, viewCount);
@@ -5506,14 +5587,14 @@ class _$ViewRecordedImpl implements _ViewRecorded {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5598,10 +5679,10 @@ class _$ViewRecordedImpl implements _ViewRecorded {
 }
 
 abstract class _ViewRecorded implements ArtistStencilState {
-  const factory _ViewRecorded(final int stencilId, final int viewCount) =
+  const factory _ViewRecorded(final String stencilId, final int viewCount) =
       _$ViewRecordedImpl;
 
-  int get stencilId;
+  String get stencilId;
   int get viewCount;
   @JsonKey(ignore: true)
   _$$ViewRecordedImplCopyWith<_$ViewRecordedImpl> get copyWith =>
@@ -5614,7 +5695,7 @@ abstract class _$$StencilLikedImplCopyWith<$Res> {
           _$StencilLikedImpl value, $Res Function(_$StencilLikedImpl) then) =
       __$$StencilLikedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int stencilId, int likeCount});
+  $Res call({String stencilId, int likeCount});
 }
 
 /// @nodoc
@@ -5635,7 +5716,7 @@ class __$$StencilLikedImplCopyWithImpl<$Res>
       null == stencilId
           ? _value.stencilId
           : stencilId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
@@ -5650,7 +5731,7 @@ class _$StencilLikedImpl implements _StencilLiked {
   const _$StencilLikedImpl(this.stencilId, this.likeCount);
 
   @override
-  final int stencilId;
+  final String stencilId;
   @override
   final int likeCount;
 
@@ -5691,14 +5772,15 @@ class _$StencilLikedImpl implements _StencilLiked {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return stencilLiked(stencilId, likeCount);
@@ -5716,14 +5798,14 @@ class _$StencilLikedImpl implements _StencilLiked {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return stencilLiked?.call(stencilId, likeCount);
@@ -5741,14 +5823,14 @@ class _$StencilLikedImpl implements _StencilLiked {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -5833,10 +5915,10 @@ class _$StencilLikedImpl implements _StencilLiked {
 }
 
 abstract class _StencilLiked implements ArtistStencilState {
-  const factory _StencilLiked(final int stencilId, final int likeCount) =
+  const factory _StencilLiked(final String stencilId, final int likeCount) =
       _$StencilLikedImpl;
 
-  int get stencilId;
+  String get stencilId;
   int get likeCount;
   @JsonKey(ignore: true)
   _$$StencilLikedImplCopyWith<_$StencilLikedImpl> get copyWith =>
@@ -5927,14 +6009,15 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return tagSuggestionsLoaded(suggestions);
@@ -5952,14 +6035,14 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return tagSuggestionsLoaded?.call(suggestions);
@@ -5977,14 +6060,14 @@ class _$TagSuggestionsLoadedImpl implements _TagSuggestionsLoaded {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6162,14 +6245,15 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return popularTagsLoaded(popularTags);
@@ -6187,14 +6271,14 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return popularTagsLoaded?.call(popularTags);
@@ -6212,14 +6296,14 @@ class _$PopularTagsLoadedImpl implements _PopularTagsLoaded {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6397,14 +6481,15 @@ class _$TagCreatedImpl implements _TagCreated {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return tagCreated(tag);
@@ -6422,14 +6507,14 @@ class _$TagCreatedImpl implements _TagCreated {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return tagCreated?.call(tag);
@@ -6447,14 +6532,14 @@ class _$TagCreatedImpl implements _TagCreated {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6554,7 +6639,7 @@ abstract class _$$FilteredByTagImplCopyWith<$Res> {
           _$FilteredByTagImpl value, $Res Function(_$FilteredByTagImpl) then) =
       __$$FilteredByTagImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Stencil> stencils, int tagId});
+  $Res call({List<Stencil> stencils, String tagId});
 }
 
 /// @nodoc
@@ -6579,7 +6664,7 @@ class __$$FilteredByTagImplCopyWithImpl<$Res>
       null == tagId
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -6599,7 +6684,7 @@ class _$FilteredByTagImpl implements _FilteredByTag {
   }
 
   @override
-  final int tagId;
+  final String tagId;
 
   @override
   String toString() {
@@ -6637,14 +6722,15 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return filteredByTag(stencils, tagId);
@@ -6662,14 +6748,14 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return filteredByTag?.call(stencils, tagId);
@@ -6687,14 +6773,14 @@ class _$FilteredByTagImpl implements _FilteredByTag {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -6779,11 +6865,11 @@ class _$FilteredByTagImpl implements _FilteredByTag {
 }
 
 abstract class _FilteredByTag implements ArtistStencilState {
-  const factory _FilteredByTag(final List<Stencil> stencils, final int tagId) =
-      _$FilteredByTagImpl;
+  const factory _FilteredByTag(
+      final List<Stencil> stencils, final String tagId) = _$FilteredByTagImpl;
 
   List<Stencil> get stencils;
-  int get tagId;
+  String get tagId;
   @JsonKey(ignore: true)
   _$$FilteredByTagImplCopyWith<_$FilteredByTagImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -6862,14 +6948,15 @@ class _$ErrorImpl implements _Error {
     required TResult Function(Stencil stencil) stencilCreated,
     required TResult Function(Stencil stencil) stencilUpdated,
     required TResult Function() stencilDeleted,
-    required TResult Function(int stencilId, int viewCount) viewRecorded,
-    required TResult Function(int stencilId, int likeCount) stencilLiked,
+    required TResult Function(String stencilId, int viewCount) viewRecorded,
+    required TResult Function(String stencilId, int likeCount) stencilLiked,
     required TResult Function(List<TagSuggestionResponseDto> suggestions)
         tagSuggestionsLoaded,
     required TResult Function(List<TagSuggestionResponseDto> popularTags)
         popularTagsLoaded,
     required TResult Function(TagSuggestionResponseDto tag) tagCreated,
-    required TResult Function(List<Stencil> stencils, int tagId) filteredByTag,
+    required TResult Function(List<Stencil> stencils, String tagId)
+        filteredByTag,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -6887,14 +6974,14 @@ class _$ErrorImpl implements _Error {
     TResult? Function(Stencil stencil)? stencilCreated,
     TResult? Function(Stencil stencil)? stencilUpdated,
     TResult? Function()? stencilDeleted,
-    TResult? Function(int stencilId, int viewCount)? viewRecorded,
-    TResult? Function(int stencilId, int likeCount)? stencilLiked,
+    TResult? Function(String stencilId, int viewCount)? viewRecorded,
+    TResult? Function(String stencilId, int likeCount)? stencilLiked,
     TResult? Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult? Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult? Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult? Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult? Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -6912,14 +6999,14 @@ class _$ErrorImpl implements _Error {
     TResult Function(Stencil stencil)? stencilCreated,
     TResult Function(Stencil stencil)? stencilUpdated,
     TResult Function()? stencilDeleted,
-    TResult Function(int stencilId, int viewCount)? viewRecorded,
-    TResult Function(int stencilId, int likeCount)? stencilLiked,
+    TResult Function(String stencilId, int viewCount)? viewRecorded,
+    TResult Function(String stencilId, int likeCount)? stencilLiked,
     TResult Function(List<TagSuggestionResponseDto> suggestions)?
         tagSuggestionsLoaded,
     TResult Function(List<TagSuggestionResponseDto> popularTags)?
         popularTagsLoaded,
     TResult Function(TagSuggestionResponseDto tag)? tagCreated,
-    TResult Function(List<Stencil> stencils, int tagId)? filteredByTag,
+    TResult Function(List<Stencil> stencils, String tagId)? filteredByTag,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

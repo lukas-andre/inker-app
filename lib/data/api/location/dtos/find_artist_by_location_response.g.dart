@@ -9,8 +9,8 @@ part of 'find_artist_by_location_response.dart';
 _$FindArtistByLocationResponseImpl _$$FindArtistByLocationResponseImplFromJson(
         Map json) =>
     _$FindArtistByLocationResponseImpl(
-      id: (json['id'] as num?)?.toInt(),
-      artistId: (json['artistId'] as num?)?.toInt(),
+      id: json['id'] as String?,
+      artistId: json['artistId'] as String?,
       name: json['name'] as String?,
       country: json['country'] as String?,
       address1: json['address1'] as String?,

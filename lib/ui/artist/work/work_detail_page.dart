@@ -44,7 +44,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   bool _showTagSuggestions = false;
   List<TagSuggestionResponseDto> _tagSuggestions = [];
   List<TagSuggestionResponseDto> _selectedTagsObjects = [];
-  List<int> _selectedTagIds = [];
+  List<String> _selectedTagIds = [];
 
   @override
   void initState() {

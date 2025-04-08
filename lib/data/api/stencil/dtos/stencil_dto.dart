@@ -13,7 +13,7 @@ class CreateStencilDto with _$CreateStencilDto {
     @Default(false) bool isFeatured,
     @Default(0) int orderPosition,
     @Default(false) bool isHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
   }) = _CreateStencilDto;
 
   factory CreateStencilDto.fromJson(Map<String, dynamic> json) =>
@@ -30,7 +30,7 @@ class UpdateStencilDto with _$UpdateStencilDto {
     bool? isFeatured,
     int? orderPosition,
     bool? isHidden,
-    List<int>? tagIds,
+    List<String>? tagIds,
   }) = _UpdateStencilDto;
 
   factory UpdateStencilDto.fromJson(Map<String, dynamic> json) =>

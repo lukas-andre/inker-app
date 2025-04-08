@@ -9,8 +9,8 @@ class CustomerTable implements SqliteTable {
   String getCreateTableQuery() {
     return '''
       CREATE TABLE ${getName()}(
-        id INTEGER PRIMARY KEY,
-        userId INTEGER,
+        id TEXT PRIMARY KEY,
+        userId TEXT,
         firstName TEXT,
         lastName TEXT,
         contactPhoneNumber TEXT,

@@ -9,7 +9,7 @@ part of 'tag_dto.dart';
 _$TagSuggestionResponseDtoImpl _$$TagSuggestionResponseDtoImplFromJson(
         Map json) =>
     _$TagSuggestionResponseDtoImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       name: json['name'] as String,
       count: (json['count'] as num?)?.toInt(),
     );
@@ -45,7 +45,7 @@ Map<String, dynamic> _$$TagSuggestionQueryDtoImplToJson(
     };
 
 _$TagDtoImpl _$$TagDtoImplFromJson(Map json) => _$TagDtoImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       name: json['name'] as String,
       createdBy: json['createdBy'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),

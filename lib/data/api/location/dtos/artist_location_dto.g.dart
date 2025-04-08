@@ -7,8 +7,8 @@ part of 'artist_location_dto.dart';
 // **************************************************************************
 
 ArtistLocationDto _$ArtistLocationDtoFromJson(Map json) => ArtistLocationDto(
-      id: (json['id'] as num?)?.toInt(),
-      artistId: (json['artistId'] as num).toInt(),
+      id: json['id'] as String?,
+      artistId: json['artistId'] as String,
       name: json['name'] as String,
       address1: json['address1'] as String,
       shortAddress1: json['shortAddress1'] as String?,
@@ -73,7 +73,7 @@ Map<String, dynamic> _$ArtistLocationDtoToJson(ArtistLocationDto instance) {
 
 CreateArtistLocationRequest _$CreateArtistLocationRequestFromJson(Map json) =>
     CreateArtistLocationRequest(
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
       name: json['name'] as String,
       address1: json['address1'] as String,
       shortAddress1: json['shortAddress1'] as String?,
@@ -149,7 +149,7 @@ UpdateArtistLocationRequest _$UpdateArtistLocationRequestFromJson(Map json) =>
       googlePlaceId: json['googlePlaceId'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,
       isActive: json['isActive'] as bool?,
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
     );
 
 Map<String, dynamic> _$UpdateArtistLocationRequestToJson(

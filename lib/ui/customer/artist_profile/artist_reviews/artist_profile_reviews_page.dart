@@ -13,12 +13,12 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileReviewsPage extends StatefulWidget {
-  const ArtistProfileReviewsPage({super.key, required int artistId})
+  const ArtistProfileReviewsPage({super.key, required String artistId})
       : _artistId = artistId;
 
-  final int _artistId;
+  final String _artistId;
 
-  static Route route(int artistId) {
+  static Route route(String artistId) {
     return MaterialPageRoute<void>(
         settings: const RouteSettings(name: '/artist-profile-reviews'),
         builder: (_) => ArtistProfileReviewsPage(
@@ -134,7 +134,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = context.read<AuthBloc>();
-    final customerId = authBloc.state.session.user?.userTypeId ?? 0;
+    final customerId = authBloc.state.session.user?.userTypeId ?? '';
 
     return Container(
       height: 100,

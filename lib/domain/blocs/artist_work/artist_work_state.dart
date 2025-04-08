@@ -11,11 +11,11 @@ class ArtistWorkState with _$ArtistWorkState {
   const factory ArtistWorkState.workCreated(Work work) = _WorkCreated;
   const factory ArtistWorkState.workUpdated(Work work) = _WorkUpdated;
   const factory ArtistWorkState.workDeleted() = _WorkDeleted;
-  const factory ArtistWorkState.viewRecorded(int workId, int viewCount) = _ViewRecorded;
-  const factory ArtistWorkState.workLiked(int workId, int likeCount) = _WorkLiked;
+  const factory ArtistWorkState.viewRecorded(String workId, int viewCount) = _ViewRecorded;
+  const factory ArtistWorkState.workLiked(String workId, int likeCount) = _WorkLiked;
   const factory ArtistWorkState.tagSuggestionsLoaded(List<TagSuggestionResponseDto> suggestions) = _TagSuggestionsLoaded;
   const factory ArtistWorkState.popularTagsLoaded(List<TagSuggestionResponseDto> popularTags) = _PopularTagsLoaded;
   const factory ArtistWorkState.tagCreated(TagSuggestionResponseDto tag) = _TagCreated;
-  const factory ArtistWorkState.filteredByTag(List<Work> works, int tagId) = _FilteredByTag;
+  const factory ArtistWorkState.filteredByTag(List<Work> works, String tagId) = _FilteredByTag;
   const factory ArtistWorkState.error(String message) = _Error;
 }

@@ -11,7 +11,7 @@ GetUserBySocialMediaResponse _$GetUserBySocialMediaResponseFromJson(Map json) =>
       email: json['email'] as String,
       username: json['username'] as String,
       userType: json['userType'] as String,
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       logins:

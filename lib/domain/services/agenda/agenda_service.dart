@@ -7,7 +7,7 @@ abstract class AgendaService {
   dynamic get statusValue;
   Future<dynamic> getAgenda();
   Future<GetArtistWorksResponse> getArtistWorks(
-      {required int artistId,
+      {required String artistId,
       required int page,
       required int limit,
       required String token});
@@ -21,12 +21,12 @@ abstract class AgendaService {
 
   Future<AgendaEventDetailResponse> getEvent({
     required String token,
-    required int eventId,
+    required String eventId,
   });
 
   Future<List<EventItem>> getArtistEvents({
     required String token,
-    required int artistId,
+    required String artistId,
     required DateTime startDate,
     required DateTime endDate,
   });
@@ -34,7 +34,7 @@ abstract class AgendaService {
   // New methods for agenda settings
   Future<void> updateWorkingHours({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required String workingHoursStart,
     required String workingHoursEnd,
     required List<String> workingDays,
@@ -42,7 +42,7 @@ abstract class AgendaService {
   
   Future<void> addUnavailableTime({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required DateTime startDate,
     required DateTime endDate,
     String? reason,
@@ -50,31 +50,31 @@ abstract class AgendaService {
   
   Future<List<dynamic>> getUnavailableTime({
     required String token,
-    required int agendaId,
+    required String agendaId,
   });
   
   Future<void> deleteUnavailableTime({
     required String token,
-    required int agendaId,
-    required int unavailableTimeId,
+    required String agendaId,
+    required String unavailableTimeId,
   });
   
   Future<void> updateAgendaSettings({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required bool isPublic,
     required bool isOpen,
   });
   
   Future<Map<String, dynamic>> getAgendaSettings({
     required String token,
-    required int agendaId,
+    required String agendaId,
   });
   
   Future<void> rescheduleEvent({
     required String token,
-    required int agendaId,
-    required int eventId,
+    required String agendaId,
+    required String eventId,
     required DateTime newStartDate,
     required DateTime newEndDate,
     String? reason,
@@ -82,14 +82,14 @@ abstract class AgendaService {
   
   Future<void> updateEventNotes({
     required String token,
-    required int agendaId,
-    required int eventId,
+    required String agendaId,
+    required String eventId,
     required String notes,
   });
   
   Future<List<dynamic>> getArtistAvailability({
     required String token,
-    required int artistId,
+    required String artistId,
     DateTime? fromDate,
     DateTime? toDate,
     int? duration,
@@ -97,31 +97,31 @@ abstract class AgendaService {
   
   Future<List<dynamic>> getQuotationAvailableSlots({
     required String token,
-    required int quotationId,
+    required String quotationId,
   });
   
   Future<List<dynamic>> getArtistAvailableTimeSlots({
     required String token,
-    required int artistId,
+    required String artistId,
     required DateTime date,
     required int durationMinutes,
   });
   
   Future<void> createEvent({
     required String token,
-    required int agendaId,
+    required String agendaId,
     required DateTime start,
     required DateTime end,
     required String title,
     required String info,
     required String color,
     required bool notification,
-    required int customerId,
+    required String customerId,
   });
   
   Future<void> updateEvent({
     required String token,
-    required int eventId,
+    required String eventId,
     required Map<String, dynamic> updatedFields,
   });
 }

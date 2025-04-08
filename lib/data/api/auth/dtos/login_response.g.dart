@@ -7,12 +7,12 @@ part of 'login_response.dart';
 // **************************************************************************
 
 LoginResponse _$LoginResponseFromJson(Map json) => LoginResponse(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
       fullname: json['fullname'] as String,
       userType: json['userType'] as String,
-      userTypeId: (json['userTypeId'] as num).toInt(),
+      userTypeId: json['userTypeId'] as String,
       profileThumbnail: json['profileThumbnail'],
       permission: (json['permission'] as List<dynamic>)
           .map((e) => Permision.fromJson(Map<String, dynamic>.from(e as Map)))

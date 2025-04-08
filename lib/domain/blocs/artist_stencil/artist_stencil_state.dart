@@ -11,11 +11,11 @@ class ArtistStencilState with _$ArtistStencilState {
   const factory ArtistStencilState.stencilCreated(Stencil stencil) = _StencilCreated;
   const factory ArtistStencilState.stencilUpdated(Stencil stencil) = _StencilUpdated;
   const factory ArtistStencilState.stencilDeleted() = _StencilDeleted;
-  const factory ArtistStencilState.viewRecorded(int stencilId, int viewCount) = _ViewRecorded;
-  const factory ArtistStencilState.stencilLiked(int stencilId, int likeCount) = _StencilLiked;
+  const factory ArtistStencilState.viewRecorded(String stencilId, int viewCount) = _ViewRecorded;
+  const factory ArtistStencilState.stencilLiked(String stencilId, int likeCount) = _StencilLiked;
   const factory ArtistStencilState.tagSuggestionsLoaded(List<TagSuggestionResponseDto> suggestions) = _TagSuggestionsLoaded;
   const factory ArtistStencilState.popularTagsLoaded(List<TagSuggestionResponseDto> popularTags) = _PopularTagsLoaded;
   const factory ArtistStencilState.tagCreated(TagSuggestionResponseDto tag) = _TagCreated;
-  const factory ArtistStencilState.filteredByTag(List<Stencil> stencils, int tagId) = _FilteredByTag;
+  const factory ArtistStencilState.filteredByTag(List<Stencil> stencils, String tagId) = _FilteredByTag;
   const factory ArtistStencilState.error(String message) = _Error;
 }

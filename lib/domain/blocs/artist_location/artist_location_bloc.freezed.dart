@@ -16,34 +16,37 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ArtistLocationEvent {
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadLocations,
-    required TResult Function(int artistId, ArtistLocation location)
+    required TResult Function(String artistId) loadLocations,
+    required TResult Function(String artistId, ArtistLocation location)
         createLocation,
     required TResult Function(
-            int artistId, int locationId, ArtistLocation location)
+            String artistId, String locationId, ArtistLocation location)
         updateLocation,
-    required TResult Function(int artistId, int locationId) deleteLocation,
+    required TResult Function(String artistId, String locationId)
+        deleteLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadLocations,
-    TResult? Function(int artistId, ArtistLocation location)? createLocation,
-    TResult? Function(int artistId, int locationId, ArtistLocation location)?
+    TResult? Function(String artistId)? loadLocations,
+    TResult? Function(String artistId, ArtistLocation location)? createLocation,
+    TResult? Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult? Function(int artistId, int locationId)? deleteLocation,
+    TResult? Function(String artistId, String locationId)? deleteLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadLocations,
-    TResult Function(int artistId, ArtistLocation location)? createLocation,
-    TResult Function(int artistId, int locationId, ArtistLocation location)?
+    TResult Function(String artistId)? loadLocations,
+    TResult Function(String artistId, ArtistLocation location)? createLocation,
+    TResult Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult Function(int artistId, int locationId)? deleteLocation,
+    TResult Function(String artistId, String locationId)? deleteLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -84,7 +87,7 @@ abstract class $ArtistLocationEventCopyWith<$Res> {
           ArtistLocationEvent value, $Res Function(ArtistLocationEvent) then) =
       _$ArtistLocationEventCopyWithImpl<$Res, ArtistLocationEvent>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -106,7 +109,7 @@ class _$ArtistLocationEventCopyWithImpl<$Res, $Val extends ArtistLocationEvent>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ) as $Val);
   }
 }
@@ -119,7 +122,7 @@ abstract class _$$LoadLocationsImplCopyWith<$Res>
       __$$LoadLocationsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -139,7 +142,7 @@ class __$$LoadLocationsImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -150,7 +153,7 @@ class _$LoadLocationsImpl implements _LoadLocations {
   const _$LoadLocationsImpl(this.artistId);
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -178,13 +181,14 @@ class _$LoadLocationsImpl implements _LoadLocations {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadLocations,
-    required TResult Function(int artistId, ArtistLocation location)
+    required TResult Function(String artistId) loadLocations,
+    required TResult Function(String artistId, ArtistLocation location)
         createLocation,
     required TResult Function(
-            int artistId, int locationId, ArtistLocation location)
+            String artistId, String locationId, ArtistLocation location)
         updateLocation,
-    required TResult Function(int artistId, int locationId) deleteLocation,
+    required TResult Function(String artistId, String locationId)
+        deleteLocation,
   }) {
     return loadLocations(artistId);
   }
@@ -192,11 +196,12 @@ class _$LoadLocationsImpl implements _LoadLocations {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadLocations,
-    TResult? Function(int artistId, ArtistLocation location)? createLocation,
-    TResult? Function(int artistId, int locationId, ArtistLocation location)?
+    TResult? Function(String artistId)? loadLocations,
+    TResult? Function(String artistId, ArtistLocation location)? createLocation,
+    TResult? Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult? Function(int artistId, int locationId)? deleteLocation,
+    TResult? Function(String artistId, String locationId)? deleteLocation,
   }) {
     return loadLocations?.call(artistId);
   }
@@ -204,11 +209,12 @@ class _$LoadLocationsImpl implements _LoadLocations {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadLocations,
-    TResult Function(int artistId, ArtistLocation location)? createLocation,
-    TResult Function(int artistId, int locationId, ArtistLocation location)?
+    TResult Function(String artistId)? loadLocations,
+    TResult Function(String artistId, ArtistLocation location)? createLocation,
+    TResult Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult Function(int artistId, int locationId)? deleteLocation,
+    TResult Function(String artistId, String locationId)? deleteLocation,
     required TResult orElse(),
   }) {
     if (loadLocations != null) {
@@ -256,10 +262,10 @@ class _$LoadLocationsImpl implements _LoadLocations {
 }
 
 abstract class _LoadLocations implements ArtistLocationEvent {
-  const factory _LoadLocations(final int artistId) = _$LoadLocationsImpl;
+  const factory _LoadLocations(final String artistId) = _$LoadLocationsImpl;
 
   @override
-  int get artistId;
+  String get artistId;
   @override
   @JsonKey(ignore: true)
   _$$LoadLocationsImplCopyWith<_$LoadLocationsImpl> get copyWith =>
@@ -274,7 +280,7 @@ abstract class _$$CreateLocationImplCopyWith<$Res>
       __$$CreateLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId, ArtistLocation location});
+  $Res call({String artistId, ArtistLocation location});
 
   $ArtistLocationCopyWith<$Res> get location;
 }
@@ -297,7 +303,7 @@ class __$$CreateLocationImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -320,7 +326,7 @@ class _$CreateLocationImpl implements _CreateLocation {
   const _$CreateLocationImpl(this.artistId, this.location);
 
   @override
-  final int artistId;
+  final String artistId;
   @override
   final ArtistLocation location;
 
@@ -353,13 +359,14 @@ class _$CreateLocationImpl implements _CreateLocation {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadLocations,
-    required TResult Function(int artistId, ArtistLocation location)
+    required TResult Function(String artistId) loadLocations,
+    required TResult Function(String artistId, ArtistLocation location)
         createLocation,
     required TResult Function(
-            int artistId, int locationId, ArtistLocation location)
+            String artistId, String locationId, ArtistLocation location)
         updateLocation,
-    required TResult Function(int artistId, int locationId) deleteLocation,
+    required TResult Function(String artistId, String locationId)
+        deleteLocation,
   }) {
     return createLocation(artistId, location);
   }
@@ -367,11 +374,12 @@ class _$CreateLocationImpl implements _CreateLocation {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadLocations,
-    TResult? Function(int artistId, ArtistLocation location)? createLocation,
-    TResult? Function(int artistId, int locationId, ArtistLocation location)?
+    TResult? Function(String artistId)? loadLocations,
+    TResult? Function(String artistId, ArtistLocation location)? createLocation,
+    TResult? Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult? Function(int artistId, int locationId)? deleteLocation,
+    TResult? Function(String artistId, String locationId)? deleteLocation,
   }) {
     return createLocation?.call(artistId, location);
   }
@@ -379,11 +387,12 @@ class _$CreateLocationImpl implements _CreateLocation {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadLocations,
-    TResult Function(int artistId, ArtistLocation location)? createLocation,
-    TResult Function(int artistId, int locationId, ArtistLocation location)?
+    TResult Function(String artistId)? loadLocations,
+    TResult Function(String artistId, ArtistLocation location)? createLocation,
+    TResult Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult Function(int artistId, int locationId)? deleteLocation,
+    TResult Function(String artistId, String locationId)? deleteLocation,
     required TResult orElse(),
   }) {
     if (createLocation != null) {
@@ -432,10 +441,11 @@ class _$CreateLocationImpl implements _CreateLocation {
 
 abstract class _CreateLocation implements ArtistLocationEvent {
   const factory _CreateLocation(
-      final int artistId, final ArtistLocation location) = _$CreateLocationImpl;
+          final String artistId, final ArtistLocation location) =
+      _$CreateLocationImpl;
 
   @override
-  int get artistId;
+  String get artistId;
   ArtistLocation get location;
   @override
   @JsonKey(ignore: true)
@@ -451,7 +461,7 @@ abstract class _$$UpdateLocationImplCopyWith<$Res>
       __$$UpdateLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId, int locationId, ArtistLocation location});
+  $Res call({String artistId, String locationId, ArtistLocation location});
 
   $ArtistLocationCopyWith<$Res> get location;
 }
@@ -475,11 +485,11 @@ class __$$UpdateLocationImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == locationId
           ? _value.locationId
           : locationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -502,9 +512,9 @@ class _$UpdateLocationImpl implements _UpdateLocation {
   const _$UpdateLocationImpl(this.artistId, this.locationId, this.location);
 
   @override
-  final int artistId;
+  final String artistId;
   @override
-  final int locationId;
+  final String locationId;
   @override
   final ArtistLocation location;
 
@@ -539,13 +549,14 @@ class _$UpdateLocationImpl implements _UpdateLocation {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadLocations,
-    required TResult Function(int artistId, ArtistLocation location)
+    required TResult Function(String artistId) loadLocations,
+    required TResult Function(String artistId, ArtistLocation location)
         createLocation,
     required TResult Function(
-            int artistId, int locationId, ArtistLocation location)
+            String artistId, String locationId, ArtistLocation location)
         updateLocation,
-    required TResult Function(int artistId, int locationId) deleteLocation,
+    required TResult Function(String artistId, String locationId)
+        deleteLocation,
   }) {
     return updateLocation(artistId, locationId, location);
   }
@@ -553,11 +564,12 @@ class _$UpdateLocationImpl implements _UpdateLocation {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadLocations,
-    TResult? Function(int artistId, ArtistLocation location)? createLocation,
-    TResult? Function(int artistId, int locationId, ArtistLocation location)?
+    TResult? Function(String artistId)? loadLocations,
+    TResult? Function(String artistId, ArtistLocation location)? createLocation,
+    TResult? Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult? Function(int artistId, int locationId)? deleteLocation,
+    TResult? Function(String artistId, String locationId)? deleteLocation,
   }) {
     return updateLocation?.call(artistId, locationId, location);
   }
@@ -565,11 +577,12 @@ class _$UpdateLocationImpl implements _UpdateLocation {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadLocations,
-    TResult Function(int artistId, ArtistLocation location)? createLocation,
-    TResult Function(int artistId, int locationId, ArtistLocation location)?
+    TResult Function(String artistId)? loadLocations,
+    TResult Function(String artistId, ArtistLocation location)? createLocation,
+    TResult Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult Function(int artistId, int locationId)? deleteLocation,
+    TResult Function(String artistId, String locationId)? deleteLocation,
     required TResult orElse(),
   }) {
     if (updateLocation != null) {
@@ -617,12 +630,12 @@ class _$UpdateLocationImpl implements _UpdateLocation {
 }
 
 abstract class _UpdateLocation implements ArtistLocationEvent {
-  const factory _UpdateLocation(final int artistId, final int locationId,
+  const factory _UpdateLocation(final String artistId, final String locationId,
       final ArtistLocation location) = _$UpdateLocationImpl;
 
   @override
-  int get artistId;
-  int get locationId;
+  String get artistId;
+  String get locationId;
   ArtistLocation get location;
   @override
   @JsonKey(ignore: true)
@@ -638,7 +651,7 @@ abstract class _$$DeleteLocationImplCopyWith<$Res>
       __$$DeleteLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int artistId, int locationId});
+  $Res call({String artistId, String locationId});
 }
 
 /// @nodoc
@@ -659,11 +672,11 @@ class __$$DeleteLocationImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == locationId
           ? _value.locationId
           : locationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -674,9 +687,9 @@ class _$DeleteLocationImpl implements _DeleteLocation {
   const _$DeleteLocationImpl(this.artistId, this.locationId);
 
   @override
-  final int artistId;
+  final String artistId;
   @override
-  final int locationId;
+  final String locationId;
 
   @override
   String toString() {
@@ -707,13 +720,14 @@ class _$DeleteLocationImpl implements _DeleteLocation {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadLocations,
-    required TResult Function(int artistId, ArtistLocation location)
+    required TResult Function(String artistId) loadLocations,
+    required TResult Function(String artistId, ArtistLocation location)
         createLocation,
     required TResult Function(
-            int artistId, int locationId, ArtistLocation location)
+            String artistId, String locationId, ArtistLocation location)
         updateLocation,
-    required TResult Function(int artistId, int locationId) deleteLocation,
+    required TResult Function(String artistId, String locationId)
+        deleteLocation,
   }) {
     return deleteLocation(artistId, locationId);
   }
@@ -721,11 +735,12 @@ class _$DeleteLocationImpl implements _DeleteLocation {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadLocations,
-    TResult? Function(int artistId, ArtistLocation location)? createLocation,
-    TResult? Function(int artistId, int locationId, ArtistLocation location)?
+    TResult? Function(String artistId)? loadLocations,
+    TResult? Function(String artistId, ArtistLocation location)? createLocation,
+    TResult? Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult? Function(int artistId, int locationId)? deleteLocation,
+    TResult? Function(String artistId, String locationId)? deleteLocation,
   }) {
     return deleteLocation?.call(artistId, locationId);
   }
@@ -733,11 +748,12 @@ class _$DeleteLocationImpl implements _DeleteLocation {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadLocations,
-    TResult Function(int artistId, ArtistLocation location)? createLocation,
-    TResult Function(int artistId, int locationId, ArtistLocation location)?
+    TResult Function(String artistId)? loadLocations,
+    TResult Function(String artistId, ArtistLocation location)? createLocation,
+    TResult Function(
+            String artistId, String locationId, ArtistLocation location)?
         updateLocation,
-    TResult Function(int artistId, int locationId)? deleteLocation,
+    TResult Function(String artistId, String locationId)? deleteLocation,
     required TResult orElse(),
   }) {
     if (deleteLocation != null) {
@@ -785,12 +801,12 @@ class _$DeleteLocationImpl implements _DeleteLocation {
 }
 
 abstract class _DeleteLocation implements ArtistLocationEvent {
-  const factory _DeleteLocation(final int artistId, final int locationId) =
-      _$DeleteLocationImpl;
+  const factory _DeleteLocation(
+      final String artistId, final String locationId) = _$DeleteLocationImpl;
 
   @override
-  int get artistId;
-  int get locationId;
+  String get artistId;
+  String get locationId;
   @override
   @JsonKey(ignore: true)
   _$$DeleteLocationImplCopyWith<_$DeleteLocationImpl> get copyWith =>

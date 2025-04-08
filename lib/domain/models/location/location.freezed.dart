@@ -20,7 +20,7 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Location {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get address1 => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$Location {
   double get lng => throw _privateConstructorUsedError;
   Viewport get viewport => throw _privateConstructorUsedError;
   GeoPoint get location => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   String? get googlePlaceId => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $LocationCopyWith<$Res> {
       _$LocationCopyWithImpl<$Res, Location>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
@@ -69,7 +69,7 @@ abstract class $LocationCopyWith<$Res> {
       double lng,
       Viewport viewport,
       GeoPoint location,
-      int artistId,
+      String artistId,
       String name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -116,7 +116,7 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -222,7 +222,7 @@ abstract class _$$LocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
@@ -238,7 +238,7 @@ abstract class _$$LocationImplCopyWith<$Res>
       double lng,
       Viewport viewport,
       GeoPoint location,
-      int artistId,
+      String artistId,
       String name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -285,7 +285,7 @@ class __$$LocationImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -349,7 +349,7 @@ class __$$LocationImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -395,7 +395,7 @@ class _$LocationImpl implements _Location {
       _$$LocationImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -427,7 +427,7 @@ class _$LocationImpl implements _Location {
   @override
   final GeoPoint location;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String name;
   @override
@@ -522,7 +522,7 @@ class _$LocationImpl implements _Location {
 
 abstract class _Location implements Location {
   const factory _Location(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String address1,
@@ -538,7 +538,7 @@ abstract class _Location implements Location {
       required final double lng,
       required final Viewport viewport,
       required final GeoPoint location,
-      required final int artistId,
+      required final String artistId,
       required final String name,
       final String? profileThumbnail,
       final String? googlePlaceId}) = _$LocationImpl;
@@ -547,7 +547,7 @@ abstract class _Location implements Location {
       _$LocationImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -579,7 +579,7 @@ abstract class _Location implements Location {
   @override
   GeoPoint get location;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get name;
   @override

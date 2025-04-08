@@ -19,17 +19,17 @@ mixin _$ArtistAgendaSettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -40,17 +40,17 @@ mixin _$ArtistAgendaSettingsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -61,17 +61,17 @@ mixin _$ArtistAgendaSettingsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -185,17 +185,17 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -209,17 +209,17 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -233,17 +233,17 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -325,7 +325,7 @@ abstract class _$$LoadSettingsImplCopyWith<$Res> {
           _$LoadSettingsImpl value, $Res Function(_$LoadSettingsImpl) then) =
       __$$LoadSettingsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int agendaId});
+  $Res call({String agendaId});
 }
 
 /// @nodoc
@@ -345,7 +345,7 @@ class __$$LoadSettingsImplCopyWithImpl<$Res>
       null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -356,7 +356,7 @@ class _$LoadSettingsImpl implements _LoadSettings {
   const _$LoadSettingsImpl(this.agendaId);
 
   @override
-  final int agendaId;
+  final String agendaId;
 
   @override
   String toString() {
@@ -385,17 +385,17 @@ class _$LoadSettingsImpl implements _LoadSettings {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -409,17 +409,17 @@ class _$LoadSettingsImpl implements _LoadSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -433,17 +433,17 @@ class _$LoadSettingsImpl implements _LoadSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -516,9 +516,9 @@ class _$LoadSettingsImpl implements _LoadSettings {
 }
 
 abstract class _LoadSettings implements ArtistAgendaSettingsEvent {
-  const factory _LoadSettings(final int agendaId) = _$LoadSettingsImpl;
+  const factory _LoadSettings(final String agendaId) = _$LoadSettingsImpl;
 
-  int get agendaId;
+  String get agendaId;
   @JsonKey(ignore: true)
   _$$LoadSettingsImplCopyWith<_$LoadSettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -530,7 +530,7 @@ abstract class _$$LoadUnavailableTimesImplCopyWith<$Res> {
           $Res Function(_$LoadUnavailableTimesImpl) then) =
       __$$LoadUnavailableTimesImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int agendaId});
+  $Res call({String agendaId});
 }
 
 /// @nodoc
@@ -551,7 +551,7 @@ class __$$LoadUnavailableTimesImplCopyWithImpl<$Res>
       null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -562,7 +562,7 @@ class _$LoadUnavailableTimesImpl implements _LoadUnavailableTimes {
   const _$LoadUnavailableTimesImpl(this.agendaId);
 
   @override
-  final int agendaId;
+  final String agendaId;
 
   @override
   String toString() {
@@ -593,17 +593,17 @@ class _$LoadUnavailableTimesImpl implements _LoadUnavailableTimes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -617,17 +617,17 @@ class _$LoadUnavailableTimesImpl implements _LoadUnavailableTimes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -641,17 +641,17 @@ class _$LoadUnavailableTimesImpl implements _LoadUnavailableTimes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -724,10 +724,10 @@ class _$LoadUnavailableTimesImpl implements _LoadUnavailableTimes {
 }
 
 abstract class _LoadUnavailableTimes implements ArtistAgendaSettingsEvent {
-  const factory _LoadUnavailableTimes(final int agendaId) =
+  const factory _LoadUnavailableTimes(final String agendaId) =
       _$LoadUnavailableTimesImpl;
 
-  int get agendaId;
+  String get agendaId;
   @JsonKey(ignore: true)
   _$$LoadUnavailableTimesImplCopyWith<_$LoadUnavailableTimesImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -740,7 +740,7 @@ abstract class _$$UpdateWorkingHoursImplCopyWith<$Res> {
       __$$UpdateWorkingHoursImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int agendaId,
+      {String agendaId,
       String workingHoursStart,
       String workingHoursEnd,
       List<String> workingDays});
@@ -767,7 +767,7 @@ class __$$UpdateWorkingHoursImplCopyWithImpl<$Res>
       agendaId: null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       workingHoursStart: null == workingHoursStart
           ? _value.workingHoursStart
           : workingHoursStart // ignore: cast_nullable_to_non_nullable
@@ -795,7 +795,7 @@ class _$UpdateWorkingHoursImpl implements _UpdateWorkingHours {
       : _workingDays = workingDays;
 
   @override
-  final int agendaId;
+  final String agendaId;
   @override
   final String workingHoursStart;
   @override
@@ -843,17 +843,17 @@ class _$UpdateWorkingHoursImpl implements _UpdateWorkingHours {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -868,17 +868,17 @@ class _$UpdateWorkingHoursImpl implements _UpdateWorkingHours {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -893,17 +893,17 @@ class _$UpdateWorkingHoursImpl implements _UpdateWorkingHours {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -978,12 +978,12 @@ class _$UpdateWorkingHoursImpl implements _UpdateWorkingHours {
 
 abstract class _UpdateWorkingHours implements ArtistAgendaSettingsEvent {
   const factory _UpdateWorkingHours(
-      {required final int agendaId,
+      {required final String agendaId,
       required final String workingHoursStart,
       required final String workingHoursEnd,
       required final List<String> workingDays}) = _$UpdateWorkingHoursImpl;
 
-  int get agendaId;
+  String get agendaId;
   String get workingHoursStart;
   String get workingHoursEnd;
   List<String> get workingDays;
@@ -998,7 +998,7 @@ abstract class _$$UpdateAgendaSettingsImplCopyWith<$Res> {
           $Res Function(_$UpdateAgendaSettingsImpl) then) =
       __$$UpdateAgendaSettingsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int agendaId, bool isPublic, bool isOpen});
+  $Res call({String agendaId, bool isPublic, bool isOpen});
 }
 
 /// @nodoc
@@ -1021,7 +1021,7 @@ class __$$UpdateAgendaSettingsImplCopyWithImpl<$Res>
       agendaId: null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       isPublic: null == isPublic
           ? _value.isPublic
           : isPublic // ignore: cast_nullable_to_non_nullable
@@ -1041,7 +1041,7 @@ class _$UpdateAgendaSettingsImpl implements _UpdateAgendaSettings {
       {required this.agendaId, required this.isPublic, required this.isOpen});
 
   @override
-  final int agendaId;
+  final String agendaId;
   @override
   final bool isPublic;
   @override
@@ -1079,17 +1079,17 @@ class _$UpdateAgendaSettingsImpl implements _UpdateAgendaSettings {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -1103,17 +1103,17 @@ class _$UpdateAgendaSettingsImpl implements _UpdateAgendaSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1127,17 +1127,17 @@ class _$UpdateAgendaSettingsImpl implements _UpdateAgendaSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1211,11 +1211,11 @@ class _$UpdateAgendaSettingsImpl implements _UpdateAgendaSettings {
 
 abstract class _UpdateAgendaSettings implements ArtistAgendaSettingsEvent {
   const factory _UpdateAgendaSettings(
-      {required final int agendaId,
+      {required final String agendaId,
       required final bool isPublic,
       required final bool isOpen}) = _$UpdateAgendaSettingsImpl;
 
-  int get agendaId;
+  String get agendaId;
   bool get isPublic;
   bool get isOpen;
   @JsonKey(ignore: true)
@@ -1230,7 +1230,7 @@ abstract class _$$AddUnavailableTimeImplCopyWith<$Res> {
       __$$AddUnavailableTimeImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int agendaId, DateTime startDate, DateTime endDate, String? reason});
+      {String agendaId, DateTime startDate, DateTime endDate, String? reason});
 }
 
 /// @nodoc
@@ -1254,7 +1254,7 @@ class __$$AddUnavailableTimeImplCopyWithImpl<$Res>
       agendaId: null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -1281,7 +1281,7 @@ class _$AddUnavailableTimeImpl implements _AddUnavailableTime {
       this.reason});
 
   @override
-  final int agendaId;
+  final String agendaId;
   @override
   final DateTime startDate;
   @override
@@ -1322,17 +1322,17 @@ class _$AddUnavailableTimeImpl implements _AddUnavailableTime {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -1346,17 +1346,17 @@ class _$AddUnavailableTimeImpl implements _AddUnavailableTime {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1370,17 +1370,17 @@ class _$AddUnavailableTimeImpl implements _AddUnavailableTime {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1454,12 +1454,12 @@ class _$AddUnavailableTimeImpl implements _AddUnavailableTime {
 
 abstract class _AddUnavailableTime implements ArtistAgendaSettingsEvent {
   const factory _AddUnavailableTime(
-      {required final int agendaId,
+      {required final String agendaId,
       required final DateTime startDate,
       required final DateTime endDate,
       final String? reason}) = _$AddUnavailableTimeImpl;
 
-  int get agendaId;
+  String get agendaId;
   DateTime get startDate;
   DateTime get endDate;
   String? get reason;
@@ -1475,7 +1475,7 @@ abstract class _$$DeleteUnavailableTimeImplCopyWith<$Res> {
           $Res Function(_$DeleteUnavailableTimeImpl) then) =
       __$$DeleteUnavailableTimeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int agendaId, int unavailableTimeId});
+  $Res call({String agendaId, String unavailableTimeId});
 }
 
 /// @nodoc
@@ -1497,11 +1497,11 @@ class __$$DeleteUnavailableTimeImplCopyWithImpl<$Res>
       agendaId: null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       unavailableTimeId: null == unavailableTimeId
           ? _value.unavailableTimeId
           : unavailableTimeId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1513,9 +1513,9 @@ class _$DeleteUnavailableTimeImpl implements _DeleteUnavailableTime {
       {required this.agendaId, required this.unavailableTimeId});
 
   @override
-  final int agendaId;
+  final String agendaId;
   @override
-  final int unavailableTimeId;
+  final String unavailableTimeId;
 
   @override
   String toString() {
@@ -1547,17 +1547,17 @@ class _$DeleteUnavailableTimeImpl implements _DeleteUnavailableTime {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -1571,17 +1571,17 @@ class _$DeleteUnavailableTimeImpl implements _DeleteUnavailableTime {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1595,17 +1595,17 @@ class _$DeleteUnavailableTimeImpl implements _DeleteUnavailableTime {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1679,11 +1679,11 @@ class _$DeleteUnavailableTimeImpl implements _DeleteUnavailableTime {
 
 abstract class _DeleteUnavailableTime implements ArtistAgendaSettingsEvent {
   const factory _DeleteUnavailableTime(
-      {required final int agendaId,
-      required final int unavailableTimeId}) = _$DeleteUnavailableTimeImpl;
+      {required final String agendaId,
+      required final String unavailableTimeId}) = _$DeleteUnavailableTimeImpl;
 
-  int get agendaId;
-  int get unavailableTimeId;
+  String get agendaId;
+  String get unavailableTimeId;
   @JsonKey(ignore: true)
   _$$DeleteUnavailableTimeImplCopyWith<_$DeleteUnavailableTimeImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1766,17 +1766,17 @@ class _$SettingsLoadedImpl implements _SettingsLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -1790,17 +1790,17 @@ class _$SettingsLoadedImpl implements _SettingsLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1814,17 +1814,17 @@ class _$SettingsLoadedImpl implements _SettingsLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -1985,17 +1985,17 @@ class _$UnavailableTimesLoadedImpl implements _UnavailableTimesLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -2009,17 +2009,17 @@ class _$UnavailableTimesLoadedImpl implements _UnavailableTimesLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -2033,17 +2033,17 @@ class _$UnavailableTimesLoadedImpl implements _UnavailableTimesLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -2191,17 +2191,17 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(int agendaId) loadSettings,
-    required TResult Function(int agendaId) loadUnavailableTimes,
-    required TResult Function(int agendaId, String workingHoursStart,
+    required TResult Function(String agendaId) loadSettings,
+    required TResult Function(String agendaId) loadUnavailableTimes,
+    required TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)
         updateWorkingHours,
-    required TResult Function(int agendaId, bool isPublic, bool isOpen)
+    required TResult Function(String agendaId, bool isPublic, bool isOpen)
         updateAgendaSettings,
-    required TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)
+    required TResult Function(String agendaId, DateTime startDate,
+            DateTime endDate, String? reason)
         addUnavailableTime,
-    required TResult Function(int agendaId, int unavailableTimeId)
+    required TResult Function(String agendaId, String unavailableTimeId)
         deleteUnavailableTime,
     required TResult Function(AgendaSettings settings) settingsLoaded,
     required TResult Function(List<UnavailableTimeBlock> unavailableTimes)
@@ -2215,17 +2215,17 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(int agendaId)? loadSettings,
-    TResult? Function(int agendaId)? loadUnavailableTimes,
-    TResult? Function(int agendaId, String workingHoursStart,
+    TResult? Function(String agendaId)? loadSettings,
+    TResult? Function(String agendaId)? loadUnavailableTimes,
+    TResult? Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult? Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult? Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult? Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult? Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult? Function(int agendaId, int unavailableTimeId)?
+    TResult? Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult? Function(AgendaSettings settings)? settingsLoaded,
     TResult? Function(List<UnavailableTimeBlock> unavailableTimes)?
@@ -2239,17 +2239,17 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(int agendaId)? loadSettings,
-    TResult Function(int agendaId)? loadUnavailableTimes,
-    TResult Function(int agendaId, String workingHoursStart,
+    TResult Function(String agendaId)? loadSettings,
+    TResult Function(String agendaId)? loadUnavailableTimes,
+    TResult Function(String agendaId, String workingHoursStart,
             String workingHoursEnd, List<String> workingDays)?
         updateWorkingHours,
-    TResult Function(int agendaId, bool isPublic, bool isOpen)?
+    TResult Function(String agendaId, bool isPublic, bool isOpen)?
         updateAgendaSettings,
-    TResult Function(
-            int agendaId, DateTime startDate, DateTime endDate, String? reason)?
+    TResult Function(String agendaId, DateTime startDate, DateTime endDate,
+            String? reason)?
         addUnavailableTime,
-    TResult Function(int agendaId, int unavailableTimeId)?
+    TResult Function(String agendaId, String unavailableTimeId)?
         deleteUnavailableTime,
     TResult Function(AgendaSettings settings)? settingsLoaded,
     TResult Function(List<UnavailableTimeBlock> unavailableTimes)?

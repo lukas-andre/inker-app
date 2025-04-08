@@ -25,12 +25,12 @@ class LoginResponse extends Equatable {
     required this.expiresIn,
   });
 
-  final int id;
+  final String id;
   final String email;
   final String username;
   final String fullname;
   final String userType;
-  final int userTypeId;
+  final String userTypeId;
   final dynamic profileThumbnail;
   final List<Permision> permission;
   final String accessToken;

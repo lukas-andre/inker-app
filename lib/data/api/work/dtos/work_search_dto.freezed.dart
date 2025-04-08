@@ -21,8 +21,8 @@ WorkSearchQueryDto _$WorkSearchQueryDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$WorkSearchQueryDto {
   String? get query => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   bool? get onlyFeatured => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
   bool get includeHidden => throw _privateConstructorUsedError;
@@ -44,8 +44,8 @@ abstract class $WorkSearchQueryDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String? query,
-      List<int>? tagIds,
-      int? artistId,
+      List<String>? tagIds,
+      String? artistId,
       bool? onlyFeatured,
       String? source,
       bool includeHidden,
@@ -85,11 +85,11 @@ class _$WorkSearchQueryDtoCopyWithImpl<$Res, $Val extends WorkSearchQueryDto>
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       onlyFeatured: freezed == onlyFeatured
           ? _value.onlyFeatured
           : onlyFeatured // ignore: cast_nullable_to_non_nullable
@@ -128,8 +128,8 @@ abstract class _$$WorkSearchQueryDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? query,
-      List<int>? tagIds,
-      int? artistId,
+      List<String>? tagIds,
+      String? artistId,
       bool? onlyFeatured,
       String? source,
       bool includeHidden,
@@ -167,11 +167,11 @@ class __$$WorkSearchQueryDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       onlyFeatured: freezed == onlyFeatured
           ? _value.onlyFeatured
           : onlyFeatured // ignore: cast_nullable_to_non_nullable
@@ -205,7 +205,7 @@ class __$$WorkSearchQueryDtoImplCopyWithImpl<$Res>
 class _$WorkSearchQueryDtoImpl implements _WorkSearchQueryDto {
   const _$WorkSearchQueryDtoImpl(
       {this.query,
-      final List<int>? tagIds,
+      final List<String>? tagIds,
       this.artistId,
       this.onlyFeatured,
       this.source,
@@ -220,9 +220,9 @@ class _$WorkSearchQueryDtoImpl implements _WorkSearchQueryDto {
 
   @override
   final String? query;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -231,7 +231,7 @@ class _$WorkSearchQueryDtoImpl implements _WorkSearchQueryDto {
   }
 
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   final bool? onlyFeatured;
   @override
@@ -305,8 +305,8 @@ class _$WorkSearchQueryDtoImpl implements _WorkSearchQueryDto {
 abstract class _WorkSearchQueryDto implements WorkSearchQueryDto {
   const factory _WorkSearchQueryDto(
       {final String? query,
-      final List<int>? tagIds,
-      final int? artistId,
+      final List<String>? tagIds,
+      final String? artistId,
       final bool? onlyFeatured,
       final String? source,
       final bool includeHidden,
@@ -320,9 +320,9 @@ abstract class _WorkSearchQueryDto implements WorkSearchQueryDto {
   @override
   String? get query;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   bool? get onlyFeatured;
   @override

@@ -53,7 +53,7 @@ class AppRoutes {
 
     if (settings.name == '/agendaEventDetail') {
       final args = settings.arguments;
-      if (args is int) {
+      if (args is String) {
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider(
@@ -344,7 +344,7 @@ class AppRoutes {
     if (settings.name == '/appointmentDetail') {
       final args = settings.arguments as Map<String, dynamic>;
       if (args.containsKey('appointmentId')) {
-        final appointmentId = args['appointmentId'] as int;
+        final appointmentId = args['appointmentId'] as String;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => AppointmentBloc(

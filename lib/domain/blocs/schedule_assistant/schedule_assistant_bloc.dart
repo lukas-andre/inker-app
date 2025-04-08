@@ -33,7 +33,7 @@ class ScheduleAssistantBloc
   }
 
   Future<void> _fetchEvents(
-      Emitter<ScheduleAssistantState> emit, int artistId) async {
+      Emitter<ScheduleAssistantState> emit, String artistId) async {
     emit(const ScheduleAssistantState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();

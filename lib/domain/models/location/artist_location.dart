@@ -7,8 +7,8 @@ part 'artist_location.g.dart';
 @freezed
 class ArtistLocation with _$ArtistLocation {
   const factory ArtistLocation({
-    int? id,
-    required int artistId,
+    String? id,
+    required String artistId,
     required String name,
     required String address1,
     String? shortAddress1,

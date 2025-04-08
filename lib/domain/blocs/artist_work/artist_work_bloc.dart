@@ -73,7 +73,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
 
   Future<void> _loadWorkDetail(
-      int workId, Emitter<ArtistWorkState> emit) async {
+      String workId, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.detailLoading());
     try {
       final session = await _sessionService.getActiveSession();
@@ -95,7 +95,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
       String? description,
       bool isFeatured,
       bool isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       WorkSource source,
       Emitter<ArtistWorkState> emit) async {
@@ -128,12 +128,12 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
 
   Future<void> _updateWork(
-      int workId,
+      String workId,
       String? title,
       String? description,
       bool? isFeatured,
       bool? isHidden,
-      List<int>? tagIds,
+      List<String>? tagIds,
       XFile? imageFile,
       WorkSource? source,
       Emitter<ArtistWorkState> emit) async {
@@ -166,7 +166,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
 
   Future<void> _deleteWork(
-      int workId, Emitter<ArtistWorkState> emit) async {
+      String workId, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.submitting());
     try {
       final session = await _sessionService.getActiveSession();
@@ -236,7 +236,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
 
   Future<void> _recordView(
-      int workId, Emitter<ArtistWorkState> emit) async {
+      String workId, Emitter<ArtistWorkState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -253,7 +253,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
 
   Future<void> _likeWork(
-      int workId, Emitter<ArtistWorkState> emit) async {
+      String workId, Emitter<ArtistWorkState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -320,7 +320,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
   }
   
   Future<void> _filterWorksByTag(
-      int tagId, Emitter<ArtistWorkState> emit) async {
+      String tagId, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.loading());
     try {
       final session = await _sessionService.getActiveSession();

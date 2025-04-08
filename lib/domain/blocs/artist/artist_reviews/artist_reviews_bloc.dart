@@ -20,7 +20,7 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   final LocalSessionService _localSessionService;
   final ScrollController scrollController = ScrollController();
   final Paginator _paginator = Paginator(limit: 5);
-  int? _currentArtistId;
+  String? _currentArtistId;
 
   ArtistReviewsBloc(
       {required ReviewService reviewService,
@@ -39,15 +39,15 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
         loadMoreReviews: () => _loadMoreReviews(emit),
         loading: () => _loading(emit),
         noMoreData: () => _noMoreData(emit),
-        reviewLiked: (int reviewId, int customerId) =>
+        reviewLiked: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, true, false, emit),
-        reviewDisliked: (int reviewId, int customerId) =>
+        reviewDisliked: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, false, false, emit),
-        reviewLikeRemoved: (int reviewId, int customerId) =>
+        reviewLikeRemoved: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, true, true, emit),
-        reviewDislikedRemoved: (int reviewId, int customerId) =>
+        reviewDislikedRemoved: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, false, true, emit),
-        switchReviewReaction: (int reviewId, int customerId, bool liked,
+        switchReviewReaction: (String reviewId, String customerId, bool liked,
                 bool disliked) =>
             _updateReviewReaction(reviewId, customerId, liked, disliked, emit,
                 switchReaction: true),
@@ -74,7 +74,7 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   }
 
   Future<void> _loadReviews(
-      int artistId, Emitter<ArtistReviewsState> emit) async {
+      String artistId, Emitter<ArtistReviewsState> emit) async {
     _currentArtistId = artistId;
 
     if (state is ArtistReviewsLoaded || state is ArtistReviewsLoading) {
@@ -87,7 +87,7 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   }
 
   Future<void> _fetchReviews(
-    int artistId,
+    String artistId,
     Emitter<ArtistReviewsState> emit,
   ) async {
     add(const ArtistReviewsEvent.loading());
@@ -137,8 +137,8 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
 
   void _configureReviews({
     List<ReviewItem>? reviews,
-    required Map<int, Reactions> reviewReactions,
-    required Map<int, Reaction> customerReactions,
+    required Map<String, Reactions> reviewReactions,
+    required Map<String, Reaction> customerReactions,
   }) {
     reviews?.forEach((review) {
       final id = review.id!;
@@ -157,8 +157,8 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   }
 
   void _loadReviewsSuccess(
-      Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews,
       Emitter<ArtistReviewsState> emit) {
     emit(ArtistReviewsState.loaded(
@@ -200,11 +200,11 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
         reviews: state.reviews));
   }
 
-  Future<void> _updateReviewReaction(int reviewId, int customerId, bool like,
+  Future<void> _updateReviewReaction(String reviewId, String customerId, bool like,
       bool remove, Emitter<ArtistReviewsState> emit,
       {bool switchReaction = false}) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-    Map<int, Reaction> customerReactions = Map.from(state.customerReactions);
+    Map<String, Reactions> reviewReactions = Map.from(state.reviewReactions);
+    Map<String, Reaction> customerReactions = Map.from(state.customerReactions);
 
     _updateReactions(reviewReactions, customerReactions, reviewId, like, remove,
         switchReaction);
@@ -239,9 +239,9 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   }
 
   void _updateReactions(
-    Map<int, Reactions> reviewReactions,
-    Map<int, Reaction> customerReactions,
-    int reviewId,
+    Map<String, Reactions> reviewReactions,
+    Map<String, Reaction> customerReactions,
+    String reviewId,
     bool like,
     bool remove,
     bool switchReaction,
@@ -283,8 +283,8 @@ class ArtistReviewsBloc extends Bloc<ArtistReviewsEvent, ArtistReviewsState> {
   }
 
   void _updateCustomerReaction(
-    Map<int, Reaction> customerReactions,
-    int reviewId,
+    Map<String, Reaction> customerReactions,
+    String reviewId,
     bool like,
     bool remove, {
     bool switchReaction = false,

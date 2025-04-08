@@ -14,7 +14,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CreateQuotationPage extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   final Stencil? stencil; // Stencil opcional para cotización directa
 
   const CreateQuotationPage({
@@ -28,7 +28,7 @@ class CreateQuotationPage extends StatefulWidget {
 
   static const String routeName = '/create-quotation';
 
-  static Route<dynamic> route({required int artistId, Stencil? stencil}) {
+  static Route<dynamic> route({required String artistId, Stencil? stencil}) {
     return MaterialPageRoute<dynamic>(
       settings: const RouteSettings(name: routeName),
       builder: (BuildContext context) => CreateQuotationPage(
@@ -365,10 +365,10 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
     }
 
     final quotation = Quotation(
-      id: 0,
+      id: '',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      customerId: 1,
+      customerId: '',
       artistId: widget.artistId,
       description: _descriptionController.text + 
           (widget.stencil != null ? '\n\nCotización para stencil ID: ${widget.stencil!.id}' : ''),

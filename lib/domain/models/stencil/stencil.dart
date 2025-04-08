@@ -10,8 +10,8 @@ part 'stencil.g.dart';
 @freezed
 class Stencil with _$Stencil {
   const factory Stencil({
-    required int id,
-    required int artistId,
+    required String id,
+    required String artistId,
     required String title,
     String? description,
     required String imageUrl,

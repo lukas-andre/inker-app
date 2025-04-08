@@ -20,10 +20,10 @@ enum AppointmentStatus {
 @freezed
 class Appointment with _$Appointment {
   const factory Appointment({
-    required int id,
-    required int eventId,
-    required int customerId,
-    required int artistId,
+    required String id,
+    required String eventId,
+    required String customerId,
+    required String artistId,
     required String title,
     required String info,
     required DateTime startDate,
@@ -34,7 +34,7 @@ class Appointment with _$Appointment {
     required String color,
     required bool notification,
     required bool done,
-    int? quotationId,
+    String? quotationId,
     String? cancelationReason,
     WorkEvidence? workEvidence,
     DateTime? createdAt,

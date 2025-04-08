@@ -14,10 +14,10 @@ String getCustomersToJson(List<CustomerDTO> data) =>
 @freezed
 class CustomerDTO with _$CustomerDTO {
   const factory CustomerDTO({
-    required int id,
+    required String id,
     required String createdAt,
     required String updatedAt,
-    required int userId,
+    required String userId,
     required String firstName,
     required String lastName,
     required String contactEmail,

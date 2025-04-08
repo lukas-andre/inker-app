@@ -25,8 +25,8 @@ class CreateArtistUserResponse {
     required this.contact,
   });
 
-  final int id;
-  final int userId;
+  final String id;
+  final String userId;
   final String username;
   final String firstName;
   final String lastName;
@@ -57,7 +57,7 @@ class Contact {
   final String? phone;
   final String? phoneDialCode;
   final String? phoneCountryIsoCode;
-  final int? id;
+  final String? id;
 
   factory Contact.fromJson(Map<String, dynamic> json) =>
       _$ContactFromJson(json);

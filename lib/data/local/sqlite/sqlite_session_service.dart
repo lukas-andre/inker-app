@@ -133,7 +133,7 @@ class SqliteSessionService extends LocalSessionService {
   @override
   Future<Session?> newGoogleSession(firebase_auth.User? googleUser) async {
     User user = User(
-      id: googleUser.hashCode,
+      id: googleUser.hashCode.toString(),
       uid: googleUser!.uid,
       fullname: googleUser.displayName,
       email: googleUser.email,

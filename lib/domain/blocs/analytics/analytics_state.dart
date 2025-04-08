@@ -25,7 +25,7 @@ class AnalyticsState with _$AnalyticsState {
 
   /// Content liked status
   const factory AnalyticsState.contentLikeUpdated({
-    required int contentId,
+    required String contentId,
     required ContentType contentType,
     required bool isLiked,
     required int likeCount,

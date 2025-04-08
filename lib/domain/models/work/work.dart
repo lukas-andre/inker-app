@@ -10,8 +10,8 @@ part 'work.g.dart';
 @freezed
 class Work with _$Work {
   const factory Work({
-    required int id,
-    required int artistId,
+    required String id,
+    required String artistId,
     required String title,
     String? description,
     required String imageUrl,

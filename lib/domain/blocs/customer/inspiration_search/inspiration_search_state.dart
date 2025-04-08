@@ -62,7 +62,7 @@ class InspirationSearchState with _$InspirationSearchState {
     required List<Work> works,
     required List<Stencil> stencils,
     required ContentType contentType,
-    required List<int> selectedTagIds,
+    required List<String> selectedTagIds,
     required String searchQuery,
     required SortType sortType,
     required int currentWorkPage,

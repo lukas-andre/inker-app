@@ -27,7 +27,7 @@ mixin _$CreateStencilDto {
   bool get isFeatured => throw _privateConstructorUsedError;
   int get orderPosition => throw _privateConstructorUsedError;
   bool get isHidden => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +49,7 @@ abstract class $CreateStencilDtoCopyWith<$Res> {
       bool isFeatured,
       int orderPosition,
       bool isHidden,
-      List<int>? tagIds});
+      List<String>? tagIds});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class _$CreateStencilDtoCopyWithImpl<$Res, $Val extends CreateStencilDto>
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -127,7 +127,7 @@ abstract class _$$CreateStencilDtoImplCopyWith<$Res>
       bool isFeatured,
       int orderPosition,
       bool isHidden,
-      List<int>? tagIds});
+      List<String>? tagIds});
 }
 
 /// @nodoc
@@ -182,7 +182,7 @@ class __$$CreateStencilDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
     ));
   }
 }
@@ -198,7 +198,7 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
       this.isFeatured = false,
       this.orderPosition = 0,
       this.isHidden = false,
-      final List<int>? tagIds})
+      final List<String>? tagIds})
       : _tagIds = tagIds;
 
   factory _$CreateStencilDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -221,9 +221,9 @@ class _$CreateStencilDtoImpl implements _CreateStencilDto {
   @override
   @JsonKey()
   final bool isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -294,7 +294,7 @@ abstract class _CreateStencilDto implements CreateStencilDto {
       final bool isFeatured,
       final int orderPosition,
       final bool isHidden,
-      final List<int>? tagIds}) = _$CreateStencilDtoImpl;
+      final List<String>? tagIds}) = _$CreateStencilDtoImpl;
 
   factory _CreateStencilDto.fromJson(Map<String, dynamic> json) =
       _$CreateStencilDtoImpl.fromJson;
@@ -314,7 +314,7 @@ abstract class _CreateStencilDto implements CreateStencilDto {
   @override
   bool get isHidden;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
   @JsonKey(ignore: true)
   _$$CreateStencilDtoImplCopyWith<_$CreateStencilDtoImpl> get copyWith =>
@@ -334,7 +334,7 @@ mixin _$UpdateStencilDto {
   bool? get isFeatured => throw _privateConstructorUsedError;
   int? get orderPosition => throw _privateConstructorUsedError;
   bool? get isHidden => throw _privateConstructorUsedError;
-  List<int>? get tagIds => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -356,7 +356,7 @@ abstract class $UpdateStencilDtoCopyWith<$Res> {
       bool? isFeatured,
       int? orderPosition,
       bool? isHidden,
-      List<int>? tagIds});
+      List<String>? tagIds});
 }
 
 /// @nodoc
@@ -413,7 +413,7 @@ class _$UpdateStencilDtoCopyWithImpl<$Res, $Val extends UpdateStencilDto>
       tagIds: freezed == tagIds
           ? _value.tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -434,7 +434,7 @@ abstract class _$$UpdateStencilDtoImplCopyWith<$Res>
       bool? isFeatured,
       int? orderPosition,
       bool? isHidden,
-      List<int>? tagIds});
+      List<String>? tagIds});
 }
 
 /// @nodoc
@@ -489,7 +489,7 @@ class __$$UpdateStencilDtoImplCopyWithImpl<$Res>
       tagIds: freezed == tagIds
           ? _value._tagIds
           : tagIds // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<String>?,
     ));
   }
 }
@@ -505,7 +505,7 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
       this.isFeatured,
       this.orderPosition,
       this.isHidden,
-      final List<int>? tagIds})
+      final List<String>? tagIds})
       : _tagIds = tagIds;
 
   factory _$UpdateStencilDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -525,9 +525,9 @@ class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
   final int? orderPosition;
   @override
   final bool? isHidden;
-  final List<int>? _tagIds;
+  final List<String>? _tagIds;
   @override
-  List<int>? get tagIds {
+  List<String>? get tagIds {
     final value = _tagIds;
     if (value == null) return null;
     if (_tagIds is EqualUnmodifiableListView) return _tagIds;
@@ -598,7 +598,7 @@ abstract class _UpdateStencilDto implements UpdateStencilDto {
       final bool? isFeatured,
       final int? orderPosition,
       final bool? isHidden,
-      final List<int>? tagIds}) = _$UpdateStencilDtoImpl;
+      final List<String>? tagIds}) = _$UpdateStencilDtoImpl;
 
   factory _UpdateStencilDto.fromJson(Map<String, dynamic> json) =
       _$UpdateStencilDtoImpl.fromJson;
@@ -618,7 +618,7 @@ abstract class _UpdateStencilDto implements UpdateStencilDto {
   @override
   bool? get isHidden;
   @override
-  List<int>? get tagIds;
+  List<String>? get tagIds;
   @override
   @JsonKey(ignore: true)
   _$$UpdateStencilDtoImplCopyWith<_$UpdateStencilDtoImpl> get copyWith =>

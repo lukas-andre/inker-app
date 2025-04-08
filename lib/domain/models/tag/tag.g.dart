@@ -7,7 +7,7 @@ part of 'tag.dart';
 // **************************************************************************
 
 _$TagImpl _$$TagImplFromJson(Map json) => _$TagImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       name: json['name'] as String,
       count: (json['count'] as num?)?.toInt() ?? 0,
     );

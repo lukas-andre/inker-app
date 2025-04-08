@@ -66,7 +66,7 @@ class ApiArtistService implements ArtistService {
   }
 
   @override
-  Future<Artist> updateProfilePicture(int artistId, XFile image) async {
+  Future<Artist> updateProfilePicture(String artistId, XFile image) async {
     try {
       final token = await _getToken();
       final files = [
@@ -93,7 +93,7 @@ class ApiArtistService implements ArtistService {
   }
 
   @override
-  Future<Artist> updateStudioPhoto(int artistId, XFile image) async {
+  Future<Artist> updateStudioPhoto(String artistId, XFile image) async {
     try {
       final token = await _getToken();
       final files = [

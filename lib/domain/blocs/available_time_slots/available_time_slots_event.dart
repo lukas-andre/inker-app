@@ -3,7 +3,7 @@ part of 'available_time_slots_bloc.dart';
 @freezed
 class AvailableTimeSlotsEvent with _$AvailableTimeSlotsEvent {
   const factory AvailableTimeSlotsEvent.getAvailableTimeSlots({
-    required int artistId,
+    required String artistId,
     required DateTime date,
     required int durationMinutes,
   }) = _GetAvailableTimeSlots;

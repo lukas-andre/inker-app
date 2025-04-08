@@ -7,7 +7,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class AvailableTimeSlotsWidget extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   final DateTime selectedDate;
   final int durationMinutes;
   final Function(DateTime, DateTime) onTimeSlotSelected;

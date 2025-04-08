@@ -21,8 +21,8 @@ FindArtistByLocationResponse _$FindArtistByLocationResponseFromJson(
 
 /// @nodoc
 mixin _$FindArtistByLocationResponse {
-  int? get id => throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
   String? get address1 => throw _privateConstructorUsedError;
@@ -53,8 +53,8 @@ abstract class $FindArtistByLocationResponseCopyWith<$Res> {
           FindArtistByLocationResponse>;
   @useResult
   $Res call(
-      {int? id,
-      int? artistId,
+      {String? id,
+      String? artistId,
       String? name,
       String? country,
       String? address1,
@@ -108,11 +108,11 @@ class _$FindArtistByLocationResponseCopyWithImpl<$Res,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -195,8 +195,8 @@ abstract class _$$FindArtistByLocationResponseImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
-      int? artistId,
+      {String? id,
+      String? artistId,
       String? name,
       String? country,
       String? address1,
@@ -250,11 +250,11 @@ class __$$FindArtistByLocationResponseImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -342,9 +342,9 @@ class _$FindArtistByLocationResponseImpl
       _$$FindArtistByLocationResponseImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   final String? name;
   @override
@@ -451,8 +451,8 @@ class _$FindArtistByLocationResponseImpl
 abstract class _FindArtistByLocationResponse
     implements FindArtistByLocationResponse {
   const factory _FindArtistByLocationResponse(
-      {final int? id,
-      final int? artistId,
+      {final String? id,
+      final String? artistId,
       final String? name,
       final String? country,
       final String? address1,
@@ -472,9 +472,9 @@ abstract class _FindArtistByLocationResponse
       _$FindArtistByLocationResponseImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   String? get name;
   @override

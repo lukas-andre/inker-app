@@ -12,7 +12,7 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistLocationManagerPage extends StatelessWidget {
-  final int artistId;
+  final String artistId;
 
   const ArtistLocationManagerPage({
     super.key,
