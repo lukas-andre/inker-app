@@ -1,0 +1,2 @@
+/Users/lhenry/Development/inker/inker-app/android/app/.cxx/Debug/562su5h8/x86/CMakeFiles/edit_cache.dir
+/Users/lhenry/Development/inker/inker-app/android/app/.cxx/Debug/562su5h8/x86/CMakeFiles/rebuild_cache.dir

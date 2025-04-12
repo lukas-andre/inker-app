@@ -46,13 +46,13 @@ test-setup:
 test-ios:
 	@echo "Running tests on iPhone 12 Pro simulator"
 	flutter test integration_test/app_navigation_test.dart \
-		-d 63E7569B-4004-49AE-A036-63AFF89C2FBF
+		-d BA0A0FD4-CC45-44E4-90DB-4B2B7FC3A026
 
 .PHONY: test-ios-15
 test-ios-15:
 	@echo "Running tests on iPhone 15 Pro simulator"
 	flutter --target=integration_test/app_navigation_test.dart \
-		-d 1754FAB0-2C29-403E-BE59-08BB299F6D37
+		-d BA0A0FD4-CC45-44E4-90DB-4B2B7FC3A026
 
 .PHONY: test-web
 test-web:
