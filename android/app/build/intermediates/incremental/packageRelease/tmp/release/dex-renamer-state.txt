@@ -1,0 +1,4 @@
+#Fri Apr 11 22:01:55 CLT 2025
+base.0=/Users/lhenry/Development/inker/inker-app/android/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

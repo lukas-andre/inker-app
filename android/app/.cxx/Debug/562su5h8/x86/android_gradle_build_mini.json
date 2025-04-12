@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/lhenry/Tools/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/lhenry/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/lhenry/Development/inker/inker-app/android/app/.cxx/Debug/562su5h8/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/lhenry/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/lhenry/Development/inker/inker-app/android/app/.cxx/Debug/562su5h8/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
