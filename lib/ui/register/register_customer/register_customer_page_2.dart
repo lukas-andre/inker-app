@@ -14,6 +14,7 @@ import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 
 class RegisterCustomerPage2 extends StatelessWidget {
   const RegisterCustomerPage2({super.key});
@@ -60,19 +61,21 @@ class RegisterCustomerPage2NextButton extends StatelessWidget {
           previous.form.phoneNumber != current.form.phoneNumber,
       builder: (context, state) {
         return RegisterActionButton(
-            text: 'Siguiente',
-            onPressed: () {
-              if (state.form.email.valid && state.form.phoneNumber.valid) {
-                openModalBottomSheet(
-                    context: context, page: const RegisterCustomerPage3());
-                context.read<RegisterCustomerBloc>().add(
-                      const RegisterCustomerNextPagePressed(2),
-                    );
-              } else {
-                final snackBar = getInvalidFormSnackBar(context);
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            });
+          key: registerKeys.customerRegistration.nextButton,
+          text: 'Siguiente',
+          onPressed: () {
+            if (state.form.email.valid && state.form.phoneNumber.valid) {
+              openModalBottomSheet(
+                  context: context, page: const RegisterCustomerPage3());
+              context.read<RegisterCustomerBloc>().add(
+                    const RegisterCustomerNextPagePressed(2),
+                  );
+            } else {
+              final snackBar = getInvalidFormSnackBar(context);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+        );
       },
     );
   }
@@ -110,11 +113,17 @@ class RegisterCustomerPage2Layout extends StatelessWidget {
           ],
         ),
         Row(
-          children: [RegisterCustomerEmailInput()],
+          children: [
+            RegisterCustomerEmailInput(
+              key: registerKeys.customerRegistration.emailField,
+            ),
+          ],
         ),
         Row(
           children: [
-            RegisterCustomerPhoneNumberInput(),
+            RegisterCustomerPhoneNumberInput(
+              key: registerKeys.customerRegistration.phoneField,
+            ),
           ],
         ),
         const Row(

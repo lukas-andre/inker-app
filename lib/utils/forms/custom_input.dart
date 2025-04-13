@@ -53,6 +53,7 @@ class CustomInput extends StatelessWidget {
   Container _container(
       double horizontalPadding, double verticalPadding, BuildContext context) {
     return Container(
+      key: key,
       width: withFlex ? null : MediaQuery.of(context).size.width * 0.9,
       padding: EdgeInsets.only(
           right: horizontalPadding,
@@ -63,7 +64,6 @@ class CustomInput extends StatelessWidget {
         focusNode: focusNode,
         onTap: onTap,
         controller: controller,
-        key: key,
         autofillHints: const [
           AutofillHints.email,
         ],
@@ -98,13 +98,21 @@ class CustomInput extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(
-                color: Color(0xff777E91), style: BorderStyle.none),
+              color: Color(0xff777E91),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Color(0xff777E91),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(
-                color: valid == false ? Colors.red : const Color(0xff777E91),
-              )),
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Color(0xff7450FF),
+            ),
+          ),
         ),
       ),
     );

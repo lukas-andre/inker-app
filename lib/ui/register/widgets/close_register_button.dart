@@ -25,6 +25,7 @@ class CloseRegisterButton extends StatelessWidget {
         BlocProvider.of<RegisterCustomerBloc>(context);
 
     return Container(
+      key: key,
       padding: EdgeInsets.only(right: 22, top: Platform.isIOS ? 22 : 40),
       child: Center(
           child: IconButton(

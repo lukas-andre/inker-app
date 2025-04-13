@@ -58,6 +58,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
     );
 
     return Expanded(
+      key: key,
       child: Container(
         padding: EdgeInsets.only(
             right: MediaQuery.of(context).size.width * 0.05,
