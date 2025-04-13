@@ -17,6 +17,7 @@ import 'package:inker_studio/ui/verification/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 
 class RegisterCustomerPage3 extends StatelessWidget {
   const RegisterCustomerPage3({super.key});
@@ -105,6 +106,7 @@ class RegisterCustomerPage3NextButton extends StatelessWidget {
                 previous.registerState.index != current.registerState.index,
             builder: (context, state) {
               return RegisterActionButton(
+                key: registerKeys.customerRegistration.createAccountButton,
                 text: 'Registrarme',
                 onPressed: () {
                   if (state.form.password.valid &&
@@ -160,15 +162,23 @@ class RegisterCustomerPage3Layout extends StatelessWidget {
         const Row(
           children: [
             RegisterCustomTitle(
-              text: 'Crea tu contraseña para poder acceder a Inker 🔐 ',
+              text: 'Crea tu contraseña para poder acceder a Inker 🔐',
             )
           ],
         ),
         Row(
-          children: [RegisterCustomerPasswordInput()],
+          children: [
+            RegisterCustomerPasswordInput(
+              key: registerKeys.customerRegistration.passwordField,
+            ),
+          ],
         ),
         Row(
-          children: [RegisterCustomerConfirmPasswordInput()],
+          children: [
+            RegisterCustomerConfirmPasswordInput(
+              key: registerKeys.customerRegistration.confirmPasswordField,
+            ),
+          ],
         ),
         const Row(
           children: [

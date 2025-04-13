@@ -21,6 +21,7 @@ class RegisterCustomerLastNameInput extends StatelessWidget {
           previous.form.lastName.value != current.form.lastName.value,
       builder: (context, state) {
         return CustomInput(
+            key: key,
             inputFormatters: [TrimTextFormatter(), CapitalizeTextFormatter()],
             hint: 'Apellido. ej: Goodman',
             verticalPadding: 0,

@@ -90,6 +90,39 @@ test-coverage:
 	genhtml coverage/lcov.info -o coverage/html
 	@echo "Coverage report generated in coverage/html/index.html"
 
+# Patrol Testing Commands
+.PHONY: test-auth-artist-ios
+test-auth-artist-ios:
+	@echo "Running artist authentication tests on iOS"
+	patrol test -t integration_test/flows/artist/auth_flow_test.dart --device "iPhone 15" --ios 17.5
+
+.PHONY: test-auth-customer-ios
+test-auth-customer-ios:
+	@echo "Running customer authentication tests on iOS"
+	patrol test -t integration_test/flows/customer/auth_flow_test.dart --device "iPhone 15" --ios 17.5
+
+.PHONY: test-auth-artist-android
+test-auth-artist-android:
+	@echo "Running artist authentication tests on Android"
+	patrol test -t integration_test/flows/artist/auth_flow_test.dart --device "sdk gphone64 arm64"
+
+.PHONY: test-auth-customer-android
+test-auth-customer-android:
+	@echo "Running customer authentication tests on Android"
+	patrol test -t integration_test/flows/customer/auth_flow_test.dart --device "sdk gphone64 arm64"
+
+.PHONY: test-auth-all
+test-auth-all: test-auth-artist-ios test-auth-customer-ios test-auth-artist-android test-auth-customer-android
+	@echo "All authentication tests completed"
+
+.PHONY: test-auth-ios
+test-auth-ios: test-auth-artist-ios test-auth-customer-ios
+	@echo "All iOS authentication tests completed"
+
+.PHONY: test-auth-android
+test-auth-android: test-auth-artist-android test-auth-customer-android
+	@echo "All Android authentication tests completed"
+
 .PHONY: help-test
 help-test:
 	@echo "Available test commands:"
@@ -101,6 +134,13 @@ help-test:
 	@echo "  make test-watch        - Run tests in watch mode"
 	@echo "  make test-coverage     - Generate test coverage report"
 	@echo "  make test-setup        - Setup test environment"
+	@echo "  make test-auth-artist-ios     - Run artist auth tests on iOS"
+	@echo "  make test-auth-customer-ios   - Run customer auth tests on iOS"
+	@echo "  make test-auth-artist-android - Run artist auth tests on Android"
+	@echo "  make test-auth-customer-android - Run customer auth tests on Android"
+	@echo "  make test-auth-ios     - Run all iOS auth tests"
+	@echo "  make test-auth-android - Run all Android auth tests"
+	@echo "  make test-auth-all     - Run all auth tests"
 
 
 .PHONY: build-ios

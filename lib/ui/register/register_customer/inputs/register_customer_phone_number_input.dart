@@ -25,6 +25,7 @@ class RegisterCustomerPhoneNumberInput extends StatelessWidget {
           previous.form.phoneNumber.value != current.form.phoneNumber.value,
       builder: (context, state) {
         return CustomPhoneNumberInput(
+          key: key,
           label: 'Tefélono',
           searchDecoratorLabel: 'Nombre de tu pais',
           onInputChanged: (number) {

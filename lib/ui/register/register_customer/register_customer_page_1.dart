@@ -15,6 +15,7 @@ import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 
 // TODO: TODAS SON IGUALES SOLO CAMBIAN LAS VALIDACIONES, LAS ROWS,
 // EL PROGRESS, Y LOS TITULOS, POR LO QUE SE PUEDE AUTOMATIZAR
@@ -58,6 +59,7 @@ class RegisterCustomerPage1NextButton extends StatelessWidget {
           previous.form.lastName != current.form.lastName,
       builder: (context, state) {
         return RegisterActionButton(
+          key: registerKeys.customerRegistration.nextButton,
           text: 'Siguiente',
           onPressed: () {
             if (state.form.firstName.valid && state.form.lastName.valid) {
@@ -109,10 +111,18 @@ class RegisterCustomerLayout extends StatelessWidget {
           ],
         ),
         Row(
-          children: [RegisterCustomerNameInput()],
+          children: [
+            RegisterCustomerNameInput(
+              key: registerKeys.customerRegistration.firstNameField,
+            ),
+          ],
         ),
         Row(
-          children: [RegisterCustomerLastNameInput()],
+          children: [
+            RegisterCustomerLastNameInput(
+              key: registerKeys.customerRegistration.lastNameField,
+            ),
+          ],
         ),
         const Row(
           crossAxisAlignment: CrossAxisAlignment.start,

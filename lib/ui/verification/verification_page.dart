@@ -2,11 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/ui/login/login_page.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/register/widgets/close_register_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
+import 'package:inker_studio/ui/register/widgets/register_back_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
 import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
@@ -15,6 +17,7 @@ import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 
 class VerificationPage extends StatelessWidget {
   const VerificationPage({super.key});
@@ -176,21 +179,18 @@ class VerificationLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AccountVerificationBloc bloc = context.read<AccountVerificationBloc>();
+    final bloc = context.read<AccountVerificationBloc>();
+    
     return Column(
       children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const RegisterBackButton(),
             CloseRegisterButton(
-              toPage: LoginPage(),
-            )
-          ],
-        ),
-        const Row(
-          children: [
-            RegisterProgressIndicator(
-              progress: 5 / 5,
+              key: registerKeys.customerRegistration.closeButton,
+              index: 4,
+              userType: UserType.customer,
             )
           ],
         ),

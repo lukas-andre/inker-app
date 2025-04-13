@@ -20,6 +20,7 @@ class RegisterCustomerEmailInput extends StatelessWidget {
           previous.form.email.value != current.form.email.value,
       builder: (context, state) {
         return CustomInput(
+            key: key,
             inputFormatters: [TrimTextFormatter()],
             keyboardType: TextInputType.emailAddress,
             controller: _texEditingController,
