@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 
 class SingInAndRegisterButton extends StatelessWidget {
   const SingInAndRegisterButton({super.key});
@@ -28,6 +29,7 @@ class SingInAndRegisterButton extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
+                    key: registerKeys.onboarding.registerButton,
                     onPressed: () {
                       onboardingBloc.add(const OnBoardingRegisterPressed());
                     },
