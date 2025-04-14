@@ -412,3 +412,822 @@ patrolTest(
   },
 );
 And just like that, we have now tested the whole flow of the app with Patrol! If any part of the logic breaks, this test will notify us about that sooner than our real users do and that’s what we’re all after!
+Logs and test results
+Once you've written and executed your tests, it's essential to monitor their results. Patrol provides two main methods for reporting test outcomes: console logs and native test reports.
+
+Logging test steps
+This feature is available starting from version 3.13.0.
+
+If you're using this version but don't see logs for test steps, check if you're passing a custom PatrolTesterConfig to patrolTest(). If so, ensure the printLogs: true argument is included in the constructor.
+
+During test execution, every test step (e.g., tap or enterText) is logged to the console along with its status. Additionally, the test name, status, and execution time are displayed.
+
+Example console output:
+
+
+...
+🧪 denies various permissions
+        ✅   1. scrollTo widgets with text "Open permissions screen".
+        ✅   2. scrollTo widgets with text "Open permissions screen".
+        ✅   3. tap widgets with text "Open permissions screen".
+        ✅   4. tap widgets with text "Request camera permission".
+        ✅   5. isPermissionDialogVisible (native)
+        ✅   6. tap widgets with text "Request camera permission".
+        ✅   7. isPermissionDialogVisible (native)
+        ⏳   8. denyPermission (native)
+❌ denies various permissions (integration_test/permissions/deny_many_permissions_twice_test.dart) (9s)
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞═════════════════
+The following PlatformException was thrown running a test:
+PlatformException(PermissionHandler.PermissionManager, A request
+for permissions is already running, please wait for it to finish
+before doing another request (note that you can request multiple
+permissions at the same time)., null, null)
+
+When the exception was thrown, this was the stack:
+#0      StandardMethodCodec.decodeEnvelope (package:flutter/src/services/message_codecs.dart:648:7)
+#1      MethodChannel._invokeMethod (package:flutter/src/services/platform_channel.dart:334:18)
+<asynchronous suspension>
+#2      MethodChannelPermissionHandler.requestPermissions (package:permission_handler_platform_interface/src/method_channel/method_channel_permission_handler.dart:79:9)
+<asynchronous suspension>
+#3      PermissionActions.request (package:permission_handler/permission_handler.dart:52:31)
+<asynchronous suspension>
+#4      _PermissionsScreenState._requestCameraPermission (package:e2e_app/permissions_screen.dart:21:20)
+<asynchronous suspension>
+
+The test description was:
+  denies various permissions
+═════════════════════════════════════════════════════════════════
+
+✅ taps on notification (integration_test/permissions/notifications_test.dart) (16s)
+✅ taps on notification native2 (integration_test/permissions/notifications_test.dart) (14s)
+✅ grants various permissions (integration_test/permissions/permissions_many_test.dart) (15s)
+...
+Test summary
+Once the tests are complete, a summary is printed:
+
+
+Test summary:
+📝 Total: 8
+✅ Successful: 3
+❌ Failed: 5
+  - taps on notification (integration_test/permissions/notifications_test.dart)
+  - taps on notification native2 (integration_test/permissions/notifications_test.dart)
+  - accepts location permission (integration_test/permissions/permissions_location_test.dart)
+  - accepts location permission native2 (integration_test/permissions/permissions_location_test.dart)
+  - grants various permissions (integration_test/permissions/permissions_many_test.dart)
+⏩ Skipped: 0
+📊 Report: file:///Users/user/patrol/dev/e2e_app/build/app/reports/androidTests/connected/index.html
+⏱️  Duration: 227s
+Customizing log behavior
+You can customize which logs are displayed by using the following flags. These can be passed to the patrol test or patrol develop commands:
+
+Flag	Description	Available in	Default value
+--[no-]show-flutter-logs	Show Flutter logs while running the tests.	patrol test, in patrol develop it's always on	false
+--[no-]hide-test-steps	Hide test steps while running the tests.	patrol test and patrol develop	false
+--[no-]clear-test-steps	Clear test steps after the test finishes.	patrol test	true
+Native test reports
+In addition to console logs, you can review test results in a native test report. The report's file path is provided in the test summary, for example:
+
+
+📊 Report: file:///Users/user/patrol/dev/e2e_app/build/app/reports/androidTests/connected/index.html
+Logs in patrol_finders
+By default, enhanced logs are disabled when using patrol_finders without the patrol package. To enable them, pass the printLogs: true argument to the PatrolTesterConfig constructor:
+
+
+patrolWidgetTest(
+  'throws exception when no widget to tap on is found',
+  config: const PatrolTesterConfig(printLogs: true),
+  (tester) async {
+    // test body
+    // ...
+  },
+);
+
+testWidgets(
+  'description',
+  (widgetTester) async {
+    final $ = PatrolTester(
+      tester: widgetTester,
+      config: PatrolTesterConfig(printLogs: true),
+    );
+    // test body
+    // ...
+  },
+);
+
+Patrol finders - overview
+Flutter's finders are powerful, but not very intuitive to use.
+
+We took them and made something awesome.
+
+Thanks to Patrol's custom finders, you'll take your tests from this:
+
+
+testWidgets('signs up', (WidgetTester tester) async {
+  await tester.pumpWidget(AwesomeApp());
+  await tester.pumpAndSettle();
+
+  await tester.enterText(
+    find.byKey(Key('emailTextField')),
+    'charlie@root.me',
+  );
+  await tester.pumpAndSettle();
+
+  await tester.enterText(
+    find.byKey(Key('nameTextField')),
+    'Charlie',
+  );
+  await tester.pumpAndSettle();
+
+  await tester.enterText(
+    find.byKey(Key('passwordTextField')),
+    'ny4ncat',
+  );
+  await tester.pumpAndSettle();
+
+  await tester.tap(find.byKey(Key('termsCheckbox')));
+  await tester.pumpAndSettle();
+
+  await tester.tap(find.byKey(Key('signUpButton')));
+  await tester.pumpAndSettle();
+
+  expect(find.text('Welcome, Charlie!'), findsOneWidget);
+});
+to this:
+
+
+patrolWidgetTest('signs up', (PatrolTester $) async {
+  await $.pumpWidgetAndSettle(AwesomeApp());
+
+  await $(#emailTextField).enterText('charlie@root.me');
+  await $(#nameTextField).enterText('Charlie');
+  await $(#passwordTextField).enterText('ny4ncat');
+  await $(#termsCheckbox).tap();
+  await $(#signUpButton).tap();
+
+  await $('Welcome, Charlie!').waitUntilVisible();
+});
+Patrol finders - usage
+This page introduces Patrol finder system. Let's get our hands dirty and find some widgets!
+
+Finding widgets
+Let's say you want to find some Text widget – nothing easier than that!
+
+
+find.byType(Text);
+Using Patrol finder, you'd write the above as:
+
+
+$(Text);
+Or let's find a Text widget with a specific text:
+
+
+find.text('Subscribe');
+Using Patrol finder, you'd write the above as:
+
+
+$('Subscribe');
+Worth mentioning is also Key. The below lines are equivalent:
+
+
+find.byKey(Key('loginButton'));
+$(Key('loginButton'));
+$(#loginButton);
+For those wondering what is that # thing – it's a Symbol! Yes, we're Dart (ab)users.
+
+All the types that can be passed to $ are listed here.
+Making assertions
+Creating a finder doesn't do anything – it just is. Let's put them to use and write a few simple assertions.
+
+Here's how you can make sure that a widget with text Log in exists in the widget tree:
+
+
+expect(find.text('Log in'), findsOneWidget);
+With our Patrol finders, you'd write the above as:
+
+
+expect($('Log in'), findsOneWidget);
+Alternatively, you could also use the exists getter, which returns true if the finder finds at least 1 widget:
+
+
+expect($('Log in').exists, equals(true));
+We can also make sure that no widget exists, or that a particular number of widgets exist:
+
+
+expect(find.text("Can't touch this"), findsNothing);
+expect(find.byType(Card), findsNWidgets(3));
+The above expressed with Patrol finders:
+
+
+expect($("Can't touch this"), findsNothing);
+expect($(Card), findsNWidgets(3));
+You could alternatively write the first line as:
+
+
+expect($("Can't touch this").exists, equals(false));
+It's important to note that Flutter's default finder functions, such as findsNothing and findsOneWidget, check if the widget is present in the widget tree, not if it is visible to the user, which is usually not what we're interested in.
+
+To check if the finder finds at least 1 visible widget, use the visible getter:
+
+
+expect($('Log in').visible, equals(true));
+And to wait for at least 1 widget with the "Log in" text to become visible:
+
+
+await $('Log in').waitUntilVisible();
+Performing actions
+Finding widgets alone is cool, but what's even cooler is being able to tap on them! Let's tap on the first "Subscribe" text:
+
+
+await tester.tap(find.text('Subscribe').first);
+It's usually a good practice to use first, because if there were multiple "Subscribe" texts, tap() would throw an exception.
+
+With Patrol, you get concise code, but you preserve the flexibility:
+
+
+await $('Subscribe').tap();
+What's very cool about Patrol's tap() is that it doesn't immediately fail if the finder finds no visible widgets – instead, it waits for some time (which you can specify globally in PatrolTesterConfig or as argument to the tap() method) and taps on the first widget as soon as it becomes visible. This lets you get rid of fixed timeouts and test your app just like a real user would.
+
+If you wanted to tap on the third "Subscribe" text, you'd do:
+
+
+await $('Subscribe').at(2).tap();
+And if the "Subscribe" text was in a Scrollable widget, such as SingleChildScrollView or ListView, and you want to make sure that it is visible (so you can tap() on it), you can scroll to it very easily:
+
+
+await $('Subscribe').scrollTo().tap();
+Going deeper
+But hey, these were very simple examples. In real apps, unfortunately, finding widgets is not that easy.
+
+Often, you'll need to tap on a widget which is in some other widget.
+
+
+await tester.tap(
+  find.descendant(
+    of: find.byType(ListView),
+    matching: find.text('Subscribe'),
+  ).first
+);
+Flutter's finders are starting to grow, while Patrol stays lean:
+
+
+await $(ListView).$('Subscribe').tap();
+Now, we also make sure that the Subscribe text is in a ListTile:
+
+
+await tester.tap(
+  find.descendant(
+    of: find.byType(ListView),
+    matching: find.descendant(
+      of: find.byType(ListTile),
+      matching: find.text('Subscribe'),
+    ),
+  ).first
+);
+Hey, this is starting to look complex! Fortunately, you have Patrol:
+
+
+await $(ListView).$(ListTile).$('Subscribe').tap();
+Sometimes, you might want to perform a lookahead check. Let's say that you want tap on the first widget with the Key('learnMore') that is a descendant of some ListTile, but that ListTile must also have the Text descendant with the Activated text.
+
+If you were to express the above as a Finder, you'd get:
+
+
+await tester.tap(
+  find.ancestor(
+    of: find.text('Activated'),
+    matching: find.descendant(
+      of: find.byType(ListTile),
+      matching: find.byKey(Key('learnMore')),
+    ),
+  ).first
+);
+With the help of Patrol's custom finders, it's much easier:
+
+
+await $(ListTile).containing('Activated').$(#learnMore).tap();
+Sometimes, however, the logic required to find a widget cannot be expressed by the descendant/ancestor relationship like above. In situations like this, when all ways of finding widgets known to you fail, Patrol has an ace up its sleeve: the which() method. You can use it to find widgets by their properties. A few examples include: .
+
+entering a text into a text field with no text entered:
+
+
+await $(#cityTextField)
+    .which<TextField>((widget) => widget.controller.text.isNotEmpty)
+    .enterText('Warsaw, Poland');
+asserting that the icon has the correct color:
+
+
+await $(Icons.error)
+    .which<Icon>((widget) => widget.color == Colors.red)
+    .waitUntilVisible();
+asserting that the button is disabled and has the correct color
+
+
+await $('Delete account')
+  .which<ElevatedButton>((button) => !button.enabled)
+  .which<ElevatedButton>(
+    (btn) => btn.style?.backgroundColor?.resolve({}) == Colors.red,
+  )
+  .waitUntilVisible();
+
+Falling back
+What's cool about Patrol is that it builds on top of flutter_test instead of replacing it. This means that you can freely mix Patrol's finders with finders from flutter_test, PatrolTester with WidgetTester, and so on.
+
+Here's how you can access the default WidgetTester:
+
+
+patrolWidgetTest('adds comment', (PatrolTester $) async {
+  final WidgetTester tester = $.tester;
+
+  await tester.enterText(find.byKey(Key('commentTextField')), 'Very nice!');
+});
+atrol finders - advanced
+We aim to make Patrol as simple as possible, but there are still a few matters that we feel require some more attention. We'll explain them in this section.
+
+How is Patrol's tap() different from Flutter's tap()?
+Let's consider this test, written without Patrol:
+
+
+await tester.tap(find.byKey(Key('addComment')).first);
+await tester.pumpAndSettle();
+This code:
+
+Immediately atttempts to find the first widget with the addComment key
+After finding the widget, it immediately attempts to tap on it
+This is the default behavior, but in our experience, it's often a source of flakiness. For example, the widget having addComment key might not be visible at the time when the finder is run. This usually doesn't means that the test should fail. Probably an HTTP request was made to fetch the post, and when the fetching is done, the widget having addComment key will show up.
+
+To achieve this behavior, you'd have to do:
+
+
+while (find.byKey(Key('addComment')).first.evaluate().isEmpty) {
+  await tester.pump(Duration(milliseconds: 100));
+}
+
+await tester.tap(find.byKey(Key('addComment')).first);
+await tester.pumpAndSettle();
+Our tiny example got really big, but it's still got two problems.
+
+If something goes wrong and addComment never shows up, we'll keep waiting indefinitely.
+
+The widget with addComment key might be present in the widget tree, but still not be visible to the user. By default, Flutter's default WidgetTester doesn't care. This is almost never desirable.
+
+Fortunately, you don't have to overcome these problems. Patrol already did it!
+
+Below is the same test, with all the above problems fixed, written with Patrol's custom finders:
+
+
+await $(#addComment).tap();
+This code:
+
+Attempts to find the first widget with addComment that is visible on screen. If it's not found immediately, it keeps trying until it finds it, or throws an exception if timeout.
+Taps on it.
+The timeout can be configured globally:
+
+
+patrolWidgetTest(
+  'logs in successfully',
+  config: PatrolTestConfig(findTimeout: Duration(seconds: 10)),
+  ($) async {
+  // your test code
+  },
+);
+You can also change the timeout ad-hoc:
+
+
+await $(#addComment).tap(findTimeout: Duration(seconds: 30));
+You gotta pump it up! But which one to use?
+In Flutter, "pumping" means rendering frames to the screen.
+
+If there are no frames to pump, no animations are pending, which usually means that the next action during the test can be executed. It is an equivalent of what a human tester would do while testing an app - they would wait until the app's state stabilizes after they've done something. For example, they tap on a button and get redirected to another screen, but the data that will be shown there hasn't been loaded yet. In such a case, a human tester waits until a loader (or other animation) finishes. Pumping mechanism does exactly this - it renders consecutive frames on the screen. For how long, exactly? Usually, we want to pump frames as long as they come. That's what pumpAndSettle() does.
+
+pumpAndSettle() method is called by default inside all actions that can be performed while testing - tapping, scrolling, entering text, and so on. You can change that by setting the settlePolicy argument:
+
+
+await $('Delete account').tap(settlePolicy: SettlePolicy.settle);
+await $('Confirm').tap(settlePolicy: SettlePolicy.pump);
+SettlePolicy is an enum with 3 values. The default is SettlePolicy.settle but you can change it to pump or trySettle. Those values map to methods like this:
+
+noSettle -> pump(),
+trySettle -> pumpAndTrySettle(),
+settle -> pumpAndSettle().
+While settle and pump simply refer to Flutter's built-in methods, trySettle is available only in Patrol. How is it different from other ones?
+
+pumpAndTrySettle() is pretty much like pumpAndSettle(), the only difference is that pumpAndSettle() throws an exception, if there were still new frames to render after sonme defined timeout, while pumpAndTrySettle() does not. That's why it has "try" in it's name.
+
+When to use this new pumping method? Let us picture a scenario, in which we have to deal with some animations. Let's say, that your app has some endless animations, e.g. on a homescreen, to keep user's attention. You'd like to wait for some things to happen, but using pumpAndSettle, you'll keep getting an exception, because after some time, defined by timeout, there will be still new frames to render. On the other hand, you still want to pump frames for some time - if you didn't, the screen you want to interact with might not be rendered yet, or it would have some widgets missing or data not yet loaded.
+
+So, we decided to add a way to try settle - pump frames for some time (10 seconds by default), but if after that time there is still something new to render - do nothing and continue the test.
+
+We recommend using pumpAndTrySettle(), because it works with both kinds of animations - finite and infinite. This settle policy will be new default in future Patrol releases.
+
+How does scrollTo() work?
+The scrollTo() method is simple to use, yet very powerful. Here's how you use it to scroll to and tap on the first widget with the "Delete account" text:
+
+
+await $('Delete account').scrollTo().tap();
+And here's how scrollTo() works:
+
+Waits for at least 1 Scrollable widget (or whatever you provided in view argument) to become visible
+Scrolls this widget in its scrolling direction until the target widget becomes visible
+If the target widget becomes visible within timeout, it finishes, otherwise it throws an exception
+Most of the time, you use scrollTo() and it just works, but there's 1 important thing to keep in mind when using scrollTo():
+
+scrollTo(), by default, scrolls the first Scrollable widget
+
+This default is reasonable and what you want most of the time. Unfortunately, this behavior can sometimes cause problems in more complicated UIs, where more than a single Scrollable widget is visible at the same time. In such cases we strongly recommend explicitly specifying the view that scrollTo() should scroll, to avoid the problem of the target widget never becoming visible because the wrong widget was scrolled.
+
+To demonstrate this problem, let's consider this very simple app:
+
+
+class App extends StatelessWidget {
+  App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          children: [
+            Expanded(child: ListView(key: Key('listView1'))),
+            Expanded(
+              child: ListView.builder(
+                key: Key('listView2'),
+                itemCount: 101,
+                itemBuilder: (context, index) => Text('index: $index'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+Now let's say that you're writing a test and want to scroll to and tap on the first widget with the "index: 100" text (that is the last Text widget built by the second ListView widget):
+
+There's a high chance that you'd write this:
+
+
+await $('index: 100').scrollTo().tap();
+Unfortunately, running this test gives the pumpAndSettle timed out error. That's because the scrollTo() was trying to scroll the first visible Scrollable widget, which happens to be the first ListView (the one with listView1 key and no children).
+
+To fix this problem, you have to explicitly specify which Scrollable you want to use:
+
+
+await $('index: 100').scrollTo(view: $(#listView2).$(Scrollable)).tap();
+The above snippet will scroll the second Scrollable and find the widget with "index: 100" text.
+
+Why so verbose?
+
+You might be wondering why scrollTo(view: $(#listView2)) is not enough? Why is it needed to look for a Scrollable widget inside the widget with the listView2 key?
+
+This is because the ListView widget doesn't extend Scrollable – instead, it builds a subclass of Scrollable itself. This is a known Flutter problem.
+
+Native automation - overview
+Flutter's integration_test does a good job at providing basic support for integration testing Flutter apps. What it can't do is interaction with the OS your Flutter app is running on. This makes it impossible to test many critical business features:
+
+granting runtime permissions
+signing into the app which uses WebView or 0Auth (like Google) as the login page
+listing and tapping on notifications
+exiting the app, coming back, and verifying that state is preserved
+enabling and disabling features such as Wi-Fi, mobile data, location, or dark mode
+Patrol's native automation feature finally solves these problems. Here's a tiny snippet to spice things up:
+
+integration_test/demo_test.dart
+
+void main() {
+  patrolTest('demo', (PatrolIntegrationTester $) async {
+    await $.pumpWidgetAndSettle(AwesomeApp());
+    // prepare network conditions
+    await $.native.enableCellular();
+    await $.native.disableWifi();
+
+    // toggle system theme
+    await $.native.enableDarkMode();
+
+    // handle native location permission request dialog
+    await $.native.selectFineLocation();
+    await $.native.grantPermissionWhenInUse();
+
+    // tap on the first notification
+    await $.native.openNotifications();
+    await $.native.tapOnNotificationByIndex(0);
+  });
+}
+
+Native automation - usage
+Once set up, interacting with the native UI using Patrol is very easy!
+
+Basics
+After you've got your NativeAutomator object, you simply call methods on it and it does the magic.
+
+To tap on a native view (for example, a button in a WebView):
+
+
+await $.native.tap(Selector(text: 'Sign up for newsletter'));
+To enter text into a native view (for example, a form in a WebView):
+
+
+await $.native.enterText(
+  Selector(text: 'Enter your email'),
+  text: 'charlie@root.me',
+);
+You can also enter text into n-th currently visible text field (counting from 0):
+
+
+await $.native.enterTextByIndex('charlie_root', index: 0); // enter username
+await $.native.enterTextByIndex('ny4ncat', index: 1); // enter password
+The above are the simplest, most common actions, but they already make it possible to test scenarios that were impossible to test before, such as WebViews.
+
+To tap, enter text, or perform generally any UI interaction with a iOS app that is not your Flutter app under test, you need to pass its bundle identifier. For example, to tap on the plus button in the iPhone contacts app, use:
+
+
+await $.native.tap(
+  Selector(text: 'Add'),
+  appId: 'com.apple.MobileAddressBook',
+);
+Notifications
+To open the notification shade:
+
+
+await $.native.openNotifications();
+To tap on the second notification:
+
+
+await $.native.tapOnNotificationByIndex(1);
+You can also tap on notification by its content:
+
+
+await $.native.tapOnNotificationBySelector(
+  Selector(textContains: 'Someone liked your recent post'),
+);
+
+Permissions
+To handle the native permission request dialog:
+
+
+await $.native.grantPermissionWhenInUse();
+await $.native.grantPermissionOnlyThisTime();
+await $.native.denyPermission();
+
+If the permission request dialog visible is the location dialog, you can also select the accuracy:
+
+
+await $.native.selectFineLocation();
+await $.native.selectCoarseLocation();
+
+The test will fail if the permission request dialog is not visible. You can check if it is with:
+
+
+if (await $.native.isPermissionDialogVisible()) {
+  await $.native.grantPermissionWhenInUse();
+}
+By default, isPermissionDialogVisible() waits for a short amount of time and then returns false if the dialog is not visible. To increase the timeout:
+
+
+if (await $.native.isPermissionDialogVisible(timeout: Duration(seconds: 5))) {
+  await $.native.grantPermissionWhenInUse();
+}
+Patrol can handle permissions on iOS only if the device language is set to English (preferably US). That's because there's no way to refer to a specific view in a language-independent way (like resourceId on Android).
+
+If you want to handle permissions on iOS device with non-English locale, do it manually:
+
+
+await $.native.tap(
+  Selector(text: 'Allow'),
+  appId: 'com.apple.springboard',
+);
+More resources
+To see more integration tests demonstrating Patrol's various features, check out our example app.
+
+
+Native automation - advanced
+Patrol section in pubspec.yaml
+If your app has different name on iOS and Android, you can specify app_name twice – one in android block, and one in ios block.
+
+Though the whole Patrol section in pubspec.yaml is optional, we highly recommend adding this section, because it enables the following features:
+
+Patrol will automatically uninstall your app after every test (using package_name and bundle_id). This will make the environment which your tests run in more stable and predictable.
+Patrol will be able to tap on your app's notifications (using app_name)
+Specific version of patrol_cli
+You can install a specific version of Patrol CLI. For example:
+
+
+dart pub global activate patrol_cli ^1.0.0
+will install the latest v1 version. We recommend to install a specific version on CI systems to avoid unexpected breakages.
+
+Isolation of test runs
+To achieve full isolation between test runs, enable the clearPackageOption:
+
+android/app/build.gradle
+
+defaultConfig {
+    //...
+    testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
+    testInstrumentationRunnerArguments clearPackageData: "true"
+}
+This will clear the app's data and permissions before each test run. Unfortunately, no equivalent feature is available on iOS.
+
+Embrace the native tests
+If you've diligently followed the steps in native automation setup and patrol test prints a TEST PASSED message, you might be now thinking: what did I just do?
+
+The answer is: You've just integrated Flutter testing with native Android/iOS testing frameworks. This means that your Flutter integration tests can now be run as native tests.
+
+What are native tests good for, anyway?
+iOS and Android have existed for more than 15 years, and during that time many of awesome testing-related things were built around them – open-source test runners, device farms, HTML report generators. Developers who create native mobile apps can easily reap benefits from this huge, mature ecosystem.
+
+Meanwhile we, Flutter developers, don't have as much at our disposal. Our framework is much younger and less mature.
+
+What if we could masquerade our Flutter tests so that from the outside they would be truly native? This way we leverage many existing tools while maintaining the convenience of writing the tests in pure Dart.
+
+For example, you can run your Patrol tests directly from Xcode. Xcode knows nothing about Flutter, Dart and Patrol – it only launches your test app. Flutter tests are then run inside the test app and the results are reported back to Xcode. This way you get the best of both worlds – the maturity of native iOS development and the productivity of Flutter and Dart.
+
+That's exactly what Patrol does (and what the default integration_test package does at well, but at a bit smaller scale).
+
+Take a look at this simple Flutter integration tests using Patrol:
+
+integration_test/example_test.dart
+
+void main() {
+  patrolTest(
+    'counter state is the same after going to Home and switching apps',
+    nativeAutomatorConfig: NativeAutomatorConfig(
+      packageName: 'pl.leancode.patrol.example',
+      bundleId: 'pl.leancode.patrol.Example',
+    ),
+    ($) async {
+      await $.pumpWidget(ExampleApp());
+
+      await $(FloatingActionButton).tap();
+      expect($(#counterText).text, '1');
+
+      await $.native.pressHome();
+      await $.native.openApp();
+
+      expect($(#counterText).text, '1');
+
+      await $(FloatingActionButton).tap();
+      expect($(#counterText).text, '2');
+    },
+  );
+}
+
+Effective Patrol
+Over the past months, we've written many Patrol tests and often learned the hard way what works well and what doesn't. We're sharing our findings hoping that they'll help you write robust tests.
+
+This document follows RFC 2119.
+PREFER using keys to find widgets
+Patrol's custom finders are very powerful, and you might often be inclined to find the widget you want in a variety of ways. While we're encouraging you to explore and play with Patrol's custom finders, we are quite confident that keys are the best way to find widgets.
+
+Why not strings?
+
+At first, strings might seem like a good way to find widgets.
+
+They'll get increasingly annoying to work with as your app grows and changes, for example, when the strings in your app change.
+
+Using strings stops making any sense when you have more than 1 language in your app. Using strings in such case is asking for trouble.
+
+Why not classes?
+
+There are 2 problems with using classes.
+
+First is that they hurt your test's readability. You want to tap on the login button or enter text into the username field. You don't want to tap on, say, the third button and enter text into the second text field.
+
+The second problem is that classes are almost always an implementation detail. As a tester, you shouldn't care if something is a TextButton or an OutlineButton. You care that it is the login button, and you want to tap on it. In most cases, that login button should have a key.
+
+Let's consider this simple example:
+
+
+await $(LoginForm).$(Button).at(1).tap(); // taps on the second ("login") button
+This works, but the code is not very self-explanatory. To make it understandable at glance, you had to add a comment.
+
+But if you assigned a key to the login button, the above could be simplified to:
+
+
+await $(#loginButton).tap();
+Much better!
+
+Let's see another example:
+
+
+await $(Select<String>).tap(); // taps on the first Select<String>
+If the type parameter is changed from String to, for example, some specialized PersonData model, that finder won't find anything. You'd have to update it to:
+
+
+await $(Select<PersonTile>).tap();
+You had to change your test, even though nothing changed from the user's perspective. This is usually a sign that you rely too much on classes to find widgets.
+
+This whole section could be summed up to the simple maxim:
+
+Have tester's mindset.
+
+Treat your finders as if they were the tester's eyes.
+
+CONSIDER having a file where all keys are defined
+The number of keys will get bigger as your app grows and you write more tests. To keep track of them, it's a good idea to keep all keys in, say, lib/keys.dart file.
+
+lib/keys.dart
+
+import 'package:flutter/foundation.dart';
+
+typedef K = Keys;
+
+class Keys {
+  const Keys();
+
+  static const usernameTextField = Key('usernameTextField');
+  static const passwordTextField = Key('passwordTextField');
+  static const loginButton = Key('loginButton');
+  static const forgotPasswordButton = Key('forgotPasswordButton');
+  static const privacyPolicyLink = Key('privacyPolicyLink');
+}
+Then you can use it in your app's and tests' code:
+
+In app UI code
+
+@override
+Widget build(BuildContext context) {
+  return Column(
+    children: [
+      /// some widgets
+      TextField(
+        key: K.usernameTextField,
+        // some other TextField properties
+      ),
+      // more widgets
+    ],
+  );
+}
+In app test code
+
+void main() {
+  patrolTest('logs in', (PatrolIntegrationTester $) {
+    // some code
+    await $(K.usernameTextField).enterText('CoolGuy');
+    // more code
+  });
+}
+This is a good way to make sure that the same keys are used in app and tests. No more typos!
+
+PREFER having one test path
+Good tests test one feature, and test it well (this applies to all tests, not only Patrol tests). This is often called the "main path". Try to introduce as little condional logic as possible to help keep the main path straight. In practice, this usually comes down to having as few ifs as possible.
+
+Keeping your test code simple and to the point will also help you in debugging it.
+
+DO add a good test description explaining the test's purpose
+If your app is non-trivial, your Patrol test will become long pretty quickly. You may be sure now that you'll always remember what the 200 line long test you've just written does and are (rightfully) very proud of it.
+
+Believe us, in 3 months you will not remember what your test does. This is why the first argument to patrolTest is the test description. Use it well!
+
+
+// GOOD
+import 'package:awesome_app/main.dart';
+import 'package:patrol/patrol.dart';
+
+void main() {
+  patrolTest(
+    'signs up for the newsletter and receives a reward',
+    ($) async {
+      await $.pumpWidgetAndSettle(AwesomeApp());
+
+      await $(#phoneNumber).enterText('800-555-0199');
+      await $(#loginButton).tap();
+
+      // more code
+    },
+  );
+}
+
+// BAD
+void main() {
+  patrolTest(
+    'test',
+    ($) async {
+      await $.pumpWidgetAndSettle(AwesomeApp());
+
+      await $(#phoneNumber).enterText('800-555-0199');
+      await $(#loginButton).tap();
+
+      // more code
+    },
+  );
+}
+
+Handling permission dialogs before the main app widget is pumped
+Sometimes you might want to manually request permissions in the test before the main app widget is pumped. Let's say that you're using the geolocator package:
+
+
+final permission = await Geolocator.requestPermission();
+final position = await Geolocator.getCurrentPosition();
+await $.pumpWidgetAndSettle(MyApp(position: position));
+In such case, first call the requestPermission() method, but instead of awaiting it, assign the Future it returns to some final. Then, use Patrol to grant the permissions, and finally, await the Future from the first step:
+
+
+// 1. request the permission
+final permissionRequestFuture = Geolocator.requestPermission();
+// 2. grant the permission using Patrol
+await $.native.grantPermissionWhenInUse();
+// 3. wait for permission being granted
+final permissionRequestResult = await permissionRequestFuture;
+expect(permissionRequestResult, equals(LocationPermission.whileInUse));
+final position = await Geolocator.getCurrentPosition();
+await $.pumpWidgetAndSettle(MyApp(position: position));

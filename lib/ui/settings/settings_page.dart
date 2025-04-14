@@ -16,6 +16,13 @@ class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
 
   const SettingsPage({super.key});
+  
+  static Route route() {
+    return MaterialPageRoute<void>(
+      settings: const RouteSettings(name: routeName),
+      builder: (_) => const SettingsPage(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

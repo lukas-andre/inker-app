@@ -29,12 +29,12 @@ class RegisterUserByTypePage extends StatelessWidget {
           return shouldClose;
         }
       },
-      child: Scaffold(
+      child: const Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
-            const LoginBackground(),
-            const RegisterUserByTypeLayout(),
+            LoginBackground(),
+            RegisterUserByTypeLayout(),
           ],
         ),
       ),
