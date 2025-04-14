@@ -9,6 +9,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
+import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:intl/intl.dart';
 
 class CustomerMyProfilePage extends StatefulWidget {
@@ -74,12 +75,12 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
             fontSize: 20,
           ),
         ),
-        elevation: 0,
+        elevation: 1,
         actions: [
           IconButton(
             key: const Key('settingsButton'),
             icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
+            onPressed: () => Navigator.of(context).push(SettingsPage.route()),
             tooltip: S.of(context).settings,
           ),
         ],
@@ -174,7 +175,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
         IconButton(
           key: const Key('settingsButton'),
           icon: const Icon(Icons.settings, color: Colors.white),
-          onPressed: () => Navigator.pushNamed(context, '/settings'),
+          onPressed: () => Navigator.of(context).push(SettingsPage.route()),
           tooltip: S.of(context).settings,
         ),
       ],
@@ -187,6 +188,18 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (widget.hideHeader)
+                IconButton(
+                  key: const Key('profileSettingsButton'),
+                  icon: const Icon(Icons.settings, color: Colors.white),
+                  onPressed: () => Navigator.of(context).push(SettingsPage.route()),
+                  tooltip: S.of(context).settings,
+                ),
+            ],
+          ),
           GestureDetector(
             onTap: () => _navigateToEditField(
               context,
