@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/login/login_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
@@ -25,10 +26,10 @@ class CloseRegisterButton extends StatelessWidget {
         BlocProvider.of<RegisterCustomerBloc>(context);
 
     return Container(
-      key: key,
       padding: EdgeInsets.only(right: 22, top: Platform.isIOS ? 22 : 40),
       child: Center(
           child: IconButton(
+              key: registerKeys.customerRegistration.closeButton,
               onPressed: () async {
                 if (toPage != null) {
                   if (toPage is LoginPage) {
@@ -88,6 +89,7 @@ class CloseRegisterButton extends StatelessWidget {
                       'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
                   actions: <Widget>[
                     CupertinoDialogAction(
+                      key: registerKeys.customerRegistration.dialogYesButton,
                       isDestructiveAction: true,
                       onPressed: () {
                         shouldClose = true;
@@ -96,6 +98,7 @@ class CloseRegisterButton extends StatelessWidget {
                       child: const Text('Sí'),
                     ),
                     CupertinoDialogAction(
+                      key: registerKeys.customerRegistration.dialogNoButton,
                       isDefaultAction: true,
                       child: const Text('No'),
                       onPressed: () {
@@ -114,6 +117,7 @@ class CloseRegisterButton extends StatelessWidget {
                     'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
                 actions: <Widget>[
                   TextButton(
+                    key: registerKeys.customerRegistration.dialogNoButton,
                     child: const Text('No'),
                     onPressed: () {
                       shouldClose = false;
@@ -121,6 +125,7 @@ class CloseRegisterButton extends StatelessWidget {
                     },
                   ),
                   TextButton(
+                    key: registerKeys.customerRegistration.dialogYesButton,
                     child: const Text('OK'),
                     onPressed: () {
                       shouldClose = true;

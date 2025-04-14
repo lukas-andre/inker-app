@@ -183,12 +183,11 @@ class VerificationLayout extends StatelessWidget {
     
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const RegisterBackButton(),
+            RegisterBackButton(),
             CloseRegisterButton(
-              key: registerKeys.customerRegistration.closeButton,
               index: 4,
               userType: UserType.customer,
             )

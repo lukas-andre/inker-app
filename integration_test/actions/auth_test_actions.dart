@@ -1,6 +1,7 @@
 // auth_test_actions.dart
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/artist/artist_home_page.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
@@ -28,45 +29,94 @@ class AuthTestActions {
   }
 
   static Future<void> performLogout(PatrolIntegrationTester $) async {
-    await $(K.settingsButton).tap();
-    await $(SettingsPage).waitUntilVisible();
-    await $(K.logoutButton).tap();
-    await $(K.confirmLogoutButton).tap();
-    await $(OnBoardingPage).waitUntilVisible();
+    try {
+      if ($(K.settingsButton).visible) {
+        await $(K.settingsButton).tap();
+      }
+      else if ($(const Key('profileSettingsButton')).visible) {
+        await $(const Key('profileSettingsButton')).tap();
+      } else {
+        await $('Configuración').tap();
+      }
+
+      await $(SettingsPage).waitUntilVisible();
+
+      await $.native.swipe(
+        from: const Offset(0.5, 0.8),
+        to: const Offset(0.5, 0.2),
+      );
+
+      await $(K.logoutButton).waitUntilVisible();
+      await $(K.logoutButton).tap();
+
+      await $(K.confirmLogoutButton).waitUntilVisible();
+      await $(K.confirmLogoutButton).tap();
+
+      await $(OnBoardingPage).waitUntilVisible();
+    } catch (e) {
+      print('Error durante el cierre de sesión: $e');
+      try {
+        if ($(SettingsPage).visible) {
+          await $('Cerrar sesión').tap();
+          await $('Cerrar sesión').waitUntilVisible();
+          await $('Cerrar sesión').at(1).tap();
+          await $(OnBoardingPage).waitUntilVisible();
+        }
+      } catch (e2) {
+        print('Error secundario durante el cierre de sesión: $e2');
+        rethrow;
+      }
+      rethrow;
+    }
   }
 
   static Future<void> customerLogout(
     PatrolIntegrationTester $,
   ) async {
-    if (!$(CustomerAppPage).visible) {
-      await $.native.swipe(
-        from: const Offset(0.5, 0.5),
-        to: const Offset(0.5, 0.1),
-      );
-      await $(CustomerAppPage).waitUntilVisible();
-    }
+    try {
+      // Asegurarse de que estamos en la pantalla principal de cliente
+      if (!$(CustomerAppPage).visible) {
+        await $.native.swipe(
+          from: const Offset(0.5, 0.5),
+          to: const Offset(0.5, 0.1),
+        );
+        await $(CustomerAppPage).waitUntilVisible();
+      }
 
-    if (!$(K.artistProfileContent).visible) {
+      // Ir a la pestaña de perfil si no estamos en ella
       await $(K.profileTab).tap();
-    }
+      await $.pumpAndSettle();
 
-    await performLogout($);
+      // Intentar cerrar sesión
+      await performLogout($);
+    } catch (e) {
+      print('Error durante el cierre de sesión del cliente: $e');
+      rethrow;
+    }
   }
 
   static Future<void> artistLogout(
     PatrolIntegrationTester $,
   ) async {
-    if (!$(ArtistAppPage).visible) {
-      await $.native.swipe(
-        from: const Offset(0.5, 0.5),
-        to: const Offset(0.5, 0.1),
-      );
-    }
+    try {
+      // Asegurarse de que estamos en la pantalla principal de artista
+      if (!$(ArtistAppPage).visible) {
+        await $.native.swipe(
+          from: const Offset(0.5, 0.5),
+          to: const Offset(0.5, 0.1),
+        );
+        await $(ArtistAppPage).waitUntilVisible();
+      }
 
-    if (!$(K.artistProfileContent).visible) {
+      // Ir a la pestaña de perfil si no estamos en ella
       await $(K.profileTab).tap();
-    }
+      await $.pumpAndSettle();
 
-    await performLogout($);
+      // Intentar cerrar sesión
+      await performLogout($);
+    } catch (e) {
+      print('Error durante el cierre de sesión del artista: $e');
+      rethrow;
+    }
   }
 }

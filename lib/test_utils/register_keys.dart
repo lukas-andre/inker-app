@@ -7,6 +7,7 @@ class RegisterKeys {
 
 class OnboardingKeys {
   final registerButton = const Key('onboarding_register_button');
+  final signInButton = const Key('onboarding_signin_button');
 }
 
 class CustomerRegistrationKeys {
@@ -20,6 +21,8 @@ class CustomerRegistrationKeys {
   final nextButton = const Key('next_button');
   final createAccountButton = const Key('create_account_button');
   final closeButton = const Key('close_button');
+  final dialogYesButton = const Key('dialog_yes_button');
+  final dialogNoButton = const Key('dialog_no_button');
 }
 
-final registerKeys = RegisterKeys(); 
+final registerKeys = RegisterKeys();
