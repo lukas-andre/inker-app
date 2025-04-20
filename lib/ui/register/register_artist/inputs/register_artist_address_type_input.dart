@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressTypeInput extends StatelessWidget {
@@ -11,6 +12,7 @@ class RegisterArtistAddressTypeInput extends StatelessWidget {
       BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
         builder: (context, state) => Expanded(
             child: Container(
+          key: registerKeys.artistRegistration.addressTypeInput,
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.045),
           height: MediaQuery.of(context).size.height * 0.05,
@@ -36,6 +38,8 @@ class RegisterArtistAddressTypeInput extends StatelessWidget {
                       );
                 },
                 child: InkerChip(
+                  key: Key(
+                      '${registerKeys.artistRegistration.addressTypeInput}-${state.addressTypeOption[index].type.name}'),
                   text: state.addressTypeOption[index].type.displayName ?? '',
                   active: state.addressTypeOption[index].isSelected,
                 ),

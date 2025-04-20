@@ -29,7 +29,7 @@ class CloseRegisterButton extends StatelessWidget {
       padding: EdgeInsets.only(right: 22, top: Platform.isIOS ? 22 : 40),
       child: Center(
           child: IconButton(
-              key: registerKeys.customerRegistration.closeButton,
+              key: registerKeys.registrationCommon.closeButton,
               onPressed: () async {
                 if (toPage != null) {
                   if (toPage is LoginPage) {
@@ -89,7 +89,7 @@ class CloseRegisterButton extends StatelessWidget {
                       'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
                   actions: <Widget>[
                     CupertinoDialogAction(
-                      key: registerKeys.customerRegistration.dialogYesButton,
+                      key: registerKeys.registrationCommon.dialogYesButton,
                       isDestructiveAction: true,
                       onPressed: () {
                         shouldClose = true;
@@ -98,7 +98,7 @@ class CloseRegisterButton extends StatelessWidget {
                       child: const Text('Sí'),
                     ),
                     CupertinoDialogAction(
-                      key: registerKeys.customerRegistration.dialogNoButton,
+                      key: registerKeys.registrationCommon.dialogNoButton,
                       isDefaultAction: true,
                       child: const Text('No'),
                       onPressed: () {
@@ -117,7 +117,7 @@ class CloseRegisterButton extends StatelessWidget {
                     'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
                 actions: <Widget>[
                   TextButton(
-                    key: registerKeys.customerRegistration.dialogNoButton,
+                    key: registerKeys.registrationCommon.dialogNoButton,
                     child: const Text('No'),
                     onPressed: () {
                       shouldClose = false;
@@ -125,7 +125,7 @@ class CloseRegisterButton extends StatelessWidget {
                     },
                   ),
                   TextButton(
-                    key: registerKeys.customerRegistration.dialogYesButton,
+                    key: registerKeys.registrationCommon.dialogYesButton,
                     child: const Text('OK'),
                     onPressed: () {
                       shouldClose = true;
