@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_phone_number_input.dart';
 
@@ -25,6 +26,7 @@ class RegisterArtistPhoneNumberInput extends StatelessWidget {
           previous.form.phoneNumber.value != current.form.phoneNumber.value,
       builder: (context, state) {
         return CustomPhoneNumberInput(
+          key: registerKeys.artistRegistration.phoneNumberInput,
           label: 'Tefélono',
           searchDecoratorLabel: 'Nombre de tu pais',
           onInputChanged: (number) {

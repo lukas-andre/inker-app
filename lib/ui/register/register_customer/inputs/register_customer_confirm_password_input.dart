@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
@@ -24,7 +25,7 @@ class _RegisterCustomerConfirmPasswordInputState extends State<RegisterCustomerC
           previous.form.confirmedPassword.value != current.form.confirmedPassword.value,
       builder: (context, state) {
         return CustomInput(
-            key: widget.key,
+            key: registerKeys.customerRegistration.confirmPasswordField,
             inputFormatters: [TrimTextFormatter()],
             hint: '**********',
             obscureText: obscureText,

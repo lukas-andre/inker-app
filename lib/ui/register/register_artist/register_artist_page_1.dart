@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/form/register_artist_form_page_1.dart';
 import 'package:inker_studio/ui/register/register_artist/register_artist_page_2.dart';
@@ -72,6 +73,7 @@ class RegisterArtistPage1NextButton extends StatelessWidget {
           }
         },
         child: RegisterActionButton(
+          key: registerKeys.artistRegistration.nextButton,
           text: 'Siguiente',
           onPressed: () {
             context.read<RegisterArtistBloc>().add(

@@ -39,7 +39,7 @@ void main() {
         await app.main();
         await AuthTestActions.skipOnboarding($);
 
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,
@@ -56,7 +56,7 @@ void main() {
         await app.main();
         await AuthTestActions.skipOnboarding($);
 
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.invalidCustomerCredentials['email']!,
           password: AuthTestData.invalidCustomerCredentials['password']!,
@@ -80,7 +80,7 @@ void main() {
         await app.main();
         await AuthTestActions.skipOnboarding($);
 
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,
@@ -100,7 +100,7 @@ void main() {
         await app.main();
         await AuthTestActions.skipOnboarding($);
         
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,

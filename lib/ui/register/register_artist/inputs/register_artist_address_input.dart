@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressInput extends StatelessWidget {
@@ -89,6 +90,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
       displayStringForOption: (Prediction option) => option.description,
       fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
         return TextField(
+          key: registerKeys.artistRegistration.addressInput,
           controller: controller,
           focusNode: focusNode,
           cursorColor: const Color(0xff777E91),
@@ -195,6 +197,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
+          key: registerKeys.artistRegistration.addressSuggestionsList,
           margin: const EdgeInsets.only(top: 4),
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
@@ -208,6 +211,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
   }
 
   Widget _itemBuilder(BuildContext context, Prediction suggestion) => ListTile(
+        key: registerKeys.artistRegistration.addressSuggestionItem,
         title: Text(
           suggestion.description,
           style: const TextStyle(

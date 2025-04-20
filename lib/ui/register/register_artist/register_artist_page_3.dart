@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_confirm_password_input.dart';
 import 'package:inker_studio/ui/register/register_artist/inputs/register_artist_password_input.dart';
@@ -59,6 +60,7 @@ class RegisterArtistPage3NextButton extends StatelessWidget {
           previous.form.confirmedPassword != current.form.confirmedPassword,
       builder: (context, state) {
         return RegisterActionButton(
+            key: registerKeys.artistRegistration.nextButton,
             text: 'Siguiente',
             onPressed: () {
               if (state.form.password.valid &&

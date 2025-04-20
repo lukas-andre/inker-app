@@ -36,6 +36,7 @@ class RegisterActionButton extends StatelessWidget {
                   WidgetStateProperty.all(const Color(0xff7450ff)),
             ),
             child: SizedBox(
+              key: key,
               height: 40,
               width: MediaQuery.of(context).size.width * 0.85,
               child: Center(
