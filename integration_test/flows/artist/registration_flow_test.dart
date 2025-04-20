@@ -5,12 +5,12 @@ import 'package:inker_studio/main.dart' as app;
 
 import '../../config/test_config.dart';
 import '../../actions/auth_test_actions.dart';
-import '../../actions/customer/registration_actions.dart';
+import '../../actions/artist/registration_actions.dart';
 import '../../utils/activation_service.dart';
 import '../../utils/test_user_manager.dart';
 
 void main() {
-  group('Customer Registration Tests', () {
+  group('Artist Registration Tests', () {
     setUp(() async {
       await TestUserManager.initialize();
       await TestConfig.initializeTests(resetDatabase: true);
@@ -21,7 +21,7 @@ void main() {
     });
 
     patrolTest(
-      'Customer registration and activation with unique email',
+      'Artist registration and activation with unique email',
       config: TestConfig.defaultConfig,
       nativeAutomatorConfig: const NativeAutomatorConfig(
         packageName: 'com.example.inker_studio',
@@ -30,13 +30,14 @@ void main() {
       ($) async {
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await CustomerRegistrationActions.handleNotificationPermission($);
-        final userData = await CustomerRegistrationActions.registerCustomer($);
+        await ArtistRegistrationActions.handleNotificationPermission($);
+
+        final userData = await ArtistRegistrationActions.registerArtist($);
 
         if (userData != null) {
           print('Attempting to activate user: ${userData['email']}');
           final activated =
-              await ActivationService.activateUser(userData['email']);
+              await ActivationService.activateUser(userData['email'] ?? '');
 
           if (activated) {
             print('User activation successful in test');
@@ -48,7 +49,7 @@ void main() {
 
             await $.pumpAndSettle();
 
-            await CustomerRegistrationActions.verifyLoginWorks($, userData);
+            await ArtistRegistrationActions.verifyLoginWorks($, userData);
           } else {
             throw Exception('User activation failed in test');
           }

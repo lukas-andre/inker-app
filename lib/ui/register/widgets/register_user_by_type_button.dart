@@ -16,8 +16,12 @@ class RegisterUserByTypeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
+    return InkWell(
+      key: key,
+      onTap: () {
+        debugPrint('RegisterUserByTypeButton tapped: $text');
+        onTap();
+      },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.width * 0.88,
@@ -46,7 +50,10 @@ class RegisterUserByTypeButton extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            debugPrint('Icon in RegisterUserByTypeButton tapped: $text');
+                            onTap();
+                          },
                           icon: SvgPicture.asset(
                             'assets/icons/svg/angle-right-solid.svg',
                             color: Colors.white,
@@ -73,10 +80,11 @@ class RegisterUserByTypeButton extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: IconButton(
-                  onPressed: onTap,
-                  icon: Image.asset(
-                    iconPath,
-                  )),
+                  onPressed: () {
+                    debugPrint('Image in RegisterUserByTypeButton tapped: $text');
+                    onTap();
+                  },
+                  icon: Image.asset(iconPath)),
             )
           ]),
         ),

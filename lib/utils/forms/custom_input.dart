@@ -60,6 +60,7 @@ class CustomInput extends StatelessWidget {
           left: horizontalPadding,
           top: MediaQuery.of(context).size.height * 0.01),
       child: TextField(
+        key: key,
         keyboardType: keyboardType,
         focusNode: focusNode,
         onTap: onTap,
