@@ -1,15 +1,20 @@
 import 'dart:io';
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
+import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AddStencilPage extends StatefulWidget {
   const AddStencilPage({super.key});
@@ -18,7 +23,7 @@ class AddStencilPage extends StatefulWidget {
   State<AddStencilPage> createState() => _AddStencilPageState();
 }
 
-class _AddStencilPageState extends State<AddStencilPage> {
+class _AddStencilPageState extends State<AddStencilPage> { 
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -58,6 +63,32 @@ class _AddStencilPageState extends State<AddStencilPage> {
   }
 
   Future<void> _pickImage() async {
+    // Si estamos en modo de prueba, usar una imagen predefinida
+    if (isInTestMode) {
+      try {
+        // Crear un archivo temporal para la imagen de prueba
+        final directory = await getTemporaryDirectory();
+        final imagePath = '${directory.path}/test_stencil.png';
+        final File imageFile = File(imagePath);
+        
+        // Copiar el asset al archivo temporal
+        ByteData data = await rootBundle.load('assets/stencil.png');
+        List<int> bytes = data.buffer.asUint8List();
+        await imageFile.writeAsBytes(bytes);
+        
+        // Usar la imagen temporal
+        setState(() {
+          _selectedImage = XFile(imagePath);
+        });
+        
+        print('Image loaded on test mode: $imagePath');
+        return;
+      } catch (e) {
+        print('Error loading test image: $e');
+      }
+    }
+    
+    // Flujo normal para modo no-test
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
@@ -149,6 +180,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: registerKeys.addStencil.page,
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(S.of(context).addStencil, style: TextStyleTheme.headline1),
@@ -244,6 +276,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
   Widget _buildImagePicker() {
     return Center(
       child: GestureDetector(
+        key: registerKeys.addStencil.imagePicker,
         onTap: _pickImage,
         child: Container(
           width: double.infinity,
@@ -286,6 +319,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildTitleField() {
     return TextFormField(
+      key: registerKeys.addStencil.titleField,
       controller: _titleController,
       style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
       decoration: InputDecoration(
@@ -319,6 +353,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildDescriptionField() {
     return TextFormField(
+      key: registerKeys.addStencil.descriptionField,
       controller: _descriptionController,
       style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
       maxLines: 4,
@@ -365,6 +400,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          key: registerKeys.addStencil.tagField,
           controller: _tagController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
@@ -417,6 +453,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildTagSuggestions() {
     return Container(
+      key: registerKeys.addStencil.tagSuggestionsList,
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -444,6 +481,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
             ..._tagSuggestions.map((tag) => _buildTagSuggestionItem(tag)),
             if (_tagController.text.isNotEmpty)
               ListTile(
+                key: registerKeys.addStencil.createNewTagButton,
                 title: Text(
                   '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
@@ -490,6 +528,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildSelectedTags() {
     return Wrap(
+      key: registerKeys.addStencil.selectedTagsWrap,
       spacing: 8,
       runSpacing: 8,
       children: _selectedTagsObjects.map((tag) {
@@ -510,6 +549,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildFeaturedSwitch() {
     return SwitchListTile(
+      key: registerKeys.addStencil.featuredSwitch,
       title: Text(
         S.of(context).featuredStencil,
         style: TextStyleTheme.bodyText1.copyWith(
@@ -535,6 +575,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
 
   Widget _buildHiddenSwitch() {
     return SwitchListTile(
+      key: registerKeys.addStencil.hiddenSwitch,
       title: Text(
         S.of(context).hideStencil,
         style: TextStyleTheme.bodyText1.copyWith(
@@ -563,6 +604,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
+        key: registerKeys.addStencil.submitButton,
         onPressed: _submitForm,
         style: ElevatedButton.styleFrom(
           backgroundColor: secondaryColor,
