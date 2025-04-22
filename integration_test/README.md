@@ -1,6 +1,101 @@
-# Test de Integración
+# Inker Studio Integration Tests
 
-Este directorio contiene las pruebas de integración para la aplicación Inker Studio. Las pruebas están organizadas de manera modular para facilitar el mantenimiento y la extensibilidad.
+This directory contains end-to-end integration tests for the Inker Studio application, simulating real user interactions.
+
+## Running Tests
+
+Ensure you have a device or emulator running. Then, run the tests using the following command from the root of the project:
+
+```bash
+flutter test integration_test
+```
+
+## Critical Test Scenarios
+
+Based on the core functionalities of the app for both Customers and Artists, the following integration test scenarios are considered critical to ensure application stability and correctness before release:
+
+### Common Flows
+
+1.  **Onboarding & Registration:**
+    *   [ ] Select "Customer" type and complete registration successfully.
+    *   [ ] Select "Artist" type and complete registration successfully (including address lookup if applicable).
+    *   [ ] Attempt registration with invalid data (e.g., duplicate email, weak password) and verify error handling.
+2.  **Login & Logout:**
+    *   [ ] Login successfully as a registered Customer.
+    *   [ ] Login successfully as a registered Artist.
+    *   [ ] Attempt login with incorrect credentials and verify error message.
+    *   [ ] Log out successfully from both Customer and Artist accounts.
+
+### Customer Flows
+
+3.  **Artist Exploration & Search:**
+    *   [ ] Navigate to the "Explore" tab.
+    *   [ ] Switch between Map view and List view.
+    *   [ ] Use the search bar to find a specific artist.
+    *   [ ] Apply filters (if available) and verify results.
+    *   [ ] Tap on an artist to view their profile.
+4.  **Quotation Request & Management:**
+    *   [ ] Navigate to an Artist's profile and initiate a quotation request.
+    *   [ ] Fill and submit the quotation request form.
+    *   [ ] Navigate to the "Quotations" tab and view the pending request.
+    *   [ ] View details of a quotation received from an artist.
+    *   [ ] Accept a received quotation.
+    *   [ ] Reject a received quotation.
+5.  **Inspiration Search:**
+    *   [ ] Navigate to the "Inspiration" tab.
+    *   [ ] Search for stencils/works using keywords/tags.
+    *   [ ] Apply filters (if available).
+    *   [ ] View details of a specific stencil/work.
+6.  **Appointments:**
+    *   [ ] Navigate to the "My Appointments" tab.
+    *   [ ] View upcoming appointments list.
+    *   [ ] View past appointments list.
+    *   *Dependency: Needs a flow to create an appointment (e.g., from an accepted quote).*
+7.  **Notifications:**
+    *   [ ] Receive a notification (e.g., quote received, appointment reminder - requires mocking/setup).
+    *   [ ] Tap on a notification and verify navigation to the correct screen.
+    *   [ ] Check the notification badge count updates correctly.
+8.  **Profile:**
+    *   [ ] Navigate to the "My Profile" tab.
+    *   [ ] View profile information.
+    *   [ ] Edit profile information (if applicable).
+
+### Artist Flows
+
+9.  **Agenda Management & Settings:**
+    *   [ ] Navigate to the "Agenda" tab.
+    *   [ ] View the calendar/agenda display.
+    *   [ ] Refresh the agenda view.
+    *   [ ] Navigate to Agenda Settings.
+    *   [ ] Modify availability (e.g., block a time slot, set working hours).
+    *   [ ] Verify changes reflect in the main agenda view.
+10. **Quotation Response:**
+    *   [ ] Navigate to the "Quotations" tab.
+    *   [ ] View a list of received quotation requests.
+    *   [ ] Open a specific request.
+    *   [ ] Respond to a request with a price/details.
+    *   [ ] Decline a quotation request.
+11. **Content Management (Stencils & Works):**
+    *   [X] **Add Stencil:** Navigate to Profile -> Add Stencil, fill form, add new tag, submit, verify success. *(Covered by `add_stencil_test.dart`)*
+    *   [ ] **Edit Stencil:** Navigate to an existing stencil, edit details, save, verify changes.
+    *   [ ] **Delete Stencil:** Delete an existing stencil, verify removal.
+    *   [ ] **Add Work:** Similar flow to adding a stencil, but for finished works.
+    *   [ ] **Edit Work:** Similar flow to editing a stencil.
+    *   [ ] **Delete Work:** Similar flow to deleting a stencil.
+12. **Profile View:**
+    *   [ ] Navigate to the "My Profile" tab.
+    *   [ ] Verify personal information is displayed correctly.
+    *   [ ] Verify uploaded stencils and works are listed.
+13. **Notifications:**
+    *   [ ] Receive a notification (e.g., new quote request - requires mocking/setup).
+    *   [ ] Tap on a notification and verify navigation.
+    *   [ ] Check the notification badge count updates correctly.
+
+## Notes
+
+*   These tests should ideally run against a controlled backend environment (staging or mock) to ensure consistency.
+*   Tests involving external services like image pickers, push notifications, or payment gateways will require mocking or specific test setup.
+*   Consider adding tests for edge cases, error handling (network errors, API errors), and different device sizes/orientations.
 
 ## Estructura de Carpetas
 

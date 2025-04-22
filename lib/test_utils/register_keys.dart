@@ -6,6 +6,7 @@ class RegisterKeys {
   final artistRegistration = ArtistRegistrationKeys();
   final registrationCommon = RegistrationCommonKeys();
   final login = LoginKeys();
+  final addStencil = AddStencilKeys();
 }
 
 class LoginKeys {
@@ -70,6 +71,20 @@ class ArtistRegistrationKeys {
   final registerButton = const Key('register_artist_register_button');
   final artistTypeButton = const Key('register_artist_type_button');
 
+}
+
+class AddStencilKeys {
+  final page = const Key('add_stencil_page');
+  final imagePicker = const Key('add_stencil_image_picker');
+  final titleField = const Key('add_stencil_title_field');
+  final descriptionField = const Key('add_stencil_description_field');
+  final tagField = const Key('add_stencil_tag_field');
+  final tagSuggestionsList = const Key('add_stencil_tag_suggestions_list');
+  final createNewTagButton = const Key('add_stencil_create_new_tag_button');
+  final selectedTagsWrap = const Key('add_stencil_selected_tags_wrap');
+  final featuredSwitch = const Key('add_stencil_featured_switch');
+  final hiddenSwitch = const Key('add_stencil_hidden_switch');
+  final submitButton = const Key('add_stencil_submit_button');
 }
 
 final registerKeys = RegisterKeys();
