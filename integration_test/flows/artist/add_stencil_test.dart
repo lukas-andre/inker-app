@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
 import 'package:inker_studio/test_utils/test_mode.dart';
@@ -27,16 +28,24 @@ void main() {
       }
 
       try {
-        await AuthTestActions.artistLogout($);
+        if ($(CustomerAppPage).visible) {
+          await AuthTestActions.customerLogout($);
+        } else {
+          await AuthTestActions.artistLogout($);
+        }
       } catch (e) {
         print('Error during artist logout: $e');
       }
 
       await AuthTestActions.skipOnboarding($);
+      
+      if (await $.native.isPermissionDialogVisible()) {
+        await $.native.grantPermissionWhenInUse();
+      }
 
       await AuthTestActions.login(
         $,
-        email: 'testartist8845@example.com',
+        email: 'testartist7502@example.com',
         password: 'admin1',
       );
       await $.pumpAndSettle();

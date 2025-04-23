@@ -29,10 +29,11 @@ class StencilTestActions {
     // En modo de prueba, la imagen se cargará automáticamente sin abrir el selector nativo
     // Esperamos a que se cargue la imagen y se vuelva a la página de stencil
     await $(AddStencilPage).waitUntilVisible();
-    
+
     // Verificar que estamos en la página correcta
-    print('Verificando que estamos de vuelta en la página de stencil después de seleccionar imagen');
-    
+    print(
+        'Verificando que estamos de vuelta en la página de stencil después de seleccionar imagen');
+
     // Damos tiempo para que la imagen se procese completamente
     await Future.delayed(const Duration(seconds: 1));
     await $.pumpAndSettle();
@@ -59,14 +60,9 @@ class StencilTestActions {
     await $(registerKeys.addStencil.tagField).enterText(tagName);
     await $.pumpAndSettle();
 
-    // Tap the field again to ensure suggestions appear
-    await $(registerKeys.addStencil.tagField).tap();
-    await $.pumpAndSettle(); // Wait for debounce
-
     // Create the new tag
     await $(registerKeys.addStencil.createNewTagButton).tap();
     await $.pumpAndSettle();
-
 
     // Scroll to the submit button
     await $(registerKeys.addStencil.submitButton).scrollTo();
