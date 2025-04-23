@@ -168,20 +168,8 @@ class AuthTestActions {
     PatrolIntegrationTester $,
   ) async {
     try {
-      // Asegurarse de que estamos en la pantalla principal de cliente
-      if (!$(CustomerAppPage).visible) {
-        await $.native.swipe(
-          from: const Offset(0.5, 0.5),
-          to: const Offset(0.5, 0.1),
-        );
-        await $(CustomerAppPage).waitUntilVisible();
-      }
-
-      // Ir a la pestaña de perfil si no estamos en ella
       await $(K.profileTab).tap();
-      await $.pumpAndSettle();
 
-      // Intentar cerrar sesión
       await performLogout($);
     } catch (e) {
       print('Error durante el cierre de sesión del cliente: $e');
@@ -193,18 +181,17 @@ class AuthTestActions {
     PatrolIntegrationTester $,
   ) async {
     try {
-      // Asegurarse de que estamos en la pantalla principal de artista
-      if (!$(ArtistAppPage).visible) {
-        await $.native.swipe(
-          from: const Offset(0.5, 0.5),
-          to: const Offset(0.5, 0.1),
-        );
-        await $(ArtistAppPage).waitUntilVisible();
-      }
+      // // Asegurarse de que estamos en la pantalla principal de artista
+      // if (!$(ArtistAppPage).visible && $(CustomerAppPage).visible) {
+      //   await $.native.swipe(
+      //     from: const Offset(0.5, 0.5),
+      //     to: const Offset(0.5, 0.1),
+      //   );
+      //   await $(ArtistAppPage).waitUntilVisible();
+      // }
 
       // Ir a la pestaña de perfil si no estamos en ella
       await $(K.profileTab).tap();
-      await $.pumpAndSettle();
 
       // Intentar cerrar sesión
       await performLogout($);

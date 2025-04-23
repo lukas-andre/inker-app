@@ -26,7 +26,8 @@ class CustomerRegistrationActions {
       print('User activation successful');
       return true;
     } else {
-      print('User activation failed: ${response['error'] ?? response['rawBody']}');
+      print(
+          'User activation failed: ${response['error'] ?? response['rawBody']}');
       // Returning true for now as a fallback to allow tests to continue
       return true;
     }
@@ -124,15 +125,10 @@ class CustomerRegistrationActions {
 
   static Future<void> _fillSecurityInfo(
       PatrolIntegrationTester $, Map<String, dynamic> userData) async {
-    try {
-      await $(TestConstants.passwordLabel).enterText(userData['password']);
-      await $(TestConstants.confirmPasswordLabel).enterText(userData['password']);
-    } catch (e) {
-      await $(registerKeys.customerRegistration.passwordField)
-          .enterText(userData['password']);
-      await $(registerKeys.customerRegistration.confirmPasswordField)
-          .enterText(userData['password']);
-    }
+    await $(registerKeys.customerRegistration.passwordField)
+        .enterText(userData['password']);
+    await $(registerKeys.customerRegistration.confirmPasswordField)
+        .enterText(userData['password']);
   }
 
   static Future<void> _completeRegistration(PatrolIntegrationTester $) async {
@@ -141,14 +137,12 @@ class CustomerRegistrationActions {
     await handleNotificationPermission($);
 
     try {
-      await $(TestConstants.verificationCodeSentMessage)
-          .waitUntilVisible();
+      await $(TestConstants.verificationCodeSentMessage).waitUntilVisible();
 
       await _closeVerificationPage($);
 
       await $.pumpAndSettle();
-      final stillVisible =
-          $(TestConstants.verificationCodeSentMessage).visible;
+      final stillVisible = $(TestConstants.verificationCodeSentMessage).visible;
 
       if (stillVisible) {
         await _closeVerificationPage($);
@@ -216,4 +210,4 @@ class CustomerRegistrationActions {
     await $.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 1));
   }
-} 
+}
