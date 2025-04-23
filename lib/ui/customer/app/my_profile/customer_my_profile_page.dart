@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/blocs/customer_my_profile/customer_my_profile_bloc.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -78,7 +79,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
         elevation: 1,
         actions: [
           IconButton(
-            key: const Key('settingsButton'),
+            key: K.settingsButton,
             icon: const Icon(Icons.settings, color: Colors.white),
             onPressed: () => Navigator.of(context).push(SettingsPage.route()),
             tooltip: S.of(context).settings,
@@ -193,7 +194,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
             children: [
               if (widget.hideHeader)
                 IconButton(
-                  key: const Key('profileSettingsButton'),
+                  key: const Key('settingsButton'),
                   icon: const Icon(Icons.settings, color: Colors.white),
                   onPressed: () => Navigator.of(context).push(SettingsPage.route()),
                   tooltip: S.of(context).settings,

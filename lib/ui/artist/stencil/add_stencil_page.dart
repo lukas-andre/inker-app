@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,7 +73,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
         final File imageFile = File(imagePath);
         
         // Copiar el asset al archivo temporal
-        ByteData data = await rootBundle.load('assets/stencil.png');
+        ByteData data = await rootBundle.load('assets/stencil_${Random().nextInt(5) + 1}.png');
         List<int> bytes = data.buffer.asUint8List();
         await imageFile.writeAsBytes(bytes);
         
@@ -420,6 +421,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
                     ),
                   )
                 : IconButton(
+                    key: registerKeys.addStencil.createNewTagButton,
                     icon: Icon(Icons.add, color: Colors.grey.shade400),
                     onPressed: () => _createNewTag(_tagController.text.trim()),
                     tooltip: S.of(context).createNewTag,
