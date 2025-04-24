@@ -1231,3 +1231,143 @@ final permissionRequestResult = await permissionRequestFuture;
 expect(permissionRequestResult, equals(LocationPermission.whileInUse));
 final position = await Geolocator.getCurrentPosition();
 await $.pumpWidgetAndSettle(MyApp(position: position));
+
+leancodepl/patrolLight logo
+Patrol
+
+Search...
+⌘
+K
+leancodepl/patrol
+1,048
+158
+Toggle theme
+Overview
+Documentation
+CLI commands
+Patrol Feature Guide
+Articles & Resources
+Discord
+patrol API reference
+patrol_finders API reference
+CLI commands
+develop
+test
+build
+doctor
+update
+devices
+Commands - test
+Synopsis
+Run integration tests.
+
+
+patrol test
+To see all available options and flags, run patrol test --help.
+
+Description
+This command is the one use you'll be using most often.
+
+patrol test does the following things:
+
+Builds the app under test (AUT) and the instrumentation app
+Installs the AUT and the instrumentation on the selected device
+Runs the tests natively, and reports results back in native format.
+Under the hood, it calls Gradle (when testing on Android) and xcodebuild (when testing on iOS).
+
+Discussion
+By default, patrol test runs all integration tests (files ending with _test.dart located in the integration_test directory).
+
+To run a single test, use --target:
+
+
+patrol test --target integration_test/login_test.dart
+You can use --target more than once to run multiple tests:
+
+
+patrol test \
+  --target integration_test/login_test.dart \
+  --target integration_test/app_test.dart
+Or alternatively:
+
+
+patrol test --targets integration_test/login_test.dart,integration_test/app_test.dart
+Test files must end with _test.dart. Otherwise the file is not considered a test and is not run.
+
+There's no difference between --target and --targets.
+To delay app uninstallation for 5 seconds after the test finishes:
+
+
+patrol test --target integration_test/app_test.dart --wait 5
+Tags
+You can use tags to run only tests with specific tags.
+
+First specify tags in your patrol tests:
+
+
+  patrol(
+    'example test with tag',
+    tags: ['android'],
+    ($) async {
+      await createApp($);
+
+      await $(FloatingActionButton).tap();
+      expect($(#counterText).text, '1');
+    },
+  );
+
+  patrol(
+    'example test with two tags',
+    tags: ['android', 'ios'],
+    ($) async {
+      await createApp($);
+
+      await $(FloatingActionButton).tap();
+      expect($(#counterText).text, '1');
+    },
+  );
+Then you can run tests with the tags you specified:
+
+
+patrol test --tags android
+patrol test --tags=android
+patrol test --tags='android||ios'
+patrol test --tags='(android || ios)'
+patrol test --tags='(android && tablet)'
+You can also use --exclude-tags to exclude tests with specific tags:
+
+
+patrol test --exclude-tags android
+patrol test --exclude-tags='(android||ios)'
+Coverage
+Coverage collection is currently not supported on macOS.
+
+To collect coverage from patrol tests, use --coverage.
+
+
+patrol test --coverage
+The LCOV report will be saved to /coverage/patrol_lcov.info.
+
+Additionally, you can exclude certain files from the report using glob patterns and --coverage-ignore option. For instance,
+
+
+patrol test --coverage --coverage-ignore="**/*.g.dart"
+excludes all files ending with .g.dart.
+
+Under the hood
+patrol test basically calls patrol build and then runs the built app binaries. For more info, read docs of patrol build.
+
+Edit this page on GitHub
+develop
+build
+Powered by
+⬡
+invertase/docs.page
+On this page
+Synopsis
+Description
+Discussion
+Tags
+Coverage
+Under the hood
+Commands - test

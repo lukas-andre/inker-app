@@ -74,7 +74,7 @@ class Keys {
       Key('quotation_additional_details_field');
   static const estimatedCostField = Key('estimated_cost_field');
   static const dateTimeRangeSelector = Key('date_time_range_selector');
-    static const quotationActionSubmitButton =
+  static const quotationActionSubmitButton =
       Key('quotation_action_submit_button');
 
   // Response Quotation by customer keys
@@ -95,4 +95,13 @@ class Keys {
   static const timeWheelMinuteWheel = Key('time_wheel_minute_wheel');
 
   static const receivedQuotationsTab = Key('Cotizaciones Recibidas');
+  
+  // Artist Work Keys
+  static const workItem = Key('work_item');
+  static const workDetailPage = Key('work_detail_page');
+  static const workEditButton = Key('work_edit_button');
+  static const workSaveButton = Key('work_save_button');
+  static const workDeleteButton = Key('work_delete_button');
+  static const workConfirmDeleteButton = Key('work_confirm_delete_button');
+  static const workCancelDeleteButton = Key('work_cancel_delete_button');
 }

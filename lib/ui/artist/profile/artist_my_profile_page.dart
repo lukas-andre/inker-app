@@ -12,6 +12,8 @@ import 'package:inker_studio/domain/services/session/local_session_service.dart'
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/artist/locations/artist_location_manager_page.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -140,6 +142,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
       backgroundColor: primaryColor.withOpacity(0.8),
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
+          key: registerKeys.myProfile.myProfileTitle,
           S.of(context).myProfile,
           style: TextStyleTheme.headline2.copyWith(
             shadows: [
@@ -224,6 +227,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
             icon: Icons.brush,
             label: S.of(context).addWork,
             onTap: () => _navigateToAddWork(context),
+            key: registerKeys.workDetail.addWorkButton,
           ),
           _buildActionButton(
             context,
@@ -247,8 +251,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
     required IconData icon,
     required String label,
     required VoidCallback onTap,
+    Key? key,
   }) {
     return InkWell(
+      key: key,
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Padding(
@@ -435,6 +441,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         itemBuilder: (context, index) {
                           final work = works[index];
                           return GestureDetector(
+                            key: index == 0 ? K.workItem : null,
                             onTap: () => Navigator.pushNamed(
                               context,
                               '/works/detail',

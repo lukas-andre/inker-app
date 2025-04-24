@@ -8,6 +8,8 @@ import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
@@ -216,6 +218,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          key: registerKeys.workDetail.deleteDialog,
           backgroundColor:
               HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
           title: Text(
@@ -232,6 +235,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           ),
           actions: [
             TextButton(
+              key: registerKeys.workDetail.cancelDeleteButton,
               onPressed: () => Navigator.pop(context),
               child: Text(
                 S.of(context).cancel,
@@ -241,6 +245,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               ),
             ),
             TextButton(
+              key: registerKeys.workDetail.confirmDeleteButton,
               onPressed: () {
                 Navigator.pop(context); // Close the dialog
                 setState(() {
@@ -266,6 +271,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: registerKeys.workDetail.page,
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(_isEditing
@@ -276,12 +282,14 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
+            key: _isEditing ? registerKeys.workDetail.saveButton : registerKeys.workDetail.editButton,
             icon: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: _toggleEditing,
             tooltip: _isEditing ? S.of(context).save : S.of(context).edit,
           ),
           if (!_isEditing)
             IconButton(
+              key: registerKeys.workDetail.deleteButton,
               icon: const Icon(Icons.delete, color: Colors.white),
               onPressed: _deleteWork,
               tooltip: S.of(context).delete,
@@ -549,6 +557,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          key: registerKeys.workDetail.titleField,
           controller: _titleController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
@@ -574,6 +583,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          key: registerKeys.workDetail.descriptionField,
           controller: _descriptionController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           maxLines: 4,
@@ -610,6 +620,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         ],
         const SizedBox(height: 16),
         SwitchListTile(
+          key: registerKeys.workDetail.featuredSwitch,
           title: Text(
             S.of(context).featuredWork,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -632,6 +643,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           contentPadding: EdgeInsets.zero,
         ),
         SwitchListTile(
+          key: registerKeys.workDetail.hiddenSwitch,
           title: Text(
             S.of(context).hideWork,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -659,6 +671,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   
   Widget _buildSourceDropdown() {
     return Column(
+      key: registerKeys.workDetail.sourceDropdown,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -693,6 +706,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               items: WorkSource.values.map<DropdownMenuItem<WorkSource>>((WorkSource value) {
                 return DropdownMenuItem<WorkSource>(
                   value: value,
+                  key: Key('source_dropdown_item_$value'),
                   child: Text(
                     value == WorkSource.app ? 'APP' : 'EXTERNAL',
                     style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
@@ -726,6 +740,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          key: registerKeys.workDetail.tagField,
           controller: _tagController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
@@ -745,6 +760,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                     ),
                   )
                 : IconButton(
+                    key: registerKeys.workDetail.createNewTagButton,
                     icon: Icon(Icons.add, color: Colors.grey.shade400),
                     onPressed: () => _createNewTag(_tagController.text.trim()),
                     tooltip: S.of(context).createNewTag,
@@ -778,6 +794,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
   Widget _buildTagSuggestions() {
     return Container(
+      key: registerKeys.workDetail.tagSuggestionsList,
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -851,6 +868,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
   Widget _buildSelectedTags() {
     return Wrap(
+      key: registerKeys.workDetail.selectedTagsWrap,
       spacing: 8,
       runSpacing: 8,
       children: _selectedTagsObjects.map((tag) {

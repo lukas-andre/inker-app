@@ -22,10 +22,10 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       await event.when(
         loadStencils: (includeHidden) => _loadStencils(includeHidden, emit),
         loadStencilDetail: (stencilId) => _loadStencilDetail(stencilId, emit),
-        createStencil: (title, description, isFeatured, isHidden,
-                tagIds, imageFile) =>
-            _createStencil(title, description, isFeatured, isHidden,
-                tagIds, imageFile, emit),
+        createStencil:
+            (title, description, isFeatured, isHidden, tagIds, imageFile) =>
+                _createStencil(title, description, isFeatured, isHidden, tagIds,
+                    imageFile, emit),
         updateStencil: (stencilId, title, description, isFeatured, isHidden,
                 tagIds, imageFile) =>
             _updateStencil(stencilId, title, description, isFeatured, isHidden,
@@ -240,9 +240,9 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
         return;
       }
 
-      final viewCount = await _stencilService.recordStencilView(
+      await _stencilService.recordStencilView(
           stencilId, session.accessToken);
-      emit(ArtistStencilState.viewRecorded(stencilId, viewCount));
+      // emit(ArtistStencilState.viewRecorded(stencilId, viewCount));
     } catch (e) {
       emit(ArtistStencilState.error(e.toString()));
     }
@@ -257,9 +257,8 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
         return;
       }
 
-      final likeCount =
-          await _stencilService.likeStencil(stencilId, session.accessToken);
-      emit(ArtistStencilState.stencilLiked(stencilId, likeCount));
+      await _stencilService.likeStencil(stencilId, session.accessToken);
+      // emit(ArtistStencilState.stencilLiked(stencilId, likeCount));
     } catch (e) {
       emit(ArtistStencilState.error(e.toString()));
     }
@@ -297,9 +296,8 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
       emit(ArtistStencilState.error(e.toString()));
     }
   }
-  
-  Future<void> _createTag(
-      String name, Emitter<ArtistStencilState> emit) async {
+
+  Future<void> _createTag(String name, Emitter<ArtistStencilState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -307,14 +305,14 @@ class ArtistStencilBloc extends Bloc<ArtistStencilEvent, ArtistStencilState> {
         return;
       }
 
-      final createdTag = await _stencilService.createTag(
-          name, session.accessToken);
+      final createdTag =
+          await _stencilService.createTag(name, session.accessToken);
       emit(ArtistStencilState.tagCreated(createdTag));
     } catch (e) {
       emit(ArtistStencilState.error(e.toString()));
     }
   }
-  
+
   Future<void> _filterStencilsByTag(
       String tagId, Emitter<ArtistStencilState> emit) async {
     emit(const ArtistStencilState.loading());

@@ -265,7 +265,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<int> recordStencilView(String id, String token) async {
+  Future<String> recordStencilView(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'view',
@@ -276,7 +276,7 @@ class StencilClientService implements StencilService {
       final response = await _httpClient.post(
         path: '/interactions',
         body: createInteractionDto,
-        fromJson: (data) => data['id'] as int,
+        fromJson: (data) => data['id'] as String,
         token: token,
       );
       return response;
@@ -287,7 +287,7 @@ class StencilClientService implements StencilService {
   }
 
   @override
-  Future<int> likeStencil(String id, String token) async {
+  Future<String> likeStencil(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'like',
@@ -298,7 +298,7 @@ class StencilClientService implements StencilService {
       final response = await _httpClient.post(
         path: '/interactions',
         body: createInteractionDto,
-        fromJson: (data) => data['id'] as int,
+        fromJson: (data) => data['id'] as String,
         token: token,
       );
       return response;

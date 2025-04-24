@@ -11,8 +11,8 @@ abstract class WorkService {
   Future<Work> createWork(CreateWorkDto createWorkDto, XFile? imageFile, String token);
   Future<Work> updateWork(String id, UpdateWorkDto updateWorkDto, XFile? imageFile, String token);
   Future<void> deleteWork(String id, String token);
-  Future<int> recordWorkView(String id, String token);
-  Future<int> likeWork(String id, String token);
+  Future<String> recordWorkView(String id, String token);
+  Future<String> likeWork(String id, String token);
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);
