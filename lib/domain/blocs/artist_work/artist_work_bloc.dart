@@ -22,12 +22,12 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
       await event.when(
         loadWorks: (includeHidden) => _loadWorks(includeHidden, emit),
         loadWorkDetail: (workId) => _loadWorkDetail(workId, emit),
-        createWork: (title, description, isFeatured, isHidden,
-                tagIds, imageFile, source) =>
-            _createWork(title, description, isFeatured, isHidden,
-                tagIds, imageFile, source, emit),
-        updateWork: (workId, title, description, isFeatured, isHidden,
-                tagIds, imageFile, source) =>
+        createWork: (title, description, isFeatured, isHidden, tagIds,
+                imageFile, source) =>
+            _createWork(title, description, isFeatured, isHidden, tagIds,
+                imageFile, source, emit),
+        updateWork: (workId, title, description, isFeatured, isHidden, tagIds,
+                imageFile, source) =>
             _updateWork(workId, title, description, isFeatured, isHidden,
                 tagIds, imageFile, source, emit),
         deleteWork: (workId) => _deleteWork(workId, emit),
@@ -82,8 +82,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
         return;
       }
 
-      final work =
-          await _workService.getWorkById(workId, session.accessToken);
+      final work = await _workService.getWorkById(workId, session.accessToken);
       emit(ArtistWorkState.detailLoaded(work));
     } catch (e) {
       emit(ArtistWorkState.error(e.toString()));
@@ -165,8 +164,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
     }
   }
 
-  Future<void> _deleteWork(
-      String workId, Emitter<ArtistWorkState> emit) async {
+  Future<void> _deleteWork(String workId, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.submitting());
     try {
       final session = await _sessionService.getActiveSession();
@@ -185,8 +183,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
     }
   }
 
-  Future<void> _toggleFeatured(
-      Work work, Emitter<ArtistWorkState> emit) async {
+  Future<void> _toggleFeatured(Work work, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.submitting());
     try {
       final session = await _sessionService.getActiveSession();
@@ -235,8 +232,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
     }
   }
 
-  Future<void> _recordView(
-      String workId, Emitter<ArtistWorkState> emit) async {
+  Future<void> _recordView(String workId, Emitter<ArtistWorkState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -244,16 +240,14 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
         return;
       }
 
-      final viewCount = await _workService.recordWorkView(
-          workId, session.accessToken);
-      emit(ArtistWorkState.viewRecorded(workId, viewCount));
+      await _workService.recordWorkView(workId, session.accessToken);
+      // emit(ArtistWorkState.viewRecorded(workId, viewCount));
     } catch (e) {
       emit(ArtistWorkState.error(e.toString()));
     }
   }
 
-  Future<void> _likeWork(
-      String workId, Emitter<ArtistWorkState> emit) async {
+  Future<void> _likeWork(String workId, Emitter<ArtistWorkState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -261,9 +255,7 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
         return;
       }
 
-      final likeCount =
-          await _workService.likeWork(workId, session.accessToken);
-      emit(ArtistWorkState.workLiked(workId, likeCount));
+      await _workService.likeWork(workId, session.accessToken);
     } catch (e) {
       emit(ArtistWorkState.error(e.toString()));
     }
@@ -278,8 +270,8 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
         return;
       }
 
-      final suggestions = await _workService.getTagSuggestions(
-          prefix, 10, session.accessToken);
+      final suggestions =
+          await _workService.getTagSuggestions(prefix, 10, session.accessToken);
       emit(ArtistWorkState.tagSuggestionsLoaded(suggestions));
     } catch (e) {
       emit(ArtistWorkState.error(e.toString()));
@@ -301,9 +293,8 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
       emit(ArtistWorkState.error(e.toString()));
     }
   }
-  
-  Future<void> _createTag(
-      String name, Emitter<ArtistWorkState> emit) async {
+
+  Future<void> _createTag(String name, Emitter<ArtistWorkState> emit) async {
     try {
       final session = await _sessionService.getActiveSession();
       if (session == null) {
@@ -311,14 +302,14 @@ class ArtistWorkBloc extends Bloc<ArtistWorkEvent, ArtistWorkState> {
         return;
       }
 
-      final createdTag = await _workService.createTag(
-          name, session.accessToken);
+      final createdTag =
+          await _workService.createTag(name, session.accessToken);
       emit(ArtistWorkState.tagCreated(createdTag));
     } catch (e) {
       emit(ArtistWorkState.error(e.toString()));
     }
   }
-  
+
   Future<void> _filterWorksByTag(
       String tagId, Emitter<ArtistWorkState> emit) async {
     emit(const ArtistWorkState.loading());
