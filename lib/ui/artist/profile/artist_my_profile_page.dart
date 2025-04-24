@@ -381,6 +381,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   children: [
                     Expanded(
                       child: Text(
+                        key: registerKeys.myProfile.worksTitle,
                         S.of(context).works,
                         style: TextStyleTheme.headline3.copyWith(
                           color: Colors.white,
@@ -612,6 +613,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   children: [
                     Expanded(
                       child: Text(
+                        key: registerKeys.myProfile.stencilsTitle,
                         S.of(context).stencils,
                         style: TextStyleTheme.headline3.copyWith(
                           color: Colors.white,
@@ -685,6 +687,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                               ? stencils[index]
                               : featured[index];
                           return GestureDetector(
+                            key: index == 0 ? registerKeys.myProfile.stencilItem : null,
                             onTap: () => Navigator.pushNamed(
                               context,
                               '/stencils/detail',

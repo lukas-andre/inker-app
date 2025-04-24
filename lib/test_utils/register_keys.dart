@@ -9,10 +9,14 @@ class RegisterKeys {
   final addStencil = AddStencilKeys();
   final workDetail = WorkDetailKeys();
   final myProfile = MyProfileKeys();
+  final stencilDetail = StencilDetailKeys();
 }
 
 class MyProfileKeys {
   final myProfileTitle = const Key('myProfileTitle');
+  final stencilsTitle = const Key('stencilsTitle');
+  final worksTitle = const Key('worksTitle');
+  final stencilItem = const Key('stencilItem');
 }
 
 class LoginKeys {
@@ -124,6 +128,32 @@ class WorkDetailKeys {
   final submitButton = const Key('submit_button');
 
   final sourceDropdown = const Key('source_dropdown');
+}
+
+class StencilDetailKeys {
+  // Detail page main screen
+  final page = const Key('stencil_detail_page');
+  final editButton = const Key('stencil_detail_edit_button');
+  final saveButton = const Key('stencil_detail_save_button');
+  final deleteButton = const Key('stencil_detail_delete_button');
+  final imageViewer = const Key('stencil_detail_image_viewer');
+  
+  // Edit form
+  final titleField = const Key('stencil_detail_title_field');
+  final descriptionField = const Key('stencil_detail_description_field');
+  final tagField = const Key('stencil_detail_tag_field');
+  final createNewTagButton = const Key('stencil_detail_create_new_tag_button');
+  final featuredSwitch = const Key('stencil_detail_featured_switch');
+  final hiddenSwitch = const Key('stencil_detail_hidden_switch');
+  
+  // Delete confirmation dialog
+  final deleteDialog = const Key('stencil_detail_delete_dialog');
+  final confirmDeleteButton = const Key('stencil_detail_confirm_delete_button');
+  final cancelDeleteButton = const Key('stencil_detail_cancel_delete_button');
+
+  // Tags
+  final tagSuggestionsList = const Key('stencil_detail_tag_suggestions_list');
+  final selectedTagsWrap = const Key('stencil_detail_selected_tags_wrap');
 }
 
 final registerKeys = RegisterKeys();

@@ -7,6 +7,7 @@ import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dar
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
@@ -205,6 +206,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          key: registerKeys.stencilDetail.deleteDialog,
           backgroundColor:
               HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
           title: Text(
@@ -221,6 +223,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           ),
           actions: [
             TextButton(
+              key: registerKeys.stencilDetail.cancelDeleteButton,
               onPressed: () => Navigator.pop(context),
               child: Text(
                 S.of(context).cancel,
@@ -230,6 +233,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               ),
             ),
             TextButton(
+              key: registerKeys.stencilDetail.confirmDeleteButton,
               onPressed: () {
                 Navigator.pop(context); // Close the dialog
                 setState(() {
@@ -255,6 +259,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: registerKeys.stencilDetail.page,
       backgroundColor: primaryColor,
       appBar: AppBar(
         title: Text(_isEditing
@@ -265,12 +270,14 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
+            key: _isEditing ? registerKeys.stencilDetail.saveButton : registerKeys.stencilDetail.editButton,
             icon: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: _toggleEditing,
             tooltip: _isEditing ? S.of(context).save : S.of(context).edit,
           ),
           if (!_isEditing)
             IconButton(
+              key: registerKeys.stencilDetail.deleteButton,
               icon: const Icon(Icons.delete, color: Colors.white),
               onPressed: _deleteStencil,
               tooltip: S.of(context).delete,
@@ -408,6 +415,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     
     if (_isEditing && _selectedImage != null) {
       return GestureDetector(
+        key: registerKeys.stencilDetail.imageViewer,
         onTap: _isEditing ? _pickImage : null,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -422,6 +430,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     }
 
     return GestureDetector(
+      key: registerKeys.stencilDetail.imageViewer,
       onTap:
           _isEditing ? _pickImage : () => _openGallery(stencil.imageUrl),
       child: Container(
@@ -524,6 +533,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          key: registerKeys.stencilDetail.titleField,
           controller: _titleController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
@@ -549,6 +559,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          key: registerKeys.stencilDetail.descriptionField,
           controller: _descriptionController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           maxLines: 4,
@@ -583,6 +594,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         ],
         const SizedBox(height: 16),
         SwitchListTile(
+          key: registerKeys.stencilDetail.featuredSwitch,
           title: Text(
             S.of(context).featuredStencil,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -605,6 +617,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           contentPadding: EdgeInsets.zero,
         ),
         SwitchListTile(
+          key: registerKeys.stencilDetail.hiddenSwitch,
           title: Text(
             S.of(context).hideStencil,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -650,6 +663,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          key: registerKeys.stencilDetail.tagField,
           controller: _tagController,
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
@@ -669,6 +683,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                     ),
                   )
                 : IconButton(
+                    key: registerKeys.stencilDetail.createNewTagButton,
                     icon: Icon(Icons.add, color: Colors.grey.shade400),
                     onPressed: () => _createNewTag(_tagController.text.trim()),
                     tooltip: S.of(context).createNewTag,
@@ -702,6 +717,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
   Widget _buildTagSuggestions() {
     return Container(
+      key: registerKeys.stencilDetail.tagSuggestionsList,
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -775,6 +791,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
   Widget _buildSelectedTags() {
     return Wrap(
+      key: registerKeys.stencilDetail.selectedTagsWrap,
       spacing: 8,
       runSpacing: 8,
       children: _selectedTagsObjects.map((tag) {
