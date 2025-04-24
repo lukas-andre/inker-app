@@ -7,6 +7,12 @@ class RegisterKeys {
   final registrationCommon = RegistrationCommonKeys();
   final login = LoginKeys();
   final addStencil = AddStencilKeys();
+  final workDetail = WorkDetailKeys();
+  final myProfile = MyProfileKeys();
+}
+
+class MyProfileKeys {
+  final myProfileTitle = const Key('myProfileTitle');
 }
 
 class LoginKeys {
@@ -85,6 +91,39 @@ class AddStencilKeys {
   final featuredSwitch = const Key('add_stencil_featured_switch');
   final hiddenSwitch = const Key('add_stencil_hidden_switch');
   final submitButton = const Key('add_stencil_submit_button');
+}
+
+class WorkDetailKeys {
+  // Detail page main screen
+  final page = const Key('work_detail_page');
+  final editButton = const Key('work_detail_edit_button');
+  final saveButton = const Key('work_detail_save_button');
+  final deleteButton = const Key('work_detail_delete_button');
+  final imageViewer = const Key('work_detail_image_viewer');
+  
+  // Edit form
+  final titleField = const Key('work_detail_title_field');
+  final descriptionField = const Key('work_detail_description_field');
+  final tagField = const Key('work_detail_tag_field');
+  final createNewTagButton = const Key('work_detail_create_new_tag_button');
+  final featuredSwitch = const Key('work_detail_featured_switch');
+  final hiddenSwitch = const Key('work_detail_hidden_switch');
+  
+  // Delete confirmation dialog
+  final deleteDialog = const Key('work_detail_delete_dialog');
+  final confirmDeleteButton = const Key('work_detail_confirm_delete_button');
+  final cancelDeleteButton = const Key('work_detail_cancel_delete_button');
+
+  // Add work button
+  final addWorkButton = const Key('add_work_button');
+  final addStencilButton = const Key('add_stencil_button');
+  final addLocationButton = const Key('add_location_button');
+  final imagePicker = const Key('image_picker');
+  final tagSuggestionsList = const Key('tag_suggestions_list');
+  final selectedTagsWrap = const Key('selected_tags_wrap');
+  final submitButton = const Key('submit_button');
+
+  final sourceDropdown = const Key('source_dropdown');
 }
 
 final registerKeys = RegisterKeys();

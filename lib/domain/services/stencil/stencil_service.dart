@@ -11,8 +11,8 @@ abstract class StencilService {
   Future<Stencil> createStencil(CreateStencilDto createStencilDto, XFile? imageFile, String token);
   Future<Stencil> updateStencil(String id, UpdateStencilDto updateStencilDto, XFile? imageFile, String token);
   Future<void> deleteStencil(String id, String token);
-  Future<int> recordStencilView(String id, String token);
-  Future<int> likeStencil(String id, String token);
+  Future<String> recordStencilView(String id, String token);
+  Future<String> likeStencil(String id, String token);
   Future<List<TagSuggestionResponseDto>> getTagSuggestions(String prefix, int limit, String token);
   Future<List<TagSuggestionResponseDto>> getPopularTags(int limit, String token);
   Future<TagSuggestionResponseDto> createTag(String name, String token);

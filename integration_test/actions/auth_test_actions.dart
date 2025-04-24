@@ -181,16 +181,6 @@ class AuthTestActions {
     PatrolIntegrationTester $,
   ) async {
     try {
-      // // Asegurarse de que estamos en la pantalla principal de artista
-      // if (!$(ArtistAppPage).visible && $(CustomerAppPage).visible) {
-      //   await $.native.swipe(
-      //     from: const Offset(0.5, 0.5),
-      //     to: const Offset(0.5, 0.1),
-      //   );
-      //   await $(ArtistAppPage).waitUntilVisible();
-      // }
-
-      // Ir a la pestaña de perfil si no estamos en ella
       await $(K.profileTab).tap();
 
       // Intentar cerrar sesión

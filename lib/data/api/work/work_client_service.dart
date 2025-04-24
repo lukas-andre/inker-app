@@ -270,7 +270,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<int> recordWorkView(String id, String token) async {
+  Future<String> recordWorkView(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'view',
@@ -281,7 +281,7 @@ class WorkClientService implements WorkService {
       final response = await _httpClient.post(
         path: '/interactions',
         body: createInteractionDto,
-        fromJson: (data) => data['id'] as int,
+        fromJson: (data) => data['id'] as String,
         token: token,
       );
       return response;
@@ -292,7 +292,7 @@ class WorkClientService implements WorkService {
   }
 
   @override
-  Future<int> likeWork(String id, String token) async {
+  Future<String> likeWork(String id, String token) async {
     try {
       final createInteractionDto = {
         'interactionType': 'like',
@@ -303,7 +303,7 @@ class WorkClientService implements WorkService {
       final response = await _httpClient.post(
         path: '/interactions',
         body: createInteractionDto,
-        fromJson: (data) => data['id'] as int,
+        fromJson: (data) => data['id'] as String,
         token: token,
       );
       return response;
