@@ -1,9 +1,14 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
+import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ImageEditWidget extends StatefulWidget {
   final String? initialValue;
@@ -30,6 +35,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: registerKeys.imageEdit.container,
       children: [
         Expanded(
           child: Padding(
@@ -47,6 +53,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   Widget _buildImageContent() {
     if (_isNewImageSelected && _imageFile != null) {
       return _buildImageContainer(
+        key: registerKeys.imageEdit.imageContent,
         child: Image.file(
           File(_imageFile!.path),
           fit: BoxFit.cover,
@@ -54,6 +61,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
       );
     } else if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
       return _buildImageContainer(
+        key: registerKeys.imageEdit.imageContent,
         child: Image.network(
           widget.initialValue!,
           fit: BoxFit.cover,
@@ -76,8 +84,9 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     }
   }
 
-  Widget _buildImageContainer({required Widget child}) {
+  Widget _buildImageContainer({required Widget child, Key? key}) {
     return Container(
+      key: key,
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
@@ -99,6 +108,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
 
   Widget _buildEmptyImageContainer() {
     return Container(
+      key: registerKeys.imageEdit.emptyImageContainer,
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
@@ -132,6 +142,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           ),
           const SizedBox(height: 24),
           _buildSimpleButton(
+            key: registerKeys.imageEdit.pickImageButton,
             onPressed: _pickImage,
             icon: Icons.add_photo_alternate_rounded,
             label: S.of(context).chooseImage,
@@ -143,6 +154,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   }
 
   Widget _buildSimpleButton({
+    Key? key,
     required VoidCallback onPressed,
     required IconData icon,
     required String label,
@@ -150,6 +162,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     Color? textColor,
   }) {
     return InkWell(
+      key: key,
       onTap: onPressed,
       borderRadius: BorderRadius.circular(12),
       child: Ink(
@@ -206,6 +219,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
             ),
           if (_hasChanges)
             ElevatedButton.icon(
+              key: registerKeys.imageEdit.saveChangesButton,
               onPressed: _saveChanges,
               icon: const Icon(Icons.check_circle_outline),
               label: Text(S.of(context).saveChanges),
@@ -221,6 +235,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           const SizedBox(height: 12),
           if (_isNewImageSelected || widget.initialValue != null)
             OutlinedButton.icon(
+              key: registerKeys.imageEdit.changeImageButton,
               onPressed: _pickImage,
               icon: const Icon(Icons.photo_library),
               label: Text(S.of(context).changeImage),
@@ -236,6 +251,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           if (_isNewImageSelected) ...[
             const SizedBox(height: 12),
             TextButton.icon(
+              key: registerKeys.imageEdit.removeImageButton,
               onPressed: _removeImage,
               icon: const Icon(Icons.delete_outline),
               label: Text(S.of(context).removeImage),
@@ -254,6 +270,34 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   }
 
   Future<void> _pickImage() async {
+    // Si estamos en modo de prueba, usar una imagen predefinida
+    if (isInTestMode) {
+      try {
+        // Crear un archivo temporal para la imagen de prueba
+        final directory = await getTemporaryDirectory();
+        final imagePath = '${directory.path}/test_studio.png';
+        final File imageFile = File(imagePath);
+        
+        // Copiar el asset al archivo temporal
+        ByteData data = await rootBundle.load('assets/studio_${Random().nextInt(5) + 1}.png');
+        List<int> bytes = data.buffer.asUint8List();
+        await imageFile.writeAsBytes(bytes);
+        
+        // Usar la imagen temporal
+        setState(() {
+          _imageFile = XFile(imagePath);
+          _isNewImageSelected = true;
+          _hasChanges = true;
+        });
+        
+        print('Studio image loaded in test mode: $imagePath');
+        return;
+      } catch (e) {
+        print('Error loading test studio image: $e');
+      }
+    }
+    
+    // Flujo normal para modo no-test
     final pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 1024,
