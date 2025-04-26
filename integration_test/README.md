@@ -17,14 +17,14 @@ Based on the core functionalities of the app for both Customers and Artists, the
 ### Common Flows
 
 1.  **Onboarding & Registration:**
-    *   [ ] Select "Customer" type and complete registration successfully.
-    *   [ ] Select "Artist" type and complete registration successfully (including address lookup if applicable).
-    *   [ ] Attempt registration with invalid data (e.g., duplicate email, weak password) and verify error handling.
+    *   [X] Select "Customer" type and complete registration successfully.
+    *   [X] Select "Artist" type and complete registration successfully (including address lookup if applicable).
+    *   [] Attempt registration with invalid data (e.g., duplicate email, weak password) and verify error handling.
 2.  **Login & Logout:**
-    *   [ ] Login successfully as a registered Customer.
-    *   [ ] Login successfully as a registered Artist.
+    *   [X] Login successfully as a registered Customer.
+    *   [X] Login successfully as a registered Artist.
     *   [ ] Attempt login with incorrect credentials and verify error message.
-    *   [ ] Log out successfully from both Customer and Artist accounts.
+    *   [X] Log out successfully from both Customer and Artist accounts.
 
 ### Customer Flows
 
@@ -77,15 +77,15 @@ Based on the core functionalities of the app for both Customers and Artists, the
     *   [ ] Decline a quotation request.
 11. **Content Management (Stencils & Works):**
     *   [X] **Add Stencil:** Navigate to Profile -> Add Stencil, fill form, add new tag, submit, verify success. *(Covered by `add_stencil_test.dart`)*
-    *   [ ] **Edit Stencil:** Navigate to an existing stencil, edit details, save, verify changes.
-    *   [ ] **Delete Stencil:** Delete an existing stencil, verify removal.
-    *   [ ] **Add Work:** Similar flow to adding a stencil, but for finished works.
-    *   [ ] **Edit Work:** Similar flow to editing a stencil.
-    *   [ ] **Delete Work:** Similar flow to deleting a stencil.
+    *   [X] **Edit Stencil:** Navigate to an existing stencil, edit details, save, verify changes.
+    *   [X] **Delete Stencil:** Delete an existing stencil, verify removal.
+    *   [X] **Add Work:** Similar flow to adding a stencil, but for finished works.
+    *   [X] **Edit Work:** Similar flow to editing a stencil.
+    *   [X] **Delete Work:** Similar flow to deleting a stencil.
 12. **Profile View:**
-    *   [ ] Navigate to the "My Profile" tab.
-    *   [ ] Verify personal information is displayed correctly.
-    *   [ ] Verify uploaded stencils and works are listed.
+    *   [X] Navigate to the "My Profile" tab.
+    *   [X] Verify personal information is displayed correctly.
+    *   [X] Verify uploaded stencils and works are listed.
 13. **Notifications:**
     *   [ ] Receive a notification (e.g., new quote request - requires mocking/setup).
     *   [ ] Tap on a notification and verify navigation.
