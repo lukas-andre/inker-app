@@ -1,6 +1,6 @@
 class TestConstants {
   // API Endpoints
-  static const String apiEndpoint = '45a1-186-104-122-109.ngrok-free.app';
+  static const String apiEndpoint = 'f7f1-190-22-36-179.ngrok-free.app';
   static const String activateUserEndpoint = '/users/activate-by-email';
   static const String apiSecretKey = 'c31bd447-6054-4111-a881-7301e0b31ef3';
   
