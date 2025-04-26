@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 
 // START: GENERATED TEST IMPORTS
-import 'flows/artist/update_delete_stencil_test.dart' as flows__artist__update_delete_stencil_test;
+import 'flows/artist/update_studio_photo_test.dart' as flows__artist__update_studio_photo_test;
 // END: GENERATED TEST IMPORTS
 
 Future<void> main() async {
@@ -16,6 +16,6 @@ Future<void> main() async {
         debugDefaultTargetPlatformOverride;
 
   // START: GENERATED TEST GROUPS
-  group('flows.artist.update_delete_stencil_test', flows__artist__update_delete_stencil_test.main);
+  group('flows.artist.update_studio_photo_test', flows__artist__update_studio_photo_test.main);
   // END: GENERATED TEST GROUPS
 }
