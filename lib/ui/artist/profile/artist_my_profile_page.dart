@@ -1286,7 +1286,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
 
   Widget _buildStudioPhoto(BuildContext context, Artist artist) {
     return GestureDetector(
-      key: const Key('artistProfileStudioPhoto'),
+      key: registerKeys.myProfile.studioPhoto,
       onTap: () => _navigateToEditField(
         context,
         EditFieldArguments(

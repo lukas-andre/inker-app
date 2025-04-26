@@ -10,6 +10,7 @@ class RegisterKeys {
   final workDetail = WorkDetailKeys();
   final myProfile = MyProfileKeys();
   final stencilDetail = StencilDetailKeys();
+  final imageEdit = ImageEditWidgetKeys();
 }
 
 class MyProfileKeys {
@@ -17,6 +18,7 @@ class MyProfileKeys {
   final stencilsTitle = const Key('stencilsTitle');
   final worksTitle = const Key('worksTitle');
   final stencilItem = const Key('stencilItem');
+  final studioPhoto = const Key('artistProfileStudioPhoto');
 }
 
 class LoginKeys {
@@ -154,6 +156,16 @@ class StencilDetailKeys {
   // Tags
   final tagSuggestionsList = const Key('stencil_detail_tag_suggestions_list');
   final selectedTagsWrap = const Key('stencil_detail_selected_tags_wrap');
+}
+
+class ImageEditWidgetKeys {
+  final container = const Key('image_edit_container');
+  final imageContent = const Key('image_edit_content');
+  final emptyImageContainer = const Key('empty_image_container');
+  final pickImageButton = const Key('pick_image_button');
+  final changeImageButton = const Key('change_image_button');
+  final removeImageButton = const Key('remove_image_button');
+  final saveChangesButton = const Key('save_changes_button');
 }
 
 final registerKeys = RegisterKeys();
