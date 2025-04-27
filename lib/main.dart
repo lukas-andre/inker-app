@@ -36,9 +36,9 @@ Future<void> main() async {
   dev.log(remoteConfig.inkerApiUrl, 'RemoteConfigService');
   OverlayStyle.apply();
 
-  initializeDateFormatting('es_CL'); // initialize locale data
+  initializeDateFormatting('es_CL');
   
-  // Build the providers asynchronously before running the app
+  
   final providers = await buildProviders();
   
   runApp(MyApp(providers: providers));

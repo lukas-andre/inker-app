@@ -124,6 +124,11 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
               children: [
                 _buildProfileHeader(context, customer),
                 _buildProfileDetails(context, customer),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: _buildMenuItems(),
+                ),
                 _buildContactInfo(context, customer),
               ],
             ),
@@ -525,5 +530,51 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
           break;
       }
     }
+  }
+
+  Widget _buildMenuItems() {
+    return Column(
+      children: [
+        // Tattoo Generator menu item
+        InkWell(
+          onTap: () => Navigator.of(context).pushNamed('/tattoo-generator'),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: explorerSecondaryColor,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.brush,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  'Tattoo Generator',
+                  style: TextStyleTheme.subtitle1,
+                ),
+                const Spacer(),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        // Other menu items...
+      ],
+    );
   }
 }
