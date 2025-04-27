@@ -1873,5 +1873,53 @@
         "example": "Network error"
       }
     }
+  },
+  "tattooGenerator": "Generador de Tatuajes",
+  "@tattooGenerator": {
+    "description": "Title for the tattoo generator feature."
+  },
+  "describeYourTattoo": "Describe tu tatuaje",
+  "@describeYourTattoo": {
+    "description": "Label for the tattoo description input field."
+  },
+  "chooseStyle": "Elige un estilo",
+  "@chooseStyle": {
+    "description": "Label for the tattoo style selection."
+  },
+  "generateTattoo": "Generar Tatuaje",
+  "@generateTattoo": {
+    "description": "Button text to generate tattoo designs."
+  },
+  "results": "Resultados",
+  "@results": {
+    "description": "Label for the results section of generated tattoos."
+  },
+  "tattooDescriptionHint": "Ej. Silueta minimalista de lobo con patrones geométricos",
+  "@tattooDescriptionHint": {
+    "description": "Hint text for the tattoo description input field."
+  },
+  "pleaseEnterDescription": "Por favor ingresa una descripción",
+  "@pleaseEnterDescription": {
+    "description": "Error message when no description is provided."
+  },
+  "emptyTattooGeneratorMessage": "Ingresa una descripción y elige un estilo\npara generar diseños de tatuajes",
+  "@emptyTattooGeneratorMessage": {
+    "description": "Message displayed when no tattoos have been generated yet."
+  },
+  "viewTattooDetails": "Ver Detalles",
+  "@viewTattooDetails": {
+    "description": "Button text to view tattoo details."
+  },
+  "createQuotationForTattoo": "Crear Cotización",
+  "@createQuotationForTattoo": {
+    "description": "Button text to create a quotation for a tattoo design."
+  },
+  "noImagesGenerated": "No se generaron imágenes",
+  "@noImagesGenerated": {
+    "description": "Error message when no images were generated."
+  },
+  "noActiveSession": "No se encontró una sesión activa",
+  "@noActiveSession": {
+    "description": "Error message when no active user session is found."
   }
 }
