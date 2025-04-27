@@ -14,5 +14,7 @@ class TattooGeneratorEvent with _$TattooGeneratorEvent {
   // New events for history and favorites
   const factory TattooGeneratorEvent.loadHistory() = _LoadHistory;
   const factory TattooGeneratorEvent.loadFavorites() = _LoadFavorites;
+  const factory TattooGeneratorEvent.refreshHistory() = _RefreshHistory;
+  const factory TattooGeneratorEvent.refreshFavorites() = _RefreshFavorites;
   const factory TattooGeneratorEvent.toggleFavorite({required String designId, required bool isFavorite}) = _ToggleFavorite;
 } 
