@@ -32,12 +32,14 @@ import 'package:inker_studio/domain/blocs/register/customer/register_customer_bl
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
@@ -222,6 +224,14 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       create: (context) => InspirationSearchBloc(
         stencilService: context.read<StencilService>(),
         workService: context.read<WorkService>(),
+        sessionService: context.read<LocalSessionService>(),
+      ),
+    ),
+    
+    // Tattoo generator provider
+    BlocProvider(
+      create: (context) => TattooGeneratorBloc(
+        tattooGeneratorService: context.read<TattooGeneratorService>(),
         sessionService: context.read<LocalSessionService>(),
       ),
     ),

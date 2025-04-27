@@ -13,6 +13,7 @@ import 'package:inker_studio/data/api/quotation/api_quotation_service.dart';
 import 'package:inker_studio/data/api/review/api_review_service.dart';
 import 'package:inker_studio/data/api/settings/api_settings_service.dart';
 import 'package:inker_studio/data/api/stencil/stencil_client_service.dart';
+import 'package:inker_studio/data/api/tattoo_generator/tattoo_generator_client.dart';
 import 'package:inker_studio/data/api/user/api_user_service.dart';
 import 'package:inker_studio/data/api/work/work_client_service.dart';
 import 'package:inker_studio/data/firebase/google_auth_service.dart';
@@ -39,6 +40,7 @@ import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/domain/usescases/auth/google_singin_usecase.dart';
@@ -122,6 +124,10 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Add the analytics service
     RepositoryProvider<AnalyticsService>(
       create: (context) => ApiAnalyticsService(context.read<HttpClientService>()),
+    ),
+    // Add the tattoo generator service
+    RepositoryProvider<TattooGeneratorService>(
+      create: (context) => TattooGeneratorClient(context.read<HttpClientService>()),
     ),
   ];
 }
