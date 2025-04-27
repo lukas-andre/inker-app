@@ -521,16 +521,6 @@ class S {
     );
   }
 
-  /// `Estado`
-  String get status {
-    return Intl.message(
-      'Estado',
-      name: 'status',
-      desc: 'Etiqueta para el estado',
-      args: [],
-    );
-  }
-
   /// `Cancelar Cotización`
   String get cancelQuotationConfirmationTitle {
     return Intl.message(
@@ -558,26 +548,6 @@ class S {
       name: 'quotationCancelledSuccessfully',
       desc:
           'Mensaje mostrado cuando una cotización ha sido cancelada exitosamente.',
-      args: [],
-    );
-  }
-
-  /// `Sí`
-  String get yes {
-    return Intl.message(
-      'Sí',
-      name: 'yes',
-      desc: 'Respuesta afirmativa',
-      args: [],
-    );
-  }
-
-  /// `No`
-  String get no {
-    return Intl.message(
-      'No',
-      name: 'no',
-      desc: 'Respuesta negativa',
       args: [],
     );
   }
@@ -2953,16 +2923,6 @@ class S {
     );
   }
 
-  /// `Reintentar`
-  String get retry {
-    return Intl.message(
-      'Reintentar',
-      name: 'retry',
-      desc: 'Button text to retry an action',
-      args: [],
-    );
-  }
-
   /// `No hay notificaciones`
   String get noNotificationsTitle {
     return Intl.message(
@@ -3516,6 +3476,16 @@ class S {
     );
   }
 
+  /// `Estado`
+  String get status {
+    return Intl.message(
+      'Estado',
+      name: 'status',
+      desc: 'Etiqueta para el estado',
+      args: [],
+    );
+  }
+
   /// `Oculta`
   String get hidden {
     return Intl.message(
@@ -3542,6 +3512,26 @@ class S {
       'Destacada',
       name: 'featured',
       desc: 'Etiqueta para estado destacado',
+      args: [],
+    );
+  }
+
+  /// `Sí`
+  String get yes {
+    return Intl.message(
+      'Sí',
+      name: 'yes',
+      desc: 'Respuesta afirmativa',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: 'Respuesta negativa',
       args: [],
     );
   }
@@ -4277,6 +4267,16 @@ class S {
     );
   }
 
+  /// `Reintentar`
+  String get retry {
+    return Intl.message(
+      'Reintentar',
+      name: 'retry',
+      desc: 'Button text to retry an action',
+      args: [],
+    );
+  }
+
   /// `No hay trabajos de tatuaje agregados aún`
   String get noTattooWorksAddedYet {
     return Intl.message(
@@ -4464,6 +4464,126 @@ class S {
       name: 'errorLoadingEvents',
       desc: 'Error message when events cannot be loaded',
       args: [message],
+    );
+  }
+
+  /// `Generador de Tatuajes`
+  String get tattooGenerator {
+    return Intl.message(
+      'Generador de Tatuajes',
+      name: 'tattooGenerator',
+      desc: 'Title for the tattoo generator feature.',
+      args: [],
+    );
+  }
+
+  /// `Describe tu tatuaje`
+  String get describeYourTattoo {
+    return Intl.message(
+      'Describe tu tatuaje',
+      name: 'describeYourTattoo',
+      desc: 'Label for the tattoo description input field.',
+      args: [],
+    );
+  }
+
+  /// `Elige un estilo`
+  String get chooseStyle {
+    return Intl.message(
+      'Elige un estilo',
+      name: 'chooseStyle',
+      desc: 'Label for the tattoo style selection.',
+      args: [],
+    );
+  }
+
+  /// `Generar Tatuaje`
+  String get generateTattoo {
+    return Intl.message(
+      'Generar Tatuaje',
+      name: 'generateTattoo',
+      desc: 'Button text to generate tattoo designs.',
+      args: [],
+    );
+  }
+
+  /// `Resultados`
+  String get results {
+    return Intl.message(
+      'Resultados',
+      name: 'results',
+      desc: 'Label for the results section of generated tattoos.',
+      args: [],
+    );
+  }
+
+  /// `Ej. Silueta minimalista de lobo con patrones geométricos`
+  String get tattooDescriptionHint {
+    return Intl.message(
+      'Ej. Silueta minimalista de lobo con patrones geométricos',
+      name: 'tattooDescriptionHint',
+      desc: 'Hint text for the tattoo description input field.',
+      args: [],
+    );
+  }
+
+  /// `Por favor ingresa una descripción`
+  String get pleaseEnterDescription {
+    return Intl.message(
+      'Por favor ingresa una descripción',
+      name: 'pleaseEnterDescription',
+      desc: 'Error message when no description is provided.',
+      args: [],
+    );
+  }
+
+  /// `Ingresa una descripción y elige un estilo\npara generar diseños de tatuajes`
+  String get emptyTattooGeneratorMessage {
+    return Intl.message(
+      'Ingresa una descripción y elige un estilo\npara generar diseños de tatuajes',
+      name: 'emptyTattooGeneratorMessage',
+      desc: 'Message displayed when no tattoos have been generated yet.',
+      args: [],
+    );
+  }
+
+  /// `Ver Detalles`
+  String get viewTattooDetails {
+    return Intl.message(
+      'Ver Detalles',
+      name: 'viewTattooDetails',
+      desc: 'Button text to view tattoo details.',
+      args: [],
+    );
+  }
+
+  /// `Crear Cotización`
+  String get createQuotationForTattoo {
+    return Intl.message(
+      'Crear Cotización',
+      name: 'createQuotationForTattoo',
+      desc: 'Button text to create a quotation for a tattoo design.',
+      args: [],
+    );
+  }
+
+  /// `No se generaron imágenes`
+  String get noImagesGenerated {
+    return Intl.message(
+      'No se generaron imágenes',
+      name: 'noImagesGenerated',
+      desc: 'Error message when no images were generated.',
+      args: [],
+    );
+  }
+
+  /// `No se encontró una sesión activa`
+  String get noActiveSession {
+    return Intl.message(
+      'No se encontró una sesión activa',
+      name: 'noActiveSession',
+      desc: 'Error message when no active user session is found.',
+      args: [],
     );
   }
 }

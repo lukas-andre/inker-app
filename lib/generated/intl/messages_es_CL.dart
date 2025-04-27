@@ -215,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("cambió el estado de"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Elegir Imagen"),
+        "chooseStyle": MessageLookupByLibrary.simpleMessage("Elige un estilo"),
         "city": MessageLookupByLibrary.simpleMessage("Ciudad"),
         "clearFilter": MessageLookupByLibrary.simpleMessage("Limpiar Filtro"),
         "clearFilters": MessageLookupByLibrary.simpleMessage("Limpiar Filtros"),
@@ -244,6 +245,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Crear nueva etiqueta"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
+        "createQuotationForTattoo":
+            MessageLookupByLibrary.simpleMessage("Crear Cotización"),
         "created": MessageLookupByLibrary.simpleMessage("Creada"),
         "createdAt": MessageLookupByLibrary.simpleMessage("Creado en"),
         "currentPassword":
@@ -267,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStencil":
             MessageLookupByLibrary.simpleMessage("Eliminar Plantilla"),
         "deleteWork": MessageLookupByLibrary.simpleMessage("Eliminar Trabajo"),
+        "describeYourTattoo":
+            MessageLookupByLibrary.simpleMessage("Describe tu tatuaje"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
@@ -280,6 +285,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editStencil": MessageLookupByLibrary.simpleMessage("Editar Plantilla"),
         "editWork": MessageLookupByLibrary.simpleMessage("Editar Trabajo"),
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
+        "emptyTattooGeneratorMessage": MessageLookupByLibrary.simpleMessage(
+            "Ingresa una descripción y elige un estilo\npara generar diseños de tatuajes"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "endTime": MessageLookupByLibrary.simpleMessage("Hora de Fin"),
@@ -345,6 +352,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
         "fullName": MessageLookupByLibrary.simpleMessage("Nombre completo"),
+        "generateTattoo":
+            MessageLookupByLibrary.simpleMessage("Generar Tatuaje"),
         "genres": MessageLookupByLibrary.simpleMessage("Géneros"),
         "getArtistActionText":
             MessageLookupByLibrary.simpleMessage("Obtener Artista"),
@@ -407,6 +416,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nuevas Solicitudes"),
         "nextWeek": MessageLookupByLibrary.simpleMessage("Semana Siguiente"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noActiveSession": MessageLookupByLibrary.simpleMessage(
+            "No se encontró una sesión activa"),
         "noEventsForThisDay": MessageLookupByLibrary.simpleMessage(
             "No hay eventos para este día"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
@@ -415,6 +426,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se ha seleccionado ninguna imagen"),
         "noImagesAvailable":
             MessageLookupByLibrary.simpleMessage("No hay imágenes disponibles"),
+        "noImagesGenerated":
+            MessageLookupByLibrary.simpleMessage("No se generaron imágenes"),
         "noLocationsAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay ubicaciones disponibles"),
         "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
@@ -473,6 +486,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "piercing": MessageLookupByLibrary.simpleMessage("Piercing"),
         "pleaseEnterATitle":
             MessageLookupByLibrary.simpleMessage("Por favor ingresa un título"),
+        "pleaseEnterDescription": MessageLookupByLibrary.simpleMessage(
+            "Por favor ingresa una descripción"),
         "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
             "Por favor, proporciona una razón para la cancelación."),
         "pleaseSelectADateRange": MessageLookupByLibrary.simpleMessage(
@@ -598,6 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "respondToQuotation":
             MessageLookupByLibrary.simpleMessage("Responder Cotización"),
         "responded": MessageLookupByLibrary.simpleMessage("Aceptado"),
+        "results": MessageLookupByLibrary.simpleMessage("Resultados"),
         "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reseñas"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
@@ -687,6 +703,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "tapToSelectImage": MessageLookupByLibrary.simpleMessage(
             "Toca para seleccionar una imagen"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
+        "tattooDescriptionHint": MessageLookupByLibrary.simpleMessage(
+            "Ej. Silueta minimalista de lobo con patrones geométricos"),
+        "tattooGenerator":
+            MessageLookupByLibrary.simpleMessage("Generador de Tatuajes"),
         "tattooWorks":
             MessageLookupByLibrary.simpleMessage("Trabajos de Tatuaje"),
         "tentativeEvent":
@@ -725,6 +745,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewAllStencils":
             MessageLookupByLibrary.simpleMessage("Ver Todos los Stencils"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
+        "viewTattooDetails":
+            MessageLookupByLibrary.simpleMessage("Ver Detalles"),
         "views": MessageLookupByLibrary.simpleMessage("Vistas"),
         "visibilitySettings": MessageLookupByLibrary.simpleMessage(
             "Configuración de Visibilidad"),

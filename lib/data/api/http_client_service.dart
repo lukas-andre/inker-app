@@ -221,6 +221,55 @@ class HttpClientService {
     }
   }
 
+  Future<T> patch<T>({
+    required String path,
+    T Function(Map<String, dynamic>)? fromJson,
+    required Map<String, dynamic> body,
+    String? token,
+    Map<String, dynamic>? queryParams,
+    bool skipCache = false,
+  }) async {
+    try {
+      final uri = await _buildUrl(path, queryParams: queryParams);
+      final headers = _buildHeaders(token, skipCache: skipCache);
+      final encodedBody = json.encode(body);
+      
+      HttpLogger.logRequest('PATCH', uri, headers: headers, body: encodedBody);
+      
+      final stopwatch = Stopwatch()..start();
+      final response = await http.patch(
+        uri,
+        headers: headers,
+        body: encodedBody,
+      );
+      stopwatch.stop();
+      
+      HttpLogger.logResponse(response, duration: stopwatch.elapsed);
+      
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (response.statusCode == HttpStatus.noContent || response.body.isEmpty || fromJson == null) {
+          return {} as T;
+        }
+        try {
+          return fromJson(json.decode(response.body));
+        } catch (e) {
+          // Handle empty or invalid responses more gracefully
+          if (T == Null) {
+            return null as T;
+          }
+          return fromJson({});
+        }
+      } else {
+        _handleError(response, requestBody: encodedBody);
+      }
+    } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
+      _handleError(e);
+    }
+  }
+
   Future<T> multipartRequest<T>({
     required String path,
     required String method,
