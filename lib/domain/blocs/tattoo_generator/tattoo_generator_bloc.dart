@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
 
 part 'tattoo_generator_event.dart';
 part 'tattoo_generator_state.dart';
@@ -49,7 +50,7 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
 
       final session = await _sessionService.getActiveSession();
       if (session == null) {
-        emit(const TattooGeneratorState.error('No active session found'));
+        emit(TattooGeneratorState.error(S.current.noActiveSession));
         return;
       }
 
@@ -60,7 +61,7 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
       );
 
       if (images.isEmpty) {
-        emit(const TattooGeneratorState.error('No images were generated'));
+        emit(TattooGeneratorState.error(S.current.noImagesGenerated));
         return;
       }
 
