@@ -1,5 +1,4 @@
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
-import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_history_response_dto.dart';
 
 typedef TattooGeneratedImageURL = String;

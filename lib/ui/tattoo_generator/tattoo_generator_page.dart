@@ -40,7 +40,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       return;
     }
     
-    // Load appropriate data based on selected tab
+    // Only load data if the tab is being viewed for the first time
+    // The bloc will handle caching
     switch (_tabController.index) {
       case 0: // Generate tab
         // No specific data loading needed
@@ -211,6 +212,10 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       historyLoaded: (designs, favoritesOnly) => _buildDesignsGridView(
         designs: designs,
         emptyMessage: 'No hay diseños en tu historial',
+        onRefresh: () {
+          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshHistory());
+          return Future.delayed(const Duration(milliseconds: 1500));
+        },
       ),
       orElse: () {
         // Load history when first visiting this tab
@@ -238,6 +243,10 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         return _buildDesignsGridView(
           designs: designs,
           emptyMessage: 'No hay diseños en tus favoritos',
+          onRefresh: () {
+            context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshFavorites());
+            return Future.delayed(const Duration(milliseconds: 1500));
+          },
         );
       },
       orElse: () {
@@ -253,17 +262,30 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
   Widget _buildDesignsGridView({
     required List<UserTattooDesignDto> designs,
     required String emptyMessage,
+    required Future<void> Function() onRefresh,
   }) {
     if (designs.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return RefreshIndicator(
+        onRefresh: onRefresh,
+        color: redColor,
+        backgroundColor: explorerSecondaryColor,
+        child: ListView(
           children: [
-            Icon(Icons.image_not_supported, size: 64, color: Colors.white.withOpacity(0.5)),
-            const SizedBox(height: 16),
-            Text(
-              emptyMessage,
-              style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 16),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.image_not_supported, size: 64, color: Colors.white.withOpacity(0.5)),
+                    const SizedBox(height: 16),
+                    Text(
+                      emptyMessage,
+                      style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -272,152 +294,158 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.75, // Taller items to show info
-        ),
-        itemCount: designs.length,
-        itemBuilder: (context, index) {
-          final design = designs[index];
-          final thumbnailUrl = design.imageUrls.isNotEmpty ? design.imageUrls[0] : '';
-          
-          return GestureDetector(
-            onTap: () {
-              // Open immersive viewer
-              Navigator.of(context).push(
-                TattooImmersiveViewerPage.route(
-                  images: design.imageUrls,
-                  prompt: design.userQuery,
-                  style: design.getTattooStyle(),
-                  designId: design.id,
-                  isFavorite: design.isFavorite,
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: explorerSecondaryColor,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+      child: RefreshIndicator(
+        onRefresh: onRefresh,
+        color: redColor,
+        backgroundColor: explorerSecondaryColor,
+        child: GridView.builder(
+          physics: const AlwaysScrollableScrollPhysics(), // Enable scrolling even when content doesn't fill the screen
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.75, // Taller items to show info
+          ),
+          itemCount: designs.length,
+          itemBuilder: (context, index) {
+            final design = designs[index];
+            final thumbnailUrl = design.imageUrls.isNotEmpty ? design.imageUrls[0] : '';
+            
+            return GestureDetector(
+              onTap: () {
+                // Open immersive viewer
+                Navigator.of(context).push(
+                  TattooImmersiveViewerPage.route(
+                    images: design.imageUrls,
+                    prompt: design.userQuery,
+                    style: design.getTattooStyle(),
+                    designId: design.id,
+                    isFavorite: design.isFavorite,
                   ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Image thumbnail
-                  Expanded(
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                          child: CachedNetworkImage(
-                            imageUrl: thumbnailUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(redColor),
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => const Center(
-                              child: Icon(Icons.error, color: redColor),
-                            ),
-                          ),
-                        ),
-                        
-                        // Favorite button overlay
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: GestureDetector(
-                            onTap: () {
-                              // Toggle favorite
-                              context.read<TattooGeneratorBloc>().add(
-                                TattooGeneratorEvent.toggleFavorite(
-                                  designId: design.id,
-                                  isFavorite: !(design.isFavorite ?? false),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.6),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                design.isFavorite ?? false
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: design.isFavorite ?? false ? redColor : Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: explorerSecondaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
                     ),
-                  ),
-                  
-                  // Info section
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Style pill
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            _formatStyleName(design.getTattooStyle().name),
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.white,
-                              fontSize: 10,
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Image thumbnail
+                    Expanded(
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          ClipRRect(
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                            child: CachedNetworkImage(
+                              imageUrl: thumbnailUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(redColor),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => const Center(
+                                child: Icon(Icons.error, color: redColor),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        
-                        // Prompt text
-                        Text(
-                          design.userQuery,
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: Colors.white.withOpacity(0.9),
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        
-                        if (design.createdAt != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            _formatDate(design.createdAt!),
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Colors.white.withOpacity(0.6),
-                              fontSize: 10,
+                          
+                          // Favorite button overlay
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Toggle favorite
+                                context.read<TattooGeneratorBloc>().add(
+                                  TattooGeneratorEvent.toggleFavorite(
+                                    designId: design.id,
+                                    isFavorite: !(design.isFavorite ?? false),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.6),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  design.isFavorite ?? false
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: design.isFavorite ?? false ? redColor : Colors.white,
+                                  size: 18,
+                                ),
+                              ),
                             ),
                           ),
                         ],
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                    
+                    // Info section
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Style pill
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              _formatStyleName(design.getTattooStyle().name),
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          
+                          // Prompt text
+                          Text(
+                            design.userQuery,
+                            style: TextStyleTheme.bodyText2.copyWith(
+                              color: Colors.white.withOpacity(0.9),
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          
+                          if (design.createdAt != null) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              _formatDate(design.createdAt!),
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.white.withOpacity(0.6),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

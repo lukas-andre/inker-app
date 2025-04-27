@@ -13,6 +13,12 @@ part 'tattoo_generator_bloc.freezed.dart';
 class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorState> {
   final TattooGeneratorService _tattooGeneratorService;
   final LocalSessionService _sessionService;
+  
+  // Cache for previously loaded designs
+  List<UserTattooDesignDto> _cachedDesigns = [];
+  List<UserTattooDesignDto> _cachedFavorites = [];
+  bool _hasLoadedHistory = false;
+  bool _hasLoadedFavorites = false;
 
   TattooGeneratorBloc({
     required TattooGeneratorService tattooGeneratorService,
@@ -38,10 +44,32 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
           emit(TattooGeneratorState.styleUpdated(style: style));
         },
         loadHistory: () async {
-          await _loadHistory(emit, false);
+          // Only load from API if not already cached or being forced to refresh
+          if (_hasLoadedHistory && _cachedDesigns.isNotEmpty) {
+            emit(TattooGeneratorState.historyLoaded(
+              designs: _cachedDesigns,
+              favoritesOnly: false,
+            ));
+          } else {
+            await _loadHistory(emit, false);
+          }
         },
         loadFavorites: () async {
-          await _loadHistory(emit, true);
+          // Only load from API if not already cached or being forced to refresh
+          if (_hasLoadedFavorites && _cachedFavorites.isNotEmpty) {
+            emit(TattooGeneratorState.historyLoaded(
+              designs: _cachedFavorites,
+              favoritesOnly: true,
+            ));
+          } else {
+            await _loadHistory(emit, true);
+          }
+        },
+        refreshHistory: () async {
+          await _loadHistory(emit, false, forceRefresh: true);
+        },
+        refreshFavorites: () async {
+          await _loadHistory(emit, true, forceRefresh: true);
         },
         toggleFavorite: (designId, isFavorite) async {
           await _toggleFavorite(emit, designId, isFavorite);
@@ -80,6 +108,10 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
         prompt: prompt,
         style: style,
       ));
+      
+      // After successful generation, invalidate history cache
+      // so the next time user views history they'll see the new design
+      _hasLoadedHistory = false;
     } catch (e) {
       emit(TattooGeneratorState.error(e.toString()));
     }
@@ -87,8 +119,9 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
   
   Future<void> _loadHistory(
     Emitter<TattooGeneratorState> emit,
-    bool favoritesOnly,
-  ) async {
+    bool favoritesOnly, {
+    bool forceRefresh = false,
+  }) async {
     try {
       emit(const TattooGeneratorState.historyLoading());
 
@@ -101,8 +134,17 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
       final history = await _tattooGeneratorService.getUserTattooHistory(
         token: session.accessToken,
         favoritesOnly: favoritesOnly,
-        limit: 20, // Reasonable limit for mobile display
+        limit: 50, // Increased limit to show more designs
       );
+
+      // Update appropriate cache based on which tab we're loading
+      if (favoritesOnly) {
+        _cachedFavorites = history.designs;
+        _hasLoadedFavorites = true;
+      } else {
+        _cachedDesigns = history.designs;
+        _hasLoadedHistory = true;
+      }
 
       emit(TattooGeneratorState.historyLoaded(
         designs: history.designs,
@@ -130,19 +172,71 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
         isFavorite: isFavorite,
       ));
       
+      // Update cached designs to reflect the change
+      _updateDesignFavoriteStatus(designId, isFavorite);
+      
       // Then make the API call in the background
       await _tattooGeneratorService.updateTattooFavorite(
         designId: designId,
         isFavorite: isFavorite,
         token: session.accessToken,
       );
-      
-      // We don't reload the history here to maintain UI performance
-      // The UI will reflect the change immediately, and the next time 
-      // the history is loaded it will have the correct state
     } catch (e) {
       // Silent failure for optimistic UI updates
-      // The next time history is loaded, it will have the correct state
+    }
+  }
+  
+  // Helper method to update cache when toggling favorites
+  void _updateDesignFavoriteStatus(String designId, bool isFavorite) {
+    // Update in the all designs cache
+    for (int i = 0; i < _cachedDesigns.length; i++) {
+      if (_cachedDesigns[i].id == designId) {
+        final updatedDesign = UserTattooDesignDto(
+          id: _cachedDesigns[i].id,
+          userQuery: _cachedDesigns[i].userQuery,
+          style: _cachedDesigns[i].style,
+          imageUrls: _cachedDesigns[i].imageUrls,
+          isFavorite: isFavorite,
+          metadata: _cachedDesigns[i].metadata,
+          createdAt: _cachedDesigns[i].createdAt,
+        );
+        _cachedDesigns[i] = updatedDesign;
+        break;
+      }
+    }
+    
+    // Add to or remove from favorites cache
+    if (isFavorite) {
+      // Find in all designs and add to favorites if not already there
+      final designToAdd = _cachedDesigns.firstWhere(
+        (design) => design.id == designId,
+        orElse: () => _cachedFavorites.firstWhere(
+          (design) => design.id == designId,
+          orElse: () => _cachedDesigns.isEmpty ? UserTattooDesignDto(
+            id: designId,
+            userQuery: '',
+            style: 'blackwork',
+            imageUrls: [],
+            isFavorite: true,
+          ) : _cachedDesigns[0], // Fallback - shouldn't happen
+        ),
+      );
+      
+      if (!_cachedFavorites.any((design) => design.id == designId)) {
+        final updatedDesign = UserTattooDesignDto(
+          id: designToAdd.id,
+          userQuery: designToAdd.userQuery,
+          style: designToAdd.style,
+          imageUrls: designToAdd.imageUrls,
+          isFavorite: true,
+          metadata: designToAdd.metadata,
+          createdAt: designToAdd.createdAt,
+        );
+        _cachedFavorites = [..._cachedFavorites, updatedDesign];
+      }
+    } else {
+      // Remove from favorites cache
+      _cachedFavorites = _cachedFavorites.where((design) => design.id != designId).toList();
     }
   }
 } 

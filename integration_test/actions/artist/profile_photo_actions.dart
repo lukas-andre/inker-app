@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:patrol/patrol.dart';

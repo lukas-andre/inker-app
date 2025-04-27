@@ -25,6 +25,8 @@ mixin _$TattooGeneratorEvent {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,8 @@ mixin _$TattooGeneratorEvent {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +53,8 @@ mixin _$TattooGeneratorEvent {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) =>
@@ -62,6 +68,8 @@ mixin _$TattooGeneratorEvent {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +82,8 @@ mixin _$TattooGeneratorEvent {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) =>
       throw _privateConstructorUsedError;
@@ -86,6 +96,8 @@ mixin _$TattooGeneratorEvent {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) =>
@@ -156,6 +168,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return started();
@@ -171,6 +185,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return started?.call();
@@ -186,6 +202,8 @@ class _$StartedImpl implements _Started {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -205,6 +223,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return started(this);
@@ -220,6 +240,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return started?.call(this);
@@ -235,6 +257,8 @@ class _$StartedImpl implements _Started {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -329,6 +353,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return generateTattoo(prompt, style);
@@ -344,6 +370,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return generateTattoo?.call(prompt, style);
@@ -359,6 +387,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -378,6 +408,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return generateTattoo(this);
@@ -393,6 +425,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return generateTattoo?.call(this);
@@ -408,6 +442,8 @@ class _$GenerateTattooImpl implements _GenerateTattoo {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -475,6 +511,8 @@ class _$ResetStateImpl implements _ResetState {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return resetState();
@@ -490,6 +528,8 @@ class _$ResetStateImpl implements _ResetState {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return resetState?.call();
@@ -505,6 +545,8 @@ class _$ResetStateImpl implements _ResetState {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -524,6 +566,8 @@ class _$ResetStateImpl implements _ResetState {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return resetState(this);
@@ -539,6 +583,8 @@ class _$ResetStateImpl implements _ResetState {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return resetState?.call(this);
@@ -554,6 +600,8 @@ class _$ResetStateImpl implements _ResetState {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -639,6 +687,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return updatePrompt(prompt);
@@ -654,6 +704,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return updatePrompt?.call(prompt);
@@ -669,6 +721,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -688,6 +742,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return updatePrompt(this);
@@ -703,6 +759,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return updatePrompt?.call(this);
@@ -718,6 +776,8 @@ class _$UpdatePromptImpl implements _UpdatePrompt {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -808,6 +868,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return updateStyle(style);
@@ -823,6 +885,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return updateStyle?.call(style);
@@ -838,6 +902,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -857,6 +923,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return updateStyle(this);
@@ -872,6 +940,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return updateStyle?.call(this);
@@ -887,6 +957,8 @@ class _$UpdateStyleImpl implements _UpdateStyle {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -951,6 +1023,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return loadHistory();
@@ -966,6 +1040,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return loadHistory?.call();
@@ -981,6 +1057,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -1000,6 +1078,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return loadHistory(this);
@@ -1015,6 +1095,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return loadHistory?.call(this);
@@ -1030,6 +1112,8 @@ class _$LoadHistoryImpl implements _LoadHistory {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -1089,6 +1173,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return loadFavorites();
@@ -1104,6 +1190,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return loadFavorites?.call();
@@ -1119,6 +1207,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -1138,6 +1228,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return loadFavorites(this);
@@ -1153,6 +1245,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return loadFavorites?.call(this);
@@ -1168,6 +1262,8 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -1180,6 +1276,306 @@ class _$LoadFavoritesImpl implements _LoadFavorites {
 
 abstract class _LoadFavorites implements TattooGeneratorEvent {
   const factory _LoadFavorites() = _$LoadFavoritesImpl;
+}
+
+/// @nodoc
+abstract class _$$RefreshHistoryImplCopyWith<$Res> {
+  factory _$$RefreshHistoryImplCopyWith(_$RefreshHistoryImpl value,
+          $Res Function(_$RefreshHistoryImpl) then) =
+      __$$RefreshHistoryImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RefreshHistoryImplCopyWithImpl<$Res>
+    extends _$TattooGeneratorEventCopyWithImpl<$Res, _$RefreshHistoryImpl>
+    implements _$$RefreshHistoryImplCopyWith<$Res> {
+  __$$RefreshHistoryImplCopyWithImpl(
+      _$RefreshHistoryImpl _value, $Res Function(_$RefreshHistoryImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RefreshHistoryImpl implements _RefreshHistory {
+  const _$RefreshHistoryImpl();
+
+  @override
+  String toString() {
+    return 'TattooGeneratorEvent.refreshHistory()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RefreshHistoryImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String prompt, TattooStyle style) generateTattoo,
+    required TResult Function() resetState,
+    required TResult Function(String prompt) updatePrompt,
+    required TResult Function(TattooStyle style) updateStyle,
+    required TResult Function() loadHistory,
+    required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
+    required TResult Function(String designId, bool isFavorite) toggleFavorite,
+  }) {
+    return refreshHistory();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String prompt, TattooStyle style)? generateTattoo,
+    TResult? Function()? resetState,
+    TResult? Function(String prompt)? updatePrompt,
+    TResult? Function(TattooStyle style)? updateStyle,
+    TResult? Function()? loadHistory,
+    TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
+    TResult? Function(String designId, bool isFavorite)? toggleFavorite,
+  }) {
+    return refreshHistory?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String prompt, TattooStyle style)? generateTattoo,
+    TResult Function()? resetState,
+    TResult Function(String prompt)? updatePrompt,
+    TResult Function(TattooStyle style)? updateStyle,
+    TResult Function()? loadHistory,
+    TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
+    TResult Function(String designId, bool isFavorite)? toggleFavorite,
+    required TResult orElse(),
+  }) {
+    if (refreshHistory != null) {
+      return refreshHistory();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GenerateTattoo value) generateTattoo,
+    required TResult Function(_ResetState value) resetState,
+    required TResult Function(_UpdatePrompt value) updatePrompt,
+    required TResult Function(_UpdateStyle value) updateStyle,
+    required TResult Function(_LoadHistory value) loadHistory,
+    required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
+    required TResult Function(_ToggleFavorite value) toggleFavorite,
+  }) {
+    return refreshHistory(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GenerateTattoo value)? generateTattoo,
+    TResult? Function(_ResetState value)? resetState,
+    TResult? Function(_UpdatePrompt value)? updatePrompt,
+    TResult? Function(_UpdateStyle value)? updateStyle,
+    TResult? Function(_LoadHistory value)? loadHistory,
+    TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
+    TResult? Function(_ToggleFavorite value)? toggleFavorite,
+  }) {
+    return refreshHistory?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GenerateTattoo value)? generateTattoo,
+    TResult Function(_ResetState value)? resetState,
+    TResult Function(_UpdatePrompt value)? updatePrompt,
+    TResult Function(_UpdateStyle value)? updateStyle,
+    TResult Function(_LoadHistory value)? loadHistory,
+    TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
+    TResult Function(_ToggleFavorite value)? toggleFavorite,
+    required TResult orElse(),
+  }) {
+    if (refreshHistory != null) {
+      return refreshHistory(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshHistory implements TattooGeneratorEvent {
+  const factory _RefreshHistory() = _$RefreshHistoryImpl;
+}
+
+/// @nodoc
+abstract class _$$RefreshFavoritesImplCopyWith<$Res> {
+  factory _$$RefreshFavoritesImplCopyWith(_$RefreshFavoritesImpl value,
+          $Res Function(_$RefreshFavoritesImpl) then) =
+      __$$RefreshFavoritesImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RefreshFavoritesImplCopyWithImpl<$Res>
+    extends _$TattooGeneratorEventCopyWithImpl<$Res, _$RefreshFavoritesImpl>
+    implements _$$RefreshFavoritesImplCopyWith<$Res> {
+  __$$RefreshFavoritesImplCopyWithImpl(_$RefreshFavoritesImpl _value,
+      $Res Function(_$RefreshFavoritesImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RefreshFavoritesImpl implements _RefreshFavorites {
+  const _$RefreshFavoritesImpl();
+
+  @override
+  String toString() {
+    return 'TattooGeneratorEvent.refreshFavorites()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RefreshFavoritesImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String prompt, TattooStyle style) generateTattoo,
+    required TResult Function() resetState,
+    required TResult Function(String prompt) updatePrompt,
+    required TResult Function(TattooStyle style) updateStyle,
+    required TResult Function() loadHistory,
+    required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
+    required TResult Function(String designId, bool isFavorite) toggleFavorite,
+  }) {
+    return refreshFavorites();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String prompt, TattooStyle style)? generateTattoo,
+    TResult? Function()? resetState,
+    TResult? Function(String prompt)? updatePrompt,
+    TResult? Function(TattooStyle style)? updateStyle,
+    TResult? Function()? loadHistory,
+    TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
+    TResult? Function(String designId, bool isFavorite)? toggleFavorite,
+  }) {
+    return refreshFavorites?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String prompt, TattooStyle style)? generateTattoo,
+    TResult Function()? resetState,
+    TResult Function(String prompt)? updatePrompt,
+    TResult Function(TattooStyle style)? updateStyle,
+    TResult Function()? loadHistory,
+    TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
+    TResult Function(String designId, bool isFavorite)? toggleFavorite,
+    required TResult orElse(),
+  }) {
+    if (refreshFavorites != null) {
+      return refreshFavorites();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GenerateTattoo value) generateTattoo,
+    required TResult Function(_ResetState value) resetState,
+    required TResult Function(_UpdatePrompt value) updatePrompt,
+    required TResult Function(_UpdateStyle value) updateStyle,
+    required TResult Function(_LoadHistory value) loadHistory,
+    required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
+    required TResult Function(_ToggleFavorite value) toggleFavorite,
+  }) {
+    return refreshFavorites(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GenerateTattoo value)? generateTattoo,
+    TResult? Function(_ResetState value)? resetState,
+    TResult? Function(_UpdatePrompt value)? updatePrompt,
+    TResult? Function(_UpdateStyle value)? updateStyle,
+    TResult? Function(_LoadHistory value)? loadHistory,
+    TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
+    TResult? Function(_ToggleFavorite value)? toggleFavorite,
+  }) {
+    return refreshFavorites?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GenerateTattoo value)? generateTattoo,
+    TResult Function(_ResetState value)? resetState,
+    TResult Function(_UpdatePrompt value)? updatePrompt,
+    TResult Function(_UpdateStyle value)? updateStyle,
+    TResult Function(_LoadHistory value)? loadHistory,
+    TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
+    TResult Function(_ToggleFavorite value)? toggleFavorite,
+    required TResult orElse(),
+  }) {
+    if (refreshFavorites != null) {
+      return refreshFavorites(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshFavorites implements TattooGeneratorEvent {
+  const factory _RefreshFavorites() = _$RefreshFavoritesImpl;
 }
 
 /// @nodoc
@@ -1265,6 +1661,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     required TResult Function(TattooStyle style) updateStyle,
     required TResult Function() loadHistory,
     required TResult Function() loadFavorites,
+    required TResult Function() refreshHistory,
+    required TResult Function() refreshFavorites,
     required TResult Function(String designId, bool isFavorite) toggleFavorite,
   }) {
     return toggleFavorite(designId, isFavorite);
@@ -1280,6 +1678,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     TResult? Function(TattooStyle style)? updateStyle,
     TResult? Function()? loadHistory,
     TResult? Function()? loadFavorites,
+    TResult? Function()? refreshHistory,
+    TResult? Function()? refreshFavorites,
     TResult? Function(String designId, bool isFavorite)? toggleFavorite,
   }) {
     return toggleFavorite?.call(designId, isFavorite);
@@ -1295,6 +1695,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     TResult Function(TattooStyle style)? updateStyle,
     TResult Function()? loadHistory,
     TResult Function()? loadFavorites,
+    TResult Function()? refreshHistory,
+    TResult Function()? refreshFavorites,
     TResult Function(String designId, bool isFavorite)? toggleFavorite,
     required TResult orElse(),
   }) {
@@ -1314,6 +1716,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     required TResult Function(_UpdateStyle value) updateStyle,
     required TResult Function(_LoadHistory value) loadHistory,
     required TResult Function(_LoadFavorites value) loadFavorites,
+    required TResult Function(_RefreshHistory value) refreshHistory,
+    required TResult Function(_RefreshFavorites value) refreshFavorites,
     required TResult Function(_ToggleFavorite value) toggleFavorite,
   }) {
     return toggleFavorite(this);
@@ -1329,6 +1733,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     TResult? Function(_UpdateStyle value)? updateStyle,
     TResult? Function(_LoadHistory value)? loadHistory,
     TResult? Function(_LoadFavorites value)? loadFavorites,
+    TResult? Function(_RefreshHistory value)? refreshHistory,
+    TResult? Function(_RefreshFavorites value)? refreshFavorites,
     TResult? Function(_ToggleFavorite value)? toggleFavorite,
   }) {
     return toggleFavorite?.call(this);
@@ -1344,6 +1750,8 @@ class _$ToggleFavoriteImpl implements _ToggleFavorite {
     TResult Function(_UpdateStyle value)? updateStyle,
     TResult Function(_LoadHistory value)? loadHistory,
     TResult Function(_LoadFavorites value)? loadFavorites,
+    TResult Function(_RefreshHistory value)? refreshHistory,
+    TResult Function(_RefreshFavorites value)? refreshFavorites,
     TResult Function(_ToggleFavorite value)? toggleFavorite,
     required TResult orElse(),
   }) {
