@@ -4586,6 +4586,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Generar`
+  String get generate {
+    return Intl.message(
+      'Generar',
+      name: 'generate',
+      desc: 'Button text to generate tattoo designs.',
+      args: [],
+    );
+  }
+
+  /// `Historial`
+  String get history {
+    return Intl.message(
+      'Historial',
+      name: 'history',
+      desc: 'Label for the history tab.',
+      args: [],
+    );
+  }
+
+  /// `Favoritos`
+  String get favorites {
+    return Intl.message(
+      'Favoritos',
+      name: 'favorites',
+      desc: 'Label for the favorites tab.',
+      args: [],
+    );
+  }
+
+  /// `Diseño agregado a favoritos`
+  String get designAddedToFavorites {
+    return Intl.message(
+      'Diseño agregado a favoritos',
+      name: 'designAddedToFavorites',
+      desc: 'Message shown when a design is added to favorites.',
+      args: [],
+    );
+  }
+
+  /// `Diseño removido de favoritos`
+  String get designRemovedFromFavorites {
+    return Intl.message(
+      'Diseño removido de favoritos',
+      name: 'designRemovedFromFavorites',
+      desc: 'Message shown when a design is removed from favorites.',
+      args: [],
+    );
+  }
+
+  /// `No hay diseños en el historial`
+  String get noDesignsOnHistory {
+    return Intl.message(
+      'No hay diseños en el historial',
+      name: 'noDesignsOnHistory',
+      desc: 'Message shown when there are no designs on history.',
+      args: [],
+    );
+  }
+
+  /// `No hay diseños en favoritos`
+  String get noDesignsOnFavorites {
+    return Intl.message(
+      'No hay diseños en favoritos',
+      name: 'noDesignsOnFavorites',
+      desc: 'Message shown when there are no designs on favorites.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

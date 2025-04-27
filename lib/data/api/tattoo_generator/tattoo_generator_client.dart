@@ -12,7 +12,7 @@ class TattooGeneratorClient implements TattooGeneratorService {
   TattooGeneratorClient(this._httpClient);
 
   @override
-  Future<List<TattooGeneratedImageURL>> generateTattoo(
+  Future<List<GeneratedTattooImage>> generateTattoo(
       {required String prompt, required TattooStyle style, required String token}) async {
     
     final request = GenerateTattooRequestDto(userInput: prompt, style: style);
@@ -23,7 +23,10 @@ class TattooGeneratorClient implements TattooGeneratorService {
       token: token,
     );
 
-    return response.images.map((e) => e.imageUrl).toList();
+    return response.images.map((e) => GeneratedTattooImage(
+      imageUrl: e.imageUrl,
+      imageId: e.imageId,
+    )).toList();
   }
   
   @override

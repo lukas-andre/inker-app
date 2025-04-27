@@ -103,10 +103,14 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
         return;
       }
 
+      // Usar el ID de la primera imagen como designId
+      final String designId = images.isNotEmpty ? images[0].imageId : '';
+
       emit(TattooGeneratorState.loaded(
         images: images,
         prompt: prompt,
         style: style,
+        designId: designId,
       ));
       
       // After successful generation, invalidate history cache

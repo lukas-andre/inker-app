@@ -1,11 +1,19 @@
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_history_response_dto.dart';
 
-typedef TattooGeneratedImageURL = String;
+class GeneratedTattooImage {
+  final String imageUrl;
+  final String imageId;
+  
+  const GeneratedTattooImage({
+    required this.imageUrl,
+    required this.imageId,
+  });
+}
 
 abstract class TattooGeneratorService {
   /// Generate a tattoo based on prompt and style
-  Future<List<TattooGeneratedImageURL>> generateTattoo(
+  Future<List<GeneratedTattooImage>> generateTattoo(
       {required String prompt, required TattooStyle style, required String token});
       
   /// Get user's tattoo generation history

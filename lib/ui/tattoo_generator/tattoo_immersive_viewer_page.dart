@@ -11,12 +11,15 @@ import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 
-/// Vertical immersive viewer for generated tattoo images that allows
-/// swiping up/down to navigate between items
+/// Immersive viewer for generated tattoo images with Instagram-like UI
+/// Horizontal swipes to navigate between images within a design
+/// Vertical swipes to navigate between different designs
 class TattooImmersiveViewerPage extends StatefulWidget {
   // List of images to navigate through
-  final List<TattooGeneratedImageURL> images;
+  final List<String> images;
   
   // Prompt and style used to generate
   final String prompt;
@@ -29,6 +32,10 @@ class TattooImmersiveViewerPage extends StatefulWidget {
   final String? designId;
   final bool? isFavorite;
   
+  // Additional designs to navigate through vertically (optional)
+  final List<UserTattooDesignDto>? allDesigns;
+  final int? currentDesignIndex;
+  
   const TattooImmersiveViewerPage({
     Key? key,
     required this.images,
@@ -37,6 +44,8 @@ class TattooImmersiveViewerPage extends StatefulWidget {
     this.initialIndex = 0,
     this.designId,
     this.isFavorite,
+    this.allDesigns,
+    this.currentDesignIndex,
   }) : super(key: key);
 
   @override
@@ -44,54 +53,39 @@ class TattooImmersiveViewerPage extends StatefulWidget {
   
   // Factory method to create from TattooGeneratorBloc state
   static Widget fromGeneratorState({
-    required List<TattooGeneratedImageURL> images,
-    required String prompt,
-    required TattooStyle style,
-    int initialIndex = 0,
-  }) {
-    return TattooImmersiveViewerPage(
-      images: images,
-      prompt: prompt,
-      style: style,
-      initialIndex: initialIndex,
-    );
-  }
-  
-  // Helper method to create route
-  static Route route({
-    required List<TattooGeneratedImageURL> images,
+    required List<GeneratedTattooImage> images,
     required String prompt,
     required TattooStyle style,
     int initialIndex = 0,
     String? designId,
     bool? isFavorite,
   }) {
-    return MaterialPageRoute(
-      builder: (context) => TattooImmersiveViewerPage(
-        images: images,
-        prompt: prompt,
-        style: style,
-        initialIndex: initialIndex,
-        designId: designId,
-        isFavorite: isFavorite,
-      ),
+    return TattooImmersiveViewerPage(
+      images: images.map((img) => img.imageUrl).toList(),
+      prompt: prompt,
+      style: style,
+      initialIndex: initialIndex,
+      designId: designId ?? (images.isNotEmpty ? images[0].imageId : null),
+      isFavorite: isFavorite,
     );
   }
 }
 
 class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
-  // Current viewing state
-  late int _currentIndex;
-  late List<TattooGeneratedImageURL> _images;
+  // Current viewing state for horizontal image navigation
+  late int _currentImageIndex;
+  late List<String> _images;
   
-  // Controller for the page view
-  late PageController _pageController;
+  // Current design index for vertical design navigation
+  late int _currentDesignIndex;
+  late List<UserTattooDesignDto>? _allDesigns;
+  
+  // Controller for the page views
+  late PageController _horizontalPageController;
+  late PageController? _verticalPageController;
   
   // For preloading images
   final _imageCache = CachedImageManager();
-  
-  // Flag to show end of results message
-  bool _showEndOfResults = false;
   
   // For double-tap handling
   DateTime? _lastTapTime;
@@ -100,44 +94,75 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
   bool _isFavorite = false;
   String? _designId;
   
+  // For controlling the current design data
+  String _currentPrompt = '';
+  TattooStyle _currentStyle = TattooStyle.blackwork;
+  
   @override
   void initState() {
     super.initState();
     
-    // Initialize state
+    // Initialize single design data
     _images = List.from(widget.images);
-    _currentIndex = widget.initialIndex.clamp(0, _images.isNotEmpty ? _images.length - 1 : 0);
+    _currentImageIndex = widget.initialIndex.clamp(0, _images.isNotEmpty ? _images.length - 1 : 0);
+    _currentPrompt = widget.prompt;
+    _currentStyle = widget.style;
     
-    // Initialize page controller
-    _pageController = PageController(
-      initialPage: _currentIndex,
-    );
+    // Initialize design collection data if available
+    _allDesigns = widget.allDesigns;
+    _currentDesignIndex = widget.currentDesignIndex ?? 0;
+    
+    // Initialize page controllers
+    _horizontalPageController = PageController(initialPage: _currentImageIndex);
+    
+    if (_allDesigns != null && _allDesigns!.isNotEmpty) {
+      _verticalPageController = PageController(initialPage: _currentDesignIndex);
+    } else {
+      _verticalPageController = null;
+    }
     
     // Initialize favorite state
     _isFavorite = widget.isFavorite ?? false;
     _designId = widget.designId;
     
-    // Preload nearby images
+    // Preload images
     _preloadImages();
   }
   
   @override
   void dispose() {
-    _pageController.dispose();
+    _horizontalPageController.dispose();
+    _verticalPageController?.dispose();
     super.dispose();
   }
   
-  // Preload images for smoother navigation
+  // Preload nearby images for current design
   void _preloadImages() {
+    if (_images.isEmpty) return;
+    
     final List<String> imagesToPreload = [];
     
-    // Preload current image and a few next/previous ones
-    final int startIdx = (_currentIndex - 2).clamp(0, _images.length - 1);
-    final int endIdx = (_currentIndex + 2).clamp(0, _images.length - 1);
+    // Preload all images in the current design (usually just 2-3 images)
+    for (int i = 0; i < _images.length; i++) {
+      imagesToPreload.add(_images[i]);
+    }
     
-    for (int i = startIdx; i <= endIdx; i++) {
-      if (i >= 0 && i < _images.length) {
-        imagesToPreload.add(_images[i]);
+    // Preload images from nearby designs if available
+    if (_allDesigns != null && _allDesigns!.isNotEmpty) {
+      // Preload previous design's first image
+      if (_currentDesignIndex > 0) {
+        final prevDesign = _allDesigns![_currentDesignIndex - 1];
+        if (prevDesign.imageUrls.isNotEmpty) {
+          imagesToPreload.add(prevDesign.imageUrls[0]);
+        }
+      }
+      
+      // Preload next design's first image
+      if (_currentDesignIndex < _allDesigns!.length - 1) {
+        final nextDesign = _allDesigns![_currentDesignIndex + 1];
+        if (nextDesign.imageUrls.isNotEmpty) {
+          imagesToPreload.add(nextDesign.imageUrls[0]);
+        }
       }
     }
     
@@ -147,38 +172,36 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
     }
   }
   
-  // Handle page changes
-  void _onPageChanged(int index) {
-    if (index >= 0 && index < _images.length) {
-      setState(() {
-        _currentIndex = index;
-        _showEndOfResults = false;
-      });
-    } else if (index >= _images.length) {
-      // End of images
-      setState(() {
-        _showEndOfResults = true;
-      });
-    }
-    
-    // Preload images for the new position
-    _preloadImages();
-  }
-  
-  // Return to the beginning
-  void _returnToStart() {
+  // Handle horizontal page changes
+  void _onHorizontalPageChanged(int index) {
     setState(() {
-      _showEndOfResults = false;
-      _currentIndex = 0;
+      _currentImageIndex = index;
     });
-    
-    _pageController.jumpToPage(0);
-    _preloadImages();
   }
   
-  // Generate new images
-  void _generateMore() {
-    Navigator.of(context).pop();
+  // Handle vertical page changes
+  void _onVerticalPageChanged(int index) {
+    if (_allDesigns == null || _allDesigns!.isEmpty) return;
+    
+    if (index != _currentDesignIndex) {
+      final design = _allDesigns![index];
+      
+      setState(() {
+        _currentDesignIndex = index;
+        _images = List.from(design.imageUrls);
+        _currentImageIndex = 0;
+        _currentPrompt = design.userQuery;
+        _currentStyle = design.getTattooStyle();
+        _isFavorite = design.isFavorite ?? false;
+        _designId = design.id;
+      });
+      
+      // Reset horizontal page controller
+      _horizontalPageController.jumpToPage(0);
+      
+      // Preload images for new design
+      _preloadImages();
+    }
   }
   
   // Format style name for display
@@ -215,7 +238,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
       // Show saved message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Diseño guardado en tus generados'),
+          content: Text('Design saved to your generated designs'),
           backgroundColor: Colors.green,
           duration: Duration(seconds: 1),
           behavior: SnackBarBehavior.floating,
@@ -237,11 +260,12 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
     );
     
     // Show confirmation
+    final s = S.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(_isFavorite 
-          ? 'Diseño agregado a favoritos' 
-          : 'Diseño removido de favoritos'),
+          ? s.designAddedToFavorites
+          : s.designRemovedFromFavorites),
         backgroundColor: _isFavorite ? Colors.green : redColor,
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
@@ -253,130 +277,278 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Main content
-          _buildMainContent(),
+      body: _buildMainContent(),
+    );
+  }
+  
+  Widget _buildMainContent() {
+    // If we have multiple designs to navigate through
+    if (_allDesigns != null && _allDesigns!.isNotEmpty && _verticalPageController != null) {
+      return PageView.builder(
+        controller: _verticalPageController!,
+        scrollDirection: Axis.vertical,
+        onPageChanged: _onVerticalPageChanged,
+        itemCount: _allDesigns!.length,
+        itemBuilder: (context, designIndex) {
+          // If this is the current design, show its actual content
+          if (designIndex == _currentDesignIndex) {
+            return _buildSingleDesignView();
+          }
           
-          // Top back button
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            left: 16,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 24,
-                ),
+          // For other designs, show a placeholder until scrolled to
+          final design = _allDesigns![designIndex];
+          return Container(
+            color: Colors.black,
+            child: Center(
+              child: CachedNetworkImage(
+                imageUrl: design.imageUrls.isNotEmpty ? design.imageUrls[0] : '',
+                fit: BoxFit.contain,
+                color: Colors.black.withOpacity(0.5),
+                colorBlendMode: BlendMode.darken,
               ),
             ),
+          );
+        },
+      );
+    }
+    
+    // If we have only one design to display
+    return _buildSingleDesignView();
+  }
+  
+  Widget _buildSingleDesignView() {
+    if (_images.isEmpty) {
+      return _buildEmptyState();
+    }
+    
+    return Stack(
+      children: [
+        // Horizontal PageView for images
+        PageView.builder(
+          controller: _horizontalPageController,
+          scrollDirection: Axis.horizontal,
+          onPageChanged: _onHorizontalPageChanged,
+          itemCount: _images.length,
+          itemBuilder: (context, imageIndex) {
+            return GestureDetector(
+              onTap: _handleTap,
+              child: _buildImageView(_images[imageIndex], imageIndex),
+            );
+          },
+        ),
+        
+        // UI Overlays
+        _buildOverlayUI(),
+      ],
+    );
+  }
+  
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.image_not_supported, size: 48, color: Colors.white),
+          const SizedBox(height: 16),
+          const Text(
+            'No images available',
+            style: TextStyle(color: Colors.white, fontSize: 18),
           ),
-          
-          // End of results overlay if needed
-          if (_showEndOfResults)
-            _buildEndOfResultsOverlay(),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: redColor,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Back'),
+          ),
         ],
       ),
     );
   }
   
-  Widget _buildMainContent() {
-    if (_images.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.image_not_supported, size: 48, color: Colors.white),
-            const SizedBox(height: 16),
-            const Text(
-              'No hay imágenes generadas disponibles',
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: redColor,
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Volver'),
-            ),
-          ],
-        ),
-      );
+  Widget _buildImageView(String imageUrl, int index) {
+    // Generate the appropriate hero tag based on the source
+    String heroTag;
+    if (_designId != null) {
+      // From history/favorites
+      heroTag = 'design_${_designId}_$index';
+    } else {
+      // From generate tab
+      heroTag = 'generated_tattoo_${_designId ?? ""}_$index';
     }
     
-    return PageView.builder(
-      controller: _pageController,
-      scrollDirection: Axis.vertical,
-      onPageChanged: _onPageChanged,
-      itemCount: _images.length + 1, // +1 for end of list
-      itemBuilder: (context, index) {
-        if (index >= _images.length) {
-          // End of list placeholder - will be replaced with the overlay
-          return Container(color: Colors.black);
-        }
-        
-        return _buildImageView(_images[index], index);
-      },
+    return Hero(
+      tag: heroTag,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.contain,
+        placeholder: (context, url) => Container(
+          color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
+          child: const Center(
+            child: InkerProgressIndicator(color: Colors.white),
+          ),
+        ),
+        errorWidget: (context, url, error) => Container(
+          color: primaryColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load image',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.9),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
   
-  Widget _buildImageView(String imageUrl, int index) {
-    return GestureDetector(
-      onTap: _handleTap,
+  Widget _buildOverlayUI() {
+    return SafeArea(
       child: Stack(
-        fit: StackFit.expand,
         children: [
-          // Image
-          Hero(
-            tag: 'generated_tattoo_$index',
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.contain,
-              placeholder: (context, url) => Container(
-                color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
-                child: const Center(
-                  child: InkerProgressIndicator(color: Colors.white),
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: primaryColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
-                    const SizedBox(height: 16),
-                    Text(
-                      'No se pudo cargar la imagen',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+          // Top bar with back button and counter
+          Positioned(
+            top: 16,
+            left: 16,
+            right: 16,
+            child: Row(
+              children: [
+                // Back button
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      shape: BoxShape.circle,
                     ),
-                  ],
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
                 ),
-              ),
+                const Spacer(),
+                // Counter indicator
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Horizontal counter
+                      Text(
+                        '${_currentImageIndex + 1}/${_images.length}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // Vertical counter if available
+                      if (_allDesigns != null && _allDesigns!.isNotEmpty) ...[
+                        const Text(
+                          ' • ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          '${_currentDesignIndex + 1}/${_allDesigns!.length}',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           
-          // Bottom info panel
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _buildInfoPanel(index),
-          ),
+          // Vertical navigation arrows if multiple designs
+          if (_allDesigns != null && _allDesigns!.length > 1) ...[
+            // Previous design button (top)
+            if (_currentDesignIndex > 0)
+              Positioned(
+                top: 80,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      // Jump to previous design
+                      _verticalPageController?.animateToPage(
+                        _currentDesignIndex - 1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.6),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.arrow_upward,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              
+            // Next design button (bottom)
+            if (_currentDesignIndex < _allDesigns!.length - 1)
+              Positioned(
+                bottom: 140, // Position above the info panel
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      // Jump to next design
+                      _verticalPageController?.animateToPage(
+                        _currentDesignIndex + 1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.6),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.arrow_downward,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
           
           // Action buttons on the right
           Positioned(
@@ -387,44 +559,41 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
                 // Favorite button
                 _buildActionButton(
                   icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
-                  label: _isFavorite ? 'Favorito' : 'Me gusta',
+                  label: _isFavorite ? 'Favorite' : 'Like',
                   onTap: _toggleFavorite,
                   iconColor: _isFavorite ? redColor : Colors.white,
                 ),
-                const SizedBox(height: 16),
                 
-                // Generate more button
-                _buildActionButton(
-                  icon: Icons.add_circle,
-                  label: 'Generar',
-                  onTap: _generateMore,
-                ),
-                
-                // Swipe indicator for first image
-                if (index == 0) ...[
-                  const SizedBox(height: 24),
+                // Navigation indicators
+                const SizedBox(height: 24),
+                // Horizontal swipe indicator if multiple images
+                if (_images.length > 1)
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.swipe_vertical,
-                          color: Colors.white.withOpacity(0.7),
-                          size: 24,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Desliza',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
+                    child: const Icon(
+                      Icons.swipe,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                  ),
+                  
+                // Vertical swipe indicator if multiple designs
+                if (_allDesigns != null && _allDesigns!.length > 1) ...[
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.swipe_vertical,
+                      color: Colors.white70,
+                      size: 20,
                     ),
                   ),
                 ],
@@ -432,25 +601,36 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
             ),
           ),
           
-          // Counter indicator
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 16,
-            right: 16,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                '${index + 1}/${_images.length}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+          // Bottom dot indicators for horizontal swiping
+          if (_images.length > 1)
+            Positioned(
+              bottom: 100, // Position above the info panel
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(_images.length, (index) {
+                  return Container(
+                    width: 8,
+                    height: 8,
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentImageIndex == index
+                          ? Colors.white
+                          : Colors.white.withOpacity(0.4),
+                    ),
+                  );
+                }),
               ),
             ),
+          
+          // Bottom info panel
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildInfoPanel(),
           ),
         ],
       ),
@@ -499,7 +679,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
   }
   
   // Build bottom info panel with prompt and style
-  Widget _buildInfoPanel(int index) {
+  Widget _buildInfoPanel() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -526,7 +706,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Text(
-              _formatStyleName(widget.style.name),
+              _formatStyleName(_currentStyle.name),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -537,7 +717,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
           
           // Prompt
           Text(
-            widget.prompt,
+            _currentPrompt,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -556,7 +736,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
           SizedBox(
             width: double.infinity,
             child: PrimaryButton(
-              text: 'Crear cotización con este diseño',
+              text: 'Create quote with this design',
               onPressed: () {
                 // TODO: Navigate to quotation creation with this design
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -569,71 +749,6 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
           ),
           const SizedBox(height: 10),
         ],
-      ),
-    );
-  }
-  
-  // Build overlay for end of results
-  Widget _buildEndOfResultsOverlay() {
-    return Container(
-      color: Colors.black.withOpacity(0.9),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.brush,
-              size: 64,
-              color: redColor,
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              '¡Fin de los resultados!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              '¿Quieres ver más diseños de tatuajes?',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 48),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: _returnToStart,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[800],
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text('Volver al inicio'),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: _generateMore,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text('Generar más'),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

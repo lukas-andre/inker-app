@@ -1913,5 +1913,33 @@
   "noActiveSession": "No active session found",
   "@noActiveSession": {
     "description": "Error message when no active user session is found."
+  },
+  "generate": "Generate",
+  "@generate": {
+    "description": "Button text to generate tattoo designs."
+  },
+  "history": "History",
+  "@history": {
+    "description": "Label for the history tab."
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Label for the favorites tab."
+  },
+  "designAddedToFavorites": "Design added to favorites",
+  "@designAddedToFavorites": {
+    "description": "Message shown when a design is added to favorites."
+  },
+  "designRemovedFromFavorites": "Design removed from favorites",
+  "@designRemovedFromFavorites": {
+    "description": "Message shown when a design is removed from favorites."
+  },
+  "noDesignsOnHistory": "No designs in history",
+  "@noDesignsOnHistory": {
+    "description": "Message shown when there are no designs on history."
+  },
+  "noDesignsOnFavorites": "No designs in favorites",
+  "@noDesignsOnFavorites": {
+    "description": "Message shown when there are no designs on favorites."
   }
 }
