@@ -35,6 +35,7 @@ import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_
 import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/domain/mixins/authentication_handler.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
@@ -245,6 +246,13 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
           create: (context) => QuotationListBloc(
             quotationService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => TattooGeneratorBloc(
+            tattooGeneratorService: context.read(),
             sessionService: context.read(),
           ),
         ),

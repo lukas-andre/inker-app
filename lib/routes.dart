@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dar
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
@@ -34,6 +35,7 @@ import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
+import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/ui/views/error_view.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -479,6 +481,16 @@ class AppRoutes {
           ),
         );
       }
+    }
+
+    // Tattoo Generator route
+    if (settings.name == '/tattoo-generator') {
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider.value(
+          value: context.read<TattooGeneratorBloc>(),
+          child: const TattooGeneratorPage(),
+        ),
+      );
     }
 
     return null;
