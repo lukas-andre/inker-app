@@ -1,6 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
+import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/models/analytics/content_type.dart';
+import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -20,12 +25,18 @@ class TattooImmersiveViewerPage extends StatefulWidget {
   // Starting position
   final int initialIndex;
   
+  // Optional design ID if this is from saved designs
+  final String? designId;
+  final bool? isFavorite;
+  
   const TattooImmersiveViewerPage({
     Key? key,
     required this.images,
     required this.prompt,
     required this.style,
     this.initialIndex = 0,
+    this.designId,
+    this.isFavorite,
   }) : super(key: key);
 
   @override
@@ -52,6 +63,8 @@ class TattooImmersiveViewerPage extends StatefulWidget {
     required String prompt,
     required TattooStyle style,
     int initialIndex = 0,
+    String? designId,
+    bool? isFavorite,
   }) {
     return MaterialPageRoute(
       builder: (context) => TattooImmersiveViewerPage(
@@ -59,6 +72,8 @@ class TattooImmersiveViewerPage extends StatefulWidget {
         prompt: prompt,
         style: style,
         initialIndex: initialIndex,
+        designId: designId,
+        isFavorite: isFavorite,
       ),
     );
   }
@@ -81,6 +96,10 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
   // For double-tap handling
   DateTime? _lastTapTime;
   
+  // For tracking favorite state
+  bool _isFavorite = false;
+  String? _designId;
+  
   @override
   void initState() {
     super.initState();
@@ -93,6 +112,10 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
     _pageController = PageController(
       initialPage: _currentIndex,
     );
+    
+    // Initialize favorite state
+    _isFavorite = widget.isFavorite ?? false;
+    _designId = widget.designId;
     
     // Preload nearby images
     _preloadImages();
@@ -183,31 +206,44 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
   
   // Handle double tap actions
   void _handleDoubleTap() {
-    // Show like animation
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.favorite, color: Colors.white),
-            const SizedBox(width: 8),
-            const Text('Te gusta este diseño'),
-          ],
-        ),
-        backgroundColor: redColor,
-        duration: const Duration(seconds: 1),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    _toggleFavorite();
   }
   
   // Handle save to favorites
-  void _handleSave() {
-    // Show saved message
+  void _toggleFavorite() {
+    if (_designId == null) {
+      // Show saved message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Diseño guardado en tus generados'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+    
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+    
+    // Toggle in the bloc
+    context.read<TattooGeneratorBloc>().add(
+      TattooGeneratorEvent.toggleFavorite(
+        designId: _designId!,
+        isFavorite: _isFavorite,
+      ),
+    );
+    
+    // Show confirmation
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Diseño guardado en favoritos'),
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 1),
+      SnackBar(
+        content: Text(_isFavorite 
+          ? 'Diseño agregado a favoritos' 
+          : 'Diseño removido de favoritos'),
+        backgroundColor: _isFavorite ? Colors.green : redColor,
+        duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -348,11 +384,12 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
             top: MediaQuery.of(context).size.height / 2 - 50,
             child: Column(
               children: [
-                // Save button
+                // Favorite button
                 _buildActionButton(
-                  icon: Icons.favorite,
-                  label: 'Me gusta',
-                  onTap: _handleSave,
+                  icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
+                  label: _isFavorite ? 'Favorito' : 'Me gusta',
+                  onTap: _toggleFavorite,
+                  iconColor: _isFavorite ? redColor : Colors.white,
                 ),
                 const SizedBox(height: 16),
                 
@@ -425,6 +462,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
     required IconData icon,
     required String label,
     required VoidCallback onTap,
+    Color? iconColor,
   }) {
     return GestureDetector(
       onTap: onTap,
@@ -438,7 +476,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white.withOpacity(0.3)),
             ),
-            child: Icon(icon, color: Colors.white, size: 26),
+            child: Icon(icon, color: iconColor ?? Colors.white, size: 26),
           ),
           const SizedBox(height: 4),
           Text(
