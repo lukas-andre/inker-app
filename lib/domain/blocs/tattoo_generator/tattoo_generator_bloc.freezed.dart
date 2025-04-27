@@ -1780,8 +1780,8 @@ mixin _$TattooGeneratorState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -1797,7 +1797,8 @@ mixin _$TattooGeneratorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -1812,7 +1813,8 @@ mixin _$TattooGeneratorState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -1925,8 +1927,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -1945,7 +1947,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -1963,7 +1966,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2077,8 +2081,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -2097,7 +2101,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -2115,7 +2120,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2195,7 +2201,11 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<String> images, String prompt, TattooStyle style});
+  $Res call(
+      {List<GeneratedTattooImage> images,
+      String prompt,
+      TattooStyle style,
+      String? designId});
 }
 
 /// @nodoc
@@ -2212,12 +2222,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
     Object? images = null,
     Object? prompt = null,
     Object? style = null,
+    Object? designId = freezed,
   }) {
     return _then(_$LoadedImpl(
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<GeneratedTattooImage>,
       prompt: null == prompt
           ? _value.prompt
           : prompt // ignore: cast_nullable_to_non_nullable
@@ -2226,6 +2237,10 @@ class __$$LoadedImplCopyWithImpl<$Res>
           ? _value.style
           : style // ignore: cast_nullable_to_non_nullable
               as TattooStyle,
+      designId: freezed == designId
+          ? _value.designId
+          : designId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -2234,14 +2249,15 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(
-      {required final List<String> images,
+      {required final List<GeneratedTattooImage> images,
       required this.prompt,
-      required this.style})
+      required this.style,
+      this.designId})
       : _images = images;
 
-  final List<String> _images;
+  final List<GeneratedTattooImage> _images;
   @override
-  List<String> get images {
+  List<GeneratedTattooImage> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_images);
@@ -2251,10 +2267,12 @@ class _$LoadedImpl implements _Loaded {
   final String prompt;
   @override
   final TattooStyle style;
+  @override
+  final String? designId;
 
   @override
   String toString() {
-    return 'TattooGeneratorState.loaded(images: $images, prompt: $prompt, style: $style)';
+    return 'TattooGeneratorState.loaded(images: $images, prompt: $prompt, style: $style, designId: $designId)';
   }
 
   @override
@@ -2264,12 +2282,14 @@ class _$LoadedImpl implements _Loaded {
             other is _$LoadedImpl &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.prompt, prompt) || other.prompt == prompt) &&
-            (identical(other.style, style) || other.style == style));
+            (identical(other.style, style) || other.style == style) &&
+            (identical(other.designId, designId) ||
+                other.designId == designId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_images), prompt, style);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_images), prompt, style, designId);
 
   @JsonKey(ignore: true)
   @override
@@ -2282,8 +2302,8 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -2294,7 +2314,7 @@ class _$LoadedImpl implements _Loaded {
         historyLoaded,
     required TResult Function(String designId, bool isFavorite) favoriteToggled,
   }) {
-    return loaded(images, prompt, style);
+    return loaded(images, prompt, style, designId);
   }
 
   @override
@@ -2302,7 +2322,8 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -2312,7 +2333,7 @@ class _$LoadedImpl implements _Loaded {
         historyLoaded,
     TResult? Function(String designId, bool isFavorite)? favoriteToggled,
   }) {
-    return loaded?.call(images, prompt, style);
+    return loaded?.call(images, prompt, style, designId);
   }
 
   @override
@@ -2320,7 +2341,8 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2332,7 +2354,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(images, prompt, style);
+      return loaded(images, prompt, style, designId);
     }
     return orElse();
   }
@@ -2392,13 +2414,15 @@ class _$LoadedImpl implements _Loaded {
 
 abstract class _Loaded implements TattooGeneratorState {
   const factory _Loaded(
-      {required final List<String> images,
+      {required final List<GeneratedTattooImage> images,
       required final String prompt,
-      required final TattooStyle style}) = _$LoadedImpl;
+      required final TattooStyle style,
+      final String? designId}) = _$LoadedImpl;
 
-  List<String> get images;
+  List<GeneratedTattooImage> get images;
   String get prompt;
   TattooStyle get style;
+  String? get designId;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2470,8 +2494,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -2490,7 +2514,8 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -2508,7 +2533,8 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2653,8 +2679,8 @@ class _$PromptUpdatedImpl implements _PromptUpdated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -2673,7 +2699,8 @@ class _$PromptUpdatedImpl implements _PromptUpdated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -2691,7 +2718,8 @@ class _$PromptUpdatedImpl implements _PromptUpdated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2837,8 +2865,8 @@ class _$StyleUpdatedImpl implements _StyleUpdated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -2857,7 +2885,8 @@ class _$StyleUpdatedImpl implements _StyleUpdated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -2875,7 +2904,8 @@ class _$StyleUpdatedImpl implements _StyleUpdated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -2995,8 +3025,8 @@ class _$HistoryLoadingImpl implements _HistoryLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -3015,7 +3045,8 @@ class _$HistoryLoadingImpl implements _HistoryLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -3033,7 +3064,8 @@ class _$HistoryLoadingImpl implements _HistoryLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -3192,8 +3224,8 @@ class _$HistoryLoadedImpl implements _HistoryLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -3212,7 +3244,8 @@ class _$HistoryLoadedImpl implements _HistoryLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -3230,7 +3263,8 @@ class _$HistoryLoadedImpl implements _HistoryLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,
@@ -3390,8 +3424,8 @@ class _$FavoriteToggledImpl implements _FavoriteToggled {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<String> images, String prompt, TattooStyle style)
+    required TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)
         loaded,
     required TResult Function(String message) error,
     required TResult Function(String prompt) promptUpdated,
@@ -3410,7 +3444,8 @@ class _$FavoriteToggledImpl implements _FavoriteToggled {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<String> images, String prompt, TattooStyle style)?
+    TResult? Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function(String prompt)? promptUpdated,
@@ -3428,7 +3463,8 @@ class _$FavoriteToggledImpl implements _FavoriteToggled {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<String> images, String prompt, TattooStyle style)?
+    TResult Function(List<GeneratedTattooImage> images, String prompt,
+            TattooStyle style, String? designId)?
         loaded,
     TResult Function(String message)? error,
     TResult Function(String prompt)? promptUpdated,

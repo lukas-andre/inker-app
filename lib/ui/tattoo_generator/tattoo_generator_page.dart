@@ -26,6 +26,9 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
   // Tab controller
   late TabController _tabController;
   
+  // Current indices for UI state
+  int _currentResultImageIndex = 0;
+  
   @override
   void initState() {
     super.initState();
@@ -120,12 +123,14 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
           children: [
             const Icon(Icons.brush, color: Colors.white),
             const SizedBox(width: 8),
             Text(s.tattooGenerator, style: TextStyleTheme.headline2),
           ],
+          
         ),
         backgroundColor: primaryColor,
         elevation: 0,
@@ -135,9 +140,9 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white.withOpacity(0.7),
           tabs: [
-            Tab(text: 'Generar'),
-            Tab(text: 'Historial'),
-            Tab(text: 'Favoritos'),
+            Tab(text: s.generate),
+            Tab(text: s.history),
+            Tab(text: s.favorites),
           ],
         ),
       ),
@@ -154,8 +159,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(isFavorite 
-                    ? 'Diseño agregado a favoritos' 
-                    : 'Diseño removido de favoritos'),
+                    ? s.designAddedToFavorites 
+                    : s.designRemovedFromFavorites),
                   duration: const Duration(seconds: 1),
                 ),
               );
@@ -197,7 +202,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           Expanded(
             child: state.maybeWhen(
               loading: () => const Center(child: LoadingIndicator()),
-              loaded: (images, prompt, style) => _buildResultsView(s, images, prompt, style),
+              loaded: (images, prompt, style, designId) => _buildResultsView(s, images, prompt, style, designId),
               orElse: () => _buildEmptyState(s),
             ),
           ),
@@ -210,8 +215,9 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     return state.maybeWhen(
       historyLoading: () => const Center(child: LoadingIndicator()),
       historyLoaded: (designs, favoritesOnly) => _buildDesignsGridView(
+        s: s,
         designs: designs,
-        emptyMessage: 'No hay diseños en tu historial',
+        emptyMessage: s.noDesignsOnHistory,
         onRefresh: () {
           context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshHistory());
           return Future.delayed(const Duration(milliseconds: 1500));
@@ -242,11 +248,12 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         
         return _buildDesignsGridView(
           designs: designs,
-          emptyMessage: 'No hay diseños en tus favoritos',
+          emptyMessage: s.noDesignsOnFavorites,
           onRefresh: () {
             context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshFavorites());
             return Future.delayed(const Duration(milliseconds: 1500));
           },
+          s: s,
         );
       },
       orElse: () {
@@ -263,6 +270,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     required List<UserTattooDesignDto> designs,
     required String emptyMessage,
     required Future<void> Function() onRefresh,
+    required S s,
   }) {
     if (designs.isEmpty) {
       return RefreshIndicator(
@@ -292,161 +300,322 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       );
     }
     
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: RefreshIndicator(
-        onRefresh: onRefresh,
-        color: redColor,
-        backgroundColor: explorerSecondaryColor,
-        child: GridView.builder(
-          physics: const AlwaysScrollableScrollPhysics(), // Enable scrolling even when content doesn't fill the screen
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.75, // Taller items to show info
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      color: redColor,
+      backgroundColor: explorerSecondaryColor,
+      child: ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: designs.length,
+        itemBuilder: (context, index) {
+          final design = designs[index];
+          
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildDesignCard(design, s),
+          );
+        },
+      ),
+    );
+  }
+  
+  Widget _buildDesignCard(UserTattooDesignDto design, S s) {
+    final pageController = PageController(viewportFraction: 1.0);
+    final ValueNotifier<int> currentImageIndex = ValueNotifier<int>(0);
+    
+    return Container(
+      decoration: BoxDecoration(
+        color: explorerSecondaryColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
           ),
-          itemCount: designs.length,
-          itemBuilder: (context, index) {
-            final design = designs[index];
-            final thumbnailUrl = design.imageUrls.isNotEmpty ? design.imageUrls[0] : '';
-            
-            return GestureDetector(
-              onTap: () {
-                // Open immersive viewer
-                Navigator.of(context).push(
-                  TattooImmersiveViewerPage.route(
-                    images: design.imageUrls,
-                    prompt: design.userQuery,
-                    style: design.getTattooStyle(),
-                    designId: design.id,
-                    isFavorite: design.isFavorite,
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image carousel with dots - maximized
+          AspectRatio(
+            aspectRatio: 1.0,
+            child: Stack(
+              children: [
+                // Main image carousel
+                PageView.builder(
+                  itemCount: design.imageUrls.length,
+                  pageSnapping: true,
+                  controller: pageController,
+                  onPageChanged: (index) {
+                    currentImageIndex.value = index;
+                  },
+                  itemBuilder: (context, imageIndex) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Open immersive viewer with the current image selected
+                        _openImmersiveViewer(design, imageIndex);
+                      },
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                        child: Hero(
+                          tag: 'design_${design.id}_$imageIndex',
+                          child: CachedNetworkImage(
+                            imageUrl: design.imageUrls[imageIndex],
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(redColor),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => const Center(
+                              child: Icon(Icons.error, color: redColor),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                
+                // Style and date in a pill at the top
+                Positioned(
+                  top: 8,
+                  left: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _getStyleEmoji(design.getTattooStyle()),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          _formatStyleName(design.getTattooStyle().name),
+                          style: TextStyleTheme.caption.copyWith(
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: explorerSecondaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Image thumbnail
-                    Expanded(
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                            child: CachedNetworkImage(
-                              imageUrl: thumbnailUrl,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(redColor),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => const Center(
-                                child: Icon(Icons.error, color: redColor),
-                              ),
-                            ),
-                          ),
-                          
-                          // Favorite button overlay
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: GestureDetector(
-                              onTap: () {
-                                // Toggle favorite
-                                context.read<TattooGeneratorBloc>().add(
-                                  TattooGeneratorEvent.toggleFavorite(
-                                    designId: design.id,
-                                    isFavorite: !(design.isFavorite ?? false),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.6),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  design.isFavorite ?? false
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: design.isFavorite ?? false ? redColor : Colors.white,
-                                  size: 18,
-                                ),
-                              ),
-                            ),
-                          ),
+                
+                // Favorite button overlay
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Toggle favorite
+                      context.read<TattooGeneratorBloc>().add(
+                        TattooGeneratorEvent.toggleFavorite(
+                          designId: design.id,
+                          isFavorite: !(design.isFavorite ?? false),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.7),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        design.isFavorite ?? false
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: design.isFavorite ?? false ? redColor : Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                
+                // Prompt at the bottom with gradient overlay
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.8),
+                          Colors.transparent,
                         ],
                       ),
                     ),
-                    
-                    // Info section
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Style pill
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: primaryColor.withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              _formatStyleName(design.getTattooStyle().name),
-                              style: TextStyleTheme.caption.copyWith(
-                                color: Colors.white,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          
-                          // Prompt text
-                          Text(
-                            design.userQuery,
-                            style: TextStyleTheme.bodyText2.copyWith(
-                              color: Colors.white.withOpacity(0.9),
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          
-                          if (design.createdAt != null) ...[
-                            const SizedBox(height: 4),
-                            Text(
-                              _formatDate(design.createdAt!),
-                              style: TextStyleTheme.caption.copyWith(
-                                color: Colors.white.withOpacity(0.6),
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ],
+                    child: Text(
+                      design.userQuery,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 12,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            );
-          },
+                
+                // Dots indicator
+                if (design.imageUrls.length > 1)
+                  Positioned(
+                    bottom: 50, // Above the prompt overlay
+                    left: 0,
+                    right: 0,
+                    child: ValueListenableBuilder<int>(
+                      valueListenable: currentImageIndex,
+                      builder: (context, index, _) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(design.imageUrls.length, (dotIndex) {
+                            return Container(
+                              width: 6,
+                              height: 6,
+                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: dotIndex == index
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.4),
+                              ),
+                            );
+                          }),
+                        );
+                      }
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  // Helper method to open the immersive viewer
+  void _openImmersiveViewer(UserTattooDesignDto design, int initialImageIndex) {
+    // Get the current list of designs based on the active tab
+    List<UserTattooDesignDto> designs = [];
+    int currentDesignIndex = 0;
+    
+    final state = context.read<TattooGeneratorBloc>().state;
+    
+    state.maybeWhen(
+      historyLoaded: (designList, favoritesOnly) {
+        designs = List.from(designList);
+        currentDesignIndex = designs.indexWhere((d) => d.id == design.id);
+        if (currentDesignIndex < 0) currentDesignIndex = 0;
+      },
+      orElse: () {},
+    );
+    
+    // Open immersive viewer
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TattooImmersiveViewerPage(
+          images: design.imageUrls,
+          prompt: design.userQuery,
+          style: design.getTattooStyle(),
+          initialIndex: initialImageIndex,
+          designId: design.id,
+          isFavorite: design.isFavorite,
+          allDesigns: designs.isNotEmpty ? designs : null,
+          currentDesignIndex: currentDesignIndex,
         ),
       ),
+    );
+  }
+  
+  Widget _buildImageCarousel(UserTattooDesignDto design) {
+    return PageView.builder(
+      itemCount: design.imageUrls.length,
+      pageSnapping: true,
+      controller: PageController(viewportFraction: 1.0),
+      itemBuilder: (context, imageIndex) {
+        return GestureDetector(
+          onTap: () {
+            // Open immersive viewer with the current image selected
+            _openImmersiveViewer(design, imageIndex);
+          },
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: design.imageUrls[imageIndex],
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(redColor),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Center(
+                  child: Icon(Icons.error, color: redColor),
+                ),
+              ),
+              
+              // Dots indicator
+              if (design.imageUrls.length > 1)
+                Positioned(
+                  bottom: 8,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(design.imageUrls.length, (dotIndex) {
+                      return Container(
+                        width: 8,
+                        height: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: dotIndex == imageIndex
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.4),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                
+              // Swipe indicator for first image
+              if (design.imageUrls.length > 1 && imageIndex == 0)
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  right: 16,
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.swipe, 
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -591,7 +760,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     );
   }
 
-  Widget _buildResultsView(S s, List<TattooGeneratedImageURL> images, String prompt, TattooStyle style) {
+  Widget _buildResultsView(S s, List<GeneratedTattooImage> images, String prompt, TattooStyle style, String? designId) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -607,95 +776,172 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         ),
         const SizedBox(height: 12),
         Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+          child: Container(
+            decoration: BoxDecoration(
+              color: explorerSecondaryColor,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  // Navigate to the immersive viewer
-                  Navigator.of(context).push(
-                    TattooImmersiveViewerPage.route(
-                      images: images,
-                      prompt: prompt,
-                      style: style,
-                      initialIndex: index,
-                    ),
-                  );
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Hero(
-                        tag: 'generated_tattoo_$index',
-                        child: CachedNetworkImage(
-                          imageUrl: images[index],
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                          placeholder: (context, url) => Container(
-                            color: explorerSecondaryColor,
-                            child: const Center(
-                              child: LoadingIndicator(),
+            child: Stack(
+              children: [
+                // Full-size image carousel
+                PageView.builder(
+                  itemCount: images.length,
+                  pageSnapping: true,
+                  controller: PageController(viewportFraction: 1.0),
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentResultImageIndex = index;
+                    });
+                  },
+                  itemBuilder: (context, imageIndex) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the immersive viewer
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => TattooImmersiveViewerPage(
+                              images: images.map((img) => img.imageUrl).toList(),
+                              prompt: prompt,
+                              style: style,
+                              initialIndex: imageIndex,
+                              designId: designId,
+                              isFavorite: false,
                             ),
                           ),
-                          errorWidget: (context, url, error) => Container(
-                            color: explorerSecondaryColor,
-                            child: const Center(
-                              child: Icon(Icons.error, color: redColor),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              Colors.black.withOpacity(0.8),
-                              Colors.transparent,
-                            ],
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 16,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              'Ver detalle',
-                              style: TextStyleTheme.caption.copyWith(
-                                color: Colors.white,
+                        );
+                      },
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // Full-screen image
+                          Positioned.fill(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Hero(
+                                tag: 'generated_tattoo_${designId ?? ""}_$imageIndex',
+                                child: CachedNetworkImage(
+                                  imageUrl: images[imageIndex].imageUrl,
+                                  fit: BoxFit.contain,
+                                  placeholder: (context, url) => Container(
+                                    color: explorerSecondaryColor,
+                                    child: const Center(
+                                      child: LoadingIndicator(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                    color: explorerSecondaryColor,
+                                    child: const Center(
+                                      child: Icon(Icons.error, color: redColor),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                
+                // Tap to view overlay
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.7),
+                          Colors.transparent,
+                        ],
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.fullscreen,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            s.viewDetails,
+                            style: TextStyleTheme.caption.copyWith(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                
+                // Dots indicator - centered at bottom
+                if (images.length > 1)
+                  Positioned(
+                    bottom: 40,
+                    left: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(images.length, (dotIndex) {
+                        return Container(
+                          width: 8,
+                          height: 8,
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: dotIndex == _currentResultImageIndex
+                                ? Colors.white
+                                : Colors.white.withOpacity(0.4),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                  
+                // Swipe indicator - right center
+                if (images.length > 1)
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    right: 16,
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Icon(
+                          Icons.swipe, 
+                          color: Colors.white,
+                          size: 20,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
+                  ),
+              ],
+            ),
           ),
         ),
       ],
@@ -723,7 +969,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           ),
           const SizedBox(height: 32),
           const Text(
-            "✨ 🖌️ 🎨",
+            '✨ 🖌️ 🎨',
             style: TextStyle(fontSize: 32),
           ),
         ],
@@ -741,17 +987,17 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     return result.substring(0, 1).toUpperCase() + result.substring(1);
   }
   
-  String _formatDate(DateTime date) {
+  String _formatDate(DateTime date, S s) {
     final now = DateTime.now();
     final difference = now.difference(date);
     
     if (difference.inDays < 1) {
       if (difference.inHours < 1) {
-        return 'Hace ${difference.inMinutes} minutos';
+        return s.minutesAgo(difference.inMinutes);
       }
-      return 'Hace ${difference.inHours} horas';
+      return s.hoursAgo(difference.inHours);
     } else if (difference.inDays < 7) {
-      return 'Hace ${difference.inDays} días';
+      return s.daysAgo(difference.inDays);
     } else {
       // Format as date
       final day = date.day.toString().padLeft(2, '0');
