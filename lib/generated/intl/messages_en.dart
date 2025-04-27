@@ -258,6 +258,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "describeYourTattoo":
             MessageLookupByLibrary.simpleMessage("Describe your tattoo"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "designAddedToFavorites":
+            MessageLookupByLibrary.simpleMessage("Design added to favorites"),
+        "designRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
+            "Design removed from favorites"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationCannotBeZero":
@@ -313,6 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Event updated successfully."),
         "expand": MessageLookupByLibrary.simpleMessage("Expand"),
         "extraInfo": MessageLookupByLibrary.simpleMessage("Extra Info"),
+        "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "feature": MessageLookupByLibrary.simpleMessage("Feature"),
         "featured": MessageLookupByLibrary.simpleMessage("Featured"),
         "featuredStencil":
@@ -330,6 +335,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "following": MessageLookupByLibrary.simpleMessage("Following"),
         "from": MessageLookupByLibrary.simpleMessage("From"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+        "generate": MessageLookupByLibrary.simpleMessage("Generate"),
         "generateTattoo":
             MessageLookupByLibrary.simpleMessage("Generate Tattoo"),
         "genres": MessageLookupByLibrary.simpleMessage("Genres"),
@@ -344,6 +350,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hideWork": MessageLookupByLibrary.simpleMessage("Hide Work"),
         "hidingHiddenStencils":
             MessageLookupByLibrary.simpleMessage("Hiding hidden stencils"),
+        "history": MessageLookupByLibrary.simpleMessage("History"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
         "hoursAgo": m5,
@@ -389,6 +396,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noActiveSession":
             MessageLookupByLibrary.simpleMessage("No active session found"),
+        "noDesignsOnFavorites":
+            MessageLookupByLibrary.simpleMessage("No designs in favorites"),
+        "noDesignsOnHistory":
+            MessageLookupByLibrary.simpleMessage("No designs in history"),
         "noEventsForThisDay":
             MessageLookupByLibrary.simpleMessage("No events for this day"),
         "noEventsToday": MessageLookupByLibrary.simpleMessage(
