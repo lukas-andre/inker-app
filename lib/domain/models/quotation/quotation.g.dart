@@ -58,7 +58,7 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       canceledDate: json['canceledDate'] == null
           ? null
           : DateTime.parse(json['canceledDate'] as String),
-      lastUpdatedBy: (json['lastUpdatedBy'] as num?)?.toInt(),
+      lastUpdatedBy: json['lastUpdatedBy'] as String?,
       lastUpdatedByUserType: $enumDecodeNullable(
           _$QuotationUserTypeEnumMap, json['lastUpdatedByUserType']),
       history: (json['history'] as List<dynamic>?)
@@ -211,7 +211,7 @@ const _$QuotationUserTypeEnumMap = {
 
 _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
     _$QuotationHistoryImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       quotation: json['quotation'] == null
@@ -222,7 +222,7 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
           $enumDecode(_$QuotationStatusEnumMap, json['previousStatus']),
       newStatus: $enumDecode(_$QuotationStatusEnumMap, json['newStatus']),
       changedAt: DateTime.parse(json['changedAt'] as String),
-      changedBy: (json['changedBy'] as num).toInt(),
+      changedBy: json['changedBy'] as String,
       changedByUserType:
           $enumDecode(_$QuotationRoleEnumMap, json['changedByUserType']),
       previousEstimatedCost: json['previousEstimatedCost'] == null
@@ -247,7 +247,7 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
       rejectionReason: json['rejectionReason'] as String?,
       cancellationReason: json['cancellationReason'] as String?,
       additionalDetails: json['additionalDetails'] as String?,
-      lastUpdatedBy: (json['lastUpdatedBy'] as num?)?.toInt(),
+      lastUpdatedBy: json['lastUpdatedBy'] as String?,
       lastUpdatedByUserType: $enumDecodeNullable(
           _$QuotationUserTypeEnumMap, json['lastUpdatedByUserType']),
     );

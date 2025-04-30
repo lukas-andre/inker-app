@@ -272,7 +272,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
         if (notification.data['eventId'] != null) {
           Navigator.of(context).pushNamed(
             '/agendaEventDetail',
-            arguments: int.parse(notification.data['eventId'].toString()),
+            arguments: notification.data['eventId'],
           );
         }
         break;

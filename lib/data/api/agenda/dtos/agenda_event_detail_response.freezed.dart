@@ -208,10 +208,10 @@ AgendaEventDetailEvent _$AgendaEventDetailEventFromJson(
 
 /// @nodoc
 mixin _$AgendaEventDetailEvent {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  int get customerId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'startDate')
   DateTime get start => throw _privateConstructorUsedError;
@@ -225,7 +225,7 @@ mixin _$AgendaEventDetailEvent {
       throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
-  int? get quotationId => throw _privateConstructorUsedError;
+  String? get quotationId => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   int? get preparationTimeMinutes => throw _privateConstructorUsedError;
   int? get cleanupTimeMinutes => throw _privateConstructorUsedError;
@@ -243,10 +243,10 @@ abstract class $AgendaEventDetailEventCopyWith<$Res> {
       _$AgendaEventDetailEventCopyWithImpl<$Res, AgendaEventDetailEvent>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
@@ -257,7 +257,7 @@ abstract class $AgendaEventDetailEventCopyWith<$Res> {
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int? quotationId,
+      String? quotationId,
       String? notes,
       int? preparationTimeMinutes,
       int? cleanupTimeMinutes});
@@ -302,7 +302,7 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -314,7 +314,7 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -358,7 +358,7 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -398,10 +398,10 @@ abstract class _$$AgendaEventDetailEventImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
@@ -412,7 +412,7 @@ abstract class _$$AgendaEventDetailEventImplCopyWith<$Res>
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int? quotationId,
+      String? quotationId,
       String? notes,
       int? preparationTimeMinutes,
       int? cleanupTimeMinutes});
@@ -457,7 +457,7 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -469,7 +469,7 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -513,7 +513,7 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -557,13 +557,13 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       _$$AgendaEventDetailEventImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final int customerId;
+  final String customerId;
   @override
   final String title;
   @override
@@ -587,7 +587,7 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   @override
   final DateTime? deletedAt;
   @override
-  final int? quotationId;
+  final String? quotationId;
   @override
   final String? notes;
   @override
@@ -675,10 +675,10 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
 
 abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   const factory _AgendaEventDetailEvent(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final int customerId,
+      required final String customerId,
       required final String title,
       @JsonKey(name: 'startDate') required final DateTime start,
       @JsonKey(name: 'endDate') required final DateTime end,
@@ -689,7 +689,7 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
       final AgendaEventDetailWorkEvidence? workEvidence,
       final String? cancelationReason,
       final DateTime? deletedAt,
-      final int? quotationId,
+      final String? quotationId,
       final String? notes,
       final int? preparationTimeMinutes,
       final int? cleanupTimeMinutes}) = _$AgendaEventDetailEventImpl;
@@ -698,13 +698,13 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
       _$AgendaEventDetailEventImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  int get customerId;
+  String get customerId;
   @override
   String get title;
   @override
@@ -728,7 +728,7 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   @override
   DateTime? get deletedAt;
   @override
-  int? get quotationId;
+  String? get quotationId;
   @override
   String? get notes;
   @override
@@ -1197,7 +1197,7 @@ AgendaEventDetailLocation _$AgendaEventDetailLocationFromJson(
 
 /// @nodoc
 mixin _$AgendaEventDetailLocation {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get address1 => throw _privateConstructorUsedError;
@@ -1213,7 +1213,7 @@ mixin _$AgendaEventDetailLocation {
   AgendaEventDetailViewport get viewport => throw _privateConstructorUsedError;
   AgendaEventDetailLocationCoordinates get location =>
       throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   String? get address3 => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
@@ -1232,7 +1232,7 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       _$AgendaEventDetailLocationCopyWithImpl<$Res, AgendaEventDetailLocation>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
@@ -1247,7 +1247,7 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       double lng,
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
-      int? artistId,
+      String? artistId,
       String? address3,
       String? name,
       String? profileThumbnail,
@@ -1296,7 +1296,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1356,7 +1356,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
@@ -1404,7 +1404,7 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
@@ -1419,7 +1419,7 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
       double lng,
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
-      int? artistId,
+      String? artistId,
       String? address3,
       String? name,
       String? profileThumbnail,
@@ -1469,7 +1469,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1529,7 +1529,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
@@ -1579,7 +1579,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       _$$AgendaEventDetailLocationImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -1609,7 +1609,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   @override
   final AgendaEventDetailLocationCoordinates location;
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   final String? address3;
   @override
@@ -1707,7 +1707,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
 
 abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   const factory _AgendaEventDetailLocation(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String address1,
@@ -1722,7 +1722,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       required final double lng,
       required final AgendaEventDetailViewport viewport,
       required final AgendaEventDetailLocationCoordinates location,
-      final int? artistId,
+      final String? artistId,
       final String? address3,
       final String? name,
       final String? profileThumbnail,
@@ -1732,7 +1732,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       _$AgendaEventDetailLocationImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -1762,7 +1762,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   @override
   AgendaEventDetailLocationCoordinates get location;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   String? get address3;
   @override

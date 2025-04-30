@@ -217,7 +217,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
           Navigator.pushNamed(
             context,
             '/agendaEventDetail',
-            arguments: int.parse(event.id),
+            arguments: event.id,
           );
         },
         child: Container(

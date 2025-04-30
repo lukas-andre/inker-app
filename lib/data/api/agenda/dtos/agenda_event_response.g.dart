@@ -8,10 +8,10 @@ part of 'agenda_event_response.dart';
 
 _$AgendaEventResponseImpl _$$AgendaEventResponseImplFromJson(Map json) =>
     _$AgendaEventResponseImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num).toInt(),
+      customerId: json['customerId'] as String,
       title: json['title'] as String,
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
@@ -27,7 +27,7 @@ _$AgendaEventResponseImpl _$$AgendaEventResponseImplFromJson(Map json) =>
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num?)?.toInt(),
+      quotationId: json['quotationId'] as String?,
       agenda: (json['agenda'] as Map?)?.map(
         (k, e) => MapEntry(k as String, e),
       ),

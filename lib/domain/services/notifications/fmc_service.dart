@@ -1,14 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/firebase_options.dart';
 
 class FcmService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   late NotificationsBloc _notificationsBloc;
+  late QuotationListBloc _quotationListBloc;
 
   void setBloc(NotificationsBloc bloc) {
     _notificationsBloc = bloc;
+  }
+
+  void setQuotationListBloc(QuotationListBloc bloc) {
+    _quotationListBloc = bloc;
   }
 
   Future<void> initialize() async {
@@ -39,11 +45,11 @@ class FcmService {
   void _handleForegroundMessage(RemoteMessage message) {
     print('Mensaje recibido en primer plano: ${message.data}');
     print('AppState: ${AppState.foreground}');
+
     _notificationsBloc.add(NotificationsEvent.notificationReceived(
       message: message,
       appState: AppState.foreground,
     ));
-    
   }
 
   void _handleMessageOpenedApp(RemoteMessage message) {

@@ -27,6 +27,7 @@ import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
@@ -246,6 +247,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         final bloc = NotificationsBloc(fcmService, notificationsService, sessionService)
           ..add(const NotificationsEvent.initialize());
         fcmService.setBloc(bloc);
+        fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
         return bloc;
       },
     ),

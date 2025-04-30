@@ -545,7 +545,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
           Navigator.pushNamed(
             context,
             '/agendaEventDetail',
-            arguments: int.parse(event.id),
+            arguments: event.id,
           );
         },
         borderRadius: BorderRadius.circular(8.0),
