@@ -20,10 +20,10 @@ EventItem _$EventItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EventItem {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  int get customerId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'startDate')
   DateTime get start => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$EventItem {
   WorkEvidence? get workEvidence => throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
-  int? get quotationId => throw _privateConstructorUsedError;
+  String? get quotationId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,10 +50,10 @@ abstract class $EventItemCopyWith<$Res> {
       _$EventItemCopyWithImpl<$Res, EventItem>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
@@ -64,7 +64,7 @@ abstract class $EventItemCopyWith<$Res> {
       WorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int? quotationId});
+      String? quotationId});
 
   $WorkEvidenceCopyWith<$Res>? get workEvidence;
 }
@@ -102,7 +102,7 @@ class _$EventItemCopyWithImpl<$Res, $Val extends EventItem>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -114,7 +114,7 @@ class _$EventItemCopyWithImpl<$Res, $Val extends EventItem>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ class _$EventItemCopyWithImpl<$Res, $Val extends EventItem>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 
@@ -184,10 +184,10 @@ abstract class _$$EventItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
@@ -198,7 +198,7 @@ abstract class _$$EventItemImplCopyWith<$Res>
       WorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int? quotationId});
+      String? quotationId});
 
   @override
   $WorkEvidenceCopyWith<$Res>? get workEvidence;
@@ -235,7 +235,7 @@ class __$$EventItemImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -247,7 +247,7 @@ class __$$EventItemImplCopyWithImpl<$Res>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -291,7 +291,7 @@ class __$$EventItemImplCopyWithImpl<$Res>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -320,13 +320,13 @@ class _$EventItemImpl implements _EventItem {
       _$$EventItemImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final int customerId;
+  final String customerId;
   @override
   final String title;
   @override
@@ -350,7 +350,7 @@ class _$EventItemImpl implements _EventItem {
   @override
   final DateTime? deletedAt;
   @override
-  final int? quotationId;
+  final String? quotationId;
 
   @override
   String toString() {
@@ -423,10 +423,10 @@ class _$EventItemImpl implements _EventItem {
 
 abstract class _EventItem implements EventItem {
   const factory _EventItem(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final int customerId,
+      required final String customerId,
       required final String title,
       @JsonKey(name: 'startDate') required final DateTime start,
       @JsonKey(name: 'endDate') required final DateTime end,
@@ -437,19 +437,19 @@ abstract class _EventItem implements EventItem {
       final WorkEvidence? workEvidence,
       final String? cancelationReason,
       final DateTime? deletedAt,
-      final int? quotationId}) = _$EventItemImpl;
+      final String? quotationId}) = _$EventItemImpl;
 
   factory _EventItem.fromJson(Map<String, dynamic> json) =
       _$EventItemImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  int get customerId;
+  String get customerId;
   @override
   String get title;
   @override
@@ -473,7 +473,7 @@ abstract class _EventItem implements EventItem {
   @override
   DateTime? get deletedAt;
   @override
-  int? get quotationId;
+  String? get quotationId;
   @override
   @JsonKey(ignore: true)
   _$$EventItemImplCopyWith<_$EventItemImpl> get copyWith =>

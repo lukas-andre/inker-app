@@ -24,10 +24,10 @@ Map<String, dynamic> _$$AgendaEventDetailResponseImplToJson(
 
 _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
     _$AgendaEventDetailEventImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num).toInt(),
+      customerId: json['customerId'] as String,
       title: json['title'] as String,
       start: DateTime.parse(json['startDate'] as String),
       end: DateTime.parse(json['endDate'] as String),
@@ -43,7 +43,7 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num?)?.toInt(),
+      quotationId: json['quotationId'] as String?,
       notes: json['notes'] as String?,
       preparationTimeMinutes: (json['preparationTimeMinutes'] as num?)?.toInt(),
       cleanupTimeMinutes: (json['cleanupTimeMinutes'] as num?)?.toInt(),
@@ -125,7 +125,7 @@ Map<String, dynamic> _$$AgendaEventDetailMetadataImplToJson(
 _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
         Map json) =>
     _$AgendaEventDetailLocationImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       address1: json['address1'] as String,
@@ -142,7 +142,7 @@ _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
           Map<String, dynamic>.from(json['viewport'] as Map)),
       location: AgendaEventDetailLocationCoordinates.fromJson(
           Map<String, dynamic>.from(json['location'] as Map)),
-      artistId: (json['artistId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
       address3: json['address3'] as String?,
       name: json['name'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,

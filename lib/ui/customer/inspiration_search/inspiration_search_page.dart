@@ -16,6 +16,8 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/domain/models/analytics/view_source.dart';
+import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'dart:async';
 import 'package:collection/collection.dart';
 
@@ -1315,6 +1317,107 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     });
   }
 
+  Widget _buildCreateYourOwnSection() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => TattooGeneratorBloc(
+                tattooGeneratorService: context.read(),
+                sessionService: context.read(),
+              ),
+              child: const TattooGeneratorPage(),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [secondaryColor, redColor],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: secondaryColor.withOpacity(0.4),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            // Background pattern with gradient
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.05),
+                        Colors.white.withOpacity(0.15),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.brush, color: Colors.white, size: 28),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Crea tu propio diseño",
+                          style: TextStyleTheme.headline3.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Genera diseños de tatuajes con IA",
+                          style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.arrow_forward, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildInitialView() {
     return BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
       builder: (context, state) {
@@ -1330,7 +1433,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 24.0),
+                      // Add Create Your Own section at the top
+                      _buildCreateYourOwnSection(),
+                      const SizedBox(height: 8.0),
+                      
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -1647,6 +1753,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(top: 16.0, bottom: 24.0),
                 children: [
+                  // Add Create Your Own section at the top
+                  _buildCreateYourOwnSection(),
+                    
                   // For "both" content type or specifically "works", show works section if there are any
                   if ((contentType == ContentType.both ||
                           contentType == ContentType.works) &&

@@ -16,10 +16,10 @@ EventItem getEventItemFromJson(String str) =>
 @freezed
 class EventItem with _$EventItem {
   const factory EventItem({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
+    required String customerId,
     required String title,
     @JsonKey(name: 'startDate') required DateTime start,
     @JsonKey(name: 'endDate') required DateTime end,
@@ -30,7 +30,7 @@ class EventItem with _$EventItem {
     WorkEvidence? workEvidence,
     String? cancelationReason,
     DateTime? deletedAt,
-    int? quotationId,
+    String? quotationId,
   }) = _EventItem;
 
   factory EventItem.fromJson(Map<String, dynamic> json) =>

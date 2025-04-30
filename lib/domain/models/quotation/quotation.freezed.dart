@@ -52,7 +52,7 @@ mixin _$Quotation {
       throw _privateConstructorUsedError;
   String? get cancelReasonDetails => throw _privateConstructorUsedError;
   DateTime? get canceledDate => throw _privateConstructorUsedError;
-  int? get lastUpdatedBy => throw _privateConstructorUsedError;
+  String? get lastUpdatedBy => throw _privateConstructorUsedError;
   QuotationUserType? get lastUpdatedByUserType =>
       throw _privateConstructorUsedError;
   List<QuotationHistory>? get history => throw _privateConstructorUsedError;
@@ -103,7 +103,7 @@ abstract class $QuotationCopyWith<$Res> {
       QuotationSystemCancelReason? systemCancelReason,
       String? cancelReasonDetails,
       DateTime? canceledDate,
-      int? lastUpdatedBy,
+      String? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType,
       List<QuotationHistory>? history,
       Customer? customer,
@@ -279,7 +279,7 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       lastUpdatedBy: freezed == lastUpdatedBy
           ? _value.lastUpdatedBy
           : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       lastUpdatedByUserType: freezed == lastUpdatedByUserType
           ? _value.lastUpdatedByUserType
           : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
@@ -434,7 +434,7 @@ abstract class _$$QuotationImplCopyWith<$Res>
       QuotationSystemCancelReason? systemCancelReason,
       String? cancelReasonDetails,
       DateTime? canceledDate,
-      int? lastUpdatedBy,
+      String? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType,
       List<QuotationHistory>? history,
       Customer? customer,
@@ -614,7 +614,7 @@ class __$$QuotationImplCopyWithImpl<$Res>
       lastUpdatedBy: freezed == lastUpdatedBy
           ? _value.lastUpdatedBy
           : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       lastUpdatedByUserType: freezed == lastUpdatedByUserType
           ? _value.lastUpdatedByUserType
           : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
@@ -760,7 +760,7 @@ class _$QuotationImpl implements _Quotation {
   @override
   final DateTime? canceledDate;
   @override
-  final int? lastUpdatedBy;
+  final String? lastUpdatedBy;
   @override
   final QuotationUserType? lastUpdatedByUserType;
   final List<QuotationHistory>? _history;
@@ -959,7 +959,7 @@ abstract class _Quotation implements Quotation {
       final QuotationSystemCancelReason? systemCancelReason,
       final String? cancelReasonDetails,
       final DateTime? canceledDate,
-      final int? lastUpdatedBy,
+      final String? lastUpdatedBy,
       final QuotationUserType? lastUpdatedByUserType,
       final List<QuotationHistory>? history,
       final Customer? customer,
@@ -1026,7 +1026,7 @@ abstract class _Quotation implements Quotation {
   @override
   DateTime? get canceledDate;
   @override
-  int? get lastUpdatedBy;
+  String? get lastUpdatedBy;
   @override
   QuotationUserType? get lastUpdatedByUserType;
   @override
@@ -1061,14 +1061,14 @@ QuotationHistory _$QuotationHistoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$QuotationHistory {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   Quotation? get quotation => throw _privateConstructorUsedError;
   QuotationStatus get previousStatus => throw _privateConstructorUsedError;
   QuotationStatus get newStatus => throw _privateConstructorUsedError;
   DateTime get changedAt => throw _privateConstructorUsedError;
-  int get changedBy => throw _privateConstructorUsedError;
+  String get changedBy => throw _privateConstructorUsedError;
   QuotationRole get changedByUserType => throw _privateConstructorUsedError;
   Money? get previousEstimatedCost => throw _privateConstructorUsedError;
   Money? get newEstimatedCost => throw _privateConstructorUsedError;
@@ -1081,7 +1081,7 @@ mixin _$QuotationHistory {
   String? get rejectionReason => throw _privateConstructorUsedError;
   String? get cancellationReason => throw _privateConstructorUsedError;
   String? get additionalDetails => throw _privateConstructorUsedError;
-  int? get lastUpdatedBy => throw _privateConstructorUsedError;
+  String? get lastUpdatedBy => throw _privateConstructorUsedError;
   QuotationUserType? get lastUpdatedByUserType =>
       throw _privateConstructorUsedError;
 
@@ -1098,14 +1098,14 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       _$QuotationHistoryCopyWithImpl<$Res, QuotationHistory>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       Quotation? quotation,
       QuotationStatus previousStatus,
       QuotationStatus newStatus,
       DateTime changedAt,
-      int changedBy,
+      String changedBy,
       QuotationRole changedByUserType,
       Money? previousEstimatedCost,
       Money? newEstimatedCost,
@@ -1117,7 +1117,7 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       String? rejectionReason,
       String? cancellationReason,
       String? additionalDetails,
-      int? lastUpdatedBy,
+      String? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType});
 
   $QuotationCopyWith<$Res>? get quotation;
@@ -1164,7 +1164,7 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1192,7 +1192,7 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       changedBy: null == changedBy
           ? _value.changedBy
           : changedBy // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       changedByUserType: null == changedByUserType
           ? _value.changedByUserType
           : changedByUserType // ignore: cast_nullable_to_non_nullable
@@ -1240,7 +1240,7 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
       lastUpdatedBy: freezed == lastUpdatedBy
           ? _value.lastUpdatedBy
           : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       lastUpdatedByUserType: freezed == lastUpdatedByUserType
           ? _value.lastUpdatedByUserType
           : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
@@ -1294,14 +1294,14 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       Quotation? quotation,
       QuotationStatus previousStatus,
       QuotationStatus newStatus,
       DateTime changedAt,
-      int changedBy,
+      String changedBy,
       QuotationRole changedByUserType,
       Money? previousEstimatedCost,
       Money? newEstimatedCost,
@@ -1313,7 +1313,7 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
       String? rejectionReason,
       String? cancellationReason,
       String? additionalDetails,
-      int? lastUpdatedBy,
+      String? lastUpdatedBy,
       QuotationUserType? lastUpdatedByUserType});
 
   @override
@@ -1361,7 +1361,7 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1389,7 +1389,7 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
       changedBy: null == changedBy
           ? _value.changedBy
           : changedBy // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       changedByUserType: null == changedByUserType
           ? _value.changedByUserType
           : changedByUserType // ignore: cast_nullable_to_non_nullable
@@ -1437,7 +1437,7 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
       lastUpdatedBy: freezed == lastUpdatedBy
           ? _value.lastUpdatedBy
           : lastUpdatedBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       lastUpdatedByUserType: freezed == lastUpdatedByUserType
           ? _value.lastUpdatedByUserType
           : lastUpdatedByUserType // ignore: cast_nullable_to_non_nullable
@@ -1476,7 +1476,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
       _$$QuotationHistoryImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -1490,7 +1490,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final DateTime changedAt;
   @override
-  final int changedBy;
+  final String changedBy;
   @override
   final QuotationRole changedByUserType;
   @override
@@ -1514,7 +1514,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final String? additionalDetails;
   @override
-  final int? lastUpdatedBy;
+  final String? lastUpdatedBy;
   @override
   final QuotationUserType? lastUpdatedByUserType;
 
@@ -1618,14 +1618,14 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
 
 abstract class _QuotationHistory implements QuotationHistory {
   const factory _QuotationHistory(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       final Quotation? quotation,
       required final QuotationStatus previousStatus,
       required final QuotationStatus newStatus,
       required final DateTime changedAt,
-      required final int changedBy,
+      required final String changedBy,
       required final QuotationRole changedByUserType,
       final Money? previousEstimatedCost,
       final Money? newEstimatedCost,
@@ -1637,14 +1637,14 @@ abstract class _QuotationHistory implements QuotationHistory {
       final String? rejectionReason,
       final String? cancellationReason,
       final String? additionalDetails,
-      final int? lastUpdatedBy,
+      final String? lastUpdatedBy,
       final QuotationUserType? lastUpdatedByUserType}) = _$QuotationHistoryImpl;
 
   factory _QuotationHistory.fromJson(Map<String, dynamic> json) =
       _$QuotationHistoryImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -1658,7 +1658,7 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   DateTime get changedAt;
   @override
-  int get changedBy;
+  String get changedBy;
   @override
   QuotationRole get changedByUserType;
   @override
@@ -1682,7 +1682,7 @@ abstract class _QuotationHistory implements QuotationHistory {
   @override
   String? get additionalDetails;
   @override
-  int? get lastUpdatedBy;
+  String? get lastUpdatedBy;
   @override
   QuotationUserType? get lastUpdatedByUserType;
   @override
