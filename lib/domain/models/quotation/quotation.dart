@@ -44,7 +44,7 @@ class Quotation with _$Quotation {
     QuotationSystemCancelReason? systemCancelReason,
     String? cancelReasonDetails,
     DateTime? canceledDate,
-    int? lastUpdatedBy,
+    String? lastUpdatedBy,
     QuotationUserType? lastUpdatedByUserType,
     List<QuotationHistory>? history,
     Customer? customer,
@@ -65,14 +65,14 @@ class Quotation with _$Quotation {
 @freezed
 class QuotationHistory with _$QuotationHistory {
   const factory QuotationHistory({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     Quotation? quotation,
     required QuotationStatus previousStatus,
     required QuotationStatus newStatus,
     required DateTime changedAt,
-    required int changedBy,
+    required String changedBy,
     required QuotationRole changedByUserType,
     Money? previousEstimatedCost,
     Money? newEstimatedCost,
@@ -84,7 +84,7 @@ class QuotationHistory with _$QuotationHistory {
     String? rejectionReason,
     String? cancellationReason,
     String? additionalDetails,
-    int? lastUpdatedBy,
+    String? lastUpdatedBy,
     QuotationUserType? lastUpdatedByUserType,
   }) = _QuotationHistory;
 

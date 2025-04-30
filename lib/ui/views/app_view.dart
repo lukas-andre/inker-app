@@ -271,7 +271,7 @@ class _AppViewState extends State<AppView> {
             
             // Set up circular reference for FCM callbacks
             fcmService.setBloc(bloc);
-            
+            fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
             return bloc;
           },
         ),

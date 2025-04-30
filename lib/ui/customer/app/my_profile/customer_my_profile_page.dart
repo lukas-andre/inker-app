@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 
 class CustomerMyProfilePage extends StatefulWidget {
   final bool hideHeader;
-  
+
   const CustomerMyProfilePage({super.key, this.hideHeader = false});
 
   static const String kFullName = 'fullName';
@@ -41,10 +41,11 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final customerBloc = context.read<CustomerMyProfileBloc>();
       final state = customerBloc.state;
-      
+
       state.maybeWhen(
         loaded: (customer) {
-          if (customer.profileThumbnail != null && customer.profileThumbnail!.isNotEmpty) {
+          if (customer.profileThumbnail != null &&
+              customer.profileThumbnail!.isNotEmpty) {
             _imageCache.preloadCriticalImages(
               context,
               profileImageUrl: customer.profileThumbnail,
@@ -66,26 +67,29 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: widget.hideHeader ? null : AppBar(
-        backgroundColor: primaryColor,
-        title: Text(
-          S.of(context).myProfile,
-          style: TextStyleTheme.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        elevation: 1,
-        actions: [
-          IconButton(
-            key: K.settingsButton,
-            icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () => Navigator.of(context).push(SettingsPage.route()),
-            tooltip: S.of(context).settings,
-          ),
-        ],
-      ),
+      appBar: widget.hideHeader
+          ? null
+          : AppBar(
+              backgroundColor: primaryColor,
+              title: Text(
+                S.of(context).myProfile,
+                style: TextStyleTheme.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              elevation: 1,
+              actions: [
+                IconButton(
+                  key: K.settingsButton,
+                  icon: const Icon(Icons.settings, color: Colors.white),
+                  onPressed: () =>
+                      Navigator.of(context).push(SettingsPage.route()),
+                  tooltip: S.of(context).settings,
+                ),
+              ],
+            ),
       body: BlocConsumer<CustomerMyProfileBloc, CustomerProfileState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -125,10 +129,6 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                 _buildProfileHeader(context, customer),
                 _buildProfileDetails(context, customer),
                 const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: _buildMenuItems(),
-                ),
                 _buildContactInfo(context, customer),
               ],
             ),
@@ -177,14 +177,17 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
           ),
         ),
       ),
-      actions: widget.hideHeader ? [] : [
-        IconButton(
-          key: const Key('settingsButton'),
-          icon: const Icon(Icons.settings, color: Colors.white),
-          onPressed: () => Navigator.of(context).push(SettingsPage.route()),
-          tooltip: S.of(context).settings,
-        ),
-      ],
+      actions: widget.hideHeader
+          ? []
+          : [
+              IconButton(
+                key: const Key('settingsButton'),
+                icon: const Icon(Icons.settings, color: Colors.white),
+                onPressed: () =>
+                    Navigator.of(context).push(SettingsPage.route()),
+                tooltip: S.of(context).settings,
+              ),
+            ],
     );
   }
 
@@ -201,7 +204,8 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                 IconButton(
                   key: const Key('settingsButton'),
                   icon: const Icon(Icons.settings, color: Colors.white),
-                  onPressed: () => Navigator.of(context).push(SettingsPage.route()),
+                  onPressed: () =>
+                      Navigator.of(context).push(SettingsPage.route()),
                   tooltip: S.of(context).settings,
                 ),
             ],
@@ -321,14 +325,16 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: HSLColor.fromColor(primaryColor)
-                  .withLightness(0.2)
-                  .toColor(),
+              color:
+                  HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade800),
             ),
             child: Text(
-              customer.shortDescription ?? S.of(context).addAShortDescriptionAboutYourselfAndYourTattooStyle,
+              customer.shortDescription ??
+                  S
+                      .of(context)
+                      .addAShortDescriptionAboutYourselfAndYourTattooStyle,
               style: TextStyleTheme.bodyText1.copyWith(
                 color: customer.shortDescription != null
                     ? Colors.white
@@ -476,7 +482,8 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                   Text(
                     value.isEmpty ? S.of(context).notAvailable : value,
                     style: TextStyleTheme.bodyText2.copyWith(
-                      color: value.isEmpty ? Colors.grey.shade600 : Colors.white,
+                      color:
+                          value.isEmpty ? Colors.grey.shade600 : Colors.white,
                     ),
                   ),
                 ],
@@ -530,51 +537,5 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
           break;
       }
     }
-  }
-
-  Widget _buildMenuItems() {
-    return Column(
-      children: [
-        // Tattoo Generator menu item
-        InkWell(
-          onTap: () => Navigator.of(context).pushNamed('/tattoo-generator'),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: explorerSecondaryColor,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(
-                    Icons.brush,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  'Tattoo Generator',
-                  style: TextStyleTheme.subtitle1,
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                  size: 16,
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Other menu items...
-      ],
-    );
   }
 }

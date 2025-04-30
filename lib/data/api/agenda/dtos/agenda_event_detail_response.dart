@@ -24,10 +24,10 @@ class AgendaEventDetailResponse with _$AgendaEventDetailResponse {
 @freezed
 class AgendaEventDetailEvent with _$AgendaEventDetailEvent {
   const factory AgendaEventDetailEvent({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
+    required String customerId,
     required String title,
     @JsonKey(name: 'startDate') required DateTime start,
     @JsonKey(name: 'endDate') required DateTime end,
@@ -38,7 +38,7 @@ class AgendaEventDetailEvent with _$AgendaEventDetailEvent {
     AgendaEventDetailWorkEvidence? workEvidence,
     String? cancelationReason,
     DateTime? deletedAt,
-    int? quotationId,
+    String? quotationId,
     String? notes,
     int? preparationTimeMinutes,
     int? cleanupTimeMinutes,
@@ -78,7 +78,7 @@ class AgendaEventDetailMetadata with _$AgendaEventDetailMetadata {
 @freezed
 class AgendaEventDetailLocation with _$AgendaEventDetailLocation {
   const factory AgendaEventDetailLocation({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String address1,
@@ -93,7 +93,7 @@ class AgendaEventDetailLocation with _$AgendaEventDetailLocation {
     required double lng,
     required AgendaEventDetailViewport viewport,
     required AgendaEventDetailLocationCoordinates location,
-    int? artistId,
+    String? artistId,
     String? address3,
     String? name,
     String? profileThumbnail,

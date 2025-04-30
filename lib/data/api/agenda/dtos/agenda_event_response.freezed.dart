@@ -20,13 +20,13 @@ AgendaEventResponse _$AgendaEventResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AgendaEventResponse {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'createdAt')
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updatedAt')
   DateTime get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'customerId')
-  int get customerId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'startDate')
   DateTime get startDate => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ mixin _$AgendaEventResponse {
   @JsonKey(name: 'deletedAt')
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'quotationId')
-  int? get quotationId => throw _privateConstructorUsedError;
+  String? get quotationId => throw _privateConstructorUsedError;
   Map<String, dynamic>? get agenda => throw _privateConstructorUsedError;
   Map<String, dynamic>? get artist => throw _privateConstructorUsedError;
   Map<String, dynamic>? get location => throw _privateConstructorUsedError;
@@ -62,10 +62,10 @@ abstract class $AgendaEventResponseCopyWith<$Res> {
       _$AgendaEventResponseCopyWithImpl<$Res, AgendaEventResponse>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       @JsonKey(name: 'createdAt') DateTime createdAt,
       @JsonKey(name: 'updatedAt') DateTime updatedAt,
-      @JsonKey(name: 'customerId') int customerId,
+      @JsonKey(name: 'customerId') String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime startDate,
       @JsonKey(name: 'endDate') DateTime endDate,
@@ -77,7 +77,7 @@ abstract class $AgendaEventResponseCopyWith<$Res> {
       @JsonKey(name: 'workEvidence') Map<String, dynamic>? workEvidence,
       @JsonKey(name: 'cancelationReason') String? cancelationReason,
       @JsonKey(name: 'deletedAt') DateTime? deletedAt,
-      @JsonKey(name: 'quotationId') int? quotationId,
+      @JsonKey(name: 'quotationId') String? quotationId,
       Map<String, dynamic>? agenda,
       Map<String, dynamic>? artist,
       Map<String, dynamic>? location});
@@ -120,7 +120,7 @@ class _$AgendaEventResponseCopyWithImpl<$Res, $Val extends AgendaEventResponse>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -132,7 +132,7 @@ class _$AgendaEventResponseCopyWithImpl<$Res, $Val extends AgendaEventResponse>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$AgendaEventResponseCopyWithImpl<$Res, $Val extends AgendaEventResponse>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       agenda: freezed == agenda
           ? _value.agenda
           : agenda // ignore: cast_nullable_to_non_nullable
@@ -206,10 +206,10 @@ abstract class _$$AgendaEventResponseImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       @JsonKey(name: 'createdAt') DateTime createdAt,
       @JsonKey(name: 'updatedAt') DateTime updatedAt,
-      @JsonKey(name: 'customerId') int customerId,
+      @JsonKey(name: 'customerId') String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime startDate,
       @JsonKey(name: 'endDate') DateTime endDate,
@@ -221,7 +221,7 @@ abstract class _$$AgendaEventResponseImplCopyWith<$Res>
       @JsonKey(name: 'workEvidence') Map<String, dynamic>? workEvidence,
       @JsonKey(name: 'cancelationReason') String? cancelationReason,
       @JsonKey(name: 'deletedAt') DateTime? deletedAt,
-      @JsonKey(name: 'quotationId') int? quotationId,
+      @JsonKey(name: 'quotationId') String? quotationId,
       Map<String, dynamic>? agenda,
       Map<String, dynamic>? artist,
       Map<String, dynamic>? location});
@@ -262,7 +262,7 @@ class __$$AgendaEventResponseImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -274,7 +274,7 @@ class __$$AgendaEventResponseImplCopyWithImpl<$Res>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -322,7 +322,7 @@ class __$$AgendaEventResponseImplCopyWithImpl<$Res>
       quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       agenda: freezed == agenda
           ? _value._agenda
           : agenda // ignore: cast_nullable_to_non_nullable
@@ -371,7 +371,7 @@ class _$AgendaEventResponseImpl implements _AgendaEventResponse {
       _$$AgendaEventResponseImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   @JsonKey(name: 'createdAt')
   final DateTime createdAt;
@@ -380,7 +380,7 @@ class _$AgendaEventResponseImpl implements _AgendaEventResponse {
   final DateTime updatedAt;
   @override
   @JsonKey(name: 'customerId')
-  final int customerId;
+  final String customerId;
   @override
   final String title;
   @override
@@ -418,7 +418,7 @@ class _$AgendaEventResponseImpl implements _AgendaEventResponse {
   final DateTime? deletedAt;
   @override
   @JsonKey(name: 'quotationId')
-  final int? quotationId;
+  final String? quotationId;
   final Map<String, dynamic>? _agenda;
   @override
   Map<String, dynamic>? get agenda {
@@ -531,10 +531,10 @@ class _$AgendaEventResponseImpl implements _AgendaEventResponse {
 
 abstract class _AgendaEventResponse implements AgendaEventResponse {
   const factory _AgendaEventResponse(
-      {required final int id,
+      {required final String id,
       @JsonKey(name: 'createdAt') required final DateTime createdAt,
       @JsonKey(name: 'updatedAt') required final DateTime updatedAt,
-      @JsonKey(name: 'customerId') required final int customerId,
+      @JsonKey(name: 'customerId') required final String customerId,
       required final String title,
       @JsonKey(name: 'startDate') required final DateTime startDate,
       @JsonKey(name: 'endDate') required final DateTime endDate,
@@ -546,7 +546,7 @@ abstract class _AgendaEventResponse implements AgendaEventResponse {
       @JsonKey(name: 'workEvidence') final Map<String, dynamic>? workEvidence,
       @JsonKey(name: 'cancelationReason') final String? cancelationReason,
       @JsonKey(name: 'deletedAt') final DateTime? deletedAt,
-      @JsonKey(name: 'quotationId') final int? quotationId,
+      @JsonKey(name: 'quotationId') final String? quotationId,
       required final Map<String, dynamic>? agenda,
       required final Map<String, dynamic>? artist,
       required final Map<String, dynamic>?
@@ -556,7 +556,7 @@ abstract class _AgendaEventResponse implements AgendaEventResponse {
       _$AgendaEventResponseImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   @JsonKey(name: 'createdAt')
   DateTime get createdAt;
@@ -565,7 +565,7 @@ abstract class _AgendaEventResponse implements AgendaEventResponse {
   DateTime get updatedAt;
   @override
   @JsonKey(name: 'customerId')
-  int get customerId;
+  String get customerId;
   @override
   String get title;
   @override
@@ -595,7 +595,7 @@ abstract class _AgendaEventResponse implements AgendaEventResponse {
   DateTime? get deletedAt;
   @override
   @JsonKey(name: 'quotationId')
-  int? get quotationId;
+  String? get quotationId;
   @override
   Map<String, dynamic>? get agenda;
   @override

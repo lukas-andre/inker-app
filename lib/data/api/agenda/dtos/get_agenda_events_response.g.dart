@@ -7,10 +7,10 @@ part of 'get_agenda_events_response.dart';
 // **************************************************************************
 
 _$EventItemImpl _$$EventItemImplFromJson(Map json) => _$EventItemImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num).toInt(),
+      customerId: json['customerId'] as String,
       title: json['title'] as String,
       start: DateTime.parse(json['startDate'] as String),
       end: DateTime.parse(json['endDate'] as String),
@@ -26,7 +26,7 @@ _$EventItemImpl _$$EventItemImplFromJson(Map json) => _$EventItemImpl(
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num?)?.toInt(),
+      quotationId: json['quotationId'] as String?,
     );
 
 Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
