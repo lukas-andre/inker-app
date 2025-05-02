@@ -79,9 +79,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Agrega una descripción sobre ti."),
         "addLocation":
             MessageLookupByLibrary.simpleMessage("Agregar Ubicación"),
+        "addMoreImages":
+            MessageLookupByLibrary.simpleMessage("Agregar más imágenes"),
         "addPhotosOfYourBestTattooWorkToShowcaseYourStyle":
             MessageLookupByLibrary.simpleMessage(
                 "Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo"),
+        "addReferenceImages": MessageLookupByLibrary.simpleMessage(
+            "Agregar imágenes de referencia"),
+        "addReferenceImagesOptional": MessageLookupByLibrary.simpleMessage(
+            "Agregar imágenes de referencia (opcional)"),
         "addSomeWorksToYourGallery": MessageLookupByLibrary.simpleMessage(
             "Agrega algunos trabajos a tu galería"),
         "addStencil": MessageLookupByLibrary.simpleMessage("Agregar Plantilla"),
@@ -158,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "¿Estás seguro que deseas eliminar este trabajo?"),
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
         "artistsFound": m0,
+        "attachStencilOrGeneratedDesignHint": MessageLookupByLibrary.simpleMessage(
+            "Puedes adjuntar una plantilla o un diseño generado a tu cotización"),
         "averageRating":
             MessageLookupByLibrary.simpleMessage("Calificación Promedio"),
         "awaitingArtist":
@@ -201,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelado"),
         "cannotDeleteLastLocation": MessageLookupByLibrary.simpleMessage(
             "No se puede eliminar la última ubicación. Los artistas deben tener al menos una ubicación."),
+        "cannotSelectStencilAndDesign": MessageLookupByLibrary.simpleMessage(
+            "No puedes seleccionar una plantilla y un diseño a la vez"),
         "change": MessageLookupByLibrary.simpleMessage("Cambiar"),
         "changeAppointment":
             MessageLookupByLibrary.simpleMessage("Cambiar Cita"),
@@ -219,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("Ciudad"),
         "clearFilter": MessageLookupByLibrary.simpleMessage("Limpiar Filtro"),
         "clearFilters": MessageLookupByLibrary.simpleMessage("Limpiar Filtros"),
+        "clearSelection":
+            MessageLookupByLibrary.simpleMessage("Limpiar Selección"),
         "collapse": MessageLookupByLibrary.simpleMessage("Colapsar"),
         "completed": MessageLookupByLibrary.simpleMessage("Finalizado"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
@@ -240,9 +252,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, contacta al artista para más detalles."),
         "contactInformation":
             MessageLookupByLibrary.simpleMessage("Información de Contacto"),
+        "couldNotGetLocation": MessageLookupByLibrary.simpleMessage(
+            "No se pudo obtener la ubicación"),
+        "couldNotGetLocationPleaseRetry": MessageLookupByLibrary.simpleMessage(
+            "No se pudo obtener tu ubicación. Por favor intenta nuevamente."),
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
         "createNewTag":
             MessageLookupByLibrary.simpleMessage("Crear nueva etiqueta"),
+        "createOpenQuotation":
+            MessageLookupByLibrary.simpleMessage("Crear Cotización Abierta"),
         "createQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización"),
         "createQuotationForTattoo":
@@ -272,6 +290,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteWork": MessageLookupByLibrary.simpleMessage("Eliminar Trabajo"),
         "describeYourTattoo":
             MessageLookupByLibrary.simpleMessage("Describe tu tatuaje"),
+        "describeYourTattooIdea":
+            MessageLookupByLibrary.simpleMessage("Describe tu idea de tatuaje"),
         "description": MessageLookupByLibrary.simpleMessage("Descripción"),
         "designAddedToFavorites":
             MessageLookupByLibrary.simpleMessage("Diseño agregado a favoritos"),
@@ -291,14 +311,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "emptyTattooGeneratorMessage": MessageLookupByLibrary.simpleMessage(
             "Ingresa una descripción y elige un estilo\npara generar diseños de tatuajes"),
+        "enableLocationServicesAndPermissions":
+            MessageLookupByLibrary.simpleMessage(
+                "Habilitar servicios de ubicación y permisos"),
         "end": MessageLookupByLibrary.simpleMessage("Fin"),
         "endDate": MessageLookupByLibrary.simpleMessage("Fecha de Fin"),
         "endTime": MessageLookupByLibrary.simpleMessage("Hora de Fin"),
         "enterAddress":
             MessageLookupByLibrary.simpleMessage("Ingresa la dirección"),
+        "enterDistanceKm":
+            MessageLookupByLibrary.simpleMessage("Ingresa distancia en km"),
         "enterLocationName": MessageLookupByLibrary.simpleMessage(
             "Ingresa el nombre de la ubicación"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorCreatingQuotation":
+            MessageLookupByLibrary.simpleMessage("Error al crear cotización"),
         "errorLoadingEvents": m2,
         "errorLoadingStencils":
             MessageLookupByLibrary.simpleMessage("Error Cargando Plantillas"),
@@ -409,6 +436,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Administrar Ubicaciones"),
         "manageWorks":
             MessageLookupByLibrary.simpleMessage("Administrar Trabajos"),
+        "maxTravelDistanceKm": MessageLookupByLibrary.simpleMessage(
+            "Distancia máxima de viaje (km)"),
         "memberSince": MessageLookupByLibrary.simpleMessage("Miembro desde"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutos"),
         "minutesAgo": m8,
@@ -467,6 +496,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noWorksFound":
             MessageLookupByLibrary.simpleMessage("No Se Encontraron Trabajos"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("No disponible"),
+        "notLoggedIn":
+            MessageLookupByLibrary.simpleMessage("No has iniciado sesión"),
         "notSelected": MessageLookupByLibrary.simpleMessage("No seleccionado"),
         "note": MessageLookupByLibrary.simpleMessage("Nota"),
         "notification": MessageLookupByLibrary.simpleMessage("Notificación"),
@@ -480,9 +511,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Abierto para Reservas"),
         "openForReservationsDescription": MessageLookupByLibrary.simpleMessage(
             "Permite que los clientes reserven citas"),
+        "openQuotationCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage(
+                "Cotización abierta creada exitosamente"),
         "openSettings":
             MessageLookupByLibrary.simpleMessage("Abrir Configuraciones"),
         "optional": MessageLookupByLibrary.simpleMessage("Opcional"),
+        "optionalAddStencilOrDesign": MessageLookupByLibrary.simpleMessage(
+            "Opcional: Agregar plantilla o diseño"),
+        "optionalAttachDesign": MessageLookupByLibrary.simpleMessage(
+            "Opcional: Adjuntar un diseño"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Contraseña cambiada exitosamente"),
@@ -499,6 +537,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Por favor ingresa un título"),
         "pleaseEnterDescription": MessageLookupByLibrary.simpleMessage(
             "Por favor ingresa una descripción"),
+        "pleaseEnterTravelRadius": MessageLookupByLibrary.simpleMessage(
+            "Por favor ingresa un radio de viaje"),
+        "pleaseEnterValidPositiveNumber": MessageLookupByLibrary.simpleMessage(
+            "Por favor ingresa un número positivo válido"),
         "pleaseProvideReason": MessageLookupByLibrary.simpleMessage(
             "Por favor, proporciona una razón para la cancelación."),
         "pleaseSelectADateRange": MessageLookupByLibrary.simpleMessage(
@@ -653,16 +695,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Seleccionar Duración"),
         "selectEndTime":
             MessageLookupByLibrary.simpleMessage("Seleccionar Hora de Fin"),
+        "selectGeneratedDesign":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Diseño Generado"),
         "selectMultiple":
             MessageLookupByLibrary.simpleMessage("Selección Múltiple"),
         "selectService":
             MessageLookupByLibrary.simpleMessage("Seleccionar servicio"),
         "selectStartTime":
             MessageLookupByLibrary.simpleMessage("Seleccionar Hora de Inicio"),
+        "selectStencil":
+            MessageLookupByLibrary.simpleMessage("Seleccionar Plantilla"),
         "selectTime": MessageLookupByLibrary.simpleMessage("Seleccionar Hora"),
         "selectValidTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo válido"),
         "selected": MessageLookupByLibrary.simpleMessage("Seleccionado"),
+        "selectedGeneratedDesign": MessageLookupByLibrary.simpleMessage(
+            "Diseño Generado Seleccionado"),
+        "selectedStencil":
+            MessageLookupByLibrary.simpleMessage("Plantilla Seleccionada"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "services": MessageLookupByLibrary.simpleMessage("Servicios"),
@@ -706,6 +756,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stencils": MessageLookupByLibrary.simpleMessage("Plantillas"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "submitOpenQuotation":
+            MessageLookupByLibrary.simpleMessage("Enviar Cotización Abierta"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Sugerencias"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
         "tags": MessageLookupByLibrary.simpleMessage("Etiquetas"),

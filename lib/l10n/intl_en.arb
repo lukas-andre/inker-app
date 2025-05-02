@@ -1941,5 +1941,105 @@
   "noDesignsOnFavorites": "No designs in favorites",
   "@noDesignsOnFavorites": {
     "description": "Message shown when there are no designs on favorites."
+  },
+  "enableLocationServicesAndPermissions": "Enable location services and permissions",
+  "@enableLocationServicesAndPermissions": {
+    "description": "Message prompting user to enable location services and permissions."
+  },
+  "couldNotGetLocation": "Could not get location",
+  "@couldNotGetLocation": {
+    "description": "Error message when location could not be retrieved."
+  },
+  "couldNotGetLocationPleaseRetry": "Could not get your location. Please try again.",
+  "@couldNotGetLocationPleaseRetry": {
+    "description": "Error message when location could not be retrieved with retry suggestion."
+  },
+  "notLoggedIn": "Not logged in",
+  "@notLoggedIn": {
+    "description": "Message shown when user is not logged in."
+  },
+  "openQuotationCreatedSuccessfully": "Open quotation created successfully",
+  "@openQuotationCreatedSuccessfully": {
+    "description": "Success message when an open quotation is created."
+  },
+  "errorCreatingQuotation": "Error creating quotation",
+  "@errorCreatingQuotation": {
+    "description": "Error message when quotation creation fails."
+  },
+  "createOpenQuotation": "Create Open Quotation",
+  "@createOpenQuotation": {
+    "description": "Title for the open quotation creation screen."
+  },
+  "describeYourTattooIdea": "Describe your tattoo idea",
+  "@describeYourTattooIdea": {
+    "description": "Prompt for user to describe their tattoo idea."
+  },
+  "maxTravelDistanceKm": "Maximum travel distance (km)",
+  "@maxTravelDistanceKm": {
+    "description": "Label for maximum travel distance input field."
+  },
+  "enterDistanceKm": "Enter distance in km",
+  "@enterDistanceKm": {
+    "description": "Placeholder for distance input field."
+  },
+  "pleaseEnterTravelRadius": "Please enter a travel radius",
+  "@pleaseEnterTravelRadius": {
+    "description": "Validation message when travel radius is empty."
+  },
+  "pleaseEnterValidPositiveNumber": "Please enter a valid positive number",
+  "@pleaseEnterValidPositiveNumber": {
+    "description": "Validation message for positive number inputs."
+  },
+  "optionalAddStencilOrDesign": "Optional: Add stencil or design",
+  "@optionalAddStencilOrDesign": {
+    "description": "Label for optional stencil or design upload."
+  },
+  "addReferenceImages": "Add reference images",
+  "@addReferenceImages": {
+    "description": "Button text to add reference images."
+  },
+  "submitOpenQuotation": "Submit Open Quotation",
+  "@submitOpenQuotation": {
+    "description": "Button text to submit an open quotation."
+  },
+  "cannotSelectStencilAndDesign": "You cannot select both a stencil and a design",
+  "@cannotSelectStencilAndDesign": {
+    "description": "Error message when user tries to select both a stencil and a design."
+  },
+  "optionalAttachDesign": "Optional: Attach a design",
+  "@optionalAttachDesign": {
+    "description": "Label for optional design attachment section."
+  },
+  "attachStencilOrGeneratedDesignHint": "You can attach a stencil or a generated design to your quotation",
+  "@attachStencilOrGeneratedDesignHint": {
+    "description": "Hint text explaining stencil or design attachment options."
+  },
+  "selectStencil": "Select Stencil",
+  "@selectStencil": {
+    "description": "Button text to select a stencil."
+  },
+  "selectGeneratedDesign": "Select Generated Design",
+  "@selectGeneratedDesign": {
+    "description": "Button text to select a generated design."
+  },
+  "selectedGeneratedDesign": "Selected Generated Design",
+  "@selectedGeneratedDesign": {
+    "description": "Label for the selected generated design."
+  },
+  "addReferenceImagesOptional": "Add reference images (optional)",
+  "@addReferenceImagesOptional": {
+    "description": "Label for optional reference images section."
+  },
+  "selectedStencil": "Selected Stencil",
+  "@selectedStencil": {
+    "description": "Label for the selected stencil."
+  },
+  "clearSelection": "Clear Selection",
+  "@clearSelection": {
+    "description": "Tooltip for button to clear a selection."
+  },
+  "addMoreImages": "Add more images",
+  "@addMoreImages": {
+    "description": "Button text to add more images."
   }
 }

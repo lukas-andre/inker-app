@@ -26,6 +26,7 @@ import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/create_open_quotation/create_open_quotation_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
@@ -254,6 +255,15 @@ class _AppViewState extends State<AppView> {
           create: (context) => TattooGeneratorBloc(
             tattooGeneratorService: context.read(),
             sessionService: context.read(),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => CreateOpenQuotationBloc(
+            quotationService: context.read(),
+            authBloc: context.read(),
+            mapBloc: context.read(),
+            gpsBloc: context.read(),
           ),
         ),
 

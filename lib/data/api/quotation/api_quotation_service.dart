@@ -45,25 +45,41 @@ class ApiQuotationService implements QuotationService {
   @override
   Future<Map<String, dynamic>> createQuotation(
       Quotation quotation, List<XFile> referenceImages, String token) async {
-    var request = await _prepareMultipartRequest(
-      method: 'POST',
-      token: token,
-      fields: {
-        'title': 'TBD',
-        'description': quotation.description,
-        'customerId': quotation.customerId.toString(),
-        'artistId': quotation.artistId.toString(),
-        if (quotation.stencilId != null) 'stencilId': quotation.stencilId.toString(),
-      },
-    );
 
+    // Prepare fields based on quotation type
+    final Map<String, String> fields = {
+      'type': quotation.type.toString().split('.').last, // Add type (DIRECT or OPEN)
+      'description': quotation.description,
+      'customerId': quotation.customerId,
+      if (quotation.stencilId != null) 'stencilId': quotation.stencilId!,
+      
+      // Fields specific to DIRECT quotations
+      if (quotation.type == QuotationType.DIRECT && quotation.artistId != null) 
+        'artistId': quotation.artistId!,
+        
+      // Fields specific to OPEN quotations
+      if (quotation.type == QuotationType.OPEN) ...{
+        if (quotation.tattooDesignCacheId != null) 
+          'tattooDesignCacheId': quotation.tattooDesignCacheId!,
+        if (quotation.tattooDesignImageUrl != null) 
+          'tattooDesignImageUrl': quotation.tattooDesignImageUrl!,
+        if (quotation.customerLat != null) 
+          'customerLat': quotation.customerLat!.toString(),
+        if (quotation.customerLon != null) 
+          'customerLon': quotation.customerLon!.toString(),
+        if (quotation.customerTravelRadiusKm != null) 
+          'customerTravelRadiusKm': quotation.customerTravelRadiusKm!.toString(),
+      },
+    };
+
+    final List<http.MultipartFile> files = [];
     for (var i = 0; i < referenceImages.length; i++) {
       var file = referenceImages[i];
-      request.files.add(await http.MultipartFile.fromPath(
-        'files[]',
+      files.add(await http.MultipartFile.fromPath(
+        'files', // Changed from 'files[]' to match common practices
         file.path,
-        contentType: MediaType('image', 'jpeg'),
-        filename: 'image_$i.jpg',
+        contentType: MediaType('image', 'jpeg'), // Assuming jpeg, adjust if needed
+        filename: file.name, // Use original filename
       ));
     }
 
@@ -71,9 +87,9 @@ class ApiQuotationService implements QuotationService {
       path: _basePath,
       method: 'POST',
       token: token,
-      fields: request.fields,
-      files: request.files,
-      fromJson: (json) => json,
+      fields: fields,
+      files: files,
+      fromJson: (json) => json as Map<String, dynamic>, // Ensure correct return type
     );
   }
 
@@ -94,7 +110,7 @@ class ApiQuotationService implements QuotationService {
       path: _basePath,
       token: token,
       queryParams: queryParams,
-      fromJson: (json) => QuotationListResponse.fromJson(json),
+      fromJson: (json) => QuotationListResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -106,7 +122,7 @@ class ApiQuotationService implements QuotationService {
     return await _httpClient.get(
       path: '$_basePath/$quotationId',
       token: token,
-      fromJson: (json) => Quotation.fromJson(json),
+      fromJson: (json) => Quotation.fromJson(json as Map<String, dynamic>),
     );
   }
   
@@ -120,7 +136,7 @@ class ApiQuotationService implements QuotationService {
     return await _httpClient.get(
       path: '$_basePath/$quotationId',
       token: token,
-      fromJson: (json) => Quotation.fromJson(json),
+      fromJson: (json) => Quotation.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -177,21 +193,21 @@ class ApiQuotationService implements QuotationService {
       for (var i = 0; i < proposedDesigns.length; i++) {
         var file = proposedDesigns[i];
         files.add(await http.MultipartFile.fromPath(
-          'proposedDesigns[]',
+          'proposedDesigns', // Changed from 'proposedDesigns[]'
           file.path,
-          contentType: MediaType('image', 'jpeg'),
-          filename: 'image_$i.jpg',
+          contentType: MediaType('image', 'jpeg'), // Assuming jpeg
+          filename: file.name, // Use original filename
         ));
       }
     }
 
-    return await _httpClient.multipartRequest(
+    await _httpClient.multipartRequest(
       path: '$_basePath/$quotationId/artist-actions',
       method: 'POST',
       token: token,
       fields: fields,
       files: files,
-      fromJson: (json) {},
+      fromJson: (json) {}, // No specific return needed
     );
   }
 
@@ -210,18 +226,18 @@ class ApiQuotationService implements QuotationService {
       if (rejectionReason != null)
         'rejectionReason': rejectionReason
             .toString()
-            .toSnakeCase()
-            .replaceAll('quotation_customer_reject_reason.', ''),
+            .split('.').last // Use enum value directly
+            .toSnakeCase(),
       if (appealReason != null)
         'appealReason': appealReason
             .toString()
-            .toSnakeCase()
-            .replaceAll('quotation_customer_appeal_reason.', ''),
+            .split('.').last // Use enum value directly
+            .toSnakeCase(),
       if (cancelReason != null)
         'cancelReason': cancelReason
             .toString()
-            .toSnakeCase()
-            .replaceAll('quotation_customer_cancel_reason.', ''),
+            .split('.').last // Use enum value directly
+            .toSnakeCase(),
       if (additionalDetails != null) 'additionalDetails': additionalDetails,
     };
 
@@ -231,21 +247,6 @@ class ApiQuotationService implements QuotationService {
       body: body,
       fromJson: (json) => null,
     );
-  }
-
-  Future<http.MultipartRequest> _prepareMultipartRequest({
-    required String method,
-    required String token,
-    required Map<String, String> fields,
-  }) async {
-    final uri = Uri.https(await _httpClient.getBaseUrl(), _basePath);
-    final request = http.MultipartRequest(method, uri);
-    request.fields.addAll(fields);
-    request.headers.addAll({
-      HttpHeaders.authorizationHeader: 'Bearer $token',
-      HttpHeaders.acceptHeader: 'application/json',
-    });
-    return request;
   }
 
   @override

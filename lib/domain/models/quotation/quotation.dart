@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/models/tattoo_generator/tattoo_design_cache.dart';
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
@@ -23,11 +24,19 @@ class Quotation with _$Quotation {
     required DateTime createdAt,
     required DateTime updatedAt,
     required String customerId,
-    required String artistId,
+    String? artistId,
     required String description,
     MultimediasMetadata? referenceImages,
     MultimediasMetadata? proposedDesigns,
     required QuotationStatus status,
+    @Default(QuotationType.DIRECT) QuotationType type,
+    double? customerLat,
+    double? customerLon,
+    int? customerTravelRadiusKm,
+    String? tattooDesignCacheId,
+    String? tattooDesignImageUrl,
+    TattooDesignCache? tattooDesignCache,
+    List<QuotationOfferListItemDto>? offers,
     Money? estimatedCost,
     DateTime? responseDate,
     DateTime? appointmentDate,
@@ -80,6 +89,10 @@ class QuotationHistory with _$QuotationHistory {
     DateTime? newAppointmentDate,
     int? previousAppointmentDuration,
     int? newAppointmentDuration,
+    String? previousTattooDesignCacheId,
+    String? newTattooDesignCacheId,
+    String? previousTattooDesignImageUrl,
+    String? newTattooDesignImageUrl,
     QuotationCustomerAppealReason? appealedReason,
     String? rejectionReason,
     String? cancellationReason,
@@ -318,4 +331,22 @@ enum QuotationRole {
   artist,
   @JsonValue('system')
   system,
+}
+
+enum QuotationType {
+  @JsonValue('DIRECT')
+  DIRECT,
+  @JsonValue('OPEN')
+  OPEN,
+}
+
+@freezed
+class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
+  const factory QuotationOfferListItemDto({
+    required String id,
+    // Add other fields from QuotationOfferListItemDto as needed
+  }) = _QuotationOfferListItemDto;
+
+  factory QuotationOfferListItemDto.fromJson(Map<String, dynamic> json) =>
+      _$QuotationOfferListItemDtoFromJson(json);
 }
