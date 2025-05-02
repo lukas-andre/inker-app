@@ -17,6 +17,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/quotation/create_open_quotation_page.dart';
 
 class QuotationListPage extends StatelessWidget {
   final bool hideHeader;
@@ -181,6 +182,16 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         ),
         elevation: 0,
       ),
+      floatingActionButton: !_isArtist ? FloatingActionButton( 
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const CreateOpenQuotationPage(),
+          ));
+        },
+        backgroundColor: secondaryColor,
+        child: const Icon(Icons.add), 
+        tooltip: l10n.createOpenQuotation,
+      ) : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
