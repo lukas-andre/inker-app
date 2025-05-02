@@ -20,6 +20,8 @@ class QuotationStatusL10n {
         return l10n.statusRejected;
       case QuotationStatus.canceled:
         return l10n.cancelled;
+      case QuotationStatus.open:
+        return l10n.quotationStatusArtistOpen;
     }
   }
 
@@ -37,6 +39,8 @@ class QuotationStatusL10n {
         return l10n.quotationStatusCustomerRejected;
       case QuotationStatus.canceled:
         return l10n.quotationStatusCustomerCanceled;
+      case QuotationStatus.open:
+        return l10n.quotationStatusCustomerOpen;
     }
   }
 

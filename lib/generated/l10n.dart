@@ -4909,6 +4909,57 @@ class S {
       args: [],
     );
   }
+
+  /// `Cotizaciones Directas`
+  String get directQuotations {
+    return Intl.message(
+      'Cotizaciones Directas',
+      name: 'directQuotations',
+      desc: 'Label for direct quotations tab in quotation list.',
+      args: [],
+    );
+  }
+
+  /// `Cotizaciones Abiertas`
+  String get openQuotations {
+    return Intl.message(
+      'Cotizaciones Abiertas',
+      name: 'openQuotations',
+      desc: 'Label for open quotations tab in quotation list.',
+      args: [],
+    );
+  }
+
+  /// `Buscando Artistas...`
+  String get findingArtists {
+    return Intl.message(
+      'Buscando Artistas...',
+      name: 'findingArtists',
+      desc:
+          'Status text shown when an open quotation is searching for artists.',
+      args: [],
+    );
+  }
+
+  /// `Abierta`
+  String get quotationStatusCustomerOpen {
+    return Intl.message(
+      'Abierta',
+      name: 'quotationStatusCustomerOpen',
+      desc: 'Status text for open quotations from customer perspective.',
+      args: [],
+    );
+  }
+
+  /// `Abierta`
+  String get quotationStatusArtistOpen {
+    return Intl.message(
+      'Abierta',
+      name: 'quotationStatusArtistOpen',
+      desc: 'Status text for open quotations from artist perspective.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -238,6 +238,8 @@ enum QuotationStatus {
   appealed,
   @JsonValue('canceled')
   canceled,
+  @JsonValue('open')
+  open,
 }
 
 enum QuotationCustomerCancelReason {

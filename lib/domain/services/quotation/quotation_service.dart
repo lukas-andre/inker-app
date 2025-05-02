@@ -12,6 +12,7 @@ abstract class QuotationService {
     List<String>? statuses,
     int page = 1,
     int limit = 10,
+    QuotationType? type,
   });
   
   Future<Quotation> getQuotationDetails(

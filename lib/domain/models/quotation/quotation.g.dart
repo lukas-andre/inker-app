@@ -176,6 +176,7 @@ const _$QuotationStatusEnumMap = {
   QuotationStatus.rejected: 'rejected',
   QuotationStatus.appealed: 'appealed',
   QuotationStatus.canceled: 'canceled',
+  QuotationStatus.open: 'open',
 };
 
 const _$QuotationTypeEnumMap = {

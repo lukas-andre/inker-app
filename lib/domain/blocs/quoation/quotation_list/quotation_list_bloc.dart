@@ -25,11 +25,12 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
     on<QuotationListEvent>((event, emit) async {
       await event.when(
         started: () async => _started(emit),
-        loadQuotations: (List<String>? statuses, bool isNextPage) async =>
-            _loadQuotations(emit, statuses, isNextPage),
+        loadQuotations: (List<String>? statuses, bool isNextPage, QuotationType? type) async =>
+            _loadQuotations(emit, statuses, isNextPage, type),
         cancelQuotation: (String quotationId) async =>
             _cancelQuotation(emit, quotationId),
         refreshCurrentTab: () async => _refreshCurrentTab(emit),
+        changeType: (QuotationType type) async => _changeType(emit, type),
         markAsRead: (String quotationId) async =>
             _markAsRead(emit, quotationId),
         getQuotationById: (String quotationId) async =>
@@ -41,7 +42,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
   Future<void> _refreshCurrentTab(Emitter<QuotationListState> emit) async {
     final currentState = state;
     if (currentState is QuotationListLoaded) {
-      await _loadQuotations(emit, currentState.statuses, false);
+      await _loadQuotations(emit, currentState.statuses, false, currentState.selectedType);
     }
   }
 
@@ -60,6 +61,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
     Emitter<QuotationListState> emit,
     List<String>? statuses,
     bool isNextPage,
+    QuotationType? type,
   ) async {
     try {
       final session = await _sessionService.getActiveSession();
@@ -70,15 +72,22 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
 
       int nextPage = 1;
       List<Quotation> accumulatedQuotations = [];
+      QuotationType currentSelectedType = QuotationType.DIRECT;
 
-      if (isNextPage && state is QuotationListLoaded) {
+      if (state is QuotationListLoaded) {
         final currentState = state as QuotationListLoaded;
-        nextPage = currentState.currentPage + 1;
-        accumulatedQuotations = List.from(currentState.quotations);
-        emit(currentState.copyWith(isLoadingMore: true));
+        currentSelectedType = type ?? currentState.selectedType;
+        if (isNextPage) {
+          nextPage = currentState.currentPage + 1;
+          accumulatedQuotations = List.from(currentState.quotations);
+          emit(currentState.copyWith(isLoadingMore: true));
+        } else {
+          nextPage = 1;
+          accumulatedQuotations = [];
+          emit(const QuotationListState.loading());
+        }
       } else {
-        nextPage = 1;
-        accumulatedQuotations = [];
+        currentSelectedType = type ?? QuotationType.DIRECT;
         emit(const QuotationListState.loading());
       }
 
@@ -86,6 +95,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         token: session.accessToken,
         statuses: statuses,
         page: nextPage,
+        type: currentSelectedType,
       );
 
       accumulatedQuotations.addAll(response.items);
@@ -93,10 +103,11 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
       emit(QuotationListState.loaded(
         quotations: accumulatedQuotations,
         session: session,
+        selectedType: currentSelectedType,
         statuses: statuses,
         isLoadingMore: false,
         currentPage: nextPage,
-        totalItems: response.total, // Use total from API response
+        totalItems: response.total,
       ));
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
@@ -224,5 +235,33 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
     }
+  }
+
+  Future<void> _changeType(
+    Emitter<QuotationListState> emit,
+    QuotationType type,
+  ) async {
+    final currentState = state;
+    List<String>? currentStatuses;
+    Session? currentSession;
+
+    if (currentState is QuotationListLoaded) {
+      currentStatuses = currentState.statuses;
+      currentSession = currentState.session;
+    }
+
+    if(currentSession != null){
+      emit(QuotationListState.loaded(
+        quotations: [],
+        session: currentSession, 
+        selectedType: type, 
+        statuses: currentStatuses,
+        isLoadingMore: false,
+        currentPage: 1, 
+        totalItems: 0,
+      ));
+    }
+    
+    add(QuotationListEvent.loadQuotations(currentStatuses, false, type));
   }
 }

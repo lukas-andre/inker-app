@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
+import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
@@ -10,7 +11,6 @@ import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart'
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
-import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -49,6 +49,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
   List<Map<String, dynamic>> _filterOptions = [];
   bool _didInitDependencies = false;
   Map<String, dynamic>? _selectedOption;
+  QuotationType _selectedQuotationType = QuotationType.DIRECT;
 
   @override
   void initState() {
@@ -60,16 +61,28 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
   void _onScroll() {
     if (_isBottom) {
       final currentState = _quotationListBloc.state;
-      if (currentState is QuotationListLoaded && !currentState.isLoadingMore) {
-        if (currentState.quotations.length < currentState.totalItems) {
-          _quotationListBloc.add(
-            QuotationListEvent.loadQuotations(
-              _selectedStatuses,
-              true, // isNextPage es true
-            ),
-          );
-        }
-      }
+      currentState.maybeWhen(
+        loaded: (quotations, session, selectedType, statuses, isLoadingMore, cancellingQuotationId, currentPage, totalItems) {
+          if (!isLoadingMore && quotations.length < totalItems) {
+            List<String>? statusesToLoadMore;
+            if (selectedType == QuotationType.OPEN) {
+              statusesToLoadMore = null;
+            } else {
+              statusesToLoadMore = statuses;
+            }
+            _quotationListBloc.add(
+              QuotationListEvent.loadQuotations(
+                statusesToLoadMore,
+                true,
+                selectedType,
+              ),
+            );
+          }
+        },
+        orElse: () { 
+          // Do nothing if not in loaded state or other irrelevant states
+        },
+      );
     }
   }
 
@@ -102,13 +115,11 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
       final l10n = S.of(context);
       _filterOptions = getFilterOptions(l10n);
 
-      // Inicializar la opción seleccionada con la primera opción
       _selectedOption = _filterOptions[0];
       _selectedStatuses = _selectedOption?['statuses'] as List<String>;
 
-      // Cargar las cotizaciones para el estado seleccionado
       _quotationListBloc.add(
-        QuotationListEvent.loadQuotations(_selectedStatuses, false),
+        QuotationListEvent.loadQuotations(_selectedStatuses, false, _selectedQuotationType),
       );
     }
   }
@@ -128,10 +139,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
           'label': l10n.scheduled,
           'statuses': ['accepted']
         },
-        // {
-        //   'label': l10n.completed,
-        //   'statuses': ['completed']
-        // },
         {
           'label': l10n.cancelled,
           'statuses': ['rejected', 'canceled']
@@ -151,10 +158,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
           'label': l10n.scheduled,
           'statuses': ['accepted']
         },
-        // {
-        //   'label': l10n.completed,
-        //   'statuses': ['completed']
-        // },
         {
           'label': l10n.cancelled,
           'statuses': ['rejected', 'canceled']
@@ -165,11 +168,10 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required by AutomaticKeepAliveClientMixin
+    super.build(context);
     final l10n = S.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFF141D3C),
-      // Si hideHeader es true, no mostramos un AppBar propio, ya que lo gestiona la página principal
       appBar: widget.hideHeader ? null : AppBar(
         backgroundColor: primaryColor,
         title: Text(
@@ -198,7 +200,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Ya no necesitamos mostrar el título aquí, lo hace el AppBar
               if (false) ...[
                 Text(
                   _isArtist ? l10n.requests : l10n.quotes,
@@ -207,10 +208,14 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                 ),
                 const SizedBox(height: 16),
               ],
-              // Filtros con FilterChips
-              _buildFilterChips(l10n),
-              const SizedBox(height: 16),
-              // Lista de cotizaciones
+              if (!_isArtist) ...[
+                _buildTypeSelector(l10n),
+                const SizedBox(height: 16),
+              ],
+              if (_selectedQuotationType == QuotationType.DIRECT) ...[
+                _buildFilterChips(l10n),
+                const SizedBox(height: 16),
+              ],
               Expanded(
                 child: BlocConsumer<QuotationListBloc, QuotationListState>(
                   listener: (context, state) {
@@ -226,6 +231,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                       _quotationListBloc.add(QuotationListEvent.loadQuotations(
                         _selectedStatuses,
                         false,
+                        _selectedQuotationType,
                       ));
                     }
                   },
@@ -234,6 +240,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                       loaded: (
                         quotations,
                         session,
+                        selectedType,
                         statuses,
                         isLoadingMore,
                         cancellingQuotationId,
@@ -249,6 +256,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           currentPage,
                           totalItems,
                           statuses,
+                          selectedType,
                         );
                       },
                       error: (message) => Center(
@@ -266,6 +274,50 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeSelector(S l10n) {
+    return Container(
+      width: double.infinity,
+      child: SegmentedButton<QuotationType>(
+        segments: <ButtonSegment<QuotationType>>[
+          ButtonSegment<QuotationType>(
+            value: QuotationType.DIRECT,
+            label: Text(l10n.directQuotations),
+            icon: const Icon(Icons.person_pin),
+          ),
+          ButtonSegment<QuotationType>(
+            value: QuotationType.OPEN,
+            label: Text(l10n.openQuotations),
+            icon: const Icon(Icons.group),
+          ),
+        ],
+        selected: {_selectedQuotationType},
+        onSelectionChanged: (Set<QuotationType> newSelection) {
+          final newType = newSelection.first;
+          setState(() {
+            _selectedQuotationType = newType;
+          });
+          List<String>? statusesToLoad;
+          if (newType == QuotationType.OPEN) {
+            statusesToLoad = null;
+          } else {
+            statusesToLoad = _selectedStatuses;
+          }
+          _quotationListBloc.add(QuotationListEvent.loadQuotations(
+            statusesToLoad,
+            false,
+            newType,
+          ));
+        },
+        style: SegmentedButton.styleFrom(
+          backgroundColor: tertiaryColor, 
+          foregroundColor: Colors.black87,
+          selectedForegroundColor: Colors.white,
+          selectedBackgroundColor: secondaryColor,
         ),
       ),
     );
@@ -290,6 +342,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                 _quotationListBloc.add(QuotationListEvent.loadQuotations(
                   _selectedStatuses,
                   false,
+                  _selectedQuotationType,
                 ));
               },
               child: Container(
@@ -326,6 +379,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     int currentPage,
     int totalItems,
     List<String>? statuses,
+    QuotationType selectedType,
   ) {
     if (quotations.isEmpty) {
       return _buildEmptyState(l10n);
@@ -343,9 +397,18 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
 
     return RefreshIndicator(
       onRefresh: () async {
+        // Get statuses based on current type
+        List<String>? statusesToRefresh;
+        if (_selectedQuotationType == QuotationType.OPEN) {
+          statusesToRefresh = null; // No status filters for OPEN
+        } else {
+          statusesToRefresh = _selectedStatuses;
+        }
+        
         _quotationListBloc.add(QuotationListEvent.loadQuotations(
-          _selectedStatuses,
+          statusesToRefresh,
           false,
+          _selectedQuotationType,
         ));
       },
       child: ListView.builder(
@@ -359,9 +422,9 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
               session,
               l10n,
               cancellingQuotationId,
+              selectedType,
             );
           } else {
-            // Mostrar indicador de carga al final
             return const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Center(
@@ -402,6 +465,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     Session session,
     S l10n,
     String? cancellingQuotationId,
+    QuotationType selectedType,
   ) {
     final isArtist = session.user?.userType == 'ARTIST';
     final isUnread =
@@ -410,9 +474,11 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         QuotationStatusL10n.getStatus(quotation.status, l10n, isArtist);
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
-    final counterpartInfo = isArtist
-        ? CounterpartInfo.fromCustomer(quotation.customer)
-        : CounterpartInfo.fromArtist(quotation.artist);
+    final counterpartInfo = (selectedType == QuotationType.OPEN && quotation.artist == null && !isArtist)
+        ? CounterpartInfo.open()
+        : isArtist
+            ? CounterpartInfo.fromCustomer(quotation.customer)
+            : CounterpartInfo.fromArtist(quotation.artist);
 
     return GestureDetector(
       onTap: () {
@@ -469,8 +535,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                     children: [
                       Expanded(
                           child: _buildCounterpartHeader(
-                              counterpartInfo, isArtist)),
-                      if (isUnread)
+                              counterpartInfo, isArtist, selectedType)),
+                      if (isUnread && selectedType == QuotationType.DIRECT)
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
@@ -512,7 +578,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   _buildImagesSection(quotation, l10n),
                   const SizedBox(height: 16),
                   _buildActions(
-                      quotation, session, l10n, cancellingQuotationId),
+                      quotation, session, l10n, cancellingQuotationId, selectedType),
                 ],
               ),
             ),
@@ -522,7 +588,18 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     );
   }
 
-  Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist) {
+  Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist, QuotationType selectedType) {
+    if (selectedType == QuotationType.OPEN && info.type == CounterpartType.open) {
+      return Text(
+        S.of(context).findingArtists,
+        style: TextStyleTheme.subtitle1.copyWith(
+          color: const Color(0xFFF2F2F2),
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+        ),
+      );
+    }
+
     return Row(
       children: [
         if (info.profileThumbnail != null)
@@ -803,6 +880,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     Session session,
     S l10n,
     String? cancellingQuotationId,
+    QuotationType selectedType,
   ) {
     if (cancellingQuotationId == quotation.id.toString()) {
       return const Center(
@@ -821,7 +899,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         session: session,
         l10n: l10n,
         onActionExecuted: (actionType, quotationId) {
-          // Manejar las acciones ejecutadas
           switch (actionType) {
             case QuotationActionType.cancel:
               _quotationListBloc.add(
@@ -829,9 +906,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
               );
               break;
             default:
-              // Recargar la lista después de cualquier otra acción
               _quotationListBloc.add(
-                QuotationListEvent.loadQuotations(_selectedStatuses, false),
+                QuotationListEvent.loadQuotations(_selectedStatuses, false, selectedType),
               );
           }
         },

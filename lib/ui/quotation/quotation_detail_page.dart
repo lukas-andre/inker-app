@@ -815,6 +815,8 @@ class _TimelineItem extends StatelessWidget {
         return Colors.purple;
       case QuotationStatus.canceled:
         return Colors.grey;
+      case QuotationStatus.open:
+        return Colors.yellow;
     }
   }
 
@@ -871,6 +873,8 @@ class _TimelineItem extends StatelessWidget {
         return l10n.statusAppealed;
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
+      case QuotationStatus.open:
+        return l10n.quotationStatusCustomerOpen;
     }
   }
 }
@@ -915,6 +919,8 @@ class _StatusChip extends StatelessWidget {
         return Colors.purple;
       case QuotationStatus.canceled:
         return Colors.grey;
+      case QuotationStatus.open:
+        return Colors.yellow; 
     }
   }
 
@@ -932,6 +938,8 @@ class _StatusChip extends StatelessWidget {
         return l10n.statusAppealed;
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
+      case QuotationStatus.open:
+        return l10n.quotationStatusCustomerOpen;
     }
   }
 }

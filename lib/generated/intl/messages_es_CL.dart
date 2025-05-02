@@ -297,6 +297,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Diseño agregado a favoritos"),
         "designRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
             "Diseño removido de favoritos"),
+        "directQuotations":
+            MessageLookupByLibrary.simpleMessage("Cotizaciones Directas"),
         "done": MessageLookupByLibrary.simpleMessage("Hecho"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
         "durationCannotBeZero": MessageLookupByLibrary.simpleMessage(
@@ -380,6 +382,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringBySource": m3,
         "filteringByTag": m4,
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
+        "findingArtists":
+            MessageLookupByLibrary.simpleMessage("Buscando Artistas..."),
         "followers": MessageLookupByLibrary.simpleMessage("Seguidores"),
         "following": MessageLookupByLibrary.simpleMessage("Seguidos"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
@@ -514,6 +518,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "openQuotationCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage(
                 "Cotización abierta creada exitosamente"),
+        "openQuotations":
+            MessageLookupByLibrary.simpleMessage("Cotizaciones Abiertas"),
         "openSettings":
             MessageLookupByLibrary.simpleMessage("Abrir Configuraciones"),
         "optional": MessageLookupByLibrary.simpleMessage("Opcional"),
@@ -588,6 +594,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Apelación Recibida"),
         "quotationStatusArtistCanceled":
             MessageLookupByLibrary.simpleMessage("Cancelado por Ti"),
+        "quotationStatusArtistOpen":
+            MessageLookupByLibrary.simpleMessage("Abierta"),
         "quotationStatusArtistPending":
             MessageLookupByLibrary.simpleMessage("Nueva Solicitud"),
         "quotationStatusArtistQuoted":
@@ -600,6 +608,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Esperando Artista"),
         "quotationStatusCustomerCanceled":
             MessageLookupByLibrary.simpleMessage("Cancelado"),
+        "quotationStatusCustomerOpen":
+            MessageLookupByLibrary.simpleMessage("Abierta"),
         "quotationStatusCustomerPending":
             MessageLookupByLibrary.simpleMessage("Esperando Respuesta"),
         "quotationStatusCustomerQuoted":
