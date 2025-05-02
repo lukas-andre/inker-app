@@ -24,13 +24,23 @@ mixin _$Quotation {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
-  String get artistId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   MultimediasMetadata? get referenceImages =>
       throw _privateConstructorUsedError;
   MultimediasMetadata? get proposedDesigns =>
       throw _privateConstructorUsedError;
   QuotationStatus get status => throw _privateConstructorUsedError;
+  QuotationType get type => throw _privateConstructorUsedError;
+  double? get customerLat => throw _privateConstructorUsedError;
+  double? get customerLon => throw _privateConstructorUsedError;
+  int? get customerTravelRadiusKm => throw _privateConstructorUsedError;
+  String? get tattooDesignCacheId => throw _privateConstructorUsedError;
+  String? get tattooDesignImageUrl => throw _privateConstructorUsedError;
+  TattooDesignCache? get tattooDesignCache =>
+      throw _privateConstructorUsedError;
+  List<QuotationOfferListItemDto>? get offers =>
+      throw _privateConstructorUsedError;
   Money? get estimatedCost => throw _privateConstructorUsedError;
   DateTime? get responseDate => throw _privateConstructorUsedError;
   DateTime? get appointmentDate => throw _privateConstructorUsedError;
@@ -82,11 +92,19 @@ abstract class $QuotationCopyWith<$Res> {
       DateTime createdAt,
       DateTime updatedAt,
       String customerId,
-      String artistId,
+      String? artistId,
       String description,
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
       QuotationStatus status,
+      QuotationType type,
+      double? customerLat,
+      double? customerLon,
+      int? customerTravelRadiusKm,
+      String? tattooDesignCacheId,
+      String? tattooDesignImageUrl,
+      TattooDesignCache? tattooDesignCache,
+      List<QuotationOfferListItemDto>? offers,
       Money? estimatedCost,
       DateTime? responseDate,
       DateTime? appointmentDate,
@@ -118,6 +136,7 @@ abstract class $QuotationCopyWith<$Res> {
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
+  $TattooDesignCacheCopyWith<$Res>? get tattooDesignCache;
   $MoneyCopyWith<$Res>? get estimatedCost;
   $ArtistCopyWith<$Res>? get artist;
   $LocationCopyWith<$Res>? get location;
@@ -141,11 +160,19 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? customerId = null,
-    Object? artistId = null,
+    Object? artistId = freezed,
     Object? description = null,
     Object? referenceImages = freezed,
     Object? proposedDesigns = freezed,
     Object? status = null,
+    Object? type = null,
+    Object? customerLat = freezed,
+    Object? customerLon = freezed,
+    Object? customerTravelRadiusKm = freezed,
+    Object? tattooDesignCacheId = freezed,
+    Object? tattooDesignImageUrl = freezed,
+    Object? tattooDesignCache = freezed,
+    Object? offers = freezed,
     Object? estimatedCost = freezed,
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
@@ -192,10 +219,10 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      artistId: null == artistId
+      artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -212,6 +239,38 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as QuotationStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as QuotationType,
+      customerLat: freezed == customerLat
+          ? _value.customerLat
+          : customerLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      customerLon: freezed == customerLon
+          ? _value.customerLon
+          : customerLon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      customerTravelRadiusKm: freezed == customerTravelRadiusKm
+          ? _value.customerTravelRadiusKm
+          : customerTravelRadiusKm // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tattooDesignCacheId: freezed == tattooDesignCacheId
+          ? _value.tattooDesignCacheId
+          : tattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tattooDesignImageUrl: freezed == tattooDesignImageUrl
+          ? _value.tattooDesignImageUrl
+          : tattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tattooDesignCache: freezed == tattooDesignCache
+          ? _value.tattooDesignCache
+          : tattooDesignCache // ignore: cast_nullable_to_non_nullable
+              as TattooDesignCache?,
+      offers: freezed == offers
+          ? _value.offers
+          : offers // ignore: cast_nullable_to_non_nullable
+              as List<QuotationOfferListItemDto>?,
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
@@ -353,6 +412,18 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
 
   @override
   @pragma('vm:prefer-inline')
+  $TattooDesignCacheCopyWith<$Res>? get tattooDesignCache {
+    if (_value.tattooDesignCache == null) {
+      return null;
+    }
+
+    return $TattooDesignCacheCopyWith<$Res>(_value.tattooDesignCache!, (value) {
+      return _then(_value.copyWith(tattooDesignCache: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $MoneyCopyWith<$Res>? get estimatedCost {
     if (_value.estimatedCost == null) {
       return null;
@@ -413,11 +484,19 @@ abstract class _$$QuotationImplCopyWith<$Res>
       DateTime createdAt,
       DateTime updatedAt,
       String customerId,
-      String artistId,
+      String? artistId,
       String description,
       MultimediasMetadata? referenceImages,
       MultimediasMetadata? proposedDesigns,
       QuotationStatus status,
+      QuotationType type,
+      double? customerLat,
+      double? customerLon,
+      int? customerTravelRadiusKm,
+      String? tattooDesignCacheId,
+      String? tattooDesignImageUrl,
+      TattooDesignCache? tattooDesignCache,
+      List<QuotationOfferListItemDto>? offers,
       Money? estimatedCost,
       DateTime? responseDate,
       DateTime? appointmentDate,
@@ -452,6 +531,8 @@ abstract class _$$QuotationImplCopyWith<$Res>
   @override
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
   @override
+  $TattooDesignCacheCopyWith<$Res>? get tattooDesignCache;
+  @override
   $MoneyCopyWith<$Res>? get estimatedCost;
   @override
   $ArtistCopyWith<$Res>? get artist;
@@ -476,11 +557,19 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? customerId = null,
-    Object? artistId = null,
+    Object? artistId = freezed,
     Object? description = null,
     Object? referenceImages = freezed,
     Object? proposedDesigns = freezed,
     Object? status = null,
+    Object? type = null,
+    Object? customerLat = freezed,
+    Object? customerLon = freezed,
+    Object? customerTravelRadiusKm = freezed,
+    Object? tattooDesignCacheId = freezed,
+    Object? tattooDesignImageUrl = freezed,
+    Object? tattooDesignCache = freezed,
+    Object? offers = freezed,
     Object? estimatedCost = freezed,
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
@@ -527,10 +616,10 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      artistId: null == artistId
+      artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -547,6 +636,38 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as QuotationStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as QuotationType,
+      customerLat: freezed == customerLat
+          ? _value.customerLat
+          : customerLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      customerLon: freezed == customerLon
+          ? _value.customerLon
+          : customerLon // ignore: cast_nullable_to_non_nullable
+              as double?,
+      customerTravelRadiusKm: freezed == customerTravelRadiusKm
+          ? _value.customerTravelRadiusKm
+          : customerTravelRadiusKm // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tattooDesignCacheId: freezed == tattooDesignCacheId
+          ? _value.tattooDesignCacheId
+          : tattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tattooDesignImageUrl: freezed == tattooDesignImageUrl
+          ? _value.tattooDesignImageUrl
+          : tattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tattooDesignCache: freezed == tattooDesignCache
+          ? _value.tattooDesignCache
+          : tattooDesignCache // ignore: cast_nullable_to_non_nullable
+              as TattooDesignCache?,
+      offers: freezed == offers
+          ? _value._offers
+          : offers // ignore: cast_nullable_to_non_nullable
+              as List<QuotationOfferListItemDto>?,
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
@@ -671,11 +792,19 @@ class _$QuotationImpl implements _Quotation {
       required this.createdAt,
       required this.updatedAt,
       required this.customerId,
-      required this.artistId,
+      this.artistId,
       required this.description,
       this.referenceImages,
       this.proposedDesigns,
       required this.status,
+      this.type = QuotationType.DIRECT,
+      this.customerLat,
+      this.customerLon,
+      this.customerTravelRadiusKm,
+      this.tattooDesignCacheId,
+      this.tattooDesignImageUrl,
+      this.tattooDesignCache,
+      final List<QuotationOfferListItemDto>? offers,
       this.estimatedCost,
       this.responseDate,
       this.appointmentDate,
@@ -704,7 +833,8 @@ class _$QuotationImpl implements _Quotation {
       this.customerReadAt,
       this.stencilId,
       this.stencil})
-      : _history = history;
+      : _offers = offers,
+        _history = history;
 
   factory _$QuotationImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuotationImplFromJson(json);
@@ -718,7 +848,7 @@ class _$QuotationImpl implements _Quotation {
   @override
   final String customerId;
   @override
-  final String artistId;
+  final String? artistId;
   @override
   final String description;
   @override
@@ -727,6 +857,31 @@ class _$QuotationImpl implements _Quotation {
   final MultimediasMetadata? proposedDesigns;
   @override
   final QuotationStatus status;
+  @override
+  @JsonKey()
+  final QuotationType type;
+  @override
+  final double? customerLat;
+  @override
+  final double? customerLon;
+  @override
+  final int? customerTravelRadiusKm;
+  @override
+  final String? tattooDesignCacheId;
+  @override
+  final String? tattooDesignImageUrl;
+  @override
+  final TattooDesignCache? tattooDesignCache;
+  final List<QuotationOfferListItemDto>? _offers;
+  @override
+  List<QuotationOfferListItemDto>? get offers {
+    final value = _offers;
+    if (value == null) return null;
+    if (_offers is EqualUnmodifiableListView) return _offers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Money? estimatedCost;
   @override
@@ -796,7 +951,7 @@ class _$QuotationImpl implements _Quotation {
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, type: $type, customerLat: $customerLat, customerLon: $customerLon, customerTravelRadiusKm: $customerTravelRadiusKm, tattooDesignCacheId: $tattooDesignCacheId, tattooDesignImageUrl: $tattooDesignImageUrl, tattooDesignCache: $tattooDesignCache, offers: $offers, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil)';
   }
 
   @override
@@ -820,6 +975,20 @@ class _$QuotationImpl implements _Quotation {
             (identical(other.proposedDesigns, proposedDesigns) ||
                 other.proposedDesigns == proposedDesigns) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.customerLat, customerLat) ||
+                other.customerLat == customerLat) &&
+            (identical(other.customerLon, customerLon) ||
+                other.customerLon == customerLon) &&
+            (identical(other.customerTravelRadiusKm, customerTravelRadiusKm) ||
+                other.customerTravelRadiusKm == customerTravelRadiusKm) &&
+            (identical(other.tattooDesignCacheId, tattooDesignCacheId) ||
+                other.tattooDesignCacheId == tattooDesignCacheId) &&
+            (identical(other.tattooDesignImageUrl, tattooDesignImageUrl) ||
+                other.tattooDesignImageUrl == tattooDesignImageUrl) &&
+            (identical(other.tattooDesignCache, tattooDesignCache) ||
+                other.tattooDesignCache == tattooDesignCache) &&
+            const DeepCollectionEquality().equals(other._offers, _offers) &&
             (identical(other.estimatedCost, estimatedCost) ||
                 other.estimatedCost == estimatedCost) &&
             (identical(other.responseDate, responseDate) ||
@@ -888,6 +1057,14 @@ class _$QuotationImpl implements _Quotation {
         referenceImages,
         proposedDesigns,
         status,
+        type,
+        customerLat,
+        customerLon,
+        customerTravelRadiusKm,
+        tattooDesignCacheId,
+        tattooDesignImageUrl,
+        tattooDesignCache,
+        const DeepCollectionEquality().hash(_offers),
         estimatedCost,
         responseDate,
         appointmentDate,
@@ -938,11 +1115,19 @@ abstract class _Quotation implements Quotation {
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String customerId,
-      required final String artistId,
+      final String? artistId,
       required final String description,
       final MultimediasMetadata? referenceImages,
       final MultimediasMetadata? proposedDesigns,
       required final QuotationStatus status,
+      final QuotationType type,
+      final double? customerLat,
+      final double? customerLon,
+      final int? customerTravelRadiusKm,
+      final String? tattooDesignCacheId,
+      final String? tattooDesignImageUrl,
+      final TattooDesignCache? tattooDesignCache,
+      final List<QuotationOfferListItemDto>? offers,
       final Money? estimatedCost,
       final DateTime? responseDate,
       final DateTime? appointmentDate,
@@ -984,7 +1169,7 @@ abstract class _Quotation implements Quotation {
   @override
   String get customerId;
   @override
-  String get artistId;
+  String? get artistId;
   @override
   String get description;
   @override
@@ -993,6 +1178,22 @@ abstract class _Quotation implements Quotation {
   MultimediasMetadata? get proposedDesigns;
   @override
   QuotationStatus get status;
+  @override
+  QuotationType get type;
+  @override
+  double? get customerLat;
+  @override
+  double? get customerLon;
+  @override
+  int? get customerTravelRadiusKm;
+  @override
+  String? get tattooDesignCacheId;
+  @override
+  String? get tattooDesignImageUrl;
+  @override
+  TattooDesignCache? get tattooDesignCache;
+  @override
+  List<QuotationOfferListItemDto>? get offers;
   @override
   Money? get estimatedCost;
   @override
@@ -1076,6 +1277,11 @@ mixin _$QuotationHistory {
   DateTime? get newAppointmentDate => throw _privateConstructorUsedError;
   int? get previousAppointmentDuration => throw _privateConstructorUsedError;
   int? get newAppointmentDuration => throw _privateConstructorUsedError;
+  String? get previousTattooDesignCacheId => throw _privateConstructorUsedError;
+  String? get newTattooDesignCacheId => throw _privateConstructorUsedError;
+  String? get previousTattooDesignImageUrl =>
+      throw _privateConstructorUsedError;
+  String? get newTattooDesignImageUrl => throw _privateConstructorUsedError;
   QuotationCustomerAppealReason? get appealedReason =>
       throw _privateConstructorUsedError;
   String? get rejectionReason => throw _privateConstructorUsedError;
@@ -1113,6 +1319,10 @@ abstract class $QuotationHistoryCopyWith<$Res> {
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
       int? newAppointmentDuration,
+      String? previousTattooDesignCacheId,
+      String? newTattooDesignCacheId,
+      String? previousTattooDesignImageUrl,
+      String? newTattooDesignImageUrl,
       QuotationCustomerAppealReason? appealedReason,
       String? rejectionReason,
       String? cancellationReason,
@@ -1153,6 +1363,10 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
     Object? newAppointmentDate = freezed,
     Object? previousAppointmentDuration = freezed,
     Object? newAppointmentDuration = freezed,
+    Object? previousTattooDesignCacheId = freezed,
+    Object? newTattooDesignCacheId = freezed,
+    Object? previousTattooDesignImageUrl = freezed,
+    Object? newTattooDesignImageUrl = freezed,
     Object? appealedReason = freezed,
     Object? rejectionReason = freezed,
     Object? cancellationReason = freezed,
@@ -1221,6 +1435,22 @@ class _$QuotationHistoryCopyWithImpl<$Res, $Val extends QuotationHistory>
           ? _value.newAppointmentDuration
           : newAppointmentDuration // ignore: cast_nullable_to_non_nullable
               as int?,
+      previousTattooDesignCacheId: freezed == previousTattooDesignCacheId
+          ? _value.previousTattooDesignCacheId
+          : previousTattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      newTattooDesignCacheId: freezed == newTattooDesignCacheId
+          ? _value.newTattooDesignCacheId
+          : newTattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previousTattooDesignImageUrl: freezed == previousTattooDesignImageUrl
+          ? _value.previousTattooDesignImageUrl
+          : previousTattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      newTattooDesignImageUrl: freezed == newTattooDesignImageUrl
+          ? _value.newTattooDesignImageUrl
+          : newTattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       appealedReason: freezed == appealedReason
           ? _value.appealedReason
           : appealedReason // ignore: cast_nullable_to_non_nullable
@@ -1309,6 +1539,10 @@ abstract class _$$QuotationHistoryImplCopyWith<$Res>
       DateTime? newAppointmentDate,
       int? previousAppointmentDuration,
       int? newAppointmentDuration,
+      String? previousTattooDesignCacheId,
+      String? newTattooDesignCacheId,
+      String? previousTattooDesignImageUrl,
+      String? newTattooDesignImageUrl,
       QuotationCustomerAppealReason? appealedReason,
       String? rejectionReason,
       String? cancellationReason,
@@ -1350,6 +1584,10 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
     Object? newAppointmentDate = freezed,
     Object? previousAppointmentDuration = freezed,
     Object? newAppointmentDuration = freezed,
+    Object? previousTattooDesignCacheId = freezed,
+    Object? newTattooDesignCacheId = freezed,
+    Object? previousTattooDesignImageUrl = freezed,
+    Object? newTattooDesignImageUrl = freezed,
     Object? appealedReason = freezed,
     Object? rejectionReason = freezed,
     Object? cancellationReason = freezed,
@@ -1418,6 +1656,22 @@ class __$$QuotationHistoryImplCopyWithImpl<$Res>
           ? _value.newAppointmentDuration
           : newAppointmentDuration // ignore: cast_nullable_to_non_nullable
               as int?,
+      previousTattooDesignCacheId: freezed == previousTattooDesignCacheId
+          ? _value.previousTattooDesignCacheId
+          : previousTattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      newTattooDesignCacheId: freezed == newTattooDesignCacheId
+          ? _value.newTattooDesignCacheId
+          : newTattooDesignCacheId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previousTattooDesignImageUrl: freezed == previousTattooDesignImageUrl
+          ? _value.previousTattooDesignImageUrl
+          : previousTattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      newTattooDesignImageUrl: freezed == newTattooDesignImageUrl
+          ? _value.newTattooDesignImageUrl
+          : newTattooDesignImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       appealedReason: freezed == appealedReason
           ? _value.appealedReason
           : appealedReason // ignore: cast_nullable_to_non_nullable
@@ -1465,6 +1719,10 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
       this.newAppointmentDate,
       this.previousAppointmentDuration,
       this.newAppointmentDuration,
+      this.previousTattooDesignCacheId,
+      this.newTattooDesignCacheId,
+      this.previousTattooDesignImageUrl,
+      this.newTattooDesignImageUrl,
       this.appealedReason,
       this.rejectionReason,
       this.cancellationReason,
@@ -1506,6 +1764,14 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
   @override
   final int? newAppointmentDuration;
   @override
+  final String? previousTattooDesignCacheId;
+  @override
+  final String? newTattooDesignCacheId;
+  @override
+  final String? previousTattooDesignImageUrl;
+  @override
+  final String? newTattooDesignImageUrl;
+  @override
   final QuotationCustomerAppealReason? appealedReason;
   @override
   final String? rejectionReason;
@@ -1520,7 +1786,7 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
 
   @override
   String toString() {
-    return 'QuotationHistory(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, quotation: $quotation, previousStatus: $previousStatus, newStatus: $newStatus, changedAt: $changedAt, changedBy: $changedBy, changedByUserType: $changedByUserType, previousEstimatedCost: $previousEstimatedCost, newEstimatedCost: $newEstimatedCost, previousAppointmentDate: $previousAppointmentDate, newAppointmentDate: $newAppointmentDate, previousAppointmentDuration: $previousAppointmentDuration, newAppointmentDuration: $newAppointmentDuration, appealedReason: $appealedReason, rejectionReason: $rejectionReason, cancellationReason: $cancellationReason, additionalDetails: $additionalDetails, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType)';
+    return 'QuotationHistory(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, quotation: $quotation, previousStatus: $previousStatus, newStatus: $newStatus, changedAt: $changedAt, changedBy: $changedBy, changedByUserType: $changedByUserType, previousEstimatedCost: $previousEstimatedCost, newEstimatedCost: $newEstimatedCost, previousAppointmentDate: $previousAppointmentDate, newAppointmentDate: $newAppointmentDate, previousAppointmentDuration: $previousAppointmentDuration, newAppointmentDuration: $newAppointmentDuration, previousTattooDesignCacheId: $previousTattooDesignCacheId, newTattooDesignCacheId: $newTattooDesignCacheId, previousTattooDesignImageUrl: $previousTattooDesignImageUrl, newTattooDesignImageUrl: $newTattooDesignImageUrl, appealedReason: $appealedReason, rejectionReason: $rejectionReason, cancellationReason: $cancellationReason, additionalDetails: $additionalDetails, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType)';
   }
 
   @override
@@ -1549,17 +1815,27 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
                 other.previousEstimatedCost == previousEstimatedCost) &&
             (identical(other.newEstimatedCost, newEstimatedCost) ||
                 other.newEstimatedCost == newEstimatedCost) &&
-            (identical(
-                    other.previousAppointmentDate, previousAppointmentDate) ||
+            (identical(other.previousAppointmentDate, previousAppointmentDate) ||
                 other.previousAppointmentDate == previousAppointmentDate) &&
             (identical(other.newAppointmentDate, newAppointmentDate) ||
                 other.newAppointmentDate == newAppointmentDate) &&
-            (identical(other.previousAppointmentDuration,
-                    previousAppointmentDuration) ||
+            (identical(other.previousAppointmentDuration, previousAppointmentDuration) ||
                 other.previousAppointmentDuration ==
                     previousAppointmentDuration) &&
             (identical(other.newAppointmentDuration, newAppointmentDuration) ||
                 other.newAppointmentDuration == newAppointmentDuration) &&
+            (identical(other.previousTattooDesignCacheId, previousTattooDesignCacheId) ||
+                other.previousTattooDesignCacheId ==
+                    previousTattooDesignCacheId) &&
+            (identical(other.newTattooDesignCacheId, newTattooDesignCacheId) ||
+                other.newTattooDesignCacheId == newTattooDesignCacheId) &&
+            (identical(other.previousTattooDesignImageUrl,
+                    previousTattooDesignImageUrl) ||
+                other.previousTattooDesignImageUrl ==
+                    previousTattooDesignImageUrl) &&
+            (identical(
+                    other.newTattooDesignImageUrl, newTattooDesignImageUrl) ||
+                other.newTattooDesignImageUrl == newTattooDesignImageUrl) &&
             (identical(other.appealedReason, appealedReason) ||
                 other.appealedReason == appealedReason) &&
             (identical(other.rejectionReason, rejectionReason) ||
@@ -1593,6 +1869,10 @@ class _$QuotationHistoryImpl implements _QuotationHistory {
         newAppointmentDate,
         previousAppointmentDuration,
         newAppointmentDuration,
+        previousTattooDesignCacheId,
+        newTattooDesignCacheId,
+        previousTattooDesignImageUrl,
+        newTattooDesignImageUrl,
         appealedReason,
         rejectionReason,
         cancellationReason,
@@ -1633,6 +1913,10 @@ abstract class _QuotationHistory implements QuotationHistory {
       final DateTime? newAppointmentDate,
       final int? previousAppointmentDuration,
       final int? newAppointmentDuration,
+      final String? previousTattooDesignCacheId,
+      final String? newTattooDesignCacheId,
+      final String? previousTattooDesignImageUrl,
+      final String? newTattooDesignImageUrl,
       final QuotationCustomerAppealReason? appealedReason,
       final String? rejectionReason,
       final String? cancellationReason,
@@ -1673,6 +1957,14 @@ abstract class _QuotationHistory implements QuotationHistory {
   int? get previousAppointmentDuration;
   @override
   int? get newAppointmentDuration;
+  @override
+  String? get previousTattooDesignCacheId;
+  @override
+  String? get newTattooDesignCacheId;
+  @override
+  String? get previousTattooDesignImageUrl;
+  @override
+  String? get newTattooDesignImageUrl;
   @override
   QuotationCustomerAppealReason? get appealedReason;
   @override
@@ -2270,4 +2562,147 @@ abstract class _MultimediaMetadata implements MultimediaMetadata {
   @JsonKey(ignore: true)
   _$$MultimediaMetadataImplCopyWith<_$MultimediaMetadataImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+QuotationOfferListItemDto _$QuotationOfferListItemDtoFromJson(
+    Map<String, dynamic> json) {
+  return _QuotationOfferListItemDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$QuotationOfferListItemDto {
+  String get id => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuotationOfferListItemDtoCopyWith<QuotationOfferListItemDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuotationOfferListItemDtoCopyWith<$Res> {
+  factory $QuotationOfferListItemDtoCopyWith(QuotationOfferListItemDto value,
+          $Res Function(QuotationOfferListItemDto) then) =
+      _$QuotationOfferListItemDtoCopyWithImpl<$Res, QuotationOfferListItemDto>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class _$QuotationOfferListItemDtoCopyWithImpl<$Res,
+        $Val extends QuotationOfferListItemDto>
+    implements $QuotationOfferListItemDtoCopyWith<$Res> {
+  _$QuotationOfferListItemDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$QuotationOfferListItemDtoImplCopyWith<$Res>
+    implements $QuotationOfferListItemDtoCopyWith<$Res> {
+  factory _$$QuotationOfferListItemDtoImplCopyWith(
+          _$QuotationOfferListItemDtoImpl value,
+          $Res Function(_$QuotationOfferListItemDtoImpl) then) =
+      __$$QuotationOfferListItemDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$QuotationOfferListItemDtoImplCopyWithImpl<$Res>
+    extends _$QuotationOfferListItemDtoCopyWithImpl<$Res,
+        _$QuotationOfferListItemDtoImpl>
+    implements _$$QuotationOfferListItemDtoImplCopyWith<$Res> {
+  __$$QuotationOfferListItemDtoImplCopyWithImpl(
+      _$QuotationOfferListItemDtoImpl _value,
+      $Res Function(_$QuotationOfferListItemDtoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$QuotationOfferListItemDtoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
+  const _$QuotationOfferListItemDtoImpl({required this.id});
+
+  factory _$QuotationOfferListItemDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuotationOfferListItemDtoImplFromJson(json);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'QuotationOfferListItemDto(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuotationOfferListItemDtoImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuotationOfferListItemDtoImplCopyWith<_$QuotationOfferListItemDtoImpl>
+      get copyWith => __$$QuotationOfferListItemDtoImplCopyWithImpl<
+          _$QuotationOfferListItemDtoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuotationOfferListItemDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _QuotationOfferListItemDto implements QuotationOfferListItemDto {
+  const factory _QuotationOfferListItemDto({required final String id}) =
+      _$QuotationOfferListItemDtoImpl;
+
+  factory _QuotationOfferListItemDto.fromJson(Map<String, dynamic> json) =
+      _$QuotationOfferListItemDtoImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$QuotationOfferListItemDtoImplCopyWith<_$QuotationOfferListItemDtoImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

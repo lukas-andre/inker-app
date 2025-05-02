@@ -11,7 +11,7 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       customerId: json['customerId'] as String,
-      artistId: json['artistId'] as String,
+      artistId: json['artistId'] as String?,
       description: json['description'] as String,
       referenceImages: json['referenceImages'] == null
           ? null
@@ -22,6 +22,21 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           : MultimediasMetadata.fromJson(
               Map<String, dynamic>.from(json['proposedDesigns'] as Map)),
       status: $enumDecode(_$QuotationStatusEnumMap, json['status']),
+      type: $enumDecodeNullable(_$QuotationTypeEnumMap, json['type']) ??
+          QuotationType.DIRECT,
+      customerLat: (json['customerLat'] as num?)?.toDouble(),
+      customerLon: (json['customerLon'] as num?)?.toDouble(),
+      customerTravelRadiusKm: (json['customerTravelRadiusKm'] as num?)?.toInt(),
+      tattooDesignCacheId: json['tattooDesignCacheId'] as String?,
+      tattooDesignImageUrl: json['tattooDesignImageUrl'] as String?,
+      tattooDesignCache: json['tattooDesignCache'] == null
+          ? null
+          : TattooDesignCache.fromJson(
+              Map<String, dynamic>.from(json['tattooDesignCache'] as Map)),
+      offers: (json['offers'] as List<dynamic>?)
+          ?.map((e) => QuotationOfferListItemDto.fromJson(
+              Map<String, dynamic>.from(e as Map)))
+          .toList(),
       estimatedCost: json['estimatedCost'] == null
           ? null
           : Money.fromJson(
@@ -96,8 +111,6 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
     'customerId': instance.customerId,
-    'artistId': instance.artistId,
-    'description': instance.description,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -106,9 +119,19 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
     }
   }
 
+  writeNotNull('artistId', instance.artistId);
+  val['description'] = instance.description;
   writeNotNull('referenceImages', instance.referenceImages?.toJson());
   writeNotNull('proposedDesigns', instance.proposedDesigns?.toJson());
   val['status'] = _$QuotationStatusEnumMap[instance.status]!;
+  val['type'] = _$QuotationTypeEnumMap[instance.type]!;
+  writeNotNull('customerLat', instance.customerLat);
+  writeNotNull('customerLon', instance.customerLon);
+  writeNotNull('customerTravelRadiusKm', instance.customerTravelRadiusKm);
+  writeNotNull('tattooDesignCacheId', instance.tattooDesignCacheId);
+  writeNotNull('tattooDesignImageUrl', instance.tattooDesignImageUrl);
+  writeNotNull('tattooDesignCache', instance.tattooDesignCache?.toJson());
+  writeNotNull('offers', instance.offers?.map((e) => e.toJson()).toList());
   writeNotNull('estimatedCost', instance.estimatedCost?.toJson());
   writeNotNull('responseDate', instance.responseDate?.toIso8601String());
   writeNotNull('appointmentDate', instance.appointmentDate?.toIso8601String());
@@ -153,6 +176,11 @@ const _$QuotationStatusEnumMap = {
   QuotationStatus.rejected: 'rejected',
   QuotationStatus.appealed: 'appealed',
   QuotationStatus.canceled: 'canceled',
+};
+
+const _$QuotationTypeEnumMap = {
+  QuotationType.DIRECT: 'DIRECT',
+  QuotationType.OPEN: 'OPEN',
 };
 
 const _$QuotationRejectByEnumMap = {
@@ -242,6 +270,12 @@ _$QuotationHistoryImpl _$$QuotationHistoryImplFromJson(Map json) =>
       previousAppointmentDuration:
           (json['previousAppointmentDuration'] as num?)?.toInt(),
       newAppointmentDuration: (json['newAppointmentDuration'] as num?)?.toInt(),
+      previousTattooDesignCacheId:
+          json['previousTattooDesignCacheId'] as String?,
+      newTattooDesignCacheId: json['newTattooDesignCacheId'] as String?,
+      previousTattooDesignImageUrl:
+          json['previousTattooDesignImageUrl'] as String?,
+      newTattooDesignImageUrl: json['newTattooDesignImageUrl'] as String?,
       appealedReason: $enumDecodeNullable(
           _$QuotationCustomerAppealReasonEnumMap, json['appealedReason']),
       rejectionReason: json['rejectionReason'] as String?,
@@ -283,6 +317,12 @@ Map<String, dynamic> _$$QuotationHistoryImplToJson(
   writeNotNull(
       'previousAppointmentDuration', instance.previousAppointmentDuration);
   writeNotNull('newAppointmentDuration', instance.newAppointmentDuration);
+  writeNotNull(
+      'previousTattooDesignCacheId', instance.previousTattooDesignCacheId);
+  writeNotNull('newTattooDesignCacheId', instance.newTattooDesignCacheId);
+  writeNotNull(
+      'previousTattooDesignImageUrl', instance.previousTattooDesignImageUrl);
+  writeNotNull('newTattooDesignImageUrl', instance.newTattooDesignImageUrl);
   writeNotNull('appealedReason',
       _$QuotationCustomerAppealReasonEnumMap[instance.appealedReason]);
   writeNotNull('rejectionReason', instance.rejectionReason);
@@ -348,4 +388,16 @@ Map<String, dynamic> _$$MultimediaMetadataImplToJson(
       'position': instance.position,
       'fieldname': instance.fieldname,
       'originalname': instance.originalname,
+    };
+
+_$QuotationOfferListItemDtoImpl _$$QuotationOfferListItemDtoImplFromJson(
+        Map json) =>
+    _$QuotationOfferListItemDtoImpl(
+      id: json['id'] as String,
+    );
+
+Map<String, dynamic> _$$QuotationOfferListItemDtoImplToJson(
+        _$QuotationOfferListItemDtoImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
     };

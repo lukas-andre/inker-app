@@ -1949,5 +1949,109 @@
   "noDesignsOnFavorites": "No hay diseños en favoritos",
   "@noDesignsOnFavorites": {
     "description": "Message shown when there are no designs on favorites."
+  },
+  "enableLocationServicesAndPermissions": "Habilitar servicios de ubicación y permisos",
+  "@enableLocationServicesAndPermissions": {
+    "description": "Message prompting user to enable location services and permissions."
+  },
+  "couldNotGetLocation": "No se pudo obtener la ubicación",
+  "@couldNotGetLocation": {
+    "description": "Error message when location could not be retrieved."
+  },
+  "couldNotGetLocationPleaseRetry": "No se pudo obtener tu ubicación. Por favor intenta nuevamente.",
+  "@couldNotGetLocationPleaseRetry": {
+    "description": "Error message when location could not be retrieved with retry suggestion."
+  },
+  "notLoggedIn": "No has iniciado sesión",
+  "@notLoggedIn": {
+    "description": "Message shown when user is not logged in."
+  },
+  "openQuotationCreatedSuccessfully": "Cotización abierta creada exitosamente",
+  "@openQuotationCreatedSuccessfully": {
+    "description": "Success message when an open quotation is created."
+  },
+  "errorCreatingQuotation": "Error al crear cotización",
+  "@errorCreatingQuotation": {
+    "description": "Error message when quotation creation fails."
+  },
+  "createOpenQuotation": "Crear Cotización Abierta",
+  "@createOpenQuotation": {
+    "description": "Title for the open quotation creation screen."
+  },
+  "describeYourTattooIdea": "Describe tu idea de tatuaje",
+  "@describeYourTattooIdea": {
+    "description": "Prompt for user to describe their tattoo idea."
+  },
+  "maxTravelDistanceKm": "Distancia máxima de viaje (km)",
+  "@maxTravelDistanceKm": {
+    "description": "Label for maximum travel distance input field."
+  },
+  "enterDistanceKm": "Ingresa distancia en km",
+  "@enterDistanceKm": {
+    "description": "Placeholder for distance input field."
+  },
+  "pleaseEnterDescription": "Por favor ingresa una descripción",
+  "@pleaseEnterDescription": {
+    "description": "Validation message when description is empty."
+  },
+  "pleaseEnterTravelRadius": "Por favor ingresa un radio de viaje",
+  "@pleaseEnterTravelRadius": {
+    "description": "Validation message when travel radius is empty."
+  },
+  "pleaseEnterValidPositiveNumber": "Por favor ingresa un número positivo válido",
+  "@pleaseEnterValidPositiveNumber": {
+    "description": "Validation message for positive number inputs."
+  },
+  "optionalAddStencilOrDesign": "Opcional: Agregar plantilla o diseño",
+  "@optionalAddStencilOrDesign": {
+    "description": "Label for optional stencil or design upload."
+  },
+  "addReferenceImages": "Agregar imágenes de referencia",
+  "@addReferenceImages": {
+    "description": "Button text to add reference images."
+  },
+  "submitOpenQuotation": "Enviar Cotización Abierta",
+  "@submitOpenQuotation": {
+    "description": "Button text to submit an open quotation."
+  },
+  "cannotSelectStencilAndDesign": "No puedes seleccionar una plantilla y un diseño a la vez",
+  "@cannotSelectStencilAndDesign": {
+    "description": "Error message when user tries to select both a stencil and a design."
+  },
+  "optionalAttachDesign": "Opcional: Adjuntar un diseño",
+  "@optionalAttachDesign": {
+    "description": "Label for optional design attachment section."
+  },
+  "attachStencilOrGeneratedDesignHint": "Puedes adjuntar una plantilla o un diseño generado a tu cotización",
+  "@attachStencilOrGeneratedDesignHint": {
+    "description": "Hint text explaining stencil or design attachment options."
+  },
+  "selectStencil": "Seleccionar Plantilla",
+  "@selectStencil": {
+    "description": "Button text to select a stencil."
+  },
+  "selectGeneratedDesign": "Seleccionar Diseño Generado",
+  "@selectGeneratedDesign": {
+    "description": "Button text to select a generated design."
+  },
+  "selectedGeneratedDesign": "Diseño Generado Seleccionado",
+  "@selectedGeneratedDesign": {
+    "description": "Label for the selected generated design."
+  },
+  "addReferenceImagesOptional": "Agregar imágenes de referencia (opcional)",
+  "@addReferenceImagesOptional": {
+    "description": "Label for optional reference images section."
+  },
+  "selectedStencil": "Plantilla Seleccionada",
+  "@selectedStencil": {
+    "description": "Label for the selected stencil."
+  },
+  "clearSelection": "Limpiar Selección",
+  "@clearSelection": {
+    "description": "Tooltip for button to clear a selection."
+  },
+  "addMoreImages": "Agregar más imágenes",
+  "@addMoreImages": {
+    "description": "Button text to add more images."
   }
 }

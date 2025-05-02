@@ -4532,7 +4532,7 @@ class S {
     return Intl.message(
       'Por favor ingresa una descripción',
       name: 'pleaseEnterDescription',
-      desc: 'Error message when no description is provided.',
+      desc: 'Validation message when description is empty.',
       args: [],
     );
   }
@@ -4653,6 +4653,259 @@ class S {
       'No hay diseños en favoritos',
       name: 'noDesignsOnFavorites',
       desc: 'Message shown when there are no designs on favorites.',
+      args: [],
+    );
+  }
+
+  /// `Habilitar servicios de ubicación y permisos`
+  String get enableLocationServicesAndPermissions {
+    return Intl.message(
+      'Habilitar servicios de ubicación y permisos',
+      name: 'enableLocationServicesAndPermissions',
+      desc:
+          'Message prompting user to enable location services and permissions.',
+      args: [],
+    );
+  }
+
+  /// `No se pudo obtener la ubicación`
+  String get couldNotGetLocation {
+    return Intl.message(
+      'No se pudo obtener la ubicación',
+      name: 'couldNotGetLocation',
+      desc: 'Error message when location could not be retrieved.',
+      args: [],
+    );
+  }
+
+  /// `No se pudo obtener tu ubicación. Por favor intenta nuevamente.`
+  String get couldNotGetLocationPleaseRetry {
+    return Intl.message(
+      'No se pudo obtener tu ubicación. Por favor intenta nuevamente.',
+      name: 'couldNotGetLocationPleaseRetry',
+      desc:
+          'Error message when location could not be retrieved with retry suggestion.',
+      args: [],
+    );
+  }
+
+  /// `No has iniciado sesión`
+  String get notLoggedIn {
+    return Intl.message(
+      'No has iniciado sesión',
+      name: 'notLoggedIn',
+      desc: 'Message shown when user is not logged in.',
+      args: [],
+    );
+  }
+
+  /// `Cotización abierta creada exitosamente`
+  String get openQuotationCreatedSuccessfully {
+    return Intl.message(
+      'Cotización abierta creada exitosamente',
+      name: 'openQuotationCreatedSuccessfully',
+      desc: 'Success message when an open quotation is created.',
+      args: [],
+    );
+  }
+
+  /// `Error al crear cotización`
+  String get errorCreatingQuotation {
+    return Intl.message(
+      'Error al crear cotización',
+      name: 'errorCreatingQuotation',
+      desc: 'Error message when quotation creation fails.',
+      args: [],
+    );
+  }
+
+  /// `Crear Cotización Abierta`
+  String get createOpenQuotation {
+    return Intl.message(
+      'Crear Cotización Abierta',
+      name: 'createOpenQuotation',
+      desc: 'Title for the open quotation creation screen.',
+      args: [],
+    );
+  }
+
+  /// `Describe tu idea de tatuaje`
+  String get describeYourTattooIdea {
+    return Intl.message(
+      'Describe tu idea de tatuaje',
+      name: 'describeYourTattooIdea',
+      desc: 'Prompt for user to describe their tattoo idea.',
+      args: [],
+    );
+  }
+
+  /// `Distancia máxima de viaje (km)`
+  String get maxTravelDistanceKm {
+    return Intl.message(
+      'Distancia máxima de viaje (km)',
+      name: 'maxTravelDistanceKm',
+      desc: 'Label for maximum travel distance input field.',
+      args: [],
+    );
+  }
+
+  /// `Ingresa distancia en km`
+  String get enterDistanceKm {
+    return Intl.message(
+      'Ingresa distancia en km',
+      name: 'enterDistanceKm',
+      desc: 'Placeholder for distance input field.',
+      args: [],
+    );
+  }
+
+  /// `Por favor ingresa un radio de viaje`
+  String get pleaseEnterTravelRadius {
+    return Intl.message(
+      'Por favor ingresa un radio de viaje',
+      name: 'pleaseEnterTravelRadius',
+      desc: 'Validation message when travel radius is empty.',
+      args: [],
+    );
+  }
+
+  /// `Por favor ingresa un número positivo válido`
+  String get pleaseEnterValidPositiveNumber {
+    return Intl.message(
+      'Por favor ingresa un número positivo válido',
+      name: 'pleaseEnterValidPositiveNumber',
+      desc: 'Validation message for positive number inputs.',
+      args: [],
+    );
+  }
+
+  /// `Opcional: Agregar plantilla o diseño`
+  String get optionalAddStencilOrDesign {
+    return Intl.message(
+      'Opcional: Agregar plantilla o diseño',
+      name: 'optionalAddStencilOrDesign',
+      desc: 'Label for optional stencil or design upload.',
+      args: [],
+    );
+  }
+
+  /// `Agregar imágenes de referencia`
+  String get addReferenceImages {
+    return Intl.message(
+      'Agregar imágenes de referencia',
+      name: 'addReferenceImages',
+      desc: 'Button text to add reference images.',
+      args: [],
+    );
+  }
+
+  /// `Enviar Cotización Abierta`
+  String get submitOpenQuotation {
+    return Intl.message(
+      'Enviar Cotización Abierta',
+      name: 'submitOpenQuotation',
+      desc: 'Button text to submit an open quotation.',
+      args: [],
+    );
+  }
+
+  /// `No puedes seleccionar una plantilla y un diseño a la vez`
+  String get cannotSelectStencilAndDesign {
+    return Intl.message(
+      'No puedes seleccionar una plantilla y un diseño a la vez',
+      name: 'cannotSelectStencilAndDesign',
+      desc:
+          'Error message when user tries to select both a stencil and a design.',
+      args: [],
+    );
+  }
+
+  /// `Opcional: Adjuntar un diseño`
+  String get optionalAttachDesign {
+    return Intl.message(
+      'Opcional: Adjuntar un diseño',
+      name: 'optionalAttachDesign',
+      desc: 'Label for optional design attachment section.',
+      args: [],
+    );
+  }
+
+  /// `Puedes adjuntar una plantilla o un diseño generado a tu cotización`
+  String get attachStencilOrGeneratedDesignHint {
+    return Intl.message(
+      'Puedes adjuntar una plantilla o un diseño generado a tu cotización',
+      name: 'attachStencilOrGeneratedDesignHint',
+      desc: 'Hint text explaining stencil or design attachment options.',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Plantilla`
+  String get selectStencil {
+    return Intl.message(
+      'Seleccionar Plantilla',
+      name: 'selectStencil',
+      desc: 'Button text to select a stencil.',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar Diseño Generado`
+  String get selectGeneratedDesign {
+    return Intl.message(
+      'Seleccionar Diseño Generado',
+      name: 'selectGeneratedDesign',
+      desc: 'Button text to select a generated design.',
+      args: [],
+    );
+  }
+
+  /// `Diseño Generado Seleccionado`
+  String get selectedGeneratedDesign {
+    return Intl.message(
+      'Diseño Generado Seleccionado',
+      name: 'selectedGeneratedDesign',
+      desc: 'Label for the selected generated design.',
+      args: [],
+    );
+  }
+
+  /// `Agregar imágenes de referencia (opcional)`
+  String get addReferenceImagesOptional {
+    return Intl.message(
+      'Agregar imágenes de referencia (opcional)',
+      name: 'addReferenceImagesOptional',
+      desc: 'Label for optional reference images section.',
+      args: [],
+    );
+  }
+
+  /// `Plantilla Seleccionada`
+  String get selectedStencil {
+    return Intl.message(
+      'Plantilla Seleccionada',
+      name: 'selectedStencil',
+      desc: 'Label for the selected stencil.',
+      args: [],
+    );
+  }
+
+  /// `Limpiar Selección`
+  String get clearSelection {
+    return Intl.message(
+      'Limpiar Selección',
+      name: 'clearSelection',
+      desc: 'Tooltip for button to clear a selection.',
+      args: [],
+    );
+  }
+
+  /// `Agregar más imágenes`
+  String get addMoreImages {
+    return Intl.message(
+      'Agregar más imágenes',
+      name: 'addMoreImages',
+      desc: 'Button text to add more images.',
       args: [],
     );
   }

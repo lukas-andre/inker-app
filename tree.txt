@@ -1,0 +1,1064 @@
+.
+├── CLAUDE.md
+├── Cheatsheet_ Flutter + BLoC + Freezed para Manejo d.md
+├── Makefile
+├── Master.db
+├── README.md
+├── README_AGENDA.md
+├── README_AGENDA_UX.md
+├── README_PROFILE_SYSTEM.md
+├── SQLITE_README.md
+├── TODO.md
+├── analysis_options.yaml
+├── assets
+│   ├── calendar.png
+│   ├── firebase_logo.png
+│   ├── google_logo.png
+│   ├── icons
+│   │   ├── back.png
+│   │   ├── bottom_nav
+│   │   │   ├── bookmark-selected.png
+│   │   │   ├── bookmark.png
+│   │   │   ├── clock-selected.png
+│   │   │   ├── clock.png
+│   │   │   ├── explore-selected.png
+│   │   │   ├── explore.png
+│   │   │   ├── feed-selected.png
+│   │   │   └── feed.png
+│   │   ├── color_palette.png
+│   │   ├── edit.png
+│   │   ├── feather-arrow-right.png
+│   │   ├── message-perspective-matte.png
+│   │   ├── search.png
+│   │   └── svg
+│   │       ├── angle-right-solid.svg
+│   │       ├── apple.svg
+│   │       ├── circle-xmark-solid.svg
+│   │       ├── color_palette.svg
+│   │       ├── facebook.svg
+│   │       └── google.svg
+│   ├── isologotipo_negative.png
+│   ├── isotipo_negative.png
+│   ├── onboarding
+│   │   ├── page_1
+│   │   │   └── image.png
+│   │   ├── page_2
+│   │   │   └── image.png
+│   │   └── page_3
+│   │       └── image.png
+│   ├── rocket.png
+│   ├── stencil_1.png
+│   ├── stencil_2.png
+│   ├── stencil_3.png
+│   ├── stencil_4.png
+│   ├── stencil_5.png
+│   ├── studio_1.png
+│   ├── studio_2.png
+│   ├── studio_3.png
+│   ├── studio_4.png
+│   ├── studio_5.png
+│   ├── work_1.png
+│   ├── work_2.png
+│   ├── work_3.png
+│   ├── work_4.png
+│   └── work_5.png
+├── build.yaml
+├── devtools_options.yaml
+├── docs
+│   ├── REVIEW_REACTION.md
+│   └── patrol.txt
+├── firebase.json
+├── fonts
+│   ├── Poppins-Bold.ttf
+│   ├── Poppins-ExtraBold.ttf
+│   ├── Poppins-Medium.ttf
+│   ├── Poppins-Regular.ttf
+│   └── Poppins-SemiBold.ttf
+├── integration_test
+│   ├── README.md
+│   ├── actions
+│   │   ├── artist
+│   │   │   ├── my_profile_actions.dart
+│   │   │   ├── profile_photo_actions.dart
+│   │   │   ├── registration_actions.dart
+│   │   │   ├── stencil_actions.dart
+│   │   │   ├── stencil_detail_actions.dart
+│   │   │   ├── work_actions.dart
+│   │   │   └── work_detail_actions.dart
+│   │   ├── auth_test_actions.dart
+│   │   ├── customer
+│   │   │   └── registration_actions.dart
+│   │   ├── permission_test_action.dart
+│   │   ├── profile_test_actions.dart
+│   │   └── quotation_test_actions.dart
+│   ├── config
+│   │   ├── devices.json
+│   │   └── test_config.dart
+│   ├── data
+│   │   ├── auth_test_data.dart
+│   │   └── customer_quotation_test_data.dart
+│   ├── fixtures
+│   ├── flows
+│   │   ├── artist
+│   │   │   ├── add_stencil_test.dart
+│   │   │   ├── add_work_test.dart
+│   │   │   ├── auth_flow_test.dart
+│   │   │   ├── delete_work_test.dart
+│   │   │   ├── registration_flow_test.dart
+│   │   │   ├── update_delete_stencil_test.dart
+│   │   │   ├── update_delete_work_test.dart
+│   │   │   ├── update_studio_photo_test.dart
+│   │   │   └── update_work_test.dart
+│   │   ├── customer
+│   │   │   ├── auth_flow_test.dart
+│   │   │   └── registration_flow_test.dart
+│   │   └── quotation_flow_test.dart
+│   ├── runner
+│   │   ├── generate_devices_config.dart.dart
+│   │   └── test_runner.dart
+│   ├── test_bundle.dart
+│   └── utils
+│       ├── activation_service.dart
+│       ├── api
+│       │   └── api_client.dart
+│       ├── test_constants.dart
+│       └── test_user_manager.dart
+├── lib
+│   ├── config
+│   │   └── http_client_config.dart
+│   ├── data
+│   │   ├── api
+│   │   │   ├── account_verification
+│   │   │   │   └── api_account_verification_service_impl.dart
+│   │   │   ├── agenda
+│   │   │   │   ├── api_agenda_service.dart
+│   │   │   │   └── dtos
+│   │   │   │       ├── agenda_event_detail_response.dart
+│   │   │   │       ├── agenda_event_detail_response.freezed.dart
+│   │   │   │       ├── agenda_event_detail_response.g.dart
+│   │   │   │       ├── agenda_event_response.dart
+│   │   │   │       ├── agenda_event_response.freezed.dart
+│   │   │   │       ├── agenda_event_response.g.dart
+│   │   │   │       ├── available_time_slot.dart
+│   │   │   │       ├── available_time_slot.freezed.dart
+│   │   │   │       ├── available_time_slot.g.dart
+│   │   │   │       ├── get_agenda_events_response.dart
+│   │   │   │       ├── get_agenda_events_response.freezed.dart
+│   │   │   │       ├── get_agenda_events_response.g.dart
+│   │   │   │       ├── get_artist_works_response.dart
+│   │   │   │       ├── get_artist_works_response.freezed.dart
+│   │   │   │       ├── get_artist_works_response.g.dart
+│   │   │   │       ├── quotation_list_response.dart
+│   │   │   │       ├── quotation_list_response.freezed.dart
+│   │   │   │       └── quotation_list_response.g.dart
+│   │   │   ├── analytics
+│   │   │   │   └── api_analytics_service.dart
+│   │   │   ├── appointment
+│   │   │   │   └── api_appointment_service.dart
+│   │   │   ├── artist
+│   │   │   │   ├── api_artist_service.dart
+│   │   │   │   └── dtos
+│   │   │   │       ├── search_artist.dto.dart
+│   │   │   │       ├── search_artist.dto.freezed.dart
+│   │   │   │       ├── search_artist.dto.g.dart
+│   │   │   │       ├── search_artist_response.dto.dart
+│   │   │   │       ├── search_artist_response.dto.freezed.dart
+│   │   │   │       ├── search_artist_response.dto.g.dart
+│   │   │   │       ├── tag_dto.dart
+│   │   │   │       ├── tag_dto.freezed.dart
+│   │   │   │       ├── tag_dto.g.dart
+│   │   │   │       ├── update_artist_dto.dart
+│   │   │   │       ├── update_artist_dto.freezed.dart
+│   │   │   │       └── update_artist_dto.g.dart
+│   │   │   ├── auth
+│   │   │   │   ├── api_auth_service.dart
+│   │   │   │   └── dtos
+│   │   │   │       ├── login_request.dart
+│   │   │   │       ├── login_request.g.dart
+│   │   │   │       ├── login_response.dart
+│   │   │   │       └── login_response.g.dart
+│   │   │   ├── customer
+│   │   │   │   ├── api_customer_service.dart
+│   │   │   │   └── dtos
+│   │   │   │       ├── create_customer_request.dart
+│   │   │   │       ├── create_customer_request.g.dart
+│   │   │   │       ├── create_customer_response.dart
+│   │   │   │       ├── search_customer_response.dart
+│   │   │   │       ├── search_customer_response.freezed.dart
+│   │   │   │       ├── search_customer_response.g.dart
+│   │   │   │       ├── update_customer_dto.dart
+│   │   │   │       └── update_customer_dto.g.dart
+│   │   │   ├── http_client_service.dart
+│   │   │   ├── location
+│   │   │   │   ├── api_location_service.dart
+│   │   │   │   ├── dtos
+│   │   │   │   │   ├── artist_location_dto.dart
+│   │   │   │   │   ├── artist_location_dto.g.dart
+│   │   │   │   │   ├── find_artist_by_location_request.dart
+│   │   │   │   │   ├── find_artist_by_location_request.g.dart
+│   │   │   │   │   ├── find_artist_by_location_response.dart
+│   │   │   │   │   ├── find_artist_by_location_response.freezed.dart
+│   │   │   │   │   └── find_artist_by_location_response.g.dart
+│   │   │   │   └── errors
+│   │   │   │       └── errors.dart
+│   │   │   ├── notifications
+│   │   │   │   ├── api_notifications_service.dart
+│   │   │   │   └── dtos
+│   │   │   │       ├── notification_dto.dart
+│   │   │   │       ├── notification_dto.freezed.dart
+│   │   │   │       └── notification_dto.g.dart
+│   │   │   ├── quotation
+│   │   │   │   └── api_quotation_service.dart
+│   │   │   ├── review
+│   │   │   │   ├── api_review_service.dart
+│   │   │   │   ├── dtos
+│   │   │   │   │   ├── get_reviews_response.dart
+│   │   │   │   │   ├── get_reviews_response.freezed.dart
+│   │   │   │   │   └── get_reviews_response.g.dart
+│   │   │   │   └── errors
+│   │   │   │       └── errors.dart
+│   │   │   ├── settings
+│   │   │   │   └── api_settings_service.dart
+│   │   │   ├── stencil
+│   │   │   │   ├── dtos
+│   │   │   │   │   ├── stencil_dto.dart
+│   │   │   │   │   ├── stencil_dto.freezed.dart
+│   │   │   │   │   ├── stencil_dto.g.dart
+│   │   │   │   │   ├── stencil_query_params.dart
+│   │   │   │   │   ├── stencil_query_params.freezed.dart
+│   │   │   │   │   ├── stencil_query_params.g.dart
+│   │   │   │   │   ├── stencil_search_dto.dart
+│   │   │   │   │   ├── stencil_search_dto.freezed.dart
+│   │   │   │   │   └── stencil_search_dto.g.dart
+│   │   │   │   └── stencil_client_service.dart
+│   │   │   ├── tattoo_generator
+│   │   │   │   ├── dtos
+│   │   │   │   │   ├── generate_tattoo_request_dto.dart
+│   │   │   │   │   ├── generate_tattoo_request_dto.freezed.dart
+│   │   │   │   │   ├── generate_tattoo_request_dto.g.dart
+│   │   │   │   │   ├── generate_tattoo_response_dto.dart
+│   │   │   │   │   ├── generate_tattoo_response_dto.freezed.dart
+│   │   │   │   │   ├── generate_tattoo_response_dto.g.dart
+│   │   │   │   │   ├── tattoo_styles.dart
+│   │   │   │   │   ├── update_tattoo_favorite_dto.dart
+│   │   │   │   │   ├── user_tattoo_design_dto.dart
+│   │   │   │   │   └── user_tattoo_history_response_dto.dart
+│   │   │   │   └── tattoo_generator_client.dart
+│   │   │   ├── user
+│   │   │   │   ├── api_user_service.dart
+│   │   │   │   ├── dtos
+│   │   │   │   │   ├── create_artist_user_response.dart
+│   │   │   │   │   ├── create_artist_user_response.g.dart
+│   │   │   │   │   ├── create_customer_user_response.dart
+│   │   │   │   │   ├── create_customer_user_response.g.dart
+│   │   │   │   │   ├── create_user_request.dart
+│   │   │   │   │   ├── create_user_request.g.dart
+│   │   │   │   │   ├── get_user_by_social_media_response.dart
+│   │   │   │   │   ├── get_user_by_social_media_response.g.dart
+│   │   │   │   │   ├── send_verification_code_response.dart
+│   │   │   │   │   └── send_verification_code_response.g.dart
+│   │   │   │   └── errors
+│   │   │   │       └── errors.dart
+│   │   │   └── work
+│   │   │       ├── dtos
+│   │   │       │   ├── work_dto.dart
+│   │   │       │   ├── work_dto.freezed.dart
+│   │   │       │   ├── work_dto.g.dart
+│   │   │       │   ├── work_query_params.dart
+│   │   │       │   ├── work_query_params.freezed.dart
+│   │   │       │   ├── work_query_params.g.dart
+│   │   │       │   ├── work_search_dto.dart
+│   │   │       │   ├── work_search_dto.freezed.dart
+│   │   │       │   └── work_search_dto.g.dart
+│   │   │       └── work_client_service.dart
+│   │   ├── firebase
+│   │   │   ├── google_auth_service.dart
+│   │   │   └── remote_config_service.dart
+│   │   ├── gcp
+│   │   │   ├── dto
+│   │   │   │   ├── auto_complete_response.dart
+│   │   │   │   └── place_details_response.dart
+│   │   │   ├── enum
+│   │   │   │   └── places_details_status.dart
+│   │   │   └── gcp_places_service.dart
+│   │   └── local
+│   │       ├── shared_preferences
+│   │       │   └── local_storage_impl.dart
+│   │       └── sqlite
+│   │           ├── core
+│   │           │   ├── sqlite_service.dart
+│   │           │   └── tables
+│   │           │       ├── customer_table.dart
+│   │           │       ├── session_table.dart
+│   │           │       └── sqlite_table.dart
+│   │           ├── sqlite_customer_service.dart
+│   │           ├── sqlite_session_service.dart
+│   │           └── sqlite_user_service.dart
+│   ├── dependencies
+│   │   ├── bloc_providers.dart
+│   │   └── dependencies.dart
+│   ├── domain
+│   │   ├── blocs
+│   │   │   ├── account_verification
+│   │   │   │   ├── account_verification_bloc.dart
+│   │   │   │   ├── account_verification_event.dart
+│   │   │   │   └── account_verification_state.dart
+│   │   │   ├── analytics
+│   │   │   │   ├── analytics_bloc.dart
+│   │   │   │   ├── analytics_bloc.freezed.dart
+│   │   │   │   ├── analytics_event.dart
+│   │   │   │   └── analytics_state.dart
+│   │   │   ├── artist
+│   │   │   │   ├── artist_agenda
+│   │   │   │   │   ├── artist_agenda_bloc.dart
+│   │   │   │   │   ├── artist_agenda_bloc.freezed.dart
+│   │   │   │   │   ├── artist_agenda_event.dart
+│   │   │   │   │   ├── artist_agenda_state.dart
+│   │   │   │   │   └── models
+│   │   │   │   │       ├── agenda_event_details.dart
+│   │   │   │   │       ├── agenda_event_details.freezed.dart
+│   │   │   │   │       ├── agenda_settings.dart
+│   │   │   │   │       └── agenda_settings.freezed.dart
+│   │   │   │   ├── artist_agenda_create_event
+│   │   │   │   │   ├── artist_agenda_create_event_bloc.dart
+│   │   │   │   │   ├── artist_agenda_create_event_bloc.freezed.dart
+│   │   │   │   │   ├── artist_agenda_create_event_event.dart
+│   │   │   │   │   └── artist_agenda_create_event_state.dart
+│   │   │   │   ├── artist_agenda_event_detail
+│   │   │   │   │   ├── artist_agenda_event_detail_bloc.dart
+│   │   │   │   │   ├── artist_agenda_event_detail_bloc.freezed.dart
+│   │   │   │   │   ├── artist_agenda_event_detail_event.dart
+│   │   │   │   │   └── artist_agenda_event_detail_state.dart
+│   │   │   │   ├── artist_agenda_settings
+│   │   │   │   │   ├── artist_agenda_settings_bloc.dart
+│   │   │   │   │   ├── artist_agenda_settings_bloc.freezed.dart
+│   │   │   │   │   ├── artist_agenda_settings_event.dart
+│   │   │   │   │   └── artist_agenda_settings_state.dart
+│   │   │   │   ├── artist_app
+│   │   │   │   │   ├── artist_app_bloc.dart
+│   │   │   │   │   ├── artist_app_event.dart
+│   │   │   │   │   ├── artist_app_state.dart
+│   │   │   │   │   └── models
+│   │   │   │   │       └── artist_page_nav_bar_icons.dart
+│   │   │   │   ├── artist_bio_cubit
+│   │   │   │   │   └── artist_bio_cubit.dart
+│   │   │   │   ├── artist_portfolio_cubit
+│   │   │   │   │   ├── artist_portfolio_cubit.dart
+│   │   │   │   │   ├── artist_portfolio_cubit.freezed.dart
+│   │   │   │   │   └── artist_portfolio_state.dart
+│   │   │   │   ├── artist_profile
+│   │   │   │   │   ├── artist_profile_bloc.dart
+│   │   │   │   │   ├── artist_profile_bloc.freezed.dart
+│   │   │   │   │   ├── artist_profile_event.dart
+│   │   │   │   │   └── artist_profile_state.dart
+│   │   │   │   ├── artist_reviews
+│   │   │   │   │   ├── artist_reviews_bloc.dart
+│   │   │   │   │   ├── artist_reviews_bloc.freezed.dart
+│   │   │   │   │   ├── artist_reviews_event.dart
+│   │   │   │   │   └── artist_reviews_state.dart
+│   │   │   │   ├── artist_works_cubit
+│   │   │   │   │   ├── artist_works_cubit.dart
+│   │   │   │   │   ├── artist_works_cubit.freezed.dart
+│   │   │   │   │   └── artist_works_state.dart
+│   │   │   │   └── artists_list
+│   │   │   │       ├── artists_list_bloc.dart
+│   │   │   │       ├── artists_list_bloc.freezed.dart
+│   │   │   │       ├── artists_list_event.dart
+│   │   │   │       └── artists_list_state.dart
+│   │   │   ├── artist_location
+│   │   │   │   ├── artist_location_bloc.dart
+│   │   │   │   ├── artist_location_bloc.freezed.dart
+│   │   │   │   ├── artist_location_event.dart
+│   │   │   │   └── artist_location_state.dart
+│   │   │   ├── artist_my_profile
+│   │   │   │   ├── artist_my_profile_bloc.dart
+│   │   │   │   ├── artist_my_profile_bloc.freezed.dart
+│   │   │   │   ├── artist_my_profile_event.dart
+│   │   │   │   └── artist_my_profile_state.dart
+│   │   │   ├── artist_stencil
+│   │   │   │   ├── artist_stencil_bloc.dart
+│   │   │   │   ├── artist_stencil_bloc.freezed.dart
+│   │   │   │   ├── artist_stencil_event.dart
+│   │   │   │   └── artist_stencil_state.dart
+│   │   │   ├── artist_work
+│   │   │   │   ├── artist_work_bloc.dart
+│   │   │   │   ├── artist_work_bloc.freezed.dart
+│   │   │   │   ├── artist_work_event.dart
+│   │   │   │   └── artist_work_state.dart
+│   │   │   ├── auth
+│   │   │   │   ├── auth_bloc.dart
+│   │   │   │   ├── auth_event.dart
+│   │   │   │   ├── auth_state.dart
+│   │   │   │   └── auth_status.dart
+│   │   │   ├── available_time_slots
+│   │   │   │   ├── available_time_slots_bloc.dart
+│   │   │   │   ├── available_time_slots_bloc.freezed.dart
+│   │   │   │   ├── available_time_slots_event.dart
+│   │   │   │   └── available_time_slots_state.dart
+│   │   │   ├── custom_bloc_observer.dart
+│   │   │   ├── customer
+│   │   │   │   ├── appointment
+│   │   │   │   │   ├── appointment_bloc.dart
+│   │   │   │   │   ├── appointment_bloc.freezed.dart
+│   │   │   │   │   ├── appointment_event.dart
+│   │   │   │   │   └── appointment_state.dart
+│   │   │   │   ├── customer.dart
+│   │   │   │   ├── customer_app
+│   │   │   │   │   ├── customer_app_bloc.dart
+│   │   │   │   │   ├── customer_app_event.dart
+│   │   │   │   │   ├── customer_app_state.dart
+│   │   │   │   │   └── models
+│   │   │   │   │       └── customer_page_nav_bar_icons.dart
+│   │   │   │   └── inspiration_search
+│   │   │   │       ├── inspiration_search_bloc.dart
+│   │   │   │       ├── inspiration_search_bloc.freezed.dart
+│   │   │   │       ├── inspiration_search_event.dart
+│   │   │   │       └── inspiration_search_state.dart
+│   │   │   ├── customer_my_profile
+│   │   │   │   ├── customer_my_profile_bloc.dart
+│   │   │   │   ├── customer_my_profile_bloc.freezed.dart
+│   │   │   │   ├── customer_my_profile_event.dart
+│   │   │   │   └── customer_my_profile_state.dart
+│   │   │   ├── delete_account
+│   │   │   │   ├── delete_account_bloc.dart
+│   │   │   │   ├── delete_account_bloc.freezed.dart
+│   │   │   │   ├── delete_account_event.dart
+│   │   │   │   └── delete_account_state.dart
+│   │   │   ├── explorer
+│   │   │   │   ├── draggable_artist_info_sheet
+│   │   │   │   │   ├── draggable_artist_info_sheet_bloc.dart
+│   │   │   │   │   ├── draggable_artist_info_sheet_bloc.freezed.dart
+│   │   │   │   │   ├── draggable_artist_info_sheet_event.dart
+│   │   │   │   │   └── draggable_artist_info_sheet_state.dart
+│   │   │   │   ├── draggable_artist_review_sheet_bloc
+│   │   │   │   │   ├── draggable_artist_review_sheet_bloc.dart
+│   │   │   │   │   ├── draggable_artist_review_sheet_bloc.freezed.dart
+│   │   │   │   │   ├── draggable_artist_review_sheet_event.dart
+│   │   │   │   │   ├── draggable_artist_review_sheet_state.dart
+│   │   │   │   │   └── models
+│   │   │   │   │       ├── review_reaction_map.dart
+│   │   │   │   │       └── reviewed_map.dart
+│   │   │   │   ├── explorer_page
+│   │   │   │   │   ├── explorer_page_bloc.dart
+│   │   │   │   │   ├── explorer_page_event.dart
+│   │   │   │   │   └── explorer_page_state.dart
+│   │   │   │   └── map
+│   │   │   │       ├── map_bloc.dart
+│   │   │   │       ├── map_event.dart
+│   │   │   │       └── map_state.dart
+│   │   │   ├── gps
+│   │   │   │   ├── gps_bloc.dart
+│   │   │   │   ├── gps_event.dart
+│   │   │   │   └── gps_state.dart
+│   │   │   ├── location
+│   │   │   │   ├── location_bloc.dart
+│   │   │   │   ├── location_event.dart
+│   │   │   │   └── location_state.dart
+│   │   │   ├── login
+│   │   │   │   ├── login_bloc.dart
+│   │   │   │   ├── login_event.dart
+│   │   │   │   └── login_state.dart
+│   │   │   ├── notifications
+│   │   │   │   ├── notifications_bloc.dart
+│   │   │   │   ├── notifications_bloc.freezed.dart
+│   │   │   │   ├── notifications_event.dart
+│   │   │   │   └── notifications_state.dart
+│   │   │   ├── on_boarding
+│   │   │   │   ├── on_boarding_bloc.dart
+│   │   │   │   ├── on_boarding_content.dart
+│   │   │   │   ├── on_boarding_event.dart
+│   │   │   │   └── on_boarding_state.dart
+│   │   │   ├── quoation
+│   │   │   │   ├── artist_quotation_response
+│   │   │   │   │   ├── artist_quotation_response_bloc.dart
+│   │   │   │   │   ├── artist_quotation_response_bloc.freezed.dart
+│   │   │   │   │   ├── artist_quotation_response_event.dart
+│   │   │   │   │   └── artist_quotation_response_state.dart
+│   │   │   │   ├── create_open_quotation
+│   │   │   │   │   ├── create_open_quotation_bloc.dart
+│   │   │   │   │   ├── create_open_quotation_bloc.freezed.dart
+│   │   │   │   │   ├── create_open_quotation_event.dart
+│   │   │   │   │   └── create_open_quotation_state.dart
+│   │   │   │   ├── create_quotation
+│   │   │   │   │   ├── create_quotation_page_bloc.dart
+│   │   │   │   │   ├── create_quotation_page_bloc.freezed.dart
+│   │   │   │   │   ├── create_quotation_page_event.dart
+│   │   │   │   │   └── create_quotation_page_state.dart
+│   │   │   │   ├── customer_quotation_response
+│   │   │   │   │   ├── customer_quotation_response_bloc.dart
+│   │   │   │   │   ├── customer_quotation_response_bloc.freezed.dart
+│   │   │   │   │   ├── customer_quotation_response_event.dart
+│   │   │   │   │   └── customer_quotation_response_state.dart
+│   │   │   │   └── quotation_list
+│   │   │   │       ├── quotation_list_bloc.dart
+│   │   │   │       ├── quotation_list_bloc.freezed.dart
+│   │   │   │       ├── quotation_list_event.dart
+│   │   │   │       └── quotation_list_state.dart
+│   │   │   ├── quotation
+│   │   │   ├── register
+│   │   │   │   ├── artist
+│   │   │   │   │   ├── register_artist_bloc.dart
+│   │   │   │   │   ├── register_artist_event.dart
+│   │   │   │   │   └── register_artist_state.dart
+│   │   │   │   ├── customer
+│   │   │   │   │   ├── register_customer_bloc.dart
+│   │   │   │   │   ├── register_customer_event.dart
+│   │   │   │   │   └── register_customer_state.dart
+│   │   │   │   ├── register_bloc.dart
+│   │   │   │   ├── register_event.dart
+│   │   │   │   └── register_state.dart
+│   │   │   ├── schedule_assistant
+│   │   │   │   ├── models
+│   │   │   │   │   ├── event_details.dart
+│   │   │   │   │   └── event_details.freezed.dart
+│   │   │   │   ├── schedule_assistant_bloc.dart
+│   │   │   │   ├── schedule_assistant_bloc.freezed.dart
+│   │   │   │   ├── schedule_assistant_event.dart
+│   │   │   │   └── schedule_assistant_state.dart
+│   │   │   ├── search_artist
+│   │   │   │   ├── search_artists_bloc.dart
+│   │   │   │   ├── search_artists_bloc.freezed.dart
+│   │   │   │   ├── search_artists_event.dart
+│   │   │   │   └── search_artists_state.dart
+│   │   │   ├── settings
+│   │   │   │   ├── settings_bloc.dart
+│   │   │   │   ├── settings_bloc.freezed.dart
+│   │   │   │   ├── settings_event.dart
+│   │   │   │   └── settings_state.dart
+│   │   │   ├── tattoo_generator
+│   │   │   │   ├── tattoo_generator_bloc.dart
+│   │   │   │   ├── tattoo_generator_bloc.freezed.dart
+│   │   │   │   ├── tattoo_generator_event.dart
+│   │   │   │   └── tattoo_generator_state.dart
+│   │   │   └── works
+│   │   │       ├── works_bloc.dart
+│   │   │       ├── works_bloc.freezed.dart
+│   │   │       ├── works_event.dart
+│   │   │       └── works_state.dart
+│   │   ├── cubits
+│   │   │   └── login
+│   │   │       ├── hide_password_cubit.dart
+│   │   │       └── hide_password_state.dart
+│   │   ├── errors
+│   │   │   ├── account_verification
+│   │   │   │   ├── hash_not_found_exception.dart
+│   │   │   │   ├── invalid_verification_code_exception.dart
+│   │   │   │   └── max_sms_tries_exception.dart
+│   │   │   ├── artist
+│   │   │   │   └── artist_already_exists_exception.dart
+│   │   │   ├── customer
+│   │   │   │   ├── customer_already_exists_exception.dart
+│   │   │   │   └── customer_exception.dart
+│   │   │   ├── location
+│   │   │   │   └── find_artist_by_location_exception.dart
+│   │   │   ├── remote
+│   │   │   │   ├── bad_request_exception.dart
+│   │   │   │   ├── conflict_exception.dart
+│   │   │   │   ├── http_conflict_exception.dart
+│   │   │   │   ├── http_exception.dart
+│   │   │   │   ├── http_not_found.dart
+│   │   │   │   ├── internal_server_exception.dart
+│   │   │   │   ├── json_parse_exception.dart
+│   │   │   │   ├── not_acceptable_exception.dart
+│   │   │   │   ├── remote_exception.dart
+│   │   │   │   ├── resource_not_found.dart
+│   │   │   │   ├── un_processable_exception.dart
+│   │   │   │   └── unhandled_exception.dart
+│   │   │   └── user
+│   │   │       ├── activating_user_exception.dart
+│   │   │       ├── can_not_activate_user_exception.dart
+│   │   │       ├── problems_creating_verification_hash_exception.dart
+│   │   │       ├── role_not_exists_exception.dart
+│   │   │       ├── user_already_exists_exception.dart
+│   │   │       ├── user_already_verified_exception.dart
+│   │   │       ├── user_id_pipe_failed_exception.dart
+│   │   │       ├── user_not_accepted_exception.dart
+│   │   │       └── user_not_found_exception.dart
+│   │   ├── mixins
+│   │   │   └── authentication_handler.dart
+│   │   ├── models
+│   │   │   ├── analytics
+│   │   │   │   ├── analytics_request.dart
+│   │   │   │   ├── analytics_request.freezed.dart
+│   │   │   │   ├── analytics_request.g.dart
+│   │   │   │   ├── analytics_response.dart
+│   │   │   │   ├── analytics_response.freezed.dart
+│   │   │   │   ├── analytics_response.g.dart
+│   │   │   │   ├── content_type.dart
+│   │   │   │   ├── interaction_type.dart
+│   │   │   │   └── view_source.dart
+│   │   │   ├── appointment
+│   │   │   │   ├── appointment.dart
+│   │   │   │   ├── appointment.freezed.dart
+│   │   │   │   └── appointment.g.dart
+│   │   │   ├── artist
+│   │   │   │   ├── artist.dart
+│   │   │   │   ├── artist.freezed.dart
+│   │   │   │   └── artist.g.dart
+│   │   │   ├── customer
+│   │   │   │   ├── customer.dart
+│   │   │   │   └── customer.g.dart
+│   │   │   ├── helpers
+│   │   │   │   └── paginator.dart
+│   │   │   ├── location
+│   │   │   │   ├── artist_location.dart
+│   │   │   │   ├── artist_location.freezed.dart
+│   │   │   │   ├── artist_location.g.dart
+│   │   │   │   ├── location.dart
+│   │   │   │   ├── location.freezed.dart
+│   │   │   │   └── location.g.dart
+│   │   │   ├── login
+│   │   │   │   ├── login_type.dart
+│   │   │   │   └── social_media_type.dart
+│   │   │   ├── metrics
+│   │   │   │   └── metrics.dart
+│   │   │   ├── notifications
+│   │   │   │   ├── notification.dart
+│   │   │   │   ├── notification.freezed.dart
+│   │   │   │   └── notification_types.dart
+│   │   │   ├── quotation
+│   │   │   │   ├── quotation.dart
+│   │   │   │   ├── quotation.freezed.dart
+│   │   │   │   ├── quotation.g.dart
+│   │   │   │   ├── quotation_action_enum.dart
+│   │   │   │   └── quotation_status.l10n.dart
+│   │   │   ├── session
+│   │   │   │   ├── session.dart
+│   │   │   │   └── session_type.dart
+│   │   │   ├── settings
+│   │   │   │   ├── settings.dart
+│   │   │   │   ├── settings.freezed.dart
+│   │   │   │   └── settings.g.dart
+│   │   │   ├── stencil
+│   │   │   │   ├── stencil.dart
+│   │   │   │   ├── stencil.freezed.dart
+│   │   │   │   └── stencil.g.dart
+│   │   │   ├── tag
+│   │   │   │   ├── tag.dart
+│   │   │   │   ├── tag.freezed.dart
+│   │   │   │   └── tag.g.dart
+│   │   │   ├── tattoo_generator
+│   │   │   │   ├── tattoo_design_cache.dart
+│   │   │   │   ├── tattoo_design_cache.freezed.dart
+│   │   │   │   └── tattoo_design_cache.g.dart
+│   │   │   ├── user
+│   │   │   │   ├── registered_user_info.dart
+│   │   │   │   ├── registered_user_info.g.dart
+│   │   │   │   ├── user.dart
+│   │   │   │   ├── user.g.dart
+│   │   │   │   └── user_type.dart
+│   │   │   └── work
+│   │   │       ├── work.dart
+│   │   │       ├── work.freezed.dart
+│   │   │       └── work.g.dart
+│   │   ├── services
+│   │   │   ├── account_verification
+│   │   │   │   ├── account_verification.dart
+│   │   │   │   └── account_verification_service.dart
+│   │   │   ├── agenda
+│   │   │   │   └── agenda_service.dart
+│   │   │   ├── analytics
+│   │   │   │   └── analytics_service.dart
+│   │   │   ├── appointment
+│   │   │   │   └── appointment_service.dart
+│   │   │   ├── artist
+│   │   │   │   └── artist_service.dart
+│   │   │   ├── auth
+│   │   │   │   └── auth_service.dart
+│   │   │   ├── customer
+│   │   │   │   ├── customer_service.dart
+│   │   │   │   └── local_customer_service.dart
+│   │   │   ├── local_storage
+│   │   │   │   └── local_storage.dart
+│   │   │   ├── location
+│   │   │   │   └── location_service.dart
+│   │   │   ├── notifications
+│   │   │   │   ├── fmc_service.dart
+│   │   │   │   └── notifications_service.dart
+│   │   │   ├── places
+│   │   │   │   └── places_service.dart
+│   │   │   ├── quotation
+│   │   │   │   └── quotation_service.dart
+│   │   │   ├── review
+│   │   │   │   └── review_service.dart
+│   │   │   ├── session
+│   │   │   │   └── local_session_service.dart
+│   │   │   ├── settings
+│   │   │   │   └── settings_service.dart
+│   │   │   ├── sqlite
+│   │   │   │   └── database_service.dart
+│   │   │   ├── stencil
+│   │   │   │   └── stencil_service.dart
+│   │   │   ├── tattoo_generator
+│   │   │   │   └── tatto_generator_service.dart
+│   │   │   ├── user
+│   │   │   │   ├── local_user_service.dart
+│   │   │   │   └── user_service.dart
+│   │   │   └── work
+│   │   │       └── work_service.dart
+│   │   └── usescases
+│   │       ├── auth
+│   │       │   ├── google_singin_usecase.dart
+│   │       │   ├── login_usecase.dart
+│   │       │   └── logout_usecase.dart
+│   │       ├── customer
+│   │       │   └── create_customer_usecase.dart
+│   │       └── user
+│   │           └── create_user_usecase.dart
+│   ├── firebase_options.dart
+│   ├── generated
+│   │   ├── intl
+│   │   │   ├── messages_all.dart
+│   │   │   ├── messages_en.dart
+│   │   │   └── messages_es_CL.dart
+│   │   └── l10n.dart
+│   ├── keys.dart
+│   ├── l10n
+│   │   ├── intl_en.arb
+│   │   └── intl_es_CL.arb
+│   ├── main.dart
+│   ├── routes.dart
+│   ├── test_utils
+│   │   ├── register_keys.dart
+│   │   └── test_mode.dart
+│   ├── ui
+│   │   ├── account_reactivation
+│   │   │   ├── account_reactivation_page.dart
+│   │   │   ├── bloc
+│   │   │   │   ├── account_reactivation_bloc.dart
+│   │   │   │   ├── account_reactivation_bloc.freezed.dart
+│   │   │   │   ├── account_reactivation_event.dart
+│   │   │   │   └── account_reactivation_state.dart
+│   │   │   └── widgets
+│   │   │       └── pin_validator_v2.dart
+│   │   ├── artist
+│   │   │   ├── agenda
+│   │   │   │   ├── FIXED_SETTINGS.md
+│   │   │   │   ├── LOCALIZATION.md
+│   │   │   │   ├── README.md
+│   │   │   │   ├── agenda_page.dart
+│   │   │   │   ├── agenda_settings_page.dart
+│   │   │   │   ├── events
+│   │   │   │   │   ├── create_event
+│   │   │   │   │   │   ├── guest_field.dart
+│   │   │   │   │   │   ├── guest_type_ahead.dart
+│   │   │   │   │   │   └── notes_field.dart
+│   │   │   │   │   ├── create_event_page.dart
+│   │   │   │   │   ├── event_page.dart
+│   │   │   │   │   ├── ui
+│   │   │   │   │   │   └── guest_chip.dart
+│   │   │   │   │   └── widgets
+│   │   │   │   │       ├── available_time_slots_widget.dart
+│   │   │   │   │       ├── calendar_day_picker.dart
+│   │   │   │   │       ├── create_event_button.dart
+│   │   │   │   │       ├── enhanced_date_range_picker.dart
+│   │   │   │   │       ├── event_date_picker.dart
+│   │   │   │   │       ├── send_message_button.dart
+│   │   │   │   │       └── service_chip_selection.dart
+│   │   │   │   ├── hourly_event_list.dart
+│   │   │   │   └── widgets
+│   │   │   ├── artist_home_page.dart
+│   │   │   ├── locations
+│   │   │   │   └── artist_location_manager_page.dart
+│   │   │   ├── profile
+│   │   │   │   ├── artist_my_profile_page.dart
+│   │   │   │   └── profile_picture.dart
+│   │   │   ├── stencil
+│   │   │   │   ├── add_stencil_page.dart
+│   │   │   │   ├── stencil_detail_page.dart
+│   │   │   │   └── stencil_gallery_page.dart
+│   │   │   └── work
+│   │   │       ├── add_work_page.dart
+│   │   │       ├── work_detail_page.dart
+│   │   │       └── work_gallery_page.dart
+│   │   ├── customer
+│   │   │   ├── app
+│   │   │   │   ├── customer_app_page.dart
+│   │   │   │   └── my_profile
+│   │   │   │       └── customer_my_profile_page.dart
+│   │   │   ├── appointments
+│   │   │   │   ├── appointment_detail_page.dart
+│   │   │   │   ├── customer_appointments_page.dart
+│   │   │   │   └── widgets
+│   │   │   │       ├── appointment_card.dart
+│   │   │   │       └── appointment_filter_tabs.dart
+│   │   │   ├── artist_profile
+│   │   │   │   ├── README.md
+│   │   │   │   ├── artist_profiel_bio_info.dart
+│   │   │   │   ├── artist_profile_bio.dart
+│   │   │   │   ├── artist_profile_gallery.dart
+│   │   │   │   ├── artist_profile_page.dart
+│   │   │   │   ├── artist_reviews
+│   │   │   │   │   ├── artist_profile_rating_resume.dart
+│   │   │   │   │   └── artist_profile_reviews_page.dart
+│   │   │   │   └── widgets
+│   │   │   │       ├── artist_portfolio_gallery.dart
+│   │   │   │       ├── artist_profile_contact.dart
+│   │   │   │       ├── artist_profile_gallery_section.dart
+│   │   │   │       ├── artist_profile_header.dart
+│   │   │   │       ├── artist_works_gallery.dart
+│   │   │   │       └── image_viewer_dialog.dart
+│   │   │   ├── explore
+│   │   │   │   ├── delegate
+│   │   │   │   │   └── search_artist_delegate.dart
+│   │   │   │   ├── explorer_page.dart
+│   │   │   │   ├── gps_access_page.dart
+│   │   │   │   ├── loading_map_page.dart
+│   │   │   │   ├── views
+│   │   │   │   │   ├── list
+│   │   │   │   │   │   ├── explorer_list_view.dart
+│   │   │   │   │   │   └── widgets
+│   │   │   │   │   │       ├── explorer_list_view_title.dart
+│   │   │   │   │   │       └── explorer_search_bar.dart
+│   │   │   │   │   ├── map
+│   │   │   │   │   │   ├── explorer_map_view.dart
+│   │   │   │   │   │   ├── markers
+│   │   │   │   │   │   │   └── artist_marker.dart
+│   │   │   │   │   │   └── widgets
+│   │   │   │   │   │       ├── button_current_location.dart
+│   │   │   │   │   │       └── button_follow_location.dart
+│   │   │   │   │   └── search
+│   │   │   │   │       └── search_artist_view.dart
+│   │   │   │   └── widgets
+│   │   │   │       ├── draggable_artist_info_sheet
+│   │   │   │       │   ├── draggable_artist_info_bottom_bar.dart
+│   │   │   │       │   ├── draggable_artist_info_content.dart
+│   │   │   │       │   ├── draggable_artist_info_divider.dart
+│   │   │   │       │   ├── draggable_artist_info_sheet.dart
+│   │   │   │       │   ├── draggable_artist_rating_content.dart
+│   │   │   │       │   └── dragging_sheet_handler.dart
+│   │   │   │       ├── draggable_artist_review_sheet
+│   │   │   │       │   └── draggable_artist_review_sheet.dart
+│   │   │   │       ├── explorer_contact_button.dart
+│   │   │   │       ├── explorer_switch_button.dart
+│   │   │   │       ├── explorer_switch_view_buttons.dart
+│   │   │   │       ├── panel.dart
+│   │   │   │       └── search_bar.dart
+│   │   │   ├── inspiration_search
+│   │   │   │   └── inspiration_search_page.dart
+│   │   │   ├── profile
+│   │   │   │   └── profile_page.dart
+│   │   │   └── quotation
+│   │   │       ├── create
+│   │   │       │   └── create_quotation_page.dart
+│   │   │       └── widgets
+│   │   │           └── image_picker.dart
+│   │   ├── immersive_viewer
+│   │   │   ├── immersive_viewer_page.dart
+│   │   │   └── vertical_immersive_viewer_page.dart
+│   │   ├── login
+│   │   │   ├── form
+│   │   │   │   ├── actions_buttons.dart
+│   │   │   │   ├── inputs
+│   │   │   │   │   ├── identifier_input.dart
+│   │   │   │   │   └── password_input.dart
+│   │   │   │   └── login_form.dart
+│   │   │   ├── login_page.dart
+│   │   │   └── widgets
+│   │   │       ├── login_background.dart
+│   │   │       ├── login_header.dart
+│   │   │       ├── login_layout.dart
+│   │   │       └── social_button.dart
+│   │   ├── notifications
+│   │   │   ├── notification_page.dart
+│   │   │   ├── notifications_wrapper.dart
+│   │   │   └── widgets
+│   │   │       └── notification_item.dart
+│   │   ├── on_boarding
+│   │   │   ├── on_boarding_page.dart
+│   │   │   └── widgets
+│   │   │       ├── custom_dots_indicator.dart
+│   │   │       ├── fixed_components.dart
+│   │   │       ├── on_boarding_background.dart
+│   │   │       ├── on_boarding_content_page_view.dart
+│   │   │       ├── on_boarding_page_number_indicator.dart
+│   │   │       ├── on_boarding_skip_button.dart
+│   │   │       └── sing_in_and_register_buttons.dart
+│   │   ├── password_recovery
+│   │   │   ├── bloc
+│   │   │   │   ├── password_recovery_bloc.dart
+│   │   │   │   ├── password_recovery_bloc.freezed.dart
+│   │   │   │   ├── password_recovery_event.dart
+│   │   │   │   └── password_recovery_state.dart
+│   │   │   └── password_recovery_page.dart
+│   │   ├── quotation
+│   │   │   ├── artist_quotation_response_page.dart
+│   │   │   ├── create_open_quotation_page.dart
+│   │   │   ├── customer_quotation_respose_page.dart
+│   │   │   ├── models
+│   │   │   │   └── counter_part_info.dart
+│   │   │   ├── quotation_action_manager.dart
+│   │   │   ├── quotation_detail_page.dart
+│   │   │   ├── quotation_list_page.dart
+│   │   │   └── widgets
+│   │   │       ├── animated_quotation_details.dart
+│   │   │       ├── customer_action_buttons.dart
+│   │   │       ├── estimated_cost_field.dart
+│   │   │       ├── quotation_action_buttons.dart
+│   │   │       └── quotation_images.dart
+│   │   ├── register
+│   │   │   ├── register_artist
+│   │   │   │   ├── form
+│   │   │   │   │   └── register_artist_form_page_1.dart
+│   │   │   │   ├── inputs
+│   │   │   │   │   ├── register_artist_address_extra_input.dart
+│   │   │   │   │   ├── register_artist_address_input.dart
+│   │   │   │   │   ├── register_artist_address_type_input.dart
+│   │   │   │   │   ├── register_artist_confirm_password_input.dart
+│   │   │   │   │   ├── register_artist_email_input.dart
+│   │   │   │   │   ├── register_artist_last_name_input.dart
+│   │   │   │   │   ├── register_artist_name_input.dart
+│   │   │   │   │   ├── register_artist_password_input.dart
+│   │   │   │   │   ├── register_artist_phone_number_input.dart
+│   │   │   │   │   └── register_artist_username_input.dart
+│   │   │   │   ├── register_artist_page_1.dart
+│   │   │   │   ├── register_artist_page_2.dart
+│   │   │   │   ├── register_artist_page_3.dart
+│   │   │   │   └── register_artist_page_4.dart
+│   │   │   ├── register_customer
+│   │   │   │   ├── inputs
+│   │   │   │   │   ├── register_customer_confirm_password_input.dart
+│   │   │   │   │   ├── register_customer_email_input.dart
+│   │   │   │   │   ├── register_customer_last_name_input.dart
+│   │   │   │   │   ├── register_customer_name_input.dart
+│   │   │   │   │   ├── register_customer_password_input.dart
+│   │   │   │   │   └── register_customer_phone_number_input.dart
+│   │   │   │   ├── register_customer_page_1.dart
+│   │   │   │   ├── register_customer_page_2.dart
+│   │   │   │   └── register_customer_page_3.dart
+│   │   │   ├── register_user_by_type_page.dart
+│   │   │   └── widgets
+│   │   │       ├── close_register_button.dart
+│   │   │       ├── register_action_button.dart
+│   │   │       ├── register_artist_button.dart
+│   │   │       ├── register_back_button.dart
+│   │   │       ├── register_custom_subtitle.dart
+│   │   │       ├── register_custom_title.dart
+│   │   │       ├── register_customer_button.dart
+│   │   │       ├── register_progress_indicator.dart
+│   │   │       ├── register_user_by_type_button.dart
+│   │   │       ├── register_user_by_type_layout.dart
+│   │   │       ├── register_user_by_type_subtitle.dart
+│   │   │       └── register_user_by_type_title.dart
+│   │   ├── schedule_assistant
+│   │   │   ├── schedule_assistant_page.dart
+│   │   │   └── schedule_assistant_widget.dart
+│   │   ├── settings
+│   │   │   ├── languague_settings_page.dart
+│   │   │   ├── privacy_policy_page.dart
+│   │   │   ├── settings_page.dart
+│   │   │   └── terms_and_conditions_page.dart
+│   │   ├── shared
+│   │   │   ├── artist_work_section.dart
+│   │   │   ├── edit_field_page.dart
+│   │   │   ├── empty_state.dart
+│   │   │   ├── error_state.dart
+│   │   │   ├── loading_indicator.dart
+│   │   │   ├── location
+│   │   │   │   └── location_input_page.dart
+│   │   │   ├── notification_badge.dart
+│   │   │   ├── success_animation_page.dart
+│   │   │   └── widgets
+│   │   │       ├── buttons.dart
+│   │   │       ├── calendar_day_picker_v2.dart
+│   │   │       ├── image_edit_widget.dart
+│   │   │       ├── image_gallery_view.dart
+│   │   │       ├── loading_indicator.dart
+│   │   │       ├── text_edit_widget.dart
+│   │   │       └── time_wheel_picker.dart
+│   │   ├── splash
+│   │   │   └── splash_page.dart
+│   │   ├── tattoo_generator
+│   │   │   ├── tattoo_generator_page.dart
+│   │   │   └── tattoo_immersive_viewer_page.dart
+│   │   ├── theme
+│   │   │   ├── app_theme_cubit.dart
+│   │   │   ├── localization_cubit.dart
+│   │   │   ├── overlay_style.dart
+│   │   │   └── text_style_theme.dart
+│   │   ├── verification
+│   │   │   ├── verification_page.dart
+│   │   │   └── widgets
+│   │   │       └── pin_validator.dart
+│   │   └── views
+│   │       ├── app_view.dart
+│   │       └── error_view.dart
+│   └── utils
+│       ├── api
+│       │   ├── content_type.dart
+│       │   └── http_logger.dart
+│       ├── bloc_navigator.dart
+│       ├── constants.dart
+│       ├── date_time_formatter.dart
+│       ├── dev.dart
+│       ├── forms
+│       │   ├── capitalize_text_formatter.dart
+│       │   ├── clear_input.dart
+│       │   ├── custom_input.dart
+│       │   ├── custom_phone_number_input.dart
+│       │   ├── lower_case_text_formatter.dart
+│       │   └── trim_text_formatter.dart
+│       ├── image
+│       │   ├── cached_image_manager.dart
+│       │   └── image_cache_settings.dart
+│       ├── layout
+│       │   ├── bottom_nav_bar_icons.dart
+│       │   ├── inker_progress_indicator.dart
+│       │   ├── magnet_scroll_physics.dart
+│       │   ├── marker_helper.dart
+│       │   ├── modal_bottom_sheet.dart
+│       │   ├── row_spacer.dart
+│       │   └── widgets_to_marker.dart
+│       ├── random.dart
+│       ├── response_utils.dart
+│       ├── snackbar
+│       │   ├── custom_snackbar.dart
+│       │   └── invalid_form_snackbar.dart
+│       ├── styles
+│       │   ├── app_styles.dart
+│       │   └── map_style.dart
+│       ├── symbolize_keys.dart
+│       └── timestamp_column_helper.dart
+├── packages
+│   └── form_inputs
+│       ├── analysis_options.yaml
+│       ├── lib
+│       │   ├── form_inputs.dart
+│       │   └── src
+│       │       ├── address_extra_input.dart
+│       │       ├── confirmed_password_input.dart
+│       │       ├── email_input.dart
+│       │       ├── identifier_input.dart
+│       │       ├── location_input.dart
+│       │       ├── name_input.dart
+│       │       ├── password_input.dart
+│       │       ├── phone_number_input.dart
+│       │       └── username_input.dart
+│       ├── pubspec.lock
+│       └── pubspec.yaml
+├── pubspec.lock
+├── pubspec.yaml
+├── test
+│   └── widget_test.dart
+├── tree.txt
+└── web
+    ├── favicon.png
+    ├── icons
+    │   ├── Icon-192.png
+    │   ├── Icon-512.png
+    │   ├── Icon-maskable-192.png
+    │   └── Icon-maskable-512.png
+    ├── index.html
+    ├── manifest.json
+    └── splash
+        └── img
+            ├── dark-1x.png
+            ├── dark-2x.png
+            ├── dark-3x.png
+            ├── dark-4x.png
+            ├── light-1x.png
+            ├── light-2x.png
+            ├── light-3x.png
+            └── light-4x.png
+
+271 directories, 791 files
