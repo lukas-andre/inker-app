@@ -80,6 +80,17 @@ class QuotationActionManager {
             },
           ),
         ];
+      case QuotationStatus.open:
+        return [
+          QuotationAction(
+            type: QuotationActionType.reply,
+            label: 'Enviar Propuesta',
+            icon: Icons.send,
+            isPrimary: true,
+            routeName: '/artistQuotationResponse',
+            routeArguments: {'quotationId': quotation.id.toString()},
+          ),
+        ];
       default:
         return [];
     }

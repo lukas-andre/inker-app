@@ -445,6 +445,8 @@ class _ArtistQuotationResponseViewState
           ArtistQuotationAction.rejectAppeal,
           ArtistQuotationAction.quote
         ];
+      case QuotationStatus.open:
+        return [ArtistQuotationAction.quote];
       default:
         return [];
     }

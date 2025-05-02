@@ -117,6 +117,27 @@ class ApiQuotationService implements QuotationService {
   }
 
   @override
+  Future<QuotationListResponse> getOpenQuotations({
+    required String token,
+    double? maxDistance,
+    int page = 1,
+    int limit = 10,
+  }) async {
+    final queryParams = {
+      if (maxDistance != null) 'maxDistance': maxDistance.toString(),
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+
+    return await _httpClient.get(
+      path: '$_basePath/open',
+      token: token,
+      queryParams: queryParams,
+      fromJson: (json) => QuotationListResponse.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
   Future<Quotation> getQuotationDetails({
     required String token,
     required String quotationId,
