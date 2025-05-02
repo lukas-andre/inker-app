@@ -7,6 +7,7 @@ class QuotationListState with _$QuotationListState {
   const factory QuotationListState.loaded({
     required List<Quotation> quotations,
     required Session session,
+    @Default(QuotationType.DIRECT) QuotationType selectedType,
     List<String>? statuses,
     @Default(false) bool isLoadingMore,
     String? cancellingQuotationId,
