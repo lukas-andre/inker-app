@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
@@ -91,12 +92,25 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         emit(const QuotationListState.loading());
       }
 
-      final response = await _quotationService.getQuotations(
-        token: session.accessToken,
-        statuses: statuses,
-        page: nextPage,
-        type: currentSelectedType,
-      );
+      // Use the new endpoint specifically for OPEN quotations when the user is an artist
+      final isArtist = session.user?.userType == 'ARTIST';
+      QuotationListResponse response;
+      
+      if (isArtist && currentSelectedType == QuotationType.OPEN) {
+        // For artists viewing OPEN quotations, use the dedicated endpoint
+        response = await _quotationService.getOpenQuotations(
+          token: session.accessToken,
+          page: nextPage,
+        );
+      } else {
+        // For all other cases, use the regular endpoint
+        response = await _quotationService.getQuotations(
+          token: session.accessToken,
+          statuses: statuses,
+          page: nextPage,
+          type: currentSelectedType,
+        );
+      }
 
       accumulatedQuotations.addAll(response.items);
 

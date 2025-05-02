@@ -147,6 +147,9 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                   valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                 ),
               ),
+              // Add Open quotation banner for artists
+              if (isArtist && _currentQuotation.status == QuotationStatus.open)
+                _OpenQuotationBanner(),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _refreshQuotation,
@@ -204,7 +207,7 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                         await Future.delayed(const Duration(seconds: 1));
                         if (context.mounted) {
                           _refreshQuotation();
-
+                          
                           // Try another refresh after a bit longer if needed
                           Future.delayed(const Duration(seconds: 2), () {
                             if (context.mounted) {
@@ -382,6 +385,8 @@ class _MainQuotationInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -440,6 +445,10 @@ class _MainQuotationInfo extends StatelessWidget {
             ),
             const Divider(height: 32),
 
+            // Special section for Open quotations when viewed by an artist
+            if (isArtist && quotation.status == QuotationStatus.open)
+              _buildOpenQuotationSection(context),
+
             // Descripción
             Text(
               l10n.description,
@@ -459,6 +468,92 @@ class _MainQuotationInfo extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildOpenQuotationSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+            color: redColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.priority_high,
+                color: redColor,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Esperando Propuestas',
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: redColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Este cliente está esperando recibir ofertas de tatuadores. Revisa los detalles y envía tu propuesta.',
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 24),
+          child: ElevatedButton.icon(
+            icon: const Icon(Icons.send),
+            label: const Text('Enviar Propuesta'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: redColor,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
+            onPressed: () {
+              // Create a proper QuotationAction for the reply action
+              final action = QuotationAction(
+                type: QuotationActionType.reply,
+                label: 'Enviar Propuesta',
+                icon: Icons.send,
+                isPrimary: true,
+                routeName: '/artistQuotationResponse',
+                routeArguments: {'quotationId': quotation.id.toString()},
+              );
+              
+              // Create the action manager and execute the action
+              final actionManager = QuotationActionManager(
+                context: context,
+                quotation: quotation,
+                session: context.read<AuthBloc>().state.session,
+                l10n: S.of(context),
+                onActionExecuted: (_, quotationId) {
+                  // Simple refresh approach
+                  context.read<QuotationListBloc>().add(
+                        QuotationListEvent.getQuotationById(quotationId),
+                      );
+                },
+              );
+              
+              actionManager.executeAction(action);
+            },
+          ),
+        ),
+        const Divider(height: 24),
+      ],
     );
   }
 
@@ -816,7 +911,7 @@ class _TimelineItem extends StatelessWidget {
       case QuotationStatus.canceled:
         return Colors.grey;
       case QuotationStatus.open:
-        return Colors.yellow;
+        return redColor;
     }
   }
 
@@ -855,6 +950,9 @@ class _TimelineItem extends StatelessWidget {
     if (to == QuotationStatus.canceled) {
       return l10n.canceledTheQuotation;
     }
+    if (to == QuotationStatus.open) {
+      return "Creó una solicitud abierta";
+    }
 
     return '${l10n.changedStatusFrom} ${_getStatusText(from, l10n)} ${l10n.to} ${_getStatusText(to, l10n)}';
   }
@@ -874,7 +972,7 @@ class _TimelineItem extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return l10n.quotationStatusCustomerOpen;
+        return "Abierta";
     }
   }
 }
@@ -920,7 +1018,7 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return Colors.grey;
       case QuotationStatus.open:
-        return Colors.yellow; 
+        return redColor;
     }
   }
 
@@ -939,7 +1037,7 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return l10n.quotationStatusCustomerOpen;
+        return "Abierta";
     }
   }
 }
@@ -1012,6 +1110,57 @@ class _StencilPreviewWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OpenQuotationBanner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: redColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: redColor,
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.lightbulb_outline,
+            color: redColor,
+            size: 24,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Solicitud de Cotización Abierta',
+                  style: TextStyleTheme.subtitle1.copyWith(
+                    color: redColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.',
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: Colors.white.withOpacity(0.9),
+                  ),
+                ),
               ],
             ),
           ),

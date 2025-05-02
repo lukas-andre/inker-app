@@ -23,6 +23,13 @@ abstract class QuotationService {
     required String quotationId,
   });
 
+  Future<QuotationListResponse> getOpenQuotations({
+    required String token,
+    double? maxDistance,
+    int page = 1,
+    int limit = 10,
+  });
+
   Future<void> processArtistAction({
     required String token,
     required String quotationId,
