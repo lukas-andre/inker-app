@@ -99,9 +99,11 @@ class ApiQuotationService implements QuotationService {
     List<String>? statuses,
     int page = 1,
     int limit = 10,
+    QuotationType? type,
   }) async {
     final queryParams = {
       if (statuses != null && statuses.isNotEmpty) 'status': statuses.join(','),
+      if (type != null) 'type': type.toString().split('.').last,
       'page': page.toString(),
       'limit': limit.toString(),
     };

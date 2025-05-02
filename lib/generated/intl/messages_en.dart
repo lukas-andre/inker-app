@@ -282,6 +282,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Design added to favorites"),
         "designRemovedFromFavorites": MessageLookupByLibrary.simpleMessage(
             "Design removed from favorites"),
+        "directQuotations":
+            MessageLookupByLibrary.simpleMessage("Direct Quotations"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationCannotBeZero":
@@ -358,6 +360,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringBySource": m3,
         "filteringByTag": m4,
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
+        "findingArtists":
+            MessageLookupByLibrary.simpleMessage("Finding Artists..."),
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),
         "following": MessageLookupByLibrary.simpleMessage("Following"),
         "from": MessageLookupByLibrary.simpleMessage("From"),
@@ -482,6 +486,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "openQuotationCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage(
                 "Open quotation created successfully"),
+        "openQuotations":
+            MessageLookupByLibrary.simpleMessage("Open Quotations"),
         "openSettings": MessageLookupByLibrary.simpleMessage("Open Settings"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "optionalAddStencilOrDesign": MessageLookupByLibrary.simpleMessage(
@@ -551,6 +557,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Appealed by Customer"),
         "quotationStatusArtistCanceled":
             MessageLookupByLibrary.simpleMessage("Cancelled by You"),
+        "quotationStatusArtistOpen":
+            MessageLookupByLibrary.simpleMessage("Open"),
         "quotationStatusArtistPending":
             MessageLookupByLibrary.simpleMessage("New Request"),
         "quotationStatusArtistQuoted":
@@ -563,6 +571,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Awaiting Artist"),
         "quotationStatusCustomerCanceled":
             MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "quotationStatusCustomerOpen":
+            MessageLookupByLibrary.simpleMessage("Open"),
         "quotationStatusCustomerPending":
             MessageLookupByLibrary.simpleMessage("Awaiting Reply"),
         "quotationStatusCustomerQuoted":
