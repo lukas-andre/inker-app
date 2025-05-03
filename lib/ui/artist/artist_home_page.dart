@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
-import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/ui/quotation/open_quotation_list_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
@@ -12,6 +13,7 @@ import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 
 class ArtistAppPage extends StatefulWidget {
   const ArtistAppPage({super.key});
@@ -25,6 +27,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   static const List<Widget> _pageWidgets = <Widget>[
     AgendaTablePage(hideHeader: true),
     QuotationListPage(hideHeader: true),
+    OpenQuotationListPage(),
     ArtistMyProfilePage(),
   ];
 
@@ -64,7 +67,9 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
       case 0:
         return 'Agenda';
       case 1:
-        return 'Cotizaciones';
+        return 'Mis Solicitudes';
+      case 2:
+        return 'Trabajos';
       default:
         return '';
     }
@@ -112,7 +117,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     }
     
     // Add notification badge for all pages except profile
-    if (_selectedIndex != 2) {
+    if (_selectedIndex != 3) {
       actions.add(
         BlocBuilder<NotificationsBloc, NotificationsState>(
           builder: (context, state) {
@@ -158,12 +163,14 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    final customerAppBloc = BlocProvider.of<ArtistAppBloc>(context);
-    final state = customerAppBloc.state;
+    final artistAppBloc = context.read<ArtistAppBloc>();
+    final state = artistAppBloc.state;
     final icons = state.artistPageNavBarIcons.icons;
     
+    final bool showAppBar = _selectedIndex != 3;
+    
     return Scaffold(
-      appBar: _selectedIndex != 2 ? AppBar(
+      appBar: showAppBar ? AppBar(
         title: Text(
           _getAppBarTitle(),
           style: TextStyleTheme.copyWith(
