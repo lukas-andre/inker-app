@@ -378,6 +378,7 @@ class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
 @freezed
 class OfferMessageDto with _$OfferMessageDto {
   const factory OfferMessageDto({
+    String? id, 
     required String senderId, 
     required QuotationRole senderType,
     required String message,
