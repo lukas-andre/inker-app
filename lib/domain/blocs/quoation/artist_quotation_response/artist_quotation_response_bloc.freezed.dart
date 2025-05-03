@@ -30,6 +30,14 @@ mixin _$ArtistQuotationResponseEvent {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)
         submit,
+    required TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)
+        submitOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -45,6 +53,14 @@ mixin _$ArtistQuotationResponseEvent {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult? Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +76,14 @@ mixin _$ArtistQuotationResponseEvent {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,18 +91,21 @@ mixin _$ArtistQuotationResponseEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadQuotation value) loadQuotation,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_SubmitOffer value) submitOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadQuotation value)? loadQuotation,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_SubmitOffer value)? submitOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadQuotation value)? loadQuotation,
     TResult Function(_Submit value)? submit,
+    TResult Function(_SubmitOffer value)? submitOffer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -202,6 +229,14 @@ class _$LoadQuotationImpl implements _LoadQuotation {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)
         submit,
+    required TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)
+        submitOffer,
   }) {
     return loadQuotation(quotationId);
   }
@@ -220,6 +255,14 @@ class _$LoadQuotationImpl implements _LoadQuotation {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult? Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
   }) {
     return loadQuotation?.call(quotationId);
   }
@@ -238,6 +281,14 @@ class _$LoadQuotationImpl implements _LoadQuotation {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
     required TResult orElse(),
   }) {
     if (loadQuotation != null) {
@@ -251,6 +302,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadQuotation value) loadQuotation,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_SubmitOffer value) submitOffer,
   }) {
     return loadQuotation(this);
   }
@@ -260,6 +312,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadQuotation value)? loadQuotation,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_SubmitOffer value)? submitOffer,
   }) {
     return loadQuotation?.call(this);
   }
@@ -269,6 +322,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadQuotation value)? loadQuotation,
     TResult Function(_Submit value)? submit,
+    TResult Function(_SubmitOffer value)? submitOffer,
     required TResult orElse(),
   }) {
     if (loadQuotation != null) {
@@ -462,6 +516,14 @@ class _$SubmitImpl implements _Submit {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)
         submit,
+    required TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)
+        submitOffer,
   }) {
     return submit(
         quotationId,
@@ -488,6 +550,14 @@ class _$SubmitImpl implements _Submit {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult? Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
   }) {
     return submit?.call(
         quotationId,
@@ -514,6 +584,14 @@ class _$SubmitImpl implements _Submit {
             QuotationArtistRejectReason? rejectionReason,
             List<XFile>? proposedDesigns)?
         submit,
+    TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -535,6 +613,7 @@ class _$SubmitImpl implements _Submit {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadQuotation value) loadQuotation,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_SubmitOffer value) submitOffer,
   }) {
     return submit(this);
   }
@@ -544,6 +623,7 @@ class _$SubmitImpl implements _Submit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadQuotation value)? loadQuotation,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_SubmitOffer value)? submitOffer,
   }) {
     return submit?.call(this);
   }
@@ -553,6 +633,7 @@ class _$SubmitImpl implements _Submit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadQuotation value)? loadQuotation,
     TResult Function(_Submit value)? submit,
+    TResult Function(_SubmitOffer value)? submitOffer,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -585,6 +666,284 @@ abstract class _Submit implements ArtistQuotationResponseEvent {
   @override
   @JsonKey(ignore: true)
   _$$SubmitImplCopyWith<_$SubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SubmitOfferImplCopyWith<$Res>
+    implements $ArtistQuotationResponseEventCopyWith<$Res> {
+  factory _$$SubmitOfferImplCopyWith(
+          _$SubmitOfferImpl value, $Res Function(_$SubmitOfferImpl) then) =
+      __$$SubmitOfferImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String quotationId,
+      double? estimatedCost,
+      DateTime? appointmentDate,
+      int? appointmentDuration,
+      String? additionalDetails,
+      List<XFile>? proposedDesigns});
+}
+
+/// @nodoc
+class __$$SubmitOfferImplCopyWithImpl<$Res>
+    extends _$ArtistQuotationResponseEventCopyWithImpl<$Res, _$SubmitOfferImpl>
+    implements _$$SubmitOfferImplCopyWith<$Res> {
+  __$$SubmitOfferImplCopyWithImpl(
+      _$SubmitOfferImpl _value, $Res Function(_$SubmitOfferImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+    Object? estimatedCost = freezed,
+    Object? appointmentDate = freezed,
+    Object? appointmentDuration = freezed,
+    Object? additionalDetails = freezed,
+    Object? proposedDesigns = freezed,
+  }) {
+    return _then(_$SubmitOfferImpl(
+      quotationId: null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+      estimatedCost: freezed == estimatedCost
+          ? _value.estimatedCost
+          : estimatedCost // ignore: cast_nullable_to_non_nullable
+              as double?,
+      appointmentDate: freezed == appointmentDate
+          ? _value.appointmentDate
+          : appointmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      appointmentDuration: freezed == appointmentDuration
+          ? _value.appointmentDuration
+          : appointmentDuration // ignore: cast_nullable_to_non_nullable
+              as int?,
+      additionalDetails: freezed == additionalDetails
+          ? _value.additionalDetails
+          : additionalDetails // ignore: cast_nullable_to_non_nullable
+              as String?,
+      proposedDesigns: freezed == proposedDesigns
+          ? _value._proposedDesigns
+          : proposedDesigns // ignore: cast_nullable_to_non_nullable
+              as List<XFile>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SubmitOfferImpl implements _SubmitOffer {
+  const _$SubmitOfferImpl(
+      {required this.quotationId,
+      this.estimatedCost,
+      this.appointmentDate,
+      this.appointmentDuration,
+      this.additionalDetails,
+      final List<XFile>? proposedDesigns})
+      : _proposedDesigns = proposedDesigns;
+
+  @override
+  final String quotationId;
+  @override
+  final double? estimatedCost;
+  @override
+  final DateTime? appointmentDate;
+  @override
+  final int? appointmentDuration;
+  @override
+  final String? additionalDetails;
+  final List<XFile>? _proposedDesigns;
+  @override
+  List<XFile>? get proposedDesigns {
+    final value = _proposedDesigns;
+    if (value == null) return null;
+    if (_proposedDesigns is EqualUnmodifiableListView) return _proposedDesigns;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'ArtistQuotationResponseEvent.submitOffer(quotationId: $quotationId, estimatedCost: $estimatedCost, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, additionalDetails: $additionalDetails, proposedDesigns: $proposedDesigns)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SubmitOfferImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId) &&
+            (identical(other.estimatedCost, estimatedCost) ||
+                other.estimatedCost == estimatedCost) &&
+            (identical(other.appointmentDate, appointmentDate) ||
+                other.appointmentDate == appointmentDate) &&
+            (identical(other.appointmentDuration, appointmentDuration) ||
+                other.appointmentDuration == appointmentDuration) &&
+            (identical(other.additionalDetails, additionalDetails) ||
+                other.additionalDetails == additionalDetails) &&
+            const DeepCollectionEquality()
+                .equals(other._proposedDesigns, _proposedDesigns));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      quotationId,
+      estimatedCost,
+      appointmentDate,
+      appointmentDuration,
+      additionalDetails,
+      const DeepCollectionEquality().hash(_proposedDesigns));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SubmitOfferImplCopyWith<_$SubmitOfferImpl> get copyWith =>
+      __$$SubmitOfferImplCopyWithImpl<_$SubmitOfferImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String quotationId) loadQuotation,
+    required TResult Function(
+            String quotationId,
+            ArtistQuotationAction action,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            QuotationArtistRejectReason? rejectionReason,
+            List<XFile>? proposedDesigns)
+        submit,
+    required TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)
+        submitOffer,
+  }) {
+    return submitOffer(quotationId, estimatedCost, appointmentDate,
+        appointmentDuration, additionalDetails, proposedDesigns);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String quotationId)? loadQuotation,
+    TResult? Function(
+            String quotationId,
+            ArtistQuotationAction action,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            QuotationArtistRejectReason? rejectionReason,
+            List<XFile>? proposedDesigns)?
+        submit,
+    TResult? Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
+  }) {
+    return submitOffer?.call(quotationId, estimatedCost, appointmentDate,
+        appointmentDuration, additionalDetails, proposedDesigns);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String quotationId)? loadQuotation,
+    TResult Function(
+            String quotationId,
+            ArtistQuotationAction action,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            QuotationArtistRejectReason? rejectionReason,
+            List<XFile>? proposedDesigns)?
+        submit,
+    TResult Function(
+            String quotationId,
+            double? estimatedCost,
+            DateTime? appointmentDate,
+            int? appointmentDuration,
+            String? additionalDetails,
+            List<XFile>? proposedDesigns)?
+        submitOffer,
+    required TResult orElse(),
+  }) {
+    if (submitOffer != null) {
+      return submitOffer(quotationId, estimatedCost, appointmentDate,
+          appointmentDuration, additionalDetails, proposedDesigns);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadQuotation value) loadQuotation,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_SubmitOffer value) submitOffer,
+  }) {
+    return submitOffer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadQuotation value)? loadQuotation,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_SubmitOffer value)? submitOffer,
+  }) {
+    return submitOffer?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadQuotation value)? loadQuotation,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_SubmitOffer value)? submitOffer,
+    required TResult orElse(),
+  }) {
+    if (submitOffer != null) {
+      return submitOffer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SubmitOffer implements ArtistQuotationResponseEvent {
+  const factory _SubmitOffer(
+      {required final String quotationId,
+      final double? estimatedCost,
+      final DateTime? appointmentDate,
+      final int? appointmentDuration,
+      final String? additionalDetails,
+      final List<XFile>? proposedDesigns}) = _$SubmitOfferImpl;
+
+  @override
+  String get quotationId;
+  double? get estimatedCost;
+  DateTime? get appointmentDate;
+  int? get appointmentDuration;
+  String? get additionalDetails;
+  List<XFile>? get proposedDesigns;
+  @override
+  @JsonKey(ignore: true)
+  _$$SubmitOfferImplCopyWith<_$SubmitOfferImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

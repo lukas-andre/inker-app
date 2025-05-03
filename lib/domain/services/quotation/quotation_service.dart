@@ -53,4 +53,40 @@ abstract class QuotationService {
   });
 
   Future<void> markAsRead({required String token, required String quotationId});
+
+  // --- Offer Management for OPEN Quotations ---
+
+  Future<void> submitOffer({
+    required String token,
+    required String quotationId,
+    Money? estimatedCost,
+    DateTime? appointmentDate,
+    int? appointmentDuration,
+    String? additionalDetails,
+    List<XFile>? proposedDesigns,
+  });
+
+  Future<dynamic> listOffers({ // Replace 'dynamic' with specific DTO if available
+    required String token,
+    required String quotationId,
+  });
+
+  Future<void> acceptOffer({
+    required String token,
+    required String quotationId,
+    required String offerId,
+  });
+
+  Future<dynamic> sendOfferMessage({ // Replace 'dynamic' with specific DTO if available
+    required String token,
+    required String quotationId,
+    required String offerId,
+    required String messageText,
+    XFile? image,
+  });
+
+  Future<QuotationOfferListItemDto> getQuotationOffer({
+    required String token,
+    required String offerId,
+  });
 }

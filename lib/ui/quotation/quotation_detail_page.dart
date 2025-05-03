@@ -6,6 +6,8 @@ import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
+import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_offer_message_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -112,6 +114,7 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
     final counterpartInfo = isArtist
         ? CounterpartInfo.fromCustomer(_currentQuotation.customer)
         : CounterpartInfo.fromArtist(_currentQuotation.artist);
+    final bool isOpenQuotation = _currentQuotation.type == QuotationType.OPEN;
 
     return WillPopScope(
       onWillPop: () async {
@@ -147,8 +150,8 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                   valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                 ),
               ),
-              // Add Open quotation banner for artists
-              if (isArtist && _currentQuotation.status == QuotationStatus.open)
+              // Show banner for OPEN quotations (consistency)
+              if (isOpenQuotation && isArtist)
                 _OpenQuotationBanner(),
               Expanded(
                 child: RefreshIndicator(
@@ -174,57 +177,53 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: explorerSecondaryColor,
-                  border: Border(
-                    top: BorderSide(
-                      color: tertiaryColor.withOpacity(0.2),
-                      width: 1,
+              // Conditionally show action buttons container only for DIRECT quotations
+              if (!isOpenQuotation)
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: explorerSecondaryColor,
+                    border: Border(
+                      top: BorderSide(
+                        color: tertiaryColor.withOpacity(0.2),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: QuotationActionButtons(
+                    actionManager: QuotationActionManager(
+                      context: context,
+                      quotation: _currentQuotation,
+                      session: context.read<AuthBloc>().state.session,
+                      l10n: l10n,
+                      onActionExecuted: (actionType, quotationId) async {
+                         // Handle actions for DIRECT quotations
+                         _bloc.add(const QuotationListEvent.refreshCurrentTab());
+
+                         if (actionType == QuotationActionType.cancel) {
+                           _bloc.add(
+                               QuotationListEvent.cancelQuotation(quotationId));
+                           await Future.delayed(const Duration(seconds: 1));
+                           if (!context.mounted) return;
+                           Navigator.of(context).pop(true);
+                         } else {
+                           await Future.delayed(const Duration(seconds: 1));
+                           if (context.mounted) {
+                             _refreshQuotation();
+                             Future.delayed(const Duration(seconds: 2), () {
+                               if (context.mounted) {
+                                 _refreshQuotation();
+                               }
+                             });
+                           }
+                         }
+                         _notificationsBloc.add(
+                             NotificationsEvent.clearQuotationNotifications(
+                                 quotationId));
+                      },
                     ),
                   ),
                 ),
-                child: QuotationActionButtons(
-                  actionManager: QuotationActionManager(
-                    context: context,
-                    quotation: _currentQuotation,
-                    session: context.read<AuthBloc>().state.session,
-                    l10n: l10n,
-                    onActionExecuted: (actionType, quotationId) async {
-                      // Handle any action type
-                      _bloc.add(const QuotationListEvent.refreshCurrentTab());
-
-                      if (actionType == QuotationActionType.cancel) {
-                        _bloc.add(
-                            QuotationListEvent.cancelQuotation(quotationId));
-                        await Future.delayed(const Duration(seconds: 1));
-                        if (!context.mounted) return;
-                        Navigator.of(context).pop(true);
-                      } else {
-                        // Refresh the current quotation after a delay to allow backend to process
-                        // Use a longer delay to ensure the backend has processed the action
-                        await Future.delayed(const Duration(seconds: 1));
-                        if (context.mounted) {
-                          _refreshQuotation();
-                          
-                          // Try another refresh after a bit longer if needed
-                          Future.delayed(const Duration(seconds: 2), () {
-                            if (context.mounted) {
-                              _refreshQuotation();
-                            }
-                          });
-                        }
-                      }
-
-                      // Clear notifications related to this quotation
-                      _notificationsBloc.add(
-                          NotificationsEvent.clearQuotationNotifications(
-                              quotationId));
-                    },
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -387,6 +386,7 @@ class _MainQuotationInfo extends StatelessWidget {
     final l10n = S.of(context);
     final isArtist =
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final bool isOpenQuotation = quotation.type == QuotationType.OPEN;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -446,8 +446,8 @@ class _MainQuotationInfo extends StatelessWidget {
             const Divider(height: 32),
 
             // Special section for Open quotations when viewed by an artist
-            if (isArtist && quotation.status == QuotationStatus.open)
-              _buildOpenQuotationSection(context),
+            if (isOpenQuotation && isArtist)
+              _buildOpenQuotationActionSection(context, quotation),
 
             // Descripción
             Text(
@@ -471,90 +471,175 @@ class _MainQuotationInfo extends StatelessWidget {
     );
   }
 
-  Widget _buildOpenQuotationSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(
-            color: redColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.priority_high,
-                color: redColor,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Esperando Propuestas',
-                      style: TextStyleTheme.subtitle2.copyWith(
-                        color: redColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Este cliente está esperando recibir ofertas de tatuadores. Revisa los detalles y envía tu propuesta.',
-                      style: TextStyleTheme.bodyText2.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.only(bottom: 24),
-          child: ElevatedButton.icon(
-            icon: const Icon(Icons.send),
-            label: const Text('Enviar Propuesta'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: redColor,
-              padding: const EdgeInsets.symmetric(vertical: 12),
+  Widget _buildOpenQuotationActionSection(BuildContext context, Quotation quotation) {
+    final l10n = S.of(context);
+    final bool hasOffered = quotation.hasOffered;
+    
+    if (hasOffered) {
+      // If artist has already offered, show a different UI
+      final List<QuotationOfferListItemDto>? offers = quotation.offers;
+      String costText = "Offer submitted";
+      QuotationOfferListItemDto? artistOffer;
+      
+      if (offers != null && offers.isNotEmpty) {
+        // Find the current artist's offer
+        final currentArtistId = context.read<AuthBloc>().state.session.user?.userTypeId;
+        artistOffer = offers.firstWhere(
+          (offer) => offer.artistId == currentArtistId,
+          orElse: () => offers.first, // Fallback to first offer
+        );
+        
+        if (artistOffer.estimatedCost != null) {
+          final cost = artistOffer.estimatedCost!;
+          costText = "Offer: \$${cost.amount / 100} ${cost.currency}";
+        }
+      }
+      
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.green.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            onPressed: () {
-              // Create a proper QuotationAction for the reply action
-              final action = QuotationAction(
-                type: QuotationActionType.reply,
-                label: 'Enviar Propuesta',
-                icon: Icons.send,
-                isPrimary: true,
-                routeName: '/artistQuotationResponse',
-                routeArguments: {'quotationId': quotation.id.toString()},
-              );
-              
-              // Create the action manager and execute the action
-              final actionManager = QuotationActionManager(
-                context: context,
-                quotation: quotation,
-                session: context.read<AuthBloc>().state.session,
-                l10n: S.of(context),
-                onActionExecuted: (_, quotationId) {
-                  // Simple refresh approach
-                  context.read<QuotationListBloc>().add(
-                        QuotationListEvent.getQuotationById(quotationId),
-                      );
-                },
-              );
-              
-              actionManager.executeAction(action);
-            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "You've already submitted an offer",
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        costText,
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        const Divider(height: 24),
-      ],
-    );
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 24),
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.message),
+              label: const Text("Message Customer"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              onPressed: () {
+                // Navigate to message page if we have an offer
+                if (artistOffer != null) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => QuotationOfferMessagePage(
+                        quotationId: quotation.id.toString(),
+                        offerId: artistOffer!.id,
+                        offer: artistOffer,
+                        customerName: quotation.customer?.firstName ?? "Customer",
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Offer details not available")),
+                  );
+                }
+              },
+            ),
+          ),
+          const Divider(height: 24),
+        ],
+      );
+    } else {
+      // Original UI for non-offered quotations
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: redColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.lightbulb_outline,
+                  color: redColor,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Customer is looking for offers!",
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: redColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "Review the details and submit your offer to win this project.",
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 24),
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.send),
+              label: Text("Send Offer"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: redColor,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              onPressed: () {
+                // Navigate to the new Offer Page
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ArtistOpenQuotationOfferPage(
+                      quotationId: quotation.id.toString(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const Divider(height: 24),
+        ],
+      );
+    }
   }
 
   List<Widget> _buildStateSpecificInfo(BuildContext context) {

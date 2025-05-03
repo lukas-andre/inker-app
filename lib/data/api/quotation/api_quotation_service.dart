@@ -284,4 +284,129 @@ class ApiQuotationService implements QuotationService {
       fromJson: (json) => null,
     );
   }
+
+  // --- Offer Management for OPEN Quotations ---
+
+  @override
+  Future<void> submitOffer({
+    required String token,
+    required String quotationId,
+    Money? estimatedCost,
+    DateTime? appointmentDate,
+    int? appointmentDuration,
+    String? additionalDetails,
+    List<XFile>? proposedDesigns,
+  }) async {
+    final Map<String, String> fields = {
+      if (estimatedCost != null && !estimatedCost.isEmpty) ...{
+        'estimatedCost[amount]': estimatedCost.amount.toString(),
+        'estimatedCost[currency]': estimatedCost.currency,
+        'estimatedCost[scale]': estimatedCost.scale.toString(),
+      },
+      if (appointmentDate != null)
+        'appointmentDate': appointmentDate.toIso8601String(),
+      if (appointmentDuration != null && appointmentDuration != 0)
+        'appointmentDuration': appointmentDuration.toString(),
+      if (additionalDetails != null && additionalDetails.isNotEmpty) 
+        'additionalDetails': additionalDetails,
+    };
+
+    final List<http.MultipartFile> files = [];
+    if (proposedDesigns != null && proposedDesigns.isNotEmpty) {
+      for (var i = 0; i < proposedDesigns.length; i++) {
+        var file = proposedDesigns[i];
+        files.add(await http.MultipartFile.fromPath(
+          'proposedDesigns', // Assuming backend expects this field name
+          file.path,
+          contentType: MediaType('image', 'jpeg'), // Adjust content type if needed
+          filename: file.name,
+        ));
+      }
+    }
+
+    // Assuming the endpoint returns a DefaultResponseDto structure
+    // { status: 'CREATED', data: 'Offer <id> submitted.' }
+    // We don't need to parse the response body for this specific method.
+    await _httpClient.multipartRequest(
+      path: '$_basePath/$quotationId/offers',
+      method: 'POST',
+      token: token,
+      fields: fields,
+      files: files,
+      fromJson: (json) {}, // No parsing needed for submitOffer
+    );
+  }
+
+  @override
+  Future<dynamic> listOffers({ // TODO: Replace 'dynamic' with a specific ListQuotationOffersResDto class
+    required String token,
+    required String quotationId,
+  }) async {
+    // TODO: Implement parsing when ListQuotationOffersResDto is defined
+    return await _httpClient.get(
+      path: '$_basePath/$quotationId/offers',
+      token: token,
+      fromJson: (json) => json, // Placeholder parsing
+    );
+  }
+
+  @override
+  Future<void> acceptOffer({
+    required String token,
+    required String quotationId,
+    required String offerId,
+  }) async {
+    // Assuming the endpoint returns a DefaultResponseDto like { status: 'OK', data: '...' }
+    // No response body parsing needed here.
+    await _httpClient.post(
+      path: '$_basePath/$quotationId/offers/$offerId/accept',
+      token: token,
+      body: {}, // No body required for accept action
+      fromJson: (json) => null, 
+    );
+  }
+
+  @override
+  Future<dynamic> sendOfferMessage({
+    required String token,
+    required String quotationId,
+    required String offerId,
+    required String messageText,
+    XFile? image,
+  }) async {
+    final Map<String, String> fields = {
+      'message': messageText, // The backend expects 'message' field, not 'text'
+    };
+
+    final List<http.MultipartFile> files = [];
+    if (image != null) {
+      files.add(await http.MultipartFile.fromPath(
+        'image', // Field name specified in API docs
+        image.path,
+        contentType: MediaType('image', 'jpeg'), // Adjust based on actual image type
+        filename: image.name,
+      ));
+    }
+
+    return await _httpClient.multipartRequest(
+      path: '$_basePath/$quotationId/offers/$offerId/messages',
+      method: 'POST',
+      token: token,
+      fields: fields,
+      files: files,
+      fromJson: (json) => OfferMessageDto.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<QuotationOfferListItemDto> getQuotationOffer({
+    required String token,
+    required String offerId,
+  }) async {
+    return await _httpClient.get(
+      path: '$_basePath/offers/$offerId',
+      token: token,
+      fromJson: (json) => QuotationOfferListItemDto.fromJson(json as Map<String, dynamic>),
+    );
+  }
 }

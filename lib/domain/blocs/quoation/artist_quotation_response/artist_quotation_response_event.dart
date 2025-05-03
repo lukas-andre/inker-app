@@ -14,4 +14,14 @@ class ArtistQuotationResponseEvent with _$ArtistQuotationResponseEvent {
     QuotationArtistRejectReason? rejectionReason,
     List<XFile>? proposedDesigns,
   }) = _Submit;
+
+  // New event for submitting an offer to an OPEN quotation
+  const factory ArtistQuotationResponseEvent.submitOffer({
+    required String quotationId,
+    double? estimatedCost,
+    DateTime? appointmentDate,
+    int? appointmentDuration,
+    String? additionalDetails,
+    List<XFile>? proposedDesigns,
+  }) = _SubmitOffer;
 }
