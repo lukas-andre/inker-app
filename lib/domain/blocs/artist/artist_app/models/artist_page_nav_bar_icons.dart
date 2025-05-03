@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart'; // Import app styles for colors if needed
 
 class ArtistPageNavBarIcons extends Equatable {
   final List<PageNavBarIcon> icons;
@@ -47,7 +48,14 @@ ArtistPageNavBarIcons kArtistPageNavBarIcons = const ArtistPageNavBarIcons(
       key: K.quotationsTab,
       icon: ImageIcon(bookMarkIcon),
       selectedIcon: ImageIcon(bookMarkSelectedIcon),
-      title: 'Solicituded',
+      title: 'Mis Solicitudes',
+      index: 1,
+    ),
+    PageNavBarIcon(
+      key: Key('trabajos_tab'),
+      icon: Icon(Icons.work_outline, color: Colors.white60),
+      selectedIcon: Icon(Icons.work, color: Colors.white),
+      title: 'Trabajos',
       index: 2,
     ),
     PageNavBarIcon(
@@ -55,10 +63,10 @@ ArtistPageNavBarIcons kArtistPageNavBarIcons = const ArtistPageNavBarIcons(
       icon: Icon(
         Icons.account_circle_outlined,
         size: 25,
-        color: Colors.white,
+        color: Colors.white60,
       ),
       selectedIcon: Icon(
-        Icons.account_circle_outlined,
+        Icons.account_circle,
         size: 25,
         color: Colors.white,
       ),

@@ -5,8 +5,6 @@ import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart'
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
-import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
-import 'package:inker_studio/ui/quotation/quotation_offer_message_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
@@ -19,15 +17,17 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
-import 'package:inker_studio/ui/quotation/create_open_quotation_page.dart';
 
+// This page now only shows DIRECT quotations for the logged-in user (Artist or Customer)
 class QuotationListPage extends StatelessWidget {
-  final bool hideHeader;
+  final bool hideHeader; 
   
   const QuotationListPage({super.key, this.hideHeader = false});
 
   @override
   Widget build(BuildContext context) {
+    // Provide the BLoC if not already provided higher up
+    // Ensure QuotationListBloc is provided before this widget
     return QuotationListView(hideHeader: hideHeader);
   }
 }
@@ -46,17 +46,16 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
   late bool _isArtist;
   final ScrollController _scrollController = ScrollController();
 
-  String searchTerm = '';
   List<String> _selectedStatuses = [];
   List<Map<String, dynamic>> _filterOptions = [];
   bool _didInitDependencies = false;
   Map<String, dynamic>? _selectedOption;
-  QuotationType _selectedQuotationType = QuotationType.DIRECT;
 
   @override
   void initState() {
     super.initState();
-    context.read<QuotationListBloc>().add(const QuotationListEvent.started());
+    // Trigger initial load when the BLoC starts
+    // The BLoC itself should load the initial state upon creation or via a 'started' event
     _scrollController.addListener(_onScroll);
   }
 
@@ -64,19 +63,14 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     if (_isBottom) {
       final currentState = _quotationListBloc.state;
       currentState.maybeWhen(
-        loaded: (quotations, session, selectedType, statuses, isLoadingMore, cancellingQuotationId, currentPage, totalItems) {
+        loaded: (quotations, session, statuses, isLoadingMore, cancellingQuotationId, currentPage, totalItems) {
           if (!isLoadingMore && quotations.length < totalItems) {
-            List<String>? statusesToLoadMore;
-            if (selectedType == QuotationType.OPEN) {
-              statusesToLoadMore = null;
-            } else {
-              statusesToLoadMore = statuses;
-            }
+            // Load next page of DIRECT quotations
             _quotationListBloc.add(
               QuotationListEvent.loadQuotations(
-                statusesToLoadMore,
-                true,
-                selectedType,
+                statuses, // Use currently selected statuses
+                true,     // isNextPage = true
+                QuotationType.DIRECT, // Explicitly load DIRECT type
               ),
             );
           }
@@ -111,54 +105,46 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     if (!_didInitDependencies) {
       _didInitDependencies = true;
       _quotationListBloc = BlocProvider.of<QuotationListBloc>(context);
-      _isArtist =
-          context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+      final session = context.read<AuthBloc>().state.session;
+      _isArtist = session.user?.userType == 'ARTIST';
 
       final l10n = S.of(context);
       _filterOptions = getFilterOptions(l10n);
 
-      _selectedOption = _filterOptions[0];
-      _selectedStatuses = _selectedOption?['statuses'] as List<String>;
+      _selectedOption = _filterOptions.isNotEmpty ? _filterOptions[0] : null;
+      _selectedStatuses = _selectedOption?['statuses'] as List<String>? ?? [];
 
+      // Load initial DIRECT quotations
       _quotationListBloc.add(
-        QuotationListEvent.loadQuotations(_selectedStatuses, false, _selectedQuotationType),
+        QuotationListEvent.loadQuotations(_selectedStatuses, false, QuotationType.DIRECT),
       );
     }
   }
 
+  // Simplified filter options - only for DIRECT quotations
   List<Map<String, dynamic>> getFilterOptions(S l10n) {
     if (_isArtist) {
-      if (_selectedQuotationType == QuotationType.OPEN) {
-        // For artists viewing OPEN quotations, show a simplified list
-        return [
-          {
-            'label': 'Solicitudes Disponibles',
-            'statuses': ['open']
-          },
-        ];
-      } else {
-        // Standard options for DIRECT quotations
-        return [
-          {
-            'label': l10n.newRequests,
-            'statuses': ['pending', 'appealed']
-          },
-          {
-            'label': l10n.awaitingReply,
-            'statuses': ['quoted']
-          },
-          {
-            'label': l10n.scheduled,
-            'statuses': ['accepted']
-          },
-          {
-            'label': l10n.cancelled,
-            'statuses': ['rejected', 'canceled']
-          },
-        ];
-      }
+      // Artist DIRECT options
+      return [
+        {
+          'label': l10n.newRequests,
+          'statuses': ['pending', 'appealed']
+        },
+        {
+          'label': l10n.awaitingReply,
+          'statuses': ['quoted']
+        },
+        {
+          'label': l10n.scheduled,
+          'statuses': ['accepted']
+        },
+        {
+          'label': l10n.cancelled,
+          'statuses': ['rejected', 'canceled']
+        },
+      ];
     } else {
-      // Customer options don't change
+      // Customer DIRECT options
       return [
         {
           'label': l10n.awaitingArtist,
@@ -184,54 +170,25 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
   Widget build(BuildContext context) {
     super.build(context);
     final l10n = S.of(context);
+    // Use the title provided by ArtistHomePage or CustomerHomePage
+    // AppBar is handled by parent navigator typically
     return Scaffold(
       backgroundColor: const Color(0xFF141D3C),
-      appBar: widget.hideHeader ? null : AppBar(
-        backgroundColor: primaryColor,
-        title: Text(
-          _isArtist ? l10n.requests : l10n.quotes,
-          style: TextStyleTheme.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        elevation: 0,
-      ),
-      floatingActionButton: !_isArtist ? FloatingActionButton( 
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const CreateOpenQuotationPage(),
-          ));
-        },
-        backgroundColor: secondaryColor,
-        child: const Icon(Icons.add), 
-        tooltip: l10n.createOpenQuotation,
-      ) : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (false) ...[
-                Text(
-                  _isArtist ? l10n.requests : l10n.quotes,
-                  style: TextStyleTheme.headline1
-                      .copyWith(color: const Color(0xFFF2F2F2)),
-                ),
-                const SizedBox(height: 16),
-              ],
-              _buildTypeSelector(l10n),
-              const SizedBox(height: 16),
-              // Only show filter chips for direct quotations or for customers with open quotations
-              if (_selectedQuotationType == QuotationType.DIRECT || (!_isArtist && _selectedQuotationType == QuotationType.OPEN)) ...[
+              // Always show filter chips (if options exist)
+              if (_filterOptions.isNotEmpty) ...[
                 _buildFilterChips(l10n),
                 const SizedBox(height: 16),
               ],
               Expanded(
                 child: BlocConsumer<QuotationListBloc, QuotationListState>(
                   listener: (context, state) {
+                    // Keep success message for cancellation
                     if (state is QuotationListCancelSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         customSnackBar(
@@ -241,19 +198,28 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           backgroundColor: secondaryColor,
                         ),
                       );
+                      // Reload current filters after cancellation
                       _quotationListBloc.add(QuotationListEvent.loadQuotations(
                         _selectedStatuses,
                         false,
-                        _selectedQuotationType,
+                        QuotationType.DIRECT,
                       ));
                     }
+                    // Handle errors shown in state
+                    state.maybeWhen(
+                      error: (message) {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(content: Text('Error: $message')),
+                         );
+                      },
+                      orElse: () {},
+                    );
                   },
                   builder: (context, state) {
                     return state.maybeWhen(
                       loaded: (
                         quotations,
                         session,
-                        selectedType,
                         statuses,
                         isLoadingMore,
                         cancellingQuotationId,
@@ -266,10 +232,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           l10n,
                           isLoadingMore,
                           cancellingQuotationId,
-                          currentPage,
-                          totalItems,
-                          statuses,
-                          selectedType,
                         );
                       },
                       error: (message) => Center(
@@ -292,100 +254,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     );
   }
 
-  Widget _buildTypeSelector(S l10n) {
-    // Check if there are any open quotations (for indicators/badges)
-    final state = _quotationListBloc.state;
-    bool hasOpenQuotations = false;
-    
-    if (state is QuotationListLoaded) {
-      // Check for open quotations when we're not already on the OPEN tab
-      if (_selectedQuotationType != QuotationType.OPEN) {
-        hasOpenQuotations = state.quotations.any((q) => 
-          q.status == QuotationStatus.open && 
-          q.type == QuotationType.OPEN
-        );
-      }
-    }
-    
-    return Container(
-      width: double.infinity,
-      child: SegmentedButton<QuotationType>(
-        segments: <ButtonSegment<QuotationType>>[
-          ButtonSegment<QuotationType>(
-            value: QuotationType.DIRECT,
-            label: Text(_isArtist ? "Mis Solicitudes" : l10n.directQuotations),
-            icon: const Icon(Icons.person_pin),
-          ),
-          ButtonSegment<QuotationType>(
-            value: QuotationType.OPEN,
-            label: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(_isArtist ? "Solicitudes Abiertas" : l10n.openQuotations),
-                if (hasOpenQuotations && _isArtist) ...[
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: redColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Text(
-                      "!",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
-            icon: _isArtist ? const Icon(Icons.campaign) : const Icon(Icons.group),
-          ),
-        ],
-        selected: {_selectedQuotationType},
-        onSelectionChanged: (Set<QuotationType> newSelection) {
-          final newType = newSelection.first;
-          setState(() {
-            _selectedQuotationType = newType;
-            // For artists with OPEN quotations, we don't need the filter tabs
-            if (_isArtist && newType == QuotationType.OPEN) {
-              _selectedOption = _filterOptions[0]; 
-              _selectedStatuses = ['open'];
-            } else {
-              _selectedOption = _filterOptions[0];
-              _selectedStatuses = _selectedOption?['statuses'] as List<String>;
-            }
-          });
-          
-          // For open quotations type, pass null statuses to use the dedicated endpoint
-          List<String>? statusesToLoad;
-          if (_isArtist && newType == QuotationType.OPEN) {
-            statusesToLoad = null;
-          } else {
-            statusesToLoad = _selectedStatuses;
-          }
-          
-          _quotationListBloc.add(QuotationListEvent.loadQuotations(
-            statusesToLoad,
-            false,
-            newType,
-          ));
-        },
-        style: SegmentedButton.styleFrom(
-          backgroundColor: tertiaryColor, 
-          foregroundColor: Colors.black87,
-          selectedForegroundColor: Colors.white,
-          selectedBackgroundColor: _selectedQuotationType == QuotationType.OPEN && _isArtist 
-              ? redColor // Red for selected open tab
-              : secondaryColor,
-        ),
-      ),
-    );
-  }
-
   Widget _buildFilterChips(S l10n) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -401,15 +269,15 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   _selectedOption = option;
                   _selectedStatuses = option['statuses'] as List<String>;
                 });
-
+                // Load DIRECT quotations with new filters
                 _quotationListBloc.add(QuotationListEvent.loadQuotations(
                   _selectedStatuses,
                   false,
-                  _selectedQuotationType,
+                  QuotationType.DIRECT, 
                 ));
               },
               child: Container(
-                key: Key(option['label']),
+                key: Key(option['label']), // Use label as key
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: isSelected ? secondaryColor : tertiaryColor,
@@ -439,39 +307,20 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     S l10n,
     bool isLoadingMore,
     String? cancellingQuotationId,
-    int currentPage,
-    int totalItems,
-    List<String>? statuses,
-    QuotationType selectedType,
   ) {
     if (quotations.isEmpty) {
-      return _buildEmptyState(l10n);
+      return _buildEmptyState(l10n); // Use the default empty state
     }
-    final filteredQuotations = quotations
-        .where((quote) =>
-            quote.description
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()) ||
-            quote.status
-                .toString()
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()))
-        .toList();
+    
+    final filteredQuotations = quotations; // Assume no search for now
 
     return RefreshIndicator(
       onRefresh: () async {
-        // Get statuses based on current type
-        List<String>? statusesToRefresh;
-        if (_selectedQuotationType == QuotationType.OPEN) {
-          statusesToRefresh = null; // No status filters for OPEN
-        } else {
-          statusesToRefresh = _selectedStatuses;
-        }
-        
+        // Refresh DIRECT quotations with current filters
         _quotationListBloc.add(QuotationListEvent.loadQuotations(
-          statusesToRefresh,
+          _selectedStatuses,
           false,
-          _selectedQuotationType,
+          QuotationType.DIRECT,
         ));
       },
       child: ListView.builder(
@@ -485,7 +334,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
               session,
               l10n,
               cancellingQuotationId,
-              selectedType,
             );
           } else {
             return const Padding(
@@ -500,93 +348,21 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     );
   }
 
+  // Simplified Empty State for DIRECT quotations
   Widget _buildEmptyState(S l10n) {
-    final isOpenTab = _selectedQuotationType == QuotationType.OPEN;
-    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
-    
-    // Special empty state for artists viewing open quotations
-    if (isArtist && isOpenTab) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2A2E47),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: redColor.withOpacity(0.3),
-                  width: 2,
-                ),
-              ),
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.search,
-                    size: 64,
-                    color: redColor,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "No hay solicitudes abiertas",
-                    style: TextStyleTheme.headline3.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    "No hay solicitudes de cotización abiertas en este momento. Las cotizaciones abiertas aparecerán aquí cuando los clientes estén buscando artistas.",
-                    style: TextStyleTheme.bodyText1.copyWith(
-                      color: Colors.white70,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Switch to direct quotations tab
-                      setState(() {
-                        _selectedQuotationType = QuotationType.DIRECT;
-                      });
-                      _quotationListBloc.add(QuotationListEvent.loadQuotations(
-                        _selectedStatuses,
-                        false,
-                        QuotationType.DIRECT,
-                      ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    ),
-                    child: Text(
-                      "Ver mis solicitudes directas",
-                      style: TextStyleTheme.button,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    
     // Default empty state
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.inbox,
+            Icons.inbox_outlined, // Different icon maybe?
             size: 80,
             color: Colors.grey[600],
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noQuotationsFound,
+            _isArtist ? "No Requests Found" : "No Quotations Found", // Adjust text based on user type
             style: TextStyleTheme.headline3.copyWith(
               color: Colors.grey[600],
             ),
@@ -597,32 +373,29 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
     );
   }
 
+  // Simplified Quotation Card - assumes DIRECT type
   Widget _buildQuotationCard(
     Quotation quotation,
     Session session,
     S l10n,
     String? cancellingQuotationId,
-    QuotationType selectedType,
   ) {
     final isArtist = session.user?.userType == 'ARTIST';
-    final isUnread =
-        isArtist ? !quotation.readByArtist : !quotation.readByCustomer;
-    final isOpenQuotation = quotation.type == QuotationType.OPEN;
+    final isUnread = isArtist ? !quotation.readByArtist : !quotation.readByCustomer;
     final statusText =
         QuotationStatusL10n.getStatus(quotation.status, l10n, isArtist);
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
-    final counterpartInfo = (isOpenQuotation && quotation.artist == null && !isArtist)
-        ? CounterpartInfo.open()
-        : isArtist
+    final counterpartInfo = isArtist
             ? CounterpartInfo.fromCustomer(quotation.customer)
             : CounterpartInfo.fromArtist(quotation.artist);
     
-    // NEW: Check if the artist has already submitted an offer
-    final bool hasOffered = quotation.hasOffered;
-
     return GestureDetector(
       onTap: () {
+        // Mark as read when tapped
+        if (isUnread) {
+          _quotationListBloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
+        }
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => QuotationDetailsPage(
@@ -633,22 +406,19 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
       },
       child: Card(
         key: K.getQuotationCardKey(quotation.id.toString()),
-        color: isOpenQuotation 
-            ? (hasOffered ? const Color(0xFF2a3a47) : const Color(0xFF2A2E47)) // Slightly different color for offered quotations
-            : (isUnread ? const Color(0xFF252A47) : const Color(0xFF1F223C)),
+        color: isUnread ? const Color(0xFF252A47) : const Color(0xFF1F223C),
         margin: const EdgeInsets.only(bottom: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: BorderSide(
-            color: isOpenQuotation 
-                ? (hasOffered ? Colors.green : redColor) // Green border for offered quotations, red for others
-                : (isUnread ? secondaryColor : const Color(0xFF777E91)),
-            width: isOpenQuotation || isUnread ? 2.0 : 1.0,
+            color: isUnread ? secondaryColor : const Color(0xFF777E91),
+            width: isUnread ? 2.0 : 1.0,
           ),
         ),
         child: Stack(
           children: [
-            if (isUnread && !isOpenQuotation)
+            // Unread indicator
+            if (isUnread)
               Positioned(
                 top: 0,
                 right: 24,
@@ -671,29 +441,6 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   ),
                 ),
               ),
-            // Show ribbon for offered quotations
-            if (isOpenQuotation && isArtist)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: hasOffered ? Colors.green : redColor,
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(8),
-                      bottomLeft: Radius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    hasOffered ? "OFFERED" : "OPEN", // Change tag text based on hasOffered
-                    style: TextStyleTheme.caption.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -702,9 +449,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   Row(
                     children: [
                       Expanded(
-                          child: _buildCounterpartHeader(
-                              counterpartInfo, isArtist, isOpenQuotation)),
-                      if (isUnread && !isOpenQuotation)
+                          child: _buildCounterpartHeader(counterpartInfo, isArtist)), // Pass isArtist
+                      if (isUnread) // Show unread tag
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
@@ -714,7 +460,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                             border: Border.all(color: secondaryColor),
                           ),
                           child: Text(
-                            l10n.newRequest,
+                            // Placeholder for l10n.newRequest / l10n.newQuotation
+                            _isArtist ? "New Request" : "New Quotation", 
                             style: TextStyleTheme.caption.copyWith(
                               color: secondaryColor,
                               fontWeight: FontWeight.bold,
@@ -733,29 +480,13 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   ),
                   const SizedBox(height: 8),
                   
-                  // Show distance for OPEN quotations (if available)
-                  if (isOpenQuotation && quotation.distanceToArtistKm != null) ...[
-                    Row(
-                      children: [
-                        Icon(Icons.place, size: 16, color: Colors.white70),
-                        const SizedBox(width: 4),
-                        Text(
-                          "${quotation.distanceToArtistKm!.toStringAsFixed(1)} km away",
-                          style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                  
                   _buildDescription(quotation.description),
                   const SizedBox(height: 16),
                   if (quotation.location != null) ...[
                     _buildLocation(quotation.location!),
                     const SizedBox(height: 16),
                   ],
+                  // Show details relevant to DIRECT quotations (cost, date, duration)
                   if (quotation.estimatedCost != null ||
                       quotation.appointmentDate != null ||
                       quotation.appointmentDuration != null)
@@ -764,17 +495,9 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   _buildImagesSection(quotation, l10n),
                   const SizedBox(height: 16),
                   
-                  // Special section or direct button for open quotations for artists
-                  if (isOpenQuotation && isArtist) ...[
-                    hasOffered 
-                        ? _buildAlreadyOfferedPrompt(quotation, l10n) // Show messaging prompt if already offered
-                        : _buildOpenQuotationArtistPrompt(quotation, l10n), // Show submit offer if not
-                    const SizedBox(height: 16),
-                  ],
-                  // Only show standard actions for DIRECT quotations
-                  if (!isOpenQuotation)
-                    _buildActions(
-                        quotation, session, l10n, cancellingQuotationId),
+                  // Always show standard actions for DIRECT quotations
+                  _buildActions(
+                      quotation, session, l10n, cancellingQuotationId),
                 ],
               ),
             ),
@@ -783,169 +506,9 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
       ),
     );
   }
-  
-  // Re-add the open quotation prompt method that was accidentally removed
-  Widget _buildOpenQuotationArtistPrompt(Quotation quotation, S l10n) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: redColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: redColor.withOpacity(0.3),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.lightbulb_outline,
-                color: redColor,
-                size: 18,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                "Customer is looking for offers!", // Placeholder for l10n.openQuotationArtistPromptTitle
-                style: TextStyleTheme.subtitle2.copyWith(
-                  color: redColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "Review the details and submit your offer to win this project.", // Placeholder for l10n.openQuotationArtistPromptBody
-            style: TextStyleTheme.bodyText2.copyWith(
-              color: Colors.white70,
-            ),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton.icon(
-            onPressed: () {
-              // Navigate directly to the new offer page
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ArtistOpenQuotationOfferPage(
-                    quotationId: quotation.id.toString(),
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.send),
-            label: Text("Send Offer"), // Placeholder for l10n.sendOffer
-            style: OutlinedButton.styleFrom(
-              foregroundColor: redColor,
-              side: const BorderSide(color: redColor),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  // Fix the already offered prompt method
-  Widget _buildAlreadyOfferedPrompt(Quotation quotation, S l10n) {
-    // Get the first offer from the list (assuming artist can only make one offer per quotation)
-    final List<QuotationOfferListItemDto>? offers = quotation.offers;
-    final String costText = "Offer submitted"; // Default text
-
-    if (offers != null && offers.isNotEmpty) {
-      final offer = offers.first;
-      // Check if the offer has a cost
-      if (offer.estimatedCost != null) {
-        // Use a safe string representation - don't depend on built-in toString()
-        final cost = offer.estimatedCost!;
-        return _buildAlreadyOfferedPromptWithContent(
-          "You've already submitted an offer",
-          "Offer: \$${cost.amount / 100} ${cost.currency}",
-        );
-      }
-    }
-
-    // If no details available, just show default
-    return _buildAlreadyOfferedPromptWithContent(
-      "You've already submitted an offer",
-      costText,
-    );
-  }
-
-  // Helper method to avoid repeating the container structure
-  Widget _buildAlreadyOfferedPromptWithContent(String title, String details) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Colors.green.withOpacity(0.3),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 18,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyleTheme.subtitle2.copyWith(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            details,
-            style: TextStyleTheme.bodyText2.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton.icon(
-            onPressed: () {
-              // TODO: Implement message view navigation
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Message view coming soon")),
-              );
-            },
-            icon: const Icon(Icons.message),
-            label: const Text("Message Customer"),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.green,
-              side: const BorderSide(color: Colors.green),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist, bool isOpenQuotation) {
-    // Adjusted condition
-    if (isOpenQuotation && info.type == CounterpartType.open) {
-      return Text(
-        S.of(context).findingArtists,
-        style: TextStyleTheme.subtitle1.copyWith(
-          color: const Color(0xFFF2F2F2),
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
-        ),
-      );
-    }
-
+  // Update CounterpartHeader to handle artist/customer display simply
+  Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist) {
     return Row(
       children: [
         if (info.profileThumbnail != null)
@@ -975,7 +538,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              if (!isArtist && info.username != null)
+              // Show username only for customers viewing artist profiles
+              if (!isArtist && info.username != null) 
                 Text(
                   '@${info.username}',
                   style: TextStyleTheme.bodyText2.copyWith(
@@ -1237,8 +801,8 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
       );
     }
 
-    // Use the original selectedType from the state for the QuotationActionManager
-    final currentSelectedType = _selectedQuotationType; 
+    // Use the QuotationListBloc for actions
+    final quotationListBloc = context.read<QuotationListBloc>();
 
     return QuotationActionButtons(
       actionManager: QuotationActionManager(
@@ -1249,106 +813,18 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         onActionExecuted: (actionType, quotationId) {
           switch (actionType) {
             case QuotationActionType.cancel:
-              _quotationListBloc.add(
+              quotationListBloc.add(
                 QuotationListEvent.cancelQuotation(quotationId),
               );
               break;
             default:
-              // Refresh using the state's selected type
-              _quotationListBloc.add(
-                QuotationListEvent.loadQuotations(_selectedStatuses, false, currentSelectedType),
+              // Refresh DIRECT quotations using the state's selected filters
+              quotationListBloc.add(
+                QuotationListEvent.loadQuotations(_selectedStatuses, false, QuotationType.DIRECT),
               );
           }
         },
       ),
     );
   }
-
-  Widget _buildLimitedActions(List<_ActionItem> actions, S l10n) {
-    if (actions.length <= 2) {
-      return Row(
-        key: K.quotationActionsList,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: actions
-            .map((action) => _buildActionButton(
-                  key: action.key,
-                  onPressed: action.onPressed,
-                  icon: action.icon,
-                  label: action.label,
-                  isPrimary: action.isPrimary,
-                ))
-            .toList(),
-      );
-    } else {
-      return Row(
-        key: K.quotationActionsList,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          _buildActionButton(
-            key: actions[0].key,
-            onPressed: actions[0].onPressed,
-            icon: actions[0].icon,
-            label: actions[0].label,
-            isPrimary: actions[0].isPrimary,
-          ),
-          const SizedBox(width: 8),
-          PopupMenuButton<VoidCallback>(
-            icon: const Icon(Icons.more_vert, color: Color(0xFFF2F2F2)),
-            onSelected: (callback) => callback(),
-            itemBuilder: (BuildContext context) =>
-                actions.skip(1).map((action) {
-              return PopupMenuItem<VoidCallback>(
-                key: action.key,
-                value: action.onPressed,
-                child: ListTile(
-                  leading: Icon(action.icon),
-                  title: Text(action.label),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildActionButton({
-    Key? key,
-    required VoidCallback onPressed,
-    required IconData icon,
-    required String label,
-    required bool isPrimary,
-  }) {
-    return ElevatedButton.icon(
-      key: key,
-      onPressed: onPressed,
-      icon: Icon(icon, size: 16),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: const Color(0xFFF2F2F2),
-        backgroundColor:
-            isPrimary ? const Color(0xFF7450ff) : const Color(0xFF141D3C),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-          side: const BorderSide(color: Color(0xFF777E91)),
-        ),
-      ),
-    );
-  }
-}
-
-class _ActionItem {
-  final Key key;
-  final VoidCallback onPressed;
-  final IconData icon;
-  final String label;
-  final bool isPrimary;
-
-  _ActionItem({
-    required this.key,
-    required this.onPressed,
-    required this.icon,
-    required this.label,
-    required this.isPrimary,
-  });
 }
