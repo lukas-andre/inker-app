@@ -2868,6 +2868,7 @@ OfferMessageDto _$OfferMessageDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OfferMessageDto {
+  String? get id => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
   QuotationRole get senderType => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
@@ -2887,7 +2888,8 @@ abstract class $OfferMessageDtoCopyWith<$Res> {
       _$OfferMessageDtoCopyWithImpl<$Res, OfferMessageDto>;
   @useResult
   $Res call(
-      {String senderId,
+      {String? id,
+      String senderId,
       QuotationRole senderType,
       String message,
       String? imageUrl,
@@ -2907,6 +2909,7 @@ class _$OfferMessageDtoCopyWithImpl<$Res, $Val extends OfferMessageDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? senderId = null,
     Object? senderType = null,
     Object? message = null,
@@ -2914,6 +2917,10 @@ class _$OfferMessageDtoCopyWithImpl<$Res, $Val extends OfferMessageDto>
     Object? timestamp = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       senderId: null == senderId
           ? _value.senderId
           : senderId // ignore: cast_nullable_to_non_nullable
@@ -2947,7 +2954,8 @@ abstract class _$$OfferMessageDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String senderId,
+      {String? id,
+      String senderId,
       QuotationRole senderType,
       String message,
       String? imageUrl,
@@ -2965,6 +2973,7 @@ class __$$OfferMessageDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? senderId = null,
     Object? senderType = null,
     Object? message = null,
@@ -2972,6 +2981,10 @@ class __$$OfferMessageDtoImplCopyWithImpl<$Res>
     Object? timestamp = null,
   }) {
     return _then(_$OfferMessageDtoImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       senderId: null == senderId
           ? _value.senderId
           : senderId // ignore: cast_nullable_to_non_nullable
@@ -3000,7 +3013,8 @@ class __$$OfferMessageDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OfferMessageDtoImpl implements _OfferMessageDto {
   const _$OfferMessageDtoImpl(
-      {required this.senderId,
+      {this.id,
+      required this.senderId,
       required this.senderType,
       required this.message,
       this.imageUrl,
@@ -3009,6 +3023,8 @@ class _$OfferMessageDtoImpl implements _OfferMessageDto {
   factory _$OfferMessageDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$OfferMessageDtoImplFromJson(json);
 
+  @override
+  final String? id;
   @override
   final String senderId;
   @override
@@ -3022,7 +3038,7 @@ class _$OfferMessageDtoImpl implements _OfferMessageDto {
 
   @override
   String toString() {
-    return 'OfferMessageDto(senderId: $senderId, senderType: $senderType, message: $message, imageUrl: $imageUrl, timestamp: $timestamp)';
+    return 'OfferMessageDto(id: $id, senderId: $senderId, senderType: $senderType, message: $message, imageUrl: $imageUrl, timestamp: $timestamp)';
   }
 
   @override
@@ -3030,6 +3046,7 @@ class _$OfferMessageDtoImpl implements _OfferMessageDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OfferMessageDtoImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.senderId, senderId) ||
                 other.senderId == senderId) &&
             (identical(other.senderType, senderType) ||
@@ -3044,7 +3061,7 @@ class _$OfferMessageDtoImpl implements _OfferMessageDto {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, senderId, senderType, message, imageUrl, timestamp);
+      runtimeType, id, senderId, senderType, message, imageUrl, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -3063,7 +3080,8 @@ class _$OfferMessageDtoImpl implements _OfferMessageDto {
 
 abstract class _OfferMessageDto implements OfferMessageDto {
   const factory _OfferMessageDto(
-      {required final String senderId,
+      {final String? id,
+      required final String senderId,
       required final QuotationRole senderType,
       required final String message,
       final String? imageUrl,
@@ -3072,6 +3090,8 @@ abstract class _OfferMessageDto implements OfferMessageDto {
   factory _OfferMessageDto.fromJson(Map<String, dynamic> json) =
       _$OfferMessageDtoImpl.fromJson;
 
+  @override
+  String? get id;
   @override
   String get senderId;
   @override

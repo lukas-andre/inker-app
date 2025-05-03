@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,15 +22,19 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
   })  : _quotationService = quotationService,
         _sessionService = sessionService,
         super(const OfferMessageState.initial()) {
-    on<OfferMessageEvent>((event, emit) async {
-      await event.when(
-        loadMessages: (quotationId, offerId) async =>
-            _loadMessages(emit, quotationId, offerId),
-        sendMessage: (quotationId, offerId, message, image) async =>
-            _sendMessage(emit, quotationId, offerId, message, image),
-        refreshMessages: () async => _refreshMessages(emit),
-      );
-    });
+    on<LoadMessages>(_onLoadMessages);
+    on<SendMessage>(_onSendMessage);
+    on<RefreshMessages>(_onRefreshMessages);
+  }
+
+  Future<void> _onLoadMessages(
+    LoadMessages event,
+    Emitter<OfferMessageState> emit,
+  ) async {
+    emit(const OfferMessageState.loading());
+    _currentQuotationId = event.quotationId;
+    _currentOfferId = event.offerId;
+    await _loadMessages(emit, event.quotationId, event.offerId);
   }
 
   Future<void> _loadMessages(
@@ -37,85 +42,157 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
     String quotationId,
     String offerId,
   ) async {
-    emit(const OfferMessageState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
         emit(const OfferMessageState.error('No active session found'));
         return;
       }
-
-      // Store current IDs for refresh
-      _currentQuotationId = quotationId;
-      _currentOfferId = offerId;
-
-      // Use the new direct method to get the offer by ID
       final offer = await _quotationService.getQuotationOffer(
         token: token,
         offerId: offerId,
       );
-
-      if (offer == QuotationOfferListItemDto.empty()) {
-        emit(const OfferMessageState.error('Offer not found'));
-        return;
-      }
-
-      // Get messages from the offer
-      final messages = offer.messages;
-
       emit(OfferMessageState.loaded(
-        messages: messages ?? [],
+        messages: offer.messages ?? [],
         quotationId: quotationId,
         offerId: offerId,
       ));
     } catch (e) {
-      emit(OfferMessageState.error(e.toString()));
+      emit(OfferMessageState.error('Failed to load messages: ${e.toString()}'));
     }
   }
 
-  Future<void> _sendMessage(
+  Future<void> _onSendMessage(
+    SendMessage event,
     Emitter<OfferMessageState> emit,
-    String quotationId,
-    String offerId,
-    String message,
-    XFile? image,
   ) async {
-    // Keep current state if it's loaded, to maintain messages during sending
-    final currentState = state;
-    if (currentState is! _Loaded) {
-      emit(const OfferMessageState.sending());
-    } else {
-      // Show sending state but keep the messages
-      // This would need a modified state to show sending indicator while keeping messages
-      // For now, we'll just keep the current state
-    }
+    await state.maybeWhen(
+      loaded: (messages, quotationId, offerId, isRefreshing, _) async {
+        emit(OfferMessageState.loaded(
+          messages: messages,
+          quotationId: quotationId,
+          offerId: offerId,
+          isRefreshing: isRefreshing, // Preserve refreshing state if applicable
+          isSending: true,
+        ));
 
-    try {
-      final token = await _sessionService.getActiveSessionToken();
-      if (token == null) {
-        emit(const OfferMessageState.error('No active session found'));
-        return;
-      }
+        try {
+          final token = await _sessionService.getActiveSessionToken();
+          if (token == null) {
+            // Revert state if session is lost mid-send
+            emit(OfferMessageState.loaded(
+              messages: messages,
+              quotationId: quotationId,
+              offerId: offerId,
+              isRefreshing: isRefreshing,
+              isSending: false, // Sending failed
+            ));
+            emit(const OfferMessageState.error(
+                'No active session found')); // Optionally emit error
+            return;
+          }
 
-      // Call the API to send the message
-      final newMessage = await _quotationService.sendOfferMessage(
-        token: token,
-        quotationId: quotationId,
-        offerId: offerId,
-        messageText: message,
-        image: image,
-      );
+          final session = await _sessionService.getActiveSession();
+          final userType = session?.user?.userType;
+          final userId = session?.user?.id;
 
-      // After successfully sending, reload the messages to get the updated list
-      await _loadMessages(emit, quotationId, offerId);
-    } catch (e) {
-      emit(OfferMessageState.error(e.toString()));
-    }
+          // Optimistically add the message
+          final optimisticMessage = OfferMessageDto(
+            id: 'temp-${DateTime.now().millisecondsSinceEpoch}',
+            senderId: userId ?? 'unknown',
+            senderType: userType == 'ARTIST'
+                ? QuotationRole.artist
+                : QuotationRole.customer,
+            message: event.message,
+            imageUrl: event.image?.path,
+            timestamp: DateTime.now(),
+          );
+
+          final updatedMessages = List<OfferMessageDto>.from(messages)
+            ..add(optimisticMessage);
+
+          emit(OfferMessageState.loaded(
+            messages: updatedMessages,
+            quotationId: quotationId,
+            offerId: offerId,
+            isRefreshing: isRefreshing,
+            isSending: false,
+          ));
+
+          await _quotationService.sendOfferMessage(
+            token: token,
+            quotationId: quotationId,
+            offerId: offerId,
+            messageText: event.message,
+            image: event.image,
+          );
+
+          add(const RefreshMessages());
+        } catch (e) {
+          emit(OfferMessageState.loaded(
+            messages: messages,
+            quotationId: quotationId,
+            offerId: offerId,
+            isRefreshing: isRefreshing,
+            isSending: false,
+          ));
+          emit(OfferMessageState.error(
+              'Failed to send message: ${e.toString()}'));
+        }
+      },
+      orElse: () async {
+        if (_currentQuotationId != null && _currentOfferId != null) {
+          emit(const OfferMessageState.error(
+              "Cannot send message in current state."));
+        } else {
+          emit(const OfferMessageState.error(
+              "Cannot send message: context unavailable."));
+        }
+      },
+    );
   }
 
-  Future<void> _refreshMessages(Emitter<OfferMessageState> emit) async {
-    if (_currentQuotationId != null && _currentOfferId != null) {
-      await _loadMessages(emit, _currentQuotationId!, _currentOfferId!);
+  Future<void> _onRefreshMessages(
+    RefreshMessages event,
+    Emitter<OfferMessageState> emit,
+  ) async {
+    await state.mapOrNull(
+      loaded: (loadedState) async {
+        if (loadedState.isRefreshing || loadedState.isSending) return;
+
+        emit(loadedState.copyWith(isRefreshing: true));
+
+        try {
+          final token = await _sessionService.getActiveSessionToken();
+          if (token == null) {
+            emit(loadedState.copyWith(isRefreshing: false));
+            emit(const OfferMessageState.error('No active session found'));
+            return;
+          }
+
+          final offer = await _quotationService.getQuotationOffer(
+            token: token,
+            offerId: loadedState.offerId,
+          );
+          emit(OfferMessageState.loaded(
+            messages: offer.messages ?? [],
+            quotationId: loadedState.quotationId,
+            offerId: loadedState.offerId,
+            isRefreshing: false,
+            isSending: false,
+          ));
+        } catch (e) {
+          emit(loadedState.copyWith(
+            isRefreshing: false,
+          ));
+        }
+      },
+    );
+    if (state is! _Loaded &&
+        _currentQuotationId != null &&
+        _currentOfferId != null) {
+      add(LoadMessages(
+          quotationId: _currentQuotationId!, offerId: _currentOfferId!));
     }
   }
-} 
+}

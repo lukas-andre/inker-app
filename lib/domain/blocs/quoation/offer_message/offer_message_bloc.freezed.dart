@@ -19,50 +19,44 @@ mixin _$OfferMessageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId, String offerId) loadMessages,
-    required TResult Function(
-            String quotationId, String offerId, String message, XFile? image)
-        sendMessage,
+    required TResult Function(String message, XFile? image) sendMessage,
     required TResult Function() refreshMessages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId, String offerId)? loadMessages,
-    TResult? Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult? Function(String message, XFile? image)? sendMessage,
     TResult? Function()? refreshMessages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId, String offerId)? loadMessages,
-    TResult Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult Function(String message, XFile? image)? sendMessage,
     TResult Function()? refreshMessages,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_LoadMessages value) loadMessages,
-    required TResult Function(_SendMessage value) sendMessage,
-    required TResult Function(_RefreshMessages value) refreshMessages,
+    required TResult Function(LoadMessages value) loadMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(RefreshMessages value) refreshMessages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadMessages value)? loadMessages,
-    TResult? Function(_SendMessage value)? sendMessage,
-    TResult? Function(_RefreshMessages value)? refreshMessages,
+    TResult? Function(LoadMessages value)? loadMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(RefreshMessages value)? refreshMessages,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadMessages value)? loadMessages,
-    TResult Function(_SendMessage value)? sendMessage,
-    TResult Function(_RefreshMessages value)? refreshMessages,
+    TResult Function(LoadMessages value)? loadMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(RefreshMessages value)? refreshMessages,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -124,7 +118,7 @@ class __$$LoadMessagesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadMessagesImpl implements _LoadMessages {
+class _$LoadMessagesImpl implements LoadMessages {
   const _$LoadMessagesImpl({required this.quotationId, required this.offerId});
 
   @override
@@ -160,9 +154,7 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId, String offerId) loadMessages,
-    required TResult Function(
-            String quotationId, String offerId, String message, XFile? image)
-        sendMessage,
+    required TResult Function(String message, XFile? image) sendMessage,
     required TResult Function() refreshMessages,
   }) {
     return loadMessages(quotationId, offerId);
@@ -172,9 +164,7 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId, String offerId)? loadMessages,
-    TResult? Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult? Function(String message, XFile? image)? sendMessage,
     TResult? Function()? refreshMessages,
   }) {
     return loadMessages?.call(quotationId, offerId);
@@ -184,9 +174,7 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId, String offerId)? loadMessages,
-    TResult Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult Function(String message, XFile? image)? sendMessage,
     TResult Function()? refreshMessages,
     required TResult orElse(),
   }) {
@@ -199,9 +187,9 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_LoadMessages value) loadMessages,
-    required TResult Function(_SendMessage value) sendMessage,
-    required TResult Function(_RefreshMessages value) refreshMessages,
+    required TResult Function(LoadMessages value) loadMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(RefreshMessages value) refreshMessages,
   }) {
     return loadMessages(this);
   }
@@ -209,9 +197,9 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadMessages value)? loadMessages,
-    TResult? Function(_SendMessage value)? sendMessage,
-    TResult? Function(_RefreshMessages value)? refreshMessages,
+    TResult? Function(LoadMessages value)? loadMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(RefreshMessages value)? refreshMessages,
   }) {
     return loadMessages?.call(this);
   }
@@ -219,9 +207,9 @@ class _$LoadMessagesImpl implements _LoadMessages {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadMessages value)? loadMessages,
-    TResult Function(_SendMessage value)? sendMessage,
-    TResult Function(_RefreshMessages value)? refreshMessages,
+    TResult Function(LoadMessages value)? loadMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(RefreshMessages value)? refreshMessages,
     required TResult orElse(),
   }) {
     if (loadMessages != null) {
@@ -231,8 +219,8 @@ class _$LoadMessagesImpl implements _LoadMessages {
   }
 }
 
-abstract class _LoadMessages implements OfferMessageEvent {
-  const factory _LoadMessages(
+abstract class LoadMessages implements OfferMessageEvent {
+  const factory LoadMessages(
       {required final String quotationId,
       required final String offerId}) = _$LoadMessagesImpl;
 
@@ -249,7 +237,7 @@ abstract class _$$SendMessageImplCopyWith<$Res> {
           _$SendMessageImpl value, $Res Function(_$SendMessageImpl) then) =
       __$$SendMessageImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String quotationId, String offerId, String message, XFile? image});
+  $Res call({String message, XFile? image});
 }
 
 /// @nodoc
@@ -263,20 +251,10 @@ class __$$SendMessageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? quotationId = null,
-    Object? offerId = null,
     Object? message = null,
     Object? image = freezed,
   }) {
     return _then(_$SendMessageImpl(
-      quotationId: null == quotationId
-          ? _value.quotationId
-          : quotationId // ignore: cast_nullable_to_non_nullable
-              as String,
-      offerId: null == offerId
-          ? _value.offerId
-          : offerId // ignore: cast_nullable_to_non_nullable
-              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -291,17 +269,9 @@ class __$$SendMessageImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SendMessageImpl implements _SendMessage {
-  const _$SendMessageImpl(
-      {required this.quotationId,
-      required this.offerId,
-      required this.message,
-      this.image});
+class _$SendMessageImpl implements SendMessage {
+  const _$SendMessageImpl({required this.message, this.image});
 
-  @override
-  final String quotationId;
-  @override
-  final String offerId;
   @override
   final String message;
   @override
@@ -309,7 +279,7 @@ class _$SendMessageImpl implements _SendMessage {
 
   @override
   String toString() {
-    return 'OfferMessageEvent.sendMessage(quotationId: $quotationId, offerId: $offerId, message: $message, image: $image)';
+    return 'OfferMessageEvent.sendMessage(message: $message, image: $image)';
   }
 
   @override
@@ -317,16 +287,12 @@ class _$SendMessageImpl implements _SendMessage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SendMessageImpl &&
-            (identical(other.quotationId, quotationId) ||
-                other.quotationId == quotationId) &&
-            (identical(other.offerId, offerId) || other.offerId == offerId) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.image, image) || other.image == image));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, quotationId, offerId, message, image);
+  int get hashCode => Object.hash(runtimeType, message, image);
 
   @JsonKey(ignore: true)
   @override
@@ -338,38 +304,32 @@ class _$SendMessageImpl implements _SendMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId, String offerId) loadMessages,
-    required TResult Function(
-            String quotationId, String offerId, String message, XFile? image)
-        sendMessage,
+    required TResult Function(String message, XFile? image) sendMessage,
     required TResult Function() refreshMessages,
   }) {
-    return sendMessage(quotationId, offerId, message, image);
+    return sendMessage(message, image);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId, String offerId)? loadMessages,
-    TResult? Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult? Function(String message, XFile? image)? sendMessage,
     TResult? Function()? refreshMessages,
   }) {
-    return sendMessage?.call(quotationId, offerId, message, image);
+    return sendMessage?.call(message, image);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId, String offerId)? loadMessages,
-    TResult Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult Function(String message, XFile? image)? sendMessage,
     TResult Function()? refreshMessages,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
-      return sendMessage(quotationId, offerId, message, image);
+      return sendMessage(message, image);
     }
     return orElse();
   }
@@ -377,9 +337,9 @@ class _$SendMessageImpl implements _SendMessage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_LoadMessages value) loadMessages,
-    required TResult Function(_SendMessage value) sendMessage,
-    required TResult Function(_RefreshMessages value) refreshMessages,
+    required TResult Function(LoadMessages value) loadMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(RefreshMessages value) refreshMessages,
   }) {
     return sendMessage(this);
   }
@@ -387,9 +347,9 @@ class _$SendMessageImpl implements _SendMessage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadMessages value)? loadMessages,
-    TResult? Function(_SendMessage value)? sendMessage,
-    TResult? Function(_RefreshMessages value)? refreshMessages,
+    TResult? Function(LoadMessages value)? loadMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(RefreshMessages value)? refreshMessages,
   }) {
     return sendMessage?.call(this);
   }
@@ -397,9 +357,9 @@ class _$SendMessageImpl implements _SendMessage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadMessages value)? loadMessages,
-    TResult Function(_SendMessage value)? sendMessage,
-    TResult Function(_RefreshMessages value)? refreshMessages,
+    TResult Function(LoadMessages value)? loadMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(RefreshMessages value)? refreshMessages,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -409,15 +369,10 @@ class _$SendMessageImpl implements _SendMessage {
   }
 }
 
-abstract class _SendMessage implements OfferMessageEvent {
-  const factory _SendMessage(
-      {required final String quotationId,
-      required final String offerId,
-      required final String message,
-      final XFile? image}) = _$SendMessageImpl;
+abstract class SendMessage implements OfferMessageEvent {
+  const factory SendMessage(
+      {required final String message, final XFile? image}) = _$SendMessageImpl;
 
-  String get quotationId;
-  String get offerId;
   String get message;
   XFile? get image;
   @JsonKey(ignore: true)
@@ -443,7 +398,7 @@ class __$$RefreshMessagesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RefreshMessagesImpl implements _RefreshMessages {
+class _$RefreshMessagesImpl implements RefreshMessages {
   const _$RefreshMessagesImpl();
 
   @override
@@ -464,9 +419,7 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String quotationId, String offerId) loadMessages,
-    required TResult Function(
-            String quotationId, String offerId, String message, XFile? image)
-        sendMessage,
+    required TResult Function(String message, XFile? image) sendMessage,
     required TResult Function() refreshMessages,
   }) {
     return refreshMessages();
@@ -476,9 +429,7 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String quotationId, String offerId)? loadMessages,
-    TResult? Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult? Function(String message, XFile? image)? sendMessage,
     TResult? Function()? refreshMessages,
   }) {
     return refreshMessages?.call();
@@ -488,9 +439,7 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String quotationId, String offerId)? loadMessages,
-    TResult Function(
-            String quotationId, String offerId, String message, XFile? image)?
-        sendMessage,
+    TResult Function(String message, XFile? image)? sendMessage,
     TResult Function()? refreshMessages,
     required TResult orElse(),
   }) {
@@ -503,9 +452,9 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_LoadMessages value) loadMessages,
-    required TResult Function(_SendMessage value) sendMessage,
-    required TResult Function(_RefreshMessages value) refreshMessages,
+    required TResult Function(LoadMessages value) loadMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(RefreshMessages value) refreshMessages,
   }) {
     return refreshMessages(this);
   }
@@ -513,9 +462,9 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadMessages value)? loadMessages,
-    TResult? Function(_SendMessage value)? sendMessage,
-    TResult? Function(_RefreshMessages value)? refreshMessages,
+    TResult? Function(LoadMessages value)? loadMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(RefreshMessages value)? refreshMessages,
   }) {
     return refreshMessages?.call(this);
   }
@@ -523,9 +472,9 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadMessages value)? loadMessages,
-    TResult Function(_SendMessage value)? sendMessage,
-    TResult Function(_RefreshMessages value)? refreshMessages,
+    TResult Function(LoadMessages value)? loadMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(RefreshMessages value)? refreshMessages,
     required TResult orElse(),
   }) {
     if (refreshMessages != null) {
@@ -535,8 +484,8 @@ class _$RefreshMessagesImpl implements _RefreshMessages {
   }
 }
 
-abstract class _RefreshMessages implements OfferMessageEvent {
-  const factory _RefreshMessages() = _$RefreshMessagesImpl;
+abstract class RefreshMessages implements OfferMessageEvent {
+  const factory RefreshMessages() = _$RefreshMessagesImpl;
 }
 
 /// @nodoc
@@ -546,9 +495,12 @@ mixin _$OfferMessageState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
+            List<OfferMessageDto> messages,
+            String quotationId,
+            String offerId,
+            bool isRefreshing,
+            bool isSending)
         loaded,
-    required TResult Function() sending,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -556,10 +508,9 @@ mixin _$OfferMessageState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult? Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult? Function()? sending,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -567,10 +518,9 @@ mixin _$OfferMessageState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult Function()? sending,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -580,7 +530,6 @@ mixin _$OfferMessageState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -589,7 +538,6 @@ mixin _$OfferMessageState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -598,7 +546,6 @@ mixin _$OfferMessageState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -664,9 +611,12 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
+            List<OfferMessageDto> messages,
+            String quotationId,
+            String offerId,
+            bool isRefreshing,
+            bool isSending)
         loaded,
-    required TResult Function() sending,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -677,10 +627,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult? Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult? Function()? sending,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -691,10 +640,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult Function()? sending,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -710,7 +658,6 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -722,7 +669,6 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -734,7 +680,6 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -790,9 +735,12 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
+            List<OfferMessageDto> messages,
+            String quotationId,
+            String offerId,
+            bool isRefreshing,
+            bool isSending)
         loaded,
-    required TResult Function() sending,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -803,10 +751,9 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult? Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult? Function()? sending,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -817,10 +764,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult Function()? sending,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -836,7 +782,6 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -848,7 +793,6 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -860,7 +804,6 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -882,7 +825,11 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<OfferMessageDto> messages, String quotationId, String offerId});
+      {List<OfferMessageDto> messages,
+      String quotationId,
+      String offerId,
+      bool isRefreshing,
+      bool isSending});
 }
 
 /// @nodoc
@@ -899,6 +846,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
     Object? messages = null,
     Object? quotationId = null,
     Object? offerId = null,
+    Object? isRefreshing = null,
+    Object? isSending = null,
   }) {
     return _then(_$LoadedImpl(
       messages: null == messages
@@ -913,6 +862,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
           ? _value.offerId
           : offerId // ignore: cast_nullable_to_non_nullable
               as String,
+      isRefreshing: null == isRefreshing
+          ? _value.isRefreshing
+          : isRefreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSending: null == isSending
+          ? _value.isSending
+          : isSending // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -923,7 +880,9 @@ class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(
       {required final List<OfferMessageDto> messages,
       required this.quotationId,
-      required this.offerId})
+      required this.offerId,
+      this.isRefreshing = false,
+      this.isSending = false})
       : _messages = messages;
 
   final List<OfferMessageDto> _messages;
@@ -938,10 +897,16 @@ class _$LoadedImpl implements _Loaded {
   final String quotationId;
   @override
   final String offerId;
+  @override
+  @JsonKey()
+  final bool isRefreshing;
+  @override
+  @JsonKey()
+  final bool isSending;
 
   @override
   String toString() {
-    return 'OfferMessageState.loaded(messages: $messages, quotationId: $quotationId, offerId: $offerId)';
+    return 'OfferMessageState.loaded(messages: $messages, quotationId: $quotationId, offerId: $offerId, isRefreshing: $isRefreshing, isSending: $isSending)';
   }
 
   @override
@@ -952,12 +917,21 @@ class _$LoadedImpl implements _Loaded {
             const DeepCollectionEquality().equals(other._messages, _messages) &&
             (identical(other.quotationId, quotationId) ||
                 other.quotationId == quotationId) &&
-            (identical(other.offerId, offerId) || other.offerId == offerId));
+            (identical(other.offerId, offerId) || other.offerId == offerId) &&
+            (identical(other.isRefreshing, isRefreshing) ||
+                other.isRefreshing == isRefreshing) &&
+            (identical(other.isSending, isSending) ||
+                other.isSending == isSending));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_messages), quotationId, offerId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_messages),
+      quotationId,
+      offerId,
+      isRefreshing,
+      isSending);
 
   @JsonKey(ignore: true)
   @override
@@ -971,12 +945,15 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
+            List<OfferMessageDto> messages,
+            String quotationId,
+            String offerId,
+            bool isRefreshing,
+            bool isSending)
         loaded,
-    required TResult Function() sending,
     required TResult Function(String message) error,
   }) {
-    return loaded(messages, quotationId, offerId);
+    return loaded(messages, quotationId, offerId, isRefreshing, isSending);
   }
 
   @override
@@ -984,13 +961,13 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult? Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult? Function()? sending,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(messages, quotationId, offerId);
+    return loaded?.call(
+        messages, quotationId, offerId, isRefreshing, isSending);
   }
 
   @override
@@ -998,15 +975,14 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult Function()? sending,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(messages, quotationId, offerId);
+      return loaded(messages, quotationId, offerId, isRefreshing, isSending);
     }
     return orElse();
   }
@@ -1017,7 +993,6 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
     required TResult Function(_Error value) error,
   }) {
     return loaded(this);
@@ -1029,7 +1004,6 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
     TResult? Function(_Error value)? error,
   }) {
     return loaded?.call(this);
@@ -1041,7 +1015,6 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1056,140 +1029,18 @@ abstract class _Loaded implements OfferMessageState {
   const factory _Loaded(
       {required final List<OfferMessageDto> messages,
       required final String quotationId,
-      required final String offerId}) = _$LoadedImpl;
+      required final String offerId,
+      final bool isRefreshing,
+      final bool isSending}) = _$LoadedImpl;
 
   List<OfferMessageDto> get messages;
   String get quotationId;
   String get offerId;
+  bool get isRefreshing;
+  bool get isSending;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SendingImplCopyWith<$Res> {
-  factory _$$SendingImplCopyWith(
-          _$SendingImpl value, $Res Function(_$SendingImpl) then) =
-      __$$SendingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SendingImplCopyWithImpl<$Res>
-    extends _$OfferMessageStateCopyWithImpl<$Res, _$SendingImpl>
-    implements _$$SendingImplCopyWith<$Res> {
-  __$$SendingImplCopyWithImpl(
-      _$SendingImpl _value, $Res Function(_$SendingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$SendingImpl implements _Sending {
-  const _$SendingImpl();
-
-  @override
-  String toString() {
-    return 'OfferMessageState.sending()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SendingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
-        loaded,
-    required TResult Function() sending,
-    required TResult Function(String message) error,
-  }) {
-    return sending();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
-        loaded,
-    TResult? Function()? sending,
-    TResult? Function(String message)? error,
-  }) {
-    return sending?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
-        loaded,
-    TResult Function()? sending,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (sending != null) {
-      return sending();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
-    required TResult Function(_Error value) error,
-  }) {
-    return sending(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
-    TResult? Function(_Error value)? error,
-  }) {
-    return sending?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (sending != null) {
-      return sending(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Sending implements OfferMessageState {
-  const factory _Sending() = _$SendingImpl;
 }
 
 /// @nodoc
@@ -1259,9 +1110,12 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)
+            List<OfferMessageDto> messages,
+            String quotationId,
+            String offerId,
+            bool isRefreshing,
+            bool isSending)
         loaded,
-    required TResult Function() sending,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1272,10 +1126,9 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult? Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult? Function()? sending,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1286,10 +1139,9 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<OfferMessageDto> messages, String quotationId, String offerId)?
+    TResult Function(List<OfferMessageDto> messages, String quotationId,
+            String offerId, bool isRefreshing, bool isSending)?
         loaded,
-    TResult Function()? sending,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1305,7 +1157,6 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Sending value) sending,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -1317,7 +1168,6 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Sending value)? sending,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -1329,7 +1179,6 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Sending value)? sending,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
