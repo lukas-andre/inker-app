@@ -1,5 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
+import 'package:inker_studio/data/api/quotation/dtos/participating_quotations_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 
@@ -14,10 +15,10 @@ abstract class QuotationService {
     int limit = 10,
     QuotationType? type,
   });
-  
+
   Future<Quotation> getQuotationDetails(
       {required String token, required String quotationId});
-      
+
   Future<Quotation> getQuotationById({
     required String token,
     required String quotationId,
@@ -26,6 +27,12 @@ abstract class QuotationService {
   Future<QuotationListResponse> getOpenQuotations({
     required String token,
     double? maxDistance,
+    int page = 1,
+    int limit = 10,
+  });
+
+  Future<ListParticipatingQuotationsResDto> getParticipatingQuotations({
+    required String token,
     int page = 1,
     int limit = 10,
   });
@@ -66,7 +73,8 @@ abstract class QuotationService {
     List<XFile>? proposedDesigns,
   });
 
-  Future<dynamic> listOffers({ // Replace 'dynamic' with specific DTO if available
+  Future<dynamic> listOffers({
+    // Replace 'dynamic' with specific DTO if available
     required String token,
     required String quotationId,
   });
@@ -77,7 +85,8 @@ abstract class QuotationService {
     required String offerId,
   });
 
-  Future<dynamic> sendOfferMessage({ // Replace 'dynamic' with specific DTO if available
+  Future<dynamic> sendOfferMessage({
+    // Replace 'dynamic' with specific DTO if available
     required String token,
     required String quotationId,
     required String offerId,
