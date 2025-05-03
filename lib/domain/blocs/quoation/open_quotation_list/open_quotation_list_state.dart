@@ -2,7 +2,7 @@ part of 'open_quotation_list_bloc.dart';
 
 @freezed
 abstract class OpenQuotationListState with _$OpenQuotationListState {
-  const factory OpenQuotationListState.initial() = _Initial;
+  const factory OpenQuotationListState.initial() = OpenQuotationListInitial;
   const factory OpenQuotationListState.loading() = _Loading;
   const factory OpenQuotationListState.loaded({
     required List<Quotation> openQuotations,
