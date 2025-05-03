@@ -433,6 +433,7 @@ Map<String, dynamic> _$$QuotationOfferListItemDtoImplToJson(
 
 _$OfferMessageDtoImpl _$$OfferMessageDtoImplFromJson(Map json) =>
     _$OfferMessageDtoImpl(
+      id: json['id'] as String?,
       senderId: json['senderId'] as String,
       senderType: $enumDecode(_$QuotationRoleEnumMap, json['senderType']),
       message: json['message'] as String,
@@ -442,11 +443,7 @@ _$OfferMessageDtoImpl _$$OfferMessageDtoImplFromJson(Map json) =>
 
 Map<String, dynamic> _$$OfferMessageDtoImplToJson(
     _$OfferMessageDtoImpl instance) {
-  final val = <String, dynamic>{
-    'senderId': instance.senderId,
-    'senderType': _$QuotationRoleEnumMap[instance.senderType]!,
-    'message': instance.message,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -454,6 +451,10 @@ Map<String, dynamic> _$$OfferMessageDtoImplToJson(
     }
   }
 
+  writeNotNull('id', instance.id);
+  val['senderId'] = instance.senderId;
+  val['senderType'] = _$QuotationRoleEnumMap[instance.senderType]!;
+  val['message'] = instance.message;
   writeNotNull('imageUrl', instance.imageUrl);
   val['timestamp'] = instance.timestamp.toIso8601String();
   return val;
