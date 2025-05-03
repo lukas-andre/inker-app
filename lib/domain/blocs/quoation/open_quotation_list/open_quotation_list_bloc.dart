@@ -26,6 +26,8 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
             _loadOpenQuotations(emit, isNextPage),
         refreshOpenQuotations: () async => 
             add(const OpenQuotationListEvent.loadOpenQuotations(isNextPage: false)),
+        getQuotationById: (String quotationId) async =>
+            _getQuotationById(emit, quotationId),
       );
     });
   }
@@ -48,13 +50,15 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
 
       int nextPage = 1;
       List<Quotation> accumulatedQuotations = [];
+      String? currentInfoMessage;
 
-      if (state is _Loaded) {
-        final currentState = state as _Loaded;
+      final currentState = state;
+      if (currentState is _Loaded) {
+          currentInfoMessage = currentState.infoMessage; // Preserve previous info message
         if (isNextPage) {
           nextPage = currentState.currentPage + 1;
           accumulatedQuotations = List.from(currentState.openQuotations);
-          emit(currentState.copyWith(isLoadingMore: true));
+          emit(currentState.copyWith(isLoadingMore: true, infoMessage: null)); // Clear message when loading more
         } else {
           // Refreshing
           nextPage = 1;
@@ -79,18 +83,67 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
         isLoadingMore: false,
         currentPage: nextPage,
         totalItems: response.total,
+        infoMessage: currentInfoMessage, // Restore message if any
       ));
     } catch (e) {
       // If it was loading more, revert state but show error
-      if (state is _Loaded && (state as _Loaded).isLoadingMore) {
-         final previousState = state as _Loaded;
-         emit(previousState.copyWith(
+      final currentState = state;
+      if (currentState is _Loaded && currentState.isLoadingMore) {
+         emit(currentState.copyWith(
            isLoadingMore: false,
            infoMessage: 'Error loading more: ${e.toString()}' // Use info message for less disruption
          ));
       } else {
         emit(OpenQuotationListState.error(e.toString()));
       }
+    }
+  }
+
+  Future<void> _getQuotationById(
+    Emitter<OpenQuotationListState> emit, String quotationId) async {
+    final currentState = state;
+    if (currentState is! _Loaded) {
+        // Cannot update if not loaded
+        emit(const OpenQuotationListState.error("Cannot fetch details before list is loaded."));
+        return;
+    }
+
+    emit(currentState.copyWith(infoMessage: "Loading details...")); // Show loading message
+
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const OpenQuotationListState.error('No active session.'));
+        return;
+      }
+
+      // Assuming getQuotationById exists in the service
+      final quotation = await _quotationService.getQuotationById(
+        token: session.accessToken,
+        quotationId: quotationId,
+      );
+
+      // Update the specific quotation in the list
+      final existingIndex = currentState.openQuotations.indexWhere(
+        (q) => q.id.toString() == quotationId
+      );
+
+      List<Quotation> updatedQuotations;
+      if (existingIndex >= 0) {
+        updatedQuotations = [...currentState.openQuotations];
+        updatedQuotations[existingIndex] = quotation;
+      } else {
+        // Should not happen if called from list, but handle defensively
+        updatedQuotations = [...currentState.openQuotations, quotation];
+      }
+
+      emit(currentState.copyWith(
+        openQuotations: updatedQuotations,
+        infoMessage: null, // Clear loading message
+      ));
+
+    } catch (e) {
+      emit(currentState.copyWith(infoMessage: "Error loading details: $e"));
     }
   }
 } 

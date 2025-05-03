@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_blo
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/ui/artist/work/work_tab_page.dart';
 import 'package:inker_studio/ui/quotation/open_quotation_list_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
@@ -27,7 +28,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   static const List<Widget> _pageWidgets = <Widget>[
     AgendaTablePage(hideHeader: true),
     QuotationListPage(hideHeader: true),
-    OpenQuotationListPage(),
+    WorkTabPage(),
     ArtistMyProfilePage(),
   ];
 

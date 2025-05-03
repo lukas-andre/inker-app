@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/data/api/quotation/dtos/participating_quotations_response.dart' as participating;
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
@@ -134,6 +135,25 @@ class ApiQuotationService implements QuotationService {
       token: token,
       queryParams: queryParams,
       fromJson: (json) => QuotationListResponse.fromJson(json as Map<String, dynamic>),
+    );
+  }
+  
+  @override
+  Future<participating.ListParticipatingQuotationsResDto> getParticipatingQuotations({
+    required String token,
+    int page = 1,
+    int limit = 10,
+  }) async {
+    final queryParams = {
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+
+    return await _httpClient.get(
+      path: '$_basePath/participating',
+      token: token,
+      queryParams: queryParams,
+      fromJson: (json) => participating.ListParticipatingQuotationsResDto.fromJson(json as Map<String, dynamic>),
     );
   }
 

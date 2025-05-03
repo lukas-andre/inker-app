@@ -21,6 +21,7 @@ mixin _$OpenQuotationListEvent {
     required TResult Function() started,
     required TResult Function(bool isNextPage) loadOpenQuotations,
     required TResult Function() refreshOpenQuotations,
+    required TResult Function(String quotationId) getQuotationById,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$OpenQuotationListEvent {
     TResult? Function()? started,
     TResult? Function(bool isNextPage)? loadOpenQuotations,
     TResult? Function()? refreshOpenQuotations,
+    TResult? Function(String quotationId)? getQuotationById,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$OpenQuotationListEvent {
     TResult Function()? started,
     TResult Function(bool isNextPage)? loadOpenQuotations,
     TResult Function()? refreshOpenQuotations,
+    TResult Function(String quotationId)? getQuotationById,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +47,7 @@ mixin _$OpenQuotationListEvent {
     required TResult Function(_LoadOpenQuotations value) loadOpenQuotations,
     required TResult Function(_RefreshOpenQuotations value)
         refreshOpenQuotations,
+    required TResult Function(_GetQuotationById value) getQuotationById,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +55,7 @@ mixin _$OpenQuotationListEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult? Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +63,7 @@ mixin _$OpenQuotationListEvent {
     TResult Function(_Started value)? started,
     TResult Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult Function(_GetQuotationById value)? getQuotationById,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,6 +129,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(bool isNextPage) loadOpenQuotations,
     required TResult Function() refreshOpenQuotations,
+    required TResult Function(String quotationId) getQuotationById,
   }) {
     return started();
   }
@@ -133,6 +140,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(bool isNextPage)? loadOpenQuotations,
     TResult? Function()? refreshOpenQuotations,
+    TResult? Function(String quotationId)? getQuotationById,
   }) {
     return started?.call();
   }
@@ -143,6 +151,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(bool isNextPage)? loadOpenQuotations,
     TResult Function()? refreshOpenQuotations,
+    TResult Function(String quotationId)? getQuotationById,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -158,6 +167,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_LoadOpenQuotations value) loadOpenQuotations,
     required TResult Function(_RefreshOpenQuotations value)
         refreshOpenQuotations,
+    required TResult Function(_GetQuotationById value) getQuotationById,
   }) {
     return started(this);
   }
@@ -168,6 +178,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult? Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
   }) {
     return started?.call(this);
   }
@@ -178,6 +189,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult Function(_GetQuotationById value)? getQuotationById,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -260,6 +272,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     required TResult Function() started,
     required TResult Function(bool isNextPage) loadOpenQuotations,
     required TResult Function() refreshOpenQuotations,
+    required TResult Function(String quotationId) getQuotationById,
   }) {
     return loadOpenQuotations(isNextPage);
   }
@@ -270,6 +283,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     TResult? Function()? started,
     TResult? Function(bool isNextPage)? loadOpenQuotations,
     TResult? Function()? refreshOpenQuotations,
+    TResult? Function(String quotationId)? getQuotationById,
   }) {
     return loadOpenQuotations?.call(isNextPage);
   }
@@ -280,6 +294,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     TResult Function()? started,
     TResult Function(bool isNextPage)? loadOpenQuotations,
     TResult Function()? refreshOpenQuotations,
+    TResult Function(String quotationId)? getQuotationById,
     required TResult orElse(),
   }) {
     if (loadOpenQuotations != null) {
@@ -295,6 +310,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     required TResult Function(_LoadOpenQuotations value) loadOpenQuotations,
     required TResult Function(_RefreshOpenQuotations value)
         refreshOpenQuotations,
+    required TResult Function(_GetQuotationById value) getQuotationById,
   }) {
     return loadOpenQuotations(this);
   }
@@ -305,6 +321,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult? Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
   }) {
     return loadOpenQuotations?.call(this);
   }
@@ -315,6 +332,7 @@ class _$LoadOpenQuotationsImpl implements _LoadOpenQuotations {
     TResult Function(_Started value)? started,
     TResult Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult Function(_GetQuotationById value)? getQuotationById,
     required TResult orElse(),
   }) {
     if (loadOpenQuotations != null) {
@@ -378,6 +396,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     required TResult Function() started,
     required TResult Function(bool isNextPage) loadOpenQuotations,
     required TResult Function() refreshOpenQuotations,
+    required TResult Function(String quotationId) getQuotationById,
   }) {
     return refreshOpenQuotations();
   }
@@ -388,6 +407,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     TResult? Function()? started,
     TResult? Function(bool isNextPage)? loadOpenQuotations,
     TResult? Function()? refreshOpenQuotations,
+    TResult? Function(String quotationId)? getQuotationById,
   }) {
     return refreshOpenQuotations?.call();
   }
@@ -398,6 +418,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     TResult Function()? started,
     TResult Function(bool isNextPage)? loadOpenQuotations,
     TResult Function()? refreshOpenQuotations,
+    TResult Function(String quotationId)? getQuotationById,
     required TResult orElse(),
   }) {
     if (refreshOpenQuotations != null) {
@@ -413,6 +434,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     required TResult Function(_LoadOpenQuotations value) loadOpenQuotations,
     required TResult Function(_RefreshOpenQuotations value)
         refreshOpenQuotations,
+    required TResult Function(_GetQuotationById value) getQuotationById,
   }) {
     return refreshOpenQuotations(this);
   }
@@ -423,6 +445,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult? Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
   }) {
     return refreshOpenQuotations?.call(this);
   }
@@ -433,6 +456,7 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
     TResult Function(_Started value)? started,
     TResult Function(_LoadOpenQuotations value)? loadOpenQuotations,
     TResult Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult Function(_GetQuotationById value)? getQuotationById,
     required TResult orElse(),
   }) {
     if (refreshOpenQuotations != null) {
@@ -444,6 +468,155 @@ class _$RefreshOpenQuotationsImpl implements _RefreshOpenQuotations {
 
 abstract class _RefreshOpenQuotations implements OpenQuotationListEvent {
   const factory _RefreshOpenQuotations() = _$RefreshOpenQuotationsImpl;
+}
+
+/// @nodoc
+abstract class _$$GetQuotationByIdImplCopyWith<$Res> {
+  factory _$$GetQuotationByIdImplCopyWith(_$GetQuotationByIdImpl value,
+          $Res Function(_$GetQuotationByIdImpl) then) =
+      __$$GetQuotationByIdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String quotationId});
+}
+
+/// @nodoc
+class __$$GetQuotationByIdImplCopyWithImpl<$Res>
+    extends _$OpenQuotationListEventCopyWithImpl<$Res, _$GetQuotationByIdImpl>
+    implements _$$GetQuotationByIdImplCopyWith<$Res> {
+  __$$GetQuotationByIdImplCopyWithImpl(_$GetQuotationByIdImpl _value,
+      $Res Function(_$GetQuotationByIdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+  }) {
+    return _then(_$GetQuotationByIdImpl(
+      null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetQuotationByIdImpl implements _GetQuotationById {
+  const _$GetQuotationByIdImpl(this.quotationId);
+
+  @override
+  final String quotationId;
+
+  @override
+  String toString() {
+    return 'OpenQuotationListEvent.getQuotationById(quotationId: $quotationId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetQuotationByIdImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quotationId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetQuotationByIdImplCopyWith<_$GetQuotationByIdImpl> get copyWith =>
+      __$$GetQuotationByIdImplCopyWithImpl<_$GetQuotationByIdImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool isNextPage) loadOpenQuotations,
+    required TResult Function() refreshOpenQuotations,
+    required TResult Function(String quotationId) getQuotationById,
+  }) {
+    return getQuotationById(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool isNextPage)? loadOpenQuotations,
+    TResult? Function()? refreshOpenQuotations,
+    TResult? Function(String quotationId)? getQuotationById,
+  }) {
+    return getQuotationById?.call(quotationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool isNextPage)? loadOpenQuotations,
+    TResult Function()? refreshOpenQuotations,
+    TResult Function(String quotationId)? getQuotationById,
+    required TResult orElse(),
+  }) {
+    if (getQuotationById != null) {
+      return getQuotationById(quotationId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadOpenQuotations value) loadOpenQuotations,
+    required TResult Function(_RefreshOpenQuotations value)
+        refreshOpenQuotations,
+    required TResult Function(_GetQuotationById value) getQuotationById,
+  }) {
+    return getQuotationById(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadOpenQuotations value)? loadOpenQuotations,
+    TResult? Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
+  }) {
+    return getQuotationById?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadOpenQuotations value)? loadOpenQuotations,
+    TResult Function(_RefreshOpenQuotations value)? refreshOpenQuotations,
+    TResult Function(_GetQuotationById value)? getQuotationById,
+    required TResult orElse(),
+  }) {
+    if (getQuotationById != null) {
+      return getQuotationById(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetQuotationById implements OpenQuotationListEvent {
+  const factory _GetQuotationById(final String quotationId) =
+      _$GetQuotationByIdImpl;
+
+  String get quotationId;
+  @JsonKey(ignore: true)
+  _$$GetQuotationByIdImplCopyWith<_$GetQuotationByIdImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -485,7 +658,7 @@ mixin _$OpenQuotationListState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(OpenQuotationListInitial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -493,7 +666,7 @@ mixin _$OpenQuotationListState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(OpenQuotationListInitial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -501,7 +674,7 @@ mixin _$OpenQuotationListState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(OpenQuotationListInitial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -530,25 +703,28 @@ class _$OpenQuotationListStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$OpenQuotationListInitialImplCopyWith<$Res> {
+  factory _$$OpenQuotationListInitialImplCopyWith(
+          _$OpenQuotationListInitialImpl value,
+          $Res Function(_$OpenQuotationListInitialImpl) then) =
+      __$$OpenQuotationListInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$OpenQuotationListStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$OpenQuotationListInitialImplCopyWithImpl<$Res>
+    extends _$OpenQuotationListStateCopyWithImpl<$Res,
+        _$OpenQuotationListInitialImpl>
+    implements _$$OpenQuotationListInitialImplCopyWith<$Res> {
+  __$$OpenQuotationListInitialImplCopyWithImpl(
+      _$OpenQuotationListInitialImpl _value,
+      $Res Function(_$OpenQuotationListInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+class _$OpenQuotationListInitialImpl implements OpenQuotationListInitial {
+  const _$OpenQuotationListInitialImpl();
 
   @override
   String toString() {
@@ -558,7 +734,8 @@ class _$InitialImpl implements _Initial {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$OpenQuotationListInitialImpl);
   }
 
   @override
@@ -614,7 +791,7 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(OpenQuotationListInitial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -625,7 +802,7 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(OpenQuotationListInitial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -636,7 +813,7 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(OpenQuotationListInitial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -649,8 +826,8 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements OpenQuotationListState {
-  const factory _Initial() = _$InitialImpl;
+abstract class OpenQuotationListInitial implements OpenQuotationListState {
+  const factory OpenQuotationListInitial() = _$OpenQuotationListInitialImpl;
 }
 
 /// @nodoc
@@ -738,7 +915,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(OpenQuotationListInitial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -749,7 +926,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(OpenQuotationListInitial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -760,7 +937,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(OpenQuotationListInitial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -951,7 +1128,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(OpenQuotationListInitial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -962,7 +1139,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(OpenQuotationListInitial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -973,7 +1150,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(OpenQuotationListInitial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -1115,7 +1292,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(OpenQuotationListInitial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -1126,7 +1303,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(OpenQuotationListInitial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -1137,7 +1314,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(OpenQuotationListInitial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
