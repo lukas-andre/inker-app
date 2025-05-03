@@ -65,10 +65,21 @@ class Quotation with _$Quotation {
     DateTime? customerReadAt,
     String? stencilId,
     Stencil? stencil,
+    double? distanceToArtistKm,
+    @Default(false) bool hasOffered,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>
       _$QuotationFromJson(json);
+
+  static Quotation empty() => Quotation(
+    id: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    customerId: '',
+    description: '',
+    status: QuotationStatus.pending,
+  );
 }
 
 @freezed
@@ -346,9 +357,34 @@ enum QuotationType {
 class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
   const factory QuotationOfferListItemDto({
     required String id,
-    // Add other fields from QuotationOfferListItemDto as needed
+    required String artistId,
+    Money? estimatedCost,
+    String? message,
+    @Default([]) List<OfferMessageDto> messages,
   }) = _QuotationOfferListItemDto;
 
   factory QuotationOfferListItemDto.fromJson(Map<String, dynamic> json) =>
       _$QuotationOfferListItemDtoFromJson(json);
+
+  static QuotationOfferListItemDto empty() => const QuotationOfferListItemDto(
+    id: '',
+    artistId: '',
+    estimatedCost: Money(amount: 0, currency: 'USD', scale: 2),
+    message: '',
+    messages: [],
+  );
+}
+
+@freezed
+class OfferMessageDto with _$OfferMessageDto {
+  const factory OfferMessageDto({
+    required String senderId, 
+    required QuotationRole senderType,
+    required String message,
+    String? imageUrl,
+    required DateTime timestamp,
+  }) = _OfferMessageDto;
+
+  factory OfferMessageDto.fromJson(Map<String, dynamic> json) =>
+      _$OfferMessageDtoFromJson(json);
 }

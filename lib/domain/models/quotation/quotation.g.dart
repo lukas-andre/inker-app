@@ -103,6 +103,8 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       stencil: json['stencil'] == null
           ? null
           : Stencil.fromJson(Map<String, dynamic>.from(json['stencil'] as Map)),
+      distanceToArtistKm: (json['distanceToArtistKm'] as num?)?.toDouble(),
+      hasOffered: json['hasOffered'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -166,6 +168,8 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('customerReadAt', instance.customerReadAt?.toIso8601String());
   writeNotNull('stencilId', instance.stencilId);
   writeNotNull('stencil', instance.stencil?.toJson());
+  writeNotNull('distanceToArtistKm', instance.distanceToArtistKm);
+  val['hasOffered'] = instance.hasOffered;
   return val;
 }
 
@@ -395,10 +399,62 @@ _$QuotationOfferListItemDtoImpl _$$QuotationOfferListItemDtoImplFromJson(
         Map json) =>
     _$QuotationOfferListItemDtoImpl(
       id: json['id'] as String,
+      artistId: json['artistId'] as String,
+      estimatedCost: json['estimatedCost'] == null
+          ? null
+          : Money.fromJson(
+              Map<String, dynamic>.from(json['estimatedCost'] as Map)),
+      message: json['message'] as String?,
+      messages: (json['messages'] as List<dynamic>?)
+              ?.map((e) =>
+                  OfferMessageDto.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$QuotationOfferListItemDtoImplToJson(
-        _$QuotationOfferListItemDtoImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
+    _$QuotationOfferListItemDtoImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'artistId': instance.artistId,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('estimatedCost', instance.estimatedCost?.toJson());
+  writeNotNull('message', instance.message);
+  val['messages'] = instance.messages.map((e) => e.toJson()).toList();
+  return val;
+}
+
+_$OfferMessageDtoImpl _$$OfferMessageDtoImplFromJson(Map json) =>
+    _$OfferMessageDtoImpl(
+      senderId: json['senderId'] as String,
+      senderType: $enumDecode(_$QuotationRoleEnumMap, json['senderType']),
+      message: json['message'] as String,
+      imageUrl: json['imageUrl'] as String?,
+      timestamp: DateTime.parse(json['timestamp'] as String),
+    );
+
+Map<String, dynamic> _$$OfferMessageDtoImplToJson(
+    _$OfferMessageDtoImpl instance) {
+  final val = <String, dynamic>{
+    'senderId': instance.senderId,
+    'senderType': _$QuotationRoleEnumMap[instance.senderType]!,
+    'message': instance.message,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('imageUrl', instance.imageUrl);
+  val['timestamp'] = instance.timestamp.toIso8601String();
+  return val;
+}
