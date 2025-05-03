@@ -61,10 +61,12 @@ class _QuotationOfferMessageView extends StatefulWidget {
   });
 
   @override
-  State<_QuotationOfferMessageView> createState() => _QuotationOfferMessageViewState();
+  State<_QuotationOfferMessageView> createState() =>
+      _QuotationOfferMessageViewState();
 }
 
-class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> {
+class _QuotationOfferMessageViewState
+    extends State<_QuotationOfferMessageView> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   XFile? _selectedImage;
@@ -108,35 +110,31 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
   }
 
   void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      Future.delayed(const Duration(milliseconds: 100), () {
-         if (_scrollController.hasClients) { // Check again after delay
-           _scrollController.animateTo(
-             _scrollController.position.maxScrollExtent,
-             duration: const Duration(milliseconds: 300),
-             curve: Curves.easeOut,
-           );
-         }
-      });
-    }
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
-    
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Row(
           children: [
             CircleAvatar(
               backgroundColor: Colors.grey[700],
               child: Text(
-                widget.customerName.isNotEmpty 
-                    ? widget.customerName[0].toUpperCase() 
+                widget.customerName.isNotEmpty
+                    ? widget.customerName[0].toUpperCase()
                     : '?',
                 style: const TextStyle(color: Colors.white),
               ),
@@ -176,13 +174,17 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
           BlocBuilder<OfferMessageBloc, OfferMessageState>(
             builder: (context, state) {
               bool canManualRefresh = state.maybeWhen(
-                  loaded: (_, __, ___, isRefreshing, isSending) => !isRefreshing && !isSending,
-                  orElse: () => true, // Allow refresh from error/initial states to trigger load
+                loaded: (_, __, ___, isRefreshing, isSending) =>
+                    !isRefreshing && !isSending,
+                orElse: () =>
+                    true, // Allow refresh from error/initial states to trigger load
               );
               return IconButton(
-                icon: const Icon(Icons.refresh),
+                icon: const Icon(Icons.refresh, color: Colors.white),
                 onPressed: canManualRefresh
-                    ? () => context.read<OfferMessageBloc>().add(const RefreshMessages())
+                    ? () => context
+                        .read<OfferMessageBloc>()
+                        .add(const RefreshMessages())
                     : null,
                 tooltip: l10n.refresh,
               );
@@ -193,14 +195,14 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
       body: BlocConsumer<OfferMessageBloc, OfferMessageState>(
         listener: (context, state) {
           state.maybeWhen(
-            loaded: (messages, _, __, isRefreshing, isSending) {
+            loaded: (messages, _, __, isRefreshing, isSending) async {
+              await Future.delayed(const Duration(milliseconds: 300));
               _scrollToBottom();
             },
             error: (message) {
               // Show error message
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message), backgroundColor: Colors.red)
-              );
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(message), backgroundColor: Colors.red));
             },
             orElse: () {},
           );
@@ -216,14 +218,17 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
                     height: 2,
                     child: LinearProgressIndicator(
                       backgroundColor: Colors.transparent,
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor.withOpacity(0.5)),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          secondaryColor.withOpacity(0.5)),
                       minHeight: 2,
                     ),
-                  ) else const SizedBox(height: 2),
+                  )
+                else
+                  const SizedBox(height: 2),
                 Expanded(
                   child: loadedState.messages.isEmpty
-                    ? _buildEmptyState()
-                    : _buildMessageList(loadedState.messages),
+                      ? _buildEmptyState()
+                      : _buildMessageList(loadedState.messages),
                 ),
                 _buildMessageInput(isSending: loadedState.isSending),
               ],
@@ -236,16 +241,17 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(errorState.message, style: TextStyleTheme.bodyText1, textAlign: TextAlign.center),
+                    child: Text(errorState.message,
+                        style: TextStyleTheme.bodyText1,
+                        textAlign: TextAlign.center),
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () => context.read<OfferMessageBloc>().add(
-                      LoadMessages(
-                        quotationId: widget.quotationId,
-                        offerId: widget.offerId,
-                      )
-                    ),
+                    onPressed: () =>
+                        context.read<OfferMessageBloc>().add(LoadMessages(
+                              quotationId: widget.quotationId,
+                              offerId: widget.offerId,
+                            )),
                     child: const Text("Try Again"),
                   )
                 ],
@@ -289,9 +295,10 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
   }
 
   Widget _buildMessageList(List<OfferMessageDto> messages) {
-    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final currentUserId = context.read<AuthBloc>().state.session.user?.id;
-    
+
     return ListView.separated(
       controller: _scrollController,
       padding: const EdgeInsets.all(16),
@@ -302,10 +309,11 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
         if (message.id?.startsWith('temp-') ?? false) {
           isMyMessage = message.senderId == currentUserId;
         } else {
-          isMyMessage = (isArtist && message.senderType == QuotationRole.artist) ||
-                         (!isArtist && message.senderType == QuotationRole.customer);
+          isMyMessage =
+              (isArtist && message.senderType == QuotationRole.artist) ||
+                  (!isArtist && message.senderType == QuotationRole.customer);
         }
-        
+
         return _buildMessageBubble(message, isMyMessage);
       },
       separatorBuilder: (context, index) => const SizedBox(height: 16),
@@ -326,74 +334,81 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
             maxWidth: MediaQuery.of(context).size.width * 0.75,
           ),
           decoration: BoxDecoration(
-            color: isMyMessage ? secondaryColor.withOpacity(0.8) : explorerSecondaryColor,
+            color: isMyMessage
+                ? secondaryColor.withOpacity(0.8)
+                : explorerSecondaryColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
-            crossAxisAlignment: isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            crossAxisAlignment:
+                isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               if (imageToShow != null) ...[
                 ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                  child: imageToShow.startsWith('http')
-                    ? Image.network(
-                        imageToShow,
-                        fit: BoxFit.cover,
-                        height: 200,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Container(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                    child: imageToShow.startsWith('http')
+                        ? Image.network(
+                            imageToShow,
+                            fit: BoxFit.cover,
                             height: 200,
-                            width: MediaQuery.of(context).size.width * 0.75,
-                            color: Colors.grey[850],
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                                strokeWidth: 2,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 100,
-                            color: Colors.grey[800],
-                            child: const Center(
-                              child: Icon(Icons.error, color: Colors.white),
-                            ),
-                          );
-                        },
-                      )
-                    : Image.file(
-                        File(imageToShow),
-                        fit: BoxFit.cover,
-                        height: 200,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 100,
-                            color: Colors.grey[800],
-                            child: const Center(
-                              child: Icon(Icons.broken_image, color: Colors.white),
-                            ),
-                          );
-                        },
-                      )
-                ),
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                height: 200,
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                color: Colors.grey[850],
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                    strokeWidth: 2,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 100,
+                                color: Colors.grey[800],
+                                child: const Center(
+                                  child: Icon(Icons.error, color: Colors.white),
+                                ),
+                              );
+                            },
+                          )
+                        : Image.file(
+                            File(imageToShow),
+                            fit: BoxFit.cover,
+                            height: 200,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 100,
+                                color: Colors.grey[800],
+                                child: const Center(
+                                  child: Icon(Icons.broken_image,
+                                      color: Colors.white),
+                                ),
+                              );
+                            },
+                          )),
               ],
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
                 child: Column(
-                  crossAxisAlignment: isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  crossAxisAlignment: isMyMessage
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
                   children: [
                     if (message.message.isNotEmpty) ...[
-                       Text(
+                      Text(
                         message.message,
                         style: TextStyleTheme.bodyText1.copyWith(
                           color: Colors.white,
@@ -407,10 +422,11 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                           if (isOptimistic) ...[
-                             const Icon(Icons.access_time, size: 10, color: Colors.white70),
-                             const SizedBox(width: 4),
-                           ],
+                          if (isOptimistic) ...[
+                            const Icon(Icons.access_time,
+                                size: 10, color: Colors.white70),
+                            const SizedBox(width: 4),
+                          ],
                           Text(
                             timeFormatted,
                             style: TextStyleTheme.caption.copyWith(
@@ -418,8 +434,8 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
                               fontSize: 10,
                             ),
                           ),
-                         ],
-                       ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -432,8 +448,9 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
   }
 
   Widget _buildMessageInput({required bool isSending}) {
-    bool canSend = !isSending && (_messageController.text.trim().isNotEmpty || _selectedImage != null);
-    
+    bool canSend = !isSending &&
+        (_messageController.text.trim().isNotEmpty || _selectedImage != null);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       color: explorerSecondaryColor,
@@ -448,42 +465,40 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
             ),
             Expanded(
               child: Container(
-                 padding: _selectedImage != null 
-                  ? const EdgeInsets.only(right: 50)
-                  : null,
+                padding: _selectedImage != null
+                    ? const EdgeInsets.only(right: 50)
+                    : null,
                 decoration: BoxDecoration(
                   color: Colors.white12,
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    TextField(
-                      controller: _messageController,
-                      maxLines: 5,
-                      minLines: 1,
-                      style: TextStyleTheme.bodyText1,
-                      enabled: !isSending,
-                      textInputAction: TextInputAction.newline,
-                      keyboardType: TextInputType.multiline,
-                      onChanged: (text) => setState(() {}),
-                      decoration: InputDecoration(
-                        hintText: "Type a message",
-                        hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white38),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
+                child: Stack(alignment: Alignment.centerRight, children: [
+                  TextField(
+                    controller: _messageController,
+                    maxLines: 5,
+                    minLines: 1,
+                    style: TextStyleTheme.bodyText1,
+                    enabled: !isSending,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    onChanged: (text) => setState(() {}),
+                    decoration: InputDecoration(
+                      hintText: "Type a message",
+                      hintStyle: TextStyleTheme.bodyText1
+                          .copyWith(color: Colors.white38),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
                       ),
                     ),
-                    if (_selectedImage != null)
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: _buildImagePreview(isSending: isSending),
-                      ),
-                  ]
-                ),
+                  ),
+                  if (_selectedImage != null)
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: _buildImagePreview(isSending: isSending),
+                    ),
+                ]),
               ),
             ),
             const SizedBox(width: 8),
@@ -495,12 +510,13 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
                       padding: EdgeInsets.all(12.0),
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(secondaryColor),
                       ),
                     ),
                   )
                 : IconButton(
-                    icon: const Icon(Icons.send),
+                    icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: canSend ? _sendMessage : null,
                     color: canSend ? secondaryColor : Colors.grey,
                     tooltip: 'Send Message',
@@ -569,8 +585,10 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
           child: Wrap(
             children: _imagePickerOptions.entries.map((entry) {
               final title = entry.key == 'gallery' ? 'Photo Library' : 'Camera';
-              final icon = entry.key == 'gallery' ? Icons.photo_library : Icons.camera_alt;
-              
+              final icon = entry.key == 'gallery'
+                  ? Icons.photo_library
+                  : Icons.camera_alt;
+
               return ListTile(
                 leading: Icon(icon, color: Colors.white),
                 title: Text(
@@ -591,16 +609,16 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
 
   Future<void> _pickImage(ImageSource source) async {
     try {
-        final pickedFile = await ImagePicker().pickImage(source: source);
-        if (pickedFile != null) {
-          setState(() {
-            _selectedImage = pickedFile;
-          });
-        }
+      final pickedFile = await ImagePicker().pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _selectedImage = pickedFile;
+        });
+      }
     } catch (e) {
-       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not pick image: $e'), backgroundColor: Colors.red)
-       );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Could not pick image: $e'),
+          backgroundColor: Colors.red));
     }
   }
 
@@ -613,15 +631,15 @@ class _QuotationOfferMessageViewState extends State<_QuotationOfferMessageView> 
     }
 
     context.read<OfferMessageBloc>().add(
-      SendMessage(
-        message: messageText,
-        image: imageFile,
-      ),
-    );
+          SendMessage(
+            message: messageText,
+            image: imageFile,
+          ),
+        );
 
     _messageController.clear();
     setState(() {
       _selectedImage = null;
     });
   }
-} 
+}
