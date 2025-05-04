@@ -28,6 +28,7 @@ class QuotationCardViewModel {
   final String? distanceToArtistKm;
   final List<MultimediaMetadata> referenceImages;
   final List<MultimediaMetadata> proposedDesigns; // Only for DIRECT
+  final Money? referenceBudget;
 
   // --- Type Specific Fields ---
   // Direct
@@ -68,6 +69,7 @@ class QuotationCardViewModel {
     // Open specific
     this.hasOffered = false,
     this.artistOffer,
+    this.referenceBudget,
   });
 
   // --- Factory for DIRECT Quotation ---
@@ -126,6 +128,7 @@ class QuotationCardViewModel {
       referenceImages: quotation.referenceImages?.metadata ?? [],
       hasOffered: quotation.hasOffered,
       artistOffer: quotation.offers?.isNotEmpty == true ? quotation.offers!.first : null,
+      referenceBudget: quotation.referenceBudget,
     );
   }
 

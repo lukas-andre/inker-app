@@ -496,7 +496,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           ),
                         ),
                         Text(
-                          quotation.referenceBudget!.formatWithSymbol() + ' CLP',
+                          '${quotation.referenceBudget!.formatWithSymbol()} CLP',
                           style: TextStyleTheme.bodyText2.copyWith(
                             color: secondaryColor,
                             fontWeight: FontWeight.bold,

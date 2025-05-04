@@ -124,6 +124,15 @@ class QuotationCard extends StatelessWidget {
 
                   // --- Description ---
                   DescriptionDisplay(description: model.description, maxLines: 3),
+                  // Mostrar referenceBudget si existe
+                  if (model.type == QuotationType.OPEN && model.referenceBudget != null) ...[
+                    const SizedBox(height: 8),
+                    DetailRow(
+                      icon: Icons.account_balance_wallet,
+                      label: 'Presupuesto de referencia',
+                      value: model.referenceBudget!.formatWithSymbol() + ' CLP',
+                    ),
+                  ],
                   const SizedBox(height: 12),
 
                   // --- Location (If available) ---
