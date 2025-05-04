@@ -400,6 +400,7 @@ _$QuotationOfferListItemDtoImpl _$$QuotationOfferListItemDtoImplFromJson(
     _$QuotationOfferListItemDtoImpl(
       id: json['id'] as String,
       artistId: json['artistId'] as String,
+      artistName: json['artistName'] as String?,
       estimatedCost: json['estimatedCost'] == null
           ? null
           : Money.fromJson(
@@ -425,6 +426,7 @@ Map<String, dynamic> _$$QuotationOfferListItemDtoImplToJson(
     }
   }
 
+  writeNotNull('artistName', instance.artistName);
   writeNotNull('estimatedCost', instance.estimatedCost?.toJson());
   writeNotNull('message', instance.message);
   val['messages'] = instance.messages.map((e) => e.toJson()).toList();

@@ -161,11 +161,13 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _CounterpartHeader(
-                          info: counterpartInfo,
-                          isArtist: isArtist,
-                          quotation: _currentQuotation,
-                        ),
+                        // No mostrar _CounterpartHeader para cotizaciones abiertas vistas por clientes
+                        if (!(isOpenQuotation && !isArtist))
+                          _CounterpartHeader(
+                            info: counterpartInfo,
+                            isArtist: isArtist,
+                            quotation: _currentQuotation,
+                          ),
                         _MainQuotationInfo(quotation: _currentQuotation),
                         if (_currentQuotation.history != null &&
                             _currentQuotation.history!.isNotEmpty)
@@ -445,9 +447,11 @@ class _MainQuotationInfo extends StatelessWidget {
             ),
             const Divider(height: 32),
 
-            // Special section for Open quotations when viewed by an artist
-            if (isOpenQuotation && isArtist)
-              _buildOpenQuotationActionSection(context, quotation),
+            // Special section for Open quotations based on user type
+            if (isOpenQuotation) 
+              isArtist 
+                ? _buildOpenQuotationActionSection(context, quotation)
+                : _CustomerOpenQuotationOffersSection(quotation: quotation),
 
             // Descripción
             Text(
@@ -1250,6 +1254,236 @@ class _OpenQuotationBanner extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Section that displays offers received for an open quotation (Customer View)
+class _CustomerOpenQuotationOffersSection extends StatelessWidget {
+  final Quotation quotation;
+
+  const _CustomerOpenQuotationOffersSection({
+    required this.quotation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    final List<QuotationOfferListItemDto>? offers = quotation.offers;
+    final int offersCount = offers?.length ?? 0;
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header section with offer count
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+            color: offersCount > 0 
+                ? const Color(0xFF4CAF50).withOpacity(0.1) 
+                : const Color(0xFF9E9E9E).withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: offersCount > 0 
+                  ? const Color(0xFF4CAF50).withOpacity(0.3) 
+                  : const Color(0xFF9E9E9E).withOpacity(0.3),
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                offersCount > 0 ? Icons.verified_outlined : Icons.hourglass_empty,
+                color: offersCount > 0 ? const Color(0xFF4CAF50) : Colors.grey,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      offersCount > 0
+                          ? 'Has recibido ${offersCount} ${offersCount == 1 ? 'oferta' : 'ofertas'}'
+                          : 'Aún no has recibido ofertas',
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: offersCount > 0 ? const Color(0xFF4CAF50) : Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      offersCount > 0
+                          ? 'Revisa cada oferta y chatea con los artistas'
+                          : 'Las ofertas aparecerán aquí cuando las recibas',
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // List of offers
+        if (offersCount > 0) ...[
+          // Title
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Text(
+              'Ofertas recibidas',
+              style: TextStyleTheme.subtitle1.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          
+          // Offers list
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: offersCount,
+            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              final offer = offers![index];
+              return _OfferListItem(
+                offer: offer,
+                quotationId: quotation.id.toString(),
+                customerName: quotation.customer?.firstName ?? 'Cliente',
+              );
+            },
+          ),
+        ],
+        
+        const Divider(height: 32),
+      ],
+    );
+  }
+}
+
+class _OfferListItem extends StatelessWidget {
+  final QuotationOfferListItemDto offer;
+  final String quotationId;
+  final String customerName;
+
+  const _OfferListItem({
+    required this.offer,
+    required this.quotationId,
+    required this.customerName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Function to navigate to chat
+    void navigateToChat() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => QuotationOfferMessagePage(
+            quotationId: quotationId,
+            offerId: offer.id,
+            offer: offer,
+            customerName: customerName,
+          ),
+        ),
+      );
+    }
+
+    // Format cost if available
+    String costText = 'No especificado';
+    if (offer.estimatedCost != null) {
+      costText = offer.estimatedCost!.formatWithSymbol();
+    }
+    
+    // Get message count if available
+    final int messageCount = offer.messages.length;
+    
+    return Card(
+      elevation: 0,
+      color: Colors.black12,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.white.withOpacity(0.1)),
+      ),
+      child: InkWell(
+        onTap: navigateToChat,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Artist ID and cost
+              Row(
+                children: [
+                  const Icon(Icons.person_outline, color: Colors.white70, size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Artista: ${offer.artistName}',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4CAF50).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      costText,
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: const Color(0xFF4CAF50),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 12),
+              
+              // Message preview or action button
+              if (messageCount > 0) ...[
+                Row(
+                  children: [
+                    const Icon(Icons.message_outlined, color: Colors.white70, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      '$messageCount ${messageCount == 1 ? 'mensaje' : 'mensajes'}',
+                      style: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.chevron_right, color: Colors.white70, size: 16),
+                  ],
+                ),
+                if (offer.message != null && offer.message!.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    'Mensaje: ${offer.message!.length > 50 ? '${offer.message!.substring(0, 50)}...' : offer.message!}',
+                    style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ] else ...[
+                ElevatedButton.icon(
+                  onPressed: navigateToChat,
+                  icon: const Icon(Icons.chat_outlined, size: 16),
+                  label: const Text('Iniciar chat'),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: secondaryColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    textStyle: TextStyleTheme.caption.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -358,6 +358,7 @@ class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
   const factory QuotationOfferListItemDto({
     required String id,
     required String artistId,
+    String? artistName,
     Money? estimatedCost,
     String? message,
     @Default([]) List<OfferMessageDto> messages,
@@ -368,6 +369,7 @@ class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
 
   static QuotationOfferListItemDto empty() => const QuotationOfferListItemDto(
     id: '',
+    artistName: '',
     artistId: '',
     estimatedCost: Money(amount: 0, currency: 'USD', scale: 2),
     message: '',
