@@ -98,4 +98,12 @@ abstract class QuotationService {
     required String token,
     required String offerId,
   });
+
+  Future<void> updateOffer({
+    required String token,
+    required String quotationId,
+    required String offerId,
+    Money? estimatedCost,
+    int? estimatedDuration,
+  });
 }

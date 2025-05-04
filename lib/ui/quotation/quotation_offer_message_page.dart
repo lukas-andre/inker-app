@@ -88,7 +88,7 @@ class _QuotationOfferMessageViewState
       if (mounted) {
         final currentState = context.read<OfferMessageBloc>().state;
         currentState.maybeWhen(
-          loaded: (_, __, ___, isRefreshing, isSending) {
+          loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
             if (!isRefreshing && !isSending) {
               context.read<OfferMessageBloc>().add(const RefreshMessages());
             }
@@ -143,10 +143,16 @@ class _QuotationOfferMessageViewState
             Expanded(
               child: BlocBuilder<OfferMessageBloc, OfferMessageState>(
                 builder: (context, state) {
-                  // If state is loaded, extract customer name from state if possible
                   String displayName = widget.customerName;
-                  Money? estimatedCost = widget.offer.estimatedCost;
-
+                  Money? estimatedCost;
+                  state.maybeWhen(
+                    loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
+                      estimatedCost = offer.estimatedCost;
+                    },
+                    orElse: () {
+                      estimatedCost = widget.offer.estimatedCost;
+                    },
+                  );
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -157,7 +163,7 @@ class _QuotationOfferMessageViewState
                       ),
                       if (estimatedCost != null) ...[
                         Text(
-                          "Offer: ${estimatedCost.formatWithSymbol()}",
+                          "Offer: ${estimatedCost?.formatWithSymbol()}",
                           style: TextStyleTheme.caption.copyWith(
                             color: Colors.white70,
                           ),
@@ -174,7 +180,7 @@ class _QuotationOfferMessageViewState
           BlocBuilder<OfferMessageBloc, OfferMessageState>(
             builder: (context, state) {
               bool canManualRefresh = state.maybeWhen(
-                loaded: (_, __, ___, isRefreshing, isSending) =>
+                loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) =>
                     !isRefreshing && !isSending,
                 orElse: () =>
                     true, // Allow refresh from error/initial states to trigger load
@@ -190,12 +196,18 @@ class _QuotationOfferMessageViewState
               );
             },
           ),
+          if (isArtist)
+            IconButton(
+              icon: const Icon(Icons.edit, color: Colors.white),
+              tooltip: 'Editar oferta',
+              onPressed: () => _showEditOfferDialog(context, context.read()),
+            ),
         ],
       ),
       body: BlocConsumer<OfferMessageBloc, OfferMessageState>(
         listener: (context, state) {
           state.maybeWhen(
-            loaded: (messages, _, __, isRefreshing, isSending) async {
+            loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) async {
               await Future.delayed(const Duration(milliseconds: 300));
               _scrollToBottom();
             },
@@ -641,5 +653,78 @@ class _QuotationOfferMessageViewState
     setState(() {
       _selectedImage = null;
     });
+  }
+
+  void _showEditOfferDialog(BuildContext context, OfferMessageBloc bloc) {
+    final offer = widget.offer;
+    final costController = TextEditingController(
+      text: offer.estimatedCost?.amount != null
+          ? (offer.estimatedCost!.amount / 100).toString()
+          : '',
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: quaternaryColor,
+          title: Text(
+            'Editar costo de la oferta',
+            style: TextStyleTheme.headline3.copyWith(color: primaryColor),
+          ),
+          content: TextField(
+            controller: costController,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            decoration: InputDecoration(
+              labelText: 'Costo estimado (CLP)',
+              hintText: 'Ej: 50000',
+              labelStyle: labelTextStyle,
+              hintStyle: hintTextStyle,
+              filled: true,
+              fillColor: Colors.white,
+              border: inputBorder,
+              focusedBorder: focusedBorder,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
+            style: TextStyleTheme.bodyText1.copyWith(color: primaryColor),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancelar', style: TextStyle(color: tertiaryColor)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: secondaryColor,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                final cost = double.tryParse(costController.text);
+                if (cost != null) {
+                  final money = Money(
+                    amount: (cost * 100).toInt(),
+                    currency: 'CLP',
+                    scale: 2,
+                  );
+                  bloc.add(
+                    OfferMessageEvent.updateOffer(
+                      estimatedCost: money,
+                    ),
+                  );
+                  // Enviar mensaje de "sistema" al chat
+                  bloc.add(
+                    OfferMessageEvent.sendMessage(
+                      message: 'El artista actualizó el costo de la oferta a \$${costController.text} CLP.',
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
