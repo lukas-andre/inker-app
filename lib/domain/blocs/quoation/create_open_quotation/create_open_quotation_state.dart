@@ -31,6 +31,9 @@ class CreateOpenQuotationState with _$CreateOpenQuotationState {
     String? errorMessage,
     String? successMessage,
     String? createdQuotationId, // ID of the created quotation on success
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
   }) = _CreateOpenQuotationState;
 
   // // Helper getter to determine if submission is allowed

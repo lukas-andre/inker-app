@@ -28,4 +28,9 @@ class CreateOpenQuotationEvent with _$CreateOpenQuotationEvent {
   // New events to clear messages
   const factory CreateOpenQuotationEvent.clearSuccessMessage() = _ClearSuccessMessage;
   const factory CreateOpenQuotationEvent.clearErrorMessage() = _ClearErrorMessage;
+
+  // Nuevos eventos para presupuesto
+  const factory CreateOpenQuotationEvent.minBudgetChanged(Money? minBudget) = _MinBudgetChanged;
+  const factory CreateOpenQuotationEvent.maxBudgetChanged(Money? maxBudget) = _MaxBudgetChanged;
+  const factory CreateOpenQuotationEvent.referenceBudgetChanged(Money? referenceBudget) = _ReferenceBudgetChanged;
 } 

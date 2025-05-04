@@ -16,6 +16,7 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'; // Import LatLng
+import 'package:inker_studio/domain/models/quotation/quotation.dart'; // Importa Money
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
@@ -325,6 +326,33 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     // Pass state image list to upload section
                     _buildImageUploadSection(l10n, state.referenceImages),
                     const SizedBox(height: 32),
+
+                    // Presupuesto Section
+                    _buildSectionHeader(
+                        'Presupuesto estimado (opcional)', Icons.attach_money),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      style: TextStyleTheme.bodyText1,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: false),
+                      decoration: _inputDecoration(
+                        hintText: 'Presupuesto de referencia (CLP)',
+                        prefixIcon: Icons.attach_money,
+                      ),
+                      initialValue:
+                          state.referenceBudget?.toString() ?? '',
+                      onChanged: (value) {
+                        final parsed = double.tryParse(value);
+                        context.read<CreateOpenQuotationBloc>().add(
+                              CreateOpenQuotationEvent.referenceBudgetChanged(
+                                parsed != null
+                                    ? Money.fromFloat(parsed, 'CLP', 0)
+                                    : null,
+                              ),
+                            );
+                      },
+                    ),
+                    const SizedBox(height: 28),
 
                     // Submit Button
                     Container(

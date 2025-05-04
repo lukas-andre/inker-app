@@ -481,6 +481,30 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   const SizedBox(height: 8),
                   
                   _buildDescription(quotation.description),
+                  // Mostrar referenceBudget si existe
+                  if (quotation.referenceBudget != null) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 16),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Presupuesto de referencia: ',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: const Color(0xFFF2F2F2),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          quotation.referenceBudget!.formatWithSymbol() + ' CLP',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: secondaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   const SizedBox(height: 16),
                   if (quotation.location != null) ...[
                     _buildLocation(quotation.location!),

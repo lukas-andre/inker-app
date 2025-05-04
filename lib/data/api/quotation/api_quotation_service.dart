@@ -4,7 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
-import 'package:inker_studio/data/api/quotation/dtos/participating_quotations_response.dart' as participating;
+import 'package:inker_studio/data/api/quotation/dtos/participating_quotations_response.dart'
+    as participating;
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
@@ -46,30 +47,39 @@ class ApiQuotationService implements QuotationService {
   @override
   Future<Map<String, dynamic>> createQuotation(
       Quotation quotation, List<XFile> referenceImages, String token) async {
-
     // Prepare fields based on quotation type
     final Map<String, String> fields = {
-      'type': quotation.type.toString().split('.').last, // Add type (DIRECT or OPEN)
+      'type': quotation.type
+          .toString()
+          .split('.')
+          .last, // Add type (DIRECT or OPEN)
       'description': quotation.description,
       'customerId': quotation.customerId,
       if (quotation.stencilId != null) 'stencilId': quotation.stencilId!,
-      
+
       // Fields specific to DIRECT quotations
-      if (quotation.type == QuotationType.DIRECT && quotation.artistId != null) 
+      if (quotation.type == QuotationType.DIRECT && quotation.artistId != null)
         'artistId': quotation.artistId!,
-        
+
       // Fields specific to OPEN quotations
       if (quotation.type == QuotationType.OPEN) ...{
-        if (quotation.tattooDesignCacheId != null) 
+        if (quotation.tattooDesignCacheId != null)
           'tattooDesignCacheId': quotation.tattooDesignCacheId!,
-        if (quotation.tattooDesignImageUrl != null) 
+        if (quotation.tattooDesignImageUrl != null)
           'tattooDesignImageUrl': quotation.tattooDesignImageUrl!,
-        if (quotation.customerLat != null) 
+        if (quotation.customerLat != null)
           'customerLat': quotation.customerLat!.toString(),
-        if (quotation.customerLon != null) 
+        if (quotation.customerLon != null)
           'customerLon': quotation.customerLon!.toString(),
-        if (quotation.customerTravelRadiusKm != null) 
-          'customerTravelRadiusKm': quotation.customerTravelRadiusKm!.toString(),
+        if (quotation.customerTravelRadiusKm != null)
+          'customerTravelRadiusKm':
+              quotation.customerTravelRadiusKm!.toString(),
+        if (quotation.referenceBudget != null) ...{
+          'referenceBudget[amount]':
+              quotation.referenceBudget!.amount.toString(),
+          'referenceBudget[currency]': quotation.referenceBudget!.currency,
+          'referenceBudget[scale]': quotation.referenceBudget!.scale.toString(),
+        },
       },
     };
 
@@ -79,7 +89,8 @@ class ApiQuotationService implements QuotationService {
       files.add(await http.MultipartFile.fromPath(
         'files', // Changed from 'files[]' to match common practices
         file.path,
-        contentType: MediaType('image', 'jpeg'), // Assuming jpeg, adjust if needed
+        contentType:
+            MediaType('image', 'jpeg'), // Assuming jpeg, adjust if needed
         filename: file.name, // Use original filename
       ));
     }
@@ -90,7 +101,8 @@ class ApiQuotationService implements QuotationService {
       token: token,
       fields: fields,
       files: files,
-      fromJson: (json) => json as Map<String, dynamic>, // Ensure correct return type
+      fromJson: (json) =>
+          json as Map<String, dynamic>, // Ensure correct return type
     );
   }
 
@@ -113,7 +125,8 @@ class ApiQuotationService implements QuotationService {
       path: _basePath,
       token: token,
       queryParams: queryParams,
-      fromJson: (json) => QuotationListResponse.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          QuotationListResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -134,12 +147,14 @@ class ApiQuotationService implements QuotationService {
       path: '$_basePath/open',
       token: token,
       queryParams: queryParams,
-      fromJson: (json) => QuotationListResponse.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          QuotationListResponse.fromJson(json as Map<String, dynamic>),
     );
   }
-  
+
   @override
-  Future<participating.ListParticipatingQuotationsResDto> getParticipatingQuotations({
+  Future<participating.ListParticipatingQuotationsResDto>
+      getParticipatingQuotations({
     required String token,
     int page = 1,
     int limit = 10,
@@ -153,7 +168,9 @@ class ApiQuotationService implements QuotationService {
       path: '$_basePath/participating',
       token: token,
       queryParams: queryParams,
-      fromJson: (json) => participating.ListParticipatingQuotationsResDto.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          participating.ListParticipatingQuotationsResDto.fromJson(
+              json as Map<String, dynamic>),
     );
   }
 
@@ -168,7 +185,7 @@ class ApiQuotationService implements QuotationService {
       fromJson: (json) => Quotation.fromJson(json as Map<String, dynamic>),
     );
   }
-  
+
   @override
   Future<Quotation> getQuotationById({
     required String token,
@@ -196,7 +213,7 @@ class ApiQuotationService implements QuotationService {
     List<XFile>? proposedDesigns,
   }) async {
     final List<http.MultipartFile> files = [];
-    
+
     // Map the frontend enum to backend enum values
     String actionValue;
     switch (action) {
@@ -213,7 +230,7 @@ class ApiQuotationService implements QuotationService {
         actionValue = 'reject_appeal';
         break;
     }
-    
+
     final Map<String, String> fields = {
       'action': actionValue,
       // TODO: Handle empty estimated cost
@@ -230,7 +247,6 @@ class ApiQuotationService implements QuotationService {
       if (rejectionReason != null)
         'rejectionReason': rejectionReason.toSnakeCase(),
     };
-
 
     if (proposedDesigns != null && proposedDesigns.isNotEmpty) {
       for (var i = 0; i < proposedDesigns.length; i++) {
@@ -269,17 +285,20 @@ class ApiQuotationService implements QuotationService {
       if (rejectionReason != null)
         'rejectionReason': rejectionReason
             .toString()
-            .split('.').last // Use enum value directly
+            .split('.')
+            .last // Use enum value directly
             .toSnakeCase(),
       if (appealReason != null)
         'appealReason': appealReason
             .toString()
-            .split('.').last // Use enum value directly
+            .split('.')
+            .last // Use enum value directly
             .toSnakeCase(),
       if (cancelReason != null)
         'cancelReason': cancelReason
             .toString()
-            .split('.').last // Use enum value directly
+            .split('.')
+            .last // Use enum value directly
             .toSnakeCase(),
       if (additionalDetails != null) 'additionalDetails': additionalDetails,
     };
@@ -327,7 +346,7 @@ class ApiQuotationService implements QuotationService {
         'appointmentDate': appointmentDate.toIso8601String(),
       if (appointmentDuration != null && appointmentDuration != 0)
         'appointmentDuration': appointmentDuration.toString(),
-      if (additionalDetails != null && additionalDetails.isNotEmpty) 
+      if (additionalDetails != null && additionalDetails.isNotEmpty)
         'additionalDetails': additionalDetails,
     };
 
@@ -338,7 +357,8 @@ class ApiQuotationService implements QuotationService {
         files.add(await http.MultipartFile.fromPath(
           'proposedDesigns', // Assuming backend expects this field name
           file.path,
-          contentType: MediaType('image', 'jpeg'), // Adjust content type if needed
+          contentType:
+              MediaType('image', 'jpeg'), // Adjust content type if needed
           filename: file.name,
         ));
       }
@@ -358,7 +378,8 @@ class ApiQuotationService implements QuotationService {
   }
 
   @override
-  Future<dynamic> listOffers({ // TODO: Replace 'dynamic' with a specific ListQuotationOffersResDto class
+  Future<dynamic> listOffers({
+    // TODO: Replace 'dynamic' with a specific ListQuotationOffersResDto class
     required String token,
     required String quotationId,
   }) async {
@@ -382,7 +403,7 @@ class ApiQuotationService implements QuotationService {
       path: '$_basePath/$quotationId/offers/$offerId/accept',
       token: token,
       body: {}, // No body required for accept action
-      fromJson: (json) => null, 
+      fromJson: (json) => null,
     );
   }
 
@@ -403,7 +424,8 @@ class ApiQuotationService implements QuotationService {
       files.add(await http.MultipartFile.fromPath(
         'image', // Field name specified in API docs
         image.path,
-        contentType: MediaType('image', 'jpeg'), // Adjust based on actual image type
+        contentType:
+            MediaType('image', 'jpeg'), // Adjust based on actual image type
         filename: image.name,
       ));
     }
@@ -414,7 +436,8 @@ class ApiQuotationService implements QuotationService {
       token: token,
       fields: fields,
       files: files,
-      fromJson: (json) => OfferMessageDto.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          OfferMessageDto.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -426,7 +449,8 @@ class ApiQuotationService implements QuotationService {
     return await _httpClient.get(
       path: '$_basePath/offers/$offerId',
       token: token,
-      fromJson: (json) => QuotationOfferListItemDto.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          QuotationOfferListItemDto.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -439,8 +463,10 @@ class ApiQuotationService implements QuotationService {
     int? estimatedDuration,
   }) async {
     final body = <String, dynamic>{
-      if (estimatedCost != null && !estimatedCost.isEmpty) 'estimatedCost': estimatedCost.toJson(),
-      if (estimatedDuration != null && estimatedDuration > 0) 'estimatedDuration': estimatedDuration,
+      if (estimatedCost != null && !estimatedCost.isEmpty)
+        'estimatedCost': estimatedCost.toJson(),
+      if (estimatedDuration != null && estimatedDuration > 0)
+        'estimatedDuration': estimatedDuration,
     };
 
     await _httpClient.patch(
