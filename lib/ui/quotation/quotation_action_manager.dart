@@ -89,16 +89,16 @@ class QuotationActionManager {
           ),
         ];
       case QuotationStatus.open:
-        return [
-          QuotationAction(
-            type: QuotationActionType.reply,
-            label: 'Enviar Propuesta',
-            icon: Icons.send,
-            isPrimary: true,
-            routeName: '/artistQuotationResponse',
-            routeArguments: {'quotationId': quotation.id.toString()},
-          ),
-        ];
+        // return [
+        //   QuotationAction(
+        //     type: QuotationActionType.reply,
+        //     label: 'Enviar Propuesta',
+        //     icon: Icons.send,
+        //     isPrimary: true,
+        //     routeName: '/artistQuotationResponse',
+        //     routeArguments: {'quotationId': quotation.id.toString()},
+        //   ),
+        // ];
       default:
         return [];
     }
@@ -115,6 +115,11 @@ class QuotationActionManager {
             isPrimary: true,
             routeName: '/editOpenQuotation',
             routeArguments: {'quotation': quotation},
+          ),
+          QuotationAction(
+            type: QuotationActionType.cancel,
+            label: l10n.cancel,
+            icon: Icons.cancel,
           ),
         ];
       case QuotationStatus.pending:
