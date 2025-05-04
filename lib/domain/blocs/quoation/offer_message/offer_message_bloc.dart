@@ -25,6 +25,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
     on<LoadMessages>(_onLoadMessages);
     on<SendMessage>(_onSendMessage);
     on<RefreshMessages>(_onRefreshMessages);
+    on<UpdateOffer>(_onUpdateOffer);
   }
 
   Future<void> _onLoadMessages(
@@ -56,6 +57,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
         messages: offer.messages ?? [],
         quotationId: quotationId,
         offerId: offerId,
+        offer: offer,
       ));
     } catch (e) {
       emit(OfferMessageState.error('Failed to load messages: ${e.toString()}'));
@@ -67,11 +69,12 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
     Emitter<OfferMessageState> emit,
   ) async {
     await state.maybeWhen(
-      loaded: (messages, quotationId, offerId, isRefreshing, _) async {
+      loaded: (messages, quotationId, offerId, offer, isRefreshing, _) async {
         emit(OfferMessageState.loaded(
           messages: messages,
           quotationId: quotationId,
           offerId: offerId,
+          offer: offer,
           isRefreshing: isRefreshing, // Preserve refreshing state if applicable
           isSending: true,
         ));
@@ -84,6 +87,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
               messages: messages,
               quotationId: quotationId,
               offerId: offerId,
+              offer: offer,
               isRefreshing: isRefreshing,
               isSending: false, // Sending failed
             ));
@@ -115,6 +119,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
             messages: updatedMessages,
             quotationId: quotationId,
             offerId: offerId,
+            offer: offer,
             isRefreshing: isRefreshing,
             isSending: false,
           ));
@@ -133,6 +138,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
             messages: messages,
             quotationId: quotationId,
             offerId: offerId,
+            offer: offer,
             isRefreshing: isRefreshing,
             isSending: false,
           ));
@@ -178,6 +184,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
             messages: offer.messages ?? [],
             quotationId: loadedState.quotationId,
             offerId: loadedState.offerId,
+            offer: offer,
             isRefreshing: false,
             isSending: false,
           ));
@@ -194,5 +201,41 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
       add(LoadMessages(
           quotationId: _currentQuotationId!, offerId: _currentOfferId!));
     }
+  }
+
+  Future<void> _onUpdateOffer(
+    UpdateOffer event,
+    Emitter<OfferMessageState> emit,
+  ) async {
+    await state.maybeWhen(
+      loaded: (messages, quotationId, offerId, offer, isRefreshing, _) async {
+        emit(OfferMessageState.loaded(
+          messages: messages,
+          quotationId: quotationId,
+          offerId: offerId,
+          offer: offer,
+          isRefreshing: isRefreshing,
+          isSending: true,
+        ));
+        try {
+          final token = await _sessionService.getActiveSessionToken();
+          if (token == null) {
+            emit(OfferMessageState.error('No active session found'));
+            return;
+          }
+          await _quotationService.updateOffer(
+            token: token,
+            quotationId: quotationId,
+            offerId: offerId,
+            estimatedCost: event.estimatedCost,
+            estimatedDuration: event.estimatedDuration,
+          );
+          add(const RefreshMessages());
+        } catch (e) {
+          emit(OfferMessageState.error('Failed to update offer: e.toString()'));
+        }
+      },
+      orElse: () async {},
+    );
   }
 }

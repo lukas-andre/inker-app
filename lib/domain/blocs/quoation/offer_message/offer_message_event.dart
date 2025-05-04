@@ -13,4 +13,9 @@ class OfferMessageEvent with _$OfferMessageEvent {
   }) = SendMessage;
 
   const factory OfferMessageEvent.refreshMessages() = RefreshMessages;
+
+  const factory OfferMessageEvent.updateOffer({
+    required Money? estimatedCost,
+    int? estimatedDuration,
+  }) = UpdateOffer;
 } 
