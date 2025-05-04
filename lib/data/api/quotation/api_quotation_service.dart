@@ -429,4 +429,25 @@ class ApiQuotationService implements QuotationService {
       fromJson: (json) => QuotationOfferListItemDto.fromJson(json as Map<String, dynamic>),
     );
   }
+
+  @override
+  Future<void> updateOffer({
+    required String token,
+    required String quotationId,
+    required String offerId,
+    Money? estimatedCost,
+    int? estimatedDuration,
+  }) async {
+    final body = <String, dynamic>{
+      if (estimatedCost != null && !estimatedCost.isEmpty) 'estimatedCost': estimatedCost.toJson(),
+      if (estimatedDuration != null && estimatedDuration > 0) 'estimatedDuration': estimatedDuration,
+    };
+
+    await _httpClient.patch(
+      path: '$_basePath/$quotationId/offers/$offerId',
+      token: token,
+      body: body,
+      fromJson: (json) => null,
+    );
+  }
 }
