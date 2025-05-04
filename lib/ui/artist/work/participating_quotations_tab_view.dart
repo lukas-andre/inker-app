@@ -265,165 +265,349 @@ class _ParticipatingQuotationsTabViewState
       ParticipatingQuotationItemDto item, S l10n) {
     final customerInfo = item.customer;
     final quotationInfo = item.quotation;
-    final QuotationStatus statusEnum = _parseQuotationStatus(item.status); // Parse status string
+    final QuotationStatus statusEnum = _parseQuotationStatus(item.status);
     final String statusText = QuotationStatusL10n.getStatus(statusEnum, l10n, true);
-    final Color statusColor = _getStatusColor(item.status); // Keep using string for color/icon helpers
+    final Color statusColor = _getStatusColor(item.status);
     final IconData statusIcon = _getStatusIcon(item.status);
+    
+    // Format relative time (e.g., "2 days ago" instead of full date)
+    final String timeAgo = _getRelativeTimeString(item.createdAt);
+    
+    // Check if there are messages to display
+    final bool hasMessages = item.messages?.isNotEmpty ?? false;
+    final int messagesCount = item.messages?.length ?? 0;
+    
+    // Format price if available
+    String priceDisplay = "No especificado";
+    if (item.estimatedCost != null) {
+      try {
+        // Intentar usar el método de formateo de Money si está disponible
+        priceDisplay = item.estimatedCost!.toString();
+      } catch (e) {
+        // Si hay error, usar un string genérico
+        priceDisplay = "Oferta enviada";
+      }
+    }
 
-    return GestureDetector(
-      onTap: () => _navigateToDetail(item),
-      child: Card(
-        key: K.getQuotationCardKey(item.id), // Assuming K has such a method
-        color: const Color(0xFF1F223C), // Standard card color
-        margin: const EdgeInsets.only(bottom: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: statusColor.withOpacity(0.5), width: 1.0),
+    return Card(
+      key: K.getQuotationCardKey(item.id),
+      color: const Color(0xFF1F223C),
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: statusColor.withOpacity(0.7), 
+          width: 1.5,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Customer Header
-              Row(
-                children: [
-                  if (customerInfo.profileThumbnail != null)
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(customerInfo.profileThumbnail!),
-                    )
-                  else
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: const Color(0xFF686D90),
-                      child: Text(
-                        customerInfo.firstName.isNotEmpty
-                            ? customerInfo.firstName[0].toUpperCase()
-                            : '?',
-                        style: TextStyleTheme.subtitle1
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      '${customerInfo.firstName} ${customerInfo.lastName}',
-                      style: TextStyleTheme.subtitle1.copyWith(
-                        color: const Color(0xFFF2F2F2),
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
+      ),
+      clipBehavior: Clip.antiAlias, // Ensure the positioned badge stays within bounds
+      child: Stack(
+        children: [
+          // Status badge in top right corner
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: statusColor,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                ),
               ),
-              const SizedBox(height: 16),
-              // Status and Date Row (using parsed status for text)
-              Row(
-                children: [
+              child: Text(
+                statusText,
+                style: TextStyleTheme.caption.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+          ),
+          
+          // Main content
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Customer Header
+                Row(
+                  children: [
+                    if (customerInfo.profileThumbnail != null)
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundImage: NetworkImage(customerInfo.profileThumbnail!),
+                      )
+                    else
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundColor: const Color(0xFF686D90),
+                        child: Text(
+                          customerInfo.firstName.isNotEmpty
+                              ? customerInfo.firstName[0].toUpperCase()
+                              : '?',
+                          style: TextStyleTheme.headline3
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${customerInfo.firstName} ${customerInfo.lastName}',
+                            style: TextStyleTheme.subtitle1.copyWith(
+                              color: const Color(0xFFF2F2F2),
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            timeAgo,
+                            style: TextStyleTheme.caption
+                                .copyWith(color: const Color(0xFF9E9E9E)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 16),
+                const Divider(height: 1, color: Color(0xFF303759)),
+                const SizedBox(height: 16),
+                
+                // Your offer section with highlighted price
+                if (item.estimatedCost != null)
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    margin: const EdgeInsets.only(bottom: 16),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.1),
+                        width: 1,
+                      ),
                     ),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(statusIcon, color: statusColor, size: 16),
-                        const SizedBox(width: 4),
-                        Text(
-                          statusText, // Use localized text from enum
-                          style: TextStyleTheme.subtitle2.copyWith(
-                            color: statusColor,
-                            fontWeight: FontWeight.bold,
+                        const Icon(
+                          Icons.attach_money,
+                          color: Color(0xFF4CAF50),
+                          size: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Tu oferta',
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: const Color(0xFF9E9E9E),
+                                ),
+                              ),
+                              Text(
+                                priceDisplay,
+                                style: TextStyleTheme.headline3.copyWith(
+                                  color: const Color(0xFF4CAF50),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        if (item.estimatedDuration != null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.access_time,
+                                  color: Color(0xFF9E9E9E),
+                                  size: 14,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${item.estimatedDuration} ${l10n.hours}',
+                                  style: TextStyleTheme.caption.copyWith(
+                                    color: const Color(0xFF9E9E9E),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),
-                  const Spacer(),
+                
+                // Quotation description with icon
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.description_outlined,
+                      color: Color(0xFF9E9E9E),
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        quotationInfo.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyleTheme.bodyText2
+                            .copyWith(color: const Color(0xFFE0E0E0)),
+                      ),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Reference images preview (if available)
+                if (quotationInfo.referenceImages?.isNotEmpty ?? false) ...[
+                  const Divider(height: 1, color: Color(0xFF303759)),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
-                      const Icon(Icons.calendar_today,
-                          color: Color(0xFF686D90), size: 16),
-                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.photo_library_outlined,
+                        color: Color(0xFF9E9E9E),
+                        size: 18,
+                      ),
+                      const SizedBox(width: 8),
                       Text(
-                        DateFormat.yMMMd().format(item.createdAt), // Use item creation date
-                        style: TextStyleTheme.bodyText2
-                            .copyWith(color: const Color(0xFF686D90)),
+                        '${quotationInfo.referenceImages!.length} imágenes de referencia',
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: const Color(0xFF9E9E9E),
+                        ),
                       ),
                     ],
                   ),
                 ],
-              ),
-              const SizedBox(height: 8),
-              // Quotation Description (from brief)
-              Text(
-                quotationInfo.description,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyleTheme.bodyText1
-                    .copyWith(color: const Color(0xFFF2F2F2)),
-              ),
-              const SizedBox(height: 16),
-              // Offer Details (Cost, Duration if available)
-              if (item.estimatedCost != null || item.estimatedDuration != null)
-                 Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     if (item.estimatedCost != null)
-                       _buildDetailRow(
-                          icon: Icons.attach_money,
-                          label: "Your Offer", // TODO: L10n
-                          value: item.estimatedCost!.toString(),
-                       ),
-                     if (item.estimatedDuration != null)
-                      _buildDetailRow(
-                         icon: Icons.access_time,
-                         label: "Est. Duration", // TODO: L10n
-                         value: '${item.estimatedDuration} ${l10n.hours}',
+                
+                const SizedBox(height: 16),
+                
+                // Action buttons based on status
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Message count indicator if there are messages
+                    if (hasMessages)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.blue.withOpacity(0.3),
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.message_outlined,
+                              color: Colors.blue,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              messagesCount.toString(),
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                     const SizedBox(height: 8),
-                   ],
-                 ),
-              // Add more details as needed, e.g., Reference Images from quotationInfo
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Helper for detail rows
-  Widget _buildDetailRow({
-    required IconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xFF686D90), size: 16),
-          const SizedBox(width: 8),
-          Text(
-            '$label: ',
-            style: TextStyleTheme.bodyText2
-                .copyWith(color: const Color(0xFFF2F2F2), fontWeight: FontWeight.bold),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyleTheme.bodyText2.copyWith(color: const Color(0xFF686D90)),
-              overflow: TextOverflow.ellipsis,
+                    
+                    const Spacer(),
+                    
+                    // Primary action button based on status
+                    _buildActionButton(statusEnum, item),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
+  }
+  
+  // Helper for generating relative time string
+  String _getRelativeTimeString(DateTime dateTime) {
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+    
+    if (difference.inDays > 365) {
+      return '${(difference.inDays / 365).floor()} año(s) atrás';
+    } else if (difference.inDays > 30) {
+      return '${(difference.inDays / 30).floor()} mes(es) atrás';
+    } else if (difference.inDays > 0) {
+      return '${difference.inDays} día(s) atrás';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} hora(s) atrás';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} minuto(s) atrás';
+    } else {
+      return 'Ahora mismo';
+    }
+  }
+  
+  // Helper for building action buttons based on status
+  Widget _buildActionButton(QuotationStatus status, ParticipatingQuotationItemDto item) {
+    switch (status) {
+      case QuotationStatus.accepted:
+        return ElevatedButton.icon(
+          onPressed: () => _navigateToDetail(item),
+          icon: const Icon(Icons.check_circle_outline, size: 16),
+          label: const Text('Ver detalles'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+        );
+        
+      case QuotationStatus.rejected:
+      case QuotationStatus.canceled:
+        return OutlinedButton.icon(
+          onPressed: () => _navigateToDetail(item),
+          icon: const Icon(Icons.info_outline, size: 16),
+          label: const Text('Ver razón'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white70,
+            side: BorderSide(color: Colors.white30),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+        );
+        
+      case QuotationStatus.quoted:
+      case QuotationStatus.pending:
+      default:
+        return ElevatedButton.icon(
+          onPressed: () => _navigateToDetail(item),
+          icon: const Icon(Icons.message_outlined, size: 16),
+          label: const Text('Continuar'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+        );
+    }
   }
 
   // Helper for status colors (matching QuotationListPage)
