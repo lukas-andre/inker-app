@@ -106,4 +106,14 @@ abstract class QuotationService {
     Money? estimatedCost,
     int? estimatedDuration,
   });
+
+  Future<void> updateOpenQuotation({
+    required String token,
+    required String quotationId,
+    String? description,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
+    String? generatedImageId,
+  });
 }

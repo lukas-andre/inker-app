@@ -33,6 +33,22 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
             _markAsRead(emit, quotationId),
         getQuotationById: (String quotationId) async =>
             _getQuotationById(emit, quotationId),
+        updateOpenQuotation: (
+          String quotationId,
+          String? description,
+          Money? minBudget,
+          Money? maxBudget,
+          Money? referenceBudget,
+          String? generatedImageId,
+        ) async => await _updateOpenQuotation(
+          emit,
+          quotationId: quotationId,
+          description: description,
+          minBudget: minBudget,
+          maxBudget: maxBudget,
+          referenceBudget: referenceBudget,
+          generatedImageId: generatedImageId,
+        ),
       );
     });
   }
@@ -223,6 +239,36 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
           totalItems: 1, 
         ));
       }
+    } catch (e) {
+      emit(QuotationListState.error(e.toString()));
+    }
+  }
+
+  Future<void> _updateOpenQuotation(
+    Emitter<QuotationListState> emit, {
+    required String quotationId,
+    String? description,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
+    String? generatedImageId,
+  }) async {
+    try {
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const QuotationListState.error('No se ha iniciado sesión.'));
+        return;
+      }
+      await _quotationService.updateOpenQuotation(
+        token: session.accessToken,
+        quotationId: quotationId,
+        description: description,
+        minBudget: minBudget,
+        maxBudget: maxBudget,
+        referenceBudget: referenceBudget,
+        generatedImageId: generatedImageId,
+      );
+      await _getQuotationById(emit, quotationId);
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
     }

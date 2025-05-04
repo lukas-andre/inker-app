@@ -40,6 +40,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/ui/views/error_view.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/immersive_viewer/immersive_viewer_page.dart';
+import 'package:inker_studio/ui/quotation/edit_open_quotation_page.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -491,6 +492,20 @@ class AppRoutes {
           child: const TattooGeneratorPage(),
         ),
       );
+    }
+
+    if (settings.name == '/editOpenQuotation') {
+      final args = settings.arguments as Map<String, dynamic>?;
+      final quotation = args != null ? args['quotation'] as Quotation : null;
+      if (quotation != null) {
+        return MaterialPageRoute(
+          builder: (context) => EditOpenQuotationPage(quotation: quotation),
+        );
+      } else {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(message: 'No quotation provided for editing.'),
+        );
+      }
     }
 
     return null;

@@ -12,4 +12,12 @@ abstract class QuotationListEvent with _$QuotationListEvent {
   const factory QuotationListEvent.markAsRead(String quotationId) = _MarkAsRead;
   const factory QuotationListEvent.getQuotationById(String quotationId) =
       _GetQuotationById;
+  const factory QuotationListEvent.updateOpenQuotation({
+    required String quotationId,
+    String? description,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
+    String? generatedImageId,
+  }) = _UpdateOpenQuotation;
 }

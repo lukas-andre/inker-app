@@ -42,6 +42,9 @@ mixin _$Quotation {
   List<QuotationOfferListItemDto>? get offers =>
       throw _privateConstructorUsedError;
   Money? get estimatedCost => throw _privateConstructorUsedError;
+  Money? get minBudget => throw _privateConstructorUsedError;
+  Money? get maxBudget => throw _privateConstructorUsedError;
+  Money? get referenceBudget => throw _privateConstructorUsedError;
   DateTime? get responseDate => throw _privateConstructorUsedError;
   DateTime? get appointmentDate => throw _privateConstructorUsedError;
   int? get appointmentDuration => throw _privateConstructorUsedError;
@@ -108,6 +111,9 @@ abstract class $QuotationCopyWith<$Res> {
       TattooDesignCache? tattooDesignCache,
       List<QuotationOfferListItemDto>? offers,
       Money? estimatedCost,
+      Money? minBudget,
+      Money? maxBudget,
+      Money? referenceBudget,
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
@@ -142,6 +148,9 @@ abstract class $QuotationCopyWith<$Res> {
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
   $TattooDesignCacheCopyWith<$Res>? get tattooDesignCache;
   $MoneyCopyWith<$Res>? get estimatedCost;
+  $MoneyCopyWith<$Res>? get minBudget;
+  $MoneyCopyWith<$Res>? get maxBudget;
+  $MoneyCopyWith<$Res>? get referenceBudget;
   $ArtistCopyWith<$Res>? get artist;
   $LocationCopyWith<$Res>? get location;
   $StencilCopyWith<$Res>? get stencil;
@@ -178,6 +187,9 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? tattooDesignCache = freezed,
     Object? offers = freezed,
     Object? estimatedCost = freezed,
+    Object? minBudget = freezed,
+    Object? maxBudget = freezed,
+    Object? referenceBudget = freezed,
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
     Object? appointmentDuration = freezed,
@@ -280,6 +292,18 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      minBudget: freezed == minBudget
+          ? _value.minBudget
+          : minBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      maxBudget: freezed == maxBudget
+          ? _value.maxBudget
+          : maxBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      referenceBudget: freezed == referenceBudget
+          ? _value.referenceBudget
+          : referenceBudget // ignore: cast_nullable_to_non_nullable
               as Money?,
       responseDate: freezed == responseDate
           ? _value.responseDate
@@ -450,6 +474,42 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
 
   @override
   @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get minBudget {
+    if (_value.minBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.minBudget!, (value) {
+      return _then(_value.copyWith(minBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get maxBudget {
+    if (_value.maxBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.maxBudget!, (value) {
+      return _then(_value.copyWith(maxBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get referenceBudget {
+    if (_value.referenceBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.referenceBudget!, (value) {
+      return _then(_value.copyWith(referenceBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $ArtistCopyWith<$Res>? get artist {
     if (_value.artist == null) {
       return null;
@@ -512,6 +572,9 @@ abstract class _$$QuotationImplCopyWith<$Res>
       TattooDesignCache? tattooDesignCache,
       List<QuotationOfferListItemDto>? offers,
       Money? estimatedCost,
+      Money? minBudget,
+      Money? maxBudget,
+      Money? referenceBudget,
       DateTime? responseDate,
       DateTime? appointmentDate,
       int? appointmentDuration,
@@ -551,6 +614,12 @@ abstract class _$$QuotationImplCopyWith<$Res>
   @override
   $MoneyCopyWith<$Res>? get estimatedCost;
   @override
+  $MoneyCopyWith<$Res>? get minBudget;
+  @override
+  $MoneyCopyWith<$Res>? get maxBudget;
+  @override
+  $MoneyCopyWith<$Res>? get referenceBudget;
+  @override
   $ArtistCopyWith<$Res>? get artist;
   @override
   $LocationCopyWith<$Res>? get location;
@@ -587,6 +656,9 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? tattooDesignCache = freezed,
     Object? offers = freezed,
     Object? estimatedCost = freezed,
+    Object? minBudget = freezed,
+    Object? maxBudget = freezed,
+    Object? referenceBudget = freezed,
     Object? responseDate = freezed,
     Object? appointmentDate = freezed,
     Object? appointmentDuration = freezed,
@@ -689,6 +761,18 @@ class __$$QuotationImplCopyWithImpl<$Res>
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      minBudget: freezed == minBudget
+          ? _value.minBudget
+          : minBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      maxBudget: freezed == maxBudget
+          ? _value.maxBudget
+          : maxBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      referenceBudget: freezed == referenceBudget
+          ? _value.referenceBudget
+          : referenceBudget // ignore: cast_nullable_to_non_nullable
               as Money?,
       responseDate: freezed == responseDate
           ? _value.responseDate
@@ -832,6 +916,9 @@ class _$QuotationImpl implements _Quotation {
       this.tattooDesignCache,
       final List<QuotationOfferListItemDto>? offers,
       this.estimatedCost,
+      this.minBudget,
+      this.maxBudget,
+      this.referenceBudget,
       this.responseDate,
       this.appointmentDate,
       this.appointmentDuration,
@@ -913,6 +1000,12 @@ class _$QuotationImpl implements _Quotation {
   @override
   final Money? estimatedCost;
   @override
+  final Money? minBudget;
+  @override
+  final Money? maxBudget;
+  @override
+  final Money? referenceBudget;
+  @override
   final DateTime? responseDate;
   @override
   final DateTime? appointmentDate;
@@ -984,7 +1077,7 @@ class _$QuotationImpl implements _Quotation {
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, type: $type, customerLat: $customerLat, customerLon: $customerLon, customerTravelRadiusKm: $customerTravelRadiusKm, tattooDesignCacheId: $tattooDesignCacheId, tattooDesignImageUrl: $tattooDesignImageUrl, tattooDesignCache: $tattooDesignCache, offers: $offers, estimatedCost: $estimatedCost, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil, distanceToArtistKm: $distanceToArtistKm, hasOffered: $hasOffered)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, type: $type, customerLat: $customerLat, customerLon: $customerLon, customerTravelRadiusKm: $customerTravelRadiusKm, tattooDesignCacheId: $tattooDesignCacheId, tattooDesignImageUrl: $tattooDesignImageUrl, tattooDesignCache: $tattooDesignCache, offers: $offers, estimatedCost: $estimatedCost, minBudget: $minBudget, maxBudget: $maxBudget, referenceBudget: $referenceBudget, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil, distanceToArtistKm: $distanceToArtistKm, hasOffered: $hasOffered)';
   }
 
   @override
@@ -1024,6 +1117,12 @@ class _$QuotationImpl implements _Quotation {
             const DeepCollectionEquality().equals(other._offers, _offers) &&
             (identical(other.estimatedCost, estimatedCost) ||
                 other.estimatedCost == estimatedCost) &&
+            (identical(other.minBudget, minBudget) ||
+                other.minBudget == minBudget) &&
+            (identical(other.maxBudget, maxBudget) ||
+                other.maxBudget == maxBudget) &&
+            (identical(other.referenceBudget, referenceBudget) ||
+                other.referenceBudget == referenceBudget) &&
             (identical(other.responseDate, responseDate) ||
                 other.responseDate == responseDate) &&
             (identical(other.appointmentDate, appointmentDate) ||
@@ -1103,6 +1202,9 @@ class _$QuotationImpl implements _Quotation {
         tattooDesignCache,
         const DeepCollectionEquality().hash(_offers),
         estimatedCost,
+        minBudget,
+        maxBudget,
+        referenceBudget,
         responseDate,
         appointmentDate,
         appointmentDuration,
@@ -1168,6 +1270,9 @@ abstract class _Quotation implements Quotation {
       final TattooDesignCache? tattooDesignCache,
       final List<QuotationOfferListItemDto>? offers,
       final Money? estimatedCost,
+      final Money? minBudget,
+      final Money? maxBudget,
+      final Money? referenceBudget,
       final DateTime? responseDate,
       final DateTime? appointmentDate,
       final int? appointmentDuration,
@@ -1237,6 +1342,12 @@ abstract class _Quotation implements Quotation {
   List<QuotationOfferListItemDto>? get offers;
   @override
   Money? get estimatedCost;
+  @override
+  Money? get minBudget;
+  @override
+  Money? get maxBudget;
+  @override
+  Money? get referenceBudget;
   @override
   DateTime? get responseDate;
   @override

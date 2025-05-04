@@ -8,7 +8,15 @@ import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 
-enum QuotationActionType { reply, reject, rejectAppeal, cancel, accept, appeal }
+enum QuotationActionType {
+  reply,
+  reject,
+  rejectAppeal,
+  cancel,
+  accept,
+  appeal,
+  edit
+}
 
 class QuotationAction {
   final QuotationActionType type;
@@ -98,6 +106,17 @@ class QuotationActionManager {
 
   List<QuotationAction> _getCustomerActions() {
     switch (quotation.status) {
+      case QuotationStatus.open:
+        return [
+          QuotationAction(
+            type: QuotationActionType.edit,
+            label: l10n.edit,
+            icon: Icons.edit,
+            isPrimary: true,
+            routeName: '/editOpenQuotation',
+            routeArguments: {'quotation': quotation},
+          ),
+        ];
       case QuotationStatus.pending:
         return [
           QuotationAction(
@@ -143,7 +162,18 @@ class QuotationActionManager {
           ),
         ];
       default:
-        return [];
+        return [
+          if (quotation.type == QuotationType.OPEN &&
+              session.user?.id == quotation.customerId)
+            QuotationAction(
+              type: QuotationActionType.edit,
+              label: l10n.edit,
+              icon: Icons.edit,
+              isPrimary: true,
+              routeName: '/editOpenQuotation',
+              routeArguments: {'quotation': quotation},
+            ),
+        ];
     }
   }
 
@@ -153,7 +183,7 @@ class QuotationActionManager {
         action.routeName!,
         arguments: action.routeArguments,
       );
-      
+
       // If action was completed successfully
       if (result == true) {
         // Notify that an action was executed so we can update UI
