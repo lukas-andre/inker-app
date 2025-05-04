@@ -466,4 +466,124 @@ class QuotationCard extends StatelessWidget {
        );
      }
 
+}
+
+class CustomerOpenQuotationCard extends StatelessWidget {
+  final CustomerOpenQuotationCardViewModel model;
+  final void Function(String quotationId)? onTap;
+  final void Function(String quotationId)? onViewOffersTap;
+
+  const CustomerOpenQuotationCard({
+    super.key,
+    required this.model,
+    this.onTap,
+    this.onViewOffersTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    
+    // Determinar colores basados en si hay ofertas o no
+    final bool hasOffers = model.offersCount > 0;
+    final Color borderColor = hasOffers 
+        ? const Color(0xFF4CAF50) // Verde suave para cotizaciones con ofertas
+        : const Color(0xFF52596E); // Gris neutro para sin ofertas
+    final Color backgroundColor = const Color(0xFF23263A); // Fondo oscuro consistente
+    
+    return Card(
+      color: backgroundColor,
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: borderColor,
+          width: hasOffers ? 2.0 : 1.0, // Borde más grueso si hay ofertas
+        ),
+      ),
+      child: InkWell(
+        onTap: () => onTap?.call(model.id),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    hasOffers ? Icons.check_circle_outline : model.statusIcon, 
+                    color: hasOffers ? const Color(0xFF4CAF50) : const Color(0xFF9E9E9E),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    hasOffers ? 'Recibiste ofertas' : model.statusText,
+                    style: TextStyleTheme.subtitle1.copyWith(
+                      color: hasOffers ? const Color(0xFF4CAF50) : Colors.white70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  if (hasOffers)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: const Color(0xFF4CAF50).withOpacity(0.3),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Text(
+                        '${model.offersCount} ${model.offersCount == 1 ? 'oferta' : 'ofertas'}',
+                        style: TextStyleTheme.caption.copyWith(
+                          color: const Color(0xFF4CAF50),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  else
+                    Text(
+                      'Sin ofertas aún',
+                      style: TextStyleTheme.caption.copyWith(color: Colors.white38),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                model.description,
+                style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Icon(Icons.calendar_today, color: Colors.white38, size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${model.createdAt.day}/${model.createdAt.month}/${model.createdAt.year}',
+                    style: TextStyleTheme.caption.copyWith(color: Colors.white38),
+                  ),
+                  const Spacer(),
+                  // Solo mostrar el botón si hay ofertas
+                  if (hasOffers)
+                    TextButton(
+                      onPressed: () => onViewOffersTap?.call(model.id),
+                      style: TextButton.styleFrom(
+                        foregroundColor: const Color(0xFF4CAF50),
+                        textStyle: TextStyleTheme.bodyText2.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      child: Text('Ver ofertas'),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 } 

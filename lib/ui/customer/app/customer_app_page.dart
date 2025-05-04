@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiratio
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/ui/artist/work/open_quotations_tab_view.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
 import 'package:inker_studio/ui/customer/explore/loading_map_page.dart';
@@ -17,6 +18,7 @@ import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 
 class CustomerAppPage extends StatefulWidget {
   const CustomerAppPage({super.key});
@@ -29,7 +31,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 2;
   List<Widget> get _pageWidgets => <Widget>[
     const BuildMapPage(hideHeader: true),
-    const QuotationListPage(hideHeader: true),
+    const CustomerQuotationsTabView(),
     BlocProvider(
       create: (context) => InspirationSearchBloc(
         stencilService: context.read(),
@@ -292,6 +294,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final state = customerAppBloc.state;
     final icons = state.customerPageNavBarIcons.icons;
     return Scaffold(
+      backgroundColor: primaryColor,
         appBar: _selectedIndex != 4 ? AppBar(
           title: Text(
             _getAppBarTitle(),
@@ -363,3 +366,40 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
         ));
   }
 }
+
+class CustomerQuotationsTabView extends StatelessWidget {
+  const CustomerQuotationsTabView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final currentUserId = context.read<AuthBloc>().state.session.user?.userTypeId;
+    return const DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          Material(
+            color: primaryColor,
+            child: TabBar(
+              indicatorColor: secondaryColor,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white60,
+              tabs: [
+                Tab(text: 'Directas'),
+                Tab(text: 'Públicas'),
+              ],
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                QuotationListPage(hideHeader: true),
+                OpenQuotationsTabView(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

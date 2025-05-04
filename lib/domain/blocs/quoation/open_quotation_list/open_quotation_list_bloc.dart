@@ -43,10 +43,10 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
         return;
       }
       // Ensure user is an artist, although this BLoC should only be used in the artist context
-      if (session.user?.userType != 'ARTIST') {
-         emit(const OpenQuotationListState.error('User is not an artist.'));
-         return;
-      }
+      // if (session.user?.userType != 'ARTIST') {
+      //    emit(const OpenQuotationListState.error('User is not an artist.'));
+      //    return;
+      // }
 
       int nextPage = 1;
       List<Quotation> accumulatedQuotations = [];
