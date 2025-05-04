@@ -463,6 +463,30 @@ class _MainQuotationInfo extends StatelessWidget {
               quotation.description,
               style: TextStyleTheme.bodyText1,
             ),
+            // Mostrar referenceBudget si existe
+            if (quotation.referenceBudget != null) ...[
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Presupuesto de referencia: ',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: const Color(0xFFF2F2F2),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    quotation.referenceBudget!.formatWithSymbol() + ' CLP',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: secondaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
             const SizedBox(height: 16),
 
             // Información adicional según el estado

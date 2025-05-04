@@ -33,6 +33,9 @@ mixin _$CreateOpenQuotationEvent {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +55,9 @@ mixin _$CreateOpenQuotationEvent {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +77,9 @@ mixin _$CreateOpenQuotationEvent {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -89,6 +98,10 @@ mixin _$CreateOpenQuotationEvent {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -105,6 +118,9 @@ mixin _$CreateOpenQuotationEvent {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -121,6 +137,9 @@ mixin _$CreateOpenQuotationEvent {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -198,6 +217,9 @@ class _$StartedImpl implements _Started {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return started();
   }
@@ -220,6 +242,9 @@ class _$StartedImpl implements _Started {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return started?.call();
   }
@@ -242,6 +267,9 @@ class _$StartedImpl implements _Started {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -266,6 +294,10 @@ class _$StartedImpl implements _Started {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return started(this);
   }
@@ -285,6 +317,9 @@ class _$StartedImpl implements _Started {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return started?.call(this);
   }
@@ -304,6 +339,9 @@ class _$StartedImpl implements _Started {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -399,6 +437,9 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return descriptionChanged(description);
   }
@@ -421,6 +462,9 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return descriptionChanged?.call(description);
   }
@@ -443,6 +487,9 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (descriptionChanged != null) {
@@ -467,6 +514,10 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return descriptionChanged(this);
   }
@@ -486,6 +537,9 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return descriptionChanged?.call(this);
   }
@@ -505,6 +559,9 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (descriptionChanged != null) {
@@ -605,6 +662,9 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return distanceChanged(distanceKm);
   }
@@ -627,6 +687,9 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return distanceChanged?.call(distanceKm);
   }
@@ -649,6 +712,9 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (distanceChanged != null) {
@@ -673,6 +739,10 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return distanceChanged(this);
   }
@@ -692,6 +762,9 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return distanceChanged?.call(this);
   }
@@ -711,6 +784,9 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (distanceChanged != null) {
@@ -810,6 +886,9 @@ class _$StencilSelectedImpl implements _StencilSelected {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return stencilSelected(stencilId);
   }
@@ -832,6 +911,9 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return stencilSelected?.call(stencilId);
   }
@@ -854,6 +936,9 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (stencilSelected != null) {
@@ -878,6 +963,10 @@ class _$StencilSelectedImpl implements _StencilSelected {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return stencilSelected(this);
   }
@@ -897,6 +986,9 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return stencilSelected?.call(this);
   }
@@ -916,6 +1008,9 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (stencilSelected != null) {
@@ -1027,6 +1122,9 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return tattooDesignSelected(design, imageUrl);
   }
@@ -1049,6 +1147,9 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return tattooDesignSelected?.call(design, imageUrl);
   }
@@ -1071,6 +1172,9 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (tattooDesignSelected != null) {
@@ -1095,6 +1199,10 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return tattooDesignSelected(this);
   }
@@ -1114,6 +1222,9 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return tattooDesignSelected?.call(this);
   }
@@ -1133,6 +1244,9 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (tattooDesignSelected != null) {
@@ -1207,6 +1321,9 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return selectionCleared();
   }
@@ -1229,6 +1346,9 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return selectionCleared?.call();
   }
@@ -1251,6 +1371,9 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (selectionCleared != null) {
@@ -1275,6 +1398,10 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return selectionCleared(this);
   }
@@ -1294,6 +1421,9 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return selectionCleared?.call(this);
   }
@@ -1313,6 +1443,9 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (selectionCleared != null) {
@@ -1411,6 +1544,9 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return imagesAdded(images);
   }
@@ -1433,6 +1569,9 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return imagesAdded?.call(images);
   }
@@ -1455,6 +1594,9 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (imagesAdded != null) {
@@ -1479,6 +1621,10 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return imagesAdded(this);
   }
@@ -1498,6 +1644,9 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return imagesAdded?.call(this);
   }
@@ -1517,6 +1666,9 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (imagesAdded != null) {
@@ -1614,6 +1766,9 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return imageRemoved(image);
   }
@@ -1636,6 +1791,9 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return imageRemoved?.call(image);
   }
@@ -1658,6 +1816,9 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (imageRemoved != null) {
@@ -1682,6 +1843,10 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return imageRemoved(this);
   }
@@ -1701,6 +1866,9 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return imageRemoved?.call(this);
   }
@@ -1720,6 +1888,9 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (imageRemoved != null) {
@@ -1843,6 +2014,9 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return locationStatusChecked(isGpsEnabled, isPermissionGranted, location);
   }
@@ -1865,6 +2039,9 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return locationStatusChecked?.call(
         isGpsEnabled, isPermissionGranted, location);
@@ -1888,6 +2065,9 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (locationStatusChecked != null) {
@@ -1912,6 +2092,10 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return locationStatusChecked(this);
   }
@@ -1931,6 +2115,9 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return locationStatusChecked?.call(this);
   }
@@ -1950,6 +2137,9 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (locationStatusChecked != null) {
@@ -2026,6 +2216,9 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return submitPressed();
   }
@@ -2048,6 +2241,9 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return submitPressed?.call();
   }
@@ -2070,6 +2266,9 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (submitPressed != null) {
@@ -2094,6 +2293,10 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return submitPressed(this);
   }
@@ -2113,6 +2316,9 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return submitPressed?.call(this);
   }
@@ -2132,6 +2338,9 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (submitPressed != null) {
@@ -2200,6 +2409,9 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return clearSuccessMessage();
   }
@@ -2222,6 +2434,9 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return clearSuccessMessage?.call();
   }
@@ -2244,6 +2459,9 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (clearSuccessMessage != null) {
@@ -2268,6 +2486,10 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return clearSuccessMessage(this);
   }
@@ -2287,6 +2509,9 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return clearSuccessMessage?.call(this);
   }
@@ -2306,6 +2531,9 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (clearSuccessMessage != null) {
@@ -2373,6 +2601,9 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     required TResult Function() submitPressed,
     required TResult Function() clearSuccessMessage,
     required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
   }) {
     return clearErrorMessage();
   }
@@ -2395,6 +2626,9 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult? Function()? submitPressed,
     TResult? Function()? clearSuccessMessage,
     TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
   }) {
     return clearErrorMessage?.call();
   }
@@ -2417,6 +2651,9 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult Function()? submitPressed,
     TResult Function()? clearSuccessMessage,
     TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (clearErrorMessage != null) {
@@ -2441,6 +2678,10 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     required TResult Function(_SubmitPressed value) submitPressed,
     required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
     required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
   }) {
     return clearErrorMessage(this);
   }
@@ -2460,6 +2701,9 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult? Function(_SubmitPressed value)? submitPressed,
     TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
   }) {
     return clearErrorMessage?.call(this);
   }
@@ -2479,6 +2723,9 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult Function(_SubmitPressed value)? submitPressed,
     TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
     TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
     required TResult orElse(),
   }) {
     if (clearErrorMessage != null) {
@@ -2490,6 +2737,726 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
 
 abstract class _ClearErrorMessage implements CreateOpenQuotationEvent {
   const factory _ClearErrorMessage() = _$ClearErrorMessageImpl;
+}
+
+/// @nodoc
+abstract class _$$MinBudgetChangedImplCopyWith<$Res> {
+  factory _$$MinBudgetChangedImplCopyWith(_$MinBudgetChangedImpl value,
+          $Res Function(_$MinBudgetChangedImpl) then) =
+      __$$MinBudgetChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Money? minBudget});
+
+  $MoneyCopyWith<$Res>? get minBudget;
+}
+
+/// @nodoc
+class __$$MinBudgetChangedImplCopyWithImpl<$Res>
+    extends _$CreateOpenQuotationEventCopyWithImpl<$Res, _$MinBudgetChangedImpl>
+    implements _$$MinBudgetChangedImplCopyWith<$Res> {
+  __$$MinBudgetChangedImplCopyWithImpl(_$MinBudgetChangedImpl _value,
+      $Res Function(_$MinBudgetChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? minBudget = freezed,
+  }) {
+    return _then(_$MinBudgetChangedImpl(
+      freezed == minBudget
+          ? _value.minBudget
+          : minBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get minBudget {
+    if (_value.minBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.minBudget!, (value) {
+      return _then(_value.copyWith(minBudget: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$MinBudgetChangedImpl implements _MinBudgetChanged {
+  const _$MinBudgetChangedImpl(this.minBudget);
+
+  @override
+  final Money? minBudget;
+
+  @override
+  String toString() {
+    return 'CreateOpenQuotationEvent.minBudgetChanged(minBudget: $minBudget)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MinBudgetChangedImpl &&
+            (identical(other.minBudget, minBudget) ||
+                other.minBudget == minBudget));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, minBudget);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MinBudgetChangedImplCopyWith<_$MinBudgetChangedImpl> get copyWith =>
+      __$$MinBudgetChangedImplCopyWithImpl<_$MinBudgetChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String description) descriptionChanged,
+    required TResult Function(int distanceKm) distanceChanged,
+    required TResult Function(String stencilId) stencilSelected,
+    required TResult Function(UserTattooDesignDto design, String imageUrl)
+        tattooDesignSelected,
+    required TResult Function() selectionCleared,
+    required TResult Function(List<XFile> images) imagesAdded,
+    required TResult Function(XFile image) imageRemoved,
+    required TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)
+        locationStatusChecked,
+    required TResult Function() submitPressed,
+    required TResult Function() clearSuccessMessage,
+    required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
+  }) {
+    return minBudgetChanged(minBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String description)? descriptionChanged,
+    TResult? Function(int distanceKm)? distanceChanged,
+    TResult? Function(String stencilId)? stencilSelected,
+    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult? Function()? selectionCleared,
+    TResult? Function(List<XFile> images)? imagesAdded,
+    TResult? Function(XFile image)? imageRemoved,
+    TResult? Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult? Function()? submitPressed,
+    TResult? Function()? clearSuccessMessage,
+    TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
+  }) {
+    return minBudgetChanged?.call(minBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String description)? descriptionChanged,
+    TResult Function(int distanceKm)? distanceChanged,
+    TResult Function(String stencilId)? stencilSelected,
+    TResult Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult Function()? selectionCleared,
+    TResult Function(List<XFile> images)? imagesAdded,
+    TResult Function(XFile image)? imageRemoved,
+    TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult Function()? submitPressed,
+    TResult Function()? clearSuccessMessage,
+    TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (minBudgetChanged != null) {
+      return minBudgetChanged(minBudget);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_DescriptionChanged value) descriptionChanged,
+    required TResult Function(_DistanceChanged value) distanceChanged,
+    required TResult Function(_StencilSelected value) stencilSelected,
+    required TResult Function(_TattooDesignSelected value) tattooDesignSelected,
+    required TResult Function(_SelectionCleared value) selectionCleared,
+    required TResult Function(_ImagesAdded value) imagesAdded,
+    required TResult Function(_ImageRemoved value) imageRemoved,
+    required TResult Function(_LocationStatusChecked value)
+        locationStatusChecked,
+    required TResult Function(_SubmitPressed value) submitPressed,
+    required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
+    required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
+  }) {
+    return minBudgetChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_DescriptionChanged value)? descriptionChanged,
+    TResult? Function(_DistanceChanged value)? distanceChanged,
+    TResult? Function(_StencilSelected value)? stencilSelected,
+    TResult? Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult? Function(_SelectionCleared value)? selectionCleared,
+    TResult? Function(_ImagesAdded value)? imagesAdded,
+    TResult? Function(_ImageRemoved value)? imageRemoved,
+    TResult? Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+    TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+  }) {
+    return minBudgetChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_DescriptionChanged value)? descriptionChanged,
+    TResult Function(_DistanceChanged value)? distanceChanged,
+    TResult Function(_StencilSelected value)? stencilSelected,
+    TResult Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult Function(_SelectionCleared value)? selectionCleared,
+    TResult Function(_ImagesAdded value)? imagesAdded,
+    TResult Function(_ImageRemoved value)? imageRemoved,
+    TResult Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (minBudgetChanged != null) {
+      return minBudgetChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MinBudgetChanged implements CreateOpenQuotationEvent {
+  const factory _MinBudgetChanged(final Money? minBudget) =
+      _$MinBudgetChangedImpl;
+
+  Money? get minBudget;
+  @JsonKey(ignore: true)
+  _$$MinBudgetChangedImplCopyWith<_$MinBudgetChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MaxBudgetChangedImplCopyWith<$Res> {
+  factory _$$MaxBudgetChangedImplCopyWith(_$MaxBudgetChangedImpl value,
+          $Res Function(_$MaxBudgetChangedImpl) then) =
+      __$$MaxBudgetChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Money? maxBudget});
+
+  $MoneyCopyWith<$Res>? get maxBudget;
+}
+
+/// @nodoc
+class __$$MaxBudgetChangedImplCopyWithImpl<$Res>
+    extends _$CreateOpenQuotationEventCopyWithImpl<$Res, _$MaxBudgetChangedImpl>
+    implements _$$MaxBudgetChangedImplCopyWith<$Res> {
+  __$$MaxBudgetChangedImplCopyWithImpl(_$MaxBudgetChangedImpl _value,
+      $Res Function(_$MaxBudgetChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? maxBudget = freezed,
+  }) {
+    return _then(_$MaxBudgetChangedImpl(
+      freezed == maxBudget
+          ? _value.maxBudget
+          : maxBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get maxBudget {
+    if (_value.maxBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.maxBudget!, (value) {
+      return _then(_value.copyWith(maxBudget: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$MaxBudgetChangedImpl implements _MaxBudgetChanged {
+  const _$MaxBudgetChangedImpl(this.maxBudget);
+
+  @override
+  final Money? maxBudget;
+
+  @override
+  String toString() {
+    return 'CreateOpenQuotationEvent.maxBudgetChanged(maxBudget: $maxBudget)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MaxBudgetChangedImpl &&
+            (identical(other.maxBudget, maxBudget) ||
+                other.maxBudget == maxBudget));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, maxBudget);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MaxBudgetChangedImplCopyWith<_$MaxBudgetChangedImpl> get copyWith =>
+      __$$MaxBudgetChangedImplCopyWithImpl<_$MaxBudgetChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String description) descriptionChanged,
+    required TResult Function(int distanceKm) distanceChanged,
+    required TResult Function(String stencilId) stencilSelected,
+    required TResult Function(UserTattooDesignDto design, String imageUrl)
+        tattooDesignSelected,
+    required TResult Function() selectionCleared,
+    required TResult Function(List<XFile> images) imagesAdded,
+    required TResult Function(XFile image) imageRemoved,
+    required TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)
+        locationStatusChecked,
+    required TResult Function() submitPressed,
+    required TResult Function() clearSuccessMessage,
+    required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
+  }) {
+    return maxBudgetChanged(maxBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String description)? descriptionChanged,
+    TResult? Function(int distanceKm)? distanceChanged,
+    TResult? Function(String stencilId)? stencilSelected,
+    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult? Function()? selectionCleared,
+    TResult? Function(List<XFile> images)? imagesAdded,
+    TResult? Function(XFile image)? imageRemoved,
+    TResult? Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult? Function()? submitPressed,
+    TResult? Function()? clearSuccessMessage,
+    TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
+  }) {
+    return maxBudgetChanged?.call(maxBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String description)? descriptionChanged,
+    TResult Function(int distanceKm)? distanceChanged,
+    TResult Function(String stencilId)? stencilSelected,
+    TResult Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult Function()? selectionCleared,
+    TResult Function(List<XFile> images)? imagesAdded,
+    TResult Function(XFile image)? imageRemoved,
+    TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult Function()? submitPressed,
+    TResult Function()? clearSuccessMessage,
+    TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (maxBudgetChanged != null) {
+      return maxBudgetChanged(maxBudget);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_DescriptionChanged value) descriptionChanged,
+    required TResult Function(_DistanceChanged value) distanceChanged,
+    required TResult Function(_StencilSelected value) stencilSelected,
+    required TResult Function(_TattooDesignSelected value) tattooDesignSelected,
+    required TResult Function(_SelectionCleared value) selectionCleared,
+    required TResult Function(_ImagesAdded value) imagesAdded,
+    required TResult Function(_ImageRemoved value) imageRemoved,
+    required TResult Function(_LocationStatusChecked value)
+        locationStatusChecked,
+    required TResult Function(_SubmitPressed value) submitPressed,
+    required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
+    required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
+  }) {
+    return maxBudgetChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_DescriptionChanged value)? descriptionChanged,
+    TResult? Function(_DistanceChanged value)? distanceChanged,
+    TResult? Function(_StencilSelected value)? stencilSelected,
+    TResult? Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult? Function(_SelectionCleared value)? selectionCleared,
+    TResult? Function(_ImagesAdded value)? imagesAdded,
+    TResult? Function(_ImageRemoved value)? imageRemoved,
+    TResult? Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+    TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+  }) {
+    return maxBudgetChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_DescriptionChanged value)? descriptionChanged,
+    TResult Function(_DistanceChanged value)? distanceChanged,
+    TResult Function(_StencilSelected value)? stencilSelected,
+    TResult Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult Function(_SelectionCleared value)? selectionCleared,
+    TResult Function(_ImagesAdded value)? imagesAdded,
+    TResult Function(_ImageRemoved value)? imageRemoved,
+    TResult Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (maxBudgetChanged != null) {
+      return maxBudgetChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MaxBudgetChanged implements CreateOpenQuotationEvent {
+  const factory _MaxBudgetChanged(final Money? maxBudget) =
+      _$MaxBudgetChangedImpl;
+
+  Money? get maxBudget;
+  @JsonKey(ignore: true)
+  _$$MaxBudgetChangedImplCopyWith<_$MaxBudgetChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReferenceBudgetChangedImplCopyWith<$Res> {
+  factory _$$ReferenceBudgetChangedImplCopyWith(
+          _$ReferenceBudgetChangedImpl value,
+          $Res Function(_$ReferenceBudgetChangedImpl) then) =
+      __$$ReferenceBudgetChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Money? referenceBudget});
+
+  $MoneyCopyWith<$Res>? get referenceBudget;
+}
+
+/// @nodoc
+class __$$ReferenceBudgetChangedImplCopyWithImpl<$Res>
+    extends _$CreateOpenQuotationEventCopyWithImpl<$Res,
+        _$ReferenceBudgetChangedImpl>
+    implements _$$ReferenceBudgetChangedImplCopyWith<$Res> {
+  __$$ReferenceBudgetChangedImplCopyWithImpl(
+      _$ReferenceBudgetChangedImpl _value,
+      $Res Function(_$ReferenceBudgetChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? referenceBudget = freezed,
+  }) {
+    return _then(_$ReferenceBudgetChangedImpl(
+      freezed == referenceBudget
+          ? _value.referenceBudget
+          : referenceBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get referenceBudget {
+    if (_value.referenceBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.referenceBudget!, (value) {
+      return _then(_value.copyWith(referenceBudget: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ReferenceBudgetChangedImpl implements _ReferenceBudgetChanged {
+  const _$ReferenceBudgetChangedImpl(this.referenceBudget);
+
+  @override
+  final Money? referenceBudget;
+
+  @override
+  String toString() {
+    return 'CreateOpenQuotationEvent.referenceBudgetChanged(referenceBudget: $referenceBudget)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReferenceBudgetChangedImpl &&
+            (identical(other.referenceBudget, referenceBudget) ||
+                other.referenceBudget == referenceBudget));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, referenceBudget);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReferenceBudgetChangedImplCopyWith<_$ReferenceBudgetChangedImpl>
+      get copyWith => __$$ReferenceBudgetChangedImplCopyWithImpl<
+          _$ReferenceBudgetChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String description) descriptionChanged,
+    required TResult Function(int distanceKm) distanceChanged,
+    required TResult Function(String stencilId) stencilSelected,
+    required TResult Function(UserTattooDesignDto design, String imageUrl)
+        tattooDesignSelected,
+    required TResult Function() selectionCleared,
+    required TResult Function(List<XFile> images) imagesAdded,
+    required TResult Function(XFile image) imageRemoved,
+    required TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)
+        locationStatusChecked,
+    required TResult Function() submitPressed,
+    required TResult Function() clearSuccessMessage,
+    required TResult Function() clearErrorMessage,
+    required TResult Function(Money? minBudget) minBudgetChanged,
+    required TResult Function(Money? maxBudget) maxBudgetChanged,
+    required TResult Function(Money? referenceBudget) referenceBudgetChanged,
+  }) {
+    return referenceBudgetChanged(referenceBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String description)? descriptionChanged,
+    TResult? Function(int distanceKm)? distanceChanged,
+    TResult? Function(String stencilId)? stencilSelected,
+    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult? Function()? selectionCleared,
+    TResult? Function(List<XFile> images)? imagesAdded,
+    TResult? Function(XFile image)? imageRemoved,
+    TResult? Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult? Function()? submitPressed,
+    TResult? Function()? clearSuccessMessage,
+    TResult? Function()? clearErrorMessage,
+    TResult? Function(Money? minBudget)? minBudgetChanged,
+    TResult? Function(Money? maxBudget)? maxBudgetChanged,
+    TResult? Function(Money? referenceBudget)? referenceBudgetChanged,
+  }) {
+    return referenceBudgetChanged?.call(referenceBudget);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String description)? descriptionChanged,
+    TResult Function(int distanceKm)? distanceChanged,
+    TResult Function(String stencilId)? stencilSelected,
+    TResult Function(UserTattooDesignDto design, String imageUrl)?
+        tattooDesignSelected,
+    TResult Function()? selectionCleared,
+    TResult Function(List<XFile> images)? imagesAdded,
+    TResult Function(XFile image)? imageRemoved,
+    TResult Function(
+            bool isGpsEnabled, bool isPermissionGranted, LatLng? location)?
+        locationStatusChecked,
+    TResult Function()? submitPressed,
+    TResult Function()? clearSuccessMessage,
+    TResult Function()? clearErrorMessage,
+    TResult Function(Money? minBudget)? minBudgetChanged,
+    TResult Function(Money? maxBudget)? maxBudgetChanged,
+    TResult Function(Money? referenceBudget)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (referenceBudgetChanged != null) {
+      return referenceBudgetChanged(referenceBudget);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_DescriptionChanged value) descriptionChanged,
+    required TResult Function(_DistanceChanged value) distanceChanged,
+    required TResult Function(_StencilSelected value) stencilSelected,
+    required TResult Function(_TattooDesignSelected value) tattooDesignSelected,
+    required TResult Function(_SelectionCleared value) selectionCleared,
+    required TResult Function(_ImagesAdded value) imagesAdded,
+    required TResult Function(_ImageRemoved value) imageRemoved,
+    required TResult Function(_LocationStatusChecked value)
+        locationStatusChecked,
+    required TResult Function(_SubmitPressed value) submitPressed,
+    required TResult Function(_ClearSuccessMessage value) clearSuccessMessage,
+    required TResult Function(_ClearErrorMessage value) clearErrorMessage,
+    required TResult Function(_MinBudgetChanged value) minBudgetChanged,
+    required TResult Function(_MaxBudgetChanged value) maxBudgetChanged,
+    required TResult Function(_ReferenceBudgetChanged value)
+        referenceBudgetChanged,
+  }) {
+    return referenceBudgetChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_DescriptionChanged value)? descriptionChanged,
+    TResult? Function(_DistanceChanged value)? distanceChanged,
+    TResult? Function(_StencilSelected value)? stencilSelected,
+    TResult? Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult? Function(_SelectionCleared value)? selectionCleared,
+    TResult? Function(_ImagesAdded value)? imagesAdded,
+    TResult? Function(_ImageRemoved value)? imageRemoved,
+    TResult? Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult? Function(_SubmitPressed value)? submitPressed,
+    TResult? Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult? Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult? Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult? Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult? Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+  }) {
+    return referenceBudgetChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_DescriptionChanged value)? descriptionChanged,
+    TResult Function(_DistanceChanged value)? distanceChanged,
+    TResult Function(_StencilSelected value)? stencilSelected,
+    TResult Function(_TattooDesignSelected value)? tattooDesignSelected,
+    TResult Function(_SelectionCleared value)? selectionCleared,
+    TResult Function(_ImagesAdded value)? imagesAdded,
+    TResult Function(_ImageRemoved value)? imageRemoved,
+    TResult Function(_LocationStatusChecked value)? locationStatusChecked,
+    TResult Function(_SubmitPressed value)? submitPressed,
+    TResult Function(_ClearSuccessMessage value)? clearSuccessMessage,
+    TResult Function(_ClearErrorMessage value)? clearErrorMessage,
+    TResult Function(_MinBudgetChanged value)? minBudgetChanged,
+    TResult Function(_MaxBudgetChanged value)? maxBudgetChanged,
+    TResult Function(_ReferenceBudgetChanged value)? referenceBudgetChanged,
+    required TResult orElse(),
+  }) {
+    if (referenceBudgetChanged != null) {
+      return referenceBudgetChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReferenceBudgetChanged implements CreateOpenQuotationEvent {
+  const factory _ReferenceBudgetChanged(final Money? referenceBudget) =
+      _$ReferenceBudgetChangedImpl;
+
+  Money? get referenceBudget;
+  @JsonKey(ignore: true)
+  _$$ReferenceBudgetChangedImplCopyWith<_$ReferenceBudgetChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2509,7 +3476,11 @@ mixin _$CreateOpenQuotationState {
   LatLng? get currentLocation => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   String? get successMessage => throw _privateConstructorUsedError;
-  String? get createdQuotationId => throw _privateConstructorUsedError;
+  String? get createdQuotationId =>
+      throw _privateConstructorUsedError; // ID of the created quotation on success
+  Money? get minBudget => throw _privateConstructorUsedError;
+  Money? get maxBudget => throw _privateConstructorUsedError;
+  Money? get referenceBudget => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateOpenQuotationStateCopyWith<CreateOpenQuotationState> get copyWith =>
@@ -2535,7 +3506,14 @@ abstract class $CreateOpenQuotationStateCopyWith<$Res> {
       LatLng? currentLocation,
       String? errorMessage,
       String? successMessage,
-      String? createdQuotationId});
+      String? createdQuotationId,
+      Money? minBudget,
+      Money? maxBudget,
+      Money? referenceBudget});
+
+  $MoneyCopyWith<$Res>? get minBudget;
+  $MoneyCopyWith<$Res>? get maxBudget;
+  $MoneyCopyWith<$Res>? get referenceBudget;
 }
 
 /// @nodoc
@@ -2565,6 +3543,9 @@ class _$CreateOpenQuotationStateCopyWithImpl<$Res,
     Object? errorMessage = freezed,
     Object? successMessage = freezed,
     Object? createdQuotationId = freezed,
+    Object? minBudget = freezed,
+    Object? maxBudget = freezed,
+    Object? referenceBudget = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -2619,7 +3600,55 @@ class _$CreateOpenQuotationStateCopyWithImpl<$Res,
           ? _value.createdQuotationId
           : createdQuotationId // ignore: cast_nullable_to_non_nullable
               as String?,
+      minBudget: freezed == minBudget
+          ? _value.minBudget
+          : minBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      maxBudget: freezed == maxBudget
+          ? _value.maxBudget
+          : maxBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      referenceBudget: freezed == referenceBudget
+          ? _value.referenceBudget
+          : referenceBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get minBudget {
+    if (_value.minBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.minBudget!, (value) {
+      return _then(_value.copyWith(minBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get maxBudget {
+    if (_value.maxBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.maxBudget!, (value) {
+      return _then(_value.copyWith(maxBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get referenceBudget {
+    if (_value.referenceBudget == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.referenceBudget!, (value) {
+      return _then(_value.copyWith(referenceBudget: value) as $Val);
+    });
   }
 }
 
@@ -2645,7 +3674,17 @@ abstract class _$$CreateOpenQuotationStateImplCopyWith<$Res>
       LatLng? currentLocation,
       String? errorMessage,
       String? successMessage,
-      String? createdQuotationId});
+      String? createdQuotationId,
+      Money? minBudget,
+      Money? maxBudget,
+      Money? referenceBudget});
+
+  @override
+  $MoneyCopyWith<$Res>? get minBudget;
+  @override
+  $MoneyCopyWith<$Res>? get maxBudget;
+  @override
+  $MoneyCopyWith<$Res>? get referenceBudget;
 }
 
 /// @nodoc
@@ -2674,6 +3713,9 @@ class __$$CreateOpenQuotationStateImplCopyWithImpl<$Res>
     Object? errorMessage = freezed,
     Object? successMessage = freezed,
     Object? createdQuotationId = freezed,
+    Object? minBudget = freezed,
+    Object? maxBudget = freezed,
+    Object? referenceBudget = freezed,
   }) {
     return _then(_$CreateOpenQuotationStateImpl(
       status: null == status
@@ -2728,6 +3770,18 @@ class __$$CreateOpenQuotationStateImplCopyWithImpl<$Res>
           ? _value.createdQuotationId
           : createdQuotationId // ignore: cast_nullable_to_non_nullable
               as String?,
+      minBudget: freezed == minBudget
+          ? _value.minBudget
+          : minBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      maxBudget: freezed == maxBudget
+          ? _value.maxBudget
+          : maxBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      referenceBudget: freezed == referenceBudget
+          ? _value.referenceBudget
+          : referenceBudget // ignore: cast_nullable_to_non_nullable
+              as Money?,
     ));
   }
 }
@@ -2748,7 +3802,10 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
       this.currentLocation,
       this.errorMessage,
       this.successMessage,
-      this.createdQuotationId})
+      this.createdQuotationId,
+      this.minBudget,
+      this.maxBudget,
+      this.referenceBudget})
       : _referenceImages = referenceImages;
 
   @override
@@ -2790,10 +3847,17 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
   final String? successMessage;
   @override
   final String? createdQuotationId;
+// ID of the created quotation on success
+  @override
+  final Money? minBudget;
+  @override
+  final Money? maxBudget;
+  @override
+  final Money? referenceBudget;
 
   @override
   String toString() {
-    return 'CreateOpenQuotationState(status: $status, description: $description, referenceImages: $referenceImages, selectedDistanceKm: $selectedDistanceKm, selectedStencilId: $selectedStencilId, selectedTattooDesign: $selectedTattooDesign, selectedTattooDesignImageUrl: $selectedTattooDesignImageUrl, isDescriptionValid: $isDescriptionValid, isLocationAvailable: $isLocationAvailable, currentLocation: $currentLocation, errorMessage: $errorMessage, successMessage: $successMessage, createdQuotationId: $createdQuotationId)';
+    return 'CreateOpenQuotationState(status: $status, description: $description, referenceImages: $referenceImages, selectedDistanceKm: $selectedDistanceKm, selectedStencilId: $selectedStencilId, selectedTattooDesign: $selectedTattooDesign, selectedTattooDesignImageUrl: $selectedTattooDesignImageUrl, isDescriptionValid: $isDescriptionValid, isLocationAvailable: $isLocationAvailable, currentLocation: $currentLocation, errorMessage: $errorMessage, successMessage: $successMessage, createdQuotationId: $createdQuotationId, minBudget: $minBudget, maxBudget: $maxBudget, referenceBudget: $referenceBudget)';
   }
 
   @override
@@ -2827,7 +3891,13 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
             (identical(other.successMessage, successMessage) ||
                 other.successMessage == successMessage) &&
             (identical(other.createdQuotationId, createdQuotationId) ||
-                other.createdQuotationId == createdQuotationId));
+                other.createdQuotationId == createdQuotationId) &&
+            (identical(other.minBudget, minBudget) ||
+                other.minBudget == minBudget) &&
+            (identical(other.maxBudget, maxBudget) ||
+                other.maxBudget == maxBudget) &&
+            (identical(other.referenceBudget, referenceBudget) ||
+                other.referenceBudget == referenceBudget));
   }
 
   @override
@@ -2845,7 +3915,10 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
       currentLocation,
       errorMessage,
       successMessage,
-      createdQuotationId);
+      createdQuotationId,
+      minBudget,
+      maxBudget,
+      referenceBudget);
 
   @JsonKey(ignore: true)
   @override
@@ -2869,7 +3942,10 @@ abstract class _CreateOpenQuotationState implements CreateOpenQuotationState {
       final LatLng? currentLocation,
       final String? errorMessage,
       final String? successMessage,
-      final String? createdQuotationId}) = _$CreateOpenQuotationStateImpl;
+      final String? createdQuotationId,
+      final Money? minBudget,
+      final Money? maxBudget,
+      final Money? referenceBudget}) = _$CreateOpenQuotationStateImpl;
 
   @override
   CreateOpenQuotationStatus get status;
@@ -2897,6 +3973,12 @@ abstract class _CreateOpenQuotationState implements CreateOpenQuotationState {
   String? get successMessage;
   @override
   String? get createdQuotationId;
+  @override // ID of the created quotation on success
+  Money? get minBudget;
+  @override
+  Money? get maxBudget;
+  @override
+  Money? get referenceBudget;
   @override
   @JsonKey(ignore: true)
   _$$CreateOpenQuotationStateImplCopyWith<_$CreateOpenQuotationStateImpl>

@@ -76,6 +76,9 @@ class CreateOpenQuotationBloc
     on<_SubmitPressed>(_onSubmitPressed);
     on<_ClearSuccessMessage>(_onClearSuccessMessage);
     on<_ClearErrorMessage>(_onClearErrorMessage);
+    on<_MinBudgetChanged>(_onMinBudgetChanged);
+    on<_MaxBudgetChanged>(_onMaxBudgetChanged);
+    on<_ReferenceBudgetChanged>(_onReferenceBudgetChanged);
 
     // Start listening to streams
     _listenToStreams();
@@ -278,6 +281,18 @@ class CreateOpenQuotationBloc
     }
   }
 
+  void _onMinBudgetChanged(_MinBudgetChanged event, Emitter<CreateOpenQuotationState> emit) {
+    emit(state.copyWith(minBudget: event.minBudget));
+  }
+
+  void _onMaxBudgetChanged(_MaxBudgetChanged event, Emitter<CreateOpenQuotationState> emit) {
+    emit(state.copyWith(maxBudget: event.maxBudget));
+  }
+
+  void _onReferenceBudgetChanged(_ReferenceBudgetChanged event, Emitter<CreateOpenQuotationState> emit) {
+    emit(state.copyWith(referenceBudget: event.referenceBudget));
+  }
+
   Future<void> _onSubmitPressed(
     _SubmitPressed event,
     Emitter<CreateOpenQuotationState> emit,
@@ -340,6 +355,7 @@ class CreateOpenQuotationBloc
         stencilId: state.selectedStencilId,
         tattooDesignCacheId: state.selectedTattooDesign?.id,
         tattooDesignImageUrl: state.selectedTattooDesignImageUrl,
+        referenceBudget: state.referenceBudget,
       );
 
       final result = await _quotationService.createQuotation(
