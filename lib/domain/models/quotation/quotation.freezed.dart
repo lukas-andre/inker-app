@@ -2618,6 +2618,7 @@ QuotationOfferListItemDto _$QuotationOfferListItemDtoFromJson(
 mixin _$QuotationOfferListItemDto {
   String get id => throw _privateConstructorUsedError;
   String get artistId => throw _privateConstructorUsedError;
+  String? get artistName => throw _privateConstructorUsedError;
   Money? get estimatedCost => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<OfferMessageDto> get messages => throw _privateConstructorUsedError;
@@ -2637,6 +2638,7 @@ abstract class $QuotationOfferListItemDtoCopyWith<$Res> {
   $Res call(
       {String id,
       String artistId,
+      String? artistName,
       Money? estimatedCost,
       String? message,
       List<OfferMessageDto> messages});
@@ -2660,6 +2662,7 @@ class _$QuotationOfferListItemDtoCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? artistId = null,
+    Object? artistName = freezed,
     Object? estimatedCost = freezed,
     Object? message = freezed,
     Object? messages = null,
@@ -2673,6 +2676,10 @@ class _$QuotationOfferListItemDtoCopyWithImpl<$Res,
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as String,
+      artistName: freezed == artistName
+          ? _value.artistName
+          : artistName // ignore: cast_nullable_to_non_nullable
+              as String?,
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
@@ -2713,6 +2720,7 @@ abstract class _$$QuotationOfferListItemDtoImplCopyWith<$Res>
   $Res call(
       {String id,
       String artistId,
+      String? artistName,
       Money? estimatedCost,
       String? message,
       List<OfferMessageDto> messages});
@@ -2736,6 +2744,7 @@ class __$$QuotationOfferListItemDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? artistId = null,
+    Object? artistName = freezed,
     Object? estimatedCost = freezed,
     Object? message = freezed,
     Object? messages = null,
@@ -2749,6 +2758,10 @@ class __$$QuotationOfferListItemDtoImplCopyWithImpl<$Res>
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as String,
+      artistName: freezed == artistName
+          ? _value.artistName
+          : artistName // ignore: cast_nullable_to_non_nullable
+              as String?,
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
@@ -2771,6 +2784,7 @@ class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
   const _$QuotationOfferListItemDtoImpl(
       {required this.id,
       required this.artistId,
+      this.artistName,
       this.estimatedCost,
       this.message,
       final List<OfferMessageDto> messages = const []})
@@ -2783,6 +2797,8 @@ class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
   final String id;
   @override
   final String artistId;
+  @override
+  final String? artistName;
   @override
   final Money? estimatedCost;
   @override
@@ -2798,7 +2814,7 @@ class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
 
   @override
   String toString() {
-    return 'QuotationOfferListItemDto(id: $id, artistId: $artistId, estimatedCost: $estimatedCost, message: $message, messages: $messages)';
+    return 'QuotationOfferListItemDto(id: $id, artistId: $artistId, artistName: $artistName, estimatedCost: $estimatedCost, message: $message, messages: $messages)';
   }
 
   @override
@@ -2809,6 +2825,8 @@ class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
+            (identical(other.artistName, artistName) ||
+                other.artistName == artistName) &&
             (identical(other.estimatedCost, estimatedCost) ||
                 other.estimatedCost == estimatedCost) &&
             (identical(other.message, message) || other.message == message) &&
@@ -2817,8 +2835,8 @@ class _$QuotationOfferListItemDtoImpl implements _QuotationOfferListItemDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, artistId, estimatedCost,
-      message, const DeepCollectionEquality().hash(_messages));
+  int get hashCode => Object.hash(runtimeType, id, artistId, artistName,
+      estimatedCost, message, const DeepCollectionEquality().hash(_messages));
 
   @JsonKey(ignore: true)
   @override
@@ -2839,6 +2857,7 @@ abstract class _QuotationOfferListItemDto implements QuotationOfferListItemDto {
   const factory _QuotationOfferListItemDto(
       {required final String id,
       required final String artistId,
+      final String? artistName,
       final Money? estimatedCost,
       final String? message,
       final List<OfferMessageDto> messages}) = _$QuotationOfferListItemDtoImpl;
@@ -2850,6 +2869,8 @@ abstract class _QuotationOfferListItemDto implements QuotationOfferListItemDto {
   String get id;
   @override
   String get artistId;
+  @override
+  String? get artistName;
   @override
   Money? get estimatedCost;
   @override
