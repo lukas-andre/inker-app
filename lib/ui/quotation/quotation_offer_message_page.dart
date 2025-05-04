@@ -130,49 +130,72 @@ class _QuotationOfferMessageViewState
         backgroundColor: primaryColor,
         title: Row(
           children: [
-            CircleAvatar(
-              backgroundColor: Colors.grey[700],
-              child: Text(
-                widget.customerName.isNotEmpty
-                    ? widget.customerName[0].toUpperCase()
-                    : '?',
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: BlocBuilder<OfferMessageBloc, OfferMessageState>(
-                builder: (context, state) {
-                  String displayName = widget.customerName;
-                  Money? estimatedCost;
-                  state.maybeWhen(
-                    loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
-                      estimatedCost = offer.estimatedCost;
-                    },
-                    orElse: () {
-                      estimatedCost = widget.offer.estimatedCost;
-                    },
-                  );
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        displayName,
-                        style: TextStyleTheme.subtitle1,
-                        overflow: TextOverflow.ellipsis,
+            BlocBuilder<OfferMessageBloc, OfferMessageState>(
+              builder: (context, state) {
+                final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+                String displayName = widget.customerName;
+                String? avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
+                state.maybeWhen(
+                  loaded: (_, __, ___, offer, ____, _____) {
+                    if (isArtist) {
+                      displayName = widget.customerName;
+                      avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
+                    } else {
+                      displayName = offer.artistName ?? 'Artista';
+                      avatarLetter = (offer.artistName?.isNotEmpty ?? false) ? offer.artistName![0].toUpperCase() : '?';
+                    }
+                  },
+                  orElse: () {
+                    displayName = widget.customerName;
+                    avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
+                  },
+                );
+                return Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[700],
+                      child: Text(
+                        avatarLetter ?? '?',
+                        style: const TextStyle(color: Colors.white),
                       ),
-                      if (estimatedCost != null) ...[
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          "Offer: ${estimatedCost?.formatWithSymbol()}",
-                          style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white70,
-                          ),
+                          displayName,
+                          style: TextStyleTheme.subtitle1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        BlocBuilder<OfferMessageBloc, OfferMessageState>(
+                          builder: (context, state) {
+                            Money? estimatedCost;
+                            state.maybeWhen(
+                              loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
+                                estimatedCost = offer.estimatedCost;
+                              },
+                              orElse: () {
+                                estimatedCost = widget.offer.estimatedCost;
+                              },
+                            );
+                            if (estimatedCost != null) {
+                              return Text(
+                                "Offer: ${estimatedCost?.formatWithSymbol()}",
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: Colors.white70,
+                                ),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
                         ),
                       ],
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),
