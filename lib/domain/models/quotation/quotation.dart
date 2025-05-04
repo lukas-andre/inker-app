@@ -38,6 +38,9 @@ class Quotation with _$Quotation {
     TattooDesignCache? tattooDesignCache,
     List<QuotationOfferListItemDto>? offers,
     Money? estimatedCost,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
     DateTime? responseDate,
     DateTime? appointmentDate,
     int? appointmentDuration,
@@ -79,6 +82,9 @@ class Quotation with _$Quotation {
     customerId: '',
     description: '',
     status: QuotationStatus.pending,
+    minBudget: null,
+    maxBudget: null,
+    referenceBudget: null,
   );
 }
 
