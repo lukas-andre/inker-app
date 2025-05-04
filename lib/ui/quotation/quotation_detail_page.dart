@@ -478,7 +478,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    quotation.referenceBudget!.formatWithSymbol() + ' CLP',
+                    '${quotation.referenceBudget!.formatWithSymbol()} CLP',
                     style: TextStyleTheme.bodyText2.copyWith(
                       color: secondaryColor,
                       fontWeight: FontWeight.bold,
