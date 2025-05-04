@@ -51,7 +51,8 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
     }
 
     // Get fresh data without showing loading indicator
-    _bloc.add(QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
+    _bloc.add(
+        QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
   }
 
   // Method to refresh the quotation data
@@ -63,7 +64,7 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
     // Get the latest quotation data
     _bloc.add(
         QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
-        
+
     // Safety timeout to ensure loading indicator doesn't get stuck
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted && _isRefreshing) {
@@ -151,8 +152,7 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                 ),
               ),
               // Show banner for OPEN quotations (consistency)
-              if (isOpenQuotation && isArtist)
-                _OpenQuotationBanner(),
+              if (isOpenQuotation && isArtist) _OpenQuotationBanner(),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _refreshQuotation,
@@ -180,7 +180,6 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                 ),
               ),
               // Conditionally show action buttons container only for DIRECT quotations
-              if (!isOpenQuotation)
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -199,33 +198,32 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
                       session: context.read<AuthBloc>().state.session,
                       l10n: l10n,
                       onActionExecuted: (actionType, quotationId) async {
-                         // Handle actions for DIRECT quotations
-                         _bloc.add(const QuotationListEvent.refreshCurrentTab());
+                        _bloc.add(const QuotationListEvent.refreshCurrentTab());
 
-                         if (actionType == QuotationActionType.cancel) {
-                           _bloc.add(
-                               QuotationListEvent.cancelQuotation(quotationId));
-                           await Future.delayed(const Duration(seconds: 1));
-                           if (!context.mounted) return;
-                           Navigator.of(context).pop(true);
-                         } else {
-                           await Future.delayed(const Duration(seconds: 1));
-                           if (context.mounted) {
-                             _refreshQuotation();
-                             Future.delayed(const Duration(seconds: 2), () {
-                               if (context.mounted) {
-                                 _refreshQuotation();
-                               }
-                             });
-                           }
-                         }
-                         _notificationsBloc.add(
-                             NotificationsEvent.clearQuotationNotifications(
-                                 quotationId));
+                        if (actionType == QuotationActionType.cancel) {
+                          _bloc.add(
+                              QuotationListEvent.cancelQuotation(quotationId));
+                          await Future.delayed(const Duration(seconds: 1));
+                          if (!context.mounted) return;
+                          Navigator.of(context).pop(true);
+                        } else {
+                          await Future.delayed(const Duration(seconds: 1));
+                          if (context.mounted) {
+                            _refreshQuotation();
+                            Future.delayed(const Duration(seconds: 2), () {
+                              if (context.mounted) {
+                                _refreshQuotation();
+                              }
+                            });
+                          }
+                        }
+                        _notificationsBloc.add(
+                            NotificationsEvent.clearQuotationNotifications(
+                                quotationId));
                       },
                     ),
                   ),
-                ),
+                )
             ],
           ),
         ),
@@ -448,10 +446,10 @@ class _MainQuotationInfo extends StatelessWidget {
             const Divider(height: 32),
 
             // Special section for Open quotations based on user type
-            if (isOpenQuotation) 
-              isArtist 
-                ? _buildOpenQuotationActionSection(context, quotation)
-                : _CustomerOpenQuotationOffersSection(quotation: quotation),
+            if (isOpenQuotation)
+              isArtist
+                  ? _buildOpenQuotationActionSection(context, quotation)
+                  : _CustomerOpenQuotationOffersSection(quotation: quotation),
 
             // Descripción
             Text(
@@ -475,30 +473,32 @@ class _MainQuotationInfo extends StatelessWidget {
     );
   }
 
-  Widget _buildOpenQuotationActionSection(BuildContext context, Quotation quotation) {
+  Widget _buildOpenQuotationActionSection(
+      BuildContext context, Quotation quotation) {
     final l10n = S.of(context);
     final bool hasOffered = quotation.hasOffered;
-    
+
     if (hasOffered) {
       // If artist has already offered, show a different UI
       final List<QuotationOfferListItemDto>? offers = quotation.offers;
       String costText = "Offer submitted";
       QuotationOfferListItemDto? artistOffer;
-      
+
       if (offers != null && offers.isNotEmpty) {
         // Find the current artist's offer
-        final currentArtistId = context.read<AuthBloc>().state.session.user?.userTypeId;
+        final currentArtistId =
+            context.read<AuthBloc>().state.session.user?.userTypeId;
         artistOffer = offers.firstWhere(
           (offer) => offer.artistId == currentArtistId,
           orElse: () => offers.first, // Fallback to first offer
         );
-        
+
         if (artistOffer.estimatedCost != null) {
           final cost = artistOffer.estimatedCost!;
           costText = "Offer: \$${cost.amount / 100} ${cost.currency}";
         }
       }
-      
+
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -560,13 +560,15 @@ class _MainQuotationInfo extends StatelessWidget {
                         quotationId: quotation.id.toString(),
                         offerId: artistOffer!.id,
                         offer: artistOffer,
-                        customerName: quotation.customer?.firstName ?? "Customer",
+                        customerName:
+                            quotation.customer?.firstName ?? "Customer",
                       ),
                     ),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Offer details not available")),
+                    const SnackBar(
+                        content: Text("Offer details not available")),
                   );
                 }
               },
@@ -1163,13 +1165,17 @@ class _StencilPreviewWidget extends StatelessWidget {
                 imageUrl: stencil.imageUrl,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  color: HSLColor.fromColor(primaryColor)
+                      .withLightness(0.2)
+                      .toColor(),
                   child: const Center(
                     child: CircularProgressIndicator(color: Colors.white),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  color: HSLColor.fromColor(primaryColor)
+                      .withLightness(0.2)
+                      .toColor(),
                   child: const Icon(Icons.error, color: redColor, size: 32),
                 ),
               ),
@@ -1188,7 +1194,8 @@ class _StencilPreviewWidget extends StatelessWidget {
                     fontSize: 18.0,
                   ),
                 ),
-                if (stencil.description != null && stencil.description!.isNotEmpty) ...[
+                if (stencil.description != null &&
+                    stencil.description!.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
                     stencil.description!,
@@ -1272,7 +1279,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
     final l10n = S.of(context);
     final List<QuotationOfferListItemDto>? offers = quotation.offers;
     final int offersCount = offers?.length ?? 0;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1281,20 +1288,22 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            color: offersCount > 0 
-                ? const Color(0xFF4CAF50).withOpacity(0.1) 
+            color: offersCount > 0
+                ? const Color(0xFF4CAF50).withOpacity(0.1)
                 : const Color(0xFF9E9E9E).withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: offersCount > 0 
-                  ? const Color(0xFF4CAF50).withOpacity(0.3) 
+              color: offersCount > 0
+                  ? const Color(0xFF4CAF50).withOpacity(0.3)
                   : const Color(0xFF9E9E9E).withOpacity(0.3),
             ),
           ),
           child: Row(
             children: [
               Icon(
-                offersCount > 0 ? Icons.verified_outlined : Icons.hourglass_empty,
+                offersCount > 0
+                    ? Icons.verified_outlined
+                    : Icons.hourglass_empty,
                 color: offersCount > 0 ? const Color(0xFF4CAF50) : Colors.grey,
                 size: 24,
               ),
@@ -1308,7 +1317,9 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
                           ? 'Has recibido ${offersCount} ${offersCount == 1 ? 'oferta' : 'ofertas'}'
                           : 'Aún no has recibido ofertas',
                       style: TextStyleTheme.subtitle2.copyWith(
-                        color: offersCount > 0 ? const Color(0xFF4CAF50) : Colors.grey,
+                        color: offersCount > 0
+                            ? const Color(0xFF4CAF50)
+                            : Colors.grey,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -1326,7 +1337,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
             ],
           ),
         ),
-        
+
         // List of offers
         if (offersCount > 0) ...[
           // Title
@@ -1339,7 +1350,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Offers list
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
@@ -1356,7 +1367,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
             },
           ),
         ],
-        
+
         const Divider(height: 32),
       ],
     );
@@ -1395,10 +1406,10 @@ class _OfferListItem extends StatelessWidget {
     if (offer.estimatedCost != null) {
       costText = offer.estimatedCost!.formatWithSymbol();
     }
-    
+
     // Get message count if available
     final int messageCount = offer.messages.length;
-    
+
     return Card(
       elevation: 0,
       color: Colors.black12,
@@ -1417,7 +1428,8 @@ class _OfferListItem extends StatelessWidget {
               // Artist ID and cost
               Row(
                 children: [
-                  const Icon(Icons.person_outline, color: Colors.white70, size: 16),
+                  const Icon(Icons.person_outline,
+                      color: Colors.white70, size: 16),
                   const SizedBox(width: 4),
                   Text(
                     'Artista: ${offer.artistName}',
@@ -1427,7 +1439,8 @@ class _OfferListItem extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFF4CAF50).withOpacity(0.15),
                       borderRadius: BorderRadius.circular(8),
@@ -1442,28 +1455,32 @@ class _OfferListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 12),
-              
+
               // Message preview or action button
               if (messageCount > 0) ...[
                 Row(
                   children: [
-                    const Icon(Icons.message_outlined, color: Colors.white70, size: 16),
+                    const Icon(Icons.message_outlined,
+                        color: Colors.white70, size: 16),
                     const SizedBox(width: 4),
                     Text(
                       '$messageCount ${messageCount == 1 ? 'mensaje' : 'mensajes'}',
-                      style: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                      style: TextStyleTheme.caption
+                          .copyWith(color: Colors.white70),
                     ),
                     const Spacer(),
-                    const Icon(Icons.chevron_right, color: Colors.white70, size: 16),
+                    const Icon(Icons.chevron_right,
+                        color: Colors.white70, size: 16),
                   ],
                 ),
                 if (offer.message != null && offer.message!.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
                     'Mensaje: ${offer.message!.length > 50 ? '${offer.message!.substring(0, 50)}...' : offer.message!}',
-                    style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                    style:
+                        TextStyleTheme.bodyText2.copyWith(color: Colors.white),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -1476,8 +1493,10 @@ class _OfferListItem extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: secondaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    textStyle: TextStyleTheme.caption.copyWith(fontWeight: FontWeight.bold),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    textStyle: TextStyleTheme.caption
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

@@ -450,4 +450,29 @@ class ApiQuotationService implements QuotationService {
       fromJson: (json) => null,
     );
   }
+
+  @override
+  Future<void> updateOpenQuotation({
+    required String token,
+    required String quotationId,
+    String? description,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
+    String? generatedImageId,
+  }) async {
+    final body = <String, dynamic>{
+      if (description != null) 'description': description,
+      if (minBudget != null) 'minBudget': minBudget.toJson(),
+      if (maxBudget != null) 'maxBudget': maxBudget.toJson(),
+      if (referenceBudget != null) 'referenceBudget': referenceBudget.toJson(),
+      if (generatedImageId != null) 'generatedImageId': generatedImageId,
+    };
+    await _httpClient.patch(
+      path: '$_basePath/$quotationId',
+      token: token,
+      body: body,
+      fromJson: (json) => null,
+    );
+  }
 }

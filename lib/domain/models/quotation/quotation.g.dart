@@ -41,6 +41,16 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           ? null
           : Money.fromJson(
               Map<String, dynamic>.from(json['estimatedCost'] as Map)),
+      minBudget: json['minBudget'] == null
+          ? null
+          : Money.fromJson(Map<String, dynamic>.from(json['minBudget'] as Map)),
+      maxBudget: json['maxBudget'] == null
+          ? null
+          : Money.fromJson(Map<String, dynamic>.from(json['maxBudget'] as Map)),
+      referenceBudget: json['referenceBudget'] == null
+          ? null
+          : Money.fromJson(
+              Map<String, dynamic>.from(json['referenceBudget'] as Map)),
       responseDate: json['responseDate'] == null
           ? null
           : DateTime.parse(json['responseDate'] as String),
@@ -135,6 +145,9 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('tattooDesignCache', instance.tattooDesignCache?.toJson());
   writeNotNull('offers', instance.offers?.map((e) => e.toJson()).toList());
   writeNotNull('estimatedCost', instance.estimatedCost?.toJson());
+  writeNotNull('minBudget', instance.minBudget?.toJson());
+  writeNotNull('maxBudget', instance.maxBudget?.toJson());
+  writeNotNull('referenceBudget', instance.referenceBudget?.toJson());
   writeNotNull('responseDate', instance.responseDate?.toIso8601String());
   writeNotNull('appointmentDate', instance.appointmentDate?.toIso8601String());
   writeNotNull('appointmentDuration', instance.appointmentDuration);
