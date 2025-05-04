@@ -33,12 +33,12 @@ class _WorkTabPageState extends State<WorkTabPage> with SingleTickerProviderStat
     final l10n = S.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF141D3C), // Match existing background
+      backgroundColor: primaryColor, // Match existing background
       appBar: AppBar(
         automaticallyImplyLeading: false, // No back button needed here
         elevation: 0,
         toolbarHeight: 0, // Hide the default AppBar visually
-        backgroundColor: const Color(0xFF141D3C),
+        backgroundColor: primaryColor,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: secondaryColor, // Use app's secondary color

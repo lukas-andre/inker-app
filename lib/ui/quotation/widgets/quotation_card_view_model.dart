@@ -222,4 +222,38 @@ IconData _getStatusIcon(QuotationStatus status) {
     default:
       return Icons.info_outline;
   }
+}
+
+// --- NUEVO VIEWMODEL PARA CUSTOMER OPEN QUOTATION CARD ---
+class CustomerOpenQuotationCardViewModel {
+  final String id;
+  final String description;
+  final DateTime createdAt;
+  final int offersCount;
+  final String statusText;
+  final Color statusColor;
+  final IconData statusIcon;
+
+  CustomerOpenQuotationCardViewModel({
+    required this.id,
+    required this.description,
+    required this.createdAt,
+    required this.offersCount,
+    required this.statusText,
+    required this.statusColor,
+    required this.statusIcon,
+  });
+
+  factory CustomerOpenQuotationCardViewModel.fromQuotation(Quotation quotation, S l10n) {
+    final statusEnum = QuotationStatus.open; // Siempre open para open quotations
+    return CustomerOpenQuotationCardViewModel(
+      id: quotation.id.toString(),
+      description: quotation.description,
+      createdAt: quotation.createdAt,
+      offersCount: quotation.offers?.length ?? 0,
+      statusText: "Abierta a ofertas", // TODO: l10n
+      statusColor: _getStatusColor(statusEnum),
+      statusIcon: _getStatusIcon(statusEnum),
+    );
+  }
 } 

@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/open_quotation_list/open_quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/empty_list_indicator.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 
 class OpenQuotationsTabView extends StatefulWidget {
   const OpenQuotationsTabView({super.key});
@@ -113,6 +113,8 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
   Widget build(BuildContext context) {
     super.build(context);
     final l10n = S.of(context);
+    final session = context.read<AuthBloc>().state.session;
+    final isArtist = session.user?.userType == 'ARTIST';
 
     return BlocConsumer<OpenQuotationListBloc, OpenQuotationListState>(
       listener: (context, state) {
@@ -175,13 +177,23 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
                     );
                   }
                   final quotation = quotations[index];
-                  final viewModel = QuotationCardViewModel.fromOpenQuotation(quotation, l10n);
-                  return QuotationCard(
-                    key: ValueKey(viewModel.id),
-                    model: viewModel,
-                    onTap: (id, type) => _navigateToDetail(id),
-                    onSendOfferTap: (id, type) => _navigateToSendOffer(id),
-                  );
+                  if (isArtist) {
+                    final viewModel = QuotationCardViewModel.fromOpenQuotation(quotation, l10n);
+                    return QuotationCard(
+                      key: ValueKey(viewModel.id),
+                      model: viewModel,
+                      onTap: (id, type) => _navigateToDetail(id),
+                      onSendOfferTap: (id, type) => _navigateToSendOffer(id),
+                    );
+                  } else {
+                    final customerViewModel = CustomerOpenQuotationCardViewModel.fromQuotation(quotation, l10n);
+                    return CustomerOpenQuotationCard(
+                      key: ValueKey(customerViewModel.id),
+                      model: customerViewModel,
+                      onTap: (id) => _navigateToDetail(id),
+                      onViewOffersTap: (id) => _navigateToDetail(id), // Por ahora navega a detalles
+                    );
+                  }
                 },
               ),
             );
