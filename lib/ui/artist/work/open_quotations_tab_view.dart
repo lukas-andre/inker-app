@@ -4,12 +4,14 @@ import 'package:inker_studio/domain/blocs/quoation/open_quotation_list/open_quot
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
+import 'package:inker_studio/ui/quotation/create_open_quotation_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/empty_list_indicator.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class OpenQuotationsTabView extends StatefulWidget {
   const OpenQuotationsTabView({super.key});
@@ -109,6 +111,17 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
          });
   }
 
+  void _navigateToCreateOpenQuotation() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const CreateOpenQuotationProvider(),
+      ),
+    ).then((_) {
+      // Refresh the list after returning from the create page
+      _bloc.add(const OpenQuotationListEvent.refreshOpenQuotations());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -116,91 +129,100 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
     final session = context.read<AuthBloc>().state.session;
     final isArtist = session.user?.userType == 'ARTIST';
 
-    return BlocConsumer<OpenQuotationListBloc, OpenQuotationListState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          loaded: (_, __, ___, ____, infoMessage) {
-            if (infoMessage != null && infoMessage.isNotEmpty) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text(infoMessage)));
-            }
-          },
-           error: (message) {
-             ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text("Error: $message")));
-           },
-          orElse: () {},
-        );
-      },
-      builder: (context, state) {
-        return state.maybeWhen(
-          initial: () => const Center(child: InkerProgressIndicator()),
-          loading: () => const Center(child: InkerProgressIndicator()),
-          error: (message) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                "Failed to load open quotations: $message",
-                style: const TextStyle(color: Colors.white70),
-                textAlign: TextAlign.center,
+    return Scaffold(
+      backgroundColor: primaryColor,
+      body: BlocConsumer<OpenQuotationListBloc, OpenQuotationListState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            loaded: (_, __, ___, ____, infoMessage) {
+              if (infoMessage != null && infoMessage.isNotEmpty) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text(infoMessage)));
+              }
+            },
+             error: (message) {
+               ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text("Error: $message")));
+             },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
+            error: (message) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Failed to load open quotations: $message",
+                  style: const TextStyle(color: Colors.white70),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-          ),
-          loaded: (quotations, isLoadingMore, currentPage, totalItems, _) {
-            if (quotations.isEmpty) {
+            loaded: (quotations, isLoadingMore, currentPage, totalItems, _) {
+              if (quotations.isEmpty) {
+                return RefreshIndicator(
+                  onRefresh: _onRefresh,
+                  child: CustomScrollView(
+                      slivers: [
+                           SliverFillRemaining(
+                             child: EmptyListIndicator.openQuotations(l10n),
+                           )
+                         ],
+                      ),
+                   );
+              }
+
               return RefreshIndicator(
                 onRefresh: _onRefresh,
-                child: CustomScrollView(
-                    slivers: [
-                         SliverFillRemaining(
-                           child: EmptyListIndicator.openQuotations(l10n),
-                         )
-                       ],
-                    ),
-                 );
-            }
-
-            return RefreshIndicator(
-              onRefresh: _onRefresh,
-              child: ListView.builder(
-                controller: _scrollController,
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 80),
-                itemCount: quotations.length + (isLoadingMore ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (index == quotations.length) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Center(child: InkerProgressIndicator()),
-                    );
-                  }
-                  final quotation = quotations[index];
-                  if (isArtist) {
-                    final viewModel = QuotationCardViewModel.fromOpenQuotation(quotation, l10n);
-                    return QuotationCard(
-                      key: ValueKey(viewModel.id),
-                      model: viewModel,
-                      onTap: (id, type) => _navigateToDetail(id),
-                      onSendOfferTap: (id, type) => _navigateToSendOffer(id),
-                    );
-                  } else {
-                    final customerViewModel = CustomerOpenQuotationCardViewModel.fromQuotation(quotation, l10n);
-                    return CustomerOpenQuotationCard(
-                      key: ValueKey(customerViewModel.id),
-                      model: customerViewModel,
-                      onTap: (id) => _navigateToDetail(id),
-                      onViewOffersTap: (id) => _navigateToDetail(id), // Por ahora navega a detalles
-                    );
-                  }
-                },
-              ),
-            );
-          },
-          orElse: () => const Center(child: InkerProgressIndicator()),
-        );
-      },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 80),
+                  itemCount: quotations.length + (isLoadingMore ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == quotations.length) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Center(child: InkerProgressIndicator()),
+                      );
+                    }
+                    final quotation = quotations[index];
+                    if (isArtist) {
+                      final viewModel = QuotationCardViewModel.fromOpenQuotation(quotation, l10n);
+                      return QuotationCard(
+                        key: ValueKey(viewModel.id),
+                        model: viewModel,
+                        onTap: (id, type) => _navigateToDetail(id),
+                        onSendOfferTap: (id, type) => _navigateToSendOffer(id),
+                      );
+                    } else {
+                      final customerViewModel = CustomerOpenQuotationCardViewModel.fromQuotation(quotation, l10n);
+                      return CustomerOpenQuotationCard(
+                        key: ValueKey(customerViewModel.id),
+                        model: customerViewModel,
+                        onTap: (id) => _navigateToDetail(id),
+                        onViewOffersTap: (id) => _navigateToDetail(id), // Por ahora navega a detalles
+                      );
+                    }
+                  },
+                ),
+              );
+            },
+            orElse: () => const Center(child: InkerProgressIndicator()),
+          );
+        },
+      ),
+      floatingActionButton: !isArtist ? FloatingActionButton(
+        onPressed: _navigateToCreateOpenQuotation,
+        backgroundColor: secondaryColor.withOpacity(0.8),
+        tooltip: S.of(context).createOpenQuotation,
+        child: const Icon(Icons.add, color: Colors.white),
+      ) : null,
     );
   }
 
