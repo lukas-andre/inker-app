@@ -17,28 +17,47 @@ import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'; // Import LatLng
 import 'package:inker_studio/domain/models/quotation/quotation.dart'; // Importa Money
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/ui/quotation/widgets/select_generated_design_bottomsheet.dart';
+import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
-  const CreateOpenQuotationProvider({super.key});
+  final UserTattooDesignDto? initialTattooDesign;
+  final String? initialTattooDesignImageUrl;
+  const CreateOpenQuotationProvider({super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
 
   @override
   Widget build(BuildContext context) {
+    final bloc = CreateOpenQuotationBloc(
+      quotationService: context.read<QuotationService>(),
+      authBloc: context.read<AuthBloc>(),
+      mapBloc: context.read<MapBloc>(),
+      gpsBloc: context.read<GpsBloc>(),
+    );
+    if (initialTattooDesign != null && initialTattooDesignImageUrl != null) {
+      bloc.add(
+        CreateOpenQuotationEvent.tattooDesignSelected(
+          design: initialTattooDesign!,
+          imageUrl: initialTattooDesignImageUrl!,
+        ),
+      );
+    }
     return BlocProvider(
-      create: (context) => CreateOpenQuotationBloc(
-        quotationService: context.read<QuotationService>(),
-        authBloc: context.read<AuthBloc>(),
-        mapBloc: context.read<MapBloc>(),
-        gpsBloc: context.read<GpsBloc>(),
+      create: (context) => bloc,
+      child: CreateOpenQuotationPage(
+        initialTattooDesign: initialTattooDesign,
+        initialTattooDesignImageUrl: initialTattooDesignImageUrl,
       ),
-      child: const CreateOpenQuotationPage(),
     );
   }
 }
 
 // Main Page Widget - Now potentially StatefulWidget only for controllers
 class CreateOpenQuotationPage extends StatefulWidget {
-  const CreateOpenQuotationPage({super.key});
+  final UserTattooDesignDto? initialTattooDesign;
+  final String? initialTattooDesignImageUrl;
+  const CreateOpenQuotationPage({super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
 
   @override
   State<CreateOpenQuotationPage> createState() =>
@@ -58,6 +77,11 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     _descriptionController.addListener(_onDescriptionChanged);
     // Trigger initial location check via BLoC
     _checkAndRequestLocation();
+
+    // Si viene con diseño inicial, setear descripción si está vacía
+    if (widget.initialTattooDesign != null && _descriptionController.text.isEmpty) {
+      _descriptionController.text = widget.initialTattooDesign!.userQuery;
+    }
   }
 
   void _onDescriptionChanged() {
@@ -283,29 +307,110 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                       maxLines: 2,
                     ),
                     const SizedBox(height: 16),
-                    Row(
+                    // Solo mostrar las dos opciones: elegir diseño generado o generar nuevo diseño
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Expanded(
-                          child: _buildSelectionButton(
-                            icon: Icons.brush_outlined,
-                            label: l10n.selectStencil,
-                            // Use state values for selection status
-                            isSelected: state.selectedStencilId != null,
-                            isEnabled: state.selectedTattooDesign == null,
-                            onPressed:
-                                _selectStencil, // Keep simulation method or replace
+                        // Botón: Elegir diseño generado
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 18),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(16),
+                            onTap: () async {
+                              final result = await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (_) => BlocProvider.value(
+                                  value: context.read<TattooGeneratorBloc>(),
+                                  child: const SelectGeneratedDesignBottomSheet(),
+                                ),
+                              );
+                              if (result != null && result['design'] != null) {
+                                final design = result['design'];
+                                final imageUrl = result['imageUrl'];
+                                context.read<CreateOpenQuotationBloc>().add(
+                                  CreateOpenQuotationEvent.tattooDesignSelected(
+                                    design: design,
+                                    imageUrl: imageUrl,
+                                  ),
+                                );
+                                if (_descriptionController.text.trim().isEmpty && design.userQuery != null) {
+                                  _descriptionController.text = design.userQuery;
+                                }
+                              }
+                            },
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [redColor, secondaryColor],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: redColor.withOpacity(0.12),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 18),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.collections_bookmark_outlined, color: Colors.white, size: 32),
+                                  const SizedBox(width: 16),
+                                  Text(
+                                    'Elegir diseño generado',
+                                    style: TextStyleTheme.headline3.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildSelectionButton(
-                            icon: Icons.auto_awesome_outlined,
-                            label: l10n.selectGeneratedDesign,
-                            // Use state values for selection status
-                            isSelected: state.selectedTattooDesign != null,
-                            isEnabled: state.selectedStencilId == null,
-                            onPressed:
-                                _selectTattooDesign, // Keep simulation method or replace
+                        // Botón: Generar nuevo diseño
+                        InkWell(
+                          borderRadius: BorderRadius.circular(16),
+                          onTap: _goToTattooGenerator,
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [secondaryColor, redColor],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: secondaryColor.withOpacity(0.12),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 18),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.auto_awesome_outlined, color: Colors.white, size: 32),
+                                const SizedBox(width: 16),
+                                Text(
+                                  'Generar nuevo diseño',
+                                  style: TextStyleTheme.headline3.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -314,7 +419,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     // Pass state values to display widget
                     _buildSelectionDisplay(
                         l10n,
-                        state.selectedStencilId,
+                        null, // stencilId siempre null
                         state.selectedTattooDesign,
                         state.selectedTattooDesignImageUrl),
                     const SizedBox(height: 28),
@@ -816,5 +921,32 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         .removeListener(_onDescriptionChanged); // Remove listener
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  // Agregar método para navegar al generador y recibir el resultado
+  Future<void> _goToTattooGenerator() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BlocProvider.value(
+          value: context.read<TattooGeneratorBloc>(),
+          child: const TattooGeneratorPage(
+            selectForQuotation: true,
+          ),
+        ),
+      ),
+    );
+    if (result != null && result is Map && result['design'] != null) {
+      final design = result['design'];
+      final imageUrl = result['imageUrl'];
+      context.read<CreateOpenQuotationBloc>().add(
+        CreateOpenQuotationEvent.tattooDesignSelected(
+          design: design,
+          imageUrl: imageUrl,
+        ),
+      );
+      if (_descriptionController.text.trim().isEmpty && design.userQuery != null) {
+        _descriptionController.text = design.userQuery;
+      }
+    }
   }
 }

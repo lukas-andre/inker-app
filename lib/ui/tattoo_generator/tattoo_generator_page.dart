@@ -13,7 +13,9 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class TattooGeneratorPage extends StatefulWidget {
-  const TattooGeneratorPage({super.key});
+  const TattooGeneratorPage({super.key, this.selectForQuotation = false});
+
+  final bool selectForQuotation;
 
   @override
   State<TattooGeneratorPage> createState() => _TattooGeneratorPageState();
@@ -511,9 +513,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     // Get the current list of designs based on the active tab
     List<UserTattooDesignDto> designs = [];
     int currentDesignIndex = 0;
-    
     final state = context.read<TattooGeneratorBloc>().state;
-    
     state.maybeWhen(
       historyLoaded: (designList, favoritesOnly) {
         designs = List.from(designList);
@@ -522,7 +522,6 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       },
       orElse: () {},
     );
-    
     // Open immersive viewer
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -535,6 +534,12 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           isFavorite: design.isFavorite,
           allDesigns: designs.isNotEmpty ? designs : null,
           currentDesignIndex: currentDesignIndex,
+          selectForQuotation: widget.selectForQuotation,
+          onSelectDesign: widget.selectForQuotation
+              ? (result) {
+                  Navigator.of(context).pop(result);
+                }
+              : null,
         ),
       ),
     );
