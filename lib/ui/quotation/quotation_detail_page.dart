@@ -396,6 +396,52 @@ class _MainQuotationInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Mostrar imagen generada si existe
+            if (quotation.tattooDesignImageUrl != null) ...[
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (_) => _ImageViewerDialog(
+                      imageUrl: quotation.tattooDesignImageUrl!,
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: 'tattooDesignImage_${quotation.id}',
+                  child: Container(
+                    width: double.infinity,
+                    height: 220,
+                    margin: const EdgeInsets.only(bottom: 18),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.18),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                      border: Border.all(color: secondaryColor, width: 2),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      quotation.tattooDesignImageUrl!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: tertiaryColor.withOpacity(0.2),
+                        child: const Icon(Icons.broken_image, color: tertiaryColor, size: 64),
+                      ),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
             // Fecha de creación y estado actual
             Row(
               children: [
@@ -1526,6 +1572,52 @@ class _OfferListItem extends StatelessWidget {
               ],
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// --- Visualizador de imagen fullscreen (reutilizado) ---
+class _ImageViewerDialog extends StatelessWidget {
+  final String imageUrl;
+  const _ImageViewerDialog({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
+      child: Scaffold(
+        backgroundColor: Colors.black.withOpacity(0.98),
+        body: Stack(
+          children: [
+            Center(
+              child: Hero(
+                tag: 'tattooDesignImage_${ModalRoute.of(context)?.settings.arguments ?? imageUrl}',
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: tertiaryColor.withOpacity(0.2),
+                    child: const Icon(Icons.broken_image, color: tertiaryColor, size: 64),
+                  ),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white));
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              top: 32,
+              right: 24,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white, size: 32),
+                onPressed: () => Navigator.of(context).pop(),
+                tooltip: 'Cerrar',
+              ),
+            ),
+          ],
         ),
       ),
     );
