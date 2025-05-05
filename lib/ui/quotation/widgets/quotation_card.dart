@@ -11,7 +11,7 @@ import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart
 import 'package:inker_studio/ui/quotation/widgets/status_and_date_display.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart'; // For colors
-import 'package:inker_studio/domain/models/quotation/quotation.dart' show MultimediaMetadata; // For MultimediaMetadata type
+import 'package:inker_studio/domain/models/quotation/quotation.dart' show MultimediaMetadata, Quotation; // For MultimediaMetadata type and Quotation
 
 typedef QuotationCardTapCallback = void Function(String quotationId, QuotationType type);
 typedef QuotationActionCallback = void Function(String id, QuotationType type); // For specific actions like Send Offer
@@ -65,13 +65,12 @@ class QuotationCard extends StatelessWidget {
         }
         // Always navigate if onTap provided
         if (onTap != null) {
-            // Participating uses Offer ID as main ID, navigate with quotationId
             final idToNavigate = model.type == QuotationType.PARTICIPATING ? model.quotationId : model.id;
             onTap!(idToNavigate, model.type);
         }
       },
       child: Card(
-        key: K.getQuotationCardKey(model.id), // Use the primary ID (Offer ID for participating)
+        key: K.getQuotationCardKey(model.id),
         color: cardColor,
         margin: const EdgeInsets.only(bottom: 16),
         shape: RoundedRectangleBorder(
@@ -81,7 +80,7 @@ class QuotationCard extends StatelessWidget {
             width: borderWidth,
           ),
         ),
-        clipBehavior: Clip.antiAlias, // Ensure stack elements are clipped
+        clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
             // --- Top Indicators ---
@@ -93,6 +92,52 @@ class QuotationCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // --- Mostrar imagen generada si existe (solo para OPEN) ---
+                  if (model.type == QuotationType.OPEN && model.tattooDesignImageUrl != null) ...[
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (_) => _ImageViewerDialog(
+                            imageUrl: model.tattooDesignImageUrl!,
+                          ),
+                        );
+                      },
+                      child: Hero(
+                        tag: 'tattooDesignImage_${model.id}',
+                        child: Container(
+                          width: 90,
+                          height: 90,
+                          margin: const EdgeInsets.only(bottom: 14),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.18),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                            border: Border.all(color: secondaryColor, width: 2),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.network(
+                            model.tattooDesignImageUrl!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              color: tertiaryColor.withOpacity(0.2),
+                              child: const Icon(Icons.broken_image, color: tertiaryColor),
+                            ),
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   // --- Header: Counterpart ---
                   CounterpartHeader(info: model.counterpartInfo, isArtistView: model.isArtistView),
                   const SizedBox(height: 16),
@@ -518,6 +563,52 @@ class CustomerOpenQuotationCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Mostrar imagen generada si existe
+              if (model.tattooDesignImageUrl != null) ...[
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (_) => _ImageViewerDialog(
+                        imageUrl: model.tattooDesignImageUrl!,
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: 'tattooDesignImage_${model.id}',
+                    child: Container(
+                      width: double.infinity,
+                      height: 120,
+                      margin: const EdgeInsets.only(bottom: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.18),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                        border: Border.all(color: secondaryColor, width: 2),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.network(
+                        model.tattooDesignImageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: tertiaryColor.withOpacity(0.2),
+                          child: const Icon(Icons.broken_image, color: tertiaryColor),
+                        ),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
               Row(
                 children: [
                   Icon(
@@ -591,6 +682,52 @@ class CustomerOpenQuotationCard extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// --- Visualizador de imagen fullscreen ---
+class _ImageViewerDialog extends StatelessWidget {
+  final String imageUrl;
+  const _ImageViewerDialog({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
+      child: Scaffold(
+        backgroundColor: Colors.black.withOpacity(0.98),
+        body: Stack(
+          children: [
+            Center(
+              child: Hero(
+                tag: 'tattooDesignImage_${ModalRoute.of(context)?.settings.arguments ?? imageUrl}',
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: tertiaryColor.withOpacity(0.2),
+                    child: const Icon(Icons.broken_image, color: tertiaryColor, size: 64),
+                  ),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white));
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              top: 32,
+              right: 24,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white, size: 32),
+                onPressed: () => Navigator.of(context).pop(),
+                tooltip: 'Cerrar',
+              ),
+            ),
+          ],
         ),
       ),
     );

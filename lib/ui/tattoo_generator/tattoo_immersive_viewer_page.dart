@@ -13,6 +13,7 @@ import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
+import 'package:inker_studio/ui/quotation/create_open_quotation_page.dart';
 
 /// Immersive viewer for generated tattoo images with Instagram-like UI
 /// Horizontal swipes to navigate between images within a design
@@ -36,6 +37,9 @@ class TattooImmersiveViewerPage extends StatefulWidget {
   final List<UserTattooDesignDto>? allDesigns;
   final int? currentDesignIndex;
   
+  final bool? selectForQuotation;
+  final void Function(Map<String, dynamic> result)? onSelectDesign;
+  
   const TattooImmersiveViewerPage({
     Key? key,
     required this.images,
@@ -46,6 +50,8 @@ class TattooImmersiveViewerPage extends StatefulWidget {
     this.isFavorite,
     this.allDesigns,
     this.currentDesignIndex,
+    this.selectForQuotation,
+    this.onSelectDesign,
   }) : super(key: key);
 
   @override
@@ -732,18 +738,58 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
           
           const SizedBox(height: 16),
           
-          // Action button
+          // Action button contextual
           SizedBox(
             width: double.infinity,
-            child: PrimaryButton(
-              text: 'Create quote with this design',
-              onPressed: () {
-                // TODO: Navigate to quotation creation with this design
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Feature coming soon!"),
-                  ),
-                );
+            child: Builder(
+              builder: (context) {
+                if (widget.selectForQuotation == true) {
+                  return PrimaryButton(
+                    text: 'Seleccionar este diseño',
+                    onPressed: () {
+                      final design = _allDesigns != null && _allDesigns!.isNotEmpty
+                          ? _allDesigns![_currentDesignIndex]
+                          : null;
+                      final imageUrl = _images.isNotEmpty ? _images[_currentImageIndex] : null;
+                      final result = {
+                        'design': design,
+                        'imageUrl': imageUrl,
+                      };
+                      if (widget.onSelectDesign != null) {
+                        widget.onSelectDesign!(result);
+                      }
+                      Navigator.of(context).pop(result);
+                    },
+                  );
+                } else {
+                  return PrimaryButton(
+                    text: 'Crear cotización con este diseño',
+                    onPressed: () {
+                      final design = _allDesigns != null && _allDesigns!.isNotEmpty
+                          ? _allDesigns![_currentDesignIndex]
+                          : null;
+                      final imageUrl = _images.isNotEmpty ? _images[_currentImageIndex] : null;
+                      if (design == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No se pudo obtener el diseño.')),
+                        );
+                        return;
+                      }
+                      final result = {
+                        'design': design,
+                        'imageUrl': imageUrl,
+                      };
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CreateOpenQuotationProvider(
+                            initialTattooDesign: design,
+                            initialTattooDesignImageUrl: imageUrl,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),

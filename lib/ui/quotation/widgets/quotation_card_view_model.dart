@@ -29,6 +29,7 @@ class QuotationCardViewModel {
   final List<MultimediaMetadata> referenceImages;
   final List<MultimediaMetadata> proposedDesigns; // Only for DIRECT
   final Money? referenceBudget;
+  final String? tattooDesignImageUrl;
 
   // --- Type Specific Fields ---
   // Direct
@@ -70,6 +71,7 @@ class QuotationCardViewModel {
     this.hasOffered = false,
     this.artistOffer,
     this.referenceBudget,
+    this.tattooDesignImageUrl,
   });
 
   // --- Factory for DIRECT Quotation ---
@@ -129,6 +131,7 @@ class QuotationCardViewModel {
       hasOffered: quotation.hasOffered,
       artistOffer: quotation.offers?.isNotEmpty == true ? quotation.offers!.first : null,
       referenceBudget: quotation.referenceBudget,
+      tattooDesignImageUrl: quotation.tattooDesignImageUrl,
     );
   }
 
@@ -236,6 +239,7 @@ class CustomerOpenQuotationCardViewModel {
   final String statusText;
   final Color statusColor;
   final IconData statusIcon;
+  final String? tattooDesignImageUrl;
 
   CustomerOpenQuotationCardViewModel({
     required this.id,
@@ -245,6 +249,7 @@ class CustomerOpenQuotationCardViewModel {
     required this.statusText,
     required this.statusColor,
     required this.statusIcon,
+    this.tattooDesignImageUrl,
   });
 
   factory CustomerOpenQuotationCardViewModel.fromQuotation(Quotation quotation, S l10n) {
@@ -257,6 +262,7 @@ class CustomerOpenQuotationCardViewModel {
       statusText: "Abierta a ofertas", // TODO: l10n
       statusColor: _getStatusColor(statusEnum),
       statusIcon: _getStatusIcon(statusEnum),
+      tattooDesignImageUrl: quotation.tattooDesignImageUrl,
     );
   }
 } 

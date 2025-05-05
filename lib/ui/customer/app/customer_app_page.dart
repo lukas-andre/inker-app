@@ -384,16 +384,16 @@ class CustomerQuotationsTabView extends StatelessWidget {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white60,
               tabs: [
-                Tab(text: 'Directas'),
                 Tab(text: 'Públicas'),
+                Tab(text: 'Directas'),
               ],
             ),
           ),
           Expanded(
             child: TabBarView(
               children: [
-                QuotationListPage(hideHeader: true),
                 OpenQuotationsTabView(),
+                QuotationListPage(hideHeader: true),
               ],
             ),
           ),
