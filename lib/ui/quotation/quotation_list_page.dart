@@ -396,13 +396,21 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         if (isUnread) {
           _quotationListBloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
         }
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => QuotationDetailsPage(
-              quotation: quotation,
-            ),
-          ),
-        );
+        if (quotation != null) {
+          Navigator.of(context).pushNamed(
+            '/quotationDetail',
+            arguments: {
+              'quotation': quotation,
+            },
+          );
+        } else {
+          Navigator.of(context).pushNamed(
+            '/quotationDetail',
+            arguments: {
+              'quotationId': quotation.id.toString(),
+            },
+          );
+        }
       },
       child: Card(
         key: K.getQuotationCardKey(quotation.id.toString()),

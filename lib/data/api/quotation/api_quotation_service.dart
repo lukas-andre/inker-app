@@ -87,7 +87,7 @@ class ApiQuotationService implements QuotationService {
     for (var i = 0; i < referenceImages.length; i++) {
       var file = referenceImages[i];
       files.add(await http.MultipartFile.fromPath(
-        'files', // Changed from 'files[]' to match common practices
+        'files[]', // Changed from 'files[]' to match common practices
         file.path,
         contentType:
             MediaType('image', 'jpeg'), // Assuming jpeg, adjust if needed

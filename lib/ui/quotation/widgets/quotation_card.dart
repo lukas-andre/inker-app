@@ -101,6 +101,7 @@ class QuotationCard extends StatelessWidget {
                           barrierDismissible: true,
                           builder: (_) => _ImageViewerDialog(
                             imageUrl: model.tattooDesignImageUrl!,
+                            heroTag: 'tattooDesignImage_${model.id}',
                           ),
                         );
                       },
@@ -572,6 +573,7 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                       barrierDismissible: true,
                       builder: (_) => _ImageViewerDialog(
                         imageUrl: model.tattooDesignImageUrl!,
+                        heroTag: 'tattooDesignImage_${model.id}',
                       ),
                     );
                   },
@@ -691,7 +693,8 @@ class CustomerOpenQuotationCard extends StatelessWidget {
 // --- Visualizador de imagen fullscreen ---
 class _ImageViewerDialog extends StatelessWidget {
   final String imageUrl;
-  const _ImageViewerDialog({required this.imageUrl});
+  final String heroTag;
+  const _ImageViewerDialog({required this.imageUrl, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -703,7 +706,7 @@ class _ImageViewerDialog extends StatelessWidget {
           children: [
             Center(
               child: Hero(
-                tag: 'tattooDesignImage_${ModalRoute.of(context)?.settings.arguments ?? imageUrl}',
+                tag: heroTag,
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.contain,

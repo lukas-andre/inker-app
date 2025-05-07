@@ -5,7 +5,6 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
 import 'package:inker_studio/ui/quotation/create_open_quotation_page.dart';
-import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/empty_list_indicator.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
@@ -74,18 +73,24 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
         }
 
         if (quotation != null) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => QuotationDetailsPage(quotation: quotation!),
-            ),
+          Navigator.of(context).pushNamed(
+            '/quotationDetail',
+            arguments: {
+              'quotation': quotation,
+            },
+          ).then((_) {
+            // _bloc.add(const OpenQuotationListEvent.refreshOpenQuotations());
+          });
+        } else {
+          // Fallback: navega con el id si no tienes el objeto
+          Navigator.of(context).pushNamed(
+            '/quotationDetail',
+            arguments: {
+              'quotationId': quotationId,
+            },
           ).then((_) {
             _bloc.add(const OpenQuotationListEvent.refreshOpenQuotations());
           });
-        } else {
-          print('Error: Quotation with ID $quotationId not found in state.');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Could not open details. Quotation not found.")),
-          );
         }
       },
       orElse: () {

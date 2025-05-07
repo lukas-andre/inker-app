@@ -49,6 +49,8 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
           referenceBudget: referenceBudget,
           generatedImageId: generatedImageId,
         ),
+        acceptOffer: (String quotationId, String offerId) async =>
+          await _acceptOffer(emit, quotationId, offerId),
       );
     });
   }
@@ -271,6 +273,32 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
       await _getQuotationById(emit, quotationId);
     } catch (e) {
       emit(QuotationListState.error(e.toString()));
+    }
+  }
+
+  Future<void> _acceptOffer(
+    Emitter<QuotationListState> emit,
+    String quotationId,
+    String offerId,
+  ) async {
+    try {
+      print('[BLoC] Intentando aceptar oferta: quotationId=$quotationId, offerId=$offerId');
+      final session = await _sessionService.getActiveSession();
+      if (session == null) {
+        emit(const QuotationListState.error('No se ha iniciado sesión.'));
+        return;
+      }
+      emit(const QuotationListState.loading());
+      await _quotationService.acceptOffer(
+        token: session.accessToken,
+        quotationId: quotationId,
+        offerId: offerId,
+      );
+      print('[BLoC] Oferta aceptada exitosamente');
+      add(QuotationListEvent.getQuotationById(quotationId));
+    } catch (e) {
+      print('[BLoC] Error al aceptar oferta: $e');
+      emit(QuotationListState.error('Error al aceptar la oferta: \n${e.toString()}'));
     }
   }
 }

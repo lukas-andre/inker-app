@@ -1,7 +1,7 @@
 part of 'quotation_list_bloc.dart';
 
 @freezed
-abstract class QuotationListEvent with _$QuotationListEvent {
+class QuotationListEvent with _$QuotationListEvent {
   const factory QuotationListEvent.started() = _Started;
   const factory QuotationListEvent.loadQuotations(
           List<String>? statuses, bool isNextPage, QuotationType? type) =
@@ -20,4 +20,8 @@ abstract class QuotationListEvent with _$QuotationListEvent {
     Money? referenceBudget,
     String? generatedImageId,
   }) = _UpdateOpenQuotation;
+  const factory QuotationListEvent.acceptOffer({
+    required String quotationId,
+    required String offerId,
+  }) = _AcceptOffer;
 }

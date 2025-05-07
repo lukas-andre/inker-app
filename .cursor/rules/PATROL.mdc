@@ -1,0 +1,405 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Patrol: Framework de Pruebas UI para Flutter
+
+## Introducción
+
+Patrol es un potente framework de pruebas UI de código abierto, diseñado específicamente para aplicaciones Flutter. Lanzado en septiembre de 2022 y desarrollado por LeanCode, este framework supera las limitaciones de las herramientas de prueba nativas de Flutter, permitiendo a los desarrolladores realizar acciones que antes eran imposibles[1][12].
+
+### Características principales
+
+- **Acceso a funcionalidades nativas**: Interactúa con diálogos de permisos, notificaciones y WebViews directamente desde tus pruebas[1][13].
+- **Sistema de finders personalizado**: Código de prueba más conciso y legible[1].
+- **Hot Restart**: Hace que las pruebas de integración sean más rápidas y divertidas[1].
+- **Aislamiento completo entre pruebas y fragmentación**: Supera las limitaciones del plugin `integration_test` nativo de Flutter[1].
+- **Compatible con granjas de dispositivos**: Firebase Test Lab, BrowserStack, LambdaTest, Marathon, emulator.wtf, y AWS Device Farm[1][8].
+
+## Instalación y configuración
+
+### Instalación de Patrol CLI
+
+```bash
+flutter pub global activate patrol_cli
+```
+
+Patrol CLI es necesario para ejecutar pruebas UI (¡`flutter test` no funcionará!)[4].
+
+Añade `patrol` a tu variable de entorno `PATH` y verifica la instalación:
+
+```bash
+patrol doctor
+```
+
+### Dependencias en pubspec.yaml
+
+```yaml
+dev_dependencies:
+  patrol: ^latest_version
+
+patrol:
+  app_name: Mi App
+  android:
+    package_name: com.ejemplo.miapp
+  ios:
+    bundle_id: com.ejemplo.MiApp
+  macos:
+    bundle_id: com.ejemplo.macos.MiApp
+```
+
+### Configuración para Android
+
+1. Crea la estructura de directorios: `android/app/src/androidTest/java/com/ejemplo/miapp/`
+2. Crea archivo `MainActivityTest.java`:
+
+```java
+package com.ejemplo.miapp; // reemplaza con tu paquete
+import androidx.test.platform.app.InstrumentationRegistry;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import pl.leancode.patrol.PatrolJUnitRunner;
+
+@RunWith(Parameterized.class)
+public class MainActivityTest {
+    @Parameters(name = "{0}")
+    public static Object[] testCases() {
+        PatrolJUnitRunner instrumentation = (PatrolJUnitRunner) InstrumentationRegistry.getInstrumentation();
+        instrumentation.setUp(MainActivity.class);
+        instrumentation.waitForPatrolAppService();
+        return instrumentation.listDartTests();
+    }
+
+    public MainActivityTest(String dartTestName) {
+        this.dartTestName = dartTestName;
+    }
+
+    private final String dartTestName;
+
+    @Test
+    public void runDartTest() {
+        PatrolJUnitRunner instrumentation = (PatrolJUnitRunner) InstrumentationRegistry.getInstrumentation();
+        instrumentation.runDartTest(dartTestName);
+    }
+}
+```
+
+3. Modifica `android/app/build.gradle.kts`:
+
+```kotlin
+android {
+    defaultConfig {
+        testInstrumentationRunner = "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+    }
+    
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
+}
+
+dependencies {
+    androidTestUtil("androidx.test:orchestrator:1.5.1")
+}
+```
+
+## Sistema de finders personalizados
+
+### Fundamentos de PatrolFinder
+
+Los finders de Patrol utilizan `$` como punto de entrada, creando una sintaxis más concisa:
+
+```dart
+// Flutter estándar
+find.byType(Text);
+find.text('Subscribe');
+find.byKey(Key('loginButton'));
+
+// Con Patrol
+$(Text);
+$('Subscribe');
+$(Key('loginButton'));
+// o con Symbol
+$(#loginButton);
+```
+
+### Afirmaciones
+
+```dart
+// Verificar existencia
+expect($('Login'), findsOneWidget);
+expect($('Login').exists, equals(true));
+
+// Verificar ausencia
+expect($('Logout'), findsNothing);
+expect($('Logout').exists, equals(false));
+
+// Verificar cantidad
+expect($(Card), findsNWidgets(3));
+```
+
+### Finders encadenados y composición
+
+```dart
+// Encontrar por jerarquía
+$(Scaffold).$(#box1).$('Log in').tap();
+
+// Encontrar con condiciones
+$(Scrollable).containing(Text);
+$(Scrollable).containing($(Button).containing(Text));
+$(Scrollable).containing(Button).containing(Text);
+
+// Encontrar widget que contiene múltiples textos
+$(ListTile).containing('Username').containing('email@example.com').tap();
+```
+
+## Automatización nativa
+
+### Interacciones básicas
+
+```dart
+// Navegar por el sistema
+await $.native.pressHome();
+await $.native.pressBack(); // Solo Android
+await $.native.openApp('com.android.settings');
+
+// Interactuar con elementos nativos
+await $.native.tap(Selector(text: 'Sign up'));
+await $.native.enterText(Selector(text: 'Email'), 'user@example.com');
+await $.native.enterTextByIndex('user', index: 0); // Username
+await $.native.enterTextByIndex('pass123', index: 1); // Password
+```
+
+### Permisos y notificaciones
+
+```dart
+// Manejar permisos
+await $.native.selectFineLocation();
+await $.native.grantPermissionWhenInUse();
+await $.native.denyPermission();
+
+// Notificaciones
+await $.native.openNotifications();
+await $.native.tapOnNotificationByIndex(0);
+await $.native.tapOnNotificationBySelector(
+  Selector(textContains: 'Nuevo mensaje'),
+);
+```
+
+### Configuración del dispositivo
+
+```dart
+// Cambiar ajustes
+await $.native.enableDarkMode();
+await $.native.enableWifi();
+await $.native.disableWifi();
+await $.native.enableCellular();
+await $.native.disableCellular();
+```
+
+## Acciones avanzadas con widgets
+
+### Tap y scroll
+
+```dart
+// Tap con opciones
+await $('Aceptar').tap();
+
+// Scroll hasta un elemento
+await $('Términos y condiciones').scrollTo().tap();
+
+// Especificar el widget scrollable a utilizar
+await $('Elemento 100').scrollTo(view: $(#miListView).$(Scrollable)).tap();
+```
+
+### Políticas de estabilización
+
+```dart
+// Diferentes formas de esperar después de una acción
+await $('Eliminar').tap(settlePolicy: SettlePolicy.settle); // Default: pumpAndSettle()
+await $('Confirmar').tap(settlePolicy: SettlePolicy.pump); // Solo pump()
+await $('Opciones').tap(settlePolicy: SettlePolicy.trySettle); // Para animaciones infinitas
+```
+
+## Ejecutando pruebas
+
+### Comandos básicos
+
+```bash
+# Ejecutar una prueba específica
+patrol test -t integration_test/login_test.dart
+
+# Ejecutar con flavor
+patrol test --flavor development
+
+# Modo desarrollo (con hot restart)
+patrol develop -t integration_test/login_test.dart
+```
+
+### Depuración
+
+Para depurar pruebas en VS Code:
+
+1. Añade en `launch.json`:
+```json
+{
+  "name": "attach debugger",
+  "request": "attach",
+  "type": "dart",
+  "cwd": "integration_test",
+  "vmServiceUri": "${command:dart.promptForVmService}"
+}
+```
+
+2. Ejecuta las pruebas con `patrol develop`
+3. Copia la URI del servicio VM desde el mensaje de DevTools
+4. Adjunta el depurador con la configuración creada[11]
+
+## Ejemplo completo
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:patrol/patrol.dart';
+import 'package:my_app/main.dart';
+
+void main() {
+  patrolTest(
+    'flujo completo de login con permisos y notificaciones',
+    ($) async {
+      // Iniciar app
+      await $.pumpWidgetAndSettle(const MyApp());
+      
+      // Login
+      await $(#emailField).enterText('usuario@ejemplo.com');
+      await $(#passwordField).enterText('contraseña123');
+      await $('Iniciar sesión').tap();
+      
+      // Manejar diálogo de permisos
+      await $.native.selectFineLocation();
+      await $.native.grantPermissionWhenInUse();
+      
+      // Verificar pantalla principal
+      expect($(#homeScreen), findsOneWidget);
+      
+      // Cambiar configuración del dispositivo
+      await $.native.enableDarkMode();
+      await $.native.disableWifi();
+      
+      // Navegar a perfil y desplazarse hasta botón
+      await $(#profileTab).tap();
+      await $('Configuración de notificaciones').scrollTo().tap();
+      
+      // Activar notificaciones
+      await $(Switch).where((widget) => !widget.value).tap();
+      
+      // Manejar diálogo de permisos
+      await $.native.grantPermission();
+      
+      // Enviar notificación de prueba
+      await $('Enviar notificación').tap();
+      
+      // Salir y verificar notificación
+      await $.native.pressHome();
+      await $.native.openNotifications();
+      await $.native.tapOnNotificationBySelector(
+        Selector(textContains: 'Prueba'),
+      );
+      
+      // Verificar que volvemos a la app
+      expect($(#notificationScreen), findsOneWidget);
+    },
+  );
+}
+```
+
+## Consejos y trucos
+
+1. **Supera la flakiness de los tests**: A diferencia de Flutter, Patrol espera a que los widgets estén visibles antes de intentar interactuar con ellos.
+
+2. **Utiliza `containing()` para selecciones más precisas**: 
+   ```dart
+   $(ListTile).containing('Título').containing(Icons.star).tap();
+   ```
+
+3. **Configura timeouts globales o por acción**:
+   ```dart
+   patrolTest(
+     'mi test',
+     config: PatrolTestConfig(findTimeout: Duration(seconds: 10)),
+     ($) async { ... },
+   );
+   
+   // O por acción específica
+   await $('Cargar más').tap(findTimeout: Duration(seconds: 30));
+   ```
+
+4. **Usa `pumpAndTrySettle()` para animaciones infinitas**: Evita timeouts cuando tienes animaciones que nunca terminan.
+
+5. **Evita conflictos con otras bibliotecas**: No modifiques `FlutterError.onError` y desactiva paquetes como Sentry o Crashlytics durante las pruebas.
+
+6. **Verifica la compatibilidad de características nativas**: Consulta la tabla de paridad de características para saber qué está disponible en cada plataforma[19].
+
+## Consideraciones finales
+
+Patrol representa un avance significativo en las pruebas de UI para Flutter, especialmente para aplicaciones que necesitan interactuar con funcionalidades nativas. Su sistema de finders intuitivo y la capacidad de manejar permisos, notificaciones y configuraciones del sistema lo convierten en una herramienta indispensable para pruebas de integración completas y robustas.
+
+La comunidad de Patrol sigue creciendo y el framework se actualiza constantemente. Si experimentas problemas, puedes unirte al servidor Discord de Patrol para obtener ayuda directa del equipo y la comunidad.
+
+Citations:
+[1] https://patrol.leancode.co
+[2] https://patrol.leancode.co/documentation
+[3] https://patrol.leancode.co/
+[4] https://patrol.leancode.co/documentation
+[5] https://patrol.leancode.co/documentation
+[6] https://patrol.leancode.co/documentation/logs
+[7] https://www.youtube.com/watch?v=WJKcZ5ob718
+[8] https://patrol.leancode.co/documentation/integrations/lambdatest
+[9] https://patrol.leancode.co/finders/usage
+[10] https://patrol.leancode.co/v3
+[11] https://patrol.leancode.co/debugging-patrol-tests
+[12] https://patrol.leancode.co
+[13] https://patrol.leancode.co
+[14] https://patrol.leancode.co/documentation/native/overview
+[15] https://patrol.leancode.co/finders/advanced
+[16] https://patrol.leancode.co/finders/advanced
+[17] https://patrol.leancode.co/documentation/write-your-first-test
+[18] https://github.com/leancodepl/patrol/discussions/1133
+[19] https://patrol.leancode.co/documentation/native/feature-parity
+[20] https://pub.dev/documentation/patrol/latest/patrol/PatrolFinder-class.html
+[21] https://patrol.leancode.co/documentation/native/usage
+[22] https://pub.dev/packages/patrol
+[23] https://www.transfinder.com/solutions/Patrolfinder
+[24] https://patrol.leancode.co/documentation/cheatsheet
+[25] https://www.linkedin.com/posts/bartekpacia_patrol-10-powerful-flutter-ui-testing-activity-7031215900456312832-HtKq
+[26] https://patrol.leancode.co/documentation/ci/firebase-test-lab
+[27] https://www.youtube.com/watch?v=jZD7l55uuJc
+[28] https://patrol.leancode.co/documentation/compatibility-table
+[29] https://patrol.leancode.co/cli-commands/develop
+[30] https://patrol.leancode.co/documentation/physical-ios-devices-setup
+[31] https://stackoverflow.com/questions/76429793/i-implemented-patrolhttps-patrol-leancode-co-package-for-perform-the-integr
+[32] https://patrol.leancode.co/documentation/supported-platforms
+[33] https://www.linkedin.com/posts/leancode_patrol-activity-7204086517483421696-jrLn
+[34] https://github.com/leancodepl/patrol/actions/runs/8465113389/job/23191083890
+[35] https://github.com/leancodepl/patrol/discussions/categories/general
+[36] https://www.dhiwise.com/post/patrol-for-flutter-writing-better-tests-for-your-flutter-apps
+[37] https://www.help.cbp.gov/s/?language=en_US
+[38] https://pub.dev/documentation/patrol/latest/
+[39] https://www.sequrix.com/product/guard-patrol-system/
+[40] https://patrol.leancode.co
+[41] https://www.nsp.org/NSPWebsite/Membership/Candidate-Join/Find-a-Patrol.aspx?ctl01_TemplateBody_WebPartManager1_gwpciNewQueryMenuCommon1_ciNewQueryMenuCommon1_ResultsGrid_Grid1ChangePage=6_20&ctl01_TemplateBody_WebPartManager1_gwpciNewQueryMenuCommon_ciNewQueryMenuCommon_ResultsGrid_Grid1ChangePage=45_20
+[42] https://pub.dev/packages/patrol_cli
+[43] https://www.youtube.com/watch?v=u3gNrvChNG4
+[44] https://github.com/leancodepl/patrol/issues/1964
+[45] https://github.com/leancodepl/patrol/blob/master/README.md
+[46] https://www.youtube.com/watch?v=WJKcZ5ob718
+[47] https://github.com/leancodepl/patrol/discussions
+[48] https://github.com/leancodepl/patrol/discussions/categories/q-a
+[49] https://patrol.leancode.co/v3
+[50] https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Extending_the_developer_tools
+
+---
+Respuesta de Perplexity: pplx.ai/share
