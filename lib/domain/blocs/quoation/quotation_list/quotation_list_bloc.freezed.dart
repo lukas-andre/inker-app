@@ -34,6 +34,7 @@ mixin _$QuotationListEvent {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -49,6 +50,7 @@ mixin _$QuotationListEvent {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +66,7 @@ mixin _$QuotationListEvent {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -76,6 +79,7 @@ mixin _$QuotationListEvent {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -87,6 +91,7 @@ mixin _$QuotationListEvent {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -98,6 +103,7 @@ mixin _$QuotationListEvent {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -175,6 +181,7 @@ class _$StartedImpl implements _Started {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return started();
   }
@@ -193,6 +200,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return started?.call();
   }
@@ -211,6 +219,7 @@ class _$StartedImpl implements _Started {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -229,6 +238,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return started(this);
   }
@@ -243,6 +253,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return started?.call(this);
   }
@@ -257,6 +268,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -379,6 +391,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return loadQuotations(statuses, isNextPage, type);
   }
@@ -397,6 +410,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return loadQuotations?.call(statuses, isNextPage, type);
   }
@@ -415,6 +429,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -433,6 +448,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return loadQuotations(this);
   }
@@ -447,6 +463,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return loadQuotations?.call(this);
   }
@@ -461,6 +478,7 @@ class _$LoadQuotationsImpl implements _LoadQuotations {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (loadQuotations != null) {
@@ -564,6 +582,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return cancelQuotation(quotationId);
   }
@@ -582,6 +601,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return cancelQuotation?.call(quotationId);
   }
@@ -600,6 +620,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -618,6 +639,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return cancelQuotation(this);
   }
@@ -632,6 +654,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return cancelQuotation?.call(this);
   }
@@ -646,6 +669,7 @@ class _$CancelQuotationImpl implements _CancelQuotation {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (cancelQuotation != null) {
@@ -719,6 +743,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return refreshCurrentTab();
   }
@@ -737,6 +762,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return refreshCurrentTab?.call();
   }
@@ -755,6 +781,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (refreshCurrentTab != null) {
@@ -773,6 +800,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return refreshCurrentTab(this);
   }
@@ -787,6 +815,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return refreshCurrentTab?.call(this);
   }
@@ -801,6 +830,7 @@ class _$RefreshCurrentTabImpl implements _RefreshCurrentTab {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (refreshCurrentTab != null) {
@@ -895,6 +925,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return markAsRead(quotationId);
   }
@@ -913,6 +944,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return markAsRead?.call(quotationId);
   }
@@ -931,6 +963,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (markAsRead != null) {
@@ -949,6 +982,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return markAsRead(this);
   }
@@ -963,6 +997,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return markAsRead?.call(this);
   }
@@ -977,6 +1012,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (markAsRead != null) {
@@ -1077,6 +1113,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return getQuotationById(quotationId);
   }
@@ -1095,6 +1132,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return getQuotationById?.call(quotationId);
   }
@@ -1113,6 +1151,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (getQuotationById != null) {
@@ -1131,6 +1170,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return getQuotationById(this);
   }
@@ -1145,6 +1185,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return getQuotationById?.call(this);
   }
@@ -1159,6 +1200,7 @@ class _$GetQuotationByIdImpl implements _GetQuotationById {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (getQuotationById != null) {
@@ -1358,6 +1400,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
             Money? referenceBudget,
             String? generatedImageId)
         updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
   }) {
     return updateOpenQuotation(quotationId, description, minBudget, maxBudget,
         referenceBudget, generatedImageId);
@@ -1377,6 +1420,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
     TResult? Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
   }) {
     return updateOpenQuotation?.call(quotationId, description, minBudget,
         maxBudget, referenceBudget, generatedImageId);
@@ -1396,6 +1440,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
     TResult Function(String quotationId, String? description, Money? minBudget,
             Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
         updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
     required TResult orElse(),
   }) {
     if (updateOpenQuotation != null) {
@@ -1415,6 +1460,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_GetQuotationById value) getQuotationById,
     required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
   }) {
     return updateOpenQuotation(this);
   }
@@ -1429,6 +1475,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_GetQuotationById value)? getQuotationById,
     TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
   }) {
     return updateOpenQuotation?.call(this);
   }
@@ -1443,6 +1490,7 @@ class _$UpdateOpenQuotationImpl implements _UpdateOpenQuotation {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_GetQuotationById value)? getQuotationById,
     TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
     required TResult orElse(),
   }) {
     if (updateOpenQuotation != null) {
@@ -1469,6 +1517,204 @@ abstract class _UpdateOpenQuotation implements QuotationListEvent {
   String? get generatedImageId;
   @JsonKey(ignore: true)
   _$$UpdateOpenQuotationImplCopyWith<_$UpdateOpenQuotationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AcceptOfferImplCopyWith<$Res> {
+  factory _$$AcceptOfferImplCopyWith(
+          _$AcceptOfferImpl value, $Res Function(_$AcceptOfferImpl) then) =
+      __$$AcceptOfferImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String quotationId, String offerId});
+}
+
+/// @nodoc
+class __$$AcceptOfferImplCopyWithImpl<$Res>
+    extends _$QuotationListEventCopyWithImpl<$Res, _$AcceptOfferImpl>
+    implements _$$AcceptOfferImplCopyWith<$Res> {
+  __$$AcceptOfferImplCopyWithImpl(
+      _$AcceptOfferImpl _value, $Res Function(_$AcceptOfferImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quotationId = null,
+    Object? offerId = null,
+  }) {
+    return _then(_$AcceptOfferImpl(
+      quotationId: null == quotationId
+          ? _value.quotationId
+          : quotationId // ignore: cast_nullable_to_non_nullable
+              as String,
+      offerId: null == offerId
+          ? _value.offerId
+          : offerId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AcceptOfferImpl implements _AcceptOffer {
+  const _$AcceptOfferImpl({required this.quotationId, required this.offerId});
+
+  @override
+  final String quotationId;
+  @override
+  final String offerId;
+
+  @override
+  String toString() {
+    return 'QuotationListEvent.acceptOffer(quotationId: $quotationId, offerId: $offerId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AcceptOfferImpl &&
+            (identical(other.quotationId, quotationId) ||
+                other.quotationId == quotationId) &&
+            (identical(other.offerId, offerId) || other.offerId == offerId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quotationId, offerId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AcceptOfferImplCopyWith<_$AcceptOfferImpl> get copyWith =>
+      __$$AcceptOfferImplCopyWithImpl<_$AcceptOfferImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            List<String>? statuses, bool isNextPage, QuotationType? type)
+        loadQuotations,
+    required TResult Function(String quotationId) cancelQuotation,
+    required TResult Function() refreshCurrentTab,
+    required TResult Function(String quotationId) markAsRead,
+    required TResult Function(String quotationId) getQuotationById,
+    required TResult Function(
+            String quotationId,
+            String? description,
+            Money? minBudget,
+            Money? maxBudget,
+            Money? referenceBudget,
+            String? generatedImageId)
+        updateOpenQuotation,
+    required TResult Function(String quotationId, String offerId) acceptOffer,
+  }) {
+    return acceptOffer(quotationId, offerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(
+            List<String>? statuses, bool isNextPage, QuotationType? type)?
+        loadQuotations,
+    TResult? Function(String quotationId)? cancelQuotation,
+    TResult? Function()? refreshCurrentTab,
+    TResult? Function(String quotationId)? markAsRead,
+    TResult? Function(String quotationId)? getQuotationById,
+    TResult? Function(String quotationId, String? description, Money? minBudget,
+            Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
+        updateOpenQuotation,
+    TResult? Function(String quotationId, String offerId)? acceptOffer,
+  }) {
+    return acceptOffer?.call(quotationId, offerId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            List<String>? statuses, bool isNextPage, QuotationType? type)?
+        loadQuotations,
+    TResult Function(String quotationId)? cancelQuotation,
+    TResult Function()? refreshCurrentTab,
+    TResult Function(String quotationId)? markAsRead,
+    TResult Function(String quotationId)? getQuotationById,
+    TResult Function(String quotationId, String? description, Money? minBudget,
+            Money? maxBudget, Money? referenceBudget, String? generatedImageId)?
+        updateOpenQuotation,
+    TResult Function(String quotationId, String offerId)? acceptOffer,
+    required TResult orElse(),
+  }) {
+    if (acceptOffer != null) {
+      return acceptOffer(quotationId, offerId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadQuotations value) loadQuotations,
+    required TResult Function(_CancelQuotation value) cancelQuotation,
+    required TResult Function(_RefreshCurrentTab value) refreshCurrentTab,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_GetQuotationById value) getQuotationById,
+    required TResult Function(_UpdateOpenQuotation value) updateOpenQuotation,
+    required TResult Function(_AcceptOffer value) acceptOffer,
+  }) {
+    return acceptOffer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadQuotations value)? loadQuotations,
+    TResult? Function(_CancelQuotation value)? cancelQuotation,
+    TResult? Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_GetQuotationById value)? getQuotationById,
+    TResult? Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult? Function(_AcceptOffer value)? acceptOffer,
+  }) {
+    return acceptOffer?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadQuotations value)? loadQuotations,
+    TResult Function(_CancelQuotation value)? cancelQuotation,
+    TResult Function(_RefreshCurrentTab value)? refreshCurrentTab,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_GetQuotationById value)? getQuotationById,
+    TResult Function(_UpdateOpenQuotation value)? updateOpenQuotation,
+    TResult Function(_AcceptOffer value)? acceptOffer,
+    required TResult orElse(),
+  }) {
+    if (acceptOffer != null) {
+      return acceptOffer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AcceptOffer implements QuotationListEvent {
+  const factory _AcceptOffer(
+      {required final String quotationId,
+      required final String offerId}) = _$AcceptOfferImpl;
+
+  String get quotationId;
+  String get offerId;
+  @JsonKey(ignore: true)
+  _$$AcceptOfferImplCopyWith<_$AcceptOfferImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

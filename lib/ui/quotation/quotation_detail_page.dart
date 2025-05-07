@@ -16,96 +16,124 @@ import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_detail/quotation_detail_bloc.dart';
+import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'dart:async';
+import 'package:collection/collection.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
-class QuotationDetailsPage extends StatefulWidget {
-  final Quotation quotation;
+class QuotationDetailsPage extends StatelessWidget {
+  final Quotation? quotation;
+  final String? quotationId;
 
   const QuotationDetailsPage({
     super.key,
-    required this.quotation,
-  });
+    this.quotation,
+    this.quotationId,
+  }) : assert(quotation != null || quotationId != null,
+            'Either quotation or quotationId must be provided');
 
   @override
-  State<QuotationDetailsPage> createState() => _QuotationDetailsPageState();
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    final id = quotation?.id.toString() ?? quotationId!;
+    return BlocProvider<QuotationDetailBloc>(
+      create: (context) => QuotationDetailBloc(
+        quotationService: context.read<QuotationService>(),
+        sessionService: context.read<LocalSessionService>(),
+      )..add(
+          QuotationDetailEvent.fetchQuotationById(id),
+        ),
+      child: _QuotationDetailsScaffold(quotationId: id),
+    );
+  }
 }
 
-class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
-  late Quotation _currentQuotation;
-  late QuotationListBloc _bloc;
-  late NotificationsBloc _notificationsBloc;
-  bool _isRefreshing = false;
+class _QuotationDetailsScaffold extends StatelessWidget {
+  final String quotationId;
+  const _QuotationDetailsScaffold({required this.quotationId});
 
   @override
-  void initState() {
-    super.initState();
-    _currentQuotation = widget.quotation;
-    _bloc = context.read<QuotationListBloc>();
-    _notificationsBloc = context.read<NotificationsBloc>();
-
-    // Mark quotation as read when viewed
-    final isArtist =
-        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
-    if ((_currentQuotation.readByArtist == false && isArtist) ||
-        (_currentQuotation.readByCustomer == false && !isArtist)) {
-      _bloc.add(QuotationListEvent.markAsRead(_currentQuotation.id.toString()));
-    }
-
-    // Get fresh data without showing loading indicator
-    _bloc.add(
-        QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: primaryColor,
+      body: BlocConsumer<QuotationDetailBloc, QuotationDetailState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            offerAccepted: (quotation) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Oferta aceptada exitosamente'),
+                    backgroundColor: Colors.green),
+              );
+            },
+            error: (message) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(message), backgroundColor: Colors.red),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
+            offerAccepting: () => const Center(child: InkerProgressIndicator()),
+            error: (message) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline,
+                      color: Colors.white, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Error: $message',
+                    style:
+                        TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => context.read<QuotationDetailBloc>().add(
+                          QuotationDetailEvent.fetchQuotationById(quotationId),
+                        ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                    ),
+                    child: const Text('Reintentar'),
+                  ),
+                ],
+              ),
+            ),
+            loaded: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: false,
+            ),
+            refreshing: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: true,
+            ),
+            offerAccepted: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: false,
+            ),
+          );
+        },
+      ),
+    );
   }
+}
 
-  // Method to refresh the quotation data
-  Future<void> _refreshQuotation() async {
-    setState(() {
-      _isRefreshing = true;
-    });
-
-    // Get the latest quotation data
-    _bloc.add(
-        QuotationListEvent.getQuotationById(_currentQuotation.id.toString()));
-
-    // Safety timeout to ensure loading indicator doesn't get stuck
-    Future.delayed(const Duration(seconds: 5), () {
-      if (mounted && _isRefreshing) {
-        setState(() {
-          _isRefreshing = false;
-        });
-      }
-    });
-  }
-
-  // Updates the current quotation when the bloc state changes
-  void _updateQuotationFromState() {
-    final state = _bloc.state;
-    if (state is QuotationListLoaded) {
-      final updatedQuotation = state.quotations.firstWhere(
-        (q) => q.id == _currentQuotation.id,
-        orElse: () => _currentQuotation,
-      );
-
-      if (updatedQuotation.id == _currentQuotation.id) {
-        // Always update the UI when we have a matching quotation, even if it seems identical
-        // Sometimes backend updates don't change all properties but we still need to refresh
-        setState(() {
-          _currentQuotation = updatedQuotation;
-          _isRefreshing = false;
-        });
-      } else {
-        // If no matching quotation found, still reset the refreshing state
-        if (_isRefreshing) {
-          setState(() {
-            _isRefreshing = false;
-          });
-        }
-      }
-    } else if (_isRefreshing && state is QuotationListError) {
-      // Reset refreshing flag on error too
-      setState(() {
-        _isRefreshing = false;
-      });
-    }
-  }
+class _QuotationDetailContent extends StatelessWidget {
+  final Quotation quotation;
+  final bool isLoading;
+  const _QuotationDetailContent(
+      {required this.quotation, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -113,14 +141,25 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
     final isArtist =
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final counterpartInfo = isArtist
-        ? CounterpartInfo.fromCustomer(_currentQuotation.customer)
-        : CounterpartInfo.fromArtist(_currentQuotation.artist);
-    final bool isOpenQuotation = _currentQuotation.type == QuotationType.OPEN;
+        ? CounterpartInfo.fromCustomer(quotation.customer)
+        : CounterpartInfo.fromArtist(quotation.artist);
+    final bool isOpenQuotation = quotation.type == QuotationType.OPEN;
+
+    // Marcar como leída al entrar si corresponde
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if ((quotation.readByArtist == false && isArtist) ||
+          (quotation.readByCustomer == false && !isArtist)) {
+        context
+            .read<QuotationDetailBloc>()
+            .add(QuotationDetailEvent.markAsRead(quotation.id.toString()));
+      }
+    });
 
     return WillPopScope(
       onWillPop: () async {
-        // Refresh notifications when going back
-        _notificationsBloc.add(const NotificationsEvent.refreshNotifications());
+        context
+            .read<NotificationsBloc>()
+            .add(const NotificationsEvent.refreshNotifications());
         return true;
       },
       child: Scaffold(
@@ -132,100 +171,82 @@ class _QuotationDetailsPageState extends State<QuotationDetailsPage> {
           actions: [
             IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: _refreshQuotation,
+              onPressed: () {
+                context
+                    .read<QuotationDetailBloc>()
+                    .add(QuotationDetailEvent.refresh(quotation.id.toString()));
+              },
               tooltip: l10n.refresh,
             ),
           ],
         ),
-        body: BlocListener<QuotationListBloc, QuotationListState>(
-          listener: (context, state) {
-            _updateQuotationFromState();
-          },
-          child: Column(
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: _isRefreshing ? 3 : 0,
-                child: const LinearProgressIndicator(
-                  backgroundColor: primaryColor,
-                  valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
-                ),
-              ),
-              // Show banner for OPEN quotations (consistency)
-              if (isOpenQuotation && isArtist) _OpenQuotationBanner(),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _refreshQuotation,
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // No mostrar _CounterpartHeader para cotizaciones abiertas vistas por clientes
-                        if (!(isOpenQuotation && !isArtist))
-                          _CounterpartHeader(
-                            info: counterpartInfo,
-                            isArtist: isArtist,
-                            quotation: _currentQuotation,
-                          ),
-                        _MainQuotationInfo(quotation: _currentQuotation),
-                        if (_currentQuotation.history != null &&
-                            _currentQuotation.history!.isNotEmpty)
-                          _QuotationTimeline(
-                              history: _currentQuotation.history!),
-                        QuotationImages(quotation: _currentQuotation),
-                      ],
-                    ),
+        body: Column(
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: isLoading ? 3 : 0,
+              child: isLoading
+                  ? const LinearProgressIndicator(
+                      backgroundColor: primaryColor,
+                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                    )
+                  : null,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<QuotationDetailBloc>().add(
+                      QuotationDetailEvent.refresh(quotation.id.toString()));
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (!(isOpenQuotation && !isArtist))
+                        _CounterpartHeader(
+                          info: counterpartInfo,
+                          isArtist: isArtist,
+                          quotation: quotation,
+                        ),
+                      _MainQuotationInfo(quotation: quotation),
+                      if (quotation.history != null &&
+                          quotation.history!.isNotEmpty)
+                        _QuotationTimeline(history: quotation.history!),
+                      QuotationImages(quotation: quotation),
+                    ],
                   ),
                 ),
               ),
-              // Conditionally show action buttons container only for DIRECT quotations
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: explorerSecondaryColor,
-                    border: Border(
-                      top: BorderSide(
-                        color: tertiaryColor.withOpacity(0.2),
-                        width: 1,
-                      ),
-                    ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: explorerSecondaryColor,
+                border: Border(
+                  top: BorderSide(
+                    color: tertiaryColor.withOpacity(0.2),
+                    width: 1,
                   ),
-                  child: QuotationActionButtons(
-                    actionManager: QuotationActionManager(
-                      context: context,
-                      quotation: _currentQuotation,
-                      session: context.read<AuthBloc>().state.session,
-                      l10n: l10n,
-                      onActionExecuted: (actionType, quotationId) async {
-                        _bloc.add(const QuotationListEvent.refreshCurrentTab());
-
-                        if (actionType == QuotationActionType.cancel) {
-                          _bloc.add(
-                              QuotationListEvent.cancelQuotation(quotationId));
-                          await Future.delayed(const Duration(seconds: 1));
-                          if (!context.mounted) return;
-                          Navigator.of(context).pop(true);
-                        } else {
-                          await Future.delayed(const Duration(seconds: 1));
-                          if (context.mounted) {
-                            _refreshQuotation();
-                            Future.delayed(const Duration(seconds: 2), () {
-                              if (context.mounted) {
-                                _refreshQuotation();
-                              }
-                            });
-                          }
-                        }
-                        _notificationsBloc.add(
-                            NotificationsEvent.clearQuotationNotifications(
-                                quotationId));
-                      },
-                    ),
-                  ),
-                )
-            ],
-          ),
+                ),
+              ),
+              child: QuotationActionButtons(
+                actionManager: QuotationActionManager(
+                  context: context,
+                  quotation: quotation,
+                  session: context.read<AuthBloc>().state.session,
+                  l10n: l10n,
+                  onActionExecuted: (actionType, quotationId) async {
+                    if (actionType == QuotationActionType.cancel) {
+                      context.read<QuotationDetailBloc>().add(
+                        QuotationDetailEvent.cancelQuotation(quotationId),
+                      );
+                    }
+                  },
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -387,6 +408,7 @@ class _MainQuotationInfo extends StatelessWidget {
     final isArtist =
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final bool isOpenQuotation = quotation.type == QuotationType.OPEN;
+    final String heroTag = 'tattooDesignImage_${quotation.id}';
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -405,11 +427,12 @@ class _MainQuotationInfo extends StatelessWidget {
                     barrierDismissible: true,
                     builder: (_) => _ImageViewerDialog(
                       imageUrl: quotation.tattooDesignImageUrl!,
+                      heroTag: heroTag,
                     ),
                   );
                 },
                 child: Hero(
-                  tag: 'tattooDesignImage_${quotation.id}',
+                  tag: heroTag,
                   child: Container(
                     width: double.infinity,
                     height: 220,
@@ -431,11 +454,13 @@ class _MainQuotationInfo extends StatelessWidget {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: tertiaryColor.withOpacity(0.2),
-                        child: const Icon(Icons.broken_image, color: tertiaryColor, size: 64),
+                        child: const Icon(Icons.broken_image,
+                            color: tertiaryColor, size: 64),
                       ),
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
-                        return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+                        return const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2));
                       },
                     ),
                   ),
@@ -514,7 +539,8 @@ class _MainQuotationInfo extends StatelessWidget {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 20),
+                  const Icon(Icons.account_balance_wallet,
+                      color: Color(0xFF686D90), size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Presupuesto de referencia: ',
@@ -1421,20 +1447,48 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
             ),
           ),
 
-          // Offers list
-          ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: offersCount,
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemBuilder: (context, index) {
-              final offer = offers![index];
-              return _OfferListItem(
-                offer: offer,
-                quotationId: quotation.id.toString(),
-                customerName: quotation.customer?.firstName ?? 'Cliente',
-              );
+          BlocListener<QuotationListBloc, QuotationListState>(
+            listener: (context, state) {
+              if (state.maybeWhen(loading: () => true, orElse: () => false)) {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                );
+              } else {
+                Navigator.of(context, rootNavigator: true)
+                    .popUntil((route) => route.isFirst || !route.isCurrent);
+              }
+              if (state is QuotationListError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red),
+                );
+              }
+              if (state is QuotationListLoaded) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Oferta aceptada exitosamente'),
+                      backgroundColor: Colors.green),
+                );
+              }
             },
+            child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: offersCount,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final offer = offers![index];
+                return _OfferListItem(
+                  offer: offer,
+                  quotationId: quotation.id.toString(),
+                  customerName: quotation.customer?.firstName ?? 'Cliente',
+                );
+              },
+            ),
           ),
         ],
 
@@ -1479,6 +1533,28 @@ class _OfferListItem extends StatelessWidget {
 
     // Get message count if available
     final int messageCount = offer.messages.length;
+
+    // Obtener el estado de la cotización para saber si ya fue aceptada
+    final quotationBloc = context.read<QuotationListBloc>();
+    final quotationState = quotationBloc.state;
+    bool isAccepted = false;
+    if (quotationState is QuotationListLoaded) {
+      final q = quotationState.quotations.firstWhere(
+        (q) => q.id.toString() == quotationId,
+        orElse: () => Quotation(
+          id: quotationId,
+          status: QuotationStatus.pending, // Nunca será 'accepted' por defecto
+          type: QuotationType.OPEN,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          customerId: '',
+          description: '',
+        ),
+      );
+      if (q.status == QuotationStatus.accepted) {
+        isAccepted = true;
+      }
+    }
 
     return Card(
       elevation: 0,
@@ -1570,6 +1646,31 @@ class _OfferListItem extends StatelessWidget {
                   ),
                 ),
               ],
+
+              // Botón para aceptar oferta (solo si la cotización no está aceptada)
+              if (!isAccepted) ...[
+                const SizedBox(height: 12),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    context
+                        .read<QuotationListBloc>()
+                        .add(QuotationListEvent.acceptOffer(
+                          quotationId: quotationId,
+                          offerId: offer.id,
+                        ));
+                  },
+                  icon: const Icon(Icons.check_circle_outline),
+                  label: const Text('Aceptar oferta'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    textStyle: TextStyleTheme.bodyText2
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]
             ],
           ),
         ),
@@ -1581,7 +1682,8 @@ class _OfferListItem extends StatelessWidget {
 // --- Visualizador de imagen fullscreen (reutilizado) ---
 class _ImageViewerDialog extends StatelessWidget {
   final String imageUrl;
-  const _ImageViewerDialog({required this.imageUrl});
+  final String heroTag;
+  const _ImageViewerDialog({required this.imageUrl, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -1593,17 +1695,20 @@ class _ImageViewerDialog extends StatelessWidget {
           children: [
             Center(
               child: Hero(
-                tag: 'tattooDesignImage_${ModalRoute.of(context)?.settings.arguments ?? imageUrl}',
+                tag: heroTag,
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) => Container(
                     color: tertiaryColor.withOpacity(0.2),
-                    child: const Icon(Icons.broken_image, color: tertiaryColor, size: 64),
+                    child: const Icon(Icons.broken_image,
+                        color: tertiaryColor, size: 64),
                   ),
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return const Center(child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white));
+                    return const Center(
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white));
                   },
                 ),
               ),
