@@ -23,6 +23,7 @@ AgendaEventDetailResponse _$AgendaEventDetailResponseFromJson(
 mixin _$AgendaEventDetailResponse {
   AgendaEventDetailEvent get event => throw _privateConstructorUsedError;
   AgendaEventDetailLocation get location => throw _privateConstructorUsedError;
+  Quotation? get quotation => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +37,14 @@ abstract class $AgendaEventDetailResponseCopyWith<$Res> {
           $Res Function(AgendaEventDetailResponse) then) =
       _$AgendaEventDetailResponseCopyWithImpl<$Res, AgendaEventDetailResponse>;
   @useResult
-  $Res call({AgendaEventDetailEvent event, AgendaEventDetailLocation location});
+  $Res call(
+      {AgendaEventDetailEvent event,
+      AgendaEventDetailLocation location,
+      Quotation? quotation});
 
   $AgendaEventDetailEventCopyWith<$Res> get event;
   $AgendaEventDetailLocationCopyWith<$Res> get location;
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
   $Res call({
     Object? event = null,
     Object? location = null,
+    Object? quotation = freezed,
   }) {
     return _then(_value.copyWith(
       event: null == event
@@ -68,6 +74,10 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AgendaEventDetailLocation,
+      quotation: freezed == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation?,
     ) as $Val);
   }
 
@@ -86,6 +96,18 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
       return _then(_value.copyWith(location: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QuotationCopyWith<$Res>? get quotation {
+    if (_value.quotation == null) {
+      return null;
+    }
+
+    return $QuotationCopyWith<$Res>(_value.quotation!, (value) {
+      return _then(_value.copyWith(quotation: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -97,12 +119,17 @@ abstract class _$$AgendaEventDetailResponseImplCopyWith<$Res>
       __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AgendaEventDetailEvent event, AgendaEventDetailLocation location});
+  $Res call(
+      {AgendaEventDetailEvent event,
+      AgendaEventDetailLocation location,
+      Quotation? quotation});
 
   @override
   $AgendaEventDetailEventCopyWith<$Res> get event;
   @override
   $AgendaEventDetailLocationCopyWith<$Res> get location;
+  @override
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -120,6 +147,7 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? event = null,
     Object? location = null,
+    Object? quotation = freezed,
   }) {
     return _then(_$AgendaEventDetailResponseImpl(
       event: null == event
@@ -130,6 +158,10 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AgendaEventDetailLocation,
+      quotation: freezed == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation?,
     ));
   }
 }
@@ -138,7 +170,7 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
   const _$AgendaEventDetailResponseImpl(
-      {required this.event, required this.location});
+      {required this.event, required this.location, this.quotation});
 
   factory _$AgendaEventDetailResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgendaEventDetailResponseImplFromJson(json);
@@ -147,10 +179,12 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
   final AgendaEventDetailEvent event;
   @override
   final AgendaEventDetailLocation location;
+  @override
+  final Quotation? quotation;
 
   @override
   String toString() {
-    return 'AgendaEventDetailResponse(event: $event, location: $location)';
+    return 'AgendaEventDetailResponse(event: $event, location: $location, quotation: $quotation)';
   }
 
   @override
@@ -160,12 +194,14 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
             other is _$AgendaEventDetailResponseImpl &&
             (identical(other.event, event) || other.event == event) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.quotation, quotation) ||
+                other.quotation == quotation));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, event, location);
+  int get hashCode => Object.hash(runtimeType, event, location, quotation);
 
   @JsonKey(ignore: true)
   @override
@@ -184,9 +220,9 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
 
 abstract class _AgendaEventDetailResponse implements AgendaEventDetailResponse {
   const factory _AgendaEventDetailResponse(
-          {required final AgendaEventDetailEvent event,
-          required final AgendaEventDetailLocation location}) =
-      _$AgendaEventDetailResponseImpl;
+      {required final AgendaEventDetailEvent event,
+      required final AgendaEventDetailLocation location,
+      final Quotation? quotation}) = _$AgendaEventDetailResponseImpl;
 
   factory _AgendaEventDetailResponse.fromJson(Map<String, dynamic> json) =
       _$AgendaEventDetailResponseImpl.fromJson;
@@ -195,6 +231,8 @@ abstract class _AgendaEventDetailResponse implements AgendaEventDetailResponse {
   AgendaEventDetailEvent get event;
   @override
   AgendaEventDetailLocation get location;
+  @override
+  Quotation? get quotation;
   @override
   @JsonKey(ignore: true)
   _$$AgendaEventDetailResponseImplCopyWith<_$AgendaEventDetailResponseImpl>

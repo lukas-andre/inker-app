@@ -75,8 +75,8 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SuccessAnimationPage(
-                    title: 'Procesando',
-                    subtitle: 'Estamos creando tu cotización...',
+                    title: S.of(context).createQuotation,
+                    subtitle: S.of(context).description,
                     state: AnimationState.loading,
                     onAnimationComplete: () {},
                   ),
@@ -88,9 +88,9 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SuccessAnimationPage(
-                      title: '¡Cotización Enviada!',
+                      title: S.of(context).createQuotation,
                       subtitle:
-                          "Solicitud recibida. El artista responderá pronto. Revisa 'Mis Solicitudes' para ver el estado.",
+                          S.of(context).description,
                       state: AnimationState.completed,
                       onAnimationComplete: () {
                         Navigator.of(context).pop();
@@ -105,7 +105,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SuccessAnimationPage(
-                    title: 'Error',
+                    title: S.of(context).error,
                     subtitle: errorMessage,
                     state: AnimationState.error,
                     onAnimationComplete: () {
@@ -126,7 +126,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               appBar: AppBar(
                 iconTheme: const IconThemeData(color: Colors.white),
                 title: Text(widget.stencil != null 
-                    ? 'Cotizar Diseño' 
+                    ? S.of(context).createQuotation 
                     : S.of(context).createQuotation,
                   style: TextStyleTheme.copyWith(color: Colors.white)),
                 backgroundColor: primaryColor,
@@ -148,7 +148,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                       controller: _descriptionController,
                       focusNode: _descriptionFocusNode,
                       decoration: InputDecoration(
-                        labelText: 'Descripción del trabajo',
+                        labelText: S.of(context).description,
                         labelStyle:
                             TextStyleTheme.copyWith(color: Colors.white),
                         suffixIcon: IconButton(
@@ -170,7 +170,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         child: TextField(
                           controller: _appointmentDateController,
                           decoration: InputDecoration(
-                            labelText: 'Fecha deseada para la cita',
+                            labelText: S.of(context).appointmentDate,
                             labelStyle:
                                 TextStyleTheme.copyWith(color: Colors.white),
                             suffixIcon: const Icon(Icons.calendar_today,
@@ -182,7 +182,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'Imágenes de referencia adicionales:',
+                      S.of(context).referenceImages,
                       style: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontSize: 16,
@@ -217,7 +217,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         loading: (_) => const CircularProgressIndicator(
                             color: Colors.white),
                         orElse: () => Text(
-                          'Enviar Solicitud de Cotización',
+                          S.of(context).createQuotation,
                           style: TextStyleTheme.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -280,7 +280,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Diseño seleccionado:',
+                  S.of(context).selectedStencil,
                   style: TextStyleTheme.bodyText2.copyWith(
                     color: Colors.white70,
                     fontWeight: FontWeight.w500,
@@ -313,7 +313,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Este diseño se incluirá como referencia en tu solicitud',
+                        S.of(context).referenceImages,
                         style: TextStyleTheme.caption.copyWith(
                           color: Colors.white.withOpacity(0.8),
                           fontStyle: FontStyle.italic,
@@ -359,7 +359,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
     if (_descriptionController.text.isEmpty ||
         _appointmentDateController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, complete todos los campos')),
+        SnackBar(content: Text(S.of(context).pleaseEnterDescription)),
       );
       return;
     }

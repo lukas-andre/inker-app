@@ -205,6 +205,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
           iconTheme: const IconThemeData(color: Colors.white),
           elevation: 0,
         ),
+        resizeToAvoidBottomInset: true,
         // Use BlocBuilder to react to state changes for the main body
         body: BlocBuilder<CreateOpenQuotationBloc, CreateOpenQuotationState>(
           builder: (context, state) {
@@ -233,8 +234,11 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     TextFormField(
                       controller: _descriptionController, // Keep controller
                       style: TextStyleTheme.bodyText1,
+                      minLines: 3,
                       maxLines: 5,
                       maxLength: _maxDescriptionLength,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                       // Update counter based on controller's text length
                       buildCounter: (context,
                           {required currentLength,
@@ -440,6 +444,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                       style: TextStyleTheme.bodyText1,
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: false),
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                       decoration: _inputDecoration(
                         hintText: 'Presupuesto de referencia (CLP)',
                         prefixIcon: Icons.attach_money,
@@ -935,7 +941,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         ),
       ),
     );
-    if (result != null && result is Map && result['design'] != null) {
+    if (result != null && result is Map) {
       final design = result['design'];
       final imageUrl = result['imageUrl'];
       context.read<CreateOpenQuotationBloc>().add(

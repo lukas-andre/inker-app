@@ -109,9 +109,7 @@ class SqliteSessionService extends LocalSessionService {
 
   @override
   Future<void> logout(Session session) async {
-    final sessionMap = await _getSessionMap(session.sessionType);
-    sessionMap!['isActive'] = 0;
-    await updateSession(sessionMap);
+    await removeOldSession(session);
   }
 
   @override

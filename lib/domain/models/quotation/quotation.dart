@@ -128,14 +128,14 @@ class Money with _$Money {
   
   const factory Money({
     required int amount,
-    @Default('USD') String currency,
-    @Default(2) int scale,
+    @Default('CLP') String currency,
+    @Default(1) int scale,
   }) = _Money;
 
   factory Money.fromJson(Map<String, dynamic> json) => _$MoneyFromJson(json);
 
   /// Creates a Money instance from a floating point value
-  static Money fromFloat(double amount, [String currency = 'USD', int scale = 2]) {
+  static Money fromFloat(double amount, [String currency = 'CLP', int scale = 1]) {
     return Money(
       amount: (amount * pow(10, scale)).round(),
       currency: currency,
@@ -377,7 +377,7 @@ class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
     id: '',
     artistName: '',
     artistId: '',
-    estimatedCost: Money(amount: 0, currency: 'USD', scale: 2),
+    estimatedCost: Money(amount: 0, currency: 'CLP', scale: 1),
     message: '',
     messages: [],
   );

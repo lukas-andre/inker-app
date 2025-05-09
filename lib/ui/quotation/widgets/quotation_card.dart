@@ -218,6 +218,7 @@ class QuotationCard extends StatelessWidget {
 
   // Helper to build top indicators (Unread marker or Open Status banner)
   Widget _buildTopIndicators(BuildContext context, Color borderColor, bool showUnreadIndicator) {
+    final l10n = S.of(context);
      if (model.type == QuotationType.DIRECT && showUnreadIndicator) {
         return Positioned( // Unread indicator for DIRECT
                  top: 0,
@@ -240,7 +241,7 @@ class QuotationCard extends StatelessWidget {
      } else if (model.type == QuotationType.OPEN) {
         // Status Banner for OPEN
         final bannerColor = model.hasOffered ? Colors.green : redColor;
-        final bannerText = model.hasOffered ? "OFFERED" : "OPEN"; // Placeholder for l10n
+        final bannerText = model.hasOffered ? l10n.offered : l10n.open;
 
          return Positioned(
                top: 0,
@@ -402,14 +403,14 @@ class QuotationCard extends StatelessWidget {
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
                  Text(
-                   "Customer is looking for offers!", // Placeholder l10n
+                   l10n.customerLookingForOffers,
                    style: TextStyleTheme.bodyText2.copyWith(
                      color: redColor,
                      fontWeight: FontWeight.bold,
                    ),
                  ),
                   Text(
-                   "Review details & submit your offer.", // Placeholder l10n
+                   l10n.reviewDetailsAndSubmitOffer,
                    style: TextStyleTheme.caption.copyWith(color: Colors.white70),
                  ),
                ],
@@ -437,7 +438,7 @@ class QuotationCard extends StatelessWidget {
                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                textStyle: TextStyleTheme.caption.copyWith(fontWeight: FontWeight.bold),
              ),
-             child: Text("Send Offer"), // Placeholder l10n
+             child: Text(l10n.sendOffer),
            ),
          ],
        ),
@@ -446,9 +447,9 @@ class QuotationCard extends StatelessWidget {
 
   Widget _buildAlreadyOfferedPrompt(BuildContext context, S l10n) {
      // Similar to the one in OpenQuotationListPage
-     String offerDetails = "Offer Submitted"; // Placeholder l10n
+     String offerDetails = l10n.offerSubmitted;
      if (model.artistOffer?.estimatedCost != null) {
-       offerDetails = "Offer Submitted: ${model.artistOffer!.estimatedCost!.toString()}"; // Placeholder l10n
+       offerDetails = l10n.offerSubmittedWithAmount(model.artistOffer!.estimatedCost!.toString());
      }
 
      return Container(
@@ -467,7 +468,7 @@ class QuotationCard extends StatelessWidget {
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
                  Text(
-                   "You've Already Offered", // Placeholder l10n
+                   l10n.alreadyOffered,
                    style: TextStyleTheme.bodyText2.copyWith(
                      color: Colors.green,
                      fontWeight: FontWeight.bold,
@@ -505,7 +506,7 @@ class QuotationCard extends StatelessWidget {
              const SizedBox(width: 8),
              Expanded(
                child: Text(
-                 "Status: ${model.statusText}", // Placeholder l10n / More context
+                 l10n.statusWithText(model.statusText),
                  style: TextStyleTheme.bodyText2.copyWith(
                    color: Colors.white,
                    fontWeight: FontWeight.w500,
@@ -620,7 +621,7 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    hasOffers ? 'Recibiste ofertas' : model.statusText,
+                    hasOffers ? l10n.receivedOffers : model.statusText,
                     style: TextStyleTheme.subtitle1.copyWith(
                       color: hasOffers ? const Color(0xFF4CAF50) : Colors.white70,
                       fontWeight: FontWeight.bold,
@@ -639,7 +640,7 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        '${model.offersCount} ${model.offersCount == 1 ? 'oferta' : 'ofertas'}',
+                        l10n.offersCount(model.offersCount),
                         style: TextStyleTheme.caption.copyWith(
                           color: const Color(0xFF4CAF50),
                           fontWeight: FontWeight.bold,
@@ -648,7 +649,7 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                     )
                   else
                     Text(
-                      'Sin ofertas aún',
+                      l10n.noOffersYet,
                       style: TextStyleTheme.caption.copyWith(color: Colors.white38),
                     ),
                 ],
@@ -678,7 +679,7 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                         foregroundColor: const Color(0xFF4CAF50),
                         textStyle: TextStyleTheme.bodyText2.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      child: Text('Ver ofertas'),
+                      child: Text(l10n.viewOffers),
                     ),
                 ],
               ),
@@ -727,7 +728,7 @@ class _ImageViewerDialog extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.close, color: Colors.white, size: 32),
                 onPressed: () => Navigator.of(context).pop(),
-                tooltip: 'Cerrar',
+                tooltip: S.of(context).close,
               ),
             ),
           ],

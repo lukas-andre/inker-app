@@ -28,10 +28,10 @@ class GetArtistWorksResponse with _$GetArtistWorksResponse {
 @freezed
 class WorkItem with _$WorkItem {
   const factory WorkItem({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? customerId,
+    String? customerId,
     String? title,
     DateTime? start,
     DateTime? end,

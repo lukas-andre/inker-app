@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/domain/models/quotation/quotation.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
   final String eventId;
@@ -72,6 +73,10 @@ class AgendaEventDetailPage extends StatelessWidget {
         children: [
           _buildMainEventCard(context, data),
           const SizedBox(height: 16),
+          if (data.quotation != null) ...[
+            _buildQuotationCard(context, data.quotation!),
+            const SizedBox(height: 16),
+          ],
           _buildDescriptionCard(context, data),
           if (data.event.workEvidence != null) ...[
             const SizedBox(height: 16),
@@ -134,11 +139,11 @@ class AgendaEventDetailPage extends StatelessWidget {
             ),
             if (data.event.quotationId != null) ...[
               const SizedBox(height: 12),
-              _InfoRow(
-                icon: Icons.description_outlined,
-                title: S.of(context).quotationNumber,
-                content: '#${data.event.quotationId}',
-              ),
+              // _InfoRow(
+              //   icon: Icons.description_outlined,
+              //   title: S.of(context).quotationNumber,
+              //   content: '#${data.event.quotationId}',
+              // ),
             ],
           ],
         ),
@@ -403,6 +408,321 @@ class AgendaEventDetailPage extends StatelessWidget {
       // Note: We can also store the customerId for potential use in the form
       // but we don't directly pass a CustomerDTO object
     );
+  }
+
+  Widget _buildQuotationCard(BuildContext context, Quotation quotation) {
+    final DateFormat dateFormat = DateFormat('d MMM yyyy', Intl.defaultLocale);
+    final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
+    final statusColor = _getQuotationStatusColor(quotation.status);
+    final statusText = _getQuotationStatusText(context, quotation.status);
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.receipt_long, color: secondaryColor, size: 28),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    S.of(context).quotationDetails,
+                    style: TextStyleTheme.headline3,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: statusColor),
+                  ),
+                  child: Text(
+                    statusText,
+                    style: TextStyleTheme.caption.copyWith(color: statusColor),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 32),
+            _InfoRow(
+              icon: Icons.description_outlined,
+              title: S.of(context).description,
+              content: quotation.description.isNotEmpty ? quotation.description : '-',
+            ),
+            const SizedBox(height: 12),
+            if (quotation.estimatedCost != null)
+              _InfoRow(
+                icon: Icons.attach_money,
+                title: S.of(context).estimatedCost,
+                content: quotation.estimatedCost!.formatWithSymbol(),
+              ),
+            if (quotation.minBudget != null || quotation.maxBudget != null)
+              _InfoRow(
+                icon: Icons.account_balance_wallet_outlined,
+                title: 'Presupuesto',
+                content: _formatBudget(quotation),
+              ),
+            if (quotation.referenceBudget != null)
+              _InfoRow(
+                icon: Icons.info_outline,
+                title: S.of(context).referenceBudget(quotation.referenceBudget!.amount, quotation.referenceBudget!.currency),
+                content: quotation.referenceBudget!.formatWithSymbol(),
+              ),
+            if (quotation.customer != null)
+              _InfoRow(
+                icon: Icons.person_outline,
+                title: S.of(context).customer,
+                content: _formatFullName(quotation.customer!.firstName, quotation.customer!.lastName),
+              ),
+            if (quotation.artist != null)
+              _InfoRow(
+                icon: Icons.brush_outlined,
+                title: S.of(context).artist,
+                content: _formatFullName(quotation.artist!.firstName, quotation.artist!.lastName),
+              ),
+            if (quotation.createdAt != null)
+              _InfoRow(
+                icon: Icons.calendar_today,
+                title: S.of(context).createdAt,
+                content: dateFormat.format(quotation.createdAt),
+              ),
+            if (quotation.appointmentDate != null)
+              _InfoRow(
+                icon: Icons.event,
+                title: S.of(context).appointmentDate,
+                content: dateFormat.format(quotation.appointmentDate!),
+              ),
+            if (quotation.canceledDate != null)
+              _InfoRow(
+                icon: Icons.cancel,
+                title: S.of(context).statusCanceled,
+                content: dateFormat.format(quotation.canceledDate!),
+              ),
+            if (quotation.rejectedDate != null)
+              _InfoRow(
+                icon: Icons.block,
+                title: S.of(context).statusRejected,
+                content: dateFormat.format(quotation.rejectedDate!),
+              ),
+            if (quotation.tattooDesignImageUrl != null && quotation.tattooDesignImageUrl!.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Text('Diseño propuesto', style: TextStyleTheme.subtitle1),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  quotation.tattooDesignImageUrl!,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey[300],
+                    height: 200,
+                    child: const Center(child: Icon(Icons.broken_image, size: 48)),
+                  ),
+                ),
+              ),
+            ],
+            if (quotation.referenceImages != null && quotation.referenceImages!.metadata.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Text('Imágenes de referencia', style: TextStyleTheme.subtitle1),
+              const SizedBox(height: 8),
+              _buildQuotationImagesGrid(quotation.referenceImages!.metadata),
+            ],
+            if (quotation.proposedDesigns != null && quotation.proposedDesigns!.metadata.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Text('Diseños propuestos', style: TextStyleTheme.subtitle1),
+              const SizedBox(height: 8),
+              _buildQuotationImagesGrid(quotation.proposedDesigns!.metadata),
+            ],
+            if (quotation.cancelReasonDetails != null && quotation.cancelReasonDetails!.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              _InfoRow(
+                icon: Icons.info_outline,
+                title: S.of(context).cancellationReason,
+                content: quotation.cancelReasonDetails!,
+              ),
+            ],
+            if (quotation.customerRejectReason != null) ...[
+              const SizedBox(height: 16),
+              _InfoRow(
+                icon: Icons.thumb_down,
+                title: S.of(context).rejectionReason,
+                content: _getCustomerRejectReasonText(context, quotation.customerRejectReason!),
+              ),
+            ],
+            if (quotation.artistRejectReason != null) ...[
+              const SizedBox(height: 16),
+              _InfoRow(
+                icon: Icons.thumb_down,
+                title: S.of(context).rejectionReason,
+                content: _getArtistRejectReasonText(context, quotation.artistRejectReason!),
+              ),
+            ],
+            if (quotation.systemCancelReason != null) ...[
+              const SizedBox(height: 16),
+              _InfoRow(
+                icon: Icons.cancel_schedule_send,
+                title: 'Motivo de cancelación del sistema',
+                content: _getSystemCancelReasonText(context, quotation.systemCancelReason!),
+              ),
+            ],
+            if (quotation.offers != null && quotation.offers!.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Text('Ofertas', style: TextStyleTheme.subtitle1),
+              const SizedBox(height: 8),
+              ...quotation.offers!.map((offer) => _buildOfferRow(context, offer)).toList(),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuotationImagesGrid(List<dynamic> images) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
+      itemCount: images.length,
+      itemBuilder: (context, index) {
+        final img = images[index];
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            img.url,
+            fit: BoxFit.cover,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOfferRow(BuildContext context, dynamic offer) {
+    return Card(
+      color: Colors.black12,
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      child: ListTile(
+        leading: const Icon(Icons.local_offer, color: secondaryColor),
+        title: Text(offer.artistName ?? '-', style: TextStyleTheme.bodyText1),
+        subtitle: offer.estimatedCost != null
+            ? Text(offer.estimatedCost!.formatWithSymbol(), style: TextStyleTheme.caption)
+            : null,
+      ),
+    );
+  }
+
+  Color _getQuotationStatusColor(QuotationStatus status) {
+    switch (status) {
+      case QuotationStatus.pending:
+        return Colors.orange;
+      case QuotationStatus.quoted:
+        return Colors.blue;
+      case QuotationStatus.accepted:
+        return Colors.green;
+      case QuotationStatus.rejected:
+        return Colors.red;
+      case QuotationStatus.appealed:
+        return Colors.purple;
+      case QuotationStatus.canceled:
+        return Colors.grey;
+      case QuotationStatus.open:
+        return Colors.teal;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  String _getQuotationStatusText(BuildContext context, QuotationStatus status) {
+    switch (status) {
+      case QuotationStatus.pending:
+        return 'Pendiente';
+      case QuotationStatus.quoted:
+        return 'Cotizada';
+      case QuotationStatus.accepted:
+        return 'Aceptada';
+      case QuotationStatus.rejected:
+        return 'Rechazada';
+      case QuotationStatus.appealed:
+        return 'Apelada';
+      case QuotationStatus.canceled:
+        return 'Cancelada';
+      case QuotationStatus.open:
+        return 'Abierta';
+      default:
+        return '-';
+    }
+  }
+
+  String _formatBudget(Quotation quotation) {
+    if (quotation.minBudget != null && quotation.maxBudget != null) {
+      return '${quotation.minBudget!.formatWithSymbol()} - ${quotation.maxBudget!.formatWithSymbol()}';
+    } else if (quotation.minBudget != null) {
+      return '${quotation.minBudget!.formatWithSymbol()}+';
+    } else if (quotation.maxBudget != null) {
+      return '< ${quotation.maxBudget!.formatWithSymbol()}';
+    } else {
+      return '-';
+    }
+  }
+
+  String _getCustomerRejectReasonText(BuildContext context, QuotationCustomerRejectReason reason) {
+    switch (reason) {
+      case QuotationCustomerRejectReason.tooExpensive:
+        return 'Demasiado caro';
+      case QuotationCustomerRejectReason.notWhatIWanted:
+        return 'No era lo que quería';
+      case QuotationCustomerRejectReason.changedMyMind:
+        return 'Cambié de opinión';
+      case QuotationCustomerRejectReason.foundAnotherArtist:
+        return 'Encontré otro artista';
+      case QuotationCustomerRejectReason.other:
+        return 'Otro';
+      default:
+        return '-';
+    }
+  }
+
+  String _getArtistRejectReasonText(BuildContext context, QuotationArtistRejectReason reason) {
+    switch (reason) {
+      case QuotationArtistRejectReason.schedulingConflict:
+        return 'Conflicto de agenda';
+      case QuotationArtistRejectReason.artisticDisagreement:
+        return 'Desacuerdo artístico';
+      case QuotationArtistRejectReason.insufficientDetails:
+        return 'Detalles insuficientes';
+      case QuotationArtistRejectReason.beyondExpertise:
+        return 'Fuera de mi especialidad';
+      case QuotationArtistRejectReason.other:
+        return 'Otro';
+      default:
+        return '-';
+    }
+  }
+
+  String _getSystemCancelReasonText(BuildContext context, QuotationSystemCancelReason reason) {
+    switch (reason) {
+      case QuotationSystemCancelReason.notAttended:
+        return 'No asistió';
+      case QuotationSystemCancelReason.systemTimeout:
+        return 'Tiempo agotado';
+      default:
+        return '-';
+    }
+  }
+
+  String _formatFullName(String? firstName, String? lastName) {
+    if ((firstName ?? '').isEmpty && (lastName ?? '').isEmpty) return '-';
+    return [firstName, lastName].where((e) => (e ?? '').isNotEmpty).join(' ');
   }
 }
 
