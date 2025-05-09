@@ -175,7 +175,7 @@ class S {
     return Intl.message(
       'Cancelar',
       name: 'cancel',
-      desc: 'Etiqueta o botón para cancelar.',
+      desc: 'Botón para cancelar una acción.',
       args: [],
     );
   }
@@ -2005,7 +2005,7 @@ class S {
     return Intl.message(
       'Guardar',
       name: 'save',
-      desc: 'Botón para guardar cambios o información.',
+      desc: 'Botón para guardar cambios.',
       args: [],
     );
   }
@@ -4272,7 +4272,7 @@ class S {
     return Intl.message(
       'Reintentar',
       name: 'retry',
-      desc: 'Button text to retry an action',
+      desc: 'Botón para reintentar una acción.',
       args: [],
     );
   }
@@ -4957,6 +4957,808 @@ class S {
       'Abierta',
       name: 'quotationStatusArtistOpen',
       desc: 'Status text for open quotations from artist perspective.',
+      args: [],
+    );
+  }
+
+  /// `Tradicional Americana`
+  String get tattooStyleTraditionalAmerican {
+    return Intl.message(
+      'Tradicional Americana',
+      name: 'tattooStyleTraditionalAmerican',
+      desc: 'Estilo de tatuaje: Tradicional Americana',
+      args: [],
+    );
+  }
+
+  /// `Neotradicional`
+  String get tattooStyleNeotraditional {
+    return Intl.message(
+      'Neotradicional',
+      name: 'tattooStyleNeotraditional',
+      desc: 'Estilo de tatuaje: Neotradicional',
+      args: [],
+    );
+  }
+
+  /// `Realismo`
+  String get tattooStyleRealism {
+    return Intl.message(
+      'Realismo',
+      name: 'tattooStyleRealism',
+      desc: 'Estilo de tatuaje: Realismo',
+      args: [],
+    );
+  }
+
+  /// `Acuarela`
+  String get tattooStyleWatercolor {
+    return Intl.message(
+      'Acuarela',
+      name: 'tattooStyleWatercolor',
+      desc: 'Estilo de tatuaje: Acuarela',
+      args: [],
+    );
+  }
+
+  /// `Geométrico`
+  String get tattooStyleGeometric {
+    return Intl.message(
+      'Geométrico',
+      name: 'tattooStyleGeometric',
+      desc: 'Estilo de tatuaje: Geométrico',
+      args: [],
+    );
+  }
+
+  /// `Blackwork`
+  String get tattooStyleBlackwork {
+    return Intl.message(
+      'Blackwork',
+      name: 'tattooStyleBlackwork',
+      desc: 'Estilo de tatuaje: Blackwork',
+      args: [],
+    );
+  }
+
+  /// `Dotwork`
+  String get tattooStyleDotwork {
+    return Intl.message(
+      'Dotwork',
+      name: 'tattooStyleDotwork',
+      desc: 'Estilo de tatuaje: Dotwork',
+      args: [],
+    );
+  }
+
+  /// `Japonés`
+  String get tattooStyleJapanese {
+    return Intl.message(
+      'Japonés',
+      name: 'tattooStyleJapanese',
+      desc: 'Estilo de tatuaje: Japonés',
+      args: [],
+    );
+  }
+
+  /// `Tribal`
+  String get tattooStyleTribal {
+    return Intl.message(
+      'Tribal',
+      name: 'tattooStyleTribal',
+      desc: 'Estilo de tatuaje: Tribal',
+      args: [],
+    );
+  }
+
+  /// `New School`
+  String get tattooStyleNewSchool {
+    return Intl.message(
+      'New School',
+      name: 'tattooStyleNewSchool',
+      desc: 'Estilo de tatuaje: New School',
+      args: [],
+    );
+  }
+
+  /// `Biomecánico`
+  String get tattooStyleBiomechanical {
+    return Intl.message(
+      'Biomecánico',
+      name: 'tattooStyleBiomechanical',
+      desc: 'Estilo de tatuaje: Biomecánico',
+      args: [],
+    );
+  }
+
+  /// `Minimalista`
+  String get tattooStyleMinimalist {
+    return Intl.message(
+      'Minimalista',
+      name: 'tattooStyleMinimalist',
+      desc: 'Estilo de tatuaje: Minimalista',
+      args: [],
+    );
+  }
+
+  /// `Surrealismo`
+  String get tattooStyleSurrealism {
+    return Intl.message(
+      'Surrealismo',
+      name: 'tattooStyleSurrealism',
+      desc: 'Estilo de tatuaje: Surrealismo',
+      args: [],
+    );
+  }
+
+  /// `Ornamental`
+  String get tattooStyleOrnamental {
+    return Intl.message(
+      'Ornamental',
+      name: 'tattooStyleOrnamental',
+      desc: 'Estilo de tatuaje: Ornamental',
+      args: [],
+    );
+  }
+
+  /// `Neo Japonés`
+  String get tattooStyleNeoJapanese {
+    return Intl.message(
+      'Neo Japonés',
+      name: 'tattooStyleNeoJapanese',
+      desc: 'Estilo de tatuaje: Neo Japonés',
+      args: [],
+    );
+  }
+
+  /// `Celta`
+  String get tattooStyleCeltic {
+    return Intl.message(
+      'Celta',
+      name: 'tattooStyleCeltic',
+      desc: 'Estilo de tatuaje: Celta',
+      args: [],
+    );
+  }
+
+  /// `Chicano`
+  String get tattooStyleChicano {
+    return Intl.message(
+      'Chicano',
+      name: 'tattooStyleChicano',
+      desc: 'Estilo de tatuaje: Chicano',
+      args: [],
+    );
+  }
+
+  /// `Abstracto`
+  String get tattooStyleAbstract {
+    return Intl.message(
+      'Abstracto',
+      name: 'tattooStyleAbstract',
+      desc: 'Estilo de tatuaje: Abstracto',
+      args: [],
+    );
+  }
+
+  /// `Mandala`
+  String get tattooStyleMandala {
+    return Intl.message(
+      'Mandala',
+      name: 'tattooStyleMandala',
+      desc: 'Estilo de tatuaje: Mandala',
+      args: [],
+    );
+  }
+
+  /// `Fineline`
+  String get tattooStyleFineline {
+    return Intl.message(
+      'Fineline',
+      name: 'tattooStyleFineline',
+      desc: 'Estilo de tatuaje: Fineline',
+      args: [],
+    );
+  }
+
+  /// `Ignorant Style`
+  String get tattooStyleIgnorantStyle {
+    return Intl.message(
+      'Ignorant Style',
+      name: 'tattooStyleIgnorantStyle',
+      desc: 'Estilo de tatuaje: Ignorant Style',
+      args: [],
+    );
+  }
+
+  /// `Ofrecido`
+  String get offered {
+    return Intl.message(
+      'Ofrecido',
+      name: 'offered',
+      desc: 'Text shown when an artist has offered a quotation.',
+      args: [],
+    );
+  }
+
+  /// `Abierto`
+  String get open {
+    return Intl.message(
+      'Abierto',
+      name: 'open',
+      desc: 'Text shown when a quotation is open.',
+      args: [],
+    );
+  }
+
+  /// `¡El cliente está buscando ofertas!`
+  String get customerLookingForOffers {
+    return Intl.message(
+      '¡El cliente está buscando ofertas!',
+      name: 'customerLookingForOffers',
+      desc: 'Banner cuando el cliente busca ofertas.',
+      args: [],
+    );
+  }
+
+  /// `Revisa los detalles y envía tu oferta`
+  String get reviewDetailsAndSubmitOffer {
+    return Intl.message(
+      'Revisa los detalles y envía tu oferta',
+      name: 'reviewDetailsAndSubmitOffer',
+      desc: 'Prompt to review details and submit an offer.',
+      args: [],
+    );
+  }
+
+  /// `Enviar oferta`
+  String get sendOffer {
+    return Intl.message(
+      'Enviar oferta',
+      name: 'sendOffer',
+      desc: 'Botón para enviar una oferta.',
+      args: [],
+    );
+  }
+
+  /// `Oferta enviada`
+  String get offerSubmitted {
+    return Intl.message(
+      'Oferta enviada',
+      name: 'offerSubmitted',
+      desc: 'Etiqueta cuando una oferta ha sido enviada.',
+      args: [],
+    );
+  }
+
+  /// `Tu oferta de {amount} ha sido enviada`
+  String offerSubmittedWithAmount(String amount) {
+    return Intl.message(
+      'Tu oferta de $amount ha sido enviada',
+      name: 'offerSubmittedWithAmount',
+      desc:
+          'Confirmation message that an offer with a specific amount has been submitted.',
+      args: [amount],
+    );
+  }
+
+  /// `Ya has ofertado`
+  String get alreadyOffered {
+    return Intl.message(
+      'Ya has ofertado',
+      name: 'alreadyOffered',
+      desc: 'Text shown when an artist has already submitted an offer.',
+      args: [],
+    );
+  }
+
+  /// `Estado: {status}`
+  String statusWithText(String status) {
+    return Intl.message(
+      'Estado: $status',
+      name: 'statusWithText',
+      desc: 'Text showing the status with a label.',
+      args: [status],
+    );
+  }
+
+  /// `Ofertas Recibidas`
+  String get receivedOffers {
+    return Intl.message(
+      'Ofertas Recibidas',
+      name: 'receivedOffers',
+      desc: 'Text indicating that offers have been received.',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =0{Sin ofertas} =1{1 oferta} other{{count} ofertas}}`
+  String offersCount(int count) {
+    return Intl.plural(
+      count,
+      zero: 'Sin ofertas',
+      one: '1 oferta',
+      other: '$count ofertas',
+      name: 'offersCount',
+      desc: 'Text showing the count of offers received.',
+      args: [count],
+    );
+  }
+
+  /// `Aún no hay ofertas`
+  String get noOffersYet {
+    return Intl.message(
+      'Aún no hay ofertas',
+      name: 'noOffersYet',
+      desc: 'Text shown when no offers have been received yet.',
+      args: [],
+    );
+  }
+
+  /// `Ver Ofertas`
+  String get viewOffers {
+    return Intl.message(
+      'Ver Ofertas',
+      name: 'viewOffers',
+      desc: 'Button text for viewing offers.',
+      args: [],
+    );
+  }
+
+  /// `Cerrar`
+  String get close {
+    return Intl.message(
+      'Cerrar',
+      name: 'close',
+      desc: 'Tooltip para botón de cerrar.',
+      args: [],
+    );
+  }
+
+  /// `Oferta aceptada exitosamente`
+  String get quotationAcceptedSuccess {
+    return Intl.message(
+      'Oferta aceptada exitosamente',
+      name: 'quotationAcceptedSuccess',
+      desc: 'Mensaje de éxito cuando una oferta es aceptada.',
+      args: [],
+    );
+  }
+
+  /// `Presupuesto de referencia: {amount} {currency}`
+  String referenceBudget(Object amount, Object currency) {
+    return Intl.message(
+      'Presupuesto de referencia: $amount $currency',
+      name: 'referenceBudget',
+      desc: 'Etiqueta para el presupuesto de referencia con monto y moneda.',
+      args: [amount, currency],
+    );
+  }
+
+  /// `Ya has enviado una oferta`
+  String get alreadySubmittedOffer {
+    return Intl.message(
+      'Ya has enviado una oferta',
+      name: 'alreadySubmittedOffer',
+      desc: 'Mensaje cuando el artista ya envió una oferta.',
+      args: [],
+    );
+  }
+
+  /// `Mensaje al cliente`
+  String get messageCustomer {
+    return Intl.message(
+      'Mensaje al cliente',
+      name: 'messageCustomer',
+      desc: 'Botón para enviar mensaje al cliente.',
+      args: [],
+    );
+  }
+
+  /// `Revisa los detalles y envía tu oferta para ganar este proyecto.`
+  String get reviewAndSubmitOffer {
+    return Intl.message(
+      'Revisa los detalles y envía tu oferta para ganar este proyecto.',
+      name: 'reviewAndSubmitOffer',
+      desc: 'Instrucción para revisar y enviar oferta.',
+      args: [],
+    );
+  }
+
+  /// `Diseño seleccionado`
+  String get selectedDesign {
+    return Intl.message(
+      'Diseño seleccionado',
+      name: 'selectedDesign',
+      desc: 'Sección para el diseño seleccionado.',
+      args: [],
+    );
+  }
+
+  /// `Solicitud de Cotización Abierta`
+  String get openQuotationRequest {
+    return Intl.message(
+      'Solicitud de Cotización Abierta',
+      name: 'openQuotationRequest',
+      desc: 'Banner para solicitud de cotización abierta.',
+      args: [],
+    );
+  }
+
+  /// `Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.`
+  String get openQuotationRequestDesc {
+    return Intl.message(
+      'Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.',
+      name: 'openQuotationRequestDesc',
+      desc: 'Descripción del banner de solicitud abierta.',
+      args: [],
+    );
+  }
+
+  /// `Has recibido {count} {offerWord}`
+  String offersReceived(Object count, Object offerWord) {
+    return Intl.message(
+      'Has recibido $count $offerWord',
+      name: 'offersReceived',
+      desc: 'Mensaje mostrando el número de ofertas recibidas.',
+      args: [count, offerWord],
+    );
+  }
+
+  /// `Aún no has recibido ofertas`
+  String get noOffersReceived {
+    return Intl.message(
+      'Aún no has recibido ofertas',
+      name: 'noOffersReceived',
+      desc: 'Mensaje cuando no se han recibido ofertas.',
+      args: [],
+    );
+  }
+
+  /// `Revisa cada oferta y chatea con los artistas`
+  String get reviewEachOffer {
+    return Intl.message(
+      'Revisa cada oferta y chatea con los artistas',
+      name: 'reviewEachOffer',
+      desc: 'Instrucción para revisar ofertas y chatear.',
+      args: [],
+    );
+  }
+
+  /// `Las ofertas aparecerán aquí cuando las recibas`
+  String get offersAppearHere {
+    return Intl.message(
+      'Las ofertas aparecerán aquí cuando las recibas',
+      name: 'offersAppearHere',
+      desc: 'Mensaje de que las ofertas aparecerán aquí.',
+      args: [],
+    );
+  }
+
+  /// `Ofertas recibidas`
+  String get offersReceivedTitle {
+    return Intl.message(
+      'Ofertas recibidas',
+      name: 'offersReceivedTitle',
+      desc: 'Título de sección para ofertas recibidas.',
+      args: [],
+    );
+  }
+
+  /// `Artista: {name}`
+  String artistLabel(Object name) {
+    return Intl.message(
+      'Artista: $name',
+      name: 'artistLabel',
+      desc: 'Etiqueta para el nombre del artista.',
+      args: [name],
+    );
+  }
+
+  /// `No especificado`
+  String get notSpecified {
+    return Intl.message(
+      'No especificado',
+      name: 'notSpecified',
+      desc: 'Texto para valores no especificados.',
+      args: [],
+    );
+  }
+
+  /// `{count} {messageWord}`
+  String messagesCount(Object count, Object messageWord) {
+    return Intl.message(
+      '$count $messageWord',
+      name: 'messagesCount',
+      desc: 'Etiqueta para número de mensajes.',
+      args: [count, messageWord],
+    );
+  }
+
+  /// `Mensaje: {preview}`
+  String messagePreview(Object preview) {
+    return Intl.message(
+      'Mensaje: $preview',
+      name: 'messagePreview',
+      desc: 'Vista previa de un mensaje.',
+      args: [preview],
+    );
+  }
+
+  /// `Iniciar chat`
+  String get startChat {
+    return Intl.message(
+      'Iniciar chat',
+      name: 'startChat',
+      desc: 'Botón para iniciar chat.',
+      args: [],
+    );
+  }
+
+  /// `Aceptar oferta`
+  String get acceptOffer {
+    return Intl.message(
+      'Aceptar oferta',
+      name: 'acceptOffer',
+      desc: 'Botón para aceptar una oferta.',
+      args: [],
+    );
+  }
+
+  /// `Editar oferta`
+  String get editOffer {
+    return Intl.message(
+      'Editar oferta',
+      name: 'editOffer',
+      desc: 'Tooltip para editar una oferta.',
+      args: [],
+    );
+  }
+
+  /// `Intentar de nuevo`
+  String get tryAgain {
+    return Intl.message(
+      'Intentar de nuevo',
+      name: 'tryAgain',
+      desc: 'Botón para intentar una acción nuevamente.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay mensajes`
+  String get noMessagesYet {
+    return Intl.message(
+      'Aún no hay mensajes',
+      name: 'noMessagesYet',
+      desc: 'Estado vacío cuando no hay mensajes.',
+      args: [],
+    );
+  }
+
+  /// `Comienza la conversación enviando un mensaje`
+  String get startConversation {
+    return Intl.message(
+      'Comienza la conversación enviando un mensaje',
+      name: 'startConversation',
+      desc: 'Sugerencia para iniciar conversación.',
+      args: [],
+    );
+  }
+
+  /// `Escribe un mensaje`
+  String get typeAMessage {
+    return Intl.message(
+      'Escribe un mensaje',
+      name: 'typeAMessage',
+      desc: 'Hint para el campo de mensaje.',
+      args: [],
+    );
+  }
+
+  /// `Galería de fotos`
+  String get photoLibrary {
+    return Intl.message(
+      'Galería de fotos',
+      name: 'photoLibrary',
+      desc: 'Opción para elegir imagen de la galería.',
+      args: [],
+    );
+  }
+
+  /// `Cámara`
+  String get camera {
+    return Intl.message(
+      'Cámara',
+      name: 'camera',
+      desc: 'Opción para elegir imagen de la cámara.',
+      args: [],
+    );
+  }
+
+  /// `No se pudo seleccionar la imagen: {error}`
+  String couldNotPickImage(Object error) {
+    return Intl.message(
+      'No se pudo seleccionar la imagen: $error',
+      name: 'couldNotPickImage',
+      desc: 'Mensaje de error al seleccionar imagen.',
+      args: [error],
+    );
+  }
+
+  /// `Costo estimado (CLP)`
+  String get estimatedCostLabel {
+    return Intl.message(
+      'Costo estimado (CLP)',
+      name: 'estimatedCostLabel',
+      desc: 'Etiqueta para el campo de costo estimado.',
+      args: [],
+    );
+  }
+
+  /// `Ej: 50000`
+  String get exampleAmount {
+    return Intl.message(
+      'Ej: 50000',
+      name: 'exampleAmount',
+      desc: 'Hint para monto de ejemplo.',
+      args: [],
+    );
+  }
+
+  /// `El artista actualizó el costo de la oferta a {amount} CLP.`
+  String systemOfferUpdate(Object amount) {
+    return Intl.message(
+      'El artista actualizó el costo de la oferta a $amount CLP.',
+      name: 'systemOfferUpdate',
+      desc:
+          'Mensaje de sistema cuando el artista actualiza el costo de la oferta.',
+      args: [amount],
+    );
+  }
+
+  /// `Enviar oferta`
+  String get submitOffer {
+    return Intl.message(
+      'Enviar oferta',
+      name: 'submitOffer',
+      desc:
+          'Botón para enviar una oferta en la página de oferta de cotización abierta del artista.',
+      args: [],
+    );
+  }
+
+  /// `Enviando oferta...`
+  String get submittingOffer {
+    return Intl.message(
+      'Enviando oferta...',
+      name: 'submittingOffer',
+      desc: 'Título mostrado mientras se envía la oferta.',
+      args: [],
+    );
+  }
+
+  /// `Por favor espera mientras se envía tu oferta.`
+  String get submittingOfferMessage {
+    return Intl.message(
+      'Por favor espera mientras se envía tu oferta.',
+      name: 'submittingOfferMessage',
+      desc: 'Mensaje mostrado mientras se envía la oferta.',
+      args: [],
+    );
+  }
+
+  /// `¡Oferta enviada!`
+  String get offerSubmittedTitle {
+    return Intl.message(
+      '¡Oferta enviada!',
+      name: 'offerSubmittedTitle',
+      desc: 'Título mostrado cuando la oferta se ha enviado exitosamente.',
+      args: [],
+    );
+  }
+
+  /// `Tu oferta ha sido enviada exitosamente al cliente.`
+  String get offerSubmittedMessage {
+    return Intl.message(
+      'Tu oferta ha sido enviada exitosamente al cliente.',
+      name: 'offerSubmittedMessage',
+      desc: 'Mensaje mostrado cuando la oferta se ha enviado exitosamente.',
+      args: [],
+    );
+  }
+
+  /// `Tu oferta`
+  String get yourOffer {
+    return Intl.message(
+      'Tu oferta',
+      name: 'yourOffer',
+      desc: 'Título de sección para el formulario de oferta del artista.',
+      args: [],
+    );
+  }
+
+  /// `Cita propuesta`
+  String get proposedAppointment {
+    return Intl.message(
+      'Cita propuesta',
+      name: 'proposedAppointment',
+      desc:
+          'Etiqueta para el campo de cita propuesta en el formulario de oferta.',
+      args: [],
+    );
+  }
+
+  /// `Detalles adicionales (opcional)`
+  String get additionalDetailsOptional {
+    return Intl.message(
+      'Detalles adicionales (opcional)',
+      name: 'additionalDetailsOptional',
+      desc:
+          'Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional.',
+      args: [],
+    );
+  }
+
+  /// `Diseños propuestos (opcional)`
+  String get proposedDesignsOptional {
+    return Intl.message(
+      'Diseños propuestos (opcional)',
+      name: 'proposedDesignsOptional',
+      desc:
+          'Etiqueta para la sección de carga de diseños propuestos, marcada como opcional.',
+      args: [],
+    );
+  }
+
+  /// `Agrega imágenes de referencia o bocetos para tu propuesta.`
+  String get addReferenceImagesOrSketches {
+    return Intl.message(
+      'Agrega imágenes de referencia o bocetos para tu propuesta.',
+      name: 'addReferenceImagesOrSketches',
+      desc:
+          'Texto de ayuda para subir imágenes de referencia o bocetos para la oferta.',
+      args: [],
+    );
+  }
+
+  /// `Agregar diseño`
+  String get addDesign {
+    return Intl.message(
+      'Agregar diseño',
+      name: 'addDesign',
+      desc: 'Botón para agregar una imagen de diseño a la oferta.',
+      args: [],
+    );
+  }
+
+  /// `La duración debe ser positiva`
+  String get durationMustBePositive {
+    return Intl.message(
+      'La duración debe ser positiva',
+      name: 'durationMustBePositive',
+      desc:
+          'Mensaje de error cuando la duración no es positiva en el formulario de oferta.',
+      args: [],
+    );
+  }
+
+  /// `Diseño guardado en tus diseños generados`
+  String get designSavedToYourGeneratedDesigns {
+    return Intl.message(
+      'Diseño guardado en tus diseños generados',
+      name: 'designSavedToYourGeneratedDesigns',
+      desc:
+          'Mensaje mostrado cuando un diseño se guarda en los diseños generados del usuario.',
+      args: [],
+    );
+  }
+
+  /// `Cotizaciones`
+  String get quotations {
+    return Intl.message(
+      'Cotizaciones',
+      name: 'quotations',
+      desc: 'Etiqueta para la sección de cotizaciones.',
       args: [],
     );
   }

@@ -11,6 +11,7 @@ import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -161,15 +162,16 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               indicatorSize: TabBarIndicatorSize.tab,
               padding: const EdgeInsets.all(4),
               tabs: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Trabajos'),
+                      Text(S.of(context).works, style: TextStyleTheme.bodyText1),
                       const SizedBox(width: 8),
                       if (works.isNotEmpty)
                         Container(
+                          constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                          alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
@@ -186,8 +188,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -195,6 +196,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                       const SizedBox(width: 8),
                       if (stencils.isNotEmpty)
                         Container(
+                          constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                          alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),

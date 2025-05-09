@@ -10,7 +10,7 @@ class CreateOpenQuotationEvent with _$CreateOpenQuotationEvent {
   const factory CreateOpenQuotationEvent.stencilSelected(String stencilId) =
       _StencilSelected;
   const factory CreateOpenQuotationEvent.tattooDesignSelected({
-    required UserTattooDesignDto design,
+    UserTattooDesignDto? design,
     required String imageUrl,
   }) = _TattooDesignSelected;
   const factory CreateOpenQuotationEvent.selectionCleared() = _SelectionCleared;

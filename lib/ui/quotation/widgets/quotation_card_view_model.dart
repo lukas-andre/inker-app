@@ -120,7 +120,7 @@ class QuotationCardViewModel {
       type: QuotationType.OPEN,
       counterpartInfo: CounterpartInfo.fromCustomer(quotation.customer),
       isArtistView: true, // Always artist view for open
-      statusText: "Open for Offers", // Placeholder L10n
+      statusText: l10n.openQuotations,
       statusColor: _getStatusColor(statusEnum),
       statusIcon: _getStatusIcon(statusEnum),
       createdAt: quotation.createdAt,
@@ -142,17 +142,26 @@ class QuotationCardViewModel {
        final statusEnum = QuotationStatus.values
             .firstWhere((e) => e.name == item.status, orElse: () => QuotationStatus.pending);
 
-        final List<MultimediaMetadata> participatingRefImages = (item.quotation.referenceImages ?? [])
-              .map((url) => MultimediaMetadata(
-                   url: url,
-                   type: 'image',
-                   size: 0,
-                   encoding: '',
-                   position: 0,
-                   fieldname: '',
-                   originalname: 'image.jpg',
-                 ))
-              .toList();
+        final List<MultimediaMetadata> participatingRefImages = (item.quotation.referenceImages?.metadata ?? [])
+            .map<MultimediaMetadata>((meta) {
+              if (meta is MultimediaMetadata) {
+                return meta;
+              } else if (meta is Map<String, dynamic>) {
+                // Si metadata es un Map, intenta parsear a MultimediaMetadata
+                return MultimediaMetadata.fromJson(meta);
+              } else {
+                // fallback: crea un objeto básico
+                return MultimediaMetadata(
+                  url: meta.toString(),
+                  type: 'image',
+                  size: 0,
+                  encoding: '',
+                  position: 0,
+                  fieldname: '',
+                  originalname: 'image.jpg',
+                );
+              }
+            }).toList();
 
         final Customer adaptedCustomer = Customer(
           id: item.customer.id,
@@ -259,7 +268,7 @@ class CustomerOpenQuotationCardViewModel {
       description: quotation.description,
       createdAt: quotation.createdAt,
       offersCount: quotation.offers?.length ?? 0,
-      statusText: "Abierta a ofertas", // TODO: l10n
+      statusText: l10n.openQuotations,
       statusColor: _getStatusColor(statusEnum),
       statusIcon: _getStatusIcon(statusEnum),
       tattooDesignImageUrl: quotation.tattooDesignImageUrl,

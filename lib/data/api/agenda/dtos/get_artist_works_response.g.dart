@@ -32,14 +32,14 @@ Map<String, dynamic> _$$GetArtistWorksResponseImplToJson(
 }
 
 _$WorkItemImpl _$$WorkItemImplFromJson(Map json) => _$WorkItemImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num?)?.toInt(),
+      customerId: json['customerId'] as String?,
       title: json['title'] as String?,
       start: json['start'] == null
           ? null
