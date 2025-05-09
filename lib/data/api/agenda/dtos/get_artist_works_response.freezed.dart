@@ -207,10 +207,10 @@ WorkItem _$WorkItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WorkItem {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get customerId => throw _privateConstructorUsedError;
+  String? get customerId => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   DateTime? get start => throw _privateConstructorUsedError;
   DateTime? get end => throw _privateConstructorUsedError;
@@ -234,10 +234,10 @@ abstract class $WorkItemCopyWith<$Res> {
       _$WorkItemCopyWithImpl<$Res, WorkItem>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? customerId,
+      String? customerId,
       String? title,
       DateTime? start,
       DateTime? end,
@@ -285,7 +285,7 @@ class _$WorkItemCopyWithImpl<$Res, $Val extends WorkItem>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -297,7 +297,7 @@ class _$WorkItemCopyWithImpl<$Res, $Val extends WorkItem>
       customerId: freezed == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -375,10 +375,10 @@ abstract class _$$WorkItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? customerId,
+      String? customerId,
       String? title,
       DateTime? start,
       DateTime? end,
@@ -426,7 +426,7 @@ class __$$WorkItemImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -438,7 +438,7 @@ class __$$WorkItemImplCopyWithImpl<$Res>
       customerId: freezed == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -506,13 +506,13 @@ class _$WorkItemImpl implements _WorkItem {
       _$$WorkItemImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? customerId;
+  final String? customerId;
   @override
   final String? title;
   @override
@@ -600,10 +600,10 @@ class _$WorkItemImpl implements _WorkItem {
 
 abstract class _WorkItem implements WorkItem {
   const factory _WorkItem(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? customerId,
+      final String? customerId,
       final String? title,
       final DateTime? start,
       final DateTime? end,
@@ -619,13 +619,13 @@ abstract class _WorkItem implements WorkItem {
       _$WorkItemImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get customerId;
+  String? get customerId;
   @override
   String? get title;
   @override

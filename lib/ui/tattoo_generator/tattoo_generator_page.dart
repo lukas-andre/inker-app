@@ -118,6 +118,53 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     }
   }
 
+  String _localizedTattooStyle(TattooStyle style, BuildContext context) {
+    switch (style) {
+      case TattooStyle.traditionalAmerican:
+        return S.of(context).tattooStyleTraditionalAmerican;
+      case TattooStyle.neotraditional:
+        return S.of(context).tattooStyleNeotraditional;
+      case TattooStyle.realism:
+        return S.of(context).tattooStyleRealism;
+      case TattooStyle.watercolor:
+        return S.of(context).tattooStyleWatercolor;
+      case TattooStyle.geometric:
+        return S.of(context).tattooStyleGeometric;
+      case TattooStyle.blackwork:
+        return S.of(context).tattooStyleBlackwork;
+      case TattooStyle.dotwork:
+        return S.of(context).tattooStyleDotwork;
+      case TattooStyle.japanese:
+        return S.of(context).tattooStyleJapanese;
+      case TattooStyle.tribal:
+        return S.of(context).tattooStyleTribal;
+      case TattooStyle.newSchool:
+        return S.of(context).tattooStyleNewSchool;
+      case TattooStyle.biomechanical:
+        return S.of(context).tattooStyleBiomechanical;
+      case TattooStyle.minimalist:
+        return S.of(context).tattooStyleMinimalist;
+      case TattooStyle.surrealism:
+        return S.of(context).tattooStyleSurrealism;
+      case TattooStyle.ornamental:
+        return S.of(context).tattooStyleOrnamental;
+      case TattooStyle.neoJapanese:
+        return S.of(context).tattooStyleNeoJapanese;
+      case TattooStyle.celtic:
+        return S.of(context).tattooStyleCeltic;
+      case TattooStyle.chicano:
+        return S.of(context).tattooStyleChicano;
+      case TattooStyle.abstract:
+        return S.of(context).tattooStyleAbstract;
+      case TattooStyle.mandala:
+        return S.of(context).tattooStyleMandala;
+      case TattooStyle.fineline:
+        return S.of(context).tattooStyleFineline;
+      case TattooStyle.ignorantStyle:
+        return S.of(context).tattooStyleIgnorantStyle;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
@@ -148,6 +195,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           ],
         ),
       ),
+      resizeToAvoidBottomInset: true,
       body: BlocConsumer<TattooGeneratorBloc, TattooGeneratorState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -190,26 +238,36 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
   }
   
   Widget _buildGenerateTab(S s, TattooGeneratorState state) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildPromptInput(s),
-          const SizedBox(height: 20),
-          _buildStyleSelector(s),
-          const SizedBox(height: 20),
-          _buildGenerateButton(s),
-          const SizedBox(height: 20),
-          Expanded(
-            child: state.maybeWhen(
-              loading: () => const Center(child: LoadingIndicator()),
-              loaded: (images, prompt, style, designId) => _buildResultsView(s, images, prompt, style, designId),
-              orElse: () => _buildEmptyState(s),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildPromptInput(s),
+                  const SizedBox(height: 20),
+                  _buildStyleSelector(s),
+                  const SizedBox(height: 20),
+                  _buildGenerateButton(s),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 300, // Altura fija para evitar overflow
+                    child: state.maybeWhen(
+                      loading: () => const Center(child: LoadingIndicator()),
+                      loaded: (images, prompt, style, designId) => _buildResultsView(s, images, prompt, style, designId),
+                      orElse: () => _buildEmptyState(s),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
   
@@ -401,7 +459,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          _formatStyleName(design.getTattooStyle().name),
+                          _localizedTattooStyle(design.getTattooStyle(), context),
                           style: TextStyleTheme.caption.copyWith(
                             color: Colors.white,
                             fontSize: 10,
@@ -643,6 +701,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           controller: _promptController,
           maxLines: 3,
           style: TextStyleTheme.bodyText1,
+          textInputAction: TextInputAction.done,
+          onSubmitted: (_) => FocusScope.of(context).unfocus(),
           decoration: InputDecoration(
             fillColor: inputBackgroundColor,
             filled: true,
@@ -724,7 +784,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                       ),
                       const SizedBox(height: 6), // Reduced spacing
                       Text(
-                        _formatStyleName(style.name),
+                        _localizedTattooStyle(style, context),
                         textAlign: TextAlign.center,
                         style: TextStyleTheme.subtitle1.copyWith(fontSize: 11), // Smaller font
                         maxLines: 1,
@@ -818,6 +878,12 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                               initialIndex: imageIndex,
                               designId: designId,
                               isFavorite: false,
+                              selectForQuotation: widget.selectForQuotation,
+                              onSelectDesign: widget.selectForQuotation
+                                  ? (result) {
+                                      Navigator.of(context).pop(result);
+                                    }
+                                  : null,
                             ),
                           ),
                         );

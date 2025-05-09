@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import 'package:inker_studio/domain/models/quotation/quotation.dart';
+
 part 'agenda_event_detail_response.freezed.dart';
 part 'agenda_event_detail_response.g.dart';
 
@@ -15,6 +17,7 @@ class AgendaEventDetailResponse with _$AgendaEventDetailResponse {
   const factory AgendaEventDetailResponse({
     required AgendaEventDetailEvent event,
     required AgendaEventDetailLocation location,
+    Quotation? quotation,
   }) = _AgendaEventDetailResponse;
 
   factory AgendaEventDetailResponse.fromJson(Map<String, dynamic> json) =>

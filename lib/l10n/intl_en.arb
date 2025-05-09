@@ -2048,5 +2048,223 @@
   "quotationStatusArtistOpen": "Open",
   "@quotationStatusArtistOpen": {
     "description": "Status text for open quotations from artist perspective."
-  }
+  },
+  "tattooStyleTraditionalAmerican": "Traditional American",
+  "@tattooStyleTraditionalAmerican": {"description": "Tattoo style: Traditional American"},
+  "tattooStyleNeotraditional": "Neotraditional",
+  "@tattooStyleNeotraditional": {"description": "Tattoo style: Neotraditional"},
+  "tattooStyleRealism": "Realism",
+  "@tattooStyleRealism": {"description": "Tattoo style: Realism"},
+  "tattooStyleWatercolor": "Watercolor",
+  "@tattooStyleWatercolor": {"description": "Tattoo style: Watercolor"},
+  "tattooStyleGeometric": "Geometric",
+  "@tattooStyleGeometric": {"description": "Tattoo style: Geometric"},
+  "tattooStyleBlackwork": "Blackwork",
+  "@tattooStyleBlackwork": {"description": "Tattoo style: Blackwork"},
+  "tattooStyleDotwork": "Dotwork",
+  "@tattooStyleDotwork": {"description": "Tattoo style: Dotwork"},
+  "tattooStyleJapanese": "Japanese",
+  "@tattooStyleJapanese": {"description": "Tattoo style: Japanese"},
+  "tattooStyleTribal": "Tribal",
+  "@tattooStyleTribal": {"description": "Tattoo style: Tribal"},
+  "tattooStyleNewSchool": "New School",
+  "@tattooStyleNewSchool": {"description": "Tattoo style: New School"},
+  "tattooStyleBiomechanical": "Biomechanical",
+  "@tattooStyleBiomechanical": {"description": "Tattoo style: Biomechanical"},
+  "tattooStyleMinimalist": "Minimalist",
+  "@tattooStyleMinimalist": {"description": "Tattoo style: Minimalist"},
+  "tattooStyleSurrealism": "Surrealism",
+  "@tattooStyleSurrealism": {"description": "Tattoo style: Surrealism"},
+  "tattooStyleOrnamental": "Ornamental",
+  "@tattooStyleOrnamental": {"description": "Tattoo style: Ornamental"},
+  "tattooStyleNeoJapanese": "Neo Japanese",
+  "@tattooStyleNeoJapanese": {"description": "Tattoo style: Neo Japanese"},
+  "tattooStyleCeltic": "Celtic",
+  "@tattooStyleCeltic": {"description": "Tattoo style: Celtic"},
+  "tattooStyleChicano": "Chicano",
+  "@tattooStyleChicano": {"description": "Tattoo style: Chicano"},
+  "tattooStyleAbstract": "Abstract",
+  "@tattooStyleAbstract": {"description": "Tattoo style: Abstract"},
+  "tattooStyleMandala": "Mandala",
+  "@tattooStyleMandala": {"description": "Tattoo style: Mandala"},
+  "tattooStyleFineline": "Fineline",
+  "@tattooStyleFineline": {"description": "Tattoo style: Fineline"},
+  "tattooStyleIgnorantStyle": "Ignorant Style",
+  "@tattooStyleIgnorantStyle": {"description": "Tattoo style: Ignorant Style"},
+  "offered": "Offered",
+  "@offered": {
+    "description": "Text shown when an artist has offered a quotation."
+  },
+  "open": "Open",
+  "@open": {
+    "description": "Text shown for open quotations."
+  },
+  "customerLookingForOffers": "Customer looking for offers",
+  "@customerLookingForOffers": {
+    "description": "Text indicating that a customer is looking for offers."
+  },
+  "reviewDetailsAndSubmitOffer": "Review details and submit your offer",
+  "@reviewDetailsAndSubmitOffer": {
+    "description": "Prompt for artists to review details and submit an offer."
+  },
+  "sendOffer": "Send Offer",
+  "@sendOffer": {
+    "description": "Button text for sending an offer."
+  },
+  "offerSubmitted": "Your offer has been submitted",
+  "@offerSubmitted": {
+    "description": "Confirmation message that an offer has been submitted."
+  },
+  "offerSubmittedWithAmount": "Your offer of {amount} has been submitted",
+  "@offerSubmittedWithAmount": {
+    "description": "Confirmation message that an offer with a specific amount has been submitted.",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "$100"
+      }
+    }
+  },
+  "alreadyOffered": "You've already offered",
+  "@alreadyOffered": {
+    "description": "Text shown when an artist has already submitted an offer."
+  },
+  "statusWithText": "Status: {status}",
+  "@statusWithText": {
+    "description": "Text showing the status with a label.",
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "example": "In Progress"
+      }
+    }
+  },
+  "receivedOffers": "Received Offers",
+  "@receivedOffers": {
+    "description": "Text indicating that offers have been received."
+  },
+  "offersCount": "{count, plural, =0{No offers} =1{1 offer} other{{count} offers}}",
+  "@offersCount": {
+    "description": "Text showing the count of offers received.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "noOffersYet": "No offers yet",
+  "@noOffersYet": {
+    "description": "Text shown when no offers have been received yet."
+  },
+  "viewOffers": "View Offers",
+  "@viewOffers": {
+    "description": "Button text for viewing offers."
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Button text for closing a dialog or screen."
+  },
+  "quotationAcceptedSuccess": "Offer accepted successfully",
+  "@quotationAcceptedSuccess": {"description": "Snackbar message when an offer is accepted."},
+  "retry": "Retry",
+  "@retry": {"description": "Button label for retrying an action."},
+  "referenceBudget": "Reference budget: {amount} {currency}",
+  "@referenceBudget": {"description": "Label for reference budget with amount and currency.", "placeholders": {"amount": {}, "currency": {}}},
+  "offerSubmitted": "Offer submitted",
+  "@offerSubmitted": {"description": "Label when an offer has been submitted."},
+  "alreadySubmittedOffer": "You've already submitted an offer",
+  "@alreadySubmittedOffer": {"description": "Message when the artist has already submitted an offer."},
+  "messageCustomer": "Message Customer",
+  "@messageCustomer": {"description": "Button label to message the customer."},
+  "customerLookingForOffers": "Customer is looking for offers!",
+  "@customerLookingForOffers": {"description": "Banner when customer is looking for offers."},
+  "reviewAndSubmitOffer": "Review the details and submit your offer to win this project.",
+  "@reviewAndSubmitOffer": {"description": "Instruction to review and submit offer."},
+  "sendOffer": "Send Offer",
+  "@sendOffer": {"description": "Button label to send an offer."},
+  "selectedDesign": "Selected design",
+  "@selectedDesign": {"description": "Section header for selected design."},
+  "openQuotationRequest": "Open Quotation Request",
+  "@openQuotationRequest": {"description": "Banner title for open quotation request."},
+  "openQuotationRequestDesc": "This customer is looking for offers. You can send your quotation to win this project.",
+  "@openQuotationRequestDesc": {"description": "Banner description for open quotation request."},
+  "offersReceived": "You have received {count} {offerWord}",
+  "@offersReceived": {"description": "Message showing number of offers received.", "placeholders": {"count": {}, "offerWord": {}}},
+  "noOffersReceived": "You have not received any offers yet",
+  "@noOffersReceived": {"description": "Message when no offers have been received."},
+  "reviewEachOffer": "Review each offer and chat with the artists",
+  "@reviewEachOffer": {"description": "Instruction to review each offer and chat."},
+  "offersAppearHere": "Offers will appear here when you receive them",
+  "@offersAppearHere": {"description": "Message that offers will appear here."},
+  "offersReceivedTitle": "Offers received",
+  "@offersReceivedTitle": {"description": "Section title for offers received."},
+  "artistLabel": "Artist: {name}",
+  "@artistLabel": {"description": "Label for artist name.", "placeholders": {"name": {}}},
+  "notSpecified": "Not specified",
+  "@notSpecified": {"description": "Fallback text for unspecified values."},
+  "messagesCount": "{count} {messageWord}",
+  "@messagesCount": {"description": "Label for number of messages.", "placeholders": {"count": {}, "messageWord": {}}},
+  "messagePreview": "Message: {preview}",
+  "@messagePreview": {"description": "Preview of a message.", "placeholders": {"preview": {}}},
+  "startChat": "Start chat",
+  "@startChat": {"description": "Button label to start a chat."},
+  "acceptOffer": "Accept offer",
+  "@acceptOffer": {"description": "Button label to accept an offer."},
+  "close": "Close",
+  "@close": {"description": "Tooltip for close button."},
+  "editOffer": "Edit offer",
+  "@editOffer": {"description": "Tooltip for editing an offer."},
+  "tryAgain": "Try Again",
+  "@tryAgain": {"description": "Button label to try an action again."},
+  "noMessagesYet": "No messages yet",
+  "@noMessagesYet": {"description": "Empty state when there are no messages."},
+  "startConversation": "Start the conversation by sending a message",
+  "@startConversation": {"description": "Prompt to start a conversation."},
+  "typeAMessage": "Type a message",
+  "@typeAMessage": {"description": "Hint for message input field."},
+  "photoLibrary": "Photo Library",
+  "@photoLibrary": {"description": "Option to pick image from photo library."},
+  "camera": "Camera",
+  "@camera": {"description": "Option to pick image from camera."},
+  "couldNotPickImage": "Could not pick image: {error}",
+  "@couldNotPickImage": {"description": "Error message when image picking fails.", "placeholders": {"error": {}}},
+  "cancel": "Cancel",
+  "@cancel": {"description": "Button label to cancel an action."},
+  "save": "Save",
+  "@save": {"description": "Button label to save changes."},
+  "estimatedCostLabel": "Estimated cost (CLP)",
+  "@estimatedCostLabel": {"description": "Label for estimated cost input."},
+  "exampleAmount": "E.g.: 50000",
+  "@exampleAmount": {"description": "Hint for example amount."},
+  "systemOfferUpdate": "The artist updated the offer cost to {amount} CLP.",
+  "@systemOfferUpdate": {"description": "System message when artist updates offer cost.", "placeholders": {"amount": {}}},
+  "submitOffer": "Submit Offer",
+  "@submitOffer": {"description": "Button label for submitting an offer on the artist open quotation offer page."},
+  "submittingOffer": "Submitting Offer...",
+  "@submittingOffer": {"description": "Title shown when the offer is being submitted."},
+  "submittingOfferMessage": "Please wait while your offer is submitted.",
+  "@submittingOfferMessage": {"description": "Message shown while the offer is being submitted."},
+  "offerSubmittedTitle": "Offer Submitted!",
+  "@offerSubmittedTitle": {"description": "Title shown when the offer has been submitted successfully."},
+  "offerSubmittedMessage": "Your offer has been successfully sent to the customer.",
+  "@offerSubmittedMessage": {"description": "Message shown when the offer has been submitted successfully."},
+  "yourOffer": "Your Offer",
+  "@yourOffer": {"description": "Section title for the artist's offer form."},
+  "proposedAppointment": "Proposed Appointment",
+  "@proposedAppointment": {"description": "Label for the proposed appointment field in the offer form."},
+  "additionalDetailsOptional": "Additional Details (Optional)",
+  "@additionalDetailsOptional": {"description": "Label for the additional details field in the offer form, marked as optional."},
+  "proposedDesignsOptional": "Proposed Designs (Optional)",
+  "@proposedDesignsOptional": {"description": "Label for the proposed designs upload section, marked as optional."},
+  "addReferenceImagesOrSketches": "Add any reference images or sketches for your proposal.",
+  "@addReferenceImagesOrSketches": {"description": "Helper text for uploading reference images or sketches for the offer."},
+  "addDesign": "Add Design",
+  "@addDesign": {"description": "Button label for adding a design image to the offer."},
+  "durationMustBePositive": "Duration must be positive",
+  "@durationMustBePositive": {"description": "Error message when the duration is not positive in the offer form."},
+  "designSavedToYourGeneratedDesigns": "Design saved to your generated designs",
+  "@designSavedToYourGeneratedDesigns": {"description": "Message shown when a design is saved to the user's generated designs."},
+  "quotations": "Quotations",
+  "@quotations": {"description": "Label for the quotations tab."}
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/work_tab_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
@@ -61,14 +62,14 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     });
   }
   
-  String _getAppBarTitle() {
+  String _getAppBarTitle(BuildContext context) {
     switch (_selectedIndex) {
       case 0:
-        return 'Agenda';
+        return S.of(context).agenda;
       case 1:
-        return 'Mis Solicitudes';
+        return S.of(context).quotations;
       case 2:
-        return 'Trabajos';
+        return S.of(context).works;
       default:
         return '';
     }
@@ -171,7 +172,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     return Scaffold(
       appBar: showAppBar ? AppBar(
         title: Text(
-          _getAppBarTitle(),
+          _getAppBarTitle(context),
           style: TextStyleTheme.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,

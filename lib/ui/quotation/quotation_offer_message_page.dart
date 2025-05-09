@@ -31,6 +31,7 @@ class QuotationOfferMessagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return BlocProvider(
       create: (context) => OfferMessageBloc(
         quotationService: context.read(),
@@ -144,9 +145,9 @@ class _QuotationOfferMessageViewState
                       displayName = widget.customerName;
                       avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
                     } else {
-                      displayName = offer.artistName ?? 'Artista';
-                      avatarLetter = (offer.artistName?.isNotEmpty ?? false) ? offer.artistName![0].toUpperCase() : '?';
-                      artistId = offer.artistId;
+                      displayName = widget.offer.artistName ?? 'Artista';
+                      avatarLetter = (widget.offer.artistName?.isNotEmpty ?? false) ? widget.offer.artistName![0].toUpperCase() : '?';
+                      artistId = widget.offer.artistId;
                     }
                   },
                   orElse: () {},
@@ -298,7 +299,7 @@ class _QuotationOfferMessageViewState
                               quotationId: widget.quotationId,
                               offerId: widget.offerId,
                             )),
-                    child: const Text("Try Again"),
+                    child: Text(l10n.retry),
                   )
                 ],
               ),
@@ -310,6 +311,7 @@ class _QuotationOfferMessageViewState
   }
 
   Widget _buildEmptyState() {
+    final l10n = S.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -321,14 +323,14 @@ class _QuotationOfferMessageViewState
           ),
           const SizedBox(height: 16),
           Text(
-            "No messages yet",
+            l10n.noMessagesYet,
             style: TextStyleTheme.subtitle1,
           ),
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Text(
-              "Start the conversation by sending a message",
+              l10n.startConversation,
               style: TextStyleTheme.bodyText2.copyWith(
                 color: Colors.white70,
               ),
@@ -341,6 +343,7 @@ class _QuotationOfferMessageViewState
   }
 
   Widget _buildMessageList(List<OfferMessageDto> messages) {
+    final l10n = S.of(context);
     final isArtist =
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
     final currentUserId = context.read<AuthBloc>().state.session.user?.id;
@@ -367,6 +370,7 @@ class _QuotationOfferMessageViewState
   }
 
   Widget _buildMessageBubble(OfferMessageDto message, bool isMyMessage) {
+    final l10n = S.of(context);
     final timeFormatted = DateFormat('HH:mm').format(message.timestamp);
     final isOptimistic = message.id?.startsWith('temp-') ?? false;
     final imageToShow = message.imageUrl;
@@ -494,6 +498,7 @@ class _QuotationOfferMessageViewState
   }
 
   Widget _buildMessageInput({required bool isSending}) {
+    final l10n = S.of(context);
     bool canSend = !isSending &&
         (_messageController.text.trim().isNotEmpty || _selectedImage != null);
 
@@ -507,7 +512,7 @@ class _QuotationOfferMessageViewState
             IconButton(
               icon: const Icon(Icons.attach_file, color: Colors.white70),
               onPressed: isSending ? null : _showAttachmentOptions,
-              tooltip: 'Attach Image',
+              tooltip: l10n.photoLibrary,
             ),
             Expanded(
               child: Container(
@@ -529,7 +534,7 @@ class _QuotationOfferMessageViewState
                     keyboardType: TextInputType.multiline,
                     onChanged: (text) => setState(() {}),
                     decoration: InputDecoration(
-                      hintText: "Type a message",
+                      hintText: l10n.typeAMessage,
                       hintStyle: TextStyleTheme.bodyText1
                           .copyWith(color: Colors.white38),
                       border: InputBorder.none,
@@ -565,7 +570,7 @@ class _QuotationOfferMessageViewState
                     icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: canSend ? _sendMessage : null,
                     color: canSend ? secondaryColor : Colors.grey,
-                    tooltip: 'Send Message',
+                    tooltip: l10n.sendMessage,
                   ),
           ],
         ),
@@ -574,6 +579,7 @@ class _QuotationOfferMessageViewState
   }
 
   Widget _buildImagePreview({required bool isSending}) {
+    final l10n = S.of(context);
     return SizedBox(
       width: 40,
       height: 40,
@@ -622,6 +628,7 @@ class _QuotationOfferMessageViewState
   }
 
   void _showAttachmentOptions() {
+    final l10n = S.of(context);
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -654,6 +661,7 @@ class _QuotationOfferMessageViewState
   }
 
   Future<void> _pickImage(ImageSource source) async {
+    final l10n = S.of(context);
     try {
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
@@ -663,12 +671,13 @@ class _QuotationOfferMessageViewState
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Could not pick image: $e'),
+          content: Text(l10n.noImagesAvailable),
           backgroundColor: Colors.red));
     }
   }
 
   void _sendMessage() {
+    final l10n = S.of(context);
     final messageText = _messageController.text.trim();
     final imageFile = _selectedImage;
 
@@ -690,6 +699,7 @@ class _QuotationOfferMessageViewState
   }
 
   void _showEditOfferDialog(BuildContext context, OfferMessageBloc bloc) {
+    final l10n = S.of(context);
     final offer = widget.offer;
     final costController = TextEditingController(
       text: offer.estimatedCost?.amount != null
@@ -703,15 +713,15 @@ class _QuotationOfferMessageViewState
         return AlertDialog(
           backgroundColor: quaternaryColor,
           title: Text(
-            'Editar costo de la oferta',
+            l10n.editOffer,
             style: TextStyleTheme.headline3.copyWith(color: primaryColor),
           ),
           content: TextField(
             controller: costController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
-              labelText: 'Costo estimado (CLP)',
-              hintText: 'Ej: 50000',
+              labelText: l10n.estimatedCostLabel,
+              hintText: l10n.exampleAmount,
               labelStyle: labelTextStyle,
               hintStyle: hintTextStyle,
               filled: true,
@@ -725,7 +735,7 @@ class _QuotationOfferMessageViewState
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancelar', style: TextStyle(color: tertiaryColor)),
+              child: Text(l10n.cancel, style: TextStyle(color: tertiaryColor)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -738,7 +748,7 @@ class _QuotationOfferMessageViewState
                   final money = Money(
                     amount: (cost * 100).toInt(),
                     currency: 'CLP',
-                    scale: 2,
+                    scale: 1,
                   );
                   bloc.add(
                     OfferMessageEvent.updateOffer(
@@ -754,7 +764,7 @@ class _QuotationOfferMessageViewState
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Guardar'),
+              child: Text(l10n.save),
             ),
           ],
         );

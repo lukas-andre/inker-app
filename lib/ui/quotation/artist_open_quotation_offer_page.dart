@@ -84,7 +84,7 @@ class _ArtistOpenQuotationOfferPageViewState
       backgroundColor: primaryColor,
       appBar: AppBar(
         // Changed title
-        title: Text("Submit Offer", style: TextStyleTheme.headline2),
+        title: Text(l10n.submitOffer, style: TextStyleTheme.headline2),
         backgroundColor: primaryColor,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
@@ -103,8 +103,8 @@ class _ArtistOpenQuotationOfferPageViewState
                 _showSuccessAnimationPage(
                   context,
                   AnimationState.loading,
-                  "Submitting Offer...",
-                  "Please wait while your offer is submitted.",
+                  l10n.submittingOffer,
+                  l10n.submittingOfferMessage,
                 );
               },
               success: () {
@@ -112,8 +112,8 @@ class _ArtistOpenQuotationOfferPageViewState
                 _showSuccessAnimationPage(
                   context,
                   AnimationState.completed,
-                  "Offer Submitted!",
-                  "Your offer has been successfully sent to the customer.",
+                  l10n.offerSubmittedTitle,
+                  l10n.offerSubmittedMessage,
                   onComplete: () {
                     // Refresh the quotation list (specifically open tab if possible)
                     // This might need refinement depending on how list state is managed
@@ -219,7 +219,7 @@ class _ArtistOpenQuotationOfferPageViewState
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              "Your Offer",
+              l10n.yourOffer,
               style: TextStyleTheme.headline3.copyWith(color: Colors.white),
             ),
           ),
@@ -293,7 +293,7 @@ class _ArtistOpenQuotationOfferPageViewState
             TextFormField(
               controller: scheduleController,
               decoration: InputDecoration(
-                labelText: "Proposed Appointment",
+                labelText: l10n.proposedAppointment,
                 hintText: l10n.selectDateTime,
                 labelStyle:
                     TextStyleTheme.bodyText1.copyWith(color: Colors.white),
@@ -386,6 +386,7 @@ class _ArtistOpenQuotationOfferPageViewState
   }
 
   void _navigateToScheduleAssistant(BuildContext context) async {
+    final l10n = S.of(context);
      final result = await Navigator.push(
        context,
        MaterialPageRoute(
@@ -411,7 +412,7 @@ class _ArtistOpenQuotationOfferPageViewState
 
            if (duration == 0) {
              _showDurationError = true;
-             _durationErrorText = S.of(context).durationCannotBeZero;
+             _durationErrorText = l10n.durationCannotBeZero;
            } else {
              _showDurationError = false;
              _durationErrorText = null;
@@ -419,7 +420,7 @@ class _ArtistOpenQuotationOfferPageViewState
          } else {
            // Handle case where schedule assistant returns null/invalid data
            _showDateError = true;
-           _dateErrorText = S.of(context).requiredField; // Or a more specific error
+           _dateErrorText = l10n.requiredField; // Or a more specific error
            _appointmentStartDate = null;
            _appointmentEndDate = null;
            _durationInMinutes = 0;
@@ -448,7 +449,7 @@ class _ArtistOpenQuotationOfferPageViewState
       key: K.quotationAdditionalDetailsField, // Consider renaming K.offerAdditionalDetailsField
       controller: _additionalDetailsController,
       decoration: InputDecoration(
-        labelText: "Additional Details (Optional)",
+        labelText: l10n.additionalDetailsOptional,
         labelStyle: TextStyleTheme.bodyText1,
         fillColor: inputBackgroundColor,
         filled: true,
@@ -468,10 +469,10 @@ class _ArtistOpenQuotationOfferPageViewState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Proposed Designs (Optional)", style: TextStyleTheme.subtitle1),
+        Text(l10n.proposedDesignsOptional, style: TextStyleTheme.subtitle1),
         const SizedBox(height: 8),
         Text(
-          "Add any reference images or sketches for your proposal.",
+          l10n.addReferenceImagesOrSketches,
           style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
         ),
         const SizedBox(height: 8),
@@ -539,7 +540,7 @@ class _ArtistOpenQuotationOfferPageViewState
           children: [
              Icon(Icons.add_photo_alternate_outlined, size: 30, color: tertiaryColor),
              const SizedBox(height: 4),
-             Text("Add Design", style: TextStyleTheme.caption.copyWith(color: tertiaryColor)) // Placeholder
+             Text(l10n.addDesign, style: TextStyleTheme.caption.copyWith(color: tertiaryColor)) // Placeholder
           ],
         ),
       ),
@@ -581,6 +582,7 @@ class _ArtistOpenQuotationOfferPageViewState
   }
 
   bool _validateOfferFields() {
+    final l10n = S.of(context);
     // Add specific validation for offer fields if different from standard response
     bool isValid = true;
     // Reset custom errors
@@ -595,7 +597,7 @@ class _ArtistOpenQuotationOfferPageViewState
     if (_appointmentStartDate == null) {
        setState(() {
          _showDateError = true;
-         _dateErrorText = S.of(context).requiredField;
+         _dateErrorText = l10n.requiredField;
        });
        isValid = false;
      }
@@ -604,7 +606,7 @@ class _ArtistOpenQuotationOfferPageViewState
     if (_appointmentStartDate != null && _durationInMinutes <= 0) {
        setState(() {
           _showDurationError = true;
-          _durationErrorText = "Duration must be positive";
+          _durationErrorText = l10n.durationMustBePositive;
        });
        isValid = false;
     }

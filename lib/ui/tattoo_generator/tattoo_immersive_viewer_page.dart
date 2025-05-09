@@ -2,10 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
-import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
-import 'package:inker_studio/domain/models/analytics/content_type.dart';
-import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -243,10 +240,10 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
     if (_designId == null) {
       // Show saved message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Design saved to your generated designs'),
+        SnackBar(
+          content: Text(S.of(context).designSavedToYourGeneratedDesigns),
           backgroundColor: Colors.green,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -356,8 +353,8 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
         children: [
           const Icon(Icons.image_not_supported, size: 48, color: Colors.white),
           const SizedBox(height: 16),
-          const Text(
-            'No images available',
+          Text(
+            S.of(context).noImagesAvailable,
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
           const SizedBox(height: 24),
@@ -367,7 +364,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               backgroundColor: redColor,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Back'),
+            child: Text(S.of(context).goBack),
           ),
         ],
       ),
@@ -404,7 +401,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
               const SizedBox(height: 16),
               Text(
-                'Failed to load image',
+                S.of(context).errorLoadingWorks,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
                   fontSize: 16,
@@ -565,7 +562,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
                 // Favorite button
                 _buildActionButton(
                   icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
-                  label: _isFavorite ? 'Favorite' : 'Like',
+                  label: _isFavorite ? S.of(context).favorites : S.of(context).likes,
                   onTap: _toggleFavorite,
                   iconColor: _isFavorite ? redColor : Colors.white,
                 ),
@@ -712,7 +709,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Text(
-              _formatStyleName(_currentStyle.name),
+              localizedTattooStyle(_currentStyle, context),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -745,11 +742,22 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
               builder: (context) {
                 if (widget.selectForQuotation == true) {
                   return PrimaryButton(
-                    text: 'Seleccionar este diseño',
+                    text: S.of(context).selectGeneratedDesign,
                     onPressed: () {
-                      final design = _allDesigns != null && _allDesigns!.isNotEmpty
-                          ? _allDesigns![_currentDesignIndex]
-                          : null;
+                      UserTattooDesignDto? design;
+                      if (_allDesigns != null && _allDesigns!.isNotEmpty) {
+                        design = _allDesigns![_currentDesignIndex];
+                      } else {
+                        // Crear un diseño temporal con los datos actuales
+                        design = UserTattooDesignDto(
+                          id: '', // id temporal vacío
+                          userQuery: _currentPrompt,
+                          style: _currentStyle.name,
+                          imageUrls: _images,
+                          isFavorite: false,
+                          createdAt: DateTime.now(),
+                        );
+                      }
                       final imageUrl = _images.isNotEmpty ? _images[_currentImageIndex] : null;
                       final result = {
                         'design': design,
@@ -763,18 +771,23 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
                   );
                 } else {
                   return PrimaryButton(
-                    text: 'Crear cotización con este diseño',
+                    text: S.of(context).createQuotationForTattoo,
                     onPressed: () {
-                      final design = _allDesigns != null && _allDesigns!.isNotEmpty
-                          ? _allDesigns![_currentDesignIndex]
-                          : null;
-                      final imageUrl = _images.isNotEmpty ? _images[_currentImageIndex] : null;
-                      if (design == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('No se pudo obtener el diseño.')),
+                      UserTattooDesignDto? design;
+                      if (_allDesigns != null && _allDesigns!.isNotEmpty) {
+                        design = _allDesigns![_currentDesignIndex];
+                      } else {
+                        // Crear un diseño temporal con los datos actuales
+                        design = UserTattooDesignDto(
+                          id: '', // id temporal vacío
+                          userQuery: _currentPrompt,
+                          style: _currentStyle.name,
+                          imageUrls: _images,
+                          isFavorite: false,
+                          createdAt: DateTime.now(),
                         );
-                        return;
                       }
+                      final imageUrl = _images.isNotEmpty ? _images[_currentImageIndex] : null;
                       final result = {
                         'design': design,
                         'imageUrl': imageUrl,
@@ -797,5 +810,52 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
         ],
       ),
     );
+  }
+}
+
+String localizedTattooStyle(TattooStyle style, BuildContext context) {
+  switch (style) {
+    case TattooStyle.traditionalAmerican:
+      return S.of(context).tattooStyleTraditionalAmerican;
+    case TattooStyle.neotraditional:
+      return S.of(context).tattooStyleNeotraditional;
+    case TattooStyle.realism:
+      return S.of(context).tattooStyleRealism;
+    case TattooStyle.watercolor:
+      return S.of(context).tattooStyleWatercolor;
+    case TattooStyle.geometric:
+      return S.of(context).tattooStyleGeometric;
+    case TattooStyle.blackwork:
+      return S.of(context).tattooStyleBlackwork;
+    case TattooStyle.dotwork:
+      return S.of(context).tattooStyleDotwork;
+    case TattooStyle.japanese:
+      return S.of(context).tattooStyleJapanese;
+    case TattooStyle.tribal:
+      return S.of(context).tattooStyleTribal;
+    case TattooStyle.newSchool:
+      return S.of(context).tattooStyleNewSchool;
+    case TattooStyle.biomechanical:
+      return S.of(context).tattooStyleBiomechanical;
+    case TattooStyle.minimalist:
+      return S.of(context).tattooStyleMinimalist;
+    case TattooStyle.surrealism:
+      return S.of(context).tattooStyleSurrealism;
+    case TattooStyle.ornamental:
+      return S.of(context).tattooStyleOrnamental;
+    case TattooStyle.neoJapanese:
+      return S.of(context).tattooStyleNeoJapanese;
+    case TattooStyle.celtic:
+      return S.of(context).tattooStyleCeltic;
+    case TattooStyle.chicano:
+      return S.of(context).tattooStyleChicano;
+    case TattooStyle.abstract:
+      return S.of(context).tattooStyleAbstract;
+    case TattooStyle.mandala:
+      return S.of(context).tattooStyleMandala;
+    case TattooStyle.fineline:
+      return S.of(context).tattooStyleFineline;
+    case TattooStyle.ignorantStyle:
+      return S.of(context).tattooStyleIgnorantStyle;
   }
 } 

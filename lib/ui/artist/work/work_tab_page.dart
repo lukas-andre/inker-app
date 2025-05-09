@@ -47,9 +47,9 @@ class _WorkTabPageState extends State<WorkTabPage> with SingleTickerProviderStat
           indicatorWeight: 3.0,
           labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
-          tabs: const [
-            Tab(text: 'Available'), // Placeholder l10n.available
-            Tab(text: 'My Applications'), // Placeholder l10n.myApplications
+          tabs: [
+            Tab(text: S.of(context).openQuotations),
+            Tab(text: S.of(context).directQuotations),
           ],
         ),
       ),

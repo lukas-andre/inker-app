@@ -56,6 +56,7 @@ class _QuotationDetailsScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return Scaffold(
       backgroundColor: primaryColor,
       body: BlocConsumer<QuotationDetailBloc, QuotationDetailState>(
@@ -239,8 +240,8 @@ class _QuotationDetailContent extends StatelessWidget {
                   onActionExecuted: (actionType, quotationId) async {
                     if (actionType == QuotationActionType.cancel) {
                       context.read<QuotationDetailBloc>().add(
-                        QuotationDetailEvent.cancelQuotation(quotationId),
-                      );
+                            QuotationDetailEvent.cancelQuotation(quotationId),
+                          );
                     }
                   },
                 ),
@@ -543,14 +544,10 @@ class _MainQuotationInfo extends StatelessWidget {
                       color: Color(0xFF686D90), size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    'Presupuesto de referencia: ',
-                    style: TextStyleTheme.bodyText2.copyWith(
-                      color: const Color(0xFFF2F2F2),
-                      fontWeight: FontWeight.bold,
+                    l10n.referenceBudget(
+                      quotation.referenceBudget!.amount.toString(),
+                      quotation.referenceBudget!.currency,
                     ),
-                  ),
-                  Text(
-                    '${quotation.referenceBudget!.formatWithSymbol()} CLP',
                     style: TextStyleTheme.bodyText2.copyWith(
                       color: secondaryColor,
                       fontWeight: FontWeight.bold,
@@ -577,7 +574,7 @@ class _MainQuotationInfo extends StatelessWidget {
     if (hasOffered) {
       // If artist has already offered, show a different UI
       final List<QuotationOfferListItemDto>? offers = quotation.offers;
-      String costText = "Offer submitted";
+      String costText = l10n.offerSubmitted;
       QuotationOfferListItemDto? artistOffer;
 
       if (offers != null && offers.isNotEmpty) {
@@ -591,7 +588,7 @@ class _MainQuotationInfo extends StatelessWidget {
 
         if (artistOffer.estimatedCost != null) {
           final cost = artistOffer.estimatedCost!;
-          costText = "Offer: \$${cost.amount / 100} ${cost.currency}";
+          costText = 'Oferta: \$${cost.amount} CLP';
         }
       }
 
@@ -617,7 +614,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "You've already submitted an offer",
+                        l10n.alreadySubmittedOffer,
                         style: TextStyleTheme.subtitle2.copyWith(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -642,7 +639,7 @@ class _MainQuotationInfo extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 24),
             child: ElevatedButton.icon(
               icon: const Icon(Icons.message),
-              label: const Text("Message Customer"),
+              label: Text(l10n.messageCustomer),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -657,14 +654,13 @@ class _MainQuotationInfo extends StatelessWidget {
                         offerId: artistOffer!.id,
                         offer: artistOffer,
                         customerName:
-                            quotation.customer?.firstName ?? "Customer",
+                            quotation.customer?.firstName ?? l10n.customer,
                       ),
                     ),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text("Offer details not available")),
+                    SnackBar(content: Text(l10n.notAvailable)),
                   );
                 }
               },
@@ -697,7 +693,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Customer is looking for offers!",
+                        l10n.customerLookingForOffers,
                         style: TextStyleTheme.subtitle2.copyWith(
                           color: redColor,
                           fontWeight: FontWeight.bold,
@@ -705,7 +701,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "Review the details and submit your offer to win this project.",
+                        l10n.reviewAndSubmitOffer,
                         style: TextStyleTheme.bodyText2.copyWith(
                           color: Colors.white,
                         ),
@@ -720,8 +716,11 @@ class _MainQuotationInfo extends StatelessWidget {
             width: double.infinity,
             margin: const EdgeInsets.only(bottom: 24),
             child: ElevatedButton.icon(
-              icon: const Icon(Icons.send),
-              label: Text("Send Offer"),
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+              label: Text(l10n.sendOffer, style: TextStyleTheme.bodyText1),
               style: ElevatedButton.styleFrom(
                 backgroundColor: redColor,
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -753,7 +752,7 @@ class _MainQuotationInfo extends StatelessWidget {
       widgets.addAll([
         const Divider(height: 24),
         Text(
-          'Diseño seleccionado',
+          l10n.selectedDesign,
           style: TextStyleTheme.subtitle2.copyWith(
             color: tertiaryColor,
             fontWeight: FontWeight.bold,
@@ -847,6 +846,7 @@ class _InfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     final contentColor = isWarning
         ? Colors.red
         : highlight
@@ -1138,7 +1138,7 @@ class _TimelineItem extends StatelessWidget {
       return l10n.canceledTheQuotation;
     }
     if (to == QuotationStatus.open) {
-      return "Creó una solicitud abierta";
+      return 'Abierta';
     }
 
     return '${l10n.changedStatusFrom} ${_getStatusText(from, l10n)} ${l10n.to} ${_getStatusText(to, l10n)}';
@@ -1159,7 +1159,7 @@ class _TimelineItem extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return "Abierta";
+        return 'Abierta';
     }
   }
 }
@@ -1171,6 +1171,7 @@ class _StatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -1182,7 +1183,7 @@ class _StatusChip extends StatelessWidget {
         ),
       ),
       child: Text(
-        _getStatusText(status, S.of(context)),
+        _getStatusText(status, l10n),
         style: TextStyleTheme.button.copyWith(
           color: _getStatusColor(status),
         ),
@@ -1224,7 +1225,7 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return "Abierta";
+        return 'Abierta';
     }
   }
 }
@@ -1236,6 +1237,7 @@ class _StencilPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return Container(
       decoration: BoxDecoration(
         color: HSLColor.fromColor(primaryColor).withLightness(0.25).toColor(),
@@ -1311,58 +1313,6 @@ class _StencilPreviewWidget extends StatelessWidget {
   }
 }
 
-class _OpenQuotationBanner extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l10n = S.of(context);
-
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: redColor.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: redColor,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.lightbulb_outline,
-            color: redColor,
-            size: 24,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Solicitud de Cotización Abierta',
-                  style: TextStyleTheme.subtitle1.copyWith(
-                    color: redColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.',
-                  style: TextStyleTheme.bodyText2.copyWith(
-                    color: Colors.white.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Section that displays offers received for an open quotation (Customer View)
 class _CustomerOpenQuotationOffersSection extends StatelessWidget {
   final Quotation quotation;
 
@@ -1410,8 +1360,8 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
                   children: [
                     Text(
                       offersCount > 0
-                          ? 'Has recibido ${offersCount} ${offersCount == 1 ? 'oferta' : 'ofertas'}'
-                          : 'Aún no has recibido ofertas',
+                          ? l10n.offersReceived(offersCount, 'ofertas')
+                          : l10n.noOffersYet,
                       style: TextStyleTheme.subtitle2.copyWith(
                         color: offersCount > 0
                             ? const Color(0xFF4CAF50)
@@ -1420,9 +1370,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      offersCount > 0
-                          ? 'Revisa cada oferta y chatea con los artistas'
-                          : 'Las ofertas aparecerán aquí cuando las recibas',
+                      offersCount > 0 ? l10n.reviewEachOffer : l10n.noOffersYet,
                       style: TextStyleTheme.bodyText2.copyWith(
                         color: Colors.white70,
                       ),
@@ -1440,7 +1388,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Text(
-              'Ofertas recibidas',
+              l10n.offersReceivedTitle,
               style: TextStyleTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -1469,9 +1417,8 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
               }
               if (state is QuotationListLoaded) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Oferta aceptada exitosamente'),
-                      backgroundColor: Colors.green),
+                  SnackBar(
+                      content: Text(S.of(context).quotationAcceptedSuccess)),
                 );
               }
             },
@@ -1485,7 +1432,7 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
                 return _OfferListItem(
                   offer: offer,
                   quotationId: quotation.id.toString(),
-                  customerName: quotation.customer?.firstName ?? 'Cliente',
+                  customerName: quotation.customer?.firstName ?? l10n.customer,
                 );
               },
             ),
@@ -1511,6 +1458,7 @@ class _OfferListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     // Function to navigate to chat
     void navigateToChat() {
       Navigator.of(context).push(
@@ -1526,10 +1474,9 @@ class _OfferListItem extends StatelessWidget {
     }
 
     // Format cost if available
-    String costText = 'No especificado';
-    if (offer.estimatedCost != null) {
-      costText = offer.estimatedCost!.formatWithSymbol();
-    }
+    String costText = offer.estimatedCost != null && offer.estimatedCost!.amount > 0
+        ? offer.estimatedCost!.amount.toString()
+        : l10n.notSpecified;
 
     // Get message count if available
     final int messageCount = offer.messages.length;
@@ -1578,7 +1525,7 @@ class _OfferListItem extends StatelessWidget {
                       color: Colors.white70, size: 16),
                   const SizedBox(width: 4),
                   Text(
-                    'Artista: ${offer.artistName}',
+                    l10n.artist + ': ' + (offer.artistName ?? ''),
                     style: TextStyleTheme.bodyText2.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -1592,7 +1539,7 @@ class _OfferListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      costText,
+                      '\$ $costText CLP',
                       style: TextStyleTheme.subtitle2.copyWith(
                         color: const Color(0xFF4CAF50),
                         fontWeight: FontWeight.bold,
@@ -1612,7 +1559,7 @@ class _OfferListItem extends StatelessWidget {
                         color: Colors.white70, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      '$messageCount ${messageCount == 1 ? 'mensaje' : 'mensajes'}',
+                      '${messageCount} mensajes',
                       style: TextStyleTheme.caption
                           .copyWith(color: Colors.white70),
                     ),
@@ -1624,7 +1571,10 @@ class _OfferListItem extends StatelessWidget {
                 if (offer.message != null && offer.message!.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
-                    'Mensaje: ${offer.message!.length > 50 ? '${offer.message!.substring(0, 50)}...' : offer.message!}',
+                    'Mensaje: ' +
+                        (offer.message!.length > 50
+                            ? offer.message!.substring(0, 50) + '...'
+                            : offer.message!),
                     style:
                         TextStyleTheme.bodyText2.copyWith(color: Colors.white),
                     maxLines: 1,
@@ -1635,7 +1585,7 @@ class _OfferListItem extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: navigateToChat,
                   icon: const Icon(Icons.chat_outlined, size: 16),
-                  label: const Text('Iniciar chat'),
+                  label: Text(l10n.startChat),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: secondaryColor,
@@ -1660,7 +1610,7 @@ class _OfferListItem extends StatelessWidget {
                         ));
                   },
                   icon: const Icon(Icons.check_circle_outline),
-                  label: const Text('Aceptar oferta'),
+                  label: Text(l10n.acceptOffer),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
@@ -1687,6 +1637,7 @@ class _ImageViewerDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),
       child: Scaffold(
@@ -1719,7 +1670,7 @@ class _ImageViewerDialog extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.close, color: Colors.white, size: 32),
                 onPressed: () => Navigator.of(context).pop(),
-                tooltip: 'Cerrar',
+                tooltip: l10n.close,
               ),
             ),
           ],

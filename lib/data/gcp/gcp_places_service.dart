@@ -104,7 +104,6 @@ class RateLimiter {
 
 class GcpPlacesService implements PlacesService {
   final HttpClientConfig _httpConfig;
-  final RateLimiter _rateLimiter = RateLimiter();
 
   //https://developers.google.com/maps/faq#languagesupport
   final lang = 'es-419';
@@ -123,16 +122,7 @@ class GcpPlacesService implements PlacesService {
   @override
   // https://developers.google.com/maps/documentation/places/web-service/autocomplete#maps_http_places_autocomplete_amoeba-sh
   Future<List<Prediction>> getAutoComplete(String input) async {
-    // Check cache first
-    final cacheKey = 'autocomplete_$input';
-    final cachedResult = _rateLimiter.getCachedResponse(cacheKey);
-    if (cachedResult != null) {
-      return cachedResult as List<Prediction>;
-    }
-    
-    // Apply rate limiting
-    await _rateLimiter.throttle();
-    
+    // SIEMPRE hace la petición, sin cache ni rate limit
     final uri =
         Uri.https('maps.googleapis.com', '/maps/api/place/autocomplete/json', {
       'language': lang,
@@ -146,8 +136,6 @@ class GcpPlacesService implements PlacesService {
     if (response.statusCode == 200) {
       final prediction = PredictionResult.fromRawJson(response.body);
       if (prediction.status == 'OK') {
-        // Cache the result
-        _rateLimiter.cacheResponse(cacheKey, prediction.predictions);
         return prediction.predictions;
       }
 
@@ -166,15 +154,8 @@ class GcpPlacesService implements PlacesService {
 
   @override
   Future<PlaceDetailsResult?> getPlaceDetails(String id) async {
-    // Check cache first
-    final cacheKey = 'placedetails_$id';
-    final cachedResult = _rateLimiter.getCachedResponse(cacheKey);
-    if (cachedResult != null) {
-      return cachedResult as PlaceDetailsResult?;
-    }
+
     
-    // Apply rate limiting
-    await _rateLimiter.throttle();
 
     final uri =
         Uri.https('maps.googleapis.com', '/maps/api/place/details/json', {
@@ -191,7 +172,6 @@ class GcpPlacesService implements PlacesService {
       final details = PlaceDetailsResponse.fromRawJson(response.body);
       if (details.status == 'OK') {
         // Cache the result
-        _rateLimiter.cacheResponse(cacheKey, details.result);
         return details.result;
       }
 

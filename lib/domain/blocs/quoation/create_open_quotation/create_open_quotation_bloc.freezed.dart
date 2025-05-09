@@ -22,7 +22,7 @@ mixin _$CreateOpenQuotationEvent {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -44,7 +44,7 @@ mixin _$CreateOpenQuotationEvent {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -66,7 +66,7 @@ mixin _$CreateOpenQuotationEvent {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -206,7 +206,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -231,7 +231,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -256,7 +256,7 @@ class _$StartedImpl implements _Started {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -426,7 +426,7 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -451,7 +451,7 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -476,7 +476,7 @@ class _$DescriptionChangedImpl implements _DescriptionChanged {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -651,7 +651,7 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -676,7 +676,7 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -701,7 +701,7 @@ class _$DistanceChangedImpl implements _DistanceChanged {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -875,7 +875,7 @@ class _$StencilSelectedImpl implements _StencilSelected {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -900,7 +900,7 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -925,7 +925,7 @@ class _$StencilSelectedImpl implements _StencilSelected {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -1036,7 +1036,7 @@ abstract class _$$TattooDesignSelectedImplCopyWith<$Res> {
           $Res Function(_$TattooDesignSelectedImpl) then) =
       __$$TattooDesignSelectedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserTattooDesignDto design, String imageUrl});
+  $Res call({UserTattooDesignDto? design, String imageUrl});
 }
 
 /// @nodoc
@@ -1051,14 +1051,14 @@ class __$$TattooDesignSelectedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? design = null,
+    Object? design = freezed,
     Object? imageUrl = null,
   }) {
     return _then(_$TattooDesignSelectedImpl(
-      design: null == design
+      design: freezed == design
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
-              as UserTattooDesignDto,
+              as UserTattooDesignDto?,
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -1070,11 +1070,10 @@ class __$$TattooDesignSelectedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
-  const _$TattooDesignSelectedImpl(
-      {required this.design, required this.imageUrl});
+  const _$TattooDesignSelectedImpl({this.design, required this.imageUrl});
 
   @override
-  final UserTattooDesignDto design;
+  final UserTattooDesignDto? design;
   @override
   final String imageUrl;
 
@@ -1111,7 +1110,7 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -1136,7 +1135,7 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -1161,7 +1160,7 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -1258,10 +1257,10 @@ class _$TattooDesignSelectedImpl implements _TattooDesignSelected {
 
 abstract class _TattooDesignSelected implements CreateOpenQuotationEvent {
   const factory _TattooDesignSelected(
-      {required final UserTattooDesignDto design,
+      {final UserTattooDesignDto? design,
       required final String imageUrl}) = _$TattooDesignSelectedImpl;
 
-  UserTattooDesignDto get design;
+  UserTattooDesignDto? get design;
   String get imageUrl;
   @JsonKey(ignore: true)
   _$$TattooDesignSelectedImplCopyWith<_$TattooDesignSelectedImpl>
@@ -1310,7 +1309,7 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -1335,7 +1334,7 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -1360,7 +1359,7 @@ class _$SelectionClearedImpl implements _SelectionCleared {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -1533,7 +1532,7 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -1558,7 +1557,7 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -1583,7 +1582,7 @@ class _$ImagesAddedImpl implements _ImagesAdded {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -1755,7 +1754,7 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -1780,7 +1779,7 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -1805,7 +1804,7 @@ class _$ImageRemovedImpl implements _ImageRemoved {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -2003,7 +2002,7 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -2028,7 +2027,7 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -2054,7 +2053,7 @@ class _$LocationStatusCheckedImpl implements _LocationStatusChecked {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -2205,7 +2204,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -2230,7 +2229,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -2255,7 +2254,7 @@ class _$SubmitPressedImpl implements _SubmitPressed {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -2398,7 +2397,7 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -2423,7 +2422,7 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -2448,7 +2447,7 @@ class _$ClearSuccessMessageImpl implements _ClearSuccessMessage {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -2590,7 +2589,7 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -2615,7 +2614,7 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -2640,7 +2639,7 @@ class _$ClearErrorMessageImpl implements _ClearErrorMessage {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -2823,7 +2822,7 @@ class _$MinBudgetChangedImpl implements _MinBudgetChanged {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -2848,7 +2847,7 @@ class _$MinBudgetChangedImpl implements _MinBudgetChanged {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -2873,7 +2872,7 @@ class _$MinBudgetChangedImpl implements _MinBudgetChanged {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -3062,7 +3061,7 @@ class _$MaxBudgetChangedImpl implements _MaxBudgetChanged {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -3087,7 +3086,7 @@ class _$MaxBudgetChangedImpl implements _MaxBudgetChanged {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -3112,7 +3111,7 @@ class _$MaxBudgetChangedImpl implements _MaxBudgetChanged {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,
@@ -3304,7 +3303,7 @@ class _$ReferenceBudgetChangedImpl implements _ReferenceBudgetChanged {
     required TResult Function(String description) descriptionChanged,
     required TResult Function(int distanceKm) distanceChanged,
     required TResult Function(String stencilId) stencilSelected,
-    required TResult Function(UserTattooDesignDto design, String imageUrl)
+    required TResult Function(UserTattooDesignDto? design, String imageUrl)
         tattooDesignSelected,
     required TResult Function() selectionCleared,
     required TResult Function(List<XFile> images) imagesAdded,
@@ -3329,7 +3328,7 @@ class _$ReferenceBudgetChangedImpl implements _ReferenceBudgetChanged {
     TResult? Function(String description)? descriptionChanged,
     TResult? Function(int distanceKm)? distanceChanged,
     TResult? Function(String stencilId)? stencilSelected,
-    TResult? Function(UserTattooDesignDto design, String imageUrl)?
+    TResult? Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult? Function()? selectionCleared,
     TResult? Function(List<XFile> images)? imagesAdded,
@@ -3354,7 +3353,7 @@ class _$ReferenceBudgetChangedImpl implements _ReferenceBudgetChanged {
     TResult Function(String description)? descriptionChanged,
     TResult Function(int distanceKm)? distanceChanged,
     TResult Function(String stencilId)? stencilSelected,
-    TResult Function(UserTattooDesignDto design, String imageUrl)?
+    TResult Function(UserTattooDesignDto? design, String imageUrl)?
         tattooDesignSelected,
     TResult Function()? selectionCleared,
     TResult Function(List<XFile> images)? imagesAdded,

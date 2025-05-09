@@ -474,7 +474,7 @@ class _ParticipatingQuotationsTabViewState
                 const SizedBox(height: 16),
                 
                 // Reference images preview (if available)
-                if (quotationInfo.referenceImages?.isNotEmpty ?? false) ...[
+                if (quotationInfo.referenceImages?.metadata.isNotEmpty ?? false) ...[
                   const Divider(height: 1, color: Color(0xFF303759)),
                   const SizedBox(height: 12),
                   Row(
@@ -486,7 +486,7 @@ class _ParticipatingQuotationsTabViewState
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${quotationInfo.referenceImages!.length} imágenes de referencia',
+                        '${quotationInfo.referenceImages!.metadata.length} imágenes de referencia',
                         style: TextStyleTheme.bodyText2.copyWith(
                           color: const Color(0xFF9E9E9E),
                         ),

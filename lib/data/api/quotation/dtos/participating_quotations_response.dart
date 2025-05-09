@@ -143,12 +143,29 @@ class ArtistDto {
   }
 }
 
+class ReferenceImagesDto {
+  final int count;
+  final List<dynamic> metadata; // Puedes reemplazar dynamic por un modelo si metadata tiene estructura fija
+
+  ReferenceImagesDto({
+    required this.count,
+    required this.metadata,
+  });
+
+  factory ReferenceImagesDto.fromJson(Map<String, dynamic> json) {
+    return ReferenceImagesDto(
+      count: json['count'] as int,
+      metadata: json['metadata'] as List<dynamic>,
+    );
+  }
+}
+
 class QuotationBriefDto {
   final String id;
   final String description;
   final String status;
   final String type;
-  final List<String>? referenceImages;
+  final ReferenceImagesDto? referenceImages;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -169,7 +186,7 @@ class QuotationBriefDto {
       status: json['status'] as String,
       type: json['type'] as String,
       referenceImages: json['referenceImages'] != null
-          ? (json['referenceImages'] as List).cast<String>()
+          ? ReferenceImagesDto.fromJson(json['referenceImages'])
           : null,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),

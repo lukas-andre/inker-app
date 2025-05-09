@@ -2073,5 +2073,223 @@
   "quotationStatusArtistOpen": "Abierta",
   "@quotationStatusArtistOpen": {
     "description": "Status text for open quotations from artist perspective."
-  }
+  },
+  "tattooStyleTraditionalAmerican": "Tradicional Americana",
+  "@tattooStyleTraditionalAmerican": {"description": "Estilo de tatuaje: Tradicional Americana"},
+  "tattooStyleNeotraditional": "Neotradicional",
+  "@tattooStyleNeotraditional": {"description": "Estilo de tatuaje: Neotradicional"},
+  "tattooStyleRealism": "Realismo",
+  "@tattooStyleRealism": {"description": "Estilo de tatuaje: Realismo"},
+  "tattooStyleWatercolor": "Acuarela",
+  "@tattooStyleWatercolor": {"description": "Estilo de tatuaje: Acuarela"},
+  "tattooStyleGeometric": "Geométrico",
+  "@tattooStyleGeometric": {"description": "Estilo de tatuaje: Geométrico"},
+  "tattooStyleBlackwork": "Blackwork",
+  "@tattooStyleBlackwork": {"description": "Estilo de tatuaje: Blackwork"},
+  "tattooStyleDotwork": "Dotwork",
+  "@tattooStyleDotwork": {"description": "Estilo de tatuaje: Dotwork"},
+  "tattooStyleJapanese": "Japonés",
+  "@tattooStyleJapanese": {"description": "Estilo de tatuaje: Japonés"},
+  "tattooStyleTribal": "Tribal",
+  "@tattooStyleTribal": {"description": "Estilo de tatuaje: Tribal"},
+  "tattooStyleNewSchool": "New School",
+  "@tattooStyleNewSchool": {"description": "Estilo de tatuaje: New School"},
+  "tattooStyleBiomechanical": "Biomecánico",
+  "@tattooStyleBiomechanical": {"description": "Estilo de tatuaje: Biomecánico"},
+  "tattooStyleMinimalist": "Minimalista",
+  "@tattooStyleMinimalist": {"description": "Estilo de tatuaje: Minimalista"},
+  "tattooStyleSurrealism": "Surrealismo",
+  "@tattooStyleSurrealism": {"description": "Estilo de tatuaje: Surrealismo"},
+  "tattooStyleOrnamental": "Ornamental",
+  "@tattooStyleOrnamental": {"description": "Estilo de tatuaje: Ornamental"},
+  "tattooStyleNeoJapanese": "Neo Japonés",
+  "@tattooStyleNeoJapanese": {"description": "Estilo de tatuaje: Neo Japonés"},
+  "tattooStyleCeltic": "Celta",
+  "@tattooStyleCeltic": {"description": "Estilo de tatuaje: Celta"},
+  "tattooStyleChicano": "Chicano",
+  "@tattooStyleChicano": {"description": "Estilo de tatuaje: Chicano"},
+  "tattooStyleAbstract": "Abstracto",
+  "@tattooStyleAbstract": {"description": "Estilo de tatuaje: Abstracto"},
+  "tattooStyleMandala": "Mandala",
+  "@tattooStyleMandala": {"description": "Estilo de tatuaje: Mandala"},
+  "tattooStyleFineline": "Fineline",
+  "@tattooStyleFineline": {"description": "Estilo de tatuaje: Fineline"},
+  "tattooStyleIgnorantStyle": "Ignorant Style",
+  "@tattooStyleIgnorantStyle": {"description": "Estilo de tatuaje: Ignorant Style"},
+  "offered": "Ofrecido",
+  "@offered": {
+    "description": "Text shown when an artist has offered a quotation."
+  },
+  "open": "Abierto",
+  "@open": {
+    "description": "Text shown when a quotation is open."
+  },
+  "customerLookingForOffers": "Cliente buscando ofertas",
+  "@customerLookingForOffers": {
+    "description": "Text indicating that a customer is looking for offers."
+  },
+  "reviewDetailsAndSubmitOffer": "Revisa los detalles y envía tu oferta",
+  "@reviewDetailsAndSubmitOffer": {
+    "description": "Prompt to review details and submit an offer."
+  },
+  "sendOffer": "Enviar Oferta",
+  "@sendOffer": {
+    "description": "Button text for sending an offer."
+  },
+  "offerSubmitted": "Oferta enviada",
+  "@offerSubmitted": {
+    "description": "Confirmation message that an offer has been submitted."
+  },
+  "offerSubmittedWithAmount": "Tu oferta de {amount} ha sido enviada",
+  "@offerSubmittedWithAmount": {
+    "description": "Confirmation message that an offer with a specific amount has been submitted.",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "$100"
+      }
+    }
+  },
+  "alreadyOffered": "Ya has ofertado",
+  "@alreadyOffered": {
+    "description": "Text shown when an artist has already submitted an offer."
+  },
+  "statusWithText": "Estado: {status}",
+  "@statusWithText": {
+    "description": "Text showing the status with a label.",
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "example": "En Progreso"
+      }
+    }
+  },
+  "receivedOffers": "Ofertas Recibidas",
+  "@receivedOffers": {
+    "description": "Text indicating that offers have been received."
+  },
+  "offersCount": "{count, plural, =0{Sin ofertas} =1{1 oferta} other{{count} ofertas}}",
+  "@offersCount": {
+    "description": "Text showing the count of offers received.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "noOffersYet": "Aún no hay ofertas",
+  "@noOffersYet": {
+    "description": "Text shown when no offers have been received yet."
+  },
+  "viewOffers": "Ver Ofertas",
+  "@viewOffers": {
+    "description": "Button text for viewing offers."
+  },
+  "close": "Cerrar",
+  "@close": {
+    "description": "Button text for closing a dialog or screen."
+  },
+  "quotationAcceptedSuccess": "Oferta aceptada exitosamente",
+  "@quotationAcceptedSuccess": {"description": "Mensaje de éxito cuando una oferta es aceptada."},
+  "retry": "Reintentar",
+  "@retry": {"description": "Botón para reintentar una acción."},
+  "referenceBudget": "Presupuesto de referencia: {amount} {currency}",
+  "@referenceBudget": {"description": "Etiqueta para el presupuesto de referencia con monto y moneda.", "placeholders": {"amount": {}, "currency": {}}},
+  "offerSubmitted": "Oferta enviada",
+  "@offerSubmitted": {"description": "Etiqueta cuando una oferta ha sido enviada."},
+  "alreadySubmittedOffer": "Ya has enviado una oferta",
+  "@alreadySubmittedOffer": {"description": "Mensaje cuando el artista ya envió una oferta."},
+  "messageCustomer": "Mensaje al cliente",
+  "@messageCustomer": {"description": "Botón para enviar mensaje al cliente."},
+  "customerLookingForOffers": "¡El cliente está buscando ofertas!",
+  "@customerLookingForOffers": {"description": "Banner cuando el cliente busca ofertas."},
+  "reviewAndSubmitOffer": "Revisa los detalles y envía tu oferta para ganar este proyecto.",
+  "@reviewAndSubmitOffer": {"description": "Instrucción para revisar y enviar oferta."},
+  "sendOffer": "Enviar oferta",
+  "@sendOffer": {"description": "Botón para enviar una oferta."},
+  "selectedDesign": "Diseño seleccionado",
+  "@selectedDesign": {"description": "Sección para el diseño seleccionado."},
+  "openQuotationRequest": "Solicitud de Cotización Abierta",
+  "@openQuotationRequest": {"description": "Banner para solicitud de cotización abierta."},
+  "openQuotationRequestDesc": "Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.",
+  "@openQuotationRequestDesc": {"description": "Descripción del banner de solicitud abierta."},
+  "offersReceived": "Has recibido {count} {offerWord}",
+  "@offersReceived": {"description": "Mensaje mostrando el número de ofertas recibidas.", "placeholders": {"count": {}, "offerWord": {}}},
+  "noOffersReceived": "Aún no has recibido ofertas",
+  "@noOffersReceived": {"description": "Mensaje cuando no se han recibido ofertas."},
+  "reviewEachOffer": "Revisa cada oferta y chatea con los artistas",
+  "@reviewEachOffer": {"description": "Instrucción para revisar ofertas y chatear."},
+  "offersAppearHere": "Las ofertas aparecerán aquí cuando las recibas",
+  "@offersAppearHere": {"description": "Mensaje de que las ofertas aparecerán aquí."},
+  "offersReceivedTitle": "Ofertas recibidas",
+  "@offersReceivedTitle": {"description": "Título de sección para ofertas recibidas."},
+  "artistLabel": "Artista: {name}",
+  "@artistLabel": {"description": "Etiqueta para el nombre del artista.", "placeholders": {"name": {}}},
+  "notSpecified": "No especificado",
+  "@notSpecified": {"description": "Texto para valores no especificados."},
+  "messagesCount": "{count} {messageWord}",
+  "@messagesCount": {"description": "Etiqueta para número de mensajes.", "placeholders": {"count": {}, "messageWord": {}}},
+  "messagePreview": "Mensaje: {preview}",
+  "@messagePreview": {"description": "Vista previa de un mensaje.", "placeholders": {"preview": {}}},
+  "startChat": "Iniciar chat",
+  "@startChat": {"description": "Botón para iniciar chat."},
+  "acceptOffer": "Aceptar oferta",
+  "@acceptOffer": {"description": "Botón para aceptar una oferta."},
+  "close": "Cerrar",
+  "@close": {"description": "Tooltip para botón de cerrar."},
+  "editOffer": "Editar oferta",
+  "@editOffer": {"description": "Tooltip para editar una oferta."},
+  "tryAgain": "Intentar de nuevo",
+  "@tryAgain": {"description": "Botón para intentar una acción nuevamente."},
+  "noMessagesYet": "Aún no hay mensajes",
+  "@noMessagesYet": {"description": "Estado vacío cuando no hay mensajes."},
+  "startConversation": "Comienza la conversación enviando un mensaje",
+  "@startConversation": {"description": "Sugerencia para iniciar conversación."},
+  "typeAMessage": "Escribe un mensaje",
+  "@typeAMessage": {"description": "Hint para el campo de mensaje."},
+  "photoLibrary": "Galería de fotos",
+  "@photoLibrary": {"description": "Opción para elegir imagen de la galería."},
+  "camera": "Cámara",
+  "@camera": {"description": "Opción para elegir imagen de la cámara."},
+  "couldNotPickImage": "No se pudo seleccionar la imagen: {error}",
+  "@couldNotPickImage": {"description": "Mensaje de error al seleccionar imagen.", "placeholders": {"error": {}}},
+  "cancel": "Cancelar",
+  "@cancel": {"description": "Botón para cancelar una acción."},
+  "save": "Guardar",
+  "@save": {"description": "Botón para guardar cambios."},
+  "estimatedCostLabel": "Costo estimado (CLP)",
+  "@estimatedCostLabel": {"description": "Etiqueta para el campo de costo estimado."},
+  "exampleAmount": "Ej: 50000",
+  "@exampleAmount": {"description": "Hint para monto de ejemplo."},
+  "systemOfferUpdate": "El artista actualizó el costo de la oferta a {amount} CLP.",
+  "@systemOfferUpdate": {"description": "Mensaje de sistema cuando el artista actualiza el costo de la oferta.", "placeholders": {"amount": {}}},
+  "submitOffer": "Enviar oferta",
+  "@submitOffer": {"description": "Botón para enviar una oferta en la página de oferta de cotización abierta del artista."},
+  "submittingOffer": "Enviando oferta...",
+  "@submittingOffer": {"description": "Título mostrado mientras se envía la oferta."},
+  "submittingOfferMessage": "Por favor espera mientras se envía tu oferta.",
+  "@submittingOfferMessage": {"description": "Mensaje mostrado mientras se envía la oferta."},
+  "offerSubmittedTitle": "¡Oferta enviada!",
+  "@offerSubmittedTitle": {"description": "Título mostrado cuando la oferta se ha enviado exitosamente."},
+  "offerSubmittedMessage": "Tu oferta ha sido enviada exitosamente al cliente.",
+  "@offerSubmittedMessage": {"description": "Mensaje mostrado cuando la oferta se ha enviado exitosamente."},
+  "yourOffer": "Tu oferta",
+  "@yourOffer": {"description": "Título de sección para el formulario de oferta del artista."},
+  "proposedAppointment": "Cita propuesta",
+  "@proposedAppointment": {"description": "Etiqueta para el campo de cita propuesta en el formulario de oferta."},
+  "additionalDetailsOptional": "Detalles adicionales (opcional)",
+  "@additionalDetailsOptional": {"description": "Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional."},
+  "proposedDesignsOptional": "Diseños propuestos (opcional)",
+  "@proposedDesignsOptional": {"description": "Etiqueta para la sección de carga de diseños propuestos, marcada como opcional."},
+  "addReferenceImagesOrSketches": "Agrega imágenes de referencia o bocetos para tu propuesta.",
+  "@addReferenceImagesOrSketches": {"description": "Texto de ayuda para subir imágenes de referencia o bocetos para la oferta."},
+  "addDesign": "Agregar diseño",
+  "@addDesign": {"description": "Botón para agregar una imagen de diseño a la oferta."},
+  "durationMustBePositive": "La duración debe ser positiva",
+  "@durationMustBePositive": {"description": "Mensaje de error cuando la duración no es positiva en el formulario de oferta."},
+  "designSavedToYourGeneratedDesigns": "Diseño guardado en tus diseños generados",
+  "@designSavedToYourGeneratedDesigns": {"description": "Mensaje mostrado cuando un diseño se guarda en los diseños generados del usuario."},
+  "quotations": "Cotizaciones",
+  "@quotations": {"description": "Etiqueta para la sección de cotizaciones."}
 }

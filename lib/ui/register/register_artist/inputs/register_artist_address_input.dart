@@ -6,7 +6,7 @@ import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.d
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
-class RegisterArtistAddressInput extends StatelessWidget {
+class RegisterArtistAddressInput extends StatefulWidget {
   const RegisterArtistAddressInput({
     super.key,
     this.valid,
@@ -21,6 +21,15 @@ class RegisterArtistAddressInput extends StatelessWidget {
   final bool withFlex;
   final double? verticalPadding;
   final double? horizontalPadding;
+
+  @override
+  State<RegisterArtistAddressInput> createState() => _RegisterArtistAddressInputState();
+}
+
+class _RegisterArtistAddressInputState extends State<RegisterArtistAddressInput> {
+  late final TextEditingController _controller;
+  late final FocusNode _focusNode;
+  late RegisterArtistBloc _bloc;
 
   final Prediction _noResultsPrediction = const Prediction(
     description: '__NO_RESULTS__',
@@ -37,51 +46,65 @@ class RegisterArtistAddressInput extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    final horizontalPadding = 
-        this.horizontalPadding ?? MediaQuery.of(context).size.width * 0.05;
-    final verticalPadding = 
-        this.verticalPadding ?? MediaQuery.of(context).size.height * 0.01;
+  void initState() {
+    super.initState();
+    _bloc = context.read<RegisterArtistBloc>();
+    _controller = TextEditingController();
+    _focusNode = FocusNode();
+  }
 
-    return withFlex
-        ? Flexible(
-            child: _buildContainer(horizontalPadding, verticalPadding, context),
-          )
-        : _buildContainer(horizontalPadding, verticalPadding, context);
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final horizontalPadding = widget.horizontalPadding ?? MediaQuery.of(context).size.width * 0.05;
+    final verticalPadding = widget.verticalPadding ?? MediaQuery.of(context).size.height * 0.01;
+
+    return BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+      buildWhen: (previous, current) =>
+          previous.form.location.value.description != current.form.location.value.description,
+      builder: (context, state) {
+        // Solo actualiza el controller si el valor viene de afuera y el campo no tiene el foco
+        if (_controller.text != state.form.location.value.description && !_focusNode.hasFocus) {
+          _controller.text = state.form.location.value.description;
+        }
+
+        return widget.withFlex
+            ? Flexible(
+                child: _buildContainer(horizontalPadding, verticalPadding, context, state),
+              )
+            : _buildContainer(horizontalPadding, verticalPadding, context, state);
+      },
+    );
   }
 
   Widget _buildContainer(
-      double horizontalPadding, double verticalPadding, BuildContext context) {
+      double horizontalPadding, double verticalPadding, BuildContext context, RegisterArtistState state) {
     return Container(
-      width: withFlex ? null : MediaQuery.of(context).size.width * 0.9,
+      width: widget.withFlex ? null : MediaQuery.of(context).size.width * 0.9,
       padding: EdgeInsets.symmetric(
         horizontal: horizontalPadding,
         vertical: verticalPadding,
       ),
-      child: _buildAutocomplete(context),
+      child: _buildAutocomplete(context, state),
     );
   }
 
-  Widget _buildAutocomplete(BuildContext context) {
-    final state = context.read<RegisterArtistBloc>().state;
-    final TextEditingController controller = TextEditingController(
-      text: state.form.location.value.description,
-    );
-
+  Widget _buildAutocomplete(BuildContext context, RegisterArtistState state) {
     return RawAutocomplete<Prediction>(
-      textEditingController: controller,
-      focusNode: FocusNode(),
+      textEditingController: _controller,
+      focusNode: _focusNode,
       optionsBuilder: (TextEditingValue textEditingValue) async {
         if (textEditingValue.text.length < 4) {
           return const Iterable<Prediction>.empty();
         }
-        
         try {
-          final predictions = await context
-              .read<RegisterArtistBloc>()
-              .placesService
-              .getAutoComplete(textEditingValue.text);
-          
+          final predictions = await _bloc.placesService.getAutoComplete(textEditingValue.text);
           return predictions.isEmpty ? [_noResultsPrediction] : predictions;
         } catch (e) {
           return [_noResultsPrediction];
@@ -99,16 +122,16 @@ class RegisterArtistAddressInput extends StatelessWidget {
             fontSize: 16,
             fontFamily: 'Poppins',
           ),
+          onChanged: (value) {
+            // Solo notifica al bloc, no actualices el controller aquí
+            _bloc.add(RegisterArtistLocationChanged(Location(placeId: '', description: value)));
+          },
           decoration: InputDecoration(
             suffixIcon: IconButton(
               icon: const Icon(Icons.clear, color: Color(0xff777E91)),
               onPressed: () {
                 controller.clear();
-                context.read<RegisterArtistBloc>().add(
-                      const RegisterArtistLocationChanged(
-                        Location(placeId: '', description: ''),
-                      ),
-                    );
+                _bloc.add(const RegisterArtistLocationChanged(Location(placeId: '', description: '')));
               },
             ),
             contentPadding: inputContentPadding,
@@ -124,10 +147,10 @@ class RegisterArtistAddressInput extends StatelessWidget {
             ),
             hintText: 'Ej. Vicuña Mackenna 744',
             hintStyle: labelTextStyle,
-            errorText: valid == false ? errorMessage : null,
+            errorText: widget.valid == false ? widget.errorMessage : null,
             errorMaxLines: 3,
             errorStyle: const TextStyle(fontFamily: 'Poppins'),
-            errorBorder: valid == false
+            errorBorder: widget.valid == false
                 ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: Colors.red),
@@ -143,7 +166,7 @@ class RegisterArtistAddressInput extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                color: valid == false ? Colors.red : const Color(0xff777E91),
+                color: widget.valid == false ? Colors.red : const Color(0xff777E91),
               ),
             ),
           ),
@@ -165,22 +188,20 @@ class RegisterArtistAddressInput extends StatelessWidget {
             itemCount: options.length,
             itemBuilder: (context, index) {
               final option = options.elementAt(index);
-              
               if (option.description == '__NO_RESULTS__') {
                 return const SizedBox.shrink();
               }
-              
               return InkWell(
                 onTap: () {
                   onSelected(option);
-                  context.read<RegisterArtistBloc>().add(
-                        RegisterArtistLocationChanged(
-                          Location(
-                            description: option.description,
-                            placeId: option.placeId,
-                          ),
-                        ),
-                      );
+                  _bloc.add(
+                    RegisterArtistLocationChanged(
+                      Location(
+                        description: option.description,
+                        placeId: option.placeId,
+                      ),
+                    ),
+                  );
                 },
                 child: _itemBuilder(context, option),
               );

@@ -13,14 +13,28 @@ _$AgendaEventDetailResponseImpl _$$AgendaEventDetailResponseImplFromJson(
           Map<String, dynamic>.from(json['event'] as Map)),
       location: AgendaEventDetailLocation.fromJson(
           Map<String, dynamic>.from(json['location'] as Map)),
+      quotation: json['quotation'] == null
+          ? null
+          : Quotation.fromJson(
+              Map<String, dynamic>.from(json['quotation'] as Map)),
     );
 
 Map<String, dynamic> _$$AgendaEventDetailResponseImplToJson(
-        _$AgendaEventDetailResponseImpl instance) =>
-    <String, dynamic>{
-      'event': instance.event.toJson(),
-      'location': instance.location.toJson(),
-    };
+    _$AgendaEventDetailResponseImpl instance) {
+  final val = <String, dynamic>{
+    'event': instance.event.toJson(),
+    'location': instance.location.toJson(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('quotation', instance.quotation?.toJson());
+  return val;
+}
 
 _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
     _$AgendaEventDetailEventImpl(

@@ -162,7 +162,7 @@ class _ApplicationSettings extends StatelessWidget {
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: const Text('Cerrar'),
+                child: Text(S.of(context).close),
               ),
             ],
           ),
