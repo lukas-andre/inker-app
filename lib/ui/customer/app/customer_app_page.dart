@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiratio
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/open_quotations_tab_view.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
@@ -30,48 +31,48 @@ class CustomerAppPage extends StatefulWidget {
 class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 2;
   List<Widget> get _pageWidgets => <Widget>[
-    const BuildMapPage(hideHeader: true),
-    const CustomerQuotationsTabView(),
-    BlocProvider(
-      create: (context) => InspirationSearchBloc(
-        stencilService: context.read(),
-        workService: context.read(),
-        sessionService: context.read(),
-      ),
-      child: const InspirationSearchPage(hideHeader: true),
-    ),
-    BlocProvider(
-      create: (context) => AppointmentBloc(
-        appointmentService: context.read(),
-        sessionService: context.read(),
-      ),
-      child: const CustomerAppointmentsPage(hideHeader: true),
-    ),
-    const CustomerMyProfilePage(hideHeader: true)
-  ];
+        const BuildMapPage(hideHeader: true),
+        const CustomerQuotationsTabView(),
+        BlocProvider(
+          create: (context) => InspirationSearchBloc(
+            stencilService: context.read(),
+            workService: context.read(),
+            sessionService: context.read(),
+          ),
+          child: const InspirationSearchPage(hideHeader: true),
+        ),
+        BlocProvider(
+          create: (context) => AppointmentBloc(
+            appointmentService: context.read(),
+            sessionService: context.read(),
+          ),
+          child: const CustomerAppointmentsPage(hideHeader: true),
+        ),
+        const CustomerMyProfilePage(hideHeader: true)
+      ];
 
   @override
   void initState() {
     super.initState();
-    
+
     // Refresh notifications when the page is shown
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Request a refresh of notifications to get accurate count
       context.read<NotificationsBloc>().add(
-        const NotificationsEvent.refreshNotifications(),
-      );
+            const NotificationsEvent.refreshNotifications(),
+          );
     });
   }
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    
+
     // This will be called when returning to this page from other routes
     if (ModalRoute.of(context)?.isCurrent == true) {
       context.read<NotificationsBloc>().add(
-        const NotificationsEvent.refreshNotifications(),
-      );
+            const NotificationsEvent.refreshNotifications(),
+          );
     }
   }
 
@@ -80,28 +81,29 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       _selectedIndex = index;
     });
   }
-  
+
   String _getAppBarTitle() {
     switch (_selectedIndex) {
       case 0:
-        return 'Explorar';
+        return S.of(context).explore;
       case 1:
-        return 'Cotizaciones';
+        return S.of(context).quotations;
       case 2:
-        return 'Inspiración';
+        return S.of(context).inspiration;
       case 3:
-        return 'Mis Citas';
+        return S.of(context).myAppointments;
       default:
         return '';
     }
   }
-  
+
   // Get the appropriate action buttons based on the selected tab
   List<Widget> _getAppBarActions() {
     final List<Widget> actions = [];
-    
+
     // Add page-specific action buttons based on selected index
-    if (_selectedIndex == 0) {  // Explorar page
+    if (_selectedIndex == 0) {
+      // Explorar page
       // Barra de búsqueda en la parte superior central
       if (MediaQuery.of(context).size.width > 380) {
         // Si hay suficiente espacio añadimos la barra de búsqueda en el AppBar
@@ -132,7 +134,8 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                           color: secondaryColor.withOpacity(0.8),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.search, color: Colors.white, size: 16),
+                        child: const Icon(Icons.search,
+                            color: Colors.white, size: 16),
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -150,7 +153,8 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                           color: explorerSecondaryColor,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.tune, color: Colors.white, size: 16),
+                        child: const Icon(Icons.tune,
+                            color: Colors.white, size: 16),
                       ),
                     ],
                   ),
@@ -174,7 +178,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           ),
         );
       }
-      
+
       // Añadir botones de cambio de vista (mapa/lista) en el AppBar
       actions.add(
         BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
@@ -186,15 +190,16 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                 IconButton(
                   icon: Icon(
                     Icons.grid_view_rounded,
-                    color: state.view == ExplorerView.list ? secondaryColor : Colors.white,
+                    color: state.view == ExplorerView.list
+                        ? secondaryColor
+                        : Colors.white,
                   ),
                   onPressed: () {
                     context.read<ExplorerPageBloc>().add(
-                      const ExplorerPageEventViewChanged(view: ExplorerView.list)
-                    );
-                    context
-                      .read<MapBloc>()
-                      .add(const DeselectAllMarkerEvent(closeDragSheet: true));
+                        const ExplorerPageEventViewChanged(
+                            view: ExplorerView.list));
+                    context.read<MapBloc>().add(
+                        const DeselectAllMarkerEvent(closeDragSheet: true));
                     OverlayStyle.setWhite();
                   },
                 ),
@@ -202,12 +207,14 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                 IconButton(
                   icon: Icon(
                     Icons.map_rounded,
-                    color: state.view == ExplorerView.map ? secondaryColor : Colors.white,
+                    color: state.view == ExplorerView.map
+                        ? secondaryColor
+                        : Colors.white,
                   ),
                   onPressed: () {
                     context.read<ExplorerPageBloc>().add(
-                      const ExplorerPageEventViewChanged(view: ExplorerView.map)
-                    );
+                        const ExplorerPageEventViewChanged(
+                            view: ExplorerView.map));
                     OverlayStyle.setBlack();
                   },
                 ),
@@ -216,9 +223,11 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           },
         ),
       );
-    } else if (_selectedIndex == 1) { // Cotizaciones page
+    } else if (_selectedIndex == 1) {
+      // Cotizaciones page
       // Aquí podrías agregar botones específicos para la página de cotizaciones
-    } else if (_selectedIndex == 2) { // Inspiración page
+    } else if (_selectedIndex == 2) {
+      // Inspiración page
       // Add filter button or other controls for inspiration search
       // actions.add(
       //   IconButton(
@@ -228,7 +237,8 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       //     },
       //   ),
       // );
-    } else if (_selectedIndex == 3) { // Citas page
+    } else if (_selectedIndex == 3) {
+      // Citas page
       // Acciones específicas para la página de citas
       actions.add(
         IconButton(
@@ -242,49 +252,56 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
         ),
       );
     }
-    
+
     // Add notification badge for all pages except profile
     if (_selectedIndex != 4) {
-      actions.add(
-        BlocBuilder<NotificationsBloc, NotificationsState>(
-          builder: (context, state) {
-            return state.when(
-              initial: () => NotificationBadge(
-                count: 0,
-                onTap: () {
-                  Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                },
-              ),
-              loading: () => NotificationBadge(
-                count: 0,
-                onTap: () {
-                  Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                },
-              ),
-              loaded: (fcmToken, permissionsGranted, pendingNavigation, 
-                  lastMessage, lastMessageAppState, notifications, 
-                  isLoading, isRefreshing, hasError, errorMessage, 
-                  currentPage, totalPages, unreadCount) {
-                return NotificationBadge(
-                  count: unreadCount,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(NotificationsPage.routeName);
-                  },
-                );
+      actions.add(BlocBuilder<NotificationsBloc, NotificationsState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () => NotificationBadge(
+              count: 0,
+              onTap: () {
+                Navigator.of(context).pushNamed(NotificationsPage.routeName);
               },
-              error: (message) => NotificationBadge(
-                count: 0,
+            ),
+            loading: () => NotificationBadge(
+              count: 0,
+              onTap: () {
+                Navigator.of(context).pushNamed(NotificationsPage.routeName);
+              },
+            ),
+            loaded: (fcmToken,
+                permissionsGranted,
+                pendingNavigation,
+                lastMessage,
+                lastMessageAppState,
+                notifications,
+                isLoading,
+                isRefreshing,
+                hasError,
+                errorMessage,
+                currentPage,
+                totalPages,
+                unreadCount) {
+              return NotificationBadge(
+                count: unreadCount,
                 onTap: () {
                   Navigator.of(context).pushNamed(NotificationsPage.routeName);
                 },
-              ),
-            );
-          },
-        )
-      );
+              );
+            },
+            error: (message) => NotificationBadge(
+              count: 0,
+              onTap: () {
+                Navigator.of(context).pushNamed(NotificationsPage.routeName);
+              },
+            ),
+          );
+        },
+      ));
       actions.add(const SizedBox(width: 8));
     }
-    
+
     return actions;
   }
 
@@ -294,20 +311,22 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final state = customerAppBloc.state;
     final icons = state.customerPageNavBarIcons.icons;
     return Scaffold(
-      backgroundColor: primaryColor,
-        appBar: _selectedIndex != 4 ? AppBar(
-          title: Text(
-            _getAppBarTitle(),
-            style: TextStyleTheme.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          elevation: 0,
-          backgroundColor: primaryColor,
-          actions: _getAppBarActions(),
-        ) : null,
+        backgroundColor: primaryColor,
+        appBar: _selectedIndex != 4
+            ? AppBar(
+                title: Text(
+                  _getAppBarTitle(),
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                elevation: 0,
+                backgroundColor: primaryColor,
+                actions: _getAppBarActions(),
+              )
+            : null,
         body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: IndexedStack(
@@ -332,29 +351,41 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
               for (int index = 0; index < icons.length; index++)
                 BottomNavigationBarItem(
                   key: icons[index].key,
-                  icon: index == 2 
+                  icon: index == 2
                       ? Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: _selectedIndex == 2 ? secondaryColor : primaryColor,
+                            color: _selectedIndex == 2
+                                ? secondaryColor
+                                : primaryColor,
                             shape: BoxShape.circle,
-                            boxShadow: _selectedIndex == 2 
-                                ? [BoxShadow(color: secondaryColor.withOpacity(0.6), blurRadius: 10, spreadRadius: 2)] 
+                            boxShadow: _selectedIndex == 2
+                                ? [
+                                    BoxShadow(
+                                        color: secondaryColor.withOpacity(0.6),
+                                        blurRadius: 10,
+                                        spreadRadius: 2)
+                                  ]
                                 : null,
                           ),
                           child: icons[index].icon,
-                        ) 
+                        )
                       : icons[index].icon,
-                  activeIcon: index == 2 
+                  activeIcon: index == 2
                       ? Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: secondaryColor,
                             shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(color: secondaryColor.withOpacity(0.6), blurRadius: 10, spreadRadius: 2)],
+                            boxShadow: [
+                              BoxShadow(
+                                  color: secondaryColor.withOpacity(0.6),
+                                  blurRadius: 10,
+                                  spreadRadius: 2)
+                            ],
                           ),
                           child: icons[index].selectedIcon,
-                        ) 
+                        )
                       : icons[index].selectedIcon,
                   label: icons[index].title,
                 )
@@ -372,8 +403,9 @@ class CustomerQuotationsTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserId = context.read<AuthBloc>().state.session.user?.userTypeId;
-    return const DefaultTabController(
+    final currentUserId =
+        context.read<AuthBloc>().state.session.user?.userTypeId;
+    return DefaultTabController(
       length: 2,
       child: Column(
         children: [
@@ -384,12 +416,12 @@ class CustomerQuotationsTabView extends StatelessWidget {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white60,
               tabs: [
-                Tab(text: 'Públicas'),
-                Tab(text: 'Directas'),
+                Tab(text: S.of(context).public),
+                Tab(text: S.of(context).directQuotations),
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             child: TabBarView(
               children: [
                 OpenQuotationsTabView(),
@@ -402,4 +434,3 @@ class CustomerQuotationsTabView extends StatelessWidget {
     );
   }
 }
-

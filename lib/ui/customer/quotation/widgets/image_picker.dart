@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -24,7 +25,7 @@ class ImagePickerWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Imágenes de Referencia (${images.length}/$maxImages)',
+          '${S.of(context).referenceImages}: (${images.length}/$maxImages)',
           style: TextStyleTheme.copyWith(
             color: Colors.white,
             fontSize: 18,

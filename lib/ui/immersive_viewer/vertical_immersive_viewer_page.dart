@@ -9,6 +9,7 @@ import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -598,19 +599,18 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       final stencil = _stencils[_currentStencilIndex];
       
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => CreateQuotationPage(
-            artistId: artistId,
-            stencil: stencil,
-          ),
-        ),
+      Navigator.of(context).pushNamed(
+        CreateQuotationPage.routeName,
+        arguments: {
+          'artistId': artistId,
+          'stencil': stencil,
+        },
       ).then((_) {
         // Mostrar mensaje de confirmación al regresar
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Regresaste a la galería'),
-            duration: Duration(seconds: 2),
+          SnackBar(
+            content: Text(S.of(context).backToGallery),
+            duration: const Duration(seconds: 2),
           ),
         );
       });
@@ -795,7 +795,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 _buildStatItem(
                   Icons.visibility_rounded,
                   '${work.metrics?.viewCount ?? work.viewCount}',
-                  'vistas',
+                  S.of(context).views,
                 ),
                 const SizedBox(height: 20),
                 
@@ -803,7 +803,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 _buildStatItem(
                   Icons.favorite,
                   '${work.metrics?.likeCount ?? work.likeCount}',
-                  'me gusta',
+                  S.of(context).likes,
                   isLiked: work.metrics?.userHasLiked ?? work.userHasLiked,
                 ),
                 const SizedBox(height: 20),
@@ -852,7 +852,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Desliza',
+                      S.of(context).swipe,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.7),
                         fontSize: 12,
@@ -893,7 +893,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
                     const SizedBox(height: 16),
                     Text(
-                      'No se pudo cargar la imagen',
+                      S.of(context).couldNotLoadImage,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 16,
@@ -917,7 +917,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 _buildStatItem(
                   Icons.visibility_rounded,
                   '${stencil.metrics?.viewCount ?? stencil.viewCount}',
-                  'vistas',
+                  S.of(context).views,
                 ),
                 const SizedBox(height: 20),
                 
@@ -925,7 +925,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 _buildStatItem(
                   Icons.favorite,
                   '${stencil.metrics?.likeCount ?? stencil.likeCount}',
-                  'me gusta',
+                  S.of(context).likes,
                   isLiked: stencil.metrics?.userHasLiked ?? stencil.isLikedByUser,
                 ),
                 const SizedBox(height: 20),
@@ -974,7 +974,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Desliza',
+                      S.of(context).swipe,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.7),
                         fontSize: 12,
@@ -1102,7 +1102,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                           Text(
                             artist.firstName != null && artist.lastName != null
                                 ? '${artist.firstName} ${artist.lastName}'
-                                : artist.username ?? 'Artista',
+                                : artist.username ?? S.of(context).artist,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 14,
@@ -1114,7 +1114,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                           ),
                           if (artist.rating != null)
                             Text(
-                              'Rating: ${artist.rating}',
+                              '${S.of(context).rating}: ${artist.rating}',
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.7),
                                 fontSize: 12,
@@ -1196,9 +1196,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                     ),
                   ),
                   icon: const Icon(Icons.request_quote, color: Colors.white),
-                  label: const Text(
-                    'Cotizar este diseño',
-                    style: TextStyle(
+                  label: Text(
+                    S.of(context).quoteThisDesign,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -1277,8 +1277,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   ),
                   child: Text(
                     _viewingStencils 
-                      ? 'Volver al inicio de stencils'
-                      : 'Volver al inicio de tatuajes'
+                      ? S.of(context).backToStencils
+                      : S.of(context).backToTattoos
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -1303,10 +1303,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   ),
                   child: Text(
                     _viewingStencils && _works.isNotEmpty
-                      ? 'Ver tatuajes'
+                      ? S.of(context).viewTattoos
                       : (!_viewingStencils && _stencils.isNotEmpty
-                         ? 'Ver stencils'
-                         : 'Volver a la búsqueda')
+                         ? S.of(context).viewStencils
+                         : S.of(context).backToSearch)
                   ),
                 ),
               ],
@@ -1320,8 +1320,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
   // Format date for display
   String _formatDate(DateTime date) {
     final months = [
-      'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-      'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
+      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }

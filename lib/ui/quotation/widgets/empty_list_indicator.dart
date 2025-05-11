@@ -26,8 +26,8 @@ class EmptyListIndicator extends StatelessWidget {
     return EmptyListIndicator(
       icon: Icons.search_off_rounded,
       iconColor: redColor,
-      title: "No Open Quotations Found", // Placeholder l10n.noOpenQuotationsFoundTitle
-      message: "There are currently no open quotations available. New requests will appear here.", // Placeholder l10n.noOpenQuotationsFoundBody
+      title: l10n.noOpenQuotationsFoundTitle, // Placeholder l10n.noOpenQuotationsFoundTitle
+      message: l10n.noOpenQuotationsFoundBody, // Placeholder l10n.noOpenQuotationsFoundBody
       // No action button needed here
     );
   }
@@ -37,8 +37,8 @@ class EmptyListIndicator extends StatelessWidget {
     return EmptyListIndicator(
       icon: Icons.rate_review_outlined,
       iconColor: Colors.blue[300],
-      title: "No Applications Found", // Placeholder l10n.noParticipatingQuotationsFoundTitle
-      message: "You haven't applied to any open quotations yet. Browse the 'Available' tab to find requests.", // Placeholder l10n.noParticipatingQuotationsFoundBody
+      title: l10n.noParticipatingQuotationsFoundTitle, // Placeholder l10n.noParticipatingQuotationsFoundTitle
+      message: l10n.noParticipatingQuotationsFoundBody, // Placeholder l10n.noParticipatingQuotationsFoundBody
        // No action button needed here
     );
   }
@@ -48,8 +48,8 @@ class EmptyListIndicator extends StatelessWidget {
       return EmptyListIndicator(
         icon: Icons.mail_outline_rounded,
         iconColor: Colors.orange[300],
-        title: "No Requests Found", // Placeholder l10n.noDirectArtistRequestsFoundTitle
-        message: "You don't have any direct quotation requests matching the selected filter.", // Placeholder l10n.noDirectArtistRequestsFoundBody
+        title: l10n.noDirectArtistRequestsFoundTitle, // Placeholder l10n.noDirectArtistRequestsFoundTitle
+        message: l10n.noDirectArtistRequestsFoundBody, // Placeholder l10n.noDirectArtistRequestsFoundBody
       );
     }
 
@@ -58,8 +58,8 @@ class EmptyListIndicator extends StatelessWidget {
       return EmptyListIndicator(
         icon: Icons.receipt_long_outlined,
          iconColor: Colors.blue[300],
-        title: "No Quotations Found", // Placeholder l10n.noDirectCustomerQuotationsFoundTitle
-        message: "You don't have any quotations matching the selected filter.", // Placeholder l10n.noDirectCustomerQuotationsFoundBody
+        title: l10n.noDirectCustomerQuotationsFoundTitle, // Placeholder l10n.noDirectCustomerQuotationsFoundTitle
+        message: l10n.noDirectCustomerQuotationsFoundBody, // Placeholder l10n.noDirectCustomerQuotationsFoundBody
       );
     }
 

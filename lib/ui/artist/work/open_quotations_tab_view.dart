@@ -94,9 +94,8 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
         }
       },
       orElse: () {
-        print('Cannot open details right now. Try again later.');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Cannot open details right now. Try again later.')),
+          SnackBar(content: Text(S.of(context).cannotOpenDetailsRightNowTryAgainLater)),
         );
       },
     );
@@ -149,7 +148,7 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
              error: (message) {
                ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(content: Text('Error: $message')));
+                  ..showSnackBar(SnackBar(content: Text(S.of(context).errorLoadingOpenQuotations)));
              },
             orElse: () {},
           );
@@ -162,7 +161,7 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Failed to load open quotations: $message',
+                  S.of(context).errorLoadingOpenQuotationsWithMessage(message),
                   style: const TextStyle(color: Colors.white70),
                   textAlign: TextAlign.center,
                 ),

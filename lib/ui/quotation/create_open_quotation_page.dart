@@ -10,7 +10,6 @@ import 'package:inker_studio/domain/services/quotation/quotation_service.dart'; 
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart'; // Corrected import path
-import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
@@ -20,6 +19,7 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart'; // Importa
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/ui/quotation/widgets/select_generated_design_bottomsheet.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
+import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
@@ -67,14 +67,17 @@ class CreateOpenQuotationPage extends StatefulWidget {
 class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
-  final int _maxDescriptionLength = 1500; // Keep constants if used only in UI
-  final int _minDescriptionLength = 10;
+  final _referenceBudgetController = TextEditingController();
+  final _maxDescriptionLength = 1500; // Keep constants if used only in UI
+  final _minDescriptionLength = 10;
+  final FocusNode _referenceBudgetFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     // Add listener to controller to dispatch event
     _descriptionController.addListener(_onDescriptionChanged);
+    _referenceBudgetController.addListener(_onReferenceBudgetChanged);
     // Trigger initial location check via BLoC
     _checkAndRequestLocation();
 
@@ -82,12 +85,24 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     if (widget.initialTattooDesign != null && _descriptionController.text.isEmpty) {
       _descriptionController.text = widget.initialTattooDesign!.userQuery;
     }
+    // Set initial value for reference budget if present
+    // (Assume state is not available here, will be set in build)
   }
 
   void _onDescriptionChanged() {
     context.read<CreateOpenQuotationBloc>().add(
         CreateOpenQuotationEvent.descriptionChanged(
             _descriptionController.text));
+  }
+
+  void _onReferenceBudgetChanged() {
+    final raw = _referenceBudgetController.text.replaceAll('.', '');
+    final parsed = double.tryParse(raw);
+    context.read<CreateOpenQuotationBloc>().add(
+      CreateOpenQuotationEvent.referenceBudgetChanged(
+        parsed != null ? Money.fromFloat(parsed, 'CLP', 0) : null,
+      ),
+    );
   }
 
   Future<void> _checkAndRequestLocation() async {
@@ -127,8 +142,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar(
           context: context,
-          content:
-              "Por favor, activa el GPS de tu dispositivo.", // Mensaje más específico
+          content: l10n.pleaseEnableGps, // Mensaje más específico
           backgroundColor: redColor,
         ),
       );
@@ -191,6 +205,13 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
               .read<CreateOpenQuotationBloc>()
               .add(const CreateOpenQuotationEvent.clearSuccessMessage());
           Navigator.of(context).pop();
+        }
+
+        // Set reference budget controller if state changes
+        final refBudget = state.referenceBudget;
+        final formatted = refBudget != null ? refBudget.formatWithoutSymbol() : '';
+        if (_referenceBudgetController.text.replaceAll('.', '') != refBudget?.amount.toString()) {
+          _referenceBudgetController.text = formatted;
         }
       },
       child: Scaffold(
@@ -262,13 +283,13 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                       },
                       decoration: _inputDecoration(
                         hintText:
-                            '${l10n.describeYourTattooIdea} (Mín. $_minDescriptionLength caracteres)',
+                            '${l10n.describeYourTattooIdea} (Min. ${_minDescriptionLength} ${l10n.characters})',
                         prefixIcon: Icons.edit_note,
                         // Show error text from BLoC state if description is invalid
                         errorText: !state.isDescriptionValid &&
                                 state.description
                                     .isNotEmpty // Show only if invalid and not empty
-                            ? 'Mínimo $_minDescriptionLength caracteres requeridos'
+                            ? l10n.minDescriptionLengthRequired(_minDescriptionLength)
                             : null,
                       ),
                       // Basic validator can remain, but BLoC handles submission logic
@@ -367,7 +388,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                                   const Icon(Icons.collections_bookmark_outlined, color: Colors.white, size: 32),
                                   const SizedBox(width: 16),
                                   Text(
-                                    'Elegir diseño generado',
+                                    l10n.chooseGeneratedDesign,
                                     style: TextStyleTheme.headline3.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -406,7 +427,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                                 const Icon(Icons.auto_awesome_outlined, color: Colors.white, size: 32),
                                 const SizedBox(width: 16),
                                 Text(
-                                  'Generar nuevo diseño',
+                                  l10n.generateNewDesign,
                                   style: TextStyleTheme.headline3.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -438,30 +459,24 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
 
                     // Presupuesto Section
                     _buildSectionHeader(
-                        'Presupuesto estimado (opcional)', Icons.attach_money),
+                        l10n.estimatedBudgetOptional, Icons.attach_money),
                     const SizedBox(height: 12),
                     TextFormField(
+                      controller: _referenceBudgetController,
+                      focusNode: _referenceBudgetFocusNode,
                       style: TextStyleTheme.bodyText1,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: false),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        ChileanPesoInputFormatter(),
+                        // TODO: Add support for other currencies
+                      ],
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                       decoration: _inputDecoration(
-                        hintText: 'Presupuesto de referencia (CLP)',
+                        hintText: l10n.referenceBudgetHint,
                         prefixIcon: Icons.attach_money,
                       ),
-                      initialValue:
-                          state.referenceBudget?.toString() ?? '',
-                      onChanged: (value) {
-                        final parsed = double.tryParse(value);
-                        context.read<CreateOpenQuotationBloc>().add(
-                              CreateOpenQuotationEvent.referenceBudgetChanged(
-                                parsed != null
-                                    ? Money.fromFloat(parsed, 'CLP', 0)
-                                    : null,
-                              ),
-                            );
-                      },
+                      // No validator for optional field
                     ),
                     const SizedBox(height: 28),
 
@@ -635,7 +650,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             style:
                 TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
-          'ID: $selectedStencilId', // Use state value
+          '${l10n.id}: $selectedStencilId', // Use state value
           style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -719,7 +734,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
               icon: const Icon(Icons.add_photo_alternate_outlined),
               label: Text(referenceImages.isEmpty // Use state images
                   ? l10n.addReferenceImages
-                  : 'Añadir más imágenes'),
+                  : l10n.addMoreImages),
               onPressed: _pickImages, // Uses BLoC event now
               style: ElevatedButton.styleFrom(
                 backgroundColor: secondaryColor.withOpacity(0.2),
@@ -807,48 +822,6 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     );
   }
 
-  // --- Selection Logic Methods (Dispatch events) ---
-
-  Future<void> _selectStencil() async {
-    // Keep placeholder navigation/simulation logic for now
-    final selectedId = 'stencil_placeholder_id'; // Simulate selection
-    if (!mounted) return;
-    if (selectedId.isNotEmpty) {
-      context
-          .read<CreateOpenQuotationBloc>()
-          .add(CreateOpenQuotationEvent.stencilSelected(selectedId));
-    }
-    ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-        context: context, content: 'Stencil selection simulation complete.'));
-  }
-
-  Future<void> _selectTattooDesign() async {
-    // Keep placeholder navigation/simulation logic for now
-    final result = {
-      'design': UserTattooDesignDto(
-          id: 'design_abc',
-          userQuery: 'Simulated Dragon Design',
-          imageUrls: ['https://via.placeholder.com/150'],
-          createdAt: DateTime.now(),
-          isFavorite: false,
-          style: 'blackwork'),
-      'imageUrl': 'https://via.placeholder.com/150'
-    };
-
-    if (!mounted) return;
-    if (result['design'] is UserTattooDesignDto &&
-        result['imageUrl'] is String) {
-      final design = result['design'] as UserTattooDesignDto;
-      final imageUrl = result['imageUrl'] as String;
-      context.read<CreateOpenQuotationBloc>().add(
-          CreateOpenQuotationEvent.tattooDesignSelected(
-              design: design, imageUrl: imageUrl));
-    }
-    ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-        context: context,
-        content: 'Tattoo Design selection simulation complete.'));
-  }
-
   void _clearSelection() {
     context
         .read<CreateOpenQuotationBloc>()
@@ -870,8 +843,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         children: [
           Text(
             selectedDistanceKm == 0 // Use state value
-                ? 'Sin límite de distancia'
-                : 'Distancia máxima: $selectedDistanceKm km', // Use state value
+                ? l10n.noDistanceLimit
+                : l10n.maxDistance(selectedDistanceKm), // Use state value
             style: TextStyleTheme.bodyText1.copyWith(
               color: quaternaryColor,
               fontWeight: FontWeight.w500,
@@ -886,7 +859,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                 final bool isSelected =
                     selectedDistanceKm == distance; // Use state value
                 final String label =
-                    distance == 0 ? 'Sin límite' : '$distance km';
+                    distance == 0 ? l10n.noDistanceLimit : l10n.maxDistance(distance);
 
                 return ChoiceChip(
                   label: Text(label),
@@ -926,6 +899,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     _descriptionController
         .removeListener(_onDescriptionChanged); // Remove listener
     _descriptionController.dispose();
+    _referenceBudgetController.dispose();
+    _referenceBudgetFocusNode.dispose();
     super.dispose();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -247,7 +248,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
                                         borderRadius: BorderRadius.circular(8.0),
                                       ),
                                       child: Text(
-                                        isToday ? 'Today' : 'Best',
+                                        isToday ? S.of(context).today : S.of(context).best,
                                         style: TextStyleTheme.bodyText2.copyWith(
                                           color: Colors.greenAccent,
                                           fontSize: 12,
@@ -294,7 +295,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No available time slots found',
+            S.of(context).noAvailableTimeSlotsFound,
             textAlign: TextAlign.center,
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.grey,
@@ -303,7 +304,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           ),
           const SizedBox(height: 8),
           Text(
-            'We tried to find slots across multiple days but couldn\'t find any available times.',
+            S.of(context).weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes,
             textAlign: TextAlign.center,
             style: TextStyleTheme.bodyText2.copyWith(
               color: Colors.grey,
@@ -311,7 +312,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           ),
           const SizedBox(height: 12),
           Text(
-            'Try setting up your working hours in agenda settings or try a shorter appointment duration.',
+            S.of(context).trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration,
             textAlign: TextAlign.center,
             style: TextStyleTheme.bodyText2.copyWith(
               color: Colors.grey,
@@ -320,7 +321,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           const SizedBox(height: 16),
           TextButton.icon(
             icon: const Icon(Icons.refresh),
-            label: const Text('Try Again'),
+            label: Text(S.of(context).tryAgain),
             onPressed: _loadTimeSlots,
           ),
         ],
@@ -342,7 +343,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Error loading available time slots',
+            S.of(context).errorLoadingAvailableTimeSlots,
             textAlign: TextAlign.center,
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.grey,
@@ -359,7 +360,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
           const SizedBox(height: 16),
           TextButton.icon(
             icon: const Icon(Icons.refresh),
-            label: const Text('Retry'),
+            label: Text(S.of(context).retry),
             onPressed: _loadTimeSlots,
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/models/notifications/notification.dart' as model;
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -16,6 +17,7 @@ class NotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -80,7 +82,7 @@ class NotificationItem extends StatelessWidget {
                   // Show related metadata if available
                   if (_hasRelevantMetadata()) ...[
                     const SizedBox(height: 8.0),
-                    _buildMetadataChip(),
+                    _buildMetadataChip(l10n),
                   ],
                   const SizedBox(height: 4.0),
                   // Unread indicator
@@ -124,15 +126,15 @@ class NotificationItem extends StatelessWidget {
   }
   
   // Show small chip with relevant info
-  Widget _buildMetadataChip() {
+  Widget _buildMetadataChip(S l10n) {
     String? chipText;
     
     if (notification.data.containsKey('artistName')) {
-      chipText = "Artista: ${notification.data['artistName']}";
+      chipText = "${l10n.artist}: ${notification.data['artistName']}";
     } else if (notification.data.containsKey('customerName')) {
-      chipText = "Cliente: ${notification.data['customerName']}";
+      chipText = "${l10n.customer}: ${notification.data['customerName']}";
     } else if (notification.data.containsKey('status')) {
-      chipText = "Estado: ${_formatStatus(notification.data['status'])}";
+      chipText = "${l10n.status}: ${_formatStatus(notification.data['status'], l10n)}";
     }
     
     if (chipText == null) return const SizedBox.shrink();
@@ -158,16 +160,16 @@ class NotificationItem extends StatelessWidget {
   }
   
   // Format status strings to be more user-friendly
-  String _formatStatus(String status) {
+  String _formatStatus(String status, S l10n) {
     final statusMap = {
-      'scheduled': 'Programado',
-      'in_progress': 'En progreso',
-      'completed': 'Completado',
-      'rescheduled': 'Reprogramado',
-      'waiting_for_photos': 'Esperando fotos',
-      'waiting_for_review': 'Listo para revisar',
-      'reviewed': 'Revisado',
-      'canceled': 'Cancelado',
+      'scheduled': l10n.scheduled,
+      'in_progress': l10n.inProgress,
+      'completed': l10n.completed,
+      'rescheduled': l10n.rescheduled,
+      'waiting_for_photos': l10n.waitingForPhotos,
+      'waiting_for_review': l10n.waitingForReview,
+      'reviewed': l10n.reviewed,
+      'canceled': l10n.canceled,
     };
     
     return statusMap[status.toLowerCase()] ?? status;

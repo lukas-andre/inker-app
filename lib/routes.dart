@@ -4,7 +4,6 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/arti
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
-import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
@@ -36,13 +35,9 @@ import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
-import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/ui/views/error_view.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/immersive_viewer/immersive_viewer_page.dart';
 import 'package:inker_studio/ui/quotation/edit_open_quotation_page.dart';
-import 'package:collection/collection.dart';
-import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -148,7 +143,15 @@ class AppRoutes {
 
     if (settings.name == CreateQuotationPage.routeName) {
       final args = settings.arguments as Map<String, dynamic>;
-      return CreateQuotationPage.route(artistId: args['artistId']);
+      if (args['artistId'] == null) {
+        return MaterialPageRoute(
+          builder: (context) => const ErrorPage(message: 'Artist ID is required'),
+        );
+      } else if (args['stencil'] != null) {
+        return CreateQuotationPage.route(artistId: args['artistId'], stencil: args['stencil']);
+      } else {
+        return CreateQuotationPage.route(artistId: args['artistId']);
+      }
     }
 
     if (settings.name == '/editField') {

@@ -150,7 +150,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                     style: TextStyleTheme.headline3,
                   ),
                 ),
-                _buildStatusChip(appointment.status),
+                _buildStatusChip(context, appointment.status),
               ],
             ),
             const Divider(height: 32),
@@ -158,7 +158,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               context,
               Icons.person,
               l10n.artist,
-              appointment.artist.username ?? 'Artista',
+              appointment.artist.username ?? l10n.artist,
               onTap: () {
                 // Navigate to artist profile
                 Navigator.pushNamed(
@@ -450,50 +450,50 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     return row;
   }
 
-  Widget _buildStatusChip(AppointmentStatus status) {
+  Widget _buildStatusChip(BuildContext context, AppointmentStatus status) {
     Color color;
     String text;
     
     switch (status) {
       case AppointmentStatus.scheduled:
         color = Colors.green;
-        text = 'Confirmado';
+        text = S.of(context).confirmed;
         break;
       case AppointmentStatus.pending:
         color = Colors.orange;
-        text = 'Pendiente';
+        text = S.of(context).pending;
         break;
       case AppointmentStatus.completed:
         color = Colors.blue;
-        text = 'Completado';
+        text = S.of(context).completed;
         break;
       case AppointmentStatus.canceled:
         color = Colors.red;
-        text = 'Cancelado';
+        text = S.of(context).canceled;
         break;
       case AppointmentStatus.rescheduled:
         color = Colors.purple;
-        text = 'Reprogramado';
+        text = S.of(context).rescheduled;
         break;
       case AppointmentStatus.inProgress:
         color = Colors.blue;
-        text = 'En progreso';
+        text = S.of(context).inProgress;
         break;
       case AppointmentStatus.waitingForPhotos:
         color = Colors.amber;
-        text = 'Esperando fotos';
+        text = S.of(context).waitingForPhotos;
         break;
       case AppointmentStatus.waitingForReview:
         color = Colors.purple;
-        text = 'Listo para revisar';
+        text = S.of(context).waitingForReview;
         break;
       case AppointmentStatus.reviewed:
         color = Colors.green;
-        text = 'Revisado';
+        text = S.of(context).reviewed;
         break;
       default:
         color = Colors.grey;
-        text = 'Desconocido';
+        text = S.of(context).unknown;
         break;
     }
 
@@ -527,7 +527,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               child: OutlinedButton.icon(
                 onPressed: () => _contactArtist(context, appointment),
                 icon: const Icon(Icons.message_outlined, size: 18),
-                label: const Text('Contactar'),
+                label: Text(S.of(context).message),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
                   side: const BorderSide(color: tertiaryColor),
@@ -542,7 +542,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               child: ElevatedButton.icon(
                 onPressed: () => _showCancelDialog(context, appointment),
                 icon: const Icon(Icons.cancel_outlined, size: 18),
-                label: const Text('Cancelar'),
+                label: Text(S.of(context).cancel),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
@@ -555,7 +555,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               child: ElevatedButton.icon(
                 onPressed: () => _showRescheduleDialog(context, appointment),
                 icon: const Icon(Icons.update, size: 18),
-                label: const Text('Solicitar cambio'),
+                label: Text(S.of(context).requestChange),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   foregroundColor: Colors.white,
@@ -572,7 +572,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
   void _contactArtist(BuildContext context, Appointment appointment) async {
     // Get artist contact info
     final artist = appointment.artist;
-    final String artistName = artist.username ?? 'Artista';
+    final String artistName = artist.username ?? S.of(context).artist;
     final artistContact = artist.contact;
     
     // Open contact options dialog
@@ -583,7 +583,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            title: const Text('Contactar al artista'),
+            title: Text(S.of(context).contactArtist),
             subtitle: Text(artistName),
           ),
           const Divider(),
@@ -613,12 +613,12 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
             ),
           ListTile(
             leading: const Icon(Icons.chat_bubble_outline),
-            title: const Text('Enviar mensaje en la app'),
+            title: Text(S.of(context).sendMessageInApp),
             onTap: () {
               Navigator.pop(context);
               // Navigate to chat with artist (placeholder)
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Esta función estará disponible próximamente')),
+                SnackBar(content: Text(S.of(context).thisFeatureWillBeAvailableSoon)),
               );
             },
           ),
@@ -767,9 +767,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     final minutes = duration.inMinutes.remainder(60);
     
     if (hours > 0) {
-      return '$hours ${hours == 1 ? 'hora' : 'horas'}${minutes > 0 ? ' $minutes minutos' : ''}';
+      return '$hours ${hours == 1 ? S.of(context).hour : S.of(context).hours}${minutes > 0 ? ' $minutes ${minutes == 1 ? S.of(context).minute : S.of(context).minutes}' : ''}';
     } else {
-      return '$minutes minutos';
+      return '$minutes ${minutes == 1 ? S.of(context).minute : S.of(context).minutes}';
     }
   }
 }

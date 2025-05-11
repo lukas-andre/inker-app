@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -35,10 +36,10 @@ class ImmersiveViewerPage extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: const Center(
+        body:  Center(
           child: Text(
-            'No se pudo cargar la imagen',
-            style: TextStyle(color: Colors.white),
+            S.of(context).couldNotLoadImage,
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       );
@@ -175,7 +176,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                         Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
                         const SizedBox(height: 16),
                         Text(
-                          'No se pudo cargar la imagen',
+                          S.of(context).couldNotLoadImage,
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.9),
                             fontSize: 16,
@@ -259,14 +260,14 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                           color: secondaryColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Row(
+                        child:  Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.star, color: Colors.white, size: 14),
-                            SizedBox(width: 4),
+                            const Icon(Icons.star, color: Colors.white, size: 14),
+                            const SizedBox(width: 4),
                             Text(
-                              'Destacado',
-                              style: TextStyle(
+                              S.of(context).featured,
+                              style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -292,7 +293,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 _buildTiktokStat(
                   Icons.visibility_rounded,
                   '${work.viewCount}',
-                  'vistas',
+                  S.of(context).views,
                 ),
                 const SizedBox(height: 20),
                 
@@ -300,7 +301,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 _buildTiktokStat(
                   Icons.favorite,
                   '${work.likeCount}',
-                  'me gusta',
+                  S.of(context).likes,
                 ),
                 const SizedBox(height: 20),
                 
@@ -495,7 +496,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               // Description
               if (work.description != null && work.description!.isNotEmpty) ...[
                 Text(
-                  'Descripción',
+                  S.of(context).description,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.9),
                     fontSize: 15,
@@ -517,7 +518,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               // Tags section
               if (work.tags != null && work.tags!.isNotEmpty) ...[
                 Text(
-                  'Etiquetas',
+                  S.of(context).tags,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.9),
                     fontSize: 15,
@@ -587,8 +588,8 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
   
   String _formatDate(DateTime date) {
     final months = [
-      'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-      'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
+      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
@@ -707,7 +708,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                         Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
                         const SizedBox(height: 16),
                         Text(
-                          'No se pudo cargar la imagen',
+                          S.of(context).couldNotLoadImage,
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.9),
                             fontSize: 16,
@@ -791,14 +792,14 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                           color: secondaryColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Row(
+                        child:  Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.star, color: Colors.white, size: 14),
-                            SizedBox(width: 4),
+                            const Icon(Icons.star, color: Colors.white, size: 14),
+                            const SizedBox(width: 4),
                             Text(
-                              'Destacado',
-                              style: TextStyle(
+                              S.of(context).featured,
+                              style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -824,7 +825,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 _buildTiktokStat(
                   Icons.visibility_rounded,
                   '${stencil.viewCount}',
-                  'vistas',
+                  S.of(context).views,
                 ),
                 const SizedBox(height: 20),
                 
@@ -832,7 +833,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 _buildTiktokStat(
                   Icons.favorite,
                   '${stencil.likeCount}',
-                  'me gusta',
+                  S.of(context).likes,
                 ),
                 const SizedBox(height: 20),
                 
@@ -1027,7 +1028,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               // Description
               if (stencil.description != null && stencil.description!.isNotEmpty) ...[
                 Text(
-                  'Descripción',
+                  S.of(context).description,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.9),
                     fontSize: 15,
@@ -1049,7 +1050,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               // Tags section
               if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
                 Text(
-                  'Etiquetas',
+                  S.of(context).tags,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.9),
                     fontSize: 15,
@@ -1119,8 +1120,8 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
   
   String _formatDate(DateTime date) {
     final months = [
-      'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-      'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
+      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }

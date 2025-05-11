@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -138,14 +139,14 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.6),
         labelStyle: TextStyleTheme.subtitle2,
-        tabs: const [
-          Tab(text: 'Todas'),
-          Tab(text: 'Programadas'),
-          Tab(text: 'En Progreso'),
-          Tab(text: 'Esperando Fotos'),
-          Tab(text: 'Por Reseñar'),
-          Tab(text: 'Completadas'),
-          Tab(text: 'Canceladas'),
+        tabs: [
+          Tab(text: S.of(context).all),
+          Tab(text: S.of(context).scheduled),
+          Tab(text: S.of(context).inProgress),
+          Tab(text: S.of(context).waitingForPhotos),
+          Tab(text: S.of(context).waitingForReview),
+          Tab(text: S.of(context).completed),
+          Tab(text: S.of(context).canceled),
         ],
       ),
     );

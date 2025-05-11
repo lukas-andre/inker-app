@@ -192,7 +192,7 @@ class _QuotationOfferMessageViewState
                               );
                               if (estimatedCost != null) {
                                 return Text(
-                                  "Offer: ${estimatedCost?.formatWithSymbol()}",
+                                  '${l10n.offerCost}: ${estimatedCost?.formatWithSymbol()}',
                                   style: TextStyleTheme.caption.copyWith(
                                     color: Colors.white70,
                                   ),
@@ -234,7 +234,7 @@ class _QuotationOfferMessageViewState
           if (isArtist)
             IconButton(
               icon: const Icon(Icons.edit, color: Colors.white),
-              tooltip: 'Editar oferta',
+              tooltip: l10n.editOffer,
               onPressed: () => _showEditOfferDialog(context, context.read()),
             ),
         ],
@@ -703,7 +703,7 @@ class _QuotationOfferMessageViewState
     final offer = widget.offer;
     final costController = TextEditingController(
       text: offer.estimatedCost?.amount != null
-          ? (offer.estimatedCost!.amount / 100).toString()
+          ? offer.estimatedCost!.amount.toString()
           : '',
     );
 
@@ -735,7 +735,7 @@ class _QuotationOfferMessageViewState
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(l10n.cancel, style: TextStyle(color: tertiaryColor)),
+              child: Text(l10n.cancel, style: const TextStyle(color: tertiaryColor)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -746,19 +746,18 @@ class _QuotationOfferMessageViewState
                 final cost = double.tryParse(costController.text);
                 if (cost != null) {
                   final money = Money(
-                    amount: (cost * 100).toInt(),
-                    currency: 'CLP',
-                    scale: 1,
+                    amount: cost.toInt(),
+                    currency: offer.estimatedCost?.currency ?? 'CLP',
+                    scale: 0,
                   );
                   bloc.add(
                     OfferMessageEvent.updateOffer(
                       estimatedCost: money,
                     ),
                   );
-                  // Enviar mensaje de "sistema" al chat
                   bloc.add(
                     OfferMessageEvent.sendMessage(
-                      message: 'El artista actualizó el costo de la oferta a \$${costController.text} CLP.',
+                      message: '${l10n.artistUpdatedOfferCost} \$${costController.text} ${l10n.currency}',
                     ),
                   );
                   Navigator.pop(context);

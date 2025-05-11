@@ -2242,7 +2242,7 @@ class __$$MoneyImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MoneyImpl extends _Money {
   const _$MoneyImpl(
-      {required this.amount, this.currency = 'CLP', this.scale = 1})
+      {required this.amount, this.currency = 'CLP', this.scale = 0})
       : super._();
 
   factory _$MoneyImpl.fromJson(Map<String, dynamic> json) =>
