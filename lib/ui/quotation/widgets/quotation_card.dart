@@ -10,11 +10,11 @@ import 'package:inker_studio/ui/quotation/widgets/location_display.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
 import 'package:inker_studio/ui/quotation/widgets/status_and_date_display.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart'; // For colors
-import 'package:inker_studio/domain/models/quotation/quotation.dart' show MultimediaMetadata, Quotation; // For MultimediaMetadata type and Quotation
+import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/domain/models/quotation/quotation.dart' show MultimediaMetadata;
 
 typedef QuotationCardTapCallback = void Function(String quotationId, QuotationType type);
-typedef QuotationActionCallback = void Function(String id, QuotationType type); // For specific actions like Send Offer
+typedef QuotationActionCallback = void Function(String id, QuotationType type);
 
 class QuotationCard extends StatelessWidget {
   final QuotationCardViewModel model;
@@ -149,7 +149,7 @@ class QuotationCard extends StatelessWidget {
                     statusColor: model.statusColor,
                     statusIcon: model.statusIcon,
                     date: model.createdAt,
-                    dateLabel: model.type == QuotationType.PARTICIPATING ? "Offered" : null,
+                    dateLabel: model.type == QuotationType.PARTICIPATING ? l10n.offered : null,
                   ),
                   const SizedBox(height: 8),
 
@@ -160,7 +160,7 @@ class QuotationCard extends StatelessWidget {
                          const Icon(Icons.place_outlined, size: 16, color: Colors.white70),
                          const SizedBox(width: 4),
                          Text(
-                           "${model.distanceToArtistKm} km away",
+                           '${model.distanceToArtistKm} ${l10n.kmAway}',
                            style: TextStyleTheme.caption.copyWith(color: Colors.white70),
                          ),
                        ],
@@ -175,8 +175,8 @@ class QuotationCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     DetailRow(
                       icon: Icons.account_balance_wallet,
-                      label: 'Presupuesto de referencia',
-                      value: model.referenceBudget!.formatWithSymbol() + ' CLP',
+                      label: l10n.referenceBudget(model.referenceBudget!.formatWithSymbol(), l10n.currency),
+                      value: '${model.referenceBudget!.formatWithSymbol()} ${l10n.currency}',
                     ),
                   ],
                   const SizedBox(height: 12),
@@ -193,9 +193,9 @@ class QuotationCard extends StatelessWidget {
 
 
                   // --- Image Galleries ---
-                  _buildImageSection(l10n, "Reference Images", model.referenceImages),
+                  _buildImageSection(l10n, l10n.referenceImages, model.referenceImages),
                   if (model.type == QuotationType.DIRECT) ...[
-                      _buildImageSection(l10n, "Proposed Designs", model.proposedDesigns),
+                      _buildImageSection(l10n, l10n.proposedDesigns, model.proposedDesigns),
                   ],
                   // Correctly add spacing based on whether images were shown
                   if (model.referenceImages.isNotEmpty || (model.type == QuotationType.DIRECT && model.proposedDesigns.isNotEmpty)) ...[
@@ -313,16 +313,16 @@ class QuotationCard extends StatelessWidget {
     if (model.type == QuotationType.OPEN && model.hasOffered && model.artistOffer != null) {
        final offer = model.artistOffer!;
        if (offer.estimatedCost != null) {
-          details.add(DetailRow(icon: Icons.attach_money, label: "Offer Cost", value: offer.estimatedCost!.toString())); // Placeholder l10n
+          details.add(DetailRow(icon: Icons.attach_money, label: l10n.offerCost, value: offer.estimatedCost!.toString())); // Placeholder l10n
        }
     }
     // --- Offer details for PARTICIPATING ---
     else if (model.type == QuotationType.PARTICIPATING) {
         if (model.estimatedCost != null) {
-           details.add(DetailRow(icon: Icons.attach_money, label: "Your Offer", value: model.estimatedCost!)); // Placeholder l10n
+           details.add(DetailRow(icon: Icons.attach_money, label: l10n.yourOffer, value: model.estimatedCost!)); // Placeholder l10n
         }
         if (model.appointmentDuration != null) { // Mapped from estimatedDuration
-            details.add(DetailRow(icon: Icons.timer_outlined, label: "Est. Duration", value: model.appointmentDuration!)); // Placeholder l10n
+            details.add(DetailRow(icon: Icons.timer_outlined, label: l10n.estimatedDuration, value: model.appointmentDuration!)); // Placeholder l10n
         }
     }
     // --- Quotation details for DIRECT ---
@@ -645,15 +645,23 @@ class CustomerOpenQuotationCard extends StatelessWidget {
                           color: const Color(0xFF4CAF50),
                           fontWeight: FontWeight.bold,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                    )
-                  else
-                    Text(
-                      l10n.noOffersYet,
-                      style: TextStyleTheme.caption.copyWith(color: Colors.white38),
                     ),
                 ],
               ),
+              // Si no hay ofertas, mostrar el mensaje debajo
+              if (!hasOffers)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 28.0), // alineado con el texto principal
+                  child: Text(
+                    l10n.noOffersYet,
+                    style: TextStyleTheme.caption.copyWith(color: Colors.white38),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               const SizedBox(height: 12),
               Text(
                 model.description,

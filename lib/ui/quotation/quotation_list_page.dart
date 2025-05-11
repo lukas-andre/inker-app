@@ -362,7 +362,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
           ),
           const SizedBox(height: 16),
           Text(
-            _isArtist ? "No Requests Found" : "No Quotations Found", // Adjust text based on user type
+            _isArtist ? l10n.noRequestsFound : l10n.noQuotationsFound, // Adjust text based on user type
             style: TextStyleTheme.headline3.copyWith(
               color: Colors.grey[600],
             ),
@@ -469,7 +469,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           ),
                           child: Text(
                             // Placeholder for l10n.newRequest / l10n.newQuotation
-                            _isArtist ? "New Request" : "New Quotation", 
+                            _isArtist ? l10n.newRequest : l10n.newQuotation, 
                             style: TextStyleTheme.caption.copyWith(
                               color: secondaryColor,
                               fontWeight: FontWeight.bold,
@@ -492,19 +492,19 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   // Mostrar referenceBudget si existe
                   if (quotation.referenceBudget != null) ...[
                     const SizedBox(height: 8),
-                    Row(
+                    Column(
                       children: [
                         const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 16),
                         const SizedBox(width: 8),
                         Text(
-                          'Presupuesto de referencia: ',
+                          '${l10n.referenceBudget}: ',
                           style: TextStyleTheme.bodyText2.copyWith(
                             color: const Color(0xFFF2F2F2),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          '${quotation.referenceBudget!.formatWithSymbol()} CLP',
+                          '${quotation.referenceBudget!.toString()} CLP',
                           style: TextStyleTheme.bodyText2.copyWith(
                             color: secondaryColor,
                             fontWeight: FontWeight.bold,

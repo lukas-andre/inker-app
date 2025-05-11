@@ -40,7 +40,7 @@
             "name": "iOS",
             "request": "launch",
             "type": "dart",
-            "deviceId": "BA0A0FD4-CC45-44E4-90DB-4B2B7FC3A026"
+            "deviceId": "63E7569B-4004-49AE-A036-63AFF89C2FBF"
         },
         {
             "name": "Android2",
@@ -52,7 +52,7 @@
             "name": "iOS2",
             "request": "launch",
             "type": "dart",
-            "deviceId": "63E7569B-4004-49AE-A036-63AFF89C2FBF"
+            "deviceId": "1754FAB0-2C29-403E-BE59-08BB299F6D37"
         },
         {
             "name": "iOS Lucas",

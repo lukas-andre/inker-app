@@ -361,7 +361,7 @@ const _$QuotationRoleEnumMap = {
 _$MoneyImpl _$$MoneyImplFromJson(Map json) => _$MoneyImpl(
       amount: (json['amount'] as num).toInt(),
       currency: json['currency'] as String? ?? 'CLP',
-      scale: (json['scale'] as num?)?.toInt() ?? 1,
+      scale: (json['scale'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$MoneyImplToJson(_$MoneyImpl instance) =>

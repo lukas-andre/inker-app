@@ -150,12 +150,12 @@ class S {
     );
   }
 
-  /// `Finalizado`
+  /// `Completada`
   String get completed {
     return Intl.message(
-      'Finalizado',
+      'Completada',
       name: 'completed',
-      desc: 'Estado que indica que un evento ha finalizado.',
+      desc: 'Estado de una cita completada.',
       args: [],
     );
   }
@@ -1155,7 +1155,7 @@ class S {
     return Intl.message(
       'Hoy',
       name: 'today',
-      desc: 'Etiqueta o botón para indicar el día actual.',
+      desc: 'Etiqueta que indica el día actual.',
       args: [],
     );
   }
@@ -1489,12 +1489,12 @@ class S {
     );
   }
 
-  /// `Agendado`
+  /// `Programada`
   String get scheduled {
     return Intl.message(
-      'Agendado',
+      'Programada',
       name: 'scheduled',
-      desc: 'Estado que indica que algo ha sido agendado.',
+      desc: 'Estado de una cita programada.',
       args: [],
     );
   }
@@ -4107,12 +4107,13 @@ class S {
     );
   }
 
-  /// `Horario de Trabajo`
+  /// `Horario de trabajo`
   String get workingHours {
     return Intl.message(
-      'Horario de Trabajo',
+      'Horario de trabajo',
       name: 'workingHours',
-      desc: 'Label for working hours tab',
+      desc:
+          'Título para la sección de horario de trabajo en la configuración de agenda.',
       args: [],
     );
   }
@@ -5759,6 +5760,1378 @@ class S {
       'Cotizaciones',
       name: 'quotations',
       desc: 'Etiqueta para la sección de cotizaciones.',
+      args: [],
+    );
+  }
+
+  /// `CLP`
+  String get currency {
+    return Intl.message(
+      'CLP',
+      name: 'currency',
+      desc: 'Etiqueta para la moneda.',
+      args: [],
+    );
+  }
+
+  /// `km de distancia`
+  String get kmAway {
+    return Intl.message(
+      'km de distancia',
+      name: 'kmAway',
+      desc: 'Etiqueta para la distancia en kilómetros.',
+      args: [],
+    );
+  }
+
+  /// `Costo de la oferta`
+  String get offerCost {
+    return Intl.message(
+      'Costo de la oferta',
+      name: 'offerCost',
+      desc: 'Etiqueta para el costo de la oferta.',
+      args: [],
+    );
+  }
+
+  /// `Duración estimada`
+  String get estimatedDuration {
+    return Intl.message(
+      'Duración estimada',
+      name: 'estimatedDuration',
+      desc: 'Etiqueta para la duración estimada.',
+      args: [],
+    );
+  }
+
+  /// `Oferta aceptada exitosamente`
+  String get offerAcceptedSuccessfully {
+    return Intl.message(
+      'Oferta aceptada exitosamente',
+      name: 'offerAcceptedSuccessfully',
+      desc: 'Mensaje de éxito mostrado cuando una oferta ha sido aceptada.',
+      args: [],
+    );
+  }
+
+  /// `Abierta`
+  String get statusOpen {
+    return Intl.message(
+      'Abierta',
+      name: 'statusOpen',
+      desc: 'Etiqueta para el estado abierto de una cotización.',
+      args: [],
+    );
+  }
+
+  /// `mensajes`
+  String get messages {
+    return Intl.message(
+      'mensajes',
+      name: 'messages',
+      desc: 'Etiqueta para el conteo de mensajes en una conversación.',
+      args: [],
+    );
+  }
+
+  /// `Mensaje`
+  String get message {
+    return Intl.message(
+      'Mensaje',
+      name: 'message',
+      desc: 'Etiqueta para un mensaje en una conversación.',
+      args: [],
+    );
+  }
+
+  /// `El artista actualizó el costo de la oferta a {amount} {currency}`
+  String artistUpdatedOfferCost(Object amount, Object currency) {
+    return Intl.message(
+      'El artista actualizó el costo de la oferta a $amount $currency',
+      name: 'artistUpdatedOfferCost',
+      desc:
+          'Mensaje mostrado cuando el artista actualiza el costo de la oferta.',
+      args: [amount, currency],
+    );
+  }
+
+  /// `Nueva cotización`
+  String get newQuotation {
+    return Intl.message(
+      'Nueva cotización',
+      name: 'newQuotation',
+      desc: 'Etiqueta para una nueva cotización.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron solicitudes`
+  String get noRequestsFound {
+    return Intl.message(
+      'No se encontraron solicitudes',
+      name: 'noRequestsFound',
+      desc: 'Mensaje mostrado cuando no se encuentran solicitudes.',
+      args: [],
+    );
+  }
+
+  /// `No hay cotizaciones abiertas`
+  String get noOpenQuotationsFoundTitle {
+    return Intl.message(
+      'No hay cotizaciones abiertas',
+      name: 'noOpenQuotationsFoundTitle',
+      desc: 'Título mostrado cuando no se encuentran cotizaciones abiertas.',
+      args: [],
+    );
+  }
+
+  /// `No tienes cotizaciones abiertas en este momento`
+  String get noOpenQuotationsFoundBody {
+    return Intl.message(
+      'No tienes cotizaciones abiertas en este momento',
+      name: 'noOpenQuotationsFoundBody',
+      desc: 'Mensaje mostrado cuando no se encuentran cotizaciones abiertas.',
+      args: [],
+    );
+  }
+
+  /// `No hay cotizaciones participantes`
+  String get noParticipatingQuotationsFoundTitle {
+    return Intl.message(
+      'No hay cotizaciones participantes',
+      name: 'noParticipatingQuotationsFoundTitle',
+      desc:
+          'Título mostrado cuando no se encuentran cotizaciones participantes.',
+      args: [],
+    );
+  }
+
+  /// `No estás participando en ninguna cotización en este momento`
+  String get noParticipatingQuotationsFoundBody {
+    return Intl.message(
+      'No estás participando en ninguna cotización en este momento',
+      name: 'noParticipatingQuotationsFoundBody',
+      desc:
+          'Mensaje mostrado cuando no se encuentran cotizaciones participantes.',
+      args: [],
+    );
+  }
+
+  /// `No hay solicitudes directas`
+  String get noDirectArtistRequestsFoundTitle {
+    return Intl.message(
+      'No hay solicitudes directas',
+      name: 'noDirectArtistRequestsFoundTitle',
+      desc:
+          'Título mostrado cuando no se encuentran solicitudes directas para el artista.',
+      args: [],
+    );
+  }
+
+  /// `No tienes solicitudes directas en este momento`
+  String get noDirectArtistRequestsFoundBody {
+    return Intl.message(
+      'No tienes solicitudes directas en este momento',
+      name: 'noDirectArtistRequestsFoundBody',
+      desc:
+          'Mensaje mostrado cuando no se encuentran solicitudes directas para el artista.',
+      args: [],
+    );
+  }
+
+  /// `No hay cotizaciones directas`
+  String get noDirectCustomerQuotationsFoundTitle {
+    return Intl.message(
+      'No hay cotizaciones directas',
+      name: 'noDirectCustomerQuotationsFoundTitle',
+      desc:
+          'Título mostrado cuando no se encuentran cotizaciones directas para el cliente.',
+      args: [],
+    );
+  }
+
+  /// `No tienes cotizaciones directas en este momento`
+  String get noDirectCustomerQuotationsFoundBody {
+    return Intl.message(
+      'No tienes cotizaciones directas en este momento',
+      name: 'noDirectCustomerQuotationsFoundBody',
+      desc:
+          'Mensaje mostrado cuando no se encuentran cotizaciones directas para el cliente.',
+      args: [],
+    );
+  }
+
+  /// `Por favor activa el GPS`
+  String get pleaseEnableGps {
+    return Intl.message(
+      'Por favor activa el GPS',
+      name: 'pleaseEnableGps',
+      desc: 'Mensaje solicitando al usuario que active el GPS.',
+      args: [],
+    );
+  }
+
+  /// `La descripción debe tener al menos {length} caracteres`
+  String minDescriptionLengthRequired(Object length) {
+    return Intl.message(
+      'La descripción debe tener al menos $length caracteres',
+      name: 'minDescriptionLengthRequired',
+      desc:
+          'Mensaje de error cuando la descripción no cumple con la longitud mínima requerida.',
+      args: [length],
+    );
+  }
+
+  /// `Elegir diseño generado`
+  String get chooseGeneratedDesign {
+    return Intl.message(
+      'Elegir diseño generado',
+      name: 'chooseGeneratedDesign',
+      desc: 'Botón para elegir un diseño generado.',
+      args: [],
+    );
+  }
+
+  /// `Generar nuevo diseño`
+  String get generateNewDesign {
+    return Intl.message(
+      'Generar nuevo diseño',
+      name: 'generateNewDesign',
+      desc: 'Botón para generar un nuevo diseño.',
+      args: [],
+    );
+  }
+
+  /// `Presupuesto estimado (opcional)`
+  String get estimatedBudgetOptional {
+    return Intl.message(
+      'Presupuesto estimado (opcional)',
+      name: 'estimatedBudgetOptional',
+      desc:
+          'Etiqueta para el campo de presupuesto estimado, marcado como opcional.',
+      args: [],
+    );
+  }
+
+  /// `Presupuesto de referencia`
+  String get referenceBudgetHint {
+    return Intl.message(
+      'Presupuesto de referencia',
+      name: 'referenceBudgetHint',
+      desc: 'Texto de ayuda para el campo de presupuesto de referencia.',
+      args: [],
+    );
+  }
+
+  /// `Sin límite de distancia`
+  String get noDistanceLimit {
+    return Intl.message(
+      'Sin límite de distancia',
+      name: 'noDistanceLimit',
+      desc: 'Texto mostrado cuando no hay límite de distancia establecido.',
+      args: [],
+    );
+  }
+
+  /// `Distancia máxima: {distance} km`
+  String maxDistance(Object distance) {
+    return Intl.message(
+      'Distancia máxima: $distance km',
+      name: 'maxDistance',
+      desc: 'Texto que muestra la distancia máxima establecida.',
+      args: [distance],
+    );
+  }
+
+  /// `En progreso`
+  String get inProgress {
+    return Intl.message(
+      'En progreso',
+      name: 'inProgress',
+      desc: 'Estado de una cita en progreso.',
+      args: [],
+    );
+  }
+
+  /// `Reprogramada`
+  String get rescheduled {
+    return Intl.message(
+      'Reprogramada',
+      name: 'rescheduled',
+      desc: 'Estado de una cita reprogramada.',
+      args: [],
+    );
+  }
+
+  /// `Esperando fotos`
+  String get waitingForPhotos {
+    return Intl.message(
+      'Esperando fotos',
+      name: 'waitingForPhotos',
+      desc: 'Estado de una cita esperando fotos.',
+      args: [],
+    );
+  }
+
+  /// `Esperando reseña`
+  String get waitingForReview {
+    return Intl.message(
+      'Esperando reseña',
+      name: 'waitingForReview',
+      desc: 'Estado de una cita esperando reseña.',
+      args: [],
+    );
+  }
+
+  /// `Reseñada`
+  String get reviewed {
+    return Intl.message(
+      'Reseñada',
+      name: 'reviewed',
+      desc: 'Estado de una cita reseñada.',
+      args: [],
+    );
+  }
+
+  /// `Cancelada`
+  String get canceled {
+    return Intl.message(
+      'Cancelada',
+      name: 'canceled',
+      desc: 'Estado de una cita cancelada.',
+      args: [],
+    );
+  }
+
+  /// `Solicitud de cotización para el diseño`
+  String get requestQuotationForDesign {
+    return Intl.message(
+      'Solicitud de cotización para el diseño',
+      name: 'requestQuotationForDesign',
+      desc:
+          'Título para una solicitud de cotización para un diseño específico.',
+      args: [],
+    );
+  }
+
+  /// `Más información sobre tamaños, precios y disponibilidad`
+  String get moreInfoAboutSizesPricesAvailability {
+    return Intl.message(
+      'Más información sobre tamaños, precios y disponibilidad',
+      name: 'moreInfoAboutSizesPricesAvailability',
+      desc:
+          'Texto solicitando más información sobre tamaños, precios y disponibilidad.',
+      args: [],
+    );
+  }
+
+  /// `con descripción`
+  String get withDescription {
+    return Intl.message(
+      'con descripción',
+      name: 'withDescription',
+      desc: 'Texto que indica que un elemento tiene una descripción.',
+      args: [],
+    );
+  }
+
+  /// `Cotización para plantilla ID`
+  String get quotationForStencilId {
+    return Intl.message(
+      'Cotización para plantilla ID',
+      name: 'quotationForStencilId',
+      desc:
+          'Etiqueta para una cotización relacionada con una plantilla específica.',
+      args: [],
+    );
+  }
+
+  /// `Buscando...`
+  String get searching {
+    return Intl.message(
+      'Buscando...',
+      name: 'searching',
+      desc: 'Texto mostrado cuando una búsqueda está en progreso.',
+      args: [],
+    );
+  }
+
+  /// `Ingresa término de búsqueda o selecciona etiquetas`
+  String get enterSearchTermOrSelectTags {
+    return Intl.message(
+      'Ingresa término de búsqueda o selecciona etiquetas',
+      name: 'enterSearchTermOrSelectTags',
+      desc: 'Texto de ayuda para el campo de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron resultados`
+  String get noResultsFound {
+    return Intl.message(
+      'No se encontraron resultados',
+      name: 'noResultsFound',
+      desc: 'Mensaje mostrado cuando no se encuentran resultados de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Intenta con diferentes términos de búsqueda o filtros`
+  String get tryDifferentSearchOrFilters {
+    return Intl.message(
+      'Intenta con diferentes términos de búsqueda o filtros',
+      name: 'tryDifferentSearchOrFilters',
+      desc: 'Sugerencia cuando no se encuentran resultados de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Inspiración`
+  String get inspiration {
+    return Intl.message(
+      'Inspiración',
+      name: 'inspiration',
+      desc: 'Etiqueta para la sección de inspiración.',
+      args: [],
+    );
+  }
+
+  /// `Buscar tatuajes, plantillas o etiquetas`
+  String get searchTattoosStencilsOrTags {
+    return Intl.message(
+      'Buscar tatuajes, plantillas o etiquetas',
+      name: 'searchTattoosStencilsOrTags',
+      desc:
+          'Texto de marcador de posición para buscar tatuajes, plantillas o etiquetas.',
+      args: [],
+    );
+  }
+
+  /// `Limpiar búsqueda`
+  String get clearSearch {
+    return Intl.message(
+      'Limpiar búsqueda',
+      name: 'clearSearch',
+      desc: 'Etiqueta de botón para limpiar la búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Buscar`
+  String get search {
+    return Intl.message(
+      'Buscar',
+      name: 'search',
+      desc: 'Etiqueta de botón para acción de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Etiquetas sugeridas`
+  String get suggestedTags {
+    return Intl.message(
+      'Etiquetas sugeridas',
+      name: 'suggestedTags',
+      desc: 'Etiqueta para las etiquetas sugeridas.',
+      args: [],
+    );
+  }
+
+  /// `Solo se encontraron plantillas`
+  String get onlyStencilsFound {
+    return Intl.message(
+      'Solo se encontraron plantillas',
+      name: 'onlyStencilsFound',
+      desc:
+          'Mensaje mostrado cuando solo se encuentran plantillas en los resultados de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Solo se encontraron trabajos`
+  String get onlyWorksFound {
+    return Intl.message(
+      'Solo se encontraron trabajos',
+      name: 'onlyWorksFound',
+      desc:
+          'Mensaje mostrado cuando solo se encuentran trabajos en los resultados de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Mostrar solo resultados disponibles`
+  String get showOnlyAvailableResults {
+    return Intl.message(
+      'Mostrar solo resultados disponibles',
+      name: 'showOnlyAvailableResults',
+      desc: 'Opción para mostrar solo resultados disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Todos`
+  String get all {
+    return Intl.message(
+      'Todos',
+      name: 'all',
+      desc: 'Etiqueta para mostrar todos los resultados.',
+      args: [],
+    );
+  }
+
+  /// `Crea tu propio diseño`
+  String get createYourOwnDesign {
+    return Intl.message(
+      'Crea tu propio diseño',
+      name: 'createYourOwnDesign',
+      desc: 'Título para la sección de creación de diseño propio.',
+      args: [],
+    );
+  }
+
+  /// `Genera diseños de tatuajes con IA`
+  String get generateTattooDesignsWithAI {
+    return Intl.message(
+      'Genera diseños de tatuajes con IA',
+      name: 'generateTattooDesignsWithAI',
+      desc:
+          'Descripción para generar diseños de tatuajes con inteligencia artificial.',
+      args: [],
+    );
+  }
+
+  /// `Explora inspiración`
+  String get exploreInspiration {
+    return Intl.message(
+      'Explora inspiración',
+      name: 'exploreInspiration',
+      desc: 'Título para la sección de exploración de inspiración.',
+      args: [],
+    );
+  }
+
+  /// `Encuentra diseños y tatuajes hechos por artistas`
+  String get findDesignsAndTattoosMadeByArtists {
+    return Intl.message(
+      'Encuentra diseños y tatuajes hechos por artistas',
+      name: 'findDesignsAndTattoosMadeByArtists',
+      desc:
+          'Descripción para encontrar diseños y tatuajes hechos por artistas.',
+      args: [],
+    );
+  }
+
+  /// `Buscar inspiración`
+  String get searchInspiration {
+    return Intl.message(
+      'Buscar inspiración',
+      name: 'searchInspiration',
+      desc: 'Etiqueta de botón para buscar inspiración.',
+      args: [],
+    );
+  }
+
+  /// `Busca inspiración para tu próximo tatuaje`
+  String get searchInspirationForYourNextTattoo {
+    return Intl.message(
+      'Busca inspiración para tu próximo tatuaje',
+      name: 'searchInspirationForYourNextTattoo',
+      desc: 'Descripción para buscar inspiración para tatuajes.',
+      args: [],
+    );
+  }
+
+  /// `Explora diseños y trabajos de artistas`
+  String get exploreDesignsAndArtistWorks {
+    return Intl.message(
+      'Explora diseños y trabajos de artistas',
+      name: 'exploreDesignsAndArtistWorks',
+      desc: 'Descripción para explorar diseños y trabajos de artistas.',
+      args: [],
+    );
+  }
+
+  /// `Comenzar a buscar`
+  String get startSearching {
+    return Intl.message(
+      'Comenzar a buscar',
+      name: 'startSearching',
+      desc: 'Etiqueta de botón para comenzar a buscar.',
+      args: [],
+    );
+  }
+
+  /// `Tatuajes`
+  String get tattoos {
+    return Intl.message(
+      'Tatuajes',
+      name: 'tattoos',
+      desc: 'Etiqueta para la categoría de tatuajes.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron tatuajes con los criterios actuales`
+  String get noTattoosFoundWithCurrentCriteria {
+    return Intl.message(
+      'No se encontraron tatuajes con los criterios actuales',
+      name: 'noTattoosFoundWithCurrentCriteria',
+      desc:
+          'Mensaje mostrado cuando no se encuentran tatuajes que coincidan con los criterios de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron plantillas con los criterios actuales`
+  String get noStencilsFoundWithCurrentCriteria {
+    return Intl.message(
+      'No se encontraron plantillas con los criterios actuales',
+      name: 'noStencilsFoundWithCurrentCriteria',
+      desc:
+          'Mensaje mostrado cuando no se encuentran plantillas que coincidan con los criterios de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `ID`
+  String get id {
+    return Intl.message(
+      'ID',
+      name: 'id',
+      desc: 'Etiqueta para el ID de un elemento.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar los detalles de la cotización`
+  String get errorLoadingQuotationDetails {
+    return Intl.message(
+      'Error al cargar los detalles de la cotización',
+      name: 'errorLoadingQuotationDetails',
+      desc:
+          'Mensaje de error mostrado cuando no se pueden cargar los detalles de la cotización.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron solicitudes`
+  String get noApplicationsFound {
+    return Intl.message(
+      'No se encontraron solicitudes',
+      name: 'noApplicationsFound',
+      desc: 'Mensaje mostrado cuando no se encuentran solicitudes.',
+      args: [],
+    );
+  }
+
+  /// `Oferta enviada`
+  String get sentOffer {
+    return Intl.message(
+      'Oferta enviada',
+      name: 'sentOffer',
+      desc: 'Etiqueta para una oferta que ha sido enviada.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron horarios disponibles`
+  String get noAvailableTimeSlotsFound {
+    return Intl.message(
+      'No se encontraron horarios disponibles',
+      name: 'noAvailableTimeSlotsFound',
+      desc: 'Mensaje mostrado cuando no se encuentran horarios disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Intentamos encontrar horarios a lo largo de varios días pero no pudimos encontrar ningún tiempo disponible`
+  String
+      get weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes {
+    return Intl.message(
+      'Intentamos encontrar horarios a lo largo de varios días pero no pudimos encontrar ningún tiempo disponible',
+      name:
+          'weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes',
+      desc:
+          'Mensaje que explica que no se encontraron horarios disponibles en varios días.',
+      args: [],
+    );
+  }
+
+  /// `Intenta configurar tus horas de trabajo en la configuración de agenda o prueba una duración de cita más corta`
+  String
+      get trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration {
+    return Intl.message(
+      'Intenta configurar tus horas de trabajo en la configuración de agenda o prueba una duración de cita más corta',
+      name:
+          'trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration',
+      desc: 'Sugerencia para cuando no se encuentran horarios disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar los horarios disponibles`
+  String get errorLoadingAvailableTimeSlots {
+    return Intl.message(
+      'Error al cargar los horarios disponibles',
+      name: 'errorLoadingAvailableTimeSlots',
+      desc:
+          'Mensaje de error mostrado cuando no se pueden cargar los horarios disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Mejor`
+  String get best {
+    return Intl.message(
+      'Mejor',
+      name: 'best',
+      desc: 'Etiqueta que indica la mejor opción o franja horaria.',
+      args: [],
+    );
+  }
+
+  /// `No se pueden abrir los detalles en este momento. Inténtalo de nuevo más tarde.`
+  String get cannotOpenDetailsRightNowTryAgainLater {
+    return Intl.message(
+      'No se pueden abrir los detalles en este momento. Inténtalo de nuevo más tarde.',
+      name: 'cannotOpenDetailsRightNowTryAgainLater',
+      desc: 'Mensaje de error mostrado cuando no se pueden abrir los detalles.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar las cotizaciones abiertas`
+  String get errorLoadingOpenQuotations {
+    return Intl.message(
+      'Error al cargar las cotizaciones abiertas',
+      name: 'errorLoadingOpenQuotations',
+      desc:
+          'Mensaje de error mostrado cuando no se pueden cargar las cotizaciones abiertas.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar las cotizaciones abiertas: {message}`
+  String errorLoadingOpenQuotationsWithMessage(String message) {
+    return Intl.message(
+      'Error al cargar las cotizaciones abiertas: $message',
+      name: 'errorLoadingOpenQuotationsWithMessage',
+      desc:
+          'Mensaje de error con detalles cuando no se pueden cargar las cotizaciones abiertas.',
+      args: [message],
+    );
+  }
+
+  /// `Hora de inicio`
+  String get startHour {
+    return Intl.message(
+      'Hora de inicio',
+      name: 'startHour',
+      desc: 'Etiqueta para la hora de inicio del horario de trabajo.',
+      args: [],
+    );
+  }
+
+  /// `Hora de fin`
+  String get endHour {
+    return Intl.message(
+      'Hora de fin',
+      name: 'endHour',
+      desc: 'Etiqueta para la hora de fin del horario de trabajo.',
+      args: [],
+    );
+  }
+
+  /// `Días laborables`
+  String get workingDays {
+    return Intl.message(
+      'Días laborables',
+      name: 'workingDays',
+      desc:
+          'Título para la sección de días laborables en la configuración de agenda.',
+      args: [],
+    );
+  }
+
+  /// `Lunes`
+  String get monday {
+    return Intl.message(
+      'Lunes',
+      name: 'monday',
+      desc: 'Nombre del día de la semana: lunes.',
+      args: [],
+    );
+  }
+
+  /// `Martes`
+  String get tuesday {
+    return Intl.message(
+      'Martes',
+      name: 'tuesday',
+      desc: 'Nombre del día de la semana: martes.',
+      args: [],
+    );
+  }
+
+  /// `Miércoles`
+  String get wednesday {
+    return Intl.message(
+      'Miércoles',
+      name: 'wednesday',
+      desc: 'Nombre del día de la semana: miércoles.',
+      args: [],
+    );
+  }
+
+  /// `Jueves`
+  String get thursday {
+    return Intl.message(
+      'Jueves',
+      name: 'thursday',
+      desc: 'Nombre del día de la semana: jueves.',
+      args: [],
+    );
+  }
+
+  /// `Viernes`
+  String get friday {
+    return Intl.message(
+      'Viernes',
+      name: 'friday',
+      desc: 'Nombre del día de la semana: viernes.',
+      args: [],
+    );
+  }
+
+  /// `Sábado`
+  String get saturday {
+    return Intl.message(
+      'Sábado',
+      name: 'saturday',
+      desc: 'Nombre del día de la semana: sábado.',
+      args: [],
+    );
+  }
+
+  /// `Domingo`
+  String get sunday {
+    return Intl.message(
+      'Domingo',
+      name: 'sunday',
+      desc: 'Nombre del día de la semana: domingo.',
+      args: [],
+    );
+  }
+
+  /// `Explorar`
+  String get explore {
+    return Intl.message(
+      'Explorar',
+      name: 'explore',
+      desc: 'Label for the explore tab in the customer app.',
+      args: [],
+    );
+  }
+
+  /// `Mis Citas`
+  String get myAppointments {
+    return Intl.message(
+      'Mis Citas',
+      name: 'myAppointments',
+      desc: 'Label for the appointments tab in the customer app.',
+      args: [],
+    );
+  }
+
+  /// `Públicas`
+  String get public {
+    return Intl.message(
+      'Públicas',
+      name: 'public',
+      desc: 'Label for the public tab in quotations view.',
+      args: [],
+    );
+  }
+
+  /// `Directas`
+  String get direct {
+    return Intl.message(
+      'Directas',
+      name: 'direct',
+      desc: 'Label for the direct tab in quotations view.',
+      args: [],
+    );
+  }
+
+  /// `minuto`
+  String get minute {
+    return Intl.message(
+      'minuto',
+      name: 'minute',
+      desc: 'Singular form of minute used in duration formatting.',
+      args: [],
+    );
+  }
+
+  /// `Esta función estará disponible pronto`
+  String get thisFeatureWillBeAvailableSoon {
+    return Intl.message(
+      'Esta función estará disponible pronto',
+      name: 'thisFeatureWillBeAvailableSoon',
+      desc: 'Message shown when a feature is not yet implemented.',
+      args: [],
+    );
+  }
+
+  /// `Enviar mensaje en la app`
+  String get sendMessageInApp {
+    return Intl.message(
+      'Enviar mensaje en la app',
+      name: 'sendMessageInApp',
+      desc: 'Option to send a message within the application.',
+      args: [],
+    );
+  }
+
+  /// `Solicitar Cambio`
+  String get requestChange {
+    return Intl.message(
+      'Solicitar Cambio',
+      name: 'requestChange',
+      desc: 'Button text for requesting a change to an appointment.',
+      args: [],
+    );
+  }
+
+  /// `Desconocido`
+  String get unknown {
+    return Intl.message(
+      'Desconocido',
+      name: 'unknown',
+      desc: 'Default text for unknown status.',
+      args: [],
+    );
+  }
+
+  /// `Confirmado`
+  String get confirmed {
+    return Intl.message(
+      'Confirmado',
+      name: 'confirmed',
+      desc: 'Status label for confirmed appointments.',
+      args: [],
+    );
+  }
+
+  /// `No se pudo cargar la imagen`
+  String get couldNotLoadImage {
+    return Intl.message(
+      'No se pudo cargar la imagen',
+      name: 'couldNotLoadImage',
+      desc: 'Message shown when an image fails to load.',
+      args: [],
+    );
+  }
+
+  /// `Enero`
+  String get january {
+    return Intl.message(
+      'Enero',
+      name: 'january',
+      desc: 'Nombre del mes: enero.',
+      args: [],
+    );
+  }
+
+  /// `Febrero`
+  String get february {
+    return Intl.message(
+      'Febrero',
+      name: 'february',
+      desc: 'Nombre del mes: febrero.',
+      args: [],
+    );
+  }
+
+  /// `Marzo`
+  String get march {
+    return Intl.message(
+      'Marzo',
+      name: 'march',
+      desc: 'Nombre del mes: marzo.',
+      args: [],
+    );
+  }
+
+  /// `Abril`
+  String get april {
+    return Intl.message(
+      'Abril',
+      name: 'april',
+      desc: 'Nombre del mes: abril.',
+      args: [],
+    );
+  }
+
+  /// `Mayo`
+  String get may {
+    return Intl.message(
+      'Mayo',
+      name: 'may',
+      desc: 'Nombre del mes: mayo.',
+      args: [],
+    );
+  }
+
+  /// `Junio`
+  String get june {
+    return Intl.message(
+      'Junio',
+      name: 'june',
+      desc: 'Nombre del mes: junio.',
+      args: [],
+    );
+  }
+
+  /// `Julio`
+  String get july {
+    return Intl.message(
+      'Julio',
+      name: 'july',
+      desc: 'Nombre del mes: julio.',
+      args: [],
+    );
+  }
+
+  /// `Agosto`
+  String get august {
+    return Intl.message(
+      'Agosto',
+      name: 'august',
+      desc: 'Nombre del mes: agosto.',
+      args: [],
+    );
+  }
+
+  /// `Septiembre`
+  String get september {
+    return Intl.message(
+      'Septiembre',
+      name: 'september',
+      desc: 'Nombre del mes: septiembre.',
+      args: [],
+    );
+  }
+
+  /// `Octubre`
+  String get october {
+    return Intl.message(
+      'Octubre',
+      name: 'october',
+      desc: 'Nombre del mes: octubre.',
+      args: [],
+    );
+  }
+
+  /// `Noviembre`
+  String get november {
+    return Intl.message(
+      'Noviembre',
+      name: 'november',
+      desc: 'Nombre del mes: noviembre.',
+      args: [],
+    );
+  }
+
+  /// `Diciembre`
+  String get december {
+    return Intl.message(
+      'Diciembre',
+      name: 'december',
+      desc: 'Nombre del mes: diciembre.',
+      args: [],
+    );
+  }
+
+  /// `Ver Tatuajes`
+  String get viewTattoos {
+    return Intl.message(
+      'Ver Tatuajes',
+      name: 'viewTattoos',
+      desc: 'Texto del botón para ver trabajos de tatuajes en la galería.',
+      args: [],
+    );
+  }
+
+  /// `Ver Plantillas`
+  String get viewStencils {
+    return Intl.message(
+      'Ver Plantillas',
+      name: 'viewStencils',
+      desc: 'Texto del botón para ver diseños de plantillas en la galería.',
+      args: [],
+    );
+  }
+
+  /// `Volver a Búsqueda`
+  String get backToSearch {
+    return Intl.message(
+      'Volver a Búsqueda',
+      name: 'backToSearch',
+      desc: 'Texto del botón para regresar a la pantalla de búsqueda.',
+      args: [],
+    );
+  }
+
+  /// `Cotizar Este Diseño`
+  String get quoteThisDesign {
+    return Intl.message(
+      'Cotizar Este Diseño',
+      name: 'quoteThisDesign',
+      desc:
+          'Texto del botón para solicitar una cotización para un diseño de plantilla.',
+      args: [],
+    );
+  }
+
+  /// `Desliza`
+  String get swipe {
+    return Intl.message(
+      'Desliza',
+      name: 'swipe',
+      desc:
+          'Texto de instrucción para que los usuarios deslicen el contenido en el visor inmersivo.',
+      args: [],
+    );
+  }
+
+  /// `Volver a Plantillas`
+  String get backToStencils {
+    return Intl.message(
+      'Volver a Plantillas',
+      name: 'backToStencils',
+      desc: 'Texto del botón para regresar a la pantalla de plantillas.',
+      args: [],
+    );
+  }
+
+  /// `Volver a Tatuajes`
+  String get backToTattoos {
+    return Intl.message(
+      'Volver a Tatuajes',
+      name: 'backToTattoos',
+      desc: 'Texto del botón para regresar a la pantalla de tatuajes.',
+      args: [],
+    );
+  }
+
+  /// `Sin descripción`
+  String get noDescription {
+    return Intl.message(
+      'Sin descripción',
+      name: 'noDescription',
+      desc: 'Texto que indica que no hay descripción disponible.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar detalles del evento: {message}`
+  String errorLoadingEventDetails(String message) {
+    return Intl.message(
+      'Error al cargar detalles del evento: $message',
+      name: 'errorLoadingEventDetails',
+      desc: 'Mensaje de error al cargar los detalles de un evento.',
+      args: [message],
+    );
+  }
+
+  /// `¿Estás seguro de que deseas editar este evento?`
+  String get editEventWarning {
+    return Intl.message(
+      '¿Estás seguro de que deseas editar este evento?',
+      name: 'editEventWarning',
+      desc: 'Mensaje de advertencia al editar un evento.',
+      args: [],
+    );
+  }
+
+  /// `Presupuesto`
+  String get budget {
+    return Intl.message(
+      'Presupuesto',
+      name: 'budget',
+      desc: 'Etiqueta para el presupuesto de una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Diseño Propuesto`
+  String get proposedDesign {
+    return Intl.message(
+      'Diseño Propuesto',
+      name: 'proposedDesign',
+      desc: 'Título para la sección de diseño propuesto en una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Razón de Cancelación del Sistema`
+  String get systemCancellationReason {
+    return Intl.message(
+      'Razón de Cancelación del Sistema',
+      name: 'systemCancellationReason',
+      desc: 'Título para la razón de cancelación automática del sistema.',
+      args: [],
+    );
+  }
+
+  /// `Ofertas`
+  String get offers {
+    return Intl.message(
+      'Ofertas',
+      name: 'offers',
+      desc: 'Título para la sección de ofertas en una cotización.',
+      args: [],
+    );
+  }
+
+  /// `Demasiado costoso`
+  String get tooExpensive {
+    return Intl.message(
+      'Demasiado costoso',
+      name: 'tooExpensive',
+      desc: 'Razón de rechazo: el precio es demasiado alto.',
+      args: [],
+    );
+  }
+
+  /// `No es lo que quería`
+  String get notWhatIWanted {
+    return Intl.message(
+      'No es lo que quería',
+      name: 'notWhatIWanted',
+      desc: 'Razón de rechazo: el diseño no cumple con las expectativas.',
+      args: [],
+    );
+  }
+
+  /// `Cambié de opinión`
+  String get changedMyMind {
+    return Intl.message(
+      'Cambié de opinión',
+      name: 'changedMyMind',
+      desc: 'Razón de rechazo: el cliente cambió de opinión.',
+      args: [],
+    );
+  }
+
+  /// `Encontré otro artista`
+  String get foundAnotherArtist {
+    return Intl.message(
+      'Encontré otro artista',
+      name: 'foundAnotherArtist',
+      desc: 'Razón de rechazo: el cliente eligió otro artista.',
+      args: [],
+    );
+  }
+
+  /// `Conflicto de horarios`
+  String get schedulingConflict {
+    return Intl.message(
+      'Conflicto de horarios',
+      name: 'schedulingConflict',
+      desc: 'Razón de rechazo del artista: conflicto de horarios.',
+      args: [],
+    );
+  }
+
+  /// `Desacuerdo artístico`
+  String get artisticDisagreement {
+    return Intl.message(
+      'Desacuerdo artístico',
+      name: 'artisticDisagreement',
+      desc: 'Razón de rechazo del artista: desacuerdo sobre el diseño.',
+      args: [],
+    );
+  }
+
+  /// `Detalles insuficientes`
+  String get insufficientDetails {
+    return Intl.message(
+      'Detalles insuficientes',
+      name: 'insufficientDetails',
+      desc: 'Razón de rechazo del artista: falta de información.',
+      args: [],
+    );
+  }
+
+  /// `Fuera de mi especialidad`
+  String get beyondExpertise {
+    return Intl.message(
+      'Fuera de mi especialidad',
+      name: 'beyondExpertise',
+      desc:
+          'Razón de rechazo del artista: el trabajo está fuera de su área de experiencia.',
+      args: [],
+    );
+  }
+
+  /// `No se presentó`
+  String get notAttended {
+    return Intl.message(
+      'No se presentó',
+      name: 'notAttended',
+      desc: 'Razón de cancelación del sistema: el cliente no se presentó.',
+      args: [],
+    );
+  }
+
+  /// `Tiempo de espera agotado`
+  String get systemTimeout {
+    return Intl.message(
+      'Tiempo de espera agotado',
+      name: 'systemTimeout',
+      desc: 'Razón de cancelación del sistema: se agotó el tiempo de espera.',
+      args: [],
+    );
+  }
+
+  /// `Regresar a la galería`
+  String get backToGallery {
+    return Intl.message(
+      'Regresar a la galería',
+      name: 'backToGallery',
+      desc: 'Texto del botón para regresar a la pantalla de galería.',
+      args: [],
+    );
+  }
+
+  /// `Estamos procesando tu solicitud...`
+  String get processingRequest {
+    return Intl.message(
+      'Estamos procesando tu solicitud...',
+      name: 'processingRequest',
+      desc: 'Texto mostrado cuando una solicitud está siendo procesada.',
+      args: [],
+    );
+  }
+
+  /// `Cotización creada exitosamente`
+  String get quotationCreatedSuccessfullyTitle {
+    return Intl.message(
+      'Cotización creada exitosamente',
+      name: 'quotationCreatedSuccessfullyTitle',
+      desc: 'Título mostrado cuando una cotización se crea exitosamente.',
+      args: [],
+    );
+  }
+
+  /// `Tu cotización ha sido creada exitosamente. Te notificaremos cuando sea revisada.`
+  String get quotationCreatedSuccessfullyDescription {
+    return Intl.message(
+      'Tu cotización ha sido creada exitosamente. Te notificaremos cuando sea revisada.',
+      name: 'quotationCreatedSuccessfullyDescription',
+      desc: 'Descripción mostrada cuando una cotización se crea exitosamente.',
       args: [],
     );
   }

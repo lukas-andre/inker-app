@@ -19,8 +19,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_detail/quotation_detail_bloc.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
-import 'dart:async';
-import 'package:collection/collection.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class QuotationDetailsPage extends StatelessWidget {
@@ -64,8 +62,8 @@ class _QuotationDetailsScaffold extends StatelessWidget {
           state.maybeWhen(
             offerAccepted: (quotation) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Oferta aceptada exitosamente'),
+                SnackBar(
+                    content: Text(l10n.offerAcceptedSuccessfully),
                     backgroundColor: Colors.green),
               );
             },
@@ -538,22 +536,31 @@ class _MainQuotationInfo extends StatelessWidget {
             // Mostrar referenceBudget si existe
             if (quotation.referenceBudget != null) ...[
               const SizedBox(height: 12),
+              // Primera fila: ícono y label
               Row(
                 children: [
-                  const Icon(Icons.account_balance_wallet,
-                      color: Color(0xFF686D90), size: 20),
+                  const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    l10n.referenceBudget(
-                      quotation.referenceBudget!.amount.toString(),
-                      quotation.referenceBudget!.currency,
-                    ),
-                    style: TextStyleTheme.bodyText2.copyWith(
-                      color: secondaryColor,
+                    '${l10n.referenceBudget(
+                      '', // El monto y la moneda van abajo, así que aquí solo el label
+                      ''
+                    ).split(':').first}:',
+                    style: TextStyleTheme.subtitle2.copyWith(
+                      color: tertiaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 4),
+              // Segunda fila: monto y moneda
+              Text(
+                '${quotation.referenceBudget!.toString()} ${quotation.referenceBudget!.currency}',
+                style: TextStyleTheme.headline3.copyWith(
+                  color: secondaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
             const SizedBox(height: 16),
@@ -588,7 +595,7 @@ class _MainQuotationInfo extends StatelessWidget {
 
         if (artistOffer.estimatedCost != null) {
           final cost = artistOffer.estimatedCost!;
-          costText = 'Oferta: \$${cost.amount} CLP';
+          costText = '${l10n.offerCost}: ${cost.toString()} ${l10n.currency}';
         }
       }
 
@@ -770,7 +777,7 @@ class _MainQuotationInfo extends StatelessWidget {
         _InfoSection(
           icon: Icons.attach_money,
           title: l10n.estimatedCost,
-          content: '\$${quotation.estimatedCost!.amount.toStringAsFixed(2)}',
+          content: '\$${quotation.estimatedCost!.toString()}',
           highlight: true,
         ),
         const SizedBox(height: 16),
@@ -1138,7 +1145,7 @@ class _TimelineItem extends StatelessWidget {
       return l10n.canceledTheQuotation;
     }
     if (to == QuotationStatus.open) {
-      return 'Abierta';
+      return l10n.open;
     }
 
     return '${l10n.changedStatusFrom} ${_getStatusText(from, l10n)} ${l10n.to} ${_getStatusText(to, l10n)}';
@@ -1159,7 +1166,7 @@ class _TimelineItem extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return 'Abierta';
+        return l10n.statusOpen;
     }
   }
 }
@@ -1225,7 +1232,7 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
       case QuotationStatus.open:
-        return 'Abierta';
+        return l10n.statusOpen;
     }
   }
 }
@@ -1475,7 +1482,7 @@ class _OfferListItem extends StatelessWidget {
 
     // Format cost if available
     String costText = offer.estimatedCost != null && offer.estimatedCost!.amount > 0
-        ? offer.estimatedCost!.amount.toString()
+        ? offer.estimatedCost!.toString()
         : l10n.notSpecified;
 
     // Get message count if available
@@ -1525,7 +1532,7 @@ class _OfferListItem extends StatelessWidget {
                       color: Colors.white70, size: 16),
                   const SizedBox(width: 4),
                   Text(
-                    l10n.artist + ': ' + (offer.artistName ?? ''),
+                    '${l10n.artist}: ${offer.artistName ?? ''}',
                     style: TextStyleTheme.bodyText2.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -1539,7 +1546,7 @@ class _OfferListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      '\$ $costText CLP',
+                      '$costText ${offer.estimatedCost?.currency}',
                       style: TextStyleTheme.subtitle2.copyWith(
                         color: const Color(0xFF4CAF50),
                         fontWeight: FontWeight.bold,
@@ -1559,7 +1566,7 @@ class _OfferListItem extends StatelessWidget {
                         color: Colors.white70, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      '${messageCount} mensajes',
+                      '$messageCount ${l10n.messages}',
                       style: TextStyleTheme.caption
                           .copyWith(color: Colors.white70),
                     ),
@@ -1571,10 +1578,9 @@ class _OfferListItem extends StatelessWidget {
                 if (offer.message != null && offer.message!.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
-                    'Mensaje: ' +
-                        (offer.message!.length > 50
-                            ? offer.message!.substring(0, 50) + '...'
-                            : offer.message!),
+                    '${l10n.message}: ${offer.message!.length > 50
+                            ? '${offer.message!.substring(0, 50)}...'
+                            : offer.message!}',
                     style:
                         TextStyleTheme.bodyText2.copyWith(color: Colors.white),
                     maxLines: 1,

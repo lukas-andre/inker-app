@@ -49,15 +49,23 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
   @override
   void initState() {
     super.initState();
-    
-    // Si hay un stencil seleccionado, pre-poblar la descripción
-    if (widget.stencil != null) {
+    // No inicializar aquí porque S.of(context) no está disponible aún
+  }
+
+  bool _didSetDescription = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_didSetDescription && widget.stencil != null) {
       final stencil = widget.stencil!;
       final stencilTitle = stencil.title;
-      
-      _descriptionController.text = 'Solicito cotización para el diseño "$stencilTitle" ${stencil.description != null && stencil.description!.isNotEmpty 
-              ? 'con descripción: ${stencil.description}. ' 
-              : '. '}Me gustaría obtener más información sobre tamaños, precios y disponibilidad.';
+      _descriptionController.text =
+          '${S.of(context).requestQuotationForDesign} "$stencilTitle" '
+          '${stencil.description != null && stencil.description!.isNotEmpty 
+              ? '${S.of(context).withDescription}: ${stencil.description}. ' 
+              : '. '}${S.of(context).moreInfoAboutSizesPricesAvailability}';
+      _didSetDescription = true;
     }
   }
 
@@ -88,9 +96,9 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SuccessAnimationPage(
-                      title: S.of(context).createQuotation,
+                      title: S.of(context).quotationCreatedSuccessfullyTitle,
                       subtitle:
-                          S.of(context).description,
+                          S.of(context).quotationCreatedSuccessfullyDescription,
                       state: AnimationState.completed,
                       onAnimationComplete: () {
                         Navigator.of(context).pop();
@@ -371,7 +379,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
       customerId: '',
       artistId: widget.artistId,
       description: _descriptionController.text + 
-          (widget.stencil != null ? '\n\nCotización para stencil ID: ${widget.stencil!.id}' : ''),
+          (widget.stencil != null ? '\n\n${S.of(context).quotationForStencilId}: ${widget.stencil!.id}' : ''),
       status: QuotationStatus.pending,
       appointmentDate: DateTime.parse(_appointmentDateController.text),
       stencilId: widget.stencil?.id,

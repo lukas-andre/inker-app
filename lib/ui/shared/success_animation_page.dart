@@ -125,7 +125,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
         ),
         const SizedBox(height: 20),
         Text(
-          widget.loadingMessage ?? 'Estamos procesando tu solicitud...',
+          widget.loadingMessage ?? S.of(context).processingRequest,
           style: TextStyleTheme.copyWith(fontSize: 18, color: Colors.white),
           textAlign: TextAlign.center,
         ),

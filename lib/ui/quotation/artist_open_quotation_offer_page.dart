@@ -262,7 +262,7 @@ class _ArtistOpenQuotationOfferPageViewState
                     foregroundColor: quaternaryColor,
                   ),
                   // Changed button text
-                  child: Text("Submit Offer", style: TextStyleTheme.button),
+                  child: Text(l10n.submitOffer, style: TextStyleTheme.button),
                 ),
               ),
             ),
@@ -570,7 +570,7 @@ class _ArtistOpenQuotationOfferPageViewState
         ArtistQuotationResponseEvent.submitOffer(
           quotationId: widget.quotationId,
           estimatedCost: _estimatedCostController.text.isNotEmpty 
-              ? double.tryParse(_estimatedCostController.text) 
+              ? double.tryParse(_estimatedCostController.text.replaceAll('.', '')) 
               : null,
           appointmentDate: _appointmentStartDate,
           appointmentDuration: _durationInMinutes,

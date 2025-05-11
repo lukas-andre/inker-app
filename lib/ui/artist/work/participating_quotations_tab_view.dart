@@ -157,7 +157,7 @@ class _ParticipatingQuotationsTabViewState
       Navigator.of(context).pop(); // Close loading dialog on error/timeout
       print("Error navigating to detail: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading quotation details: $e')),
+        SnackBar(content: Text(S.of(context).errorLoadingQuotationDetails)),
       );
     }
   }
@@ -227,7 +227,7 @@ class _ParticipatingQuotationsTabViewState
                   Icon(Icons.inbox_outlined, size: 80, color: Colors.grey[600]),
                   const SizedBox(height: 16),
                   Text(
-                    "No Applications Found", // TODO: Replace with l10n
+                    S.of(context).noApplicationsFound, // TODO: Replace with l10n
                     style: TextStyleTheme.headline3.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
@@ -278,14 +278,14 @@ class _ParticipatingQuotationsTabViewState
     final int messagesCount = item.messages?.length ?? 0;
     
     // Format price if available
-    String priceDisplay = "No especificado";
+    String priceDisplay = S.of(context).notSpecified;
     if (item.estimatedCost != null) {
       try {
         // Intentar usar el método de formateo de Money si está disponible
         priceDisplay = item.estimatedCost!.toString();
       } catch (e) {
         // Si hay error, usar un string genérico
-        priceDisplay = "Oferta enviada";
+        priceDisplay = S.of(context).sentOffer;
       }
     }
 
@@ -486,7 +486,7 @@ class _ParticipatingQuotationsTabViewState
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${quotationInfo.referenceImages!.metadata.length} imágenes de referencia',
+                        '${quotationInfo.referenceImages!.metadata.length} ${S.of(context).referenceImages}',
                         style: TextStyleTheme.bodyText2.copyWith(
                           color: const Color(0xFF9E9E9E),
                         ),
