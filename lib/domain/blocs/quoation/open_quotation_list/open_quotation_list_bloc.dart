@@ -104,11 +104,11 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
     final currentState = state;
     if (currentState is! _Loaded) {
         // Cannot update if not loaded
-        emit(const OpenQuotationListState.error("Cannot fetch details before list is loaded."));
+        emit(const OpenQuotationListState.error('Cannot fetch details before list is loaded.'));
         return;
     }
 
-    emit(currentState.copyWith(infoMessage: "Loading details...")); // Show loading message
+    emit(currentState.copyWith(infoMessage: 'Loading details...')); // Show loading message
 
     try {
       final session = await _sessionService.getActiveSession();

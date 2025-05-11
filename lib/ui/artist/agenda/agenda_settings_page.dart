@@ -362,7 +362,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
         children: [
           // Working Hours Section
           Text(
-            'Horario de Trabajo',
+            S.of(context).workingHours,
             style: TextStyleTheme.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -375,7 +375,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
               Expanded(
                 child: ListTile(
                   title: Text(
-                    'Hora de inicio',
+                    S.of(context).startHour,
                     style: TextStyleTheme.copyWith(
                       color: Colors.white,
                     ),
@@ -396,7 +396,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
               Expanded(
                 child: ListTile(
                   title: Text(
-                    'Hora de fin',
+                    S.of(context).endHour,
                     style: TextStyleTheme.copyWith(
                       color: Colors.white,
                     ),
@@ -420,7 +420,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
 
           // Working Days Section
           Text(
-            'Días de Trabajo',
+            S.of(context).workingDays,
             style: TextStyleTheme.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -432,13 +432,13 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _buildDayChip('1', 'Lun'),
-              _buildDayChip('2', 'Mar'),
-              _buildDayChip('3', 'Mie'),
-              _buildDayChip('4', 'Jue'),
-              _buildDayChip('5', 'Vie'),
-              _buildDayChip('6', 'Sab'),
-              _buildDayChip('7', 'Dom'),
+              _buildDayChip('1', S.of(context).monday),
+              _buildDayChip('2', S.of(context).tuesday),
+              _buildDayChip('3', S.of(context).wednesday),
+              _buildDayChip('4', S.of(context).thursday),
+              _buildDayChip('5', S.of(context).friday),
+              _buildDayChip('6', S.of(context).saturday),
+              _buildDayChip('7', S.of(context).sunday),
             ],
           ),
           const SizedBox(height: 24),

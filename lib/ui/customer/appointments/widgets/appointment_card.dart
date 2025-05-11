@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
@@ -217,7 +218,7 @@ class AppointmentCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        _getStatusText(appointment.status),
+                        _getStatusText(appointment.status, context),
                         style: TextStyleTheme.caption.copyWith(
                           color: statusColor,
                           fontWeight: FontWeight.bold,
@@ -234,26 +235,26 @@ class AppointmentCard extends StatelessWidget {
     );
   }
 
-  String _getStatusText(AppointmentStatus status) {
+  String _getStatusText(AppointmentStatus status, BuildContext context) {
     switch (status) {
       case AppointmentStatus.scheduled:
-        return 'Programado';
+        return S.of(context).scheduled;
       case AppointmentStatus.inProgress:
-        return 'En progreso';
+        return S.of(context).inProgress;
       case AppointmentStatus.completed:
-        return 'Completado';
+        return S.of(context).completed;
       case AppointmentStatus.canceled:
-        return 'Cancelado';
+        return S.of(context).canceled;
       case AppointmentStatus.rescheduled:
-        return 'Reprogramado';
+        return S.of(context).rescheduled;
       case AppointmentStatus.waitingForPhotos:
-        return 'Esperando fotos';
+        return S.of(context).waitingForPhotos;
       case AppointmentStatus.waitingForReview:
-        return 'Esperando reseña';
+        return S.of(context).waitingForReview;
       case AppointmentStatus.reviewed:
-        return 'Reseñado';
+        return S.of(context).reviewed;
       case AppointmentStatus.pending:
-        return 'Pendiente';
+        return S.of(context).pending;
     }
   }
 }

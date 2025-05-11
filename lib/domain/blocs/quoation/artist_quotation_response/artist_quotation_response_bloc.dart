@@ -62,11 +62,11 @@ class ArtistQuotationResponseBloc
 
       Money? cost;
       if (event.estimatedCost != null) {
-        final amountInCents = (event.estimatedCost! * 100).round();
+        final amountInCents = (event.estimatedCost!).round(); // TODO: Get currency
         cost = Money(
             amount: amountInCents,
             currency: 'CLP', // TODO: Get currency
-            scale: 1);
+            scale: 0);
       }
 
       await _quotationService.processArtistAction(
@@ -102,11 +102,11 @@ class ArtistQuotationResponseBloc
 
       Money? cost;
       if (event.estimatedCost != null) {
-        final amountInCents = (event.estimatedCost! * 100).round();
+        final amountInCents = (event.estimatedCost!).round(); // TODO: Get currency
         cost = Money(
             amount: amountInCents,
             currency: 'CLP', // TODO: Get currency
-            scale: 1);
+            scale: 0);
       }
 
       await _quotationService.submitOffer(

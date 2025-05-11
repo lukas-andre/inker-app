@@ -46,7 +46,7 @@ class AgendaEventDetailPage extends StatelessWidget {
             loaded: (data) => _buildContent(context, data),
             error: (message) => Center(
               child: Text(
-                'Error loading event details: $message',
+                S.of(context).errorLoadingEventDetails(message),
                 style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
               ),
             ),
@@ -167,7 +167,7 @@ class AgendaEventDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              data.event.info ?? 'No hay descripción :(',
+              data.event.info ?? S.of(context).noDescription,
               style: TextStyleTheme.bodyText1.copyWith(height: 1.5),
             ),
           ],
@@ -343,7 +343,7 @@ class AgendaEventDetailPage extends StatelessWidget {
           style: TextStyleTheme.subtitle1,
         ),
         content: Text(
-          'Al editar este evento, deberás volver a seleccionar el cliente. ¿Deseas continuar?',
+          S.of(context).editEventWarning,
           style: TextStyleTheme.bodyText1,
         ),
         actions: [
@@ -426,7 +426,7 @@ class AgendaEventDetailPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.receipt_long, color: secondaryColor, size: 28),
+                const Icon(Icons.receipt_long, color: secondaryColor, size: 28),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -464,7 +464,7 @@ class AgendaEventDetailPage extends StatelessWidget {
             if (quotation.minBudget != null || quotation.maxBudget != null)
               _InfoRow(
                 icon: Icons.account_balance_wallet_outlined,
-                title: 'Presupuesto',
+                title: S.of(context).budget,
                 content: _formatBudget(quotation),
               ),
             if (quotation.referenceBudget != null)
@@ -511,7 +511,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               ),
             if (quotation.tattooDesignImageUrl != null && quotation.tattooDesignImageUrl!.isNotEmpty) ...[
               const SizedBox(height: 16),
-              Text('Diseño propuesto', style: TextStyleTheme.subtitle1),
+              Text(S.of(context).proposedDesign, style: TextStyleTheme.subtitle1),
               const SizedBox(height: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -530,13 +530,13 @@ class AgendaEventDetailPage extends StatelessWidget {
             ],
             if (quotation.referenceImages != null && quotation.referenceImages!.metadata.isNotEmpty) ...[
               const SizedBox(height: 16),
-              Text('Imágenes de referencia', style: TextStyleTheme.subtitle1),
+              Text(S.of(context).referenceImages, style: TextStyleTheme.subtitle1),
               const SizedBox(height: 8),
               _buildQuotationImagesGrid(quotation.referenceImages!.metadata),
             ],
             if (quotation.proposedDesigns != null && quotation.proposedDesigns!.metadata.isNotEmpty) ...[
               const SizedBox(height: 16),
-              Text('Diseños propuestos', style: TextStyleTheme.subtitle1),
+              Text(S.of(context).proposedDesigns, style: TextStyleTheme.subtitle1),
               const SizedBox(height: 8),
               _buildQuotationImagesGrid(quotation.proposedDesigns!.metadata),
             ],
@@ -568,13 +568,13 @@ class AgendaEventDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               _InfoRow(
                 icon: Icons.cancel_schedule_send,
-                title: 'Motivo de cancelación del sistema',
+                title: S.of(context).systemCancellationReason,
                 content: _getSystemCancelReasonText(context, quotation.systemCancelReason!),
               ),
             ],
             if (quotation.offers != null && quotation.offers!.isNotEmpty) ...[
               const SizedBox(height: 16),
-              Text('Ofertas', style: TextStyleTheme.subtitle1),
+              Text(S.of(context).offers, style: TextStyleTheme.subtitle1),
               const SizedBox(height: 8),
               ...quotation.offers!.map((offer) => _buildOfferRow(context, offer)).toList(),
             ],
@@ -645,19 +645,19 @@ class AgendaEventDetailPage extends StatelessWidget {
   String _getQuotationStatusText(BuildContext context, QuotationStatus status) {
     switch (status) {
       case QuotationStatus.pending:
-        return 'Pendiente';
+        return S.of(context).statusPending;
       case QuotationStatus.quoted:
-        return 'Cotizada';
+        return S.of(context).statusQuoted;
       case QuotationStatus.accepted:
-        return 'Aceptada';
+        return S.of(context).statusAccepted;
       case QuotationStatus.rejected:
-        return 'Rechazada';
+        return S.of(context).statusRejected;
       case QuotationStatus.appealed:
-        return 'Apelada';
+        return S.of(context).statusAppealed;
       case QuotationStatus.canceled:
-        return 'Cancelada';
+        return S.of(context).statusCanceled;
       case QuotationStatus.open:
-        return 'Abierta';
+        return S.of(context).open;
       default:
         return '-';
     }
@@ -678,15 +678,15 @@ class AgendaEventDetailPage extends StatelessWidget {
   String _getCustomerRejectReasonText(BuildContext context, QuotationCustomerRejectReason reason) {
     switch (reason) {
       case QuotationCustomerRejectReason.tooExpensive:
-        return 'Demasiado caro';
+        return S.of(context).tooExpensive;
       case QuotationCustomerRejectReason.notWhatIWanted:
-        return 'No era lo que quería';
+        return S.of(context).notWhatIWanted;
       case QuotationCustomerRejectReason.changedMyMind:
-        return 'Cambié de opinión';
+        return S.of(context).changedMyMind;
       case QuotationCustomerRejectReason.foundAnotherArtist:
-        return 'Encontré otro artista';
+        return S.of(context).foundAnotherArtist;
       case QuotationCustomerRejectReason.other:
-        return 'Otro';
+        return S.of(context).other;
       default:
         return '-';
     }
@@ -695,15 +695,15 @@ class AgendaEventDetailPage extends StatelessWidget {
   String _getArtistRejectReasonText(BuildContext context, QuotationArtistRejectReason reason) {
     switch (reason) {
       case QuotationArtistRejectReason.schedulingConflict:
-        return 'Conflicto de agenda';
+        return S.of(context).schedulingConflict;
       case QuotationArtistRejectReason.artisticDisagreement:
-        return 'Desacuerdo artístico';
+        return S.of(context).artisticDisagreement;
       case QuotationArtistRejectReason.insufficientDetails:
-        return 'Detalles insuficientes';
+        return S.of(context).insufficientDetails;
       case QuotationArtistRejectReason.beyondExpertise:
-        return 'Fuera de mi especialidad';
+        return S.of(context).beyondExpertise;
       case QuotationArtistRejectReason.other:
-        return 'Otro';
+        return S.of(context).other;
       default:
         return '-';
     }
@@ -712,9 +712,9 @@ class AgendaEventDetailPage extends StatelessWidget {
   String _getSystemCancelReasonText(BuildContext context, QuotationSystemCancelReason reason) {
     switch (reason) {
       case QuotationSystemCancelReason.notAttended:
-        return 'No asistió';
+        return S.of(context).notAttended;
       case QuotationSystemCancelReason.systemTimeout:
-        return 'Tiempo agotado';
+        return S.of(context).systemTimeout;
       default:
         return '-';
     }

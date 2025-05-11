@@ -1231,6 +1231,10 @@
   "@plsContactArtist": {
     "description": "Message prompting the user to contact the artist."
   },
+  "contactArtist": "Please contact the artist for further details.",
+  "@contactArtist": {
+    "description": "Message prompting the user to contact the artist."
+  },
   "changeAppointmentInstruction": "Please provide the details for changing your appointment.",
   "@changeAppointmentInstruction": {
     "description": "Instruction for changing an appointment."
@@ -2266,5 +2270,398 @@
   "designSavedToYourGeneratedDesigns": "Design saved to your generated designs",
   "@designSavedToYourGeneratedDesigns": {"description": "Message shown when a design is saved to the user's generated designs."},
   "quotations": "Quotations",
-  "@quotations": {"description": "Label for the quotations tab."}
+  "@quotations": {"description": "Label for the quotations tab."},
+  "currency": "USD",
+  "@currency": {"description": "Label for the currency."},
+  "kmAway": "km away",
+  "@kmAway": {"description": "Label for the distance in kilometers."},
+  "offerCost": "Offer Cost",
+  "@offerCost": {"description": "Label for the offer cost."},
+  "estimatedDuration": "Est. Duration",
+  "@estimatedDuration": {"description": "Label for the estimated duration."},
+  "offerAcceptedSuccessfully": "Offer accepted successfully",
+  "@offerAcceptedSuccessfully": {"description": "Success message shown when an offer has been accepted."},
+  "statusOpen": "Open",
+  "@statusOpen": {"description": "Label for the open status of a quotation."},
+  "messages": "messages",
+  "@messages": {"description": "Label for the count of messages in a conversation."},
+  "message": "Message",
+  "@message": {"description": "Label for a message in a conversation."},
+  "artistUpdatedOfferCost": "The artist updated the offer cost to {amount} {currency}",
+  "@artistUpdatedOfferCost": {"description": "Message shown when the artist updates the offer cost.", "placeholders": {"amount": {}, "currency": {}}},
+  "newQuotation": "New Quotation",
+  "@newQuotation": {"description": "Label for creating a new quotation."},
+  "noRequestsFound": "No requests found",
+  "@noRequestsFound": {"description": "Message shown when no requests are found."},
+  "noOpenQuotationsFoundTitle": "No Open Quotations",
+  "@noOpenQuotationsFoundTitle": {"description": "Title shown when no open quotations are found."},
+  "noOpenQuotationsFoundBody": "You don't have any open quotation requests at the moment.",
+  "@noOpenQuotationsFoundBody": {"description": "Message shown when no open quotations are found."},
+  "noParticipatingQuotationsFoundTitle": "No Participating Quotations",
+  "@noParticipatingQuotationsFoundTitle": {"description": "Title shown when no participating quotations are found."},
+  "noParticipatingQuotationsFoundBody": "You are not participating in any quotation requests at the moment.",
+  "@noParticipatingQuotationsFoundBody": {"description": "Message shown when no participating quotations are found."},
+  "noDirectArtistRequestsFoundTitle": "No Direct Requests",
+  "@noDirectArtistRequestsFoundTitle": {"description": "Title shown when no direct artist requests are found."},
+  "noDirectArtistRequestsFoundBody": "You don't have any direct requests from artists at the moment.",
+  "@noDirectArtistRequestsFoundBody": {"description": "Message shown when no direct artist requests are found."},
+  "noDirectCustomerQuotationsFoundTitle": "No Direct Quotations",
+  "@noDirectCustomerQuotationsFoundTitle": {"description": "Title shown when no direct customer quotations are found."},
+  "noDirectCustomerQuotationsFoundBody": "You don't have any direct quotations from customers at the moment.",
+  "@noDirectCustomerQuotationsFoundBody": {"description": "Message shown when no direct customer quotations are found."},
+  "pleaseEnableGps": "Please enable GPS",
+  "@pleaseEnableGps": {"description": "Message asking the user to enable GPS."},
+  "minDescriptionLengthRequired": "Description must be at least {length} characters",
+  "@minDescriptionLengthRequired": {"description": "Error message when description is too short.", "placeholders": {"length": {}}},
+  "chooseGeneratedDesign": "Choose Generated Design",
+  "@chooseGeneratedDesign": {"description": "Button label for choosing a generated design."},
+  "generateNewDesign": "Generate New Design",
+  "@generateNewDesign": {"description": "Button label for generating a new design."},
+  "estimatedBudgetOptional": "Estimated Budget (Optional)",
+  "@estimatedBudgetOptional": {"description": "Label for the estimated budget field, marked as optional."},
+  "referenceBudgetHint": "Reference budget for the artist",
+  "@referenceBudgetHint": {"description": "Hint text for the reference budget field."},
+  "noDistanceLimit": "No distance limit",
+  "@noDistanceLimit": {"description": "Label indicating no distance limit is set."},
+  "maxDistance": "Max distance: {distance} km",
+  "@maxDistance": {"description": "Label showing the maximum distance set.", "placeholders": {"distance": {}}},
+  "scheduled": "Scheduled",
+  "@scheduled": {"description": "Status label for scheduled appointments."},
+  "inProgress": "In Progress",
+  "@inProgress": {"description": "Status label for appointments in progress."},
+  "completed": "Completed",
+  "@completed": {"description": "Status label for completed appointments."},
+  "rescheduled": "Rescheduled",
+  "@rescheduled": {"description": "Status label for rescheduled appointments."},
+  "waitingForPhotos": "Waiting for Photos",
+  "@waitingForPhotos": {"description": "Status label for appointments waiting for photos."},
+  "waitingForReview": "Waiting for Review",
+  "@waitingForReview": {"description": "Status label for appointments waiting for review."},
+  "reviewed": "Reviewed",
+  "@reviewed": {"description": "Status label for reviewed appointments."},
+  "canceled": "Canceled",
+  "@canceled": {"description": "Status label for canceled appointments."},
+  "requestQuotationForDesign": "Request quotation for design",
+  "@requestQuotationForDesign": {"description": "Label for requesting a quotation for a design."},
+  "moreInfoAboutSizesPricesAvailability": "I would like more information about sizes, prices, and availability",
+  "@moreInfoAboutSizesPricesAvailability": {"description": "Text for requesting more information about a design."},
+  "withDescription": "with description",
+  "@withDescription": {"description": "Text indicating that a description is included."},
+  "quotationForStencilId": "Quotation for stencil ID",
+  "@quotationForStencilId": {"description": "Label for a quotation related to a specific stencil ID."},
+  "searching": "Searching...",
+  "@searching": {"description": "Text shown when a search is in progress."},
+  "enterSearchTermOrSelectTags": "Enter search term or select tags",
+  "@enterSearchTermOrSelectTags": {"description": "Hint text for the search field."},
+  "noResultsFound": "No results found",
+  "@noResultsFound": {"description": "Message shown when no search results are found."},
+  "tryDifferentSearchOrFilters": "Try a different search term or filters",
+  "@tryDifferentSearchOrFilters": {"description": "Suggestion when no search results are found."},
+  "inspiration": "Inspiration",
+  "@inspiration": {"description": "Label for the inspiration section."},
+  "searchTattoosStencilsOrTags": "Search tattoos, stencils, or tags",
+  "@searchTattoosStencilsOrTags": {"description": "Placeholder text for searching tattoos, stencils, or tags."},
+  "clearSearch": "Clear Search",
+  "@clearSearch": {"description": "Button label to clear the search."},
+  "search": "Search",
+  "@search": {"description": "Button label for search action."},
+  "suggestedTags": "Suggested Tags",
+  "@suggestedTags": {"description": "Label for the suggested tags section."},
+  "onlyStencilsFound": "Only stencils found",
+  "@onlyStencilsFound": {"description": "Message shown when only stencils are found in search results."},
+  "onlyWorksFound": "Only works found",
+  "@onlyWorksFound": {"description": "Message shown when only works are found in search results."},
+  "showOnlyAvailableResults": "Show only available results",
+  "@showOnlyAvailableResults": {"description": "Option to show only available search results."},
+  "all": "All",
+  "@all": {"description": "Label for showing all items."},
+  "createYourOwnDesign": "Create Your Own Design",
+  "@createYourOwnDesign": {"description": "Button label for creating a custom design."},
+  "generateTattooDesignsWithAI": "Generate tattoo designs with AI",
+  "@generateTattooDesignsWithAI": {"description": "Description for generating tattoo designs with AI."},
+  "exploreInspiration": "Explore Inspiration",
+  "@exploreInspiration": {"description": "Button label for exploring inspiration."},
+  "findDesignsAndTattoosMadeByArtists": "Find designs and tattoos made by artists",
+  "@findDesignsAndTattoosMadeByArtists": {"description": "Description for finding designs and tattoos by artists."},
+  "searchInspiration": "Search Inspiration",
+  "@searchInspiration": {"description": "Button label for searching inspiration."},
+  "searchInspirationForYourNextTattoo": "Search inspiration for your next tattoo",
+  "@searchInspirationForYourNextTattoo": {"description": "Description for searching tattoo inspiration."},
+  "exploreDesignsAndArtistWorks": "Explore designs and artist works",
+  "@exploreDesignsAndArtistWorks": {"description": "Description for exploring designs and artist works."},
+  "startSearching": "Start Searching",
+  "@startSearching": {"description": "Button label to start searching."},
+  "tattoos": "Tattoos",
+  "@tattoos": {"description": "Label for the tattoos category."},
+  "noTattoosFoundWithCurrentCriteria": "No tattoos found with current criteria",
+  "@noTattoosFoundWithCurrentCriteria": {"description": "Message shown when no tattoos match the search criteria."},
+  "noStencilsFoundWithCurrentCriteria": "No stencils found with current criteria",
+  "@noStencilsFoundWithCurrentCriteria": {"description": "Message shown when no stencils match the search criteria."},
+  "id": "ID",
+  "@id": {"description": "Label for the ID of an item."},
+  "errorLoadingQuotationDetails": "Error loading quotation details",
+  "@errorLoadingQuotationDetails": {"description": "Error message shown when quotation details cannot be loaded."},
+  "noApplicationsFound": "No applications found",
+  "@noApplicationsFound": {"description": "Message shown when no applications are found."},
+  "sentOffer": "Sent offer",
+  "@sentOffer": {"description": "Label for an offer that has been sent."},
+  "noAvailableTimeSlotsFound": "No available time slots found",
+  "@noAvailableTimeSlotsFound": {"description": "Message shown when no available time slots are found."},
+  "weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": "We tried to find slots across multiple days but could not find any available times",
+  "@weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": {"description": "Message explaining that no time slots were found across multiple days."},
+  "trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": "Try setting up your working hours in agenda settings or try a shorter appointment duration",
+  "@trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": {"description": "Suggestion for when no available time slots are found."},
+  "errorLoadingAvailableTimeSlots": "Error loading available time slots",
+  "@errorLoadingAvailableTimeSlots": {"description": "Error message shown when available time slots cannot be loaded."},
+  "best": "Best",
+  "@best": {"description": "Label indicating the best option or time slot."},
+  "today": "Today",
+  "@today": {"description": "Label indicating the current day."},
+  "cannotOpenDetailsRightNowTryAgainLater": "Cannot open details right now. Try again later.",
+  "@cannotOpenDetailsRightNowTryAgainLater": {"description": "Error message shown when details cannot be opened."},
+  "errorLoadingOpenQuotations": "Error loading open quotations",
+  "@errorLoadingOpenQuotations": {"description": "Error message shown when open quotations cannot be loaded."},
+  "errorLoadingOpenQuotationsWithMessage": "Error loading open quotations: {message}",
+  "@errorLoadingOpenQuotationsWithMessage": {
+    "description": "Error message with details when open quotations cannot be loaded.",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "workingHours": "Working Hours",
+  "@workingHours": {"description": "Label for working hours section in agenda settings."},
+  "startHour": "Start Hour",
+  "@startHour": {"description": "Label for the start hour of working hours."},
+  "endHour": "End Hour",
+  "@endHour": {"description": "Label for the end hour of working hours."},
+  "workingDays": "Working Days",
+  "@workingDays": {"description": "Label for working days section in agenda settings."},
+  "monday": "Monday",
+  "@monday": {"description": "Label for Monday in working days selection."},
+  "tuesday": "Tuesday",
+  "@tuesday": {"description": "Label for Tuesday in working days selection."},
+  "wednesday": "Wednesday",
+  "@wednesday": {"description": "Label for Wednesday in working days selection."},
+  "thursday": "Thursday",
+  "@thursday": {"description": "Label for Thursday in working days selection."},
+  "friday": "Friday",
+  "@friday": {"description": "Label for Friday in working days selection."},
+  "saturday": "Saturday",
+  "@saturday": {"description": "Label for Saturday in working days selection."},
+  "sunday": "Sunday",
+  "@sunday": {"description": "Label for Sunday in working days selection."},
+  "explore": "Explore",
+  "@explore": {
+    "description": "Label for the explore tab in the customer app."
+  },
+  "myAppointments": "My Appointments",
+  "@myAppointments": {
+    "description": "Label for the appointments tab in the customer app."
+  },
+  "public": "Public",
+  "@public": {
+    "description": "Label for the public tab in quotations view."
+  },
+  "direct": "Direct",
+  "@direct": {
+    "description": "Label for the direct tab in quotations view."
+  },
+  "minute": "minute",
+  "@minute": {
+    "description": "Singular form of minute used in duration formatting."
+  },
+  "thisFeatureWillBeAvailableSoon": "This feature will be available soon",
+  "@thisFeatureWillBeAvailableSoon": {
+    "description": "Message shown when a feature is not yet implemented."
+  },
+  "sendMessageInApp": "Send message in app",
+  "@sendMessageInApp": {
+    "description": "Option to send a message within the application."
+  },
+  "requestChange": "Request Change",
+  "@requestChange": {
+    "description": "Button text for requesting a change to an appointment."
+  },
+  "unknown": "Unknown",
+  "@unknown": {
+    "description": "Default text for unknown status."
+  },
+  "confirmed": "Confirmed",
+  "@confirmed": {
+    "description": "Status label for confirmed appointments."
+  },
+  "couldNotLoadImage": "Could not load image",
+  "@couldNotLoadImage": {
+    "description": "Error message shown when an image fails to load."
+  },
+  "january": "January",
+  "@january": {
+    "description": "Name of the month January."
+  },
+  "february": "February",
+  "@february": {
+    "description": "Name of the month February."
+  },
+  "march": "March",
+  "@march": {
+    "description": "Name of the month March."
+  },
+  "april": "April",
+  "@april": {
+    "description": "Name of the month April."
+  },
+  "may": "May",
+  "@may": {
+    "description": "Name of the month May."
+  },
+  "june": "June",
+  "@june": {
+    "description": "Name of the month June."
+  },
+  "july": "July",
+  "@july": {
+    "description": "Name of the month July."
+  },
+  "august": "August",
+  "@august": {
+    "description": "Name of the month August."
+  },
+  "september": "September",
+  "@september": {
+    "description": "Name of the month September."
+  },
+  "october": "October",
+  "@october": {
+    "description": "Name of the month October."
+  },
+  "november": "November",
+  "@november": {
+    "description": "Name of the month November."
+  },
+  "december": "December",
+  "@december": {
+    "description": "Name of the month December."
+  },
+  "viewTattoos": "View Tattoos",
+  "@viewTattoos": {
+    "description": "Button text to view tattoo works in the gallery."
+  },
+  "viewStencils": "View Stencils",
+  "@viewStencils": {
+    "description": "Button text to view stencil designs in the gallery."
+  },
+  "backToSearch": "Back to Search",
+  "@backToSearch": {
+    "description": "Button text to return to the search screen."
+  },
+  "quoteThisDesign": "Quote This Design",
+  "@quoteThisDesign": {
+    "description": "Button text to request a quotation for a stencil design."
+  },
+  "swipe": "Swipe",
+  "@swipe": {
+    "description": "Instruction text for users to swipe through content in the immersive viewer."
+  },
+  "backToStencils": "Back to Stencils",
+  "@backToStencils": {
+    "description": "Button text to return to the stencils screen."
+  },
+  "backToTattoos": "Back to Tattoos",
+  "@backToTattoos": {
+    "description": "Button text to return to the tattoos screen."
+  },
+  "noDescription": "No description",
+  "@noDescription": {
+    "description": "Text shown when there is no description available."
+  },
+  "errorLoadingEventDetails": "Error loading event details: {message}",
+  "@errorLoadingEventDetails": {
+    "description": "Error message shown when event details cannot be loaded.",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "editEventWarning": "Editing this event may affect customer information. Please confirm to continue.",
+  "@editEventWarning": {
+    "description": "Warning message shown when editing an event that may affect customer data."
+  },
+  "budget": "Budget",
+  "@budget": {
+    "description": "Label for budget information in quotation details."
+  },
+  "proposedDesign": "Proposed Design",
+  "@proposedDesign": {
+    "description": "Label for proposed tattoo design in quotation details."
+  },
+  "systemCancellationReason": "System Cancellation Reason",
+  "@systemCancellationReason": {
+    "description": "Label for system cancellation reason in quotation details."
+  },
+  "offers": "Offers",
+  "@offers": {
+    "description": "Label for offers section in quotation details."
+  },
+  "tooExpensive": "Too Expensive",
+  "@tooExpensive": {
+    "description": "Customer rejection reason: the quotation was too expensive."
+  },
+  "notWhatIWanted": "Not What I Wanted",
+  "@notWhatIWanted": {
+    "description": "Customer rejection reason: the design wasn't what they wanted."
+  },
+  "changedMyMind": "Changed My Mind",
+  "@changedMyMind": {
+    "description": "Customer rejection reason: they changed their mind about getting the tattoo."
+  },
+  "foundAnotherArtist": "Found Another Artist",
+  "@foundAnotherArtist": {
+    "description": "Customer rejection reason: they found another artist for their tattoo."
+  },
+  "schedulingConflict": "Scheduling Conflict",
+  "@schedulingConflict": {
+    "description": "Artist rejection reason: there is a conflict in the artist's schedule."
+  },
+  "artisticDisagreement": "Artistic Disagreement",
+  "@artisticDisagreement": {
+    "description": "Artist rejection reason: there is a disagreement about the artistic direction."
+  },
+  "insufficientDetails": "Insufficient Details",
+  "@insufficientDetails": {
+    "description": "Artist rejection reason: the request lacks necessary details."
+  },
+  "beyondExpertise": "Beyond Expertise",
+  "@beyondExpertise": {
+    "description": "Artist rejection reason: the request is beyond the artist's expertise."
+  },
+  "notAttended": "Not Attended",
+  "@notAttended": {
+    "description": "System cancellation reason: the appointment was not attended."
+  },
+  "systemTimeout": "System Timeout",
+  "@systemTimeout": {
+    "description": "System cancellation reason: the quotation timed out in the system."
+  },
+  "backToGallery": "Back to Gallery",
+  "@backToGallery": {
+    "description": "Button text to return to the gallery screen."
+  },
+  "processingRequest": "Processing request...",
+  "@processingRequest": {
+    "description": "Text shown when a request is being processed."
+  },
+  "quotationCreatedSuccessfullyTitle": "Quotation Created Successfully",
+  "@quotationCreatedSuccessfullyTitle": {
+    "description": "Title shown when a quotation is created successfully."
+  },
+  "quotationCreatedSuccessfullyDescription": "Your quotation has been created successfully. We will notify you when it is reviewed.",
+  "@quotationCreatedSuccessfullyDescription": {
+    "description": "Description shown when a quotation is created successfully."
+  }
 }
+

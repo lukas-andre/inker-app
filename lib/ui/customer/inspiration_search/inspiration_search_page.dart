@@ -4,6 +4,7 @@ import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/shared/error_state.dart';
 import 'package:inker_studio/ui/shared/loading_indicator.dart';
@@ -274,7 +275,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   child: CircularProgressIndicator(
                       strokeWidth: 2, color: Colors.white)),
               const SizedBox(width: 16),
-              Text('Buscando "$query"...'),
+              Text('${S.of(context).searching} "$query"...'),
             ],
           ),
           backgroundColor: redColor,
@@ -309,11 +310,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     } else {
       // Show empty query message if no query and no tags
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content:
-              Text('Ingresa un término de búsqueda o selecciona etiquetas'),
+        SnackBar(
+          content: Text(S.of(context).enterSearchTermOrSelectTags),
           backgroundColor: Colors.orange,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -402,16 +402,16 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                     if (!hasAnyResults) {
                       return EmptyState(
                         icon: Icons.search_off,
-                        title: 'No se encontraron resultados',
+                        title: S.of(context).noResultsFound,
                         message: selectedTagIds.isNotEmpty ||
                                 searchQuery.isNotEmpty
-                            ? 'Prueba con otra búsqueda o filtros diferentes'
-                            : 'Prueba con otra búsqueda o filtros',
+                            ? S.of(context).tryDifferentSearchOrFilters
+                            : S.of(context).tryDifferentSearchOrFilters,
                         actionButton: selectedTagIds.isNotEmpty
                             ? ElevatedButton.icon(
                                 onPressed: _clearAllFilters,
                                 icon: const Icon(Icons.filter_alt_off),
-                                label: const Text('Limpiar filtros'),
+                                label: Text(S.of(context).clearFilters),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: redColor,
                                   padding: const EdgeInsets.symmetric(
@@ -488,7 +488,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 Text(
-                  'Inspiración',
+                  S.of(context).inspiration,
                   style: TextStyleTheme.headline2.copyWith(
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.5,
@@ -621,7 +621,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         controller: _searchController,
         style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
         decoration: InputDecoration(
-          hintText: 'Buscar tatuajes, stencils o etiquetas...',
+          hintText: S.of(context).searchTattoosStencilsOrTags,
           hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
           prefixIcon: const Icon(Icons.search, color: Colors.white70),
           suffixIcon: Row(
@@ -632,7 +632,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 IconButton(
                   icon: const Icon(Icons.clear, color: Colors.white70),
                   onPressed: _clearTextSearch,
-                  tooltip: 'Limpiar búsqueda',
+                  tooltip: S.of(context).clearSearch,
                   iconSize: 20.0,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(
@@ -643,7 +643,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               IconButton(
                 icon: const Icon(Icons.send, color: Colors.white70),
                 onPressed: _searchInspiration,
-                tooltip: 'Buscar',
+                tooltip: S.of(context).search,
                 iconSize: 20.0,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(
@@ -693,7 +693,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               controller: _searchController,
               style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'Buscar tatuajes, stencils o etiquetas...',
+                hintText: S.of(context).searchTattoosStencilsOrTags,
                 hintStyle:
                     TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
                 prefixIcon: const Icon(Icons.search, color: Colors.white70),
@@ -705,7 +705,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       IconButton(
                         icon: const Icon(Icons.clear, color: Colors.white70),
                         onPressed: _clearTextSearch,
-                        tooltip: 'Limpiar búsqueda',
+                        tooltip: S.of(context).clearSearch,
                         iconSize: 20.0,
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(
@@ -716,7 +716,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                     IconButton(
                       icon: const Icon(Icons.send, color: Colors.white70),
                       onPressed: _searchInspiration,
-                      tooltip: 'Buscar',
+                      tooltip: S.of(context).search,
                       iconSize: 20.0,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(
@@ -821,7 +821,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0, vertical: 4.0),
                             child: Text(
-                              'Etiquetas sugeridas:',
+                              S.of(context).suggestedTags,
                               style: TextStyleTheme.bodyText2.copyWith(
                                 color: Colors.white70,
                                 fontWeight: FontWeight.w600,
@@ -927,7 +927,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           padding: const EdgeInsets.only(
                               left: 8.0, bottom: 8.0, top: 12.0),
                           child: Text(
-                            'Etiquetas populares:',
+                            S.of(context).popularTags,
                             style: TextStyleTheme.bodyText2.copyWith(
                               color: Colors.white70,
                               fontWeight: FontWeight.w600,
@@ -1034,10 +1034,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
             if (contentType == ContentType.both) {
               if (works.isEmpty && stencils.isNotEmpty) {
                 showPartialResultsInfo = true;
-                partialResultsMessage = 'Solo se encontraron stencils';
+                partialResultsMessage = S.of(context).onlyStencilsFound;
               } else if (stencils.isEmpty && works.isNotEmpty) {
                 showPartialResultsInfo = true;
-                partialResultsMessage = 'Solo se encontraron tatuajes';
+                partialResultsMessage = S.of(context).onlyWorksFound;
               }
             }
 
@@ -1096,7 +1096,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             }
                           },
                           child: Text(
-                            'Mostrar solo resultados disponibles',
+                            S.of(context).showOnlyAvailableResults,
                             style: TextStyleTheme.bodyText2.copyWith(
                               color: Colors.amber,
                               fontSize: 12.0,
@@ -1229,19 +1229,19 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     return Row(
       children: [
         _buildFilterChip(
-          label: 'Todos',
+          label: S.of(context).all,
           isSelected: contentType == ContentType.both,
           onTap: () => _handleContentTypeChange(ContentType.both),
         ),
         const SizedBox(width: 8.0),
         _buildFilterChip(
-          label: 'Tatuajes',
+          label: S.of(context).works,
           isSelected: contentType == ContentType.works,
           onTap: () => _handleContentTypeChange(ContentType.works),
         ),
         const SizedBox(width: 8.0),
         _buildFilterChip(
-          label: 'Stencils',
+          label: S.of(context).stencils,
           isSelected: contentType == ContentType.stencils,
           onTap: () => _handleContentTypeChange(ContentType.stencils),
         ),
@@ -1335,7 +1335,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [secondaryColor, redColor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -1387,7 +1387,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Crea tu propio diseño",
+                          S.of(context).createYourOwnDesign,
                           style: TextStyleTheme.headline3.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -1395,7 +1395,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "Genera diseños de tatuajes con IA",
+                          S.of(context).generateTattooDesignsWithAI,
                           style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
                         ),
                       ],
@@ -1440,7 +1440,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
-                          'Explora la inspiración',
+                          S.of(context).exploreInspiration,
                           style: TextStyleTheme.headline3.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -1451,7 +1451,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
-                          'Encuentra diseños y tatuajes hechos por artistas',
+                          S.of(context).findDesignsAndTattoosMadeByArtists,
                           style: TextStyleTheme.bodyText1
                               .copyWith(color: Colors.white70),
                         ),
@@ -1480,7 +1480,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ),
                           icon: const Icon(Icons.search, color: Colors.white),
                           label: Text(
-                            'Buscar inspiración',
+                            S.of(context).searchInspiration,
                             style: TextStyleTheme.subtitle1.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -1496,7 +1496,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             const Icon(Icons.local_fire_department, color: redColor),
                             const SizedBox(width: 8.0),
                             Text(
-                              'Etiquetas populares',
+                              S.of(context).popularTags,
                               style: TextStyleTheme.subtitle1.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -1610,7 +1610,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 ),
                 const SizedBox(height: 24.0),
                 Text(
-                  'Busca inspiración para tu próximo tatuaje',
+                  S.of(context).searchInspirationForYourNextTattoo,
                   style: TextStyleTheme.subtitle1.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -1621,7 +1621,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Text(
-                    'Explora diseños y trabajos de artistas',
+                    S.of(context).exploreDesignsAndArtistWorks,
                     style: TextStyleTheme.bodyText2
                         .copyWith(color: Colors.white60),
                     textAlign: TextAlign.center,
@@ -1647,7 +1647,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                   ),
                   icon: const Icon(Icons.search, color: Colors.white),
                   label: Text(
-                    'Comenzar a buscar',
+                    S.of(context).startSearching,
                     style: TextStyleTheme.subtitle1.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -1705,15 +1705,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     if (!hasAnyResults) {
       return EmptyState(
         icon: Icons.search_off,
-        title: 'No se encontraron resultados',
+        title: S.of(context).noResultsFound,
         message: selectedTagIds.isNotEmpty || _searchController.text.isNotEmpty
-            ? 'Prueba con otra búsqueda o filtros diferentes'
-            : 'Prueba con otra búsqueda o filtros',
+            ? S.of(context).tryDifferentSearchOrFilters
+            : S.of(context).tryDifferentSearchOrFilters,
         actionButton: selectedTagIds.isNotEmpty
             ? ElevatedButton.icon(
                 onPressed: _clearAllFilters,
                 icon: const Icon(Icons.filter_alt_off),
-                label: const Text('Limpiar filtros'),
+                label: Text(S.of(context).clearFilters),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: redColor,
                   padding: const EdgeInsets.symmetric(
@@ -1776,7 +1776,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ),
                           const SizedBox(width: 8.0),
                           Text(
-                            'Tatuajes',
+                            S.of(context).tattoos,
                             style: TextStyleTheme.subtitle1.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -1809,7 +1809,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ),
                           const SizedBox(width: 8.0),
                           Text(
-                            'Stencils',
+                            S.of(context).stencils,
                             style: TextStyleTheme.subtitle1.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -1834,7 +1834,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Text(
-                            'No se encontraron tatuajes con los criterios actuales.',
+                            S.of(context).noTattoosFoundWithCurrentCriteria,
                             style: TextStyleTheme.bodyText2.copyWith(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
@@ -1854,7 +1854,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Text(
-                            'No se encontraron stencils con los criterios actuales.',
+                            S.of(context).noStencilsFoundWithCurrentCriteria,
                             style: TextStyleTheme.bodyText2.copyWith(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
@@ -1986,7 +1986,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ],
                         ),
                         child: Text(
-                          'Tatuaje',
+                          S.of(context).tattoos,
                           style: TextStyleTheme.caption.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -2064,7 +2064,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                     Text(
                                       work.artist?.firstName != null && work.artist?.lastName != null
                                           ? '${work.artist!.firstName} ${work.artist!.lastName}'
-                                          : work.artist?.username ?? 'Artista',
+                                          : work.artist?.username ?? S.of(context).artist,
                                       style: TextStyleTheme.caption.copyWith(
                                         color: primaryColor,
                                         fontWeight: FontWeight.bold,
@@ -2203,7 +2203,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ],
                         ),
                         child: Text(
-                          'Stencil',
+                          S.of(context).stencil,
                           style: TextStyleTheme.caption.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -2276,7 +2276,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                 Text(
                                   stencil.artist?.firstName != null && stencil.artist?.lastName != null
                                       ? '${stencil.artist!.firstName} ${stencil.artist!.lastName}'
-                                      : stencil.artist?.username ?? 'Artista',
+                                      : stencil.artist?.username ?? S.of(context).artist,
                                   style: TextStyleTheme.caption.copyWith(
                                     color: primaryColor,
                                     fontWeight: FontWeight.bold,
