@@ -13,7 +13,7 @@ class AppointmentState with _$AppointmentState {
     @Default(false) bool hasReachedMax,
     @Default(false) bool isLoadingMore,
     String? currentFilter,
-    Appointment? selectedAppointment,
+    AppointmentDetailDto? selectedAppointment,
   }) = _Loaded;
   
   const factory AppointmentState.loadingMoreFailed({
