@@ -1881,7 +1881,7 @@ mixin _$AppointmentState {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -1903,7 +1903,7 @@ mixin _$AppointmentState {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -1925,7 +1925,7 @@ mixin _$AppointmentState {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2041,7 +2041,7 @@ class _$InitialImpl implements _Initial {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -2066,7 +2066,7 @@ class _$InitialImpl implements _Initial {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2091,7 +2091,7 @@ class _$InitialImpl implements _Initial {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2209,7 +2209,7 @@ class _$LoadingImpl implements _Loading {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -2234,7 +2234,7 @@ class _$LoadingImpl implements _Loading {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2259,7 +2259,7 @@ class _$LoadingImpl implements _Loading {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2343,9 +2343,9 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       bool hasReachedMax,
       bool isLoadingMore,
       String? currentFilter,
-      Appointment? selectedAppointment});
+      AppointmentDetailDto? selectedAppointment});
 
-  $AppointmentCopyWith<$Res>? get selectedAppointment;
+  $AppointmentDetailDtoCopyWith<$Res>? get selectedAppointment;
 }
 
 /// @nodoc
@@ -2395,18 +2395,19 @@ class __$$LoadedImplCopyWithImpl<$Res>
       selectedAppointment: freezed == selectedAppointment
           ? _value.selectedAppointment
           : selectedAppointment // ignore: cast_nullable_to_non_nullable
-              as Appointment?,
+              as AppointmentDetailDto?,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AppointmentCopyWith<$Res>? get selectedAppointment {
+  $AppointmentDetailDtoCopyWith<$Res>? get selectedAppointment {
     if (_value.selectedAppointment == null) {
       return null;
     }
 
-    return $AppointmentCopyWith<$Res>(_value.selectedAppointment!, (value) {
+    return $AppointmentDetailDtoCopyWith<$Res>(_value.selectedAppointment!,
+        (value) {
       return _then(_value.copyWith(selectedAppointment: value));
     });
   }
@@ -2447,7 +2448,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   final String? currentFilter;
   @override
-  final Appointment? selectedAppointment;
+  final AppointmentDetailDto? selectedAppointment;
 
   @override
   String toString() {
@@ -2504,7 +2505,7 @@ class _$LoadedImpl implements _Loaded {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -2530,7 +2531,7 @@ class _$LoadedImpl implements _Loaded {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2556,7 +2557,7 @@ class _$LoadedImpl implements _Loaded {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2632,7 +2633,7 @@ abstract class _Loaded implements AppointmentState {
       final bool hasReachedMax,
       final bool isLoadingMore,
       final String? currentFilter,
-      final Appointment? selectedAppointment}) = _$LoadedImpl;
+      final AppointmentDetailDto? selectedAppointment}) = _$LoadedImpl;
 
   List<Appointment> get appointments;
   int get currentPage;
@@ -2640,7 +2641,7 @@ abstract class _Loaded implements AppointmentState {
   bool get hasReachedMax;
   bool get isLoadingMore;
   String? get currentFilter;
-  Appointment? get selectedAppointment;
+  AppointmentDetailDto? get selectedAppointment;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2781,7 +2782,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -2807,7 +2808,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2833,7 +2834,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -2966,7 +2967,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -2991,7 +2992,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3016,7 +3017,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3134,7 +3135,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -3159,7 +3160,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3184,7 +3185,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3328,7 +3329,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -3353,7 +3354,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3378,7 +3379,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3536,7 +3537,7 @@ class _$ErrorImpl implements _Error {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)
+            AppointmentDetailDto? selectedAppointment)
         loaded,
     required TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)
@@ -3561,7 +3562,7 @@ class _$ErrorImpl implements _Error {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult? Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
@@ -3586,7 +3587,7 @@ class _$ErrorImpl implements _Error {
             bool hasReachedMax,
             bool isLoadingMore,
             String? currentFilter,
-            Appointment? selectedAppointment)?
+            AppointmentDetailDto? selectedAppointment)?
         loaded,
     TResult Function(List<Appointment> appointments, int currentPage,
             int totalPages, String? currentFilter, String? errorMessage)?
