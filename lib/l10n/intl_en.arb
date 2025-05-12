@@ -2662,6 +2662,39 @@
   "quotationCreatedSuccessfullyDescription": "Your quotation has been created successfully. We will notify you when it is reviewed.",
   "@quotationCreatedSuccessfullyDescription": {
     "description": "Description shown when a quotation is created successfully."
+  },
+  "quotation": "Quotation",
+  "@quotation": {
+    "description": "Label for quotations."
+  },
+  "artistFound": "{count, plural, =0{No artists found} =1{1 artist found} other{{count} artists found}}",
+  "@artistFound": {
+    "description": "Text showing the number of artists found in the search results.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "searchArtistPlaceholder": "Search artists, styles or locations...",
+  "@searchArtistPlaceholder": {
+    "description": "Placeholder text for the search bar in the artists search screen."
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Button text to clear the search filter."
+  },
+  "minimumRating": "Minimum Rating: {rating}",
+  "@minimumRating": {
+    "description": "Text showing the minimum rating for the search results.",
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern",
+        "example": "4.5"
+      }
+    }
   }
 }
-

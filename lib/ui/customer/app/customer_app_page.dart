@@ -139,7 +139,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'Buscar artistas...',
+                        '${S.of(context).search} ${S.of(context).artist.toLowerCase()}...',
                         style: TextStyleTheme.copyWith(
                           color: Colors.white70,
                           fontSize: 14,

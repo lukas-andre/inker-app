@@ -2683,5 +2683,39 @@
   "quotationCreatedSuccessfullyDescription": "Tu cotización ha sido creada exitosamente. Te notificaremos cuando sea revisada.",
   "@quotationCreatedSuccessfullyDescription": {
     "description": "Descripción mostrada cuando una cotización se crea exitosamente."
+  },
+  "quotation": "Cotización",
+  "@quotation": {
+    "description": "Etiqueta para las cotizaciones."
+  },
+  "artistFound": "{count, plural, =0{No artistas encontrados} =1{1 artista encontrado} other{{count} artistas encontrados}}",
+  "@artistFound": {
+    "description": "Texto que muestra el número de artistas encontrados en los resultados de búsqueda.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "searchArtistPlaceholder": "Buscar artistas, estilos o ubicaciones...",
+  "@searchArtistPlaceholder": {
+    "description": "Placeholder text for the search bar in the artists search screen."
+  },
+  "clear": "Limpiar",
+  "@clear": {
+    "description": "Button text to clear the search filter."
+  },
+  "minimumRating": "Rating mínimo: {rating}",
+  "@minimumRating": {
+    "description": "Text showing the minimum rating for the search results.",
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern",
+        "example": "4.5"
+      }
+    }
   }
-} 
+}

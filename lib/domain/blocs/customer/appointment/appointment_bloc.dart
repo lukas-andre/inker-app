@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
+import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
 import 'package:inker_studio/domain/services/appointment/appointment_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 
@@ -151,16 +152,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   ) async {
     final currentState = state;
     if (currentState is _Loaded) {
-      // Check if we already have the appointment in state
-      final existingAppointment = currentState.appointments.firstWhere(
-        (appointment) => appointment.id == id,
-        // ignore: cast_from_null_always_fails
-        orElse: () => null as Appointment,
-      );
-
-      emit(currentState.copyWith(selectedAppointment: existingAppointment));
-      return;
-        }
+      // No buscar en la lista, siempre cargar el detalle desde el backend
+      emit(currentState.copyWith(selectedAppointment: null));
+    }
 
     try {
       final token = await _sessionService.getActiveSessionToken();
@@ -174,19 +168,19 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         return;
       }
 
-      final appointment = await _appointmentService.getAppointmentById(
+      final appointmentDetail = await _appointmentService.getAppointmentById(
         token: token,
         appointmentId: id,
         isCustomer: true, // Set to true since this is for customer appointments
       );
 
       if (currentState is _Loaded) {
-        emit(currentState.copyWith(selectedAppointment: appointment));
+        emit(currentState.copyWith(selectedAppointment: appointmentDetail));
       } else {
         emit(AppointmentState.loaded(
-          appointments: [appointment],
+          appointments: [],
           currentPage: 1,
-          selectedAppointment: appointment,
+          selectedAppointment: appointmentDetail,
         ));
       }
     } catch (e) {

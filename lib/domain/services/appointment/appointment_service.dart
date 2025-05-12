@@ -1,4 +1,5 @@
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
+import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
 
 abstract class AppointmentService {
   /// Retrieves a list of customer appointments
@@ -11,7 +12,7 @@ abstract class AppointmentService {
 
   /// Retrieves a specific appointment by ID
   /// If isCustomer is true, it will use the customer endpoint
-  Future<Appointment> getAppointmentById({
+  Future<AppointmentDetailDto> getAppointmentById({
     required String token,
     required String appointmentId,
     bool isCustomer = false,

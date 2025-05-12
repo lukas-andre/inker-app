@@ -7,6 +7,7 @@ import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/services/appointment/appointment_service.dart';
+import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
 
 class ApiAppointmentService implements AppointmentService {
   static const String _customerPath = 'customer/appointments';
@@ -232,7 +233,7 @@ class ApiAppointmentService implements AppointmentService {
   }
 
   @override
-  Future<Appointment> getAppointmentById({
+  Future<AppointmentDetailDto> getAppointmentById({
     required String token,
     required String appointmentId,
     bool isCustomer = false, // New parameter to indicate if the request is from a customer
@@ -248,136 +249,17 @@ class ApiAppointmentService implements AppointmentService {
         token: token,
         fromJson: (json) {
           try {
-            print('Event detail response: $json');
-
-
-            final defaultLocation = {
-              'id': 1,
-              'name': 'Studio',
-              'address1': '',
-              'city': '',
-              'state': '',
-              'country': '',
-              'lat': 0.0,
-              'lng': 0.0
-            };
-
-            final Map<String, dynamic> event = json.containsKey('event')
-                ? json['event']
-                : (json is Map ? json : {});
-
-            final location = json.containsKey('location')
-                ? json['location']
-                : defaultLocation;
-
-            // Extract artist information from agenda
-            int artistId = 1;
-            if (event['agenda'] != null) {
-              artistId = event['agenda']['artistId'] ?? 1;
-            }
-            
-            // Create artist object with appropriate data
-            Map<String, dynamic> artistData = event['artist'] ?? {};
-            
-            // If artist is not present in the response, create a minimal artist object
-            if (artistData.isEmpty) {
-              artistData = {
-                'id': artistId,
-                'username': 'Artist $artistId',
-                'contact': { // Ensure contact is included
-                  'email': null,
-                  'phone': null,
-                }
-              };
-            }
-            
-            // Ensure contact exists in artist data
-            if (!artistData.containsKey('contact') || artistData['contact'] == null) {
-              artistData['contact'] = {
-                'email': null,
-                'phone': null,
-              };
-            }
-            
-            final Map<String, dynamic> appointmentJson = {
-              'id': event['id'] ?? appointmentId,
-              'eventId': event['id'] ?? appointmentId,
-              'customerId': event['customerId'] ?? 0,
-              'artistId': artistId,
-              'title': event['title'] ?? 'Appointment',
-              'info': event['info'] ?? '',
-              'startDate':
-                  event['startDate'] ?? DateTime.now().toIso8601String(),
-              'endDate': event['endDate'] ??
-                  DateTime.now().add(const Duration(hours: 1)).toIso8601String(),
-              'status':
-                  _mapBackendStatusToAppStatus(event['status'] ?? 'scheduled'),
-              'color': event['color'] ?? '#000000',
-              'notification': event['notification'] ?? false,
-              'done': event['done'] ?? false,
-              'quotationId': event['quotationId'],
-              'cancelationReason': event['cancelationReason'],
-              'workEvidence': event['workEvidence'],
-              'createdAt':
-                  event['createdAt'] ?? DateTime.now().toIso8601String(),
-              'updatedAt':
-                  event['updatedAt'] ?? DateTime.now().toIso8601String(),
-              'deletedAt': event['deletedAt'],
-              'artist': artistData,
-              'location': location,
-              'readByCustomer': isCustomer ? true : (event['readByCustomer'] ?? false),
-            };
-
-            return Appointment.fromJson(appointmentJson);
+            return AppointmentDetailDto.fromJson(json);
           } catch (e) {
-            print('Error parsing appointment: $e');
-            throw Exception('Failed to parse appointment: $e');
+            print('Error parsing appointment detail DTO: $e');
+            throw Exception('Failed to parse appointment detail DTO: $e');
           }
         },
       );
     } catch (e) {
-      print('Error fetching appointment: $e');
-      // Create a placeholder appointment for error case
-      return Appointment(
-        id: appointmentId,
-        eventId: appointmentId,
-        customerId: '',
-        artistId: '',
-        title: 'Error: Could not load appointment',
-        info: 'There was an error loading this appointment',
-        startDate: DateTime.now(),
-        endDate: DateTime.now().add(const Duration(hours: 1)),
-        status: AppointmentStatus.scheduled,
-        color: '#FF0000',
-        notification: false,
-        done: false,
-        artist: const Artist(id: '', username: 'Unknown Artist'),
-        location: Location(
-          id: '',
-          name: 'Unknown Location',
-          address1: '',
-          city: '',
-          state: '',
-          country: '',
-          lat: 0,
-          lng: 0,
-          createdAt: DateTime.now(),
-          artistId: '',
-          updatedAt: DateTime.now(),
-          shortAddress1: '',
-          address2: '',
-          addressType: '',
-          formattedAddress: '',
-          viewport: const Viewport(
-            northeast: LatLng(lat: 0, lng: 0),
-            southwest: LatLng(lat: 0, lng: 0),
-          ),
-          location: const GeoPoint(
-            type: 'Point',
-            coordinates: [0, 0],
-          ),
-        ),
-      );
+      print('Error fetching appointment detail DTO: $e');
+      // Puedes retornar un DTO vacío o lanzar la excepción según tu preferencia
+      rethrow;
     }
   }
 
@@ -403,6 +285,7 @@ class ApiAppointmentService implements AppointmentService {
     );
   }
 
+  // TODO: Test this
   @override
   Future<void> cancelAppointment({
     required String token,
@@ -414,7 +297,7 @@ class ApiAppointmentService implements AppointmentService {
     final appointment =
         await getAppointmentById(token: token, appointmentId: appointmentId);
 
-    final agendaId = appointment.artistId; // Assuming this is available
+    final agendaId = appointment.artist.id; // Assuming this is available
 
     await _httpClient.delete(
       path: '$_agendaPath/$agendaId/event/$appointmentId',

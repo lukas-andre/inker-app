@@ -56,6 +56,7 @@ import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
+import 'package:inker_studio/ui/theme/app_theme.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -299,7 +300,7 @@ class _AppViewState extends State<AppView> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             navigatorKey: AuthenticationHandler.navigatorKey,
-            theme: themeState ? ThemeData.dark() : ThemeData.light(),
+            theme: themeState ? AppTheme.darkTheme : AppTheme.lightTheme,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -7135,6 +7135,64 @@ class S {
       args: [],
     );
   }
+
+  /// `Cotización`
+  String get quotation {
+    return Intl.message(
+      'Cotización',
+      name: 'quotation',
+      desc: 'Etiqueta para las cotizaciones.',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =0{No artistas encontrados} =1{1 artista encontrado} other{{count} artistas encontrados}}`
+  String artistFound(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No artistas encontrados',
+      one: '1 artista encontrado',
+      other: '$count artistas encontrados',
+      name: 'artistFound',
+      desc:
+          'Texto que muestra el número de artistas encontrados en los resultados de búsqueda.',
+      args: [count],
+    );
+  }
+
+  /// `Buscar artistas, estilos o ubicaciones...`
+  String get searchArtistPlaceholder {
+    return Intl.message(
+      'Buscar artistas, estilos o ubicaciones...',
+      name: 'searchArtistPlaceholder',
+      desc: 'Placeholder text for the search bar in the artists search screen.',
+      args: [],
+    );
+  }
+
+  /// `Limpiar`
+  String get clear {
+    return Intl.message(
+      'Limpiar',
+      name: 'clear',
+      desc: 'Button text to clear the search filter.',
+      args: [],
+    );
+  }
+
+  /// `Rating mínimo: {rating}`
+  String minimumRating(num rating) {
+    final NumberFormat ratingNumberFormat =
+        NumberFormat.decimalPattern(Intl.getCurrentLocale());
+    final String ratingString = ratingNumberFormat.format(rating);
+
+    return Intl.message(
+      'Rating mínimo: $ratingString',
+      name: 'minimumRating',
+      desc: 'Text showing the minimum rating for the search results.',
+      args: [ratingString],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
