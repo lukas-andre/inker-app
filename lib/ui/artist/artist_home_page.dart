@@ -14,6 +14,9 @@ import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_app/models/artist_page_nav_bar_icons.dart';
+import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
 
 class ArtistAppPage extends StatefulWidget {
   const ArtistAppPage({super.key});
@@ -161,11 +164,52 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     return actions;
   }
 
+  List<PageNavBarIcon> _buildArtistNavBarIcons(BuildContext context) {
+    return [
+      PageNavBarIcon(
+        key: K.agendaTab,
+        icon: ImageIcon(feedIcon),
+        selectedIcon: ImageIcon(feedSelectedIcon),
+        title: S.of(context).agenda,
+        index: 0,
+      ),
+      PageNavBarIcon(
+        key: K.quotationsTab,
+        icon: ImageIcon(bookMarkIcon),
+        selectedIcon: ImageIcon(bookMarkSelectedIcon),
+        title: S.of(context).quotations,
+        index: 1,
+      ),
+      PageNavBarIcon(
+        key: Key('trabajos_tab'),
+        icon: Icon(Icons.work_outline, color: Colors.white60),
+        selectedIcon: Icon(Icons.work, color: Colors.white),
+        title: S.of(context).works,
+        index: 2,
+      ),
+      PageNavBarIcon(
+        key: K.profileTab,
+        icon: Icon(
+          Icons.account_circle_outlined,
+          size: 25,
+          color: Colors.white60,
+        ),
+        selectedIcon: Icon(
+          Icons.account_circle,
+          size: 25,
+          color: Colors.white,
+        ),
+        title: S.of(context).myProfile,
+        index: 3,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final artistAppBloc = context.read<ArtistAppBloc>();
     final state = artistAppBloc.state;
-    final icons = state.artistPageNavBarIcons.icons;
+    final icons = _buildArtistNavBarIcons(context);
     
     final bool showAppBar = _selectedIndex != 3;
     

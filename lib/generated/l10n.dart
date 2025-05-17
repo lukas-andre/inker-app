@@ -7193,6 +7193,303 @@ class S {
       args: [ratingString],
     );
   }
+
+  /// `metros`
+  String get meters {
+    return Intl.message(
+      'metros',
+      name: 'meters',
+      desc: 'Unidad de medida de distancia.',
+      args: [],
+    );
+  }
+
+  /// `Artista Destacado`
+  String get featuredArtist {
+    return Intl.message(
+      'Artista Destacado',
+      name: 'featuredArtist',
+      desc: 'Etiqueta para los artistas destacados.',
+      args: [],
+    );
+  }
+
+  /// `Compartir Perfil del Artista`
+  String get shareArtistProfile {
+    return Intl.message(
+      'Compartir Perfil del Artista',
+      name: 'shareArtistProfile',
+      desc: 'Texto para el botón de compartir perfil del artista.',
+      args: [],
+    );
+  }
+
+  /// `Solicitar Cotización`
+  String get requestQuote {
+    return Intl.message(
+      'Solicitar Cotización',
+      name: 'requestQuote',
+      desc: 'Texto para el botón de solicitar cotización.',
+      args: [],
+    );
+  }
+
+  /// `Ver Más`
+  String get seeMore {
+    return Intl.message(
+      'Ver Más',
+      name: 'seeMore',
+      desc: 'Texto para expandir contenido.',
+      args: [],
+    );
+  }
+
+  /// `Ver Menos`
+  String get seeLess {
+    return Intl.message(
+      'Ver Menos',
+      name: 'seeLess',
+      desc: 'Texto para colapsar contenido.',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =0{Sin seguidores} =1{1 seguidor} other{{count} seguidores}}`
+  String follower(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Sin seguidores',
+      one: '1 seguidor',
+      other: '$count seguidores',
+      name: 'follower',
+      desc: 'Texto que muestra el número de seguidores.',
+      args: [count],
+    );
+  }
+
+  /// `Ver Reseñas`
+  String get seeReviews {
+    return Intl.message(
+      'Ver Reseñas',
+      name: 'seeReviews',
+      desc: 'Texto para el botón de ver reseñas.',
+      args: [],
+    );
+  }
+
+  /// `Trabajos Destacados`
+  String get featuredWorks {
+    return Intl.message(
+      'Trabajos Destacados',
+      name: 'featuredWorks',
+      desc: 'Título para la sección de trabajos destacados.',
+      args: [],
+    );
+  }
+
+  /// `Portafolio`
+  String get portfolio {
+    return Intl.message(
+      'Portafolio',
+      name: 'portfolio',
+      desc: 'Título para la sección de portafolio.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay trabajos compartidos`
+  String get noWorksShared {
+    return Intl.message(
+      'Aún no hay trabajos compartidos',
+      name: 'noWorksShared',
+      desc: 'Mensaje mostrado cuando no hay trabajos compartidos.',
+      args: [],
+    );
+  }
+
+  /// `Información de Contacto`
+  String get contactInfo {
+    return Intl.message(
+      'Información de Contacto',
+      name: 'contactInfo',
+      desc: 'Título para la sección de información de contacto.',
+      args: [],
+    );
+  }
+
+  /// `No hay información de contacto disponible`
+  String get noContactInfo {
+    return Intl.message(
+      'No hay información de contacto disponible',
+      name: 'noContactInfo',
+      desc:
+          'Mensaje mostrado cuando no hay información de contacto disponible.',
+      args: [],
+    );
+  }
+
+  /// `Copiado al portapapeles`
+  String get copiedToClipboard {
+    return Intl.message(
+      'Copiado al portapapeles',
+      name: 'copiedToClipboard',
+      desc: 'Mensaje mostrado cuando el contenido se copia al portapapeles.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar el portafolio`
+  String get errorLoadingPortfolio {
+    return Intl.message(
+      'Error al cargar el portafolio',
+      name: 'errorLoadingPortfolio',
+      desc: 'Mensaje de error mostrado cuando falla la carga del portafolio.',
+      args: [],
+    );
+  }
+
+  /// `No hay trabajos disponibles`
+  String get noWorks {
+    return Intl.message(
+      'No hay trabajos disponibles',
+      name: 'noWorks',
+      desc: 'Mensaje mostrado cuando no hay trabajos disponibles.',
+      args: [],
+    );
+  }
+
+  /// `No hay plantillas disponibles`
+  String get noStencils {
+    return Intl.message(
+      'No hay plantillas disponibles',
+      name: 'noStencils',
+      desc: 'Mensaje mostrado cuando no hay plantillas disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay plantillas compartidas`
+  String get noStencilsShared {
+    return Intl.message(
+      'Aún no hay plantillas compartidas',
+      name: 'noStencilsShared',
+      desc: 'Mensaje mostrado cuando no hay plantillas compartidas.',
+      args: [],
+    );
+  }
+
+  /// `No hay portafolio disponible`
+  String get noPortfolio {
+    return Intl.message(
+      'No hay portafolio disponible',
+      name: 'noPortfolio',
+      desc: 'Mensaje mostrado cuando no hay portafolio disponible.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay portafolio compartido`
+  String get noPortfolioShared {
+    return Intl.message(
+      'Aún no hay portafolio compartido',
+      name: 'noPortfolioShared',
+      desc: 'Mensaje mostrado cuando no hay portafolio compartido.',
+      args: [],
+    );
+  }
+
+  /// `Error al cargar la imagen`
+  String get errorLoadingImage {
+    return Intl.message(
+      'Error al cargar la imagen',
+      name: 'errorLoadingImage',
+      desc: 'Mensaje de error mostrado cuando falla la carga de la imagen.',
+      args: [],
+    );
+  }
+
+  /// `Aún no hay reseñas`
+  String get noReviews {
+    return Intl.message(
+      'Aún no hay reseñas',
+      name: 'noReviews',
+      desc: 'Mensaje mostrado cuando no hay reseñas.',
+      args: [],
+    );
+  }
+
+  /// `reseñas`
+  String get reviewsTotal {
+    return Intl.message(
+      'reseñas',
+      name: 'reviewsTotal',
+      desc: 'Texto para el número total de reseñas.',
+      args: [],
+    );
+  }
+
+  /// `de 5`
+  String get of5 {
+    return Intl.message(
+      'de 5',
+      name: 'of5',
+      desc: 'Texto que muestra la calificación de 5.',
+      args: [],
+    );
+  }
+
+  /// `Seguir`
+  String get follow {
+    return Intl.message(
+      'Seguir',
+      name: 'follow',
+      desc: 'Texto para el botón de seguir.',
+      args: [],
+    );
+  }
+
+  /// `Citas disponibles`
+  String get appointmentsAvailable {
+    return Intl.message(
+      'Citas disponibles',
+      name: 'appointmentsAvailable',
+      desc: 'Texto que indica que hay citas disponibles.',
+      args: [],
+    );
+  }
+
+  /// `Cómo llegar`
+  String get directions {
+    return Intl.message(
+      'Cómo llegar',
+      name: 'directions',
+      desc: 'Texto para el botón que muestra las direcciones.',
+      args: [],
+    );
+  }
+
+  /// `Agendar cita`
+  String get bookAppointment {
+    return Intl.message(
+      'Agendar cita',
+      name: 'bookAppointment',
+      desc: 'Texto para el botón que permite agendar una cita.',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =0{No reseñas aun} =1{1 reseña} other{{count} reseñas}}`
+  String totalReviews(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No reseñas aun',
+      one: '1 reseña',
+      other: '$count reseñas',
+      name: 'totalReviews',
+      desc: 'Texto para el número total de reseñas.',
+      args: [count],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

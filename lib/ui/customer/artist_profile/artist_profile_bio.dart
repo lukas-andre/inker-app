@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 
@@ -118,9 +119,9 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               });
               widget.onToggleDescription(_calculateDescriptionHeight(false));
             },
-            child: const Text(
-              'Ver menos',
-              style: TextStyle(
+            child: Text(
+              S.of(context).seeLess,
+              style: const TextStyle(
                 color: Colors.blue,
               ),
             ),
@@ -148,9 +149,9 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
               });
               widget.onToggleDescription(_calculateDescriptionHeight(true));
             },
-            child: const Text(
-              'Ver más',
-              style: TextStyle(
+            child:  Text(
+              S.of(context).seeMore,
+              style: const TextStyle(
                 color: Colors.blue,
               ),
             ),

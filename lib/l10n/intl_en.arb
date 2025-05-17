@@ -2696,5 +2696,135 @@
         "example": "4.5"
       }
     }
+  },
+  "meters": "meters",
+  "@meters": {
+    "description": "Unit of distance measurement."
+  },
+  "featuredArtist": "Featured Artist",
+  "@featuredArtist": {
+    "description": "Label for featured artists."
+  },
+  "shareArtistProfile": "Share Artist Profile",
+  "@shareArtistProfile": {
+    "description": "Text for sharing artist profile button."
+  },
+  "requestQuote": "Request Quote",
+  "@requestQuote": {
+    "description": "Text for requesting a quote button."
+  },
+  "seeMore": "See More",
+  "@seeMore": {
+    "description": "Text for expanding content."
+  },
+  "seeLess": "See Less",
+  "@seeLess": {
+    "description": "Text for collapsing content."
+  },
+  "follower": "{count, plural, =0{No followers} =1{1 follower} other{{count} followers}}",
+  "@follower": {
+    "description": "Text showing the number of followers.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "seeReviews": "See Reviews",
+  "@seeReviews": {
+    "description": "Text for viewing reviews button."
+  },
+  "featuredWorks": "Featured Works",
+  "@featuredWorks": {
+    "description": "Title for featured works section."
+  },
+  "portfolio": "Portfolio",
+  "@portfolio": {
+    "description": "Title for portfolio section."
+  },
+  "noWorksShared": "No works shared yet",
+  "@noWorksShared": {
+    "description": "Message shown when no works are shared."
+  },
+  "contactInfo": "Contact Information",
+  "@contactInfo": {
+    "description": "Title for contact information section."
+  },
+  "noContactInfo": "No contact information available",
+  "@noContactInfo": {
+    "description": "Message shown when no contact information is available."
+  },
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {
+    "description": "Message shown when content is copied to clipboard."
+  },
+  "errorLoadingPortfolio": "Error loading portfolio",
+  "@errorLoadingPortfolio": {
+    "description": "Error message shown when portfolio fails to load."
+  },
+  "noWorks": "No works available",
+  "@noWorks": {
+    "description": "Message shown when no works are available."
+  },
+  "noStencils": "No stencils available",
+  "@noStencils": {
+    "description": "Message shown when no stencils are available."
+  },
+  "noStencilsShared": "No stencils shared yet",
+  "@noStencilsShared": {
+    "description": "Message shown when no stencils are shared."
+  },
+  "noPortfolio": "No portfolio available",
+  "@noPortfolio": {
+    "description": "Message shown when no portfolio is available."
+  },
+  "noPortfolioShared": "No portfolio shared yet",
+  "@noPortfolioShared": {
+    "description": "Message shown when no portfolio is shared."
+  },
+  "errorLoadingImage": "Error loading image",
+  "@errorLoadingImage": {
+    "description": "Error message shown when image fails to load."
+  },
+  "noReviews": "No reviews yet",
+  "@noReviews": {
+    "description": "Message shown when there are no reviews."
+  },
+  "reviewsTotal": "reviews",
+  "@reviewsTotal": {
+    "description": "Text for total number of reviews."
+  },
+  "of5": "of 5",
+  "@of5": {
+    "description": "Text showing rating out of 5."
+  },
+  "follow": "Follow",
+  "@follow": {
+    "description": "Text for following button."
+  },
+  "appointmentsAvailable": "Appointments available",
+  "@appointmentsAvailable": {
+    "description": "Text indicating that appointments are available."
+  },
+  "directions": "Directions",
+  "@directions": {
+    "description": "Text for directions button."
+  },
+  "bookAppointment": "Book Appointment",
+  "@bookAppointment": {
+    "description": "Text for booking appointment button."
+  },
+  "totalReviews": "{count, plural, =0{No reviews yet} =1{1 review} other{{count} reviews}}",
+  "@totalReviews": {
+    "description": "Text for total number of reviews.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
   }
 }

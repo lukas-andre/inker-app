@@ -84,7 +84,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                   const Icon(Icons.error_outline, size: 48, color: redColor),
                   const SizedBox(height: 16),
                   Text(
-                    'Error al cargar el portafolio',
+                    S.of(context).errorLoadingPortfolio,
                     style: TextStyleTheme.copyWith(
                       fontSize: 16,
                       color: Colors.white,
@@ -106,7 +106,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                     style: ElevatedButton.styleFrom(
                       backgroundColor: secondaryColor,
                     ),
-                    child: const Text('Reintentar'),
+                    child: Text(S.of(context).retry),
                   ),
                 ],
               ),
@@ -192,7 +192,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Stencils'),
+                      Text(S.of(context).stencils),
                       const SizedBox(width: 8),
                       if (stencils.isNotEmpty)
                         Container(
@@ -245,14 +245,14 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               children: [
                 // Pestaña de Trabajos
                 works.isEmpty
-                    ? _buildEmptySection('No hay trabajos',
-                        'Este artista aún no ha compartido sus trabajos')
+                    ? _buildEmptySection(S.of(context).noWorks,
+                        S.of(context).noWorksShared)
                     : _buildWorksGrid(context, works),
 
                 // Pestaña de Stencils
                 stencils.isEmpty
-                    ? _buildEmptySection('No hay stencils',
-                        'Este artista aún no ha compartido sus stencils')
+                    ? _buildEmptySection(S.of(context).noStencils,
+                        S.of(context).noStencilsShared)
                     : _buildStencilsGrid(context, stencils),
               ],
             ),
@@ -819,8 +819,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       orElse: () {
         // Si no tenemos datos cargados, mostrar un snackbar
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('No se pudo cargar el portafolio completo'),
+           SnackBar(
+            content: Text(S.of(context).errorLoadingPortfolio),
             backgroundColor: redColor,
           ),
         );
@@ -842,7 +842,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             ),
             const SizedBox(height: 16),
             Text(
-              'Sin portafolio',
+              S.of(context).noPortfolio,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -852,7 +852,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             ),
             const SizedBox(height: 8),
             Text(
-              'Este artista aún no ha compartido trabajos en su portafolio',
+              S.of(context).noPortfolioShared,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white.withOpacity(0.6),
@@ -865,9 +865,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                   .read<ArtistPortfolioCubit>()
                   .loadArtistPortfolio(artistId),
               icon: const Icon(Icons.refresh, color: redColor),
-              label: const Text(
-                'Actualizar',
-                style: TextStyle(color: redColor, fontWeight: FontWeight.w600),
+              label: Text(
+                S.of(context).update,
+                style: const TextStyle(color: redColor, fontWeight: FontWeight.w600),
               ),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: redColor),
@@ -917,9 +917,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                 .read<ArtistPortfolioCubit>()
                 .loadArtistPortfolio(artistId),
             icon: const Icon(Icons.refresh, color: redColor),
-            label: const Text(
-              'Actualizar',
-              style: TextStyle(color: redColor, fontWeight: FontWeight.w600),
+            label: Text(
+              S.of(context).update,
+              style: const TextStyle(color: redColor, fontWeight: FontWeight.w600),
             ),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: redColor),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_content.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -49,7 +50,7 @@ class ArtistProfileRatingResume extends StatelessWidget {
                       )
                     : SizedBox(
                         child: Center(
-                          child: Text('No hay reseñas aun',
+                          child: Text(S.of(context).noReviews,
                               style: TextStyleTheme.instance.copyWith(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -61,7 +62,7 @@ class ArtistProfileRatingResume extends StatelessWidget {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('${review?.count ?? 0} reseñas en total',
+              child: Text('${review?.count ?? 0} ${S.of(context).reviewsTotal}',
                   style: TextStyleTheme.instance.copyWith(
                       color: Colors.grey,
                       fontSize: 14,
@@ -204,7 +205,7 @@ class ArtistProfileRatingNumbers extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 4),
                   child: Text(
-                    'de 5',
+                    S.of(context).of5,
                     style: TextStyleTheme.copyWith(color: Colors.white),
                   ),
                 )),

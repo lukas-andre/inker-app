@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -210,7 +211,7 @@ class ArtistProfileHeader extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8), // Increased from 6 to 8
                   child: Text(
-                    '${artist.followers ?? 0} ${(artist.followers == 1) ? 'seguidor' : 'seguidores'}',
+                    S.of(context).follower(artist.followers ?? 0),
                     style: TextStyle(
                       fontSize: 15, // Increased from 13 to 15
                       fontWeight: FontWeight.w500,
@@ -222,7 +223,7 @@ class ArtistProfileHeader extends StatelessWidget {
                 // Follow button
                 Padding(
                   padding: const EdgeInsets.only(top: 16), // Increased from 14 to 16
-                  child: _buildFollowButton(),
+                  child: _buildFollowButton(context),
                 ),
               ],
             ),
@@ -280,7 +281,7 @@ class ArtistProfileHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildFollowButton() {
+  Widget _buildFollowButton(BuildContext context) {
     return TextButton(
       onPressed: onFollowPressed,
       style: TextButton.styleFrom(
@@ -296,7 +297,7 @@ class ArtistProfileHeader extends StatelessWidget {
         minimumSize: const Size(140, 40), // Increased size for better touch target
       ),
       child: Text(
-        isFollowing ? 'Siguiendo' : 'Seguir',
+        isFollowing ? S.of(context).following : S.of(context).follow,
         style: const TextStyle(
           fontSize: 16, // Increased from 14 to 16
           fontWeight: FontWeight.w600,
