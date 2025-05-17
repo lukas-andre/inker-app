@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_portfolio_gallery.dart';
 import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
 import 'package:inker_studio/domain/models/analytics/view_source.dart';
@@ -60,7 +61,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Portfolio',
+            S.of(context).portfolio,
             style: TextStyleTheme.copyWith(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -75,9 +76,9 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
               color: secondaryColor, 
               size: 18
             ),
-            label: const Text(
-              'Ver Reseñas',
-              style: TextStyle(
+            label: Text(
+              S.of(context).reviews,
+              style: const TextStyle(
                 fontSize: 14,
                 color: secondaryColor,
                 fontWeight: FontWeight.w600,
@@ -148,7 +149,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
               const Icon(Icons.error_outline, size: 48, color: redColor),
               const SizedBox(height: 16),
               Text(
-                'Error al cargar los trabajos',
+                S.of(context).errorLoadingWorks,
                 style: TextStyleTheme.copyWith(
                   fontSize: 16,
                   color: Colors.white,
@@ -170,7 +171,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
                   foregroundColor: Colors.white,
                 ),
                 icon: const Icon(Icons.refresh),
-                label: const Text('Reintentar'),
+                label: Text(S.of(context).retry),
               ),
             ],
           ),
@@ -193,7 +194,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
             ),
             const SizedBox(height: 16),
             Text(
-              'Este artista aún no ha compartido trabajos',
+              S.of(context).noWorksShared,
               style: TextStyleTheme.copyWith(
                 fontSize: 16,
                 color: Colors.white.withOpacity(0.8),
@@ -221,7 +222,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
               const Icon(Icons.star, size: 16, color: secondaryColor),
               const SizedBox(width: 8),
               Text(
-                'Trabajos destacados',
+                S.of(context).featuredWorks,
                 style: TextStyleTheme.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -330,18 +331,18 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
                               color: secondaryColor,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: Colors.white,
                                   size: 12,
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Text(
-                                  'Destacado',
-                                  style: TextStyle(
+                                  S.of(context).featured,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_contact_button.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -49,7 +50,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     },
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
-                    text: 'Indicaciones',
+                    text: S.of(context).directions,
                     backgroundColor: tertiaryColor,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
@@ -66,7 +67,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     },
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
-                    text: 'Reservar cita',
+                    text: S.of(context).bookAppointment,
                     backgroundColor: secondaryColor,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,

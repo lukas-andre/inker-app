@@ -5,6 +5,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_works_cubit/artist_works
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_gallery_section.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_header.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
@@ -62,9 +63,9 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                   if (artistState.artist != null) {
                     // Mostrar modal de compartir
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Compartiendo perfil del artista...'),
-                        duration: Duration(seconds: 2),
+                      SnackBar(
+                        content: Text(S.of(context).shareArtistProfile),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                     
@@ -81,9 +82,9 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                 foregroundColor: Colors.white,
                 elevation: 4,
                 icon: const Icon(Icons.message_outlined, size: 22),
-                label: const Text(
-                  'Solicitar Cotización',
-                  style: TextStyle(
+                label: Text(
+                  S.of(context).requestQuote,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.5,

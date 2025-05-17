@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inker_studio/data/api/review/dtos/get_reviews_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
@@ -89,7 +90,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
         },
       ),
       title: Text(
-        'Opiniones y reseñas',
+        S.of(context).reviews,
         style: TextStyleTheme.copyWith(
           fontSize: 18,
           fontWeight: FontWeight.w400,

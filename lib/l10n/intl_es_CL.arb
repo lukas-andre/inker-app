@@ -2717,5 +2717,135 @@
         "example": "4.5"
       }
     }
+  },
+  "meters": "metros",
+  "@meters": {
+    "description": "Unidad de medida de distancia."
+  },
+  "featuredArtist": "Artista Destacado",
+  "@featuredArtist": {
+    "description": "Etiqueta para los artistas destacados."
+  },
+  "shareArtistProfile": "Compartir Perfil del Artista",
+  "@shareArtistProfile": {
+    "description": "Texto para el botón de compartir perfil del artista."
+  },
+  "requestQuote": "Solicitar Cotización",
+  "@requestQuote": {
+    "description": "Texto para el botón de solicitar cotización."
+  },
+  "seeMore": "Ver Más",
+  "@seeMore": {
+    "description": "Texto para expandir contenido."
+  },
+  "seeLess": "Ver Menos",
+  "@seeLess": {
+    "description": "Texto para colapsar contenido."
+  },
+  "follower": "{count, plural, =0{Sin seguidores} =1{1 seguidor} other{{count} seguidores}}",
+  "@follower": {
+    "description": "Texto que muestra el número de seguidores.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "seeReviews": "Ver Reseñas",
+  "@seeReviews": {
+    "description": "Texto para el botón de ver reseñas."
+  },
+  "featuredWorks": "Trabajos Destacados",
+  "@featuredWorks": {
+    "description": "Título para la sección de trabajos destacados."
+  },
+  "portfolio": "Portafolio",
+  "@portfolio": {
+    "description": "Título para la sección de portafolio."
+  },
+  "noWorksShared": "Aún no hay trabajos compartidos",
+  "@noWorksShared": {
+    "description": "Mensaje mostrado cuando no hay trabajos compartidos."
+  },
+  "contactInfo": "Información de Contacto",
+  "@contactInfo": {
+    "description": "Título para la sección de información de contacto."
+  },
+  "noContactInfo": "No hay información de contacto disponible",
+  "@noContactInfo": {
+    "description": "Mensaje mostrado cuando no hay información de contacto disponible."
+  },
+  "copiedToClipboard": "Copiado al portapapeles",
+  "@copiedToClipboard": {
+    "description": "Mensaje mostrado cuando el contenido se copia al portapapeles."
+  },
+  "errorLoadingPortfolio": "Error al cargar el portafolio",
+  "@errorLoadingPortfolio": {
+    "description": "Mensaje de error mostrado cuando falla la carga del portafolio."
+  },
+  "noWorks": "No hay trabajos disponibles",
+  "@noWorks": {
+    "description": "Mensaje mostrado cuando no hay trabajos disponibles."
+  },
+  "noStencils": "No hay plantillas disponibles",
+  "@noStencils": {
+    "description": "Mensaje mostrado cuando no hay plantillas disponibles."
+  },
+  "noStencilsShared": "Aún no hay plantillas compartidas",
+  "@noStencilsShared": {
+    "description": "Mensaje mostrado cuando no hay plantillas compartidas."
+  },
+  "noPortfolio": "No hay portafolio disponible",
+  "@noPortfolio": {
+    "description": "Mensaje mostrado cuando no hay portafolio disponible."
+  },
+  "noPortfolioShared": "Aún no hay portafolio compartido",
+  "@noPortfolioShared": {
+    "description": "Mensaje mostrado cuando no hay portafolio compartido."
+  },
+  "errorLoadingImage": "Error al cargar la imagen",
+  "@errorLoadingImage": {
+    "description": "Mensaje de error mostrado cuando falla la carga de la imagen."
+  },
+  "noReviews": "Aún no hay reseñas",
+  "@noReviews": {
+    "description": "Mensaje mostrado cuando no hay reseñas."
+  },
+  "reviewsTotal": "reseñas",
+  "@reviewsTotal": {
+    "description": "Texto para el número total de reseñas."
+  },
+  "of5": "de 5",
+  "@of5": {
+    "description": "Texto que muestra la calificación de 5."
+  },
+  "follow": "Seguir",
+  "@follow": {
+    "description": "Texto para el botón de seguir."
+  },
+  "appointmentsAvailable": "Citas disponibles",
+  "@appointmentsAvailable": {
+    "description": "Texto que indica que hay citas disponibles."
+  },
+  "directions": "Cómo llegar",
+  "@directions": {
+    "description": "Texto para el botón que muestra las direcciones."
+  },
+  "bookAppointment": "Agendar cita",
+  "@bookAppointment": {
+    "description": "Texto para el botón que permite agendar una cita."
+  },
+  "totalReviews": "{count, plural, =0{No reseñas aun} =1{1 reseña} other{{count} reseñas}}",
+  "@totalReviews": {
+    "description": "Texto para el número total de reseñas.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
   }
 }

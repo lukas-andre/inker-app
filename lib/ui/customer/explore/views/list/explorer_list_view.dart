@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
@@ -153,7 +154,7 @@ class _ArtistGridItem extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.white, size: 14),
                       const SizedBox(width: 4),
                       Text(
-                        'Artista destacado',
+                        S.of(context).featuredArtist,
                         style: TextStyleTheme.copyWith(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -260,7 +261,7 @@ class _ArtistInfo extends StatelessWidget {
                       ),
                       const SizedBox(width: 2),
                       Text(
-                        '${(artist.distance! * 1000).toInt()} metros',
+                        '${(artist.distance! * 1000).toInt()} ${S.of(context).meters}',
                         style: TextStyleTheme.copyWith(
                           fontSize: 12,
                           color: Colors.white.withOpacity(0.8),

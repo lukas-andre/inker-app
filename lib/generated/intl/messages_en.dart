@@ -47,53 +47,59 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m10(tagName) => "Filtering by tag: ${tagName}";
 
   static String m11(count) =>
+      "${Intl.plural(count, zero: 'No followers', one: '1 follower', other: '${count} followers')}";
+
+  static String m12(count) =>
       "${Intl.plural(count, one: '1 hour ago', other: '${count} hours ago')}";
 
-  static String m12(hoursv2, minutesv2) =>
+  static String m13(hoursv2, minutesv2) =>
       "${hoursv2} hours and ${minutesv2} minutes";
 
-  static String m13(hoursv2) => "${hoursv2} hours";
+  static String m14(hoursv2) => "${hoursv2} hours";
 
-  static String m14(distance) => "Max distance: ${distance} km";
+  static String m15(distance) => "Max distance: ${distance} km";
 
-  static String m15(preview) => "Message: ${preview}";
+  static String m16(preview) => "Message: ${preview}";
 
-  static String m16(count, messageWord) => "${count} ${messageWord}";
+  static String m17(count, messageWord) => "${count} ${messageWord}";
 
-  static String m17(length) =>
+  static String m18(length) =>
       "Description must be at least ${length} characters";
 
-  static String m18(rating) => "Minimum Rating: ${rating}";
+  static String m19(rating) => "Minimum Rating: ${rating}";
 
-  static String m19(count) =>
+  static String m20(count) =>
       "${Intl.plural(count, one: '1 minute ago', other: '${count} minutes ago')}";
 
-  static String m20(minutesv2) => "${minutesv2} minutes";
+  static String m21(minutesv2) => "${minutesv2} minutes";
 
-  static String m21(count) =>
+  static String m22(count) =>
       "${Intl.plural(count, one: '1 month ago', other: '${count} months ago')}";
 
-  static String m22(tagName) => "No stencils with tag \'${tagName}\'";
+  static String m23(tagName) => "No stencils with tag \'${tagName}\'";
 
-  static String m23(amount) => "Your offer of ${amount} has been submitted";
+  static String m24(amount) => "Your offer of ${amount} has been submitted";
 
-  static String m24(count) =>
+  static String m25(count) =>
       "${Intl.plural(count, zero: 'No offers', one: '1 offer', other: '${count} offers')}";
 
-  static String m25(count, offerWord) =>
+  static String m26(count, offerWord) =>
       "You have received ${count} ${offerWord}";
 
-  static String m26(amount, currency) =>
+  static String m27(amount, currency) =>
       "Reference budget: ${amount} ${currency}";
 
-  static String m27(status) => "Status: ${status}";
+  static String m28(status) => "Status: ${status}";
 
-  static String m28(amount) =>
+  static String m29(amount) =>
       "The artist updated the offer cost to ${amount} CLP.";
 
-  static String m29(message) => "Try refreshing the page: ${message}";
-
   static String m30(count) =>
+      "${Intl.plural(count, zero: 'No reviews yet', one: '1 review', other: '${count} reviews')}";
+
+  static String m31(message) => "Try refreshing the page: ${message}";
+
+  static String m32(count) =>
       "${Intl.plural(count, one: '1 year ago', other: '${count} years ago')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -195,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Appointment Details"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Appointment Duration"),
+        "appointmentsAvailable":
+            MessageLookupByLibrary.simpleMessage("Appointments available"),
         "april": MessageLookupByLibrary.simpleMessage("April"),
         "areYouSureDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete"),
@@ -237,6 +245,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "between": MessageLookupByLibrary.simpleMessage("between"),
         "beyondExpertise":
             MessageLookupByLibrary.simpleMessage("Beyond Expertise"),
+        "bookAppointment":
+            MessageLookupByLibrary.simpleMessage("Book Appointment"),
         "budget": MessageLookupByLibrary.simpleMessage("Budget"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -324,8 +334,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "This time conflicts with an existing event"),
         "contactArtist": MessageLookupByLibrary.simpleMessage(
             "Please contact the artist for further details."),
+        "contactInfo":
+            MessageLookupByLibrary.simpleMessage("Contact Information"),
         "contactInformation":
             MessageLookupByLibrary.simpleMessage("Contact Information"),
+        "copiedToClipboard":
+            MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
         "couldNotGetLocation":
             MessageLookupByLibrary.simpleMessage("Could not get location"),
         "couldNotGetLocationPleaseRetry": MessageLookupByLibrary.simpleMessage(
@@ -382,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "direct": MessageLookupByLibrary.simpleMessage("Direct"),
         "directQuotations":
             MessageLookupByLibrary.simpleMessage("Direct Quotations"),
+        "directions": MessageLookupByLibrary.simpleMessage("Directions"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationCannotBeZero":
@@ -421,9 +436,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error loading available time slots"),
         "errorLoadingEventDetails": m6,
         "errorLoadingEvents": m7,
+        "errorLoadingImage":
+            MessageLookupByLibrary.simpleMessage("Error loading image"),
         "errorLoadingOpenQuotations": MessageLookupByLibrary.simpleMessage(
             "Error loading open quotations"),
         "errorLoadingOpenQuotationsWithMessage": m8,
+        "errorLoadingPortfolio":
+            MessageLookupByLibrary.simpleMessage("Error loading portfolio"),
         "errorLoadingQuotationDetails": MessageLookupByLibrary.simpleMessage(
             "Error loading quotation details"),
         "errorLoadingStencils":
@@ -475,11 +494,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "feature": MessageLookupByLibrary.simpleMessage("Feature"),
         "featured": MessageLookupByLibrary.simpleMessage("Featured"),
+        "featuredArtist":
+            MessageLookupByLibrary.simpleMessage("Featured Artist"),
         "featuredStencil":
             MessageLookupByLibrary.simpleMessage("Featured Stencil"),
         "featuredStencils":
             MessageLookupByLibrary.simpleMessage("Featured Stencils"),
         "featuredWork": MessageLookupByLibrary.simpleMessage("Featured Work"),
+        "featuredWorks": MessageLookupByLibrary.simpleMessage("Featured Works"),
         "february": MessageLookupByLibrary.simpleMessage("February"),
         "filter": MessageLookupByLibrary.simpleMessage("Filter"),
         "filterBySource":
@@ -492,6 +514,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Find designs and tattoos made by artists"),
         "findingArtists":
             MessageLookupByLibrary.simpleMessage("Finding Artists..."),
+        "follow": MessageLookupByLibrary.simpleMessage("Follow"),
+        "follower": m11,
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),
         "following": MessageLookupByLibrary.simpleMessage("Following"),
         "foundAnotherArtist":
@@ -521,9 +545,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("hours"),
-        "hoursAgo": m11,
-        "hoursAndMinutes": m12,
-        "hoursv2": m13,
+        "hoursAgo": m12,
+        "hoursAndMinutes": m13,
+        "hoursv2": m14,
         "id": MessageLookupByLibrary.simpleMessage("ID"),
         "inProgress": MessageLookupByLibrary.simpleMessage("In Progress"),
         "inspiration": MessageLookupByLibrary.simpleMessage("Inspiration"),
@@ -559,7 +583,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Manage Locations"),
         "manageWorks": MessageLookupByLibrary.simpleMessage("Manage Works"),
         "march": MessageLookupByLibrary.simpleMessage("March"),
-        "maxDistance": m14,
+        "maxDistance": m15,
         "maxTravelDistanceKm": MessageLookupByLibrary.simpleMessage(
             "Maximum travel distance (km)"),
         "may": MessageLookupByLibrary.simpleMessage("May"),
@@ -567,18 +591,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "messageCustomer":
             MessageLookupByLibrary.simpleMessage("Message Customer"),
-        "messagePreview": m15,
+        "messagePreview": m16,
         "messages": MessageLookupByLibrary.simpleMessage("messages"),
-        "messagesCount": m16,
-        "minDescriptionLengthRequired": m17,
-        "minimumRating": m18,
+        "messagesCount": m17,
+        "meters": MessageLookupByLibrary.simpleMessage("meters"),
+        "minDescriptionLengthRequired": m18,
+        "minimumRating": m19,
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
-        "minutesAgo": m19,
-        "minutesv2": m20,
+        "minutesAgo": m20,
+        "minutesv2": m21,
         "monday": MessageLookupByLibrary.simpleMessage("Monday"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
-        "monthsAgo": m21,
+        "monthsAgo": m22,
         "moreInfoAboutSizesPricesAvailability":
             MessageLookupByLibrary.simpleMessage(
                 "I would like more information about sizes, prices, and availability"),
@@ -598,6 +623,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No applications found"),
         "noAvailableTimeSlotsFound": MessageLookupByLibrary.simpleMessage(
             "No available time slots found"),
+        "noContactInfo": MessageLookupByLibrary.simpleMessage(
+            "No contact information available"),
         "noDescription": MessageLookupByLibrary.simpleMessage("No description"),
         "noDesignsOnFavorites":
             MessageLookupByLibrary.simpleMessage("No designs in favorites"),
@@ -642,21 +669,30 @@ class MessageLookup extends MessageLookupByLibrary {
             "You are not participating in any quotation requests at the moment."),
         "noParticipatingQuotationsFoundTitle":
             MessageLookupByLibrary.simpleMessage("No Participating Quotations"),
+        "noPortfolio":
+            MessageLookupByLibrary.simpleMessage("No portfolio available"),
+        "noPortfolioShared":
+            MessageLookupByLibrary.simpleMessage("No portfolio shared yet"),
         "noQuotationsFound":
             MessageLookupByLibrary.simpleMessage("No quotations found"),
         "noRequestsFound":
             MessageLookupByLibrary.simpleMessage("No requests found"),
         "noResultsFound":
             MessageLookupByLibrary.simpleMessage("No results found"),
+        "noReviews": MessageLookupByLibrary.simpleMessage("No reviews yet"),
         "noReviewsYet": MessageLookupByLibrary.simpleMessage("No reviews yet"),
         "noServicesAvailable":
             MessageLookupByLibrary.simpleMessage("No services available"),
+        "noStencils":
+            MessageLookupByLibrary.simpleMessage("No stencils available"),
         "noStencilsAddedYet":
             MessageLookupByLibrary.simpleMessage("No stencils added yet"),
         "noStencilsFoundWithCurrentCriteria":
             MessageLookupByLibrary.simpleMessage(
                 "No stencils found with current criteria"),
-        "noStencilsWithTag": m22,
+        "noStencilsShared":
+            MessageLookupByLibrary.simpleMessage("No stencils shared yet"),
+        "noStencilsWithTag": m23,
         "noStencilsYet":
             MessageLookupByLibrary.simpleMessage("No Stencils Yet"),
         "noStudioPhotoAvailable":
@@ -670,7 +706,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "No unavailable times configured"),
         "noWorkEvidence":
             MessageLookupByLibrary.simpleMessage("No Work Evidence"),
+        "noWorks": MessageLookupByLibrary.simpleMessage("No works available"),
         "noWorksFound": MessageLookupByLibrary.simpleMessage("No Works Found"),
+        "noWorksShared":
+            MessageLookupByLibrary.simpleMessage("No works shared yet"),
         "notAttended": MessageLookupByLibrary.simpleMessage("Not Attended"),
         "notAvailable": MessageLookupByLibrary.simpleMessage("Not Available"),
         "notLoggedIn": MessageLookupByLibrary.simpleMessage("Not logged in"),
@@ -687,6 +726,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Notifications permission required"),
         "november": MessageLookupByLibrary.simpleMessage("November"),
         "october": MessageLookupByLibrary.simpleMessage("October"),
+        "of5": MessageLookupByLibrary.simpleMessage("of 5"),
         "offerAcceptedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Offer accepted successfully"),
         "offerCost": MessageLookupByLibrary.simpleMessage("Offer Cost"),
@@ -696,13 +736,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your offer has been successfully sent to the customer."),
         "offerSubmittedTitle":
             MessageLookupByLibrary.simpleMessage("Offer Submitted!"),
-        "offerSubmittedWithAmount": m23,
+        "offerSubmittedWithAmount": m24,
         "offered": MessageLookupByLibrary.simpleMessage("Offered"),
         "offers": MessageLookupByLibrary.simpleMessage("Offers"),
         "offersAppearHere": MessageLookupByLibrary.simpleMessage(
             "Offers will appear here when you receive them"),
-        "offersCount": m24,
-        "offersReceived": m25,
+        "offersCount": m25,
+        "offersReceived": m26,
         "offersReceivedTitle":
             MessageLookupByLibrary.simpleMessage("Offers received"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
@@ -762,6 +802,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseSelectTimeRange":
             MessageLookupByLibrary.simpleMessage("Please select a time range"),
         "popularTags": MessageLookupByLibrary.simpleMessage("Popular Tags"),
+        "portfolio": MessageLookupByLibrary.simpleMessage("Portfolio"),
         "previousWeek": MessageLookupByLibrary.simpleMessage("Previous Week"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacyPolicyContent": MessageLookupByLibrary.simpleMessage(
@@ -856,7 +897,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Received Quotation"),
         "receivedQuotations":
             MessageLookupByLibrary.simpleMessage("Received Quotations"),
-        "referenceBudget": m26,
+        "referenceBudget": m27,
         "referenceBudgetHint": MessageLookupByLibrary.simpleMessage(
             "Reference budget for the artist"),
         "referenceImages":
@@ -897,6 +938,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request Details"),
         "requestQuotationForDesign": MessageLookupByLibrary.simpleMessage(
             "Request quotation for design"),
+        "requestQuote": MessageLookupByLibrary.simpleMessage("Request Quote"),
         "requests": MessageLookupByLibrary.simpleMessage("Requests"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "requiredField": MessageLookupByLibrary.simpleMessage("Required Field"),
@@ -917,6 +959,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Review each offer and chat with the artists"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
+        "reviewsTotal": MessageLookupByLibrary.simpleMessage("reviews"),
         "saturday": MessageLookupByLibrary.simpleMessage("Saturday"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
@@ -945,6 +988,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchTattoosStencilsOrTags": MessageLookupByLibrary.simpleMessage(
             "Search tattoos, stencils, or tags"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
+        "seeLess": MessageLookupByLibrary.simpleMessage("See Less"),
+        "seeMore": MessageLookupByLibrary.simpleMessage("See More"),
+        "seeReviews": MessageLookupByLibrary.simpleMessage("See Reviews"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateTime":
             MessageLookupByLibrary.simpleMessage("Select Date & Time"),
@@ -980,6 +1026,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "september": MessageLookupByLibrary.simpleMessage("September"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shareArtistProfile":
+            MessageLookupByLibrary.simpleMessage("Share Artist Profile"),
         "shortDescription":
             MessageLookupByLibrary.simpleMessage("Short Description"),
         "show": MessageLookupByLibrary.simpleMessage("Show"),
@@ -1008,7 +1056,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statusPending": MessageLookupByLibrary.simpleMessage("Pending"),
         "statusQuoted": MessageLookupByLibrary.simpleMessage("Quoted"),
         "statusRejected": MessageLookupByLibrary.simpleMessage("Rejected"),
-        "statusWithText": m27,
+        "statusWithText": m28,
         "stencil": MessageLookupByLibrary.simpleMessage("Stencil"),
         "stencilCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Stencil created successfully"),
@@ -1043,7 +1091,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "systemCancellationReason":
             MessageLookupByLibrary.simpleMessage("System Cancellation Reason"),
-        "systemOfferUpdate": m28,
+        "systemOfferUpdate": m29,
         "systemTimeout": MessageLookupByLibrary.simpleMessage("System Timeout"),
         "tags": MessageLookupByLibrary.simpleMessage("Tags"),
         "tapToChangeImage":
@@ -1112,12 +1160,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "toggleVisibility":
             MessageLookupByLibrary.simpleMessage("Toggle Visibility"),
         "tooExpensive": MessageLookupByLibrary.simpleMessage("Too Expensive"),
+        "totalReviews": m30,
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
         "tryAgainLater":
             MessageLookupByLibrary.simpleMessage("Please try again later"),
         "tryDifferentSearchOrFilters": MessageLookupByLibrary.simpleMessage(
             "Try a different search term or filters"),
-        "tryRefreshingThePage": m29,
+        "tryRefreshingThePage": m31,
         "tryRemovingFilters":
             MessageLookupByLibrary.simpleMessage("Try removing filters"),
         "trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration":
@@ -1174,7 +1223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "workingDays": MessageLookupByLibrary.simpleMessage("Working Days"),
         "workingHours": MessageLookupByLibrary.simpleMessage("Working Hours"),
         "works": MessageLookupByLibrary.simpleMessage("Works"),
-        "yearsAgo": m30,
+        "yearsAgo": m32,
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourOffer": MessageLookupByLibrary.simpleMessage("Your Offer"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Your Response"),
