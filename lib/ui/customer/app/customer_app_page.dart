@@ -20,6 +20,9 @@ import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/customer_app/models/customer_page_nav_bar_icons.dart';
+import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
 
 class CustomerAppPage extends StatefulWidget {
   const CustomerAppPage({super.key});
@@ -305,11 +308,51 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     return actions;
   }
 
+  List<PageNavBarIcon> _buildCustomerNavBarIcons(BuildContext context) {
+    return [
+      PageNavBarIcon(
+        key: K.exploreTab,
+        icon: ImageIcon(exploreIcon),
+        selectedIcon: ImageIcon(exploreSelectedIcon),
+        title: S.of(context).explore,
+        index: 0,
+      ),
+      PageNavBarIcon(
+        key: K.quotationsTab,
+        icon: ImageIcon(bookMarkIcon),
+        selectedIcon: ImageIcon(bookMarkSelectedIcon),
+        title: S.of(context).quotations,
+        index: 1,
+      ),
+      PageNavBarIcon(
+        key: Key('inspirationTab'),
+        icon: Icon(Icons.style_outlined, size: 26, color: Colors.white),
+        selectedIcon: Icon(Icons.style, size: 26, color: Colors.white),
+        title: S.of(context).inspiration,
+        index: 2,
+      ),
+      PageNavBarIcon(
+        key: K.appointmentsTab,
+        icon: Icon(Icons.calendar_today_outlined, size: 22, color: Colors.white),
+        selectedIcon: Icon(Icons.calendar_today, size: 22, color: Colors.white),
+        title: S.of(context).myAppointments,
+        index: 3,
+      ),
+      PageNavBarIcon(
+        key: K.profileTab,
+        icon: Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
+        selectedIcon: Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
+        title: S.of(context).myProfile,
+        index: 4,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final customerAppBloc = BlocProvider.of<CustomerAppBloc>(context);
     final state = customerAppBloc.state;
-    final icons = state.customerPageNavBarIcons.icons;
+    final icons = _buildCustomerNavBarIcons(context);
     return Scaffold(
         backgroundColor: primaryColor,
         appBar: _selectedIndex != 4

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
@@ -13,8 +14,7 @@ class ArtistProfileBioInfoRow extends StatelessWidget {
     return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
       buildWhen: (previous, current) => current is! ArtistProfileStateInitial,
       builder: (context, state) {
-        final followersText =
-            state.artist?.followers == 1 ? ' seguidor' : ' seguidores';
+        final followersText = S.of(context).follower(state.artist?.followers ?? 0);
         final followers = state.artist?.followers ?? '0';
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -49,7 +49,7 @@ class ArtistProfileBioInfoRow extends StatelessWidget {
                         artistId: state.artist!.id,
                       ));
                 },
-                child: Text('Opiniones  👉',
+                child: Text(S.of(context).reviews,
                     style: TextStyleTheme.copyWith(
                         fontSize: 16, color: Colors.white)),
               ),

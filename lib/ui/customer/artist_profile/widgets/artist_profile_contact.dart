@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/styles/app_styles.dart';
@@ -25,7 +26,7 @@ class ArtistProfileContact extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Información de Contacto',
+            S.of(context).contactInfo,
             style: TextStyleTheme.copyWith(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -63,7 +64,7 @@ class ArtistProfileContact extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                'El artista no ha proporcionado información de contacto pública.',
+                S.of(context).noContactInfo,
                 style: TextStyleTheme.copyWith(
                   fontSize: 14,
                   color: Colors.white.withOpacity(0.7),
@@ -80,7 +81,7 @@ class ArtistProfileContact extends StatelessWidget {
         if (hasEmail)
           _buildContactItem(
             icon: Icons.email,
-            label: 'Email',
+            label: S.of(context).email,
             value: artist.contact!.email,
             onTap: () => _copyToClipboard(context, artist.contact!.email),
           ),
@@ -89,7 +90,7 @@ class ArtistProfileContact extends StatelessWidget {
         if (hasPhone)
           _buildContactItem(
             icon: Icons.phone,
-            label: 'Teléfono',
+            label: S.of(context).phone,
             value: artist.contact!.phone,
             onTap: () => _copyToClipboard(context, artist.contact!.phone),
           ),
@@ -173,7 +174,7 @@ class ArtistProfileContact extends StatelessWidget {
           ),
         ),
         child: Text(
-          'Solicitar Cotización',
+          S.of(context).requestQuote,
           style: TextStyleTheme.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -188,7 +189,7 @@ class ArtistProfileContact extends StatelessWidget {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$text copiado al portapapeles'),
+        content: Text(S.of(context).copiedToClipboard),
         backgroundColor: secondaryColor,
         duration: const Duration(seconds: 2),
       ),
