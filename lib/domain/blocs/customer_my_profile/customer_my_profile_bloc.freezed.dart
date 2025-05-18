@@ -244,6 +244,8 @@ abstract class _$$UpdateProfileImplCopyWith<$Res> {
       __$$UpdateProfileImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Customer customer});
+
+  $CustomerCopyWith<$Res> get customer;
 }
 
 /// @nodoc
@@ -265,6 +267,14 @@ class __$$UpdateProfileImplCopyWithImpl<$Res>
           : customer // ignore: cast_nullable_to_non_nullable
               as Customer,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerCopyWith<$Res> get customer {
+    return $CustomerCopyWith<$Res>(_value.customer, (value) {
+      return _then(_value.copyWith(customer: value));
+    });
   }
 }
 
@@ -1545,6 +1555,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Customer customer});
+
+  $CustomerCopyWith<$Res> get customer;
 }
 
 /// @nodoc
@@ -1566,6 +1578,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
           : customer // ignore: cast_nullable_to_non_nullable
               as Customer,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerCopyWith<$Res> get customer {
+    return $CustomerCopyWith<$Res>(_value.customer, (value) {
+      return _then(_value.copyWith(customer: value));
+    });
   }
 }
 

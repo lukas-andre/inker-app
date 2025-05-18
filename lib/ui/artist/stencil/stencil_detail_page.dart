@@ -70,7 +70,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           .map((tag) => TagSuggestionResponseDto(
                 id: tag.id,
                 name: tag.name,
-                count: tag.count,
+                count: tag.count ?? 0,
               ))
           .toList();
     }

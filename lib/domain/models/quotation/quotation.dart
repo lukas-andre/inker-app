@@ -70,6 +70,7 @@ class Quotation with _$Quotation {
     Stencil? stencil,
     double? distanceToArtistKm,
     @Default(false) bool hasOffered,
+    String? generatedImageId,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>
