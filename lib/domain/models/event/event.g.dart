@@ -19,9 +19,10 @@ _$EventImpl _$$EventImplFromJson(Map json) => _$EventImpl(
       notification: json['notification'] as bool? ?? false,
       done: json['done'] as bool? ?? false,
       status: $enumDecode(_$EventStatusEnumMap, json['status']),
-      workEvidence: (json['workEvidence'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      workEvidence: json['workEvidence'] == null
+          ? null
+          : WorkEvidence.fromJson(
+              Map<String, dynamic>.from(json['workEvidence'] as Map)),
       notes: json['notes'] as String?,
       preparationTime: (json['preparationTime'] as num?)?.toInt(),
       cleanupTime: (json['cleanupTime'] as num?)?.toInt(),
@@ -63,7 +64,7 @@ Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) {
   val['notification'] = instance.notification;
   val['done'] = instance.done;
   val['status'] = _$EventStatusEnumMap[instance.status]!;
-  writeNotNull('workEvidence', instance.workEvidence);
+  writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('notes', instance.notes);
   writeNotNull('preparationTime', instance.preparationTime);
   writeNotNull('cleanupTime', instance.cleanupTime);

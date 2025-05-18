@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/domain/models/agenda/agenda.dart';
 import 'package:inker_studio/domain/models/event/event_message.dart';
 
@@ -43,7 +44,7 @@ class Event with _$Event {
     @Default(false) bool notification,
     @Default(false) bool done,
     required EventStatus status,
-    List<String>? workEvidence,
+    WorkEvidence? workEvidence,
     String? notes,
     int? preparationTime,
     int? cleanupTime,
