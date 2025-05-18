@@ -115,6 +115,7 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
           : Stencil.fromJson(Map<String, dynamic>.from(json['stencil'] as Map)),
       distanceToArtistKm: (json['distanceToArtistKm'] as num?)?.toDouble(),
       hasOffered: json['hasOffered'] as bool? ?? false,
+      generatedImageId: json['generatedImageId'] as String?,
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -183,6 +184,7 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('stencil', instance.stencil?.toJson());
   writeNotNull('distanceToArtistKm', instance.distanceToArtistKm);
   val['hasOffered'] = instance.hasOffered;
+  writeNotNull('generatedImageId', instance.generatedImageId);
   return val;
 }
 

@@ -26,6 +26,8 @@ class Location with _$Location {
     required String name,
     String? profileThumbnail,
     String? googlePlaceId,
+    @Default(0) int locationOrder,
+    @Default(true) bool isActive,
   }) = _Location;
 
   factory Location.fromJson(Map<String, dynamic> json) =>

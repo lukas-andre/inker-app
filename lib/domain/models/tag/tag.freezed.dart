@@ -21,8 +21,11 @@ Tag _$TagFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Tag {
   String get id => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  int get count => throw _privateConstructorUsedError;
+  String? get createdBy => throw _privateConstructorUsedError;
+  int? get count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +37,13 @@ abstract class $TagCopyWith<$Res> {
   factory $TagCopyWith(Tag value, $Res Function(Tag) then) =
       _$TagCopyWithImpl<$Res, Tag>;
   @useResult
-  $Res call({String id, String name, int count});
+  $Res call(
+      {String id,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String name,
+      String? createdBy,
+      int? count});
 }
 
 /// @nodoc
@@ -50,22 +59,37 @@ class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? name = null,
-    Object? count = null,
+    Object? createdBy = freezed,
+    Object? count = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      count: null == count
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -76,7 +100,13 @@ abstract class _$$TagImplCopyWith<$Res> implements $TagCopyWith<$Res> {
       __$$TagImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, int count});
+  $Res call(
+      {String id,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String name,
+      String? createdBy,
+      int? count});
 }
 
 /// @nodoc
@@ -89,22 +119,37 @@ class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
   @override
   $Res call({
     Object? id = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? name = null,
-    Object? count = null,
+    Object? createdBy = freezed,
+    Object? count = freezed,
   }) {
     return _then(_$TagImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      count: null == count
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -112,7 +157,13 @@ class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
 /// @nodoc
 @JsonSerializable()
 class _$TagImpl implements _Tag {
-  const _$TagImpl({required this.id, required this.name, this.count = 0});
+  const _$TagImpl(
+      {required this.id,
+      this.createdAt,
+      this.updatedAt,
+      required this.name,
+      this.createdBy,
+      this.count});
 
   factory _$TagImpl.fromJson(Map<String, dynamic> json) =>
       _$$TagImplFromJson(json);
@@ -120,14 +171,19 @@ class _$TagImpl implements _Tag {
   @override
   final String id;
   @override
+  final DateTime? createdAt;
+  @override
+  final DateTime? updatedAt;
+  @override
   final String name;
   @override
-  @JsonKey()
-  final int count;
+  final String? createdBy;
+  @override
+  final int? count;
 
   @override
   String toString() {
-    return 'Tag(id: $id, name: $name, count: $count)';
+    return 'Tag(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, createdBy: $createdBy, count: $count)';
   }
 
   @override
@@ -136,13 +192,20 @@ class _$TagImpl implements _Tag {
         (other.runtimeType == runtimeType &&
             other is _$TagImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy) &&
             (identical(other.count, count) || other.count == count));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, count);
+  int get hashCode => Object.hash(
+      runtimeType, id, createdAt, updatedAt, name, createdBy, count);
 
   @JsonKey(ignore: true)
   @override
@@ -161,17 +224,26 @@ class _$TagImpl implements _Tag {
 abstract class _Tag implements Tag {
   const factory _Tag(
       {required final String id,
+      final DateTime? createdAt,
+      final DateTime? updatedAt,
       required final String name,
-      final int count}) = _$TagImpl;
+      final String? createdBy,
+      final int? count}) = _$TagImpl;
 
   factory _Tag.fromJson(Map<String, dynamic> json) = _$TagImpl.fromJson;
 
   @override
   String get id;
   @override
+  DateTime? get createdAt;
+  @override
+  DateTime? get updatedAt;
+  @override
   String get name;
   @override
-  int get count;
+  String? get createdBy;
+  @override
+  int? get count;
   @override
   @JsonKey(ignore: true)
   _$$TagImplCopyWith<_$TagImpl> get copyWith =>

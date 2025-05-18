@@ -411,7 +411,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
             context: context,
             icon: Icons.email,
             label: S.of(context).email,
-            value: customer.contactEmail,
+            value: customer.contactEmail ?? '',
             isEditable: false,
           ),
           const SizedBox(height: 8),

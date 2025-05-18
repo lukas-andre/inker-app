@@ -35,6 +35,18 @@ _$StencilImpl _$$StencilImplFromJson(Map json) => _$StencilImpl(
       metrics: json['metrics'] == null
           ? null
           : Metrics.fromJson(Map<String, dynamic>.from(json['metrics'] as Map)),
+      imageId: json['imageId'] as String?,
+      price: json['price'] == null
+          ? null
+          : Money.fromJson(Map<String, dynamic>.from(json['price'] as Map)),
+      status: $enumDecodeNullable(_$StencilStatusEnumMap, json['status']),
+      dimensions: json['dimensions'] as String?,
+      estimatedTime: (json['estimatedTime'] as num?)?.toInt(),
+      isCustomizable: json['isCustomizable'] as bool? ?? false,
+      isDownloadable: json['isDownloadable'] as bool? ?? false,
+      isAvailable: json['isAvailable'] as bool? ?? false,
+      license: json['license'] as String?,
+      licenseUrl: json['licenseUrl'] as String?,
     );
 
 Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
@@ -67,5 +79,20 @@ Map<String, dynamic> _$$StencilImplToJson(_$StencilImpl instance) {
   val['likeCount'] = instance.likeCount;
   val['isLikedByUser'] = instance.isLikedByUser;
   writeNotNull('metrics', instance.metrics?.toJson());
+  writeNotNull('imageId', instance.imageId);
+  writeNotNull('price', instance.price?.toJson());
+  writeNotNull('status', _$StencilStatusEnumMap[instance.status]);
+  writeNotNull('dimensions', instance.dimensions);
+  writeNotNull('estimatedTime', instance.estimatedTime);
+  val['isCustomizable'] = instance.isCustomizable;
+  val['isDownloadable'] = instance.isDownloadable;
+  val['isAvailable'] = instance.isAvailable;
+  writeNotNull('license', instance.license);
+  writeNotNull('licenseUrl', instance.licenseUrl);
   return val;
 }
+
+const _$StencilStatusEnumMap = {
+  StencilStatus.available: 'AVAILABLE',
+  StencilStatus.unavailable: 'UNAVAILABLE',
+};

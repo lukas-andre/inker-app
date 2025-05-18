@@ -3,11 +3,12 @@ import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dar
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
 class ApiAgendaService extends AgendaService {
   static const String className = 'ApiAgendaService';
   static const String _basePath = 'agenda';
-  
+
   late final HttpClientService _httpClient;
 
   ApiAgendaService() {
@@ -81,7 +82,7 @@ class ApiAgendaService extends AgendaService {
       fromJson: EventItem.fromJson,
     );
   }
-  
+
   @override
   Future<void> updateWorkingHours({
     required String token,
@@ -107,7 +108,7 @@ class ApiAgendaService extends AgendaService {
       // Continue execution without throwing
     }
   }
-  
+
   @override
   Future<void> addUnavailableTime({
     required String token,
@@ -120,11 +121,11 @@ class ApiAgendaService extends AgendaService {
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
     };
-    
+
     if (reason != null) {
       body['reason'] = reason;
     }
-    
+
     await _httpClient.post(
       path: '$_basePath/$agendaId/unavailable-time',
       token: token,
@@ -132,7 +133,7 @@ class ApiAgendaService extends AgendaService {
       fromJson: (json) => null,
     );
   }
-  
+
   @override
   Future<List<dynamic>> getUnavailableTime({
     required String token,
@@ -151,7 +152,7 @@ class ApiAgendaService extends AgendaService {
       return <dynamic>[];
     }
   }
-  
+
   @override
   Future<void> deleteUnavailableTime({
     required String token,
@@ -164,7 +165,7 @@ class ApiAgendaService extends AgendaService {
       body: {},
     );
   }
-  
+
   @override
   Future<void> updateAgendaSettings({
     required String token,
@@ -189,7 +190,7 @@ class ApiAgendaService extends AgendaService {
       // Continue execution without throwing
     }
   }
-  
+
   @override
   Future<void> createEvent({
     required String token,
@@ -227,7 +228,7 @@ class ApiAgendaService extends AgendaService {
       rethrow; // Propagate error to allow proper error handling in bloc
     }
   }
-  
+
   // Helper method to format DateTime to the required format: YYYY-MM-DD HH:MM:SS
   String _formatDateTimeForApi(DateTime dateTime) {
     final year = dateTime.year.toString().padLeft(4, '0');
@@ -236,7 +237,7 @@ class ApiAgendaService extends AgendaService {
     final hour = dateTime.hour.toString().padLeft(2, '0');
     final minute = dateTime.minute.toString().padLeft(2, '0');
     final second = dateTime.second.toString().padLeft(2, '0');
-    
+
     return '$year-$month-$day $hour:$minute:$second';
   }
 
@@ -249,10 +250,11 @@ class ApiAgendaService extends AgendaService {
     try {
       // Format date fields if present
       final formattedFields = Map<String, dynamic>.from(updatedFields);
-      
+
       if (formattedFields.containsKey('start')) {
         if (formattedFields['start'] is DateTime) {
-          formattedFields['start'] = _formatDateTimeForApi(formattedFields['start'] as DateTime);
+          formattedFields['start'] =
+              _formatDateTimeForApi(formattedFields['start'] as DateTime);
         } else if (formattedFields['start'] is String) {
           try {
             // Try to parse ISO string to DateTime and then format
@@ -260,24 +262,27 @@ class ApiAgendaService extends AgendaService {
             formattedFields['start'] = _formatDateTimeForApi(dateTime);
           } catch (e) {
             // If it's not a valid ISO string, leave it as is
-            print('Warning: Could not parse start date: ${formattedFields['start']}');
+            print(
+                'Warning: Could not parse start date: ${formattedFields['start']}');
           }
         }
       }
-      
+
       if (formattedFields.containsKey('end')) {
         if (formattedFields['end'] is DateTime) {
-          formattedFields['end'] = _formatDateTimeForApi(formattedFields['end'] as DateTime);
+          formattedFields['end'] =
+              _formatDateTimeForApi(formattedFields['end'] as DateTime);
         } else if (formattedFields['end'] is String) {
           try {
             final dateTime = DateTime.parse(formattedFields['end'] as String);
             formattedFields['end'] = _formatDateTimeForApi(dateTime);
           } catch (e) {
-            print('Warning: Could not parse end date: ${formattedFields['end']}');
+            print(
+                'Warning: Could not parse end date: ${formattedFields['end']}');
           }
         }
       }
-      
+
       await _httpClient.put(
         path: '$_basePath/event/$eventId',
         token: token,
@@ -289,7 +294,7 @@ class ApiAgendaService extends AgendaService {
       rethrow; // Propagate error to allow proper error handling in bloc
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> getAgendaSettings({
     required String token,
@@ -304,7 +309,7 @@ class ApiAgendaService extends AgendaService {
           return _applyDefaultSettings(json);
         },
       );
-      
+
       return response;
     } catch (e) {
       // If there's an error or the endpoint doesn't exist yet,
@@ -312,37 +317,39 @@ class ApiAgendaService extends AgendaService {
       return _getDefaultSettings();
     }
   }
-  
+
   // Helper method to apply defaults to partial settings
   Map<String, dynamic> _applyDefaultSettings(Map<String, dynamic> settings) {
     final Map<String, dynamic> result = Map.from(settings);
-    
+
     // Apply defaults for missing fields
     if (!result.containsKey('workingHoursStart')) {
       result['workingHoursStart'] = '09:00';
     }
-    
+
     if (!result.containsKey('workingHoursEnd')) {
       result['workingHoursEnd'] = '18:00';
     }
-    
+
     if (!result.containsKey('workingDays')) {
       result['workingDays'] = ['1', '2', '3', '4', '5'];
-    } else if (result['workingDays'] == null || (result['workingDays'] is List && (result['workingDays'] as List).isEmpty)) {
+    } else if (result['workingDays'] == null ||
+        (result['workingDays'] is List &&
+            (result['workingDays'] as List).isEmpty)) {
       result['workingDays'] = ['1', '2', '3', '4', '5'];
     }
-    
+
     if (!result.containsKey('public')) {
       result['public'] = true;
     }
-    
+
     if (!result.containsKey('open')) {
       result['open'] = true;
     }
-    
+
     return result;
   }
-  
+
   // Helper method to create default settings
   Map<String, dynamic> _getDefaultSettings() {
     return {
@@ -353,7 +360,7 @@ class ApiAgendaService extends AgendaService {
       'open': true,
     };
   }
-  
+
   @override
   Future<void> rescheduleEvent({
     required String token,
@@ -367,19 +374,18 @@ class ApiAgendaService extends AgendaService {
       'newStartDate': newStartDate.toIso8601String(),
       'newEndDate': newEndDate.toIso8601String(),
     };
-    
+
     if (reason != null) {
       body['reason'] = reason;
     }
-    
+
     await _httpClient.put(
-      path: '$_basePath/$agendaId/event/$eventId/reschedule',
-      token: token,
-      body: body,
-      fromJson: (json) => null
-    );
+        path: '$_basePath/$agendaId/event/$eventId/reschedule',
+        token: token,
+        body: body,
+        fromJson: (json) => null);
   }
-  
+
   @override
   Future<void> updateEventNotes({
     required String token,
@@ -396,7 +402,7 @@ class ApiAgendaService extends AgendaService {
       fromJson: (json) => null,
     );
   }
-  
+
   @override
   Future<List<dynamic>> getArtistAvailability({
     required String token,
@@ -406,19 +412,19 @@ class ApiAgendaService extends AgendaService {
     int? duration,
   }) async {
     final Map<String, String> queryParams = {};
-    
+
     if (fromDate != null) {
       queryParams['fromDate'] = fromDate.toIso8601String();
     }
-    
+
     if (toDate != null) {
       queryParams['toDate'] = toDate.toIso8601String();
     }
-    
+
     if (duration != null) {
       queryParams['duration'] = duration.toString();
     }
-    
+
     return await _httpClient.getList(
       path: '$_basePath/artists/$artistId/availability',
       token: token,
@@ -426,7 +432,7 @@ class ApiAgendaService extends AgendaService {
       fromJson: (json) => null,
     );
   }
-  
+
   @override
   Future<List<dynamic>> getQuotationAvailableSlots({
     required String token,
@@ -438,7 +444,7 @@ class ApiAgendaService extends AgendaService {
       fromJson: (json) => json,
     );
   }
-  
+
   @override
   Future<List<dynamic>> getArtistAvailableTimeSlots({
     required String token,
@@ -463,8 +469,9 @@ class ApiAgendaService extends AgendaService {
       // If the specific endpoint fails, fall back to the availability endpoint
       try {
         final fromDate = date;
-        final toDate = DateTime(date.year, date.month, date.day + 7); // Look ahead 7 days
-        
+        final toDate =
+            DateTime(date.year, date.month, date.day + 7); // Look ahead 7 days
+
         final availabilityData = await _httpClient.getList(
           path: '$_basePath/artists/$artistId/availability',
           token: token,
@@ -475,7 +482,7 @@ class ApiAgendaService extends AgendaService {
           },
           fromJson: (json) => json,
         );
-        
+
         // Extract all slots from all days
         List<dynamic> allSlots = [];
         for (final day in availabilityData) {
@@ -483,14 +490,14 @@ class ApiAgendaService extends AgendaService {
             allSlots.addAll(day['slots'] ?? []);
           }
         }
-        
+
         // Sort by start time
         allSlots.sort((a, b) {
           final aStart = DateTime.parse(a['startTime']);
           final bStart = DateTime.parse(b['startTime']);
           return aStart.compareTo(bStart);
         });
-        
+
         return allSlots.take(8).toList();
       } catch (fallbackError) {
         print('Fallback also failed: $fallbackError');
@@ -515,4 +522,20 @@ class ApiAgendaService extends AgendaService {
 
   @override
   get statusValue => throw UnimplementedError();
+
+  @override
+  Future<EventDetailResponse> getEventDetails(String eventId) async {
+    return await _httpClient.get<EventDetailResponse>(
+      path: '$_basePath/event/$eventId',
+      fromJson: EventDetailResponse.fromJson,
+    );
+  }
+
+  @override
+  Future<EventDetailResponse> getCustomerEventDetails(String eventId) async {
+    return await _httpClient.get<EventDetailResponse>(
+      path: '$_basePath/customer/event/$eventId',
+      fromJson: EventDetailResponse.fromJson,
+    );
+  }
 }

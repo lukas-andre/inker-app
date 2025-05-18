@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
+import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -39,13 +39,7 @@ class ArtistAgendaEventDetailBloc
       Emitter<ArtistAgendaEventDetailState> emit, String eventId) async {
     emit(const ArtistAgendaEventDetailState.loading());
     try {
-      final token = await _sessionService.getActiveSessionToken();
-      if (token == null) {
-        throw Exception('No active session token found');
-      }
-
-      final response =
-          await _agendaService.getEvent(token: token, eventId: eventId);
+      final EventDetailResponse response = await _agendaService.getEventDetails(eventId);
       emit(ArtistAgendaEventDetailState.loaded(response));
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
@@ -58,10 +52,12 @@ class ArtistAgendaEventDetailBloc
       String agendaId, 
       String eventId, 
       String notes) async {
+    emit(const ArtistAgendaEventDetailState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        throw Exception('No active session token found');
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
       }
 
       await _agendaService.updateEventNotes(
@@ -71,9 +67,10 @@ class ArtistAgendaEventDetailBloc
         notes: notes,
       );
       
-      // Refresh event details after updating notes
       if (_currentEventId != null) {
         await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
       }
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);
@@ -88,10 +85,12 @@ class ArtistAgendaEventDetailBloc
       DateTime newStartDate,
       DateTime newEndDate,
       String? reason) async {
+    emit(const ArtistAgendaEventDetailState.loading());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        throw Exception('No active session token found');
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
       }
 
       await _agendaService.rescheduleEvent(
@@ -103,9 +102,10 @@ class ArtistAgendaEventDetailBloc
         reason: reason,
       );
       
-      // Refresh event details after rescheduling
       if (_currentEventId != null) {
         await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
       }
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);

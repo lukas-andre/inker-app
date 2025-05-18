@@ -655,7 +655,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AgendaEventDetailResponse eventDetail) loaded,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -663,7 +663,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -671,7 +671,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -764,7 +764,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AgendaEventDetailResponse eventDetail) loaded,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -775,7 +775,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -786,7 +786,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -878,7 +878,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AgendaEventDetailResponse eventDetail) loaded,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -889,7 +889,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -900,7 +900,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -958,9 +958,9 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AgendaEventDetailResponse eventDetail});
+  $Res call({EventDetailResponse eventDetail});
 
-  $AgendaEventDetailResponseCopyWith<$Res> get eventDetail;
+  $EventDetailResponseCopyWith<$Res> get eventDetail;
 }
 
 /// @nodoc
@@ -980,15 +980,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
       null == eventDetail
           ? _value.eventDetail
           : eventDetail // ignore: cast_nullable_to_non_nullable
-              as AgendaEventDetailResponse,
+              as EventDetailResponse,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AgendaEventDetailResponseCopyWith<$Res> get eventDetail {
-    return $AgendaEventDetailResponseCopyWith<$Res>(_value.eventDetail,
-        (value) {
+  $EventDetailResponseCopyWith<$Res> get eventDetail {
+    return $EventDetailResponseCopyWith<$Res>(_value.eventDetail, (value) {
       return _then(_value.copyWith(eventDetail: value));
     });
   }
@@ -1000,7 +999,7 @@ class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(this.eventDetail);
 
   @override
-  final AgendaEventDetailResponse eventDetail;
+  final EventDetailResponse eventDetail;
 
   @override
   String toString() {
@@ -1030,7 +1029,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AgendaEventDetailResponse eventDetail) loaded,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
     return loaded(eventDetail);
@@ -1041,7 +1040,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(eventDetail);
@@ -1052,7 +1051,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1101,10 +1100,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements ArtistAgendaEventDetailState {
-  const factory _Loaded(final AgendaEventDetailResponse eventDetail) =
-      _$LoadedImpl;
+  const factory _Loaded(final EventDetailResponse eventDetail) = _$LoadedImpl;
 
-  AgendaEventDetailResponse get eventDetail;
+  EventDetailResponse get eventDetail;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1176,7 +1174,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AgendaEventDetailResponse eventDetail) loaded,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1187,7 +1185,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1198,7 +1196,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AgendaEventDetailResponse eventDetail)? loaded,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
