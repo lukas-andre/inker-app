@@ -7,7 +7,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/schedule_assistant/schedule_assistant_widget.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ScheduleAssistantPage extends StatefulWidget {
   final String artistId;
@@ -78,11 +77,11 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
         )..add(ScheduleAssistantEvent.started(widget.artistId)),
         child: Scaffold(
           key: K.scheduleAssistantView,
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           appBar: AppBar(
             title:
                 Text(l10n.scheduleAssistant, style: TextStyleTheme.headline3),
-            backgroundColor: primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -124,7 +123,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
             }
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: secondaryColor,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

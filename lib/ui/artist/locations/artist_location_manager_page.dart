@@ -9,7 +9,6 @@ import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/shared/location/location_input_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistLocationManagerPage extends StatelessWidget {
   final String artistId;
@@ -27,9 +26,9 @@ class ArtistLocationManagerPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           S.of(context).manageLocations,
           style: TextStyleTheme.headline2,
@@ -65,7 +64,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
               // Only show the add button if the artist has fewer than 3 locations
               if (locations.length < 3) {
                 return FloatingActionButton(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   onPressed: () => _navigateToAddLocation(context),
                   child: const Icon(Icons.add_location_alt),
                 );
@@ -109,7 +108,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
   Widget _buildLocationCard(BuildContext context, ArtistLocation location) {
     return Card(
       key: Key('locationCard_${location.id}'),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       margin: const EdgeInsets.only(bottom: 16.0),
       elevation: 4.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -132,7 +131,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Text(
@@ -302,7 +301,7 @@ class ArtistLocationManagerPage extends StatelessWidget {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title:
             Text(S.of(context).deleteLocation, style: TextStyleTheme.headline2),
         content: Text(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/ui/artist/artist_home_page.dart';
-import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
 import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:patrol/patrol.dart';
@@ -57,8 +55,8 @@ class AuthTestActions {
         await $(registerKeys.onboarding.signInButton).tap();
       } else if ($('Iniciar sesión').exists) {
         await $('Iniciar sesión').tap();
-      } else if ($(ElevatedButton).containing(Text('Iniciar sesión')).exists) {
-        await $(ElevatedButton).containing(Text('Iniciar sesión')).tap();
+      } else if ($(ElevatedButton).containing(const Text('Iniciar sesión')).exists) {
+        await $(ElevatedButton).containing(const Text('Iniciar sesión')).tap();
       }
 
       await $.pumpAndSettle();

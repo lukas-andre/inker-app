@@ -4,7 +4,6 @@ import 'package:inker_studio/keys.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ChileanPesoInputFormatter extends TextInputFormatter {
   @override
@@ -99,17 +98,21 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
         decoration: InputDecoration(
           labelText: widget.l10n.estimatedCost,
           labelStyle: TextStyleTheme.bodyText1,
-          fillColor: inputBackgroundColor,
+          fillColor: Theme.of(context).colorScheme.surface,
           filled: true,
-          border: inputBorder,
-          focusedBorder: focusedBorder,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+          ),
           errorText: _errorText,
-          prefixIcon: const Icon(Icons.attach_money, color: tertiaryColor),
+          prefixIcon: Icon(Icons.attach_money, color: Theme.of(context).colorScheme.tertiary),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: const Icon(Icons.info_outline, color: tertiaryColor),
+                icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.tertiary),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -118,7 +121,7 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.close, color: tertiaryColor),
+                icon: Icon(Icons.close, color: Theme.of(context).colorScheme.tertiary),
                 onPressed: () {
                   widget.controller.clear();
                   widget.onChanged('');

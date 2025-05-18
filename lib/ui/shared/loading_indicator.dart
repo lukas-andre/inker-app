@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class LoadingIndicator extends StatelessWidget {
   final String? message;
@@ -9,7 +8,7 @@ class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({
     super.key,
     this.message,
-    this.color = primaryColor,
+    this.color = Colors.white,
     this.size = 36.0,
   });
 

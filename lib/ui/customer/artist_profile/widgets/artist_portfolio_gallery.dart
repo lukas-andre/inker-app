@@ -15,7 +15,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistPortfolioGallery extends StatefulWidget {
   final List<Work> works;
@@ -36,7 +35,7 @@ class ArtistPortfolioGallery extends StatefulWidget {
 class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -81,7 +80,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 48, color: redColor),
+                  Icon(Icons.error_outline,
+                      size: 48, color: Theme.of(context).colorScheme.tertiary),
                   const SizedBox(height: 16),
                   Text(
                     S.of(context).errorLoadingPortfolio,
@@ -104,7 +104,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                         .read<ArtistPortfolioCubit>()
                         .loadArtistPortfolio(artistId),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     child: Text(S.of(context).retry),
                   ),
@@ -125,7 +125,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       children: [
         Card(
           margin: EdgeInsets.zero,
-          color: HSLColor.fromColor(primaryColor).withLightness(0.18).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.18)
+              .toColor(),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(isMinimalist ? 0 : 16),
@@ -149,11 +151,14 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                 fontWeight: FontWeight.w400,
               ),
               indicator: BoxDecoration(
-                color: secondaryColor,
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -166,13 +171,16 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(S.of(context).works, style: TextStyleTheme.bodyText1),
+                      Text(S.of(context).works,
+                          style: TextStyleTheme.bodyText1),
                       const SizedBox(width: 8),
                       if (works.isNotEmpty)
                         Container(
-                          constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                          constraints:
+                              const BoxConstraints(minWidth: 20, minHeight: 20),
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(12),
@@ -196,9 +204,11 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                       const SizedBox(width: 8),
                       if (stencils.isNotEmpty)
                         Container(
-                          constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                          constraints:
+                              const BoxConstraints(minWidth: 20, minHeight: 20),
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(12),
@@ -245,8 +255,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               children: [
                 // Pestaña de Trabajos
                 works.isEmpty
-                    ? _buildEmptySection(S.of(context).noWorks,
-                        S.of(context).noWorksShared)
+                    ? _buildEmptySection(
+                        S.of(context).noWorks, S.of(context).noWorksShared)
                     : _buildWorksGrid(context, works),
 
                 // Pestaña de Stencils
@@ -264,7 +274,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
 
   Widget _buildWorksGrid(BuildContext context, List<Work> works) {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: GridView.builder(
         padding: isMinimalist
             ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
@@ -286,7 +296,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
 
   Widget _buildStencilsGrid(BuildContext context, List<Stencil> stencils) {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: GridView.builder(
         padding: isMinimalist
             ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
@@ -322,7 +332,13 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             onExit: (_) => setState(() => isHovered = false),
             child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 200),
-              tween: Tween<double>(begin: 1.0, end: isPressed ? 0.95 : isHovered ? 1.05 : 1.0),
+              tween: Tween<double>(
+                  begin: 1.0,
+                  end: isPressed
+                      ? 0.95
+                      : isHovered
+                          ? 1.05
+                          : 1.0),
               builder: (context, double scale, child) {
                 return Transform.scale(
                   scale: scale,
@@ -332,14 +348,21 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               child: Container(
                 decoration: BoxDecoration(
                   color: isMinimalist
-                      ? HSLColor.fromColor(primaryColor).withLightness(0.12).toColor()
-                      : HSLColor.fromColor(primaryColor).withLightness(0.18).toColor(),
+                      ? HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
+                          .withLightness(0.12)
+                          .toColor()
+                      : HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
+                          .withLightness(0.18)
+                          .toColor(),
                   borderRadius: BorderRadius.circular(isMinimalist ? 8 : 12),
                   boxShadow: isMinimalist
                       ? []
                       : [
                           BoxShadow(
-                            color: Colors.black.withOpacity(isHovered ? 0.3 : 0.2),
+                            color:
+                                Colors.black.withOpacity(isHovered ? 0.3 : 0.2),
                             blurRadius: isHovered ? 12 : 8,
                             offset: const Offset(0, 3),
                           ),
@@ -363,11 +386,14 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                   child: InkerProgressIndicator(radius: 12),
                                 ),
                                 errorWidget: (context, url, error) => Container(
-                                  color: HSLColor.fromColor(primaryColor)
+                                  color: HSLColor.fromColor(
+                                          Theme.of(context).colorScheme.surface)
                                       .withLightness(0.15)
                                       .toColor(),
-                                  child:
-                                      const Icon(Icons.error, color: redColor, size: 24),
+                                  child: Icon(Icons.error,
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      size: 24),
                                 ),
                               ),
                             ),
@@ -378,8 +404,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                 right: 8,
                                 child: Container(
                                   padding: const EdgeInsets.all(4),
-                                  decoration: const BoxDecoration(
-                                    color: secondaryColor,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
@@ -397,7 +424,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: isMinimalist
-                              ? HSLColor.fromColor(primaryColor)
+                              ? HSLColor.fromColor(
+                                      Theme.of(context).colorScheme.surface)
                                   .withLightness(0.1)
                                   .toColor()
                               : null,
@@ -407,10 +435,14 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    HSLColor.fromColor(primaryColor)
+                                    HSLColor.fromColor(Theme.of(context)
+                                            .colorScheme
+                                            .surface)
                                         .withLightness(0.15)
                                         .toColor(),
-                                    HSLColor.fromColor(primaryColor)
+                                    HSLColor.fromColor(Theme.of(context)
+                                            .colorScheme
+                                            .surface)
                                         .withLightness(0.12)
                                         .toColor(),
                                   ],
@@ -449,7 +481,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                 (work.tags != null && work.tags!.isNotEmpty))
                               const SizedBox(height: 4),
                             if (!isMinimalist ||
-                                (work.tags != null && work.tags!.take(1).isNotEmpty))
+                                (work.tags != null &&
+                                    work.tags!.take(1).isNotEmpty))
                               _buildWorkTagsRow(work.tags, isMinimalist),
                           ],
                         ),
@@ -481,7 +514,13 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             onExit: (_) => setState(() => isHovered = false),
             child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 200),
-              tween: Tween<double>(begin: 1.0, end: isPressed ? 0.95 : isHovered ? 1.05 : 1.0),
+              tween: Tween<double>(
+                  begin: 1.0,
+                  end: isPressed
+                      ? 0.95
+                      : isHovered
+                          ? 1.05
+                          : 1.0),
               builder: (context, double scale, child) {
                 return Transform.scale(
                   scale: scale,
@@ -491,14 +530,21 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               child: Container(
                 decoration: BoxDecoration(
                   color: isMinimalist
-                      ? HSLColor.fromColor(primaryColor).withLightness(0.12).toColor()
-                      : HSLColor.fromColor(primaryColor).withLightness(0.18).toColor(),
+                      ? HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
+                          .withLightness(0.12)
+                          .toColor()
+                      : HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
+                          .withLightness(0.18)
+                          .toColor(),
                   borderRadius: BorderRadius.circular(isMinimalist ? 8 : 12),
                   boxShadow: isMinimalist
                       ? []
                       : [
                           BoxShadow(
-                            color: Colors.black.withOpacity(isHovered ? 0.3 : 0.2),
+                            color:
+                                Colors.black.withOpacity(isHovered ? 0.3 : 0.2),
                             blurRadius: isHovered ? 12 : 8,
                             offset: const Offset(0, 3),
                           ),
@@ -516,17 +562,21 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                             Hero(
                               tag: 'stencil_${stencil.id}',
                               child: CachedNetworkImage(
-                                imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                                imageUrl:
+                                    stencil.thumbnailUrl ?? stencil.imageUrl,
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => const Center(
                                   child: InkerProgressIndicator(radius: 12),
                                 ),
                                 errorWidget: (context, url, error) => Container(
-                                  color: HSLColor.fromColor(primaryColor)
+                                  color: HSLColor.fromColor(
+                                          Theme.of(context).colorScheme.surface)
                                       .withLightness(0.15)
                                       .toColor(),
-                                  child:
-                                      const Icon(Icons.error, color: redColor, size: 24),
+                                  child: Icon(Icons.error,
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      size: 24),
                                 ),
                               ),
                             ),
@@ -537,8 +587,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                 right: 8,
                                 child: Container(
                                   padding: const EdgeInsets.all(4),
-                                  decoration: const BoxDecoration(
-                                    color: secondaryColor,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
@@ -556,7 +607,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: isMinimalist
-                              ? HSLColor.fromColor(primaryColor)
+                              ? HSLColor.fromColor(
+                                      Theme.of(context).colorScheme.surface)
                                   .withLightness(0.1)
                                   .toColor()
                               : null,
@@ -566,10 +618,14 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    HSLColor.fromColor(primaryColor)
+                                    HSLColor.fromColor(Theme.of(context)
+                                            .colorScheme
+                                            .surface)
                                         .withLightness(0.15)
                                         .toColor(),
-                                    HSLColor.fromColor(primaryColor)
+                                    HSLColor.fromColor(Theme.of(context)
+                                            .colorScheme
+                                            .surface)
                                         .withLightness(0.12)
                                         .toColor(),
                                   ],
@@ -605,7 +661,8 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
                                 overflow: TextOverflow.ellipsis,
                               ),
                             if (isMinimalist ||
-                                (stencil.tags != null && stencil.tags!.isNotEmpty))
+                                (stencil.tags != null &&
+                                    stencil.tags!.isNotEmpty))
                               const SizedBox(height: 4),
                             if (!isMinimalist ||
                                 (stencil.tags != null &&
@@ -635,7 +692,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.15),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
@@ -659,9 +716,11 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             margin: const EdgeInsets.only(right: 6),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.15),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: secondaryColor.withOpacity(0.3)),
+              border: Border.all(
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
             ),
             child: Text(
               tags[index].name,
@@ -686,7 +745,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.15),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
@@ -710,9 +769,11 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             margin: const EdgeInsets.only(right: 6),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.15),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: secondaryColor.withOpacity(0.3)),
+              border: Border.all(
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
             ),
             child: Text(
               tags[index].name,
@@ -731,63 +792,66 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       {Work? work, Stencil? stencil}) {
     // Obtener las listas de trabajos y stencils del portafolio
     final portfolioState = context.read<ArtistPortfolioCubit>().state;
-    
+
     portfolioState.maybeWhen(
       loaded: (stencils, portfolioWorks) {
         // Registrar la vista en analytics
         if (work != null) {
           context.read<AnalyticsBloc>().add(
-            AnalyticsEvent.recordContentView(
-              contentId: work.id,
-              contentType: ContentType.work,
-              viewSource: ViewSource.profile,
-            ),
-          );
+                AnalyticsEvent.recordContentView(
+                  contentId: work.id,
+                  contentType: ContentType.work,
+                  viewSource: ViewSource.profile,
+                ),
+              );
         } else if (stencil != null) {
           context.read<AnalyticsBloc>().add(
-            AnalyticsEvent.recordContentView(
-              contentId: stencil.id,
-              contentType: ContentType.stencil,
-              viewSource: ViewSource.profile,
-            ),
-          );
+                AnalyticsEvent.recordContentView(
+                  contentId: stencil.id,
+                  contentType: ContentType.stencil,
+                  viewSource: ViewSource.profile,
+                ),
+              );
         }
-        
+
         // Determinar el índice inicial
         int initialWorkIndex = 0;
         int initialStencilIndex = 0;
         bool startWithStencils = stencil != null;
-        
+
         // Si tenemos un trabajo, encontrar su índice
         if (work != null) {
           initialWorkIndex = portfolioWorks.indexWhere((w) => w.id == work.id);
           if (initialWorkIndex < 0) initialWorkIndex = 0;
         }
-        
+
         // Si tenemos un stencil, encontrar su índice
         if (stencil != null) {
           initialStencilIndex = stencils.indexWhere((s) => s.id == stencil.id);
           if (initialStencilIndex < 0) initialStencilIndex = 0;
         }
-        
+
         // Navegar al visor inmersivo vertical
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 VerticalImmersiveViewerPage(
-                  works: portfolioWorks,
-                  stencils: stencils,
-                  initialWorkIndex: initialWorkIndex,
-                  initialStencilIndex: initialStencilIndex,
-                  startWithStencils: startWithStencils,
-                  viewSource: ViewSource.profile,
-                ),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              works: portfolioWorks,
+              stencils: stencils,
+              initialWorkIndex: initialWorkIndex,
+              initialStencilIndex: initialStencilIndex,
+              startWithStencils: startWithStencils,
+              viewSource: ViewSource.profile,
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               const begin = Offset(0.0, 0.2);
               const end = Offset.zero;
               const curve = Curves.easeOutCubic;
 
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
               var offsetAnimation = animation.drive(tween);
 
               return SlideTransition(
@@ -800,18 +864,20 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             },
             transitionDuration: const Duration(milliseconds: 300),
           ),
-        ).then((result) {
+        )
+            .then((result) {
           // Si recibimos un resultado con updates, actualizar las listas
           if (result != null && result is Map) {
             final List<Work>? updatedWorks = result['works'] as List<Work>?;
-            final List<Stencil>? updatedStencils = result['stencils'] as List<Stencil>?;
-            
+            final List<Stencil>? updatedStencils =
+                result['stencils'] as List<Stencil>?;
+
             if (updatedWorks != null || updatedStencils != null) {
               // Actualizar el estado del cubit con los datos actualizados
               context.read<ArtistPortfolioCubit>().updatePortfolioItems(
-                works: updatedWorks,
-                stencils: updatedStencils,
-              );
+                    works: updatedWorks,
+                    stencils: updatedStencils,
+                  );
             }
           }
         });
@@ -819,9 +885,9 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
       orElse: () {
         // Si no tenemos datos cargados, mostrar un snackbar
         ScaffoldMessenger.of(context).showSnackBar(
-           SnackBar(
+          SnackBar(
             content: Text(S.of(context).errorLoadingPortfolio),
-            backgroundColor: redColor,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       },
@@ -830,7 +896,7 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
 
   Widget _buildEmptyPortfolio() {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -864,13 +930,16 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
               onPressed: () => context
                   .read<ArtistPortfolioCubit>()
                   .loadArtistPortfolio(artistId),
-              icon: const Icon(Icons.refresh, color: redColor),
+              icon: Icon(Icons.refresh,
+                  color: Theme.of(context).colorScheme.error),
               label: Text(
                 S.of(context).update,
-                style: const TextStyle(color: redColor, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontWeight: FontWeight.w600),
               ),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: redColor),
+                side: BorderSide(color: Theme.of(context).colorScheme.error),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -916,13 +985,16 @@ class _ArtistPortfolioGalleryState extends State<ArtistPortfolioGallery>
             onPressed: () => context
                 .read<ArtistPortfolioCubit>()
                 .loadArtistPortfolio(artistId),
-            icon: const Icon(Icons.refresh, color: redColor),
+            icon:
+                Icon(Icons.refresh, color: Theme.of(context).colorScheme.error),
             label: Text(
               S.of(context).update,
-              style: const TextStyle(color: redColor, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                  fontWeight: FontWeight.w600),
             ),
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: redColor),
+              side: BorderSide(color: Theme.of(context).colorScheme.error),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

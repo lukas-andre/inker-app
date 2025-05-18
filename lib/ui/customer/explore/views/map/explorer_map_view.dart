@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 
 class ExplorerMapView extends StatelessWidget {
@@ -118,10 +117,10 @@ class _RangeControl extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.radio_button_checked,
                             size: 18,
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                           const SizedBox(width: 8),
                           Text(
@@ -149,7 +148,7 @@ class _RangeControl extends StatelessWidget {
                           ),
                           child: Text(
                             S.of(context).reset,
-                            style: TextStyleTheme.subtitle2.copyWith(color: secondaryColor, fontWeight: FontWeight.w500),
+                            style: TextStyleTheme.subtitle2.copyWith(color: Theme.of(context).colorScheme.secondary, fontWeight: FontWeight.w500),
                           ),
                         ),
                     ],
@@ -163,8 +162,8 @@ class _RangeControl extends StatelessWidget {
                           min: 0.5,
                           max: 10.0,
                           divisions: 19,
-                          activeColor: secondaryColor,
-                          inactiveColor: secondaryColor.withOpacity(0.2),
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                          inactiveColor: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                           label: '${state.range.toStringAsFixed(1)} km',
                           onChanged: state.isLoading 
                             ? null 

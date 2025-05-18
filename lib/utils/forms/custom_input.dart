@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput(

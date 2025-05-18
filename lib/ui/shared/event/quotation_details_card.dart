@@ -94,12 +94,11 @@ class QuotationDetailsCard extends StatelessWidget {
                 title: l10n.artist,
                 content: _formatFullName(quotation.artist!.firstName, quotation.artist!.lastName),
               ),
-            if (quotation.createdAt != null)
-              _InfoRow(
-                icon: Icons.calendar_today,
-                title: l10n.createdAt,
-                content: dateFormat.format(quotation.createdAt),
-              ),
+            _InfoRow(
+              icon: Icons.calendar_today,
+              title: l10n.createdAt,
+              content: dateFormat.format(quotation.createdAt),
+            ),
             if (quotation.tattooDesignImageUrl != null && quotation.tattooDesignImageUrl!.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(l10n.proposedDesign, style: Theme.of(context).textTheme.titleSmall),

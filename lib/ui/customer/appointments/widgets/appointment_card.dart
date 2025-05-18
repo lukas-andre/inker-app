@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -89,7 +88,7 @@ class AppointmentCard extends StatelessWidget {
     
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       elevation: isUnread ? 3 : 1,
       child: InkWell(
         onTap: onTap,
@@ -122,8 +121,8 @@ class AppointmentCard extends StatelessWidget {
                               Container(
                                 width: 10,
                                 height: 10,
-                                decoration: const BoxDecoration(
-                                  color: secondaryColor,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.tertiary,
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -149,10 +148,10 @@ class AppointmentCard extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.calendar_today,
                           size: 16,
-                          color: tertiaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         const SizedBox(width: 8),
                         Expanded(
@@ -171,10 +170,10 @@ class AppointmentCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.access_time,
                         size: 16,
-                        color: tertiaryColor,
+                        color: Theme.of(context).colorScheme.tertiary,
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -193,10 +192,10 @@ class AppointmentCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.location_on_outlined,
                         size: 16,
-                        color: tertiaryColor,
+                        color: Theme.of(context).colorScheme.tertiary,
                       ),
                       const SizedBox(width: 8),
                       Text(

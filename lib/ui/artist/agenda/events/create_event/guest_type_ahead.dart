@@ -5,7 +5,6 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/arti
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GuestTypeAheadField extends StatelessWidget {
@@ -24,14 +23,14 @@ class GuestTypeAheadField extends StatelessWidget {
           type: MaterialType.card,
           elevation: 4,
           borderRadius: BorderRadius.circular(15),
-          color: primaryColor,
+          color: Theme.of(context).colorScheme.surface,
           child: child,
         );
       },
       loadingBuilder: (context) => Container(
         height: 40,
-        decoration: const BoxDecoration(
-          color: primaryColor,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
         ),
         child: const Center(
           child: InkerProgressIndicator(
@@ -51,11 +50,11 @@ class GuestTypeAheadField extends StatelessWidget {
         return ListTile(
           leading: suggestion.profileThumbnail != null
               ? CircleAvatar(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   backgroundImage: NetworkImage(suggestion.profileThumbnail!),
                 )
               : CircleAvatar(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   child: Text(
                     suggestion.firstName[0].toUpperCase() +
                         suggestion.lastName[0].toUpperCase(),

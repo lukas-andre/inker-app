@@ -11,13 +11,11 @@ import 'package:inker_studio/ui/register/widgets/register_action_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_back_button.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_subtitle.dart';
 import 'package:inker_studio/ui/register/widgets/register_custom_title.dart';
-import 'package:inker_studio/ui/register/widgets/register_progress_indicator.dart';
 import 'package:inker_studio/ui/verification/widgets/pin_validator.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
-import 'package:inker_studio/test_utils/register_keys.dart';
 
 class VerificationPage extends StatelessWidget {
   const VerificationPage({super.key});

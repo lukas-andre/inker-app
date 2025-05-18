@@ -5,7 +5,6 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_a
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class AgendaSettingsPage extends StatefulWidget {
@@ -45,7 +44,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           S.of(context).agendaSettings,
@@ -56,12 +55,12 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 4.0,
         shadowColor: Colors.black54,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: secondaryColor,
+          indicatorColor: Theme.of(context).colorScheme.secondary,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
           tabs: [
@@ -113,7 +112,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
                         );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   child: Text(
                     S.of(context).retry,
@@ -165,7 +164,7 @@ class _AgendaSettingsPageState extends State<AgendaSettingsPage>
                         );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   child: Text(
                     S.of(context).retry,
@@ -247,13 +246,12 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
-              primary: secondaryColor,
+            colorScheme: ColorScheme.dark(
+              primary: Theme.of(context).colorScheme.secondary,
               onPrimary: Colors.white,
-              surface: primaryColor,
+              surface: Theme.of(context).colorScheme.surface,
               onSurface: Colors.white,
-            ),
-            dialogBackgroundColor: primaryColor,
+            ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).colorScheme.surface),
           ),
           child: child!,
         );
@@ -273,13 +271,12 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
-              primary: secondaryColor,
+            colorScheme: ColorScheme.dark(
+              primary: Theme.of(context).colorScheme.secondary,
               onPrimary: Colors.white,
-              surface: primaryColor,
+              surface: Theme.of(context).colorScheme.surface,
               onSurface: Colors.white,
-            ),
-            dialogBackgroundColor: primaryColor,
+            ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).colorScheme.surface),
           ),
           child: child!,
         );
@@ -312,7 +309,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
             workingDays: _selectedDays,
           ),
         );
-    
+
     // Then save visibility settings
     context.read<ArtistAgendaSettingsBloc>().add(
           ArtistAgendaSettingsEvent.updateAgendaSettings(
@@ -321,7 +318,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
             isOpen: _isOpen,
           ),
         );
-    
+
     // Show a success message
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -330,7 +327,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       ),
     );
   }
-  
+
   // Keep these methods for individual use if needed
   void _saveWorkingHours() {
     context.read<ArtistAgendaSettingsBloc>().add(
@@ -386,9 +383,9 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                       color: Colors.white70,
                     ),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.access_time,
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: _selectStartTime,
                 ),
@@ -407,9 +404,9 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                       color: Colors.white70,
                     ),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.access_time,
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onTap: _selectEndTime,
                 ),
@@ -473,7 +470,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                 _isPublic = value;
               });
             },
-            activeColor: secondaryColor,
+            activeColor: Theme.of(context).colorScheme.secondary,
           ),
           SwitchListTile(
             title: Text(
@@ -495,7 +492,7 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
                 _isOpen = value;
               });
             },
-            activeColor: secondaryColor,
+            activeColor: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(height: 24),
 
@@ -505,19 +502,19 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
             child: ElevatedButton.icon(
               onPressed: widget.isSaving ? null : _saveAllSettings,
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              icon: widget.isSaving 
-                ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : const Icon(Icons.save, color: Colors.white),
+              icon: widget.isSaving
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.save, color: Colors.white),
               label: Text(
                 S.of(context).saveConfiguration,
                 style: TextStyleTheme.copyWith(
@@ -544,8 +541,8 @@ class _WorkingHoursFormState extends State<_WorkingHoursForm> {
       ),
       selected: isSelected,
       onSelected: (_) => _toggleDay(day),
-      selectedColor: secondaryColor,
-      backgroundColor: tertiaryColor,
+      selectedColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       checkmarkColor: Colors.white,
     );
   }
@@ -592,13 +589,12 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
-              primary: secondaryColor,
+            colorScheme: ColorScheme.dark(
+              primary: Theme.of(context).colorScheme.secondary,
               onPrimary: Colors.white,
-              surface: primaryColor,
+              surface: Theme.of(context).colorScheme.surface,
               onSurface: Colors.white,
-            ),
-            dialogBackgroundColor: primaryColor,
+            ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).colorScheme.surface),
           ),
           child: child!,
         );
@@ -667,7 +663,7 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.surface,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -675,9 +671,9 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                 children: [
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.block_flipped,
-                        color: secondaryColor,
+                        color: Theme.of(context).colorScheme.secondary,
                         size: 24,
                       ),
                       const SizedBox(width: 10),
@@ -691,8 +687,8 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                       ),
                     ],
                   ),
-                  const Divider(
-                    color: tertiaryColor,
+                  Divider(
+                    color: Theme.of(context).colorScheme.tertiary,
                     thickness: 1,
                     height: 30,
                   ),
@@ -705,9 +701,16 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                         horizontal: 16,
                       ),
                       decoration: BoxDecoration(
-                        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                        color: HSLColor.fromColor(
+                                Theme.of(context).colorScheme.surface)
+                            .withLightness(0.15)
+                            .toColor(),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: tertiaryColor.withOpacity(0.5)),
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .tertiary
+                                .withOpacity(0.5)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
@@ -718,9 +721,9 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.date_range,
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -738,9 +741,9 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                                     ),
                                   ),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.arrow_drop_down,
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ],
                       ),
@@ -750,26 +753,35 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                   TextField(
                     controller: _reasonController,
                     style: TextStyleTheme.copyWith(color: Colors.white),
-                    cursorColor: secondaryColor,
+                    cursorColor: Theme.of(context).colorScheme.secondary,
                     decoration: InputDecoration(
                       labelText: S.of(context).reason,
-                      labelStyle: TextStyleTheme.copyWith(color: Colors.white70),
+                      labelStyle:
+                          TextStyleTheme.copyWith(color: Colors.white70),
                       hintText: S.of(context).optional,
                       hintStyle: TextStyleTheme.copyWith(
                           color: Colors.white30, fontSize: 14),
                       filled: true,
-                      fillColor: HSLColor.fromColor(primaryColor).withLightness(0.10).toColor(),
+                      fillColor: HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
+                          .withLightness(0.10)
+                          .toColor(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: tertiaryColor.withOpacity(0.5)),
+                        borderSide: BorderSide(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .tertiary
+                                .withOpacity(0.5)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: secondaryColor),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary),
                       ),
                       prefixIcon: const Icon(
                         Icons.description_outlined,
@@ -785,7 +797,8 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                     child: ElevatedButton(
                       onPressed: widget.isSaving ? null : _addUnavailableTime,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryColor,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -829,9 +842,9 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.schedule,
-                  color: secondaryColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 22,
                 ),
                 const SizedBox(width: 8),
@@ -857,16 +870,23 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                         margin: const EdgeInsets.only(top: 32),
                         padding: const EdgeInsets.all(20.0),
                         decoration: BoxDecoration(
-                          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                          color: HSLColor.fromColor(
+                                  Theme.of(context).colorScheme.surface)
+                              .withLightness(0.15)
+                              .toColor(),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: tertiaryColor.withOpacity(0.5)),
+                          border: Border.all(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .tertiary
+                                  .withOpacity(0.5)),
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.event_available,
-                              color: tertiaryColor,
+                              color: Theme.of(context).colorScheme.tertiary,
                               size: 48,
                             ),
                             const SizedBox(height: 16),
@@ -887,16 +907,19 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                         itemCount: widget.unavailableTimes.length,
                         itemBuilder: (context, index) {
                           final timeBlock = widget.unavailableTimes[index];
-                          
+
                           // Skip invalid blocks (those with ID == -1 are placeholders/invalid)
                           if (timeBlock.id == -1) {
                             return const SizedBox.shrink();
                           }
-                          
+
                           return Container(
                             margin: const EdgeInsets.only(bottom: 12),
                             decoration: BoxDecoration(
-                              color: HSLColor.fromColor(primaryColor).withLightness(0.17).toColor(),
+                              color: HSLColor.fromColor(
+                                      Theme.of(context).colorScheme.surface)
+                                  .withLightness(0.17)
+                                  .toColor(),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
@@ -915,16 +938,18 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: primaryColor,
+                                  color: Theme.of(context).colorScheme.surface,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.do_not_disturb_on_outlined,
-                                  color: secondaryColor,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                               title: Text(
-                                timeBlock.reason ?? S.of(context).unavailableTime,
+                                timeBlock.reason ??
+                                    S.of(context).unavailableTime,
                                 style: TextStyleTheme.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -936,9 +961,11 @@ class _UnavailableTimesListState extends State<_UnavailableTimesList> {
                                   const SizedBox(height: 4),
                                   Row(
                                     children: [
-                                      const Icon(
+                                      Icon(
                                         Icons.calendar_month,
-                                        color: tertiaryColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                         size: 14,
                                       ),
                                       const SizedBox(width: 4),

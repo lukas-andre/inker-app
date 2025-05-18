@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GpsAccessScreen extends StatelessWidget {
   const GpsAccessScreen({super.key});
@@ -69,7 +68,7 @@ class AccessButton extends StatelessWidget {
                 ),
                 onPressed: () => _handleAccess(context))
             : MaterialButton(
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.surface,
                 onPressed: () => _handleAccess(context),
                 shape: const StadiumBorder(),
                 splashColor: Colors.transparent,

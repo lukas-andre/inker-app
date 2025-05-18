@@ -1,8 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart'; // Import app styles for colors if needed
 
 class ArtistPageNavBarIcons extends Equatable {
   final List<PageNavBarIcon> icons;

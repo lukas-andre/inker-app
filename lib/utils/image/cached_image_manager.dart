@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class CachedImageManager {
@@ -20,12 +19,13 @@ class CachedImageManager {
       fileService: HttpFileService(),
     ),
   );
-  
+
   // Flag para verificar si ya se han precargado las imágenes críticas
   bool _criticalImagesPreloaded = false;
 
   // Preload a list of images into cache (useful for galleries)
-  Future<void> preloadImages(List<String> imageUrls, BuildContext context) async {
+  Future<void> preloadImages(
+      List<String> imageUrls, BuildContext context) async {
     for (final url in imageUrls) {
       if (url.isNotEmpty) {
         await precacheImage(
@@ -38,27 +38,28 @@ class CachedImageManager {
       }
     }
   }
-  
+
   // Precargar imágenes críticas de la aplicación
-  Future<void> preloadCriticalImages(BuildContext context, {
+  Future<void> preloadCriticalImages(
+    BuildContext context, {
     String? profileImageUrl,
     List<String>? additionalUrls,
   }) async {
     // Evitar precargar múltiples veces las mismas imágenes
     if (_criticalImagesPreloaded) return;
-    
+
     final imagesToPreload = <String>[];
-    
+
     // Añadir imagen de perfil si está disponible
     if (profileImageUrl != null && profileImageUrl.isNotEmpty) {
       imagesToPreload.add(profileImageUrl);
     }
-    
+
     // Añadir cualquier URL adicional
     if (additionalUrls != null && additionalUrls.isNotEmpty) {
       imagesToPreload.addAll(additionalUrls.where((url) => url.isNotEmpty));
     }
-    
+
     // Precargar todas las imágenes en segundo plano
     if (imagesToPreload.isNotEmpty) {
       // Para evitar bloquear la UI, ejecutamos en un microtask
@@ -74,7 +75,7 @@ class CachedImageManager {
     await customCacheManager.emptyCache();
     _criticalImagesPreloaded = false;
   }
-  
+
   // Comprueba si una URL de imagen existe en la caché
   Future<bool> isImageCached(String imageUrl) async {
     final fileInfo = await customCacheManager.getFileFromCache(imageUrl);
@@ -83,6 +84,7 @@ class CachedImageManager {
 
   // Build a cached image with advanced options for gallery items
   Widget buildCachedImage({
+    required BuildContext context,
     required String imageUrl,
     double? width,
     double? height,
@@ -96,14 +98,17 @@ class CachedImageManager {
   }) {
     // Default placeholder
     final defaultPlaceholder = Container(
-      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-      child: const Center(
+      color: HSLColor.fromColor(Theme.of(context).colorScheme.primary)
+          .withLightness(0.15)
+          .toColor(),
+      child: Center(
         child: SizedBox(
           width: 30,
           height: 30,
           child: CircularProgressIndicator(
             strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).colorScheme.secondary),
           ),
         ),
       ),
@@ -111,7 +116,9 @@ class CachedImageManager {
 
     // Default error widget
     final defaultErrorWidget = Container(
-      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+      color: HSLColor.fromColor(Theme.of(context).colorScheme.primary)
+          .withLightness(0.15)
+          .toColor(),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -133,12 +140,12 @@ class CachedImageManager {
       ),
     );
 
-    // Si no se proporcionan dimensiones de caché explícitas, 
+    // Si no se proporcionan dimensiones de caché explícitas,
     // usamos valores más altos para mejor calidad
-    final int finalMemCacheWidth = memCacheWidth ?? 
-        (width != null ? (width * 2.5).toInt() : 1200);
-    final int finalMemCacheHeight = memCacheHeight ?? 
-        (height != null ? (height * 2.5).toInt() : 1200);
+    final int finalMemCacheWidth =
+        memCacheWidth ?? (width != null ? (width * 2.5).toInt() : 1200);
+    final int finalMemCacheHeight =
+        memCacheHeight ?? (height != null ? (height * 2.5).toInt() : 1200);
 
     Widget image = CachedNetworkImage(
       imageUrl: imageUrl,
@@ -177,12 +184,14 @@ class CachedImageManager {
 
   // Optimized image for thumbnails with reduced memory cache size
   Widget buildThumbnail({
+    required BuildContext context,
     required String imageUrl,
     required double width,
     required double height,
     BorderRadius? borderRadius,
   }) {
     return buildCachedImage(
+      context: context,
       imageUrl: imageUrl,
       width: width,
       height: height,
@@ -195,9 +204,10 @@ class CachedImageManager {
 
   // Hero transition compatible cached image
   Widget buildHeroCachedImage({
+    required BuildContext context,
     required String imageUrl,
     required String heroTag,
-    double? width, 
+    double? width,
     double? height,
     BoxFit fit = BoxFit.cover,
     BorderRadius? borderRadius,
@@ -205,18 +215,19 @@ class CachedImageManager {
     return Hero(
       tag: heroTag,
       child: buildCachedImage(
+        context: context,
         imageUrl: imageUrl,
         width: width,
         height: height,
         fit: fit,
         borderRadius: borderRadius,
         // Mayor calidad para imágenes con transición Hero
-        memCacheWidth: width != null ? (width * 2.5).toInt() : 1200,  
+        memCacheWidth: width != null ? (width * 2.5).toInt() : 1200,
         memCacheHeight: height != null ? (height * 2.5).toInt() : 1200,
       ),
     );
   }
-  
+
   // Imagen de perfil optimizada con efecto circular
   Widget buildProfileImage({
     required String imageUrl,
@@ -225,7 +236,7 @@ class CachedImageManager {
     Widget? placeholder,
   }) {
     // Implementación completamente nueva para mostrar imágenes perfectas
-    
+
     // Paso 1: Crear un contenedor circular para la imagen
     final circularContainer = Container(
       width: size,
@@ -249,23 +260,26 @@ class CachedImageManager {
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: imageProvider,
-                fit: BoxFit.cover, // Este cover solo se aplica dentro del círculo
+                fit: BoxFit
+                    .cover, // Este cover solo se aplica dentro del círculo
               ),
             ),
           ),
-          placeholder: (context, url) => placeholder ?? 
-              const Center(
+          placeholder: (context, url) =>
+              placeholder ??
+              Center(
                 child: SizedBox(
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               ),
           errorWidget: (context, url, error) => const Icon(
-            Icons.person_outline, 
+            Icons.person_outline,
             color: Colors.grey,
           ),
           // Usar valores altos para calidad de imagen
@@ -274,9 +288,9 @@ class CachedImageManager {
         ),
       ),
     );
-    
+
     return heroTag != null
         ? Hero(tag: heroTag, child: circularContainer)
         : circularContainer;
   }
-} 
+}

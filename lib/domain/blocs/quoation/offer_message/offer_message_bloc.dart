@@ -149,10 +149,10 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
       orElse: () async {
         if (_currentQuotationId != null && _currentOfferId != null) {
           emit(const OfferMessageState.error(
-              "Cannot send message in current state."));
+              'Cannot send message in current state.'));
         } else {
           emit(const OfferMessageState.error(
-              "Cannot send message: context unavailable."));
+              'Cannot send message: context unavailable.'));
         }
       },
     );
@@ -220,7 +220,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
         try {
           final token = await _sessionService.getActiveSessionToken();
           if (token == null) {
-            emit(OfferMessageState.error('No active session found'));
+            emit(const OfferMessageState.error('No active session found'));
             return;
           }
           await _quotationService.updateOffer(
@@ -232,7 +232,7 @@ class OfferMessageBloc extends Bloc<OfferMessageEvent, OfferMessageState> {
           );
           add(const RefreshMessages());
         } catch (e) {
-          emit(OfferMessageState.error('Failed to update offer: e.toString()'));
+          emit(const OfferMessageState.error('Failed to update offer: e.toString()'));
         }
       },
       orElse: () async {},

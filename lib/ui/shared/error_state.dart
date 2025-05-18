@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ErrorState extends StatelessWidget {
   final String message;
   final String? details;
   final VoidCallback? onRetry;
-  
+
   const ErrorState({
     super.key,
     required this.message,
@@ -22,10 +21,10 @@ class ErrorState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline,
               size: 64.0,
-              color: redColor,
+              color: Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 24.0),
             Text(
@@ -51,7 +50,7 @@ class ErrorState extends StatelessWidget {
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24.0,
                     vertical: 12.0,

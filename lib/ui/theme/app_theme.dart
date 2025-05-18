@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -17,9 +17,7 @@ class AppTheme {
         onTertiary: Colors.white,
         error: redColor,
         onError: Colors.white,
-        background: quaternaryColor,
-        onBackground: Colors.black,
-        surface: Colors.white,
+        surface: primaryColor,
         onSurface: Colors.black,
       ),
       scaffoldBackgroundColor: primaryColor,
@@ -55,7 +53,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: secondaryColor,
-          side: BorderSide(color: secondaryColor),
+          side: const BorderSide(color: secondaryColor),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -70,7 +68,7 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       brightness: Brightness.dark,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: Brightness.dark,
         primary: primaryColor,
         onPrimary: Colors.white,
@@ -80,7 +78,7 @@ class AppTheme {
         onTertiary: Colors.white,
         error: redColor,
         onError: Colors.white,
-        surface: explorerSecondaryColor,
+        surface: primaryColor,
         onSurface: Colors.white,
       ),
       scaffoldBackgroundColor: primaryColor,

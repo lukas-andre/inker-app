@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
-import 'package:inker_studio/domain/models/notifications/notification.dart' as model;
+import 'package:inker_studio/domain/models/notifications/notification.dart'
+    as model;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/notifications/widgets/notification_item.dart';
 import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
-
 
 class NotificationsPage extends StatefulWidget {
   static const String routeName = '/notifications';
@@ -21,34 +20,36 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   final ScrollController _scrollController = ScrollController();
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Initial fetch of notifications
-    context.read<NotificationsBloc>().add(const NotificationsEvent.getNotifications());
-    
+    context
+        .read<NotificationsBloc>()
+        .add(const NotificationsEvent.getNotifications());
+
     // Listen for scroll to load more notifications
     _scrollController.addListener(_onScroll);
   }
-  
+
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
   }
-  
+
   void _onScroll() {
     final bloc = context.read<NotificationsBloc>();
     final state = bloc.state;
-    
+
     state.whenOrNull(
-      loaded: (_, __, ___, ____, _____, notifications, isLoading, 
-          isRefreshing, hasError, errorMessage, currentPage, totalPages, unreadCount) {
+      loaded: (_, __, ___, ____, _____, notifications, isLoading, isRefreshing,
+          hasError, errorMessage, currentPage, totalPages, unreadCount) {
         if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent * 0.9 &&
+                _scrollController.position.maxScrollExtent * 0.9 &&
             !isLoading &&
             currentPage < totalPages) {
           bloc.add(NotificationsEvent.getNotifications(
@@ -63,24 +64,34 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-                iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           l10n.notifications,
           style: TextStyleTheme.headline2,
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         actions: [
           BlocBuilder<NotificationsBloc, NotificationsState>(
             builder: (context, state) {
               return state.maybeWhen(
-                loaded: (_, __, ___, ____, _____, notifications, 
-                    isLoading, isRefreshing, hasError, errorMessage, 
-                    currentPage, totalPages, unreadCount) {
+                loaded: (_,
+                    __,
+                    ___,
+                    ____,
+                    _____,
+                    notifications,
+                    isLoading,
+                    isRefreshing,
+                    hasError,
+                    errorMessage,
+                    currentPage,
+                    totalPages,
+                    unreadCount) {
                   if (notifications != null && notifications.isNotEmpty) {
                     return IconButton(
                       icon: const Icon(Icons.done_all, color: Colors.white),
@@ -104,12 +115,12 @@ class _NotificationsPageState extends State<NotificationsPage> {
       body: BlocBuilder<NotificationsBloc, NotificationsState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(
-              child: InkerProgressIndicator(color: primaryColor)
-            ),
-            loading: () => const Center(
-              child: InkerProgressIndicator(color: primaryColor)
-            ),
+            initial: () => Center(
+                child: InkerProgressIndicator(
+                    color: Theme.of(context).colorScheme.surface)),
+            loading: () => Center(
+                child: InkerProgressIndicator(
+                    color: Theme.of(context).colorScheme.surface)),
             error: (message) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,20 +138,29 @@ class _NotificationsPageState extends State<NotificationsPage> {
                           const NotificationsEvent.refreshNotifications(),
                         ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                     ),
                     child: Text(l10n.retry),
                   ),
                 ],
               ),
             ),
-            loaded: (fcmToken, permissionsGranted, pendingNavigation, 
-                lastMessage, lastMessageAppState, notifications, 
-                isLoading, isRefreshing, hasError, errorMessage, 
-                currentPage, totalPages, unreadCount) {
-              
+            loaded: (fcmToken,
+                permissionsGranted,
+                pendingNavigation,
+                lastMessage,
+                lastMessageAppState,
+                notifications,
+                isLoading,
+                isRefreshing,
+                hasError,
+                errorMessage,
+                currentPage,
+                totalPages,
+                unreadCount) {
               if (notifications == null || notifications.isEmpty) {
                 return RefreshIndicator(
                   onRefresh: () async {
@@ -148,7 +168,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                           const NotificationsEvent.refreshNotifications(),
                         );
                   },
-                  color: primaryColor,
+                  color: Theme.of(context).colorScheme.surface,
                   backgroundColor: Colors.white,
                   child: ListView(
                     padding: const EdgeInsets.symmetric(vertical: 40.0),
@@ -162,14 +182,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   ),
                 );
               }
-              
+
               return RefreshIndicator(
                 onRefresh: () async {
                   context.read<NotificationsBloc>().add(
                         const NotificationsEvent.refreshNotifications(),
                       );
                 },
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.surface,
                 backgroundColor: Colors.white,
                 child: Stack(
                   children: [
@@ -183,14 +203,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             padding: const EdgeInsets.symmetric(vertical: 24.0),
                             child: Center(
                               child: ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 30, maxHeight: 30),
-                                child: const InkerProgressIndicator(color: primaryColor),
+                                constraints: const BoxConstraints(
+                                    maxWidth: 30, maxHeight: 30),
+                                child: InkerProgressIndicator(
+                                    color:
+                                        Theme.of(context).colorScheme.surface),
                               ),
                             ),
                           );
                         }
-                        
-                        return _buildNotificationItem(context, notifications[index]);
+
+                        return _buildNotificationItem(
+                            context, notifications[index]);
                       },
                     ),
                     if (isRefreshing)
@@ -200,7 +224,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         right: 0,
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.white.withOpacity(0.2),
-                          color: primaryColor,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                   ],
@@ -212,8 +236,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
       ),
     );
   }
-  
-  Widget _buildNotificationItem(BuildContext context, model.InkerNotification notification) {
+
+  Widget _buildNotificationItem(
+      BuildContext context, model.InkerNotification notification) {
     return Dismissible(
       key: Key(notification.id),
       background: Container(
@@ -230,7 +255,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
         context.read<NotificationsBloc>().add(
               NotificationsEvent.deleteNotification(notification.id),
             );
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Notification deleted'),
@@ -254,15 +279,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
       ),
     );
   }
-  
-  void _handleNotificationTap(BuildContext context, model.InkerNotification notification) {
+
+  void _handleNotificationTap(
+      BuildContext context, model.InkerNotification notification) {
     // Mark as read
     if (!notification.read) {
       context.read<NotificationsBloc>().add(
             NotificationsEvent.markAsRead(notification.id),
           );
     }
-    
+
     // Navigate based on notification type and data
     switch (notification.type) {
       case 'EVENT_STATUS_CHANGED':
