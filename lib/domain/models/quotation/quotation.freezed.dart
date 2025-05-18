@@ -80,6 +80,7 @@ mixin _$Quotation {
   Stencil? get stencil => throw _privateConstructorUsedError;
   double? get distanceToArtistKm => throw _privateConstructorUsedError;
   bool get hasOffered => throw _privateConstructorUsedError;
+  String? get generatedImageId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -142,7 +143,8 @@ abstract class $QuotationCopyWith<$Res> {
       String? stencilId,
       Stencil? stencil,
       double? distanceToArtistKm,
-      bool hasOffered});
+      bool hasOffered,
+      String? generatedImageId});
 
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
   $MultimediasMetadataCopyWith<$Res>? get proposedDesigns;
@@ -151,6 +153,7 @@ abstract class $QuotationCopyWith<$Res> {
   $MoneyCopyWith<$Res>? get minBudget;
   $MoneyCopyWith<$Res>? get maxBudget;
   $MoneyCopyWith<$Res>? get referenceBudget;
+  $CustomerCopyWith<$Res>? get customer;
   $ArtistCopyWith<$Res>? get artist;
   $LocationCopyWith<$Res>? get location;
   $StencilCopyWith<$Res>? get stencil;
@@ -219,6 +222,7 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
     Object? stencil = freezed,
     Object? distanceToArtistKm = freezed,
     Object? hasOffered = null,
+    Object? generatedImageId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -421,6 +425,10 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
           ? _value.hasOffered
           : hasOffered // ignore: cast_nullable_to_non_nullable
               as bool,
+      generatedImageId: freezed == generatedImageId
+          ? _value.generatedImageId
+          : generatedImageId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -505,6 +513,18 @@ class _$QuotationCopyWithImpl<$Res, $Val extends Quotation>
 
     return $MoneyCopyWith<$Res>(_value.referenceBudget!, (value) {
       return _then(_value.copyWith(referenceBudget: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerCopyWith<$Res>? get customer {
+    if (_value.customer == null) {
+      return null;
+    }
+
+    return $CustomerCopyWith<$Res>(_value.customer!, (value) {
+      return _then(_value.copyWith(customer: value) as $Val);
     });
   }
 
@@ -603,7 +623,8 @@ abstract class _$$QuotationImplCopyWith<$Res>
       String? stencilId,
       Stencil? stencil,
       double? distanceToArtistKm,
-      bool hasOffered});
+      bool hasOffered,
+      String? generatedImageId});
 
   @override
   $MultimediasMetadataCopyWith<$Res>? get referenceImages;
@@ -619,6 +640,8 @@ abstract class _$$QuotationImplCopyWith<$Res>
   $MoneyCopyWith<$Res>? get maxBudget;
   @override
   $MoneyCopyWith<$Res>? get referenceBudget;
+  @override
+  $CustomerCopyWith<$Res>? get customer;
   @override
   $ArtistCopyWith<$Res>? get artist;
   @override
@@ -688,6 +711,7 @@ class __$$QuotationImplCopyWithImpl<$Res>
     Object? stencil = freezed,
     Object? distanceToArtistKm = freezed,
     Object? hasOffered = null,
+    Object? generatedImageId = freezed,
   }) {
     return _then(_$QuotationImpl(
       id: null == id
@@ -890,6 +914,10 @@ class __$$QuotationImplCopyWithImpl<$Res>
           ? _value.hasOffered
           : hasOffered // ignore: cast_nullable_to_non_nullable
               as bool,
+      generatedImageId: freezed == generatedImageId
+          ? _value.generatedImageId
+          : generatedImageId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -947,7 +975,8 @@ class _$QuotationImpl implements _Quotation {
       this.stencilId,
       this.stencil,
       this.distanceToArtistKm,
-      this.hasOffered = false})
+      this.hasOffered = false,
+      this.generatedImageId})
       : _offers = offers,
         _history = history;
 
@@ -1074,10 +1103,12 @@ class _$QuotationImpl implements _Quotation {
   @override
   @JsonKey()
   final bool hasOffered;
+  @override
+  final String? generatedImageId;
 
   @override
   String toString() {
-    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, type: $type, customerLat: $customerLat, customerLon: $customerLon, customerTravelRadiusKm: $customerTravelRadiusKm, tattooDesignCacheId: $tattooDesignCacheId, tattooDesignImageUrl: $tattooDesignImageUrl, tattooDesignCache: $tattooDesignCache, offers: $offers, estimatedCost: $estimatedCost, minBudget: $minBudget, maxBudget: $maxBudget, referenceBudget: $referenceBudget, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil, distanceToArtistKm: $distanceToArtistKm, hasOffered: $hasOffered)';
+    return 'Quotation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, artistId: $artistId, description: $description, referenceImages: $referenceImages, proposedDesigns: $proposedDesigns, status: $status, type: $type, customerLat: $customerLat, customerLon: $customerLon, customerTravelRadiusKm: $customerTravelRadiusKm, tattooDesignCacheId: $tattooDesignCacheId, tattooDesignImageUrl: $tattooDesignImageUrl, tattooDesignCache: $tattooDesignCache, offers: $offers, estimatedCost: $estimatedCost, minBudget: $minBudget, maxBudget: $maxBudget, referenceBudget: $referenceBudget, responseDate: $responseDate, appointmentDate: $appointmentDate, appointmentDuration: $appointmentDuration, rejectBy: $rejectBy, customerRejectReason: $customerRejectReason, artistRejectReason: $artistRejectReason, rejectReasonDetails: $rejectReasonDetails, rejectedDate: $rejectedDate, appealedReason: $appealedReason, appealedDate: $appealedDate, canceledBy: $canceledBy, customerCancelReason: $customerCancelReason, systemCancelReason: $systemCancelReason, cancelReasonDetails: $cancelReasonDetails, canceledDate: $canceledDate, lastUpdatedBy: $lastUpdatedBy, lastUpdatedByUserType: $lastUpdatedByUserType, history: $history, customer: $customer, artist: $artist, location: $location, readByArtist: $readByArtist, readByCustomer: $readByCustomer, artistReadAt: $artistReadAt, customerReadAt: $customerReadAt, stencilId: $stencilId, stencil: $stencil, distanceToArtistKm: $distanceToArtistKm, hasOffered: $hasOffered, generatedImageId: $generatedImageId)';
   }
 
   @override
@@ -1177,7 +1208,8 @@ class _$QuotationImpl implements _Quotation {
             (identical(other.distanceToArtistKm, distanceToArtistKm) ||
                 other.distanceToArtistKm == distanceToArtistKm) &&
             (identical(other.hasOffered, hasOffered) ||
-                other.hasOffered == hasOffered));
+                other.hasOffered == hasOffered) &&
+            (identical(other.generatedImageId, generatedImageId) || other.generatedImageId == generatedImageId));
   }
 
   @JsonKey(ignore: true)
@@ -1233,7 +1265,8 @@ class _$QuotationImpl implements _Quotation {
         stencilId,
         stencil,
         distanceToArtistKm,
-        hasOffered
+        hasOffered,
+        generatedImageId
       ]);
 
   @JsonKey(ignore: true)
@@ -1301,7 +1334,8 @@ abstract class _Quotation implements Quotation {
       final String? stencilId,
       final Stencil? stencil,
       final double? distanceToArtistKm,
-      final bool hasOffered}) = _$QuotationImpl;
+      final bool hasOffered,
+      final String? generatedImageId}) = _$QuotationImpl;
 
   factory _Quotation.fromJson(Map<String, dynamic> json) =
       _$QuotationImpl.fromJson;
@@ -1406,6 +1440,8 @@ abstract class _Quotation implements Quotation {
   double? get distanceToArtistKm;
   @override
   bool get hasOffered;
+  @override
+  String? get generatedImageId;
   @override
   @JsonKey(ignore: true)
   _$$QuotationImplCopyWith<_$QuotationImpl> get copyWith =>

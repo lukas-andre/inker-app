@@ -29,6 +29,8 @@ _$LocationImpl _$$LocationImplFromJson(Map json) => _$LocationImpl(
       name: json['name'] as String,
       profileThumbnail: json['profileThumbnail'] as String?,
       googlePlaceId: json['googlePlaceId'] as String?,
+      locationOrder: (json['locationOrder'] as num?)?.toInt() ?? 0,
+      isActive: json['isActive'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) {
@@ -61,6 +63,8 @@ Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) {
   val['name'] = instance.name;
   writeNotNull('profileThumbnail', instance.profileThumbnail);
   writeNotNull('googlePlaceId', instance.googlePlaceId);
+  val['locationOrder'] = instance.locationOrder;
+  val['isActive'] = instance.isActive;
   return val;
 }
 

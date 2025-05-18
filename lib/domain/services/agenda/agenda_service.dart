@@ -1,6 +1,7 @@
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
 abstract class AgendaService {
   Stream<dynamic> get status;
@@ -124,4 +125,7 @@ abstract class AgendaService {
     required String eventId,
     required Map<String, dynamic> updatedFields,
   });
+
+  Future<EventDetailResponse> getEventDetails(String eventId);
+  Future<EventDetailResponse> getCustomerEventDetails(String eventId);
 }

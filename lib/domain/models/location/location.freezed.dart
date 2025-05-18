@@ -40,6 +40,8 @@ mixin _$Location {
   String get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   String? get googlePlaceId => throw _privateConstructorUsedError;
+  int get locationOrder => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,7 +74,9 @@ abstract class $LocationCopyWith<$Res> {
       String artistId,
       String name,
       String? profileThumbnail,
-      String? googlePlaceId});
+      String? googlePlaceId,
+      int locationOrder,
+      bool isActive});
 
   $ViewportCopyWith<$Res> get viewport;
   $GeoPointCopyWith<$Res> get location;
@@ -111,6 +115,8 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
     Object? name = null,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
+    Object? locationOrder = null,
+    Object? isActive = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -193,6 +199,14 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
               as String?,
+      locationOrder: null == locationOrder
+          ? _value.locationOrder
+          : locationOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -241,7 +255,9 @@ abstract class _$$LocationImplCopyWith<$Res>
       String artistId,
       String name,
       String? profileThumbnail,
-      String? googlePlaceId});
+      String? googlePlaceId,
+      int locationOrder,
+      bool isActive});
 
   @override
   $ViewportCopyWith<$Res> get viewport;
@@ -280,6 +296,8 @@ class __$$LocationImplCopyWithImpl<$Res>
     Object? name = null,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
+    Object? locationOrder = null,
+    Object? isActive = null,
   }) {
     return _then(_$LocationImpl(
       id: null == id
@@ -362,6 +380,14 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
               as String?,
+      locationOrder: null == locationOrder
+          ? _value.locationOrder
+          : locationOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -389,7 +415,9 @@ class _$LocationImpl implements _Location {
       required this.artistId,
       required this.name,
       this.profileThumbnail,
-      this.googlePlaceId});
+      this.googlePlaceId,
+      this.locationOrder = 0,
+      this.isActive = true});
 
   factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationImplFromJson(json);
@@ -434,10 +462,16 @@ class _$LocationImpl implements _Location {
   final String? profileThumbnail;
   @override
   final String? googlePlaceId;
+  @override
+  @JsonKey()
+  final int locationOrder;
+  @override
+  @JsonKey()
+  final bool isActive;
 
   @override
   String toString() {
-    return 'Location(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
+    return 'Location(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId, locationOrder: $locationOrder, isActive: $isActive)';
   }
 
   @override
@@ -477,7 +511,11 @@ class _$LocationImpl implements _Location {
             (identical(other.profileThumbnail, profileThumbnail) ||
                 other.profileThumbnail == profileThumbnail) &&
             (identical(other.googlePlaceId, googlePlaceId) ||
-                other.googlePlaceId == googlePlaceId));
+                other.googlePlaceId == googlePlaceId) &&
+            (identical(other.locationOrder, locationOrder) ||
+                other.locationOrder == locationOrder) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
   }
 
   @JsonKey(ignore: true)
@@ -503,7 +541,9 @@ class _$LocationImpl implements _Location {
         artistId,
         name,
         profileThumbnail,
-        googlePlaceId
+        googlePlaceId,
+        locationOrder,
+        isActive
       ]);
 
   @JsonKey(ignore: true)
@@ -541,7 +581,9 @@ abstract class _Location implements Location {
       required final String artistId,
       required final String name,
       final String? profileThumbnail,
-      final String? googlePlaceId}) = _$LocationImpl;
+      final String? googlePlaceId,
+      final int locationOrder,
+      final bool isActive}) = _$LocationImpl;
 
   factory _Location.fromJson(Map<String, dynamic> json) =
       _$LocationImpl.fromJson;
@@ -586,6 +628,10 @@ abstract class _Location implements Location {
   String? get profileThumbnail;
   @override
   String? get googlePlaceId;
+  @override
+  int get locationOrder;
+  @override
+  bool get isActive;
   @override
   @JsonKey(ignore: true)
   _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>

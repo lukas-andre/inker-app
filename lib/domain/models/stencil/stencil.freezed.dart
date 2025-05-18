@@ -40,6 +40,17 @@ mixin _$Stencil {
   int get likeCount => throw _privateConstructorUsedError;
   bool get isLikedByUser => throw _privateConstructorUsedError;
   Metrics? get metrics => throw _privateConstructorUsedError;
+  String? get imageId => throw _privateConstructorUsedError;
+  Money? get price => throw _privateConstructorUsedError;
+  StencilStatus? get status => throw _privateConstructorUsedError;
+  String? get dimensions =>
+      throw _privateConstructorUsedError; // @Default([]) List<String> recommendedPlacements,
+  int? get estimatedTime => throw _privateConstructorUsedError;
+  bool get isCustomizable => throw _privateConstructorUsedError;
+  bool get isDownloadable => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
+  String? get license => throw _privateConstructorUsedError;
+  String? get licenseUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,9 +82,20 @@ abstract class $StencilCopyWith<$Res> {
       int viewCount,
       int likeCount,
       bool isLikedByUser,
-      Metrics? metrics});
+      Metrics? metrics,
+      String? imageId,
+      Money? price,
+      StencilStatus? status,
+      String? dimensions,
+      int? estimatedTime,
+      bool isCustomizable,
+      bool isDownloadable,
+      bool isAvailable,
+      String? license,
+      String? licenseUrl});
 
   $ArtistCopyWith<$Res>? get artist;
+  $MoneyCopyWith<$Res>? get price;
 }
 
 /// @nodoc
@@ -109,6 +131,16 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
     Object? likeCount = null,
     Object? isLikedByUser = null,
     Object? metrics = freezed,
+    Object? imageId = freezed,
+    Object? price = freezed,
+    Object? status = freezed,
+    Object? dimensions = freezed,
+    Object? estimatedTime = freezed,
+    Object? isCustomizable = null,
+    Object? isDownloadable = null,
+    Object? isAvailable = null,
+    Object? license = freezed,
+    Object? licenseUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -191,6 +223,46 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
           ? _value.metrics
           : metrics // ignore: cast_nullable_to_non_nullable
               as Metrics?,
+      imageId: freezed == imageId
+          ? _value.imageId
+          : imageId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as StencilStatus?,
+      dimensions: freezed == dimensions
+          ? _value.dimensions
+          : dimensions // ignore: cast_nullable_to_non_nullable
+              as String?,
+      estimatedTime: freezed == estimatedTime
+          ? _value.estimatedTime
+          : estimatedTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCustomizable: null == isCustomizable
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isDownloadable: null == isDownloadable
+          ? _value.isDownloadable
+          : isDownloadable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      license: freezed == license
+          ? _value.license
+          : license // ignore: cast_nullable_to_non_nullable
+              as String?,
+      licenseUrl: freezed == licenseUrl
+          ? _value.licenseUrl
+          : licenseUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -203,6 +275,18 @@ class _$StencilCopyWithImpl<$Res, $Val extends Stencil>
 
     return $ArtistCopyWith<$Res>(_value.artist!, (value) {
       return _then(_value.copyWith(artist: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get price {
+    if (_value.price == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.price!, (value) {
+      return _then(_value.copyWith(price: value) as $Val);
     });
   }
 }
@@ -234,10 +318,22 @@ abstract class _$$StencilImplCopyWith<$Res> implements $StencilCopyWith<$Res> {
       int viewCount,
       int likeCount,
       bool isLikedByUser,
-      Metrics? metrics});
+      Metrics? metrics,
+      String? imageId,
+      Money? price,
+      StencilStatus? status,
+      String? dimensions,
+      int? estimatedTime,
+      bool isCustomizable,
+      bool isDownloadable,
+      bool isAvailable,
+      String? license,
+      String? licenseUrl});
 
   @override
   $ArtistCopyWith<$Res>? get artist;
+  @override
+  $MoneyCopyWith<$Res>? get price;
 }
 
 /// @nodoc
@@ -271,6 +367,16 @@ class __$$StencilImplCopyWithImpl<$Res>
     Object? likeCount = null,
     Object? isLikedByUser = null,
     Object? metrics = freezed,
+    Object? imageId = freezed,
+    Object? price = freezed,
+    Object? status = freezed,
+    Object? dimensions = freezed,
+    Object? estimatedTime = freezed,
+    Object? isCustomizable = null,
+    Object? isDownloadable = null,
+    Object? isAvailable = null,
+    Object? license = freezed,
+    Object? licenseUrl = freezed,
   }) {
     return _then(_$StencilImpl(
       id: null == id
@@ -353,6 +459,46 @@ class __$$StencilImplCopyWithImpl<$Res>
           ? _value.metrics
           : metrics // ignore: cast_nullable_to_non_nullable
               as Metrics?,
+      imageId: freezed == imageId
+          ? _value.imageId
+          : imageId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as Money?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as StencilStatus?,
+      dimensions: freezed == dimensions
+          ? _value.dimensions
+          : dimensions // ignore: cast_nullable_to_non_nullable
+              as String?,
+      estimatedTime: freezed == estimatedTime
+          ? _value.estimatedTime
+          : estimatedTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCustomizable: null == isCustomizable
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isDownloadable: null == isDownloadable
+          ? _value.isDownloadable
+          : isDownloadable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      license: freezed == license
+          ? _value.license
+          : license // ignore: cast_nullable_to_non_nullable
+              as String?,
+      licenseUrl: freezed == licenseUrl
+          ? _value.licenseUrl
+          : licenseUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -380,7 +526,17 @@ class _$StencilImpl implements _Stencil {
       this.viewCount = 0,
       this.likeCount = 0,
       this.isLikedByUser = false,
-      this.metrics})
+      this.metrics,
+      this.imageId,
+      this.price,
+      this.status,
+      this.dimensions,
+      this.estimatedTime,
+      this.isCustomizable = false,
+      this.isDownloadable = false,
+      this.isAvailable = false,
+      this.license,
+      this.licenseUrl})
       : _tags = tags;
 
   factory _$StencilImpl.fromJson(Map<String, dynamic> json) =>
@@ -440,10 +596,34 @@ class _$StencilImpl implements _Stencil {
   final bool isLikedByUser;
   @override
   final Metrics? metrics;
+  @override
+  final String? imageId;
+  @override
+  final Money? price;
+  @override
+  final StencilStatus? status;
+  @override
+  final String? dimensions;
+// @Default([]) List<String> recommendedPlacements,
+  @override
+  final int? estimatedTime;
+  @override
+  @JsonKey()
+  final bool isCustomizable;
+  @override
+  @JsonKey()
+  final bool isDownloadable;
+  @override
+  @JsonKey()
+  final bool isAvailable;
+  @override
+  final String? license;
+  @override
+  final String? licenseUrl;
 
   @override
   String toString() {
-    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, artist: $artist, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser, metrics: $metrics)';
+    return 'Stencil(id: $id, artistId: $artistId, title: $title, description: $description, imageUrl: $imageUrl, imageVersion: $imageVersion, thumbnailUrl: $thumbnailUrl, thumbnailVersion: $thumbnailVersion, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt, tags: $tags, artist: $artist, viewCount: $viewCount, likeCount: $likeCount, isLikedByUser: $isLikedByUser, metrics: $metrics, imageId: $imageId, price: $price, status: $status, dimensions: $dimensions, estimatedTime: $estimatedTime, isCustomizable: $isCustomizable, isDownloadable: $isDownloadable, isAvailable: $isAvailable, license: $license, licenseUrl: $licenseUrl)';
   }
 
   @override
@@ -485,7 +665,23 @@ class _$StencilImpl implements _Stencil {
                 other.likeCount == likeCount) &&
             (identical(other.isLikedByUser, isLikedByUser) ||
                 other.isLikedByUser == isLikedByUser) &&
-            (identical(other.metrics, metrics) || other.metrics == metrics));
+            (identical(other.metrics, metrics) || other.metrics == metrics) &&
+            (identical(other.imageId, imageId) || other.imageId == imageId) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.dimensions, dimensions) ||
+                other.dimensions == dimensions) &&
+            (identical(other.estimatedTime, estimatedTime) ||
+                other.estimatedTime == estimatedTime) &&
+            (identical(other.isCustomizable, isCustomizable) ||
+                other.isCustomizable == isCustomizable) &&
+            (identical(other.isDownloadable, isDownloadable) ||
+                other.isDownloadable == isDownloadable) &&
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable) &&
+            (identical(other.license, license) || other.license == license) &&
+            (identical(other.licenseUrl, licenseUrl) ||
+                other.licenseUrl == licenseUrl));
   }
 
   @JsonKey(ignore: true)
@@ -511,7 +707,17 @@ class _$StencilImpl implements _Stencil {
         viewCount,
         likeCount,
         isLikedByUser,
-        metrics
+        metrics,
+        imageId,
+        price,
+        status,
+        dimensions,
+        estimatedTime,
+        isCustomizable,
+        isDownloadable,
+        isAvailable,
+        license,
+        licenseUrl
       ]);
 
   @JsonKey(ignore: true)
@@ -549,7 +755,17 @@ abstract class _Stencil implements Stencil {
       final int viewCount,
       final int likeCount,
       final bool isLikedByUser,
-      final Metrics? metrics}) = _$StencilImpl;
+      final Metrics? metrics,
+      final String? imageId,
+      final Money? price,
+      final StencilStatus? status,
+      final String? dimensions,
+      final int? estimatedTime,
+      final bool isCustomizable,
+      final bool isDownloadable,
+      final bool isAvailable,
+      final String? license,
+      final String? licenseUrl}) = _$StencilImpl;
 
   factory _Stencil.fromJson(Map<String, dynamic> json) = _$StencilImpl.fromJson;
 
@@ -593,6 +809,26 @@ abstract class _Stencil implements Stencil {
   bool get isLikedByUser;
   @override
   Metrics? get metrics;
+  @override
+  String? get imageId;
+  @override
+  Money? get price;
+  @override
+  StencilStatus? get status;
+  @override
+  String? get dimensions;
+  @override // @Default([]) List<String> recommendedPlacements,
+  int? get estimatedTime;
+  @override
+  bool get isCustomizable;
+  @override
+  bool get isDownloadable;
+  @override
+  bool get isAvailable;
+  @override
+  String? get license;
+  @override
+  String? get licenseUrl;
   @override
   @JsonKey(ignore: true)
   _$$StencilImplCopyWith<_$StencilImpl> get copyWith =>

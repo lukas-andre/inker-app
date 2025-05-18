@@ -7,8 +7,11 @@ part 'tag.g.dart';
 class Tag with _$Tag {
   const factory Tag({
     required String id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     required String name,
-    @Default(0) int count,
+    String? createdBy,
+    int? count,
   }) = _Tag;
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);

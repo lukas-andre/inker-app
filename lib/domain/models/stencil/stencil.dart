@@ -3,9 +3,17 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/metrics/metrics.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'dart:convert';
+import 'package:inker_studio/domain/models/quotation/quotation.dart'; // For Money
 
 part 'stencil.freezed.dart';
 part 'stencil.g.dart';
+
+enum StencilStatus {
+  @JsonValue('AVAILABLE')
+  available,
+  @JsonValue('UNAVAILABLE')
+  unavailable,
+}
 
 @freezed
 class Stencil with _$Stencil {
@@ -30,6 +38,17 @@ class Stencil with _$Stencil {
     @Default(0) int likeCount,
     @Default(false) bool isLikedByUser,
     Metrics? metrics,
+    String? imageId,
+    Money? price,
+    StencilStatus? status,
+    String? dimensions,
+    // @Default([]) List<String> recommendedPlacements,
+    int? estimatedTime,
+    @Default(false) bool isCustomizable,
+    @Default(false) bool isDownloadable,
+    @Default(false) bool isAvailable,
+    String? license,
+    String? licenseUrl,
   }) = _Stencil;
 
   factory Stencil.fromJson(Map<String, dynamic> json) => _$StencilFromJson(json);
