@@ -4,6 +4,7 @@ import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.d
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:intl/intl.dart';
@@ -66,7 +67,7 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, AgendaEventDetailResponse data) {
+  Widget _buildContent(BuildContext context, EventDetailResponse data) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -90,7 +91,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   Widget _buildMainEventCard(
-      BuildContext context, AgendaEventDetailResponse data) {
+      BuildContext context, EventDetailResponse data) {
     final DateFormat dateFormat = DateFormat('d MMMM yyyy', Intl.defaultLocale);
     final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
 
@@ -110,7 +111,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color(
-                        int.parse(data.event.color.replaceAll('#', '0xFF'))),
+                        int.parse(data.event.color?.replaceAll('#', '0xFF') ?? '0xFF000000')),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -127,14 +128,14 @@ class AgendaEventDetailPage extends StatelessWidget {
             _InfoRow(
               icon: Icons.calendar_today,
               title: S.of(context).date,
-              content: dateFormat.format(data.event.start),
+              content: dateFormat.format(data.event.startDateTime),
             ),
             const SizedBox(height: 12),
             _InfoRow(
               icon: Icons.access_time,
               title: S.of(context).time,
               content:
-                  '${timeFormat.format(data.event.start)} - ${timeFormat.format(data.event.end)}',
+                  '${timeFormat.format(data.event.startDateTime)} - ${timeFormat.format(data.event.endDateTime)}',
             ),
             if (data.event.quotationId != null) ...[
               const SizedBox(height: 12),
@@ -151,7 +152,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   Widget _buildDescriptionCard(
-      BuildContext context, AgendaEventDetailResponse data) {
+      BuildContext context, EventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: Theme.of(context).colorScheme.surface,
@@ -176,7 +177,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   Widget _buildWorkEvidenceCard(
-      BuildContext context, AgendaEventDetailResponse data) {
+      BuildContext context, EventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: Theme.of(context).colorScheme.surface,
@@ -217,7 +218,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   Widget _buildLocationCard(
-      BuildContext context, AgendaEventDetailResponse data) {
+      BuildContext context, EventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: Theme.of(context).colorScheme.surface,
@@ -279,7 +280,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   Widget _buildActionButtons(
-      BuildContext context, AgendaEventDetailResponse data) {
+      BuildContext context, EventDetailResponse data) {
     return Container(
       color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.all(16),
@@ -331,7 +332,7 @@ class AgendaEventDetailPage extends StatelessWidget {
     }
   }
   
-  void _navigateToEditEvent(BuildContext context, AgendaEventDetailResponse data) {
+  void _navigateToEditEvent(BuildContext context, EventDetailResponse data) {
     // Show alert dialog with warning about customer reselection
     showDialog(
       context: context,
@@ -395,13 +396,13 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
   
   // Helper method to convert AgendaEventDetailResponse to ArtistAgendaEventDetails
-  ArtistAgendaEventDetails _convertToEventDetails(AgendaEventDetailResponse data) {
+  ArtistAgendaEventDetails _convertToEventDetails(EventDetailResponse data) {
     return ArtistAgendaEventDetails(
       id: data.event.id.toString(),
       title: data.event.title,
       description: data.event.info ?? '',
-      startDate: data.event.start,
-      endDate: data.event.end,
+      startDate: data.event.startDateTime,
+      endDate: data.event.endDateTime ,
       location: data.location.formattedAddress,
       notes: data.event.notes,
       // Note: We can also store the customerId for potential use in the form

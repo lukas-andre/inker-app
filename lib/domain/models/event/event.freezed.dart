@@ -34,7 +34,7 @@ mixin _$Event {
   bool get notification => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
-  List<String>? get workEvidence => throw _privateConstructorUsedError;
+  WorkEvidence? get workEvidence => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   int? get preparationTime => throw _privateConstructorUsedError;
   int? get cleanupTime => throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ abstract class $EventCopyWith<$Res> {
       bool notification,
       bool done,
       EventStatus status,
-      List<String>? workEvidence,
+      WorkEvidence? workEvidence,
       String? notes,
       int? preparationTime,
       int? cleanupTime,
@@ -83,6 +83,7 @@ abstract class $EventCopyWith<$Res> {
       List<EventMessage> messages,
       Agenda agenda});
 
+  $WorkEvidenceCopyWith<$Res>? get workEvidence;
   $AgendaCopyWith<$Res> get agenda;
 }
 
@@ -176,7 +177,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
       workEvidence: freezed == workEvidence
           ? _value.workEvidence
           : workEvidence // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as WorkEvidence?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -226,6 +227,18 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 
   @override
   @pragma('vm:prefer-inline')
+  $WorkEvidenceCopyWith<$Res>? get workEvidence {
+    if (_value.workEvidence == null) {
+      return null;
+    }
+
+    return $WorkEvidenceCopyWith<$Res>(_value.workEvidence!, (value) {
+      return _then(_value.copyWith(workEvidence: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $AgendaCopyWith<$Res> get agenda {
     return $AgendaCopyWith<$Res>(_value.agenda, (value) {
       return _then(_value.copyWith(agenda: value) as $Val);
@@ -253,7 +266,7 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
       bool notification,
       bool done,
       EventStatus status,
-      List<String>? workEvidence,
+      WorkEvidence? workEvidence,
       String? notes,
       int? preparationTime,
       int? cleanupTime,
@@ -266,6 +279,8 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
       List<EventMessage> messages,
       Agenda agenda});
 
+  @override
+  $WorkEvidenceCopyWith<$Res>? get workEvidence;
   @override
   $AgendaCopyWith<$Res> get agenda;
 }
@@ -356,9 +371,9 @@ class __$$EventImplCopyWithImpl<$Res>
           : status // ignore: cast_nullable_to_non_nullable
               as EventStatus,
       workEvidence: freezed == workEvidence
-          ? _value._workEvidence
+          ? _value.workEvidence
           : workEvidence // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as WorkEvidence?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -423,7 +438,7 @@ class _$EventImpl implements _Event {
       this.notification = false,
       this.done = false,
       required this.status,
-      final List<String>? workEvidence,
+      this.workEvidence,
       this.notes,
       this.preparationTime,
       this.cleanupTime,
@@ -435,8 +450,7 @@ class _$EventImpl implements _Event {
       this.rescheduleLog,
       final List<EventMessage> messages = const [],
       required this.agenda})
-      : _workEvidence = workEvidence,
-        _messages = messages;
+      : _messages = messages;
 
   factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventImplFromJson(json);
@@ -469,16 +483,8 @@ class _$EventImpl implements _Event {
   final bool done;
   @override
   final EventStatus status;
-  final List<String>? _workEvidence;
   @override
-  List<String>? get workEvidence {
-    final value = _workEvidence;
-    if (value == null) return null;
-    if (_workEvidence is EqualUnmodifiableListView) return _workEvidence;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final WorkEvidence? workEvidence;
   @override
   final String? notes;
   @override
@@ -538,8 +544,8 @@ class _$EventImpl implements _Event {
                 other.notification == notification) &&
             (identical(other.done, done) || other.done == done) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other._workEvidence, _workEvidence) &&
+            (identical(other.workEvidence, workEvidence) ||
+                other.workEvidence == workEvidence) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.preparationTime, preparationTime) ||
                 other.preparationTime == preparationTime) &&
@@ -576,7 +582,7 @@ class _$EventImpl implements _Event {
         notification,
         done,
         status,
-        const DeepCollectionEquality().hash(_workEvidence),
+        workEvidence,
         notes,
         preparationTime,
         cleanupTime,
@@ -618,7 +624,7 @@ abstract class _Event implements Event {
       final bool notification,
       final bool done,
       required final EventStatus status,
-      final List<String>? workEvidence,
+      final WorkEvidence? workEvidence,
       final String? notes,
       final int? preparationTime,
       final int? cleanupTime,
@@ -660,7 +666,7 @@ abstract class _Event implements Event {
   @override
   EventStatus get status;
   @override
-  List<String>? get workEvidence;
+  WorkEvidence? get workEvidence;
   @override
   String? get notes;
   @override
