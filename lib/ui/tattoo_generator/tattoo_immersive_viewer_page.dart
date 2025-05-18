@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
@@ -38,7 +37,7 @@ class TattooImmersiveViewerPage extends StatefulWidget {
   final void Function(Map<String, dynamic> result)? onSelectDesign;
   
   const TattooImmersiveViewerPage({
-    Key? key,
+    super.key,
     required this.images,
     required this.prompt,
     required this.style,
@@ -49,7 +48,7 @@ class TattooImmersiveViewerPage extends StatefulWidget {
     this.currentDesignIndex,
     this.selectForQuotation,
     this.onSelectDesign,
-  }) : super(key: key);
+  });
 
   @override
   State<TattooImmersiveViewerPage> createState() => _TattooImmersiveViewerPageState();
@@ -269,7 +268,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
         content: Text(_isFavorite 
           ? s.designAddedToFavorites
           : s.designRemovedFromFavorites),
-        backgroundColor: _isFavorite ? Colors.green : redColor,
+        backgroundColor: _isFavorite ? Colors.green : Theme.of(context).colorScheme.error,
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
       ),
@@ -355,13 +354,13 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
           const SizedBox(height: 16),
           Text(
             S.of(context).noImagesAvailable,
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: redColor,
+              backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Colors.white,
             ),
             child: Text(S.of(context).goBack),
@@ -388,13 +387,13 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
         imageUrl: imageUrl,
         fit: BoxFit.contain,
         placeholder: (context, url) => Container(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.primary).withLightness(0.1).toColor(),
           child: const Center(
             child: InkerProgressIndicator(color: Colors.white),
           ),
         ),
         errorWidget: (context, url, error) => Container(
-          color: primaryColor,
+          color: Theme.of(context).colorScheme.primary,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -564,7 +563,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
                   icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
                   label: _isFavorite ? S.of(context).favorites : S.of(context).likes,
                   onTap: _toggleFavorite,
-                  iconColor: _isFavorite ? redColor : Colors.white,
+                  iconColor: _isFavorite ? Theme.of(context).colorScheme.error : Colors.white,
                 ),
                 
                 // Navigation indicators
@@ -705,7 +704,7 @@ class _TattooImmersiveViewerPageState extends State<TattooImmersiveViewerPage> {
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: redColor,
+              color: Theme.of(context).colorScheme.error,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Text(

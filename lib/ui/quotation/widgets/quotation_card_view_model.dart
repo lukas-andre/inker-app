@@ -5,7 +5,7 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 
@@ -112,7 +112,7 @@ class QuotationCardViewModel {
   factory QuotationCardViewModel.fromOpenQuotation(
       Quotation quotation, S l10n) {
      // Open quotations are always viewed by artists
-     final statusEnum = QuotationStatus.open; // Status is implicitly 'open'
+     const statusEnum = QuotationStatus.open; // Status is implicitly 'open'
 
     return QuotationCardViewModel(
       id: quotation.id.toString(),
@@ -262,7 +262,7 @@ class CustomerOpenQuotationCardViewModel {
   });
 
   factory CustomerOpenQuotationCardViewModel.fromQuotation(Quotation quotation, S l10n) {
-    final statusEnum = QuotationStatus.open; // Siempre open para open quotations
+    const statusEnum = QuotationStatus.open; // Siempre open para open quotations
     return CustomerOpenQuotationCardViewModel(
       id: quotation.id.toString(),
       description: quotation.description,

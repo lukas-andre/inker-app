@@ -324,7 +324,7 @@ class CreateOpenQuotationBloc
 
     // 2. Authentication Check
     final session = _authBloc.state.session;
-    if (session.user == null || session.accessToken == null) {
+    if (session.user == null) {
        emit(state.copyWith(
         status: CreateOpenQuotationStatus.submissionFailure,
         errorMessage: 'Debes iniciar sesión para crear una solicitud.',
@@ -361,7 +361,7 @@ class CreateOpenQuotationBloc
       final result = await _quotationService.createQuotation(
         quotation,
         state.referenceImages,
-        session.accessToken!,
+        session.accessToken,
       );
 
       emit(state.copyWith(

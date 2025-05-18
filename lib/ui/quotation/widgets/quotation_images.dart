@@ -3,7 +3,6 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/image_gallery_view.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class QuotationImages extends StatelessWidget {
   final Quotation quotation;
@@ -21,7 +20,7 @@ class QuotationImages extends StatelessWidget {
     if (!_hasImages) {
       return Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        color: explorerSecondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
@@ -31,13 +30,15 @@ class QuotationImages extends StatelessWidget {
                 Icon(
                   Icons.image_not_supported_outlined,
                   size: 48,
-                  color: tertiaryColor.withOpacity(0.6),
+                  color:
+                      Theme.of(context).colorScheme.tertiary.withOpacity(0.6),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   l10n.noImagesAvailable,
                   style: TextStyleTheme.subtitle1.copyWith(
-                    color: tertiaryColor.withOpacity(0.8),
+                    color:
+                        Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
                   ),
                 ),
               ],
@@ -49,7 +50,7 @@ class QuotationImages extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: LayoutBuilder(
@@ -57,7 +58,8 @@ class QuotationImages extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (quotation.referenceImages?.metadata.isNotEmpty ?? false) ...[
+                if (quotation.referenceImages?.metadata.isNotEmpty ??
+                    false) ...[
                   Text(
                     l10n.referenceImages,
                     style: TextStyleTheme.subtitle1,
@@ -71,7 +73,8 @@ class QuotationImages extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                 ],
-                if (quotation.proposedDesigns?.metadata.isNotEmpty ?? false) ...[
+                if (quotation.proposedDesigns?.metadata.isNotEmpty ??
+                    false) ...[
                   Text(
                     l10n.proposedDesigns,
                     style: TextStyleTheme.subtitle1,
@@ -127,7 +130,8 @@ class QuotationImages extends StatelessWidget {
   }
 
   double _calculateAspectRatio(double width, int crossAxisCount) {
-    final tileWidth = (width - (16 * 2) - (8 * (crossAxisCount - 1))) / crossAxisCount;
+    final tileWidth =
+        (width - (16 * 2) - (8 * (crossAxisCount - 1))) / crossAxisCount;
     return tileWidth / tileWidth; // 1:1 aspect ratio
   }
 
@@ -193,7 +197,7 @@ class _ImageTile extends StatelessWidget {
               ? loadingProgress.cumulativeBytesLoaded /
                   loadingProgress.expectedTotalBytes!
               : null,
-          color: tertiaryColor,
+          color: Theme.of(context).colorScheme.tertiary,
           strokeWidth: 2,
         ),
       ),
@@ -207,10 +211,10 @@ class _ImageTile extends StatelessWidget {
   ) {
     return Container(
       color: Colors.grey[850],
-      child: const Center(
+      child: Center(
         child: Icon(
           Icons.error_outline,
-          color: tertiaryColor,
+          color: Theme.of(context).colorScheme.tertiary,
           size: 24,
         ),
       ),

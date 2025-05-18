@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
 class SplashPage extends StatelessWidget {
@@ -15,7 +14,7 @@ class SplashPage extends StatelessWidget {
       extendBody: true,
       extendBodyBehindAppBar: true,
       body: Container(
-        color: primaryColor,
+        color: Theme.of(context).colorScheme.primary,
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

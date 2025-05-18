@@ -9,14 +9,13 @@ import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/image/image_cache_settings.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
 
   const SettingsPage({super.key});
-  
+
   static Route route() {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: routeName),
@@ -27,9 +26,9 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(S.of(context).settings, style: TextStyleTheme.headline1),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -83,24 +82,27 @@ class _ApplicationSettings extends StatelessWidget {
       title: S.of(context).applicationSettings,
       children: [
         SwitchListTile(
-          title: Text(S.of(context).notifications, style: TextStyleTheme.bodyText1),
+          title: Text(S.of(context).notifications,
+              style: TextStyleTheme.bodyText1),
           subtitle: Text(
             S.of(context).notificationsDescription,
             style: TextStyleTheme.caption.copyWith(color: Colors.grey),
           ),
           value: settings.notificationsEnabled,
-          onChanged: (value) => _handleNotificationPermission(context, value, bloc),
-          activeColor: secondaryColor,
+          onChanged: (value) =>
+              _handleNotificationPermission(context, value, bloc),
+          activeColor: Theme.of(context).colorScheme.secondary,
         ),
         SwitchListTile(
-          title: Text(S.of(context).locationServices, style: TextStyleTheme.bodyText1),
+          title: Text(S.of(context).locationServices,
+              style: TextStyleTheme.bodyText1),
           subtitle: Text(
             S.of(context).locationServicesDescription,
             style: TextStyleTheme.caption.copyWith(color: Colors.grey),
           ),
           value: settings.locationServicesEnabled,
           onChanged: (value) => _handleLocationPermission(context, value, bloc),
-          activeColor: secondaryColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
         ),
         ListTile(
           leading: const Icon(Icons.language, color: Colors.white70),
@@ -130,7 +132,7 @@ class _ApplicationSettings extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: explorerSecondaryColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -144,7 +146,8 @@ class _ApplicationSettings extends StatelessWidget {
                 children: [
                   Text(
                     'Gestión de caché',
-                    style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                    style:
+                        TextStyleTheme.headline3.copyWith(color: Colors.white),
                   ),
                   IconButton(
                     icon: const Icon(Icons.close, color: Colors.white70),
@@ -158,9 +161,10 @@ class _ApplicationSettings extends StatelessWidget {
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
                 child: Text(S.of(context).close),
               ),
@@ -231,7 +235,8 @@ class _AccountSettings extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.lock_outline, color: Colors.white70),
-          title: Text(S.of(context).changePassword, style: TextStyleTheme.bodyText1),
+          title: Text(S.of(context).changePassword,
+              style: TextStyleTheme.bodyText1),
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
           // onTap: () => _showChangePasswordDialog(context),
           onTap: () => Navigator.of(context).pushNamed('/passwordRecovery'),
@@ -264,8 +269,9 @@ class _AccountSettings extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: explorerSecondaryColor,
-        title: Text(S.of(context).changePassword, style: TextStyleTheme.headline3),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        title:
+            Text(S.of(context).changePassword, style: TextStyleTheme.headline3),
         content: Form(
           key: formKey,
           child: Column(
@@ -315,7 +321,8 @@ class _AccountSettings extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: secondaryColor),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary),
             child: Text(S.of(context).change),
             onPressed: () {
               if (formKey.currentState?.validate() ?? false) {
@@ -357,7 +364,7 @@ class _AccountSettings extends StatelessWidget {
           );
         },
         child: AlertDialog(
-          backgroundColor: explorerSecondaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           title: Text(
             S.of(context).deleteAccount,
             style: TextStyleTheme.headline3.copyWith(color: Colors.red),
@@ -401,14 +408,16 @@ class _AccountSettings extends StatelessWidget {
                       return () {
                         if (formKey.currentState?.validate() ?? false) {
                           context.read<DeleteAccountBloc>().add(
-                                DeleteAccountEvent.requested(passwordController.text),
+                                DeleteAccountEvent.requested(
+                                    passwordController.text),
                               );
                         }
                       };
                     },
                   ),
                   child: state.maybeWhen(
-                    inProgress: () => const CircularProgressIndicator(color: Colors.white),
+                    inProgress: () =>
+                        const CircularProgressIndicator(color: Colors.white),
                     orElse: () => Text(S.of(context).deleteAccount),
                   ),
                 );
@@ -424,9 +433,11 @@ class _AccountSettings extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: explorerSecondaryColor,
-        title: Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
-        content: Text(S.of(context).areYouSureLogout, style: TextStyleTheme.bodyText1),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        title:
+            Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
+        content: Text(S.of(context).areYouSureLogout,
+            style: TextStyleTheme.bodyText1),
         actions: [
           TextButton(
             key: const Key('cancelLogoutButton'),
@@ -439,9 +450,8 @@ class _AccountSettings extends StatelessWidget {
             child: Text(S.of(context).logOut),
             onPressed: () {
               Navigator.pop(context);
-              context
-                  .read<AuthBloc>()
-                  .add(AuthLogoutRequested(context.read<AuthBloc>().state.session));
+              context.read<AuthBloc>().add(
+                  AuthLogoutRequested(context.read<AuthBloc>().state.session));
               Navigator.of(context).pop();
             },
           ),
@@ -459,13 +469,15 @@ class _LegalSettings extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.privacy_tip, color: Colors.white70),
-          title: Text(S.of(context).privacyPolicy, style: TextStyleTheme.bodyText1),
+          title: Text(S.of(context).privacyPolicy,
+              style: TextStyleTheme.bodyText1),
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
           onTap: () => Navigator.of(context).pushNamed('/privacyPolicy'),
         ),
         ListTile(
           leading: const Icon(Icons.description, color: Colors.white70),
-          title: Text(S.of(context).termsAndConditions, style: TextStyleTheme.bodyText1),
+          title: Text(S.of(context).termsAndConditions,
+              style: TextStyleTheme.bodyText1),
           trailing: const Icon(Icons.chevron_right, color: Colors.white70),
           onTap: () => Navigator.of(context).pushNamed('/termsAndConditions'),
         ),
@@ -492,7 +504,8 @@ class _SettingsSection extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
           child: Text(
             title,
-            style: TextStyleTheme.subtitle1.copyWith(color: secondaryColor),
+            style: TextStyleTheme.subtitle1
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
         ...children,
@@ -539,8 +552,9 @@ class _PasswordFieldState extends State<_PasswordField> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: secondaryColor),
+        focusedBorder: OutlineInputBorder(
+          borderSide:
+              BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
@@ -559,7 +573,7 @@ void _showPermissionDeniedDialog(BuildContext context, String message) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      backgroundColor: explorerSecondaryColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       title: Text(
         S.of(context).permissionRequired,
         style: TextStyleTheme.headline3,
@@ -575,7 +589,7 @@ void _showPermissionDeniedDialog(BuildContext context, String message) {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: secondaryColor,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
           child: Text(S.of(context).openSettings),
           onPressed: () {

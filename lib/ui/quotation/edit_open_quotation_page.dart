@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class EditOpenQuotationPage extends StatefulWidget {
   final Quotation quotation;
-  const EditOpenQuotationPage({Key? key, required this.quotation}) : super(key: key);
+  const EditOpenQuotationPage({super.key, required this.quotation});
 
   @override
   State<EditOpenQuotationPage> createState() => _EditOpenQuotationPageState();
@@ -59,9 +58,9 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         title: Text(l10n.edit, style: TextStyleTheme.headline2),
@@ -75,7 +74,7 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
               Text(
                 l10n.description,
                 style: TextStyleTheme.headline3.copyWith(
-                  color: quaternaryColor,
+                  color: Theme.of(context).colorScheme.tertiary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -87,8 +86,8 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
                 minLines: 2,
                 decoration: InputDecoration(
                   hintText: l10n.describeYourTattooIdea,
-                  hintStyle: hintTextStyle,
-                  fillColor: inputBackgroundColor,
+                  hintStyle: TextStyleTheme.bodyText1,
+                  fillColor: Theme.of(context).colorScheme.surface,
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -102,7 +101,7 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
               Text(
                 'Presupuesto de referencia (CLP)',
                 style: TextStyleTheme.headline3.copyWith(
-                  color: quaternaryColor,
+                  color: Theme.of(context).colorScheme.tertiary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -113,15 +112,15 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Ej: 50000',
-                  hintStyle: hintTextStyle,
-                  fillColor: inputBackgroundColor,
+                  hintStyle: TextStyleTheme.bodyText1,
+                  fillColor: Theme.of(context).colorScheme.surface,
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
                   ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  prefixIcon: const Icon(Icons.attach_money, color: secondaryColor),
+                  prefixIcon: Icon(Icons.attach_money, color: Theme.of(context).colorScheme.secondary),
                 ),
               ),
               const SizedBox(height: 40),
@@ -130,16 +129,18 @@ class _EditOpenQuotationPageState extends State<EditOpenQuotationPage> {
                 height: 56,
                 child: ElevatedButton.icon(
                   icon: _isSaving
-                      ? const SizedBox(
+                      ? SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Theme.of(context).colorScheme.surface),
                         )
                       : const Icon(Icons.save),
                   label: Text(_isSaving ? 'Guardando...' : l10n.save,
                       style: TextStyleTheme.button.copyWith(fontSize: 18)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

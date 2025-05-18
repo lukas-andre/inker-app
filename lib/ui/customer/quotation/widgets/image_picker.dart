@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ImagePickerWidget extends StatelessWidget {
   final List<XFile> images;
@@ -38,7 +37,7 @@ class ImagePickerWidget extends StatelessWidget {
           runSpacing: 12.0,
           children: [
             ...images.map((image) => _buildImageTile(image)),
-            if (images.length < maxImages) _buildAddButton(),
+            if (images.length < maxImages) _buildAddButton(context),
           ],
         ),
       ],
@@ -74,20 +73,20 @@ class ImagePickerWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildAddButton() {
+  Widget _buildAddButton(BuildContext context) {
     return InkWell(
       onTap: onAdd,
       child: Container(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: secondaryColor, width: 2),
+          border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
         ),
-        child: const Icon(
+        child: Icon(
           Icons.add_photo_alternate,
-          color: secondaryColor,
+          color: Theme.of(context).colorScheme.secondary,
           size: 40,
         ),
       ),

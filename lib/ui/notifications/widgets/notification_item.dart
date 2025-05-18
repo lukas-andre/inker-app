@@ -3,7 +3,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/models/notifications/notification.dart' as model;
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class NotificationItem extends StatelessWidget {
   final model.InkerNotification notification;
@@ -25,10 +24,10 @@ class NotificationItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: notification.read 
               ? Colors.grey[50]  // Light background for read notifications
-              : primaryColor.withOpacity(0.08),  // Subtle purple highlight for unread
+              : Theme.of(context).colorScheme.surface.withOpacity(0.08),  // Subtle purple highlight for unread
           border: Border(
             bottom: BorderSide(
-              color: primaryColor.withOpacity(0.1),  // Purple tinted border
+              color: Theme.of(context).colorScheme.surface.withOpacity(0.1),  // Purple tinted border
               width: 1.0,
             ),
           ),
@@ -36,7 +35,7 @@ class NotificationItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildNotificationIcon(),
+            _buildNotificationIcon(context),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -52,7 +51,7 @@ class NotificationItem extends StatelessWidget {
                             fontWeight: notification.read 
                                 ? FontWeight.w500 
                                 : FontWeight.bold,
-                            color: primaryColor,  // Use primary purple for title
+                            color: Theme.of(context).colorScheme.surface,  // Use primary purple for title
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -82,7 +81,7 @@ class NotificationItem extends StatelessWidget {
                   // Show related metadata if available
                   if (_hasRelevantMetadata()) ...[
                     const SizedBox(height: 8.0),
-                    _buildMetadataChip(l10n),
+                    _buildMetadataChip(context, l10n),
                   ],
                   const SizedBox(height: 4.0),
                   // Unread indicator
@@ -95,11 +94,11 @@ class NotificationItem extends StatelessWidget {
                           width: 10.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: primaryColor,  // Purple dot
+                            color: Theme.of(context).colorScheme.surface,  // Purple dot
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: primaryColor.withOpacity(0.2),
+                                color: Theme.of(context).colorScheme.surface.withOpacity(0.2),
                                 spreadRadius: 2,
                                 blurRadius: 4,
                               )
@@ -126,7 +125,7 @@ class NotificationItem extends StatelessWidget {
   }
   
   // Show small chip with relevant info
-  Widget _buildMetadataChip(S l10n) {
+  Widget _buildMetadataChip(BuildContext context, S l10n) {
     String? chipText;
     
     if (notification.data.containsKey('artistName')) {
@@ -142,17 +141,17 @@ class NotificationItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
       decoration: BoxDecoration(
-        color: primaryColor.withOpacity(0.1),  // Purple background
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.1),  // Purple background
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: primaryColor.withOpacity(0.2),  // Purple border
+          color: Theme.of(context).colorScheme.surface.withOpacity(0.2),  // Purple border
           width: 1.0,
         ),
       ),
       child: Text(
         chipText,
         style: TextStyleTheme.caption.copyWith(
-          color: primaryColor,  // Purple text
+          color: Theme.of(context).colorScheme.surface,  // Purple text
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -175,7 +174,7 @@ class NotificationItem extends StatelessWidget {
     return statusMap[status.toLowerCase()] ?? status;
   }
 
-  Widget _buildNotificationIcon() {
+  Widget _buildNotificationIcon(BuildContext context) {
     IconData iconData;
     Color iconColor;
 
@@ -233,16 +232,16 @@ class NotificationItem extends StatelessWidget {
       width: 40.0,
       height: 40.0,
       decoration: BoxDecoration(
-        color: primaryColor.withOpacity(0.1),  // Purple background
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.1),  // Purple background
         shape: BoxShape.circle,
         border: Border.all(
-          color: primaryColor.withOpacity(0.2),  // Purple border
+          color: Theme.of(context).colorScheme.surface.withOpacity(0.2),  // Purple border
           width: 1.5,
         ),
       ),
       child: Icon(
         iconData,
-        color: primaryColor,  // Purple icon
+        color: Theme.of(context).colorScheme.surface,  // Purple icon
         size: 20.0,
       ),
     );

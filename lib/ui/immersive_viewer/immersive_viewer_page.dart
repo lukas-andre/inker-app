@@ -5,13 +5,12 @@ import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 /// Immersive viewer for Works or Stencils - can be navigated to via route
 class ImmersiveViewerPage extends StatelessWidget {
   final Work? work;
   final Stencil? stencil;
-  
+
   const ImmersiveViewerPage({
     super.key,
     this.work,
@@ -36,7 +35,7 @@ class ImmersiveViewerPage extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body:  Center(
+        body: Center(
           child: Text(
             S.of(context).couldNotLoadImage,
             style: const TextStyle(color: Colors.white),
@@ -45,19 +44,19 @@ class ImmersiveViewerPage extends StatelessWidget {
       );
     }
   }
-  
+
   // Factory constructor to create from route arguments
   static Widget fromArguments(BuildContext context, Object? arguments) {
     if (arguments is Map<String, dynamic>) {
       final work = arguments['work'] as Work?;
       final stencil = arguments['stencil'] as Stencil?;
-      
+
       return ImmersiveViewerPage(
         work: work,
         stencil: stencil,
       );
     }
-    
+
     // Fallback
     return const ImmersiveViewerPage();
   }
@@ -66,24 +65,25 @@ class ImmersiveViewerPage extends StatelessWidget {
 /// Immersive full-screen viewer for Works
 class _ImmersiveWorkViewer extends StatefulWidget {
   final Work work;
-  
+
   const _ImmersiveWorkViewer({
     required this.work,
   });
-  
+
   @override
   State<_ImmersiveWorkViewer> createState() => _ImmersiveWorkViewerState();
 }
 
-class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleTickerProviderStateMixin {
+class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer>
+    with SingleTickerProviderStateMixin {
   final _transformationController = TransformationController();
   late AnimationController _animationController;
   Animation<Matrix4>? _animation;
   final _imageCache = CachedImageManager();
-  
+
   // Control info visibility
   bool _showFullInfo = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -91,19 +91,19 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       vsync: this,
       duration: const Duration(milliseconds: 300),
     )..addListener(() {
-      if (_animation != null) {
-        _transformationController.value = _animation!.value;
-      }
-    });
+        if (_animation != null) {
+          _transformationController.value = _animation!.value;
+        }
+      });
   }
-  
+
   @override
   void dispose() {
     _transformationController.dispose();
     _animationController.dispose();
     super.dispose();
   }
-  
+
   // Reset zoom when double tap
   void _handleDoubleTap() {
     if (_transformationController.value != Matrix4.identity()) {
@@ -115,7 +115,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
         parent: _animationController,
         curve: Curves.easeOut,
       ));
-      
+
       _animation = animationReset;
       _animationController.forward(from: 0);
     } else {
@@ -127,23 +127,23 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
         parent: _animationController,
         curve: Curves.easeOut,
       ));
-      
+
       _animation = animationZoom;
       _animationController.forward(from: 0);
     }
   }
-  
+
   void _toggleFullInfo() {
     setState(() {
       _showFullInfo = !_showFullInfo;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final work = widget.work;
-    
+
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -169,11 +169,12 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                     child: InkerProgressIndicator(color: Colors.white),
                   ),
                   errorWidget: (context, url, error) => Container(
-                    color: primaryColor,
+                    color: Theme.of(context).colorScheme.surface,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
+                        Icon(Icons.error_outline,
+                            size: 60, color: Colors.white.withOpacity(0.7)),
                         const SizedBox(height: 16),
                         Text(
                           S.of(context).couldNotLoadImage,
@@ -190,7 +191,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               ),
             ),
           ),
-          
+
           // Top gradient for back button and title
           Positioned(
             top: 0,
@@ -210,7 +211,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               ),
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 8,
-                left: 16, 
+                left: 16,
                 right: 16,
               ),
               child: Row(
@@ -232,7 +233,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                       ),
                     ),
                   ),
-                  
+
                   // Title with shadow
                   Text(
                     work.title,
@@ -251,37 +252,39 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   // Featured badge if applicable
                   work.isFeatured
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child:  Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.star, color: Colors.white, size: 14),
-                            const SizedBox(width: 4),
-                            Text(
-                              S.of(context).featured,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.star,
+                                  color: Colors.white, size: 14),
+                              const SizedBox(width: 4),
+                              Text(
+                                S.of(context).featured,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox(width: 36), // Empty space for balance
+                            ],
+                          ),
+                        )
+                      : const SizedBox(width: 36), // Empty space for balance
                 ],
               ),
             ),
           ),
-          
+
           // Right side stats (TikTok style)
           Positioned(
             bottom: 100,
@@ -296,7 +299,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                   S.of(context).views,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Likes stat
                 _buildTiktokStat(
                   Icons.favorite,
@@ -304,7 +307,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                   S.of(context).likes,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Date stat
                 _buildTiktokStat(
                   Icons.calendar_today_rounded,
@@ -315,23 +318,24 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               ],
             ),
           ),
-          
+
           // Bottom information overlay (description & tags)
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             child: _showFullInfo
-              ? _buildFullInfoPanel(work)
-              : _buildBasicInfoPanel(work),
+                ? _buildFullInfoPanel(work)
+                : _buildBasicInfoPanel(work),
           ),
         ],
       ),
     );
   }
-  
+
   // TikTok style stat with icon and counter
-  Widget _buildTiktokStat(IconData icon, String count, String label, {double iconSize = 24}) {
+  Widget _buildTiktokStat(IconData icon, String count, String label,
+      {double iconSize = 24}) {
     return Column(
       children: [
         Container(
@@ -352,7 +356,8 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               fontSize: 14,
               fontWeight: FontWeight.bold,
               shadows: [
-                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                Shadow(
+                    offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
               ],
             ),
           ),
@@ -371,7 +376,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       ],
     );
   }
-  
+
   // Basic info panel showing just title and tags
   Widget _buildBasicInfoPanel(Work work) {
     return Container(
@@ -396,7 +401,8 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
               height: 30,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: work.tags!.map((tag) => _buildTagPill(tag.name)).toList(),
+                children:
+                    work.tags!.map((tag) => _buildTagPill(tag.name)).toList(),
               ),
             ),
           const SizedBox(height: 8),
@@ -410,7 +416,10 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     shadows: [
-                      Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                      Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 3,
+                          color: Colors.black),
                     ],
                   ),
                 ),
@@ -429,7 +438,8 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 color: Colors.white.withOpacity(0.9),
                 fontSize: 13,
                 shadows: const [
-                  Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                  Shadow(
+                      offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
                 ],
               ),
               maxLines: 2,
@@ -440,7 +450,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       ),
     );
   }
-  
+
   // Full expanded info panel with all details
   Widget _buildFullInfoPanel(Work work) {
     return GestureDetector(
@@ -492,7 +502,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 ],
               ),
               const SizedBox(height: 16),
-              
+
               // Description
               if (work.description != null && work.description!.isNotEmpty) ...[
                 Text(
@@ -514,7 +524,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 ),
                 const SizedBox(height: 24),
               ],
-              
+
               // Tags section
               if (work.tags != null && work.tags!.isNotEmpty) ...[
                 Text(
@@ -529,7 +539,8 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: work.tags!.map((tag) => _buildTag(tag.name)).toList(),
+                  children:
+                      work.tags!.map((tag) => _buildTag(tag.name)).toList(),
                 ),
               ],
             ],
@@ -538,7 +549,7 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       ),
     );
   }
-  
+
   // Tag pill for horizontal scrolling list
   Widget _buildTagPill(String text) {
     return Container(
@@ -562,16 +573,18 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       ),
     );
   }
-  
+
   // Tag for tag cloud in detailed view
   Widget _buildTag(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(secondaryColor).withAlpha(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.secondary)
+            .withAlpha(0.15)
+            .toColor(),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: secondaryColor.withOpacity(0.4),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
           width: 1,
         ),
       ),
@@ -585,11 +598,21 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
       ),
     );
   }
-  
+
   String _formatDate(DateTime date) {
     final months = [
-      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
-      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
+      S.of(context).january,
+      S.of(context).february,
+      S.of(context).march,
+      S.of(context).april,
+      S.of(context).may,
+      S.of(context).june,
+      S.of(context).july,
+      S.of(context).august,
+      S.of(context).september,
+      S.of(context).october,
+      S.of(context).november,
+      S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
@@ -598,24 +621,26 @@ class _ImmersiveWorkViewerState extends State<_ImmersiveWorkViewer> with SingleT
 /// Immersive full-screen viewer for Stencils
 class _ImmersiveStencilViewer extends StatefulWidget {
   final Stencil stencil;
-  
+
   const _ImmersiveStencilViewer({
     required this.stencil,
   });
-  
+
   @override
-  State<_ImmersiveStencilViewer> createState() => _ImmersiveStencilViewerState();
+  State<_ImmersiveStencilViewer> createState() =>
+      _ImmersiveStencilViewerState();
 }
 
-class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with SingleTickerProviderStateMixin {
+class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer>
+    with SingleTickerProviderStateMixin {
   final _transformationController = TransformationController();
   late AnimationController _animationController;
   Animation<Matrix4>? _animation;
   final _imageCache = CachedImageManager();
-  
+
   // Control info visibility
   bool _showFullInfo = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -623,19 +648,19 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       vsync: this,
       duration: const Duration(milliseconds: 300),
     )..addListener(() {
-      if (_animation != null) {
-        _transformationController.value = _animation!.value;
-      }
-    });
+        if (_animation != null) {
+          _transformationController.value = _animation!.value;
+        }
+      });
   }
-  
+
   @override
   void dispose() {
     _transformationController.dispose();
     _animationController.dispose();
     super.dispose();
   }
-  
+
   // Reset zoom when double tap
   void _handleDoubleTap() {
     if (_transformationController.value != Matrix4.identity()) {
@@ -647,7 +672,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
         parent: _animationController,
         curve: Curves.easeOut,
       ));
-      
+
       _animation = animationReset;
       _animationController.forward(from: 0);
     } else {
@@ -659,23 +684,23 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
         parent: _animationController,
         curve: Curves.easeOut,
       ));
-      
+
       _animation = animationZoom;
       _animationController.forward(from: 0);
     }
   }
-  
+
   void _toggleFullInfo() {
     setState(() {
       _showFullInfo = !_showFullInfo;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final stencil = widget.stencil;
-    
+
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -701,11 +726,12 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                     child: InkerProgressIndicator(color: Colors.white),
                   ),
                   errorWidget: (context, url, error) => Container(
-                    color: primaryColor,
+                    color: Theme.of(context).colorScheme.surface,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
+                        Icon(Icons.error_outline,
+                            size: 60, color: Colors.white.withOpacity(0.7)),
                         const SizedBox(height: 16),
                         Text(
                           S.of(context).couldNotLoadImage,
@@ -722,7 +748,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               ),
             ),
           ),
-          
+
           // Top gradient for back button and title
           Positioned(
             top: 0,
@@ -742,7 +768,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               ),
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 8,
-                left: 16, 
+                left: 16,
                 right: 16,
               ),
               child: Row(
@@ -764,7 +790,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                       ),
                     ),
                   ),
-                  
+
                   // Title with shadow
                   Text(
                     stencil.title,
@@ -783,37 +809,39 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   // Featured badge if applicable
                   stencil.isFeatured
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child:  Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.star, color: Colors.white, size: 14),
-                            const SizedBox(width: 4),
-                            Text(
-                              S.of(context).featured,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.star,
+                                  color: Colors.white, size: 14),
+                              const SizedBox(width: 4),
+                              Text(
+                                S.of(context).featured,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox(width: 36), // Empty space for balance
+                            ],
+                          ),
+                        )
+                      : const SizedBox(width: 36), // Empty space for balance
                 ],
               ),
             ),
           ),
-          
+
           // Right side stats (TikTok style)
           Positioned(
             bottom: 100,
@@ -828,7 +856,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                   S.of(context).views,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Likes stat
                 _buildTiktokStat(
                   Icons.favorite,
@@ -836,7 +864,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                   S.of(context).likes,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Date stat
                 _buildTiktokStat(
                   Icons.calendar_today_rounded,
@@ -847,23 +875,24 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               ],
             ),
           ),
-          
+
           // Bottom information overlay (description & tags)
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             child: _showFullInfo
-              ? _buildFullInfoPanel(stencil)
-              : _buildBasicInfoPanel(stencil),
+                ? _buildFullInfoPanel(stencil)
+                : _buildBasicInfoPanel(stencil),
           ),
         ],
       ),
     );
   }
-  
+
   // TikTok style stat with icon and counter
-  Widget _buildTiktokStat(IconData icon, String count, String label, {double iconSize = 24}) {
+  Widget _buildTiktokStat(IconData icon, String count, String label,
+      {double iconSize = 24}) {
     return Column(
       children: [
         Container(
@@ -884,7 +913,8 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               fontSize: 14,
               fontWeight: FontWeight.bold,
               shadows: [
-                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                Shadow(
+                    offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
               ],
             ),
           ),
@@ -903,7 +933,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       ],
     );
   }
-  
+
   // Basic info panel showing just title and tags
   Widget _buildBasicInfoPanel(Stencil stencil) {
     return Container(
@@ -928,7 +958,9 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
               height: 30,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: stencil.tags!.map((tag) => _buildTagPill(tag.name)).toList(),
+                children: stencil.tags!
+                    .map((tag) => _buildTagPill(tag.name))
+                    .toList(),
               ),
             ),
           const SizedBox(height: 8),
@@ -942,7 +974,10 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     shadows: [
-                      Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                      Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 3,
+                          color: Colors.black),
                     ],
                   ),
                 ),
@@ -961,7 +996,8 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 color: Colors.white.withOpacity(0.9),
                 fontSize: 13,
                 shadows: const [
-                  Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                  Shadow(
+                      offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
                 ],
               ),
               maxLines: 2,
@@ -972,7 +1008,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       ),
     );
   }
-  
+
   // Full expanded info panel with all details
   Widget _buildFullInfoPanel(Stencil stencil) {
     return GestureDetector(
@@ -1024,9 +1060,10 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 ],
               ),
               const SizedBox(height: 16),
-              
+
               // Description
-              if (stencil.description != null && stencil.description!.isNotEmpty) ...[
+              if (stencil.description != null &&
+                  stencil.description!.isNotEmpty) ...[
                 Text(
                   S.of(context).description,
                   style: TextStyle(
@@ -1046,7 +1083,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 ),
                 const SizedBox(height: 24),
               ],
-              
+
               // Tags section
               if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
                 Text(
@@ -1061,7 +1098,8 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: stencil.tags!.map((tag) => _buildTag(tag.name)).toList(),
+                  children:
+                      stencil.tags!.map((tag) => _buildTag(tag.name)).toList(),
                 ),
               ],
             ],
@@ -1070,7 +1108,7 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       ),
     );
   }
-  
+
   // Tag pill for horizontal scrolling list
   Widget _buildTagPill(String text) {
     return Container(
@@ -1094,16 +1132,18 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       ),
     );
   }
-  
+
   // Tag for tag cloud in detailed view
   Widget _buildTag(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(secondaryColor).withAlpha(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.secondary)
+            .withAlpha(0.15)
+            .toColor(),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: secondaryColor.withOpacity(0.4),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
           width: 1,
         ),
       ),
@@ -1117,12 +1157,22 @@ class _ImmersiveStencilViewerState extends State<_ImmersiveStencilViewer> with S
       ),
     );
   }
-  
+
   String _formatDate(DateTime date) {
     final months = [
-      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
-      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
+      S.of(context).january,
+      S.of(context).february,
+      S.of(context).march,
+      S.of(context).april,
+      S.of(context).may,
+      S.of(context).june,
+      S.of(context).july,
+      S.of(context).august,
+      S.of(context).september,
+      S.of(context).october,
+      S.of(context).november,
+      S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
-} 
+}

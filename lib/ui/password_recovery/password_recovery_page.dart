@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/ui/account_reactivation/widgets/pin_validator_v2.dart';
 import 'package:inker_studio/ui/password_recovery/bloc/password_recovery_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class PasswordRecoveryPage extends StatelessWidget {
   const PasswordRecoveryPage({super.key});
@@ -33,7 +32,7 @@ class PasswordRecoveryView extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -80,7 +79,8 @@ class PasswordRecoveryView extends StatelessWidget {
     }
   }
 
-  Widget _buildContentForStatus(BuildContext context, PasswordRecoveryState state) {
+  Widget _buildContentForStatus(
+      BuildContext context, PasswordRecoveryState state) {
     switch (state.status) {
       case PasswordRecoveryStatus.initial:
         return _buildEmailForm(context, state);
@@ -103,12 +103,16 @@ class PasswordRecoveryView extends StatelessWidget {
           style: TextStyleTheme.bodyText1,
           decoration: InputDecoration(
             filled: true,
-            fillColor: inputBackgroundColor,
+            fillColor: Theme.of(context).colorScheme.surface,
             hintText: 'Correo electrónico',
-            hintStyle: hintTextStyle,
+            hintStyle: TextStyle(color: Theme.of(context).hintColor),
             errorText: state.emailError,
-            border: inputBorder,
-            focusedBorder: focusedBorder,
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+            ),
           ),
           onChanged: (value) => context
               .read<PasswordRecoveryBloc>()
@@ -119,7 +123,7 @@ class PasswordRecoveryView extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),
             onPressed: state.isLoading
@@ -158,7 +162,8 @@ class PasswordRecoveryView extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(
             'Volver al inicio de sesión',
-            style: TextStyleTheme.button.copyWith(color: secondaryColor),
+            style: TextStyleTheme.button
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
       ],
@@ -186,7 +191,8 @@ class PasswordRecoveryView extends StatelessWidget {
               .add(const PasswordRecoveryEvent.reset()),
           child: Text(
             'Intentar nuevamente',
-            style: TextStyleTheme.button.copyWith(color: secondaryColor),
+            style: TextStyleTheme.button
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
       ],
@@ -221,12 +227,18 @@ class PasswordRecoveryForm extends StatelessWidget {
               style: TextStyleTheme.bodyText1,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: inputBackgroundColor,
+                fillColor: Theme.of(context).colorScheme.surface,
                 hintText: 'Nueva contraseña',
-                hintStyle: hintTextStyle,
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
                 errorText: state.passwordError,
-                border: inputBorder,
-                focusedBorder: focusedBorder,
+                border: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.surface),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.surface),
+                ),
               ),
               onChanged: (value) => context
                   .read<PasswordRecoveryBloc>()
@@ -244,12 +256,18 @@ class PasswordRecoveryForm extends StatelessWidget {
               style: TextStyleTheme.bodyText1,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: inputBackgroundColor,
+                fillColor: Theme.of(context).colorScheme.surface,
                 hintText: 'Confirmar contraseña',
-                hintStyle: hintTextStyle,
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
                 errorText: state.confirmPasswordError,
-                border: inputBorder,
-                focusedBorder: focusedBorder,
+                border: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.surface),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.surface),
+                ),
               ),
               onChanged: (value) => context
                   .read<PasswordRecoveryBloc>()
@@ -266,7 +284,7 @@ class PasswordRecoveryForm extends StatelessWidget {
             builder: (context, state) {
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 onPressed: state.isLoading
@@ -293,7 +311,7 @@ class PasswordRecoveryForm extends StatelessWidget {
               .add(const PasswordRecoveryEvent.sendCode()),
           child: Text(
             'Reenviar código',
-            style: TextStyleTheme.button.copyWith(color: secondaryColor),
+            style: TextStyleTheme.button.copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
       ],

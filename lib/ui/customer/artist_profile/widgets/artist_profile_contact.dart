@@ -4,7 +4,6 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileContact extends StatelessWidget {
   final Artist artist;
@@ -19,7 +18,7 @@ class ArtistProfileContact extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.18).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.18).toColor(),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -50,7 +49,7 @@ class ArtistProfileContact extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.12).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.12).toColor(),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.grey.shade800),
         ),
@@ -80,6 +79,7 @@ class ArtistProfileContact extends StatelessWidget {
       children: [
         if (hasEmail)
           _buildContactItem(
+            context: context,
             icon: Icons.email,
             label: S.of(context).email,
             value: artist.contact!.email,
@@ -89,6 +89,7 @@ class ArtistProfileContact extends StatelessWidget {
           const SizedBox(height: 12),
         if (hasPhone)
           _buildContactItem(
+            context: context,
             icon: Icons.phone,
             label: S.of(context).phone,
             value: artist.contact!.phone,
@@ -99,6 +100,7 @@ class ArtistProfileContact extends StatelessWidget {
   }
   
   Widget _buildContactItem({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required String value,
@@ -110,7 +112,7 @@ class ArtistProfileContact extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.12).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.12).toColor(),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.grey.shade800),
         ),
@@ -119,10 +121,10 @@ class ArtistProfileContact extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.2),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: secondaryColor, size: 20),
+              child: Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -146,9 +148,9 @@ class ArtistProfileContact extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.content_copy,
-              color: secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               size: 18,
             ),
           ],
@@ -167,7 +169,7 @@ class ArtistProfileContact extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -190,7 +192,7 @@ class ArtistProfileContact extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(S.of(context).copiedToClipboard),
-        backgroundColor: secondaryColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         duration: const Duration(seconds: 2),
       ),
     );

@@ -31,7 +31,7 @@ class AccountReactivationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFF141D3C), // primaryColor
+      backgroundColor: const Color(0xFF141D3C), // Theme.of(context).colorScheme.primary
       body: Stack(
         children: [
           const LoginBackground(),
@@ -132,7 +132,7 @@ class AccountReactivationView extends StatelessWidget {
       case ReactivationStatus.verifyingCode:
         return const Center(
           child: CircularProgressIndicator(
-            color: Color(0xff7450FF), // secondaryColor
+            color: Color(0xff7450FF), // Theme.of(context).colorScheme.secondary
           ),
         );
       case ReactivationStatus.codeSent:

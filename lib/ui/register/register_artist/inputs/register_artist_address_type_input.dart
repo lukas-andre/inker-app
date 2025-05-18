@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class RegisterArtistAddressTypeInput extends StatelessWidget {
   const RegisterArtistAddressTypeInput({super.key});
@@ -61,7 +60,9 @@ class InkerChip extends StatelessWidget {
       child: Container(
         decoration: ShapeDecoration(
             shape: const StadiumBorder(),
-            color: active ? redColor : inputBackgroundColor),
+            color: active
+                ? Theme.of(context).colorScheme.error
+                : Theme.of(context).colorScheme.surface),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Center(

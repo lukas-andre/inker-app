@@ -9,7 +9,7 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
 import 'package:inker_studio/ui/shared/widgets/loading_indicator.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_immersive_viewer_page.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class TattooGeneratorPage extends StatefulWidget {
@@ -21,30 +21,33 @@ class TattooGeneratorPage extends StatefulWidget {
   State<TattooGeneratorPage> createState() => _TattooGeneratorPageState();
 }
 
-class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTickerProviderStateMixin {
+class _TattooGeneratorPageState extends State<TattooGeneratorPage>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _promptController = TextEditingController();
   late TattooStyle _selectedStyle = TattooStyle.blackwork;
-  
+
   // Tab controller
   late TabController _tabController;
-  
+
   // Current indices for UI state
   int _currentResultImageIndex = 0;
-  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabChange);
-    
-    context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.started());
+
+    context
+        .read<TattooGeneratorBloc>()
+        .add(const TattooGeneratorEvent.started());
   }
-  
+
   void _handleTabChange() {
     if (_tabController.indexIsChanging) {
       return;
     }
-    
+
     // Only load data if the tab is being viewed for the first time
     // The bloc will handle caching
     switch (_tabController.index) {
@@ -52,10 +55,14 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         // No specific data loading needed
         break;
       case 1: // History tab
-        context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadHistory());
+        context
+            .read<TattooGeneratorBloc>()
+            .add(const TattooGeneratorEvent.loadHistory());
         break;
       case 2: // Favorites tab
-        context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadFavorites());
+        context
+            .read<TattooGeneratorBloc>()
+            .add(const TattooGeneratorEvent.loadFavorites());
         break;
     }
   }
@@ -67,7 +74,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     _tabController.dispose();
     super.dispose();
   }
-  
+
   // Get appropriate emoji for each style
   String _getStyleEmoji(TattooStyle style) {
     switch (style) {
@@ -168,9 +175,9 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    
+
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
@@ -179,13 +186,12 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
             const SizedBox(width: 8),
             Text(s.tattooGenerator, style: TextStyleTheme.headline2),
           ],
-          
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: redColor,
+          indicatorColor: Theme.of(context).colorScheme.error,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white.withOpacity(0.7),
           tabs: [
@@ -208,9 +214,9 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
               // Optionally show a confirmation snackbar
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(isFavorite 
-                    ? s.designAddedToFavorites 
-                    : s.designRemovedFromFavorites),
+                  content: Text(isFavorite
+                      ? s.designAddedToFavorites
+                      : s.designRemovedFromFavorites),
                   duration: const Duration(seconds: 1),
                 ),
               );
@@ -224,10 +230,10 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
             children: [
               // Generate tab
               _buildGenerateTab(s, state),
-              
+
               // History tab
               _buildHistoryTab(s, state),
-              
+
               // Favorites tab
               _buildFavoritesTab(s, state),
             ],
@@ -236,7 +242,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       ),
     );
   }
-  
+
   Widget _buildGenerateTab(S s, TattooGeneratorState state) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -258,7 +264,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     height: 300, // Altura fija para evitar overflow
                     child: state.maybeWhen(
                       loading: () => const Center(child: LoadingIndicator()),
-                      loaded: (images, prompt, style, designId) => _buildResultsView(s, images, prompt, style, designId),
+                      loaded: (images, prompt, style, designId) =>
+                          _buildResultsView(s, images, prompt, style, designId),
                       orElse: () => _buildEmptyState(s),
                     ),
                   ),
@@ -270,7 +277,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       },
     );
   }
-  
+
   Widget _buildHistoryTab(S s, TattooGeneratorState state) {
     return state.maybeWhen(
       historyLoading: () => const Center(child: LoadingIndicator()),
@@ -279,20 +286,24 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         designs: designs,
         emptyMessage: s.noDesignsOnHistory,
         onRefresh: () {
-          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshHistory());
+          context
+              .read<TattooGeneratorBloc>()
+              .add(const TattooGeneratorEvent.refreshHistory());
           return Future.delayed(const Duration(milliseconds: 1500));
         },
       ),
       orElse: () {
         // Load history when first visiting this tab
         if (_tabController.index == 1) {
-          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadHistory());
+          context
+              .read<TattooGeneratorBloc>()
+              .add(const TattooGeneratorEvent.loadHistory());
         }
         return const Center(child: LoadingIndicator());
       },
     );
   }
-  
+
   Widget _buildFavoritesTab(S s, TattooGeneratorState state) {
     return state.maybeWhen(
       historyLoading: () => const Center(child: LoadingIndicator()),
@@ -301,16 +312,20 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           // If we're showing all designs but the favorites tab is selected,
           // trigger loading favorites
           if (_tabController.index == 2) {
-            context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadFavorites());
+            context
+                .read<TattooGeneratorBloc>()
+                .add(const TattooGeneratorEvent.loadFavorites());
             return const Center(child: LoadingIndicator());
           }
         }
-        
+
         return _buildDesignsGridView(
           designs: designs,
           emptyMessage: s.noDesignsOnFavorites,
           onRefresh: () {
-            context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshFavorites());
+            context
+                .read<TattooGeneratorBloc>()
+                .add(const TattooGeneratorEvent.refreshFavorites());
             return Future.delayed(const Duration(milliseconds: 1500));
           },
           s: s,
@@ -319,13 +334,15 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       orElse: () {
         // Load favorites when first visiting this tab
         if (_tabController.index == 2) {
-          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadFavorites());
+          context
+              .read<TattooGeneratorBloc>()
+              .add(const TattooGeneratorEvent.loadFavorites());
         }
         return const Center(child: LoadingIndicator());
       },
     );
   }
-  
+
   Widget _buildDesignsGridView({
     required List<UserTattooDesignDto> designs,
     required String emptyMessage,
@@ -335,8 +352,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     if (designs.isEmpty) {
       return RefreshIndicator(
         onRefresh: onRefresh,
-        color: redColor,
-        backgroundColor: explorerSecondaryColor,
+        color: Theme.of(context).colorScheme.error,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: ListView(
           children: [
             SizedBox(
@@ -345,11 +362,13 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.image_not_supported, size: 64, color: Colors.white.withOpacity(0.5)),
+                    Icon(Icons.image_not_supported,
+                        size: 64, color: Colors.white.withOpacity(0.5)),
                     const SizedBox(height: 16),
                     Text(
                       emptyMessage,
-                      style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 16),
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.7), fontSize: 16),
                     ),
                   ],
                 ),
@@ -359,17 +378,17 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
         ),
       );
     }
-    
+
     return RefreshIndicator(
       onRefresh: onRefresh,
-      color: redColor,
-      backgroundColor: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.error,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       child: ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
         itemCount: designs.length,
         itemBuilder: (context, index) {
           final design = designs[index];
-          
+
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: _buildDesignCard(design, s),
@@ -378,14 +397,14 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       ),
     );
   }
-  
+
   Widget _buildDesignCard(UserTattooDesignDto design, S s) {
     final pageController = PageController(viewportFraction: 1.0);
     final ValueNotifier<int> currentImageIndex = ValueNotifier<int>(0);
-    
+
     return Container(
       decoration: BoxDecoration(
-        color: explorerSecondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -419,19 +438,22 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         _openImmersiveViewer(design, imageIndex);
                       },
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12)),
                         child: Hero(
                           tag: 'design_${design.id}_$imageIndex',
                           child: CachedNetworkImage(
                             imageUrl: design.imageUrls[imageIndex],
                             fit: BoxFit.cover,
-                            placeholder: (context, url) => const Center(
+                            placeholder: (context, url) => Center(
                               child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(redColor),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).colorScheme.error),
                               ),
                             ),
-                            errorWidget: (context, url, error) => const Center(
-                              child: Icon(Icons.error, color: redColor),
+                            errorWidget: (context, url, error) => Center(
+                              child: Icon(Icons.error,
+                                  color: Theme.of(context).colorScheme.error),
                             ),
                           ),
                         ),
@@ -439,13 +461,14 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     );
                   },
                 ),
-                
+
                 // Style and date in a pill at the top
                 Positioned(
                   top: 8,
                   left: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(16),
@@ -459,7 +482,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          _localizedTattooStyle(design.getTattooStyle(), context),
+                          _localizedTattooStyle(
+                              design.getTattooStyle(), context),
                           style: TextStyleTheme.caption.copyWith(
                             color: Colors.white,
                             fontSize: 10,
@@ -469,7 +493,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     ),
                   ),
                 ),
-                
+
                 // Favorite button overlay
                 Positioned(
                   top: 8,
@@ -478,11 +502,11 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     onTap: () {
                       // Toggle favorite
                       context.read<TattooGeneratorBloc>().add(
-                        TattooGeneratorEvent.toggleFavorite(
-                          designId: design.id,
-                          isFavorite: !(design.isFavorite ?? false),
-                        ),
-                      );
+                            TattooGeneratorEvent.toggleFavorite(
+                              designId: design.id,
+                              isFavorite: !(design.isFavorite ?? false),
+                            ),
+                          );
                     },
                     child: Container(
                       padding: const EdgeInsets.all(6),
@@ -494,20 +518,23 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         design.isFavorite ?? false
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: design.isFavorite ?? false ? redColor : Colors.white,
+                        color: design.isFavorite ?? false
+                            ? Theme.of(context).colorScheme.secondary
+                            : Colors.white,
                         size: 20,
                       ),
                     ),
                   ),
                 ),
-                
+
                 // Prompt at the bottom with gradient overlay
                 Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
@@ -529,7 +556,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     ),
                   ),
                 ),
-                
+
                 // Dots indicator
                 if (design.imageUrls.length > 1)
                   Positioned(
@@ -537,26 +564,27 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     left: 0,
                     right: 0,
                     child: ValueListenableBuilder<int>(
-                      valueListenable: currentImageIndex,
-                      builder: (context, index, _) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(design.imageUrls.length, (dotIndex) {
-                            return Container(
-                              width: 6,
-                              height: 6,
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: dotIndex == index
-                                    ? Colors.white
-                                    : Colors.white.withOpacity(0.4),
-                              ),
-                            );
-                          }),
-                        );
-                      }
-                    ),
+                        valueListenable: currentImageIndex,
+                        builder: (context, index, _) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(design.imageUrls.length,
+                                (dotIndex) {
+                              return Container(
+                                width: 6,
+                                height: 6,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: dotIndex == index
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0.4),
+                                ),
+                              );
+                            }),
+                          );
+                        }),
                   ),
               ],
             ),
@@ -565,7 +593,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       ),
     );
   }
-  
+
   // Helper method to open the immersive viewer
   void _openImmersiveViewer(UserTattooDesignDto design, int initialImageIndex) {
     // Get the current list of designs based on the active tab
@@ -602,7 +630,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       ),
     );
   }
-  
+
   Widget _buildImageCarousel(UserTattooDesignDto design) {
     return PageView.builder(
       itemCount: design.imageUrls.length,
@@ -620,16 +648,18 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
               CachedNetworkImage(
                 imageUrl: design.imageUrls[imageIndex],
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
+                placeholder: (context, url) => Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(redColor),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).colorScheme.error),
                   ),
                 ),
-                errorWidget: (context, url, error) => const Center(
-                  child: Icon(Icons.error, color: redColor),
+                errorWidget: (context, url, error) => Center(
+                  child: Icon(Icons.error,
+                      color: Theme.of(context).colorScheme.error),
                 ),
               ),
-              
+
               // Dots indicator
               if (design.imageUrls.length > 1)
                 Positioned(
@@ -638,7 +668,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                   right: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(design.imageUrls.length, (dotIndex) {
+                    children:
+                        List.generate(design.imageUrls.length, (dotIndex) {
                       return Container(
                         width: 8,
                         height: 8,
@@ -653,7 +684,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     }),
                   ),
                 ),
-                
+
               // Swipe indicator for first image
               if (design.imageUrls.length > 1 && imageIndex == 0)
                 Positioned(
@@ -668,7 +699,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Icon(
-                        Icons.swipe, 
+                        Icons.swipe,
                         color: Colors.white,
                         size: 20,
                       ),
@@ -688,7 +719,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       children: [
         Row(
           children: [
-            const Icon(Icons.description, color: secondaryColor, size: 20),
+            Icon(Icons.description,
+                color: Theme.of(context).colorScheme.secondary, size: 20),
             const SizedBox(width: 8),
             Text(
               s.describeYourTattoo,
@@ -710,10 +742,12 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
             hintStyle: hintTextStyle,
             border: inputBorder,
             focusedBorder: focusedBorder,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            prefixIcon: const Padding(
-              padding: EdgeInsets.only(left: 12, right: 4),
-              child: Icon(Icons.edit, color: secondaryColor),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(left: 12, right: 4),
+              child: Icon(Icons.edit,
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           onChanged: (value) {
@@ -732,7 +766,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       children: [
         Row(
           children: [
-            const Icon(Icons.style, color: secondaryColor, size: 20),
+            Icon(Icons.style,
+                color: Theme.of(context).colorScheme.secondary, size: 20),
             const SizedBox(width: 8),
             Text(
               s.chooseStyle,
@@ -761,15 +796,22 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                   padding: const EdgeInsets.all(8), // Reduced padding
                   width: 90, // Reduced width
                   decoration: BoxDecoration(
-                    color: isSelected ? secondaryColor : explorerSecondaryColor,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.secondary
+                        : explorerSecondaryColor,
                     borderRadius: BorderRadius.circular(8),
-                    boxShadow: isSelected ? [
-                      BoxShadow(
-                        color: secondaryColor.withOpacity(0.5),
-                        blurRadius: 8,
-                        spreadRadius: 1,
-                      )
-                    ] : null,
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondary
+                                  .withOpacity(0.5),
+                              blurRadius: 8,
+                              spreadRadius: 1,
+                            )
+                          ]
+                        : null,
                     border: isSelected
                         ? Border.all(color: Colors.white, width: 2)
                         : null,
@@ -786,7 +828,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                       Text(
                         _localizedTattooStyle(style, context),
                         textAlign: TextAlign.center,
-                        style: TextStyleTheme.subtitle1.copyWith(fontSize: 11), // Smaller font
+                        style: TextStyleTheme.subtitle1
+                            .copyWith(fontSize: 11), // Smaller font
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -813,7 +856,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
             );
             return;
           }
-          
+
           context.read<TattooGeneratorBloc>().add(
                 TattooGeneratorEvent.generateTattoo(
                   prompt: _promptController.text,
@@ -825,13 +868,15 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
     );
   }
 
-  Widget _buildResultsView(S s, List<GeneratedTattooImage> images, String prompt, TattooStyle style, String? designId) {
+  Widget _buildResultsView(S s, List<GeneratedTattooImage> images,
+      String prompt, TattooStyle style, String? designId) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            const Icon(Icons.photo_library, color: secondaryColor, size: 20),
+            Icon(Icons.photo_library,
+                color: Theme.of(context).colorScheme.secondary, size: 20),
             const SizedBox(width: 8),
             Text(
               s.results,
@@ -872,7 +917,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => TattooImmersiveViewerPage(
-                              images: images.map((img) => img.imageUrl).toList(),
+                              images:
+                                  images.map((img) => img.imageUrl).toList(),
                               prompt: prompt,
                               style: style,
                               initialIndex: imageIndex,
@@ -896,7 +942,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Hero(
-                                tag: 'generated_tattoo_${designId ?? ""}_$imageIndex',
+                                tag:
+                                    'generated_tattoo_${designId ?? ""}_$imageIndex',
                                 child: CachedNetworkImage(
                                   imageUrl: images[imageIndex].imageUrl,
                                   fit: BoxFit.contain,
@@ -906,7 +953,8 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                                       child: LoadingIndicator(),
                                     ),
                                   ),
-                                  errorWidget: (context, url, error) => Container(
+                                  errorWidget: (context, url, error) =>
+                                      Container(
                                     color: explorerSecondaryColor,
                                     child: const Center(
                                       child: Icon(Icons.error, color: redColor),
@@ -921,7 +969,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     );
                   },
                 ),
-                
+
                 // Tap to view overlay
                 Positioned(
                   bottom: 0,
@@ -965,7 +1013,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                     ),
                   ),
                 ),
-                
+
                 // Dots indicator - centered at bottom
                 if (images.length > 1)
                   Positioned(
@@ -989,7 +1037,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                       }),
                     ),
                   ),
-                  
+
                 // Swipe indicator - right center
                 if (images.length > 1)
                   Positioned(
@@ -1004,7 +1052,7 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Icon(
-                          Icons.swipe, 
+                          Icons.swipe,
                           color: Colors.white,
                           size: 20,
                         ),
@@ -1027,10 +1075,11 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.brush, size: 64, color: secondaryColor),
+            child: Icon(Icons.brush,
+                size: 64, color: Theme.of(context).colorScheme.secondary),
           ),
           const SizedBox(height: 24),
           Text(
@@ -1054,14 +1103,14 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       RegExp(r'([a-z])([A-Z])'),
       (match) => '${match.group(1)} ${match.group(2)}',
     );
-    
+
     return result.substring(0, 1).toUpperCase() + result.substring(1);
   }
-  
+
   String _formatDate(DateTime date, S s) {
     final now = DateTime.now();
     final difference = now.difference(date);
-    
+
     if (difference.inDays < 1) {
       if (difference.inHours < 1) {
         return s.minutesAgo(difference.inMinutes);
@@ -1076,4 +1125,4 @@ class _TattooGeneratorPageState extends State<TattooGeneratorPage> with SingleTi
       return '$day/$month/${date.year}';
     }
   }
-} 
+}

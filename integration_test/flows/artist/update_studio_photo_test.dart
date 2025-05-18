@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
 import 'package:inker_studio/test_utils/test_mode.dart';

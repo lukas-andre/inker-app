@@ -13,7 +13,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 
 /// Vertical immersive viewer for tattoos (works) and stencils that allows
@@ -22,12 +21,12 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
   // Lists of works and stencils to navigate through
   final List<Work> works;
   final List<Stencil> stencils;
-  
+
   // Starting position
   final int initialWorkIndex;
   final int initialStencilIndex;
   final bool startWithStencils;
-  
+
   // View source tracking for analytics
   final ViewSource viewSource;
 
@@ -42,8 +41,9 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
   });
 
   @override
-  State<VerticalImmersiveViewerPage> createState() => _VerticalImmersiveViewerPageState();
-  
+  State<VerticalImmersiveViewerPage> createState() =>
+      _VerticalImmersiveViewerPageState();
+
   // Factory method to create from inspiration search state
   static Widget fromInspirationSearchState({
     required List<Work> works,
@@ -63,62 +63,65 @@ class VerticalImmersiveViewerPage extends StatefulWidget {
   }
 }
 
-class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPage> {
+class _VerticalImmersiveViewerPageState
+    extends State<VerticalImmersiveViewerPage> {
   // Current viewing state
   late bool _viewingStencils;
   late int _currentWorkIndex;
   late int _currentStencilIndex;
-  
+
   // Mutable copies of works and stencils
   late List<Work> _works;
   late List<Stencil> _stencils;
-  
+
   // Controller for the page view
   late PageController _pageController;
-  
+
   // For preloading images
   final _imageCache = CachedImageManager();
-  
+
   // Flag to show end of category message
   bool _showEndOfCategory = false;
   String _endOfCategoryMessage = '';
-  
+
   // Flag to track double tap for like
   DateTime? _lastTapTime;
-  
+
   // For tracking view duration
   DateTime? _contentViewStartTime;
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Create mutable copies of the lists
     _works = List.from(widget.works);
     _stencils = List.from(widget.stencils);
-    
+
     // Initialize state
     _viewingStencils = widget.startWithStencils && _stencils.isNotEmpty;
-    _currentWorkIndex = widget.initialWorkIndex.clamp(0, _works.isNotEmpty ? _works.length - 1 : 0);
-    _currentStencilIndex = widget.initialStencilIndex.clamp(0, _stencils.isNotEmpty ? _stencils.length - 1 : 0);
-    
+    _currentWorkIndex = widget.initialWorkIndex
+        .clamp(0, _works.isNotEmpty ? _works.length - 1 : 0);
+    _currentStencilIndex = widget.initialStencilIndex
+        .clamp(0, _stencils.isNotEmpty ? _stencils.length - 1 : 0);
+
     // Initialize page controller with the appropriate initial page
     _pageController = PageController(
       initialPage: _viewingStencils ? _currentStencilIndex : _currentWorkIndex,
     );
-    
+
     // Preload nearby images
     _preloadImages();
-    
+
     // Record initial view
     _recordInitialView();
   }
-  
+
   void _recordInitialView() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Start tracking the view time
       _contentViewStartTime = DateTime.now();
-      
+
       // Record the initial view
       if (_viewingStencils && _stencils.isNotEmpty) {
         _recordView(
@@ -135,82 +138,84 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       }
     });
   }
-  
+
   void _recordView({
     required String contentId,
     required ContentType contentType,
     ViewSource? viewSource,
   }) {
     context.read<AnalyticsBloc>().add(
-      AnalyticsEvent.recordContentView(
-        contentId: contentId,
-        contentType: contentType,
-        viewSource: viewSource ?? widget.viewSource,
-      ),
-    );
+          AnalyticsEvent.recordContentView(
+            contentId: contentId,
+            contentType: contentType,
+            viewSource: viewSource ?? widget.viewSource,
+          ),
+        );
   }
-  
+
   void _recordViewDuration() {
     if (_contentViewStartTime == null) return;
-    
-    final viewDuration = DateTime.now().difference(_contentViewStartTime!).inSeconds;
+
+    final viewDuration =
+        DateTime.now().difference(_contentViewStartTime!).inSeconds;
     _contentViewStartTime = DateTime.now(); // Reset for next view
-    
+
     // Only track if meaningful duration (more than 1 second)
     if (viewDuration > 1) {
       if (_viewingStencils && _currentStencilIndex < _stencils.length) {
         context.read<AnalyticsBloc>().add(
-          AnalyticsEvent.recordContentView(
-            contentId: _stencils[_currentStencilIndex].id,
-            contentType: ContentType.stencil,
-            viewDurationSeconds: viewDuration,
-          ),
-        );
+              AnalyticsEvent.recordContentView(
+                contentId: _stencils[_currentStencilIndex].id,
+                contentType: ContentType.stencil,
+                viewDurationSeconds: viewDuration,
+              ),
+            );
       } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
         context.read<AnalyticsBloc>().add(
-          AnalyticsEvent.recordContentView(
-            contentId: _works[_currentWorkIndex].id,
-            contentType: ContentType.work,
-            viewDurationSeconds: viewDuration,
-          ),
-        );
+              AnalyticsEvent.recordContentView(
+                contentId: _works[_currentWorkIndex].id,
+                contentType: ContentType.work,
+                viewDurationSeconds: viewDuration,
+              ),
+            );
       }
     }
   }
-  
+
   void _recordLike() {
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       context.read<AnalyticsBloc>().add(
-        AnalyticsEvent.recordContentLike(
-          contentId: _stencils[_currentStencilIndex].id,
-          contentType: ContentType.stencil,
-        ),
-      );
+            AnalyticsEvent.recordContentLike(
+              contentId: _stencils[_currentStencilIndex].id,
+              contentType: ContentType.stencil,
+            ),
+          );
     } else if (!_viewingStencils && _currentWorkIndex < _works.length) {
       context.read<AnalyticsBloc>().add(
-        AnalyticsEvent.recordContentLike(
-          contentId: _works[_currentWorkIndex].id,
-          contentType: ContentType.work,
-        ),
-      );
+            AnalyticsEvent.recordContentLike(
+              contentId: _works[_currentWorkIndex].id,
+              contentType: ContentType.work,
+            ),
+          );
     }
   }
-  
+
   // Update the local state when a like is recorded
-  void _updateLikeState(String contentId, ContentType contentType, bool isLiked, int likeCount) {
+  void _updateLikeState(
+      String contentId, ContentType contentType, bool isLiked, int likeCount) {
     setState(() {
       if (contentType == ContentType.work) {
         final index = _works.indexWhere((work) => work.id == contentId);
         if (index != -1) {
           final work = _works[index];
-          
+
           // Crear métricas actualizadas con contador exacto proporcionado por el bloc
           final updatedMetrics = Metrics(
             viewCount: work.metrics?.viewCount ?? work.viewCount,
             likeCount: likeCount, // Usar exactamente el valor proporcionado
             userHasLiked: isLiked,
           );
-                  
+
           _works[index] = Work(
             id: work.id,
             artistId: work.artistId,
@@ -236,17 +241,18 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           );
         }
       } else if (contentType == ContentType.stencil) {
-        final index = _stencils.indexWhere((stencil) => stencil.id == contentId);
+        final index =
+            _stencils.indexWhere((stencil) => stencil.id == contentId);
         if (index != -1) {
           final stencil = _stencils[index];
-          
+
           // Crear métricas actualizadas con contador exacto proporcionado por el bloc
           final updatedMetrics = Metrics(
             viewCount: stencil.metrics?.viewCount ?? stencil.viewCount,
             likeCount: likeCount, // Usar exactamente el valor proporcionado
             userHasLiked: isLiked,
           );
-                  
+
           _stencils[index] = Stencil(
             id: stencil.id,
             artistId: stencil.artistId,
@@ -273,7 +279,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       }
     });
   }
-  
+
   @override
   void dispose() {
     // Record final view duration before closing
@@ -281,22 +287,24 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     _pageController.dispose();
     super.dispose();
   }
-  
+
   // Preload images for smoother navigation
   void _preloadImages() {
     final List<String> imagesToPreload = [];
-    
+
     if (_viewingStencils) {
       // Preload current stencil and a few next/previous ones
-      final int startIdx = (_currentStencilIndex - 2).clamp(0, _stencils.length - 1);
-      final int endIdx = (_currentStencilIndex + 2).clamp(0, _stencils.length - 1);
-      
+      final int startIdx =
+          (_currentStencilIndex - 2).clamp(0, _stencils.length - 1);
+      final int endIdx =
+          (_currentStencilIndex + 2).clamp(0, _stencils.length - 1);
+
       for (int i = startIdx; i <= endIdx; i++) {
         if (i >= 0 && i < _stencils.length) {
           imagesToPreload.add(_stencils[i].imageUrl);
         }
       }
-      
+
       // If near the end of stencils, prepare to show first work
       if (_currentStencilIndex >= _stencils.length - 3 && _works.isNotEmpty) {
         imagesToPreload.add(_works[0].imageUrl);
@@ -305,30 +313,30 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       // Preload current work and a few next/previous ones
       final int startIdx = (_currentWorkIndex - 2).clamp(0, _works.length - 1);
       final int endIdx = (_currentWorkIndex + 2).clamp(0, _works.length - 1);
-      
+
       for (int i = startIdx; i <= endIdx; i++) {
         if (i >= 0 && i < _works.length) {
           imagesToPreload.add(_works[i].imageUrl);
         }
       }
-      
+
       // If near the end of works, prepare to show first stencil
       if (_currentWorkIndex >= _works.length - 3 && _stencils.isNotEmpty) {
         imagesToPreload.add(_stencils[0].imageUrl);
       }
     }
-    
+
     // Preload the images
     if (imagesToPreload.isNotEmpty) {
       _imageCache.preloadImages(imagesToPreload, context);
     }
   }
-  
+
   // Handle page changes
   void _onPageChanged(int index) {
     // Record view duration for the previous content
     _recordViewDuration();
-    
+
     if (_viewingStencils) {
       if (index >= 0 && index < _stencils.length) {
         setState(() {
@@ -336,7 +344,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           _showEndOfCategory = false;
           _endOfCategoryMessage = '';
         });
-        
+
         // Record view for new stencil
         _recordView(
           contentId: _stencils[index].id,
@@ -356,7 +364,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           _showEndOfCategory = false;
           _endOfCategoryMessage = '';
         });
-        
+
         // Record view for new work
         _recordView(
           contentId: _works[index].id,
@@ -370,28 +378,28 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
         });
       }
     }
-    
+
     // Preload images for the new position
     _preloadImages();
   }
-  
+
   // Switch to viewing works
   void _switchToWorks() {
     if (_works.isEmpty) return;
-    
+
     // Record view duration for the previous content
     _recordViewDuration();
-    
+
     setState(() {
       _viewingStencils = false;
       _currentWorkIndex = 0;
       _showEndOfCategory = false;
       _endOfCategoryMessage = '';
     });
-    
+
     _pageController = PageController(initialPage: 0);
     _preloadImages();
-    
+
     // Record new view
     if (_works.isNotEmpty) {
       _recordView(
@@ -400,24 +408,24 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       );
     }
   }
-  
+
   // Switch to viewing stencils
   void _switchToStencils() {
     if (_stencils.isEmpty) return;
-    
+
     // Record view duration for the previous content
     _recordViewDuration();
-    
+
     setState(() {
       _viewingStencils = true;
       _currentStencilIndex = 0;
       _showEndOfCategory = false;
       _endOfCategoryMessage = '';
     });
-    
+
     _pageController = PageController(initialPage: 0);
     _preloadImages();
-    
+
     // Record new view
     if (_stencils.isNotEmpty) {
       _recordView(
@@ -426,26 +434,26 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       );
     }
   }
-  
+
   // Return to the beginning of the current category
   void _returnToStart() {
     // Record view duration for the previous content
     _recordViewDuration();
-    
+
     setState(() {
       _showEndOfCategory = false;
       _endOfCategoryMessage = '';
-      
+
       if (_viewingStencils) {
         _currentStencilIndex = 0;
       } else {
         _currentWorkIndex = 0;
       }
     });
-    
+
     _pageController.jumpToPage(0);
     _preloadImages();
-    
+
     // Record new view
     if (_viewingStencils && _stencils.isNotEmpty) {
       _recordView(
@@ -459,7 +467,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       );
     }
   }
-  
+
   // Handle taps on the content - double tap to like
   void _handleTap() {
     final now = DateTime.now();
@@ -468,17 +476,17 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       // Double tap detected - like the content
       _handleDoubleTap();
     }
-    
+
     _lastTapTime = now;
   }
-  
+
   // Handle double tap - like the current item
   void _handleDoubleTap() {
     // Toggle like
     bool isCurrentlyLiked = false;
     String contentId = '';
     ContentType contentType = ContentType.work;
-    
+
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       final stencil = _stencils[_currentStencilIndex];
       isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
@@ -492,15 +500,15 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     } else {
       return; // No hay elemento seleccionado
     }
-    
+
     // Record the like/unlike action - esto actualizará la UI mediante el bloc listener
     context.read<AnalyticsBloc>().add(
-      AnalyticsEvent.recordContentLike(
-        contentId: contentId,
-        contentType: contentType,
-      ),
-    );
-    
+          AnalyticsEvent.recordContentLike(
+            contentId: contentId,
+            contentType: contentType,
+          ),
+        );
+
     // Show like animation
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -508,30 +516,28 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           children: [
             const Icon(Icons.favorite, color: Colors.white),
             const SizedBox(width: 8),
-            Text(
-              isCurrentlyLiked
-                ? (_viewingStencils 
-                  ? 'Ya no te gusta este stencil' 
-                  : 'Ya no te gusta este tatuaje')
-                : (_viewingStencils 
-                  ? 'Te gusta este stencil' 
-                  : 'Te gusta este tatuaje')
-            ),
+            Text(isCurrentlyLiked
+                ? (_viewingStencils
+                    ? 'Ya no te gusta este stencil'
+                    : 'Ya no te gusta este tatuaje')
+                : (_viewingStencils
+                    ? 'Te gusta este stencil'
+                    : 'Te gusta este tatuaje')),
           ],
         ),
-        backgroundColor: redColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
-  
+
   // Handle like button tap
   void _handleLikeButtonTap() {
     String contentId = '';
     ContentType contentType = ContentType.work;
     bool isCurrentlyLiked = false;
-    
+
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       final stencil = _stencils[_currentStencilIndex];
       isCurrentlyLiked = stencil.metrics?.userHasLiked ?? stencil.isLikedByUser;
@@ -545,15 +551,15 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
     } else {
       return; // No hay elemento seleccionado
     }
-    
+
     // Record the like/unlike action - esto actualizará la UI mediante el bloc listener
     context.read<AnalyticsBloc>().add(
-      AnalyticsEvent.recordContentLike(
-        contentId: contentId,
-        contentType: contentType,
-      ),
-    );
-    
+          AnalyticsEvent.recordContentLike(
+            contentId: contentId,
+            contentType: contentType,
+          ),
+        );
+
     // Show like animation
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -561,44 +567,42 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           children: [
             const Icon(Icons.favorite, color: Colors.white),
             const SizedBox(width: 8),
-            Text(
-              !isCurrentlyLiked
-                ? (_viewingStencils 
-                  ? 'Te gusta este stencil' 
-                  : 'Te gusta este tatuaje')
-                : (_viewingStencils 
-                  ? 'Ya no te gusta este stencil' 
-                  : 'Ya no te gusta este tatuaje')
-            ),
+            Text(!isCurrentlyLiked
+                ? (_viewingStencils
+                    ? 'Te gusta este stencil'
+                    : 'Te gusta este tatuaje')
+                : (_viewingStencils
+                    ? 'Ya no te gusta este stencil'
+                    : 'Ya no te gusta este tatuaje')),
           ],
         ),
-        backgroundColor: redColor,
+        backgroundColor: Theme.of(context).colorScheme.error,
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
-  
+
   // Método para navegar al perfil del artista desde el visor
   void _navigateToArtistProfile(Artist artist) {
     // Grabar evento de vista del artista
     context.read<AnalyticsBloc>().add(
-      AnalyticsEvent.recordArtistView(
-        artistId: artist.id,
-      ),
-    );
-    
+          AnalyticsEvent.recordArtistView(
+            artistId: artist.id,
+          ),
+        );
+
     // Navegar al perfil
     Navigator.of(context).push(
       ArtistProfilePage.route(artist),
     );
   }
-  
+
   // Método para navegar a la pantalla de cotización con el stencil seleccionado
   void _navigateToQuotation(String artistId) {
     if (_viewingStencils && _currentStencilIndex < _stencils.length) {
       final stencil = _stencils[_currentStencilIndex];
-      
+
       Navigator.of(context).pushNamed(
         CreateQuotationPage.routeName,
         arguments: {
@@ -616,7 +620,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       });
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AnalyticsBloc, AnalyticsState>(
@@ -644,7 +648,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
             children: [
               // Main content
               _buildMainContent(),
-              
+
               // Top back button
               Positioned(
                 top: MediaQuery.of(context).padding.top + 10,
@@ -671,31 +675,31 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   ),
                 ),
               ),
-              
+
               // End of category overlay if needed
-              if (_showEndOfCategory)
-                _buildEndOfCategoryOverlay(),
+              if (_showEndOfCategory) _buildEndOfCategoryOverlay(),
             ],
           ),
         ),
       ),
     );
   }
-  
+
   Widget _buildMainContent() {
     final List<dynamic> items = _viewingStencils ? _stencils : _works;
-    
+
     if (items.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.image_not_supported, size: 48, color: Colors.white),
+            const Icon(Icons.image_not_supported,
+                size: 48, color: Colors.white),
             const SizedBox(height: 16),
             Text(
-              _viewingStencils 
-                ? 'No hay stencils disponibles' 
-                : 'No hay tatuajes disponibles',
+              _viewingStencils
+                  ? 'No hay stencils disponibles'
+                  : 'No hay tatuajes disponibles',
               style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(height: 24),
@@ -710,22 +714,20 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: redColor,
+                backgroundColor: Theme.of(context).colorScheme.error,
                 foregroundColor: Colors.white,
               ),
-              child: Text(
-                _viewingStencils && _works.isNotEmpty
+              child: Text(_viewingStencils && _works.isNotEmpty
                   ? 'Ver tatuajes'
                   : (!_viewingStencils && _stencils.isNotEmpty
-                     ? 'Ver stencils'
-                     : 'Volver')
-              ),
+                      ? 'Ver stencils'
+                      : 'Volver')),
             ),
           ],
         ),
       );
     }
-    
+
     return PageView.builder(
       controller: _pageController,
       scrollDirection: Axis.vertical,
@@ -736,7 +738,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           // End of list placeholder - will be replaced with the overlay
           return Container(color: Colors.black);
         }
-        
+
         final item = items[index];
         return _viewingStencils
             ? _buildStencilView(item as Stencil)
@@ -744,7 +746,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       },
     );
   }
-  
+
   Widget _buildWorkView(Work work) {
     return GestureDetector(
       onTap: _handleTap,
@@ -758,17 +760,20 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               imageUrl: work.imageUrl,
               fit: BoxFit.contain,
               placeholder: (context, url) => Container(
-                color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
+                color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                    .withLightness(0.1)
+                    .toColor(),
                 child: const Center(
                   child: InkerProgressIndicator(color: Colors.white),
                 ),
               ),
               errorWidget: (context, url, error) => Container(
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.surface,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
+                    Icon(Icons.error_outline,
+                        size: 60, color: Colors.white.withOpacity(0.7)),
                     const SizedBox(height: 16),
                     Text(
                       'No se pudo cargar la imagen',
@@ -783,7 +788,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
             ),
           ),
-          
+
           // Stats overlay on right side
           Positioned(
             bottom: 120,
@@ -798,7 +803,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   S.of(context).views,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Likes stat
                 _buildStatItem(
                   Icons.favorite,
@@ -807,7 +812,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   isLiked: work.metrics?.userHasLiked ?? work.userHasLiked,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Date stat
                 _buildStatItem(
                   Icons.calendar_today_rounded,
@@ -818,7 +823,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ],
             ),
           ),
-          
+
           // Bottom info panel
           Positioned(
             left: 0,
@@ -831,7 +836,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               artist: work.artist,
             ),
           ),
-          
+
           // Swipe guide arrows at first view
           if (_currentWorkIndex == 0 && !_viewingStencils)
             Positioned(
@@ -866,7 +871,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ),
     );
   }
-  
+
   Widget _buildStencilView(Stencil stencil) {
     return GestureDetector(
       onTap: _handleTap,
@@ -880,17 +885,20 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               imageUrl: stencil.imageUrl,
               fit: BoxFit.contain,
               placeholder: (context, url) => Container(
-                color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
+                color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                    .withLightness(0.1)
+                    .toColor(),
                 child: const Center(
                   child: InkerProgressIndicator(color: Colors.white),
                 ),
               ),
               errorWidget: (context, url, error) => Container(
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.surface,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline, size: 60, color: Colors.white.withOpacity(0.7)),
+                    Icon(Icons.error_outline,
+                        size: 60, color: Colors.white.withOpacity(0.7)),
                     const SizedBox(height: 16),
                     Text(
                       S.of(context).couldNotLoadImage,
@@ -905,7 +913,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
             ),
           ),
-          
+
           // Stats overlay on right side
           Positioned(
             bottom: 120,
@@ -920,16 +928,17 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                   S.of(context).views,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Likes stat
                 _buildStatItem(
                   Icons.favorite,
                   '${stencil.metrics?.likeCount ?? stencil.likeCount}',
                   S.of(context).likes,
-                  isLiked: stencil.metrics?.userHasLiked ?? stencil.isLikedByUser,
+                  isLiked:
+                      stencil.metrics?.userHasLiked ?? stencil.isLikedByUser,
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Date stat
                 _buildStatItem(
                   Icons.calendar_today_rounded,
@@ -940,7 +949,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ],
             ),
           ),
-          
+
           // Bottom info panel
           Positioned(
             left: 0,
@@ -953,7 +962,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               artist: stencil.artist,
             ),
           ),
-          
+
           // Swipe guide arrows at first view
           if (_currentStencilIndex == 0 && _viewingStencils)
             Positioned(
@@ -988,9 +997,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ),
     );
   }
-  
+
   // Build a stat item with icon and text in TikTok style
-  Widget _buildStatItem(IconData icon, String count, String label, {double iconSize = 24, bool isLiked = false}) {
+  Widget _buildStatItem(IconData icon, String count, String label,
+      {double iconSize = 24, bool isLiked = false}) {
     return Column(
       children: [
         GestureDetector(
@@ -1002,11 +1012,11 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               color: Colors.black.withOpacity(0.5),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon, 
-              color: icon == Icons.favorite && isLiked ? redColor : Colors.white, 
-              size: iconSize
-            ),
+            child: Icon(icon,
+                color: icon == Icons.favorite && isLiked
+                    ? Theme.of(context).colorScheme.error
+                    : Colors.white,
+                size: iconSize),
           ),
         ),
         if (count.isNotEmpty) ...[
@@ -1018,7 +1028,8 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               fontSize: 14,
               fontWeight: FontWeight.bold,
               shadows: [
-                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                Shadow(
+                    offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
               ],
             ),
           ),
@@ -1037,7 +1048,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ],
     );
   }
-  
+
   // Build bottom info panel with title, description and tags
   Widget _buildInfoPanel({
     required String title,
@@ -1077,10 +1088,12 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: CachedNetworkImageProvider(artist.profileThumbnail!),
+                            image: CachedNetworkImageProvider(
+                                artist.profileThumbnail!),
                             fit: BoxFit.cover,
                           ),
-                          border: Border.all(color: Colors.white.withOpacity(0.5), width: 1),
+                          border: Border.all(
+                              color: Colors.white.withOpacity(0.5), width: 1),
                         ),
                       )
                     else
@@ -1088,11 +1101,16 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                          color: redColor.withOpacity(0.3),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .error
+                              .withOpacity(0.3),
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white.withOpacity(0.5), width: 1),
+                          border: Border.all(
+                              color: Colors.white.withOpacity(0.5), width: 1),
                         ),
-                        child: const Icon(Icons.person, size: 24, color: Colors.white),
+                        child: const Icon(Icons.person,
+                            size: 24, color: Colors.white),
                       ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -1108,7 +1126,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               shadows: [
-                                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                                Shadow(
+                                    offset: Offset(1, 1),
+                                    blurRadius: 3,
+                                    color: Colors.black),
                               ],
                             ),
                           ),
@@ -1119,7 +1140,10 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                                 color: Colors.white.withOpacity(0.7),
                                 fontSize: 12,
                                 shadows: const [
-                                  Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                                  Shadow(
+                                      offset: Offset(1, 1),
+                                      blurRadius: 3,
+                                      color: Colors.black),
                                 ],
                               ),
                             ),
@@ -1131,7 +1155,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
             ),
           ],
-          
+
           // Tags first
           if (tags != null && tags.isNotEmpty)
             SizedBox(
@@ -1142,7 +1166,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               ),
             ),
           const SizedBox(height: 8),
-          
+
           // Title
           Text(
             title,
@@ -1151,30 +1175,32 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
               fontSize: 18,
               fontWeight: FontWeight.bold,
               shadows: [
-                Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                Shadow(
+                    offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
               ],
             ),
           ),
-          
+
           // Description if available
           if (description != null && description.isNotEmpty) ...[
             const SizedBox(height: 4),
             Text(
-              description.length > 120 
-                ? '${description.substring(0, 120)}...' 
-                : description,
+              description.length > 120
+                  ? '${description.substring(0, 120)}...'
+                  : description,
               style: TextStyle(
                 color: Colors.white.withOpacity(0.9),
                 fontSize: 14,
                 shadows: const [
-                  Shadow(offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
+                  Shadow(
+                      offset: Offset(1, 1), blurRadius: 3, color: Colors.black),
                 ],
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ],
-          
+
           // Agregar botón de cotización si es un stencil y tiene artista asociado
           if (_viewingStencils && artist != null) ...[
             const SizedBox(height: 16),
@@ -1184,11 +1210,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                 ElevatedButton.icon(
                   onPressed: () => _navigateToQuotation(artist.id),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor,
+                    backgroundColor: Theme.of(context).colorScheme.error,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20, 
-                      vertical: 10
-                    ),
+                        horizontal: 20, vertical: 10),
                     elevation: 5,
                     shadowColor: Colors.black54,
                     shape: RoundedRectangleBorder(
@@ -1213,7 +1237,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ),
     );
   }
-  
+
   // Build tag pill for horizontal list
   Widget _buildTagPill(String text) {
     return Container(
@@ -1237,7 +1261,7 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ),
     );
   }
-  
+
   // Build overlay for end of category
   Widget _buildEndOfCategoryOverlay() {
     return Container(
@@ -1247,11 +1271,9 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              _viewingStencils 
-                ? Icons.auto_awesome_mosaic
-                : Icons.brush,
+              _viewingStencils ? Icons.auto_awesome_mosaic : Icons.brush,
               size: 64,
-              color: redColor,
+              color: Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 24),
             Text(
@@ -1275,39 +1297,35 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
                       vertical: 12,
                     ),
                   ),
-                  child: Text(
-                    _viewingStencils 
+                  child: Text(_viewingStencils
                       ? S.of(context).backToStencils
-                      : S.of(context).backToTattoos
-                  ),
+                      : S.of(context).backToTattoos),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: _viewingStencils && _works.isNotEmpty
-                    ? _switchToWorks
-                    : (!_viewingStencils && _stencils.isNotEmpty
-                       ? _switchToStencils
-                       : () {
-                          // Regresar a la página anterior con los datos actualizados
-                          Navigator.of(context).pop({
-                            'works': _works,
-                            'stencils': _stencils,
-                          });
-                        }),
+                      ? _switchToWorks
+                      : (!_viewingStencils && _stencils.isNotEmpty
+                          ? _switchToStencils
+                          : () {
+                              // Regresar a la página anterior con los datos actualizados
+                              Navigator.of(context).pop({
+                                'works': _works,
+                                'stencils': _stencils,
+                              });
+                            }),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor,
+                    backgroundColor: Theme.of(context).colorScheme.error,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
                     ),
                   ),
-                  child: Text(
-                    _viewingStencils && _works.isNotEmpty
+                  child: Text(_viewingStencils && _works.isNotEmpty
                       ? S.of(context).viewTattoos
                       : (!_viewingStencils && _stencils.isNotEmpty
-                         ? S.of(context).viewStencils
-                         : S.of(context).backToSearch)
-                  ),
+                          ? S.of(context).viewStencils
+                          : S.of(context).backToSearch)),
                 ),
               ],
             ),
@@ -1316,13 +1334,23 @@ class _VerticalImmersiveViewerPageState extends State<VerticalImmersiveViewerPag
       ),
     );
   }
-  
+
   // Format date for display
   String _formatDate(DateTime date) {
     final months = [
-      S.of(context).january, S.of(context).february, S.of(context).march, S.of(context).april, S.of(context).may, S.of(context).june,
-      S.of(context).july, S.of(context).august, S.of(context).september, S.of(context).october, S.of(context).november, S.of(context).december
+      S.of(context).january,
+      S.of(context).february,
+      S.of(context).march,
+      S.of(context).april,
+      S.of(context).may,
+      S.of(context).june,
+      S.of(context).july,
+      S.of(context).august,
+      S.of(context).september,
+      S.of(context).october,
+      S.of(context).november,
+      S.of(context).december
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
-} 
+}

@@ -8,7 +8,6 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class StencilGalleryPage extends StatefulWidget {
   const StencilGalleryPage({super.key});
@@ -121,10 +120,10 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(S.of(context).stencilGallery, style: TextStyleTheme.headline1),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         actions: [
@@ -139,7 +138,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddStencil,
-        backgroundColor: secondaryColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: const Icon(Icons.add, color: Colors.white),
       ),
       body: BlocConsumer<ArtistStencilBloc, ArtistStencilState>(
@@ -300,8 +299,8 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                     ),
                     selected: isActive,
                     showCheckmark: false,
-                    backgroundColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-                    selectedColor: secondaryColor,
+                    backgroundColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
+                    selectedColor: Theme.of(context).colorScheme.secondary,
                     onSelected: (_) => _filterByTag(tag.id),
                   ),
                 );
@@ -345,7 +344,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                 _loadStencils();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -365,7 +364,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
       width: 180,
       margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -385,6 +384,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
               child: InkWell(
                 onTap: () => _navigateToStencilDetail(stencil),
                 child: _imageCache.buildHeroCachedImage(
+                  context: context,
                   imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
                   heroTag: 'stencil_${stencil.id}',
                   borderRadius: BorderRadius.circular(12),
@@ -479,7 +479,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                             margin: const EdgeInsets.only(right: 4),
                             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                             decoration: BoxDecoration(
-                              color: secondaryColor.withOpacity(0.2),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
@@ -501,7 +501,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                       IconButton(
                         icon: Icon(
                           stencil.isFeatured ? Icons.star : Icons.star_border,
-                          color: stencil.isFeatured ? secondaryColor : Colors.grey.shade400,
+                          color: stencil.isFeatured ? Theme.of(context).colorScheme.secondary : Colors.grey.shade400,
                           size: 20,
                         ),
                         onPressed: () => _toggleFeatured(stencil),
@@ -535,7 +535,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
   Widget _buildStencilItem(Stencil stencil) {
     return Container(
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -555,6 +555,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
               child: InkWell(
                 onTap: () => _navigateToStencilDetail(stencil),
                 child: _imageCache.buildHeroCachedImage(
+                  context: context,
                   imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
                   heroTag: 'stencil_${stencil.id}',
                   borderRadius: BorderRadius.circular(12),
@@ -632,8 +633,8 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                               decoration: BoxDecoration(
                                 color: _activeTagFilter == tag.id
-                                    ? secondaryColor
-                                    : secondaryColor.withOpacity(0.2),
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -656,7 +657,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
                       IconButton(
                         icon: Icon(
                           stencil.isFeatured ? Icons.star : Icons.star_border,
-                          color: stencil.isFeatured ? secondaryColor : Colors.grey.shade400,
+                          color: stencil.isFeatured ? Theme.of(context).colorScheme.secondary : Colors.grey.shade400,
                           size: 20,
                         ),
                         onPressed: () => _toggleFeatured(stencil),
@@ -717,7 +718,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
           ElevatedButton.icon(
             onPressed: _navigateToAddStencil,
             style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -762,7 +763,7 @@ class _StencilGalleryPageState extends State<StencilGalleryPage> {
           ElevatedButton.icon(
             onPressed: _loadStencils,
             style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

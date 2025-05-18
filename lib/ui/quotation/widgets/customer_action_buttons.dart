@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerActionButtons extends StatelessWidget {
   final S l10n;
@@ -24,6 +23,7 @@ class CustomerActionButtons extends StatelessWidget {
       child: Row(
         children: [
           _buildActionButton(
+            context: context,
             onPressed: onAccept,
             icon: Icons.check,
             label: l10n.accept,
@@ -31,6 +31,7 @@ class CustomerActionButtons extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           _buildActionButton(
+            context: context,
             onPressed: onAppeal,
             icon: Icons.edit,
             label: l10n.appeal,
@@ -38,6 +39,7 @@ class CustomerActionButtons extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           _buildActionButton(
+            context: context,
             onPressed: onReject,
             icon: Icons.cancel,
             label: l10n.reject,
@@ -49,6 +51,7 @@ class CustomerActionButtons extends StatelessWidget {
   }
 
   Widget _buildActionButton({
+    required BuildContext context,
     required VoidCallback onPressed,
     required IconData icon,
     required String label,
@@ -56,12 +59,12 @@ class CustomerActionButtons extends StatelessWidget {
   }) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, color: isPrimary ? Colors.white : primaryColor),
+      icon: Icon(icon, color: isPrimary ? Colors.white : Theme.of(context).colorScheme.surface),
       label: Text(label),
       style: ElevatedButton.styleFrom(
-        backgroundColor: isPrimary ? primaryColor : Colors.white,
-        foregroundColor: isPrimary ? Colors.white : primaryColor,
-        side: const BorderSide(color: primaryColor),
+        backgroundColor: isPrimary ? Theme.of(context).colorScheme.surface : Colors.white,
+        foregroundColor: isPrimary ? Colors.white : Theme.of(context).colorScheme.surface,
+        side: BorderSide(color: Theme.of(context).colorScheme.surface),
         textStyle: TextStyleTheme.button,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),

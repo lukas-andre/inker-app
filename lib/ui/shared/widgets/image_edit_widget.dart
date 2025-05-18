@@ -7,7 +7,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ImageEditWidget extends StatefulWidget {
@@ -69,9 +68,10 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
             if (loadingProgress == null) return child;
             return Center(
               child: CircularProgressIndicator(
-                valueColor: const AlwaysStoppedAnimation<Color>(secondaryColor),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.secondary),
                 value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded / 
+                    ? loadingProgress.cumulativeBytesLoaded /
                         (loadingProgress.expectedTotalBytes ?? 1)
                     : null,
               ),
@@ -112,7 +112,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
@@ -128,13 +128,13 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           Icon(
             Icons.image_outlined,
             size: 56,
-            color: quaternaryColor.withOpacity(0.8),
+            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
           ),
           const SizedBox(height: 20),
           Text(
             S.of(context).noImageSelected,
             style: TextStyleTheme.bodyText1.copyWith(
-              color: quaternaryColor.withOpacity(0.9),
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.9),
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -146,7 +146,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
             onPressed: _pickImage,
             icon: Icons.add_photo_alternate_rounded,
             label: S.of(context).chooseImage,
-            color: secondaryColor,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ],
       ),
@@ -198,7 +198,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
 
   Widget _buildBottomButtons() {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -209,8 +209,8 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: Text(
                 widget.label,
-                style: const TextStyle(
-                  color: quaternaryColor,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -240,8 +240,9 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
               icon: const Icon(Icons.photo_library),
               label: Text(S.of(context).changeImage),
               style: OutlinedButton.styleFrom(
-                foregroundColor: secondaryColor,
-                side: const BorderSide(color: secondaryColor),
+                foregroundColor: Theme.of(context).colorScheme.secondary,
+                side:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -277,26 +278,27 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
         final directory = await getTemporaryDirectory();
         final imagePath = '${directory.path}/test_studio.png';
         final File imageFile = File(imagePath);
-        
+
         // Copiar el asset al archivo temporal
-        ByteData data = await rootBundle.load('assets/studio_${Random().nextInt(5) + 1}.png');
+        ByteData data = await rootBundle
+            .load('assets/studio_${Random().nextInt(5) + 1}.png');
         List<int> bytes = data.buffer.asUint8List();
         await imageFile.writeAsBytes(bytes);
-        
+
         // Usar la imagen temporal
         setState(() {
           _imageFile = XFile(imagePath);
           _isNewImageSelected = true;
           _hasChanges = true;
         });
-        
+
         print('Studio image loaded in test mode: $imagePath');
         return;
       } catch (e) {
         print('Error loading test studio image: $e');
       }
     }
-    
+
     // Flujo normal para modo no-test
     final pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,

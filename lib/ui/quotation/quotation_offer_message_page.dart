@@ -7,9 +7,9 @@ import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/offer_message/offer_message_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
@@ -91,7 +91,8 @@ class _QuotationOfferMessageViewState
       if (mounted) {
         final currentState = context.read<OfferMessageBloc>().state;
         currentState.maybeWhen(
-          loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
+          loaded:
+              (messages, quotationId, offerId, offer, isRefreshing, isSending) {
             if (!isRefreshing && !isSending) {
               context.read<OfferMessageBloc>().add(const RefreshMessages());
             }
@@ -127,32 +128,43 @@ class _QuotationOfferMessageViewState
         context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Row(
           children: [
             BlocBuilder<OfferMessageBloc, OfferMessageState>(
               builder: (context, state) {
-                final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+                final isArtist =
+                    context.read<AuthBloc>().state.session.user?.userType ==
+                        'ARTIST';
                 String displayName = widget.customerName;
-                String? avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
+                String? avatarLetter = widget.customerName.isNotEmpty
+                    ? widget.customerName[0].toUpperCase()
+                    : '?';
                 String? artistId;
                 state.maybeWhen(
                   loaded: (_, __, ___, offer, ____, _____) {
                     if (isArtist) {
                       displayName = widget.customerName;
-                      avatarLetter = widget.customerName.isNotEmpty ? widget.customerName[0].toUpperCase() : '?';
+                      avatarLetter = widget.customerName.isNotEmpty
+                          ? widget.customerName[0].toUpperCase()
+                          : '?';
                     } else {
                       displayName = widget.offer.artistName ?? 'Artista';
-                      avatarLetter = (widget.offer.artistName?.isNotEmpty ?? false) ? widget.offer.artistName![0].toUpperCase() : '?';
+                      avatarLetter =
+                          (widget.offer.artistName?.isNotEmpty ?? false)
+                              ? widget.offer.artistName![0].toUpperCase()
+                              : '?';
                       artistId = widget.offer.artistId;
                     }
                   },
                   orElse: () {},
                 );
-                final canTapArtist = !isArtist && artistId != null && (artistId?.isNotEmpty ?? false);
+                final canTapArtist = !isArtist &&
+                    artistId != null &&
+                    (artistId?.isNotEmpty ?? false);
                 return GestureDetector(
                   onTap: canTapArtist
                       ? () {
@@ -183,7 +195,8 @@ class _QuotationOfferMessageViewState
                             builder: (context, state) {
                               Money? estimatedCost;
                               state.maybeWhen(
-                                loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) {
+                                loaded: (messages, quotationId, offerId, offer,
+                                    isRefreshing, isSending) {
                                   estimatedCost = offer.estimatedCost;
                                 },
                                 orElse: () {
@@ -215,7 +228,8 @@ class _QuotationOfferMessageViewState
           BlocBuilder<OfferMessageBloc, OfferMessageState>(
             builder: (context, state) {
               bool canManualRefresh = state.maybeWhen(
-                loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) =>
+                loaded: (messages, quotationId, offerId, offer, isRefreshing,
+                        isSending) =>
                     !isRefreshing && !isSending,
                 orElse: () =>
                     true, // Allow refresh from error/initial states to trigger load
@@ -242,7 +256,8 @@ class _QuotationOfferMessageViewState
       body: BlocConsumer<OfferMessageBloc, OfferMessageState>(
         listener: (context, state) {
           state.maybeWhen(
-            loaded: (messages, quotationId, offerId, offer, isRefreshing, isSending) async {
+            loaded: (messages, quotationId, offerId, offer, isRefreshing,
+                isSending) async {
               await Future.delayed(const Duration(milliseconds: 300));
               _scrollToBottom();
             },
@@ -266,7 +281,10 @@ class _QuotationOfferMessageViewState
                     child: LinearProgressIndicator(
                       backgroundColor: Colors.transparent,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                          secondaryColor.withOpacity(0.5)),
+                          Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.5)),
                       minHeight: 2,
                     ),
                   )
@@ -316,10 +334,10 @@ class _QuotationOfferMessageViewState
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
+          Icon(
             Icons.message,
             size: 64,
-            color: tertiaryColor,
+            color: Theme.of(context).colorScheme.tertiary,
           ),
           const SizedBox(height: 16),
           Text(
@@ -385,8 +403,8 @@ class _QuotationOfferMessageViewState
           ),
           decoration: BoxDecoration(
             color: isMyMessage
-                ? secondaryColor.withOpacity(0.8)
-                : explorerSecondaryColor,
+                ? Theme.of(context).colorScheme.secondary.withOpacity(0.8)
+                : Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -504,7 +522,7 @@ class _QuotationOfferMessageViewState
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -554,22 +572,24 @@ class _QuotationOfferMessageViewState
             ),
             const SizedBox(width: 8),
             isSending
-                ? const SizedBox(
+                ? SizedBox(
                     width: 48,
                     height: 48,
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(secondaryColor),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).colorScheme.secondary),
                       ),
                     ),
                   )
                 : IconButton(
                     icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: canSend ? _sendMessage : null,
-                    color: canSend ? secondaryColor : Colors.grey,
+                    color: canSend
+                        ? Theme.of(context).colorScheme.secondary
+                        : Colors.grey,
                     tooltip: l10n.sendMessage,
                   ),
           ],
@@ -632,7 +652,7 @@ class _QuotationOfferMessageViewState
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
-      backgroundColor: explorerSecondaryColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       builder: (context) {
         return SafeArea(
           child: Wrap(
@@ -671,8 +691,7 @@ class _QuotationOfferMessageViewState
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(l10n.noImagesAvailable),
-          backgroundColor: Colors.red));
+          content: Text(l10n.noImagesAvailable), backgroundColor: Colors.red));
     }
   }
 
@@ -714,7 +733,8 @@ class _QuotationOfferMessageViewState
           backgroundColor: quaternaryColor,
           title: Text(
             l10n.editOffer,
-            style: TextStyleTheme.headline3.copyWith(color: primaryColor),
+            style: TextStyleTheme.headline3
+                .copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           content: TextField(
             controller: costController,
@@ -728,18 +748,21 @@ class _QuotationOfferMessageViewState
               fillColor: Colors.white,
               border: inputBorder,
               focusedBorder: focusedBorder,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             ),
-            style: TextStyleTheme.bodyText1.copyWith(color: primaryColor),
+            style: TextStyleTheme.bodyText1
+                .copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(l10n.cancel, style: const TextStyle(color: tertiaryColor)),
+              child: Text(l10n.cancel,
+                  style: const TextStyle(color: tertiaryColor)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
@@ -757,7 +780,8 @@ class _QuotationOfferMessageViewState
                   );
                   bloc.add(
                     OfferMessageEvent.sendMessage(
-                      message: '${l10n.artistUpdatedOfferCost} \$${costController.text} ${l10n.currency}',
+                      message:
+                          '${l10n.artistUpdatedOfferCost} \$${costController.text} ${l10n.currency}',
                     ),
                   );
                   Navigator.pop(context);

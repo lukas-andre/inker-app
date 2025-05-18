@@ -11,9 +11,9 @@ class LocationDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
+        const Icon(
           Icons.location_on_outlined, // Outlined icon
-          color: const Color(0xFF8A8A8F), // Muted color
+          color: Color(0xFF8A8A8F), // Muted color
           size: 16,
         ),
         const SizedBox(width: 8),

@@ -12,7 +12,6 @@ import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -181,10 +180,10 @@ class _AddStencilPageState extends State<AddStencilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: registerKeys.addStencil.page,
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(S.of(context).addStencil, style: TextStyleTheme.headline1),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -283,9 +282,9 @@ class _AddStencilPageState extends State<AddStencilPage> {
           height: 200,
           decoration: BoxDecoration(
             color:
-                HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: secondaryColor.withOpacity(0.5)),
+            border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
           ),
           child: _selectedImage != null
               ? ClipRRect(
@@ -301,7 +300,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
                     Icon(
                       Icons.add_photo_alternate,
                       size: 64,
-                      color: secondaryColor.withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.7),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -328,7 +327,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
             TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
         filled: true,
         fillColor:
-            HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade800),
@@ -339,7 +338,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: secondaryColor),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
       ),
       validator: (value) {
@@ -363,7 +362,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
             TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
         filled: true,
         fillColor:
-            HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade800),
@@ -374,7 +373,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: secondaryColor),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
       ),
     );
@@ -407,16 +406,16 @@ class _AddStencilPageState extends State<AddStencilPage> {
             hintText: S.of(context).searchOrCreateTags,
             hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
             prefixIcon: Icon(Icons.search, color: Colors.grey.shade400),
             suffixIcon: _isFetchingTags 
                 ? Container(
                     width: 20,
                     height: 20,
                     padding: const EdgeInsets.all(12),
-                    child: const CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
                     ),
                   )
                 : IconButton(
@@ -435,7 +434,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           onChanged: _searchTags,
@@ -458,7 +457,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -486,10 +485,10 @@ class _AddStencilPageState extends State<AddStencilPage> {
                 title: Text(
                   '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading: Icon(Icons.add_circle_outline, color: Theme.of(context).colorScheme.secondary),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,
@@ -507,7 +506,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
       title: Text(
         tag.name,
         style: TextStyleTheme.bodyText2.copyWith(
-          color: isSelected ? secondaryColor : Colors.white,
+          color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.white,
         ),
       ),
       trailing: tag.count != null && tag.count! > 0
@@ -519,7 +518,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
             )
           : null,
       leading: isSelected
-          ? const Icon(Icons.check_circle, color: secondaryColor)
+          ? Icon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary)
           : const Icon(Icons.add_circle_outline, color: Colors.grey),
       onTap: () => _addTag(tag),
       contentPadding: EdgeInsets.zero,
@@ -540,7 +539,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: redColor,
+          backgroundColor: Theme.of(context).colorScheme.tertiary,
           deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white70),
           onDeleted: () => _removeTag(tag),
         );
@@ -569,7 +568,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
           _isFeatured = value;
         });
       },
-      activeColor: secondaryColor,
+      activeColor: Theme.of(context).colorScheme.secondary,
       contentPadding: EdgeInsets.zero,
     );
   }
@@ -595,7 +594,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
           _isHidden = value;
         });
       },
-      activeColor: secondaryColor,
+      activeColor: Theme.of(context).colorScheme.secondary,
       contentPadding: EdgeInsets.zero,
     );
   }
@@ -608,7 +607,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
         key: registerKeys.addStencil.submitButton,
         onPressed: _submitForm,
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

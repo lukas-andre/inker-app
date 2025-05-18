@@ -8,7 +8,6 @@ import 'package:inker_studio/ui/shared/widgets/calendar_day_picker_v2.dart';
 import 'package:inker_studio/ui/shared/widgets/time_wheel_picker.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/forms/capitalize_text_formatter.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -133,7 +132,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -217,9 +216,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         return Container(
           key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
-          decoration: const BoxDecoration(
-            color: primaryColor,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -275,7 +274,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 16),
                   ),
@@ -391,9 +390,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (isStart)
-                            _buildChip(S.of(context).start, secondaryColor),
+                            _buildChip(S.of(context).start, Theme.of(context).colorScheme.secondary),
                           if (isEnd)
-                            _buildChip(S.of(context).end, secondaryColor),
+                            _buildChip(S.of(context).end, Theme.of(context).colorScheme.secondary),
                         ],
                       ),
                       // Right side: Event chips
@@ -402,7 +401,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: cellEvents
                             .map((event) =>
-                                _buildChip(event.title, tertiaryColor))
+                                _buildChip(event.title, Theme.of(context).colorScheme.primary))
                             .toList(),
                       ),
                     ],
@@ -453,9 +452,9 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
         return Container(
           key: K.scheduleWheelPicker,
           height: MediaQuery.of(context).size.height * 0.4,
-          decoration: const BoxDecoration(
-            color: primaryColor,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          decoration:  BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -499,7 +498,7 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 16),
                   ),

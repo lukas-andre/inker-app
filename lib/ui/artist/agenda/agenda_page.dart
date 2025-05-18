@@ -9,7 +9,6 @@ import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'hourly_event_list.dart';
 
 final kToday = DateTime.now();
@@ -78,7 +77,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
     }
 
     // Regular appointment
-    return secondaryColor;
+    return Theme.of(context).colorScheme.secondary;
   }
 
   Widget _buildViewSelector(DateTime focusedDay) {
@@ -148,7 +147,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
-          color: isSelected ? secondaryColor : Colors.transparent,
+          color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.transparent,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Text(
@@ -275,12 +274,12 @@ class _AgendaTablePageState extends State<AgendaTablePage>
           },
           calendarStyle: CalendarStyle(
             outsideDaysVisible: false,
-            selectedDecoration: const BoxDecoration(
-              color: secondaryColor,
+            selectedDecoration:  BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
               shape: BoxShape.circle,
             ),
             todayDecoration: BoxDecoration(
-              color: tertiaryColor.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
               shape: BoxShape.circle,
             ),
             weekendTextStyle: TextStyleTheme.copyWith(
@@ -379,12 +378,12 @@ class _AgendaTablePageState extends State<AgendaTablePage>
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
               isTodayHighlighted: true,
-              selectedDecoration: const BoxDecoration(
-                color: secondaryColor,
+              selectedDecoration:  BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
               todayDecoration: BoxDecoration(
-                color: tertiaryColor.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
                 shape: BoxShape.circle,
               ),
               weekendTextStyle: TextStyleTheme.copyWith(
@@ -504,7 +503,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.event_busy, color: tertiaryColor, size: 32),
+            Icon(Icons.event_busy, color: Theme.of(context).colorScheme.tertiary, size: 32),
             const SizedBox(height: 8),
             Text(
               S.of(context).noEventsForThisDay,
@@ -629,14 +628,14 @@ class _AgendaTablePageState extends State<AgendaTablePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: widget.hideHeader ? null : AppBar(
         title: Text(
           S.of(context).agenda,
           style: TextStyleTheme.copyWith(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 4.0,
         shadowColor: Colors.black54,
         actions: [
@@ -715,7 +714,7 @@ class _AgendaTablePageState extends State<AgendaTablePage>
         onPressed: () {
           Navigator.pushNamed(context, '/createEvent');
         },
-        backgroundColor: secondaryColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 4,
         child: const Icon(Icons.add, color: Colors.white),
       ),

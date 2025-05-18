@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 // Helper class to organize event information
@@ -158,7 +157,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
     }
 
     // Regular appointment
-    return secondaryColor;
+    return Theme.of(context).colorScheme.secondary;
   }
 
   Widget _buildTimeline(int hour) {
@@ -420,7 +419,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
                                     decoration: BoxDecoration(
                                       border: Border(
                                         bottom: BorderSide(
-                                          color: tertiaryColor.withOpacity(0.3),
+                                          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
                                           width: 1.0,
                                         ),
                                       ),
@@ -435,7 +434,7 @@ class _HourlyEventListState extends State<HourlyEventList> {
                                             right: 0,
                                             child: Container(
                                               height: 1.0,
-                                              color: tertiaryColor.withOpacity(
+                                              color: Theme.of(context).colorScheme.tertiary.withOpacity(
                                                 fraction == 0.5 ? 0.15 : 0.08,
                                               ),
                                             ),

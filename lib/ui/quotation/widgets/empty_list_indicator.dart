@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart'; // For colors
 
 class EmptyListIndicator extends StatelessWidget {
   final String title;
@@ -25,7 +24,6 @@ class EmptyListIndicator extends StatelessWidget {
   factory EmptyListIndicator.openQuotations(S l10n) {
     return EmptyListIndicator(
       icon: Icons.search_off_rounded,
-      iconColor: redColor,
       title: l10n.noOpenQuotationsFoundTitle, // Placeholder l10n.noOpenQuotationsFoundTitle
       message: l10n.noOpenQuotationsFoundBody, // Placeholder l10n.noOpenQuotationsFoundBody
       // No action button needed here

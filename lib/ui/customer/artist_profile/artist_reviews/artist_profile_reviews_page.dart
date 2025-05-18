@@ -11,7 +11,6 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_pr
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileReviewsPage extends StatefulWidget {
   const ArtistProfileReviewsPage({super.key, required String artistId})
@@ -45,7 +44,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: _buildAppBar(context),
       body: BlocBuilder<ArtistReviewsBloc, ArtistReviewsState>(
         builder: (context, state) {
@@ -97,7 +96,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 
@@ -159,7 +158,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 14,
-                      unratedColor: greyColor,
+                      unratedColor: Theme.of(context).colorScheme.tertiary,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
@@ -171,7 +170,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       DateTimeFormatter.formatForReviewElement(
                           review.createdAt!),
                       style: TextStyleTheme.copyWith(
-                          color: greyColor,
+                          color: Theme.of(context).colorScheme.tertiary,
                           fontSize: 14,
                           fontWeight: FontWeight.w200),
                     ),
@@ -307,10 +306,10 @@ class ArtistProfileDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(
+    return Divider(
       endIndent: 16,
       indent: 16,
-      color: greyColor,
+      color: Theme.of(context).colorScheme.tertiary,
       thickness: 1,
     );
   }

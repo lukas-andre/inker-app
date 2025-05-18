@@ -6,7 +6,6 @@ import 'package:inker_studio/ui/customer/appointments/widgets/appointment_filter
 import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerAppointmentsPage extends StatefulWidget {
   static const String routeName = '/appointments';
@@ -15,7 +14,8 @@ class CustomerAppointmentsPage extends StatefulWidget {
   const CustomerAppointmentsPage({super.key, this.hideHeader = false});
 
   @override
-  State<CustomerAppointmentsPage> createState() => _CustomerAppointmentsPageState();
+  State<CustomerAppointmentsPage> createState() =>
+      _CustomerAppointmentsPageState();
 }
 
 class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
@@ -37,7 +37,9 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<AppointmentBloc>().add(const AppointmentEvent.loadMoreAppointments());
+      context
+          .read<AppointmentBloc>()
+          .add(const AppointmentEvent.loadMoreAppointments());
     }
   }
 
@@ -51,30 +53,34 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       // Si hideHeader es true, no mostramos un AppBar propio, ya que lo gestiona la página principal
-      appBar: widget.hideHeader ? null : AppBar(
-        title: Text(
-          'Mis Citas', 
-          style: TextStyleTheme.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: primaryColor,
-      ),
+      appBar: widget.hideHeader
+          ? null
+          : AppBar(
+              title: Text(
+                'Mis Citas',
+                style: TextStyleTheme.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              elevation: 0,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+            ),
       body: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
           // Extract current filter if available
           String? currentFilter = state.maybeWhen(
-            loaded: (_, __, ___, ____, _____, currentFilter, ______) => currentFilter,
-            loadingMoreFailed: (_, __, ___, currentFilter, ____) => currentFilter,
+            loaded: (_, __, ___, ____, _____, currentFilter, ______) =>
+                currentFilter,
+            loadingMoreFailed: (_, __, ___, currentFilter, ____) =>
+                currentFilter,
             error: (_, preservedFilter) => preservedFilter,
             orElse: () => null,
           );
-          
+
           // Always show filter tabs at the top, regardless of state
           return Column(
             children: [
@@ -83,17 +89,18 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                 currentFilter: currentFilter ?? 'all',
                 onFilterChanged: (filter) {
                   context.read<AppointmentBloc>().add(
-                    AppointmentEvent.loadAppointments(status: filter),
-                  );
+                        AppointmentEvent.loadAppointments(status: filter),
+                      );
                 },
               ),
-              
+
               // Content area changes based on state
               Expanded(
                 child: state.when(
                   initial: () => const Center(child: InkerProgressIndicator()),
                   loading: () => const Center(child: InkerProgressIndicator()),
-                  loaded: (appointments, currentPage, totalPages, hasReachedMax, isLoadingMore, currentFilter, selectedAppointment) {
+                  loaded: (appointments, currentPage, totalPages, hasReachedMax,
+                      isLoadingMore, currentFilter, selectedAppointment) {
                     if (appointments.isEmpty) {
                       // Use different message based on the filter
                       String title;
@@ -102,7 +109,7 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                       } else {
                         title = 'No hay citas con este estado';
                       }
-                      
+
                       return EmptyState(
                         icon: Icons.calendar_today,
                         title: title,
@@ -112,16 +119,18 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                     return RefreshIndicator(
                       onRefresh: () {
                         context.read<AppointmentBloc>().add(
-                          AppointmentEvent.loadAppointments(
-                            status: currentFilter,
-                            isRefresh: true,
-                          ),
-                        );
-                        return Future.delayed(const Duration(milliseconds: 300));
+                              AppointmentEvent.loadAppointments(
+                                status: currentFilter,
+                                isRefresh: true,
+                              ),
+                            );
+                        return Future.delayed(
+                            const Duration(milliseconds: 300));
                       },
                       child: ListView.builder(
                         controller: _scrollController,
-                        itemCount: appointments.length + (isLoadingMore ? 1 : 0),
+                        itemCount:
+                            appointments.length + (isLoadingMore ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index == appointments.length) {
                             return const Center(
@@ -138,7 +147,7 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                               ),
                             );
                           }
-                          
+
                           final appointment = appointments[index];
                           return AppointmentCard(
                             key: ValueKey(appointment.id),
@@ -147,10 +156,11 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                               // If not read, mark as read
                               if (appointment.readByCustomer == false) {
                                 context.read<AppointmentBloc>().add(
-                                  AppointmentEvent.markAsRead(appointment.id),
-                                );
+                                      AppointmentEvent.markAsRead(
+                                          appointment.id),
+                                    );
                               }
-                              
+
                               // Navigate to appointment detail
                               Navigator.pushNamed(
                                 context,
@@ -165,7 +175,8 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                       ),
                     );
                   },
-                  loadingMoreFailed: (appointments, currentPage, totalPages, currentFilter, errorMessage) {
+                  loadingMoreFailed: (appointments, currentPage, totalPages,
+                      currentFilter, errorMessage) {
                     if (appointments.isEmpty) {
                       // Use different message based on the filter
                       String title;
@@ -174,17 +185,18 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                       } else {
                         title = 'No hay citas con este estado';
                       }
-                      
+
                       return EmptyState(
                         icon: Icons.calendar_today,
                         title: title,
                         message: 'Prueba con otro filtro o regresa más tarde.',
                       );
                     }
-                    
+
                     return ListView.builder(
                       controller: _scrollController,
-                      itemCount: appointments.length + 1, // +1 for error message
+                      itemCount:
+                          appointments.length + 1, // +1 for error message
                       itemBuilder: (context, index) {
                         if (index == appointments.length) {
                           return Padding(
@@ -194,17 +206,21 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                                 children: [
                                   Text(
                                     'Error al cargar más citas',
-                                    style: TextStyleTheme.subtitle2.copyWith(color: Colors.white),
+                                    style: TextStyleTheme.subtitle2
+                                        .copyWith(color: Colors.white),
                                   ),
                                   const SizedBox(height: 8),
                                   ElevatedButton(
                                     onPressed: () {
                                       context.read<AppointmentBloc>().add(
-                                        const AppointmentEvent.loadMoreAppointments(),
-                                      );
+                                            const AppointmentEvent
+                                                .loadMoreAppointments(),
+                                          );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: secondaryColor,
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                     child: const Text('Reintentar'),
                                   ),
@@ -213,7 +229,7 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                             ),
                           );
                         }
-                        
+
                         final appointment = appointments[index];
                         return AppointmentCard(
                           key: ValueKey(appointment.id),
@@ -222,10 +238,10 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                             // If not read, mark as read
                             if (appointment.readByCustomer == false) {
                               context.read<AppointmentBloc>().add(
-                                AppointmentEvent.markAsRead(appointment.id),
-                              );
+                                    AppointmentEvent.markAsRead(appointment.id),
+                                  );
                             }
-                            
+
                             // Navigate to appointment detail
                             Navigator.pushNamed(
                               context,
@@ -239,8 +255,10 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                       },
                     );
                   },
-                  actionInProgress: () => const Center(child: InkerProgressIndicator()),
-                  actionSuccess: () => const Center(child: Text('Acción completada con éxito')),
+                  actionInProgress: () =>
+                      const Center(child: InkerProgressIndicator()),
+                  actionSuccess: () =>
+                      const Center(child: Text('Acción completada con éxito')),
                   actionFailed: (message) => Center(
                     child: Text('Error: $message'),
                   ),
@@ -249,18 +267,21 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.error_outline, color: Colors.red, size: 48),
+                          const Icon(Icons.error_outline,
+                              color: Colors.red, size: 48),
                           const SizedBox(height: 16),
                           Text(
                             'Error al cargar las citas',
-                            style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+                            style: TextStyleTheme.headline3
+                                .copyWith(color: Colors.white),
                           ),
                           const SizedBox(height: 8),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: Text(
                               message,
-                              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
+                              style: TextStyleTheme.bodyText1
+                                  .copyWith(color: Colors.white70),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -269,12 +290,15 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                             onPressed: () {
                               // Retry with preserved filter
                               context.read<AppointmentBloc>().add(
-                                AppointmentEvent.loadAppointments(status: preservedFilter),
-                              );
+                                    AppointmentEvent.loadAppointments(
+                                        status: preservedFilter),
+                                  );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: secondaryColor,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 12),
                             ),
                             child: const Text('Reintentar'),
                           ),

@@ -11,7 +11,6 @@ import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
@@ -32,7 +31,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
   final _imageCache = CachedImageManager();
-  
+
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
@@ -53,7 +52,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     _descriptionController.text = _currentStencil!.description ?? '';
     _isFeatured = _currentStencil!.isFeatured;
     _isHidden = _currentStencil!.isHidden;
-    
+
     // Precargar la imagen principal al iniciar la página
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_currentStencil != null) {
@@ -63,7 +62,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
         );
       }
     });
-    
+
     // Initialize tags from stencil
     if (_currentStencil!.tags != null && _currentStencil!.tags!.isNotEmpty) {
       _selectedTagIds = _currentStencil!.tags!.map((tag) => tag.id).toList();
@@ -90,27 +89,27 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
     _searchDebounce.dispose();
     super.dispose();
   }
-  
+
   void _loadPopularTags() {
     context.read<ArtistStencilBloc>().add(
-      const ArtistStencilEvent.getPopularTags(),
-    );
+          const ArtistStencilEvent.getPopularTags(),
+        );
   }
-  
+
   void _searchTags(String query) {
     if (query.isEmpty) {
       _loadPopularTags();
       return;
     }
-    
+
     _searchDebounce.run(() {
       setState(() {
         _isFetchingTags = true;
       });
-      
+
       context.read<ArtistStencilBloc>().add(
-        ArtistStencilEvent.getTagSuggestions(query),
-      );
+            ArtistStencilEvent.getTagSuggestions(query),
+          );
     });
   }
 
@@ -134,15 +133,15 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
   void _createNewTag(String name) {
     if (name.isEmpty) return;
-    
+
     setState(() {
       _isFetchingTags = true;
     });
-    
+
     context.read<ArtistStencilBloc>().add(
-      ArtistStencilEvent.createTag(name),
-    );
-    
+          ArtistStencilEvent.createTag(name),
+        );
+
     _tagController.clear();
   }
 
@@ -160,7 +159,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   void _toggleEditing() {
     // Use the updated stencil data when available
     final stencil = _currentStencil ?? widget.stencil;
-    
+
     if (_isEditing) {
       // Save changes
       if (_titleController.text.isEmpty) {
@@ -201,14 +200,16 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   void _deleteStencil() {
     // Use the updated stencil data when available
     final stencil = _currentStencil ?? widget.stencil;
-    
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           key: registerKeys.stencilDetail.deleteDialog,
           backgroundColor:
-              HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+              HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                  .withLightness(0.2)
+                  .toColor(),
           title: Text(
             S.of(context).deleteStencil,
             style: TextStyleTheme.headline3.copyWith(
@@ -260,18 +261,23 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: registerKeys.stencilDetail.page,
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(_isEditing
-            ? S.of(context).editStencil
-            : S.of(context).stencilDetails, style: TextStyleTheme.headline3),
-        backgroundColor: primaryColor,
+        title: Text(
+            _isEditing
+                ? S.of(context).editStencil
+                : S.of(context).stencilDetails,
+            style: TextStyleTheme.headline3),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            key: _isEditing ? registerKeys.stencilDetail.saveButton : registerKeys.stencilDetail.editButton,
-            icon: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white),
+            key: _isEditing
+                ? registerKeys.stencilDetail.saveButton
+                : registerKeys.stencilDetail.editButton,
+            icon: Icon(_isEditing ? Icons.check : Icons.edit,
+                color: Colors.white),
             onPressed: _toggleEditing,
             tooltip: _isEditing ? S.of(context).save : S.of(context).edit,
           ),
@@ -292,44 +298,51 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                 _isLoading = false;
                 _isEditing = false;
               });
-              
+
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
                   content: S.of(context).stencilUpdatedSuccessfully,
                   backgroundColor: Colors.green,
                 ),
               );
-              
+
               // Immediately update the stencil data with what we got from the update response
               setState(() {
-                _currentStencil = updatedStencil; // Store the complete updatedStencil object
+                _currentStencil =
+                    updatedStencil; // Store the complete updatedStencil object
                 _titleController.text = updatedStencil.title;
-                if (updatedStencil.description != null) _descriptionController.text = updatedStencil.description ?? '';
+                if (updatedStencil.description != null) {
+                  _descriptionController.text =
+                      updatedStencil.description ?? '';
+                }
                 _isFeatured = updatedStencil.isFeatured;
                 _isHidden = updatedStencil.isHidden;
               });
-              
+
               // Reload the stencil detail from the backend to ensure all data is fresh and consistent
               final stencil = _currentStencil ?? widget.stencil;
               context.read<ArtistStencilBloc>().add(
-                ArtistStencilEvent.loadStencilDetail(stencil.id),
-              );
+                    ArtistStencilEvent.loadStencilDetail(stencil.id),
+                  );
             },
             detailLoaded: (updatedStencil) {
               // Update the state with freshly loaded stencil data
               setState(() {
                 _isLoading = false; // Ensure loading indicator is hidden
-                
+
                 if (updatedStencil.id == widget.stencil.id) {
                   _currentStencil = updatedStencil;
                   _titleController.text = updatedStencil.title;
-                  _descriptionController.text = updatedStencil.description ?? '';
+                  _descriptionController.text =
+                      updatedStencil.description ?? '';
                   _isFeatured = updatedStencil.isFeatured;
                   _isHidden = updatedStencil.isHidden;
-                  
+
                   // Update tags as well
-                  if (updatedStencil.tags != null && updatedStencil.tags!.isNotEmpty) {
-                    _selectedTagIds = updatedStencil.tags!.map((tag) => tag.id).toList();
+                  if (updatedStencil.tags != null &&
+                      updatedStencil.tags!.isNotEmpty) {
+                    _selectedTagIds =
+                        updatedStencil.tags!.map((tag) => tag.id).toList();
                     _selectedTagsObjects = updatedStencil.tags!
                         .map((tag) => TagSuggestionResponseDto(
                               id: tag.id,
@@ -412,7 +425,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   Widget _buildStencilImage() {
     // Use the updated stencil data when available
     final stencil = _currentStencil ?? widget.stencil;
-    
+
     if (_isEditing && _selectedImage != null) {
       return GestureDetector(
         key: registerKeys.stencilDetail.imageViewer,
@@ -431,13 +444,14 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
     return GestureDetector(
       key: registerKeys.stencilDetail.imageViewer,
-      onTap:
-          _isEditing ? _pickImage : () => _openGallery(stencil.imageUrl),
+      onTap: _isEditing ? _pickImage : () => _openGallery(stencil.imageUrl),
       child: Container(
         width: double.infinity,
         height: 300,
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.2)
+              .toColor(),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -454,6 +468,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                   fit: StackFit.expand,
                   children: [
                     _imageCache.buildCachedImage(
+                      context: context,
                       imageUrl: stencil.imageUrl,
                       fit: BoxFit.cover,
                     ),
@@ -485,6 +500,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               : Hero(
                   tag: 'stencil_image_${stencil.id}',
                   child: _imageCache.buildCachedImage(
+                    context: context,
                     imageUrl: stencil.imageUrl,
                     fit: BoxFit.cover,
                   ),
@@ -541,8 +557,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             labelStyle:
                 TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade800),
@@ -553,7 +570,8 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
         ),
@@ -568,8 +586,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             labelStyle:
                 TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade800),
@@ -580,14 +599,14 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
         ),
         const SizedBox(height: 16),
         _buildTagField(),
-        if (_showTagSuggestions) 
-          _buildTagSuggestions(),
+        if (_showTagSuggestions) _buildTagSuggestions(),
         if (_selectedTagsObjects.isNotEmpty) ...[
           const SizedBox(height: 16),
           _buildSelectedTags(),
@@ -613,7 +632,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               _isFeatured = value;
             });
           },
-          activeColor: secondaryColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           contentPadding: EdgeInsets.zero,
         ),
         SwitchListTile(
@@ -636,13 +655,13 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               _isHidden = value;
             });
           },
-          activeColor: secondaryColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           contentPadding: EdgeInsets.zero,
         ),
       ],
     );
   }
-  
+
   Widget _buildTagField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -668,18 +687,22 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
             hintText: S.of(context).searchOrCreateTags,
-            hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+            hintStyle:
+                TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
             prefixIcon: Icon(Icons.search, color: Colors.grey.shade400),
-            suffixIcon: _isFetchingTags 
+            suffixIcon: _isFetchingTags
                 ? Container(
                     width: 20,
                     height: 20,
                     padding: const EdgeInsets.all(12),
-                    child: const CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.secondary),
                     ),
                   )
                 : IconButton(
@@ -698,7 +721,8 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           onChanged: _searchTags,
@@ -721,7 +745,9 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -748,10 +774,11 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
                 title: Text(
                   '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading: Icon(Icons.add_circle_outline,
+                    color: Theme.of(context).colorScheme.secondary),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,
@@ -764,12 +791,14 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
 
   Widget _buildTagSuggestionItem(TagSuggestionResponseDto tag) {
     final bool isSelected = _selectedTagIds.contains(tag.id);
-    
+
     return ListTile(
       title: Text(
         tag.name,
         style: TextStyleTheme.bodyText2.copyWith(
-          color: isSelected ? secondaryColor : Colors.white,
+          color: isSelected
+              ? Theme.of(context).colorScheme.secondary
+              : Colors.white,
         ),
       ),
       trailing: tag.count != null && tag.count! > 0
@@ -781,7 +810,8 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             )
           : null,
       leading: isSelected
-          ? const Icon(Icons.check_circle, color: secondaryColor)
+          ? Icon(Icons.check_circle,
+              color: Theme.of(context).colorScheme.secondary)
           : const Icon(Icons.add_circle_outline, color: Colors.grey),
       onTap: () => _addTag(tag),
       contentPadding: EdgeInsets.zero,
@@ -802,7 +832,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: redColor,
+          backgroundColor: Theme.of(context).colorScheme.tertiary,
           deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white70),
           onDeleted: () => _removeTag(tag),
         );
@@ -813,7 +843,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   Widget _buildStencilDetails() {
     // Use the updated stencil data when available
     final stencil = _currentStencil ?? widget.stencil;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -847,8 +877,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           ],
         ),
         const SizedBox(height: 16),
-        if (stencil.description != null &&
-            stencil.description!.isNotEmpty) ...[
+        if (stencil.description != null && stencil.description!.isNotEmpty) ...[
           Text(
             stencil.description!,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -870,9 +899,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
             ),
             _buildInfoItem(
               S.of(context).status,
-              stencil.isHidden
-                  ? S.of(context).hidden
-                  : S.of(context).visible,
+              stencil.isHidden ? S.of(context).hidden : S.of(context).visible,
             ),
             _buildInfoItem(
               S.of(context).featured,
@@ -893,8 +920,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children:
-                stencil.tags!.map((tag) => _buildTagChip(tag)).toList(),
+            children: stencil.tags!.map((tag) => _buildTagChip(tag)).toList(),
           ),
         ],
       ],
@@ -908,7 +934,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey.shade800),
         ),
@@ -916,7 +942,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           children: [
             Icon(
               icon,
-              color: secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               size: 16,
             ),
             const SizedBox(width: 6),
@@ -949,7 +975,7 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.grey.shade800),
           ),
@@ -993,33 +1019,33 @@ class _StencilDetailPageState extends State<StencilDetailPage> {
   Widget _buildTagChip(Tag tag) {
     // Use the updated stencil data when available
     final stencil = _currentStencil ?? widget.stencil;
-    
+
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
         // Navigate to the gallery with this tag filter
         // First filter the stencils by this tag
         context.read<ArtistStencilBloc>().add(
-          ArtistStencilEvent.filterStencilsByTag(tag.id),
-        );
-        
+              ArtistStencilEvent.filterStencilsByTag(tag.id),
+            );
+
         // Then navigate to the gallery
         Navigator.pushNamed(
-          context, 
+          context,
           '/stencils/gallery',
         ).then((_) {
           // When we return, load the stencil again
           context.read<ArtistStencilBloc>().add(
-            ArtistStencilEvent.loadStencilDetail(stencil.id),
-          );
+                ArtistStencilEvent.loadStencilDetail(stencil.id),
+              );
         });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: secondaryColor.withOpacity(0.5)),
+          border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
         ),
         child: Text(
           tag.name,

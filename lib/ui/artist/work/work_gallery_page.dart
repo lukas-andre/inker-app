@@ -8,7 +8,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class WorkGalleryPage extends StatefulWidget {
   const WorkGalleryPage({super.key});
@@ -25,7 +24,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   String? _filterTag;
   String? _filterTagId;
   WorkSource? _filterSource;
-  
+
   // Instancia del gestor de caché
   final _imageCache = CachedImageManager();
 
@@ -53,16 +52,17 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
           .add(ArtistWorkEvent.loadWorks(_showHidden));
     }
   }
-  
+
   // Método para precargar imágenes de la galería
   void _preloadWorkImages(List<Work> works) {
     if (works.isEmpty || !mounted) return;
-    
+
     // Extraer URLs de imágenes de works
-    final imageUrls = works.map((work) => 
-      work.thumbnailUrl ?? work.imageUrl
-    ).where((url) => url.isNotEmpty).toList();
-    
+    final imageUrls = works
+        .map((work) => work.thumbnailUrl ?? work.imageUrl)
+        .where((url) => url.isNotEmpty)
+        .toList();
+
     // Precargar las primeras 20 imágenes para rendimiento óptimo
     if (imageUrls.isNotEmpty) {
       _imageCache.preloadImages(
@@ -117,7 +117,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor:
-              HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+              HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                  .withLightness(0.2)
+                  .toColor(),
           title: Text(
             S.of(context).deleteSelectedWorks,
             style: TextStyleTheme.headline3.copyWith(
@@ -185,8 +187,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   void _showFilterModal() {
     showModalBottomSheet(
       context: context,
-      backgroundColor:
-          HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+      backgroundColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+          .withLightness(0.2)
+          .toColor(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -229,7 +232,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                         _showHidden = value;
                       });
                     },
-                    activeColor: secondaryColor,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                     contentPadding: EdgeInsets.zero,
                   ),
                   const SizedBox(height: 8),
@@ -244,7 +247,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: HSLColor.fromColor(primaryColor)
+                      color: HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
                           .withLightness(0.15)
                           .toColor(),
                       borderRadius: BorderRadius.circular(8),
@@ -254,7 +258,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                       child: DropdownButton<WorkSource?>(
                         value: _filterSource,
                         isExpanded: true,
-                        dropdownColor: HSLColor.fromColor(primaryColor)
+                        dropdownColor: HSLColor.fromColor(
+                                Theme.of(context).colorScheme.surface)
                             .withLightness(0.2)
                             .toColor(),
                         style: TextStyleTheme.bodyText1
@@ -312,7 +317,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                       ElevatedButton(
                         onPressed: _applyFilters,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: secondaryColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                         ),
                         child: Text(
                           S.of(context).apply,
@@ -333,7 +339,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: _isSelectMode
             ? Text(
@@ -341,7 +347,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                 style: TextStyleTheme.headline3,
               )
             : Text(S.of(context).works, style: TextStyleTheme.headline3),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: _isSelectMode
@@ -402,9 +408,10 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
             filteredByTag: (filteredWorks, tagId) {
               // Precargar imágenes cuando se filtran por tag
               _preloadWorkImages(filteredWorks);
-              
+
               // Obtener el nombre del tag para mostrar en el filtro
-              if (filteredWorks.isNotEmpty && filteredWorks.first.tags != null) {
+              if (filteredWorks.isNotEmpty &&
+                  filteredWorks.first.tags != null) {
                 final tag = filteredWorks.first.tags!.firstWhere(
                   (t) => t.id == tagId,
                   orElse: () => const Tag(id: '', name: '', count: 0),
@@ -516,7 +523,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                   _loadWorks();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
@@ -537,7 +544,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                   }
                 }),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
@@ -565,7 +572,8 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
-                      color: HSLColor.fromColor(primaryColor)
+                      color: HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
                           .withLightness(0.15)
                           .toColor(),
                       borderRadius: BorderRadius.circular(8),
@@ -649,12 +657,14 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: HSLColor.fromColor(primaryColor)
+              color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
                   .withLightness(0.15)
                   .toColor(),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isSelected ? secondaryColor : Colors.grey.shade800,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey.shade800,
                 width: isSelected ? 2 : 1,
               ),
               boxShadow: [
@@ -678,6 +688,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                           topRight: Radius.circular(12),
                         ),
                         child: _imageCache.buildHeroCachedImage(
+                          context: context,
                           imageUrl: work.thumbnailUrl ?? work.imageUrl,
                           heroTag: 'work_image_${work.id}',
                           borderRadius: const BorderRadius.only(
@@ -758,9 +769,9 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
                         ),
                       ),
                       if (work.isFeatured)
-                        const Icon(
+                        Icon(
                           Icons.star,
-                          color: secondaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           size: 20,
                         ),
                     ],
@@ -776,7 +787,7 @@ class _WorkGalleryPageState extends State<WorkGalleryPage> {
               child: Container(
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? secondaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : Colors.grey.withOpacity(0.8),
                   shape: BoxShape.circle,
                 ),

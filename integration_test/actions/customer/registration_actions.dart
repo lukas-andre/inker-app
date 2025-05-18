@@ -45,9 +45,9 @@ class CustomerRegistrationActions {
       );
 
       await $.pumpAndSettle();
-      await Future.delayed(Duration(seconds: TestConstants.defaultWaitDelay));
+      await Future.delayed(const Duration(seconds: TestConstants.defaultWaitDelay));
 
-      final isOnMainPage = await $(CustomerAppPage).exists;
+      final isOnMainPage = $(CustomerAppPage).exists;
 
       if (!isOnMainPage) {
         print('Failed to reach main page after login');

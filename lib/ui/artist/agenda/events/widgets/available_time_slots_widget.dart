@@ -4,7 +4,6 @@ import 'package:inker_studio/domain/blocs/available_time_slots/available_time_sl
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class AvailableTimeSlotsWidget extends StatefulWidget {
@@ -207,7 +206,7 @@ class _AvailableTimeSlotsWidgetState extends State<AvailableTimeSlotsWidget> {
                                       startTime.year == DateTime.now().year;
                   
                   return Card(
-                    color: isPreferred ? primaryColor : const Color(0xFF3C4157),
+                    color: isPreferred ? Theme.of(context).colorScheme.surface : const Color(0xFF3C4157),
                     margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

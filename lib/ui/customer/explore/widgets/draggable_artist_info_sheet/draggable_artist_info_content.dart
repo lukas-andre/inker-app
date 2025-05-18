@@ -13,7 +13,6 @@ import 'package:inker_studio/ui/shared/artist_work_section.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoContent extends StatelessWidget {
   const DraggableArtistInfoContent({super.key});
@@ -164,7 +163,7 @@ class DraggableInfoBody extends StatelessWidget {
                     child: Text(shortDescription,
                         maxLines: 2,
                         style: TextStyleTheme.copyWith(
-                            color: tertiaryColor, fontSize: 14)),
+                            color: Theme.of(context).colorScheme.tertiary, fontSize: 14)),
                   ),
                 ],
               ),

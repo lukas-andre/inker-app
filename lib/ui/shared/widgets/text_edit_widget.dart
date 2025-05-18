@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class TextEditWidget extends StatefulWidget {
   final String? initialValue;
@@ -70,7 +69,7 @@ class _TextEditWidgetState extends State<TextEditWidget> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: secondaryColor),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
               ),
             ),
             validator: widget.validator,
@@ -83,7 +82,7 @@ class _TextEditWidgetState extends State<TextEditWidget> {
             child: ElevatedButton(
               onPressed: _hasChanges ? _saveChanges : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 disabledBackgroundColor: Colors.grey,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),

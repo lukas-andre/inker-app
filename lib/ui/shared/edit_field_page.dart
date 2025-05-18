@@ -3,7 +3,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/image_edit_widget.dart';
 import 'package:inker_studio/ui/shared/widgets/text_edit_widget.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 enum EditFieldType {
   text,
@@ -47,14 +46,14 @@ class EditFieldPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           '${S.of(context).edit} ${arguments.label}',
           style: TextStyleTheme.headline1,
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Column(
         children: [
           Expanded(child: _buildEditWidget(context)),

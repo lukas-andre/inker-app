@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/arti
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
@@ -24,13 +23,13 @@ class AgendaEventDetailPage extends StatelessWidget {
     bloc.add(ArtistAgendaEventDetailEvent.started(eventId));
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           S.of(context).eventDetails,
           style: TextStyleTheme.headline2,
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 1.0,
         shadowColor: Colors.black54,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -39,10 +38,10 @@ class AgendaEventDetailPage extends StatelessWidget {
           ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(
-                child: CircularProgressIndicator(color: Colors.white)),
-            loading: () => const Center(
-                child: CircularProgressIndicator(color: Colors.white)),
+            initial: () => Center(
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSurface)),
+            loading: () => Center(
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSurface)),
             loaded: (data) => _buildContent(context, data),
             error: (message) => Center(
               child: Text(
@@ -97,7 +96,7 @@ class AgendaEventDetailPage extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -155,7 +154,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       BuildContext context, AgendaEventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -180,7 +179,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       BuildContext context, AgendaEventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -221,7 +220,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       BuildContext context, AgendaEventDetailResponse data) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -241,9 +240,9 @@ class AgendaEventDetailPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.location_on_outlined,
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 24,
                   ),
                   const SizedBox(width: 12),
@@ -254,7 +253,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                         Text(
                           data.location.formattedAddress,
                           style: TextStyleTheme.bodyText1.copyWith(
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -263,7 +262,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                           Text(
                             data.location.name!,
                             style: TextStyleTheme.caption.copyWith(
-                              color: tertiaryColor,
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                           ),
                         ],
@@ -282,7 +281,7 @@ class AgendaEventDetailPage extends StatelessWidget {
   Widget _buildActionButtons(
       BuildContext context, AgendaEventDetailResponse data) {
     return Container(
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
@@ -295,7 +294,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                 style: TextStyleTheme.button,
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
@@ -337,7 +336,7 @@ class AgendaEventDetailPage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: explorerSecondaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           S.of(context).edit,
           style: TextStyleTheme.subtitle1,
@@ -383,7 +382,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             child: Text(
               S.of(context).confirm,
@@ -418,7 +417,7 @@ class AgendaEventDetailPage extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -426,7 +425,7 @@ class AgendaEventDetailPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.receipt_long, color: secondaryColor, size: 28),
+                Icon(Icons.receipt_long, color: Theme.of(context).colorScheme.secondary, size: 28),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -485,12 +484,11 @@ class AgendaEventDetailPage extends StatelessWidget {
                 title: S.of(context).artist,
                 content: _formatFullName(quotation.artist!.firstName, quotation.artist!.lastName),
               ),
-            if (quotation.createdAt != null)
-              _InfoRow(
-                icon: Icons.calendar_today,
-                title: S.of(context).createdAt,
-                content: dateFormat.format(quotation.createdAt),
-              ),
+            _InfoRow(
+              icon: Icons.calendar_today,
+              title: S.of(context).createdAt,
+              content: dateFormat.format(quotation.createdAt),
+            ),
             if (quotation.appointmentDate != null)
               _InfoRow(
                 icon: Icons.event,
@@ -576,7 +574,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(S.of(context).offers, style: TextStyleTheme.subtitle1),
               const SizedBox(height: 8),
-              ...quotation.offers!.map((offer) => _buildOfferRow(context, offer)).toList(),
+              ...quotation.offers!.map((offer) => _buildOfferRow(context, offer)),
             ],
           ],
         ),
@@ -612,7 +610,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       color: Colors.black12,
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        leading: const Icon(Icons.local_offer, color: secondaryColor),
+        leading: Icon(Icons.local_offer, color: Theme.of(context).colorScheme.secondary),
         title: Text(offer.artistName ?? '-', style: TextStyleTheme.bodyText1),
         subtitle: offer.estimatedCost != null
             ? Text(offer.estimatedCost!.formatWithSymbol(), style: TextStyleTheme.caption)
@@ -741,14 +739,14 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: tertiaryColor, size: 20),
+        Icon(icon, color: Theme.of(context).colorScheme.tertiary, size: 20),
         const SizedBox(width: 12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+              style: TextStyleTheme.caption.copyWith(color: Theme.of(context).colorScheme.tertiary),
             ),
             const SizedBox(height: 4),
             Text(

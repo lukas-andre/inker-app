@@ -10,7 +10,6 @@ import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart'
 import 'package:inker_studio/ui/quotation/quotation_offer_message_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
@@ -56,7 +55,7 @@ class _QuotationDetailsScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocConsumer<QuotationDetailBloc, QuotationDetailState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -100,7 +99,7 @@ class _QuotationDetailsScaffold extends StatelessWidget {
                         ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: primaryColor,
+                      foregroundColor: Theme.of(context).colorScheme.secondary,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 24, vertical: 12),
                     ),
@@ -162,10 +161,10 @@ class _QuotationDetailContent extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           iconTheme: const IconThemeData(color: Colors.white),
           actions: [
             IconButton(
@@ -185,9 +184,10 @@ class _QuotationDetailContent extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               height: isLoading ? 3 : 0,
               child: isLoading
-                  ? const LinearProgressIndicator(
-                      backgroundColor: primaryColor,
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                  ? LinearProgressIndicator(
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.secondary),
                     )
                   : null,
             ),
@@ -221,10 +221,11 @@ class _QuotationDetailContent extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: explorerSecondaryColor,
+                color: Theme.of(context).colorScheme.secondary,
                 border: Border(
                   top: BorderSide(
-                    color: tertiaryColor.withOpacity(0.2),
+                    color:
+                        Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
                     width: 1,
                   ),
                 ),
@@ -269,7 +270,7 @@ class _CounterpartHeader extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -314,7 +315,7 @@ class _CounterpartHeader extends StatelessWidget {
                       Text(
                         isArtist ? l10n.customer : l10n.artist,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: tertiaryColor,
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -327,7 +328,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           '@${info.username}',
                           style: TextStyleTheme.bodyText2.copyWith(
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                       ],
@@ -335,17 +336,17 @@ class _CounterpartHeader extends StatelessWidget {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.email_outlined,
                               size: 16,
-                              color: tertiaryColor,
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 info.contactInfo!,
                                 style: TextStyleTheme.bodyText2.copyWith(
-                                  color: tertiaryColor,
+                                  color: Theme.of(context).colorScheme.tertiary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -362,10 +363,10 @@ class _CounterpartHeader extends StatelessWidget {
               const Divider(height: 32),
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.location_on_outlined,
                     size: 20,
-                    color: tertiaryColor,
+                    color: Theme.of(context).colorScheme.tertiary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -375,7 +376,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           l10n.location,
                           style: TextStyleTheme.subtitle2.copyWith(
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -411,7 +412,7 @@ class _MainQuotationInfo extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -445,16 +446,22 @@ class _MainQuotationInfo extends StatelessWidget {
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      border: Border.all(color: secondaryColor, width: 2),
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 2),
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: Image.network(
                       quotation.tattooDesignImageUrl!,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
-                        color: tertiaryColor.withOpacity(0.2),
-                        child: const Icon(Icons.broken_image,
-                            color: tertiaryColor, size: 64),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .tertiary
+                            .withOpacity(0.2),
+                        child: Icon(Icons.broken_image,
+                            color: Theme.of(context).colorScheme.tertiary,
+                            size: 64),
                       ),
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
@@ -476,16 +483,16 @@ class _MainQuotationInfo extends StatelessWidget {
                       Text(
                         l10n.createdAt,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: tertiaryColor,
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.calendar_today,
                             size: 16,
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                           const SizedBox(width: 8),
                           Text(
@@ -504,7 +511,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     Text(
                       l10n.currentStatus,
                       style: TextStyleTheme.subtitle2.copyWith(
-                        color: tertiaryColor,
+                        color: Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -525,7 +532,7 @@ class _MainQuotationInfo extends StatelessWidget {
             Text(
               l10n.description,
               style: TextStyleTheme.subtitle2.copyWith(
-                color: tertiaryColor,
+                color: Theme.of(context).colorScheme.tertiary,
               ),
             ),
             const SizedBox(height: 8),
@@ -539,15 +546,14 @@ class _MainQuotationInfo extends StatelessWidget {
               // Primera fila: ícono y label
               Row(
                 children: [
-                  const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 20),
+                  const Icon(Icons.account_balance_wallet,
+                      color: Color(0xFF686D90), size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    '${l10n.referenceBudget(
-                      '', // El monto y la moneda van abajo, así que aquí solo el label
-                      ''
-                    ).split(':').first}:',
+                    '${l10n.referenceBudget('', // El monto y la moneda van abajo, así que aquí solo el label
+                        '').split(':').first}:',
                     style: TextStyleTheme.subtitle2.copyWith(
-                      color: tertiaryColor,
+                      color: Theme.of(context).colorScheme.tertiary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -558,7 +564,7 @@ class _MainQuotationInfo extends StatelessWidget {
               Text(
                 '${quotation.referenceBudget!.toString()} ${quotation.referenceBudget!.currency}',
                 style: TextStyleTheme.headline3.copyWith(
-                  color: secondaryColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -685,14 +691,14 @@ class _MainQuotationInfo extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: redColor.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.error.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.lightbulb_outline,
-                  color: redColor,
+                  color: Theme.of(context).colorScheme.error,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -702,7 +708,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       Text(
                         l10n.customerLookingForOffers,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: redColor,
+                          color: Theme.of(context).colorScheme.error,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -729,7 +735,7 @@ class _MainQuotationInfo extends StatelessWidget {
               ),
               label: Text(l10n.sendOffer, style: TextStyleTheme.bodyText1),
               style: ElevatedButton.styleFrom(
-                backgroundColor: redColor,
+                backgroundColor: Theme.of(context).colorScheme.error,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               onPressed: () {
@@ -761,7 +767,7 @@ class _MainQuotationInfo extends StatelessWidget {
         Text(
           l10n.selectedDesign,
           style: TextStyleTheme.subtitle2.copyWith(
-            color: tertiaryColor,
+            color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -857,7 +863,7 @@ class _InfoSection extends StatelessWidget {
     final contentColor = isWarning
         ? Colors.red
         : highlight
-            ? secondaryColor
+            ? Theme.of(context).colorScheme.secondary
             : Colors.white;
 
     return Column(
@@ -866,7 +872,7 @@ class _InfoSection extends StatelessWidget {
         Text(
           title,
           style: TextStyleTheme.subtitle2.copyWith(
-            color: tertiaryColor,
+            color: Theme.of(context).colorScheme.tertiary,
           ),
         ),
         const SizedBox(height: 8),
@@ -901,7 +907,7 @@ class _QuotationTimeline extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -955,7 +961,7 @@ class _TimelineItem extends StatelessWidget {
                 height: isLast ? 16 : 12,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _getStatusColor(history.newStatus),
+                  color: _getStatusColor(context, history.newStatus),
                   border: isLast
                       ? Border.all(
                           color: Colors.white,
@@ -968,7 +974,8 @@ class _TimelineItem extends StatelessWidget {
                 Container(
                   width: 2,
                   height: 40,
-                  color: tertiaryColor.withOpacity(0.5),
+                  color:
+                      Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
                 ),
             ],
           ),
@@ -988,11 +995,13 @@ class _TimelineItem extends StatelessWidget {
                 Text(
                   DateFormat('yyyy-MM-dd HH:mm').format(history.changedAt),
                   style: TextStyleTheme.caption.copyWith(
-                    color: isLast ? Colors.white70 : tertiaryColor,
+                    color: isLast
+                        ? Colors.white70
+                        : Theme.of(context).colorScheme.tertiary,
                     fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
-                ..._buildAdditionalDetails(history, l10n),
+                ..._buildAdditionalDetails(context, history, l10n),
                 if (!isLast) const SizedBox(height: 16),
               ],
             ),
@@ -1002,7 +1011,8 @@ class _TimelineItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildAdditionalDetails(QuotationHistory history, S l10n) {
+  List<Widget> _buildAdditionalDetails(
+      BuildContext context, QuotationHistory history, S l10n) {
     final List<Widget> details = [];
 
     // Cambios en el costo estimado
@@ -1012,7 +1022,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           '${l10n.estimatedCostChangedFrom} \$${history.previousEstimatedCost} ${l10n.to} \$${history.newEstimatedCost}',
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
         ),
       );
     }
@@ -1024,7 +1035,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           '${l10n.appointmentDateChangedFrom} ${DateFormat('yyyy-MM-dd HH:mm').format(history.previousAppointmentDate!)} ${l10n.to} ${DateFormat('yyyy-MM-dd HH:mm').format(history.newAppointmentDate!)}',
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
         ),
       );
     }
@@ -1036,7 +1048,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           stateDetails,
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
         ),
       );
     }
@@ -1090,7 +1103,7 @@ class _TimelineItem extends StatelessWidget {
     }
   }
 
-  Color _getStatusColor(QuotationStatus status) {
+  Color _getStatusColor(BuildContext context, QuotationStatus status) {
     switch (status) {
       case QuotationStatus.pending:
         return Colors.orange;
@@ -1105,7 +1118,7 @@ class _TimelineItem extends StatelessWidget {
       case QuotationStatus.canceled:
         return Colors.grey;
       case QuotationStatus.open:
-        return redColor;
+        return Theme.of(context).colorScheme.error;
     }
   }
 
@@ -1182,23 +1195,23 @@ class _StatusChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: _getStatusColor(status).withOpacity(0.2),
+        color: _getStatusColor(context, status).withOpacity(0.2),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: _getStatusColor(status),
+          color: _getStatusColor(context, status),
           width: 1,
         ),
       ),
       child: Text(
         _getStatusText(status, l10n),
         style: TextStyleTheme.button.copyWith(
-          color: _getStatusColor(status),
+          color: _getStatusColor(context, status),
         ),
       ),
     );
   }
 
-  Color _getStatusColor(QuotationStatus status) {
+  Color _getStatusColor(BuildContext context, QuotationStatus status) {
     switch (status) {
       case QuotationStatus.pending:
         return Colors.orange;
@@ -1213,7 +1226,7 @@ class _StatusChip extends StatelessWidget {
       case QuotationStatus.canceled:
         return Colors.grey;
       case QuotationStatus.open:
-        return redColor;
+        return Theme.of(context).colorScheme.error;
     }
   }
 
@@ -1247,7 +1260,9 @@ class _StencilPreviewWidget extends StatelessWidget {
     final l10n = S.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.25).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.secondary)
+            .withLightness(0.25)
+            .toColor(),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -1270,7 +1285,8 @@ class _StencilPreviewWidget extends StatelessWidget {
                 imageUrl: stencil.imageUrl,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: HSLColor.fromColor(primaryColor)
+                  color: HSLColor.fromColor(
+                          Theme.of(context).colorScheme.secondary)
                       .withLightness(0.2)
                       .toColor(),
                   child: const Center(
@@ -1278,10 +1294,12 @@ class _StencilPreviewWidget extends StatelessWidget {
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: HSLColor.fromColor(primaryColor)
+                  color: HSLColor.fromColor(
+                          Theme.of(context).colorScheme.secondary)
                       .withLightness(0.2)
                       .toColor(),
-                  child: const Icon(Icons.error, color: redColor, size: 32),
+                  child: Icon(Icons.error,
+                      color: Theme.of(context).colorScheme.error, size: 32),
                 ),
               ),
             ),
@@ -1481,9 +1499,10 @@ class _OfferListItem extends StatelessWidget {
     }
 
     // Format cost if available
-    String costText = offer.estimatedCost != null && offer.estimatedCost!.amount > 0
-        ? offer.estimatedCost!.toString()
-        : l10n.notSpecified;
+    String costText =
+        offer.estimatedCost != null && offer.estimatedCost!.amount > 0
+            ? offer.estimatedCost!.toString()
+            : l10n.notSpecified;
 
     // Get message count if available
     final int messageCount = offer.messages.length;
@@ -1578,9 +1597,7 @@ class _OfferListItem extends StatelessWidget {
                 if (offer.message != null && offer.message!.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
-                    '${l10n.message}: ${offer.message!.length > 50
-                            ? '${offer.message!.substring(0, 50)}...'
-                            : offer.message!}',
+                    '${l10n.message}: ${offer.message!.length > 50 ? '${offer.message!.substring(0, 50)}...' : offer.message!}',
                     style:
                         TextStyleTheme.bodyText2.copyWith(color: Colors.white),
                     maxLines: 1,
@@ -1594,7 +1611,7 @@ class _OfferListItem extends StatelessWidget {
                   label: Text(l10n.startChat),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     textStyle: TextStyleTheme.caption
@@ -1657,9 +1674,11 @@ class _ImageViewerDialog extends StatelessWidget {
                   imageUrl,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    color: tertiaryColor.withOpacity(0.2),
-                    child: const Icon(Icons.broken_image,
-                        color: tertiaryColor, size: 64),
+                    color:
+                        Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+                    child: Icon(Icons.broken_image,
+                        color: Theme.of(context).colorScheme.tertiary,
+                        size: 64),
                   ),
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;

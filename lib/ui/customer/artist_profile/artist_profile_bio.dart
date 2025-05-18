@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileBio extends StatefulWidget {
   final Artist artist;
@@ -99,7 +98,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
     if (shortDescription.length <= 100) {
       return Text(
         shortDescription,
-        style: TextStyleTheme.copyWith(fontSize: 16, color: tertiaryColor),
+        style: TextStyleTheme.copyWith(fontSize: 16, color: Theme.of(context).colorScheme.tertiary),
       );
     }
 
@@ -109,7 +108,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             shortDescription,
-            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: Theme.of(context).colorScheme.tertiary),
           ),
           const SizedBox(height: 10),
           InkWell(
@@ -139,7 +138,7 @@ class _ArtistProfileBioState extends State<ArtistProfileBio> {
         children: [
           Text(
             abbreviatedDescriptionWithElipsis,
-            style: TextStyleTheme.copyWith(fontSize: 14, color: tertiaryColor),
+            style: TextStyleTheme.copyWith(fontSize: 14, color: Theme.of(context).colorScheme.tertiary),
           ),
           const SizedBox(height: 10),
           InkWell(

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CreateEventButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -45,7 +44,7 @@ class CreateEventButton extends StatelessWidget {
           }
         } : null, // Disable button if form is invalid
         style: ElevatedButton.styleFrom(
-          backgroundColor: isFormValid ? secondaryColor : Colors.grey.shade700,
+          backgroundColor: isFormValid ? Theme.of(context).colorScheme.secondary : Colors.grey.shade700,
           padding: const EdgeInsets.symmetric(vertical: 0.0),
           shape: const StadiumBorder(),
           disabledBackgroundColor: Colors.grey.shade700,

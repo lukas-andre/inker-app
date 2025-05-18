@@ -8,7 +8,6 @@ import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:intl/intl.dart';
@@ -66,11 +65,11 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: widget.hideHeader
           ? null
           : AppBar(
-              backgroundColor: primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               title: Text(
                 S.of(context).myProfile,
                 style: TextStyleTheme.copyWith(
@@ -117,8 +116,8 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
   Widget _buildProfileContent(BuildContext context, Customer customer) {
     return RefreshIndicator(
       onRefresh: _refreshProfile,
-      color: secondaryColor,
-      backgroundColor: primaryColor,
+      color: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: CustomScrollView(
         key: const Key('customerProfileContent'),
         slivers: [
@@ -143,7 +142,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
       expandedHeight: 120.0,
       floating: false,
       pinned: true,
-      backgroundColor: primaryColor.withOpacity(0.8),
+      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.8),
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           S.of(context).myProfile,
@@ -163,8 +162,8 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                secondaryColor.withOpacity(0.7),
-                primaryColor,
+                Theme.of(context).colorScheme.secondary.withOpacity(0.7),
+                Theme.of(context).colorScheme.surface,
               ],
             ),
           ),
@@ -227,10 +226,10 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                   height: 120,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: secondaryColor, width: 3),
+                    border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 3),
                     boxShadow: [
                       BoxShadow(
-                        color: secondaryColor.withOpacity(0.3),
+                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                         blurRadius: 15,
                         spreadRadius: 2,
                       ),
@@ -248,9 +247,9 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: secondaryColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle,
-                      border: Border.all(color: primaryColor, width: 2),
+                      border: Border.all(color: Theme.of(context).colorScheme.surface, width: 2),
                     ),
                     child: const Icon(
                       Icons.edit,
@@ -292,7 +291,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
   Widget _buildProfileDetails(BuildContext context, Customer customer) {
     return Container(
       key: const Key('customerProfileDetails'),
-      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+      color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +307,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.edit, color: secondaryColor, size: 20),
+                icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary, size: 20),
                 onPressed: () => _navigateToEditField(
                   context,
                   EditFieldArguments(
@@ -326,7 +325,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color:
-                  HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade800),
             ),
@@ -357,7 +356,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.edit, color: secondaryColor, size: 20),
+                icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary, size: 20),
                 onPressed: () => _navigateToEditField(
                   context,
                   EditFieldArguments(
@@ -395,7 +394,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
   Widget _buildContactInfo(BuildContext context, Customer customer) {
     return Container(
       key: const Key('customerProfileContactInfo'),
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +450,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -463,10 +462,10 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.2),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: secondaryColor, size: 20),
+              child: Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -490,7 +489,7 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
               ),
             ),
             if (isEditable && onTap != null)
-              const Icon(Icons.edit, color: secondaryColor, size: 16),
+              Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary, size: 16),
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerSearchBar extends StatelessWidget {
   final VoidCallback? onTap;
@@ -16,7 +15,7 @@ class ExplorerSearchBar extends StatelessWidget {
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: explorerSecondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -39,11 +38,11 @@ class ExplorerSearchBar extends StatelessWidget {
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: secondaryColor.withOpacity(0.1),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.search_rounded,
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 20,
                   ),
                 ),
@@ -65,11 +64,11 @@ class ExplorerSearchBar extends StatelessWidget {
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: secondaryColor.withOpacity(0.1),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.tune,
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 18,
                   ),
                 ),

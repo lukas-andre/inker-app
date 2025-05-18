@@ -10,7 +10,6 @@ import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_g
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_header.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfilePage extends StatefulWidget {
   const ArtistProfilePage({super.key, required Artist artist})
@@ -42,11 +41,11 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         top: false,
         child: Scaffold(
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           extendBodyBehindAppBar: true,
           floatingActionButton: Row(
             mainAxisSize: MainAxisSize.min,
@@ -55,7 +54,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
               FloatingActionButton(
                 heroTag: 'share_button',
                 backgroundColor: Colors.white,
-                foregroundColor: primaryColor,
+                foregroundColor: Theme.of(context).colorScheme.surface,
                 elevation: 4,
                 child: const Icon(Icons.share_outlined, size: 22),
                 onPressed: () {
@@ -68,7 +67,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                         duration: const Duration(seconds: 2),
                       ),
                     );
-                    
+
                     // Aquí implementarías la función de compartir usando
                     // un package como share_plus
                   }
@@ -78,7 +77,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
               // Botón de cotización original
               FloatingActionButton.extended(
                 heroTag: 'quote_button',
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 foregroundColor: Colors.white,
                 elevation: 4,
                 icon: const Icon(Icons.message_outlined, size: 22),
@@ -90,7 +89,8 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                     letterSpacing: 0.5,
                   ),
                 ),
-                extendedPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                extendedPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 onPressed: () {
                   final artistState = context.read<ArtistProfileBloc>().state;
                   if (artistState.artist != null) {
@@ -110,7 +110,7 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
               if (state is ArtistProfileStateInitial) {
                 return const Center(child: InkerProgressIndicator());
               }
-              
+
               final artist = state.artist!;
               return BlocProvider(
                 create: (context) => ArtistWorksCubit(
@@ -145,21 +145,19 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
                         },
                       ),
                     ),
-                    
+
                     // Gallery Section
                     SliverToBoxAdapter(
                       child: ArtistProfileGallerySection(
                         artistId: artist.id,
                         onReviewsPressed: () {
                           Navigator.pushNamed(
-                            context, 
-                            '/artist-profile-reviews', 
-                            arguments: artist
-                          );
+                              context, '/artist-profile-reviews',
+                              arguments: artist);
                         },
                       ),
                     ),
-                    
+
                     // Extra space at the bottom for more scrolling
                     const SliverToBoxAdapter(
                       child: SizedBox(height: 100),

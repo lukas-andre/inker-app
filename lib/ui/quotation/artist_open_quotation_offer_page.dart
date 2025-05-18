@@ -15,7 +15,6 @@ import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 // Renamed Page and State
@@ -81,11 +80,11 @@ class _ArtistOpenQuotationOfferPageViewState
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         // Changed title
         title: Text(l10n.submitOffer, style: TextStyleTheme.headline2),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -117,18 +116,20 @@ class _ArtistOpenQuotationOfferPageViewState
                   onComplete: () {
                     // Refresh the quotation list (specifically open tab if possible)
                     // This might need refinement depending on how list state is managed
-                     context.read<QuotationListBloc>().add(
-                          const QuotationListEvent.refreshCurrentTab(), // Assuming this exists or add similar
+                    context.read<QuotationListBloc>().add(
+                          const QuotationListEvent
+                              .refreshCurrentTab(), // Assuming this exists or add similar
                         );
 
                     // Pop back to the previous screen (likely quotation list or details)
                     Future.delayed(const Duration(milliseconds: 300), () {
-                       if (context.mounted) {
-                         // Pop back twice: once for the success page, once for the offer page itself
-                         Navigator.of(context).pop(); // Pop success page
-                         Navigator.of(context).pop(true); // Pop offer page with result=true
-                       }
-                     });
+                      if (context.mounted) {
+                        // Pop back twice: once for the success page, once for the offer page itself
+                        Navigator.of(context).pop(); // Pop success page
+                        Navigator.of(context)
+                            .pop(true); // Pop offer page with result=true
+                      }
+                    });
                   },
                 );
               },
@@ -156,9 +157,14 @@ class _ArtistOpenQuotationOfferPageViewState
                 return _buildPageContent(quotation, l10n);
               },
               // Display loading/error states during submission
-              submittingResponse: () => const Center(child: InkerProgressIndicator()),
-              success: () => const SizedBox(), // Success state handled by listener
-              failure: (error) => Center(child: Text(error, style: const TextStyle(color: Colors.red))), // Show error inline
+              submittingResponse: () =>
+                  const Center(child: InkerProgressIndicator()),
+              success: () =>
+                  const SizedBox(), // Success state handled by listener
+              failure: (error) => Center(
+                  child: Text(error,
+                      style: const TextStyle(
+                          color: Colors.red))), // Show error inline
               orElse: () {
                 return const Center(child: InkerProgressIndicator());
               },
@@ -169,32 +175,32 @@ class _ArtistOpenQuotationOfferPageViewState
     );
   }
 
-   void _showSuccessAnimationPage(
-       BuildContext context, AnimationState state, String title, String subtitle,
-       {VoidCallback? onComplete}) {
-     // Prevent pushing multiple success pages if listener fires quickly
-     if (ModalRoute.of(context)?.isCurrent ?? false) {
-        Navigator.of(context).push(
-         MaterialPageRoute(
-           builder: (context) => SuccessAnimationPage(
-             title: title,
-             subtitle: subtitle,
-             state: state,
-             onAnimationComplete: () {
-               // Pop the success animation page itself
-               if (Navigator.canPop(context)) {
-                 Navigator.of(context).pop();
-               }
-               // Execute the completion callback (e.g., further navigation)
-               if (onComplete != null) {
-                 onComplete();
-               }
-             },
-           ),
-         ),
-       );
-     }
-   }
+  void _showSuccessAnimationPage(
+      BuildContext context, AnimationState state, String title, String subtitle,
+      {VoidCallback? onComplete}) {
+    // Prevent pushing multiple success pages if listener fires quickly
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => SuccessAnimationPage(
+            title: title,
+            subtitle: subtitle,
+            state: state,
+            onAnimationComplete: () {
+              // Pop the success animation page itself
+              if (Navigator.canPop(context)) {
+                Navigator.of(context).pop();
+              }
+              // Execute the completion callback (e.g., further navigation)
+              if (onComplete != null) {
+                onComplete();
+              }
+            },
+          ),
+        ),
+      );
+    }
+  }
 
   Widget _buildPageContent(Quotation quotation, S l10n) {
     // Similar structure, but form is only for submitting an offer
@@ -207,13 +213,13 @@ class _ArtistOpenQuotationOfferPageViewState
             l10n: l10n,
             onViewDetails: () {
               // Navigate to full details if needed
-               Navigator.of(context).push(
-                 MaterialPageRoute(
-                   builder: (context) => QuotationDetailsPage(
-                     quotation: quotation,
-                   ),
-                 ),
-               );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => QuotationDetailsPage(
+                    quotation: quotation,
+                  ),
+                ),
+              );
             },
           ),
           Padding(
@@ -251,15 +257,18 @@ class _ArtistOpenQuotationOfferPageViewState
             Center(
               child: Container(
                 // Use a different key if needed for testing
-                key: K.quotationActionSubmitButton, // Consider renaming key K.submitOfferButton
+                key: K
+                    .quotationActionSubmitButton, // Consider renaming key K.submitOfferButton
                 margin: const EdgeInsets.only(top: 16, bottom: 36),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () => _submitOffer(context), // Changed method call
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor, // Use consistent styling
-                    foregroundColor: quaternaryColor,
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .secondary, // Use consistent styling
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   // Changed button text
                   child: Text(l10n.submitOffer, style: TextStyleTheme.button),
@@ -298,17 +307,19 @@ class _ArtistOpenQuotationOfferPageViewState
                 labelStyle:
                     TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                 filled: true,
-                fillColor: inputBackgroundColor,
+                fillColor: Theme.of(context).colorScheme.surface,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: const Icon(Icons.calendar_today, color: tertiaryColor),
+                prefixIcon: Icon(Icons.calendar_today,
+                    color: Theme.of(context).colorScheme.tertiary),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.info_outline, color: tertiaryColor),
+                      icon: Icon(Icons.info_outline,
+                          color: Theme.of(context).colorScheme.tertiary),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.scheduleInfo)),
@@ -347,7 +358,8 @@ class _ArtistOpenQuotationOfferPageViewState
                 bottom: 0,
                 child: Center(
                   child: IconButton(
-                    icon: const Icon(Icons.close, color: tertiaryColor),
+                    icon: Icon(Icons.close,
+                        color: Theme.of(context).colorScheme.tertiary),
                     onPressed: () {
                       setState(() {
                         _appointmentStartDate = null;
@@ -387,75 +399,80 @@ class _ArtistOpenQuotationOfferPageViewState
 
   void _navigateToScheduleAssistant(BuildContext context) async {
     final l10n = S.of(context);
-     final result = await Navigator.push(
-       context,
-       MaterialPageRoute(
-         builder: (context) => ScheduleAssistantPage(
-           artistId: artistId,
-           tentativeDate: _appointmentStartDate,
-           tentativeDuration: _durationInMinutes,
-         ),
-       ),
-     );
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScheduleAssistantPage(
+          artistId: artistId,
+          tentativeDate: _appointmentStartDate,
+          tentativeDuration: _durationInMinutes,
+        ),
+      ),
+    );
 
-     if (result != null) {
-       final startTime = result['startEventDate'] as DateTime?;
-       final duration = result['duration'] as int?;
+    if (result != null) {
+      final startTime = result['startEventDate'] as DateTime?;
+      final duration = result['duration'] as int?;
 
-       setState(() {
-         if (startTime != null && duration != null) {
-           _appointmentStartDate = startTime;
-           _appointmentEndDate = startTime.add(Duration(minutes: duration));
-           _durationInMinutes = duration;
-           _showDateError = false;
-           _dateErrorText = null;
+      setState(() {
+        if (startTime != null && duration != null) {
+          _appointmentStartDate = startTime;
+          _appointmentEndDate = startTime.add(Duration(minutes: duration));
+          _durationInMinutes = duration;
+          _showDateError = false;
+          _dateErrorText = null;
 
-           if (duration == 0) {
-             _showDurationError = true;
-             _durationErrorText = l10n.durationCannotBeZero;
-           } else {
-             _showDurationError = false;
-             _durationErrorText = null;
-           }
-         } else {
-           // Handle case where schedule assistant returns null/invalid data
-           _showDateError = true;
-           _dateErrorText = l10n.requiredField; // Or a more specific error
-           _appointmentStartDate = null;
-           _appointmentEndDate = null;
-           _durationInMinutes = 0;
-         }
-       });
-     }
+          if (duration == 0) {
+            _showDurationError = true;
+            _durationErrorText = l10n.durationCannotBeZero;
+          } else {
+            _showDurationError = false;
+            _durationErrorText = null;
+          }
+        } else {
+          // Handle case where schedule assistant returns null/invalid data
+          _showDateError = true;
+          _dateErrorText = l10n.requiredField; // Or a more specific error
+          _appointmentStartDate = null;
+          _appointmentEndDate = null;
+          _durationInMinutes = 0;
+        }
+      });
+    }
 
-     _estimatedCostFocusNode.unfocus(); // Keep focus logic
-   }
-
+    _estimatedCostFocusNode.unfocus(); // Keep focus logic
+  }
 
   Widget _buildEstimatedCostField(S l10n) {
     return EstimatedCostField(
       controller: _estimatedCostController,
       l10n: l10n,
       focusNode: _estimatedCostFocusNode,
-      onChanged: (value) {}, 
-       // Removed validator - validation should be internal to EstimatedCostField
-       // or checked manually in _submitOffer
+      onChanged: (value) {},
+      // Removed validator - validation should be internal to EstimatedCostField
+      // or checked manually in _submitOffer
     );
   }
 
   Widget _buildAdditionalDetailsField(S l10n) {
     // Make details optional or required based on requirements
     return TextFormField(
-      key: K.quotationAdditionalDetailsField, // Consider renaming K.offerAdditionalDetailsField
+      key: K
+          .quotationAdditionalDetailsField, // Consider renaming K.offerAdditionalDetailsField
       controller: _additionalDetailsController,
       decoration: InputDecoration(
         labelText: l10n.additionalDetailsOptional,
         labelStyle: TextStyleTheme.bodyText1,
-        fillColor: inputBackgroundColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
-        prefixIcon: const Icon(Icons.notes, color: tertiaryColor),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+        ),
+        prefixIcon:
+            Icon(Icons.notes, color: Theme.of(context).colorScheme.tertiary),
       ),
       style: TextStyleTheme.bodyText1,
       maxLines: 3,
@@ -463,9 +480,8 @@ class _ArtistOpenQuotationOfferPageViewState
     );
   }
 
-
   Widget _buildProposedDesignsUpload(S l10n) {
-     // Make designs optional or required? Assuming optional for now.
+    // Make designs optional or required? Assuming optional for now.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -473,7 +489,8 @@ class _ArtistOpenQuotationOfferPageViewState
         const SizedBox(height: 8),
         Text(
           l10n.addReferenceImagesOrSketches,
-          style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.caption
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
         ),
         const SizedBox(height: 8),
         Wrap(
@@ -531,16 +548,20 @@ class _ArtistOpenQuotationOfferPageViewState
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: inputBackgroundColor, // Match input field style
-          border: Border.all(color: tertiaryColor.withOpacity(0.5)), // Softer border
+          color: Theme.of(context).colorScheme.surface, // Match input field style
+          border: Border.all(
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5)), // Softer border
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Icon(Icons.add_photo_alternate_outlined, size: 30, color: tertiaryColor),
-             const SizedBox(height: 4),
-             Text(l10n.addDesign, style: TextStyleTheme.caption.copyWith(color: tertiaryColor)) // Placeholder
+            Icon(Icons.add_photo_alternate_outlined,
+                size: 30, color: Theme.of(context).colorScheme.tertiary),
+            const SizedBox(height: 4),
+            Text(l10n.addDesign,
+                style: TextStyleTheme.caption
+                    .copyWith(color: Theme.of(context).colorScheme.tertiary)) // Placeholder
           ],
         ),
       ),
@@ -569,8 +590,9 @@ class _ArtistOpenQuotationOfferPageViewState
       _bloc.add(
         ArtistQuotationResponseEvent.submitOffer(
           quotationId: widget.quotationId,
-          estimatedCost: _estimatedCostController.text.isNotEmpty 
-              ? double.tryParse(_estimatedCostController.text.replaceAll('.', '')) 
+          estimatedCost: _estimatedCostController.text.isNotEmpty
+              ? double.tryParse(
+                  _estimatedCostController.text.replaceAll('.', ''))
               : null,
           appointmentDate: _appointmentStartDate,
           appointmentDuration: _durationInMinutes,
@@ -587,30 +609,28 @@ class _ArtistOpenQuotationOfferPageViewState
     bool isValid = true;
     // Reset custom errors
     setState(() {
-       _showDateError = false;
-       _dateErrorText = null;
-       _showDurationError = false;
-       _durationErrorText = null;
+      _showDateError = false;
+      _dateErrorText = null;
+      _showDurationError = false;
+      _durationErrorText = null;
     });
 
-
     if (_appointmentStartDate == null) {
-       setState(() {
-         _showDateError = true;
-         _dateErrorText = l10n.requiredField;
-       });
-       isValid = false;
-     }
+      setState(() {
+        _showDateError = true;
+        _dateErrorText = l10n.requiredField;
+      });
+      isValid = false;
+    }
 
     // Validate duration (assuming it should be > 0 if date is set)
     if (_appointmentStartDate != null && _durationInMinutes <= 0) {
-       setState(() {
-          _showDurationError = true;
-          _durationErrorText = l10n.durationMustBePositive;
-       });
-       isValid = false;
+      setState(() {
+        _showDurationError = true;
+        _durationErrorText = l10n.durationMustBePositive;
+      });
+      isValid = false;
     }
-
 
     // Add any other specific offer validations here
 
@@ -620,4 +640,4 @@ class _ArtistOpenQuotationOfferPageViewState
 
 // TODO: Add the `submitOffer` event to `ArtistQuotationResponseEvent`
 // TODO: Handle the `submitOffer` event in `ArtistQuotationResponseBloc` to call the `quotationService.submitOffer` method.
-// Consider creating a dedicated `ArtistOpenQuotationOfferBloc` if logic diverges significantly. 
+// Consider creating a dedicated `ArtistOpenQuotationOfferBloc` if logic diverges significantly.
