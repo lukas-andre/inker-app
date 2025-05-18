@@ -1,8 +1,11 @@
 # Inker Studio Integration Tests
 
-La documentación y el seguimiento de pendientes de pruebas de integración ahora se encuentran en los siguientes archivos:
+All detailed documentation regarding integration testing, including setup, best practices, Patrol framework usage, and project-specific test suite information, can now be found in the main guide:
 
-- [README_INTEGRATION_TESTS.md](./README_INTEGRATION_TESTS.md): Documentación completa y estructura del módulo de pruebas.
-- [TODO_INTEGRATION_TESTS.md](./TODO_INTEGRATION_TESTS.md): Lista de tests implementados y pendientes, detallando cobertura y flujos críticos.
+- [**Comprehensive Guide to Integration Testing with Patrol for Inker App**](./PATROL_AND_TEST_SUITE_GUIDE.md): Detailed guide on writing, running, and maintaining integration tests using Patrol for the Inker App.
 
-Por favor, consulta esos archivos para toda la información actualizada sobre las pruebas de integración. 
+For a list of implemented and pending integration tests, detailing coverage and critical user flows, please refer to:
+
+- [**TODO - Integration Tests**](./TODO_INTEGRATION_TESTS.md): Tracks the status and coverage of integration tests for different features.
+
+Please consult these files for all up-to-date information regarding integration tests in the Inker App project. 
