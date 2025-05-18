@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
-import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
@@ -16,7 +15,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 // This page now only shows DIRECT quotations for the logged-in user (Artist or Customer)
 class QuotationListPage extends StatelessWidget {
@@ -195,7 +193,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           key: K.quotationCancelSuccessMessage,
                           context: context,
                           content: l10n.quotationCancelledSuccessfully,
-                          backgroundColor: secondaryColor,
+                          backgroundColor: Theme.of(context).colorScheme.secondary,
                         ),
                       );
                       // Reload current filters after cancellation
@@ -280,7 +278,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                 key: Key(option['label']), // Use label as key
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: isSelected ? secondaryColor : tertiaryColor,
+                  color: isSelected ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
@@ -396,22 +394,13 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         if (isUnread) {
           _quotationListBloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
         }
-        if (quotation != null) {
-          Navigator.of(context).pushNamed(
-            '/quotationDetail',
-            arguments: {
-              'quotation': quotation,
+        Navigator.of(context).pushNamed(
+          '/quotationDetail',
+          arguments: {
+            'quotation': quotation,
+          },
+        );
             },
-          );
-        } else {
-          Navigator.of(context).pushNamed(
-            '/quotationDetail',
-            arguments: {
-              'quotationId': quotation.id.toString(),
-            },
-          );
-        }
-      },
       child: Card(
         key: K.getQuotationCardKey(quotation.id.toString()),
         color: isUnread ? const Color(0xFF252A47) : const Color(0xFF1F223C),
@@ -419,7 +408,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: BorderSide(
-            color: isUnread ? secondaryColor : const Color(0xFF777E91),
+            color: isUnread ? Theme.of(context).colorScheme.secondary : const Color(0xFF777E91),
             width: isUnread ? 2.0 : 1.0,
           ),
         ),
@@ -434,14 +423,14 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                   width: 32,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(4),
                       bottomRight: Radius.circular(4),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: secondaryColor.withOpacity(0.3),
+                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                         blurRadius: 4,
                         spreadRadius: 1,
                       ),
@@ -463,15 +452,15 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: secondaryColor.withOpacity(0.1),
+                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: secondaryColor),
+                            border: Border.all(color: Theme.of(context).colorScheme.secondary),
                           ),
                           child: Text(
                             // Placeholder for l10n.newRequest / l10n.newQuotation
                             _isArtist ? l10n.newRequest : l10n.newQuotation, 
                             style: TextStyleTheme.caption.copyWith(
-                              color: secondaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -506,7 +495,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                         Text(
                           '${quotation.referenceBudget!.toString()} CLP',
                           style: TextStyleTheme.bodyText2.copyWith(
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

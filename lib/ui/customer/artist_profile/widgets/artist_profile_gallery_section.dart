@@ -13,7 +13,6 @@ import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileGallerySection extends StatefulWidget {
   final String artistId;
@@ -71,23 +70,23 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
           // Botón para ver reseñas
           OutlinedButton.icon(
             onPressed: widget.onReviewsPressed,
-            icon: const Icon(
+            icon: Icon(
               Icons.star, 
-              color: secondaryColor, 
+              color: Theme.of(context).colorScheme.secondary, 
               size: 18
             ),
             label: Text(
               S.of(context).reviews,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: secondaryColor,
+                color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
               ),
             ),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              side: const BorderSide(color: secondaryColor, width: 1.5),
+              side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -123,7 +122,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
             // Portfolio completo 
             Container(
               height: 700, // Increased height to allow more content scrolling
-              color: primaryColor, // Ensure the background color is primaryColor
+              color: Theme.of(context).colorScheme.surface, // Ensure the background color is Theme.of(context).colorScheme.primary
               child: BlocProvider(
                 create: (context) => ArtistPortfolioCubit(
                   stencilService: context.read<StencilService>(),
@@ -146,7 +145,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 48, color: redColor),
+              Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
               const SizedBox(height: 16),
               Text(
                 S.of(context).errorLoadingWorks,
@@ -167,7 +166,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
               ElevatedButton.icon(
                 onPressed: () => context.read<ArtistWorksCubit>().loadArtistWorks(widget.artistId),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Colors.white,
                 ),
                 icon: const Icon(Icons.refresh),
@@ -219,7 +218,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
           padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 12),
           child: Row(
             children: [
-              const Icon(Icons.star, size: 16, color: secondaryColor),
+              Icon(Icons.star, size: 16, color: Theme.of(context).colorScheme.secondary),
               const SizedBox(width: 8),
               Text(
                 S.of(context).featuredWorks,
@@ -275,11 +274,11 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
                               child: InkerProgressIndicator(radius: 12),
                             ),
                             errorWidget: (context, url, error) => Container(
-                              color: HSLColor.fromColor(primaryColor)
+                              color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
                                 .withLightness(0.15)
                                 .toColor(),
                               child:
-                                const Icon(Icons.error, color: redColor, size: 24),
+                                Icon(Icons.error, color: Theme.of(context).colorScheme.error, size: 24),
                             ),
                           ),
                         ),
@@ -328,7 +327,7 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: secondaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(

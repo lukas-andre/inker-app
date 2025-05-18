@@ -12,7 +12,6 @@ import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/models/artist_page_nav_bar_icons.dart';
 import 'package:inker_studio/keys.dart';
@@ -168,33 +167,33 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     return [
       PageNavBarIcon(
         key: K.agendaTab,
-        icon: ImageIcon(feedIcon),
-        selectedIcon: ImageIcon(feedSelectedIcon),
+        icon: const ImageIcon(feedIcon),
+        selectedIcon: const ImageIcon(feedSelectedIcon),
         title: S.of(context).agenda,
         index: 0,
       ),
       PageNavBarIcon(
         key: K.quotationsTab,
-        icon: ImageIcon(bookMarkIcon),
-        selectedIcon: ImageIcon(bookMarkSelectedIcon),
+        icon: const ImageIcon(bookMarkIcon),
+        selectedIcon: const ImageIcon(bookMarkSelectedIcon),
         title: S.of(context).quotations,
         index: 1,
       ),
       PageNavBarIcon(
-        key: Key('trabajos_tab'),
-        icon: Icon(Icons.work_outline, color: Colors.white60),
-        selectedIcon: Icon(Icons.work, color: Colors.white),
+        key: const Key('trabajos_tab'),
+        icon: const Icon(Icons.work_outline, color: Colors.white60),
+        selectedIcon: const Icon(Icons.work, color: Colors.white),
         title: S.of(context).works,
         index: 2,
       ),
       PageNavBarIcon(
         key: K.profileTab,
-        icon: Icon(
+        icon: const Icon(
           Icons.account_circle_outlined,
           size: 25,
           color: Colors.white60,
         ),
-        selectedIcon: Icon(
+        selectedIcon: const Icon(
           Icons.account_circle,
           size: 25,
           color: Colors.white,
@@ -224,7 +223,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
           ),
         ),
         elevation: 0,
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         actions: _getAppBarActions(),
       ) : null,
       body: IndexedStack(
@@ -238,7 +237,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
         ),
         child: BottomNavigationBar(
           elevation: 0,
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           unselectedItemColor: Colors.white60,
           selectedLabelStyle: TextStyleTheme.copyWith(
             fontSize: 12, 

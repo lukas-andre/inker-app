@@ -9,7 +9,6 @@ import 'package:inker_studio/ui/shared/empty_state.dart';
 import 'package:inker_studio/ui/shared/error_state.dart';
 import 'package:inker_studio/ui/shared/loading_indicator.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/ui/immersive_viewer/vertical_immersive_viewer_page.dart';
@@ -120,11 +119,24 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   void _onScroll() {
     final state = context.read<InspirationSearchBloc>().state;
     state.whenOrNull(
-      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
-               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
-               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
+      loaded: (works,
+          stencils,
+          contentType,
+          selectedTagIds,
+          searchQuery,
+          sortType,
+          currentWorkPage,
+          hasMoreWorks,
+          currentStencilPage,
+          hasMoreStencils,
+          popularTags,
+          searchedTags,
+          isLoadingMoreWorks,
+          isLoadingMoreStencils) {
         if (_scrollController.position.extentAfter < 300) {
-          if (contentType == ContentType.works && hasMoreWorks && !isLoadingMoreWorks) {
+          if (contentType == ContentType.works &&
+              hasMoreWorks &&
+              !isLoadingMoreWorks) {
             context.read<InspirationSearchBloc>().add(
                   const InspirationSearchEvent.loadMoreWorks(),
                 );
@@ -146,7 +158,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 }
               }
             }
-          } else if (contentType == ContentType.stencils && hasMoreStencils && !isLoadingMoreStencils) {
+          } else if (contentType == ContentType.stencils &&
+              hasMoreStencils &&
+              !isLoadingMoreStencils) {
             context.read<InspirationSearchBloc>().add(
                   const InspirationSearchEvent.loadMoreStencils(),
                 );
@@ -278,7 +292,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               Text('${S.of(context).searching} "$query"...'),
             ],
           ),
-          backgroundColor: redColor,
+          backgroundColor: Theme.of(context).colorScheme.error,
           duration: const Duration(seconds: 2),
         ),
       );
@@ -365,7 +379,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
         children: [
           if (!widget.hideHeader) _buildModernHeader(),
@@ -403,17 +417,18 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       return EmptyState(
                         icon: Icons.search_off,
                         title: S.of(context).noResultsFound,
-                        message: selectedTagIds.isNotEmpty ||
-                                searchQuery.isNotEmpty
-                            ? S.of(context).tryDifferentSearchOrFilters
-                            : S.of(context).tryDifferentSearchOrFilters,
+                        message:
+                            selectedTagIds.isNotEmpty || searchQuery.isNotEmpty
+                                ? S.of(context).tryDifferentSearchOrFilters
+                                : S.of(context).tryDifferentSearchOrFilters,
                         actionButton: selectedTagIds.isNotEmpty
                             ? ElevatedButton.icon(
                                 onPressed: _clearAllFilters,
                                 icon: const Icon(Icons.filter_alt_off),
                                 label: Text(S.of(context).clearFilters),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: redColor,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.error,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0,
                                     vertical: 10.0,
@@ -448,7 +463,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: _isSearchExpanded ? Colors.white : redColor,
+        backgroundColor: _isSearchExpanded
+            ? Colors.white
+            : Theme.of(context).colorScheme.error,
         onPressed: () {
           setState(() {
             _isSearchExpanded = !_isSearchExpanded;
@@ -462,7 +479,9 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         },
         child: Icon(
           _isSearchExpanded ? Icons.close : Icons.search,
-          color: _isSearchExpanded ? redColor : Colors.white,
+          color: _isSearchExpanded
+              ? Theme.of(context).colorScheme.error
+              : Colors.white,
         ),
       ),
     );
@@ -470,7 +489,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
 
   Widget _buildModernHeader() {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.only(
         left: 16.0,
         right: 16.0,
@@ -562,9 +581,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
-                  color: redColor.withOpacity(0.2),
+                  color: Theme.of(context).colorScheme.error.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(16.0),
-                  border: Border.all(color: redColor),
+                  border:
+                      Border.all(color: Theme.of(context).colorScheme.error),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -581,8 +601,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       onTap: () => _removeSelectedTag(tag),
                       child: Container(
                         padding: const EdgeInsets.all(2.0),
-                        decoration: const BoxDecoration(
-                          color: redColor,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.error,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -606,7 +626,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     return Container(
       height: 48.0,
       decoration: BoxDecoration(
-        color: explorerSecondaryColor.withOpacity(0.8),
+        color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
         borderRadius: BorderRadius.circular(24.0),
         border: Border.all(color: Colors.white38, width: 1),
         boxShadow: [
@@ -669,7 +689,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   // Buscador que aparece cuando se presiona la lupa
   Widget _buildSearchBar() {
     return Container(
-      color: primaryColor.withOpacity(0.95),
+      color: Theme.of(context).colorScheme.surface.withOpacity(0.95),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -752,9 +772,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        color: redColor.withOpacity(0.2),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .error
+                            .withOpacity(0.2),
                         borderRadius: BorderRadius.circular(16.0),
-                        border: Border.all(color: redColor),
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.error),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -769,8 +793,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           const SizedBox(width: 4.0),
                           Container(
                             padding: const EdgeInsets.all(2.0),
-                            decoration: const BoxDecoration(
-                              color: redColor,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.error,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -792,111 +816,145 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
             builder: (context, state) {
               return state.whenOrNull(
-                loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
-                        currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                        popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
-                  if (searchedTags.isNotEmpty && _searchController.text.trim().isNotEmpty) {
-                    // Filtrar los tags ocultos para no mostrarlos
-                    final visibleTags = searchedTags
-                        .where((tag) => !_hiddenTagIds.contains(tag.id))
-                        // Filter out already selected tags
-                        .where((tag) => !_selectedTagsLocal.any((t) => t.id == tag.id))
-                        .toList();
-                        
-                    if (visibleTags.isEmpty) {
-                      return const SizedBox(height: 12.0);
-                    }
-                    
-                    return Container(
-                      margin: const EdgeInsets.only(top: 12.0),
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      decoration: BoxDecoration(
-                        color: explorerSecondaryColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 4.0),
-                            child: Text(
-                              S.of(context).suggestedTags,
-                              style: TextStyleTheme.bodyText2.copyWith(
-                                color: Colors.white70,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                    loaded: (works,
+                        stencils,
+                        contentType,
+                        selectedTagIds,
+                        searchQuery,
+                        sortType,
+                        currentWorkPage,
+                        hasMoreWorks,
+                        currentStencilPage,
+                        hasMoreStencils,
+                        popularTags,
+                        searchedTags,
+                        isLoadingMoreWorks,
+                        isLoadingMoreStencils) {
+                      if (searchedTags.isNotEmpty &&
+                          _searchController.text.trim().isNotEmpty) {
+                        // Filtrar los tags ocultos para no mostrarlos
+                        final visibleTags = searchedTags
+                            .where((tag) => !_hiddenTagIds.contains(tag.id))
+                            // Filter out already selected tags
+                            .where((tag) =>
+                                !_selectedTagsLocal.any((t) => t.id == tag.id))
+                            .toList();
+
+                        if (visibleTags.isEmpty) {
+                          return const SizedBox(height: 12.0);
+                        }
+
+                        return Container(
+                          margin: const EdgeInsets.only(top: 12.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12.0),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 8.0),
-                            child: Row(
-                              children: visibleTags.map((tag) => Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: redColor.withOpacity(0.7),
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 4.0,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => _addSelectedTag(tag),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12.0,
-                                            vertical: 8.0,
-                                          ),
-                                          child: Text(
-                                            tag.name,
-                                            style: TextStyleTheme.bodyText2.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      // Añadir botón para ocultar el tag
-                                      GestureDetector(
-                                        onTap: () => _hideTag(tag),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right: 8.0),
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              color: Colors.black26,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.close,
-                                              color: Colors.white70,
-                                              size: 16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 4.0),
+                                child: Text(
+                                  S.of(context).suggestedTags,
+                                  style: TextStyleTheme.bodyText2.copyWith(
+                                    color: Colors.white70,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              )).toList(),
-                            ),
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 8.0),
+                                child: Row(
+                                  children: visibleTags
+                                      .map((tag) => Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .error
+                                                    .withOpacity(0.7),
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.1),
+                                                    blurRadius: 4.0,
+                                                    offset: const Offset(0, 2),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () =>
+                                                        _addSelectedTag(tag),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        horizontal: 12.0,
+                                                        vertical: 8.0,
+                                                      ),
+                                                      child: Text(
+                                                        tag.name,
+                                                        style: TextStyleTheme
+                                                            .bodyText2
+                                                            .copyWith(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // Añadir botón para ocultar el tag
+                                                  GestureDetector(
+                                                    onTap: () => _hideTag(tag),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: Container(
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          color: Colors.black26,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: const Icon(
+                                                          Icons.close,
+                                                          color: Colors.white70,
+                                                          size: 16,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ))
+                                      .toList(),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  }
-                  return const SizedBox(height: 12.0);
-                },
-              ) ?? const SizedBox(height: 12.0);
+                        );
+                      }
+                      return const SizedBox(height: 12.0);
+                    },
+                  ) ??
+                  const SizedBox(height: 12.0);
             },
           ),
 
@@ -904,102 +962,132 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
             builder: (context, state) {
               return state.whenOrNull(
-                loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
-                         currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                         popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
-                  if (popularTags.isNotEmpty && _searchController.text.trim().isEmpty) {
-                    // Filtrar los tags populares para no mostrar los ocultos
-                    final visibleTags = popularTags
-                        .where((tag) => !_hiddenTagIds.contains(tag.id))
-                        // Filter out already selected tags
-                        .where((tag) => !_selectedTagsLocal.any((t) => t.id == tag.id))
-                        .take(5) // Show the most popular tags (top 5)
-                        .toList();
-                        
-                    if (visibleTags.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-                    
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, bottom: 8.0, top: 12.0),
-                          child: Text(
-                            S.of(context).popularTags,
-                            style: TextStyleTheme.bodyText2.copyWith(
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: visibleTags.map((tag) => Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: redColor.withOpacity(0.7),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 4.0,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => _addSelectedTag(tag),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12.0,
-                                          vertical: 8.0,
-                                        ),
-                                        child: Text(
-                                          tag.name,
-                                          style: TextStyleTheme.bodyText2.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    // Añadir botón para ocultar el tag
-                                    GestureDetector(
-                                      onTap: () => _hideTag(tag),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(right: 8.0),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.black26,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: const Icon(
-                                            Icons.close,
-                                            color: Colors.white70,
-                                            size: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                    loaded: (works,
+                        stencils,
+                        contentType,
+                        selectedTagIds,
+                        searchQuery,
+                        sortType,
+                        currentWorkPage,
+                        hasMoreWorks,
+                        currentStencilPage,
+                        hasMoreStencils,
+                        popularTags,
+                        searchedTags,
+                        isLoadingMoreWorks,
+                        isLoadingMoreStencils) {
+                      if (popularTags.isNotEmpty &&
+                          _searchController.text.trim().isEmpty) {
+                        // Filtrar los tags populares para no mostrar los ocultos
+                        final visibleTags = popularTags
+                            .where((tag) => !_hiddenTagIds.contains(tag.id))
+                            // Filter out already selected tags
+                            .where((tag) =>
+                                !_selectedTagsLocal.any((t) => t.id == tag.id))
+                            .take(5) // Show the most popular tags (top 5)
+                            .toList();
+
+                        if (visibleTags.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, bottom: 8.0, top: 12.0),
+                              child: Text(
+                                S.of(context).popularTags,
+                                style: TextStyleTheme.bodyText2.copyWith(
+                                  color: Colors.white70,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            )).toList(),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ) ?? const SizedBox.shrink();
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: visibleTags
+                                    .map((tag) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error
+                                                  .withOpacity(0.7),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  blurRadius: 4.0,
+                                                  offset: const Offset(0, 2),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      _addSelectedTag(tag),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 12.0,
+                                                      vertical: 8.0,
+                                                    ),
+                                                    child: Text(
+                                                      tag.name,
+                                                      style: TextStyleTheme
+                                                          .bodyText2
+                                                          .copyWith(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // Añadir botón para ocultar el tag
+                                                GestureDetector(
+                                                  onTap: () => _hideTag(tag),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8.0),
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.black26,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.white70,
+                                                        size: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ) ??
+                  const SizedBox.shrink();
             },
           ),
         ],
@@ -1047,7 +1135,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 Container(
                   height: 50.0,
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: Theme.of(context).colorScheme.surface,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
@@ -1119,12 +1207,23 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   Widget _buildDefaultFilterBar() {
     // Obtener el tipo de contenido actual del bloc si está disponible
     ContentType selectedType = ContentType.both;
-    
+
     final currentState = context.read<InspirationSearchBloc>().state;
     currentState.whenOrNull(
-      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
-               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
+      loaded: (works,
+          stencils,
+          contentType,
+          selectedTagIds,
+          searchQuery,
+          sortType,
+          currentWorkPage,
+          hasMoreWorks,
+          currentStencilPage,
+          hasMoreStencils,
+          popularTags,
+          searchedTags,
+          isLoadingMoreWorks,
+          isLoadingMoreStencils) {
         selectedType = contentType;
       },
     );
@@ -1132,7 +1231,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     return Container(
       height: 50.0,
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -1156,20 +1255,32 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     final currentState = context.read<InspirationSearchBloc>().state;
 
     currentState.whenOrNull(
-      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
-               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
-        if (contentType != newContentType) {
-          context.read<InspirationSearchBloc>().add(
-                InspirationSearchEvent.changeContentType(
-                  contentType: newContentType,
-                ),
-              );
-        } else {
-          print('Ignoring content type change: already at target type');
-        }
-      },
-    ) ?? print('Ignoring content type change: not in loaded state');
+          loaded: (works,
+              stencils,
+              contentType,
+              selectedTagIds,
+              searchQuery,
+              sortType,
+              currentWorkPage,
+              hasMoreWorks,
+              currentStencilPage,
+              hasMoreStencils,
+              popularTags,
+              searchedTags,
+              isLoadingMoreWorks,
+              isLoadingMoreStencils) {
+            if (contentType != newContentType) {
+              context.read<InspirationSearchBloc>().add(
+                    InspirationSearchEvent.changeContentType(
+                      contentType: newContentType,
+                    ),
+                  );
+            } else {
+              print('Ignoring content type change: already at target type');
+            }
+          },
+        ) ??
+        print('Ignoring content type change: not in loaded state');
   }
 
   // Método para actualizar tags seleccionados de forma más segura
@@ -1262,12 +1373,14 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           vertical: 6.0,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? redColor : Colors.white.withOpacity(0.2),
+          color: isSelected
+              ? Theme.of(context).colorScheme.error
+              : Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(16.0),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: redColor.withOpacity(0.3),
+                    color: Theme.of(context).colorScheme.error.withOpacity(0.3),
                     blurRadius: 4.0,
                     offset: const Offset(0, 2),
                   ),
@@ -1335,15 +1448,18 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [secondaryColor, redColor],
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).colorScheme.secondary,
+              Theme.of(context).colorScheme.error
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: secondaryColor.withOpacity(0.4),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -1379,7 +1495,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       color: Colors.white.withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.brush, color: Colors.white, size: 28),
+                    child:
+                        const Icon(Icons.brush, color: Colors.white, size: 28),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -1396,7 +1513,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         const SizedBox(height: 4),
                         Text(
                           S.of(context).generateTattooDesignsWithAI,
-                          style: TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                          style: TextStyleTheme.bodyText2
+                              .copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -1422,242 +1540,272 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     return BlocBuilder<InspirationSearchBloc, InspirationSearchState>(
       builder: (context, state) {
         return state.whenOrNull(
-          loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType,
-                  currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils,
-                  popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
-            if (popularTags.isNotEmpty) {
-              return Container(
-                color: explorerSecondaryColor,
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Add Create Your Own section at the top
-                      _buildCreateYourOwnSection(),
-                      const SizedBox(height: 8.0),
-                      
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          S.of(context).exploreInspiration,
-                          style: TextStyleTheme.headline3.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          S.of(context).findDesignsAndTattoosMadeByArtists,
-                          style: TextStyleTheme.bodyText1
-                              .copyWith(color: Colors.white70),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      // Botón de búsqueda para activar el buscador
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              _isSearchExpanded = true;
-                            });
-                            _animationController.forward();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: redColor,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 12.0,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                            ),
-                            elevation: 3,
-                          ),
-                          icon: const Icon(Icons.search, color: Colors.white),
-                          label: Text(
-                            S.of(context).searchInspiration,
-                            style: TextStyleTheme.subtitle1.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 32.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.local_fire_department, color: redColor),
-                            const SizedBox(width: 8.0),
-                            Text(
-                              S.of(context).popularTags,
-                              style: TextStyleTheme.subtitle1.copyWith(
+              loaded: (works,
+                  stencils,
+                  contentType,
+                  selectedTagIds,
+                  searchQuery,
+                  sortType,
+                  currentWorkPage,
+                  hasMoreWorks,
+                  currentStencilPage,
+                  hasMoreStencils,
+                  popularTags,
+                  searchedTags,
+                  isLoadingMoreWorks,
+                  isLoadingMoreStencils) {
+                if (popularTags.isNotEmpty) {
+                  return Container(
+                    color: Theme.of(context).colorScheme.secondary,
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Add Create Your Own section at the top
+                          _buildCreateYourOwnSection(),
+                          const SizedBox(height: 8.0),
+
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              S.of(context).exploreInspiration,
+                              style: TextStyleTheme.headline3.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Wrap(
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: popularTags.map((tag) {
-                            // Filtrar tags ocultos
-                            if (_hiddenTagIds.contains(tag.id) || 
-                                _selectedTagsLocal.any((t) => t.id == tag.id)) {
-                              return const SizedBox.shrink();
-                            }
-                            
-                            return GestureDetector(
-                              onTap: () {
-                                _addSelectedTag(tag);
-                                // Expandir el buscador después de seleccionar un tag
+                          ),
+                          const SizedBox(height: 8.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              S.of(context).findDesignsAndTattoosMadeByArtists,
+                              style: TextStyleTheme.bodyText1
+                                  .copyWith(color: Colors.white70),
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          // Botón de búsqueda para activar el buscador
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
                                 setState(() {
                                   _isSearchExpanded = true;
                                 });
                                 _animationController.forward();
                               },
-                              child: Container(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.error,
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                  vertical: 8.0,
+                                  horizontal: 16.0,
+                                  vertical: 12.0,
                                 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      primaryColor.withOpacity(0.8),
-                                      redColor.withOpacity(0.8),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.2),
-                                      blurRadius: 4.0,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      tag.name,
-                                      style: TextStyleTheme.bodyText2.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    GestureDetector(
-                                      onTap: () => _hideTag(tag),
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.black26,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Icon(
-                                          Icons.close,
-                                          color: Colors.white70,
-                                          size: 14,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                elevation: 3,
+                              ),
+                              icon: const Icon(Icons.search, color: Colors.white),
+                              label: Text(
+                                S.of(context).searchInspiration,
+                                style: TextStyleTheme.subtitle1.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            );
-                          }).toList(),
+                            ),
+                          ),
+                          const SizedBox(height: 32.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.local_fire_department,
+                                    color: Theme.of(context).colorScheme.error),
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  S.of(context).popularTags,
+                                  style: TextStyleTheme.subtitle1.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 12.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Wrap(
+                              spacing: 8.0,
+                              runSpacing: 8.0,
+                              children: popularTags.map((tag) {
+                                // Filtrar tags ocultos
+                                if (_hiddenTagIds.contains(tag.id) ||
+                                    _selectedTagsLocal
+                                        .any((t) => t.id == tag.id)) {
+                                  return const SizedBox.shrink();
+                                }
+
+                                return GestureDetector(
+                                  onTap: () {
+                                    _addSelectedTag(tag);
+                                    // Expandir el buscador después de seleccionar un tag
+                                    setState(() {
+                                      _isSearchExpanded = true;
+                                    });
+                                    _animationController.forward();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0,
+                                      vertical: 8.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                              .withOpacity(0.8),
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .error
+                                              .withOpacity(0.8),
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          blurRadius: 4.0,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          tag.name,
+                                          style:
+                                              TextStyleTheme.bodyText2.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        GestureDetector(
+                                          onTap: () => _hideTag(tag),
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                              color: Colors.black26,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.close,
+                                              color: Colors.white70,
+                                              size: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          const SizedBox(height: 32.0),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return null;
+              },
+            ) ??
+            Container(
+              color: Theme.of(context).colorScheme.secondary,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .error
+                            .withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.image_search,
+                        size: 64.0,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                    Text(
+                      S.of(context).searchInspirationForYourNextTattoo,
+                      style: TextStyleTheme.subtitle1.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: Text(
+                        S.of(context).exploreDesignsAndArtistWorks,
+                        style: TextStyleTheme.bodyText2
+                            .copyWith(color: Colors.white60),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 32.0),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _isSearchExpanded = true;
+                        });
+                        _animationController.forward();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 12.0,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24.0),
                         ),
                       ),
-                      const SizedBox(height: 32.0),
-                    ],
-                  ),
-                ),
-              );
-            }
-            return null;
-          },
-        ) ?? Container(
-          color: explorerSecondaryColor,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: redColor.withOpacity(0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.image_search,
-                    size: 64.0,
-                    color: redColor,
-                  ),
-                ),
-                const SizedBox(height: 24.0),
-                Text(
-                  S.of(context).searchInspirationForYourNextTattoo,
-                  style: TextStyleTheme.subtitle1.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Text(
-                    S.of(context).exploreDesignsAndArtistWorks,
-                    style: TextStyleTheme.bodyText2
-                        .copyWith(color: Colors.white60),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 32.0),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _isSearchExpanded = true;
-                    });
-                    _animationController.forward();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0,
-                      vertical: 12.0,
+                      icon: const Icon(Icons.search, color: Colors.white),
+                      label: Text(
+                        S.of(context).startSearching,
+                        style: TextStyleTheme.subtitle1.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  icon: const Icon(Icons.search, color: Colors.white),
-                  label: Text(
-                    S.of(context).startSearching,
-                    style: TextStyleTheme.subtitle1.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
+              ),
+            );
       },
     );
   }
@@ -1715,7 +1863,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 icon: const Icon(Icons.filter_alt_off),
                 label: Text(S.of(context).clearFilters),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: redColor,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 10.0,
@@ -1735,19 +1883,19 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         // Use searchBoth event with current parameters to refresh
         final currentState = context.read<InspirationSearchBloc>().state;
         context.read<InspirationSearchBloc>().add(
-          InspirationSearchEvent.searchBoth(
-            query: _searchController.text,
-            tagIds: selectedTagIds,
-            sortBy: _getCurrentSortType(),
-            skipCache: true,  // Skip cache on pull-to-refresh
-          ),
-        );
+              InspirationSearchEvent.searchBoth(
+                query: _searchController.text,
+                tagIds: selectedTagIds,
+                sortBy: _getCurrentSortType(),
+                skipCache: true, // Skip cache on pull-to-refresh
+              ),
+            );
       },
       child: Column(
         children: [
           Expanded(
             child: Container(
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.surface,
               child: ListView(
                 controller: _scrollController,
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -1755,7 +1903,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                 children: [
                   // Add Create Your Own section at the top
                   _buildCreateYourOwnSection(),
-                    
+
                   // For "both" content type or specifically "works", show works section if there are any
                   if ((contentType == ContentType.both ||
                           contentType == ContentType.works) &&
@@ -1768,7 +1916,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           Container(
                             padding: const EdgeInsets.all(6.0),
                             decoration: BoxDecoration(
-                              color: redColor,
+                              color: Theme.of(context).colorScheme.error,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: const Icon(Icons.brush,
@@ -1801,7 +1949,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           Container(
                             padding: const EdgeInsets.all(6.0),
                             decoration: BoxDecoration(
-                              color: secondaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: const Icon(Icons.image,
@@ -1911,7 +2059,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
       },
     );
   }
-  
+
   Widget _buildWorkCard(Work work) {
     return GestureDetector(
       onTap: () {
@@ -1947,7 +2095,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         fit: BoxFit.cover,
                         memCacheWidth: 800,
                         placeholder: (context, url) => Container(
-                          color: HSLColor.fromColor(primaryColor)
+                          color: HSLColor.fromColor(
+                                  Theme.of(context).colorScheme.surface)
                               .withLightness(0.1)
                               .toColor(),
                           child: const Center(
@@ -1958,11 +2107,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
-                          color: HSLColor.fromColor(primaryColor)
+                          color: HSLColor.fromColor(
+                                  Theme.of(context).colorScheme.surface)
                               .withLightness(0.15)
                               .toColor(),
-                          child: const Icon(Icons.error,
-                              color: redColor, size: 24),
+                          child: Icon(Icons.error,
+                              color: Theme.of(context).colorScheme.error,
+                              size: 24),
                         ),
                       ),
                     ),
@@ -1975,7 +2126,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           vertical: 4.0,
                         ),
                         decoration: BoxDecoration(
-                          color: redColor,
+                          color: Theme.of(context).colorScheme.error,
                           borderRadius: BorderRadius.circular(8.0),
                           boxShadow: [
                             BoxShadow(
@@ -2011,7 +2162,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                       Text(
                         work.title,
                         style: TextStyleTheme.bodyText2.copyWith(
-                          color: primaryColor,
+                          color: Theme.of(context).colorScheme.surface,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
@@ -2037,9 +2188,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   margin: const EdgeInsets.only(right: 8.0),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                    border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error
+                                            .withOpacity(0.3),
+                                        width: 1.5),
                                     image: DecorationImage(
-                                      image: CachedNetworkImageProvider(work.artist!.profileThumbnail!),
+                                      image: CachedNetworkImageProvider(
+                                          work.artist!.profileThumbnail!),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -2050,11 +2207,22 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   height: 24.0,
                                   margin: const EdgeInsets.only(right: 8.0),
                                   decoration: BoxDecoration(
-                                    color: redColor.withOpacity(0.2),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error
+                                        .withOpacity(0.2),
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: redColor.withOpacity(0.3), width: 1.5),
+                                    border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error
+                                            .withOpacity(0.3),
+                                        width: 1.5),
                                   ),
-                                  child: const Icon(Icons.person, size: 14.0, color: redColor),
+                                  child: Icon(Icons.person,
+                                      size: 14.0,
+                                      color:
+                                          Theme.of(context).colorScheme.error),
                                 ),
                               Expanded(
                                 child: Column(
@@ -2062,11 +2230,15 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      work.artist?.firstName != null && work.artist?.lastName != null
+                                      work.artist?.firstName != null &&
+                                              work.artist?.lastName != null
                                           ? '${work.artist!.firstName} ${work.artist!.lastName}'
-                                          : work.artist?.username ?? S.of(context).artist,
+                                          : work.artist?.username ??
+                                              S.of(context).artist,
                                       style: TextStyleTheme.caption.copyWith(
-                                        color: primaryColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                         fontWeight: FontWeight.bold,
                                       ),
                                       maxLines: 1,
@@ -2076,22 +2248,29 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                       const SizedBox(height: 2.0),
                                       Row(
                                         children: [
-                                          const Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                          const Icon(Icons.star,
+                                              size: 12.0, color: Colors.amber),
                                           const SizedBox(width: 2.0),
                                           Text(
                                             work.artist!.rating!,
-                                            style: TextStyleTheme.caption.copyWith(
+                                            style:
+                                                TextStyleTheme.caption.copyWith(
                                               color: Colors.grey.shade600,
                                               fontSize: 10.0,
                                             ),
                                           ),
-                                          if (work.artist?.followers != null && work.artist!.followers > 0) ...[
+                                          if (work.artist?.followers != null &&
+                                              work.artist!.followers > 0) ...[
                                             const SizedBox(width: 6.0),
-                                            Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                            Icon(Icons.people_outline,
+                                                size: 12.0,
+                                                color: Colors.grey.shade600),
                                             const SizedBox(width: 2.0),
                                             Text(
-                                              _formatFollowerCount(work.artist!.followers),
-                                              style: TextStyleTheme.caption.copyWith(
+                                              _formatFollowerCount(
+                                                  work.artist!.followers),
+                                              style: TextStyleTheme.caption
+                                                  .copyWith(
                                                 color: Colors.grey.shade600,
                                                 fontSize: 10.0,
                                               ),
@@ -2106,13 +2285,16 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                               Container(
                                 padding: const EdgeInsets.all(4.0),
                                 decoration: BoxDecoration(
-                                  color: primaryColor.withOpacity(0.1),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .error
+                                      .withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12.0,
-                                  color: primaryColor,
+                                  color: Theme.of(context).colorScheme.error,
                                 ),
                               ),
                             ],
@@ -2164,22 +2346,22 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         fit: BoxFit.cover,
                         memCacheWidth: 800,
                         placeholder: (context, url) => Container(
-                          color: HSLColor.fromColor(primaryColor)
+                          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
                               .withLightness(0.1)
                               .toColor(),
                           child: const Center(
                             child: CircularProgressIndicator(
-                              color: Colors.white, 
+                              color: Colors.white,
                               strokeWidth: 2.0,
                             ),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
-                          color: HSLColor.fromColor(primaryColor)
+                          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
                               .withLightness(0.15)
                               .toColor(),
-                          child: const Icon(Icons.error,
-                              color: redColor, size: 24),
+                          child: Icon(Icons.error,
+                              color: Theme.of(context).colorScheme.error, size: 24),
                         ),
                       ),
                     ),
@@ -2192,7 +2374,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           vertical: 4.0,
                         ),
                         decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: Theme.of(context).colorScheme.error,
                           borderRadius: BorderRadius.circular(8.0),
                           boxShadow: [
                             BoxShadow(
@@ -2225,7 +2407,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                     Text(
                       stencil.title,
                       style: TextStyleTheme.bodyText2.copyWith(
-                        color: primaryColor,
+                        color: Theme.of(context).colorScheme.error,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -2250,9 +2432,12 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                               margin: const EdgeInsets.only(right: 8.0),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                                border: Border.all(
+                                    color: Theme.of(context).colorScheme.error.withOpacity(0.3),
+                                    width: 1.5),
                                 image: DecorationImage(
-                                  image: CachedNetworkImageProvider(stencil.artist!.profileThumbnail!),
+                                  image: CachedNetworkImageProvider(
+                                      stencil.artist!.profileThumbnail!),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -2263,22 +2448,27 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                               height: 24.0,
                               margin: const EdgeInsets.only(right: 8.0),
                               decoration: BoxDecoration(
-                                color: primaryColor.withOpacity(0.2),
+                                color: Theme.of(context).colorScheme.error.withOpacity(0.2),
                                 shape: BoxShape.circle,
-                                border: Border.all(color: primaryColor.withOpacity(0.3), width: 1.5),
+                                border: Border.all(
+                                    color: Theme.of(context).colorScheme.error.withOpacity(0.3),
+                                    width: 1.5),
                               ),
-                              child: const Icon(Icons.person, size: 14.0, color: primaryColor),
+                              child: Icon(Icons.person,
+                                  size: 14.0, color: Theme.of(context).colorScheme.error),
                             ),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  stencil.artist?.firstName != null && stencil.artist?.lastName != null
+                                  stencil.artist?.firstName != null &&
+                                          stencil.artist?.lastName != null
                                       ? '${stencil.artist!.firstName} ${stencil.artist!.lastName}'
-                                      : stencil.artist?.username ?? S.of(context).artist,
+                                      : stencil.artist?.username ??
+                                          S.of(context).artist,
                                   style: TextStyleTheme.caption.copyWith(
-                                    color: primaryColor,
+                                    color: Theme.of(context).colorScheme.error,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 1,
@@ -2288,7 +2478,8 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                   const SizedBox(height: 2.0),
                                   Row(
                                     children: [
-                                      const Icon(Icons.star, size: 12.0, color: Colors.amber),
+                                      const Icon(Icons.star,
+                                          size: 12.0, color: Colors.amber),
                                       const SizedBox(width: 2.0),
                                       Text(
                                         stencil.artist!.rating!,
@@ -2297,13 +2488,18 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                           fontSize: 10.0,
                                         ),
                                       ),
-                                      if (stencil.artist?.followers != null && stencil.artist!.followers > 0) ...[
+                                      if (stencil.artist?.followers != null &&
+                                          stencil.artist!.followers > 0) ...[
                                         const SizedBox(width: 6.0),
-                                        Icon(Icons.people_outline, size: 12.0, color: Colors.grey.shade600),
+                                        Icon(Icons.people_outline,
+                                            size: 12.0,
+                                            color: Colors.grey.shade600),
                                         const SizedBox(width: 2.0),
                                         Text(
-                                          _formatFollowerCount(stencil.artist!.followers),
-                                          style: TextStyleTheme.caption.copyWith(
+                                          _formatFollowerCount(
+                                              stencil.artist!.followers),
+                                          style:
+                                              TextStyleTheme.caption.copyWith(
                                             color: Colors.grey.shade600,
                                             fontSize: 10.0,
                                           ),
@@ -2318,13 +2514,13 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           Container(
                             padding: const EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
-                              color: primaryColor.withOpacity(0.1),
+                              color: Theme.of(context).colorScheme.error.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: const Icon(
-                              Icons.arrow_forward_ios, 
+                            child: Icon(
+                              Icons.arrow_forward_ios,
                               size: 12.0,
-                              color: primaryColor,
+                              color: Theme.of(context).colorScheme.error,
                             ),
                           ),
                         ],
@@ -2344,16 +2540,27 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   void _navigateToVerticalImmersiveViewer({Work? work, Stencil? stencil}) {
     // Get current state
     final state = context.read<InspirationSearchBloc>().state;
-    
+
     state.whenOrNull(
-      loaded: (works, stencils, contentType, selectedTagIds, searchQuery, sortType, 
-               currentWorkPage, hasMoreWorks, currentStencilPage, hasMoreStencils, 
-               popularTags, searchedTags, isLoadingMoreWorks, isLoadingMoreStencils) {
+      loaded: (works,
+          stencils,
+          contentType,
+          selectedTagIds,
+          searchQuery,
+          sortType,
+          currentWorkPage,
+          hasMoreWorks,
+          currentStencilPage,
+          hasMoreStencils,
+          popularTags,
+          searchedTags,
+          isLoadingMoreWorks,
+          isLoadingMoreStencils) {
         // Determine initial position
         int initialWorkIndex = 0;
         int initialStencilIndex = 0;
         bool startWithStencils = false;
-        
+
         if (work != null) {
           // Find the index of the selected work
           initialWorkIndex = works.indexWhere((w) => w.id == work.id);
@@ -2365,9 +2572,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           if (initialStencilIndex < 0) initialStencilIndex = 0;
           startWithStencils = true;
         }
-        
+
         // Navigate to vertical immersive viewer
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           MaterialPageRoute(
             builder: (context) => VerticalImmersiveViewerPage(
               works: works,
@@ -2378,50 +2586,54 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
               viewSource: ViewSource.search,
             ),
           ),
-        ).then((updatedContent) {
+        )
+            .then((updatedContent) {
           // Si el contenido fue actualizado (likes, etc.), actualizar el estado local
           if (updatedContent != null) {
-            final List<Work>? updatedWorks = updatedContent is Map ? updatedContent['works'] : null;
-            final List<Stencil>? updatedStencils = updatedContent is Map ? updatedContent['stencils'] : null;
-            
+            final List<Work>? updatedWorks =
+                updatedContent is Map ? updatedContent['works'] : null;
+            final List<Stencil>? updatedStencils =
+                updatedContent is Map ? updatedContent['stencils'] : null;
+
             if (updatedWorks != null || updatedStencils != null) {
               // Actualizar el bloc con los datos actualizados
-              InspirationSearchState_Loaded currentState = state as InspirationSearchState_Loaded;
-              
+              InspirationSearchState_Loaded currentState =
+                  state as InspirationSearchState_Loaded;
+
               // Emitir un nuevo estado con las actualizaciones
               context.read<InspirationSearchBloc>().emit(
-                InspirationSearchState.loaded(
-                  works: updatedWorks ?? currentState.works,
-                  stencils: updatedStencils ?? currentState.stencils,
-                  contentType: currentState.contentType,
-                  selectedTagIds: currentState.selectedTagIds,
-                  searchQuery: currentState.searchQuery,
-                  sortType: currentState.sortType,
-                  currentWorkPage: currentState.currentWorkPage,
-                  hasMoreWorks: currentState.hasMoreWorks,
-                  currentStencilPage: currentState.currentStencilPage,
-                  hasMoreStencils: currentState.hasMoreStencils,
-                  popularTags: currentState.popularTags,
-                  searchedTags: currentState.searchedTags,
-                  isLoadingMoreWorks: false,
-                  isLoadingMoreStencils: false,
-                ),
-              );
+                    InspirationSearchState.loaded(
+                      works: updatedWorks ?? currentState.works,
+                      stencils: updatedStencils ?? currentState.stencils,
+                      contentType: currentState.contentType,
+                      selectedTagIds: currentState.selectedTagIds,
+                      searchQuery: currentState.searchQuery,
+                      sortType: currentState.sortType,
+                      currentWorkPage: currentState.currentWorkPage,
+                      hasMoreWorks: currentState.hasMoreWorks,
+                      currentStencilPage: currentState.currentStencilPage,
+                      hasMoreStencils: currentState.hasMoreStencils,
+                      popularTags: currentState.popularTags,
+                      searchedTags: currentState.searchedTags,
+                      isLoadingMoreWorks: false,
+                      isLoadingMoreStencils: false,
+                    ),
+                  );
               return;
             }
           }
-          
+
           // Si no hay actualizaciones específicas, actualizar con searchBoth
           final currentBlocState = context.read<InspirationSearchBloc>().state;
           if (currentBlocState is InspirationSearchState_Loaded) {
             // Use searchBoth event with current parameters to refresh
             context.read<InspirationSearchBloc>().add(
-              InspirationSearchEvent.searchBoth(
-                query: currentBlocState.searchQuery,
-                tagIds: currentBlocState.selectedTagIds,
-                sortBy: currentBlocState.sortType,
-              ),
-            );
+                  InspirationSearchEvent.searchBoth(
+                    query: currentBlocState.searchQuery,
+                    tagIds: currentBlocState.selectedTagIds,
+                    sortBy: currentBlocState.sortType,
+                  ),
+                );
           }
         });
       },
@@ -2435,10 +2647,10 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
   }) {
     // Registrar la vista del artista con analytics
     context.read<AnalyticsBloc>().add(
-      AnalyticsEvent.recordArtistView(
-        artistId: artist.id,
-      ),
-    );
+          AnalyticsEvent.recordArtistView(
+            artistId: artist.id,
+          ),
+        );
 
     // Navegar al perfil del artista
     Navigator.of(context).push(

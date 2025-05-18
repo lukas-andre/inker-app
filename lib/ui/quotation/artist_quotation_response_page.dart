@@ -16,7 +16,6 @@ import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class ArtistQuotationResponsePage extends StatelessWidget {
@@ -93,10 +92,10 @@ class _ArtistQuotationResponseViewState
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.respondToQuotation, style: TextStyleTheme.headline2),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -127,9 +126,10 @@ class _ArtistQuotationResponseViewState
                   onComplete: () {
                     // Refresh the quotation in the bloc first, then return with success
                     context.read<QuotationListBloc>().add(
-                          QuotationListEvent.getQuotationById(widget.quotationId),
+                          QuotationListEvent.getQuotationById(
+                              widget.quotationId),
                         );
-                    
+
                     // Add a slight delay to allow the update to propagate
                     Future.delayed(const Duration(milliseconds: 300), () {
                       if (context.mounted) {
@@ -267,8 +267,8 @@ class _ArtistQuotationResponseViewState
                 child: ElevatedButton(
                   onPressed: () => _submitForm(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
-                    foregroundColor: quaternaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Text(l10n.submit, style: TextStyleTheme.button),
                 ),
@@ -303,17 +303,19 @@ class _ArtistQuotationResponseViewState
                 labelStyle:
                     TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                 filled: true,
-                fillColor: inputBackgroundColor,
+                fillColor: Theme.of(context).colorScheme.surface,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: const Icon(Icons.calendar_today, color: tertiaryColor),
+                prefixIcon: Icon(Icons.calendar_today,
+                    color: Theme.of(context).colorScheme.tertiary),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.info_outline, color: tertiaryColor),
+                      icon: Icon(Icons.info_outline,
+                          color: Theme.of(context).colorScheme.tertiary),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.scheduleInfo)),
@@ -351,7 +353,8 @@ class _ArtistQuotationResponseViewState
                 bottom: 0,
                 child: Center(
                   child: IconButton(
-                    icon: const Icon(Icons.close, color: tertiaryColor),
+                    icon: Icon(Icons.close,
+                        color: Theme.of(context).colorScheme.tertiary),
                     onPressed: () {
                       setState(() {
                         _appointmentStartDate = null;
@@ -460,13 +463,19 @@ class _ArtistQuotationResponseViewState
       decoration: InputDecoration(
         labelText: l10n.action,
         labelStyle: TextStyleTheme.bodyText1,
-        fillColor: inputBackgroundColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
       ),
       style: TextStyleTheme.bodyText1,
-      dropdownColor: explorerSecondaryColor,
+      dropdownColor: Theme.of(context).colorScheme.secondary,
       items: availableActions.map((action) {
         return DropdownMenuItem(
           value: action,
@@ -510,11 +519,18 @@ class _ArtistQuotationResponseViewState
       decoration: InputDecoration(
         labelText: l10n.additionalDetails,
         labelStyle: TextStyleTheme.bodyText1,
-        fillColor: inputBackgroundColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
-        prefixIcon: const Icon(Icons.notes, color: tertiaryColor),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        prefixIcon:
+            Icon(Icons.notes, color: Theme.of(context).colorScheme.tertiary),
       ),
       style: TextStyleTheme.bodyText1,
       maxLines: 3,
@@ -528,14 +544,22 @@ class _ArtistQuotationResponseViewState
       decoration: InputDecoration(
         labelText: l10n.rejectionReason,
         labelStyle: TextStyleTheme.bodyText1,
-        fillColor: inputBackgroundColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         filled: true,
-        border: inputBorder,
-        focusedBorder: focusedBorder,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
       ),
       style: TextStyleTheme.bodyText1,
-      dropdownColor: explorerSecondaryColor,
-      items: QuotationArtistRejectReason.values.map((reason,) {
+      dropdownColor: Theme.of(context).colorScheme.secondary,
+      items: QuotationArtistRejectReason.values.map((
+        reason,
+      ) {
         return DropdownMenuItem(
           key: Key(reason.index.toString()),
           value: reason,
@@ -609,7 +633,8 @@ class _ArtistQuotationResponseViewState
           top: 0,
           right: 0,
           child: IconButton(
-            icon: const Icon(Icons.close, color: quaternaryColor),
+            icon: Icon(Icons.close,
+                color: Theme.of(context).colorScheme.tertiary),
             onPressed: () {
               setState(() {
                 _proposedDesigns.remove(file);
@@ -628,10 +653,11 @@ class _ArtistQuotationResponseViewState
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          border: Border.all(color: tertiaryColor),
+          border: Border.all(color: Theme.of(context).colorScheme.tertiary),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Icon(Icons.add_photo_alternate, size: 40, color: tertiaryColor),
+        child: Icon(Icons.add_photo_alternate,
+            size: 40, color: Theme.of(context).colorScheme.tertiary),
       ),
     );
   }

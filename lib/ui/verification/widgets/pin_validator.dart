@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:pinput/pinput.dart';
 
 class PinValidator extends StatelessWidget {

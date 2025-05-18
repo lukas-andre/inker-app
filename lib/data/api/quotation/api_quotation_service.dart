@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
@@ -102,7 +101,7 @@ class ApiQuotationService implements QuotationService {
       fields: fields,
       files: files,
       fromJson: (json) =>
-          json as Map<String, dynamic>, // Ensure correct return type
+          json, // Ensure correct return type
     );
   }
 
@@ -126,7 +125,7 @@ class ApiQuotationService implements QuotationService {
       token: token,
       queryParams: queryParams,
       fromJson: (json) =>
-          QuotationListResponse.fromJson(json as Map<String, dynamic>),
+          QuotationListResponse.fromJson(json),
     );
   }
 
@@ -148,7 +147,7 @@ class ApiQuotationService implements QuotationService {
       token: token,
       queryParams: queryParams,
       fromJson: (json) =>
-          QuotationListResponse.fromJson(json as Map<String, dynamic>),
+          QuotationListResponse.fromJson(json),
     );
   }
 
@@ -170,7 +169,7 @@ class ApiQuotationService implements QuotationService {
       queryParams: queryParams,
       fromJson: (json) =>
           participating.ListParticipatingQuotationsResDto.fromJson(
-              json as Map<String, dynamic>),
+              json),
     );
   }
 
@@ -182,7 +181,7 @@ class ApiQuotationService implements QuotationService {
     return await _httpClient.get(
       path: '$_basePath/$quotationId',
       token: token,
-      fromJson: (json) => Quotation.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) => Quotation.fromJson(json),
     );
   }
 
@@ -196,7 +195,7 @@ class ApiQuotationService implements QuotationService {
     return await _httpClient.get(
       path: '$_basePath/$quotationId',
       token: token,
-      fromJson: (json) => Quotation.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) => Quotation.fromJson(json),
     );
   }
 
@@ -437,7 +436,7 @@ class ApiQuotationService implements QuotationService {
       fields: fields,
       files: files,
       fromJson: (json) =>
-          OfferMessageDto.fromJson(json as Map<String, dynamic>),
+          OfferMessageDto.fromJson(json),
     );
   }
 
@@ -450,7 +449,7 @@ class ApiQuotationService implements QuotationService {
       path: '$_basePath/offers/$offerId',
       token: token,
       fromJson: (json) =>
-          QuotationOfferListItemDto.fromJson(json as Map<String, dynamic>),
+          QuotationOfferListItemDto.fromJson(json),
     );
   }
 

@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.da
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:inker_studio/ui/shared/event/event_main_info_card.dart';
 import 'package:inker_studio/ui/shared/event/event_description_card.dart';
@@ -32,18 +31,18 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     super.initState();
     // Load appointment details
     context.read<AppointmentBloc>().add(
-      AppointmentEvent.getAppointmentById(widget.appointmentId),
-    );
+          AppointmentEvent.getAppointmentById(widget.appointmentId),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.appointmentDetails, style: TextStyleTheme.headline2),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 1.0,
         shadowColor: Colors.black54,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -61,8 +60,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               );
               // Reload appointment details
               context.read<AppointmentBloc>().add(
-                AppointmentEvent.getAppointmentById(widget.appointmentId),
-              );
+                    AppointmentEvent.getAppointmentById(widget.appointmentId),
+                  );
             },
             actionFailed: (message) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -77,13 +76,15 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         },
         builder: (context, state) {
           return state.maybeWhen(
-            loaded: (appointments, currentPage, totalPages, hasReachedMax, isLoadingMore, currentFilter, selectedAppointment) {
+            loaded: (appointments, currentPage, totalPages, hasReachedMax,
+                isLoadingMore, currentFilter, selectedAppointment) {
               if (selectedAppointment == null) {
                 return const Center(child: InkerProgressIndicator());
               }
               return _buildAppointmentDetail(context, selectedAppointment);
             },
-            actionInProgress: () => const Center(child: InkerProgressIndicator()),
+            actionInProgress: () =>
+                const Center(child: InkerProgressIndicator()),
             orElse: () => const Center(child: InkerProgressIndicator()),
           );
         },
@@ -91,17 +92,20 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
       bottomNavigationBar: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
           return state.maybeWhen(
-            loaded: (appointments, currentPage, totalPages, hasReachedMax, isLoadingMore, currentFilter, selectedAppointment) {
+            loaded: (appointments, currentPage, totalPages, hasReachedMax,
+                isLoadingMore, currentFilter, selectedAppointment) {
               if (selectedAppointment == null) {
                 return const SizedBox.shrink();
               }
-              
+
               // Only show action buttons for upcoming appointments
-              if (selectedAppointment.event.status == AppointmentStatus.scheduled || 
-                  selectedAppointment.event.status == AppointmentStatus.pending) {
+              if (selectedAppointment.event.status ==
+                      AppointmentStatus.scheduled ||
+                  selectedAppointment.event.status ==
+                      AppointmentStatus.pending) {
                 return _buildActionButtons(context, selectedAppointment);
               }
-              
+
               return const SizedBox.shrink();
             },
             orElse: () => const SizedBox.shrink(),
@@ -111,7 +115,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     );
   }
 
-  Widget _buildAppointmentDetail(BuildContext context, AppointmentDetailDto detail) {
+  Widget _buildAppointmentDetail(
+      BuildContext context, AppointmentDetailDto detail) {
     final appointment = detail.event;
     final artist = detail.artist;
     final location = detail.location;
@@ -154,27 +159,28 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
             const SizedBox(height: 16),
             WorkEvidenceCard(workEvidence: workEvidence),
           ],
-          if (quotation != null) ...[
-            const SizedBox(height: 16),
-            QuotationDetailsCard(quotation: quotation),
-          ],
+          ...[
+          const SizedBox(height: 16),
+          QuotationDetailsCard(quotation: quotation),
+        ],
           const SizedBox(height: 80),
         ],
       ),
     );
   }
 
-  Widget _buildActionButtons(BuildContext context, AppointmentDetailDto appointment) {
+  Widget _buildActionButtons(
+      BuildContext context, AppointmentDetailDto appointment) {
     final bool canCancel = appointment.event.startDate.isAfter(
       DateTime.now().add(const Duration(hours: 24)),
     );
-    
+
     return Container(
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.secondary,
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          if (appointment.event.status == AppointmentStatus.scheduled || 
+          if (appointment.event.status == AppointmentStatus.scheduled ||
               appointment.event.status == AppointmentStatus.pending) ...[
             Expanded(
               child: OutlinedButton.icon(
@@ -183,7 +189,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 label: Text(S.of(context).message),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  side: const BorderSide(color: tertiaryColor),
+                  side: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
@@ -203,7 +210,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 ),
               ),
             ),
-          ] else if (appointment.event.status == AppointmentStatus.scheduled) ...[
+          ] else if (appointment.event.status ==
+              AppointmentStatus.scheduled) ...[
             Expanded(
               child: ElevatedButton.icon(
                 onPressed: () => _showRescheduleDialog(context, appointment),
@@ -222,16 +230,17 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     );
   }
 
-  void _contactArtist(BuildContext context, AppointmentDetailDto appointment) async {
+  void _contactArtist(
+      BuildContext context, AppointmentDetailDto appointment) async {
     // Get artist contact info
     final artist = appointment.artist;
     final String artistName = artist.username ?? S.of(context).artist;
     final artistContact = artist.contact;
-    
+
     // Open contact options dialog
     showModalBottomSheet(
       context: context,
-      backgroundColor: explorerSecondaryColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -271,7 +280,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               Navigator.pop(context);
               // Navigate to chat with artist (placeholder)
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(S.of(context).thisFeatureWillBeAvailableSoon)),
+                SnackBar(
+                    content:
+                        Text(S.of(context).thisFeatureWillBeAvailableSoon)),
               );
             },
           ),
@@ -281,9 +292,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     );
   }
 
-  void _showCancelDialog(BuildContext context, AppointmentDetailDto appointment) {
+  void _showCancelDialog(
+      BuildContext context, AppointmentDetailDto appointment) {
     final reasonController = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -317,14 +329,14 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 );
                 return;
               }
-              
+
               Navigator.pop(context);
               context.read<AppointmentBloc>().add(
-                AppointmentEvent.cancelAppointment(
-                  appointmentId: appointment.event.id,
-                  reason: reasonController.text.trim(),
-                ),
-              );
+                    AppointmentEvent.cancelAppointment(
+                      appointmentId: appointment.event.id,
+                      reason: reasonController.text.trim(),
+                    ),
+                  );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -336,7 +348,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     );
   }
 
-  void _showRescheduleDialog(BuildContext context, AppointmentDetailDto appointment) {
+  void _showRescheduleDialog(
+      BuildContext context, AppointmentDetailDto appointment) {
     // This would ideally use a date picker with the schedule assistant
     // For now, we'll just show a dialog with a message about contacting the artist
     showDialog(
@@ -355,7 +368,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               _contactArtist(context, appointment);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             child: Text(S.of(context).contactArtist),
           ),
@@ -364,7 +377,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     );
   }
 
-  void _openMap(BuildContext context, double latitude, double longitude, String title) async {
+  void _openMap(BuildContext context, double latitude, double longitude,
+      String title) async {
     final availableMaps = await MapLauncher.installedMaps;
     if (availableMaps.isNotEmpty) {
       await availableMaps.first.showMarker(

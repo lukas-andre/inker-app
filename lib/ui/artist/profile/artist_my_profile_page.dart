@@ -18,7 +18,6 @@ import 'package:inker_studio/ui/artist/locations/artist_location_manager_page.da
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 
 class ArtistMyProfilePage extends StatefulWidget {
@@ -52,11 +51,12 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final artistBloc = context.read<ArtistMyProfileBloc>();
       final state = artistBloc.state;
-      
+
       // Si el perfil ya está cargado, precargamos sus imágenes
       state.maybeWhen(
         loaded: (artist) {
-          if (artist.profileThumbnail != null && artist.profileThumbnail!.isNotEmpty) {
+          if (artist.profileThumbnail != null &&
+              artist.profileThumbnail!.isNotEmpty) {
             _imageCache.preloadCriticalImages(
               context,
               profileImageUrl: artist.profileThumbnail,
@@ -82,7 +82,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -110,8 +110,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
   Widget _buildProfileContent(BuildContext context, Artist artist) {
     return RefreshIndicator(
       onRefresh: _refreshProfile,
-      color: secondaryColor,
-      backgroundColor: primaryColor,
+      color: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: CustomScrollView(
         key: const Key('artistProfileContent'),
         slivers: [
@@ -139,7 +139,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
       expandedHeight: 120.0,
       floating: false,
       pinned: true,
-      backgroundColor: primaryColor.withOpacity(0.8),
+      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.8),
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           key: registerKeys.myProfile.myProfileTitle,
@@ -170,8 +170,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          secondaryColor.withOpacity(0.7),
-                          primaryColor,
+                          Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.7),
+                          Theme.of(context).colorScheme.surface,
                         ],
                       ),
                     ),
@@ -191,7 +194,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    primaryColor.withOpacity(0.8),
+                    Theme.of(context).colorScheme.surface.withOpacity(0.8),
                   ],
                 ),
               ),
@@ -215,9 +218,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.2)
+            .toColor(),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: secondaryColor.withOpacity(0.3), width: 1),
+        border: Border.all(
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+            width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -265,11 +272,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
             Container(
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: secondaryColor,
+                color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.3),
                     blurRadius: 8,
                     spreadRadius: 2,
                   ),
@@ -305,7 +315,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -339,7 +351,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
         Text(
           value,
           style: TextStyleTheme.headline2.copyWith(
-            color: secondaryColor,
+            color: Theme.of(context).colorScheme.secondary,
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
@@ -371,8 +383,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
           return Container(
             margin: const EdgeInsets.only(top: 16.0),
             padding: const EdgeInsets.all(16.0),
-            color:
-                HSLColor.fromColor(primaryColor).withLightness(0.13).toColor(),
+            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.13)
+                .toColor(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -396,8 +409,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/works/add'),
-                          icon: const Icon(Icons.add_circle_outline,
-                              color: secondaryColor, size: 22),
+                          icon: Icon(Icons.add_circle_outline,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 22),
                           tooltip: S.of(context).addWork,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -406,8 +420,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/works'),
-                          icon: const Icon(Icons.grid_view,
-                              color: secondaryColor, size: 22),
+                          icon: Icon(Icons.grid_view,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 22),
                           tooltip: S.of(context).manageWorks,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -467,7 +482,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                   fit: StackFit.expand,
                                   children: [
                                     _imageCache.buildThumbnail(
-                                      imageUrl: work.thumbnailUrl ?? work.imageUrl,
+                                      context: context,
+                                      imageUrl:
+                                          work.thumbnailUrl ?? work.imageUrl,
                                       width: 160,
                                       height: 160,
                                       borderRadius: BorderRadius.circular(8),
@@ -526,7 +543,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 6, vertical: 2),
                                           decoration: BoxDecoration(
-                                            color: secondaryColor,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -604,7 +623,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
         builder: (context, state) {
           return Container(
             padding: const EdgeInsets.all(16.0),
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.surface,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -628,8 +647,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/stencils/add'),
-                          icon: const Icon(Icons.add_circle_outline,
-                              color: secondaryColor, size: 22),
+                          icon: Icon(Icons.add_circle_outline,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 22),
                           tooltip: S.of(context).addStencil,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -638,8 +658,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         IconButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/stencils'),
-                          icon: const Icon(Icons.grid_view,
-                              color: secondaryColor, size: 22),
+                          icon: Icon(Icons.grid_view,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 22),
                           tooltip: S.of(context).viewAllStencils,
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           constraints: const BoxConstraints(),
@@ -687,7 +708,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                               ? stencils[index]
                               : featured[index];
                           return GestureDetector(
-                            key: index == 0 ? registerKeys.myProfile.stencilItem : null,
+                            key: index == 0
+                                ? registerKeys.myProfile.stencilItem
+                                : null,
                             onTap: () => Navigator.pushNamed(
                               context,
                               '/stencils/detail',
@@ -713,7 +736,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                   fit: StackFit.expand,
                                   children: [
                                     _imageCache.buildThumbnail(
-                                      imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                                      context: context,
+                                      imageUrl: stencil.thumbnailUrl ??
+                                          stencil.imageUrl,
                                       width: 160,
                                       height: 160,
                                       borderRadius: BorderRadius.circular(8),
@@ -724,8 +749,10 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                                         right: 8,
                                         child: Container(
                                           padding: const EdgeInsets.all(4),
-                                          decoration: const BoxDecoration(
-                                            color: secondaryColor,
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             shape: BoxShape.circle,
                                           ),
                                           child: const Icon(
@@ -862,7 +889,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
   Widget _buildContactInfo(BuildContext context, Artist artist) {
     return Container(
       key: const Key('artistProfileContactInfo'),
-      color: HSLColor.fromColor(primaryColor).withLightness(0.1).toColor(),
+      color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+          .withLightness(0.1)
+          .toColor(),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -908,7 +937,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -917,10 +948,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.2),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: secondaryColor, size: 20),
+            child: Icon(icon,
+                color: Theme.of(context).colorScheme.secondary, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -958,7 +990,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
         label:
             Text(S.of(context).manageLocations, style: TextStyleTheme.button),
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -1016,10 +1048,15 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   height: 120,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: secondaryColor, width: 3),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary,
+                        width: 3),
                     boxShadow: [
                       BoxShadow(
-                        color: secondaryColor.withOpacity(0.3),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.3),
                         blurRadius: 15,
                         spreadRadius: 2,
                       ),
@@ -1037,9 +1074,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: secondaryColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle,
-                      border: Border.all(color: primaryColor, width: 2),
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.surface,
+                          width: 2),
                     ),
                     child: const Icon(
                       Icons.edit,
@@ -1056,9 +1095,11 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: secondaryColor,
+                        color: Theme.of(context).colorScheme.secondary,
                         shape: BoxShape.circle,
-                        border: Border.all(color: primaryColor, width: 2),
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.surface,
+                            width: 2),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.4),
@@ -1136,7 +1177,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
 
     return Container(
       key: const Key('artistProfileDetails'),
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -1158,7 +1199,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: HSLColor.fromColor(primaryColor)
+                      color: HSLColor.fromColor(
+                              Theme.of(context).colorScheme.surface)
                           .withLightness(0.15)
                           .toColor(),
                       borderRadius: BorderRadius.circular(8),
@@ -1168,8 +1210,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          decoration: const BoxDecoration(
-                            color: secondaryColor,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
                             shape: BoxShape.circle,
                           ),
                           child: Row(
@@ -1230,7 +1272,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.edit, color: secondaryColor, size: 20),
+                  icon: Icon(Icons.edit,
+                      color: Theme.of(context).colorScheme.secondary, size: 20),
                   onPressed: () => _navigateToEditField(
                     context,
                     EditFieldArguments(
@@ -1247,7 +1290,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: HSLColor.fromColor(primaryColor)
+                color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
                     .withLightness(0.15)
                     .toColor(),
                 borderRadius: BorderRadius.circular(8),
@@ -1299,7 +1342,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
       child: Container(
         height: 200,
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.15)
+              .toColor(),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade800),
           boxShadow: [
@@ -1327,7 +1372,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: secondaryColor,
+                        color: Theme.of(context).colorScheme.secondary,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -1376,7 +1421,8 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       label: Text(S.of(context).addStudioPhoto),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: secondaryColor,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,

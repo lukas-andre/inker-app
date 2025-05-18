@@ -18,7 +18,6 @@ import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/models/customer_page_nav_bar_icons.dart';
 import 'package:inker_studio/keys.dart';
@@ -125,7 +124,10 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                 child: Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: explorerSecondaryColor.withOpacity(0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.6),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -134,7 +136,10 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                       Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: secondaryColor.withOpacity(0.8),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.8),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(Icons.search,
@@ -153,7 +158,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                         padding: const EdgeInsets.all(4),
                         margin: const EdgeInsets.only(right: 8),
                         decoration: BoxDecoration(
-                          color: explorerSecondaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(Icons.tune,
@@ -194,7 +199,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                   icon: Icon(
                     Icons.grid_view_rounded,
                     color: state.view == ExplorerView.list
-                        ? secondaryColor
+                        ? Theme.of(context).colorScheme.secondary
                         : Colors.white,
                   ),
                   onPressed: () {
@@ -211,7 +216,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                   icon: Icon(
                     Icons.map_rounded,
                     color: state.view == ExplorerView.map
-                        ? secondaryColor
+                        ? Theme.of(context).colorScheme.secondary
                         : Colors.white,
                   ),
                   onPressed: () {
@@ -312,36 +317,39 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     return [
       PageNavBarIcon(
         key: K.exploreTab,
-        icon: ImageIcon(exploreIcon),
-        selectedIcon: ImageIcon(exploreSelectedIcon),
+        icon: const ImageIcon(exploreIcon),
+        selectedIcon: const ImageIcon(exploreSelectedIcon),
         title: S.of(context).explore,
         index: 0,
       ),
       PageNavBarIcon(
         key: K.quotationsTab,
-        icon: ImageIcon(bookMarkIcon),
-        selectedIcon: ImageIcon(bookMarkSelectedIcon),
+        icon: const ImageIcon(bookMarkIcon),
+        selectedIcon: const ImageIcon(bookMarkSelectedIcon),
         title: S.of(context).quotations,
         index: 1,
       ),
       PageNavBarIcon(
-        key: Key('inspirationTab'),
-        icon: Icon(Icons.style_outlined, size: 26, color: Colors.white),
-        selectedIcon: Icon(Icons.style, size: 26, color: Colors.white),
+        key: const Key('inspirationTab'),
+        icon: const Icon(Icons.style_outlined, size: 26, color: Colors.white),
+        selectedIcon: const Icon(Icons.style, size: 26, color: Colors.white),
         title: S.of(context).inspiration,
         index: 2,
       ),
       PageNavBarIcon(
         key: K.appointmentsTab,
-        icon: Icon(Icons.calendar_today_outlined, size: 22, color: Colors.white),
-        selectedIcon: Icon(Icons.calendar_today, size: 22, color: Colors.white),
+        icon:
+            const Icon(Icons.calendar_today_outlined, size: 22, color: Colors.white),
+        selectedIcon: const Icon(Icons.calendar_today, size: 22, color: Colors.white),
         title: S.of(context).myAppointments,
         index: 3,
       ),
       PageNavBarIcon(
         key: K.profileTab,
-        icon: Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
-        selectedIcon: Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
+        icon:
+            const Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
+        selectedIcon:
+            const Icon(Icons.account_circle_outlined, size: 25, color: Colors.white),
         title: S.of(context).myProfile,
         index: 4,
       ),
@@ -354,7 +362,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     final state = customerAppBloc.state;
     final icons = _buildCustomerNavBarIcons(context);
     return Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: _selectedIndex != 4
             ? AppBar(
                 title: Text(
@@ -366,7 +374,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                   ),
                 ),
                 elevation: 0,
-                backgroundColor: primaryColor,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 actions: _getAppBarActions(),
               )
             : null,
@@ -383,7 +391,7 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           ),
           child: BottomNavigationBar(
             elevation: 0,
-            backgroundColor: primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             unselectedItemColor: Colors.white60,
             selectedLabelStyle: TextStyleTheme.copyWith(
                 fontSize: 12, fontWeight: FontWeight.w200),
@@ -399,13 +407,16 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: _selectedIndex == 2
-                                ? secondaryColor
-                                : primaryColor,
+                                ? Theme.of(context).colorScheme.secondary
+                                : Theme.of(context).colorScheme.surface,
                             shape: BoxShape.circle,
                             boxShadow: _selectedIndex == 2
                                 ? [
                                     BoxShadow(
-                                        color: secondaryColor.withOpacity(0.6),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(0.6),
                                         blurRadius: 10,
                                         spreadRadius: 2)
                                   ]
@@ -418,11 +429,14 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
                       ? Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: secondaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                  color: secondaryColor.withOpacity(0.6),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.6),
                                   blurRadius: 10,
                                   spreadRadius: 2)
                             ],
@@ -453,9 +467,9 @@ class CustomerQuotationsTabView extends StatelessWidget {
       child: Column(
         children: [
           Material(
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.surface,
             child: TabBar(
-              indicatorColor: secondaryColor,
+              indicatorColor: Theme.of(context).colorScheme.secondary,
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white60,
               tabs: [

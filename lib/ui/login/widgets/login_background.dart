@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class LoginBackground extends StatelessWidget {
   const LoginBackground({
@@ -13,8 +12,8 @@ class LoginBackground extends StatelessWidget {
         Expanded(
             child: Container(
           decoration: BoxDecoration(
-              border: Border.all(color: primaryColor, width: 3),
-              color: primaryColor),
+              border: Border.all(color: Theme.of(context).colorScheme.surface, width: 3),
+              color: Theme.of(context).colorScheme.surface),
         ))
       ],
     );

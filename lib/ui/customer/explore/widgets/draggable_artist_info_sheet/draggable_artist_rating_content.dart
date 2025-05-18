@@ -5,7 +5,6 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 
 
@@ -168,8 +167,8 @@ class _RatingProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(2),
         child: LinearProgressIndicator(
           value: value,
-          backgroundColor: greyColor.withOpacity(0.3),
-          valueColor: const AlwaysStoppedAnimation<Color>(yellowColor),
+          backgroundColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
         ),
       ),
     );

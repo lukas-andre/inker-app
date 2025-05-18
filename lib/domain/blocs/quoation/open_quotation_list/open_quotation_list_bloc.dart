@@ -143,7 +143,7 @@ class OpenQuotationListBloc extends Bloc<OpenQuotationListEvent, OpenQuotationLi
       ));
 
     } catch (e) {
-      emit(currentState.copyWith(infoMessage: "Error loading details: $e"));
+      emit(currentState.copyWith(infoMessage: 'Error loading details: $e'));
     }
   }
 } 

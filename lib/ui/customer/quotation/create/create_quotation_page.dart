@@ -10,7 +10,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/quotation/widgets/image_picker.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CreateQuotationPage extends StatefulWidget {
@@ -137,9 +136,9 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                     ? S.of(context).createQuotation 
                     : S.of(context).createQuotation,
                   style: TextStyleTheme.copyWith(color: Colors.white)),
-                backgroundColor: primaryColor,
+                backgroundColor: Theme.of(context).colorScheme.surface,
               ),
-              backgroundColor: primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               body: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -218,7 +217,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         orElse: () => () => _submitQuotation(context),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryColor,
+                        backgroundColor: Theme.of(context).colorScheme.secondary,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: state.maybeWhen(
@@ -247,7 +246,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
   Widget _buildStencilPreview(Stencil stencil) {
     return Container(
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.25).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.25).toColor(),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -270,14 +269,14 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 imageUrl: stencil.imageUrl,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+                  color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
                   child: const Center(
                     child: CircularProgressIndicator(color: Colors.white),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
-                  child: const Icon(Icons.error, color: redColor, size: 32),
+                  color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+                  child: Icon(Icons.error, color: Theme.of(context).colorScheme.error, size: 32),
                 ),
               ),
             ),
@@ -317,7 +316,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const Icon(Icons.info_outline, color: secondaryColor, size: 18),
+                    Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 18),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(

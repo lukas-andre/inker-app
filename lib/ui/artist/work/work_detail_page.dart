@@ -8,12 +8,10 @@ import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/models/tag/tag.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/generated/l10n.dart';
-import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
@@ -34,7 +32,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
   final _imageCache = CachedImageManager();
-  
+
   bool _isEditing = false;
   bool _isFeatured = false;
   bool _isHidden = false;
@@ -57,7 +55,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
     _isFeatured = _currentWork!.isFeatured;
     _isHidden = _currentWork!.isHidden;
     _source = _currentWork!.source;
-    
+
     // Precargar la imagen principal al iniciar la página
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_currentWork != null) {
@@ -67,7 +65,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         );
       }
     });
-    
+
     // Initialize tags from work
     if (_currentWork!.tags != null && _currentWork!.tags!.isNotEmpty) {
       _selectedTagIds = _currentWork!.tags!.map((tag) => tag.id).toList();
@@ -94,27 +92,27 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
     _searchDebounce.dispose();
     super.dispose();
   }
-  
+
   void _loadPopularTags() {
     context.read<ArtistWorkBloc>().add(
-      const ArtistWorkEvent.getPopularTags(),
-    );
+          const ArtistWorkEvent.getPopularTags(),
+        );
   }
-  
+
   void _searchTags(String query) {
     if (query.isEmpty) {
       _loadPopularTags();
       return;
     }
-    
+
     _searchDebounce.run(() {
       setState(() {
         _isFetchingTags = true;
       });
-      
+
       context.read<ArtistWorkBloc>().add(
-        ArtistWorkEvent.getTagSuggestions(query),
-      );
+            ArtistWorkEvent.getTagSuggestions(query),
+          );
     });
   }
 
@@ -138,15 +136,15 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
   void _createNewTag(String name) {
     if (name.isEmpty) return;
-    
+
     setState(() {
       _isFetchingTags = true;
     });
-    
+
     context.read<ArtistWorkBloc>().add(
-      ArtistWorkEvent.createTag(name),
-    );
-    
+          ArtistWorkEvent.createTag(name),
+        );
+
     _tagController.clear();
   }
 
@@ -164,7 +162,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   void _toggleEditing() {
     // Use the updated work data when available
     final work = _currentWork ?? widget.work;
-    
+
     if (_isEditing) {
       // Save changes
       if (_titleController.text.isEmpty) {
@@ -177,7 +175,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         return;
       }
 
-      // No necesitamos establecer _isLoading aquí, ya lo haremos en el listener 
+      // No necesitamos establecer _isLoading aquí, ya lo haremos en el listener
       // cuando recibamos el estado submitting
 
       context.read<ArtistWorkBloc>().add(
@@ -213,14 +211,16 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   void _deleteWork() {
     // Use the updated work data when available
     final work = _currentWork ?? widget.work;
-    
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           key: registerKeys.workDetail.deleteDialog,
           backgroundColor:
-              HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+              HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                  .withLightness(0.2)
+                  .toColor(),
           title: Text(
             S.of(context).deleteWork,
             style: TextStyleTheme.headline3.copyWith(
@@ -272,18 +272,21 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: registerKeys.workDetail.page,
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(_isEditing
-            ? S.of(context).editWork
-            : S.of(context).workDetails, style: TextStyleTheme.headline3),
-        backgroundColor: primaryColor,
+        title: Text(
+            _isEditing ? S.of(context).editWork : S.of(context).workDetails,
+            style: TextStyleTheme.headline3),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            key: _isEditing ? registerKeys.workDetail.saveButton : registerKeys.workDetail.editButton,
-            icon: Icon(_isEditing ? Icons.check : Icons.edit, color: Colors.white),
+            key: _isEditing
+                ? registerKeys.workDetail.saveButton
+                : registerKeys.workDetail.editButton,
+            icon: Icon(_isEditing ? Icons.check : Icons.edit,
+                color: Colors.white),
             onPressed: _toggleEditing,
             tooltip: _isEditing ? S.of(context).save : S.of(context).edit,
           ),
@@ -309,48 +312,54 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                 _isLoading = false;
                 _isEditing = false;
               });
-              
+
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
                   content: S.of(context).workUpdatedSuccessfully,
                   backgroundColor: Colors.green,
                 ),
               );
-              
+
               // Immediately update the work data with what we got from the update response
               setState(() {
-                _currentWork = updatedWork; // Store the complete updatedWork object
+                _currentWork =
+                    updatedWork; // Store the complete updatedWork object
                 _titleController.text = updatedWork.title;
-                if (updatedWork.description != null) _descriptionController.text = updatedWork.description ?? '';
+                if (updatedWork.description != null) {
+                  _descriptionController.text = updatedWork.description ?? '';
+                }
                 _isFeatured = updatedWork.isFeatured;
                 _isHidden = updatedWork.isHidden;
                 _source = updatedWork.source;
               });
-              
+
               // Reload the work detail from the backend to ensure all data is fresh and consistent
               final work = _currentWork ?? widget.work;
               context.read<ArtistWorkBloc>().add(
-                ArtistWorkEvent.loadWorkDetail(work.id),
-              );
+                    ArtistWorkEvent.loadWorkDetail(work.id),
+                  );
             },
             detailLoaded: (updatedWork) {
               // Siempre actualizar los datos cuando se carga un detalle
               setState(() {
-                _isLoading = false; // Asegurar que se quite el indicador de carga
-                
+                _isLoading =
+                    false; // Asegurar que se quite el indicador de carga
+
                 if (updatedWork.id == widget.work.id) {
                   _titleController.text = updatedWork.title;
                   _descriptionController.text = updatedWork.description ?? '';
                   _isFeatured = updatedWork.isFeatured;
                   _isHidden = updatedWork.isHidden;
                   _source = updatedWork.source;
-                  
+
                   // Update the widget's work reference to ensure all UI elements use the latest data
                   _currentWork = updatedWork;
-                  
+
                   // Actualizar también los tags
-                  if (updatedWork.tags != null && updatedWork.tags!.isNotEmpty) {
-                    _selectedTagIds = updatedWork.tags!.map((tag) => tag.id).toList();
+                  if (updatedWork.tags != null &&
+                      updatedWork.tags!.isNotEmpty) {
+                    _selectedTagIds =
+                        updatedWork.tags!.map((tag) => tag.id).toList();
                     _selectedTagsObjects = updatedWork.tags!
                         .map((tag) => TagSuggestionResponseDto(
                               id: tag.id,
@@ -416,7 +425,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               if (_isLoading) {
                 return const Center(child: InkerProgressIndicator());
               }
-              
+
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -438,7 +447,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   Widget _buildWorkImage() {
     // Use the updated work data when available
     final work = _currentWork ?? widget.work;
-    
+
     if (_isEditing && _selectedImage != null) {
       return GestureDetector(
         onTap: _isEditing ? _pickImage : null,
@@ -455,13 +464,14 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
     }
 
     return GestureDetector(
-      onTap:
-          _isEditing ? _pickImage : () => _openGallery(work.imageUrl),
+      onTap: _isEditing ? _pickImage : () => _openGallery(work.imageUrl),
       child: Container(
         width: double.infinity,
         height: 300,
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.2)
+              .toColor(),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -478,6 +488,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                   fit: StackFit.expand,
                   children: [
                     _imageCache.buildCachedImage(
+                      context: context,
                       imageUrl: work.imageUrl,
                       fit: BoxFit.cover,
                     ),
@@ -509,6 +520,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               : Hero(
                   tag: 'work_image_${work.id}',
                   child: _imageCache.buildCachedImage(
+                    context: context,
                     imageUrl: work.imageUrl,
                     fit: BoxFit.cover,
                   ),
@@ -565,8 +577,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             labelStyle:
                 TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade800),
@@ -577,7 +590,8 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
         ),
@@ -592,8 +606,9 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             labelStyle:
                 TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade800),
@@ -604,7 +619,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
         ),
@@ -612,8 +627,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         _buildSourceDropdown(),
         const SizedBox(height: 16),
         _buildTagField(),
-        if (_showTagSuggestions) 
-          _buildTagSuggestions(),
+        if (_showTagSuggestions) _buildTagSuggestions(),
         if (_selectedTagsObjects.isNotEmpty) ...[
           const SizedBox(height: 16),
           _buildSelectedTags(),
@@ -639,7 +653,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               _isFeatured = value;
             });
           },
-          activeColor: secondaryColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           contentPadding: EdgeInsets.zero,
         ),
         SwitchListTile(
@@ -662,13 +676,13 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               _isHidden = value;
             });
           },
-          activeColor: secondaryColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           contentPadding: EdgeInsets.zero,
         ),
       ],
     );
   }
-  
+
   Widget _buildSourceDropdown() {
     return Column(
       key: registerKeys.workDetail.sourceDropdown,
@@ -685,7 +699,8 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            color:
+                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.grey.shade800),
           ),
@@ -693,7 +708,8 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             child: DropdownButton<WorkSource>(
               value: _source,
               isExpanded: true,
-              dropdownColor: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+              dropdownColor:
+                  HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
               style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
               icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
               onChanged: (WorkSource? newValue) {
@@ -703,13 +719,15 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                   });
                 }
               },
-              items: WorkSource.values.map<DropdownMenuItem<WorkSource>>((WorkSource value) {
+              items: WorkSource.values
+                  .map<DropdownMenuItem<WorkSource>>((WorkSource value) {
                 return DropdownMenuItem<WorkSource>(
                   value: value,
                   key: Key('source_dropdown_item_$value'),
                   child: Text(
                     value == WorkSource.app ? 'APP' : 'EXTERNAL',
-                    style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                    style:
+                        TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                   ),
                 );
               }).toList(),
@@ -719,7 +737,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       ],
     );
   }
-  
+
   Widget _buildTagField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,18 +763,20 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           decoration: InputDecoration(
             hintText: S.of(context).searchOrCreateTags,
-            hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
+            hintStyle:
+                TextStyleTheme.bodyText1.copyWith(color: Colors.grey.shade400),
             filled: true,
-            fillColor: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+            fillColor:
+                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
             prefixIcon: Icon(Icons.search, color: Colors.grey.shade400),
-            suffixIcon: _isFetchingTags 
+            suffixIcon: _isFetchingTags
                 ? Container(
                     width: 20,
                     height: 20,
                     padding: const EdgeInsets.all(12),
-                    child: const CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
                     ),
                   )
                 : IconButton(
@@ -775,7 +795,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: secondaryColor),
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           onChanged: _searchTags,
@@ -798,7 +818,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.shade800),
       ),
@@ -825,10 +845,11 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
                 title: Text(
                   '${S.of(context).createNewTag}: "${_tagController.text}"',
                   style: TextStyleTheme.bodyText2.copyWith(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                leading: const Icon(Icons.add_circle_outline, color: secondaryColor),
+                leading:
+                    Icon(Icons.add_circle_outline, color: Theme.of(context).colorScheme.secondary),
                 onTap: () => _createNewTag(_tagController.text.trim()),
                 contentPadding: EdgeInsets.zero,
                 dense: true,
@@ -841,12 +862,12 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
 
   Widget _buildTagSuggestionItem(TagSuggestionResponseDto tag) {
     final bool isSelected = _selectedTagIds.contains(tag.id);
-    
+
     return ListTile(
       title: Text(
         tag.name,
         style: TextStyleTheme.bodyText2.copyWith(
-          color: isSelected ? secondaryColor : Colors.white,
+          color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.white,
         ),
       ),
       trailing: tag.count != null && tag.count! > 0
@@ -858,7 +879,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             )
           : null,
       leading: isSelected
-          ? const Icon(Icons.check_circle, color: secondaryColor)
+          ? Icon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary)
           : const Icon(Icons.add_circle_outline, color: Colors.grey),
       onTap: () => _addTag(tag),
       contentPadding: EdgeInsets.zero,
@@ -879,7 +900,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: redColor,
+          backgroundColor: Theme.of(context).colorScheme.error,
           deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white70),
           onDeleted: () => _removeTag(tag),
         );
@@ -890,7 +911,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   Widget _buildWorkDetails() {
     // Use the updated work data when available
     final work = _currentWork ?? widget.work;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -924,8 +945,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           ],
         ),
         const SizedBox(height: 16),
-        if (work.description != null &&
-            work.description!.isNotEmpty) ...[
+        if (work.description != null && work.description!.isNotEmpty) ...[
           Text(
             work.description!,
             style: TextStyleTheme.bodyText1.copyWith(
@@ -947,9 +967,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
             ),
             _buildInfoItem(
               S.of(context).status,
-              work.isHidden
-                  ? S.of(context).hidden
-                  : S.of(context).visible,
+              work.isHidden ? S.of(context).hidden : S.of(context).visible,
             ),
             _buildInfoItem(
               S.of(context).featured,
@@ -974,8 +992,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children:
-                work.tags!.map((tag) => _buildTagChip(tag)).toList(),
+            children: work.tags!.map((tag) => _buildTagChip(tag)).toList(),
           ),
         ],
       ],
@@ -989,7 +1006,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey.shade800),
         ),
@@ -997,7 +1014,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           children: [
             Icon(
               icon,
-              color: secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               size: 16,
             ),
             const SizedBox(width: 6),
@@ -1030,7 +1047,7 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color:
-                HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.grey.shade800),
           ),
@@ -1074,31 +1091,31 @@ class _WorkDetailPageState extends State<WorkDetailPage> {
   Widget _buildTagChip(Tag tag) {
     // Use the updated work data when available
     final work = _currentWork ?? widget.work;
-    
+
     return GestureDetector(
       onTap: () {
         // First filter the works by this tag
         context.read<ArtistWorkBloc>().add(
-          ArtistWorkEvent.filterWorksByTag(tag.id),
-        );
-        
+              ArtistWorkEvent.filterWorksByTag(tag.id),
+            );
+
         // Then navigate to the gallery
         Navigator.pushNamed(
-          context, 
+          context,
           '/works/gallery',
         ).then((_) {
           // When we return, load the work again
           context.read<ArtistWorkBloc>().add(
-            ArtistWorkEvent.loadWorkDetail(work.id),
-          );
+                ArtistWorkEvent.loadWorkDetail(work.id),
+              );
         });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: secondaryColor.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: secondaryColor.withOpacity(0.5)),
+          border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
         ),
         child: Text(
           tag.name,

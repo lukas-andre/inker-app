@@ -13,7 +13,6 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart'; // Correc
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'; // Import LatLng
 import 'package:inker_studio/domain/models/quotation/quotation.dart'; // Importa Money
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
@@ -25,7 +24,8 @@ import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 class CreateOpenQuotationProvider extends StatelessWidget {
   final UserTattooDesignDto? initialTattooDesign;
   final String? initialTattooDesignImageUrl;
-  const CreateOpenQuotationProvider({super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
+  const CreateOpenQuotationProvider(
+      {super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,8 @@ class CreateOpenQuotationProvider extends StatelessWidget {
 class CreateOpenQuotationPage extends StatefulWidget {
   final UserTattooDesignDto? initialTattooDesign;
   final String? initialTattooDesignImageUrl;
-  const CreateOpenQuotationPage({super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
+  const CreateOpenQuotationPage(
+      {super.key, this.initialTattooDesign, this.initialTattooDesignImageUrl});
 
   @override
   State<CreateOpenQuotationPage> createState() =>
@@ -82,7 +83,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     _checkAndRequestLocation();
 
     // Si viene con diseño inicial, setear descripción si está vacía
-    if (widget.initialTattooDesign != null && _descriptionController.text.isEmpty) {
+    if (widget.initialTattooDesign != null &&
+        _descriptionController.text.isEmpty) {
       _descriptionController.text = widget.initialTattooDesign!.userQuery;
     }
     // Set initial value for reference budget if present
@@ -99,10 +101,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     final raw = _referenceBudgetController.text.replaceAll('.', '');
     final parsed = double.tryParse(raw);
     context.read<CreateOpenQuotationBloc>().add(
-      CreateOpenQuotationEvent.referenceBudgetChanged(
-        parsed != null ? Money.fromFloat(parsed, 'CLP', 0) : null,
-      ),
-    );
+          CreateOpenQuotationEvent.referenceBudgetChanged(
+            parsed != null ? Money.fromFloat(parsed, 'CLP', 0) : null,
+          ),
+        );
   }
 
   Future<void> _checkAndRequestLocation() async {
@@ -143,7 +145,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         customSnackBar(
           context: context,
           content: l10n.pleaseEnableGps, // Mensaje más específico
-          backgroundColor: redColor,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
     } else if (currentLocation == null) {
@@ -152,7 +154,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         customSnackBar(
           context: context,
           content: l10n.couldNotGetLocation, // O "Obteniendo ubicación..."
-          backgroundColor: tertiaryColor, // Color neutro
+          backgroundColor:
+              Theme.of(context).colorScheme.tertiary, // Color neutro
         ),
       );
     }
@@ -181,7 +184,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             customSnackBar(
               context: context,
               content: state.errorMessage!,
-              backgroundColor: redColor,
+              backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
           // Clear the error message from state after showing
@@ -195,7 +198,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             customSnackBar(
               context: context,
               content: state.successMessage!,
-              backgroundColor: secondaryColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
           );
         }
@@ -209,20 +212,22 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
 
         // Set reference budget controller if state changes
         final refBudget = state.referenceBudget;
-        final formatted = refBudget != null ? refBudget.formatWithoutSymbol() : '';
-        if (_referenceBudgetController.text.replaceAll('.', '') != refBudget?.amount.toString()) {
+        final formatted =
+            refBudget != null ? refBudget.formatWithoutSymbol() : '';
+        if (_referenceBudgetController.text.replaceAll('.', '') !=
+            refBudget?.amount.toString()) {
           _referenceBudgetController.text = formatted;
         }
       },
       child: Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           title: Text(
             l10n.createOpenQuotation,
             style: TextStyleTheme.headline2,
             overflow: TextOverflow.ellipsis,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           iconTheme: const IconThemeData(color: Colors.white),
           elevation: 0,
         ),
@@ -235,9 +240,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     CreateOpenQuotationStatus.submissionInProgress ||
                 state.status == CreateOpenQuotationStatus.loading) {
               // Added general loading check
-              return const Center(
+              return Center(
                   child: InkerProgressIndicator(
-                      color: secondaryColor, radius: 15));
+                      color: Theme.of(context).colorScheme.secondary,
+                      radius: 15));
             }
 
             // Build the main form content
@@ -274,8 +280,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                             style: TextStyle(
                               // Use state.isDescriptionValid for color
                               color: currentLen < _minDescriptionLength
-                                  ? tertiaryColor
-                                  : tertiaryColor, // Simpler color logic now
+                                  ? Theme.of(context).colorScheme.tertiary
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .tertiary, // Simpler color logic now
                               fontSize: 12,
                             ),
                           ),
@@ -283,13 +291,14 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                       },
                       decoration: _inputDecoration(
                         hintText:
-                            '${l10n.describeYourTattooIdea} (Min. ${_minDescriptionLength} ${l10n.characters})',
+                            '${l10n.describeYourTattooIdea} (Min. $_minDescriptionLength ${l10n.characters})',
                         prefixIcon: Icons.edit_note,
                         // Show error text from BLoC state if description is invalid
                         errorText: !state.isDescriptionValid &&
                                 state.description
                                     .isNotEmpty // Show only if invalid and not empty
-                            ? l10n.minDescriptionLengthRequired(_minDescriptionLength)
+                            ? l10n.minDescriptionLengthRequired(
+                                _minDescriptionLength)
                             : null,
                       ),
                       // Basic validator can remain, but BLoC handles submission logic
@@ -326,8 +335,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     const SizedBox(height: 12),
                     Text(
                       l10n.attachStencilOrGeneratedDesignHint,
-                      style: TextStyleTheme.bodyText2
-                          .copyWith(color: tertiaryColor),
+                      style: TextStyleTheme.bodyText2.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
@@ -348,44 +357,58 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                                 backgroundColor: Colors.transparent,
                                 builder: (_) => BlocProvider.value(
                                   value: context.read<TattooGeneratorBloc>(),
-                                  child: const SelectGeneratedDesignBottomSheet(),
+                                  child:
+                                      const SelectGeneratedDesignBottomSheet(),
                                 ),
                               );
                               if (result != null && result['design'] != null) {
                                 final design = result['design'];
                                 final imageUrl = result['imageUrl'];
                                 context.read<CreateOpenQuotationBloc>().add(
-                                  CreateOpenQuotationEvent.tattooDesignSelected(
-                                    design: design,
-                                    imageUrl: imageUrl,
-                                  ),
-                                );
-                                if (_descriptionController.text.trim().isEmpty && design.userQuery != null) {
-                                  _descriptionController.text = design.userQuery;
+                                      CreateOpenQuotationEvent
+                                          .tattooDesignSelected(
+                                        design: design,
+                                        imageUrl: imageUrl,
+                                      ),
+                                    );
+                                if (_descriptionController.text
+                                        .trim()
+                                        .isEmpty &&
+                                    design.userQuery != null) {
+                                  _descriptionController.text =
+                                      design.userQuery;
                                 }
                               }
                             },
                             child: Ink(
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [redColor, secondaryColor],
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Theme.of(context).colorScheme.error,
+                                    Theme.of(context).colorScheme.secondary
+                                  ],
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
                                 ),
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: redColor.withOpacity(0.12),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error
+                                        .withOpacity(0.12),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
                                 ],
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 18),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 22, horizontal: 18),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.collections_bookmark_outlined, color: Colors.white, size: 32),
+                                  const Icon(Icons.collections_bookmark_outlined,
+                                      color: Colors.white, size: 32),
                                   const SizedBox(width: 16),
                                   Text(
                                     l10n.chooseGeneratedDesign,
@@ -407,24 +430,32 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                           child: Ink(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [secondaryColor, redColor],
+                                colors: [
+                                  Theme.of(context).colorScheme.secondary,
+                                  Theme.of(context).colorScheme.error
+                                ],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: secondaryColor.withOpacity(0.12),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.12),
                                   blurRadius: 8,
                                   offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 18),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 22, horizontal: 18),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.auto_awesome_outlined, color: Colors.white, size: 32),
+                                const Icon(Icons.auto_awesome_outlined,
+                                    color: Colors.white, size: 32),
                                 const SizedBox(width: 16),
                                 Text(
                                   l10n.generateNewDesign,
@@ -497,7 +528,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                               }
                             : null, // Disable button during submission
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: secondaryColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                           foregroundColor: Colors.white,
                           minimumSize: const Size(double.infinity, 56),
                           textStyle:
@@ -538,10 +570,11 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.15),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: secondaryColor, size: 18),
+            child: Icon(icon,
+                color: Theme.of(context).colorScheme.secondary, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -563,10 +596,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       {required String hintText, IconData? prefixIcon, String? errorText}) {
     // Modified to accept errorText
     return InputDecoration(
-      fillColor: inputBackgroundColor,
+      fillColor: Theme.of(context).colorScheme.surface,
       filled: true,
       hintText: hintText,
-      hintStyle: hintTextStyle,
+      hintStyle: TextStyleTheme.bodyText1,
       errorText: errorText, // Display error from BLoC state
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -578,23 +611,27 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: secondaryColor, width: 1.5),
+        borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
         // Add error border style
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: redColor, width: 1.5),
+        borderSide:
+            BorderSide(color: Theme.of(context).colorScheme.error, width: 1.5),
       ),
       focusedErrorBorder: OutlineInputBorder(
         // Add focused error border style
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: redColor, width: 1.5),
+        borderSide:
+            BorderSide(color: Theme.of(context).colorScheme.error, width: 1.5),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: const EdgeInsets.only(left: 12, right: 8),
-              child: Icon(prefixIcon, color: tertiaryColor, size: 20),
+              child: Icon(prefixIcon,
+                  color: Theme.of(context).colorScheme.tertiary, size: 20),
             )
           : null,
     );
@@ -613,14 +650,19 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       label: Text(label),
       onPressed: isEnabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
-        backgroundColor:
-            isSelected ? secondaryColor.withOpacity(0.2) : inputBackgroundColor,
-        foregroundColor: isSelected ? secondaryColor : tertiaryColor,
+        backgroundColor: isSelected
+            ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
+            : Theme.of(context).colorScheme.surface,
+        foregroundColor: isSelected
+            ? Theme.of(context).colorScheme.secondary
+            : Theme.of(context).colorScheme.tertiary,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: isSelected ? secondaryColor : Colors.transparent,
+            color: isSelected
+                ? Theme.of(context).colorScheme.secondary
+                : Colors.transparent,
             width: 1.5,
           ),
         ),
@@ -641,22 +683,25 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: secondaryColor.withOpacity(0.2),
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(Icons.brush_outlined, color: secondaryColor),
+          child: Icon(Icons.brush_outlined,
+              color: Theme.of(context).colorScheme.secondary),
         ),
         title: Text(l10n.selectedStencil,
             style:
                 TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
           '${l10n.id}: $selectedStencilId', // Use state value
-          style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.caption
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.delete_outline, color: redColor),
+          icon: Icon(Icons.delete_outline,
+              color: Theme.of(context).colorScheme.error),
           onPressed: _clearSelection, // Use BLoC event
           tooltip: l10n.clearSelection,
         ),
@@ -675,8 +720,9 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             errorBuilder: (context, error, stackTrace) => Container(
               width: 56,
               height: 56,
-              color: tertiaryColor.withOpacity(0.2),
-              child: const Icon(Icons.broken_image, color: tertiaryColor),
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+              child: Icon(Icons.broken_image,
+                  color: Theme.of(context).colorScheme.tertiary),
             ),
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
@@ -692,12 +738,14 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                 TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
           selectedTattooDesign.userQuery, // Use state value
-          style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.caption
+              .copyWith(color: Theme.of(context).colorScheme.tertiary),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.delete_outline, color: redColor),
+          icon: Icon(Icons.delete_outline,
+              color: Theme.of(context).colorScheme.error),
           onPressed: _clearSelection, // Use BLoC event
           tooltip: l10n.clearSelection,
         ),
@@ -706,7 +754,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
 
     if (content != null) {
       return Card(
-        color: explorerSecondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.only(bottom: 8),
@@ -721,7 +769,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     // Accept state images
     return Container(
       decoration: BoxDecoration(
-        color: inputBackgroundColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(16),
@@ -737,8 +785,9 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                   : l10n.addMoreImages),
               onPressed: _pickImages, // Uses BLoC event now
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor.withOpacity(0.2),
-                foregroundColor: secondaryColor,
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                foregroundColor: Theme.of(context).colorScheme.secondary,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -796,7 +845,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                           child: Container(
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                              color: redColor,
+                              color: Theme.of(context).colorScheme.error,
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
@@ -834,7 +883,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
 
     return Container(
       decoration: BoxDecoration(
-        color: inputBackgroundColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -846,7 +895,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                 ? l10n.noDistanceLimit
                 : l10n.maxDistance(selectedDistanceKm), // Use state value
             style: TextStyleTheme.bodyText1.copyWith(
-              color: quaternaryColor,
+              color: Theme.of(context).colorScheme.tertiary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -858,8 +907,9 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
               ...distanceOptions.map((distance) {
                 final bool isSelected =
                     selectedDistanceKm == distance; // Use state value
-                final String label =
-                    distance == 0 ? l10n.noDistanceLimit : l10n.maxDistance(distance);
+                final String label = distance == 0
+                    ? l10n.noDistanceLimit
+                    : l10n.maxDistance(distance);
 
                 return ChoiceChip(
                   label: Text(label),
@@ -869,17 +919,22 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     context.read<CreateOpenQuotationBloc>().add(
                         CreateOpenQuotationEvent.distanceChanged(distance));
                   },
-                  backgroundColor: inputBackgroundColor,
-                  selectedColor: secondaryColor.withOpacity(0.2),
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  selectedColor:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                   labelStyle: TextStyle(
-                    color: isSelected ? secondaryColor : tertiaryColor,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.secondary
+                        : Theme.of(context).colorScheme.tertiary,
                     fontWeight:
                         isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                     side: BorderSide(
-                      color: isSelected ? secondaryColor : Colors.transparent,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.secondary
+                          : Colors.transparent,
                       width: 1.5,
                     ),
                   ),
@@ -920,12 +975,13 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       final design = result['design'];
       final imageUrl = result['imageUrl'];
       context.read<CreateOpenQuotationBloc>().add(
-        CreateOpenQuotationEvent.tattooDesignSelected(
-          design: design,
-          imageUrl: imageUrl,
-        ),
-      );
-      if (_descriptionController.text.trim().isEmpty && design.userQuery != null) {
+            CreateOpenQuotationEvent.tattooDesignSelected(
+              design: design,
+              imageUrl: imageUrl,
+            ),
+          );
+      if (_descriptionController.text.trim().isEmpty &&
+          design.userQuery != null) {
         _descriptionController.text = design.userQuery;
       }
     }

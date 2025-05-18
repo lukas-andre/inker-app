@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class LanguageSettingsPage extends StatelessWidget {
   static const String routeName = '/languageSettings';
@@ -15,9 +14,9 @@ class LanguageSettingsPage extends StatelessWidget {
     final currentLocale = context.watch<LocalizationCubit>().state;
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(S.of(context).language, style: TextStyleTheme.headline1),
         iconTheme: const IconThemeData(color: Colors.white),
       ),

@@ -5,7 +5,6 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'dart:ui';
 
 class ArtistProfileHeader extends StatelessWidget {
@@ -34,12 +33,17 @@ class ArtistProfileHeader extends StatelessWidget {
 
   Widget _buildProfileHeader(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final hasStudioPhoto = artist.studioPhoto != null && artist.studioPhoto!.isNotEmpty;
-    final bannerHeight = MediaQuery.of(context).size.height * 0.3; // 30% of screen height for banner
-    final profileSize = screenWidth * 0.4; // 40% of screen width for profile pic
+    final hasStudioPhoto =
+        artist.studioPhoto != null && artist.studioPhoto!.isNotEmpty;
+    final bannerHeight = MediaQuery.of(context).size.height *
+        0.3; // 30% of screen height for banner
+    final profileSize =
+        screenWidth * 0.4; // 40% of screen width for profile pic
 
     return SizedBox(
-      height: bannerHeight + (profileSize / 2) + 110, // Banner + half profile + info space + buttons
+      height: bannerHeight +
+          (profileSize / 2) +
+          110, // Banner + half profile + info space + buttons
       width: double.infinity,
       child: Stack(
         clipBehavior: Clip.none,
@@ -55,14 +59,25 @@ class ArtistProfileHeader extends StatelessWidget {
               children: [
                 // Background image
                 hasStudioPhoto
-                  ? CachedNetworkImage(
-                      imageUrl: artist.studioPhoto!,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Container(
-                        color: primaryColor,
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        color: primaryColor,
+                    ? CachedNetworkImage(
+                        imageUrl: artist.studioPhoto!,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Container(
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          color: Theme.of(context).colorScheme.surface,
+                          child: Center(
+                            child: Icon(
+                              Icons.brush,
+                              size: 40,
+                              color: Colors.white.withOpacity(0.3),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        color: Theme.of(context).colorScheme.surface,
                         child: Center(
                           child: Icon(
                             Icons.brush,
@@ -71,17 +86,6 @@ class ArtistProfileHeader extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
-                  : Container(
-                      color: primaryColor,
-                      child: Center(
-                        child: Icon(
-                          Icons.brush,
-                          size: 40,
-                          color: Colors.white.withOpacity(0.3),
-                        ),
-                      ),
-                    ),
                 // Gradient overlay
                 Container(
                   decoration: BoxDecoration(
@@ -98,11 +102,12 @@ class ArtistProfileHeader extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Back button
           if (onBackPressed != null)
             Positioned(
-              top: MediaQuery.of(context).padding.top + 16, // Ajustado para considerar la barra de estado
+              top: MediaQuery.of(context).padding.top +
+                  16, // Ajustado para considerar la barra de estado
               left: 16,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
@@ -131,10 +136,10 @@ class ArtistProfileHeader extends StatelessWidget {
                 ),
               ),
             ),
-            
+
           // Artist rating
           _buildRatingBadge(context),
-          
+
           // Profile image
           Positioned(
             top: bannerHeight - (profileSize / 2),
@@ -144,7 +149,8 @@ class ArtistProfileHeader extends StatelessWidget {
               height: profileSize,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: primaryColor, width: 4),
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.secondary, width: 4),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
@@ -157,13 +163,19 @@ class ArtistProfileHeader extends StatelessWidget {
                   imageUrl: artist.profileThumbnail ?? defaultProfileImageLink,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Container(
-                    color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                    color: HSLColor.fromColor(
+                            Theme.of(context).colorScheme.surface)
+                        .withLightness(0.15)
+                        .toColor(),
                     child: const Center(
                       child: InkerProgressIndicator(),
                     ),
                   ),
                   errorWidget: (context, url, error) => Container(
-                    color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                    color: HSLColor.fromColor(
+                            Theme.of(context).colorScheme.surface)
+                        .withLightness(0.15)
+                        .toColor(),
                     child: Icon(
                       Icons.person,
                       size: profileSize * 0.5,
@@ -174,7 +186,7 @@ class ArtistProfileHeader extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Artist info section
           Positioned(
             top: bannerHeight + (profileSize / 2) + 10,
@@ -192,11 +204,12 @@ class ArtistProfileHeader extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                
+
                 // Username
                 if (artist.username != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 4), // Increased from 2 to 4
+                    padding:
+                        const EdgeInsets.only(top: 4), // Increased from 2 to 4
                     child: Text(
                       '@${artist.username}',
                       style: TextStyle(
@@ -206,10 +219,11 @@ class ArtistProfileHeader extends StatelessWidget {
                       ),
                     ),
                   ),
-                  
-                // Followers count  
+
+                // Followers count
                 Padding(
-                  padding: const EdgeInsets.only(top: 8), // Increased from 6 to 8
+                  padding:
+                      const EdgeInsets.only(top: 8), // Increased from 6 to 8
                   child: Text(
                     S.of(context).follower(artist.followers ?? 0),
                     style: TextStyle(
@@ -219,10 +233,11 @@ class ArtistProfileHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 // Follow button
                 Padding(
-                  padding: const EdgeInsets.only(top: 16), // Increased from 14 to 16
+                  padding:
+                      const EdgeInsets.only(top: 16), // Increased from 14 to 16
                   child: _buildFollowButton(context),
                 ),
               ],
@@ -232,24 +247,28 @@ class ArtistProfileHeader extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildRatingBadge(BuildContext context) {
-    final ratingValue = artist.review?.avgRating ?? 
-                       (artist.review?.value != null ? double.parse(artist.rating ?? '0.0') : 0.0);
+    final ratingValue = artist.review?.avgRating ??
+        (artist.review?.value != null
+            ? double.parse(artist.rating ?? '0.0')
+            : 0.0);
     final hasRating = ratingValue > 0;
-    
+
     if (!hasRating) return const SizedBox.shrink();
-    
+
     // Calcular la posición correcta considerando la barra de estado
     final statusBarHeight = MediaQuery.of(context).padding.top;
-    
+
     return Positioned(
       top: statusBarHeight + 16, // Ajustado para considerar la barra de estado
       right: 16,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: HSLColor.fromColor(primaryColor).withLightness(0.2).toColor(),
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.2)
+              .toColor(),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -261,9 +280,9 @@ class ArtistProfileHeader extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.star,
-              color: secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               size: 20,
             ),
             const SizedBox(width: 6),
@@ -285,16 +304,21 @@ class ArtistProfileHeader extends StatelessWidget {
     return TextButton(
       onPressed: onFollowPressed,
       style: TextButton.styleFrom(
-        backgroundColor: isFollowing ? Colors.transparent : secondaryColor,
+        backgroundColor: isFollowing
+            ? Colors.transparent
+            : Theme.of(context).colorScheme.secondary,
         foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10), // Increased padding
+        padding: const EdgeInsets.symmetric(
+            horizontal: 28, vertical: 10), // Increased padding
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24), // Increased from 20 to 24
-          side: isFollowing 
-              ? const BorderSide(color: secondaryColor, width: 1.5) 
+          side: isFollowing
+              ? BorderSide(
+                  color: Theme.of(context).colorScheme.secondary, width: 1.5)
               : BorderSide.none,
         ),
-        minimumSize: const Size(140, 40), // Increased size for better touch target
+        minimumSize:
+            const Size(140, 40), // Increased size for better touch target
       ),
       child: Text(
         isFollowing ? S.of(context).following : S.of(context).follow,

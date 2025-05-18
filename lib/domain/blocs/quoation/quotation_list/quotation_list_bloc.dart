@@ -77,7 +77,7 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
     bool isNextPage,
     QuotationType type,
   ) async {
-    final QuotationType effectiveType = QuotationType.DIRECT;
+    const QuotationType effectiveType = QuotationType.DIRECT;
 
     try {
       final session = await _sessionService.getActiveSession();

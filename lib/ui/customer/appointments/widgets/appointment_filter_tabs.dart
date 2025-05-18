@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class AppointmentFilterTabs extends StatefulWidget {
   final String? currentFilter;
@@ -122,7 +121,7 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
     return Container(
       height: 48,
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -134,7 +133,7 @@ class _AppointmentFilterTabsState extends State<AppointmentFilterTabs> with Sing
       child: TabBar(
         controller: _tabController,
         isScrollable: true,
-        indicatorColor: secondaryColor,
+        indicatorColor: Theme.of(context).colorScheme.secondary,
         indicatorWeight: 3,
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white.withOpacity(0.6),

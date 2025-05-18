@@ -4,7 +4,6 @@ import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/image_viewer_dialog.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistWorksGallery extends StatelessWidget {
   final List<WorkItem> works;
@@ -36,7 +35,7 @@ class ArtistWorksGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,12 +94,12 @@ class ArtistWorksGallery extends StatelessWidget {
                                   imageUrl: _getImageUrls(works.first.workEvidence)[index],
                                   fit: BoxFit.cover,
                                   placeholder: (_, __) => Container(
-                                    color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+                                    color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
                                     child: const Center(child: InkerProgressIndicator()),
                                   ),
                                   errorWidget: (_, __, ___) => Container(
-                                    color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
-                                    child: const Icon(Icons.error, color: redColor),
+                                    color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
+                                    child: Icon(Icons.error, color: Theme.of(context).colorScheme.error),
                                   ),
                                 ),
                                 
@@ -115,9 +114,9 @@ class ArtistWorksGallery extends StatelessWidget {
                                         vertical: 6,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: HSLColor.fromColor(primaryColor).withLightness(0.25).toColor(),
+                                        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.25).toColor(),
                                         borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(color: secondaryColor, width: 1.5),
+                                        border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 1.5),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,

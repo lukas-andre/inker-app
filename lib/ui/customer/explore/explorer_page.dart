@@ -8,7 +8,6 @@ import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.d
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_sheet.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ExplorerPage extends StatefulWidget {
@@ -54,18 +53,18 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       ),
                     ),
                     elevation: 0,
-                    backgroundColor: primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                   ),
-            backgroundColor: primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             body: BlocBuilder<LocationBloc, LocationState>(
               buildWhen: (previous, current) =>
                   previous.lastKnownLocation == null &&
                   current.lastKnownLocation != null,
               builder: (context, locationState) {
                 if (locationState.lastKnownLocation == null) {
-                  return const Center(
+                  return Center(
                     child: InkerProgressIndicator(
-                      color: secondaryColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   );
                 }
@@ -84,19 +83,19 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
                     // TODO: THIS IS LOADING STATE
                     if (state.isLoading) {
-                      return const Center(
+                      return Center(
                         child: InkerProgressIndicator(
-                          color: secondaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       );
                     }
 
                     // THIS IS EMPTY ARTIST STATE
                     if (state.artistFounded.isEmpty) {
-                      return const Center(
+                      return Center(
                         child: Text(
                           'No artist found',
-                          style: TextStyle(color: secondaryColor),
+                          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                         ),
                       );
                     } else {

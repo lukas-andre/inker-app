@@ -49,9 +49,9 @@ class StatusAndDateDisplay extends StatelessWidget {
         // Date Display
         Row(
           children: [
-            Icon(
+            const Icon(
               Icons.calendar_today_outlined, // Use outlined icon
-              color: const Color(0xFF8A8A8F), // Slightly muted color
+              color: Color(0xFF8A8A8F), // Slightly muted color
               size: 14,
             ),
             const SizedBox(width: 5),

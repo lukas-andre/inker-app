@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:inker_studio/utils/image/cached_image_manager.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 /// Widget para mostrar la configuración de caché de imágenes y
 /// permitir al usuario limpiarla si es necesario
@@ -125,7 +124,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: HSLColor.fromColor(primaryColor).withLightness(0.15).toColor(),
+      color: HSLColor.fromColor(Theme.of(context).colorScheme.primary).withLightness(0.15).toColor(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: Colors.grey.shade800),
@@ -137,9 +136,9 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
           children: [
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.image,
-                  color: secondaryColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 24,
                 ),
                 const SizedBox(width: 12),
@@ -174,7 +173,7 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
                       : const Icon(Icons.cleaning_services, size: 18),
                   label: const Text('Limpiar caché'),
                   style: TextButton.styleFrom(
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -208,12 +207,12 @@ class _ImageCacheSettingsState extends State<ImageCacheSettings> {
         ),
         const SizedBox(width: 8),
         _isLoading
-            ? const SizedBox(
+            ? SizedBox(
                 width: 16,
                 height: 16,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
                 ),
               )
             : Text(

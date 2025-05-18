@@ -10,8 +10,6 @@ import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart'; // For colors
-import 'package:intl/intl.dart'; // For date formatting
 
 class ParticipatingQuotationsTabView extends StatefulWidget {
   const ParticipatingQuotationsTabView({super.key});
@@ -94,7 +92,7 @@ class _ParticipatingQuotationsTabViewState
 
     // 2. If found in current state, navigate directly
     if (potentialQuotation != null) {
-      print("Quotation found in current state, navigating directly.");
+      print('Quotation found in current state, navigating directly.');
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) =>
@@ -105,7 +103,7 @@ class _ParticipatingQuotationsTabViewState
     }
 
     // 3. If not found, show loading, dispatch event, and wait with timeout
-    print("Quotation not in current state. Fetching...");
+    print('Quotation not in current state. Fetching...');
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -155,7 +153,7 @@ class _ParticipatingQuotationsTabViewState
       }
     } catch (e) {
       Navigator.of(context).pop(); // Close loading dialog on error/timeout
-      print("Error navigating to detail: $e");
+      print('Error navigating to detail: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(S.of(context).errorLoadingQuotationDetails)),
       );
@@ -274,8 +272,8 @@ class _ParticipatingQuotationsTabViewState
     final String timeAgo = _getRelativeTimeString(item.createdAt);
     
     // Check if there are messages to display
-    final bool hasMessages = item.messages?.isNotEmpty ?? false;
-    final int messagesCount = item.messages?.length ?? 0;
+    final bool hasMessages = item.messages.isNotEmpty ?? false;
+    final int messagesCount = item.messages.length ?? 0;
     
     // Format price if available
     String priceDisplay = S.of(context).notSpecified;
@@ -589,7 +587,7 @@ class _ParticipatingQuotationsTabViewState
           label: const Text('Ver razón'),
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.white70,
-            side: BorderSide(color: Colors.white30),
+            side: const BorderSide(color: Colors.white30),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           ),
         );

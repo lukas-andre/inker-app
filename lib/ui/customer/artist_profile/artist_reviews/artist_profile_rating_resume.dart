@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_content.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileRatingResume extends StatelessWidget {
   const ArtistProfileRatingResume({super.key});
@@ -127,9 +126,9 @@ class ArtistProfileRatingDetailBars extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.35,
                               child: LinearProgressIndicator(
                                   value: e.value,
-                                  backgroundColor: greyColor,
-                                  valueColor: const AlwaysStoppedAnimation<Color>(
-                                      yellowColor)),
+                                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                                  valueColor:  AlwaysStoppedAnimation<Color>(
+                                      Theme.of(context).colorScheme.secondary)),
                             ),
                           ],
                         ))
@@ -165,7 +164,7 @@ class DraggableArtistRatingResume extends StatelessWidget {
             allowHalfRating: true,
             itemCount: 5,
             itemSize: 16,
-            unratedColor: greyColor,
+            unratedColor: Theme.of(context).colorScheme.tertiary,
             itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
             itemBuilder: (context, _) => const Icon(
               Icons.star,

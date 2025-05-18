@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class SelectGeneratedDesignBottomSheet extends StatefulWidget {
   const SelectGeneratedDesignBottomSheet({super.key});
 
   @override
-  State<SelectGeneratedDesignBottomSheet> createState() => _SelectGeneratedDesignBottomSheetState();
+  State<SelectGeneratedDesignBottomSheet> createState() =>
+      _SelectGeneratedDesignBottomSheetState();
 }
 
-class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesignBottomSheet> with SingleTickerProviderStateMixin {
+class _SelectGeneratedDesignBottomSheetState
+    extends State<SelectGeneratedDesignBottomSheet>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -20,16 +22,22 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     // Cargar historial al abrir
-    context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadHistory());
+    context
+        .read<TattooGeneratorBloc>()
+        .add(const TattooGeneratorEvent.loadHistory());
     _tabController.addListener(_onTabChange);
   }
 
   void _onTabChange() {
     if (_tabController.indexIsChanging) return;
     if (_tabController.index == 0) {
-      context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadHistory());
+      context
+          .read<TattooGeneratorBloc>()
+          .add(const TattooGeneratorEvent.loadHistory());
     } else {
-      context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.loadFavorites());
+      context
+          .read<TattooGeneratorBloc>()
+          .add(const TattooGeneratorEvent.loadFavorites());
     }
   }
 
@@ -45,9 +53,9 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
     final double sheetHeight = MediaQuery.of(context).size.height * 0.75;
     return Container(
       height: sheetHeight,
-      decoration: const BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         children: [
@@ -56,12 +64,14 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Row(
               children: [
-                const Icon(Icons.auto_awesome_outlined, color: secondaryColor, size: 24),
+                Icon(Icons.auto_awesome_outlined,
+                    color: Theme.of(context).colorScheme.secondary, size: 24),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     'Selecciona un diseño generado',
-                    style: TextStyleTheme.headline3.copyWith(fontWeight: FontWeight.bold),
+                    style: TextStyleTheme.headline3
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
                 IconButton(
@@ -74,8 +84,8 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
           // Tabs
           TabBar(
             controller: _tabController,
-            indicatorColor: secondaryColor,
-            labelColor: secondaryColor,
+            indicatorColor: Theme.of(context).colorScheme.secondary,
+            labelColor: Theme.of(context).colorScheme.secondary,
             unselectedLabelColor: Colors.white70,
             tabs: const [
               Tab(text: 'Historial'),
@@ -87,7 +97,9 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
             child: BlocBuilder<TattooGeneratorBloc, TattooGeneratorState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  historyLoading: () => const Center(child: CircularProgressIndicator(color: secondaryColor)),
+                  historyLoading: () => Center(
+                      child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.secondary)),
                   historyLoaded: (designs, favoritesOnly) {
                     // Filtrar según tab
                     final showFavorites = _tabController.index == 1;
@@ -104,20 +116,27 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
                     return RefreshIndicator(
                       onRefresh: () async {
                         if (showFavorites) {
-                          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshFavorites());
+                          context.read<TattooGeneratorBloc>().add(
+                              const TattooGeneratorEvent.refreshFavorites());
                         } else {
-                          context.read<TattooGeneratorBloc>().add(const TattooGeneratorEvent.refreshHistory());
+                          context
+                              .read<TattooGeneratorBloc>()
+                              .add(const TattooGeneratorEvent.refreshHistory());
                         }
-                        await Future.delayed(const Duration(milliseconds: 1200));
+                        await Future.delayed(
+                            const Duration(milliseconds: 1200));
                       },
-                      color: secondaryColor,
-                      backgroundColor: explorerSecondaryColor,
+                      color: Theme.of(context).colorScheme.secondary,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
                         itemCount: filtered.length,
                         itemBuilder: (context, index) {
                           final design = filtered[index];
-                          final imageUrl = design.imageUrls.isNotEmpty ? design.imageUrls.first : null;
+                          final imageUrl = design.imageUrls.isNotEmpty
+                              ? design.imageUrls.first
+                              : null;
                           return GestureDetector(
                             onTap: () {
                               Navigator.of(context).pop({
@@ -126,9 +145,10 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
                               });
                             },
                             child: Card(
-                              color: explorerSecondaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               elevation: 2,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14)),
                               margin: const EdgeInsets.only(bottom: 14),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,42 +168,67 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
                                               width: 90,
                                               height: 90,
                                               color: Colors.black12,
-                                              child: const Center(child: CircularProgressIndicator(strokeWidth: 2, color: secondaryColor)),
+                                              child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .secondary)),
                                             ),
                                             errorWidget: (c, u, e) => Container(
                                               width: 90,
                                               height: 90,
                                               color: Colors.black12,
-                                              child: const Icon(Icons.broken_image, color: tertiaryColor),
+                                              child: Icon(Icons.broken_image,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .tertiary),
                                             ),
                                           )
                                         : Container(
                                             width: 90,
                                             height: 90,
                                             color: Colors.black12,
-                                            child: const Icon(Icons.image, color: tertiaryColor),
+                                            child: Icon(Icons.image,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .tertiary),
                                           ),
                                   ),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             design.userQuery,
-                                            style: TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),
+                                            style: TextStyleTheme.bodyText1
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           const SizedBox(height: 6),
                                           Row(
                                             children: [
-                                              const Icon(Icons.style, size: 16, color: secondaryColor),
+                                              Icon(Icons.style,
+                                                  size: 16,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
                                               const SizedBox(width: 4),
                                               Text(
                                                 design.style ?? '-',
-                                                style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                                                style: TextStyleTheme.caption
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .tertiary),
                                               ),
                                             ],
                                           ),
@@ -192,16 +237,25 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
                                             design.createdAt != null
                                                 ? _formatDate(design.createdAt!)
                                                 : 'Fecha desconocida',
-                                            style: TextStyleTheme.caption.copyWith(color: tertiaryColor),
+                                            style: TextStyleTheme.caption
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .tertiary),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
                                   if (design.isFavorite == true)
-                                    const Padding(
-                                      padding: EdgeInsets.only(top: 8, right: 8),
-                                      child: Icon(Icons.favorite, color: redColor, size: 20),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 8, right: 8),
+                                      child: Icon(Icons.favorite,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .error,
+                                          size: 20),
                                     ),
                                 ],
                               ),
@@ -212,7 +266,9 @@ class _SelectGeneratedDesignBottomSheetState extends State<SelectGeneratedDesign
                     );
                   },
                   error: (msg) => _EmptyState(message: msg),
-                  orElse: () => const Center(child: CircularProgressIndicator(color: secondaryColor)),
+                  orElse: () => Center(
+                      child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.secondary)),
                 );
               },
             ),
@@ -249,11 +305,13 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.auto_awesome_outlined, color: secondaryColor, size: 48),
+            Icon(Icons.auto_awesome_outlined,
+                color: Theme.of(context).colorScheme.secondary, size: 48),
             const SizedBox(height: 18),
             Text(
               message,
-              style: TextStyleTheme.bodyText1.copyWith(color: tertiaryColor),
+              style: TextStyleTheme.bodyText1
+                  .copyWith(color: Theme.of(context).colorScheme.tertiary),
               textAlign: TextAlign.center,
             ),
           ],
@@ -261,4 +319,4 @@ class _EmptyState extends StatelessWidget {
       ),
     );
   }
-} 
+}

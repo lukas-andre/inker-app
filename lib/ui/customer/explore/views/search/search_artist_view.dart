@@ -8,7 +8,6 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class SearchArtistView extends StatelessWidget {
   const SearchArtistView({super.key});
@@ -16,7 +15,7 @@ class SearchArtistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       child: SafeArea(
         child: Column(
           children: [

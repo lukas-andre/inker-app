@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/data/api/customer/dtos/search_customer_response.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GuestChip extends StatelessWidget {
   final CustomerDTO guest;
@@ -37,7 +36,7 @@ class GuestChip extends StatelessWidget {
             backgroundImage: guest.profileThumbnail != null
                 ? NetworkImage(guest.profileThumbnail!)
                 : null,
-            backgroundColor: secondaryColor,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             child: guest.profileThumbnail == null
                 ? Text(
                     guest.firstName[0].toUpperCase() +
@@ -72,7 +71,7 @@ class GuestChip extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.close, color: tertiaryColor),
+            icon: Icon(Icons.close, color: Theme.of(context).colorScheme.tertiary),
             onPressed: onDeleted,
           ),
         ],

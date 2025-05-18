@@ -9,7 +9,6 @@ import 'package:inker_studio/ui/customer/explore/widgets/explorer_contact_button
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 const bottomBarHeight = 80.0;
@@ -37,7 +36,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
           right: 0,
           child: Container(
             height: bottomBarHeight,
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.surface,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -51,7 +50,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
                     text: S.of(context).directions,
-                    backgroundColor: tertiaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontSize: 15,
@@ -68,7 +67,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
                     text: S.of(context).bookAppointment,
-                    backgroundColor: secondaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontSize: 15,

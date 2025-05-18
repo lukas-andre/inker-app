@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
@@ -8,7 +7,6 @@ import 'package:inker_studio/test_utils/test_mode.dart';
 import '../../actions/auth_test_actions.dart';
 import '../../actions/artist/work_actions.dart';
 import '../../actions/artist/work_detail_actions.dart';
-import 'package:inker_studio/test_utils/register_keys.dart';
 
 import '../../config/test_config.dart';
 

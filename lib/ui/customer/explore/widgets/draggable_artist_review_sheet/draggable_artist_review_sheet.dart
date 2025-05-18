@@ -12,7 +12,6 @@ import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_s
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistReviewsContent extends StatelessWidget {
   const DraggableArtistReviewsContent({super.key});
@@ -161,7 +160,7 @@ class DraggableReviewItem extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 14,
-                      unratedColor: greyColor,
+                      unratedColor: Theme.of(context).colorScheme.tertiary,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
@@ -173,7 +172,7 @@ class DraggableReviewItem extends StatelessWidget {
                       DateTimeFormatter.formatForReviewElement(
                           review.createdAt!),
                       style: TextStyleTheme.copyWith(
-                          color: greyColor,
+                          color: Theme.of(context).colorScheme.tertiary,
                           fontSize: 14,
                           fontWeight: FontWeight.w200),
                     ),

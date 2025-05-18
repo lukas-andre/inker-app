@@ -168,7 +168,7 @@ class WorkDetailTestActions {
 
   /// Verifica si estamos en modo de edición
   static Future<bool> _isInEditMode(PatrolIntegrationTester $) async {
-    return await $(registerKeys.workDetail.saveButton).exists;
+    return $(registerKeys.workDetail.saveButton).exists;
   }
 
   /// Obtiene el estado de un switch
@@ -205,7 +205,7 @@ class WorkDetailTestActions {
       await $(registerKeys.workDetail.submitButton).scrollTo().tap();
       await $.pumpAndSettle(duration: const Duration(seconds: 5));
 
-      return await $(K.profileTab).exists;
+      return $(K.profileTab).exists;
     } catch (e) {
       print('Error creating test work: $e');
       return false;

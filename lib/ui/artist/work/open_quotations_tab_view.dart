@@ -10,7 +10,6 @@ import 'package:inker_studio/ui/quotation/widgets/quotation_card.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class OpenQuotationsTabView extends StatefulWidget {
   const OpenQuotationsTabView({super.key});
@@ -134,7 +133,7 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
     final isArtist = session.user?.userType == 'ARTIST';
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocConsumer<OpenQuotationListBloc, OpenQuotationListState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -223,7 +222,7 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
       ),
       floatingActionButton: !isArtist ? FloatingActionButton(
         onPressed: _navigateToCreateOpenQuotation,
-        backgroundColor: secondaryColor.withOpacity(0.8),
+        backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
         tooltip: S.of(context).createOpenQuotation,
         child: const Icon(Icons.add, color: Colors.white),
       ) : null,

@@ -10,7 +10,6 @@ import 'package:inker_studio/ui/artist/agenda/events/widgets/calendar_day_picker
 import 'package:inker_studio/ui/artist/agenda/events/widgets/create_event_button.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/enhanced_date_range_picker.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/send_message_button.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class EventFormPage extends StatefulWidget {
@@ -76,7 +75,7 @@ class _EventFormPageState extends State<EventFormPage> {
             : l10n.scheduleEvent;
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           pageTitle,
@@ -86,7 +85,7 @@ class _EventFormPageState extends State<EventFormPage> {
             fontSize: 24,
           ),
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 1.0,
         shadowColor: Colors.black54,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -184,7 +183,7 @@ class _EventFormPageState extends State<EventFormPage> {
                       children: [
                         const MessageButton(),
                         if (state.status == ArtistAgendaCreateEventStatus.loading)
-                          const CircularProgressIndicator(color: secondaryColor)
+                          CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary)
                         else
                           CreateEventButton(
                             formKey: _formKey,

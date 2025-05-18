@@ -5,7 +5,6 @@ import 'package:inker_studio/domain/blocs/available_time_slots/available_time_sl
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/widgets/available_time_slots_widget.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class EnhancedDateRangePicker extends StatefulWidget {
@@ -371,7 +370,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
               ),
               Switch(
                 value: _isCustomDuration,
-                activeColor: secondaryColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 onChanged: (bool value) {
                   setState(() {
                     _isCustomDuration = value;
@@ -422,9 +421,9 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: primaryColor)
+                    border: Border.all(color: Theme.of(context).colorScheme.surface)
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -462,7 +461,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
   Widget _buildDurationDropdown() {
     return DropdownButtonFormField<String>(
       value: _selectedDuration['label'] as String,
-      dropdownColor: primaryColor,
+      dropdownColor: Theme.of(context).colorScheme.surface,
       isExpanded: true,
       decoration: InputDecoration(
         labelText: S.of(context).duration,
@@ -655,7 +654,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text('Scheduling Conflict Detected', 
             style: TextStyleTheme.headline3.copyWith(color: Colors.white),
           ),
@@ -694,7 +693,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
               child: Text('Find Available Time', 
                 style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
@@ -835,7 +834,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
               final dateFormatter = DateFormat('EEEE, d MMMM', 'es');
               
               return AlertDialog(
-                backgroundColor: primaryColor,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 title: Text('Horarios Disponibles', 
                   style: TextStyleTheme.headline3.copyWith(color: Colors.white),
                 ),
@@ -880,13 +879,12 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
                                 builder: (BuildContext context, Widget? child) {
                                   return Theme(
                                     data: ThemeData.dark().copyWith(
-                                      colorScheme: const ColorScheme.dark(
-                                        primary: secondaryColor,
+                                      colorScheme: ColorScheme.dark(
+                                        primary: Theme.of(context).colorScheme.secondary,
                                         onPrimary: Colors.white,
-                                        surface: primaryColor,
+                                        surface: Theme.of(context).colorScheme.surface,
                                         onSurface: Colors.white,
-                                      ),
-                                      dialogBackgroundColor: primaryColor,
+                                      ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).colorScheme.surface),
                                     ),
                                     child: child!,
                                   );
@@ -976,7 +974,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: secondaryColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           shape: RoundedRectangleBorder(
@@ -1042,7 +1040,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: primaryColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text('Outside Working Hours', 
             style: TextStyleTheme.headline3.copyWith(color: Colors.white),
           ),
@@ -1072,7 +1070,7 @@ class _EnhancedDateRangePickerState extends State<EnhancedDateRangePicker> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
               child: Text('Keep Selected Time', 
                 style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),

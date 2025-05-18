@@ -33,7 +33,7 @@ class OffersListCard extends StatelessWidget {
           children: [
             Text(l10n.offers, style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 12),
-            ...offers.map((offer) => _OfferRow(offer: offer)).toList(),
+            ...offers.map((offer) => _OfferRow(offer: offer)),
           ],
         ),
       ),

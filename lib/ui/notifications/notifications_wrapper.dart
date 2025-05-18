@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class NotificationsWrapper extends StatelessWidget {
   final Widget child;
@@ -35,7 +34,7 @@ class NotificationsWrapper extends StatelessWidget {
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(12),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       flushbarPosition: FlushbarPosition.TOP,
       duration: const Duration(seconds: 4),
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,

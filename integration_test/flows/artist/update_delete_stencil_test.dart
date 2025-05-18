@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
@@ -9,7 +7,6 @@ import '../../actions/artist/my_profile_actions.dart';
 import '../../actions/auth_test_actions.dart';
 import '../../actions/artist/stencil_actions.dart';
 import '../../actions/artist/stencil_detail_actions.dart';
-import 'package:inker_studio/test_utils/register_keys.dart';
 
 import '../../config/test_config.dart';
 

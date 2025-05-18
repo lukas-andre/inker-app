@@ -6,7 +6,6 @@ import 'package:inker_studio/domain/blocs/register/customer/register_customer_bl
 import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/register/widgets/register_user_by_type_layout.dart';
-import 'package:inker_studio/test_utils/register_keys.dart';
 
 class RegisterUserByTypePage extends StatelessWidget {
   const RegisterUserByTypePage({super.key});

@@ -8,7 +8,6 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerListView extends StatelessWidget {
   const ExplorerListView({super.key});
@@ -17,7 +16,7 @@ class ExplorerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(color: primaryColor),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       width: size.width,
       child: SafeArea(
         child: Column(
@@ -100,7 +99,9 @@ class _ArtistGridItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: explorerSecondaryColor, // Color más oscuro para la card
+          color: Theme.of(context)
+              .colorScheme
+              .secondary, // Color más oscuro para la card
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -130,8 +131,8 @@ class _ArtistGridItem extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      explorerSecondaryColor.withOpacity(0.9),
-                      explorerSecondaryColor,
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.9),
+                      Theme.of(context).colorScheme.secondary,
                     ],
                   ),
                 ),
@@ -141,9 +142,9 @@ class _ArtistGridItem extends StatelessWidget {
               if (artist.rating != null && double.parse(artist.rating!) >= 4.5)
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  decoration: const BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
                     ),
@@ -216,12 +217,15 @@ class _ArtistInfo extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: secondaryColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   width: 2,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.3),
                     blurRadius: 4,
                     spreadRadius: 0,
                   ),
@@ -254,10 +258,10 @@ class _ArtistInfo extends StatelessWidget {
                   // Distancia con icono y estilo más moderno
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.location_on,
                         size: 12,
-                        color: secondaryColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       const SizedBox(width: 2),
                       Text(
@@ -284,7 +288,7 @@ class _ArtistInfo extends StatelessWidget {
                   index < (double.parse(artist.rating!).round())
                       ? Icons.star
                       : Icons.star_border,
-                  color: yellowColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 14,
                 );
               }),
