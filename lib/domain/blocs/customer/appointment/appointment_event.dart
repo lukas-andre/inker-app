@@ -13,6 +13,8 @@ class AppointmentEvent with _$AppointmentEvent {
   
   const factory AppointmentEvent.getAppointmentById(String id) = _GetAppointmentById;
   
+  const factory AppointmentEvent.refreshAppointmentDetail(String id) = _RefreshAppointmentDetail;
+  
   const factory AppointmentEvent.requestAppointmentChange({
     required String appointmentId,
     DateTime? newStartDate,

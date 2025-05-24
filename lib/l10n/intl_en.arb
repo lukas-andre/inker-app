@@ -2826,5 +2826,53 @@
         "example": "5"
       }
     }
+  },
+  "n": "New",
+  "@n": {
+    "description": "A new item or message."
+  },
+  "noMapsApplicationAvailable": "No maps application available",
+  "@noMapsApplicationAvailable": {
+    "description": "Message shown when no maps application is available on the device."
+  },
+  "sendEmail": "Send Email",
+  "@sendEmail": {
+    "description": "Text for sending email action."
+  },
+  "callArtist": "Call Artist",
+  "@callArtist": {
+    "description": "Text for calling artist action."
+  },
+  "chatDirectlyWithArtist": "Chat directly with the artist",
+  "@chatDirectlyWithArtist": {
+    "description": "Text describing in-app chat functionality."
+  },
+  "reviewFunctionalityComingSoon": "Review functionality coming soon",
+  "@reviewFunctionalityComingSoon": {
+    "description": "Message shown when review functionality is not yet available."
+  },
+  "leaveReview": "Leave Review",
+  "@leaveReview": {
+    "description": "Text for leaving a review action."
+  },
+  "appointmentRescheduled": "Appointment rescheduled successfully",
+  "@appointmentRescheduled": {
+    "description": "Message shown when appointment is rescheduled successfully."
+  },
+  "appointmentCanceled": "Appointment canceled successfully",
+  "@appointmentCanceled": {
+    "description": "Message shown when appointment is canceled successfully."
+  },
+  "additionalInformation": "Additional Information",
+  "@additionalInformation": {
+    "description": "Text for additional information section."
+  },
+  "loadingAppointmentDetails": "Loading appointment details...",
+  "@loadingAppointmentDetails": {
+    "description": "Message shown while loading appointment details."
+  },
+  "appointmentNotFound": "Appointment not found",
+  "@appointmentNotFound": {
+    "description": "Message shown when appointment cannot be found."
   }
 }

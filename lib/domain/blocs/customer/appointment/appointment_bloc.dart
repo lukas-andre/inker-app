@@ -26,6 +26,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         loadAppointments: (status, isRefresh) => _loadAppointments(emit, status, isRefresh),
         loadMoreAppointments: () => _loadMoreAppointments(emit),
         getAppointmentById: (id) => _getAppointmentById(emit, id),
+        refreshAppointmentDetail: (id) => _refreshAppointmentDetail(emit, id),
         requestAppointmentChange: (appointmentId, newStartDate, newEndDate, reason) => 
             _requestAppointmentChange(emit, appointmentId, newStartDate, newEndDate, reason),
         cancelAppointment: (appointmentId, reason) => 
@@ -190,6 +191,66 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         e.toString(),
         preservedFilter: currentFilter,
       ));
+    }
+  }
+
+  Future<void> _refreshAppointmentDetail(
+    Emitter<AppointmentState> emit,
+    String id,
+  ) async {
+    final currentState = state;
+    
+    // Set refreshing state while maintaining current data
+    if (currentState is _Loaded) {
+      emit(currentState.copyWith(isRefreshing: true));
+    } else {
+      emit(const AppointmentState.loading());
+    }
+
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        final currentFilter = currentState is _Loaded ? currentState.currentFilter : _currentTabFilter;
+        if (currentState is _Loaded) {
+          emit(currentState.copyWith(isRefreshing: false));
+        } else {
+          emit(AppointmentState.error(
+            'No active session found',
+            preservedFilter: currentFilter,
+          ));
+        }
+        return;
+      }
+
+      final appointmentDetail = await _appointmentService.getAppointmentById(
+        token: token,
+        appointmentId: id,
+        isCustomer: true,
+      );
+
+      if (currentState is _Loaded) {
+        emit(currentState.copyWith(
+          selectedAppointment: appointmentDetail,
+          isRefreshing: false,
+        ));
+      } else {
+        emit(AppointmentState.loaded(
+          appointments: [],
+          currentPage: 1,
+          selectedAppointment: appointmentDetail,
+          isRefreshing: false,
+        ));
+      }
+    } catch (e) {
+      final currentFilter = currentState is _Loaded ? currentState.currentFilter : _currentTabFilter;
+      if (currentState is _Loaded) {
+        emit(currentState.copyWith(isRefreshing: false));
+      } else {
+        emit(AppointmentState.error(
+          e.toString(),
+          preservedFilter: currentFilter,
+        ));
+      }
     }
   }
 

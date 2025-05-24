@@ -38,7 +38,7 @@ class QuotationCard extends StatelessWidget {
     final l10n = S.of(context); // Get l10n instance
 
     // Determine card background and border based on type and state
-    Color cardColor = const Color(0xFF1F223C); // Default dark bg
+    Color cardColor = Theme.of(context).colorScheme.surface; // Default dark bg
     Color borderColor = const Color(0xFF777E91); // Default border
     double borderWidth = 1.0;
     bool showUnreadIndicator = false;

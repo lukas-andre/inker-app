@@ -858,57 +858,46 @@
   "@quotationStatusArtistPending": {
     "description": "Estado mostrado al artista cuando la cotización está pendiente"
   },
-  
   "quotationStatusArtistAppealed": "Apelación Recibida",
   "@quotationStatusArtistAppealed": {
     "description": "Estado mostrado al artista cuando la cotización está apelada"
   },
-  
   "quotationStatusArtistQuoted": "Esperando Respuesta",
   "@quotationStatusArtistQuoted": {
     "description": "Estado mostrado al artista cuando la cotización está cotizada"
   },
-  
   "quotationStatusArtistAccepted": "Agendado",
   "@quotationStatusArtistAccepted": {
     "description": "Estado mostrado al artista cuando la cotización está aceptada"
   },
-  
   "quotationStatusArtistRejected": "Rechazado por Cliente",
   "@quotationStatusArtistRejected": {
     "description": "Estado mostrado al artista cuando la cotización está rechazada"
   },
-  
   "quotationStatusArtistCanceled": "Cancelado por Ti",
   "@quotationStatusArtistCanceled": {
     "description": "Estado mostrado al artista cuando la cotización está cancelada"
   },
-  
   "quotationStatusCustomerPending": "Esperando Respuesta",
   "@quotationStatusCustomerPending": {
     "description": "Estado mostrado al cliente cuando la cotización está pendiente"
   },
-  
   "quotationStatusCustomerAppealed": "Esperando Artista",
   "@quotationStatusCustomerAppealed": {
     "description": "Estado mostrado al cliente cuando la cotización está apelada"
   },
-  
   "quotationStatusCustomerQuoted": "Cotización Recibida",
   "@quotationStatusCustomerQuoted": {
     "description": "Estado mostrado al cliente cuando la cotización está cotizada"
   },
-  
   "quotationStatusCustomerAccepted": "Agendado",
   "@quotationStatusCustomerAccepted": {
     "description": "Estado mostrado al cliente cuando la cotización está aceptada"
   },
-  
   "quotationStatusCustomerRejected": "Rechazado",
   "@quotationStatusCustomerRejected": {
     "description": "Estado mostrado al cliente cuando la cotización está rechazada"
   },
-  
   "quotationStatusCustomerCanceled": "Cancelado",
   "@quotationStatusCustomerCanceled": {
     "description": "Estado mostrado al cliente cuando la cotización está cancelada"
@@ -1226,7 +1215,6 @@
   "@deleteAccountWarning": {
     "description": "Warning message displayed when deleting an account."
   },
-
   "noNotificationsTitle": "No hay notificaciones",
   "@noNotificationsTitle": {
     "description": "Title displayed when there are no notifications."
@@ -1785,7 +1773,6 @@
   "@retry": {
     "description": "Button text to retry an action"
   },
-  
   "noTattooWorksAddedYet": "No hay trabajos de tatuaje agregados aún",
   "@noTattooWorksAddedYet": {
     "description": "Message shown when artist has no tattoo works"
@@ -2075,47 +2062,89 @@
     "description": "Status text for open quotations from artist perspective."
   },
   "tattooStyleTraditionalAmerican": "Tradicional Americana",
-  "@tattooStyleTraditionalAmerican": {"description": "Estilo de tatuaje: Tradicional Americana"},
+  "@tattooStyleTraditionalAmerican": {
+    "description": "Estilo de tatuaje: Tradicional Americana"
+  },
   "tattooStyleNeotraditional": "Neotradicional",
-  "@tattooStyleNeotraditional": {"description": "Estilo de tatuaje: Neotradicional"},
+  "@tattooStyleNeotraditional": {
+    "description": "Estilo de tatuaje: Neotradicional"
+  },
   "tattooStyleRealism": "Realismo",
-  "@tattooStyleRealism": {"description": "Estilo de tatuaje: Realismo"},
+  "@tattooStyleRealism": {
+    "description": "Estilo de tatuaje: Realismo"
+  },
   "tattooStyleWatercolor": "Acuarela",
-  "@tattooStyleWatercolor": {"description": "Estilo de tatuaje: Acuarela"},
+  "@tattooStyleWatercolor": {
+    "description": "Estilo de tatuaje: Acuarela"
+  },
   "tattooStyleGeometric": "Geométrico",
-  "@tattooStyleGeometric": {"description": "Estilo de tatuaje: Geométrico"},
+  "@tattooStyleGeometric": {
+    "description": "Estilo de tatuaje: Geométrico"
+  },
   "tattooStyleBlackwork": "Blackwork",
-  "@tattooStyleBlackwork": {"description": "Estilo de tatuaje: Blackwork"},
+  "@tattooStyleBlackwork": {
+    "description": "Estilo de tatuaje: Blackwork"
+  },
   "tattooStyleDotwork": "Dotwork",
-  "@tattooStyleDotwork": {"description": "Estilo de tatuaje: Dotwork"},
+  "@tattooStyleDotwork": {
+    "description": "Estilo de tatuaje: Dotwork"
+  },
   "tattooStyleJapanese": "Japonés",
-  "@tattooStyleJapanese": {"description": "Estilo de tatuaje: Japonés"},
+  "@tattooStyleJapanese": {
+    "description": "Estilo de tatuaje: Japonés"
+  },
   "tattooStyleTribal": "Tribal",
-  "@tattooStyleTribal": {"description": "Estilo de tatuaje: Tribal"},
+  "@tattooStyleTribal": {
+    "description": "Estilo de tatuaje: Tribal"
+  },
   "tattooStyleNewSchool": "New School",
-  "@tattooStyleNewSchool": {"description": "Estilo de tatuaje: New School"},
+  "@tattooStyleNewSchool": {
+    "description": "Estilo de tatuaje: New School"
+  },
   "tattooStyleBiomechanical": "Biomecánico",
-  "@tattooStyleBiomechanical": {"description": "Estilo de tatuaje: Biomecánico"},
+  "@tattooStyleBiomechanical": {
+    "description": "Estilo de tatuaje: Biomecánico"
+  },
   "tattooStyleMinimalist": "Minimalista",
-  "@tattooStyleMinimalist": {"description": "Estilo de tatuaje: Minimalista"},
+  "@tattooStyleMinimalist": {
+    "description": "Estilo de tatuaje: Minimalista"
+  },
   "tattooStyleSurrealism": "Surrealismo",
-  "@tattooStyleSurrealism": {"description": "Estilo de tatuaje: Surrealismo"},
+  "@tattooStyleSurrealism": {
+    "description": "Estilo de tatuaje: Surrealismo"
+  },
   "tattooStyleOrnamental": "Ornamental",
-  "@tattooStyleOrnamental": {"description": "Estilo de tatuaje: Ornamental"},
+  "@tattooStyleOrnamental": {
+    "description": "Estilo de tatuaje: Ornamental"
+  },
   "tattooStyleNeoJapanese": "Neo Japonés",
-  "@tattooStyleNeoJapanese": {"description": "Estilo de tatuaje: Neo Japonés"},
+  "@tattooStyleNeoJapanese": {
+    "description": "Estilo de tatuaje: Neo Japonés"
+  },
   "tattooStyleCeltic": "Celta",
-  "@tattooStyleCeltic": {"description": "Estilo de tatuaje: Celta"},
+  "@tattooStyleCeltic": {
+    "description": "Estilo de tatuaje: Celta"
+  },
   "tattooStyleChicano": "Chicano",
-  "@tattooStyleChicano": {"description": "Estilo de tatuaje: Chicano"},
+  "@tattooStyleChicano": {
+    "description": "Estilo de tatuaje: Chicano"
+  },
   "tattooStyleAbstract": "Abstracto",
-  "@tattooStyleAbstract": {"description": "Estilo de tatuaje: Abstracto"},
+  "@tattooStyleAbstract": {
+    "description": "Estilo de tatuaje: Abstracto"
+  },
   "tattooStyleMandala": "Mandala",
-  "@tattooStyleMandala": {"description": "Estilo de tatuaje: Mandala"},
+  "@tattooStyleMandala": {
+    "description": "Estilo de tatuaje: Mandala"
+  },
   "tattooStyleFineline": "Fineline",
-  "@tattooStyleFineline": {"description": "Estilo de tatuaje: Fineline"},
+  "@tattooStyleFineline": {
+    "description": "Estilo de tatuaje: Fineline"
+  },
   "tattooStyleIgnorantStyle": "Ignorant Style",
-  "@tattooStyleIgnorantStyle": {"description": "Estilo de tatuaje: Ignorant Style"},
+  "@tattooStyleIgnorantStyle": {
+    "description": "Estilo de tatuaje: Ignorant Style"
+  },
   "offered": "Ofrecido",
   "@offered": {
     "description": "Text shown when an artist has offered a quotation."
@@ -2191,257 +2220,543 @@
     "description": "Button text for closing a dialog or screen."
   },
   "quotationAcceptedSuccess": "Oferta aceptada exitosamente",
-  "@quotationAcceptedSuccess": {"description": "Mensaje de éxito cuando una oferta es aceptada."},
+  "@quotationAcceptedSuccess": {
+    "description": "Mensaje de éxito cuando una oferta es aceptada."
+  },
   "retry": "Reintentar",
-  "@retry": {"description": "Botón para reintentar una acción."},
+  "@retry": {
+    "description": "Botón para reintentar una acción."
+  },
   "referenceBudget": "Presupuesto de referencia: {amount} {currency}",
-  "@referenceBudget": {"description": "Etiqueta para el presupuesto de referencia con monto y moneda.", "placeholders": {"amount": {}, "currency": {}}},
+  "@referenceBudget": {
+    "description": "Etiqueta para el presupuesto de referencia con monto y moneda.",
+    "placeholders": {
+      "amount": {},
+      "currency": {}
+    }
+  },
   "offerSubmitted": "Oferta enviada",
-  "@offerSubmitted": {"description": "Etiqueta cuando una oferta ha sido enviada."},
+  "@offerSubmitted": {
+    "description": "Etiqueta cuando una oferta ha sido enviada."
+  },
   "alreadySubmittedOffer": "Ya has enviado una oferta",
-  "@alreadySubmittedOffer": {"description": "Mensaje cuando el artista ya envió una oferta."},
+  "@alreadySubmittedOffer": {
+    "description": "Mensaje cuando el artista ya envió una oferta."
+  },
   "messageCustomer": "Mensaje al cliente",
-  "@messageCustomer": {"description": "Botón para enviar mensaje al cliente."},
+  "@messageCustomer": {
+    "description": "Botón para enviar mensaje al cliente."
+  },
   "customerLookingForOffers": "¡El cliente está buscando ofertas!",
-  "@customerLookingForOffers": {"description": "Banner cuando el cliente busca ofertas."},
+  "@customerLookingForOffers": {
+    "description": "Banner cuando el cliente busca ofertas."
+  },
   "reviewAndSubmitOffer": "Revisa los detalles y envía tu oferta para ganar este proyecto.",
-  "@reviewAndSubmitOffer": {"description": "Instrucción para revisar y enviar oferta."},
+  "@reviewAndSubmitOffer": {
+    "description": "Instrucción para revisar y enviar oferta."
+  },
   "sendOffer": "Enviar oferta",
-  "@sendOffer": {"description": "Botón para enviar una oferta."},
+  "@sendOffer": {
+    "description": "Botón para enviar una oferta."
+  },
   "selectedDesign": "Diseño seleccionado",
-  "@selectedDesign": {"description": "Sección para el diseño seleccionado."},
+  "@selectedDesign": {
+    "description": "Sección para el diseño seleccionado."
+  },
   "openQuotationRequest": "Solicitud de Cotización Abierta",
-  "@openQuotationRequest": {"description": "Banner para solicitud de cotización abierta."},
+  "@openQuotationRequest": {
+    "description": "Banner para solicitud de cotización abierta."
+  },
   "openQuotationRequestDesc": "Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.",
-  "@openQuotationRequestDesc": {"description": "Descripción del banner de solicitud abierta."},
+  "@openQuotationRequestDesc": {
+    "description": "Descripción del banner de solicitud abierta."
+  },
   "offersReceived": "Has recibido {count} {offerWord}",
-  "@offersReceived": {"description": "Mensaje mostrando el número de ofertas recibidas.", "placeholders": {"count": {}, "offerWord": {}}},
+  "@offersReceived": {
+    "description": "Mensaje mostrando el número de ofertas recibidas.",
+    "placeholders": {
+      "count": {},
+      "offerWord": {}
+    }
+  },
   "noOffersReceived": "Aún no has recibido ofertas",
-  "@noOffersReceived": {"description": "Mensaje cuando no se han recibido ofertas."},
+  "@noOffersReceived": {
+    "description": "Mensaje cuando no se han recibido ofertas."
+  },
   "reviewEachOffer": "Revisa cada oferta y chatea con los artistas",
-  "@reviewEachOffer": {"description": "Instrucción para revisar ofertas y chatear."},
+  "@reviewEachOffer": {
+    "description": "Instrucción para revisar ofertas y chatear."
+  },
   "offersAppearHere": "Las ofertas aparecerán aquí cuando las recibas",
-  "@offersAppearHere": {"description": "Mensaje de que las ofertas aparecerán aquí."},
+  "@offersAppearHere": {
+    "description": "Mensaje de que las ofertas aparecerán aquí."
+  },
   "offersReceivedTitle": "Ofertas recibidas",
-  "@offersReceivedTitle": {"description": "Título de sección para ofertas recibidas."},
+  "@offersReceivedTitle": {
+    "description": "Título de sección para ofertas recibidas."
+  },
   "artistLabel": "Artista: {name}",
-  "@artistLabel": {"description": "Etiqueta para el nombre del artista.", "placeholders": {"name": {}}},
+  "@artistLabel": {
+    "description": "Etiqueta para el nombre del artista.",
+    "placeholders": {
+      "name": {}
+    }
+  },
   "notSpecified": "No especificado",
-  "@notSpecified": {"description": "Texto para valores no especificados."},
+  "@notSpecified": {
+    "description": "Texto para valores no especificados."
+  },
   "messagesCount": "{count} {messageWord}",
-  "@messagesCount": {"description": "Etiqueta para número de mensajes.", "placeholders": {"count": {}, "messageWord": {}}},
+  "@messagesCount": {
+    "description": "Etiqueta para número de mensajes.",
+    "placeholders": {
+      "count": {},
+      "messageWord": {}
+    }
+  },
   "messagePreview": "Mensaje: {preview}",
-  "@messagePreview": {"description": "Vista previa de un mensaje.", "placeholders": {"preview": {}}},
+  "@messagePreview": {
+    "description": "Vista previa de un mensaje.",
+    "placeholders": {
+      "preview": {}
+    }
+  },
   "startChat": "Iniciar chat",
-  "@startChat": {"description": "Botón para iniciar chat."},
+  "@startChat": {
+    "description": "Botón para iniciar chat."
+  },
   "acceptOffer": "Aceptar oferta",
-  "@acceptOffer": {"description": "Botón para aceptar una oferta."},
+  "@acceptOffer": {
+    "description": "Botón para aceptar una oferta."
+  },
   "close": "Cerrar",
-  "@close": {"description": "Tooltip para botón de cerrar."},
+  "@close": {
+    "description": "Tooltip para botón de cerrar."
+  },
   "editOffer": "Editar oferta",
-  "@editOffer": {"description": "Tooltip para editar una oferta."},
+  "@editOffer": {
+    "description": "Tooltip para editar una oferta."
+  },
   "tryAgain": "Intentar de nuevo",
-  "@tryAgain": {"description": "Botón para intentar una acción nuevamente."},
+  "@tryAgain": {
+    "description": "Botón para intentar una acción nuevamente."
+  },
   "noMessagesYet": "Aún no hay mensajes",
-  "@noMessagesYet": {"description": "Estado vacío cuando no hay mensajes."},
+  "@noMessagesYet": {
+    "description": "Estado vacío cuando no hay mensajes."
+  },
   "startConversation": "Comienza la conversación enviando un mensaje",
-  "@startConversation": {"description": "Sugerencia para iniciar conversación."},
+  "@startConversation": {
+    "description": "Sugerencia para iniciar conversación."
+  },
   "typeAMessage": "Escribe un mensaje",
-  "@typeAMessage": {"description": "Hint para el campo de mensaje."},
+  "@typeAMessage": {
+    "description": "Hint para el campo de mensaje."
+  },
   "photoLibrary": "Galería de fotos",
-  "@photoLibrary": {"description": "Opción para elegir imagen de la galería."},
+  "@photoLibrary": {
+    "description": "Opción para elegir imagen de la galería."
+  },
   "camera": "Cámara",
-  "@camera": {"description": "Opción para elegir imagen de la cámara."},
+  "@camera": {
+    "description": "Opción para elegir imagen de la cámara."
+  },
   "couldNotPickImage": "No se pudo seleccionar la imagen: {error}",
-  "@couldNotPickImage": {"description": "Mensaje de error al seleccionar imagen.", "placeholders": {"error": {}}},
+  "@couldNotPickImage": {
+    "description": "Mensaje de error al seleccionar imagen.",
+    "placeholders": {
+      "error": {}
+    }
+  },
   "cancel": "Cancelar",
-  "@cancel": {"description": "Botón para cancelar una acción."},
+  "@cancel": {
+    "description": "Botón para cancelar una acción."
+  },
   "save": "Guardar",
-  "@save": {"description": "Botón para guardar cambios."},
+  "@save": {
+    "description": "Botón para guardar cambios."
+  },
   "estimatedCostLabel": "Costo estimado (CLP)",
-  "@estimatedCostLabel": {"description": "Etiqueta para el campo de costo estimado."},
+  "@estimatedCostLabel": {
+    "description": "Etiqueta para el campo de costo estimado."
+  },
   "exampleAmount": "Ej: 50000",
-  "@exampleAmount": {"description": "Hint para monto de ejemplo."},
+  "@exampleAmount": {
+    "description": "Hint para monto de ejemplo."
+  },
   "systemOfferUpdate": "El artista actualizó el costo de la oferta a {amount} CLP.",
-  "@systemOfferUpdate": {"description": "Mensaje de sistema cuando el artista actualiza el costo de la oferta.", "placeholders": {"amount": {}}},
+  "@systemOfferUpdate": {
+    "description": "Mensaje de sistema cuando el artista actualiza el costo de la oferta.",
+    "placeholders": {
+      "amount": {}
+    }
+  },
   "submitOffer": "Enviar oferta",
-  "@submitOffer": {"description": "Botón para enviar una oferta en la página de oferta de cotización abierta del artista."},
+  "@submitOffer": {
+    "description": "Botón para enviar una oferta en la página de oferta de cotización abierta del artista."
+  },
   "submittingOffer": "Enviando oferta...",
-  "@submittingOffer": {"description": "Título mostrado mientras se envía la oferta."},
+  "@submittingOffer": {
+    "description": "Título mostrado mientras se envía la oferta."
+  },
   "submittingOfferMessage": "Por favor espera mientras se envía tu oferta.",
-  "@submittingOfferMessage": {"description": "Mensaje mostrado mientras se envía la oferta."},
+  "@submittingOfferMessage": {
+    "description": "Mensaje mostrado mientras se envía la oferta."
+  },
   "offerSubmittedTitle": "¡Oferta enviada!",
-  "@offerSubmittedTitle": {"description": "Título mostrado cuando la oferta se ha enviado exitosamente."},
+  "@offerSubmittedTitle": {
+    "description": "Título mostrado cuando la oferta se ha enviado exitosamente."
+  },
   "offerSubmittedMessage": "Tu oferta ha sido enviada exitosamente al cliente.",
-  "@offerSubmittedMessage": {"description": "Mensaje mostrado cuando la oferta se ha enviado exitosamente."},
+  "@offerSubmittedMessage": {
+    "description": "Mensaje mostrado cuando la oferta se ha enviado exitosamente."
+  },
   "yourOffer": "Tu oferta",
-  "@yourOffer": {"description": "Título de sección para el formulario de oferta del artista."},
+  "@yourOffer": {
+    "description": "Título de sección para el formulario de oferta del artista."
+  },
   "proposedAppointment": "Cita propuesta",
-  "@proposedAppointment": {"description": "Etiqueta para el campo de cita propuesta en el formulario de oferta."},
+  "@proposedAppointment": {
+    "description": "Etiqueta para el campo de cita propuesta en el formulario de oferta."
+  },
   "additionalDetailsOptional": "Detalles adicionales (opcional)",
-  "@additionalDetailsOptional": {"description": "Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional."},
+  "@additionalDetailsOptional": {
+    "description": "Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional."
+  },
   "proposedDesignsOptional": "Diseños propuestos (opcional)",
-  "@proposedDesignsOptional": {"description": "Etiqueta para la sección de carga de diseños propuestos, marcada como opcional."},
+  "@proposedDesignsOptional": {
+    "description": "Etiqueta para la sección de carga de diseños propuestos, marcada como opcional."
+  },
   "addReferenceImagesOrSketches": "Agrega imágenes de referencia o bocetos para tu propuesta.",
-  "@addReferenceImagesOrSketches": {"description": "Texto de ayuda para subir imágenes de referencia o bocetos para la oferta."},
+  "@addReferenceImagesOrSketches": {
+    "description": "Texto de ayuda para subir imágenes de referencia o bocetos para la oferta."
+  },
   "addDesign": "Agregar diseño",
-  "@addDesign": {"description": "Botón para agregar una imagen de diseño a la oferta."},
+  "@addDesign": {
+    "description": "Botón para agregar una imagen de diseño a la oferta."
+  },
   "durationMustBePositive": "La duración debe ser positiva",
-  "@durationMustBePositive": {"description": "Mensaje de error cuando la duración no es positiva en el formulario de oferta."},
+  "@durationMustBePositive": {
+    "description": "Mensaje de error cuando la duración no es positiva en el formulario de oferta."
+  },
   "designSavedToYourGeneratedDesigns": "Diseño guardado en tus diseños generados",
-  "@designSavedToYourGeneratedDesigns": {"description": "Mensaje mostrado cuando un diseño se guarda en los diseños generados del usuario."},
+  "@designSavedToYourGeneratedDesigns": {
+    "description": "Mensaje mostrado cuando un diseño se guarda en los diseños generados del usuario."
+  },
   "quotations": "Cotizaciones",
-  "@quotations": {"description": "Etiqueta para la sección de cotizaciones."},
+  "@quotations": {
+    "description": "Etiqueta para la sección de cotizaciones."
+  },
   "currency": "CLP",
-  "@currency": {"description": "Etiqueta para la moneda."},
+  "@currency": {
+    "description": "Etiqueta para la moneda."
+  },
   "kmAway": "km de distancia",
-  "@kmAway": {"description": "Etiqueta para la distancia en kilómetros."},
+  "@kmAway": {
+    "description": "Etiqueta para la distancia en kilómetros."
+  },
   "offerCost": "Costo de la oferta",
-  "@offerCost": {"description": "Etiqueta para el costo de la oferta."},
+  "@offerCost": {
+    "description": "Etiqueta para el costo de la oferta."
+  },
   "estimatedDuration": "Duración estimada",
-  "@estimatedDuration": {"description": "Etiqueta para la duración estimada."},
+  "@estimatedDuration": {
+    "description": "Etiqueta para la duración estimada."
+  },
   "offerAcceptedSuccessfully": "Oferta aceptada exitosamente",
-  "@offerAcceptedSuccessfully": {"description": "Mensaje de éxito mostrado cuando una oferta ha sido aceptada."},
+  "@offerAcceptedSuccessfully": {
+    "description": "Mensaje de éxito mostrado cuando una oferta ha sido aceptada."
+  },
   "statusOpen": "Abierta",
-  "@statusOpen": {"description": "Etiqueta para el estado abierto de una cotización."},
+  "@statusOpen": {
+    "description": "Etiqueta para el estado abierto de una cotización."
+  },
   "messages": "mensajes",
-  "@messages": {"description": "Etiqueta para el conteo de mensajes en una conversación."},
+  "@messages": {
+    "description": "Etiqueta para el conteo de mensajes en una conversación."
+  },
   "message": "Mensaje",
-  "@message": {"description": "Etiqueta para un mensaje en una conversación."},
+  "@message": {
+    "description": "Etiqueta para un mensaje en una conversación."
+  },
   "artistUpdatedOfferCost": "El artista actualizó el costo de la oferta a {amount} {currency}",
-  "@artistUpdatedOfferCost": {"description": "Mensaje mostrado cuando el artista actualiza el costo de la oferta.", "placeholders": {"amount": {}, "currency": {}}},
+  "@artistUpdatedOfferCost": {
+    "description": "Mensaje mostrado cuando el artista actualiza el costo de la oferta.",
+    "placeholders": {
+      "amount": {},
+      "currency": {}
+    }
+  },
   "newQuotation": "Nueva cotización",
-  "@newQuotation": {"description": "Etiqueta para una nueva cotización."},
+  "@newQuotation": {
+    "description": "Etiqueta para una nueva cotización."
+  },
   "noRequestsFound": "No se encontraron solicitudes",
-  "@noRequestsFound": {"description": "Mensaje mostrado cuando no se encuentran solicitudes."},
+  "@noRequestsFound": {
+    "description": "Mensaje mostrado cuando no se encuentran solicitudes."
+  },
   "noOpenQuotationsFoundTitle": "No hay cotizaciones abiertas",
-  "@noOpenQuotationsFoundTitle": {"description": "Título mostrado cuando no se encuentran cotizaciones abiertas."},
+  "@noOpenQuotationsFoundTitle": {
+    "description": "Título mostrado cuando no se encuentran cotizaciones abiertas."
+  },
   "noOpenQuotationsFoundBody": "No tienes cotizaciones abiertas en este momento",
-  "@noOpenQuotationsFoundBody": {"description": "Mensaje mostrado cuando no se encuentran cotizaciones abiertas."},
+  "@noOpenQuotationsFoundBody": {
+    "description": "Mensaje mostrado cuando no se encuentran cotizaciones abiertas."
+  },
   "noParticipatingQuotationsFoundTitle": "No hay cotizaciones participantes",
-  "@noParticipatingQuotationsFoundTitle": {"description": "Título mostrado cuando no se encuentran cotizaciones participantes."},
+  "@noParticipatingQuotationsFoundTitle": {
+    "description": "Título mostrado cuando no se encuentran cotizaciones participantes."
+  },
   "noParticipatingQuotationsFoundBody": "No estás participando en ninguna cotización en este momento",
-  "@noParticipatingQuotationsFoundBody": {"description": "Mensaje mostrado cuando no se encuentran cotizaciones participantes."},
+  "@noParticipatingQuotationsFoundBody": {
+    "description": "Mensaje mostrado cuando no se encuentran cotizaciones participantes."
+  },
   "noDirectArtistRequestsFoundTitle": "No hay solicitudes directas",
-  "@noDirectArtistRequestsFoundTitle": {"description": "Título mostrado cuando no se encuentran solicitudes directas para el artista."},
+  "@noDirectArtistRequestsFoundTitle": {
+    "description": "Título mostrado cuando no se encuentran solicitudes directas para el artista."
+  },
   "noDirectArtistRequestsFoundBody": "No tienes solicitudes directas en este momento",
-  "@noDirectArtistRequestsFoundBody": {"description": "Mensaje mostrado cuando no se encuentran solicitudes directas para el artista."},
+  "@noDirectArtistRequestsFoundBody": {
+    "description": "Mensaje mostrado cuando no se encuentran solicitudes directas para el artista."
+  },
   "noDirectCustomerQuotationsFoundTitle": "No hay cotizaciones directas",
-  "@noDirectCustomerQuotationsFoundTitle": {"description": "Título mostrado cuando no se encuentran cotizaciones directas para el cliente."},
+  "@noDirectCustomerQuotationsFoundTitle": {
+    "description": "Título mostrado cuando no se encuentran cotizaciones directas para el cliente."
+  },
   "noDirectCustomerQuotationsFoundBody": "No tienes cotizaciones directas en este momento",
-  "@noDirectCustomerQuotationsFoundBody": {"description": "Mensaje mostrado cuando no se encuentran cotizaciones directas para el cliente."},
+  "@noDirectCustomerQuotationsFoundBody": {
+    "description": "Mensaje mostrado cuando no se encuentran cotizaciones directas para el cliente."
+  },
   "pleaseEnableGps": "Por favor activa el GPS",
-  "@pleaseEnableGps": {"description": "Mensaje solicitando al usuario que active el GPS."},
+  "@pleaseEnableGps": {
+    "description": "Mensaje solicitando al usuario que active el GPS."
+  },
   "minDescriptionLengthRequired": "La descripción debe tener al menos {length} caracteres",
-  "@minDescriptionLengthRequired": {"description": "Mensaje de error cuando la descripción no cumple con la longitud mínima requerida.", "placeholders": {"length": {}}},
+  "@minDescriptionLengthRequired": {
+    "description": "Mensaje de error cuando la descripción no cumple con la longitud mínima requerida.",
+    "placeholders": {
+      "length": {}
+    }
+  },
   "chooseGeneratedDesign": "Elegir diseño generado",
-  "@chooseGeneratedDesign": {"description": "Botón para elegir un diseño generado."},
+  "@chooseGeneratedDesign": {
+    "description": "Botón para elegir un diseño generado."
+  },
   "generateNewDesign": "Generar nuevo diseño",
-  "@generateNewDesign": {"description": "Botón para generar un nuevo diseño."},
+  "@generateNewDesign": {
+    "description": "Botón para generar un nuevo diseño."
+  },
   "estimatedBudgetOptional": "Presupuesto estimado (opcional)",
-  "@estimatedBudgetOptional": {"description": "Etiqueta para el campo de presupuesto estimado, marcado como opcional."},
+  "@estimatedBudgetOptional": {
+    "description": "Etiqueta para el campo de presupuesto estimado, marcado como opcional."
+  },
   "referenceBudgetHint": "Presupuesto de referencia",
-  "@referenceBudgetHint": {"description": "Texto de ayuda para el campo de presupuesto de referencia."},
+  "@referenceBudgetHint": {
+    "description": "Texto de ayuda para el campo de presupuesto de referencia."
+  },
   "noDistanceLimit": "Sin límite de distancia",
-  "@noDistanceLimit": {"description": "Texto mostrado cuando no hay límite de distancia establecido."},
+  "@noDistanceLimit": {
+    "description": "Texto mostrado cuando no hay límite de distancia establecido."
+  },
   "maxDistance": "Distancia máxima: {distance} km",
-  "@maxDistance": {"description": "Texto que muestra la distancia máxima establecida.", "placeholders": {"distance": {}}},
+  "@maxDistance": {
+    "description": "Texto que muestra la distancia máxima establecida.",
+    "placeholders": {
+      "distance": {}
+    }
+  },
   "scheduled": "Programada",
-  "@scheduled": {"description": "Estado de una cita programada."},
+  "@scheduled": {
+    "description": "Estado de una cita programada."
+  },
   "inProgress": "En progreso",
-  "@inProgress": {"description": "Estado de una cita en progreso."},
+  "@inProgress": {
+    "description": "Estado de una cita en progreso."
+  },
   "completed": "Completada",
-  "@completed": {"description": "Estado de una cita completada."},
+  "@completed": {
+    "description": "Estado de una cita completada."
+  },
   "rescheduled": "Reprogramada",
-  "@rescheduled": {"description": "Estado de una cita reprogramada."},
+  "@rescheduled": {
+    "description": "Estado de una cita reprogramada."
+  },
   "waitingForPhotos": "Esperando fotos",
-  "@waitingForPhotos": {"description": "Estado de una cita esperando fotos."},
+  "@waitingForPhotos": {
+    "description": "Estado de una cita esperando fotos."
+  },
   "waitingForReview": "Esperando reseña",
-  "@waitingForReview": {"description": "Estado de una cita esperando reseña."},
+  "@waitingForReview": {
+    "description": "Estado de una cita esperando reseña."
+  },
   "reviewed": "Reseñada",
-  "@reviewed": {"description": "Estado de una cita reseñada."},
+  "@reviewed": {
+    "description": "Estado de una cita reseñada."
+  },
   "canceled": "Cancelada",
-  "@canceled": {"description": "Estado de una cita cancelada."},
+  "@canceled": {
+    "description": "Estado de una cita cancelada."
+  },
   "requestQuotationForDesign": "Solicitud de cotización para el diseño",
-  "@requestQuotationForDesign": {"description": "Título para una solicitud de cotización para un diseño específico."},
+  "@requestQuotationForDesign": {
+    "description": "Título para una solicitud de cotización para un diseño específico."
+  },
   "moreInfoAboutSizesPricesAvailability": "Más información sobre tamaños, precios y disponibilidad",
-  "@moreInfoAboutSizesPricesAvailability": {"description": "Texto solicitando más información sobre tamaños, precios y disponibilidad."},
+  "@moreInfoAboutSizesPricesAvailability": {
+    "description": "Texto solicitando más información sobre tamaños, precios y disponibilidad."
+  },
   "withDescription": "con descripción",
-  "@withDescription": {"description": "Texto que indica que un elemento tiene una descripción."},
+  "@withDescription": {
+    "description": "Texto que indica que un elemento tiene una descripción."
+  },
   "quotationForStencilId": "Cotización para plantilla ID",
-  "@quotationForStencilId": {"description": "Etiqueta para una cotización relacionada con una plantilla específica."},
+  "@quotationForStencilId": {
+    "description": "Etiqueta para una cotización relacionada con una plantilla específica."
+  },
   "searching": "Buscando...",
-  "@searching": {"description": "Texto mostrado cuando una búsqueda está en progreso."},
+  "@searching": {
+    "description": "Texto mostrado cuando una búsqueda está en progreso."
+  },
   "enterSearchTermOrSelectTags": "Ingresa término de búsqueda o selecciona etiquetas",
-  "@enterSearchTermOrSelectTags": {"description": "Texto de ayuda para el campo de búsqueda."},
+  "@enterSearchTermOrSelectTags": {
+    "description": "Texto de ayuda para el campo de búsqueda."
+  },
   "noResultsFound": "No se encontraron resultados",
-  "@noResultsFound": {"description": "Mensaje mostrado cuando no se encuentran resultados de búsqueda."},
+  "@noResultsFound": {
+    "description": "Mensaje mostrado cuando no se encuentran resultados de búsqueda."
+  },
   "tryDifferentSearchOrFilters": "Intenta con diferentes términos de búsqueda o filtros",
-  "@tryDifferentSearchOrFilters": {"description": "Sugerencia cuando no se encuentran resultados de búsqueda."},
+  "@tryDifferentSearchOrFilters": {
+    "description": "Sugerencia cuando no se encuentran resultados de búsqueda."
+  },
   "inspiration": "Inspiración",
-  "@inspiration": {"description": "Etiqueta para la sección de inspiración."},
+  "@inspiration": {
+    "description": "Etiqueta para la sección de inspiración."
+  },
   "searchTattoosStencilsOrTags": "Buscar tatuajes, plantillas o etiquetas",
-  "@searchTattoosStencilsOrTags": {"description": "Texto de marcador de posición para buscar tatuajes, plantillas o etiquetas."},
+  "@searchTattoosStencilsOrTags": {
+    "description": "Texto de marcador de posición para buscar tatuajes, plantillas o etiquetas."
+  },
   "clearSearch": "Limpiar búsqueda",
-  "@clearSearch": {"description": "Etiqueta de botón para limpiar la búsqueda."},
+  "@clearSearch": {
+    "description": "Etiqueta de botón para limpiar la búsqueda."
+  },
   "search": "Buscar",
-  "@search": {"description": "Etiqueta de botón para acción de búsqueda."},
+  "@search": {
+    "description": "Etiqueta de botón para acción de búsqueda."
+  },
   "suggestedTags": "Etiquetas sugeridas",
-  "@suggestedTags": {"description": "Etiqueta para las etiquetas sugeridas."},
+  "@suggestedTags": {
+    "description": "Etiqueta para las etiquetas sugeridas."
+  },
   "onlyStencilsFound": "Solo se encontraron plantillas",
-  "@onlyStencilsFound": {"description": "Mensaje mostrado cuando solo se encuentran plantillas en los resultados de búsqueda."},
+  "@onlyStencilsFound": {
+    "description": "Mensaje mostrado cuando solo se encuentran plantillas en los resultados de búsqueda."
+  },
   "onlyWorksFound": "Solo se encontraron trabajos",
-  "@onlyWorksFound": {"description": "Mensaje mostrado cuando solo se encuentran trabajos en los resultados de búsqueda."},
+  "@onlyWorksFound": {
+    "description": "Mensaje mostrado cuando solo se encuentran trabajos en los resultados de búsqueda."
+  },
   "showOnlyAvailableResults": "Mostrar solo resultados disponibles",
-  "@showOnlyAvailableResults": {"description": "Opción para mostrar solo resultados disponibles."},
+  "@showOnlyAvailableResults": {
+    "description": "Opción para mostrar solo resultados disponibles."
+  },
   "all": "Todos",
-  "@all": {"description": "Etiqueta para mostrar todos los resultados."},
+  "@all": {
+    "description": "Etiqueta para mostrar todos los resultados."
+  },
   "createYourOwnDesign": "Crea tu propio diseño",
-  "@createYourOwnDesign": {"description": "Título para la sección de creación de diseño propio."},
+  "@createYourOwnDesign": {
+    "description": "Título para la sección de creación de diseño propio."
+  },
   "generateTattooDesignsWithAI": "Genera diseños de tatuajes con IA",
-  "@generateTattooDesignsWithAI": {"description": "Descripción para generar diseños de tatuajes con inteligencia artificial."},
+  "@generateTattooDesignsWithAI": {
+    "description": "Descripción para generar diseños de tatuajes con inteligencia artificial."
+  },
   "exploreInspiration": "Explora inspiración",
-  "@exploreInspiration": {"description": "Título para la sección de exploración de inspiración."},
+  "@exploreInspiration": {
+    "description": "Título para la sección de exploración de inspiración."
+  },
   "findDesignsAndTattoosMadeByArtists": "Encuentra diseños y tatuajes hechos por artistas",
-  "@findDesignsAndTattoosMadeByArtists": {"description": "Descripción para encontrar diseños y tatuajes hechos por artistas."},
+  "@findDesignsAndTattoosMadeByArtists": {
+    "description": "Descripción para encontrar diseños y tatuajes hechos por artistas."
+  },
   "searchInspiration": "Buscar inspiración",
-  "@searchInspiration": {"description": "Etiqueta de botón para buscar inspiración."},
+  "@searchInspiration": {
+    "description": "Etiqueta de botón para buscar inspiración."
+  },
   "searchInspirationForYourNextTattoo": "Busca inspiración para tu próximo tatuaje",
-  "@searchInspirationForYourNextTattoo": {"description": "Descripción para buscar inspiración para tatuajes."},
+  "@searchInspirationForYourNextTattoo": {
+    "description": "Descripción para buscar inspiración para tatuajes."
+  },
   "exploreDesignsAndArtistWorks": "Explora diseños y trabajos de artistas",
-  "@exploreDesignsAndArtistWorks": {"description": "Descripción para explorar diseños y trabajos de artistas."},
+  "@exploreDesignsAndArtistWorks": {
+    "description": "Descripción para explorar diseños y trabajos de artistas."
+  },
   "startSearching": "Comenzar a buscar",
-  "@startSearching": {"description": "Etiqueta de botón para comenzar a buscar."},
+  "@startSearching": {
+    "description": "Etiqueta de botón para comenzar a buscar."
+  },
   "tattoos": "Tatuajes",
-  "@tattoos": {"description": "Etiqueta para la categoría de tatuajes."},
+  "@tattoos": {
+    "description": "Etiqueta para la categoría de tatuajes."
+  },
   "noTattoosFoundWithCurrentCriteria": "No se encontraron tatuajes con los criterios actuales",
-  "@noTattoosFoundWithCurrentCriteria": {"description": "Mensaje mostrado cuando no se encuentran tatuajes que coincidan con los criterios de búsqueda."},
+  "@noTattoosFoundWithCurrentCriteria": {
+    "description": "Mensaje mostrado cuando no se encuentran tatuajes que coincidan con los criterios de búsqueda."
+  },
   "noStencilsFoundWithCurrentCriteria": "No se encontraron plantillas con los criterios actuales",
-  "@noStencilsFoundWithCurrentCriteria": {"description": "Mensaje mostrado cuando no se encuentran plantillas que coincidan con los criterios de búsqueda."},
+  "@noStencilsFoundWithCurrentCriteria": {
+    "description": "Mensaje mostrado cuando no se encuentran plantillas que coincidan con los criterios de búsqueda."
+  },
   "id": "ID",
-  "@id": {"description": "Etiqueta para el ID de un elemento."},
+  "@id": {
+    "description": "Etiqueta para el ID de un elemento."
+  },
   "errorLoadingQuotationDetails": "Error al cargar los detalles de la cotización",
-  "@errorLoadingQuotationDetails": {"description": "Mensaje de error mostrado cuando no se pueden cargar los detalles de la cotización."},
+  "@errorLoadingQuotationDetails": {
+    "description": "Mensaje de error mostrado cuando no se pueden cargar los detalles de la cotización."
+  },
   "noApplicationsFound": "No se encontraron solicitudes",
-  "@noApplicationsFound": {"description": "Mensaje mostrado cuando no se encuentran solicitudes."},
+  "@noApplicationsFound": {
+    "description": "Mensaje mostrado cuando no se encuentran solicitudes."
+  },
   "sentOffer": "Oferta enviada",
-  "@sentOffer": {"description": "Etiqueta para una oferta que ha sido enviada."},
+  "@sentOffer": {
+    "description": "Etiqueta para una oferta que ha sido enviada."
+  },
   "noAvailableTimeSlotsFound": "No se encontraron horarios disponibles",
-  "@noAvailableTimeSlotsFound": {"description": "Mensaje mostrado cuando no se encuentran horarios disponibles."},
+  "@noAvailableTimeSlotsFound": {
+    "description": "Mensaje mostrado cuando no se encuentran horarios disponibles."
+  },
   "weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": "Intentamos encontrar horarios a lo largo de varios días pero no pudimos encontrar ningún tiempo disponible",
-  "@weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": {"description": "Mensaje que explica que no se encontraron horarios disponibles en varios días."},
+  "@weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": {
+    "description": "Mensaje que explica que no se encontraron horarios disponibles en varios días."
+  },
   "trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": "Intenta configurar tus horas de trabajo en la configuración de agenda o prueba una duración de cita más corta",
-  "@trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": {"description": "Sugerencia para cuando no se encuentran horarios disponibles."},
+  "@trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": {
+    "description": "Sugerencia para cuando no se encuentran horarios disponibles."
+  },
   "errorLoadingAvailableTimeSlots": "Error al cargar los horarios disponibles",
-  "@errorLoadingAvailableTimeSlots": {"description": "Mensaje de error mostrado cuando no se pueden cargar los horarios disponibles."},
+  "@errorLoadingAvailableTimeSlots": {
+    "description": "Mensaje de error mostrado cuando no se pueden cargar los horarios disponibles."
+  },
   "best": "Mejor",
-  "@best": {"description": "Etiqueta que indica la mejor opción o franja horaria."},
+  "@best": {
+    "description": "Etiqueta que indica la mejor opción o franja horaria."
+  },
   "today": "Hoy",
-  "@today": {"description": "Etiqueta que indica el día actual."},
+  "@today": {
+    "description": "Etiqueta que indica el día actual."
+  },
   "cannotOpenDetailsRightNowTryAgainLater": "No se pueden abrir los detalles en este momento. Inténtalo de nuevo más tarde.",
-  "@cannotOpenDetailsRightNowTryAgainLater": {"description": "Mensaje de error mostrado cuando no se pueden abrir los detalles."},
+  "@cannotOpenDetailsRightNowTryAgainLater": {
+    "description": "Mensaje de error mostrado cuando no se pueden abrir los detalles."
+  },
   "errorLoadingOpenQuotations": "Error al cargar las cotizaciones abiertas",
-  "@errorLoadingOpenQuotations": {"description": "Mensaje de error mostrado cuando no se pueden cargar las cotizaciones abiertas."},
+  "@errorLoadingOpenQuotations": {
+    "description": "Mensaje de error mostrado cuando no se pueden cargar las cotizaciones abiertas."
+  },
   "errorLoadingOpenQuotationsWithMessage": "Error al cargar las cotizaciones abiertas: {message}",
   "@errorLoadingOpenQuotationsWithMessage": {
     "description": "Mensaje de error con detalles cuando no se pueden cargar las cotizaciones abiertas.",
@@ -2453,27 +2768,49 @@
     }
   },
   "workingHours": "Horario de trabajo",
-  "@workingHours": {"description": "Título para la sección de horario de trabajo en la configuración de agenda."},
+  "@workingHours": {
+    "description": "Título para la sección de horario de trabajo en la configuración de agenda."
+  },
   "startHour": "Hora de inicio",
-  "@startHour": {"description": "Etiqueta para la hora de inicio del horario de trabajo."},
+  "@startHour": {
+    "description": "Etiqueta para la hora de inicio del horario de trabajo."
+  },
   "endHour": "Hora de fin",
-  "@endHour": {"description": "Etiqueta para la hora de fin del horario de trabajo."},
+  "@endHour": {
+    "description": "Etiqueta para la hora de fin del horario de trabajo."
+  },
   "workingDays": "Días laborables",
-  "@workingDays": {"description": "Título para la sección de días laborables en la configuración de agenda."},
+  "@workingDays": {
+    "description": "Título para la sección de días laborables en la configuración de agenda."
+  },
   "monday": "Lunes",
-  "@monday": {"description": "Nombre del día de la semana: lunes."},
+  "@monday": {
+    "description": "Nombre del día de la semana: lunes."
+  },
   "tuesday": "Martes",
-  "@tuesday": {"description": "Nombre del día de la semana: martes."},
+  "@tuesday": {
+    "description": "Nombre del día de la semana: martes."
+  },
   "wednesday": "Miércoles",
-  "@wednesday": {"description": "Nombre del día de la semana: miércoles."},
+  "@wednesday": {
+    "description": "Nombre del día de la semana: miércoles."
+  },
   "thursday": "Jueves",
-  "@thursday": {"description": "Nombre del día de la semana: jueves."},
+  "@thursday": {
+    "description": "Nombre del día de la semana: jueves."
+  },
   "friday": "Viernes",
-  "@friday": {"description": "Nombre del día de la semana: viernes."},
+  "@friday": {
+    "description": "Nombre del día de la semana: viernes."
+  },
   "saturday": "Sábado",
-  "@saturday": {"description": "Nombre del día de la semana: sábado."},
+  "@saturday": {
+    "description": "Nombre del día de la semana: sábado."
+  },
   "sunday": "Domingo",
-  "@sunday": {"description": "Nombre del día de la semana: domingo."},
+  "@sunday": {
+    "description": "Nombre del día de la semana: domingo."
+  },
   "explore": "Explorar",
   "@explore": {
     "description": "Label for the explore tab in the customer app."
@@ -2847,5 +3184,53 @@
         "example": "5"
       }
     }
+  },
+  "n": "Nuevo",
+  "@n": {
+    "description": "Un nuevo elemento o mensaje."
+  },
+  "noMapsApplicationAvailable": "No hay aplicaciones de mapas disponibles",
+  "@noMapsApplicationAvailable": {
+    "description": "Mensaje mostrado cuando no hay aplicaciones de mapas instaladas."
+  },
+  "sendEmail": "Enviar correo",
+  "@sendEmail": {
+    "description": "Texto para la opción de enviar correo electrónico."
+  },
+  "callArtist": "Llamar al artista",
+  "@callArtist": {
+    "description": "Texto para la opción de llamar al artista."
+  },
+  "chatDirectlyWithArtist": "Chatear directamente con el artista",
+  "@chatDirectlyWithArtist": {
+    "description": "Texto que describe la opción de chatear con el artista."
+  },
+  "reviewFunctionalityComingSoon": "La funcionalidad de reseñas estará disponible pronto",
+  "@reviewFunctionalityComingSoon": {
+    "description": "Mensaje que indica que la funcionalidad de reseñas estará disponible próximamente."
+  },
+  "leaveReview": "Dejar reseña",
+  "@leaveReview": {
+    "description": "Texto para el botón de dejar una reseña."
+  },
+  "appointmentRescheduled": "Cita reagendada",
+  "@appointmentRescheduled": {
+    "description": "Mensaje que indica que la cita ha sido reagendada."
+  },
+  "appointmentCanceled": "Cita cancelada",
+  "@appointmentCanceled": {
+    "description": "Mensaje que indica que la cita ha sido cancelada."
+  },
+  "additionalInformation": "Información adicional",
+  "@additionalInformation": {
+    "description": "Texto para la sección de información adicional."
+  },
+  "loadingAppointmentDetails": "Cargando detalles de la cita",
+  "@loadingAppointmentDetails": {
+    "description": "Mensaje mostrado mientras se cargan los detalles de la cita."
+  },
+  "appointmentNotFound": "Cita no encontrada",
+  "@appointmentNotFound": {
+    "description": "Mensaje mostrado cuando no se encuentra la cita."
   }
 }

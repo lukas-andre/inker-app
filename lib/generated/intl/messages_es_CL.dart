@@ -164,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles Adicionales"),
         "additionalDetailsOptional": MessageLookupByLibrary.simpleMessage(
             "Detalles adicionales (opcional)"),
+        "additionalInformation":
+            MessageLookupByLibrary.simpleMessage("Información adicional"),
         "address": MessageLookupByLibrary.simpleMessage("Dirección"),
         "addressDetails":
             MessageLookupByLibrary.simpleMessage("Detalles de la Dirección"),
@@ -198,6 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "applicationSettings": MessageLookupByLibrary.simpleMessage(
             "Configuración de la aplicación"),
         "apply": MessageLookupByLibrary.simpleMessage("Aplicar"),
+        "appointmentCanceled":
+            MessageLookupByLibrary.simpleMessage("Cita cancelada"),
         "appointmentDate":
             MessageLookupByLibrary.simpleMessage("Fecha de la Cita"),
         "appointmentDateChangedFrom": MessageLookupByLibrary.simpleMessage(
@@ -208,6 +212,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Detalles de la Cita"),
         "appointmentDuration":
             MessageLookupByLibrary.simpleMessage("Duración de la Cita"),
+        "appointmentNotFound":
+            MessageLookupByLibrary.simpleMessage("Cita no encontrada"),
+        "appointmentRescheduled":
+            MessageLookupByLibrary.simpleMessage("Cita reagendada"),
         "appointmentsAvailable":
             MessageLookupByLibrary.simpleMessage("Citas disponibles"),
         "april": MessageLookupByLibrary.simpleMessage("Abril"),
@@ -257,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fuera de mi especialidad"),
         "bookAppointment": MessageLookupByLibrary.simpleMessage("Agendar cita"),
         "budget": MessageLookupByLibrary.simpleMessage("Presupuesto"),
+        "callArtist": MessageLookupByLibrary.simpleMessage("Llamar al artista"),
         "camera": MessageLookupByLibrary.simpleMessage("Cámara"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cancelAppointment":
@@ -312,6 +321,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "changedStatusFrom":
             MessageLookupByLibrary.simpleMessage("cambió el estado de"),
         "characters": MessageLookupByLibrary.simpleMessage("caracteres"),
+        "chatDirectlyWithArtist": MessageLookupByLibrary.simpleMessage(
+            "Chatear directamente con el artista"),
         "chooseGeneratedDesign":
             MessageLookupByLibrary.simpleMessage("Elegir diseño generado"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Elegir Imagen"),
@@ -588,9 +599,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "lastUpdated":
             MessageLookupByLibrary.simpleMessage("Última Actualización"),
+        "leaveReview": MessageLookupByLibrary.simpleMessage("Dejar reseña"),
         "legal": MessageLookupByLibrary.simpleMessage("Legal"),
         "likes": MessageLookupByLibrary.simpleMessage("Me gusta"),
         "loadMore": MessageLookupByLibrary.simpleMessage("Cargar Más"),
+        "loadingAppointmentDetails": MessageLookupByLibrary.simpleMessage(
+            "Cargando detalles de la cita"),
         "locale": MessageLookupByLibrary.simpleMessage("es_CL"),
         "location": MessageLookupByLibrary.simpleMessage("Ubicación"),
         "locationDetails":
@@ -637,6 +651,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Más información sobre tamaños, precios y disponibilidad"),
         "myAppointments": MessageLookupByLibrary.simpleMessage("Mis Citas"),
         "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
+        "n": MessageLookupByLibrary.simpleMessage("Nuevo"),
         "nail": MessageLookupByLibrary.simpleMessage("Nails"),
         "newPassword": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
         "newQuotation":
@@ -684,6 +699,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No se generaron imágenes"),
         "noLocationsAvailable": MessageLookupByLibrary.simpleMessage(
             "No hay ubicaciones disponibles"),
+        "noMapsApplicationAvailable": MessageLookupByLibrary.simpleMessage(
+            "No hay aplicaciones de mapas disponibles"),
         "noMessagesYet":
             MessageLookupByLibrary.simpleMessage("Aún no hay mensajes"),
         "noNotificationsMessage": MessageLookupByLibrary.simpleMessage(
@@ -1007,6 +1024,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Revisa los detalles y envía tu oferta"),
         "reviewEachOffer": MessageLookupByLibrary.simpleMessage(
             "Revisa cada oferta y chatea con los artistas"),
+        "reviewFunctionalityComingSoon": MessageLookupByLibrary.simpleMessage(
+            "La funcionalidad de reseñas estará disponible pronto"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reseñada"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reseñas"),
         "reviewsTotal": MessageLookupByLibrary.simpleMessage("reseñas"),
@@ -1074,6 +1093,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectedStencil":
             MessageLookupByLibrary.simpleMessage("Plantilla Seleccionada"),
         "send": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Enviar correo"),
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "sendMessageInApp":
             MessageLookupByLibrary.simpleMessage("Enviar mensaje en la app"),

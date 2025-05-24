@@ -12,6 +12,7 @@ class AppointmentState with _$AppointmentState {
     @Default(1) int totalPages,
     @Default(false) bool hasReachedMax,
     @Default(false) bool isLoadingMore,
+    @Default(false) bool isRefreshing,
     String? currentFilter,
     AppointmentDetailDto? selectedAppointment,
   }) = _Loaded;

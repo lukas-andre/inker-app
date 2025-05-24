@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:intl/intl.dart';
 
@@ -22,238 +23,392 @@ class AppointmentCard extends StatelessWidget {
     // Determine if appointment is in the past
     final bool isPastAppointment = appointment.endDate.isBefore(DateTime.now());
     
-    // Get artist image or placeholder
-    Widget artistImage;
-    if (appointment.artist.profileThumbnail != null) {
-      artistImage = CircleAvatar(
-        backgroundImage: NetworkImage(appointment.artist.profileThumbnail!),
-        radius: 24,
-      );
-    } else {
-      artistImage = CircleAvatar(
-        backgroundColor: Colors.grey[700],
-        radius: 24,
-        child: Text(
-          appointment.artist.username?.substring(0, 1).toUpperCase() ?? '',
-          style: TextStyleTheme.headline3.copyWith(color: Colors.white),
-        ),
-      );
-    }
-    
-    // Determine status badge color and text
-    Color statusColor;
-    IconData statusIcon;
-    
-    switch (appointment.status) {
-      case AppointmentStatus.scheduled:
-        statusColor = Colors.green;
-        statusIcon = Icons.check_circle;
-        break;
-      case AppointmentStatus.inProgress:
-        statusColor = Colors.amber;
-        statusIcon = Icons.pending_actions;
-        break;
-      case AppointmentStatus.completed:
-        statusColor = Colors.blue;
-        statusIcon = Icons.task_alt;
-        break;
-      case AppointmentStatus.canceled:
-        statusColor = Colors.red;
-        statusIcon = Icons.cancel;
-        break;
-      case AppointmentStatus.rescheduled:
-        statusColor = Colors.purple;
-        statusIcon = Icons.update;
-        break;
-      case AppointmentStatus.waitingForPhotos:
-        statusColor = Colors.cyan;
-        statusIcon = Icons.image_search;
-        break;
-      case AppointmentStatus.waitingForReview:
-        statusColor = Colors.deepPurple;
-        statusIcon = Icons.rate_review;
-        break;
-      case AppointmentStatus.reviewed:
-        statusColor = Colors.indigo;
-        statusIcon = Icons.thumb_up;
-        break;
-      case AppointmentStatus.pending:
-        statusColor = Colors.orange;
-        statusIcon = Icons.watch_later;
-        break;
-    }
-    
     // For unread appointments, show a notification dot
     final bool isUnread = appointment.readByCustomer == false;
     
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Theme.of(context).colorScheme.secondary,
-      elevation: isUnread ? 3 : 1,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  artistImage,
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                appointment.artist.username ?? 'noname',
-                                style: TextStyleTheme.subtitle1.copyWith(
-                                  color: isUnread ? Colors.white : Colors.white70,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            if (isUnread)
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          appointment.title,
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            color: isUnread ? Colors.white : Colors.white70,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            dateFormat.format(appointment.startDate),
-                            style: TextStyleTheme.caption.copyWith(
-                              color: isPastAppointment ? Colors.white60 : Colors.white,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.access_time,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${timeFormat.format(appointment.startDate)} - ${timeFormat.format(appointment.endDate)}',
-                        style: TextStyleTheme.caption.copyWith(
-                          color: isPastAppointment ? Colors.white60 : Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        appointment.location.name,
-                        style: TextStyleTheme.caption.copyWith(
-                          color: isPastAppointment ? Colors.white60 : Colors.white,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        statusIcon,
-                        size: 16,
-                        color: statusColor,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        _getStatusText(appointment.status, context),
-                        style: TextStyleTheme.caption.copyWith(
-                          color: statusColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+    // Get artist image or placeholder
+    Widget artistImage;
+    if (appointment.artist.profileThumbnail != null) {
+      artistImage = Hero(
+        tag: 'artist-${appointment.artist.id}-${appointment.id}',
+        child: Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+              width: 2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
               ),
             ],
+          ),
+          child: ClipOval(
+            child: Image.network(
+              appointment.artist.profileThumbnail!,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => _buildAvatarPlaceholder(),
+            ),
+          ),
+        ),
+      );
+    } else {
+      artistImage = _buildAvatarPlaceholder();
+    }
+    
+    // Determine status styling
+    final statusInfo = _getStatusInfo(appointment.status, context);
+    
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: isUnread 
+              ? Theme.of(context).colorScheme.secondary.withOpacity(0.15)
+              : Colors.black.withOpacity(0.05),
+            blurRadius: isUnread ? 12 : 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Material(
+          color: isPastAppointment
+            ? explorerSecondaryColor.withOpacity(0.7)
+            : explorerSecondaryColor,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+            highlightColor: Theme.of(context).colorScheme.secondary.withOpacity(0.05),
+            child: Stack(
+              children: [
+                // Status indicator bar
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 4,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          statusInfo['color'] as Color,
+                          (statusInfo['color'] as Color).withOpacity(0.7),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                
+                // Card content
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header with artist info
+                      Row(
+                        children: [
+                          artistImage,
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        appointment.artist.username ?? 'Artist',
+                                        style: TextStyleTheme.headline3.copyWith(
+                                          color: isUnread 
+                                            ? Theme.of(context).colorScheme.secondary 
+                                            : const Color(0xFFF2F2F2),
+                                          fontSize: 16,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    if (isUnread)
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 8),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).colorScheme.tertiary,
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: Text(
+                                          S.of(context).n,
+                                          style: TextStyleTheme.caption.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  appointment.title,
+                                  style: TextStyleTheme.bodyText2.copyWith(
+                                    color: const Color(0xFFF2F2F2).withOpacity(0.8),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                      const SizedBox(height: 20),
+                      
+                      // Date and time section with icons
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: primaryColor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.calendar_today,
+                                    size: 16,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Text(
+                                    dateFormat.format(appointment.startDate),
+                                    style: TextStyleTheme.bodyText2.copyWith(
+                                      color: isPastAppointment 
+                                        ? const Color(0xFFF2F2F2).withOpacity(0.5) 
+                                        : const Color(0xFFF2F2F2),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.access_time,
+                                    size: 16,
+                                    color: Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  '${timeFormat.format(appointment.startDate)} - ${timeFormat.format(appointment.endDate)}',
+                                  style: TextStyleTheme.bodyText2.copyWith(
+                                    color: isPastAppointment 
+                                      ? const Color(0xFFF2F2F2).withOpacity(0.5) 
+                                      : const Color(0xFFF2F2F2),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 16),
+                      
+                      // Footer with location and status
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Location
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  size: 18,
+                                  color: Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
+                                ),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    appointment.location.name,
+                                    style: TextStyleTheme.caption.copyWith(
+                                      color: const Color(0xFFF2F2F2).withOpacity(0.7),
+                                      fontSize: 13,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          // Status badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: (statusInfo['color'] as Color).withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: (statusInfo['color'] as Color).withOpacity(0.5),
+                                width: 1,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  statusInfo['icon'] as IconData,
+                                  size: 14,
+                                  color: statusInfo['color'] as Color,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  statusInfo['text'] as String,
+                                  style: TextStyleTheme.caption.copyWith(
+                                    color: statusInfo['color'] as Color,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  String _getStatusText(AppointmentStatus status, BuildContext context) {
+  Widget _buildAvatarPlaceholder() {
+    return Container(
+      width: 56,
+      height: 56,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            secondaryColor.withOpacity(0.8),
+            secondaryColor,
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          appointment.artist.username?.substring(0, 1).toUpperCase() ?? 'A',
+          style: TextStyleTheme.headline2.copyWith(
+            color: Colors.white,
+            fontSize: 22,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Map<String, dynamic> _getStatusInfo(AppointmentStatus status, BuildContext context) {
     switch (status) {
       case AppointmentStatus.scheduled:
-        return S.of(context).scheduled;
+        return {
+          'color': const Color(0xFF4CAF50),
+          'icon': Icons.check_circle_outline,
+          'text': S.of(context).scheduled,
+        };
       case AppointmentStatus.inProgress:
-        return S.of(context).inProgress;
+        return {
+          'color': const Color(0xFFFF9800),
+          'icon': Icons.pending_actions,
+          'text': S.of(context).inProgress,
+        };
       case AppointmentStatus.completed:
-        return S.of(context).completed;
+        return {
+          'color': const Color(0xFF2196F3),
+          'icon': Icons.task_alt,
+          'text': S.of(context).completed,
+        };
       case AppointmentStatus.canceled:
-        return S.of(context).canceled;
+        return {
+          'color': redColor,
+          'icon': Icons.cancel_outlined,
+          'text': S.of(context).canceled,
+        };
       case AppointmentStatus.rescheduled:
-        return S.of(context).rescheduled;
+        return {
+          'color': const Color(0xFF9C27B0),
+          'icon': Icons.update,
+          'text': S.of(context).rescheduled,
+        };
       case AppointmentStatus.waitingForPhotos:
-        return S.of(context).waitingForPhotos;
+        return {
+          'color': const Color(0xFF00BCD4),
+          'icon': Icons.photo_camera_outlined,
+          'text': S.of(context).waitingForPhotos,
+        };
       case AppointmentStatus.waitingForReview:
-        return S.of(context).waitingForReview;
+        return {
+          'color': const Color(0xFF673AB7),
+          'icon': Icons.rate_review_outlined,
+          'text': S.of(context).waitingForReview,
+        };
       case AppointmentStatus.reviewed:
-        return S.of(context).reviewed;
+        return {
+          'color': const Color(0xFF3F51B5),
+          'icon': Icons.star,
+          'text': S.of(context).reviewed,
+        };
       case AppointmentStatus.pending:
-        return S.of(context).pending;
+        return {
+          'color': const Color(0xFFFF5722),
+          'icon': Icons.hourglass_empty,
+          'text': S.of(context).pending,
+        };
     }
   }
 }

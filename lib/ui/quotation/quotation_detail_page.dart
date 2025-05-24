@@ -99,7 +99,7 @@ class _QuotationDetailsScaffold extends StatelessWidget {
                         ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: Theme.of(context).colorScheme.secondary,
+                      // foregroundColor: Theme.of(context).colorScheme.error,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 24, vertical: 12),
                     ),
@@ -187,7 +187,7 @@ class _QuotationDetailContent extends StatelessWidget {
                   ? LinearProgressIndicator(
                       backgroundColor: Theme.of(context).colorScheme.surface,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).colorScheme.secondary),
+                          Theme.of(context).colorScheme.surface),
                     )
                   : null,
             ),
@@ -221,7 +221,7 @@ class _QuotationDetailContent extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.surface,
                 border: Border(
                   top: BorderSide(
                     color:
@@ -270,7 +270,7 @@ class _CounterpartHeader extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -412,7 +412,7 @@ class _MainQuotationInfo extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -564,7 +564,7 @@ class _MainQuotationInfo extends StatelessWidget {
               Text(
                 '${quotation.referenceBudget!.toString()} ${quotation.referenceBudget!.currency}',
                 style: TextStyleTheme.headline3.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -907,7 +907,7 @@ class _QuotationTimeline extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -1260,7 +1260,7 @@ class _StencilPreviewWidget extends StatelessWidget {
     final l10n = S.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: HSLColor.fromColor(Theme.of(context).colorScheme.secondary)
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
             .withLightness(0.25)
             .toColor(),
         borderRadius: BorderRadius.circular(12),
@@ -1286,7 +1286,7 @@ class _StencilPreviewWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
                   color: HSLColor.fromColor(
-                          Theme.of(context).colorScheme.secondary)
+                          Theme.of(context).colorScheme.surface)
                       .withLightness(0.2)
                       .toColor(),
                   child: const Center(
@@ -1295,7 +1295,7 @@ class _StencilPreviewWidget extends StatelessWidget {
                 ),
                 errorWidget: (context, url, error) => Container(
                   color: HSLColor.fromColor(
-                          Theme.of(context).colorScheme.secondary)
+                          Theme.of(context).colorScheme.surface)
                       .withLightness(0.2)
                       .toColor(),
                   child: Icon(Icons.error,
@@ -1611,7 +1611,7 @@ class _OfferListItem extends StatelessWidget {
                   label: Text(l10n.startChat),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     textStyle: TextStyleTheme.caption

@@ -80,14 +80,19 @@ Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) {
 }
 
 const _$EventStatusEnumMap = {
+  EventStatus.created: 'created',
   EventStatus.pending: 'pending',
-  EventStatus.scheduled: 'scheduled',
+  EventStatus.paymentPending: 'payment_pending',
   EventStatus.confirmed: 'confirmed',
-  EventStatus.canceled: 'canceled',
-  EventStatus.rescheduledPendingApproval: 'rescheduled_pending_approval',
-  EventStatus.rescheduled: 'rescheduled',
+  EventStatus.scheduled: 'scheduled',
   EventStatus.completed: 'completed',
-  EventStatus.doneStatus: 'done',
   EventStatus.awaitingPhotos: 'awaiting_photos',
   EventStatus.awaitingReview: 'awaiting_review',
+  EventStatus.reviewed: 'reviewed',
+  EventStatus.aftercarePeriod: 'aftercare_period',
+  EventStatus.rescheduledPendingApproval: 'rescheduled_pending_approval',
+  EventStatus.rescheduled: 'rescheduled',
+  EventStatus.canceled: 'canceled',
+  EventStatus.disputeOpen: 'dispute_open',
+  EventStatus.doneStatus: 'done',
 };
