@@ -39,7 +39,12 @@ class ArtistAgendaEventDetailBloc
       Emitter<ArtistAgendaEventDetailState> emit, String eventId) async {
     emit(const ArtistAgendaEventDetailState.loading());
     try {
-      final EventDetailResponse response = await _agendaService.getEventDetails(eventId);
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+      final EventDetailResponse response = await _agendaService.getEventDetails(eventId, token);
       emit(ArtistAgendaEventDetailState.loaded(response));
     } catch (e, stacktrace) {
       dev.logError(e, stacktrace);

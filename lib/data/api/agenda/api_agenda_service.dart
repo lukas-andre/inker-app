@@ -524,17 +524,19 @@ class ApiAgendaService extends AgendaService {
   get statusValue => throw UnimplementedError();
 
   @override
-  Future<EventDetailResponse> getEventDetails(String eventId) async {
+  Future<EventDetailResponse> getEventDetails(String eventId, String token) async {
     return await _httpClient.get<EventDetailResponse>(
       path: '$_basePath/event/$eventId',
+      token: token,
       fromJson: EventDetailResponse.fromJson,
     );
   }
 
   @override
-  Future<EventDetailResponse> getCustomerEventDetails(String eventId) async {
+  Future<EventDetailResponse> getCustomerEventDetails(String eventId, String token) async {
     return await _httpClient.get<EventDetailResponse>(
       path: '$_basePath/customer/event/$eventId',
+      token: token,
       fromJson: EventDetailResponse.fromJson,
     );
   }

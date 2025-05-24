@@ -7,26 +7,51 @@ part 'event.freezed.dart';
 part 'event.g.dart';
 
 enum EventStatus {
+  // Initial state
+  @JsonValue('created')
+  created, // New: Event is created, not yet requested for confirmation (maps to TS AgendaEventStatus.CREATED).
+
+  // Pending states
   @JsonValue('pending')
-  pending,
-  @JsonValue('scheduled')
-  scheduled,
+  pending, // Existing: Confirmation requested, awaiting response (maps to TS AgendaEventStatus.PENDING_CONFIRMATION).
+  @JsonValue('payment_pending')
+  paymentPending, // New: Event confirmed, but payment is pending (maps to TS AgendaEventStatus.PAYMENT_PENDING).
+
+  // Confirmed and active states
   @JsonValue('confirmed')
-  confirmed,
-  @JsonValue('canceled')
-  canceled,
-  @JsonValue('rescheduled_pending_approval')
-  rescheduledPendingApproval,
-  @JsonValue('rescheduled')
-  rescheduled,
+  confirmed, // Existing: Event is agreed upon and on the schedule (maps to TS AgendaEventStatus.CONFIRMED).
+  @JsonValue('scheduled') // Existing: Event is currently in progress (maps to TS AgendaEventStatus.IN_PROGRESS / Active Session).
+  scheduled,
+
+  // Post-session states
   @JsonValue('completed')
-  completed,
-  @JsonValue('done') // From payload, though 'done' is also a boolean field.
-  doneStatus, 
+  completed, // Existing: Session/work is finished (maps to TS AgendaEventStatus.COMPLETED).
   @JsonValue('awaiting_photos')
-  awaitingPhotos,
+  awaitingPhotos, // Existing: Session completed, awaiting photos (maps to TS AgendaEventStatus.WAITING_FOR_PHOTOS).
   @JsonValue('awaiting_review')
-  awaitingReview,
+  awaitingReview, // Existing: Session completed (photos possibly added), awaiting review (maps to TS AgendaEventStatus.WAITING_FOR_REVIEW).
+  @JsonValue('reviewed')
+  reviewed, // New: Review has been submitted (maps to TS AgendaEventStatus.REVIEWED).
+  @JsonValue('aftercare_period')
+  aftercarePeriod, // New: Event is in the aftercare phase (maps to TS AgendaEventStatus.AFTERCARE_PERIOD).
+
+  // Rescheduling states
+  @JsonValue('rescheduled_pending_approval')
+  rescheduledPendingApproval, // Existing: A reschedule request has been made and is pending approval from the other party.
+  @JsonValue('rescheduled')
+  rescheduled, // Existing: Event has been rescheduled (maps to TS AgendaEventStatus.RESCHEDULED).
+
+  // Terminal or exceptional states
+  @JsonValue('canceled')
+  canceled, // Existing: Event has been canceled (maps to TS AgendaEventStatus.CANCELED).
+  @JsonValue('dispute_open')
+  disputeOpen, // New: A dispute has been opened for this event (maps to TS AgendaEventStatus.DISPUTE_OPEN).
+
+  // TODO: Clarify 'doneStatus' - maps to which state in your state machine?
+  // Is it needed if the 'bool done' field exists on the Event model,
+  // and/or if states like 'reviewed' or 'aftercarePeriod' represent finality?
+  @JsonValue('done') // From payload, though 'done' is also a boolean field.
+  doneStatus,
 }
 
 @freezed
