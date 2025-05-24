@@ -7490,6 +7490,127 @@ class S {
       args: [count],
     );
   }
+
+  /// `Nuevo`
+  String get n {
+    return Intl.message(
+      'Nuevo',
+      name: 'n',
+      desc: 'Un nuevo elemento o mensaje.',
+      args: [],
+    );
+  }
+
+  /// `No hay aplicaciones de mapas disponibles`
+  String get noMapsApplicationAvailable {
+    return Intl.message(
+      'No hay aplicaciones de mapas disponibles',
+      name: 'noMapsApplicationAvailable',
+      desc: 'Mensaje mostrado cuando no hay aplicaciones de mapas instaladas.',
+      args: [],
+    );
+  }
+
+  /// `Enviar correo`
+  String get sendEmail {
+    return Intl.message(
+      'Enviar correo',
+      name: 'sendEmail',
+      desc: 'Texto para la opción de enviar correo electrónico.',
+      args: [],
+    );
+  }
+
+  /// `Llamar al artista`
+  String get callArtist {
+    return Intl.message(
+      'Llamar al artista',
+      name: 'callArtist',
+      desc: 'Texto para la opción de llamar al artista.',
+      args: [],
+    );
+  }
+
+  /// `Chatear directamente con el artista`
+  String get chatDirectlyWithArtist {
+    return Intl.message(
+      'Chatear directamente con el artista',
+      name: 'chatDirectlyWithArtist',
+      desc: 'Texto que describe la opción de chatear con el artista.',
+      args: [],
+    );
+  }
+
+  /// `La funcionalidad de reseñas estará disponible pronto`
+  String get reviewFunctionalityComingSoon {
+    return Intl.message(
+      'La funcionalidad de reseñas estará disponible pronto',
+      name: 'reviewFunctionalityComingSoon',
+      desc:
+          'Mensaje que indica que la funcionalidad de reseñas estará disponible próximamente.',
+      args: [],
+    );
+  }
+
+  /// `Dejar reseña`
+  String get leaveReview {
+    return Intl.message(
+      'Dejar reseña',
+      name: 'leaveReview',
+      desc: 'Texto para el botón de dejar una reseña.',
+      args: [],
+    );
+  }
+
+  /// `Cita reagendada`
+  String get appointmentRescheduled {
+    return Intl.message(
+      'Cita reagendada',
+      name: 'appointmentRescheduled',
+      desc: 'Mensaje que indica que la cita ha sido reagendada.',
+      args: [],
+    );
+  }
+
+  /// `Cita cancelada`
+  String get appointmentCanceled {
+    return Intl.message(
+      'Cita cancelada',
+      name: 'appointmentCanceled',
+      desc: 'Mensaje que indica que la cita ha sido cancelada.',
+      args: [],
+    );
+  }
+
+  /// `Información adicional`
+  String get additionalInformation {
+    return Intl.message(
+      'Información adicional',
+      name: 'additionalInformation',
+      desc: 'Texto para la sección de información adicional.',
+      args: [],
+    );
+  }
+
+  /// `Cargando detalles de la cita`
+  String get loadingAppointmentDetails {
+    return Intl.message(
+      'Cargando detalles de la cita',
+      name: 'loadingAppointmentDetails',
+      desc: 'Mensaje mostrado mientras se cargan los detalles de la cita.',
+      args: [],
+    );
+  }
+
+  /// `Cita no encontrada`
+  String get appointmentNotFound {
+    return Intl.message(
+      'Cita no encontrada',
+      name: 'appointmentNotFound',
+      desc: 'Mensaje mostrado cuando no se encuentra la cita.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

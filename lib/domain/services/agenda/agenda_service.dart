@@ -126,6 +126,6 @@ abstract class AgendaService {
     required Map<String, dynamic> updatedFields,
   });
 
-  Future<EventDetailResponse> getEventDetails(String eventId);
-  Future<EventDetailResponse> getCustomerEventDetails(String eventId);
+  Future<EventDetailResponse> getEventDetails(String eventId, String token);
+  Future<EventDetailResponse> getCustomerEventDetails(String eventId, String token);
 }

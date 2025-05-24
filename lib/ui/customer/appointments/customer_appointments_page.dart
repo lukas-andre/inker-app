@@ -73,7 +73,7 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
         builder: (context, state) {
           // Extract current filter if available
           String? currentFilter = state.maybeWhen(
-            loaded: (_, __, ___, ____, _____, currentFilter, ______) =>
+            loaded: (_, __, ___, ____, _____, ______, currentFilter, ________) =>
                 currentFilter,
             loadingMoreFailed: (_, __, ___, currentFilter, ____) =>
                 currentFilter,
@@ -100,7 +100,7 @@ class _CustomerAppointmentsPageState extends State<CustomerAppointmentsPage> {
                   initial: () => const Center(child: InkerProgressIndicator()),
                   loading: () => const Center(child: InkerProgressIndicator()),
                   loaded: (appointments, currentPage, totalPages, hasReachedMax,
-                      isLoadingMore, currentFilter, selectedAppointment) {
+                      isLoadingMore, isRefreshing, currentFilter, selectedAppointment) {
                     if (appointments.isEmpty) {
                       // Use different message based on the filter
                       String title;

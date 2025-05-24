@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
-import 'package:intl/intl.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart' show WorkEvidence;
+import 'package:inker_studio/ui/shared/event/event_main_info_card.dart';
+import 'package:inker_studio/ui/shared/event/event_description_card.dart';
+import 'package:inker_studio/ui/shared/event/event_location_card.dart';
+import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
   final String eventId;
@@ -31,119 +36,275 @@ class AgendaEventDetailPage extends StatelessWidget {
           style: TextStyleTheme.headline2,
         ),
         backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 1.0,
-        shadowColor: Colors.black54,
+        elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (data) => !data.event.done && data.actions.canEdit
+                  ? IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () => _navigateToEditEvent(context, data),
+                      tooltip: S.of(context).edit,
+                    )
+                  : const SizedBox.shrink(),
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
+          ),
+        ],
       ),
-      body: BlocBuilder<ArtistAgendaEventDetailBloc,
-          ArtistAgendaEventDetailState>(
+      body: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.when(
-            initial: () => Center(
-                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSurface)),
-            loading: () => Center(
-                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSurface)),
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (data) => _buildContent(context, data),
-            error: (message) => Center(
-              child: Text(
-                S.of(context).errorLoadingEventDetails(message),
-                style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
-              ),
-            ),
+            error: (message) => _buildErrorState(context, message),
           );
         },
       ),
-      bottomNavigationBar: BlocBuilder<ArtistAgendaEventDetailBloc,
-          ArtistAgendaEventDetailState>(
+      bottomNavigationBar: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.maybeWhen(
             loaded: (data) => !data.event.done
                 ? _buildActionButtons(context, data)
-                : const SizedBox(),
-            orElse: () => const SizedBox(),
+                : const SizedBox.shrink(),
+            orElse: () => const SizedBox.shrink(),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildErrorState(BuildContext context, String message) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              S.of(context).errorLoadingEventDetails(message),
+              style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(S.of(context).goBack),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildContent(BuildContext context, EventDetailResponse data) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildMainEventCard(context, data),
-          const SizedBox(height: 16),
-          if (data.quotation != null) ...[
-            _buildQuotationCard(context, data.quotation!),
-            const SizedBox(height: 16),
-          ],
-          _buildDescriptionCard(context, data),
-          if (data.event.workEvidence != null) ...[
-            const SizedBox(height: 16),
-            _buildWorkEvidenceCard(context, data),
-          ],
-          const SizedBox(height: 16),
-          _buildLocationCard(context, data),
-          const SizedBox(height: 80),
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<ArtistAgendaEventDetailBloc>()
+          .add(ArtistAgendaEventDetailEvent.started(eventId));
+      },
+      color: Theme.of(context).colorScheme.secondary,
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              child: Column(
+                children: [
+                  // Main Event Info using shared component
+                  EventMainInfoCard(
+                    title: data.event.title,
+                    color: data.event.color ?? '#000000',
+                    status: data.event.done ? 'completed' : 'scheduled',
+                    startDate: data.event.startDateTime,
+                    endDate: data.event.endDateTime,
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Quotation Details using shared component
+                  if (data.quotation != null) ...[
+                    _buildSectionHeader(
+                      context,
+                      icon: Icons.receipt_long,
+                      title: S.of(context).quotationDetails,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    QuotationDetailsCard(quotation: data.quotation!),
+                    const SizedBox(height: 16),
+                  ],
+                  
+                  // Description using shared component
+                  EventDescriptionCard(
+                    description: data.event.info ?? '',
+                    notes: data.event.notes,
+                  ),
+                  
+                  // Work Evidence using shared component
+                  if (data.event.workEvidence != null) ...[
+                    const SizedBox(height: 16),
+                    _buildSectionHeader(
+                      context,
+                      icon: Icons.photo_library,
+                      title: S.of(context).workEvidence,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    _buildWorkEvidenceCard(context, data.event.workEvidence!),
+                  ],
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Location using shared component
+                  EventLocationCard(
+                    location: data.location,
+                    onMapTap: () => _openMap(
+                      context,
+                      data.location.lat,
+                      data.location.lng,
+                      data.location.formattedAddress,
+                    ),
+                  ),
+                  
+                  // Additional information section
+                  if (data.quotation != null && _hasAdditionalQuotationInfo(data.quotation!)) ...[
+                    const SizedBox(height: 16),
+                    _buildAdditionalQuotationInfo(context, data.quotation!),
+                  ],
+                  
+                  const SizedBox(height: 100),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMainEventCard(
-      BuildContext context, EventDetailResponse data) {
-    final DateFormat dateFormat = DateFormat('d MMMM yyyy', Intl.defaultLocale);
-    final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
+  Widget _buildSectionHeader(BuildContext context, {
+    required IconData icon,
+    required String title,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            title,
+            style: TextStyleTheme.subtitle1.copyWith(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
+  bool _hasAdditionalQuotationInfo(Quotation quotation) {
+    return quotation.proposedDesigns != null ||
+           quotation.offers != null ||
+           quotation.cancelReasonDetails != null ||
+           quotation.customerRejectReason != null ||
+           quotation.artistRejectReason != null ||
+           quotation.systemCancelReason != null;
+  }
+
+  Widget _buildAdditionalQuotationInfo(BuildContext context, Quotation quotation) {
     return Card(
-      margin: const EdgeInsets.all(16),
-      color: Theme.of(context).colorScheme.surface,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(
-                        int.parse(data.event.color?.replaceAll('#', '0xFF') ?? '0xFF000000')),
-                  ),
+            // Proposed Designs
+            if (quotation.proposedDesigns != null && quotation.proposedDesigns!.metadata.isNotEmpty) ...[
+              _buildInfoSection(
+                context,
+                icon: Icons.palette,
+                title: S.of(context).proposedDesigns,
+                child: _buildImagesGrid(quotation.proposedDesigns!.metadata),
+              ),
+              const SizedBox(height: 16),
+            ],
+            
+            // Offers
+            if (quotation.offers != null && quotation.offers!.isNotEmpty) ...[
+              _buildInfoSection(
+                context,
+                icon: Icons.local_offer,
+                title: S.of(context).offers,
+                child: Column(
+                  children: quotation.offers!.map((offer) => 
+                    _buildOfferCard(context, offer)
+                  ).toList(),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    data.event.title,
-                    style: TextStyleTheme.headline3,
-                  ),
-                ),
-                _StatusChip(isDone: data.event.done),
-              ],
-            ),
-            const Divider(height: 32),
-            _InfoRow(
-              icon: Icons.calendar_today,
-              title: S.of(context).date,
-              content: dateFormat.format(data.event.startDateTime),
-            ),
-            const SizedBox(height: 12),
-            _InfoRow(
-              icon: Icons.access_time,
-              title: S.of(context).time,
-              content:
-                  '${timeFormat.format(data.event.startDateTime)} - ${timeFormat.format(data.event.endDateTime)}',
-            ),
-            if (data.event.quotationId != null) ...[
-              const SizedBox(height: 12),
-              // _InfoRow(
-              //   icon: Icons.description_outlined,
-              //   title: S.of(context).quotationNumber,
-              //   content: '#${data.event.quotationId}',
-              // ),
+              ),
+              const SizedBox(height: 16),
+            ],
+            
+            // Cancellation/Rejection Reasons
+            if (quotation.cancelReasonDetails != null) ...[
+              _buildReasonCard(
+                context,
+                icon: Icons.cancel,
+                title: S.of(context).cancellationReason,
+                reason: quotation.cancelReasonDetails!,
+                color: Colors.orange,
+              ),
+            ],
+            
+            if (quotation.customerRejectReason != null) ...[
+              _buildReasonCard(
+                context,
+                icon: Icons.thumb_down,
+                title: S.of(context).rejectionReason,
+                reason: _getCustomerRejectReasonText(context, quotation.customerRejectReason!),
+                color: Colors.red,
+              ),
+            ],
+            
+            if (quotation.artistRejectReason != null) ...[
+              _buildReasonCard(
+                context,
+                icon: Icons.thumb_down,
+                title: S.of(context).rejectionReason,
+                reason: _getArtistRejectReasonText(context, quotation.artistRejectReason!),
+                color: Colors.red,
+              ),
+            ],
+            
+            if (quotation.systemCancelReason != null) ...[
+              _buildReasonCard(
+                context,
+                icon: Icons.cancel_schedule_send,
+                title: S.of(context).systemCancellationReason,
+                reason: _getSystemCancelReasonText(context, quotation.systemCancelReason!),
+                color: Colors.grey,
+              ),
             ],
           ],
         ),
@@ -151,196 +312,527 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDescriptionCard(
-      BuildContext context, EventDetailResponse data) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: Theme.of(context).colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildInfoSection(BuildContext context, {
+    required IconData icon,
+    required String title,
+    required Widget child,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
+            Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 20),
+            const SizedBox(width: 8),
             Text(
-              S.of(context).description,
-              style: TextStyleTheme.subtitle1,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              data.event.info ?? S.of(context).noDescription,
-              style: TextStyleTheme.bodyText1.copyWith(height: 1.5),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildWorkEvidenceCard(
-      BuildContext context, EventDetailResponse data) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: Theme.of(context).colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              S.of(context).workEvidence,
-              style: TextStyleTheme.subtitle1,
-            ),
-            const SizedBox(height: 16),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-              ),
-              itemCount: data.event.workEvidence!.metadata.length,
-              itemBuilder: (context, index) {
-                final metadata = data.event.workEvidence!.metadata[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    metadata.url,
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLocationCard(
-      BuildContext context, EventDetailResponse data) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: Theme.of(context).colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              S.of(context).location,
-              style: TextStyleTheme.subtitle1,
-            ),
-            const SizedBox(height: 16),
-            InkWell(
-              onTap: () => _openMap(
-                context,
-                data.location.lat,
-                data.location.lng,
-                data.location.formattedAddress,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: Theme.of(context).colorScheme.secondary,
-                    size: 24,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data.location.formattedAddress,
-                          style: TextStyleTheme.bodyText1.copyWith(
-                            color: Theme.of(context).colorScheme.secondary,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        if (data.location.name != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            data.location.name!,
-                            style: TextStyleTheme.caption.copyWith(
-                              color: Theme.of(context).colorScheme.tertiary,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ],
+              title,
+              style: TextStyleTheme.subtitle2.copyWith(
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-      ),
+        const SizedBox(height: 12),
+        child,
+      ],
     );
   }
 
-  Widget _buildActionButtons(
-      BuildContext context, EventDetailResponse data) {
+  Widget _buildReasonCard(BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String reason,
+    required Color color,
+  }) {
     return Container(
-      color: Theme.of(context).colorScheme.surface,
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 12),
           Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => _navigateToEditEvent(context, data),
-              icon: const Icon(Icons.edit, color: Colors.white),
-              label: Text(
-                S.of(context).edit,
-                style: TextStyleTheme.button,
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.cancel, color: Colors.white),
-              label: Text(
-                S.of(context).cancel,
-                style: TextStyleTheme.button,
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyleTheme.caption.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  reason,
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: const Color(0xFFF2F2F2),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
-  
 
-  void _openMap(BuildContext context, double latitude, double longitude,
-      String title) async {
+  Widget _buildImagesGrid(List<dynamic> images) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
+      itemCount: images.length,
+      itemBuilder: (context, index) {
+        final img = images[index];
+        return Hero(
+          tag: 'image-$index-${img.url}',
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => _viewFullImage(context, img.url),
+                child: Image.network(
+                  img.url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      color: Colors.grey[800],
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                            : null,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOfferCard(BuildContext context, dynamic offer) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: primaryColor.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+        ),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            radius: 20,
+            child: const Icon(Icons.person, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  offer.artistName ?? S.of(context).unknown,
+                  style: TextStyleTheme.subtitle2.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (offer.estimatedCost != null)
+                  Text(
+                    offer.estimatedCost!.formatWithSymbol(),
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context, EventDetailResponse data) {
+    final List<_ActionButton> actionButtons = [];
+    
+    // Define all possible actions with improved styling
+    if (data.actions.canEdit) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _navigateToEditEvent(context, data),
+        icon: Icons.edit,
+        label: S.of(context).edit,
+        color: Theme.of(context).colorScheme.secondary,
+      ));
+    }
+
+    if (data.actions.canCancel) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showCancelDialog(context, data),
+        icon: Icons.cancel,
+        label: S.of(context).cancel,
+        color: redColor,
+      ));
+    }
+
+    if (data.actions.canReschedule) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showRescheduleDialog(context, data),
+        icon: Icons.schedule,
+        label: 'Reschedule',
+        color: Colors.blue,
+      ));
+    }
+
+    if (data.actions.canSendMessage) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showMessageDialog(context, data),
+        icon: Icons.message,
+        label: S.of(context).sendMessage,
+        color: Colors.purple,
+      ));
+    }
+
+    if (data.actions.canAddWorkEvidence) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showAddWorkEvidenceDialog(context, data),
+        icon: Icons.add_photo_alternate,
+        label: 'Add Evidence',
+        color: Colors.orange,
+      ));
+    }
+
+    if (data.actions.canLeaveReview) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showReviewDialog(context, data),
+        icon: Icons.star_rate,
+        label: 'Leave Review',
+        color: Colors.amber,
+      ));
+    }
+
+    if (data.actions.canConfirmEvent) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showConfirmDialog(context, data),
+        icon: Icons.check_circle,
+        label: S.of(context).confirm,
+        color: Colors.green,
+      ));
+    }
+
+    if (data.actions.canRejectEvent) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showRejectDialog(context, data),
+        icon: Icons.highlight_off,
+        label: S.of(context).reject,
+        color: Colors.redAccent,
+      ));
+    }
+
+    if (data.actions.canAppeal) {
+      actionButtons.add(_ActionButton(
+        onPressed: () => _showAppealDialog(context, data),
+        icon: Icons.policy,
+        label: S.of(context).appeal,
+        color: Colors.indigo,
+      ));
+    }
+
+    if (actionButtons.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Improved button layout with better visual hierarchy
+    return Container(
+      decoration: BoxDecoration(
+        color: explorerSecondaryColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: actionButtons.length <= 2
+            ? Row(
+                children: actionButtons.map((button) => 
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: _buildActionButton(button),
+                    ),
+                  ),
+                ).toList(),
+              )
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: actionButtons.map((button) => 
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: SizedBox(
+                        width: 140,
+                        child: _buildActionButton(button),
+                      ),
+                    ),
+                  ).toList(),
+                ),
+              ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton(_ActionButton button) {
+    return ElevatedButton.icon(
+      onPressed: button.onPressed,
+      icon: Icon(button.icon, size: 20),
+      label: Text(
+        button.label,
+        style: TextStyleTheme.button.copyWith(fontSize: 14),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: button.color,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 2,
+      ),
+    );
+  }
+
+  // Navigation and dialog methods
+  void _navigateToArtistProfile(BuildContext context, String artistId) {
+    // TODO: Implement navigation to artist profile
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Navigate to artist profile: $artistId')),
+    );
+  }
+
+  void _viewFullImage(BuildContext context, String imageUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          body: Center(
+            child: Hero(
+              tag: 'image-full-$imageUrl',
+              child: InteractiveViewer(
+                child: Image.network(imageUrl),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openMap(BuildContext context, double latitude, double longitude, String title) async {
     final availableMaps = await MapLauncher.installedMaps;
     if (availableMaps.isNotEmpty) {
       await availableMaps.first.showMarker(
         coords: Coords(latitude, longitude),
         title: title,
       );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No maps application available')),
+      );
     }
   }
-  
-  void _navigateToEditEvent(BuildContext context, EventDetailResponse data) {
-    // Show alert dialog with warning about customer reselection
+
+  // Dialog methods
+  void _showCancelDialog(BuildContext context, EventDetailResponse data) {
+    _showActionDialog(
+      context: context,
+      title: S.of(context).cancelEvent,
+      content: 'Are you sure you want to cancel this event?',
+      actionText: S.of(context).cancel,
+      actionColor: redColor,
+      onConfirm: () {
+        // TODO: Implement cancel logic
+        print('Cancel event: ${data.actions.reasons.canCancel}');
+      },
+    );
+  }
+
+  void _showRescheduleDialog(BuildContext context, EventDetailResponse data) {
+    _showActionDialog(
+      context: context,
+      title: 'Reschedule Event',
+      content: 'Do you want to reschedule this event?',
+      actionText: 'Reschedule',
+      actionColor: Colors.blue,
+      onConfirm: () {
+        // TODO: Implement reschedule logic
+        print('Reschedule event: ${data.actions.reasons.canReschedule}');
+      },
+    );
+  }
+
+  void _showMessageDialog(BuildContext context, EventDetailResponse data) {
+    // TODO: Implement message dialog
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Send message functionality coming soon')),
+    );
+  }
+
+  void _showAddWorkEvidenceDialog(BuildContext context, EventDetailResponse data) {
+    // TODO: Implement add work evidence dialog
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Add work evidence functionality coming soon')),
+    );
+  }
+
+  void _showReviewDialog(BuildContext context, EventDetailResponse data) {
+    // TODO: Implement review dialog
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Leave review functionality coming soon')),
+    );
+  }
+
+  void _showConfirmDialog(BuildContext context, EventDetailResponse data) {
+    _showActionDialog(
+      context: context,
+      title: 'Confirm Event',
+      content: 'Are you sure you want to confirm this event?',
+      actionText: S.of(context).confirm,
+      actionColor: Colors.green,
+      onConfirm: () {
+        // TODO: Implement confirm logic
+        print('Confirm event: ${data.actions.reasons.canConfirmEvent}');
+      },
+    );
+  }
+
+  void _showRejectDialog(BuildContext context, EventDetailResponse data) {
+    _showActionDialog(
+      context: context,
+      title: 'Reject Event',
+      content: 'Are you sure you want to reject this event?',
+      actionText: S.of(context).reject,
+      actionColor: Colors.redAccent,
+      onConfirm: () {
+        // TODO: Implement reject logic
+        print('Reject event: ${data.actions.reasons.canRejectEvent}');
+      },
+    );
+  }
+
+  void _showAppealDialog(BuildContext context, EventDetailResponse data) {
+    _showActionDialog(
+      context: context,
+      title: 'Appeal Event',
+      content: 'Do you want to appeal this event decision?',
+      actionText: S.of(context).appeal,
+      actionColor: Colors.indigo,
+      onConfirm: () {
+        // TODO: Implement appeal logic
+        print('Appeal event: ${data.actions.reasons.canAppeal}');
+      },
+    );
+  }
+
+  void _showActionDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required String actionText,
+    required Color actionColor,
+    required VoidCallback onConfirm,
+  }) {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: explorerSecondaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
         title: Text(
-          S.of(context).edit,
-          style: TextStyleTheme.subtitle1,
+          title,
+          style: TextStyleTheme.headline3,
+        ),
+        content: Text(
+          content,
+          style: TextStyleTheme.bodyText1,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              S.of(context).cancel,
+              style: TextStyleTheme.button.copyWith(color: Colors.white70),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              onConfirm();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: actionColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              actionText,
+              style: TextStyleTheme.button,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _navigateToEditEvent(BuildContext context, EventDetailResponse data) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: explorerSecondaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: Row(
+          children: [
+            Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
+            const SizedBox(width: 12),
+            Text(
+              S.of(context).edit,
+              style: TextStyleTheme.headline3,
+            ),
+          ],
         ),
         content: Text(
           S.of(context).editEventWarning,
@@ -356,12 +848,9 @@ class AgendaEventDetailPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(dialogContext); // Close dialog
-              
-              // Convert AgendaEventDetailResponse to ArtistAgendaEventDetails
+              Navigator.pop(dialogContext);
               final eventDetails = _convertToEventDetails(data);
               
-              // Navigate to the edit page with required bloc providers
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -384,6 +873,9 @@ class AgendaEventDetailPage extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.secondary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: Text(
               S.of(context).confirm,
@@ -395,7 +887,6 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
   
-  // Helper method to convert AgendaEventDetailResponse to ArtistAgendaEventDetails
   ArtistAgendaEventDetails _convertToEventDetails(EventDetailResponse data) {
     return ArtistAgendaEventDetails(
       id: data.event.id.toString(),
@@ -405,275 +896,10 @@ class AgendaEventDetailPage extends StatelessWidget {
       endDate: data.event.endDateTime ,
       location: data.location.formattedAddress,
       notes: data.event.notes,
-      // Note: We can also store the customerId for potential use in the form
-      // but we don't directly pass a CustomerDTO object
     );
   }
 
-  Widget _buildQuotationCard(BuildContext context, Quotation quotation) {
-    final DateFormat dateFormat = DateFormat('d MMM yyyy', Intl.defaultLocale);
-    final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
-    final statusColor = _getQuotationStatusColor(quotation.status);
-    final statusText = _getQuotationStatusText(context, quotation.status);
-
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: Theme.of(context).colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.receipt_long, color: Theme.of(context).colorScheme.secondary, size: 28),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    S.of(context).quotationDetails,
-                    style: TextStyleTheme.headline3,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: statusColor),
-                  ),
-                  child: Text(
-                    statusText,
-                    style: TextStyleTheme.caption.copyWith(color: statusColor),
-                  ),
-                ),
-              ],
-            ),
-            const Divider(height: 32),
-            _InfoRow(
-              icon: Icons.description_outlined,
-              title: S.of(context).description,
-              content: quotation.description.isNotEmpty ? quotation.description : '-',
-            ),
-            const SizedBox(height: 12),
-            if (quotation.estimatedCost != null)
-              _InfoRow(
-                icon: Icons.attach_money,
-                title: S.of(context).estimatedCost,
-                content: quotation.estimatedCost!.formatWithSymbol(),
-              ),
-            if (quotation.minBudget != null || quotation.maxBudget != null)
-              _InfoRow(
-                icon: Icons.account_balance_wallet_outlined,
-                title: S.of(context).budget,
-                content: _formatBudget(quotation),
-              ),
-            if (quotation.referenceBudget != null)
-              _InfoRow(
-                icon: Icons.info_outline,
-                title: S.of(context).referenceBudget(quotation.referenceBudget!.amount, quotation.referenceBudget!.currency),
-                content: quotation.referenceBudget!.formatWithSymbol(),
-              ),
-            if (quotation.customer != null)
-              _InfoRow(
-                icon: Icons.person_outline,
-                title: S.of(context).customer,
-                content: _formatFullName(quotation.customer!.firstName, quotation.customer!.lastName),
-              ),
-            if (quotation.artist != null)
-              _InfoRow(
-                icon: Icons.brush_outlined,
-                title: S.of(context).artist,
-                content: _formatFullName(quotation.artist!.firstName, quotation.artist!.lastName),
-              ),
-            _InfoRow(
-              icon: Icons.calendar_today,
-              title: S.of(context).createdAt,
-              content: dateFormat.format(quotation.createdAt),
-            ),
-            if (quotation.appointmentDate != null)
-              _InfoRow(
-                icon: Icons.event,
-                title: S.of(context).appointmentDate,
-                content: dateFormat.format(quotation.appointmentDate!),
-              ),
-            if (quotation.canceledDate != null)
-              _InfoRow(
-                icon: Icons.cancel,
-                title: S.of(context).statusCanceled,
-                content: dateFormat.format(quotation.canceledDate!),
-              ),
-            if (quotation.rejectedDate != null)
-              _InfoRow(
-                icon: Icons.block,
-                title: S.of(context).statusRejected,
-                content: dateFormat.format(quotation.rejectedDate!),
-              ),
-            if (quotation.tattooDesignImageUrl != null && quotation.tattooDesignImageUrl!.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Text(S.of(context).proposedDesign, style: TextStyleTheme.subtitle1),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  quotation.tattooDesignImageUrl!,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 200,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    color: Colors.grey[300],
-                    height: 200,
-                    child: const Center(child: Icon(Icons.broken_image, size: 48)),
-                  ),
-                ),
-              ),
-            ],
-            if (quotation.referenceImages != null && quotation.referenceImages!.metadata.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Text(S.of(context).referenceImages, style: TextStyleTheme.subtitle1),
-              const SizedBox(height: 8),
-              _buildQuotationImagesGrid(quotation.referenceImages!.metadata),
-            ],
-            if (quotation.proposedDesigns != null && quotation.proposedDesigns!.metadata.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Text(S.of(context).proposedDesigns, style: TextStyleTheme.subtitle1),
-              const SizedBox(height: 8),
-              _buildQuotationImagesGrid(quotation.proposedDesigns!.metadata),
-            ],
-            if (quotation.cancelReasonDetails != null && quotation.cancelReasonDetails!.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              _InfoRow(
-                icon: Icons.info_outline,
-                title: S.of(context).cancellationReason,
-                content: quotation.cancelReasonDetails!,
-              ),
-            ],
-            if (quotation.customerRejectReason != null) ...[
-              const SizedBox(height: 16),
-              _InfoRow(
-                icon: Icons.thumb_down,
-                title: S.of(context).rejectionReason,
-                content: _getCustomerRejectReasonText(context, quotation.customerRejectReason!),
-              ),
-            ],
-            if (quotation.artistRejectReason != null) ...[
-              const SizedBox(height: 16),
-              _InfoRow(
-                icon: Icons.thumb_down,
-                title: S.of(context).rejectionReason,
-                content: _getArtistRejectReasonText(context, quotation.artistRejectReason!),
-              ),
-            ],
-            if (quotation.systemCancelReason != null) ...[
-              const SizedBox(height: 16),
-              _InfoRow(
-                icon: Icons.cancel_schedule_send,
-                title: S.of(context).systemCancellationReason,
-                content: _getSystemCancelReasonText(context, quotation.systemCancelReason!),
-              ),
-            ],
-            if (quotation.offers != null && quotation.offers!.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Text(S.of(context).offers, style: TextStyleTheme.subtitle1),
-              const SizedBox(height: 8),
-              ...quotation.offers!.map((offer) => _buildOfferRow(context, offer)),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildQuotationImagesGrid(List<dynamic> images) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-      ),
-      itemCount: images.length,
-      itemBuilder: (context, index) {
-        final img = images[index];
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            img.url,
-            fit: BoxFit.cover,
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildOfferRow(BuildContext context, dynamic offer) {
-    return Card(
-      color: Colors.black12,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      child: ListTile(
-        leading: Icon(Icons.local_offer, color: Theme.of(context).colorScheme.secondary),
-        title: Text(offer.artistName ?? '-', style: TextStyleTheme.bodyText1),
-        subtitle: offer.estimatedCost != null
-            ? Text(offer.estimatedCost!.formatWithSymbol(), style: TextStyleTheme.caption)
-            : null,
-      ),
-    );
-  }
-
-  Color _getQuotationStatusColor(QuotationStatus status) {
-    switch (status) {
-      case QuotationStatus.pending:
-        return Colors.orange;
-      case QuotationStatus.quoted:
-        return Colors.blue;
-      case QuotationStatus.accepted:
-        return Colors.green;
-      case QuotationStatus.rejected:
-        return Colors.red;
-      case QuotationStatus.appealed:
-        return Colors.purple;
-      case QuotationStatus.canceled:
-        return Colors.grey;
-      case QuotationStatus.open:
-        return Colors.teal;
-      default:
-        return Colors.grey;
-    }
-  }
-
-  String _getQuotationStatusText(BuildContext context, QuotationStatus status) {
-    switch (status) {
-      case QuotationStatus.pending:
-        return S.of(context).statusPending;
-      case QuotationStatus.quoted:
-        return S.of(context).statusQuoted;
-      case QuotationStatus.accepted:
-        return S.of(context).statusAccepted;
-      case QuotationStatus.rejected:
-        return S.of(context).statusRejected;
-      case QuotationStatus.appealed:
-        return S.of(context).statusAppealed;
-      case QuotationStatus.canceled:
-        return S.of(context).statusCanceled;
-      case QuotationStatus.open:
-        return S.of(context).open;
-      default:
-        return '-';
-    }
-  }
-
-  String _formatBudget(Quotation quotation) {
-    if (quotation.minBudget != null && quotation.maxBudget != null) {
-      return '${quotation.minBudget!.formatWithSymbol()} - ${quotation.maxBudget!.formatWithSymbol()}';
-    } else if (quotation.minBudget != null) {
-      return '${quotation.minBudget!.formatWithSymbol()}+';
-    } else if (quotation.maxBudget != null) {
-      return '< ${quotation.maxBudget!.formatWithSymbol()}';
-    } else {
-      return '-';
-    }
-  }
-
+  // Helper methods for quotation reasons
   String _getCustomerRejectReasonText(BuildContext context, QuotationCustomerRejectReason reason) {
     switch (reason) {
       case QuotationCustomerRejectReason.tooExpensive:
@@ -719,69 +945,75 @@ class AgendaEventDetailPage extends StatelessWidget {
     }
   }
 
-  String _formatFullName(String? firstName, String? lastName) {
-    if ((firstName ?? '').isEmpty && (lastName ?? '').isEmpty) return '-';
-    return [firstName, lastName].where((e) => (e ?? '').isNotEmpty).join(' ');
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String content;
-
-  const _InfoRow({
-    required this.icon,
-    required this.title,
-    required this.content,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: Theme.of(context).colorScheme.tertiary, size: 20),
-        const SizedBox(width: 12),
-        Column(
+  Widget _buildWorkEvidenceCard(BuildContext context, WorkEvidence workEvidence) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyleTheme.caption.copyWith(color: Theme.of(context).colorScheme.tertiary),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              content,
-              style: TextStyleTheme.bodyText1,
-            ),
+            if (workEvidence.metadata.isEmpty) 
+              Text(
+                S.of(context).noWorkEvidence, 
+                style: TextStyleTheme.bodyText1,
+              )
+            else ...[
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                itemCount: workEvidence.metadata.length,
+                itemBuilder: (context, index) {
+                  final imageUrl = workEvidence.metadata[index].url;
+                  return Hero(
+                    tag: 'work-evidence-$index-$imageUrl',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _viewFullImage(context, imageUrl),
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              color: Colors.grey[800],
+                              child: const Center(
+                                child: Icon(Icons.broken_image, color: Colors.grey, size: 24),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ],
         ),
-      ],
+      ),
     );
   }
 }
 
-class _StatusChip extends StatelessWidget {
-  final bool isDone;
+// Helper class for action buttons
+class _ActionButton {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final String label;
+  final Color color;
 
-  const _StatusChip({required this.isDone});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isDone ? Colors.green : Colors.orange;
-    final text = isDone ? S.of(context).completed : S.of(context).upcomming;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color),
-      ),
-      child: Text(
-        text,
-        style: TextStyleTheme.caption.copyWith(color: color),
-      ),
-    );
-  }
+  const _ActionButton({
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
 }

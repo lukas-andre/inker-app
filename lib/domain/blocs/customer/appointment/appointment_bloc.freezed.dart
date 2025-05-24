@@ -22,6 +22,7 @@ mixin _$AppointmentEvent {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -40,6 +41,7 @@ mixin _$AppointmentEvent {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -56,6 +58,7 @@ mixin _$AppointmentEvent {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -73,6 +76,8 @@ mixin _$AppointmentEvent {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -87,6 +92,8 @@ mixin _$AppointmentEvent {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -101,6 +108,7 @@ mixin _$AppointmentEvent {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -171,6 +179,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -192,6 +201,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -211,6 +221,7 @@ class _$StartedImpl implements _Started {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -234,6 +245,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -251,6 +264,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -268,6 +283,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -365,6 +381,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -386,6 +403,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -405,6 +423,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -428,6 +447,8 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -445,6 +466,8 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -462,6 +485,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -530,6 +554,7 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -551,6 +576,7 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -570,6 +596,7 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -593,6 +620,8 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -610,6 +639,8 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -627,6 +658,7 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -714,6 +746,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -735,6 +768,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -754,6 +788,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -777,6 +812,8 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -794,6 +831,8 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -811,6 +850,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -832,6 +872,206 @@ abstract class _GetAppointmentById implements AppointmentEvent {
   @JsonKey(ignore: true)
   _$$GetAppointmentByIdImplCopyWith<_$GetAppointmentByIdImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RefreshAppointmentDetailImplCopyWith<$Res> {
+  factory _$$RefreshAppointmentDetailImplCopyWith(
+          _$RefreshAppointmentDetailImpl value,
+          $Res Function(_$RefreshAppointmentDetailImpl) then) =
+      __$$RefreshAppointmentDetailImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$RefreshAppointmentDetailImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$RefreshAppointmentDetailImpl>
+    implements _$$RefreshAppointmentDetailImplCopyWith<$Res> {
+  __$$RefreshAppointmentDetailImplCopyWithImpl(
+      _$RefreshAppointmentDetailImpl _value,
+      $Res Function(_$RefreshAppointmentDetailImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$RefreshAppointmentDetailImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
+  const _$RefreshAppointmentDetailImpl(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.refreshAppointmentDetail(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RefreshAppointmentDetailImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RefreshAppointmentDetailImplCopyWith<_$RefreshAppointmentDetailImpl>
+      get copyWith => __$$RefreshAppointmentDetailImplCopyWithImpl<
+          _$RefreshAppointmentDetailImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? status, bool isRefresh) loadAppointments,
+    required TResult Function() loadMoreAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)
+        requestAppointmentChange,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String status) filterByStatus,
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
+        rsvpForAppointment,
+  }) {
+    return refreshAppointmentDetail(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? status, bool isRefresh)? loadAppointments,
+    TResult? Function()? loadMoreAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String status)? filterByStatus,
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+  }) {
+    return refreshAppointmentDetail?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? status, bool isRefresh)? loadAppointments,
+    TResult Function()? loadMoreAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String status)? filterByStatus,
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    required TResult orElse(),
+  }) {
+    if (refreshAppointmentDetail != null) {
+      return refreshAppointmentDetail(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_RequestAppointmentChange value)
+        requestAppointmentChange,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_FilterByStatus value) filterByStatus,
+    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+  }) {
+    return refreshAppointmentDetail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_RequestAppointmentChange value)?
+        requestAppointmentChange,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_FilterByStatus value)? filterByStatus,
+    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+  }) {
+    return refreshAppointmentDetail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_FilterByStatus value)? filterByStatus,
+    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    required TResult orElse(),
+  }) {
+    if (refreshAppointmentDetail != null) {
+      return refreshAppointmentDetail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshAppointmentDetail implements AppointmentEvent {
+  const factory _RefreshAppointmentDetail(final String id) =
+      _$RefreshAppointmentDetailImpl;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$RefreshAppointmentDetailImplCopyWith<_$RefreshAppointmentDetailImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -941,6 +1181,7 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -963,6 +1204,7 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -983,6 +1225,7 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1007,6 +1250,8 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -1024,6 +1269,8 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -1041,6 +1288,7 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -1150,6 +1398,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -1171,6 +1420,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1190,6 +1440,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1213,6 +1464,8 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -1230,6 +1483,8 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -1247,6 +1502,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -1342,6 +1598,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -1363,6 +1620,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1382,6 +1640,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1405,6 +1664,8 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -1422,6 +1683,8 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -1439,6 +1702,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -1531,6 +1795,7 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -1552,6 +1817,7 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1571,6 +1837,7 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1594,6 +1861,8 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -1611,6 +1880,8 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -1628,6 +1899,7 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -1743,6 +2015,7 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     required TResult Function(String? status, bool isRefresh) loadAppointments,
     required TResult Function() loadMoreAppointments,
     required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)
         requestAppointmentChange,
@@ -1764,6 +2037,7 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult? Function(String? status, bool isRefresh)? loadAppointments,
     TResult? Function()? loadMoreAppointments,
     TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1783,6 +2057,7 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult Function(String? status, bool isRefresh)? loadAppointments,
     TResult Function()? loadMoreAppointments,
     TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, DateTime? newStartDate,
             DateTime? newEndDate, String? reason)?
         requestAppointmentChange,
@@ -1806,6 +2081,8 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     required TResult Function(_LoadAppointments value) loadAppointments,
     required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
     required TResult Function(_RequestAppointmentChange value)
         requestAppointmentChange,
     required TResult Function(_CancelAppointment value) cancelAppointment,
@@ -1823,6 +2100,8 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult? Function(_LoadAppointments value)? loadAppointments,
     TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
     TResult? Function(_RequestAppointmentChange value)?
         requestAppointmentChange,
     TResult? Function(_CancelAppointment value)? cancelAppointment,
@@ -1840,6 +2119,7 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult Function(_LoadAppointments value)? loadAppointments,
     TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
     TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
@@ -1880,6 +2160,7 @@ mixin _$AppointmentState {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -1902,6 +2183,7 @@ mixin _$AppointmentState {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -1924,6 +2206,7 @@ mixin _$AppointmentState {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2040,6 +2323,7 @@ class _$InitialImpl implements _Initial {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -2065,6 +2349,7 @@ class _$InitialImpl implements _Initial {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2090,6 +2375,7 @@ class _$InitialImpl implements _Initial {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2208,6 +2494,7 @@ class _$LoadingImpl implements _Loading {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -2233,6 +2520,7 @@ class _$LoadingImpl implements _Loading {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2258,6 +2546,7 @@ class _$LoadingImpl implements _Loading {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2342,6 +2631,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       int totalPages,
       bool hasReachedMax,
       bool isLoadingMore,
+      bool isRefreshing,
       String? currentFilter,
       AppointmentDetailDto? selectedAppointment});
 
@@ -2364,6 +2654,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
     Object? totalPages = null,
     Object? hasReachedMax = null,
     Object? isLoadingMore = null,
+    Object? isRefreshing = null,
     Object? currentFilter = freezed,
     Object? selectedAppointment = freezed,
   }) {
@@ -2387,6 +2678,10 @@ class __$$LoadedImplCopyWithImpl<$Res>
       isLoadingMore: null == isLoadingMore
           ? _value.isLoadingMore
           : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isRefreshing: null == isRefreshing
+          ? _value.isRefreshing
+          : isRefreshing // ignore: cast_nullable_to_non_nullable
               as bool,
       currentFilter: freezed == currentFilter
           ? _value.currentFilter
@@ -2422,6 +2717,7 @@ class _$LoadedImpl implements _Loaded {
       this.totalPages = 1,
       this.hasReachedMax = false,
       this.isLoadingMore = false,
+      this.isRefreshing = false,
       this.currentFilter,
       this.selectedAppointment})
       : _appointments = appointments;
@@ -2446,13 +2742,16 @@ class _$LoadedImpl implements _Loaded {
   @JsonKey()
   final bool isLoadingMore;
   @override
+  @JsonKey()
+  final bool isRefreshing;
+  @override
   final String? currentFilter;
   @override
   final AppointmentDetailDto? selectedAppointment;
 
   @override
   String toString() {
-    return 'AppointmentState.loaded(appointments: $appointments, currentPage: $currentPage, totalPages: $totalPages, hasReachedMax: $hasReachedMax, isLoadingMore: $isLoadingMore, currentFilter: $currentFilter, selectedAppointment: $selectedAppointment)';
+    return 'AppointmentState.loaded(appointments: $appointments, currentPage: $currentPage, totalPages: $totalPages, hasReachedMax: $hasReachedMax, isLoadingMore: $isLoadingMore, isRefreshing: $isRefreshing, currentFilter: $currentFilter, selectedAppointment: $selectedAppointment)';
   }
 
   @override
@@ -2470,6 +2769,8 @@ class _$LoadedImpl implements _Loaded {
                 other.hasReachedMax == hasReachedMax) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
                 other.isLoadingMore == isLoadingMore) &&
+            (identical(other.isRefreshing, isRefreshing) ||
+                other.isRefreshing == isRefreshing) &&
             (identical(other.currentFilter, currentFilter) ||
                 other.currentFilter == currentFilter) &&
             (identical(other.selectedAppointment, selectedAppointment) ||
@@ -2484,6 +2785,7 @@ class _$LoadedImpl implements _Loaded {
       totalPages,
       hasReachedMax,
       isLoadingMore,
+      isRefreshing,
       currentFilter,
       selectedAppointment);
 
@@ -2504,6 +2806,7 @@ class _$LoadedImpl implements _Loaded {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -2516,7 +2819,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(String message, String? preservedFilter) error,
   }) {
     return loaded(appointments, currentPage, totalPages, hasReachedMax,
-        isLoadingMore, currentFilter, selectedAppointment);
+        isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
   }
 
   @override
@@ -2530,6 +2833,7 @@ class _$LoadedImpl implements _Loaded {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2542,7 +2846,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(String message, String? preservedFilter)? error,
   }) {
     return loaded?.call(appointments, currentPage, totalPages, hasReachedMax,
-        isLoadingMore, currentFilter, selectedAppointment);
+        isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
   }
 
   @override
@@ -2556,6 +2860,7 @@ class _$LoadedImpl implements _Loaded {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2570,7 +2875,7 @@ class _$LoadedImpl implements _Loaded {
   }) {
     if (loaded != null) {
       return loaded(appointments, currentPage, totalPages, hasReachedMax,
-          isLoadingMore, currentFilter, selectedAppointment);
+          isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
     }
     return orElse();
   }
@@ -2632,6 +2937,7 @@ abstract class _Loaded implements AppointmentState {
       final int totalPages,
       final bool hasReachedMax,
       final bool isLoadingMore,
+      final bool isRefreshing,
       final String? currentFilter,
       final AppointmentDetailDto? selectedAppointment}) = _$LoadedImpl;
 
@@ -2640,6 +2946,7 @@ abstract class _Loaded implements AppointmentState {
   int get totalPages;
   bool get hasReachedMax;
   bool get isLoadingMore;
+  bool get isRefreshing;
   String? get currentFilter;
   AppointmentDetailDto? get selectedAppointment;
   @JsonKey(ignore: true)
@@ -2781,6 +3088,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -2807,6 +3115,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2833,6 +3142,7 @@ class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -2966,6 +3276,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -2991,6 +3302,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3016,6 +3328,7 @@ class _$ActionInProgressImpl implements _ActionInProgress {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3134,6 +3447,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -3159,6 +3473,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3184,6 +3499,7 @@ class _$ActionSuccessImpl implements _ActionSuccess {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3328,6 +3644,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -3353,6 +3670,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3378,6 +3696,7 @@ class _$ActionFailedImpl implements _ActionFailed {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3536,6 +3855,7 @@ class _$ErrorImpl implements _Error {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)
         loaded,
@@ -3561,6 +3881,7 @@ class _$ErrorImpl implements _Error {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
@@ -3586,6 +3907,7 @@ class _$ErrorImpl implements _Error {
             int totalPages,
             bool hasReachedMax,
             bool isLoadingMore,
+            bool isRefreshing,
             String? currentFilter,
             AppointmentDetailDto? selectedAppointment)?
         loaded,

@@ -337,7 +337,7 @@ class _QuotationOfferMessageViewState
           Icon(
             Icons.message,
             size: 64,
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           const SizedBox(height: 16),
           Text(
@@ -522,7 +522,7 @@ class _QuotationOfferMessageViewState
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
