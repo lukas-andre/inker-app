@@ -34,6 +34,7 @@ class Artist with _$Artist {
     int? stencilsCount,
     int? visibleWorksCount,
     int? visibleStencilsCount,
+    @Default(false) bool requiresBasicConsent,
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);

@@ -24,6 +24,7 @@ mixin _$AppointmentDetailDto {
   Artist get artist => throw _privateConstructorUsedError;
   Location get location => throw _privateConstructorUsedError;
   Quotation get quotation => throw _privateConstructorUsedError;
+  EventActions get actions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,12 +42,14 @@ abstract class $AppointmentDetailDtoCopyWith<$Res> {
       {AppointmentEventDto event,
       Artist artist,
       Location location,
-      Quotation quotation});
+      Quotation quotation,
+      EventActions actions});
 
   $AppointmentEventDtoCopyWith<$Res> get event;
   $ArtistCopyWith<$Res> get artist;
   $LocationCopyWith<$Res> get location;
   $QuotationCopyWith<$Res> get quotation;
+  $EventActionsCopyWith<$Res> get actions;
 }
 
 /// @nodoc
@@ -67,6 +70,7 @@ class _$AppointmentDetailDtoCopyWithImpl<$Res,
     Object? artist = null,
     Object? location = null,
     Object? quotation = null,
+    Object? actions = null,
   }) {
     return _then(_value.copyWith(
       event: null == event
@@ -85,6 +89,10 @@ class _$AppointmentDetailDtoCopyWithImpl<$Res,
           ? _value.quotation
           : quotation // ignore: cast_nullable_to_non_nullable
               as Quotation,
+      actions: null == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as EventActions,
     ) as $Val);
   }
 
@@ -119,6 +127,14 @@ class _$AppointmentDetailDtoCopyWithImpl<$Res,
       return _then(_value.copyWith(quotation: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $EventActionsCopyWith<$Res> get actions {
+    return $EventActionsCopyWith<$Res>(_value.actions, (value) {
+      return _then(_value.copyWith(actions: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -133,7 +149,8 @@ abstract class _$$AppointmentDetailDtoImplCopyWith<$Res>
       {AppointmentEventDto event,
       Artist artist,
       Location location,
-      Quotation quotation});
+      Quotation quotation,
+      EventActions actions});
 
   @override
   $AppointmentEventDtoCopyWith<$Res> get event;
@@ -143,6 +160,8 @@ abstract class _$$AppointmentDetailDtoImplCopyWith<$Res>
   $LocationCopyWith<$Res> get location;
   @override
   $QuotationCopyWith<$Res> get quotation;
+  @override
+  $EventActionsCopyWith<$Res> get actions;
 }
 
 /// @nodoc
@@ -160,6 +179,7 @@ class __$$AppointmentDetailDtoImplCopyWithImpl<$Res>
     Object? artist = null,
     Object? location = null,
     Object? quotation = null,
+    Object? actions = null,
   }) {
     return _then(_$AppointmentDetailDtoImpl(
       event: null == event
@@ -178,6 +198,10 @@ class __$$AppointmentDetailDtoImplCopyWithImpl<$Res>
           ? _value.quotation
           : quotation // ignore: cast_nullable_to_non_nullable
               as Quotation,
+      actions: null == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as EventActions,
     ));
   }
 }
@@ -189,7 +213,8 @@ class _$AppointmentDetailDtoImpl implements _AppointmentDetailDto {
       {required this.event,
       required this.artist,
       required this.location,
-      required this.quotation});
+      required this.quotation,
+      required this.actions});
 
   factory _$AppointmentDetailDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppointmentDetailDtoImplFromJson(json);
@@ -202,10 +227,12 @@ class _$AppointmentDetailDtoImpl implements _AppointmentDetailDto {
   final Location location;
   @override
   final Quotation quotation;
+  @override
+  final EventActions actions;
 
   @override
   String toString() {
-    return 'AppointmentDetailDto(event: $event, artist: $artist, location: $location, quotation: $quotation)';
+    return 'AppointmentDetailDto(event: $event, artist: $artist, location: $location, quotation: $quotation, actions: $actions)';
   }
 
   @override
@@ -218,13 +245,14 @@ class _$AppointmentDetailDtoImpl implements _AppointmentDetailDto {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.quotation, quotation) ||
-                other.quotation == quotation));
+                other.quotation == quotation) &&
+            (identical(other.actions, actions) || other.actions == actions));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, event, artist, location, quotation);
+      Object.hash(runtimeType, event, artist, location, quotation, actions);
 
   @JsonKey(ignore: true)
   @override
@@ -247,7 +275,8 @@ abstract class _AppointmentDetailDto implements AppointmentDetailDto {
       {required final AppointmentEventDto event,
       required final Artist artist,
       required final Location location,
-      required final Quotation quotation}) = _$AppointmentDetailDtoImpl;
+      required final Quotation quotation,
+      required final EventActions actions}) = _$AppointmentDetailDtoImpl;
 
   factory _AppointmentDetailDto.fromJson(Map<String, dynamic> json) =
       _$AppointmentDetailDtoImpl.fromJson;
@@ -260,6 +289,8 @@ abstract class _AppointmentDetailDto implements AppointmentDetailDto {
   Location get location;
   @override
   Quotation get quotation;
+  @override
+  EventActions get actions;
   @override
   @JsonKey(ignore: true)
   _$$AppointmentDetailDtoImplCopyWith<_$AppointmentDetailDtoImpl>

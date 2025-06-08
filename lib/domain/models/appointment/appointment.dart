@@ -7,6 +7,7 @@ part 'appointment.g.dart';
 
 enum AppointmentStatus {
   pending,
+  confirmed,
   scheduled,
   inProgress,
   completed,

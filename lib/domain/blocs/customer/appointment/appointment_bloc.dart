@@ -4,6 +4,8 @@ import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
 import 'package:inker_studio/domain/services/appointment/appointment_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/services/consent/consent_service.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';
@@ -12,13 +14,19 @@ part 'appointment_bloc.freezed.dart';
 class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   final AppointmentService _appointmentService;
   final LocalSessionService _sessionService;
+  final AgendaService _agendaService;
+  final ConsentService _consentService;
   static const int _itemsPerPage = 10;
 
   AppointmentBloc({
     required AppointmentService appointmentService,
     required LocalSessionService sessionService,
+    required AgendaService agendaService,
+    required ConsentService consentService,
   }) : _appointmentService = appointmentService,
        _sessionService = sessionService,
+       _agendaService = agendaService,
+       _consentService = consentService,
        super(const AppointmentState.initial()) {
     on<AppointmentEvent>((event, emit) async {
       await event.when(
@@ -35,6 +43,14 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         filterByStatus: (status) => _filterByStatus(emit, status),
         rsvpForAppointment: (appointmentId, agendaId, willAttend) =>
             _rsvpForAppointment(emit, appointmentId, agendaId, willAttend),
+        confirmAppointment: (appointmentId, agendaId) =>
+            _confirmAppointment(emit, appointmentId, agendaId),
+        rejectAppointment: (appointmentId, agendaId, reason) =>
+            _rejectAppointment(emit, appointmentId, agendaId, reason),
+        reviewAppointment: (appointmentId, agendaId, rating, comment, isAnonymous) =>
+            _reviewAppointment(emit, appointmentId, agendaId, rating, comment, isAnonymous),
+        appealAppointment: (appointmentId, agendaId, reason) =>
+            _appealAppointment(emit, appointmentId, agendaId, reason),
       );
     });
   }
@@ -402,6 +418,134 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       
       // Reload appointments to reflect changes
       add(const AppointmentEvent.loadAppointments(isRefresh: true));
+    } catch (e) {
+      emit(AppointmentState.actionFailed(e.toString()));
+    }
+  }
+
+  Future<void> _confirmAppointment(
+    Emitter<AppointmentState> emit,
+    String appointmentId,
+    String agendaId,
+  ) async {
+    emit(const AppointmentState.actionInProgress());
+
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const AppointmentState.actionFailed('No active session found'));
+        return;
+      }
+
+      // Check if consent is required and has been signed
+      final consentStatus = await _consentService.checkConsentStatus(appointmentId, token);
+      final hasSigned = consentStatus['hasSigned'] as bool? ?? false;
+
+      if (!hasSigned) {
+        emit(const AppointmentState.actionFailed('You must accept the terms and conditions before confirming the appointment'));
+        return;
+      }
+
+      await _agendaService.confirmEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: appointmentId,
+      );
+
+      emit(const AppointmentState.actionSuccess());
+      
+      // Reload appointment detail
+      add(AppointmentEvent.refreshAppointmentDetail(appointmentId));
+    } catch (e) {
+      emit(AppointmentState.actionFailed(e.toString()));
+    }
+  }
+
+  Future<void> _rejectAppointment(
+    Emitter<AppointmentState> emit,
+    String appointmentId,
+    String agendaId,
+    String? reason,
+  ) async {
+    emit(const AppointmentState.actionInProgress());
+
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const AppointmentState.actionFailed('No active session found'));
+        return;
+      }
+
+      await _agendaService.rejectEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: appointmentId,
+      );
+
+      emit(const AppointmentState.actionSuccess());
+      
+      // Reload appointment detail
+      add(AppointmentEvent.refreshAppointmentDetail(appointmentId));
+    } catch (e) {
+      emit(AppointmentState.actionFailed(e.toString()));
+    }
+  }
+
+  Future<void> _reviewAppointment(
+    Emitter<AppointmentState> emit,
+    String appointmentId,
+    String agendaId,
+    int rating,
+    String comment,
+    bool isAnonymous,
+  ) async {
+    emit(const AppointmentState.actionInProgress());
+
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const AppointmentState.actionFailed('No active session found'));
+        return;
+      }
+
+      await _agendaService.reviewEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: appointmentId,
+        rating: rating,
+        comment: comment,
+        isAnonymous: isAnonymous,
+      );
+
+      emit(const AppointmentState.actionSuccess());
+      
+      // Reload appointment detail
+      add(AppointmentEvent.refreshAppointmentDetail(appointmentId));
+    } catch (e) {
+      emit(AppointmentState.actionFailed(e.toString()));
+    }
+  }
+
+  Future<void> _appealAppointment(
+    Emitter<AppointmentState> emit,
+    String appointmentId,
+    String agendaId,
+    String reason,
+  ) async {
+    emit(const AppointmentState.actionInProgress());
+
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const AppointmentState.actionFailed('No active session found'));
+        return;
+      }
+
+      // TODO: Implement appeal endpoint when available
+      // For now, just show success message
+      await Future.delayed(const Duration(seconds: 1));
+
+      emit(const AppointmentState.actionSuccess());
     } catch (e) {
       emit(AppointmentState.actionFailed(e.toString()));
     }

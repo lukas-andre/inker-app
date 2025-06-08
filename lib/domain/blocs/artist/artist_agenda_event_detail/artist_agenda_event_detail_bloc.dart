@@ -31,6 +31,20 @@ class ArtistAgendaEventDetailBloc
             _updateEventNotes(emit, agendaId, eventId, notes),
         rescheduleEvent: (agendaId, eventId, newStartDate, newEndDate, reason) async => 
             _rescheduleEvent(emit, agendaId, eventId, newStartDate, newEndDate, reason),
+        cancelEvent: (agendaId, eventId, reason) async =>
+            _cancelEvent(emit, agendaId, eventId, reason),
+        confirmEvent: (agendaId, eventId) async =>
+            _confirmEvent(emit, agendaId, eventId),
+        rejectEvent: (agendaId, eventId, reason) async =>
+            _rejectEvent(emit, agendaId, eventId, reason),
+        markEventAsDone: (agendaId, eventId, workEvidenceFiles) async =>
+            _markEventAsDone(emit, agendaId, eventId, workEvidenceFiles),
+        addWorkEvidence: (agendaId, eventId, imageFiles) async =>
+            _addWorkEvidence(emit, agendaId, eventId, imageFiles),
+        reviewEvent: (agendaId, eventId, rating, comment, isAnonymous) async =>
+            _reviewEvent(emit, agendaId, eventId, rating, comment, isAnonymous),
+        changeEventStatus: (agendaId, eventId, status, reason) async =>
+            _changeEventStatus(emit, agendaId, eventId, status, reason),
       );
     });
   }
@@ -104,6 +118,228 @@ class ArtistAgendaEventDetailBloc
         eventId: eventId,
         newStartDate: newStartDate,
         newEndDate: newEndDate,
+        reason: reason,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _cancelEvent(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      String reason) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.cancelEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        reason: reason,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _confirmEvent(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.confirmEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _rejectEvent(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      String? reason) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.rejectEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _markEventAsDone(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      List<String>? workEvidenceFiles) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.markEventAsDone(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        workEvidenceFiles: workEvidenceFiles,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _addWorkEvidence(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      List<String> imageFiles) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      // For now, we'll use markEventAsDone with files
+      // TODO: Create a dedicated endpoint for adding work evidence
+      await _agendaService.markEventAsDone(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        workEvidenceFiles: imageFiles,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _reviewEvent(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      int rating,
+      String comment,
+      bool isAnonymous) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.reviewEvent(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        rating: rating,
+        comment: comment,
+        isAnonymous: isAnonymous,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _changeEventStatus(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId,
+      String status,
+      String? reason) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      await _agendaService.changeEventStatus(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        status: status,
         reason: reason,
       );
       

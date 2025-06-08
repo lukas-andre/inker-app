@@ -29,6 +29,7 @@ mixin _$EventActionReasons {
   String? get canConfirmEvent => throw _privateConstructorUsedError;
   String? get canRejectEvent => throw _privateConstructorUsedError;
   String? get canAppeal => throw _privateConstructorUsedError;
+  String? get canAcceptConsent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $EventActionReasonsCopyWith<$Res> {
       String? canLeaveReview,
       String? canConfirmEvent,
       String? canRejectEvent,
-      String? canAppeal});
+      String? canAppeal,
+      String? canAcceptConsent});
 }
 
 /// @nodoc
@@ -76,6 +78,7 @@ class _$EventActionReasonsCopyWithImpl<$Res, $Val extends EventActionReasons>
     Object? canConfirmEvent = freezed,
     Object? canRejectEvent = freezed,
     Object? canAppeal = freezed,
+    Object? canAcceptConsent = freezed,
   }) {
     return _then(_value.copyWith(
       canEdit: freezed == canEdit
@@ -114,6 +117,10 @@ class _$EventActionReasonsCopyWithImpl<$Res, $Val extends EventActionReasons>
           ? _value.canAppeal
           : canAppeal // ignore: cast_nullable_to_non_nullable
               as String?,
+      canAcceptConsent: freezed == canAcceptConsent
+          ? _value.canAcceptConsent
+          : canAcceptConsent // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -135,7 +142,8 @@ abstract class _$$EventActionReasonsImplCopyWith<$Res>
       String? canLeaveReview,
       String? canConfirmEvent,
       String? canRejectEvent,
-      String? canAppeal});
+      String? canAppeal,
+      String? canAcceptConsent});
 }
 
 /// @nodoc
@@ -158,6 +166,7 @@ class __$$EventActionReasonsImplCopyWithImpl<$Res>
     Object? canConfirmEvent = freezed,
     Object? canRejectEvent = freezed,
     Object? canAppeal = freezed,
+    Object? canAcceptConsent = freezed,
   }) {
     return _then(_$EventActionReasonsImpl(
       canEdit: freezed == canEdit
@@ -196,6 +205,10 @@ class __$$EventActionReasonsImplCopyWithImpl<$Res>
           ? _value.canAppeal
           : canAppeal // ignore: cast_nullable_to_non_nullable
               as String?,
+      canAcceptConsent: freezed == canAcceptConsent
+          ? _value.canAcceptConsent
+          : canAcceptConsent // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -212,7 +225,8 @@ class _$EventActionReasonsImpl implements _EventActionReasons {
       required this.canLeaveReview,
       required this.canConfirmEvent,
       required this.canRejectEvent,
-      required this.canAppeal});
+      required this.canAppeal,
+      required this.canAcceptConsent});
 
   factory _$EventActionReasonsImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventActionReasonsImplFromJson(json);
@@ -235,10 +249,12 @@ class _$EventActionReasonsImpl implements _EventActionReasons {
   final String? canRejectEvent;
   @override
   final String? canAppeal;
+  @override
+  final String? canAcceptConsent;
 
   @override
   String toString() {
-    return 'EventActionReasons(canEdit: $canEdit, canCancel: $canCancel, canReschedule: $canReschedule, canSendMessage: $canSendMessage, canAddWorkEvidence: $canAddWorkEvidence, canLeaveReview: $canLeaveReview, canConfirmEvent: $canConfirmEvent, canRejectEvent: $canRejectEvent, canAppeal: $canAppeal)';
+    return 'EventActionReasons(canEdit: $canEdit, canCancel: $canCancel, canReschedule: $canReschedule, canSendMessage: $canSendMessage, canAddWorkEvidence: $canAddWorkEvidence, canLeaveReview: $canLeaveReview, canConfirmEvent: $canConfirmEvent, canRejectEvent: $canRejectEvent, canAppeal: $canAppeal, canAcceptConsent: $canAcceptConsent)';
   }
 
   @override
@@ -262,7 +278,9 @@ class _$EventActionReasonsImpl implements _EventActionReasons {
             (identical(other.canRejectEvent, canRejectEvent) ||
                 other.canRejectEvent == canRejectEvent) &&
             (identical(other.canAppeal, canAppeal) ||
-                other.canAppeal == canAppeal));
+                other.canAppeal == canAppeal) &&
+            (identical(other.canAcceptConsent, canAcceptConsent) ||
+                other.canAcceptConsent == canAcceptConsent));
   }
 
   @JsonKey(ignore: true)
@@ -277,7 +295,8 @@ class _$EventActionReasonsImpl implements _EventActionReasons {
       canLeaveReview,
       canConfirmEvent,
       canRejectEvent,
-      canAppeal);
+      canAppeal,
+      canAcceptConsent);
 
   @JsonKey(ignore: true)
   @override
@@ -304,7 +323,8 @@ abstract class _EventActionReasons implements EventActionReasons {
       required final String? canLeaveReview,
       required final String? canConfirmEvent,
       required final String? canRejectEvent,
-      required final String? canAppeal}) = _$EventActionReasonsImpl;
+      required final String? canAppeal,
+      required final String? canAcceptConsent}) = _$EventActionReasonsImpl;
 
   factory _EventActionReasons.fromJson(Map<String, dynamic> json) =
       _$EventActionReasonsImpl.fromJson;
@@ -328,6 +348,8 @@ abstract class _EventActionReasons implements EventActionReasons {
   @override
   String? get canAppeal;
   @override
+  String? get canAcceptConsent;
+  @override
   @JsonKey(ignore: true)
   _$$EventActionReasonsImplCopyWith<_$EventActionReasonsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -348,6 +370,7 @@ mixin _$EventActions {
   bool get canConfirmEvent => throw _privateConstructorUsedError;
   bool get canRejectEvent => throw _privateConstructorUsedError;
   bool get canAppeal => throw _privateConstructorUsedError;
+  bool get canAcceptConsent => throw _privateConstructorUsedError;
   EventActionReasons get reasons => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -372,6 +395,7 @@ abstract class $EventActionsCopyWith<$Res> {
       bool canConfirmEvent,
       bool canRejectEvent,
       bool canAppeal,
+      bool canAcceptConsent,
       EventActionReasons reasons});
 
   $EventActionReasonsCopyWith<$Res> get reasons;
@@ -399,6 +423,7 @@ class _$EventActionsCopyWithImpl<$Res, $Val extends EventActions>
     Object? canConfirmEvent = null,
     Object? canRejectEvent = null,
     Object? canAppeal = null,
+    Object? canAcceptConsent = null,
     Object? reasons = null,
   }) {
     return _then(_value.copyWith(
@@ -438,6 +463,10 @@ class _$EventActionsCopyWithImpl<$Res, $Val extends EventActions>
           ? _value.canAppeal
           : canAppeal // ignore: cast_nullable_to_non_nullable
               as bool,
+      canAcceptConsent: null == canAcceptConsent
+          ? _value.canAcceptConsent
+          : canAcceptConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
       reasons: null == reasons
           ? _value.reasons
           : reasons // ignore: cast_nullable_to_non_nullable
@@ -472,6 +501,7 @@ abstract class _$$EventActionsImplCopyWith<$Res>
       bool canConfirmEvent,
       bool canRejectEvent,
       bool canAppeal,
+      bool canAcceptConsent,
       EventActionReasons reasons});
 
   @override
@@ -498,6 +528,7 @@ class __$$EventActionsImplCopyWithImpl<$Res>
     Object? canConfirmEvent = null,
     Object? canRejectEvent = null,
     Object? canAppeal = null,
+    Object? canAcceptConsent = null,
     Object? reasons = null,
   }) {
     return _then(_$EventActionsImpl(
@@ -537,6 +568,10 @@ class __$$EventActionsImplCopyWithImpl<$Res>
           ? _value.canAppeal
           : canAppeal // ignore: cast_nullable_to_non_nullable
               as bool,
+      canAcceptConsent: null == canAcceptConsent
+          ? _value.canAcceptConsent
+          : canAcceptConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
       reasons: null == reasons
           ? _value.reasons
           : reasons // ignore: cast_nullable_to_non_nullable
@@ -558,6 +593,7 @@ class _$EventActionsImpl implements _EventActions {
       required this.canConfirmEvent,
       required this.canRejectEvent,
       required this.canAppeal,
+      required this.canAcceptConsent,
       required this.reasons});
 
   factory _$EventActionsImpl.fromJson(Map<String, dynamic> json) =>
@@ -582,11 +618,13 @@ class _$EventActionsImpl implements _EventActions {
   @override
   final bool canAppeal;
   @override
+  final bool canAcceptConsent;
+  @override
   final EventActionReasons reasons;
 
   @override
   String toString() {
-    return 'EventActions(canEdit: $canEdit, canCancel: $canCancel, canReschedule: $canReschedule, canSendMessage: $canSendMessage, canAddWorkEvidence: $canAddWorkEvidence, canLeaveReview: $canLeaveReview, canConfirmEvent: $canConfirmEvent, canRejectEvent: $canRejectEvent, canAppeal: $canAppeal, reasons: $reasons)';
+    return 'EventActions(canEdit: $canEdit, canCancel: $canCancel, canReschedule: $canReschedule, canSendMessage: $canSendMessage, canAddWorkEvidence: $canAddWorkEvidence, canLeaveReview: $canLeaveReview, canConfirmEvent: $canConfirmEvent, canRejectEvent: $canRejectEvent, canAppeal: $canAppeal, canAcceptConsent: $canAcceptConsent, reasons: $reasons)';
   }
 
   @override
@@ -611,6 +649,8 @@ class _$EventActionsImpl implements _EventActions {
                 other.canRejectEvent == canRejectEvent) &&
             (identical(other.canAppeal, canAppeal) ||
                 other.canAppeal == canAppeal) &&
+            (identical(other.canAcceptConsent, canAcceptConsent) ||
+                other.canAcceptConsent == canAcceptConsent) &&
             (identical(other.reasons, reasons) || other.reasons == reasons));
   }
 
@@ -627,6 +667,7 @@ class _$EventActionsImpl implements _EventActions {
       canConfirmEvent,
       canRejectEvent,
       canAppeal,
+      canAcceptConsent,
       reasons);
 
   @JsonKey(ignore: true)
@@ -654,6 +695,7 @@ abstract class _EventActions implements EventActions {
       required final bool canConfirmEvent,
       required final bool canRejectEvent,
       required final bool canAppeal,
+      required final bool canAcceptConsent,
       required final EventActionReasons reasons}) = _$EventActionsImpl;
 
   factory _EventActions.fromJson(Map<String, dynamic> json) =
@@ -677,6 +719,8 @@ abstract class _EventActions implements EventActions {
   bool get canRejectEvent;
   @override
   bool get canAppeal;
+  @override
+  bool get canAcceptConsent;
   @override
   EventActionReasons get reasons;
   @override

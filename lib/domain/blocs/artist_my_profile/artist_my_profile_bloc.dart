@@ -31,6 +31,8 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
             await _updateStudioPhoto(image, emit),
         updateEmail: (email) => _updateEmail(email, emit),
         updatePhone: (phone) => _updatePhone(phone, emit),
+        updateRequiresBasicConsent: (requiresConsent) =>
+            _updateRequiresBasicConsent(requiresConsent, emit),
       );
     });
   }
@@ -53,6 +55,7 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
         firstName: artist.firstName,
         lastName: artist.lastName,
         shortDescription: artist.shortDescription,
+        requiresBasicConsent: artist.requiresBasicConsent,
         contact: UpdateContactDto(
           email: artist.contact?.email,
           phone: artist.contact?.phone,
@@ -207,6 +210,21 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
       orElse: () {
         emit(const ArtistProfileState.error(
             'No se puede actualizar el teléfono porque el perfil no está cargado.'));
+      },
+    );
+  }
+
+  Future<void> _updateRequiresBasicConsent(
+      bool requiresConsent, Emitter<ArtistProfileState> emit) async {
+    state.maybeWhen(
+      loaded: (artist) {
+        final updatedArtist =
+            artist.copyWith(requiresBasicConsent: requiresConsent);
+        add(ArtistProfileEvent.updateProfile(updatedArtist));
+      },
+      orElse: () {
+        emit(const ArtistProfileState.error(
+            'Cannot update consent setting because profile is not loaded.'));
       },
     );
   }

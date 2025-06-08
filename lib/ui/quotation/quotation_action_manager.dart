@@ -7,6 +7,7 @@ import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart'
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/ui/shared/widgets/simple_consent_dialog.dart';
 
 enum QuotationActionType {
   reply,
@@ -184,6 +185,28 @@ class QuotationActionManager {
 
   Future<void> executeAction(QuotationAction action) async {
     if (action.routeName != null) {
+      // ** V1 Consent Check **
+      // If the user is a customer accepting an offer, check if consent is needed.
+      if (!isArtist &&
+          action.type == QuotationActionType.accept &&
+          quotation.artist?.requiresBasicConsent == true) {
+        
+        final consentGiven = await showDialog<bool>(
+          context: context,
+          builder: (_) => SimpleConsentDialog(
+            onConsentGiven: () {
+              // The dialog will pop itself with `true`, but we could
+              // also perform an action right when the user clicks confirm.
+            },
+          ),
+        );
+
+        // If the user did not give consent (closed the dialog or hit cancel), stop here.
+        if (consentGiven != true) {
+          return;
+        }
+      }
+      
       final result = await Navigator.of(context).pushNamed(
         action.routeName!,
         arguments: action.routeArguments,

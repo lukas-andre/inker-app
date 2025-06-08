@@ -17,6 +17,7 @@ _$EventActionReasonsImpl _$$EventActionReasonsImplFromJson(Map json) =>
       canConfirmEvent: json['canConfirmEvent'] as String?,
       canRejectEvent: json['canRejectEvent'] as String?,
       canAppeal: json['canAppeal'] as String?,
+      canAcceptConsent: json['canAcceptConsent'] as String?,
     );
 
 Map<String, dynamic> _$$EventActionReasonsImplToJson(
@@ -38,6 +39,7 @@ Map<String, dynamic> _$$EventActionReasonsImplToJson(
   writeNotNull('canConfirmEvent', instance.canConfirmEvent);
   writeNotNull('canRejectEvent', instance.canRejectEvent);
   writeNotNull('canAppeal', instance.canAppeal);
+  writeNotNull('canAcceptConsent', instance.canAcceptConsent);
   return val;
 }
 
@@ -51,6 +53,7 @@ _$EventActionsImpl _$$EventActionsImplFromJson(Map json) => _$EventActionsImpl(
       canConfirmEvent: json['canConfirmEvent'] as bool,
       canRejectEvent: json['canRejectEvent'] as bool,
       canAppeal: json['canAppeal'] as bool,
+      canAcceptConsent: json['canAcceptConsent'] as bool,
       reasons: EventActionReasons.fromJson(
           Map<String, dynamic>.from(json['reasons'] as Map)),
     );
@@ -66,5 +69,6 @@ Map<String, dynamic> _$$EventActionsImplToJson(_$EventActionsImpl instance) =>
       'canConfirmEvent': instance.canConfirmEvent,
       'canRejectEvent': instance.canRejectEvent,
       'canAppeal': instance.canAppeal,
+      'canAcceptConsent': instance.canAcceptConsent,
       'reasons': instance.reasons.toJson(),
     };

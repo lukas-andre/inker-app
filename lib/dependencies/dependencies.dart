@@ -5,6 +5,7 @@ import 'package:inker_studio/data/api/analytics/api_analytics_service.dart';
 import 'package:inker_studio/data/api/appointment/api_appointment_service.dart';
 import 'package:inker_studio/data/api/artist/api_artist_service.dart';
 import 'package:inker_studio/data/api/auth/api_auth_service.dart';
+import 'package:inker_studio/data/api/consent/api_consent_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/location/api_location_service.dart';
@@ -27,6 +28,7 @@ import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/analytics/analytics_service.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
 import 'package:inker_studio/domain/services/auth/auth_service.dart';
+import 'package:inker_studio/domain/services/consent/consent_service.dart';
 import 'package:inker_studio/domain/services/customer/customer_service.dart';
 import 'package:inker_studio/domain/services/customer/local_customer_service.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
@@ -128,6 +130,10 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Add the tattoo generator service
     RepositoryProvider<TattooGeneratorService>(
       create: (context) => TattooGeneratorClient(context.read<HttpClientService>()),
+    ),
+    // Add the consent service
+    RepositoryProvider<ConsentService>(
+      create: (context) => ApiConsentService(context.read<HttpClientService>()),
     ),
   ];
 }

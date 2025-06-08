@@ -46,6 +46,7 @@ _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
       stencilsCount: (json['stencilsCount'] as num?)?.toInt(),
       visibleWorksCount: (json['visibleWorksCount'] as num?)?.toInt(),
       visibleStencilsCount: (json['visibleStencilsCount'] as num?)?.toInt(),
+      requiresBasicConsent: json['requiresBasicConsent'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
@@ -85,6 +86,7 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
   writeNotNull('stencilsCount', instance.stencilsCount);
   writeNotNull('visibleWorksCount', instance.visibleWorksCount);
   writeNotNull('visibleStencilsCount', instance.visibleStencilsCount);
+  val['requiresBasicConsent'] = instance.requiresBasicConsent;
   return val;
 }
 

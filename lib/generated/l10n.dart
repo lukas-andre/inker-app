@@ -446,7 +446,7 @@ class S {
     return Intl.message(
       'Otro',
       name: 'other',
-      desc: 'Opción para seleccionar otro servicio.',
+      desc: 'Etiqueta para el tipo de consentimiento otro.',
       args: [],
     );
   }
@@ -7608,6 +7608,317 @@ class S {
       'Cita no encontrada',
       name: 'appointmentNotFound',
       desc: 'Mensaje mostrado cuando no se encuentra la cita.',
+      args: [],
+    );
+  }
+
+  /// `Confirmar evento`
+  String get confirmEvent {
+    return Intl.message(
+      'Confirmar evento',
+      name: 'confirmEvent',
+      desc: 'Texto para la acción de confirmar un evento.',
+      args: [],
+    );
+  }
+
+  /// `¿Estás seguro que deseas confirmar este evento?`
+  String get confirmEventMessage {
+    return Intl.message(
+      '¿Estás seguro que deseas confirmar este evento?',
+      name: 'confirmEventMessage',
+      desc: 'Mensaje de confirmación mostrado al confirmar un evento.',
+      args: [],
+    );
+  }
+
+  /// `Rechazar evento`
+  String get rejectEvent {
+    return Intl.message(
+      'Rechazar evento',
+      name: 'rejectEvent',
+      desc: 'Texto para la acción de rechazar un evento.',
+      args: [],
+    );
+  }
+
+  /// `Continuar`
+  String get continue_ {
+    return Intl.message(
+      'Continuar',
+      name: 'continue_',
+      desc: 'Texto para el botón de continuar.',
+      args: [],
+    );
+  }
+
+  /// `Reagendar`
+  String get reschedule {
+    return Intl.message(
+      'Reagendar',
+      name: 'reschedule',
+      desc: 'Texto para la acción de reagendar un evento.',
+      args: [],
+    );
+  }
+
+  /// `Comentar`
+  String get comment {
+    return Intl.message(
+      'Comentar',
+      name: 'comment',
+      desc: 'Texto para la acción de comentar un evento.',
+      args: [],
+    );
+  }
+
+  /// `Anónimo`
+  String get anonymous {
+    return Intl.message(
+      'Anónimo',
+      name: 'anonymous',
+      desc: 'Texto para la opción de enviar una reseña de forma anónima.',
+      args: [],
+    );
+  }
+
+  /// `Agregar foto`
+  String get addPhoto {
+    return Intl.message(
+      'Agregar foto',
+      name: 'addPhoto',
+      desc: 'Texto para el botón de agregar una foto.',
+      args: [],
+    );
+  }
+
+  /// `Galería`
+  String get gallery {
+    return Intl.message(
+      'Galería',
+      name: 'gallery',
+      desc: 'Texto para el botón de acceder a la galería de fotos.',
+      args: [],
+    );
+  }
+
+  /// `Plantillas de Consentimiento`
+  String get consentTemplates {
+    return Intl.message(
+      'Plantillas de Consentimiento',
+      name: 'consentTemplates',
+      desc: 'Título para la página de gestión de plantillas de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Crear Nueva Plantilla`
+  String get createNewTemplate {
+    return Intl.message(
+      'Crear Nueva Plantilla',
+      name: 'createNewTemplate',
+      desc: 'Texto para crear una nueva plantilla de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Aún no se han creado plantillas de consentimiento`
+  String get noConsentTemplates {
+    return Intl.message(
+      'Aún no se han creado plantillas de consentimiento',
+      name: 'noConsentTemplates',
+      desc: 'Mensaje mostrado cuando no existen plantillas de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Crear tu primera plantilla`
+  String get createFirstTemplate {
+    return Intl.message(
+      'Crear tu primera plantilla',
+      name: 'createFirstTemplate',
+      desc: 'Texto para crear la primera plantilla de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Términos Generales`
+  String get generalTerms {
+    return Intl.message(
+      'Términos Generales',
+      name: 'generalTerms',
+      desc: 'Etiqueta para el tipo de consentimiento de términos generales.',
+      args: [],
+    );
+  }
+
+  /// `Consentimiento de Tatuaje`
+  String get tattooConsent {
+    return Intl.message(
+      'Consentimiento de Tatuaje',
+      name: 'tattooConsent',
+      desc: 'Etiqueta para el tipo de consentimiento de tatuaje.',
+      args: [],
+    );
+  }
+
+  /// `Liberación de Imagen`
+  String get imageRelease {
+    return Intl.message(
+      'Liberación de Imagen',
+      name: 'imageRelease',
+      desc: 'Etiqueta para el tipo de consentimiento de liberación de imagen.',
+      args: [],
+    );
+  }
+
+  /// `Formularios de Consentimiento`
+  String get consentForms {
+    return Intl.message(
+      'Formularios de Consentimiento',
+      name: 'consentForms',
+      desc: 'Título para la página de formularios de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `No se requieren formularios de consentimiento para esta cita`
+  String get noConsentRequired {
+    return Intl.message(
+      'No se requieren formularios de consentimiento para esta cita',
+      name: 'noConsentRequired',
+      desc: 'Mensaje mostrado cuando no se requiere consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Todos los formularios de consentimiento completados`
+  String get allConsentsCompleted {
+    return Intl.message(
+      'Todos los formularios de consentimiento completados',
+      name: 'allConsentsCompleted',
+      desc: 'Mensaje mostrado cuando todos los consentimientos están firmados.',
+      args: [],
+    );
+  }
+
+  /// `Progreso de Consentimiento`
+  String get consentProgress {
+    return Intl.message(
+      'Progreso de Consentimiento',
+      name: 'consentProgress',
+      desc: 'Título para el progreso de completar consentimientos.',
+      args: [],
+    );
+  }
+
+  /// `Por favor revisa y completa este formulario de consentimiento`
+  String get consentFormDescription {
+    return Intl.message(
+      'Por favor revisa y completa este formulario de consentimiento',
+      name: 'consentFormDescription',
+      desc: 'Descripción predeterminada para formularios de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Firmar Consentimiento`
+  String get signConsent {
+    return Intl.message(
+      'Firmar Consentimiento',
+      name: 'signConsent',
+      desc: 'Texto para firmar un formulario de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Consentimientos`
+  String get consents {
+    return Intl.message(
+      'Consentimientos',
+      name: 'consents',
+      desc: 'Etiqueta para la sección de consentimientos.',
+      args: [],
+    );
+  }
+
+  /// `Ver Consentimientos`
+  String get viewConsents {
+    return Intl.message(
+      'Ver Consentimientos',
+      name: 'viewConsents',
+      desc: 'Texto para ver formularios de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Firmar Consentimientos Requeridos`
+  String get signRequiredConsents {
+    return Intl.message(
+      'Firmar Consentimientos Requeridos',
+      name: 'signRequiredConsents',
+      desc: 'Texto para firmar formularios de consentimiento requeridos.',
+      args: [],
+    );
+  }
+
+  /// `Consentimiento Requerido`
+  String get consentRequired {
+    return Intl.message(
+      'Consentimiento Requerido',
+      name: 'consentRequired',
+      desc: 'Mensaje indicando que se requiere consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Por favor firma los formularios de consentimiento requeridos antes de continuar`
+  String get pleaseSignConsents {
+    return Intl.message(
+      'Por favor firma los formularios de consentimiento requeridos antes de continuar',
+      name: 'pleaseSignConsents',
+      desc:
+          'Mensaje pidiendo al usuario que firme los formularios de consentimiento.',
+      args: [],
+    );
+  }
+
+  /// `Firmado`
+  String get signed {
+    return Intl.message(
+      'Firmado',
+      name: 'signed',
+      desc: 'Estado indicando que un formulario está firmado.',
+      args: [],
+    );
+  }
+
+  /// `Pendiente de Firma`
+  String get pendingSignature {
+    return Intl.message(
+      'Pendiente de Firma',
+      name: 'pendingSignature',
+      desc: 'Estado indicando que un formulario necesita ser firmado.',
+      args: [],
+    );
+  }
+
+  /// `Este campo es requerido`
+  String get fieldRequired {
+    return Intl.message(
+      'Este campo es requerido',
+      name: 'fieldRequired',
+      desc: 'Mensaje de validación para campos requeridos.',
+      args: [],
+    );
+  }
+
+  /// `Toca para firmar`
+  String get tapToSign {
+    return Intl.message(
+      'Toca para firmar',
+      name: 'tapToSign',
+      desc: 'Instrucción para el campo de firma.',
       args: [],
     );
   }

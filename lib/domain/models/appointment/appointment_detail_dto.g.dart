@@ -15,6 +15,8 @@ _$AppointmentDetailDtoImpl _$$AppointmentDetailDtoImplFromJson(Map json) =>
           Location.fromJson(Map<String, dynamic>.from(json['location'] as Map)),
       quotation: Quotation.fromJson(
           Map<String, dynamic>.from(json['quotation'] as Map)),
+      actions: EventActions.fromJson(
+          Map<String, dynamic>.from(json['actions'] as Map)),
     );
 
 Map<String, dynamic> _$$AppointmentDetailDtoImplToJson(
@@ -24,6 +26,7 @@ Map<String, dynamic> _$$AppointmentDetailDtoImplToJson(
       'artist': instance.artist.toJson(),
       'location': instance.location.toJson(),
       'quotation': instance.quotation.toJson(),
+      'actions': instance.actions.toJson(),
     };
 
 _$AppointmentEventDtoImpl _$$AppointmentEventDtoImplFromJson(Map json) =>

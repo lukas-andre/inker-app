@@ -1,4 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RemoteConfigService {
   final FirebaseRemoteConfig _remoteConfig;
@@ -23,8 +24,11 @@ class RemoteConfigService {
       minimumFetchInterval: Duration.zero,
     ));
 
+    final envApiUrl = dotenv.env['INKER_API_URL'] ?? 'https://api.inkerapp.com';
     await _remoteConfig.setDefaults({
-      'INKER_API_URL': '0.0.0.0',
+      'INKER_API_URL': envApiUrl,
+      'isConsentV1Enabled': true,
+      'isConsentV2Enabled': false,
     });
 
     await fetchAndActivate();
@@ -47,8 +51,31 @@ class RemoteConfigService {
     }
   }
 
-  String get inkerApiUrl => _remoteConfig.getString('INKER_API_URL');
+  String get inkerApiUrl {
+    final remoteConfigUrl = _remoteConfig.getString('INKER_API_URL');
+    
+    if (remoteConfigUrl.isEmpty || remoteConfigUrl == '0.0.0.0') {
+      final envUrl = dotenv.env['INKER_API_URL'];
+      if (envUrl != null && envUrl.isNotEmpty) {
+        print('RemoteConfigService: Using .env URL: $envUrl');
+        return envUrl;
+      }
+      print('RemoteConfigService: Using fallback URL');
+      return 'https://api.inkerapp.com';
+    }
+    
+    print('RemoteConfigService: Using remote config URL: $remoteConfigUrl');
+    return remoteConfigUrl;
+  }
   
+  bool get isConsentV1Enabled {
+    return _remoteConfig.getBool('isConsentV1Enabled');
+  }
+
+  bool get isConsentV2Enabled {
+    return _remoteConfig.getBool('isConsentV2Enabled');
+  }
+
   bool get _needsUpdate {
     final now = DateTime.now();
     return now.difference(_lastFetchTime) > _cacheExpiration;

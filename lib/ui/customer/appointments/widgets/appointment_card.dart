@@ -361,6 +361,12 @@ class AppointmentCard extends StatelessWidget {
           'icon': Icons.check_circle_outline,
           'text': S.of(context).scheduled,
         };
+      case AppointmentStatus.confirmed:
+        return {
+          'color': const Color(0xFF4CAF50),
+          'icon': Icons.verified,
+          'text': S.of(context).confirmed,
+        };
       case AppointmentStatus.inProgress:
         return {
           'color': const Color(0xFFFF9800),

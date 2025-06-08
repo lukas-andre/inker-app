@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/work_tab_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_settings_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
+import 'package:inker_studio/ui/artist/consent/consent_templates_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
@@ -16,6 +19,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart
 import 'package:inker_studio/domain/blocs/artist/artist_app/models/artist_page_nav_bar_icons.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
+import 'package:inker_studio/data/firebase/remote_config_service.dart';
 
 class ArtistAppPage extends StatefulWidget {
   const ArtistAppPage({super.key});
@@ -26,13 +30,7 @@ class ArtistAppPage extends StatefulWidget {
 
 class _ArtistAppPageState extends State<ArtistAppPage> {
   int _selectedIndex = 1;
-  static const List<Widget> _pageWidgets = <Widget>[
-    AgendaTablePage(hideHeader: true),
-    QuotationListPage(hideHeader: true),
-    WorkTabPage(),
-    ArtistMyProfilePage(),
-  ];
-
+  
   @override
   void initState() {
     super.initState();
@@ -45,7 +43,15 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
       );
     });
   }
-  
+
+  List<Widget> get _pageWidgets => <Widget>[
+    const AgendaTablePage(hideHeader: true),
+    const QuotationListPage(hideHeader: true),
+    const WorkTabPage(),
+    const ConsentTemplatesPage(),
+    const ArtistMyProfilePage(),
+  ];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -72,6 +78,8 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
         return S.of(context).quotations;
       case 2:
         return S.of(context).works;
+      case 3:
+        return 'Consent Templates'; // Temporary hardcoded string
       default:
         return '';
     }
@@ -119,7 +127,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     }
     
     // Add notification badge for all pages except profile
-    if (_selectedIndex != 3) {
+    if (_selectedIndex != 4) {
       actions.add(
         BlocBuilder<NotificationsBloc, NotificationsState>(
           builder: (context, state) {
@@ -187,6 +195,13 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
         index: 2,
       ),
       PageNavBarIcon(
+        key: const Key('consent_tab'),
+        icon: const Icon(Icons.description_outlined, color: Colors.white60),
+        selectedIcon: const Icon(Icons.description, color: Colors.white),
+        title: 'Consents', // Temporary hardcoded string
+        index: 3,
+      ),
+      PageNavBarIcon(
         key: K.profileTab,
         icon: const Icon(
           Icons.account_circle_outlined,
@@ -199,7 +214,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
           color: Colors.white,
         ),
         title: S.of(context).myProfile,
-        index: 3,
+        index: 4,
       ),
     ];
   }
@@ -210,7 +225,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     final state = artistAppBloc.state;
     final icons = _buildArtistNavBarIcons(context);
     
-    final bool showAppBar = _selectedIndex != 3;
+    final bool showAppBar = _selectedIndex != 4;
     
     return Scaffold(
       appBar: showAppBar ? AppBar(

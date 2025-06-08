@@ -128,4 +128,71 @@ abstract class AgendaService {
 
   Future<EventDetailResponse> getEventDetails(String eventId, String token);
   Future<EventDetailResponse> getCustomerEventDetails(String eventId, String token);
+
+  // Event Action Methods - Critical for supporting backend actions
+  Future<void> cancelEvent({
+    required String token,
+    required String agendaId,
+    required String eventId,
+    String? reason,
+  });
+
+  Future<void> confirmEvent({
+    required String token,
+    required String agendaId,
+    required String eventId,
+  });
+
+  Future<void> rejectEvent({
+    required String token,
+    required String agendaId,
+    required String eventId,
+  });
+
+  Future<void> markEventAsDone({
+    required String token,
+    required String agendaId,
+    required String eventId,
+    List<String>? workEvidenceFiles,
+  });
+
+  Future<void> changeEventStatus({
+    required String token,
+    required String agendaId,
+    required String eventId,
+    required String status,
+    String? reason,
+  });
+
+  Future<void> reviewEvent({
+    required String token,
+    required String agendaId,
+    required String eventId,
+    required int rating,
+    required String comment,
+    bool isAnonymous = false,
+  });
+
+  // Event Chat/Messaging Methods
+  Future<void> sendEventMessage({
+    required String token,
+    required String agendaId,
+    required String eventId,
+    required String message,
+    String? imageFilePath,
+  });
+
+  Future<List<dynamic>> getEventMessages({
+    required String token,
+    required String agendaId,
+    required String eventId,
+  });
+
+  // Specific agenda view methods
+  Future<List<EventItem>> getEventsByAgenda({
+    required String token,
+    required String agendaId,
+    required String viewType,
+    required String date,
+  });
 }

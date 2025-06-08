@@ -76,6 +76,7 @@ Map<String, dynamic> _$$AppointmentImplToJson(_$AppointmentImpl instance) {
 
 const _$AppointmentStatusEnumMap = {
   AppointmentStatus.pending: 'pending',
+  AppointmentStatus.confirmed: 'confirmed',
   AppointmentStatus.scheduled: 'scheduled',
   AppointmentStatus.inProgress: 'inProgress',
   AppointmentStatus.completed: 'completed',

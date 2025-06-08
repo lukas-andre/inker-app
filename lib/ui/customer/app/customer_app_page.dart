@@ -47,6 +47,8 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
           create: (context) => AppointmentBloc(
             appointmentService: context.read(),
             sessionService: context.read(),
+            agendaService: context.read(),
+            consentService: context.read(),
           ),
           child: const CustomerAppointmentsPage(hideHeader: true),
         ),

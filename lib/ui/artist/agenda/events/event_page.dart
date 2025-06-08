@@ -17,6 +17,9 @@ import 'package:inker_studio/ui/shared/event/event_main_info_card.dart';
 import 'package:inker_studio/ui/shared/event/event_description_card.dart';
 import 'package:inker_studio/ui/shared/event/event_location_card.dart';
 import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
+import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart';
+import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
   final String eventId;
@@ -628,13 +631,6 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   // Navigation and dialog methods
-  void _navigateToArtistProfile(BuildContext context, String artistId) {
-    // TODO: Implement navigation to artist profile
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Navigate to artist profile: $artistId')),
-    );
-  }
-
   void _viewFullImage(BuildContext context, String imageUrl) {
     Navigator.push(
       context,
@@ -672,218 +668,195 @@ class AgendaEventDetailPage extends StatelessWidget {
     }
   }
 
-  // Dialog methods
+  // Dialog methods using shared components
   void _showCancelDialog(BuildContext context, EventDetailResponse data) {
-    _showActionDialog(
+    EventActionDialogs.showTextInputDialog(
       context: context,
       title: S.of(context).cancelEvent,
-      content: 'Are you sure you want to cancel this event?',
+      hintText: S.of(context).cancellationReason,
       actionText: S.of(context).cancel,
       actionColor: redColor,
-      onConfirm: () {
-        // TODO: Implement cancel logic
-        print('Cancel event: ${data.actions.reasons.canCancel}');
+      icon: const Icon(Icons.cancel, color: redColor),
+      maxLines: 3,
+      required: true,
+      onConfirm: (reason) {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.cancelEvent(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+            reason: reason,
+          ),
+        );
       },
     );
   }
 
   void _showRescheduleDialog(BuildContext context, EventDetailResponse data) {
-    _showActionDialog(
+    EventActionDialogs.showRescheduleDialog(
       context: context,
-      title: 'Reschedule Event',
-      content: 'Do you want to reschedule this event?',
-      actionText: 'Reschedule',
-      actionColor: Colors.blue,
-      onConfirm: () {
-        // TODO: Implement reschedule logic
-        print('Reschedule event: ${data.actions.reasons.canReschedule}');
+      title: S.of(context).reschedule,
+      currentStartDate: data.event.startDateTime,
+      currentEndDate: data.event.endDateTime,
+      icon: const Icon(Icons.schedule, color: Colors.blue),
+      onConfirm: (newStartDate, newEndDate, reason) {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.rescheduleEvent(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+            newStartDate: newStartDate,
+            newEndDate: newEndDate,
+            reason: reason,
+          ),
+        );
       },
     );
   }
 
   void _showMessageDialog(BuildContext context, EventDetailResponse data) {
-    // TODO: Implement message dialog
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Send message functionality coming soon')),
+    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final customerName = data.artist.username ?? data.artist.username ?? S.of(context).customer;
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EventChatPage(
+          eventId: data.event.id.toString(),
+          agendaId: data.event.agenda.id,
+          eventTitle: data.event.title,
+          otherPartyName: customerName,
+          isArtist: isArtist,
+        ),
+      ),
     );
   }
 
   void _showAddWorkEvidenceDialog(BuildContext context, EventDetailResponse data) {
-    // TODO: Implement add work evidence dialog
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Add work evidence functionality coming soon')),
+    EventActionDialogs.showWorkEvidenceDialog(
+      context: context,
+      title: S.of(context).workEvidence,
+      icon: const Icon(Icons.add_photo_alternate, color: Colors.orange),
+      onConfirm: (imagePaths) {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.addWorkEvidence(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+            imageFiles: imagePaths,
+          ),
+        );
+      },
     );
   }
 
   void _showReviewDialog(BuildContext context, EventDetailResponse data) {
-    // TODO: Implement review dialog
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Leave review functionality coming soon')),
+    EventActionDialogs.showRatingDialog(
+      context: context,
+      title: S.of(context).leaveReview,
+      actionText: S.of(context).submit,
+      icon: const Icon(Icons.star_rate, color: Colors.amber),
+      onConfirm: (rating, comment, isAnonymous) {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.reviewEvent(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+            rating: rating,
+            comment: comment,
+            isAnonymous: isAnonymous,
+          ),
+        );
+      },
     );
   }
 
   void _showConfirmDialog(BuildContext context, EventDetailResponse data) {
-    _showActionDialog(
+    EventActionDialogs.showConfirmationDialog(
       context: context,
-      title: 'Confirm Event',
-      content: 'Are you sure you want to confirm this event?',
+      title: S.of(context).confirmEvent,
+      content: S.of(context).confirmEventMessage,
       actionText: S.of(context).confirm,
       actionColor: Colors.green,
+      icon: const Icon(Icons.check_circle, color: Colors.green),
       onConfirm: () {
-        // TODO: Implement confirm logic
-        print('Confirm event: ${data.actions.reasons.canConfirmEvent}');
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.confirmEvent(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+          ),
+        );
       },
     );
   }
 
   void _showRejectDialog(BuildContext context, EventDetailResponse data) {
-    _showActionDialog(
+    EventActionDialogs.showTextInputDialog(
       context: context,
-      title: 'Reject Event',
-      content: 'Are you sure you want to reject this event?',
+      title: S.of(context).rejectEvent,
+      hintText: S.of(context).rejectionReason,
       actionText: S.of(context).reject,
       actionColor: Colors.redAccent,
-      onConfirm: () {
-        // TODO: Implement reject logic
-        print('Reject event: ${data.actions.reasons.canRejectEvent}');
+      icon: const Icon(Icons.highlight_off, color: Colors.redAccent),
+      maxLines: 3,
+      onConfirm: (reason) {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.rejectEvent(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+            reason: reason.isEmpty ? null : reason,
+          ),
+        );
       },
     );
   }
 
   void _showAppealDialog(BuildContext context, EventDetailResponse data) {
-    _showActionDialog(
+    EventActionDialogs.showTextInputDialog(
       context: context,
-      title: 'Appeal Event',
-      content: 'Do you want to appeal this event decision?',
-      actionText: S.of(context).appeal,
+      title: S.of(context).appeal,
+      hintText: S.of(context).appealReason,
+      actionText: S.of(context).submit,
       actionColor: Colors.indigo,
-      onConfirm: () {
-        // TODO: Implement appeal logic
-        print('Appeal event: ${data.actions.reasons.canAppeal}');
+      icon: const Icon(Icons.policy, color: Colors.indigo),
+      maxLines: 5,
+      required: true,
+      onConfirm: (reason) {
+        // TODO: Implement appeal when endpoint is available
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).thisFeatureWillBeAvailableSoon)),
+        );
       },
     );
   }
 
-  void _showActionDialog({
-    required BuildContext context,
-    required String title,
-    required String content,
-    required String actionText,
-    required Color actionColor,
-    required VoidCallback onConfirm,
-  }) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: explorerSecondaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Text(
-          title,
-          style: TextStyleTheme.headline3,
-        ),
-        content: Text(
-          content,
-          style: TextStyleTheme.bodyText1,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(
-              S.of(context).cancel,
-              style: TextStyleTheme.button.copyWith(color: Colors.white70),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(dialogContext);
-              onConfirm();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: actionColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            child: Text(
-              actionText,
-              style: TextStyleTheme.button,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _navigateToEditEvent(BuildContext context, EventDetailResponse data) {
-    showDialog(
+    EventActionDialogs.showConfirmationDialog(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: explorerSecondaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Row(
-          children: [
-            Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
-            const SizedBox(width: 12),
-            Text(
-              S.of(context).edit,
-              style: TextStyleTheme.headline3,
-            ),
-          ],
-        ),
-        content: Text(
-          S.of(context).editEventWarning,
-          style: TextStyleTheme.bodyText1,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(
-              S.of(context).cancel,
-              style: TextStyleTheme.button.copyWith(color: Colors.white70),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(dialogContext);
-              final eventDetails = _convertToEventDetails(data);
-              
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(
-                        value: context.read<ArtistAgendaCreateEventBloc>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<AvailableTimeSlotsBloc>(),
-                      ),
-                    ],
-                    child: EventFormPage.edit(
-                      eventToEdit: eventDetails,
-                      title: S.of(context).editEvent,
-                    ),
-                  ),
+      title: S.of(context).edit,
+      content: S.of(context).editEventWarning,
+      actionText: S.of(context).continue_,
+      actionColor: Theme.of(context).colorScheme.secondary,
+      icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
+      onConfirm: () {
+        final eventDetails = _convertToEventDetails(data);
+        
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(
+                  value: context.read<ArtistAgendaCreateEventBloc>(),
                 ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                BlocProvider.value(
+                  value: context.read<AvailableTimeSlotsBloc>(),
+                ),
+              ],
+              child: EventFormPage.edit(
+                eventToEdit: eventDetails,
+                title: S.of(context).editEvent,
               ),
             ),
-            child: Text(
-              S.of(context).confirm,
-              style: TextStyleTheme.button,
-            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
   

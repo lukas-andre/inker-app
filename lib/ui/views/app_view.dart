@@ -56,6 +56,7 @@ import 'package:inker_studio/ui/theme/localization_cubit.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
+import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
 import 'package:inker_studio/ui/theme/app_theme.dart';
 
 class AppView extends StatefulWidget {
@@ -275,6 +276,15 @@ class _AppViewState extends State<AppView> {
             sessionService: context.read(),
           ),
         ),
+        
+        // Add FormTemplateBloc as a global provider
+        BlocProvider(
+          create: (context) => FormTemplateBloc(
+            consentService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+        
         // Notifications provider using the services registered at the app level
         BlocProvider(
           lazy: false,
