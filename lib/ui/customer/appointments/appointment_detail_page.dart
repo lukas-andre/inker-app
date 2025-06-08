@@ -20,10 +20,8 @@ import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart'
 import 'package:inker_studio/ui/shared/event/event_section_header.dart';
 import 'package:inker_studio/domain/blocs/consent/signed_consent/signed_consent_bloc.dart';
 import 'package:inker_studio/domain/services/consent/consent_service.dart';
-import 'package:inker_studio/domain/blocs/consent/consent_status/consent_status_bloc.dart';
-import 'package:inker_studio/domain/blocs/consent/consent_status/consent_status_event.dart';
-import 'package:inker_studio/ui/shared/consent/consent_modal.dart';
 import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
+import 'package:inker_studio/ui/shared/event/unified_confirmation_handler.dart';
 
 class AppointmentDetailPage extends StatelessWidget {
   final String appointmentId;
@@ -731,56 +729,11 @@ class AppointmentDetailPage extends StatelessWidget {
   }
 
   void _showConfirmDialog(BuildContext context, AppointmentDetailDto detail) {
-    final l10n = S.of(context);
-
-    // Check if consent is required
-    if (detail.actions.canAcceptConsent) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (dialogContext) => BlocProvider(
-          create: (context) => ConsentStatusBloc(
-            consentService: context.read<ConsentService>(),
-            sessionService: context.read<LocalSessionService>(),
-          )..add(ConsentStatusEvent.checkStatus(detail.event.id)),
-          child: ConsentModal(
-            eventId: detail.event.id,
-            onAccept: () {
-              // Cerrar la modal de consentimiento
-              Navigator.of(dialogContext).pop();
-              // Esperar un frame para asegurar que la modal se ha cerrado
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                // Mostrar la modal de confirmación
-                _showConfirmationDialog(context, detail);
-              });
-            },
-            onCancel: () => Navigator.of(dialogContext).pop(),
-          ),
-        ),
-      );
-    } else {
-      _showConfirmationDialog(context, detail);
-    }
-  }
-
-  void _showConfirmationDialog(BuildContext context, AppointmentDetailDto detail) {
-    final l10n = S.of(context);
-
-    dialogs.EventActionDialogs.showConfirmationDialog(
+    showUnifiedConfirmDialog(
       context: context,
-      title: l10n.confirmEvent,
-      content: l10n.confirmEventMessage,
-      actionText: l10n.confirm,
-      actionColor: Colors.green,
-      icon: const Icon(Icons.check_circle, color: Colors.green),
-      onConfirm: () {
-        context.read<AppointmentBloc>().add(
-              AppointmentEvent.confirmAppointment(
-                appointmentId: detail.event.id,
-                agendaId: detail.event.agenda.id,
-              ),
-            );
-      },
+      eventId: detail.event.id,
+      agendaId: detail.event.agenda.id,
+      canAcceptConsent: detail.actions.canAcceptConsent,
     );
   }
 

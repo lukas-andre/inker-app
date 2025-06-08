@@ -21,8 +21,7 @@ CustomerAppointmentsView _$CustomerAppointmentsViewFromJson(
 
 /// @nodoc
 mixin _$CustomerAppointmentsView {
-  CustomerAppointmentDto? get heroAppointment =>
-      throw _privateConstructorUsedError;
+  String? get heroAppointmentId => throw _privateConstructorUsedError;
   GroupedAppointments get appointments => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,11 +36,8 @@ abstract class $CustomerAppointmentsViewCopyWith<$Res> {
           $Res Function(CustomerAppointmentsView) then) =
       _$CustomerAppointmentsViewCopyWithImpl<$Res, CustomerAppointmentsView>;
   @useResult
-  $Res call(
-      {CustomerAppointmentDto? heroAppointment,
-      GroupedAppointments appointments});
+  $Res call({String? heroAppointmentId, GroupedAppointments appointments});
 
-  $CustomerAppointmentDtoCopyWith<$Res>? get heroAppointment;
   $GroupedAppointmentsCopyWith<$Res> get appointments;
 }
 
@@ -59,32 +55,19 @@ class _$CustomerAppointmentsViewCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? heroAppointment = freezed,
+    Object? heroAppointmentId = freezed,
     Object? appointments = null,
   }) {
     return _then(_value.copyWith(
-      heroAppointment: freezed == heroAppointment
-          ? _value.heroAppointment
-          : heroAppointment // ignore: cast_nullable_to_non_nullable
-              as CustomerAppointmentDto?,
+      heroAppointmentId: freezed == heroAppointmentId
+          ? _value.heroAppointmentId
+          : heroAppointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
       appointments: null == appointments
           ? _value.appointments
           : appointments // ignore: cast_nullable_to_non_nullable
               as GroupedAppointments,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CustomerAppointmentDtoCopyWith<$Res>? get heroAppointment {
-    if (_value.heroAppointment == null) {
-      return null;
-    }
-
-    return $CustomerAppointmentDtoCopyWith<$Res>(_value.heroAppointment!,
-        (value) {
-      return _then(_value.copyWith(heroAppointment: value) as $Val);
-    });
   }
 
   @override
@@ -105,12 +88,8 @@ abstract class _$$CustomerAppointmentsViewImplCopyWith<$Res>
       __$$CustomerAppointmentsViewImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {CustomerAppointmentDto? heroAppointment,
-      GroupedAppointments appointments});
+  $Res call({String? heroAppointmentId, GroupedAppointments appointments});
 
-  @override
-  $CustomerAppointmentDtoCopyWith<$Res>? get heroAppointment;
   @override
   $GroupedAppointmentsCopyWith<$Res> get appointments;
 }
@@ -128,14 +107,14 @@ class __$$CustomerAppointmentsViewImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? heroAppointment = freezed,
+    Object? heroAppointmentId = freezed,
     Object? appointments = null,
   }) {
     return _then(_$CustomerAppointmentsViewImpl(
-      heroAppointment: freezed == heroAppointment
-          ? _value.heroAppointment
-          : heroAppointment // ignore: cast_nullable_to_non_nullable
-              as CustomerAppointmentDto?,
+      heroAppointmentId: freezed == heroAppointmentId
+          ? _value.heroAppointmentId
+          : heroAppointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
       appointments: null == appointments
           ? _value.appointments
           : appointments // ignore: cast_nullable_to_non_nullable
@@ -147,21 +126,22 @@ class __$$CustomerAppointmentsViewImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$CustomerAppointmentsViewImpl implements _CustomerAppointmentsView {
+class _$CustomerAppointmentsViewImpl extends _CustomerAppointmentsView {
   const _$CustomerAppointmentsViewImpl(
-      {this.heroAppointment, required this.appointments});
+      {this.heroAppointmentId, required this.appointments})
+      : super._();
 
   factory _$CustomerAppointmentsViewImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerAppointmentsViewImplFromJson(json);
 
   @override
-  final CustomerAppointmentDto? heroAppointment;
+  final String? heroAppointmentId;
   @override
   final GroupedAppointments appointments;
 
   @override
   String toString() {
-    return 'CustomerAppointmentsView(heroAppointment: $heroAppointment, appointments: $appointments)';
+    return 'CustomerAppointmentsView(heroAppointmentId: $heroAppointmentId, appointments: $appointments)';
   }
 
   @override
@@ -169,15 +149,15 @@ class _$CustomerAppointmentsViewImpl implements _CustomerAppointmentsView {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CustomerAppointmentsViewImpl &&
-            (identical(other.heroAppointment, heroAppointment) ||
-                other.heroAppointment == heroAppointment) &&
+            (identical(other.heroAppointmentId, heroAppointmentId) ||
+                other.heroAppointmentId == heroAppointmentId) &&
             (identical(other.appointments, appointments) ||
                 other.appointments == appointments));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, heroAppointment, appointments);
+  int get hashCode => Object.hash(runtimeType, heroAppointmentId, appointments);
 
   @JsonKey(ignore: true)
   @override
@@ -194,17 +174,18 @@ class _$CustomerAppointmentsViewImpl implements _CustomerAppointmentsView {
   }
 }
 
-abstract class _CustomerAppointmentsView implements CustomerAppointmentsView {
+abstract class _CustomerAppointmentsView extends CustomerAppointmentsView {
   const factory _CustomerAppointmentsView(
-          {final CustomerAppointmentDto? heroAppointment,
+          {final String? heroAppointmentId,
           required final GroupedAppointments appointments}) =
       _$CustomerAppointmentsViewImpl;
+  const _CustomerAppointmentsView._() : super._();
 
   factory _CustomerAppointmentsView.fromJson(Map<String, dynamic> json) =
       _$CustomerAppointmentsViewImpl.fromJson;
 
   @override
-  CustomerAppointmentDto? get heroAppointment;
+  String? get heroAppointmentId;
   @override
   GroupedAppointments get appointments;
   @override
