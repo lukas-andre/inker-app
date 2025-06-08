@@ -19,22 +19,14 @@ mixin _$AppointmentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -49,20 +41,13 @@ mixin _$AppointmentEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -75,19 +60,12 @@ mixin _$AppointmentEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -102,17 +80,12 @@ mixin _$AppointmentEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -122,17 +95,12 @@ mixin _$AppointmentEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -142,15 +110,11 @@ mixin _$AppointmentEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -216,22 +180,14 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -249,20 +205,13 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -278,19 +227,12 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -311,17 +253,12 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -334,17 +271,12 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -357,15 +289,11 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -387,8 +315,6 @@ abstract class _$$LoadAppointmentsImplCopyWith<$Res> {
   factory _$$LoadAppointmentsImplCopyWith(_$LoadAppointmentsImpl value,
           $Res Function(_$LoadAppointmentsImpl) then) =
       __$$LoadAppointmentsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? status, bool isRefresh});
 }
 
 /// @nodoc
@@ -398,82 +324,39 @@ class __$$LoadAppointmentsImplCopyWithImpl<$Res>
   __$$LoadAppointmentsImplCopyWithImpl(_$LoadAppointmentsImpl _value,
       $Res Function(_$LoadAppointmentsImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? isRefresh = null,
-  }) {
-    return _then(_$LoadAppointmentsImpl(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isRefresh: null == isRefresh
-          ? _value.isRefresh
-          : isRefresh // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$LoadAppointmentsImpl implements _LoadAppointments {
-  const _$LoadAppointmentsImpl({this.status, this.isRefresh = false});
-
-  @override
-  final String? status;
-  @override
-  @JsonKey()
-  final bool isRefresh;
+  const _$LoadAppointmentsImpl();
 
   @override
   String toString() {
-    return 'AppointmentEvent.loadAppointments(status: $status, isRefresh: $isRefresh)';
+    return 'AppointmentEvent.loadAppointments()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadAppointmentsImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.isRefresh, isRefresh) ||
-                other.isRefresh == isRefresh));
+        (other.runtimeType == runtimeType && other is _$LoadAppointmentsImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, isRefresh);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadAppointmentsImplCopyWith<_$LoadAppointmentsImpl> get copyWith =>
-      __$$LoadAppointmentsImplCopyWithImpl<_$LoadAppointmentsImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -484,27 +367,20 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
             String appointmentId, String agendaId, String reason)
         appealAppointment,
   }) {
-    return loadAppointments(status, isRefresh);
+    return loadAppointments();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -513,26 +389,19 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
   }) {
-    return loadAppointments?.call(status, isRefresh);
+    return loadAppointments?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -543,7 +412,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult orElse(),
   }) {
     if (loadAppointments != null) {
-      return loadAppointments(status, isRefresh);
+      return loadAppointments();
     }
     return orElse();
   }
@@ -553,17 +422,12 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -576,17 +440,12 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -599,15 +458,11 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -621,220 +476,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
 }
 
 abstract class _LoadAppointments implements AppointmentEvent {
-  const factory _LoadAppointments(
-      {final String? status, final bool isRefresh}) = _$LoadAppointmentsImpl;
-
-  String? get status;
-  bool get isRefresh;
-  @JsonKey(ignore: true)
-  _$$LoadAppointmentsImplCopyWith<_$LoadAppointmentsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadMoreAppointmentsImplCopyWith<$Res> {
-  factory _$$LoadMoreAppointmentsImplCopyWith(_$LoadMoreAppointmentsImpl value,
-          $Res Function(_$LoadMoreAppointmentsImpl) then) =
-      __$$LoadMoreAppointmentsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadMoreAppointmentsImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$LoadMoreAppointmentsImpl>
-    implements _$$LoadMoreAppointmentsImplCopyWith<$Res> {
-  __$$LoadMoreAppointmentsImplCopyWithImpl(_$LoadMoreAppointmentsImpl _value,
-      $Res Function(_$LoadMoreAppointmentsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
-  const _$LoadMoreAppointmentsImpl();
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.loadMoreAppointments()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadMoreAppointmentsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return loadMoreAppointments();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return loadMoreAppointments?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (loadMoreAppointments != null) {
-      return loadMoreAppointments();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return loadMoreAppointments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return loadMoreAppointments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (loadMoreAppointments != null) {
-      return loadMoreAppointments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LoadMoreAppointments implements AppointmentEvent {
-  const factory _LoadMoreAppointments() = _$LoadMoreAppointmentsImpl;
+  const factory _LoadAppointments() = _$LoadAppointmentsImpl;
 }
 
 /// @nodoc
@@ -903,22 +545,14 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -936,20 +570,13 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -965,19 +592,12 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -998,17 +618,12 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -1021,17 +636,12 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -1044,15 +654,11 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -1071,6 +677,207 @@ abstract class _GetAppointmentById implements AppointmentEvent {
   String get id;
   @JsonKey(ignore: true)
   _$$GetAppointmentByIdImplCopyWith<_$GetAppointmentByIdImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkAsReadImplCopyWith<$Res> {
+  factory _$$MarkAsReadImplCopyWith(
+          _$MarkAsReadImpl value, $Res Function(_$MarkAsReadImpl) then) =
+      __$$MarkAsReadImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String appointmentId});
+}
+
+/// @nodoc
+class __$$MarkAsReadImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$MarkAsReadImpl>
+    implements _$$MarkAsReadImplCopyWith<$Res> {
+  __$$MarkAsReadImplCopyWithImpl(
+      _$MarkAsReadImpl _value, $Res Function(_$MarkAsReadImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+  }) {
+    return _then(_$MarkAsReadImpl(
+      null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MarkAsReadImpl implements _MarkAsRead {
+  const _$MarkAsReadImpl(this.appointmentId);
+
+  @override
+  final String appointmentId;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.markAsRead(appointmentId: $appointmentId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkAsReadImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
+      __$$MarkAsReadImplCopyWithImpl<_$MarkAsReadImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() loadAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return markAsRead(appointmentId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? loadAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return markAsRead?.call(appointmentId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? loadAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(appointmentId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return markAsRead(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return markAsRead?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (markAsRead != null) {
+      return markAsRead(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MarkAsRead implements AppointmentEvent {
+  const factory _MarkAsRead(final String appointmentId) = _$MarkAsReadImpl;
+
+  String get appointmentId;
+  @JsonKey(ignore: true)
+  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1142,22 +949,14 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -1175,20 +974,13 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -1204,19 +996,12 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -1237,17 +1022,12 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -1260,17 +1040,12 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -1283,15 +1058,11 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -1312,1280 +1083,6 @@ abstract class _RefreshAppointmentDetail implements AppointmentEvent {
   @JsonKey(ignore: true)
   _$$RefreshAppointmentDetailImplCopyWith<_$RefreshAppointmentDetailImpl>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$RequestAppointmentChangeImplCopyWith<$Res> {
-  factory _$$RequestAppointmentChangeImplCopyWith(
-          _$RequestAppointmentChangeImpl value,
-          $Res Function(_$RequestAppointmentChangeImpl) then) =
-      __$$RequestAppointmentChangeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {String appointmentId,
-      DateTime? newStartDate,
-      DateTime? newEndDate,
-      String? reason});
-}
-
-/// @nodoc
-class __$$RequestAppointmentChangeImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$RequestAppointmentChangeImpl>
-    implements _$$RequestAppointmentChangeImplCopyWith<$Res> {
-  __$$RequestAppointmentChangeImplCopyWithImpl(
-      _$RequestAppointmentChangeImpl _value,
-      $Res Function(_$RequestAppointmentChangeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appointmentId = null,
-    Object? newStartDate = freezed,
-    Object? newEndDate = freezed,
-    Object? reason = freezed,
-  }) {
-    return _then(_$RequestAppointmentChangeImpl(
-      appointmentId: null == appointmentId
-          ? _value.appointmentId
-          : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      newStartDate: freezed == newStartDate
-          ? _value.newStartDate
-          : newStartDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      newEndDate: freezed == newEndDate
-          ? _value.newEndDate
-          : newEndDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      reason: freezed == reason
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
-  const _$RequestAppointmentChangeImpl(
-      {required this.appointmentId,
-      this.newStartDate,
-      this.newEndDate,
-      this.reason});
-
-  @override
-  final String appointmentId;
-  @override
-  final DateTime? newStartDate;
-  @override
-  final DateTime? newEndDate;
-  @override
-  final String? reason;
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.requestAppointmentChange(appointmentId: $appointmentId, newStartDate: $newStartDate, newEndDate: $newEndDate, reason: $reason)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RequestAppointmentChangeImpl &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId) &&
-            (identical(other.newStartDate, newStartDate) ||
-                other.newStartDate == newStartDate) &&
-            (identical(other.newEndDate, newEndDate) ||
-                other.newEndDate == newEndDate) &&
-            (identical(other.reason, reason) || other.reason == reason));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, appointmentId, newStartDate, newEndDate, reason);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RequestAppointmentChangeImplCopyWith<_$RequestAppointmentChangeImpl>
-      get copyWith => __$$RequestAppointmentChangeImplCopyWithImpl<
-          _$RequestAppointmentChangeImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return requestAppointmentChange(
-        appointmentId, newStartDate, newEndDate, reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return requestAppointmentChange?.call(
-        appointmentId, newStartDate, newEndDate, reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (requestAppointmentChange != null) {
-      return requestAppointmentChange(
-          appointmentId, newStartDate, newEndDate, reason);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return requestAppointmentChange(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return requestAppointmentChange?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (requestAppointmentChange != null) {
-      return requestAppointmentChange(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RequestAppointmentChange implements AppointmentEvent {
-  const factory _RequestAppointmentChange(
-      {required final String appointmentId,
-      final DateTime? newStartDate,
-      final DateTime? newEndDate,
-      final String? reason}) = _$RequestAppointmentChangeImpl;
-
-  String get appointmentId;
-  DateTime? get newStartDate;
-  DateTime? get newEndDate;
-  String? get reason;
-  @JsonKey(ignore: true)
-  _$$RequestAppointmentChangeImplCopyWith<_$RequestAppointmentChangeImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$CancelAppointmentImplCopyWith<$Res> {
-  factory _$$CancelAppointmentImplCopyWith(_$CancelAppointmentImpl value,
-          $Res Function(_$CancelAppointmentImpl) then) =
-      __$$CancelAppointmentImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String appointmentId, String reason});
-}
-
-/// @nodoc
-class __$$CancelAppointmentImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$CancelAppointmentImpl>
-    implements _$$CancelAppointmentImplCopyWith<$Res> {
-  __$$CancelAppointmentImplCopyWithImpl(_$CancelAppointmentImpl _value,
-      $Res Function(_$CancelAppointmentImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appointmentId = null,
-    Object? reason = null,
-  }) {
-    return _then(_$CancelAppointmentImpl(
-      appointmentId: null == appointmentId
-          ? _value.appointmentId
-          : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      reason: null == reason
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CancelAppointmentImpl implements _CancelAppointment {
-  const _$CancelAppointmentImpl(
-      {required this.appointmentId, required this.reason});
-
-  @override
-  final String appointmentId;
-  @override
-  final String reason;
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.cancelAppointment(appointmentId: $appointmentId, reason: $reason)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CancelAppointmentImpl &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId) &&
-            (identical(other.reason, reason) || other.reason == reason));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, appointmentId, reason);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CancelAppointmentImplCopyWith<_$CancelAppointmentImpl> get copyWith =>
-      __$$CancelAppointmentImplCopyWithImpl<_$CancelAppointmentImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return cancelAppointment(appointmentId, reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return cancelAppointment?.call(appointmentId, reason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (cancelAppointment != null) {
-      return cancelAppointment(appointmentId, reason);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return cancelAppointment(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return cancelAppointment?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (cancelAppointment != null) {
-      return cancelAppointment(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _CancelAppointment implements AppointmentEvent {
-  const factory _CancelAppointment(
-      {required final String appointmentId,
-      required final String reason}) = _$CancelAppointmentImpl;
-
-  String get appointmentId;
-  String get reason;
-  @JsonKey(ignore: true)
-  _$$CancelAppointmentImplCopyWith<_$CancelAppointmentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$MarkAsReadImplCopyWith<$Res> {
-  factory _$$MarkAsReadImplCopyWith(
-          _$MarkAsReadImpl value, $Res Function(_$MarkAsReadImpl) then) =
-      __$$MarkAsReadImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String appointmentId});
-}
-
-/// @nodoc
-class __$$MarkAsReadImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$MarkAsReadImpl>
-    implements _$$MarkAsReadImplCopyWith<$Res> {
-  __$$MarkAsReadImplCopyWithImpl(
-      _$MarkAsReadImpl _value, $Res Function(_$MarkAsReadImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appointmentId = null,
-  }) {
-    return _then(_$MarkAsReadImpl(
-      null == appointmentId
-          ? _value.appointmentId
-          : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$MarkAsReadImpl implements _MarkAsRead {
-  const _$MarkAsReadImpl(this.appointmentId);
-
-  @override
-  final String appointmentId;
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.markAsRead(appointmentId: $appointmentId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MarkAsReadImpl &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, appointmentId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
-      __$$MarkAsReadImplCopyWithImpl<_$MarkAsReadImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return markAsRead(appointmentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return markAsRead?.call(appointmentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (markAsRead != null) {
-      return markAsRead(appointmentId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return markAsRead(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return markAsRead?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (markAsRead != null) {
-      return markAsRead(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _MarkAsRead implements AppointmentEvent {
-  const factory _MarkAsRead(final String appointmentId) = _$MarkAsReadImpl;
-
-  String get appointmentId;
-  @JsonKey(ignore: true)
-  _$$MarkAsReadImplCopyWith<_$MarkAsReadImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$FilterByStatusImplCopyWith<$Res> {
-  factory _$$FilterByStatusImplCopyWith(_$FilterByStatusImpl value,
-          $Res Function(_$FilterByStatusImpl) then) =
-      __$$FilterByStatusImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String status});
-}
-
-/// @nodoc
-class __$$FilterByStatusImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$FilterByStatusImpl>
-    implements _$$FilterByStatusImplCopyWith<$Res> {
-  __$$FilterByStatusImplCopyWithImpl(
-      _$FilterByStatusImpl _value, $Res Function(_$FilterByStatusImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-  }) {
-    return _then(_$FilterByStatusImpl(
-      null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$FilterByStatusImpl implements _FilterByStatus {
-  const _$FilterByStatusImpl(this.status);
-
-  @override
-  final String status;
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.filterByStatus(status: $status)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FilterByStatusImpl &&
-            (identical(other.status, status) || other.status == status));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, status);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FilterByStatusImplCopyWith<_$FilterByStatusImpl> get copyWith =>
-      __$$FilterByStatusImplCopyWithImpl<_$FilterByStatusImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return filterByStatus(status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return filterByStatus?.call(status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (filterByStatus != null) {
-      return filterByStatus(status);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return filterByStatus(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return filterByStatus?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (filterByStatus != null) {
-      return filterByStatus(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _FilterByStatus implements AppointmentEvent {
-  const factory _FilterByStatus(final String status) = _$FilterByStatusImpl;
-
-  String get status;
-  @JsonKey(ignore: true)
-  _$$FilterByStatusImplCopyWith<_$FilterByStatusImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$RsvpForAppointmentImplCopyWith<$Res> {
-  factory _$$RsvpForAppointmentImplCopyWith(_$RsvpForAppointmentImpl value,
-          $Res Function(_$RsvpForAppointmentImpl) then) =
-      __$$RsvpForAppointmentImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String appointmentId, String agendaId, bool willAttend});
-}
-
-/// @nodoc
-class __$$RsvpForAppointmentImplCopyWithImpl<$Res>
-    extends _$AppointmentEventCopyWithImpl<$Res, _$RsvpForAppointmentImpl>
-    implements _$$RsvpForAppointmentImplCopyWith<$Res> {
-  __$$RsvpForAppointmentImplCopyWithImpl(_$RsvpForAppointmentImpl _value,
-      $Res Function(_$RsvpForAppointmentImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appointmentId = null,
-    Object? agendaId = null,
-    Object? willAttend = null,
-  }) {
-    return _then(_$RsvpForAppointmentImpl(
-      appointmentId: null == appointmentId
-          ? _value.appointmentId
-          : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      agendaId: null == agendaId
-          ? _value.agendaId
-          : agendaId // ignore: cast_nullable_to_non_nullable
-              as String,
-      willAttend: null == willAttend
-          ? _value.willAttend
-          : willAttend // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
-  const _$RsvpForAppointmentImpl(
-      {required this.appointmentId,
-      required this.agendaId,
-      required this.willAttend});
-
-  @override
-  final String appointmentId;
-  @override
-  final String agendaId;
-  @override
-  final bool willAttend;
-
-  @override
-  String toString() {
-    return 'AppointmentEvent.rsvpForAppointment(appointmentId: $appointmentId, agendaId: $agendaId, willAttend: $willAttend)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RsvpForAppointmentImpl &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId) &&
-            (identical(other.agendaId, agendaId) ||
-                other.agendaId == agendaId) &&
-            (identical(other.willAttend, willAttend) ||
-                other.willAttend == willAttend));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, appointmentId, agendaId, willAttend);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RsvpForAppointmentImplCopyWith<_$RsvpForAppointmentImpl> get copyWith =>
-      __$$RsvpForAppointmentImplCopyWithImpl<_$RsvpForAppointmentImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
-    required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
-    required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
-    required TResult Function(String appointmentId, String agendaId)
-        confirmAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String? reason)
-        rejectAppointment,
-    required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
-        reviewAppointment,
-    required TResult Function(
-            String appointmentId, String agendaId, String reason)
-        appealAppointment,
-  }) {
-    return rsvpForAppointment(appointmentId, agendaId, willAttend);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
-    TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
-    TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult? Function(String appointmentId, String agendaId)?
-        confirmAppointment,
-    TResult? Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult? Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-  }) {
-    return rsvpForAppointment?.call(appointmentId, agendaId, willAttend);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
-    TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
-    TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
-    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
-    TResult Function(String appointmentId, String agendaId, String? reason)?
-        rejectAppointment,
-    TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
-        reviewAppointment,
-    TResult Function(String appointmentId, String agendaId, String reason)?
-        appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (rsvpForAppointment != null) {
-      return rsvpForAppointment(appointmentId, agendaId, willAttend);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
-    required TResult Function(_GetAppointmentById value) getAppointmentById,
-    required TResult Function(_RefreshAppointmentDetail value)
-        refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
-    required TResult Function(_ConfirmAppointment value) confirmAppointment,
-    required TResult Function(_RejectAppointment value) rejectAppointment,
-    required TResult Function(_ReviewAppointment value) reviewAppointment,
-    required TResult Function(_AppealAppointment value) appealAppointment,
-  }) {
-    return rsvpForAppointment(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult? Function(_GetAppointmentById value)? getAppointmentById,
-    TResult? Function(_RefreshAppointmentDetail value)?
-        refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult? Function(_RejectAppointment value)? rejectAppointment,
-    TResult? Function(_ReviewAppointment value)? reviewAppointment,
-    TResult? Function(_AppealAppointment value)? appealAppointment,
-  }) {
-    return rsvpForAppointment?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
-    TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
-    TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
-    TResult Function(_ConfirmAppointment value)? confirmAppointment,
-    TResult Function(_RejectAppointment value)? rejectAppointment,
-    TResult Function(_ReviewAppointment value)? reviewAppointment,
-    TResult Function(_AppealAppointment value)? appealAppointment,
-    required TResult orElse(),
-  }) {
-    if (rsvpForAppointment != null) {
-      return rsvpForAppointment(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RsvpForAppointment implements AppointmentEvent {
-  const factory _RsvpForAppointment(
-      {required final String appointmentId,
-      required final String agendaId,
-      required final bool willAttend}) = _$RsvpForAppointmentImpl;
-
-  String get appointmentId;
-  String get agendaId;
-  bool get willAttend;
-  @JsonKey(ignore: true)
-  _$$RsvpForAppointmentImplCopyWith<_$RsvpForAppointmentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2665,22 +1162,14 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -2698,20 +1187,13 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -2727,19 +1209,12 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -2760,17 +1235,12 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -2783,17 +1253,12 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -2806,15 +1271,11 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -2836,6 +1297,220 @@ abstract class _ConfirmAppointment implements AppointmentEvent {
   String get agendaId;
   @JsonKey(ignore: true)
   _$$ConfirmAppointmentImplCopyWith<_$ConfirmAppointmentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CancelAppointmentImplCopyWith<$Res> {
+  factory _$$CancelAppointmentImplCopyWith(_$CancelAppointmentImpl value,
+          $Res Function(_$CancelAppointmentImpl) then) =
+      __$$CancelAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String appointmentId, String reason});
+}
+
+/// @nodoc
+class __$$CancelAppointmentImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$CancelAppointmentImpl>
+    implements _$$CancelAppointmentImplCopyWith<$Res> {
+  __$$CancelAppointmentImplCopyWithImpl(_$CancelAppointmentImpl _value,
+      $Res Function(_$CancelAppointmentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? reason = null,
+  }) {
+    return _then(_$CancelAppointmentImpl(
+      appointmentId: null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CancelAppointmentImpl implements _CancelAppointment {
+  const _$CancelAppointmentImpl(
+      {required this.appointmentId, required this.reason});
+
+  @override
+  final String appointmentId;
+  @override
+  final String reason;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.cancelAppointment(appointmentId: $appointmentId, reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CancelAppointmentImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId, reason);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CancelAppointmentImplCopyWith<_$CancelAppointmentImpl> get copyWith =>
+      __$$CancelAppointmentImplCopyWithImpl<_$CancelAppointmentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() loadAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return cancelAppointment(appointmentId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? loadAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return cancelAppointment?.call(appointmentId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? loadAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (cancelAppointment != null) {
+      return cancelAppointment(appointmentId, reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return cancelAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return cancelAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (cancelAppointment != null) {
+      return cancelAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CancelAppointment implements AppointmentEvent {
+  const factory _CancelAppointment(
+      {required final String appointmentId,
+      required final String reason}) = _$CancelAppointmentImpl;
+
+  String get appointmentId;
+  String get reason;
+  @JsonKey(ignore: true)
+  _$$CancelAppointmentImplCopyWith<_$CancelAppointmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2924,22 +1599,14 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -2957,20 +1624,13 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -2986,19 +1646,12 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -3019,17 +1672,12 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -3042,17 +1690,12 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -3065,15 +1708,11 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -3213,22 +1852,14 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -3247,20 +1878,13 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -3277,19 +1901,12 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -3311,17 +1928,12 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -3334,17 +1946,12 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -3357,15 +1964,11 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -3483,22 +2086,14 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String? status, bool isRefresh) loadAppointments,
-    required TResult Function() loadMoreAppointments,
+    required TResult Function() loadAppointments,
     required TResult Function(String id) getAppointmentById,
-    required TResult Function(String id) refreshAppointmentDetail,
-    required TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)
-        requestAppointmentChange,
-    required TResult Function(String appointmentId, String reason)
-        cancelAppointment,
     required TResult Function(String appointmentId) markAsRead,
-    required TResult Function(String status) filterByStatus,
-    required TResult Function(
-            String appointmentId, String agendaId, bool willAttend)
-        rsvpForAppointment,
+    required TResult Function(String id) refreshAppointmentDetail,
     required TResult Function(String appointmentId, String agendaId)
         confirmAppointment,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
@@ -3516,20 +2111,13 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String? status, bool isRefresh)? loadAppointments,
-    TResult? Function()? loadMoreAppointments,
+    TResult? Function()? loadAppointments,
     TResult? Function(String id)? getAppointmentById,
-    TResult? Function(String id)? refreshAppointmentDetail,
-    TResult? Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId)? markAsRead,
-    TResult? Function(String status)? filterByStatus,
-    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult? Function(String id)? refreshAppointmentDetail,
     TResult? Function(String appointmentId, String agendaId)?
         confirmAppointment,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
@@ -3545,19 +2133,12 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String? status, bool isRefresh)? loadAppointments,
-    TResult Function()? loadMoreAppointments,
+    TResult Function()? loadAppointments,
     TResult Function(String id)? getAppointmentById,
-    TResult Function(String id)? refreshAppointmentDetail,
-    TResult Function(String appointmentId, DateTime? newStartDate,
-            DateTime? newEndDate, String? reason)?
-        requestAppointmentChange,
-    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId)? markAsRead,
-    TResult Function(String status)? filterByStatus,
-    TResult Function(String appointmentId, String agendaId, bool willAttend)?
-        rsvpForAppointment,
+    TResult Function(String id)? refreshAppointmentDetail,
     TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
@@ -3578,17 +2159,12 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LoadAppointments value) loadAppointments,
-    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
     required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_RefreshAppointmentDetail value)
         refreshAppointmentDetail,
-    required TResult Function(_RequestAppointmentChange value)
-        requestAppointmentChange,
-    required TResult Function(_CancelAppointment value) cancelAppointment,
-    required TResult Function(_MarkAsRead value) markAsRead,
-    required TResult Function(_FilterByStatus value) filterByStatus,
-    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
     required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
     required TResult Function(_RejectAppointment value) rejectAppointment,
     required TResult Function(_ReviewAppointment value) reviewAppointment,
     required TResult Function(_AppealAppointment value) appealAppointment,
@@ -3601,17 +2177,12 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LoadAppointments value)? loadAppointments,
-    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_RefreshAppointmentDetail value)?
         refreshAppointmentDetail,
-    TResult? Function(_RequestAppointmentChange value)?
-        requestAppointmentChange,
-    TResult? Function(_CancelAppointment value)? cancelAppointment,
-    TResult? Function(_MarkAsRead value)? markAsRead,
-    TResult? Function(_FilterByStatus value)? filterByStatus,
-    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
     TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
     TResult? Function(_RejectAppointment value)? rejectAppointment,
     TResult? Function(_ReviewAppointment value)? reviewAppointment,
     TResult? Function(_AppealAppointment value)? appealAppointment,
@@ -3624,15 +2195,11 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LoadAppointments value)? loadAppointments,
-    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
     TResult Function(_GetAppointmentById value)? getAppointmentById,
-    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
-    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
-    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_MarkAsRead value)? markAsRead,
-    TResult Function(_FilterByStatus value)? filterByStatus,
-    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
     TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
     TResult Function(_RejectAppointment value)? rejectAppointment,
     TResult Function(_ReviewAppointment value)? reviewAppointment,
     TResult Function(_AppealAppointment value)? appealAppointment,
@@ -3665,69 +2232,39 @@ mixin _$AppointmentState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3736,7 +2273,6 @@ mixin _$AppointmentState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -3748,7 +2284,6 @@ mixin _$AppointmentState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -3760,7 +2295,6 @@ mixin _$AppointmentState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -3828,23 +2362,13 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
     return initial();
   }
@@ -3854,23 +2378,13 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
     return initial?.call();
   }
@@ -3880,23 +2394,13 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -3911,7 +2415,6 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -3926,7 +2429,6 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -3941,7 +2443,6 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -3999,23 +2500,13 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
     return loading();
   }
@@ -4025,23 +2516,13 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
     return loading?.call();
   }
@@ -4051,23 +2532,13 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -4082,7 +2553,6 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -4097,7 +2567,6 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -4112,7 +2581,6 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -4137,15 +2605,10 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<Appointment> appointments,
-      int currentPage,
-      int totalPages,
-      bool hasReachedMax,
-      bool isLoadingMore,
-      bool isRefreshing,
-      String? currentFilter,
+      {CustomerAppointmentsView appointmentsView,
       AppointmentDetailDto? selectedAppointment});
 
+  $CustomerAppointmentsViewCopyWith<$Res> get appointmentsView;
   $AppointmentDetailDtoCopyWith<$Res>? get selectedAppointment;
 }
 
@@ -4160,49 +2623,28 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appointments = null,
-    Object? currentPage = null,
-    Object? totalPages = null,
-    Object? hasReachedMax = null,
-    Object? isLoadingMore = null,
-    Object? isRefreshing = null,
-    Object? currentFilter = freezed,
+    Object? appointmentsView = null,
     Object? selectedAppointment = freezed,
   }) {
     return _then(_$LoadedImpl(
-      appointments: null == appointments
-          ? _value._appointments
-          : appointments // ignore: cast_nullable_to_non_nullable
-              as List<Appointment>,
-      currentPage: null == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalPages: null == totalPages
-          ? _value.totalPages
-          : totalPages // ignore: cast_nullable_to_non_nullable
-              as int,
-      hasReachedMax: null == hasReachedMax
-          ? _value.hasReachedMax
-          : hasReachedMax // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isLoadingMore: null == isLoadingMore
-          ? _value.isLoadingMore
-          : isLoadingMore // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isRefreshing: null == isRefreshing
-          ? _value.isRefreshing
-          : isRefreshing // ignore: cast_nullable_to_non_nullable
-              as bool,
-      currentFilter: freezed == currentFilter
-          ? _value.currentFilter
-          : currentFilter // ignore: cast_nullable_to_non_nullable
-              as String?,
+      appointmentsView: null == appointmentsView
+          ? _value.appointmentsView
+          : appointmentsView // ignore: cast_nullable_to_non_nullable
+              as CustomerAppointmentsView,
       selectedAppointment: freezed == selectedAppointment
           ? _value.selectedAppointment
           : selectedAppointment // ignore: cast_nullable_to_non_nullable
               as AppointmentDetailDto?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerAppointmentsViewCopyWith<$Res> get appointmentsView {
+    return $CustomerAppointmentsViewCopyWith<$Res>(_value.appointmentsView,
+        (value) {
+      return _then(_value.copyWith(appointmentsView: value));
+    });
   }
 
   @override
@@ -4223,46 +2665,16 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(
-      {required final List<Appointment> appointments,
-      required this.currentPage,
-      this.totalPages = 1,
-      this.hasReachedMax = false,
-      this.isLoadingMore = false,
-      this.isRefreshing = false,
-      this.currentFilter,
-      this.selectedAppointment})
-      : _appointments = appointments;
-
-  final List<Appointment> _appointments;
-  @override
-  List<Appointment> get appointments {
-    if (_appointments is EqualUnmodifiableListView) return _appointments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_appointments);
-  }
+      {required this.appointmentsView, this.selectedAppointment});
 
   @override
-  final int currentPage;
-  @override
-  @JsonKey()
-  final int totalPages;
-  @override
-  @JsonKey()
-  final bool hasReachedMax;
-  @override
-  @JsonKey()
-  final bool isLoadingMore;
-  @override
-  @JsonKey()
-  final bool isRefreshing;
-  @override
-  final String? currentFilter;
+  final CustomerAppointmentsView appointmentsView;
   @override
   final AppointmentDetailDto? selectedAppointment;
 
   @override
   String toString() {
-    return 'AppointmentState.loaded(appointments: $appointments, currentPage: $currentPage, totalPages: $totalPages, hasReachedMax: $hasReachedMax, isLoadingMore: $isLoadingMore, isRefreshing: $isRefreshing, currentFilter: $currentFilter, selectedAppointment: $selectedAppointment)';
+    return 'AppointmentState.loaded(appointmentsView: $appointmentsView, selectedAppointment: $selectedAppointment)';
   }
 
   @override
@@ -4270,35 +2682,15 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._appointments, _appointments) &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage) &&
-            (identical(other.totalPages, totalPages) ||
-                other.totalPages == totalPages) &&
-            (identical(other.hasReachedMax, hasReachedMax) ||
-                other.hasReachedMax == hasReachedMax) &&
-            (identical(other.isLoadingMore, isLoadingMore) ||
-                other.isLoadingMore == isLoadingMore) &&
-            (identical(other.isRefreshing, isRefreshing) ||
-                other.isRefreshing == isRefreshing) &&
-            (identical(other.currentFilter, currentFilter) ||
-                other.currentFilter == currentFilter) &&
+            (identical(other.appointmentsView, appointmentsView) ||
+                other.appointmentsView == appointmentsView) &&
             (identical(other.selectedAppointment, selectedAppointment) ||
                 other.selectedAppointment == selectedAppointment));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_appointments),
-      currentPage,
-      totalPages,
-      hasReachedMax,
-      isLoadingMore,
-      isRefreshing,
-      currentFilter,
-      selectedAppointment);
+  int get hashCode =>
+      Object.hash(runtimeType, appointmentsView, selectedAppointment);
 
   @JsonKey(ignore: true)
   @override
@@ -4311,26 +2703,15 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
-    return loaded(appointments, currentPage, totalPages, hasReachedMax,
-        isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
+    return loaded(appointmentsView, selectedAppointment);
   }
 
   @override
@@ -4338,26 +2719,15 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
-    return loaded?.call(appointments, currentPage, totalPages, hasReachedMax,
-        isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
+    return loaded?.call(appointmentsView, selectedAppointment);
   }
 
   @override
@@ -4365,28 +2735,17 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(appointments, currentPage, totalPages, hasReachedMax,
-          isLoadingMore, isRefreshing, currentFilter, selectedAppointment);
+      return loaded(appointmentsView, selectedAppointment);
     }
     return orElse();
   }
@@ -4397,7 +2756,6 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -4412,7 +2770,6 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -4427,7 +2784,6 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -4443,301 +2799,13 @@ class _$LoadedImpl implements _Loaded {
 
 abstract class _Loaded implements AppointmentState {
   const factory _Loaded(
-      {required final List<Appointment> appointments,
-      required final int currentPage,
-      final int totalPages,
-      final bool hasReachedMax,
-      final bool isLoadingMore,
-      final bool isRefreshing,
-      final String? currentFilter,
+      {required final CustomerAppointmentsView appointmentsView,
       final AppointmentDetailDto? selectedAppointment}) = _$LoadedImpl;
 
-  List<Appointment> get appointments;
-  int get currentPage;
-  int get totalPages;
-  bool get hasReachedMax;
-  bool get isLoadingMore;
-  bool get isRefreshing;
-  String? get currentFilter;
+  CustomerAppointmentsView get appointmentsView;
   AppointmentDetailDto? get selectedAppointment;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadingMoreFailedImplCopyWith<$Res> {
-  factory _$$LoadingMoreFailedImplCopyWith(_$LoadingMoreFailedImpl value,
-          $Res Function(_$LoadingMoreFailedImpl) then) =
-      __$$LoadingMoreFailedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {List<Appointment> appointments,
-      int currentPage,
-      int totalPages,
-      String? currentFilter,
-      String? errorMessage});
-}
-
-/// @nodoc
-class __$$LoadingMoreFailedImplCopyWithImpl<$Res>
-    extends _$AppointmentStateCopyWithImpl<$Res, _$LoadingMoreFailedImpl>
-    implements _$$LoadingMoreFailedImplCopyWith<$Res> {
-  __$$LoadingMoreFailedImplCopyWithImpl(_$LoadingMoreFailedImpl _value,
-      $Res Function(_$LoadingMoreFailedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? appointments = null,
-    Object? currentPage = null,
-    Object? totalPages = null,
-    Object? currentFilter = freezed,
-    Object? errorMessage = freezed,
-  }) {
-    return _then(_$LoadingMoreFailedImpl(
-      appointments: null == appointments
-          ? _value._appointments
-          : appointments // ignore: cast_nullable_to_non_nullable
-              as List<Appointment>,
-      currentPage: null == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalPages: null == totalPages
-          ? _value.totalPages
-          : totalPages // ignore: cast_nullable_to_non_nullable
-              as int,
-      currentFilter: freezed == currentFilter
-          ? _value.currentFilter
-          : currentFilter // ignore: cast_nullable_to_non_nullable
-              as String?,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadingMoreFailedImpl implements _LoadingMoreFailed {
-  const _$LoadingMoreFailedImpl(
-      {required final List<Appointment> appointments,
-      required this.currentPage,
-      this.totalPages = 1,
-      this.currentFilter,
-      this.errorMessage})
-      : _appointments = appointments;
-
-  final List<Appointment> _appointments;
-  @override
-  List<Appointment> get appointments {
-    if (_appointments is EqualUnmodifiableListView) return _appointments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_appointments);
-  }
-
-  @override
-  final int currentPage;
-  @override
-  @JsonKey()
-  final int totalPages;
-  @override
-  final String? currentFilter;
-  @override
-  final String? errorMessage;
-
-  @override
-  String toString() {
-    return 'AppointmentState.loadingMoreFailed(appointments: $appointments, currentPage: $currentPage, totalPages: $totalPages, currentFilter: $currentFilter, errorMessage: $errorMessage)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadingMoreFailedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._appointments, _appointments) &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage) &&
-            (identical(other.totalPages, totalPages) ||
-                other.totalPages == totalPages) &&
-            (identical(other.currentFilter, currentFilter) ||
-                other.currentFilter == currentFilter) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_appointments),
-      currentPage,
-      totalPages,
-      currentFilter,
-      errorMessage);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadingMoreFailedImplCopyWith<_$LoadingMoreFailedImpl> get copyWith =>
-      __$$LoadingMoreFailedImplCopyWithImpl<_$LoadingMoreFailedImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
-            AppointmentDetailDto? selectedAppointment)
-        loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
-    required TResult Function() actionInProgress,
-    required TResult Function() actionSuccess,
-    required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
-  }) {
-    return loadingMoreFailed(
-        appointments, currentPage, totalPages, currentFilter, errorMessage);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
-            AppointmentDetailDto? selectedAppointment)?
-        loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
-    TResult? Function()? actionInProgress,
-    TResult? Function()? actionSuccess,
-    TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
-  }) {
-    return loadingMoreFailed?.call(
-        appointments, currentPage, totalPages, currentFilter, errorMessage);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
-            AppointmentDetailDto? selectedAppointment)?
-        loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
-    TResult Function()? actionInProgress,
-    TResult Function()? actionSuccess,
-    TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
-    required TResult orElse(),
-  }) {
-    if (loadingMoreFailed != null) {
-      return loadingMoreFailed(
-          appointments, currentPage, totalPages, currentFilter, errorMessage);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
-    required TResult Function(_ActionInProgress value) actionInProgress,
-    required TResult Function(_ActionSuccess value) actionSuccess,
-    required TResult Function(_ActionFailed value) actionFailed,
-    required TResult Function(_Error value) error,
-  }) {
-    return loadingMoreFailed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
-    TResult? Function(_ActionInProgress value)? actionInProgress,
-    TResult? Function(_ActionSuccess value)? actionSuccess,
-    TResult? Function(_ActionFailed value)? actionFailed,
-    TResult? Function(_Error value)? error,
-  }) {
-    return loadingMoreFailed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
-    TResult Function(_ActionInProgress value)? actionInProgress,
-    TResult Function(_ActionSuccess value)? actionSuccess,
-    TResult Function(_ActionFailed value)? actionFailed,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (loadingMoreFailed != null) {
-      return loadingMoreFailed(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LoadingMoreFailed implements AppointmentState {
-  const factory _LoadingMoreFailed(
-      {required final List<Appointment> appointments,
-      required final int currentPage,
-      final int totalPages,
-      final String? currentFilter,
-      final String? errorMessage}) = _$LoadingMoreFailedImpl;
-
-  List<Appointment> get appointments;
-  int get currentPage;
-  int get totalPages;
-  String? get currentFilter;
-  String? get errorMessage;
-  @JsonKey(ignore: true)
-  _$$LoadingMoreFailedImplCopyWith<_$LoadingMoreFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -4781,23 +2849,13 @@ class _$ActionInProgressImpl implements _ActionInProgress {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
     return actionInProgress();
   }
@@ -4807,23 +2865,13 @@ class _$ActionInProgressImpl implements _ActionInProgress {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
     return actionInProgress?.call();
   }
@@ -4833,23 +2881,13 @@ class _$ActionInProgressImpl implements _ActionInProgress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (actionInProgress != null) {
@@ -4864,7 +2902,6 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -4879,7 +2916,6 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -4894,7 +2930,6 @@ class _$ActionInProgressImpl implements _ActionInProgress {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -4952,23 +2987,13 @@ class _$ActionSuccessImpl implements _ActionSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
     return actionSuccess();
   }
@@ -4978,23 +3003,13 @@ class _$ActionSuccessImpl implements _ActionSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
     return actionSuccess?.call();
   }
@@ -5004,23 +3019,13 @@ class _$ActionSuccessImpl implements _ActionSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (actionSuccess != null) {
@@ -5035,7 +3040,6 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -5050,7 +3054,6 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -5065,7 +3068,6 @@ class _$ActionSuccessImpl implements _ActionSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -5149,23 +3151,13 @@ class _$ActionFailedImpl implements _ActionFailed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
     return actionFailed(message);
   }
@@ -5175,23 +3167,13 @@ class _$ActionFailedImpl implements _ActionFailed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
     return actionFailed?.call(message);
   }
@@ -5201,23 +3183,13 @@ class _$ActionFailedImpl implements _ActionFailed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (actionFailed != null) {
@@ -5232,7 +3204,6 @@ class _$ActionFailedImpl implements _ActionFailed {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -5247,7 +3218,6 @@ class _$ActionFailedImpl implements _ActionFailed {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -5262,7 +3232,6 @@ class _$ActionFailedImpl implements _ActionFailed {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -5291,7 +3260,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message, String? preservedFilter});
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -5306,17 +3275,12 @@ class __$$ErrorImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = null,
-    Object? preservedFilter = freezed,
   }) {
     return _then(_$ErrorImpl(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      preservedFilter: freezed == preservedFilter
-          ? _value.preservedFilter
-          : preservedFilter // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -5324,16 +3288,14 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl(this.message, {this.preservedFilter});
+  const _$ErrorImpl(this.message);
 
   @override
   final String message;
-  @override
-  final String? preservedFilter;
 
   @override
   String toString() {
-    return 'AppointmentState.error(message: $message, preservedFilter: $preservedFilter)';
+    return 'AppointmentState.error(message: $message)';
   }
 
   @override
@@ -5341,13 +3303,11 @@ class _$ErrorImpl implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.preservedFilter, preservedFilter) ||
-                other.preservedFilter == preservedFilter));
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message, preservedFilter);
+  int get hashCode => Object.hash(runtimeType, message);
 
   @JsonKey(ignore: true)
   @override
@@ -5360,25 +3320,15 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    required TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)
         loaded,
-    required TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)
-        loadingMoreFailed,
     required TResult Function() actionInProgress,
     required TResult Function() actionSuccess,
     required TResult Function(String message) actionFailed,
-    required TResult Function(String message, String? preservedFilter) error,
+    required TResult Function(String message) error,
   }) {
-    return error(message, preservedFilter);
+    return error(message);
   }
 
   @override
@@ -5386,25 +3336,15 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult? Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult? Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult? Function()? actionInProgress,
     TResult? Function()? actionSuccess,
     TResult? Function(String message)? actionFailed,
-    TResult? Function(String message, String? preservedFilter)? error,
+    TResult? Function(String message)? error,
   }) {
-    return error?.call(message, preservedFilter);
+    return error?.call(message);
   }
 
   @override
@@ -5412,27 +3352,17 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(
-            List<Appointment> appointments,
-            int currentPage,
-            int totalPages,
-            bool hasReachedMax,
-            bool isLoadingMore,
-            bool isRefreshing,
-            String? currentFilter,
+    TResult Function(CustomerAppointmentsView appointmentsView,
             AppointmentDetailDto? selectedAppointment)?
         loaded,
-    TResult Function(List<Appointment> appointments, int currentPage,
-            int totalPages, String? currentFilter, String? errorMessage)?
-        loadingMoreFailed,
     TResult Function()? actionInProgress,
     TResult Function()? actionSuccess,
     TResult Function(String message)? actionFailed,
-    TResult Function(String message, String? preservedFilter)? error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message, preservedFilter);
+      return error(message);
     }
     return orElse();
   }
@@ -5443,7 +3373,6 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_LoadingMoreFailed value) loadingMoreFailed,
     required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_ActionSuccess value) actionSuccess,
     required TResult Function(_ActionFailed value) actionFailed,
@@ -5458,7 +3387,6 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_ActionSuccess value)? actionSuccess,
     TResult? Function(_ActionFailed value)? actionFailed,
@@ -5473,7 +3401,6 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_LoadingMoreFailed value)? loadingMoreFailed,
     TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_ActionSuccess value)? actionSuccess,
     TResult Function(_ActionFailed value)? actionFailed,
@@ -5488,11 +3415,9 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements AppointmentState {
-  const factory _Error(final String message, {final String? preservedFilter}) =
-      _$ErrorImpl;
+  const factory _Error(final String message) = _$ErrorImpl;
 
   String get message;
-  String? get preservedFilter;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
