@@ -22,6 +22,7 @@ import 'package:inker_studio/domain/blocs/consent/signed_consent/signed_consent_
 import 'package:inker_studio/domain/services/consent/consent_service.dart';
 import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
 import 'package:inker_studio/ui/shared/event/unified_confirmation_handler.dart';
+import 'package:inker_studio/ui/shared/event/event_actions_manager.dart';
 
 class AppointmentDetailPage extends StatelessWidget {
   final String appointmentId;
@@ -33,56 +34,16 @@ class AppointmentDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: Text(
-          l10n.appointmentDetails,
-          style: TextStyleTheme.headline2,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
-        actions: [
-          BlocBuilder<AppointmentBloc, AppointmentState>(
-            builder: (context, state) {
-              final isRefreshing = state.maybeWhen(
-                loaded: (view, selectedAppointment) => false,
-                loading: () => true,
-                actionInProgress: () => true,
-                orElse: () => false,
-              );
-
-              return IconButton(
-                icon: isRefreshing
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      )
-                    : const Icon(Icons.refresh),
-                onPressed: isRefreshing
-                    ? null
-                    : () => _loadAppointmentDetails(context, isRefresh: true),
-                tooltip: l10n.refresh,
-              );
-            },
-          ),
-        ],
-      ),
+             appBar: _buildDefaultAppBar(context),
       body: BlocConsumer<AppointmentBloc, AppointmentState>(
         listener: (context, state) {
           state.maybeWhen(
             actionSuccess: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(l10n.actionSuccessful),
+                  content: Text(S.of(context).actionSuccessful),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -115,14 +76,12 @@ class AppointmentDetailPage extends StatelessWidget {
             loading: () => _buildLoadingState(context),
             loaded: (view, selectedAppointment) {
               if (selectedAppointment == null) {
-                // If we are in a loaded state but have no selection, it might be an error
-                // or the detail just hasn't been loaded yet. Show loading.
                 return _buildLoadingState(context);
               }
               return _buildAppointmentDetails(context, selectedAppointment);
             },
             actionInProgress: () => _buildLoadingState(context),
-            actionSuccess: () => _buildLoadingState(context), // will be refreshed
+            actionSuccess: () => _buildLoadingState(context),
             actionFailed: (message) => _buildErrorState(context, message),
             error: (message) => _buildErrorState(context, message),
           );
@@ -135,10 +94,16 @@ class AppointmentDetailPage extends StatelessWidget {
               if (selectedAppointment == null) {
                 return const SizedBox.shrink();
               }
-              return _buildActionButtons(context, selectedAppointment);
+              return EventActionsManager.buildBottomActions(
+                context: context,
+                config: _buildActionsConfig(context, selectedAppointment),
+              );
             },
-            actionInProgress: () =>
-                const EventActionButtons(actions: [], isLoading: true),
+            actionInProgress: () => EventActionsManager.buildBottomActions(
+              context: context,
+              config: const EventActionsConfig(actions: []),
+              isLoading: true,
+            ),
             orElse: () => const SizedBox.shrink(),
           );
         },
@@ -146,8 +111,180 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
+  AppBar _buildDefaultAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(
+        S.of(context).appointmentDetails,
+        style: TextStyleTheme.headline2,
+      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      elevation: 0,
+      iconTheme: const IconThemeData(color: Colors.white),
+      actions: [
+        // Chat action
+        BlocBuilder<AppointmentBloc, AppointmentState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loaded: (view, selectedAppointment) {
+                if (selectedAppointment?.actions.canSendMessage == true) {
+                  return IconButton(
+                    icon: const Icon(Icons.message),
+                    onPressed: () => _navigateToChat(context, selectedAppointment!),
+                    tooltip: 'Contactar Artista',
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
+        
+        // Overflow menu
+        BlocBuilder<AppointmentBloc, AppointmentState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loaded: (view, selectedAppointment) {
+                if (selectedAppointment == null) return const SizedBox.shrink();
+                
+                final config = _buildActionsConfig(context, selectedAppointment);
+                final secondaryActions = config.secondaryActions;
+                
+                if (secondaryActions.isEmpty) return const SizedBox.shrink();
+                
+                return PopupMenuButton<String>(
+                  icon: const Icon(Icons.more_vert),
+                  onSelected: (actionId) {
+                    final action = secondaryActions.firstWhere((a) => a.id == actionId);
+                    action.onPressed();
+                  },
+                  itemBuilder: (context) => secondaryActions
+                      .map((action) => PopupMenuItem<String>(
+                            value: action.id,
+                            child: Row(
+                              children: [
+                                Icon(action.icon, color: action.color, size: 20),
+                                const SizedBox(width: 12),
+                                Text(
+                                  action.label,
+                                  style: TextStyleTheme.bodyText1.copyWith(
+                                    color: action.isDestructive ? Colors.red : Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                );
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
+        
+        // Refresh button
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () => _loadAppointmentDetails(context, isRefresh: true),
+          tooltip: 'Actualizar',
+        ),
+      ],
+    );
+  }
+
+  EventActionsConfig _buildActionsConfig(
+      BuildContext context, AppointmentDetailDto detail) {
+    List<EventAction> actions = [];
+
+    // PRIMARY ACTIONS (Bottom - Critical state changes)
+    if (detail.actions.canConfirmEvent) {
+      actions.add(EventAction(
+        id: 'confirm',
+        onPressed: () => _showConfirmDialog(context, detail),
+        icon: Icons.check_circle,
+        label: 'Confirmar',
+        color: Colors.green,
+        category: ActionCategory.primary,
+      ));
+    }
+
+    if (detail.actions.canRejectEvent) {
+      actions.add(EventAction(
+        id: 'reject',
+        onPressed: () => _showRejectDialog(context, detail),
+        icon: Icons.highlight_off,
+        label: 'Rechazar',
+        color: Colors.redAccent,
+        category: ActionCategory.primary,
+      ));
+    }
+
+    // COMMUNICATION ACTIONS (AppBar - Always visible)
+    if (detail.actions.canSendMessage) {
+      actions.add(EventAction(
+        id: 'message',
+        onPressed: () => _navigateToChat(context, detail),
+        icon: Icons.message,
+        label: 'Contactar Artista',
+        color: Theme.of(context).colorScheme.secondary,
+        category: ActionCategory.communication,
+      ));
+    }
+
+    // SECONDARY ACTIONS (Overflow Menu)
+    if (detail.actions.canReschedule) {
+      actions.add(EventAction(
+        id: 'reschedule',
+        onPressed: () => _showRescheduleDialog(context, detail),
+        icon: Icons.update,
+        label: 'Solicitar Cambio',
+        color: tertiaryColor,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (detail.actions.canLeaveReview) {
+      actions.add(EventAction(
+        id: 'review',
+        onPressed: () => _showReviewDialog(context, detail),
+        icon: Icons.star_rate,
+        label: 'Dejar Reseña',
+        color: Colors.amber,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (detail.actions.canCancel) {
+      actions.add(EventAction(
+        id: 'cancel',
+        onPressed: () => _showCancelDialog(context, detail),
+        icon: Icons.cancel,
+        label: 'Cancelar Cita',
+        color: redColor,
+        category: ActionCategory.secondary,
+        isDestructive: true,
+      ));
+    }
+
+    if (detail.actions.canAppeal) {
+      actions.add(EventAction(
+        id: 'appeal',
+        onPressed: () => _showAppealDialog(context, detail),
+        icon: Icons.policy,
+        label: 'Apelar Decisión',
+        color: Colors.indigo,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    return EventActionsConfig(
+      actions: actions,
+      eventTitle: detail.event.title,
+      onRefresh: () => _loadAppointmentDetails(context, isRefresh: true),
+    );
+  }
+
   void _loadAppointmentDetails(BuildContext context, {bool isRefresh = false}) {
-    // refreshAppointmentDetail is an alias for getAppointmentById now
     context.read<AppointmentBloc>().add(
           AppointmentEvent.getAppointmentById(appointmentId),
         );
@@ -554,80 +691,6 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(
-      BuildContext context, AppointmentDetailDto detail) {
-    final l10n = S.of(context);
-
-    List<EventActionButton> actions = [];
-
-    // Use backend actions instead of manual calculation
-    if (detail.actions.canSendMessage) {
-      actions.add(EventActionButton(
-        onPressed: () => _navigateToChat(context, detail),
-        icon: Icons.message,
-        label: l10n.contactArtist,
-        color: Theme.of(context).colorScheme.secondary,
-      ));
-    }
-
-    if (detail.actions.canCancel) {
-      actions.add(EventActionButton(
-        onPressed: () => _showCancelDialog(context, detail),
-        icon: Icons.cancel,
-        label: l10n.cancelAppointment,
-        color: redColor,
-        isDestructive: true,
-      ));
-    }
-
-    if (detail.actions.canReschedule) {
-      actions.add(EventActionButton(
-        onPressed: () => _showRescheduleDialog(context, detail),
-        icon: Icons.update,
-        label: l10n.requestChange,
-        color: Colors.orange,
-      ));
-    }
-
-    if (detail.actions.canLeaveReview) {
-      actions.add(EventActionButton(
-        onPressed: () => _showReviewDialog(context, detail),
-        icon: Icons.star_rate,
-        label: S.of(context).leaveReview,
-        color: Colors.amber,
-      ));
-    }
-
-    if (detail.actions.canConfirmEvent) {
-      actions.add(EventActionButton(
-        onPressed: () => _showConfirmDialog(context, detail),
-        icon: Icons.check_circle,
-        label: l10n.confirm,
-        color: Colors.green,
-      ));
-    }
-
-    if (detail.actions.canRejectEvent) {
-      actions.add(EventActionButton(
-        onPressed: () => _showRejectDialog(context, detail),
-        icon: Icons.highlight_off,
-        label: l10n.reject,
-        color: Colors.redAccent,
-      ));
-    }
-
-    if (detail.actions.canAppeal) {
-      actions.add(EventActionButton(
-        onPressed: () => _showAppealDialog(context, detail),
-        icon: Icons.policy,
-        label: l10n.appeal,
-        color: Colors.indigo,
-      ));
-    }
-
-    return EventActionButtons(actions: actions);
-  }
-
   // Navigation and utility methods
   void _navigateToArtistProfile(BuildContext context, String artistId) {
     Navigator.pushNamed(
@@ -697,11 +760,11 @@ class AppointmentDetailPage extends StatelessWidget {
 
     dialogs.EventActionDialogs.showConfirmationDialog(
       context: context,
-      title: l10n.changeAppointment,
-      content: 'Para reagendar tu cita, por favor contacta directamente al artista a través del chat. El artista podrá ayudarte a encontrar un nuevo horario disponible.',
-      actionText: l10n.contactArtist,
+      title: 'Solicitar Cambio de Horario',
+      content: 'Contacta al artista para coordinar un nuevo horario que funcione para ambos. El artista te ayudará a encontrar la mejor opción disponible.',
+      actionText: 'Contactar Artista',
       actionColor: Theme.of(context).colorScheme.secondary,
-      icon: const Icon(Icons.update, color: Colors.orange),
+      icon: Icon(Icons.update, color: tertiaryColor),
       onConfirm: () => _navigateToChat(context, detail),
     );
   }
