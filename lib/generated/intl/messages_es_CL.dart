@@ -131,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Agregar Ubicación"),
         "addMoreImages":
             MessageLookupByLibrary.simpleMessage("Agregar más imágenes"),
+        "addPhoto": MessageLookupByLibrary.simpleMessage("Agregar foto"),
         "addPhotosOfYourBestTattooWorkToShowcaseYourStyle":
             MessageLookupByLibrary.simpleMessage(
                 "Agrega fotos de tus mejores trabajos de tatuaje para mostrar tu estilo"),
@@ -173,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agendaSettings":
             MessageLookupByLibrary.simpleMessage("Configuración de Agenda"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
+        "allConsentsCompleted": MessageLookupByLibrary.simpleMessage(
+            "Todos los formularios de consentimiento completados"),
         "allOtherStencils":
             MessageLookupByLibrary.simpleMessage("Otras Plantillas"),
         "allSources": MessageLookupByLibrary.simpleMessage("Todas las Fuentes"),
@@ -183,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadySubmittedOffer":
             MessageLookupByLibrary.simpleMessage("Ya has enviado una oferta"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
+        "anonymous": MessageLookupByLibrary.simpleMessage("Anónimo"),
         "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
         "appealQuotation":
             MessageLookupByLibrary.simpleMessage("Apelar Cotización"),
@@ -336,12 +340,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Limpiar Selección"),
         "close": MessageLookupByLibrary.simpleMessage("Cerrar"),
         "collapse": MessageLookupByLibrary.simpleMessage("Colapsar"),
+        "comment": MessageLookupByLibrary.simpleMessage("Comentar"),
         "completed": MessageLookupByLibrary.simpleMessage("Completada"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "confirmDeletion":
             MessageLookupByLibrary.simpleMessage("Confirmar Eliminación"),
         "confirmDeletionMessage": MessageLookupByLibrary.simpleMessage(
             "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."),
+        "confirmEvent":
+            MessageLookupByLibrary.simpleMessage("Confirmar evento"),
+        "confirmEventMessage": MessageLookupByLibrary.simpleMessage(
+            "¿Estás seguro que deseas confirmar este evento?"),
         "confirmLogout":
             MessageLookupByLibrary.simpleMessage("Confirmar Cierre de Sesión"),
         "confirmNewPassword":
@@ -353,12 +362,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmed": MessageLookupByLibrary.simpleMessage("Confirmado"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
             "Esta hora entra en conflicto con un evento existente"),
+        "consentFormDescription": MessageLookupByLibrary.simpleMessage(
+            "Por favor revisa y completa este formulario de consentimiento"),
+        "consentForms": MessageLookupByLibrary.simpleMessage(
+            "Formularios de Consentimiento"),
+        "consentProgress":
+            MessageLookupByLibrary.simpleMessage("Progreso de Consentimiento"),
+        "consentRequired":
+            MessageLookupByLibrary.simpleMessage("Consentimiento Requerido"),
+        "consentTemplates": MessageLookupByLibrary.simpleMessage(
+            "Plantillas de Consentimiento"),
+        "consents": MessageLookupByLibrary.simpleMessage("Consentimientos"),
         "contactArtist": MessageLookupByLibrary.simpleMessage(
             "Por favor, contacta al artista para más detalles."),
         "contactInfo":
             MessageLookupByLibrary.simpleMessage("Información de Contacto"),
         "contactInformation":
             MessageLookupByLibrary.simpleMessage("Información de Contacto"),
+        "continue_": MessageLookupByLibrary.simpleMessage("Continuar"),
         "copiedToClipboard":
             MessageLookupByLibrary.simpleMessage("Copiado al portapapeles"),
         "couldNotGetLocation": MessageLookupByLibrary.simpleMessage(
@@ -369,8 +390,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No se pudo cargar la imagen"),
         "couldNotPickImage": m4,
         "createEvent": MessageLookupByLibrary.simpleMessage("Crear Evento"),
+        "createFirstTemplate":
+            MessageLookupByLibrary.simpleMessage("Crear tu primera plantilla"),
         "createNewTag":
             MessageLookupByLibrary.simpleMessage("Crear nueva etiqueta"),
+        "createNewTemplate":
+            MessageLookupByLibrary.simpleMessage("Crear Nueva Plantilla"),
         "createOpenQuotation":
             MessageLookupByLibrary.simpleMessage("Crear Cotización Abierta"),
         "createQuotation":
@@ -536,6 +561,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "featuredWorks":
             MessageLookupByLibrary.simpleMessage("Trabajos Destacados"),
         "february": MessageLookupByLibrary.simpleMessage("Febrero"),
+        "fieldRequired":
+            MessageLookupByLibrary.simpleMessage("Este campo es requerido"),
         "filter": MessageLookupByLibrary.simpleMessage("Filtrar"),
         "filterBySource":
             MessageLookupByLibrary.simpleMessage("Filtrar por Fuente"),
@@ -556,6 +583,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "friday": MessageLookupByLibrary.simpleMessage("Viernes"),
         "from": MessageLookupByLibrary.simpleMessage("Desde"),
         "fullName": MessageLookupByLibrary.simpleMessage("Nombre completo"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Galería"),
+        "generalTerms":
+            MessageLookupByLibrary.simpleMessage("Términos Generales"),
         "generate": MessageLookupByLibrary.simpleMessage("Generar"),
         "generateNewDesign":
             MessageLookupByLibrary.simpleMessage("Generar nuevo diseño"),
@@ -583,6 +613,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hoursAndMinutes": m13,
         "hoursv2": m14,
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "imageRelease":
+            MessageLookupByLibrary.simpleMessage("Liberación de Imagen"),
         "inProgress": MessageLookupByLibrary.simpleMessage("En progreso"),
         "inspiration": MessageLookupByLibrary.simpleMessage("Inspiración"),
         "insufficientDetails":
@@ -667,6 +699,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se encontraron solicitudes"),
         "noAvailableTimeSlotsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron horarios disponibles"),
+        "noConsentRequired": MessageLookupByLibrary.simpleMessage(
+            "No se requieren formularios de consentimiento para esta cita"),
+        "noConsentTemplates": MessageLookupByLibrary.simpleMessage(
+            "Aún no se han creado plantillas de consentimiento"),
         "noContactInfo": MessageLookupByLibrary.simpleMessage(
             "No hay información de contacto disponible"),
         "noDescription":
@@ -835,6 +871,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
             "Las contraseñas no coinciden"),
         "pending": MessageLookupByLibrary.simpleMessage("Pendiente"),
+        "pendingSignature":
+            MessageLookupByLibrary.simpleMessage("Pendiente de Firma"),
         "permissionRequired":
             MessageLookupByLibrary.simpleMessage("Permiso requerido"),
         "phone": MessageLookupByLibrary.simpleMessage("Teléfono"),
@@ -859,6 +897,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor selecciona una imagen"),
         "pleaseSelectTimeRange": MessageLookupByLibrary.simpleMessage(
             "Por favor, selecciona un rango de tiempo"),
+        "pleaseSignConsents": MessageLookupByLibrary.simpleMessage(
+            "Por favor firma los formularios de consentimiento requeridos antes de continuar"),
         "popularTags":
             MessageLookupByLibrary.simpleMessage("Etiquetas Populares"),
         "portfolio": MessageLookupByLibrary.simpleMessage("Portafolio"),
@@ -969,6 +1009,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reject": MessageLookupByLibrary.simpleMessage("Rechazar"),
         "rejectAppeal":
             MessageLookupByLibrary.simpleMessage("Rechazar Apelación"),
+        "rejectEvent": MessageLookupByLibrary.simpleMessage("Rechazar evento"),
         "rejectQuotation":
             MessageLookupByLibrary.simpleMessage("Rechazar Cotización"),
         "rejectReasonArtisticDisagreement":
@@ -1009,6 +1050,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Requerido"),
         "requiredField":
             MessageLookupByLibrary.simpleMessage("Campo Requerido"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("Reagendar"),
         "rescheduled": MessageLookupByLibrary.simpleMessage("Reprogramada"),
         "reset": MessageLookupByLibrary.simpleMessage("Restablecer"),
         "resetRange": MessageLookupByLibrary.simpleMessage("Restablecer Rango"),
@@ -1113,6 +1155,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mostrar solo resultados disponibles"),
         "showingAllStencils": MessageLookupByLibrary.simpleMessage(
             "Mostrando todas las plantillas"),
+        "signConsent":
+            MessageLookupByLibrary.simpleMessage("Firmar Consentimiento"),
+        "signRequiredConsents": MessageLookupByLibrary.simpleMessage(
+            "Firmar Consentimientos Requeridos"),
+        "signed": MessageLookupByLibrary.simpleMessage("Firmado"),
         "source": MessageLookupByLibrary.simpleMessage("Fuente"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startChat": MessageLookupByLibrary.simpleMessage("Iniciar chat"),
@@ -1176,7 +1223,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Toca para cambiar la imagen"),
         "tapToSelectImage": MessageLookupByLibrary.simpleMessage(
             "Toca para seleccionar una imagen"),
+        "tapToSign": MessageLookupByLibrary.simpleMessage("Toca para firmar"),
         "tattoo": MessageLookupByLibrary.simpleMessage("Tatuaje"),
+        "tattooConsent":
+            MessageLookupByLibrary.simpleMessage("Consentimiento de Tatuaje"),
         "tattooDescriptionHint": MessageLookupByLibrary.simpleMessage(
             "Ej. Silueta minimalista de lobo con patrones geométricos"),
         "tattooGenerator":
@@ -1269,6 +1319,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
         "viewAllStencils":
             MessageLookupByLibrary.simpleMessage("Ver Todos los Stencils"),
+        "viewConsents":
+            MessageLookupByLibrary.simpleMessage("Ver Consentimientos"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
         "viewOffers": MessageLookupByLibrary.simpleMessage("Ver Ofertas"),
         "viewStencils": MessageLookupByLibrary.simpleMessage("Ver Plantillas"),

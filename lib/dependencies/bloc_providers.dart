@@ -45,7 +45,6 @@ import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
 
-
 // ... rest of imports
 
 List<BlocProvider> buildBlocProviders(BuildContext context) {
@@ -215,11 +214,13 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     ),
     BlocProvider(
       create: (context) => AppointmentBloc(
+        consentService: context.read(),
         appointmentService: context.read(),
         sessionService: context.read(),
+        agendaService: context.read(),
       ),
     ),
-    
+
     // Inspiration search provider
     BlocProvider(
       create: (context) => InspirationSearchBloc(
@@ -228,7 +229,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         sessionService: context.read<LocalSessionService>(),
       ),
     ),
-    
+
     // Tattoo generator provider
     BlocProvider(
       create: (context) => TattooGeneratorBloc(
@@ -244,8 +245,9 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         final fcmService = context.read<FcmService>();
         final notificationsService = context.read<NotificationsService>();
         final sessionService = context.read<LocalSessionService>();
-        final bloc = NotificationsBloc(fcmService, notificationsService, sessionService)
-          ..add(const NotificationsEvent.initialize());
+        final bloc =
+            NotificationsBloc(fcmService, notificationsService, sessionService)
+              ..add(const NotificationsEvent.initialize());
         fcmService.setBloc(bloc);
         fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
         return bloc;

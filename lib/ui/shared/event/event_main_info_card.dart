@@ -28,7 +28,6 @@ class EventMainInfoCard extends StatelessWidget {
     final l10n = S.of(context);
     final DateFormat dateFormat = DateFormat('d MMM yyyy', Intl.defaultLocale);
     final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
-    final Color eventColor = _parseColor(color);
     return Card(
       margin: const EdgeInsets.all(16),
       color: Theme.of(context).cardColor,
@@ -98,14 +97,6 @@ class EventMainInfoCard extends StatelessWidget {
       return '$hours h ${minutes > 0 ? '$minutes min' : ''}';
     } else {
       return '$minutes min';
-    }
-  }
-
-  Color _parseColor(String hexColor) {
-    try {
-      return Color(int.parse(hexColor.replaceAll('#', '0xFF')));
-    } catch (_) {
-      return Colors.grey;
     }
   }
 }

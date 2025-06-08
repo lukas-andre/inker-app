@@ -24,6 +24,7 @@ mixin _$UpdateArtistDto {
   String? get lastName => throw _privateConstructorUsedError;
   String? get shortDescription => throw _privateConstructorUsedError;
   UpdateContactDto? get contact => throw _privateConstructorUsedError;
+  bool? get requiresBasicConsent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $UpdateArtistDtoCopyWith<$Res> {
       {String? firstName,
       String? lastName,
       String? shortDescription,
-      UpdateContactDto? contact});
+      UpdateContactDto? contact,
+      bool? requiresBasicConsent});
 
   $UpdateContactDtoCopyWith<$Res>? get contact;
 }
@@ -63,6 +65,7 @@ class _$UpdateArtistDtoCopyWithImpl<$Res, $Val extends UpdateArtistDto>
     Object? lastName = freezed,
     Object? shortDescription = freezed,
     Object? contact = freezed,
+    Object? requiresBasicConsent = freezed,
   }) {
     return _then(_value.copyWith(
       firstName: freezed == firstName
@@ -81,6 +84,10 @@ class _$UpdateArtistDtoCopyWithImpl<$Res, $Val extends UpdateArtistDto>
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as UpdateContactDto?,
+      requiresBasicConsent: freezed == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -109,7 +116,8 @@ abstract class _$$UpdateArtistDtoImplCopyWith<$Res>
       {String? firstName,
       String? lastName,
       String? shortDescription,
-      UpdateContactDto? contact});
+      UpdateContactDto? contact,
+      bool? requiresBasicConsent});
 
   @override
   $UpdateContactDtoCopyWith<$Res>? get contact;
@@ -130,6 +138,7 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? shortDescription = freezed,
     Object? contact = freezed,
+    Object? requiresBasicConsent = freezed,
   }) {
     return _then(_$UpdateArtistDtoImpl(
       firstName: freezed == firstName
@@ -148,6 +157,10 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as UpdateContactDto?,
+      requiresBasicConsent: freezed == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -156,7 +169,11 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
   const _$UpdateArtistDtoImpl(
-      {this.firstName, this.lastName, this.shortDescription, this.contact});
+      {this.firstName,
+      this.lastName,
+      this.shortDescription,
+      this.contact,
+      this.requiresBasicConsent});
 
   factory _$UpdateArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateArtistDtoImplFromJson(json);
@@ -169,10 +186,12 @@ class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
   final String? shortDescription;
   @override
   final UpdateContactDto? contact;
+  @override
+  final bool? requiresBasicConsent;
 
   @override
   String toString() {
-    return 'UpdateArtistDto(firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, contact: $contact)';
+    return 'UpdateArtistDto(firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, contact: $contact, requiresBasicConsent: $requiresBasicConsent)';
   }
 
   @override
@@ -186,13 +205,15 @@ class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
                 other.lastName == lastName) &&
             (identical(other.shortDescription, shortDescription) ||
                 other.shortDescription == shortDescription) &&
-            (identical(other.contact, contact) || other.contact == contact));
+            (identical(other.contact, contact) || other.contact == contact) &&
+            (identical(other.requiresBasicConsent, requiresBasicConsent) ||
+                other.requiresBasicConsent == requiresBasicConsent));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, firstName, lastName, shortDescription, contact);
+  int get hashCode => Object.hash(runtimeType, firstName, lastName,
+      shortDescription, contact, requiresBasicConsent);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +235,8 @@ abstract class _UpdateArtistDto implements UpdateArtistDto {
       {final String? firstName,
       final String? lastName,
       final String? shortDescription,
-      final UpdateContactDto? contact}) = _$UpdateArtistDtoImpl;
+      final UpdateContactDto? contact,
+      final bool? requiresBasicConsent}) = _$UpdateArtistDtoImpl;
 
   factory _UpdateArtistDto.fromJson(Map<String, dynamic> json) =
       _$UpdateArtistDtoImpl.fromJson;
@@ -227,6 +249,8 @@ abstract class _UpdateArtistDto implements UpdateArtistDto {
   String? get shortDescription;
   @override
   UpdateContactDto? get contact;
+  @override
+  bool? get requiresBasicConsent;
   @override
   @JsonKey(ignore: true)
   _$$UpdateArtistDtoImplCopyWith<_$UpdateArtistDtoImpl> get copyWith =>

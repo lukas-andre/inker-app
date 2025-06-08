@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -14,7 +15,15 @@ import 'package:inker_studio/ui/shared/event/event_location_card.dart';
 import 'package:inker_studio/ui/shared/event/work_evidence_card.dart';
 import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
 import 'package:inker_studio/ui/shared/event/event_action_buttons.dart';
+import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart'
+    as dialogs;
 import 'package:inker_studio/ui/shared/event/event_section_header.dart';
+import 'package:inker_studio/domain/blocs/consent/signed_consent/signed_consent_bloc.dart';
+import 'package:inker_studio/domain/services/consent/consent_service.dart';
+import 'package:inker_studio/domain/blocs/consent/consent_status/consent_status_bloc.dart';
+import 'package:inker_studio/domain/blocs/consent/consent_status/consent_status_event.dart';
+import 'package:inker_studio/ui/shared/consent/consent_modal.dart';
+import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
 
 class AppointmentDetailPage extends StatelessWidget {
   final String appointmentId;
@@ -27,12 +36,12 @@ class AppointmentDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
-          l10n.appointmentDetails, 
+          l10n.appointmentDetails,
           style: TextStyleTheme.headline2,
         ),
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -42,22 +51,27 @@ class AppointmentDetailPage extends StatelessWidget {
           BlocBuilder<AppointmentBloc, AppointmentState>(
             builder: (context, state) {
               final isRefreshing = state.maybeWhen(
-                loaded: (_, __, ___, ____, _____, isRefreshing, ______, _______) => isRefreshing,
+                loaded:
+                    (_, __, ___, ____, _____, isRefreshing, ______, _______) =>
+                        isRefreshing,
                 orElse: () => false,
               );
-              
+
               return IconButton(
-                icon: isRefreshing 
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : const Icon(Icons.refresh),
-                onPressed: isRefreshing ? null : () => _loadAppointmentDetails(context, isRefresh: true),
+                icon: isRefreshing
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : const Icon(Icons.refresh),
+                onPressed: isRefreshing
+                    ? null
+                    : () => _loadAppointmentDetails(context, isRefresh: true),
                 tooltip: l10n.refresh,
               );
             },
@@ -97,16 +111,22 @@ class AppointmentDetailPage extends StatelessWidget {
             },
             orElse: () {},
           );
-          
+
           return state.maybeWhen(
-            loaded: (appointments, currentPage, totalPages, hasReachedMax,
-                isLoadingMore, isRefreshing, currentFilter, selectedAppointment) {
-              
+            loaded: (appointments,
+                currentPage,
+                totalPages,
+                hasReachedMax,
+                isLoadingMore,
+                isRefreshing,
+                currentFilter,
+                selectedAppointment) {
               if (selectedAppointment == null) {
-                return _buildErrorState(context, S.of(context).appointmentNotFound);
+                return _buildErrorState(
+                    context, S.of(context).appointmentNotFound);
               }
-              
-              return _buildContent(context, selectedAppointment, isRefreshing);
+
+              return _buildAppointmentDetails(context, selectedAppointment);
             },
             actionInProgress: () => _buildLoadingState(context),
             error: (message, _) => _buildErrorState(context, message),
@@ -117,15 +137,21 @@ class AppointmentDetailPage extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
           return state.maybeWhen(
-            loaded: (appointments, currentPage, totalPages, hasReachedMax,
-                isLoadingMore, isRefreshing, currentFilter, selectedAppointment) {
-              
+            loaded: (appointments,
+                currentPage,
+                totalPages,
+                hasReachedMax,
+                isLoadingMore,
+                isRefreshing,
+                currentFilter,
+                selectedAppointment) {
               if (selectedAppointment == null) {
                 return const SizedBox.shrink();
               }
               return _buildActionButtons(context, selectedAppointment);
             },
-            actionInProgress: () => const EventActionButtons(actions: [], isLoading: true),
+            actionInProgress: () =>
+                const EventActionButtons(actions: [], isLoading: true),
             orElse: () => const SizedBox.shrink(),
           );
         },
@@ -136,12 +162,12 @@ class AppointmentDetailPage extends StatelessWidget {
   void _loadAppointmentDetails(BuildContext context, {bool isRefresh = false}) {
     if (isRefresh) {
       context.read<AppointmentBloc>().add(
-        AppointmentEvent.refreshAppointmentDetail(appointmentId),
-      );
+            AppointmentEvent.refreshAppointmentDetail(appointmentId),
+          );
     } else {
       context.read<AppointmentBloc>().add(
-        AppointmentEvent.getAppointmentById(appointmentId),
-      );
+            AppointmentEvent.getAppointmentById(appointmentId),
+          );
     }
   }
 
@@ -181,7 +207,8 @@ class AppointmentDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () => _loadAppointmentDetails(context, isRefresh: true),
+              onPressed: () =>
+                  _loadAppointmentDetails(context, isRefresh: true),
               icon: const Icon(Icons.refresh),
               label: Text(S.of(context).tryAgain),
               style: ElevatedButton.styleFrom(
@@ -194,24 +221,27 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, AppointmentDetailDto detail, bool isRefreshing) {
+  Widget _buildAppointmentDetails(
+      BuildContext context, AppointmentDetailDto detail) {
     final appointment = detail.event;
     final artist = detail.artist;
     final location = detail.location;
     final quotation = detail.quotation;
     final workEvidence = appointment.workEvidence;
+    final l10n = S.of(context);
 
     return RefreshIndicator(
       onRefresh: () async {
         _loadAppointmentDetails(context, isRefresh: true);
-        
+
         // Wait for the refresh to complete using a simple delay
         // The UI will update through BlocBuilder when refresh is done
         await Future.delayed(const Duration(milliseconds: 500));
       },
       color: Theme.of(context).colorScheme.secondary,
       child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(), // Ensures pull to refresh works even when content doesn't fill screen
+        physics:
+            const AlwaysScrollableScrollPhysics(), // Ensures pull to refresh works even when content doesn't fill screen
         slivers: [
           SliverToBoxAdapter(
             child: AnimatedContainer(
@@ -226,19 +256,20 @@ class AppointmentDetailPage extends StatelessWidget {
                     startDate: appointment.startDate,
                     endDate: appointment.endDate,
                     artist: artist,
-                    onArtistTap: () => _navigateToArtistProfile(context, artist.id),
+                    onArtistTap: () =>
+                        _navigateToArtistProfile(context, artist.id),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Description Section
                   EventDescriptionCard(
                     description: appointment.info,
                     notes: appointment.notes,
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Location Section
                   EventLocationCard(
                     location: location,
@@ -249,9 +280,10 @@ class AppointmentDetailPage extends StatelessWidget {
                       location.formattedAddress,
                     ),
                   ),
-                  
+
                   // Work Evidence Section
-                  if (workEvidence != null && workEvidence.metadata.isNotEmpty) ...[
+                  if (workEvidence != null &&
+                      workEvidence.metadata.isNotEmpty) ...[
                     const SizedBox(height: 16),
                     EventSectionHeader(
                       icon: Icons.photo_library,
@@ -260,7 +292,7 @@ class AppointmentDetailPage extends StatelessWidget {
                     ),
                     WorkEvidenceCard(workEvidence: workEvidence),
                   ],
-                  
+
                   // Quotation Section
                   const SizedBox(height: 16),
                   EventSectionHeader(
@@ -269,13 +301,188 @@ class AppointmentDetailPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   QuotationDetailsCard(quotation: quotation),
-                  
+
+                  // Consent Section
+                  if (appointment.status == 'pending') ...[
+                    const SizedBox(height: 16),
+                    EventSectionHeader(
+                      icon: Icons.description,
+                      title: 'Consent Forms',
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    BlocProvider(
+                      create: (context) => SignedConsentBloc(
+                        sessionService: context.read<LocalSessionService>(),
+                        consentService: context.read<ConsentService>(),
+                      )..add(SignedConsentEvent.loadRequiredConsentsForEvent(
+                        appointmentId, 
+                        // TODO: Get current user ID from auth service
+                        'current-user-id',
+                      )),
+                      child: BlocBuilder<SignedConsentBloc, SignedConsentState>(
+                        builder: (context, consentState) {
+                          return consentState.when(
+                            initial: () => const SizedBox.shrink(),
+                            loading: () => Card(
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              color: explorerSecondaryColor,
+                              child: const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Center(child: CircularProgressIndicator()),
+                              ),
+                            ),
+                            loaded: (eventId, userId, requiredConsents, signedConsents, hasSignedAll) {
+                              if (requiredConsents.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+
+                              return Card(
+                                margin: const EdgeInsets.symmetric(horizontal: 16),
+                                color: explorerSecondaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            hasSignedAll ? Icons.check_circle : Icons.pending,
+                                            color: hasSignedAll ? Colors.green : Colors.orange,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: Text(
+                                              hasSignedAll 
+                                                  ? 'All consent forms completed'
+                                                  : 'Consent forms required',
+                                              style: TextStyleTheme.subtitle2.copyWith(
+                                                color: hasSignedAll ? Colors.green : Colors.orange,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        hasSignedAll
+                                            ? 'You have completed all required consent forms for this appointment.'
+                                            : 'Please review and sign the required consent forms for your appointment.',
+                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      
+                                      // Progress indicator
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: LinearProgressIndicator(
+                                              value: requiredConsents.isEmpty 
+                                                  ? 1.0 
+                                                  : signedConsents.length / requiredConsents.length,
+                                              backgroundColor: Colors.white24,
+                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                hasSignedAll ? Colors.green : Theme.of(context).colorScheme.secondary,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Text(
+                                            '${signedConsents.length}/${requiredConsents.length}',
+                                            style: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                                          ),
+                                        ],
+                                      ),
+                                      
+                                      if (!hasSignedAll) ...[
+                                        const SizedBox(height: 16),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                '/consent-signing',
+                                                arguments: {
+                                                  'eventId': appointmentId,
+                                                  'userId': userId,
+                                                },
+                                              );
+                                            },
+                                            icon: const Icon(Icons.edit_document),
+                                            label: const Text('Complete Consent Forms'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            signingInProgress: () => Card(
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              color: explorerSecondaryColor,
+                              child: const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Center(child: CircularProgressIndicator()),
+                              ),
+                            ),
+                            signSuccess: (message) => Card(
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              color: explorerSecondaryColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.check_circle, color: Colors.green),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        message,
+                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.green),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            error: (message) => Card(
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              color: explorerSecondaryColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.error, color: Colors.red),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'Error loading consent forms: $message',
+                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+
                   // Additional Info Section (if needed)
                   if (_hasAdditionalInfo(appointment)) ...[
                     const SizedBox(height: 16),
                     _buildAdditionalInfoCard(context, appointment),
                   ],
-                  
+
                   const SizedBox(height: 100),
                 ],
               ),
@@ -287,11 +494,12 @@ class AppointmentDetailPage extends StatelessWidget {
   }
 
   bool _hasAdditionalInfo(AppointmentEventDto appointment) {
-    return appointment.status == AppointmentStatus.canceled ||
-           appointment.status == AppointmentStatus.rescheduled;
+    return appointment.status == 'canceled' ||
+        appointment.status == 'rescheduled';
   }
 
-  Widget _buildAdditionalInfoCard(BuildContext context, AppointmentEventDto appointment) {
+  Widget _buildAdditionalInfoCard(
+      BuildContext context, AppointmentEventDto appointment) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: explorerSecondaryColor,
@@ -317,16 +525,14 @@ class AppointmentDetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            
-            if (appointment.status == AppointmentStatus.canceled) 
+            if (appointment.status == 'canceled')
               _buildInfoChip(
                 context,
                 icon: Icons.cancel,
                 text: S.of(context).appointmentCanceled,
                 color: Colors.red,
               ),
-            
-            if (appointment.status == AppointmentStatus.rescheduled)
+            if (appointment.status == 'rescheduled')
               _buildInfoChip(
                 context,
                 icon: Icons.update,
@@ -339,7 +545,8 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoChip(BuildContext context, {
+  Widget _buildInfoChip(
+    BuildContext context, {
     required IconData icon,
     required String text,
     required Color color,
@@ -365,57 +572,74 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(BuildContext context, AppointmentDetailDto detail) {
-    final appointment = detail.event;
-    final artist = detail.artist;
+  Widget _buildActionButtons(
+      BuildContext context, AppointmentDetailDto detail) {
     final l10n = S.of(context);
-    
+
     List<EventActionButton> actions = [];
-    
-    // Only show actions for active appointments
-    if (appointment.status == AppointmentStatus.scheduled ||
-        appointment.status == AppointmentStatus.pending) {
-      
-      // Contact Artist Action
+
+    // Use backend actions instead of manual calculation
+    if (detail.actions.canSendMessage) {
       actions.add(EventActionButton(
-        onPressed: () => _showContactOptions(context, artist),
+        onPressed: () => _navigateToChat(context, detail),
         icon: Icons.message,
         label: l10n.contactArtist,
         color: Theme.of(context).colorScheme.secondary,
       ));
-      
-      // Cancel/Reschedule Actions based on timing
-      final now = DateTime.now();
-      final hoursDifference = appointment.startDate.difference(now).inHours;
-      
-      if (hoursDifference > 24) {
-        // Can cancel if more than 24 hours away
-        actions.add(EventActionButton(
-          onPressed: () => _showCancelDialog(context, detail),
-          icon: Icons.cancel,
-          label: l10n.cancelAppointment,
-          color: redColor,
-          isDestructive: true,
-        ));
-      } else if (hoursDifference > 2) {
-        // Can request change if more than 2 hours away
-        actions.add(EventActionButton(
-          onPressed: () => _showRescheduleDialog(context, detail),
-          icon: Icons.update,
-          label: l10n.requestChange,
-          color: Colors.orange,
-        ));
-      }
     }
-    
-    // Review action for completed appointments
-    if (appointment.status == AppointmentStatus.completed &&
-        appointment.workEvidence != null) {
+
+    if (detail.actions.canCancel) {
+      actions.add(EventActionButton(
+        onPressed: () => _showCancelDialog(context, detail),
+        icon: Icons.cancel,
+        label: l10n.cancelAppointment,
+        color: redColor,
+        isDestructive: true,
+      ));
+    }
+
+    if (detail.actions.canReschedule) {
+      actions.add(EventActionButton(
+        onPressed: () => _showRescheduleDialog(context, detail),
+        icon: Icons.update,
+        label: l10n.requestChange,
+        color: Colors.orange,
+      ));
+    }
+
+    if (detail.actions.canLeaveReview) {
       actions.add(EventActionButton(
         onPressed: () => _showReviewDialog(context, detail),
         icon: Icons.star_rate,
         label: S.of(context).leaveReview,
         color: Colors.amber,
+      ));
+    }
+
+    if (detail.actions.canConfirmEvent) {
+      actions.add(EventActionButton(
+        onPressed: () => _showConfirmDialog(context, detail),
+        icon: Icons.check_circle,
+        label: l10n.confirm,
+        color: Colors.green,
+      ));
+    }
+
+    if (detail.actions.canRejectEvent) {
+      actions.add(EventActionButton(
+        onPressed: () => _showRejectDialog(context, detail),
+        icon: Icons.highlight_off,
+        label: l10n.reject,
+        color: Colors.redAccent,
+      ));
+    }
+
+    if (detail.actions.canAppeal) {
+      actions.add(EventActionButton(
+        onPressed: () => _showAppealDialog(context, detail),
+        icon: Icons.policy,
+        label: l10n.appeal,
+        color: Colors.indigo,
       ));
     }
 
@@ -431,7 +655,8 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
-  void _openMap(BuildContext context, double latitude, double longitude, String title) async {
+  void _openMap(BuildContext context, double latitude, double longitude,
+      String title) async {
     final availableMaps = await MapLauncher.installedMaps;
     if (availableMaps.isNotEmpty) {
       await availableMaps.first.showMarker(
@@ -445,145 +670,26 @@ class AppointmentDetailPage extends StatelessWidget {
     }
   }
 
+  void _navigateToChat(BuildContext context, AppointmentDetailDto detail) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EventChatPage(
+          eventId: detail.event.id,
+          agendaId: detail.event.agenda.id,
+          eventTitle: detail.event.title,
+          otherPartyName: detail.artist.username ?? 'Artist',
+          isArtist: false,
+        ),
+      ),
+    );
+  }
+
   // Dialog methods using shared components
-  void _showContactOptions(BuildContext context, dynamic artist) {
-    final l10n = S.of(context);
-    
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: explorerSecondaryColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle bar
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.white24,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-            
-            // Header
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: artist.profileThumbnail != null
-                    ? NetworkImage(artist.profileThumbnail!)
-                    : null,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: artist.profileThumbnail == null
-                    ? Text(
-                        artist.username?.substring(0, 1).toUpperCase() ?? 'A',
-                        style: TextStyleTheme.headline3.copyWith(color: Colors.white),
-                      )
-                    : null,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.contactArtist,
-                        style: TextStyleTheme.headline3,
-                      ),
-                      Text(
-                        artist.username ?? l10n.artist,
-                        style: TextStyleTheme.bodyText2.copyWith(
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Contact options
-            if (artist.contact?.email != null)
-              _buildContactOption(
-                context: context,
-                icon: Icons.email,
-                title: S.of(context).sendEmail,
-                subtitle: artist.contact!.email,
-                onTap: () {
-                  Navigator.pop(context);
-                  // TODO: Launch email
-                },
-              ),
-            
-            if (artist.contact?.phone != null)
-              _buildContactOption(
-                context: context,
-                icon: Icons.phone,
-                title: S.of(context).callArtist,
-                subtitle: artist.contact!.phone,
-                onTap: () {
-                  Navigator.pop(context);
-                  // TODO: Launch phone
-                },
-              ),
-            
-            _buildContactOption(
-              context: context,
-              icon: Icons.chat_bubble_outline,
-              title: l10n.sendMessageInApp,
-              subtitle: S.of(context).chatDirectlyWithArtist,
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.thisFeatureWillBeAvailableSoon)),
-                );
-              },
-            ),
-            
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContactOption({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: Theme.of(context).colorScheme.secondary),
-        ),
-        title: Text(title, style: TextStyleTheme.subtitle1),
-        subtitle: Text(subtitle, style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70)),
-        onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    );
-  }
-
   void _showCancelDialog(BuildContext context, AppointmentDetailDto detail) {
     final l10n = S.of(context);
-    
-    EventActionDialogs.showTextInputDialog(
+
+    dialogs.EventActionDialogs.showTextInputDialog(
       context: context,
       title: l10n.cancelAppointment,
       hintText: l10n.cancellationReason,
@@ -594,32 +700,151 @@ class AppointmentDetailPage extends StatelessWidget {
       required: true,
       onConfirm: (reason) {
         context.read<AppointmentBloc>().add(
-          AppointmentEvent.cancelAppointment(
-            appointmentId: detail.event.id,
-            reason: reason,
-          ),
-        );
+              AppointmentEvent.cancelAppointment(
+                appointmentId: detail.event.id,
+                reason: reason,
+              ),
+            );
       },
     );
   }
 
-  void _showRescheduleDialog(BuildContext context, AppointmentDetailDto detail) {
+  void _showRescheduleDialog(
+      BuildContext context, AppointmentDetailDto detail) {
     final l10n = S.of(context);
-    
-    EventActionDialogs.showConfirmationDialog(
+
+    dialogs.EventActionDialogs.showConfirmationDialog(
       context: context,
       title: l10n.changeAppointment,
-      content: l10n.changeAppointmentInstruction,
+      content: 'Para reagendar tu cita, por favor contacta directamente al artista a través del chat. El artista podrá ayudarte a encontrar un nuevo horario disponible.',
       actionText: l10n.contactArtist,
       actionColor: Theme.of(context).colorScheme.secondary,
       icon: const Icon(Icons.update, color: Colors.orange),
-      onConfirm: () => _showContactOptions(context, detail.artist),
+      onConfirm: () => _navigateToChat(context, detail),
     );
   }
 
   void _showReviewDialog(BuildContext context, AppointmentDetailDto detail) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(S.of(context).reviewFunctionalityComingSoon)),
+    final l10n = S.of(context);
+
+    dialogs.EventActionDialogs.showRatingDialog(
+      context: context,
+      title: l10n.leaveReview,
+      actionText: l10n.submit,
+      icon: const Icon(Icons.star_rate, color: Colors.amber),
+      onConfirm: (rating, comment, isAnonymous) {
+        context.read<AppointmentBloc>().add(
+              AppointmentEvent.reviewAppointment(
+                appointmentId: detail.event.id,
+                agendaId: detail.event.agenda.id,
+                rating: rating,
+                comment: comment,
+                isAnonymous: isAnonymous,
+              ),
+            );
+      },
+    );
+  }
+
+  void _showConfirmDialog(BuildContext context, AppointmentDetailDto detail) {
+    final l10n = S.of(context);
+
+    // Check if consent is required
+    if (detail.actions.canAcceptConsent) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => BlocProvider(
+          create: (context) => ConsentStatusBloc(
+            consentService: context.read<ConsentService>(),
+            sessionService: context.read<LocalSessionService>(),
+          )..add(ConsentStatusEvent.checkStatus(detail.event.id)),
+          child: ConsentModal(
+            eventId: detail.event.id,
+            onAccept: () {
+              // Cerrar la modal de consentimiento
+              Navigator.of(dialogContext).pop();
+              // Esperar un frame para asegurar que la modal se ha cerrado
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                // Mostrar la modal de confirmación
+                _showConfirmationDialog(context, detail);
+              });
+            },
+            onCancel: () => Navigator.of(dialogContext).pop(),
+          ),
+        ),
+      );
+    } else {
+      _showConfirmationDialog(context, detail);
+    }
+  }
+
+  void _showConfirmationDialog(BuildContext context, AppointmentDetailDto detail) {
+    final l10n = S.of(context);
+
+    dialogs.EventActionDialogs.showConfirmationDialog(
+      context: context,
+      title: l10n.confirmEvent,
+      content: l10n.confirmEventMessage,
+      actionText: l10n.confirm,
+      actionColor: Colors.green,
+      icon: const Icon(Icons.check_circle, color: Colors.green),
+      onConfirm: () {
+        context.read<AppointmentBloc>().add(
+              AppointmentEvent.confirmAppointment(
+                appointmentId: detail.event.id,
+                agendaId: detail.event.agenda.id,
+              ),
+            );
+      },
+    );
+  }
+
+  void _showRejectDialog(BuildContext context, AppointmentDetailDto detail) {
+    final l10n = S.of(context);
+
+    dialogs.EventActionDialogs.showTextInputDialog(
+      context: context,
+      title: l10n.rejectEvent,
+      hintText: l10n.rejectionReason,
+      actionText: l10n.reject,
+      actionColor: Colors.redAccent,
+      icon: const Icon(Icons.highlight_off, color: Colors.redAccent),
+      maxLines: 3,
+      required: false, // Rejection reason is optional
+      onConfirm: (reason) {
+        context.read<AppointmentBloc>().add(
+              AppointmentEvent.rejectAppointment(
+                appointmentId: detail.event.id,
+                agendaId: detail.event.agenda.id,
+                reason: reason.isEmpty ? null : reason,
+              ),
+            );
+      },
+    );
+  }
+
+  void _showAppealDialog(BuildContext context, AppointmentDetailDto detail) {
+    final l10n = S.of(context);
+
+    dialogs.EventActionDialogs.showTextInputDialog(
+      context: context,
+      title: l10n.appeal,
+      hintText: l10n.appealReason,
+      actionText: l10n.appeal,
+      actionColor: Colors.indigo,
+      icon: const Icon(Icons.policy, color: Colors.indigo),
+      maxLines: 5,
+      required: true,
+      onConfirm: (reason) {
+        context.read<AppointmentBloc>().add(
+              AppointmentEvent.appealAppointment(
+                appointmentId: detail.event.id,
+                agendaId: detail.event.agenda.id,
+                reason: reason,
+              ),
+            );
+      },
     );
   }
 }
