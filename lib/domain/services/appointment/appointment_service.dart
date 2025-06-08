@@ -1,7 +1,13 @@
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
+import 'package:inker_studio/domain/models/appointment/customer_appointments_view.dart';
 
 abstract class AppointmentService {
+  /// Retrieves the new customer appointments view
+  Future<CustomerAppointmentsView> getCustomerAppointmentsView({
+    required String token,
+  });
+
   /// Retrieves a list of customer appointments
   Future<List<Appointment>> getCustomerAppointments({
     required String token,

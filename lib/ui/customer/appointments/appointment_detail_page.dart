@@ -51,9 +51,9 @@ class AppointmentDetailPage extends StatelessWidget {
           BlocBuilder<AppointmentBloc, AppointmentState>(
             builder: (context, state) {
               final isRefreshing = state.maybeWhen(
-                loaded:
-                    (_, __, ___, ____, _____, isRefreshing, ______, _______) =>
-                        isRefreshing,
+                loaded: (view, selectedAppointment) => false,
+                loading: () => true,
+                actionInProgress: () => true,
                 orElse: () => false,
               );
 
@@ -112,39 +112,28 @@ class AppointmentDetailPage extends StatelessWidget {
             orElse: () {},
           );
 
-          return state.maybeWhen(
-            loaded: (appointments,
-                currentPage,
-                totalPages,
-                hasReachedMax,
-                isLoadingMore,
-                isRefreshing,
-                currentFilter,
-                selectedAppointment) {
+          return state.when(
+            initial: () => _buildLoadingState(context),
+            loading: () => _buildLoadingState(context),
+            loaded: (view, selectedAppointment) {
               if (selectedAppointment == null) {
-                return _buildErrorState(
-                    context, S.of(context).appointmentNotFound);
+                // If we are in a loaded state but have no selection, it might be an error
+                // or the detail just hasn't been loaded yet. Show loading.
+                return _buildLoadingState(context);
               }
-
               return _buildAppointmentDetails(context, selectedAppointment);
             },
             actionInProgress: () => _buildLoadingState(context),
-            error: (message, _) => _buildErrorState(context, message),
-            orElse: () => _buildLoadingState(context),
+            actionSuccess: () => _buildLoadingState(context), // will be refreshed
+            actionFailed: (message) => _buildErrorState(context, message),
+            error: (message) => _buildErrorState(context, message),
           );
         },
       ),
       bottomNavigationBar: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
           return state.maybeWhen(
-            loaded: (appointments,
-                currentPage,
-                totalPages,
-                hasReachedMax,
-                isLoadingMore,
-                isRefreshing,
-                currentFilter,
-                selectedAppointment) {
+            loaded: (view, selectedAppointment) {
               if (selectedAppointment == null) {
                 return const SizedBox.shrink();
               }
@@ -160,15 +149,10 @@ class AppointmentDetailPage extends StatelessWidget {
   }
 
   void _loadAppointmentDetails(BuildContext context, {bool isRefresh = false}) {
-    if (isRefresh) {
-      context.read<AppointmentBloc>().add(
-            AppointmentEvent.refreshAppointmentDetail(appointmentId),
-          );
-    } else {
-      context.read<AppointmentBloc>().add(
-            AppointmentEvent.getAppointmentById(appointmentId),
-          );
-    }
+    // refreshAppointmentDetail is an alias for getAppointmentById now
+    context.read<AppointmentBloc>().add(
+          AppointmentEvent.getAppointmentById(appointmentId),
+        );
   }
 
   Widget _buildLoadingState(BuildContext context) {

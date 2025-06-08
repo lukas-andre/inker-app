@@ -19,7 +19,7 @@ class LocationDisplay extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
           child: Text(
-            location.shortAddress1, // Assuming this is the desired field
+            location.shortAddress1 ?? '', // Assuming this is the desired field
             style: TextStyleTheme.bodyText2.copyWith(
               color: const Color(0xFFBDBDBD), // Lighter color
             ),

@@ -645,7 +645,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
         const SizedBox(width: 8),
         Expanded(
           child: Text(
-            location.shortAddress1,
+            location.shortAddress1 ?? '',
             style: TextStyleTheme.bodyText2.copyWith(
               color: const Color(0xFF686D90),
             ),

@@ -4,10 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
 import 'package:inker_studio/domain/models/appointment/appointment.dart';
+import 'package:inker_studio/domain/models/appointment/customer_appointment_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/services/appointment/appointment_service.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
+import 'package:inker_studio/domain/models/appointment/customer_appointments_view.dart';
 
 class ApiAppointmentService implements AppointmentService {
   static const String _customerPath = 'customer/appointments';
@@ -339,5 +341,56 @@ class ApiAppointmentService implements AppointmentService {
       body: {},
       fromJson: (json) => null,
     );
+  }
+
+  @override
+  Future<CustomerAppointmentsView> getCustomerAppointmentsView(
+      {required String token}) async {
+    // The new endpoint is just /agenda for customers
+    final response = await _httpClient.get<Map<String, dynamic>>(
+      path: _agendaPath,
+      token: token,
+      fromJson: (json) => json,
+    );
+    
+    try {
+      return CustomerAppointmentsView.fromJson(response);
+    } catch (e, s) {
+      print('--- DETAILED PARSE ERROR ---');
+      print('Failed to parse the full CustomerAppointmentsView object.');
+      print('Error: $e');
+
+      // Attempt to parse sub-sections to isolate the error
+      if (response['heroAppointment'] != null) {
+        try {
+          CustomerAppointmentDto.fromJson(response['heroAppointment'] as Map<String, dynamic>);
+        } catch (subError, subStack) {
+          print('>>> ERROR ISOLATED IN: heroAppointment');
+          print('Sub-Error: $subError');
+          print('Sub-Stack: $subStack');
+        }
+      }
+
+      if (response['appointments'] != null) {
+        final appointmentsMap = response['appointments'] as Map<String, dynamic>;
+        for (final entry in appointmentsMap.entries) {
+          final key = entry.key;
+          final list = entry.value as List;
+          for (var i = 0; i < list.length; i++) {
+            try {
+              CustomerAppointmentDto.fromJson(list[i] as Map<String, dynamic>);
+            } catch (subError, subStack) {
+              print('>>> ERROR ISOLATED IN: appointments -> $key -> item $i');
+              print('Sub-Error: $subError');
+              print('Sub-Stack: $subStack');
+            }
+          }
+        }
+      }
+
+      print('Original Stack Trace: $s');
+      print('--- END DETAILED PARSE ERROR ---');
+      rethrow;
+    }
   }
 }
