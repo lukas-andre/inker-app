@@ -32,32 +32,34 @@ class CustomerAppPage extends StatefulWidget {
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
   int _selectedIndex = 2;
-  List<Widget> get _pageWidgets => <Widget>[
-        const BuildMapPage(hideHeader: true),
-        const CustomerQuotationsTabView(),
-        BlocProvider(
-          create: (context) => InspirationSearchBloc(
-            stencilService: context.read(),
-            workService: context.read(),
-            sessionService: context.read(),
-          ),
-          child: const InspirationSearchPage(hideHeader: true),
-        ),
-        BlocProvider(
-          create: (context) => AppointmentBloc(
-            appointmentService: context.read(),
-            sessionService: context.read(),
-            agendaService: context.read(),
-            consentService: context.read(),
-          ),
-          child: const CustomerAppointmentsPage(hideHeader: true),
-        ),
-        const CustomerMyProfilePage(hideHeader: true)
-      ];
+  late final List<Widget> _pageWidgets;
+  final HeroController _heroController = HeroController();
 
   @override
   void initState() {
     super.initState();
+    _pageWidgets = <Widget>[
+      const BuildMapPage(hideHeader: true),
+      const CustomerQuotationsTabView(),
+      BlocProvider(
+        create: (context) => InspirationSearchBloc(
+          stencilService: context.read(),
+          workService: context.read(),
+          sessionService: context.read(),
+        ),
+        child: const InspirationSearchPage(hideHeader: true),
+      ),
+      BlocProvider(
+        create: (context) => AppointmentBloc(
+          appointmentService: context.read(),
+          sessionService: context.read(),
+          agendaService: context.read(),
+          consentService: context.read(),
+        ),
+        child: const CustomerAppointmentsPage(hideHeader: true),
+      ),
+      const CustomerMyProfilePage(hideHeader: true),
+    ];
 
     // Refresh notifications when the page is shown
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -382,9 +384,12 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
             : null,
         body: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: IndexedStack(
-              index: _selectedIndex,
-              children: _pageWidgets,
+            child: HeroControllerScope(
+              controller: _heroController,
+              child: IndexedStack(
+                index: _selectedIndex,
+                children: _pageWidgets,
+              ),
             )),
         bottomNavigationBar: Theme(
           data: ThemeData(
