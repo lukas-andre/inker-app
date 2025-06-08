@@ -20,6 +20,7 @@ import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
 import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
+import 'package:inker_studio/ui/shared/event/event_actions_manager.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
   final String eventId;
@@ -33,31 +34,7 @@ class AgendaEventDetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: Text(
-          S.of(context).eventDetails,
-          style: TextStyleTheme.headline2,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
-        actions: [
-          BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loaded: (data) => !data.event.done && data.actions.canEdit
-                  ? IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () => _navigateToEditEvent(context, data),
-                      tooltip: S.of(context).edit,
-                    )
-                  : const SizedBox.shrink(),
-                orElse: () => const SizedBox.shrink(),
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: _buildAppBar(context),
       body: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.when(
@@ -72,12 +49,215 @@ class AgendaEventDetailPage extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             loaded: (data) => !data.event.done
-                ? _buildActionButtons(context, data)
+                ? EventActionsManager.buildBottomActions(
+                    context: context,
+                    config: _buildActionsConfig(context, data),
+                  )
                 : const SizedBox.shrink(),
             orElse: () => const SizedBox.shrink(),
           );
         },
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(
+        S.of(context).eventDetails,
+        style: TextStyleTheme.headline2,
+      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      elevation: 0,
+      iconTheme: const IconThemeData(color: Colors.white),
+      actions: [
+        // Chat action
+        BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loaded: (data) {
+                if (data.actions.canSendMessage && !data.event.done) {
+                  return IconButton(
+                    icon: const Icon(Icons.message),
+                    onPressed: () => _showMessageDialog(context, data),
+                    tooltip: 'Enviar Mensaje',
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
+        
+        // Overflow menu
+        BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loaded: (data) {
+                if (data.event.done) return const SizedBox.shrink();
+                
+                final config = _buildActionsConfig(context, data);
+                final secondaryActions = config.secondaryActions;
+                
+                if (secondaryActions.isEmpty) return const SizedBox.shrink();
+                
+                return PopupMenuButton<String>(
+                  icon: const Icon(Icons.more_vert),
+                  onSelected: (actionId) {
+                    final action = secondaryActions.firstWhere((a) => a.id == actionId);
+                    action.onPressed();
+                  },
+                  itemBuilder: (context) => secondaryActions
+                      .map((action) => PopupMenuItem<String>(
+                            value: action.id,
+                            child: Row(
+                              children: [
+                                Icon(action.icon, color: action.color, size: 20),
+                                const SizedBox(width: 12),
+                                Text(
+                                  action.label,
+                                  style: TextStyleTheme.bodyText1.copyWith(
+                                    color: action.isDestructive ? Colors.red : Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                );
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
+        
+        // Refresh button
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () {
+            context.read<ArtistAgendaEventDetailBloc>()
+              .add(ArtistAgendaEventDetailEvent.started(eventId));
+          },
+          tooltip: 'Actualizar',
+        ),
+      ],
+    );
+  }
+
+  EventActionsConfig _buildActionsConfig(BuildContext context, EventDetailResponse data) {
+    List<EventAction> actions = [];
+
+    // PRIMARY ACTIONS (Bottom - Critical state changes)
+    if (data.actions.canEdit) {
+      actions.add(EventAction(
+        id: 'edit',
+        onPressed: () => _navigateToEditEvent(context, data),
+        icon: Icons.edit,
+        label: 'Editar',
+        color: Theme.of(context).colorScheme.secondary,
+        category: ActionCategory.primary,
+      ));
+    }
+
+    if (data.actions.canCancel) {
+      actions.add(EventAction(
+        id: 'cancel',
+        onPressed: () => _showCancelDialog(context, data),
+        icon: Icons.cancel,
+        label: 'Cancelar',
+        color: redColor,
+        category: ActionCategory.primary,
+        isDestructive: true,
+      ));
+    }
+
+    // COMMUNICATION ACTIONS (AppBar - Always visible)
+    if (data.actions.canSendMessage) {
+      actions.add(EventAction(
+        id: 'message',
+        onPressed: () => _showMessageDialog(context, data),
+        icon: Icons.message,
+        label: 'Enviar Mensaje',
+        color: Theme.of(context).colorScheme.secondary,
+        category: ActionCategory.communication,
+      ));
+    }
+
+    // SECONDARY ACTIONS (Overflow Menu)
+    if (data.actions.canReschedule) {
+      actions.add(EventAction(
+        id: 'reschedule',
+        onPressed: () => _showRescheduleDialog(context, data),
+        icon: Icons.schedule,
+        label: 'Reagendar',
+        color: tertiaryColor,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (data.actions.canAddWorkEvidence) {
+      actions.add(EventAction(
+        id: 'add_evidence',
+        onPressed: () => _showAddWorkEvidenceDialog(context, data),
+        icon: Icons.add_photo_alternate,
+        label: 'Agregar Evidencia',
+        color: Colors.orange,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (data.actions.canLeaveReview) {
+      actions.add(EventAction(
+        id: 'review',
+        onPressed: () => _showReviewDialog(context, data),
+        icon: Icons.star_rate,
+        label: 'Dejar Reseña',
+        color: Colors.amber,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (data.actions.canConfirmEvent) {
+      actions.add(EventAction(
+        id: 'confirm',
+        onPressed: () => _showConfirmDialog(context, data),
+        icon: Icons.check_circle,
+        label: 'Confirmar',
+        color: Colors.green,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (data.actions.canRejectEvent) {
+      actions.add(EventAction(
+        id: 'reject',
+        onPressed: () => _showRejectDialog(context, data),
+        icon: Icons.highlight_off,
+        label: 'Rechazar',
+        color: Colors.redAccent,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    if (data.actions.canAppeal) {
+      actions.add(EventAction(
+        id: 'appeal',
+        onPressed: () => _showAppealDialog(context, data),
+        icon: Icons.policy,
+        label: 'Apelar',
+        color: Colors.indigo,
+        category: ActionCategory.secondary,
+      ));
+    }
+
+    return EventActionsConfig(
+      actions: actions,
+      eventTitle: data.event.title,
+      onRefresh: () {
+        context.read<ArtistAgendaEventDetailBloc>()
+          .add(ArtistAgendaEventDetailEvent.started(eventId));
+      },
     );
   }
 
@@ -476,160 +656,6 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(BuildContext context, EventDetailResponse data) {
-    final List<_ActionButton> actionButtons = [];
-    
-    // Define all possible actions with improved styling
-    if (data.actions.canEdit) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _navigateToEditEvent(context, data),
-        icon: Icons.edit,
-        label: S.of(context).edit,
-        color: Theme.of(context).colorScheme.secondary,
-      ));
-    }
-
-    if (data.actions.canCancel) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showCancelDialog(context, data),
-        icon: Icons.cancel,
-        label: S.of(context).cancel,
-        color: redColor,
-      ));
-    }
-
-    if (data.actions.canReschedule) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showRescheduleDialog(context, data),
-        icon: Icons.schedule,
-        label: 'Reschedule',
-        color: Colors.blue,
-      ));
-    }
-
-    if (data.actions.canSendMessage) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showMessageDialog(context, data),
-        icon: Icons.message,
-        label: S.of(context).sendMessage,
-        color: Colors.purple,
-      ));
-    }
-
-    if (data.actions.canAddWorkEvidence) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showAddWorkEvidenceDialog(context, data),
-        icon: Icons.add_photo_alternate,
-        label: 'Add Evidence',
-        color: Colors.orange,
-      ));
-    }
-
-    if (data.actions.canLeaveReview) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showReviewDialog(context, data),
-        icon: Icons.star_rate,
-        label: 'Leave Review',
-        color: Colors.amber,
-      ));
-    }
-
-    if (data.actions.canConfirmEvent) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showConfirmDialog(context, data),
-        icon: Icons.check_circle,
-        label: S.of(context).confirm,
-        color: Colors.green,
-      ));
-    }
-
-    if (data.actions.canRejectEvent) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showRejectDialog(context, data),
-        icon: Icons.highlight_off,
-        label: S.of(context).reject,
-        color: Colors.redAccent,
-      ));
-    }
-
-    if (data.actions.canAppeal) {
-      actionButtons.add(_ActionButton(
-        onPressed: () => _showAppealDialog(context, data),
-        icon: Icons.policy,
-        label: S.of(context).appeal,
-        color: Colors.indigo,
-      ));
-    }
-
-    if (actionButtons.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    // Improved button layout with better visual hierarchy
-    return Container(
-      decoration: BoxDecoration(
-        color: explorerSecondaryColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: actionButtons.length <= 2
-            ? Row(
-                children: actionButtons.map((button) => 
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: _buildActionButton(button),
-                    ),
-                  ),
-                ).toList(),
-              )
-            : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: actionButtons.map((button) => 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: SizedBox(
-                        width: 140,
-                        child: _buildActionButton(button),
-                      ),
-                    ),
-                  ).toList(),
-                ),
-              ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionButton(_ActionButton button) {
-    return ElevatedButton.icon(
-      onPressed: button.onPressed,
-      icon: Icon(button.icon, size: 20),
-      label: Text(
-        button.label,
-        style: TextStyleTheme.button.copyWith(fontSize: 14),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: button.color,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 2,
-      ),
-    );
-  }
-
   // Navigation and dialog methods
   void _viewFullImage(BuildContext context, String imageUrl) {
     Navigator.push(
@@ -974,19 +1000,4 @@ class AgendaEventDetailPage extends StatelessWidget {
       ),
     );
   }
-}
-
-// Helper class for action buttons
-class _ActionButton {
-  final VoidCallback onPressed;
-  final IconData icon;
-  final String label;
-  final Color color;
-
-  const _ActionButton({
-    required this.onPressed,
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
 }

@@ -8,6 +8,7 @@ class EventActionButton {
   final String label;
   final Color color;
   final bool isDestructive;
+  final bool isPrimary;
 
   const EventActionButton({
     required this.onPressed,
@@ -15,6 +16,7 @@ class EventActionButton {
     required this.label,
     required this.color,
     this.isDestructive = false,
+    this.isPrimary = false,
   });
 }
 
@@ -31,7 +33,7 @@ class EventActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (actions.isEmpty || isLoading) {
-      return const SizedBox.shrink();
+      return isLoading ? _buildLoadingState() : const SizedBox.shrink();
     }
 
     return Container(
@@ -54,55 +56,102 @@ class EventActionButtons extends StatelessWidget {
     );
   }
 
+  Widget _buildLoadingState() {
+    return Container(
+      decoration: BoxDecoration(
+        color: explorerSecondaryColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          height: 60,
+          child: const Center(
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildButtonLayout() {
+    // For 1-2 buttons, use horizontal layout
     if (actions.length <= 2) {
       return Row(
         children: actions.map((action) => 
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: _buildActionButton(action),
+              padding: EdgeInsets.only(
+                left: actions.indexOf(action) == 0 ? 0 : 8,
+                right: actions.indexOf(action) == actions.length - 1 ? 0 : 8,
+              ),
+              child: _buildActionButton(action, isFullWidth: true),
             ),
           ),
         ).toList(),
       );
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: actions.map((action) => 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: SizedBox(
-              width: 140,
-              child: _buildActionButton(action),
-            ),
-          ),
-        ).toList(),
-      ),
+    // For 3+ buttons, use clean vertical list
+    return _buildVerticalList();
+  }
+
+  Widget _buildVerticalList() {
+    // Sort actions: primary first, then others
+    final sortedActions = [...actions];
+    sortedActions.sort((a, b) {
+      if (a.isPrimary && !b.isPrimary) return -1;
+      if (!a.isPrimary && b.isPrimary) return 1;
+      return 0;
+    });
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: sortedActions.asMap().entries.map((entry) {
+        final index = entry.key;
+        final action = entry.value;
+        final isLast = index == sortedActions.length - 1;
+        
+        return Padding(
+          padding: EdgeInsets.only(bottom: isLast ? 0 : 8),
+          child: _buildActionButton(action, isFullWidth: true),
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildActionButton(EventActionButton action) {
-    return ElevatedButton.icon(
-      onPressed: action.onPressed,
-      icon: Icon(action.icon, size: 20),
-      label: Text(
-        action.label,
-        style: TextStyleTheme.button.copyWith(
-          fontSize: 14,
-          color: Colors.white,
+  Widget _buildActionButton(
+    EventActionButton action, {
+    bool isFullWidth = false,
+  }) {
+    return SizedBox(
+      width: isFullWidth ? double.infinity : null,
+      child: ElevatedButton.icon(
+        onPressed: action.onPressed,
+        icon: Icon(action.icon, size: 20),
+        label: Text(
+          action.label,
+          style: TextStyleTheme.button.copyWith(
+            fontSize: 14,
+            color: Colors.white,
+            fontWeight: action.isPrimary ? FontWeight.w600 : FontWeight.w500,
+          ),
         ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: action.color,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: action.color,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: action.isDestructive ? 3 : (action.isPrimary ? 2 : 1),
         ),
-        elevation: action.isDestructive ? 3 : 2,
       ),
     );
   }
