@@ -36,4 +36,29 @@ class AppointmentEvent with _$AppointmentEvent {
     required String agendaId,
     required bool willAttend,
   }) = _RsvpForAppointment;
+  
+  const factory AppointmentEvent.confirmAppointment({
+    required String appointmentId,
+    required String agendaId,
+  }) = _ConfirmAppointment;
+  
+  const factory AppointmentEvent.rejectAppointment({
+    required String appointmentId,
+    required String agendaId,
+    String? reason,
+  }) = _RejectAppointment;
+  
+  const factory AppointmentEvent.reviewAppointment({
+    required String appointmentId,
+    required String agendaId,
+    required int rating,
+    required String comment,
+    @Default(false) bool isAnonymous,
+  }) = _ReviewAppointment;
+  
+  const factory AppointmentEvent.appealAppointment({
+    required String appointmentId,
+    required String agendaId,
+    required String reason,
+  }) = _AppealAppointment;
 }

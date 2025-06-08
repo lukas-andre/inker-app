@@ -33,6 +33,17 @@ mixin _$AppointmentEvent {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +61,15 @@ mixin _$AppointmentEvent {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +87,14 @@ mixin _$AppointmentEvent {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -84,6 +112,10 @@ mixin _$AppointmentEvent {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -100,6 +132,10 @@ mixin _$AppointmentEvent {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -114,6 +150,10 @@ mixin _$AppointmentEvent {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,6 +230,17 @@ class _$StartedImpl implements _Started {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return started();
   }
@@ -210,6 +261,15 @@ class _$StartedImpl implements _Started {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return started?.call();
   }
@@ -230,6 +290,14 @@ class _$StartedImpl implements _Started {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -253,6 +321,10 @@ class _$StartedImpl implements _Started {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return started(this);
   }
@@ -272,6 +344,10 @@ class _$StartedImpl implements _Started {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return started?.call(this);
   }
@@ -289,6 +365,10 @@ class _$StartedImpl implements _Started {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -392,6 +472,17 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return loadAppointments(status, isRefresh);
   }
@@ -412,6 +503,15 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return loadAppointments?.call(status, isRefresh);
   }
@@ -432,6 +532,14 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (loadAppointments != null) {
@@ -455,6 +563,10 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return loadAppointments(this);
   }
@@ -474,6 +586,10 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return loadAppointments?.call(this);
   }
@@ -491,6 +607,10 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (loadAppointments != null) {
@@ -565,6 +685,17 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return loadMoreAppointments();
   }
@@ -585,6 +716,15 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return loadMoreAppointments?.call();
   }
@@ -605,6 +745,14 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (loadMoreAppointments != null) {
@@ -628,6 +776,10 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return loadMoreAppointments(this);
   }
@@ -647,6 +799,10 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return loadMoreAppointments?.call(this);
   }
@@ -664,6 +820,10 @@ class _$LoadMoreAppointmentsImpl implements _LoadMoreAppointments {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (loadMoreAppointments != null) {
@@ -757,6 +917,17 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return getAppointmentById(id);
   }
@@ -777,6 +948,15 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return getAppointmentById?.call(id);
   }
@@ -797,6 +977,14 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (getAppointmentById != null) {
@@ -820,6 +1008,10 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return getAppointmentById(this);
   }
@@ -839,6 +1031,10 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return getAppointmentById?.call(this);
   }
@@ -856,6 +1052,10 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (getAppointmentById != null) {
@@ -956,6 +1156,17 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return refreshAppointmentDetail(id);
   }
@@ -976,6 +1187,15 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return refreshAppointmentDetail?.call(id);
   }
@@ -996,6 +1216,14 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (refreshAppointmentDetail != null) {
@@ -1019,6 +1247,10 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return refreshAppointmentDetail(this);
   }
@@ -1038,6 +1270,10 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return refreshAppointmentDetail?.call(this);
   }
@@ -1055,6 +1291,10 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (refreshAppointmentDetail != null) {
@@ -1192,6 +1432,17 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return requestAppointmentChange(
         appointmentId, newStartDate, newEndDate, reason);
@@ -1213,6 +1464,15 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return requestAppointmentChange?.call(
         appointmentId, newStartDate, newEndDate, reason);
@@ -1234,6 +1494,14 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (requestAppointmentChange != null) {
@@ -1258,6 +1526,10 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return requestAppointmentChange(this);
   }
@@ -1277,6 +1549,10 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return requestAppointmentChange?.call(this);
   }
@@ -1294,6 +1570,10 @@ class _$RequestAppointmentChangeImpl implements _RequestAppointmentChange {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (requestAppointmentChange != null) {
@@ -1409,6 +1689,17 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return cancelAppointment(appointmentId, reason);
   }
@@ -1429,6 +1720,15 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return cancelAppointment?.call(appointmentId, reason);
   }
@@ -1449,6 +1749,14 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (cancelAppointment != null) {
@@ -1472,6 +1780,10 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return cancelAppointment(this);
   }
@@ -1491,6 +1803,10 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return cancelAppointment?.call(this);
   }
@@ -1508,6 +1824,10 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (cancelAppointment != null) {
@@ -1609,6 +1929,17 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return markAsRead(appointmentId);
   }
@@ -1629,6 +1960,15 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return markAsRead?.call(appointmentId);
   }
@@ -1649,6 +1989,14 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (markAsRead != null) {
@@ -1672,6 +2020,10 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return markAsRead(this);
   }
@@ -1691,6 +2043,10 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return markAsRead?.call(this);
   }
@@ -1708,6 +2064,10 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (markAsRead != null) {
@@ -1806,6 +2166,17 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return filterByStatus(status);
   }
@@ -1826,6 +2197,15 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return filterByStatus?.call(status);
   }
@@ -1846,6 +2226,14 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (filterByStatus != null) {
@@ -1869,6 +2257,10 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return filterByStatus(this);
   }
@@ -1888,6 +2280,10 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return filterByStatus?.call(this);
   }
@@ -1905,6 +2301,10 @@ class _$FilterByStatusImpl implements _FilterByStatus {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (filterByStatus != null) {
@@ -2026,6 +2426,17 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     required TResult Function(
             String appointmentId, String agendaId, bool willAttend)
         rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
   }) {
     return rsvpForAppointment(appointmentId, agendaId, willAttend);
   }
@@ -2046,6 +2457,15 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult? Function(String status)? filterByStatus,
     TResult? Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
   }) {
     return rsvpForAppointment?.call(appointmentId, agendaId, willAttend);
   }
@@ -2066,6 +2486,14 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult Function(String status)? filterByStatus,
     TResult Function(String appointmentId, String agendaId, bool willAttend)?
         rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
     required TResult orElse(),
   }) {
     if (rsvpForAppointment != null) {
@@ -2089,6 +2517,10 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     required TResult Function(_MarkAsRead value) markAsRead,
     required TResult Function(_FilterByStatus value) filterByStatus,
     required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
   }) {
     return rsvpForAppointment(this);
   }
@@ -2108,6 +2540,10 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult? Function(_MarkAsRead value)? markAsRead,
     TResult? Function(_FilterByStatus value)? filterByStatus,
     TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
   }) {
     return rsvpForAppointment?.call(this);
   }
@@ -2125,6 +2561,10 @@ class _$RsvpForAppointmentImpl implements _RsvpForAppointment {
     TResult Function(_MarkAsRead value)? markAsRead,
     TResult Function(_FilterByStatus value)? filterByStatus,
     TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
     required TResult orElse(),
   }) {
     if (rsvpForAppointment != null) {
@@ -2145,6 +2585,1077 @@ abstract class _RsvpForAppointment implements AppointmentEvent {
   bool get willAttend;
   @JsonKey(ignore: true)
   _$$RsvpForAppointmentImplCopyWith<_$RsvpForAppointmentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConfirmAppointmentImplCopyWith<$Res> {
+  factory _$$ConfirmAppointmentImplCopyWith(_$ConfirmAppointmentImpl value,
+          $Res Function(_$ConfirmAppointmentImpl) then) =
+      __$$ConfirmAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String appointmentId, String agendaId});
+}
+
+/// @nodoc
+class __$$ConfirmAppointmentImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$ConfirmAppointmentImpl>
+    implements _$$ConfirmAppointmentImplCopyWith<$Res> {
+  __$$ConfirmAppointmentImplCopyWithImpl(_$ConfirmAppointmentImpl _value,
+      $Res Function(_$ConfirmAppointmentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? agendaId = null,
+  }) {
+    return _then(_$ConfirmAppointmentImpl(
+      appointmentId: null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
+  const _$ConfirmAppointmentImpl(
+      {required this.appointmentId, required this.agendaId});
+
+  @override
+  final String appointmentId;
+  @override
+  final String agendaId;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.confirmAppointment(appointmentId: $appointmentId, agendaId: $agendaId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConfirmAppointmentImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId, agendaId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConfirmAppointmentImplCopyWith<_$ConfirmAppointmentImpl> get copyWith =>
+      __$$ConfirmAppointmentImplCopyWithImpl<_$ConfirmAppointmentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? status, bool isRefresh) loadAppointments,
+    required TResult Function() loadMoreAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)
+        requestAppointmentChange,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String status) filterByStatus,
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
+        rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return confirmAppointment(appointmentId, agendaId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? status, bool isRefresh)? loadAppointments,
+    TResult? Function()? loadMoreAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String status)? filterByStatus,
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return confirmAppointment?.call(appointmentId, agendaId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? status, bool isRefresh)? loadAppointments,
+    TResult Function()? loadMoreAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String status)? filterByStatus,
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (confirmAppointment != null) {
+      return confirmAppointment(appointmentId, agendaId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_RequestAppointmentChange value)
+        requestAppointmentChange,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_FilterByStatus value) filterByStatus,
+    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return confirmAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_RequestAppointmentChange value)?
+        requestAppointmentChange,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_FilterByStatus value)? filterByStatus,
+    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return confirmAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_FilterByStatus value)? filterByStatus,
+    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (confirmAppointment != null) {
+      return confirmAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ConfirmAppointment implements AppointmentEvent {
+  const factory _ConfirmAppointment(
+      {required final String appointmentId,
+      required final String agendaId}) = _$ConfirmAppointmentImpl;
+
+  String get appointmentId;
+  String get agendaId;
+  @JsonKey(ignore: true)
+  _$$ConfirmAppointmentImplCopyWith<_$ConfirmAppointmentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RejectAppointmentImplCopyWith<$Res> {
+  factory _$$RejectAppointmentImplCopyWith(_$RejectAppointmentImpl value,
+          $Res Function(_$RejectAppointmentImpl) then) =
+      __$$RejectAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String appointmentId, String agendaId, String? reason});
+}
+
+/// @nodoc
+class __$$RejectAppointmentImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$RejectAppointmentImpl>
+    implements _$$RejectAppointmentImplCopyWith<$Res> {
+  __$$RejectAppointmentImplCopyWithImpl(_$RejectAppointmentImpl _value,
+      $Res Function(_$RejectAppointmentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? agendaId = null,
+    Object? reason = freezed,
+  }) {
+    return _then(_$RejectAppointmentImpl(
+      appointmentId: null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: freezed == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RejectAppointmentImpl implements _RejectAppointment {
+  const _$RejectAppointmentImpl(
+      {required this.appointmentId, required this.agendaId, this.reason});
+
+  @override
+  final String appointmentId;
+  @override
+  final String agendaId;
+  @override
+  final String? reason;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.rejectAppointment(appointmentId: $appointmentId, agendaId: $agendaId, reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RejectAppointmentImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId, agendaId, reason);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RejectAppointmentImplCopyWith<_$RejectAppointmentImpl> get copyWith =>
+      __$$RejectAppointmentImplCopyWithImpl<_$RejectAppointmentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? status, bool isRefresh) loadAppointments,
+    required TResult Function() loadMoreAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)
+        requestAppointmentChange,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String status) filterByStatus,
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
+        rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return rejectAppointment(appointmentId, agendaId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? status, bool isRefresh)? loadAppointments,
+    TResult? Function()? loadMoreAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String status)? filterByStatus,
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return rejectAppointment?.call(appointmentId, agendaId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? status, bool isRefresh)? loadAppointments,
+    TResult Function()? loadMoreAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String status)? filterByStatus,
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (rejectAppointment != null) {
+      return rejectAppointment(appointmentId, agendaId, reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_RequestAppointmentChange value)
+        requestAppointmentChange,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_FilterByStatus value) filterByStatus,
+    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return rejectAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_RequestAppointmentChange value)?
+        requestAppointmentChange,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_FilterByStatus value)? filterByStatus,
+    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return rejectAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_FilterByStatus value)? filterByStatus,
+    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (rejectAppointment != null) {
+      return rejectAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RejectAppointment implements AppointmentEvent {
+  const factory _RejectAppointment(
+      {required final String appointmentId,
+      required final String agendaId,
+      final String? reason}) = _$RejectAppointmentImpl;
+
+  String get appointmentId;
+  String get agendaId;
+  String? get reason;
+  @JsonKey(ignore: true)
+  _$$RejectAppointmentImplCopyWith<_$RejectAppointmentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReviewAppointmentImplCopyWith<$Res> {
+  factory _$$ReviewAppointmentImplCopyWith(_$ReviewAppointmentImpl value,
+          $Res Function(_$ReviewAppointmentImpl) then) =
+      __$$ReviewAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String appointmentId,
+      String agendaId,
+      int rating,
+      String comment,
+      bool isAnonymous});
+}
+
+/// @nodoc
+class __$$ReviewAppointmentImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$ReviewAppointmentImpl>
+    implements _$$ReviewAppointmentImplCopyWith<$Res> {
+  __$$ReviewAppointmentImplCopyWithImpl(_$ReviewAppointmentImpl _value,
+      $Res Function(_$ReviewAppointmentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? agendaId = null,
+    Object? rating = null,
+    Object? comment = null,
+    Object? isAnonymous = null,
+  }) {
+    return _then(_$ReviewAppointmentImpl(
+      appointmentId: null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      isAnonymous: null == isAnonymous
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReviewAppointmentImpl implements _ReviewAppointment {
+  const _$ReviewAppointmentImpl(
+      {required this.appointmentId,
+      required this.agendaId,
+      required this.rating,
+      required this.comment,
+      this.isAnonymous = false});
+
+  @override
+  final String appointmentId;
+  @override
+  final String agendaId;
+  @override
+  final int rating;
+  @override
+  final String comment;
+  @override
+  @JsonKey()
+  final bool isAnonymous;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.reviewAppointment(appointmentId: $appointmentId, agendaId: $agendaId, rating: $rating, comment: $comment, isAnonymous: $isAnonymous)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReviewAppointmentImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.isAnonymous, isAnonymous) ||
+                other.isAnonymous == isAnonymous));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, appointmentId, agendaId, rating, comment, isAnonymous);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReviewAppointmentImplCopyWith<_$ReviewAppointmentImpl> get copyWith =>
+      __$$ReviewAppointmentImplCopyWithImpl<_$ReviewAppointmentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? status, bool isRefresh) loadAppointments,
+    required TResult Function() loadMoreAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)
+        requestAppointmentChange,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String status) filterByStatus,
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
+        rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return reviewAppointment(
+        appointmentId, agendaId, rating, comment, isAnonymous);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? status, bool isRefresh)? loadAppointments,
+    TResult? Function()? loadMoreAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String status)? filterByStatus,
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return reviewAppointment?.call(
+        appointmentId, agendaId, rating, comment, isAnonymous);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? status, bool isRefresh)? loadAppointments,
+    TResult Function()? loadMoreAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String status)? filterByStatus,
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (reviewAppointment != null) {
+      return reviewAppointment(
+          appointmentId, agendaId, rating, comment, isAnonymous);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_RequestAppointmentChange value)
+        requestAppointmentChange,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_FilterByStatus value) filterByStatus,
+    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return reviewAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_RequestAppointmentChange value)?
+        requestAppointmentChange,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_FilterByStatus value)? filterByStatus,
+    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return reviewAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_FilterByStatus value)? filterByStatus,
+    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (reviewAppointment != null) {
+      return reviewAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReviewAppointment implements AppointmentEvent {
+  const factory _ReviewAppointment(
+      {required final String appointmentId,
+      required final String agendaId,
+      required final int rating,
+      required final String comment,
+      final bool isAnonymous}) = _$ReviewAppointmentImpl;
+
+  String get appointmentId;
+  String get agendaId;
+  int get rating;
+  String get comment;
+  bool get isAnonymous;
+  @JsonKey(ignore: true)
+  _$$ReviewAppointmentImplCopyWith<_$ReviewAppointmentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AppealAppointmentImplCopyWith<$Res> {
+  factory _$$AppealAppointmentImplCopyWith(_$AppealAppointmentImpl value,
+          $Res Function(_$AppealAppointmentImpl) then) =
+      __$$AppealAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String appointmentId, String agendaId, String reason});
+}
+
+/// @nodoc
+class __$$AppealAppointmentImplCopyWithImpl<$Res>
+    extends _$AppointmentEventCopyWithImpl<$Res, _$AppealAppointmentImpl>
+    implements _$$AppealAppointmentImplCopyWith<$Res> {
+  __$$AppealAppointmentImplCopyWithImpl(_$AppealAppointmentImpl _value,
+      $Res Function(_$AppealAppointmentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? agendaId = null,
+    Object? reason = null,
+  }) {
+    return _then(_$AppealAppointmentImpl(
+      appointmentId: null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AppealAppointmentImpl implements _AppealAppointment {
+  const _$AppealAppointmentImpl(
+      {required this.appointmentId,
+      required this.agendaId,
+      required this.reason});
+
+  @override
+  final String appointmentId;
+  @override
+  final String agendaId;
+  @override
+  final String reason;
+
+  @override
+  String toString() {
+    return 'AppointmentEvent.appealAppointment(appointmentId: $appointmentId, agendaId: $agendaId, reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AppealAppointmentImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId, agendaId, reason);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AppealAppointmentImplCopyWith<_$AppealAppointmentImpl> get copyWith =>
+      __$$AppealAppointmentImplCopyWithImpl<_$AppealAppointmentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String? status, bool isRefresh) loadAppointments,
+    required TResult Function() loadMoreAppointments,
+    required TResult Function(String id) getAppointmentById,
+    required TResult Function(String id) refreshAppointmentDetail,
+    required TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)
+        requestAppointmentChange,
+    required TResult Function(String appointmentId, String reason)
+        cancelAppointment,
+    required TResult Function(String appointmentId) markAsRead,
+    required TResult Function(String status) filterByStatus,
+    required TResult Function(
+            String appointmentId, String agendaId, bool willAttend)
+        rsvpForAppointment,
+    required TResult Function(String appointmentId, String agendaId)
+        confirmAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String? reason)
+        rejectAppointment,
+    required TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)
+        reviewAppointment,
+    required TResult Function(
+            String appointmentId, String agendaId, String reason)
+        appealAppointment,
+  }) {
+    return appealAppointment(appointmentId, agendaId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String? status, bool isRefresh)? loadAppointments,
+    TResult? Function()? loadMoreAppointments,
+    TResult? Function(String id)? getAppointmentById,
+    TResult? Function(String id)? refreshAppointmentDetail,
+    TResult? Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult? Function(String appointmentId, String reason)? cancelAppointment,
+    TResult? Function(String appointmentId)? markAsRead,
+    TResult? Function(String status)? filterByStatus,
+    TResult? Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult? Function(String appointmentId, String agendaId)?
+        confirmAppointment,
+    TResult? Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult? Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult? Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+  }) {
+    return appealAppointment?.call(appointmentId, agendaId, reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String? status, bool isRefresh)? loadAppointments,
+    TResult Function()? loadMoreAppointments,
+    TResult Function(String id)? getAppointmentById,
+    TResult Function(String id)? refreshAppointmentDetail,
+    TResult Function(String appointmentId, DateTime? newStartDate,
+            DateTime? newEndDate, String? reason)?
+        requestAppointmentChange,
+    TResult Function(String appointmentId, String reason)? cancelAppointment,
+    TResult Function(String appointmentId)? markAsRead,
+    TResult Function(String status)? filterByStatus,
+    TResult Function(String appointmentId, String agendaId, bool willAttend)?
+        rsvpForAppointment,
+    TResult Function(String appointmentId, String agendaId)? confirmAppointment,
+    TResult Function(String appointmentId, String agendaId, String? reason)?
+        rejectAppointment,
+    TResult Function(String appointmentId, String agendaId, int rating,
+            String comment, bool isAnonymous)?
+        reviewAppointment,
+    TResult Function(String appointmentId, String agendaId, String reason)?
+        appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (appealAppointment != null) {
+      return appealAppointment(appointmentId, agendaId, reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LoadAppointments value) loadAppointments,
+    required TResult Function(_LoadMoreAppointments value) loadMoreAppointments,
+    required TResult Function(_GetAppointmentById value) getAppointmentById,
+    required TResult Function(_RefreshAppointmentDetail value)
+        refreshAppointmentDetail,
+    required TResult Function(_RequestAppointmentChange value)
+        requestAppointmentChange,
+    required TResult Function(_CancelAppointment value) cancelAppointment,
+    required TResult Function(_MarkAsRead value) markAsRead,
+    required TResult Function(_FilterByStatus value) filterByStatus,
+    required TResult Function(_RsvpForAppointment value) rsvpForAppointment,
+    required TResult Function(_ConfirmAppointment value) confirmAppointment,
+    required TResult Function(_RejectAppointment value) rejectAppointment,
+    required TResult Function(_ReviewAppointment value) reviewAppointment,
+    required TResult Function(_AppealAppointment value) appealAppointment,
+  }) {
+    return appealAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LoadAppointments value)? loadAppointments,
+    TResult? Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult? Function(_GetAppointmentById value)? getAppointmentById,
+    TResult? Function(_RefreshAppointmentDetail value)?
+        refreshAppointmentDetail,
+    TResult? Function(_RequestAppointmentChange value)?
+        requestAppointmentChange,
+    TResult? Function(_CancelAppointment value)? cancelAppointment,
+    TResult? Function(_MarkAsRead value)? markAsRead,
+    TResult? Function(_FilterByStatus value)? filterByStatus,
+    TResult? Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult? Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult? Function(_RejectAppointment value)? rejectAppointment,
+    TResult? Function(_ReviewAppointment value)? reviewAppointment,
+    TResult? Function(_AppealAppointment value)? appealAppointment,
+  }) {
+    return appealAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LoadAppointments value)? loadAppointments,
+    TResult Function(_LoadMoreAppointments value)? loadMoreAppointments,
+    TResult Function(_GetAppointmentById value)? getAppointmentById,
+    TResult Function(_RefreshAppointmentDetail value)? refreshAppointmentDetail,
+    TResult Function(_RequestAppointmentChange value)? requestAppointmentChange,
+    TResult Function(_CancelAppointment value)? cancelAppointment,
+    TResult Function(_MarkAsRead value)? markAsRead,
+    TResult Function(_FilterByStatus value)? filterByStatus,
+    TResult Function(_RsvpForAppointment value)? rsvpForAppointment,
+    TResult Function(_ConfirmAppointment value)? confirmAppointment,
+    TResult Function(_RejectAppointment value)? rejectAppointment,
+    TResult Function(_ReviewAppointment value)? reviewAppointment,
+    TResult Function(_AppealAppointment value)? appealAppointment,
+    required TResult orElse(),
+  }) {
+    if (appealAppointment != null) {
+      return appealAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AppealAppointment implements AppointmentEvent {
+  const factory _AppealAppointment(
+      {required final String appointmentId,
+      required final String agendaId,
+      required final String reason}) = _$AppealAppointmentImpl;
+
+  String get appointmentId;
+  String get agendaId;
+  String get reason;
+  @JsonKey(ignore: true)
+  _$$AppealAppointmentImplCopyWith<_$AppealAppointmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

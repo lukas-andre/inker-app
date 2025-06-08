@@ -3232,5 +3232,133 @@
   "appointmentNotFound": "Cita no encontrada",
   "@appointmentNotFound": {
     "description": "Mensaje mostrado cuando no se encuentra la cita."
+  },
+  "confirmEvent": "Confirmar evento",
+  "@confirmEvent": {
+    "description": "Texto para la acción de confirmar un evento."
+  },
+  "confirmEventMessage": "¿Estás seguro que deseas confirmar este evento?",
+  "@confirmEventMessage": {
+    "description": "Mensaje de confirmación mostrado al confirmar un evento."
+  },
+  "rejectEvent": "Rechazar evento",
+  "@rejectEvent": {
+    "description": "Texto para la acción de rechazar un evento."
+  },
+  "continue_": "Continuar",
+  "@continue_": {
+    "description": "Texto para el botón de continuar."
+  },
+  "reschedule": "Reagendar",
+  "@reschedule": {
+    "description": "Texto para la acción de reagendar un evento."
+  },
+  "comment": "Comentar",
+  "@comment": {
+    "description": "Texto para la acción de comentar un evento."
+  },
+  "anonymous": "Anónimo",
+  "@anonymous": {
+    "description": "Texto para la opción de enviar una reseña de forma anónima."
+  },
+  "addPhoto": "Agregar foto",
+  "@addPhoto": {
+    "description": "Texto para el botón de agregar una foto."
+  },
+  "gallery": "Galería",
+  "@gallery": {
+    "description": "Texto para el botón de acceder a la galería de fotos."
+  },
+  "consentTemplates": "Plantillas de Consentimiento",
+  "@consentTemplates": {
+    "description": "Título para la página de gestión de plantillas de consentimiento."
+  },
+  "createNewTemplate": "Crear Nueva Plantilla",
+  "@createNewTemplate": {
+    "description": "Texto para crear una nueva plantilla de consentimiento."
+  },
+  "noConsentTemplates": "Aún no se han creado plantillas de consentimiento",
+  "@noConsentTemplates": {
+    "description": "Mensaje mostrado cuando no existen plantillas de consentimiento."
+  },
+  "createFirstTemplate": "Crear tu primera plantilla",
+  "@createFirstTemplate": {
+    "description": "Texto para crear la primera plantilla de consentimiento."
+  },
+  "generalTerms": "Términos Generales",
+  "@generalTerms": {
+    "description": "Etiqueta para el tipo de consentimiento de términos generales."
+  },
+  "tattooConsent": "Consentimiento de Tatuaje",
+  "@tattooConsent": {
+    "description": "Etiqueta para el tipo de consentimiento de tatuaje."
+  },
+  "imageRelease": "Liberación de Imagen",
+  "@imageRelease": {
+    "description": "Etiqueta para el tipo de consentimiento de liberación de imagen."
+  },
+  "other": "Otro",
+  "@other": {
+    "description": "Etiqueta para el tipo de consentimiento otro."
+  },
+  "consentForms": "Formularios de Consentimiento",
+  "@consentForms": {
+    "description": "Título para la página de formularios de consentimiento."
+  },
+  "noConsentRequired": "No se requieren formularios de consentimiento para esta cita",
+  "@noConsentRequired": {
+    "description": "Mensaje mostrado cuando no se requiere consentimiento."
+  },
+  "allConsentsCompleted": "Todos los formularios de consentimiento completados",
+  "@allConsentsCompleted": {
+    "description": "Mensaje mostrado cuando todos los consentimientos están firmados."
+  },
+  "consentProgress": "Progreso de Consentimiento",
+  "@consentProgress": {
+    "description": "Título para el progreso de completar consentimientos."
+  },
+  "consentFormDescription": "Por favor revisa y completa este formulario de consentimiento",
+  "@consentFormDescription": {
+    "description": "Descripción predeterminada para formularios de consentimiento."
+  },
+  "signConsent": "Firmar Consentimiento",
+  "@signConsent": {
+    "description": "Texto para firmar un formulario de consentimiento."
+  },
+  "consents": "Consentimientos",
+  "@consents": {
+    "description": "Etiqueta para la sección de consentimientos."
+  },
+  "viewConsents": "Ver Consentimientos",
+  "@viewConsents": {
+    "description": "Texto para ver formularios de consentimiento."
+  },
+  "signRequiredConsents": "Firmar Consentimientos Requeridos",
+  "@signRequiredConsents": {
+    "description": "Texto para firmar formularios de consentimiento requeridos."
+  },
+  "consentRequired": "Consentimiento Requerido",
+  "@consentRequired": {
+    "description": "Mensaje indicando que se requiere consentimiento."
+  },
+  "pleaseSignConsents": "Por favor firma los formularios de consentimiento requeridos antes de continuar",
+  "@pleaseSignConsents": {
+    "description": "Mensaje pidiendo al usuario que firme los formularios de consentimiento."
+  },
+  "signed": "Firmado",
+  "@signed": {
+    "description": "Estado indicando que un formulario está firmado."
+  },
+  "pendingSignature": "Pendiente de Firma",
+  "@pendingSignature": {
+    "description": "Estado indicando que un formulario necesita ser firmado."
+  },
+  "fieldRequired": "Este campo es requerido",
+  "@fieldRequired": {
+    "description": "Mensaje de validación para campos requeridos."
+  },
+  "tapToSign": "Toca para firmar",
+  "@tapToSign": {
+    "description": "Instrucción para el campo de firma."
   }
 }

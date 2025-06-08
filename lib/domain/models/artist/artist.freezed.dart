@@ -47,6 +47,7 @@ mixin _$Artist {
   int? get stencilsCount => throw _privateConstructorUsedError;
   int? get visibleWorksCount => throw _privateConstructorUsedError;
   int? get visibleStencilsCount => throw _privateConstructorUsedError;
+  bool get requiresBasicConsent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -85,7 +86,8 @@ abstract class $ArtistCopyWith<$Res> {
       int? worksCount,
       int? stencilsCount,
       int? visibleWorksCount,
-      int? visibleStencilsCount});
+      int? visibleStencilsCount,
+      bool requiresBasicConsent});
 
   $ContactCopyWith<$Res>? get contact;
   $ReviewCopyWith<$Res>? get review;
@@ -131,6 +133,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? stencilsCount = freezed,
     Object? visibleWorksCount = freezed,
     Object? visibleStencilsCount = freezed,
+    Object? requiresBasicConsent = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -241,6 +244,10 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.visibleStencilsCount
           : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      requiresBasicConsent: null == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -303,7 +310,8 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       int? worksCount,
       int? stencilsCount,
       int? visibleWorksCount,
-      int? visibleStencilsCount});
+      int? visibleStencilsCount,
+      bool requiresBasicConsent});
 
   @override
   $ContactCopyWith<$Res>? get contact;
@@ -349,6 +357,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
     Object? stencilsCount = freezed,
     Object? visibleWorksCount = freezed,
     Object? visibleStencilsCount = freezed,
+    Object? requiresBasicConsent = null,
   }) {
     return _then(_$ArtistImpl(
       id: null == id
@@ -459,6 +468,10 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.visibleStencilsCount
           : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      requiresBasicConsent: null == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -493,7 +506,8 @@ class _$ArtistImpl implements _Artist {
       this.worksCount,
       this.stencilsCount,
       this.visibleWorksCount,
-      this.visibleStencilsCount})
+      this.visibleStencilsCount,
+      this.requiresBasicConsent = false})
       : _tags = tags,
         _genres = genres;
 
@@ -572,10 +586,13 @@ class _$ArtistImpl implements _Artist {
   final int? visibleWorksCount;
   @override
   final int? visibleStencilsCount;
+  @override
+  @JsonKey()
+  final bool requiresBasicConsent;
 
   @override
   String toString() {
-    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review, worksCount: $worksCount, stencilsCount: $stencilsCount, visibleWorksCount: $visibleWorksCount, visibleStencilsCount: $visibleStencilsCount)';
+    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review, worksCount: $worksCount, stencilsCount: $stencilsCount, visibleWorksCount: $visibleWorksCount, visibleStencilsCount: $visibleStencilsCount, requiresBasicConsent: $requiresBasicConsent)';
   }
 
   @override
@@ -629,7 +646,9 @@ class _$ArtistImpl implements _Artist {
             (identical(other.visibleWorksCount, visibleWorksCount) ||
                 other.visibleWorksCount == visibleWorksCount) &&
             (identical(other.visibleStencilsCount, visibleStencilsCount) ||
-                other.visibleStencilsCount == visibleStencilsCount));
+                other.visibleStencilsCount == visibleStencilsCount) &&
+            (identical(other.requiresBasicConsent, requiresBasicConsent) ||
+                other.requiresBasicConsent == requiresBasicConsent));
   }
 
   @JsonKey(ignore: true)
@@ -662,7 +681,8 @@ class _$ArtistImpl implements _Artist {
         worksCount,
         stencilsCount,
         visibleWorksCount,
-        visibleStencilsCount
+        visibleStencilsCount,
+        requiresBasicConsent
       ]);
 
   @JsonKey(ignore: true)
@@ -707,7 +727,8 @@ abstract class _Artist implements Artist {
       final int? worksCount,
       final int? stencilsCount,
       final int? visibleWorksCount,
-      final int? visibleStencilsCount}) = _$ArtistImpl;
+      final int? visibleStencilsCount,
+      final bool requiresBasicConsent}) = _$ArtistImpl;
 
   factory _Artist.fromJson(Map<String, dynamic> json) = _$ArtistImpl.fromJson;
 
@@ -765,6 +786,8 @@ abstract class _Artist implements Artist {
   int? get visibleWorksCount;
   @override
   int? get visibleStencilsCount;
+  @override
+  bool get requiresBasicConsent;
   @override
   @JsonKey(ignore: true)
   _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>

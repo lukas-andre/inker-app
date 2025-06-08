@@ -6,11 +6,14 @@ import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/domain/models/consent/form_template.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
 import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
+import 'package:inker_studio/ui/artist/consent/consent_template_detail_page.dart';
+import 'package:inker_studio/ui/artist/consent/consent_template_form_page.dart';
 import 'package:inker_studio/ui/artist/profile/artist_my_profile_page.dart';
 import 'package:inker_studio/ui/artist/stencil/add_stencil_page.dart';
 import 'package:inker_studio/ui/artist/stencil/stencil_detail_page.dart';
@@ -193,6 +196,8 @@ class AppRoutes {
           create: (context) => AppointmentBloc(
             appointmentService: context.read(),
             sessionService: context.read(),
+            agendaService: context.read(),
+            consentService: context.read(),
           ),
           child: const CustomerAppointmentsPage(),
         ),
@@ -208,6 +213,8 @@ class AppRoutes {
             create: (context) => AppointmentBloc(
               appointmentService: context.read(),
               sessionService: context.read(),
+              agendaService: context.read(),
+              consentService: context.read(),
             ),
             child: AppointmentDetailPage(
               appointmentId: appointmentId,
@@ -246,6 +253,21 @@ class AppRoutes {
           // Use the global ArtistStencilBloc instead of creating a new one
           return const AddStencilPage();
         },
+      );
+    }
+
+    // Consent template routes
+    if (settings.name == '/consent-template-detail') {
+      final template = settings.arguments as FormTemplate;
+      return MaterialPageRoute(
+        builder: (context) => ConsentTemplateDetailPage(template: template),
+      );
+    }
+    
+    if (settings.name == '/consent-template-form') {
+      final template = settings.arguments as FormTemplate?; // null for create mode
+      return MaterialPageRoute(
+        builder: (context) => ConsentTemplateFormPage(template: template),
       );
     }
     

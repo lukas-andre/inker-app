@@ -10,6 +10,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/image/image_cache_settings.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
@@ -58,9 +59,13 @@ class _SettingsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final session = context.watch<AuthBloc>().state.session;
+    final isArtist = session.user?.userType == 'artist';
+
     return ListView(
       children: [
         _ApplicationSettings(settings: settings),
+        if (isArtist) _ArtistSettings(settings: settings),
         _AccountSettings(),
         _LegalSettings(),
       ],
@@ -629,4 +634,87 @@ void _showSuccessSnackBar(BuildContext context, String message) {
       duration: const Duration(seconds: 3),
     ),
   );
+}
+
+class _ArtistSettings extends StatefulWidget {
+  final Settings settings;
+
+  const _ArtistSettings({required this.settings});
+
+  @override
+  State<_ArtistSettings> createState() => _ArtistSettingsState();
+}
+
+class _ArtistSettingsState extends State<_ArtistSettings> {
+  late bool _requireConsent;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize from the ArtistMyProfileBloc's current state
+    final artistState = context.read<ArtistMyProfileBloc>().state;
+    _requireConsent = artistState.maybeWhen(
+      loaded: (artist) => artist.requiresBasicConsent,
+      orElse: () => false, // Default to false if profile isn't loaded
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<ArtistMyProfileBloc, ArtistProfileState>(
+      listener: (context, state) {
+        // Listen for changes in the artist profile and update the switch
+        state.maybeWhen(
+          loaded: (artist) {
+            if (mounted && _requireConsent != artist.requiresBasicConsent) {
+              setState(() {
+                _requireConsent = artist.requiresBasicConsent;
+              });
+            }
+          },
+          error: (message) {
+            // Optionally, show a snackbar on error
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error updating setting: $message'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          orElse: () {},
+        );
+      },
+      builder: (context, state) {
+        // The UI is built using the local _requireConsent state,
+        // which is updated by the listener and user interaction.
+        return _SettingsSection(
+          title: 'Artist Settings', // TODO: Add to l10n
+          children: [
+            SwitchListTile(
+              title: Text(
+                'Require Basic Consent', // TODO: Add to l10n
+                style: TextStyleTheme.bodyText1,
+              ),
+              subtitle: Text(
+                'If enabled, clients must accept a basic consent form before booking.', // TODO: Add to l10n
+                style: TextStyleTheme.caption.copyWith(color: Colors.grey),
+              ),
+              value: _requireConsent,
+              onChanged: (value) {
+                // Optimistically update the UI
+                setState(() {
+                  _requireConsent = value;
+                });
+                // Dispatch the event to the BLoC to save the setting
+                context.read<ArtistMyProfileBloc>().add(
+                      ArtistProfileEvent.updateRequiresBasicConsent(value),
+                    );
+              },
+              activeColor: Theme.of(context).colorScheme.secondary,
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

@@ -10,6 +10,7 @@ class UpdateArtistDto with _$UpdateArtistDto {
     String? lastName,
     String? shortDescription,
     UpdateContactDto? contact,
+    bool? requiresBasicConsent,
   }) = _UpdateArtistDto;
 
   factory UpdateArtistDto.fromJson(Map<String, dynamic> json) =>

@@ -2874,5 +2874,157 @@
   "appointmentNotFound": "Appointment not found",
   "@appointmentNotFound": {
     "description": "Message shown when appointment cannot be found."
+  },
+  "confirmEvent": "Confirm Event",
+  "@confirmEvent": {
+    "description": "Text for confirming an event action."
+  },
+  "confirmEventMessage": "Are you sure you want to confirm this event?",
+  "@confirmEventMessage": {
+    "description": "Confirmation message shown when confirming an event."
+  },
+  "rejectEvent": "Reject Event",
+  "@rejectEvent": {
+    "description": "Text for rejecting an event action."
+  },
+  "continue_": "Continue",
+  "@continue_": {
+    "description": "Text for continue action button."
+  },
+  "reschedule": "Reschedule",
+  "@reschedule": {
+    "description": "Text for reschedule action button."
+  },
+  "comment": "Comment",
+  "@comment": {
+    "description": "Text for comment action button."
+  },
+  "anonymous": "Anonymous",
+  "@anonymous": {
+    "description": "Text for anonymous option in reviews."
+  },
+  "addPhoto": "Add Photo",
+  "@addPhoto": {
+    "description": "Text for adding a photo action."
+  },
+  "gallery": "Gallery",
+  "@gallery": {
+    "description": "Text for gallery action button."
+  },
+  "consentTemplates": "Consent Templates",
+  "@consentTemplates": {
+    "description": "Title for consent templates management page."
+  },
+  "createTemplate": "Create Template",
+  "@createTemplate": {
+    "description": "Text for creating a new consent template."
+  },
+  "noConsentTemplates": "No consent templates created yet",
+  "@noConsentTemplates": {
+    "description": "Message shown when no consent templates exist."
+  },
+  "createFirstTemplate": "Create First Template",
+  "@createFirstTemplate": {
+    "description": "Text for creating the first consent template."
+  },
+  "generalTerms": "General Terms",
+  "@generalTerms": {
+    "description": "Label for general terms consent type."
+  },
+  "tattooConsent": "Tattoo Consent",
+  "@tattooConsent": {
+    "description": "Label for tattoo consent type."
+  },
+  "imageRelease": "Image Release",
+  "@imageRelease": {
+    "description": "Label for image release consent type."
+  },
+  "other": "Other",
+  "@other": {
+    "description": "Label for other consent type."
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Label for version information."
+  },
+  "fields": "fields",
+  "@fields": {
+    "description": "Label for form fields count."
+  },
+  "duplicate": "Duplicate",
+  "@duplicate": {
+    "description": "Text for duplicating an item."
+  },
+  "deleteTemplate": "Delete Template",
+  "@deleteTemplate": {
+    "description": "Text for deleting a template."
+  },
+  "deleteTemplateConfirmation": "Are you sure you want to delete this template? This action cannot be undone.",
+  "@deleteTemplateConfirmation": {
+    "description": "Confirmation message for deleting a template."
+  },
+  "consentForms": "Consent Forms",
+  "@consentForms": {
+    "description": "Title for consent forms page."
+  },
+  "noConsentRequired": "No consent forms required for this appointment",
+  "@noConsentRequired": {
+    "description": "Message shown when no consent is required."
+  },
+  "allConsentsCompleted": "All consent forms completed",
+  "@allConsentsCompleted": {
+    "description": "Message shown when all consents are signed."
+  },
+  "consentProgress": "Consent Progress",
+  "@consentProgress": {
+    "description": "Title for consent completion progress."
+  },
+  "completed": "completed",
+  "@completed": {
+    "description": "Text indicating completion status."
+  },
+  "consentFormDescription": "Please review and complete this consent form",
+  "@consentFormDescription": {
+    "description": "Default description for consent forms."
+  },
+  "signed": "Signed",
+  "@signed": {
+    "description": "Status indicating a form is signed."
+  },
+  "pendingSignature": "Pending Signature",
+  "@pendingSignature": {
+    "description": "Status indicating a form needs to be signed."
+  },
+  "signConsent": "Sign Consent",
+  "@signConsent": {
+    "description": "Text for signing a consent form."
+  },
+  "fieldRequired": "This field is required",
+  "@fieldRequired": {
+    "description": "Validation message for required fields."
+  },
+  "tapToSign": "Tap to sign",
+  "@tapToSign": {
+    "description": "Instruction for signature field."
+  },
+  "consents": "Consents",
+  "@consents": {
+    "description": "Label for consents section."
+  },
+  "viewConsents": "View Consents",
+  "@viewConsents": {
+    "description": "Text for viewing consent forms."
+  },
+  "signRequiredConsents": "Sign Required Consents",
+  "@signRequiredConsents": {
+    "description": "Text for signing required consent forms."
+  },
+  "consentRequired": "Consent Required",
+  "@consentRequired": {
+    "description": "Message indicating consent is required."
+  },
+  "pleaseSignConsents": "Please sign the required consent forms before proceeding",
+  "@pleaseSignConsents": {
+    "description": "Message asking user to sign consent forms."
   }
 }

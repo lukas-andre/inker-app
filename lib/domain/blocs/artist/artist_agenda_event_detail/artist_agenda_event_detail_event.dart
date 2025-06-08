@@ -15,4 +15,41 @@ class ArtistAgendaEventDetailEvent with _$ArtistAgendaEventDetailEvent {
     required DateTime newEndDate,
     String? reason,
   }) = _RescheduleEvent;
+  const factory ArtistAgendaEventDetailEvent.cancelEvent({
+    required String agendaId,
+    required String eventId,
+    required String reason,
+  }) = _CancelEvent;
+  const factory ArtistAgendaEventDetailEvent.confirmEvent({
+    required String agendaId,
+    required String eventId,
+  }) = _ConfirmEvent;
+  const factory ArtistAgendaEventDetailEvent.rejectEvent({
+    required String agendaId,
+    required String eventId,
+    String? reason,
+  }) = _RejectEvent;
+  const factory ArtistAgendaEventDetailEvent.markEventAsDone({
+    required String agendaId,
+    required String eventId,
+    List<String>? workEvidenceFiles,
+  }) = _MarkEventAsDone;
+  const factory ArtistAgendaEventDetailEvent.addWorkEvidence({
+    required String agendaId,
+    required String eventId,
+    required List<String> imageFiles,
+  }) = _AddWorkEvidence;
+  const factory ArtistAgendaEventDetailEvent.reviewEvent({
+    required String agendaId,
+    required String eventId,
+    required int rating,
+    required String comment,
+    required bool isAnonymous,
+  }) = _ReviewEvent;
+  const factory ArtistAgendaEventDetailEvent.changeEventStatus({
+    required String agendaId,
+    required String eventId,
+    required String status,
+    String? reason,
+  }) = _ChangeEventStatus;
 }
