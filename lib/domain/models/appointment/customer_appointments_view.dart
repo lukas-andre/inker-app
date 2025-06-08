@@ -6,14 +6,34 @@ part 'customer_appointments_view.g.dart';
 
 @freezed
 class CustomerAppointmentsView with _$CustomerAppointmentsView {
+  const CustomerAppointmentsView._();
   @JsonSerializable(explicitToJson: true)
   const factory CustomerAppointmentsView({
-    CustomerAppointmentDto? heroAppointment,
+    String? heroAppointmentId,
     required GroupedAppointments appointments,
   }) = _CustomerAppointmentsView;
 
   factory CustomerAppointmentsView.fromJson(Map<String, dynamic> json) =>
       _$CustomerAppointmentsViewFromJson(json);
+
+  CustomerAppointmentDto? get heroAppointment {
+    if (heroAppointmentId == null) {
+      return null;
+    }
+    final allAppointments = [
+      ...appointments.requiringAction,
+      ...appointments.today,
+      ...appointments.thisWeek,
+      ...appointments.upcoming,
+      ...appointments.history,
+    ];
+    try {
+      return allAppointments
+          .firstWhere((element) => element.event.id == heroAppointmentId);
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 @freezed

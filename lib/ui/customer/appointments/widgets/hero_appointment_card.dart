@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/appointment/customer_appointment_dto.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/shared/event/unified_confirmation_handler.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:intl/intl.dart';
 
 class HeroAppointmentCard extends StatelessWidget {
   final CustomerAppointmentDto appointment;
@@ -83,6 +85,27 @@ class HeroAppointmentCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.calendar_today, color: Colors.white, size: 20),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      DateFormat('EEEE d \'de\' MMMM, hh:mm a', 'es_CL').format(appointment.event.startDate),
+                      style: TextStyleTheme.bodyText1.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -135,7 +158,45 @@ class HeroAppointmentCard extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 20),
-                if (appointment.availableActions.isNotEmpty)
+                if (appointment.actions.canConfirmEvent)
+                  ElevatedButton(
+                    onPressed: () {
+                      showUnifiedConfirmDialog(
+                        context: context,
+                        eventId: appointment.event.id,
+                        agendaId: appointment.event.agenda!.id,
+                        canAcceptConsent: appointment.actions.canAcceptConsent,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Theme.of(context).colorScheme.secondary,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 2,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Confirmar Cita',
+                          style: TextStyleTheme.button.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: Theme.of(context).colorScheme.secondary,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                  )
+                else if (appointment.availableActions.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(

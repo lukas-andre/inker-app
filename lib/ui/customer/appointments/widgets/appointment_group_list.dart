@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/appointment/customer_appointment_dto.dart';
-import 'package:inker_studio/ui/customer/appointments/widgets/appointment_card.dart';
+import 'package:inker_studio/ui/shared/event/unified_confirmation_handler.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentGroupList extends StatelessWidget {
   final String title;
@@ -41,10 +42,8 @@ class AppointmentGroupList extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(), // Important for nested lists
           itemBuilder: (context, index) {
             final appointmentDto = appointments[index];
-            // We need to convert CustomerAppointmentDto back to Appointment for the old card
-            // This is a temporary step until we refactor the card itself.
-            // For now, let's just show the title. A full conversion is complex.
-            // A better approach is to adapt AppointmentCard to take a CustomerAppointmentDto.
+            final canConfirm = appointmentDto.actions.canConfirmEvent;
+
             return Card(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               color: Theme.of(context).colorScheme.surface.withOpacity(0.8),
@@ -64,12 +63,47 @@ class AppointmentGroupList extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                subtitle: Text(
-                  appointmentDto.artist.username ?? 'Artista',
-                  style: TextStyleTheme.bodyText2.copyWith(
-                    color: Colors.white.withOpacity(0.7),
-                  ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      appointmentDto.artist.username ?? 'Artista',
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      DateFormat('d MMM, hh:mm a', 'es_CL').format(appointmentDto.event.startDate),
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                    ),
+                  ],
                 ),
+                trailing: canConfirm
+                    ? ElevatedButton(
+                        onPressed: () {
+                          showUnifiedConfirmDialog(
+                            context: context,
+                            eventId: appointmentDto.event.id,
+                            agendaId: appointmentDto.event.agenda!.id,
+                            canAcceptConsent: appointmentDto.actions.canAcceptConsent,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        ),
+                        child: Text(
+                          'Confirmar',
+                          style: TextStyleTheme.button.copyWith(fontSize: 12),
+                        ),
+                      )
+                    : null,
                 onTap: () {
                   Navigator.pushNamed(
                     context,

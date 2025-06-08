@@ -9,10 +9,7 @@ part of 'customer_appointments_view.dart';
 _$CustomerAppointmentsViewImpl _$$CustomerAppointmentsViewImplFromJson(
         Map json) =>
     _$CustomerAppointmentsViewImpl(
-      heroAppointment: json['heroAppointment'] == null
-          ? null
-          : CustomerAppointmentDto.fromJson(
-              Map<String, dynamic>.from(json['heroAppointment'] as Map)),
+      heroAppointmentId: json['heroAppointmentId'] as String?,
       appointments: GroupedAppointments.fromJson(
           Map<String, dynamic>.from(json['appointments'] as Map)),
     );
@@ -27,7 +24,7 @@ Map<String, dynamic> _$$CustomerAppointmentsViewImplToJson(
     }
   }
 
-  writeNotNull('heroAppointment', instance.heroAppointment?.toJson());
+  writeNotNull('heroAppointmentId', instance.heroAppointmentId);
   val['appointments'] = instance.appointments.toJson();
   return val;
 }

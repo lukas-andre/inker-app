@@ -218,7 +218,7 @@ class __$$CustomerAppointmentDtoImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$CustomerAppointmentDtoImpl implements _CustomerAppointmentDto {
+class _$CustomerAppointmentDtoImpl extends _CustomerAppointmentDto {
   const _$CustomerAppointmentDtoImpl(
       {required this.event,
       required this.artist,
@@ -226,7 +226,8 @@ class _$CustomerAppointmentDtoImpl implements _CustomerAppointmentDto {
       required this.urgency,
       required this.contextualInfo,
       final List<AppointmentAction> availableActions = const []})
-      : _availableActions = availableActions;
+      : _availableActions = availableActions,
+        super._();
 
   factory _$CustomerAppointmentDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerAppointmentDtoImplFromJson(json);
@@ -292,7 +293,7 @@ class _$CustomerAppointmentDtoImpl implements _CustomerAppointmentDto {
   }
 }
 
-abstract class _CustomerAppointmentDto implements CustomerAppointmentDto {
+abstract class _CustomerAppointmentDto extends CustomerAppointmentDto {
   const factory _CustomerAppointmentDto(
           {required final AgendaEvent event,
           required final Artist artist,
@@ -301,6 +302,7 @@ abstract class _CustomerAppointmentDto implements CustomerAppointmentDto {
           required final AppointmentContextualInfo contextualInfo,
           final List<AppointmentAction> availableActions}) =
       _$CustomerAppointmentDtoImpl;
+  const _CustomerAppointmentDto._() : super._();
 
   factory _CustomerAppointmentDto.fromJson(Map<String, dynamic> json) =
       _$CustomerAppointmentDtoImpl.fromJson;
