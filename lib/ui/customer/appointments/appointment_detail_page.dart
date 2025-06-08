@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
-import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -14,7 +13,6 @@ import 'package:inker_studio/ui/shared/event/event_description_card.dart';
 import 'package:inker_studio/ui/shared/event/event_location_card.dart';
 import 'package:inker_studio/ui/shared/event/work_evidence_card.dart';
 import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
-import 'package:inker_studio/ui/shared/event/event_action_buttons.dart';
 import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart'
     as dialogs;
 import 'package:inker_studio/ui/shared/event/event_section_header.dart';
