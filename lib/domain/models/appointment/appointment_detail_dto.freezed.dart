@@ -308,7 +308,9 @@ mixin _$AppointmentEventDto {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   String get info => throw _privateConstructorUsedError;
@@ -326,6 +328,7 @@ mixin _$AppointmentEventDto {
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   String? get quotationId => throw _privateConstructorUsedError;
   AgendaDto get agenda => throw _privateConstructorUsedError;
+  List<StatusLogEntry>? get statusLog => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -345,7 +348,9 @@ abstract class $AppointmentEventDtoCopyWith<$Res> {
       DateTime updatedAt,
       String customerId,
       String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       String color,
       String info,
@@ -362,7 +367,8 @@ abstract class $AppointmentEventDtoCopyWith<$Res> {
       bool? customerNotified,
       DateTime? deletedAt,
       String? quotationId,
-      AgendaDto agenda});
+      AgendaDto agenda,
+      List<StatusLogEntry>? statusLog});
 
   $AgendaDtoCopyWith<$Res> get agenda;
 }
@@ -403,6 +409,7 @@ class _$AppointmentEventDtoCopyWithImpl<$Res, $Val extends AppointmentEventDto>
     Object? deletedAt = freezed,
     Object? quotationId = freezed,
     Object? agenda = null,
+    Object? statusLog = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -497,6 +504,10 @@ class _$AppointmentEventDtoCopyWithImpl<$Res, $Val extends AppointmentEventDto>
           ? _value.agenda
           : agenda // ignore: cast_nullable_to_non_nullable
               as AgendaDto,
+      statusLog: freezed == statusLog
+          ? _value.statusLog
+          : statusLog // ignore: cast_nullable_to_non_nullable
+              as List<StatusLogEntry>?,
     ) as $Val);
   }
 
@@ -523,7 +534,9 @@ abstract class _$$AppointmentEventDtoImplCopyWith<$Res>
       DateTime updatedAt,
       String customerId,
       String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       String color,
       String info,
@@ -540,7 +553,8 @@ abstract class _$$AppointmentEventDtoImplCopyWith<$Res>
       bool? customerNotified,
       DateTime? deletedAt,
       String? quotationId,
-      AgendaDto agenda});
+      AgendaDto agenda,
+      List<StatusLogEntry>? statusLog});
 
   @override
   $AgendaDtoCopyWith<$Res> get agenda;
@@ -580,6 +594,7 @@ class __$$AppointmentEventDtoImplCopyWithImpl<$Res>
     Object? deletedAt = freezed,
     Object? quotationId = freezed,
     Object? agenda = null,
+    Object? statusLog = freezed,
   }) {
     return _then(_$AppointmentEventDtoImpl(
       id: null == id
@@ -674,6 +689,10 @@ class __$$AppointmentEventDtoImplCopyWithImpl<$Res>
           ? _value.agenda
           : agenda // ignore: cast_nullable_to_non_nullable
               as AgendaDto,
+      statusLog: freezed == statusLog
+          ? _value._statusLog
+          : statusLog // ignore: cast_nullable_to_non_nullable
+              as List<StatusLogEntry>?,
     ));
   }
 }
@@ -687,7 +706,9 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
       required this.updatedAt,
       required this.customerId,
       required this.title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.endDate,
       required this.color,
       required this.info,
@@ -704,7 +725,9 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
       this.customerNotified,
       this.deletedAt,
       this.quotationId,
-      required this.agenda});
+      required this.agenda,
+      final List<StatusLogEntry>? statusLog})
+      : _statusLog = statusLog;
 
   factory _$AppointmentEventDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppointmentEventDtoImplFromJson(json);
@@ -720,8 +743,10 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
   @override
   final String title;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime endDate;
   @override
   final String color;
@@ -755,10 +780,19 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
   final String? quotationId;
   @override
   final AgendaDto agenda;
+  final List<StatusLogEntry>? _statusLog;
+  @override
+  List<StatusLogEntry>? get statusLog {
+    final value = _statusLog;
+    if (value == null) return null;
+    if (_statusLog is EqualUnmodifiableListView) return _statusLog;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AppointmentEventDto(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, startDate: $startDate, endDate: $endDate, color: $color, info: $info, notification: $notification, done: $done, status: $status, workEvidence: $workEvidence, cancelationReason: $cancelationReason, rescheduleReason: $rescheduleReason, notes: $notes, preparationTime: $preparationTime, cleanupTime: $cleanupTime, lastStatusChange: $lastStatusChange, customerNotified: $customerNotified, deletedAt: $deletedAt, quotationId: $quotationId, agenda: $agenda)';
+    return 'AppointmentEventDto(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, startDate: $startDate, endDate: $endDate, color: $color, info: $info, notification: $notification, done: $done, status: $status, workEvidence: $workEvidence, cancelationReason: $cancelationReason, rescheduleReason: $rescheduleReason, notes: $notes, preparationTime: $preparationTime, cleanupTime: $cleanupTime, lastStatusChange: $lastStatusChange, customerNotified: $customerNotified, deletedAt: $deletedAt, quotationId: $quotationId, agenda: $agenda, statusLog: $statusLog)';
   }
 
   @override
@@ -802,7 +836,9 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
                 other.deletedAt == deletedAt) &&
             (identical(other.quotationId, quotationId) ||
                 other.quotationId == quotationId) &&
-            (identical(other.agenda, agenda) || other.agenda == agenda));
+            (identical(other.agenda, agenda) || other.agenda == agenda) &&
+            const DeepCollectionEquality()
+                .equals(other._statusLog, _statusLog));
   }
 
   @JsonKey(ignore: true)
@@ -831,7 +867,8 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
         customerNotified,
         deletedAt,
         quotationId,
-        agenda
+        agenda,
+        const DeepCollectionEquality().hash(_statusLog)
       ]);
 
   @JsonKey(ignore: true)
@@ -856,7 +893,9 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
       required final DateTime updatedAt,
       required final String customerId,
       required final String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime endDate,
       required final String color,
       required final String info,
@@ -873,7 +912,8 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
       final bool? customerNotified,
       final DateTime? deletedAt,
       final String? quotationId,
-      required final AgendaDto agenda}) = _$AppointmentEventDtoImpl;
+      required final AgendaDto agenda,
+      final List<StatusLogEntry>? statusLog}) = _$AppointmentEventDtoImpl;
 
   factory _AppointmentEventDto.fromJson(Map<String, dynamic> json) =
       _$AppointmentEventDtoImpl.fromJson;
@@ -889,8 +929,10 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
   @override
   String get title;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate;
   @override
   String get color;
@@ -924,6 +966,8 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
   String? get quotationId;
   @override
   AgendaDto get agenda;
+  @override
+  List<StatusLogEntry>? get statusLog;
   @override
   @JsonKey(ignore: true)
   _$$AppointmentEventDtoImplCopyWith<_$AppointmentEventDtoImpl> get copyWith =>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/image_gallery_view.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class QuotationImages extends StatelessWidget {
@@ -20,7 +21,7 @@ class QuotationImages extends StatelessWidget {
     if (!_hasImages) {
       return Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        color: Theme.of(context).colorScheme.surface,
+        color: primaryColor,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
@@ -50,7 +51,7 @@ class QuotationImages extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: LayoutBuilder(

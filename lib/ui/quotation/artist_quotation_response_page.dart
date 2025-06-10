@@ -222,7 +222,10 @@ class _ArtistQuotationResponseViewState
             padding: const EdgeInsets.all(16.0),
             child: Text(
               l10n.yourResponse,
-              style: TextStyleTheme.headline3.copyWith(color: Colors.white),
+              style: TextStyleTheme.headline3.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),
             ),
           ),
           _buildResponseForm(l10n),
@@ -235,7 +238,7 @@ class _ArtistQuotationResponseViewState
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal:16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -263,12 +266,15 @@ class _ArtistQuotationResponseViewState
                 key: K.quotationActionSubmitButton,
                 margin: const EdgeInsets.only(top: 16, bottom: 36),
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: 48,
+                height: 56,
                 child: ElevatedButton(
                   onPressed: () => _submitForm(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
-                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    )
                   ),
                   child: Text(l10n.submit, style: TextStyleTheme.button),
                 ),
@@ -297,35 +303,24 @@ class _ArtistQuotationResponseViewState
           children: [
             TextFormField(
               controller: scheduleController,
-              decoration: InputDecoration(
-                labelText: l10n.appointmentDateTime,
-                hintText: l10n.selectDateTime,
-                labelStyle:
-                    TextStyleTheme.bodyText1.copyWith(color: Colors.white),
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                prefixIcon: Icon(Icons.calendar_today,
-                    color: Theme.of(context).colorScheme.tertiary),
+              decoration: _inputDecoration(
+                l10n.appointmentDateTime,
+                l10n.selectDateTime,
+                prefixIcon: Icons.calendar_today,
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.info_outline,
-                          color: Theme.of(context).colorScheme.tertiary),
+                      icon: const Icon(Icons.info_outline, color: Colors.white70),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.scheduleInfo)),
                         );
                       },
                     ),
-                    const SizedBox(width: 48),
+                    const SizedBox(width: 48), // Space for clear button
                   ],
                 ),
-                errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
               ),
               style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
               readOnly: true,
@@ -353,8 +348,7 @@ class _ArtistQuotationResponseViewState
                 bottom: 0,
                 child: Center(
                   child: IconButton(
-                    icon: Icon(Icons.close,
-                        color: Theme.of(context).colorScheme.tertiary),
+                    icon: const Icon(Icons.close, color: Colors.white70),
                     onPressed: () {
                       setState(() {
                         _appointmentStartDate = null;
@@ -460,22 +454,9 @@ class _ArtistQuotationResponseViewState
     return DropdownButtonFormField<ArtistQuotationAction>(
       value:
           availableActions.contains(_action) ? _action : availableActions.first,
-      decoration: InputDecoration(
-        labelText: l10n.action,
-        labelStyle: TextStyleTheme.bodyText1,
-        fillColor: Theme.of(context).colorScheme.surface,
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      style: TextStyleTheme.bodyText1,
-      dropdownColor: Theme.of(context).colorScheme.secondary,
+      decoration: _inputDecoration(l10n.action, ''),
+      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+      dropdownColor: Theme.of(context).colorScheme.surfaceVariant,
       items: availableActions.map((action) {
         return DropdownMenuItem(
           value: action,
@@ -516,23 +497,12 @@ class _ArtistQuotationResponseViewState
     return TextFormField(
       key: K.quotationAdditionalDetailsField,
       controller: _additionalDetailsController,
-      decoration: InputDecoration(
-        labelText: l10n.additionalDetails,
-        labelStyle: TextStyleTheme.bodyText1,
-        fillColor: Theme.of(context).colorScheme.surface,
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        prefixIcon:
-            Icon(Icons.notes, color: Theme.of(context).colorScheme.tertiary),
+      decoration: _inputDecoration(
+        l10n.additionalDetails,
+        '',
+        prefixIcon: Icons.notes,
       ),
-      style: TextStyleTheme.bodyText1,
+      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
       maxLines: 3,
     );
   }
@@ -541,22 +511,9 @@ class _ArtistQuotationResponseViewState
     return DropdownButtonFormField<QuotationArtistRejectReason>(
       key: K.quotationRejectReasonField,
       value: _rejectionReason,
-      decoration: InputDecoration(
-        labelText: l10n.rejectionReason,
-        labelStyle: TextStyleTheme.bodyText1,
-        fillColor: Theme.of(context).colorScheme.surface,
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      style: TextStyleTheme.bodyText1,
-      dropdownColor: Theme.of(context).colorScheme.secondary,
+      decoration: _inputDecoration(l10n.rejectionReason, ''),
+      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+      dropdownColor: Theme.of(context).colorScheme.surfaceVariant,
       items: QuotationArtistRejectReason.values.map((
         reason,
       ) {
@@ -565,7 +522,7 @@ class _ArtistQuotationResponseViewState
           value: reason,
           child: Text(
             _getTranslatedRejectionReason(reason, l10n),
-            style: TextStyleTheme.bodyText1,
+            style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
           ),
         );
       }).toList(),
@@ -603,11 +560,11 @@ class _ArtistQuotationResponseViewState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.proposedDesigns, style: TextStyleTheme.subtitle1),
-        const SizedBox(height: 8),
+        Text(l10n.proposedDesigns, style: TextStyleTheme.subtitle1.copyWith(color: Colors.white)),
+        const SizedBox(height: 12),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             ..._proposedDesigns.map((file) => _buildImagePreview(file)),
             _buildAddImageButton(l10n),
@@ -633,8 +590,7 @@ class _ArtistQuotationResponseViewState
           top: 0,
           right: 0,
           child: IconButton(
-            icon: Icon(Icons.close,
-                color: Theme.of(context).colorScheme.tertiary),
+            icon: const Icon(Icons.close, color: Colors.white70),
             onPressed: () {
               setState(() {
                 _proposedDesigns.remove(file);
@@ -648,17 +604,52 @@ class _ArtistQuotationResponseViewState
 
   Widget _buildAddImageButton(S l10n) {
     return InkWell(
+      borderRadius: BorderRadius.circular(8),
       onTap: _pickImage,
       child: Container(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).colorScheme.tertiary),
+          color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+          border: Border.all(color: Colors.white.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(Icons.add_photo_alternate,
-            size: 40, color: Theme.of(context).colorScheme.tertiary),
+        child: const Icon(Icons.add_photo_alternate,
+            size: 40, color: Colors.white70),
       ),
+    );
+  }
+
+  InputDecoration _inputDecoration(
+    String labelText,
+    String hintText, {
+    IconData? prefixIcon,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      labelText: labelText,
+      hintText: hintText,
+      labelStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white70),
+      hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white60),
+      fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary, width: 2),
+      ),
+      prefixIcon: prefixIcon != null
+          ? Icon(prefixIcon, color: Colors.white70)
+          : null,
+      suffixIcon: suffixIcon,
     );
   }
 

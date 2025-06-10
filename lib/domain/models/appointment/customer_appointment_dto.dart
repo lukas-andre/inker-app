@@ -36,6 +36,8 @@ class CustomerAppointmentDto with _$CustomerAppointmentDto {
       canRejectEvent: availableActions.contains(AppointmentAction.unknown), // Example, adjust as needed
       canAppeal: availableActions.contains(AppointmentAction.unknown), // Example, adjust as needed
       canAcceptConsent: availableActions.contains(AppointmentAction.confirm), // Assuming confirm implies consent is needed
+      canStartSession: availableActions.contains(AppointmentAction.confirm), // Example, adjust as needed
+      canFinishSession: availableActions.contains(AppointmentAction.confirm), // Example, adjust as needed
       reasons: const EventActionReasons(
         canEdit: null,
         canCancel: null,
@@ -47,6 +49,8 @@ class CustomerAppointmentDto with _$CustomerAppointmentDto {
         canRejectEvent: null,
         canAppeal: null,
         canAcceptConsent: null,
+        canStartSession: null,
+        canFinishSession: null,
       ),
     );
   }

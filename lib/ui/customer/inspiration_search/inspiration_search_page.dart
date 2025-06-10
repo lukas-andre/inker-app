@@ -2374,7 +2374,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                           vertical: 4.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.error,
+                          color: Theme.of(context).colorScheme.secondary,
                           borderRadius: BorderRadius.circular(8.0),
                           boxShadow: [
                             BoxShadow(
@@ -2387,7 +2387,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                         child: Text(
                           S.of(context).stencil,
                           style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onSecondary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -2407,7 +2407,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                     Text(
                       stencil.title,
                       style: TextStyleTheme.bodyText2.copyWith(
-                        color: Theme.of(context).colorScheme.error,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -2448,7 +2448,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                               height: 24.0,
                               margin: const EdgeInsets.only(right: 8.0),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.error.withOpacity(0.2),
+                                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                     color: Theme.of(context).colorScheme.error.withOpacity(0.3),
@@ -2468,7 +2468,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
                                       : stencil.artist?.username ??
                                           S.of(context).artist,
                                   style: TextStyleTheme.caption.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
+                                    color: Theme.of(context).colorScheme.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 1,

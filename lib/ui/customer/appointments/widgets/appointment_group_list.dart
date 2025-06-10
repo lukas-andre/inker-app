@@ -23,6 +23,9 @@ class AppointmentGroupList extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    // Check if this is the history section
+    final bool isHistory = title == 'Historial';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -79,6 +82,30 @@ class AppointmentGroupList extends StatelessWidget {
                         color: Colors.white.withOpacity(0.5),
                       ),
                     ),
+                    // Show status for history appointments
+                    if (isHistory) ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: _getStatusColor(appointmentDto.event.status, context),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            _getStatusText(appointmentDto.event.status),
+                            style: TextStyleTheme.caption.copyWith(
+                              color: _getStatusColor(appointmentDto.event.status, context),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
                 trailing: canConfirm
@@ -118,5 +145,37 @@ class AppointmentGroupList extends StatelessWidget {
         const SizedBox(height: 16),
       ],
     );
+  }
+  
+  // Helper method to get appropriate color for status
+  Color _getStatusColor(String status, BuildContext context) {
+    switch (status.toUpperCase()) {
+      case 'COMPLETED':
+        return Colors.green;
+      case 'CANCELLED':
+        return Colors.red;
+      case 'RESCHEDULED':
+        return Colors.orange;
+      case 'NO_SHOW':
+        return Colors.red;
+      default:
+        return Theme.of(context).colorScheme.secondary;
+    }
+  }
+  
+  // Helper method to get user-friendly status text
+  String _getStatusText(String status) {
+    switch (status.toUpperCase()) {
+      case 'COMPLETED':
+        return 'Completada';
+      case 'CANCELLED':
+        return 'Cancelada';
+      case 'RESCHEDULED':
+        return 'Reprogramada';
+      case 'NO_SHOW':
+        return 'No asistió';
+      default:
+        return status;
+    }
   }
 } 

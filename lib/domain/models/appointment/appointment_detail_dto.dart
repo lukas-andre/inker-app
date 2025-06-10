@@ -1,8 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/event/event_actions.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 part 'appointment_detail_dto.freezed.dart';
 part 'appointment_detail_dto.g.dart';
@@ -28,7 +31,9 @@ class AppointmentEventDto with _$AppointmentEventDto {
     required DateTime updatedAt,
     required String customerId,
     required String title,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime startDate,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime endDate,
     required String color,
     required String info,
@@ -46,6 +51,7 @@ class AppointmentEventDto with _$AppointmentEventDto {
     DateTime? deletedAt,
     String? quotationId,
     required AgendaDto agenda,
+    List<StatusLogEntry>? statusLog,
   }) = _AppointmentEventDto;
 
   factory AppointmentEventDto.fromJson(Map<String, dynamic> json) => _$AppointmentEventDtoFromJson(json);
@@ -69,3 +75,11 @@ class AgendaDto with _$AgendaDto {
 
   factory AgendaDto.fromJson(Map<String, dynamic> json) => _$AgendaDtoFromJson(json);
 } 
+
+DateTime _dateTimeFromJson(String date) {
+  tz.initializeTimeZones();
+  final chileLocation = tz.getLocation('America/Santiago');
+  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
+}
+
+String _dateTimeToJson(DateTime date) => date.toUtc().toIso8601String();

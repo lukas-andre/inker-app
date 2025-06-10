@@ -21,11 +21,15 @@ AgendaEvent _$AgendaEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AgendaEvent {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
   String? get info => throw _privateConstructorUsedError;
@@ -37,6 +41,7 @@ mixin _$AgendaEvent {
   int? get preparationTime => throw _privateConstructorUsedError;
   int? get cleanupTime => throw _privateConstructorUsedError;
   bool get customerNotified => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   List<StatusLogEntry> get statusLog => throw _privateConstructorUsedError;
   String? get quotationId => throw _privateConstructorUsedError;
@@ -59,11 +64,17 @@ abstract class $AgendaEventCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? updatedAt,
       String customerId,
       String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       String? color,
       String? info,
@@ -75,6 +86,8 @@ abstract class $AgendaEventCopyWith<$Res> {
       int? preparationTime,
       int? cleanupTime,
       bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt,
       List<StatusLogEntry> statusLog,
       String? quotationId,
@@ -240,11 +253,17 @@ abstract class _$$AgendaEventImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? updatedAt,
       String customerId,
       String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       String? color,
       String? info,
@@ -256,6 +275,8 @@ abstract class _$$AgendaEventImplCopyWith<$Res>
       int? preparationTime,
       int? cleanupTime,
       bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt,
       List<StatusLogEntry> statusLog,
       String? quotationId,
@@ -401,14 +422,20 @@ class __$$AgendaEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$AgendaEventImpl implements _AgendaEvent {
+class _$AgendaEventImpl extends _AgendaEvent {
   const _$AgendaEventImpl(
       {required this.id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.updatedAt,
       required this.customerId,
       required this.title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.endDate,
       this.color,
       this.info,
@@ -420,6 +447,8 @@ class _$AgendaEventImpl implements _AgendaEvent {
       this.preparationTime,
       this.cleanupTime,
       this.customerNotified = false,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.deletedAt,
       final List<StatusLogEntry> statusLog = const [],
       this.quotationId,
@@ -428,7 +457,8 @@ class _$AgendaEventImpl implements _AgendaEvent {
       final List<dynamic> messages = const [],
       this.agenda})
       : _statusLog = statusLog,
-        _messages = messages;
+        _messages = messages,
+        super._();
 
   factory _$AgendaEventImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgendaEventImplFromJson(json);
@@ -436,16 +466,20 @@ class _$AgendaEventImpl implements _AgendaEvent {
   @override
   final String id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? updatedAt;
   @override
   final String customerId;
   @override
   final String title;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime endDate;
   @override
   final String? color;
@@ -471,6 +505,7 @@ class _$AgendaEventImpl implements _AgendaEvent {
   @JsonKey()
   final bool customerNotified;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? deletedAt;
   final List<StatusLogEntry> _statusLog;
   @override
@@ -593,14 +628,20 @@ class _$AgendaEventImpl implements _AgendaEvent {
   }
 }
 
-abstract class _AgendaEvent implements AgendaEvent {
+abstract class _AgendaEvent extends AgendaEvent {
   const factory _AgendaEvent(
       {required final String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? updatedAt,
       required final String customerId,
       required final String title,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime endDate,
       final String? color,
       final String? info,
@@ -612,6 +653,8 @@ abstract class _AgendaEvent implements AgendaEvent {
       final int? preparationTime,
       final int? cleanupTime,
       final bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? deletedAt,
       final List<StatusLogEntry> statusLog,
       final String? quotationId,
@@ -619,6 +662,7 @@ abstract class _AgendaEvent implements AgendaEvent {
       final Object? rescheduleLog,
       final List<dynamic> messages,
       final Agenda? agenda}) = _$AgendaEventImpl;
+  const _AgendaEvent._() : super._();
 
   factory _AgendaEvent.fromJson(Map<String, dynamic> json) =
       _$AgendaEventImpl.fromJson;
@@ -626,16 +670,20 @@ abstract class _AgendaEvent implements AgendaEvent {
   @override
   String get id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get updatedAt;
   @override
   String get customerId;
   @override
   String get title;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate;
   @override
   String? get color;
@@ -658,6 +706,7 @@ abstract class _AgendaEvent implements AgendaEvent {
   @override
   bool get customerNotified;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt;
   @override
   List<StatusLogEntry> get statusLog;
@@ -685,7 +734,9 @@ StatusLogEntry _$StatusLogEntryFromJson(Map<String, dynamic> json) {
 mixin _$StatusLogEntry {
   Actor get actor => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
+  String? get reason => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get timestamp => throw _privateConstructorUsedError;
   String? get action => throw _privateConstructorUsedError;
 
@@ -704,7 +755,9 @@ abstract class $StatusLogEntryCopyWith<$Res> {
   $Res call(
       {Actor actor,
       String? notes,
+      String? reason,
       String status,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime timestamp,
       String? action});
 
@@ -726,6 +779,7 @@ class _$StatusLogEntryCopyWithImpl<$Res, $Val extends StatusLogEntry>
   $Res call({
     Object? actor = null,
     Object? notes = freezed,
+    Object? reason = freezed,
     Object? status = null,
     Object? timestamp = null,
     Object? action = freezed,
@@ -738,6 +792,10 @@ class _$StatusLogEntryCopyWithImpl<$Res, $Val extends StatusLogEntry>
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reason: freezed == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
               as String?,
       status: null == status
           ? _value.status
@@ -774,7 +832,9 @@ abstract class _$$StatusLogEntryImplCopyWith<$Res>
   $Res call(
       {Actor actor,
       String? notes,
+      String? reason,
       String status,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime timestamp,
       String? action});
 
@@ -795,6 +855,7 @@ class __$$StatusLogEntryImplCopyWithImpl<$Res>
   $Res call({
     Object? actor = null,
     Object? notes = freezed,
+    Object? reason = freezed,
     Object? status = null,
     Object? timestamp = null,
     Object? action = freezed,
@@ -807,6 +868,10 @@ class __$$StatusLogEntryImplCopyWithImpl<$Res>
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reason: freezed == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
               as String?,
       status: null == status
           ? _value.status
@@ -825,14 +890,18 @@ class __$$StatusLogEntryImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$StatusLogEntryImpl implements _StatusLogEntry {
+
+@JsonSerializable(explicitToJson: true)
+class _$StatusLogEntryImpl extends _StatusLogEntry {
   const _$StatusLogEntryImpl(
       {required this.actor,
       this.notes,
+      this.reason,
       required this.status,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.timestamp,
-      this.action});
+      this.action})
+      : super._();
 
   factory _$StatusLogEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$StatusLogEntryImplFromJson(json);
@@ -842,15 +911,18 @@ class _$StatusLogEntryImpl implements _StatusLogEntry {
   @override
   final String? notes;
   @override
+  final String? reason;
+  @override
   final String status;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime timestamp;
   @override
   final String? action;
 
   @override
   String toString() {
-    return 'StatusLogEntry(actor: $actor, notes: $notes, status: $status, timestamp: $timestamp, action: $action)';
+    return 'StatusLogEntry(actor: $actor, notes: $notes, reason: $reason, status: $status, timestamp: $timestamp, action: $action)';
   }
 
   @override
@@ -860,6 +932,7 @@ class _$StatusLogEntryImpl implements _StatusLogEntry {
             other is _$StatusLogEntryImpl &&
             (identical(other.actor, actor) || other.actor == actor) &&
             (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.reason, reason) || other.reason == reason) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
@@ -869,7 +942,7 @@ class _$StatusLogEntryImpl implements _StatusLogEntry {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, actor, notes, status, timestamp, action);
+      Object.hash(runtimeType, actor, notes, reason, status, timestamp, action);
 
   @JsonKey(ignore: true)
   @override
@@ -886,13 +959,16 @@ class _$StatusLogEntryImpl implements _StatusLogEntry {
   }
 }
 
-abstract class _StatusLogEntry implements StatusLogEntry {
+abstract class _StatusLogEntry extends StatusLogEntry {
   const factory _StatusLogEntry(
       {required final Actor actor,
       final String? notes,
+      final String? reason,
       required final String status,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime timestamp,
       final String? action}) = _$StatusLogEntryImpl;
+  const _StatusLogEntry._() : super._();
 
   factory _StatusLogEntry.fromJson(Map<String, dynamic> json) =
       _$StatusLogEntryImpl.fromJson;
@@ -902,8 +978,11 @@ abstract class _StatusLogEntry implements StatusLogEntry {
   @override
   String? get notes;
   @override
+  String? get reason;
+  @override
   String get status;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get timestamp;
   @override
   String? get action;
@@ -1088,7 +1167,9 @@ Agenda _$AgendaFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Agenda {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get artistId => throw _privateConstructorUsedError;
@@ -1097,6 +1178,7 @@ mixin _$Agenda {
   String? get workingHoursEnd => throw _privateConstructorUsedError;
   bool get public => throw _privateConstructorUsedError;
   bool get open => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1111,7 +1193,11 @@ abstract class $AgendaCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? updatedAt,
       String userId,
       String artistId,
@@ -1120,6 +1206,8 @@ abstract class $AgendaCopyWith<$Res> {
       String? workingHoursEnd,
       bool public,
       bool open,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt});
 }
 
@@ -1206,7 +1294,11 @@ abstract class _$$AgendaImplCopyWith<$Res> implements $AgendaCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? updatedAt,
       String userId,
       String artistId,
@@ -1215,6 +1307,8 @@ abstract class _$$AgendaImplCopyWith<$Res> implements $AgendaCopyWith<$Res> {
       String? workingHoursEnd,
       bool public,
       bool open,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt});
 }
 
@@ -1295,7 +1389,11 @@ class __$$AgendaImplCopyWithImpl<$Res>
 class _$AgendaImpl implements _Agenda {
   const _$AgendaImpl(
       {required this.id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.updatedAt,
       required this.userId,
       required this.artistId,
@@ -1304,6 +1402,8 @@ class _$AgendaImpl implements _Agenda {
       this.workingHoursEnd,
       this.public = true,
       this.open = true,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.deletedAt})
       : _workingDays = workingDays;
 
@@ -1313,8 +1413,10 @@ class _$AgendaImpl implements _Agenda {
   @override
   final String id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? updatedAt;
   @override
   final String userId;
@@ -1340,6 +1442,7 @@ class _$AgendaImpl implements _Agenda {
   @JsonKey()
   final bool open;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? deletedAt;
 
   @override
@@ -1405,7 +1508,11 @@ class _$AgendaImpl implements _Agenda {
 abstract class _Agenda implements Agenda {
   const factory _Agenda(
       {required final String id,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? createdAt,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? updatedAt,
       required final String userId,
       required final String artistId,
@@ -1414,6 +1521,8 @@ abstract class _Agenda implements Agenda {
       final String? workingHoursEnd,
       final bool public,
       final bool open,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? deletedAt}) = _$AgendaImpl;
 
   factory _Agenda.fromJson(Map<String, dynamic> json) = _$AgendaImpl.fromJson;
@@ -1421,8 +1530,10 @@ abstract class _Agenda implements Agenda {
   @override
   String get id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get updatedAt;
   @override
   String get userId;
@@ -1439,6 +1550,7 @@ abstract class _Agenda implements Agenda {
   @override
   bool get open;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt;
   @override
   @JsonKey(ignore: true)

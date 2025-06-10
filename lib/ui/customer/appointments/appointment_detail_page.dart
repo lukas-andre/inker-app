@@ -247,8 +247,8 @@ class AppointmentDetailPage extends StatelessWidget {
         onPressed: () => _showReviewDialog(context, detail),
         icon: Icons.star_rate,
         label: 'Dejar Reseña',
-        color: Colors.amber,
-        category: ActionCategory.secondary,
+        color: Theme.of(context).colorScheme.tertiary,
+        category: ActionCategory.primary,
       ));
     }
 
@@ -376,6 +376,12 @@ class AppointmentDetailPage extends StatelessWidget {
                     onArtistTap: () =>
                         _navigateToArtistProfile(context, artist.id),
                   ),
+
+                  // Additional Info Section (if needed)
+                  if (_hasAdditionalInfo(appointment)) ...[
+                    const SizedBox(height: 16),
+                    _buildAdditionalInfoCard(context, appointment),
+                  ],
 
                   const SizedBox(height: 16),
 
@@ -594,12 +600,6 @@ class AppointmentDetailPage extends StatelessWidget {
                     ),
                   ],
 
-                  // Additional Info Section (if needed)
-                  if (_hasAdditionalInfo(appointment)) ...[
-                    const SizedBox(height: 16),
-                    _buildAdditionalInfoCard(context, appointment),
-                  ],
-
                   const SizedBox(height: 100),
                 ],
               ),
@@ -617,6 +617,14 @@ class AppointmentDetailPage extends StatelessWidget {
 
   Widget _buildAdditionalInfoCard(
       BuildContext context, AppointmentEventDto appointment) {
+    dynamic lastStatusLog;
+    if (appointment.statusLog != null && appointment.statusLog!.isNotEmpty) {
+      lastStatusLog = appointment.statusLog!.lastWhere(
+        (log) => log.status == appointment.status,
+        orElse: () => appointment.statusLog!.last,
+      );
+    }
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: explorerSecondaryColor,
@@ -643,12 +651,7 @@ class AppointmentDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             if (appointment.status == 'canceled')
-              _buildInfoChip(
-                context,
-                icon: Icons.cancel,
-                text: S.of(context).appointmentCanceled,
-                color: Colors.red,
-              ),
+              _buildCancellationInfo(context, lastStatusLog),
             if (appointment.status == 'rescheduled')
               _buildInfoChip(
                 context,
@@ -662,10 +665,47 @@ class AppointmentDetailPage extends StatelessWidget {
     );
   }
 
+  Widget _buildCancellationInfo(BuildContext context, dynamic statusLog) {
+    // TODO(translation): Localize these strings
+    String cancellationMessage = 'Appointment Canceled';
+    String? reason;
+
+    // This is the customer view
+    if (statusLog != null) {
+      final actorRole = statusLog.actor?.role;
+      reason = statusLog.reason;
+
+      if (statusLog.action == 'reject') {
+        cancellationMessage = 'Appointment Rejected by You';
+      } else {
+        switch (actorRole) {
+          case 'ARTIST':
+            cancellationMessage = 'Canceled by Artist';
+            break;
+          case 'CUSTOMER':
+            cancellationMessage = 'Canceled by You';
+            break;
+          case 'SYSTEM':
+            cancellationMessage = 'Canceled by System';
+            break;
+        }
+      }
+    }
+
+    return _buildInfoChip(
+      context,
+      icon: Icons.cancel,
+      text: cancellationMessage,
+      reason: reason,
+      color: Colors.red,
+    );
+  }
+
   Widget _buildInfoChip(
     BuildContext context, {
     required IconData icon,
     required String text,
+    String? reason,
     required Color color,
   }) {
     return Container(
@@ -677,12 +717,32 @@ class AppointmentDetailPage extends StatelessWidget {
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color, size: 16),
-          const SizedBox(width: 8),
-          Text(
-            text,
-            style: TextStyleTheme.bodyText2.copyWith(color: color),
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (reason != null && reason.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    // TODO(translation): Localize this string
+                    'Reason: $reason',
+                    style: TextStyleTheme.bodyText2
+                        .copyWith(color: Colors.white70),
+                  ),
+                ],
+              ],
+            ),
           ),
         ],
       ),

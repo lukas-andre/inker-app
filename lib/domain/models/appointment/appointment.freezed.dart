@@ -26,7 +26,9 @@ mixin _$Appointment {
   String get artistId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get info => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate => throw _privateConstructorUsedError;
   AppointmentStatus get status => throw _privateConstructorUsedError;
   Artist get artist => throw _privateConstructorUsedError;
@@ -61,7 +63,9 @@ abstract class $AppointmentCopyWith<$Res> {
       String artistId,
       String title,
       String info,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       AppointmentStatus status,
       Artist artist,
@@ -249,7 +253,9 @@ abstract class _$$AppointmentImplCopyWith<$Res>
       String artistId,
       String title,
       String info,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime endDate,
       AppointmentStatus status,
       Artist artist,
@@ -405,7 +411,9 @@ class _$AppointmentImpl implements _Appointment {
       required this.artistId,
       required this.title,
       required this.info,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.endDate,
       required this.status,
       required this.artist,
@@ -437,8 +445,10 @@ class _$AppointmentImpl implements _Appointment {
   @override
   final String info;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime endDate;
   @override
   final AppointmentStatus status;
@@ -561,7 +571,9 @@ abstract class _Appointment implements Appointment {
       required final String artistId,
       required final String title,
       required final String info,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime startDate,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime endDate,
       required final AppointmentStatus status,
       required final Artist artist,
@@ -593,8 +605,10 @@ abstract class _Appointment implements Appointment {
   @override
   String get info;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDate;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDate;
   @override
   AppointmentStatus get status;

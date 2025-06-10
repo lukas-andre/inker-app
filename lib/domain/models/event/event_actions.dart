@@ -16,6 +16,8 @@ class EventActionReasons with _$EventActionReasons {
     required String? canRejectEvent,
     required String? canAppeal,
     required String? canAcceptConsent,
+    required String? canStartSession,
+    required String? canFinishSession,
   }) = _EventActionReasons;
 
   factory EventActionReasons.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +37,8 @@ class EventActions with _$EventActions {
     required bool canRejectEvent,
     required bool canAppeal,
     required bool canAcceptConsent,
+    required bool canStartSession,
+    required bool canFinishSession,
     required EventActionReasons reasons,
   }) = _EventActions;
 
