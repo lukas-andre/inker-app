@@ -339,14 +339,15 @@ class _CounterpartHeader extends StatelessWidget {
                             Icon(
                               Icons.email_outlined,
                               size: 16,
-                              color: Theme.of(context).colorScheme.tertiary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 info.contactInfo!,
                                 style: TextStyleTheme.bodyText2.copyWith(
-                                  color: Theme.of(context).colorScheme.tertiary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -366,7 +367,7 @@ class _CounterpartHeader extends StatelessWidget {
                   Icon(
                     Icons.location_on_outlined,
                     size: 20,
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -376,7 +377,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           l10n.location,
                           style: TextStyleTheme.subtitle2.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -457,10 +458,10 @@ class _MainQuotationInfo extends StatelessWidget {
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: Theme.of(context)
                             .colorScheme
-                            .tertiary
+                            .onPrimary
                             .withOpacity(0.2),
                         child: Icon(Icons.broken_image,
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 64),
                       ),
                       loadingBuilder: (context, child, loadingProgress) {
@@ -483,7 +484,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       Text(
                         l10n.createdAt,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -492,7 +493,7 @@ class _MainQuotationInfo extends StatelessWidget {
                           Icon(
                             Icons.calendar_today,
                             size: 16,
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                           const SizedBox(width: 8),
                           Text(
@@ -511,7 +512,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     Text(
                       l10n.currentStatus,
                       style: TextStyleTheme.subtitle2.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -532,7 +533,7 @@ class _MainQuotationInfo extends StatelessWidget {
             Text(
               l10n.description,
               style: TextStyleTheme.subtitle2.copyWith(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             const SizedBox(height: 8),
@@ -553,7 +554,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     '${l10n.referenceBudget('', // El monto y la moneda van abajo, así que aquí solo el label
                         '').split(':').first}:',
                     style: TextStyleTheme.subtitle2.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -767,7 +768,7 @@ class _MainQuotationInfo extends StatelessWidget {
         Text(
           l10n.selectedDesign,
           style: TextStyleTheme.subtitle2.copyWith(
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -1285,19 +1286,19 @@ class _StencilPreviewWidget extends StatelessWidget {
                 imageUrl: stencil.imageUrl,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: HSLColor.fromColor(
-                          Theme.of(context).colorScheme.surface)
-                      .withLightness(0.2)
-                      .toColor(),
+                  color:
+                      HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                          .withLightness(0.2)
+                          .toColor(),
                   child: const Center(
                     child: CircularProgressIndicator(color: Colors.white),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: HSLColor.fromColor(
-                          Theme.of(context).colorScheme.surface)
-                      .withLightness(0.2)
-                      .toColor(),
+                  color:
+                      HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                          .withLightness(0.2)
+                          .toColor(),
                   child: Icon(Icons.error,
                       color: Theme.of(context).colorScheme.error, size: 32),
                 ),

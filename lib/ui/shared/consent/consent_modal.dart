@@ -295,7 +295,11 @@ class _ConsentModalState extends State<ConsentModal>
       children: [
         CheckboxListTile(
           value: _termsAccepted,
-          onChanged: (value) => setState(() => _termsAccepted = value ?? false),
+          onChanged: (value) {
+            setState(() {
+              _termsAccepted = value ?? false;
+            });
+          },
           title: Text(
             'Acepto los términos y condiciones generales de la plataforma Inker',
             style: TextStyleTheme.bodyText2,
@@ -307,7 +311,11 @@ class _ConsentModalState extends State<ConsentModal>
         
         CheckboxListTile(
           value: _risksUnderstood,
-          onChanged: (value) => setState(() => _risksUnderstood = value ?? false),
+          onChanged: (value) {
+            setState(() {
+              _risksUnderstood = value ?? false;
+            });
+          },
           title: Text(
             'Confirmo que he leído y entiendo los riesgos asociados con el proceso de tatuaje',
             style: TextStyleTheme.bodyText2,
@@ -319,7 +327,11 @@ class _ConsentModalState extends State<ConsentModal>
         
         CheckboxListTile(
           value: _privacyAccepted,
-          onChanged: (value) => setState(() => _privacyAccepted = value ?? false),
+          onChanged: (value) {
+            setState(() {
+              _privacyAccepted = value ?? false;
+            });
+          },
           title: Text(
             'Autorizo el procesamiento de mis datos personales conforme a la política de privacidad',
             style: TextStyleTheme.bodyText2,
@@ -335,6 +347,9 @@ class _ConsentModalState extends State<ConsentModal>
   Widget _buildSignatureField() {
     return TextFormField(
       controller: _signatureController,
+      onChanged: (value) {
+        setState(() {}); // Trigger rebuild to update button state
+      },
       decoration: InputDecoration(
         labelText: 'Firma Digital (nombre completo)',
         labelStyle: TextStyleTheme.bodyText2.copyWith(color: Colors.white70),
@@ -395,23 +410,26 @@ class _ConsentModalState extends State<ConsentModal>
                 final canAccept = _termsAccepted && 
                                 _risksUnderstood && 
                                 _privacyAccepted && 
-                                _signatureController.text.isNotEmpty;
+                                _signatureController.text.trim().isNotEmpty;
                 
                 return ElevatedButton(
-                  onPressed: !canAccept ? null : () {
+                  onPressed: canAccept ? () {
                     print('ConsentModal: Accept button pressed');
                     _handleAccept();
-                  },
+                  } : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 12,
                     ),
+                    disabledBackgroundColor: Colors.grey.withOpacity(0.3),
                   ),
                   child: Text(
                     'Aceptar',
-                    style: TextStyleTheme.button,
+                    style: TextStyleTheme.button.copyWith(
+                      color: canAccept ? Colors.white : Colors.white70,
+                    ),
                   ),
                 );
               },

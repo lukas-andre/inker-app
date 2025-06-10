@@ -8,12 +8,12 @@ part of 'event.dart';
 
 _$EventImpl _$$EventImplFromJson(Map json) => _$EventImpl(
       id: json['id'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: _dateTimeFromJson(json['createdAt'] as String),
+      updatedAt: _dateTimeFromJson(json['updatedAt'] as String),
       customerId: json['customerId'] as String,
       title: json['title'] as String,
-      startDateTime: DateTime.parse(json['startDate'] as String),
-      endDateTime: DateTime.parse(json['endDate'] as String),
+      startDateTime: _dateTimeFromJson(json['startDate'] as String),
+      endDateTime: _dateTimeFromJson(json['endDate'] as String),
       color: json['color'] as String?,
       info: json['info'] as String?,
       notification: json['notification'] as bool? ?? false,
@@ -27,9 +27,7 @@ _$EventImpl _$$EventImplFromJson(Map json) => _$EventImpl(
       preparationTime: (json['preparationTime'] as num?)?.toInt(),
       cleanupTime: (json['cleanupTime'] as num?)?.toInt(),
       customerNotified: json['customerNotified'] as bool? ?? false,
-      deletedAt: json['deletedAt'] == null
-          ? null
-          : DateTime.parse(json['deletedAt'] as String),
+      deletedAt: _dateTimeFromJsonNullable(json['deletedAt'] as String?),
       statusLog: json['statusLog'],
       quotationId: json['quotationId'] as String?,
       reviewId: json['reviewId'] as String?,
@@ -45,12 +43,12 @@ _$EventImpl _$$EventImplFromJson(Map json) => _$EventImpl(
 Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'createdAt': instance.createdAt.toIso8601String(),
-    'updatedAt': instance.updatedAt.toIso8601String(),
+    'createdAt': _dateTimeToJson(instance.createdAt),
+    'updatedAt': _dateTimeToJson(instance.updatedAt),
     'customerId': instance.customerId,
     'title': instance.title,
-    'startDate': instance.startDateTime.toIso8601String(),
-    'endDate': instance.endDateTime.toIso8601String(),
+    'startDate': _dateTimeToJson(instance.startDateTime),
+    'endDate': _dateTimeToJson(instance.endDateTime),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -69,7 +67,7 @@ Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) {
   writeNotNull('preparationTime', instance.preparationTime);
   writeNotNull('cleanupTime', instance.cleanupTime);
   val['customerNotified'] = instance.customerNotified;
-  writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
+  writeNotNull('deletedAt', _dateTimeToJsonNullable(instance.deletedAt));
   writeNotNull('statusLog', instance.statusLog);
   writeNotNull('quotationId', instance.quotationId);
   writeNotNull('reviewId', instance.reviewId);
@@ -85,6 +83,7 @@ const _$EventStatusEnumMap = {
   EventStatus.paymentPending: 'payment_pending',
   EventStatus.confirmed: 'confirmed',
   EventStatus.scheduled: 'scheduled',
+  EventStatus.inProgress: 'in_progress',
   EventStatus.completed: 'completed',
   EventStatus.awaitingPhotos: 'awaiting_photos',
   EventStatus.awaitingReview: 'awaiting_review',

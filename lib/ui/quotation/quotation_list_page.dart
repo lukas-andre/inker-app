@@ -7,6 +7,7 @@ import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
@@ -278,7 +279,7 @@ class _QuotationListViewState extends State<QuotationListView> with AutomaticKee
                 key: Key(option['label']), // Use label as key
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: isSelected ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary,
+                  color: isSelected ? Theme.of(context).colorScheme.secondary : greyColor,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,

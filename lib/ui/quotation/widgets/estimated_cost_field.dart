@@ -96,23 +96,22 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
         focusNode: widget.focusNode,
         controller: widget.controller,
         decoration: InputDecoration(
-          labelText: widget.l10n.estimatedCost,
-          labelStyle: TextStyleTheme.bodyText1,
-          fillColor: Theme.of(context).colorScheme.surface,
+          hintText: widget.l10n.estimatedCost,
+          hintStyle: TextStyleTheme.bodyText2.copyWith(color: Colors.white60),
+          fillColor: Colors.black38,
           filled: true,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
-          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           errorText: _errorText,
-          prefixIcon: Icon(Icons.attach_money, color: Theme.of(context).colorScheme.tertiary),
+          prefixIcon: const Icon(Icons.attach_money, color: Colors.white),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.tertiary),
+                icon: const Icon(Icons.info_outline, color: Colors.white),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -121,7 +120,7 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.close, color: Theme.of(context).colorScheme.tertiary),
+                icon: const Icon(Icons.close, color: Colors.white),
                 onPressed: () {
                   widget.controller.clear();
                   widget.onChanged('');

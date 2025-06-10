@@ -126,8 +126,8 @@ class _SelectGeneratedDesignBottomSheetState
                         await Future.delayed(
                             const Duration(milliseconds: 1200));
                       },
-                      color: Theme.of(context).colorScheme.secondary,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      // color: Theme.of(context).colorScheme.secondary,
+                      // backgroundColor: Theme.of(context).colorScheme.secondary,
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
@@ -145,7 +145,7 @@ class _SelectGeneratedDesignBottomSheetState
                               });
                             },
                             child: Card(
-                              color: Theme.of(context).colorScheme.secondary,
+                              // color: Theme.of(context).colorScheme.secondary,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(14)),
@@ -194,7 +194,7 @@ class _SelectGeneratedDesignBottomSheetState
                                             child: Icon(Icons.image,
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .tertiary),
+                                                    .secondary),
                                           ),
                                   ),
                                   Expanded(
@@ -228,7 +228,7 @@ class _SelectGeneratedDesignBottomSheetState
                                                     .copyWith(
                                                         color: Theme.of(context)
                                                             .colorScheme
-                                                            .tertiary),
+                                                            .secondary),
                                               ),
                                             ],
                                           ),
@@ -241,7 +241,7 @@ class _SelectGeneratedDesignBottomSheetState
                                                 .copyWith(
                                                     color: Theme.of(context)
                                                         .colorScheme
-                                                        .tertiary),
+                                                        .onPrimary),
                                           ),
                                         ],
                                       ),

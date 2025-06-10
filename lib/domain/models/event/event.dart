@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/domain/models/agenda/agenda.dart';
 import 'package:inker_studio/domain/models/event/event_message.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 part 'event.freezed.dart';
 part 'event.g.dart';
@@ -22,6 +24,9 @@ enum EventStatus {
   confirmed, // Existing: Event is agreed upon and on the schedule (maps to TS AgendaEventStatus.CONFIRMED).
   @JsonValue('scheduled') // Existing: Event is currently in progress (maps to TS AgendaEventStatus.IN_PROGRESS / Active Session).
   scheduled,
+
+  @JsonValue('in_progress')
+  inProgress, // Existing: Event is currently in progress (maps to TS AgendaEventStatus.IN_PROGRESS / Active Session).
 
   // Post-session states
   @JsonValue('completed')
@@ -54,16 +59,62 @@ enum EventStatus {
   doneStatus,
 }
 
+extension EventStatusExtension on EventStatus {
+  String get value {
+    switch (this) {
+      case EventStatus.created:
+        return 'created';
+      case EventStatus.pending:
+        return 'pending';
+      case EventStatus.paymentPending:
+        return 'payment_pending';
+      case EventStatus.confirmed:
+        return 'confirmed';
+      case EventStatus.scheduled:
+        return 'scheduled';
+      case EventStatus.completed:
+        return 'completed';
+      case EventStatus.awaitingPhotos:
+        return 'awaiting_photos';
+      case EventStatus.awaitingReview:
+        return 'awaiting_review';
+      case EventStatus.reviewed:
+        return 'reviewed';
+      case EventStatus.aftercarePeriod:
+        return 'aftercare_period';
+      case EventStatus.rescheduledPendingApproval:
+        return 'rescheduled_pending_approval';
+      case EventStatus.rescheduled:
+        return 'rescheduled';
+      case EventStatus.canceled:
+        return 'canceled';
+      case EventStatus.disputeOpen:
+        return 'dispute_open';
+      case EventStatus.doneStatus:
+        return 'done';
+      case EventStatus.inProgress:
+        return 'in_progress';
+    }
+  }
+}
+
 @freezed
 class Event with _$Event {
+  const Event._();
+
+  @JsonSerializable(explicitToJson: true)
   const factory Event({
     required String id,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime createdAt,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime updatedAt,
     required String customerId,
     required String title,
-    @JsonKey(name: 'startDate') required DateTime startDateTime,
-    @JsonKey(name: 'endDate') required DateTime endDateTime,
+    @JsonKey(name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+    required DateTime startDateTime,
+    @JsonKey(name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+    required DateTime endDateTime,
     String? color,
     String? info,
     @Default(false) bool notification,
@@ -74,6 +125,7 @@ class Event with _$Event {
     int? preparationTime,
     int? cleanupTime,
     @Default(false) bool customerNotified,
+    @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
     DateTime? deletedAt,
     dynamic statusLog, 
     String? quotationId,
@@ -84,4 +136,29 @@ class Event with _$Event {
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
-} 
+
+  // Getter methods for local dates
+  DateTime get localCreatedAt => createdAt;
+  DateTime get localUpdatedAt => updatedAt;
+  DateTime get localStartDateTime => startDateTime;
+  DateTime get localEndDateTime => endDateTime;
+  DateTime? get localDeletedAt => deletedAt;
+}
+
+// Helper functions for JSON serialization
+DateTime _dateTimeFromJson(String date) {
+  tz.initializeTimeZones();
+  final chileLocation = tz.getLocation('America/Santiago');
+  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
+}
+
+DateTime? _dateTimeFromJsonNullable(String? date) {
+  if (date == null) return null;
+  tz.initializeTimeZones();
+  final chileLocation = tz.getLocation('America/Santiago');
+  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
+}
+
+String _dateTimeToJson(DateTime date) => date.toUtc().toIso8601String();
+
+String? _dateTimeToJsonNullable(DateTime? date) => date?.toUtc().toIso8601String(); 

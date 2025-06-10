@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:inker_studio/firebase_options.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/views/app_view.dart';
 import 'package:inker_studio/utils/dev.dart';
+import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
@@ -37,7 +37,7 @@ Future<void> main() async {
   OverlayStyle.apply();
 
   initializeDateFormatting('es_CL');
-  
+  DateTimeFormatter.initialize();
   
   final providers = await buildProviders();
   

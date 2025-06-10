@@ -265,13 +265,19 @@ class _ArtistOpenQuotationOfferPageViewState
                 child: ElevatedButton(
                   onPressed: () => _submitOffer(context), // Changed method call
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .secondary, // Use consistent styling
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 0,
                   ),
                   // Changed button text
-                  child: Text(l10n.submitOffer, style: TextStyleTheme.button),
+                  child: Text(l10n.submitOffer, 
+                    style: TextStyleTheme.button.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -297,29 +303,33 @@ class _ArtistOpenQuotationOfferPageViewState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          l10n.proposedAppointment,
+          style: TextStyleTheme.bodyText1,
+        ),
+        const SizedBox(height: 8),
         Stack(
           children: [
             TextFormField(
               controller: scheduleController,
               decoration: InputDecoration(
-                labelText: l10n.proposedAppointment,
                 hintText: l10n.selectDateTime,
-                labelStyle:
-                    TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                hintStyle: TextStyleTheme.bodyText2.copyWith(color: Colors.white60),
                 filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
+                fillColor: Colors.black38,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 prefixIcon: Icon(Icons.calendar_today,
-                    color: Theme.of(context).colorScheme.tertiary),
+                    color: Colors.white),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
                       icon: Icon(Icons.info_outline,
-                          color: Theme.of(context).colorScheme.tertiary),
+                          color: Colors.white),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l10n.scheduleInfo)),
@@ -331,10 +341,9 @@ class _ArtistOpenQuotationOfferPageViewState
                 ),
                 errorStyle: TextStyleTheme.caption.copyWith(color: Colors.red),
               ),
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+              style: TextStyleTheme.bodyText1,
               readOnly: true,
               validator: (value) {
-                // Make schedule optional for offer submission? Or required? Assuming required for now.
                 if (value == null || value.isEmpty) {
                   return l10n.requiredField;
                 }
@@ -358,8 +367,7 @@ class _ArtistOpenQuotationOfferPageViewState
                 bottom: 0,
                 child: Center(
                   child: IconButton(
-                    icon: Icon(Icons.close,
-                        color: Theme.of(context).colorScheme.tertiary),
+                    icon: Icon(Icons.close, color: Colors.white),
                     onPressed: () {
                       setState(() {
                         _appointmentStartDate = null;
@@ -444,55 +452,69 @@ class _ArtistOpenQuotationOfferPageViewState
   }
 
   Widget _buildEstimatedCostField(S l10n) {
-    return EstimatedCostField(
-      controller: _estimatedCostController,
-      l10n: l10n,
-      focusNode: _estimatedCostFocusNode,
-      onChanged: (value) {},
-      // Removed validator - validation should be internal to EstimatedCostField
-      // or checked manually in _submitOffer
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.estimatedCost,
+          style: TextStyleTheme.bodyText1,
+        ),
+        const SizedBox(height: 8),
+        EstimatedCostField(
+          controller: _estimatedCostController,
+          l10n: l10n,
+          focusNode: _estimatedCostFocusNode,
+          onChanged: (value) {},
+        ),
+      ],
     );
   }
 
   Widget _buildAdditionalDetailsField(S l10n) {
-    // Make details optional or required based on requirements
-    return TextFormField(
-      key: K
-          .quotationAdditionalDetailsField, // Consider renaming K.offerAdditionalDetailsField
-      controller: _additionalDetailsController,
-      decoration: InputDecoration(
-        labelText: l10n.additionalDetailsOptional,
-        labelStyle: TextStyleTheme.bodyText1,
-        fillColor: Theme.of(context).colorScheme.surface,
-        filled: true,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.additionalDetailsOptional,
+          style: TextStyleTheme.bodyText1,
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.surface),
+        const SizedBox(height: 8),
+        TextFormField(
+          key: K.quotationAdditionalDetailsField,
+          controller: _additionalDetailsController,
+          decoration: InputDecoration(
+            hintText: l10n.additionalDetailsOptional,
+            hintStyle: TextStyleTheme.bodyText2.copyWith(color: Colors.white60),
+            fillColor: Colors.black38,
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            prefixIcon: Icon(Icons.notes, color: Colors.white),
+          ),
+          style: TextStyleTheme.bodyText1,
+          maxLines: 3,
         ),
-        prefixIcon:
-            Icon(Icons.notes, color: Theme.of(context).colorScheme.tertiary),
-      ),
-      style: TextStyleTheme.bodyText1,
-      maxLines: 3,
-      // Add validator if details become required
+      ],
     );
   }
 
   Widget _buildProposedDesignsUpload(S l10n) {
-    // Make designs optional or required? Assuming optional for now.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.proposedDesignsOptional, style: TextStyleTheme.subtitle1),
+        Text(
+          l10n.proposedDesignsOptional, 
+          style: TextStyleTheme.bodyText1,
+        ),
         const SizedBox(height: 8),
         Text(
           l10n.addReferenceImagesOrSketches,
-          style: TextStyleTheme.caption
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+          style: TextStyleTheme.caption.copyWith(color: Colors.white70),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -548,20 +570,19 @@ class _ArtistOpenQuotationOfferPageViewState
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface, // Match input field style
-          border: Border.all(
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5)), // Softer border
+          color: Colors.black38,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.add_photo_alternate_outlined,
-                size: 30, color: Theme.of(context).colorScheme.tertiary),
+                size: 30, color: Colors.white),
             const SizedBox(height: 4),
-            Text(l10n.addDesign,
-                style: TextStyleTheme.caption
-                    .copyWith(color: Theme.of(context).colorScheme.tertiary)) // Placeholder
+            Text(
+              l10n.addDesign,
+              style: TextStyleTheme.caption,
+            )
           ],
         ),
       ),

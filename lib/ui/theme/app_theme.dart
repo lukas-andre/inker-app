@@ -20,6 +20,9 @@ class AppTheme {
         surface: primaryColor,
         onSurface: Colors.black,
       ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: secondaryColor,
+      ),
       scaffoldBackgroundColor: primaryColor,
       cardColor: explorerSecondaryColor,
       textTheme: TextTheme(
@@ -49,6 +52,11 @@ class AppTheme {
         elevation: 1.0,
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: TextStyleTheme.headline2,
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: secondaryColor,
+        contentTextStyle:
+            TextStyleTheme.bodyText1.copyWith(color: Colors.white),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
@@ -83,6 +91,9 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: primaryColor,
       cardColor: explorerSecondaryColor,
+      datePickerTheme: const DatePickerThemeData(
+        backgroundColor: secondaryColor,
+      ),
       textTheme: TextTheme(
         displayLarge: TextStyleTheme.headline1,
         displayMedium: TextStyleTheme.headline2,
@@ -125,4 +136,4 @@ class AppTheme {
       ),
     );
   }
-} 
+}

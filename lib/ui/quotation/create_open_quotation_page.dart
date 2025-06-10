@@ -155,7 +155,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
           context: context,
           content: l10n.couldNotGetLocation, // O "Obteniendo ubicación..."
           backgroundColor:
-              Theme.of(context).colorScheme.tertiary, // Color neutro
+              Colors.blueGrey, // Color neutro
         ),
       );
     }
@@ -257,10 +257,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                   children: [
                     // Description Section
                     _buildSectionHeader(l10n.description, Icons.edit_note),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     TextFormField(
                       controller: _descriptionController, // Keep controller
-                      style: TextStyleTheme.bodyText1,
+                      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                       minLines: 3,
                       maxLines: 5,
                       maxLength: _maxDescriptionLength,
@@ -278,12 +278,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                           child: Text(
                             '$currentLen/$maxLength',
                             style: TextStyle(
-                              // Use state.isDescriptionValid for color
-                              color: currentLen < _minDescriptionLength
-                                  ? Theme.of(context).colorScheme.tertiary
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .tertiary, // Simpler color logic now
+                              color: Colors.white70,
                               fontSize: 12,
                             ),
                           ),
@@ -306,25 +301,15 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                         if (value == null || value.isEmpty) {
                           return l10n.pleaseEnterDescription;
                         }
-                        // Detailed length check is handled by BLoC onChange
-                        // if (value.length < _minDescriptionLength) {
-                        //   return 'Mínimo $_minDescriptionLength caracteres requeridos';
-                        // }
                         return null; // Keep null or remove if formKey not used
                       },
-                      // onChanged handled by listener added in initState
-                      // onChanged: (text) {
-                      //   context.read<CreateOpenQuotationBloc>().add(
-                      //     CreateOpenQuotationEvent.descriptionChanged(text)
-                      //   );
-                      // },
                     ),
                     const SizedBox(height: 28),
 
                     // Location/Travel Radius Section
                     _buildSectionHeader(
                         l10n.maxTravelDistanceKm, Icons.location_on_outlined),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     // Pass state value to distance selector
                     _buildDistanceSelector(l10n, state.selectedDistanceKm),
                     const SizedBox(height: 28),
@@ -336,7 +321,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     Text(
                       l10n.attachStencilOrGeneratedDesignHint,
                       style: TextStyleTheme.bodyText2.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary),
+                          color: Colors.white70),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
@@ -495,7 +480,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     TextFormField(
                       controller: _referenceBudgetController,
                       focusNode: _referenceBudgetFocusNode,
-                      style: TextStyleTheme.bodyText1,
+                      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         ChileanPesoInputFormatter(),
@@ -562,33 +547,22 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
   // --- Helper Widgets (Modified to accept state or dispatch events) ---
 
   Widget _buildSectionHeader(String title, IconData icon) {
-    // No changes needed, purely presentational
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(8),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 22),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyleTheme.headline3.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            child: Icon(icon,
-                color: Theme.of(context).colorScheme.secondary, size: 18),
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyleTheme.headline3.copyWith(
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.2,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -596,10 +570,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       {required String hintText, IconData? prefixIcon, String? errorText}) {
     // Modified to accept errorText
     return InputDecoration(
-      fillColor: Theme.of(context).colorScheme.surface,
+      fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
       filled: true,
       hintText: hintText,
-      hintStyle: TextStyleTheme.bodyText1,
+      hintStyle: TextStyleTheme.bodyText1.copyWith(color: Colors.white60),
       errorText: errorText, // Display error from BLoC state
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -612,7 +586,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondary, width: 1.5),
+            color: Theme.of(context).colorScheme.secondary, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         // Add error border style
@@ -624,14 +598,14 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         // Add focused error border style
         borderRadius: BorderRadius.circular(12),
         borderSide:
-            BorderSide(color: Theme.of(context).colorScheme.error, width: 1.5),
+            BorderSide(color: Theme.of(context).colorScheme.error, width: 2),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: const EdgeInsets.only(left: 12, right: 8),
               child: Icon(prefixIcon,
-                  color: Theme.of(context).colorScheme.tertiary, size: 20),
+                  color: Colors.white70, size: 20),
             )
           : null,
     );
@@ -652,10 +626,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       style: ElevatedButton.styleFrom(
         backgroundColor: isSelected
             ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
-            : Theme.of(context).colorScheme.surface,
+            : Theme.of(context).colorScheme.surfaceVariant,
         foregroundColor: isSelected
             ? Theme.of(context).colorScheme.secondary
-            : Theme.of(context).colorScheme.tertiary,
+            : Colors.white70,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -695,7 +669,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         subtitle: Text(
           '${l10n.id}: $selectedStencilId', // Use state value
           style: TextStyleTheme.caption
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+              .copyWith(color: Colors.white70),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -720,9 +694,9 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             errorBuilder: (context, error, stackTrace) => Container(
               width: 56,
               height: 56,
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
               child: Icon(Icons.broken_image,
-                  color: Theme.of(context).colorScheme.tertiary),
+                  color: Colors.white70),
             ),
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
@@ -739,7 +713,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         subtitle: Text(
           selectedTattooDesign.userQuery, // Use state value
           style: TextStyleTheme.caption
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+              .copyWith(color: Colors.white70),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -754,9 +728,13 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
 
     if (content != null) {
       return Card(
-        color: Theme.of(context).colorScheme.secondary,
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 0,
+        color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                width: 1)),
         margin: const EdgeInsets.only(bottom: 8),
         child: content,
       );
@@ -769,7 +747,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     // Accept state images
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(16),
@@ -878,71 +856,49 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
   }
 
   Widget _buildDistanceSelector(S l10n, int selectedDistanceKm) {
-    // Accept state value
     const List<int> distanceOptions = [0, 5, 10, 15, 25, 50, 100];
+    // Find the index of the current selection to set the slider's initial value
+    final int selectedIndex = distanceOptions.indexOf(selectedDistanceKm);
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            selectedDistanceKm == 0 // Use state value
-                ? l10n.noDistanceLimit
-                : l10n.maxDistance(selectedDistanceKm), // Use state value
-            style: TextStyleTheme.bodyText1.copyWith(
-              color: Theme.of(context).colorScheme.tertiary,
-              fontWeight: FontWeight.w500,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              selectedDistanceKm == 0
+                  ? l10n.noDistanceLimit
+                  : l10n.maxDistance(selectedDistanceKm),
+              style: TextStyleTheme.bodyText1.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              ...distanceOptions.map((distance) {
-                final bool isSelected =
-                    selectedDistanceKm == distance; // Use state value
-                final String label = distance == 0
-                    ? l10n.noDistanceLimit
-                    : l10n.maxDistance(distance);
-
-                return ChoiceChip(
-                  label: Text(label),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    // Dispatch distance changed event
-                    context.read<CreateOpenQuotationBloc>().add(
-                        CreateOpenQuotationEvent.distanceChanged(distance));
-                  },
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  selectedColor:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                  labelStyle: TextStyle(
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context).colorScheme.tertiary,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: isSelected
-                          ? Theme.of(context).colorScheme.secondary
-                          : Colors.transparent,
-                      width: 1.5,
-                    ),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                );
-              }),
-            ],
+          const SizedBox(height: 4),
+          Slider.adaptive(
+            value: selectedIndex.toDouble(),
+            min: 0,
+            max: (distanceOptions.length - 1).toDouble(),
+            divisions: distanceOptions.length - 1,
+            activeColor: Theme.of(context).colorScheme.secondary,
+            inactiveColor:
+                Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+            label: selectedDistanceKm == 0
+                ? l10n.noDistanceLimit
+                : '$selectedDistanceKm km',
+            onChanged: (value) {
+              final newDistance = distanceOptions[value.round()];
+              context
+                  .read<CreateOpenQuotationBloc>()
+                  .add(CreateOpenQuotationEvent.distanceChanged(newDistance));
+            },
           ),
         ],
       ),

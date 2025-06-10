@@ -42,6 +42,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,6 +70,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,6 +98,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -109,6 +115,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -123,6 +131,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -137,6 +147,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -271,6 +283,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return started(eventId);
   }
@@ -300,6 +314,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return started?.call(eventId);
   }
@@ -329,6 +345,8 @@ class _$StartedImpl implements _Started {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -350,6 +368,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return started(this);
   }
@@ -367,6 +387,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return started?.call(this);
   }
@@ -384,6 +406,8 @@ class _$StartedImpl implements _Started {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -511,6 +535,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return updateNotes(agendaId, eventId, notes);
   }
@@ -540,6 +566,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return updateNotes?.call(agendaId, eventId, notes);
   }
@@ -569,6 +597,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (updateNotes != null) {
@@ -590,6 +620,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return updateNotes(this);
   }
@@ -607,6 +639,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return updateNotes?.call(this);
   }
@@ -624,6 +658,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (updateNotes != null) {
@@ -785,6 +821,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return rescheduleEvent(agendaId, eventId, newStartDate, newEndDate, reason);
   }
@@ -814,6 +852,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return rescheduleEvent?.call(
         agendaId, eventId, newStartDate, newEndDate, reason);
@@ -844,6 +884,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (rescheduleEvent != null) {
@@ -866,6 +908,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return rescheduleEvent(this);
   }
@@ -883,6 +927,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return rescheduleEvent?.call(this);
   }
@@ -900,6 +946,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (rescheduleEvent != null) {
@@ -1036,6 +1084,8 @@ class _$CancelEventImpl implements _CancelEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return cancelEvent(agendaId, eventId, reason);
   }
@@ -1065,6 +1115,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return cancelEvent?.call(agendaId, eventId, reason);
   }
@@ -1094,6 +1146,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (cancelEvent != null) {
@@ -1115,6 +1169,8 @@ class _$CancelEventImpl implements _CancelEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return cancelEvent(this);
   }
@@ -1132,6 +1188,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return cancelEvent?.call(this);
   }
@@ -1149,6 +1207,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (cancelEvent != null) {
@@ -1272,6 +1332,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return confirmEvent(agendaId, eventId);
   }
@@ -1301,6 +1363,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return confirmEvent?.call(agendaId, eventId);
   }
@@ -1330,6 +1394,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (confirmEvent != null) {
@@ -1351,6 +1417,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return confirmEvent(this);
   }
@@ -1368,6 +1436,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return confirmEvent?.call(this);
   }
@@ -1385,6 +1455,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (confirmEvent != null) {
@@ -1515,6 +1587,8 @@ class _$RejectEventImpl implements _RejectEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return rejectEvent(agendaId, eventId, reason);
   }
@@ -1544,6 +1618,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return rejectEvent?.call(agendaId, eventId, reason);
   }
@@ -1573,6 +1649,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (rejectEvent != null) {
@@ -1594,6 +1672,8 @@ class _$RejectEventImpl implements _RejectEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return rejectEvent(this);
   }
@@ -1611,6 +1691,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return rejectEvent?.call(this);
   }
@@ -1628,6 +1710,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (rejectEvent != null) {
@@ -1774,6 +1858,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return markEventAsDone(agendaId, eventId, workEvidenceFiles);
   }
@@ -1803,6 +1889,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return markEventAsDone?.call(agendaId, eventId, workEvidenceFiles);
   }
@@ -1832,6 +1920,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (markEventAsDone != null) {
@@ -1853,6 +1943,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return markEventAsDone(this);
   }
@@ -1870,6 +1962,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return markEventAsDone?.call(this);
   }
@@ -1887,6 +1981,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (markEventAsDone != null) {
@@ -2030,6 +2126,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return addWorkEvidence(agendaId, eventId, imageFiles);
   }
@@ -2059,6 +2157,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return addWorkEvidence?.call(agendaId, eventId, imageFiles);
   }
@@ -2088,6 +2188,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (addWorkEvidence != null) {
@@ -2109,6 +2211,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return addWorkEvidence(this);
   }
@@ -2126,6 +2230,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return addWorkEvidence?.call(this);
   }
@@ -2143,6 +2249,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (addWorkEvidence != null) {
@@ -2302,6 +2410,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return reviewEvent(agendaId, eventId, rating, comment, isAnonymous);
   }
@@ -2331,6 +2441,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return reviewEvent?.call(agendaId, eventId, rating, comment, isAnonymous);
   }
@@ -2360,6 +2472,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (reviewEvent != null) {
@@ -2381,6 +2495,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return reviewEvent(this);
   }
@@ -2398,6 +2514,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return reviewEvent?.call(this);
   }
@@ -2415,6 +2533,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (reviewEvent != null) {
@@ -2565,6 +2685,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     required TResult Function(
             String agendaId, String eventId, String status, String? reason)
         changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
   }) {
     return changeEventStatus(agendaId, eventId, status, reason);
   }
@@ -2594,6 +2716,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult? Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
     return changeEventStatus?.call(agendaId, eventId, status, reason);
   }
@@ -2623,6 +2747,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult Function(
             String agendaId, String eventId, String status, String? reason)?
         changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
     required TResult orElse(),
   }) {
     if (changeEventStatus != null) {
@@ -2644,6 +2770,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
   }) {
     return changeEventStatus(this);
   }
@@ -2661,6 +2789,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
   }) {
     return changeEventStatus?.call(this);
   }
@@ -2678,6 +2808,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
     required TResult orElse(),
   }) {
     if (changeEventStatus != null) {
@@ -2702,6 +2834,498 @@ abstract class _ChangeEventStatus implements ArtistAgendaEventDetailEvent {
   @override
   @JsonKey(ignore: true)
   _$$ChangeEventStatusImplCopyWith<_$ChangeEventStatusImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StartSessionImplCopyWith<$Res>
+    implements $ArtistAgendaEventDetailEventCopyWith<$Res> {
+  factory _$$StartSessionImplCopyWith(
+          _$StartSessionImpl value, $Res Function(_$StartSessionImpl) then) =
+      __$$StartSessionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String agendaId, String eventId});
+}
+
+/// @nodoc
+class __$$StartSessionImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailEventCopyWithImpl<$Res, _$StartSessionImpl>
+    implements _$$StartSessionImplCopyWith<$Res> {
+  __$$StartSessionImplCopyWithImpl(
+      _$StartSessionImpl _value, $Res Function(_$StartSessionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? agendaId = null,
+    Object? eventId = null,
+  }) {
+    return _then(_$StartSessionImpl(
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StartSessionImpl implements _StartSession {
+  const _$StartSessionImpl({required this.agendaId, required this.eventId});
+
+  @override
+  final String agendaId;
+  @override
+  final String eventId;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailEvent.startSession(agendaId: $agendaId, eventId: $eventId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StartSessionImpl &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, agendaId, eventId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartSessionImplCopyWith<_$StartSessionImpl> get copyWith =>
+      __$$StartSessionImplCopyWithImpl<_$StartSessionImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String eventId) started,
+    required TResult Function(String agendaId, String eventId, String notes)
+        updateNotes,
+    required TResult Function(String agendaId, String eventId,
+            DateTime newStartDate, DateTime newEndDate, String? reason)
+        rescheduleEvent,
+    required TResult Function(String agendaId, String eventId, String reason)
+        cancelEvent,
+    required TResult Function(String agendaId, String eventId) confirmEvent,
+    required TResult Function(String agendaId, String eventId, String? reason)
+        rejectEvent,
+    required TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)
+        markEventAsDone,
+    required TResult Function(
+            String agendaId, String eventId, List<String> imageFiles)
+        addWorkEvidence,
+    required TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)
+        reviewEvent,
+    required TResult Function(
+            String agendaId, String eventId, String status, String? reason)
+        changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
+  }) {
+    return startSession(agendaId, eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String eventId)? started,
+    TResult? Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult? Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult? Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult? Function(String agendaId, String eventId)? confirmEvent,
+    TResult? Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult? Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
+        addWorkEvidence,
+    TResult? Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult? Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
+  }) {
+    return startSession?.call(agendaId, eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String eventId)? started,
+    TResult Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult Function(String agendaId, String eventId)? confirmEvent,
+    TResult Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
+        addWorkEvidence,
+    TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (startSession != null) {
+      return startSession(agendaId, eventId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
+    required TResult Function(_CancelEvent value) cancelEvent,
+    required TResult Function(_ConfirmEvent value) confirmEvent,
+    required TResult Function(_RejectEvent value) rejectEvent,
+    required TResult Function(_MarkEventAsDone value) markEventAsDone,
+    required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_ReviewEvent value) reviewEvent,
+    required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
+  }) {
+    return startSession(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult? Function(_CancelEvent value)? cancelEvent,
+    TResult? Function(_ConfirmEvent value)? confirmEvent,
+    TResult? Function(_RejectEvent value)? rejectEvent,
+    TResult? Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_ReviewEvent value)? reviewEvent,
+    TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
+  }) {
+    return startSession?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult Function(_CancelEvent value)? cancelEvent,
+    TResult Function(_ConfirmEvent value)? confirmEvent,
+    TResult Function(_RejectEvent value)? rejectEvent,
+    TResult Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_ReviewEvent value)? reviewEvent,
+    TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (startSession != null) {
+      return startSession(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _StartSession implements ArtistAgendaEventDetailEvent {
+  const factory _StartSession(
+      {required final String agendaId,
+      required final String eventId}) = _$StartSessionImpl;
+
+  String get agendaId;
+  @override
+  String get eventId;
+  @override
+  @JsonKey(ignore: true)
+  _$$StartSessionImplCopyWith<_$StartSessionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FinishSessionImplCopyWith<$Res>
+    implements $ArtistAgendaEventDetailEventCopyWith<$Res> {
+  factory _$$FinishSessionImplCopyWith(
+          _$FinishSessionImpl value, $Res Function(_$FinishSessionImpl) then) =
+      __$$FinishSessionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String agendaId, String eventId});
+}
+
+/// @nodoc
+class __$$FinishSessionImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailEventCopyWithImpl<$Res,
+        _$FinishSessionImpl> implements _$$FinishSessionImplCopyWith<$Res> {
+  __$$FinishSessionImplCopyWithImpl(
+      _$FinishSessionImpl _value, $Res Function(_$FinishSessionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? agendaId = null,
+    Object? eventId = null,
+  }) {
+    return _then(_$FinishSessionImpl(
+      agendaId: null == agendaId
+          ? _value.agendaId
+          : agendaId // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FinishSessionImpl implements _FinishSession {
+  const _$FinishSessionImpl({required this.agendaId, required this.eventId});
+
+  @override
+  final String agendaId;
+  @override
+  final String eventId;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailEvent.finishSession(agendaId: $agendaId, eventId: $eventId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FinishSessionImpl &&
+            (identical(other.agendaId, agendaId) ||
+                other.agendaId == agendaId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, agendaId, eventId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FinishSessionImplCopyWith<_$FinishSessionImpl> get copyWith =>
+      __$$FinishSessionImplCopyWithImpl<_$FinishSessionImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String eventId) started,
+    required TResult Function(String agendaId, String eventId, String notes)
+        updateNotes,
+    required TResult Function(String agendaId, String eventId,
+            DateTime newStartDate, DateTime newEndDate, String? reason)
+        rescheduleEvent,
+    required TResult Function(String agendaId, String eventId, String reason)
+        cancelEvent,
+    required TResult Function(String agendaId, String eventId) confirmEvent,
+    required TResult Function(String agendaId, String eventId, String? reason)
+        rejectEvent,
+    required TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)
+        markEventAsDone,
+    required TResult Function(
+            String agendaId, String eventId, List<String> imageFiles)
+        addWorkEvidence,
+    required TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)
+        reviewEvent,
+    required TResult Function(
+            String agendaId, String eventId, String status, String? reason)
+        changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
+  }) {
+    return finishSession(agendaId, eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String eventId)? started,
+    TResult? Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult? Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult? Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult? Function(String agendaId, String eventId)? confirmEvent,
+    TResult? Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult? Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
+        addWorkEvidence,
+    TResult? Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult? Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
+  }) {
+    return finishSession?.call(agendaId, eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String eventId)? started,
+    TResult Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult Function(String agendaId, String eventId)? confirmEvent,
+    TResult Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
+        addWorkEvidence,
+    TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (finishSession != null) {
+      return finishSession(agendaId, eventId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
+    required TResult Function(_CancelEvent value) cancelEvent,
+    required TResult Function(_ConfirmEvent value) confirmEvent,
+    required TResult Function(_RejectEvent value) rejectEvent,
+    required TResult Function(_MarkEventAsDone value) markEventAsDone,
+    required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_ReviewEvent value) reviewEvent,
+    required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
+  }) {
+    return finishSession(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult? Function(_CancelEvent value)? cancelEvent,
+    TResult? Function(_ConfirmEvent value)? confirmEvent,
+    TResult? Function(_RejectEvent value)? rejectEvent,
+    TResult? Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_ReviewEvent value)? reviewEvent,
+    TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
+  }) {
+    return finishSession?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult Function(_CancelEvent value)? cancelEvent,
+    TResult Function(_ConfirmEvent value)? confirmEvent,
+    TResult Function(_RejectEvent value)? rejectEvent,
+    TResult Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_ReviewEvent value)? reviewEvent,
+    TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (finishSession != null) {
+      return finishSession(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FinishSession implements ArtistAgendaEventDetailEvent {
+  const factory _FinishSession(
+      {required final String agendaId,
+      required final String eventId}) = _$FinishSessionImpl;
+
+  String get agendaId;
+  @override
+  String get eventId;
+  @override
+  @JsonKey(ignore: true)
+  _$$FinishSessionImplCopyWith<_$FinishSessionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

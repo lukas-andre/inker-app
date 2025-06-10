@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
-import 'package:intl/intl.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:intl/intl.dart';
 
 class EventMainInfoCard extends StatelessWidget {
   final String title;
@@ -26,8 +26,10 @@ class EventMainInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    final DateFormat dateFormat = DateFormat('d MMM yyyy', Intl.defaultLocale);
-    final DateFormat timeFormat = DateFormat('HH:mm', Intl.defaultLocale);
+    // Use Chilean locale for formatting (dates are already in local timezone from models)
+    final DateFormat dateFormat = DateFormat('d MMM yyyy', 'es_CL');
+    final DateFormat timeFormat = DateFormat('HH:mm', 'es_CL');
+    
     return Card(
       margin: const EdgeInsets.all(16),
       color: Theme.of(context).cardColor,
@@ -126,6 +128,8 @@ class _StatusChip extends StatelessWidget {
 
   Color _statusColor(String status) {
     switch (status) {
+      case 'created':
+        return Colors.green;
       case 'scheduled':
         return Colors.green;
       case 'pending':
@@ -153,6 +157,8 @@ class _StatusChip extends StatelessWidget {
 
   String _statusText(S l10n, String status) {
     switch (status) {
+      case 'created':
+        return l10n.confirmationPending;
       case 'scheduled':
         return l10n.scheduled;
       case 'pending':

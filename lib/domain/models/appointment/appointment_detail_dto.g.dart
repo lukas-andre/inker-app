@@ -36,8 +36,8 @@ _$AppointmentEventDtoImpl _$$AppointmentEventDtoImplFromJson(Map json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       customerId: json['customerId'] as String,
       title: json['title'] as String,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
+      startDate: _dateTimeFromJson(json['startDate'] as String),
+      endDate: _dateTimeFromJson(json['endDate'] as String),
       color: json['color'] as String,
       info: json['info'] as String,
       notification: json['notification'] as bool,
@@ -59,6 +59,10 @@ _$AppointmentEventDtoImpl _$$AppointmentEventDtoImplFromJson(Map json) =>
       quotationId: json['quotationId'] as String?,
       agenda:
           AgendaDto.fromJson(Map<String, dynamic>.from(json['agenda'] as Map)),
+      statusLog: (json['statusLog'] as List<dynamic>?)
+          ?.map((e) =>
+              StatusLogEntry.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
     );
 
 Map<String, dynamic> _$$AppointmentEventDtoImplToJson(
@@ -69,8 +73,8 @@ Map<String, dynamic> _$$AppointmentEventDtoImplToJson(
     'updatedAt': instance.updatedAt.toIso8601String(),
     'customerId': instance.customerId,
     'title': instance.title,
-    'startDate': instance.startDate.toIso8601String(),
-    'endDate': instance.endDate.toIso8601String(),
+    'startDate': _dateTimeToJson(instance.startDate),
+    'endDate': _dateTimeToJson(instance.endDate),
     'color': instance.color,
     'info': instance.info,
     'notification': instance.notification,
@@ -96,6 +100,8 @@ Map<String, dynamic> _$$AppointmentEventDtoImplToJson(
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
   writeNotNull('quotationId', instance.quotationId);
   val['agenda'] = instance.agenda.toJson();
+  writeNotNull(
+      'statusLog', instance.statusLog?.map((e) => e.toJson()).toList());
   return val;
 }
 

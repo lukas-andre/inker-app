@@ -348,6 +348,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "confirmTimeSelection":
             MessageLookupByLibrary.simpleMessage("Confirm Time Selection"),
+        "confirmationPending":
+            MessageLookupByLibrary.simpleMessage("Confirmation Pending"),
         "confirmed": MessageLookupByLibrary.simpleMessage("Confirmed"),
         "conflictingEvent": MessageLookupByLibrary.simpleMessage(
             "This time conflicts with an existing event"),

@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'hourly_event_list.dart';
+import 'package:inker_studio/ui/artist/agenda/events/event_page.dart';
 
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 18, kToday.day);
@@ -23,8 +24,13 @@ enum CalendarViewType {
 
 class AgendaTablePage extends StatefulWidget {
   final bool hideHeader;
-  
-  const AgendaTablePage({super.key, this.hideHeader = false});
+  final VoidCallback? onNavigateToWorks;
+
+  const AgendaTablePage({
+    super.key,
+    this.hideHeader = false,
+    this.onNavigateToWorks,
+  });
 
   @override
   _AgendaTablePageState createState() => _AgendaTablePageState();
@@ -33,7 +39,7 @@ class AgendaTablePage extends StatefulWidget {
 class _AgendaTablePageState extends State<AgendaTablePage>
     with AutomaticKeepAliveClientMixin {
   DateTime? _selectedDay;
-  CalendarViewType _currentView = CalendarViewType.week;
+  CalendarViewType _currentView = CalendarViewType.month;
   final PageController _pageController = PageController();
 
   @override
@@ -500,20 +506,46 @@ class _AgendaTablePageState extends State<AgendaTablePage>
   Widget _buildEventList(List<ArtistAgendaEventDetails> dayEvents) {
     if (dayEvents.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.event_busy, color: Theme.of(context).colorScheme.tertiary, size: 32),
-            const SizedBox(height: 8),
-            Text(
-              S.of(context).noEventsForThisDay,
-              style: TextStyleTheme.copyWith(
-                color: Colors.white70,
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-              ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 32.0, vertical: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (widget.onNavigateToWorks != null)
+                  ElevatedButton.icon(
+                    onPressed: widget.onNavigateToWorks,
+                    icon: const Icon(Icons.search, size: 20),
+                    label: Text(
+                        'Buscar Nuevos Trabajos'), // TODO: Localize this string
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      textStyle: TextStyleTheme.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 12),
+                Text(
+                  'No tienes eventos para este día. ¡Aprovecha para encontrar tu proximo tatuaje!', // TODO: Localize this string
+                  textAlign: TextAlign.center,
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     }

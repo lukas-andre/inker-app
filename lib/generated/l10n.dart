@@ -7922,6 +7922,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Confirmación Pendiente`
+  String get confirmationPending {
+    return Intl.message(
+      'Confirmación Pendiente',
+      name: 'confirmationPending',
+      desc: 'Texto indicando que la confirmación está pendiente.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

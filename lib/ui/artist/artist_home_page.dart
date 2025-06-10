@@ -45,7 +45,10 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   }
 
   List<Widget> get _pageWidgets => <Widget>[
-    const AgendaTablePage(hideHeader: true),
+    AgendaTablePage(
+      hideHeader: true,
+      onNavigateToWorks: () => _onItemTapped(2),
+    ),
     const QuotationListPage(hideHeader: true),
     const WorkTabPage(),
     const ConsentTemplatesPage(),

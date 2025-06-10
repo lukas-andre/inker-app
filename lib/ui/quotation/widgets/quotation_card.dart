@@ -430,6 +430,7 @@ class QuotationCard extends StatelessWidget {
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      
       children: [
         Padding(
           padding:

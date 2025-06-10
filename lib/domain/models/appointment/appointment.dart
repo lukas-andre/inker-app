@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 part 'appointment.freezed.dart';
 part 'appointment.g.dart';
@@ -27,7 +29,9 @@ class Appointment with _$Appointment {
     required String artistId,
     required String title,
     required String info,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime startDate,
+    @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
     required DateTime endDate,
     required AppointmentStatus status,
     required Artist artist,
@@ -71,3 +75,11 @@ class WorkEvidenceMetadata with _$WorkEvidenceMetadata {
 
   factory WorkEvidenceMetadata.fromJson(Map<String, dynamic> json) => _$WorkEvidenceMetadataFromJson(json);
 }
+
+DateTime _dateTimeFromJson(String date) {
+  tz.initializeTimeZones();
+  final chileLocation = tz.getLocation('America/Santiago');
+  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
+}
+
+String _dateTimeToJson(DateTime date) => date.toUtc().toIso8601String();

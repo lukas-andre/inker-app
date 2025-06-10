@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/models/agenda_event_details.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/domain/models/event/event.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
@@ -40,7 +41,11 @@ class AgendaEventDetailPage extends StatelessWidget {
           return state.when(
             initial: () => const Center(child: InkerProgressIndicator()),
             loading: () => const Center(child: InkerProgressIndicator()),
-            loaded: (data) => _buildContent(context, data),
+            loaded: (data) {
+              // Debug print
+              print('Event Page Debug: done=${data.event.done}, canStartSession=${data.actions.canStartSession}, status=${data.event.status.value}');
+              return _buildContent(context, data);
+            },
             error: (message) => _buildErrorState(context, message),
           );
         },
@@ -48,7 +53,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.maybeWhen(
-            loaded: (data) => !data.event.done
+            loaded: (data) => !data.event.done || data.actions.canStartSession
                 ? EventActionsManager.buildBottomActions(
                     context: context,
                     config: _buildActionsConfig(context, data),
@@ -149,6 +154,29 @@ class AgendaEventDetailPage extends StatelessWidget {
     List<EventAction> actions = [];
 
     // PRIMARY ACTIONS (Bottom - Critical state changes)
+    if (data.actions.canStartSession) {
+      print('Adding Start Session action - status: ${data.event.status.value}');
+      actions.add(EventAction(
+        id: 'start_session',
+        onPressed: () => _showStartSessionDialog(context, data),
+        icon: Icons.play_circle_filled,
+        label: 'Iniciar Sesión',
+        color: Colors.green,
+        category: ActionCategory.primary,
+      ));
+    }
+
+    if (data.actions.canFinishSession) {
+      actions.add(EventAction(
+        id: 'finish_session',
+        onPressed: () => _showFinishSessionDialog(context, data),
+        icon: Icons.stop_circle,
+        label: 'Finalizar Sesión',
+        color: Colors.red,
+        category: ActionCategory.primary,
+      ));
+    }
+
     if (data.actions.canEdit) {
       actions.add(EventAction(
         id: 'edit',
@@ -202,8 +230,8 @@ class AgendaEventDetailPage extends StatelessWidget {
         onPressed: () => _showAddWorkEvidenceDialog(context, data),
         icon: Icons.add_photo_alternate,
         label: 'Agregar Evidencia',
-        color: Colors.orange,
-        category: ActionCategory.secondary,
+        color: Theme.of(context).colorScheme.tertiary,
+        category: ActionCategory.primary,
       ));
     }
 
@@ -214,7 +242,7 @@ class AgendaEventDetailPage extends StatelessWidget {
         icon: Icons.star_rate,
         label: 'Dejar Reseña',
         color: Colors.amber,
-        category: ActionCategory.secondary,
+        category: ActionCategory.primary,
       ));
     }
 
@@ -308,11 +336,17 @@ class AgendaEventDetailPage extends StatelessWidget {
                   EventMainInfoCard(
                     title: data.event.title,
                     color: data.event.color ?? '#000000',
-                    status: data.event.done ? 'completed' : 'scheduled',
+                    status: data.event.status.value,
                     startDate: data.event.startDateTime,
                     endDate: data.event.endDateTime,
                   ),
                   
+                  // Cancellation/Rejection Info
+                  if (_hasAdditionalInfo(data.event)) ...[
+                    const SizedBox(height: 16),
+                    _buildAdditionalInfoCard(context, data.event),
+                  ],
+
                   const SizedBox(height: 16),
                   
                   // Quotation Details using shared component
@@ -398,6 +432,143 @@ class AgendaEventDetailPage extends StatelessWidget {
             style: TextStyleTheme.subtitle1.copyWith(
               color: color,
               fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  bool _hasAdditionalInfo(Event event) {
+    return event.status.value == 'canceled' || event.status.value == 'rescheduled';
+  }
+
+  Widget _buildAdditionalInfoCard(BuildContext context, Event event) {
+    dynamic lastStatusLog;
+    if (event.statusLog != null && event.statusLog!.isNotEmpty) {
+      lastStatusLog = event.statusLog!.lastWhere(
+        (log) => log['status'] == event.status.value,
+        orElse: () => event.statusLog!.last,
+      );
+    }
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      color: explorerSecondaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  color: Theme.of(context).colorScheme.secondary,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  S.of(context).additionalInformation,
+                  style: TextStyleTheme.subtitle2.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            if (event.status.value == 'canceled')
+              _buildCancellationInfo(context, lastStatusLog),
+            if (event.status.value == 'rescheduled')
+              _buildInfoChip(
+                context,
+                icon: Icons.update,
+                text: S.of(context).appointmentRescheduled,
+                color: Colors.purple,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCancellationInfo(BuildContext context, dynamic statusLog) {
+    // TODO(translation): Localize these strings
+    String cancellationMessage = 'Appointment Canceled';
+    String? reason;
+
+    // This is the artist view
+    if (statusLog != null) {
+      final actorRole = statusLog['actor']?['role'];
+      reason = statusLog['reason'];
+
+      if (statusLog['action'] == 'reject') {
+        cancellationMessage = 'Appointment Rejected by Customer';
+      } else {
+        switch (actorRole) {
+          case 'ARTIST':
+            cancellationMessage = 'Canceled by You';
+            break;
+          case 'CUSTOMER':
+            cancellationMessage = 'Canceled by Customer';
+            break;
+          case 'SYSTEM':
+            cancellationMessage = 'Canceled by System';
+            break;
+        }
+      }
+    }
+
+    return _buildInfoChip(
+      context,
+      icon: Icons.cancel,
+      text: cancellationMessage,
+      reason: reason,
+      color: Colors.red,
+    );
+  }
+
+  Widget _buildInfoChip(
+    BuildContext context, {
+    required IconData icon,
+    required String text,
+    String? reason,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (reason != null && reason.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    // TODO(translation): Localize this string
+                    'Reason: $reason',
+                    style: TextStyleTheme.bodyText2
+                        .copyWith(color: Colors.white70),
+                  ),
+                ],
+              ],
             ),
           ),
         ],
@@ -838,15 +1009,53 @@ class AgendaEventDetailPage extends StatelessWidget {
       context: context,
       title: S.of(context).appeal,
       hintText: S.of(context).appealReason,
-      actionText: S.of(context).submit,
+      actionText: S.of(context).appeal,
       actionColor: Colors.indigo,
       icon: const Icon(Icons.policy, color: Colors.indigo),
-      maxLines: 5,
+      maxLines: 3,
       required: true,
       onConfirm: (reason) {
-        // TODO: Implement appeal when endpoint is available
+        // Add appeal implementation when available
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(S.of(context).thisFeatureWillBeAvailableSoon)),
+        );
+      },
+    );
+  }
+
+  void _showStartSessionDialog(BuildContext context, EventDetailResponse data) {
+    EventActionDialogs.showConfirmationDialog(
+      context: context,
+      title: 'Iniciar Sesión',
+      content: '¿Estás seguro de que quieres iniciar la sesión de tatuaje?',
+      actionText: 'Iniciar',
+      actionColor: Colors.green,
+      icon: const Icon(Icons.play_circle_filled, color: Colors.green),
+      onConfirm: () {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.startSession(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showFinishSessionDialog(BuildContext context, EventDetailResponse data) {
+    EventActionDialogs.showConfirmationDialog(
+      context: context,
+      title: 'Finalizar Sesión',
+      content: '¿Estás seguro de que quieres finalizar la sesión de tatuaje?',
+      actionText: 'Finalizar',
+      actionColor: Colors.red,
+      icon: const Icon(Icons.stop_circle, color: Colors.red),
+      onConfirm: () {
+        context.read<ArtistAgendaEventDetailBloc>().add(
+          ArtistAgendaEventDetailEvent.finishSession(
+            agendaId: data.event.agenda.id,
+            eventId: data.event.id.toString(),
+          ),
         );
       },
     );
