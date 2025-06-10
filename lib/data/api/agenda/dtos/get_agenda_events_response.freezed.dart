@@ -25,9 +25,11 @@ mixin _$EventItem {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get start => throw _privateConstructorUsedError;
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get end => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   String? get info => throw _privateConstructorUsedError;
@@ -55,8 +57,14 @@ abstract class $EventItemCopyWith<$Res> {
       DateTime updatedAt,
       String customerId,
       String title,
-      @JsonKey(name: 'startDate') DateTime start,
-      @JsonKey(name: 'endDate') DateTime end,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      DateTime start,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      DateTime end,
       String color,
       String? info,
       bool notification,
@@ -189,8 +197,14 @@ abstract class _$$EventItemImplCopyWith<$Res>
       DateTime updatedAt,
       String customerId,
       String title,
-      @JsonKey(name: 'startDate') DateTime start,
-      @JsonKey(name: 'endDate') DateTime end,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      DateTime start,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      DateTime end,
       String color,
       String? info,
       bool notification,
@@ -305,8 +319,14 @@ class _$EventItemImpl implements _EventItem {
       required this.updatedAt,
       required this.customerId,
       required this.title,
-      @JsonKey(name: 'startDate') required this.start,
-      @JsonKey(name: 'endDate') required this.end,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      required this.start,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      required this.end,
       required this.color,
       this.info,
       required this.notification,
@@ -330,10 +350,12 @@ class _$EventItemImpl implements _EventItem {
   @override
   final String title;
   @override
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime start;
   @override
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime end;
   @override
   final String color;
@@ -428,8 +450,14 @@ abstract class _EventItem implements EventItem {
       required final DateTime updatedAt,
       required final String customerId,
       required final String title,
-      @JsonKey(name: 'startDate') required final DateTime start,
-      @JsonKey(name: 'endDate') required final DateTime end,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      required final DateTime start,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      required final DateTime end,
       required final String color,
       final String? info,
       required final bool notification,
@@ -453,10 +481,12 @@ abstract class _EventItem implements EventItem {
   @override
   String get title;
   @override
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get start;
   @override
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get end;
   @override
   String get color;

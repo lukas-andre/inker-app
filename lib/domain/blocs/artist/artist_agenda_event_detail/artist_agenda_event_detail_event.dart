@@ -52,4 +52,12 @@ class ArtistAgendaEventDetailEvent with _$ArtistAgendaEventDetailEvent {
     required String status,
     String? reason,
   }) = _ChangeEventStatus;
+  const factory ArtistAgendaEventDetailEvent.startSession({
+    required String agendaId,
+    required String eventId,
+  }) = _StartSession;
+  const factory ArtistAgendaEventDetailEvent.finishSession({
+    required String agendaId,
+    required String eventId,
+  }) = _FinishSession;
 }

@@ -12,8 +12,8 @@ _$EventItemImpl _$$EventItemImplFromJson(Map json) => _$EventItemImpl(
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       customerId: json['customerId'] as String,
       title: json['title'] as String,
-      start: DateTime.parse(json['startDate'] as String),
-      end: DateTime.parse(json['endDate'] as String),
+      start: _dateTimeFromJson(json['startDate'] as String),
+      end: _dateTimeFromJson(json['endDate'] as String),
       color: json['color'] as String,
       info: json['info'] as String?,
       notification: json['notification'] as bool,
@@ -36,8 +36,8 @@ Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
     'updatedAt': instance.updatedAt.toIso8601String(),
     'customerId': instance.customerId,
     'title': instance.title,
-    'startDate': instance.start.toIso8601String(),
-    'endDate': instance.end.toIso8601String(),
+    'startDate': _dateTimeToJson(instance.start),
+    'endDate': _dateTimeToJson(instance.end),
     'color': instance.color,
   };
 

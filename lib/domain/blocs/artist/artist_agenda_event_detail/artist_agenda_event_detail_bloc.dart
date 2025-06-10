@@ -45,6 +45,10 @@ class ArtistAgendaEventDetailBloc
             _reviewEvent(emit, agendaId, eventId, rating, comment, isAnonymous),
         changeEventStatus: (agendaId, eventId, status, reason) async =>
             _changeEventStatus(emit, agendaId, eventId, status, reason),
+        startSession: (agendaId, eventId) async =>
+            _startSession(emit, agendaId, eventId),
+        finishSession: (agendaId, eventId) async =>
+            _finishSession(emit, agendaId, eventId),
       );
     });
   }
@@ -341,6 +345,70 @@ class ArtistAgendaEventDetailBloc
         eventId: eventId,
         status: status,
         reason: reason,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _startSession(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      // Usar el endpoint PUT /api/agenda/:agendaId/event/:eventId/status con eventAction: "start_session"
+      await _agendaService.changeEventStatus(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        status: 'start_session', // Este parámetro se usa como eventAction en el backend
+        reason: null,
+      );
+      
+      if (_currentEventId != null) {
+        await _fetchEventDetails(emit, _currentEventId!);
+      } else {
+        emit(const ArtistAgendaEventDetailState.error('Current event ID not available for refresh.'));
+      }
+    } catch (e, stacktrace) {
+      dev.logError(e, stacktrace);
+      emit(ArtistAgendaEventDetailState.error(e.toString()));
+    }
+  }
+
+  Future<void> _finishSession(
+      Emitter<ArtistAgendaEventDetailState> emit,
+      String agendaId,
+      String eventId) async {
+    emit(const ArtistAgendaEventDetailState.loading());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistAgendaEventDetailState.error('Authentication token not found.'));
+        return;
+      }
+
+      // Usar el endpoint PUT /api/agenda/:agendaId/event/:eventId/status con eventAction: "complete_session"
+      await _agendaService.changeEventStatus(
+        token: token,
+        agendaId: agendaId,
+        eventId: eventId,
+        status: 'complete_session', // Este parámetro se usa como eventAction en el backend
+        reason: null,
       );
       
       if (_currentEventId != null) {

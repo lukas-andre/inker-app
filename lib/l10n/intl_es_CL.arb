@@ -3360,5 +3360,9 @@
   "tapToSign": "Toca para firmar",
   "@tapToSign": {
     "description": "Instrucción para el campo de firma."
+  },
+  "confirmationPending": "Confirmación Pendiente",
+  "@confirmationPending": {
+    "description": "Texto indicando que la confirmación está pendiente."
   }
 }

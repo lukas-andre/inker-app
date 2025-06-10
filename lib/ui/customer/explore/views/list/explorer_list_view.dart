@@ -101,7 +101,7 @@ class _ArtistGridItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: Theme.of(context)
               .colorScheme
-              .secondary, // Color más oscuro para la card
+              .primary, // Color más oscuro para la card
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -131,8 +131,8 @@ class _ArtistGridItem extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.9),
-                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                      Theme.of(context).colorScheme.primary,
                     ],
                   ),
                 ),
@@ -279,8 +279,8 @@ class _ArtistInfo extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        // Calificación con estrellas si está disponible
-        if (artist.rating != null)
+        // Calificación con estrellas si está disponible y es mayor a 4
+        if (artist.rating != null && double.parse(artist.rating!) > 4)
           Row(
             children: [
               ...List.generate(5, (index) {

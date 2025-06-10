@@ -105,7 +105,7 @@ class _AnimatedQuotationDetailsAccordionState
           onTap: _toggleExpand,
           child: Container(
             padding: const EdgeInsets.all(16),
-            color: Theme.of(context).colorScheme.surface,
+            color: Colors.black38,
             child: Column(
               children: [
                 Row(
@@ -119,8 +119,7 @@ class _AnimatedQuotationDetailsAccordionState
                             opacity: _isExpanded ? 1.0 : _opacityAnimation.value,
                             child: Text(
                               widget.l10n.quotationDetails,
-                              style: TextStyleTheme.headline3
-                                  .copyWith(color: Colors.white),
+                              style: TextStyleTheme.headline3,
                             ),
                           );
                         },
@@ -188,7 +187,7 @@ class _AnimatedQuotationDetailsAccordionState
           height: _isExpanded ? null : 0,
           child: Container(
             padding: const EdgeInsets.all(16),
-            color: Theme.of(context).colorScheme.secondary,
+            color: Colors.black26,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

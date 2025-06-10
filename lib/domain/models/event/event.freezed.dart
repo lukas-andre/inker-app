@@ -21,13 +21,17 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Event {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDateTime => throw _privateConstructorUsedError;
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDateTime => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
   String? get info => throw _privateConstructorUsedError;
@@ -39,6 +43,7 @@ mixin _$Event {
   int? get preparationTime => throw _privateConstructorUsedError;
   int? get cleanupTime => throw _privateConstructorUsedError;
   bool get customerNotified => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   dynamic get statusLog => throw _privateConstructorUsedError;
   String? get quotationId => throw _privateConstructorUsedError;
@@ -59,12 +64,20 @@ abstract class $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime createdAt,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime updatedAt,
       String customerId,
       String title,
-      @JsonKey(name: 'startDate') DateTime startDateTime,
-      @JsonKey(name: 'endDate') DateTime endDateTime,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      DateTime startDateTime,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      DateTime endDateTime,
       String? color,
       String? info,
       bool notification,
@@ -75,6 +88,8 @@ abstract class $EventCopyWith<$Res> {
       int? preparationTime,
       int? cleanupTime,
       bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt,
       dynamic statusLog,
       String? quotationId,
@@ -255,12 +270,20 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime createdAt,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       DateTime updatedAt,
       String customerId,
       String title,
-      @JsonKey(name: 'startDate') DateTime startDateTime,
-      @JsonKey(name: 'endDate') DateTime endDateTime,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      DateTime startDateTime,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      DateTime endDateTime,
       String? color,
       String? info,
       bool notification,
@@ -271,6 +294,8 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
       int? preparationTime,
       int? cleanupTime,
       bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       DateTime? deletedAt,
       dynamic statusLog,
       String? quotationId,
@@ -423,16 +448,25 @@ class __$$EventImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$EventImpl implements _Event {
+
+@JsonSerializable(explicitToJson: true)
+class _$EventImpl extends _Event {
   const _$EventImpl(
       {required this.id,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.createdAt,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required this.updatedAt,
       required this.customerId,
       required this.title,
-      @JsonKey(name: 'startDate') required this.startDateTime,
-      @JsonKey(name: 'endDate') required this.endDateTime,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      required this.startDateTime,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      required this.endDateTime,
       this.color,
       this.info,
       this.notification = false,
@@ -443,6 +477,8 @@ class _$EventImpl implements _Event {
       this.preparationTime,
       this.cleanupTime,
       this.customerNotified = false,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       this.deletedAt,
       this.statusLog,
       this.quotationId,
@@ -450,7 +486,8 @@ class _$EventImpl implements _Event {
       this.rescheduleLog,
       final List<EventMessage> messages = const [],
       required this.agenda})
-      : _messages = messages;
+      : _messages = messages,
+        super._();
 
   factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventImplFromJson(json);
@@ -458,18 +495,22 @@ class _$EventImpl implements _Event {
   @override
   final String id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime updatedAt;
   @override
   final String customerId;
   @override
   final String title;
   @override
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime startDateTime;
   @override
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime endDateTime;
   @override
   final String? color;
@@ -495,6 +536,7 @@ class _$EventImpl implements _Event {
   @JsonKey()
   final bool customerNotified;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   final DateTime? deletedAt;
   @override
   final dynamic statusLog;
@@ -610,15 +652,23 @@ class _$EventImpl implements _Event {
   }
 }
 
-abstract class _Event implements Event {
+abstract class _Event extends Event {
   const factory _Event(
       {required final String id,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime createdAt,
+      @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
       required final DateTime updatedAt,
       required final String customerId,
       required final String title,
-      @JsonKey(name: 'startDate') required final DateTime startDateTime,
-      @JsonKey(name: 'endDate') required final DateTime endDateTime,
+      @JsonKey(
+          name: 'startDate',
+          fromJson: _dateTimeFromJson,
+          toJson: _dateTimeToJson)
+      required final DateTime startDateTime,
+      @JsonKey(
+          name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+      required final DateTime endDateTime,
       final String? color,
       final String? info,
       final bool notification,
@@ -629,6 +679,8 @@ abstract class _Event implements Event {
       final int? preparationTime,
       final int? cleanupTime,
       final bool customerNotified,
+      @JsonKey(
+          fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
       final DateTime? deletedAt,
       final dynamic statusLog,
       final String? quotationId,
@@ -636,24 +688,29 @@ abstract class _Event implements Event {
       final dynamic rescheduleLog,
       final List<EventMessage> messages,
       required final Agenda agenda}) = _$EventImpl;
+  const _Event._() : super._();
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
 
   @override
   String get id;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get updatedAt;
   @override
   String get customerId;
   @override
   String get title;
   @override
-  @JsonKey(name: 'startDate')
+  @JsonKey(
+      name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get startDateTime;
   @override
-  @JsonKey(name: 'endDate')
+  @JsonKey(
+      name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   DateTime get endDateTime;
   @override
   String? get color;
@@ -676,6 +733,7 @@ abstract class _Event implements Event {
   @override
   bool get customerNotified;
   @override
+  @JsonKey(fromJson: _dateTimeFromJsonNullable, toJson: _dateTimeToJsonNullable)
   DateTime? get deletedAt;
   @override
   dynamic get statusLog;

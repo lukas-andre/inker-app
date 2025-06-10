@@ -672,7 +672,7 @@ class ApiAgendaService extends AgendaService {
     String? reason,
   }) async {
     final Map<String, dynamic> body = {
-      'status': status,
+      'eventAction': status,
     };
 
     if (reason != null) {

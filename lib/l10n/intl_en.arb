@@ -3026,5 +3026,9 @@
   "pleaseSignConsents": "Please sign the required consent forms before proceeding",
   "@pleaseSignConsents": {
     "description": "Message asking user to sign consent forms."
+  },
+  "confirmationPending": "Confirmation Pending",
+  "@confirmationPending": {
+    "description": "Text indicating confirmation is pending."
   }
 }
