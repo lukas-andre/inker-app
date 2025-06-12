@@ -3030,5 +3030,9 @@
   "confirmationPending": "Confirmation Pending",
   "@confirmationPending": {
     "description": "Text indicating confirmation is pending."
+  },
+  "aftercarePeriod": "Aftercare Period",
+  "@aftercarePeriod": {
+    "description": "Text indicating aftercare period."
   }
 }

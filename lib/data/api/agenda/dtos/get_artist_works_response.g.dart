@@ -182,56 +182,6 @@ Map<String, dynamic> _$$ReviewReactionsImplToJson(
   return val;
 }
 
-_$WorkEvidenceImpl _$$WorkEvidenceImplFromJson(Map json) => _$WorkEvidenceImpl(
-      count: (json['count'] as num?)?.toInt(),
-      metadata: (json['metadata'] as List<dynamic>?)
-          ?.map((e) => Metadatum.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$WorkEvidenceImplToJson(_$WorkEvidenceImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('count', instance.count);
-  writeNotNull('metadata', instance.metadata?.map((e) => e.toJson()).toList());
-  return val;
-}
-
-_$MetadatumImpl _$$MetadatumImplFromJson(Map json) => _$MetadatumImpl(
-      url: json['url'] as String?,
-      size: (json['size'] as num?)?.toInt(),
-      type: json['type'] as String?,
-      encoding: json['encoding'] as String?,
-      position: (json['position'] as num?)?.toInt(),
-      fieldname: json['fieldname'] as String?,
-      originalname: json['originalname'] as String?,
-    );
-
-Map<String, dynamic> _$$MetadatumImplToJson(_$MetadatumImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('url', instance.url);
-  writeNotNull('size', instance.size);
-  writeNotNull('type', instance.type);
-  writeNotNull('encoding', instance.encoding);
-  writeNotNull('position', instance.position);
-  writeNotNull('fieldname', instance.fieldname);
-  writeNotNull('originalname', instance.originalname);
-  return val;
-}
-
 _$MetaImpl _$$MetaImplFromJson(Map json) => _$MetaImpl(
       totalItems: (json['totalItems'] as num?)?.toInt(),
       itemCount: (json['itemCount'] as num?)?.toInt(),

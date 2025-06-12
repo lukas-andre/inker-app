@@ -317,7 +317,7 @@ mixin _$AppointmentEventDto {
   bool get notification => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  dynamic get workEvidence => throw _privateConstructorUsedError;
+  WorkEvidence? get workEvidence => throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   String? get rescheduleReason => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
@@ -357,7 +357,7 @@ abstract class $AppointmentEventDtoCopyWith<$Res> {
       bool notification,
       bool done,
       String status,
-      dynamic workEvidence,
+      WorkEvidence? workEvidence,
       String? cancelationReason,
       String? rescheduleReason,
       String? notes,
@@ -370,6 +370,7 @@ abstract class $AppointmentEventDtoCopyWith<$Res> {
       AgendaDto agenda,
       List<StatusLogEntry>? statusLog});
 
+  $WorkEvidenceCopyWith<$Res>? get workEvidence;
   $AgendaDtoCopyWith<$Res> get agenda;
 }
 
@@ -463,7 +464,7 @@ class _$AppointmentEventDtoCopyWithImpl<$Res, $Val extends AppointmentEventDto>
       workEvidence: freezed == workEvidence
           ? _value.workEvidence
           : workEvidence // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as WorkEvidence?,
       cancelationReason: freezed == cancelationReason
           ? _value.cancelationReason
           : cancelationReason // ignore: cast_nullable_to_non_nullable
@@ -513,6 +514,18 @@ class _$AppointmentEventDtoCopyWithImpl<$Res, $Val extends AppointmentEventDto>
 
   @override
   @pragma('vm:prefer-inline')
+  $WorkEvidenceCopyWith<$Res>? get workEvidence {
+    if (_value.workEvidence == null) {
+      return null;
+    }
+
+    return $WorkEvidenceCopyWith<$Res>(_value.workEvidence!, (value) {
+      return _then(_value.copyWith(workEvidence: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $AgendaDtoCopyWith<$Res> get agenda {
     return $AgendaDtoCopyWith<$Res>(_value.agenda, (value) {
       return _then(_value.copyWith(agenda: value) as $Val);
@@ -543,7 +556,7 @@ abstract class _$$AppointmentEventDtoImplCopyWith<$Res>
       bool notification,
       bool done,
       String status,
-      dynamic workEvidence,
+      WorkEvidence? workEvidence,
       String? cancelationReason,
       String? rescheduleReason,
       String? notes,
@@ -556,6 +569,8 @@ abstract class _$$AppointmentEventDtoImplCopyWith<$Res>
       AgendaDto agenda,
       List<StatusLogEntry>? statusLog});
 
+  @override
+  $WorkEvidenceCopyWith<$Res>? get workEvidence;
   @override
   $AgendaDtoCopyWith<$Res> get agenda;
 }
@@ -648,7 +663,7 @@ class __$$AppointmentEventDtoImplCopyWithImpl<$Res>
       workEvidence: freezed == workEvidence
           ? _value.workEvidence
           : workEvidence // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as WorkEvidence?,
       cancelationReason: freezed == cancelationReason
           ? _value.cancelationReason
           : cancelationReason // ignore: cast_nullable_to_non_nullable
@@ -759,7 +774,7 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
   @override
   final String status;
   @override
-  final dynamic workEvidence;
+  final WorkEvidence? workEvidence;
   @override
   final String? cancelationReason;
   @override
@@ -817,8 +832,8 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
                 other.notification == notification) &&
             (identical(other.done, done) || other.done == done) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other.workEvidence, workEvidence) &&
+            (identical(other.workEvidence, workEvidence) ||
+                other.workEvidence == workEvidence) &&
             (identical(other.cancelationReason, cancelationReason) ||
                 other.cancelationReason == cancelationReason) &&
             (identical(other.rescheduleReason, rescheduleReason) ||
@@ -857,7 +872,7 @@ class _$AppointmentEventDtoImpl implements _AppointmentEventDto {
         notification,
         done,
         status,
-        const DeepCollectionEquality().hash(workEvidence),
+        workEvidence,
         cancelationReason,
         rescheduleReason,
         notes,
@@ -902,7 +917,7 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
       required final bool notification,
       required final bool done,
       required final String status,
-      final dynamic workEvidence,
+      final WorkEvidence? workEvidence,
       final String? cancelationReason,
       final String? rescheduleReason,
       final String? notes,
@@ -945,7 +960,7 @@ abstract class _AppointmentEventDto implements AppointmentEventDto {
   @override
   String get status;
   @override
-  dynamic get workEvidence;
+  WorkEvidence? get workEvidence;
   @override
   String? get cancelationReason;
   @override

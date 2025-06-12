@@ -31,7 +31,7 @@ mixin _$AppointmentEvent {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -51,7 +51,7 @@ mixin _$AppointmentEvent {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -69,7 +69,7 @@ mixin _$AppointmentEvent {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -192,7 +192,7 @@ class _$StartedImpl implements _Started {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -215,7 +215,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -236,7 +236,7 @@ class _$StartedImpl implements _Started {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -361,7 +361,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -384,7 +384,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -405,7 +405,7 @@ class _$LoadAppointmentsImpl implements _LoadAppointments {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -557,7 +557,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -580,7 +580,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -601,7 +601,7 @@ class _$GetAppointmentByIdImpl implements _GetAppointmentById {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -758,7 +758,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -781,7 +781,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -802,7 +802,7 @@ class _$MarkAsReadImpl implements _MarkAsRead {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -961,7 +961,7 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -984,7 +984,7 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1005,7 +1005,7 @@ class _$RefreshAppointmentDetailImpl implements _RefreshAppointmentDetail {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1174,7 +1174,7 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -1197,7 +1197,7 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1218,7 +1218,7 @@ class _$ConfirmAppointmentImpl implements _ConfirmAppointment {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1388,7 +1388,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -1411,7 +1411,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1432,7 +1432,7 @@ class _$CancelAppointmentImpl implements _CancelAppointment {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1611,7 +1611,7 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -1634,7 +1634,7 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1655,7 +1655,7 @@ class _$RejectAppointmentImpl implements _RejectAppointment {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1749,8 +1749,9 @@ abstract class _$$ReviewAppointmentImplCopyWith<$Res> {
       {String appointmentId,
       String agendaId,
       int rating,
-      String comment,
-      bool isAnonymous});
+      String? displayName,
+      String? comment,
+      String? header});
 }
 
 /// @nodoc
@@ -1767,8 +1768,9 @@ class __$$ReviewAppointmentImplCopyWithImpl<$Res>
     Object? appointmentId = null,
     Object? agendaId = null,
     Object? rating = null,
-    Object? comment = null,
-    Object? isAnonymous = null,
+    Object? displayName = freezed,
+    Object? comment = freezed,
+    Object? header = freezed,
   }) {
     return _then(_$ReviewAppointmentImpl(
       appointmentId: null == appointmentId
@@ -1783,14 +1785,18 @@ class __$$ReviewAppointmentImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      comment: null == comment
+      displayName: freezed == displayName
+          ? _value.displayName
+          : displayName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      comment: freezed == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as String,
-      isAnonymous: null == isAnonymous
-          ? _value.isAnonymous
-          : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String?,
+      header: freezed == header
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1802,8 +1808,9 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
       {required this.appointmentId,
       required this.agendaId,
       required this.rating,
-      required this.comment,
-      this.isAnonymous = false});
+      this.displayName,
+      this.comment,
+      this.header});
 
   @override
   final String appointmentId;
@@ -1812,14 +1819,15 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   @override
   final int rating;
   @override
-  final String comment;
+  final String? displayName;
   @override
-  @JsonKey()
-  final bool isAnonymous;
+  final String? comment;
+  @override
+  final String? header;
 
   @override
   String toString() {
-    return 'AppointmentEvent.reviewAppointment(appointmentId: $appointmentId, agendaId: $agendaId, rating: $rating, comment: $comment, isAnonymous: $isAnonymous)';
+    return 'AppointmentEvent.reviewAppointment(appointmentId: $appointmentId, agendaId: $agendaId, rating: $rating, displayName: $displayName, comment: $comment, header: $header)';
   }
 
   @override
@@ -1832,14 +1840,15 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
             (identical(other.agendaId, agendaId) ||
                 other.agendaId == agendaId) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
             (identical(other.comment, comment) || other.comment == comment) &&
-            (identical(other.isAnonymous, isAnonymous) ||
-                other.isAnonymous == isAnonymous));
+            (identical(other.header, header) || other.header == header));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, appointmentId, agendaId, rating, comment, isAnonymous);
+  int get hashCode => Object.hash(runtimeType, appointmentId, agendaId, rating,
+      displayName, comment, header);
 
   @JsonKey(ignore: true)
   @override
@@ -1864,14 +1873,14 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
         appealAppointment,
   }) {
     return reviewAppointment(
-        appointmentId, agendaId, rating, comment, isAnonymous);
+        appointmentId, agendaId, rating, displayName, comment, header);
   }
 
   @override
@@ -1888,13 +1897,13 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
   }) {
     return reviewAppointment?.call(
-        appointmentId, agendaId, rating, comment, isAnonymous);
+        appointmentId, agendaId, rating, displayName, comment, header);
   }
 
   @override
@@ -1910,7 +1919,7 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -1918,7 +1927,7 @@ class _$ReviewAppointmentImpl implements _ReviewAppointment {
   }) {
     if (reviewAppointment != null) {
       return reviewAppointment(
-          appointmentId, agendaId, rating, comment, isAnonymous);
+          appointmentId, agendaId, rating, displayName, comment, header);
     }
     return orElse();
   }
@@ -1986,14 +1995,16 @@ abstract class _ReviewAppointment implements AppointmentEvent {
       {required final String appointmentId,
       required final String agendaId,
       required final int rating,
-      required final String comment,
-      final bool isAnonymous}) = _$ReviewAppointmentImpl;
+      final String? displayName,
+      final String? comment,
+      final String? header}) = _$ReviewAppointmentImpl;
 
   String get appointmentId;
   String get agendaId;
   int get rating;
-  String get comment;
-  bool get isAnonymous;
+  String? get displayName;
+  String? get comment;
+  String? get header;
   @JsonKey(ignore: true)
   _$$ReviewAppointmentImplCopyWith<_$ReviewAppointmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2098,7 +2109,7 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
             String appointmentId, String agendaId, String? reason)
         rejectAppointment,
     required TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)
+            String? displayName, String? comment, String? header)
         reviewAppointment,
     required TResult Function(
             String appointmentId, String agendaId, String reason)
@@ -2121,7 +2132,7 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
     TResult? Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult? Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult? Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,
@@ -2142,7 +2153,7 @@ class _$AppealAppointmentImpl implements _AppealAppointment {
     TResult Function(String appointmentId, String agendaId, String? reason)?
         rejectAppointment,
     TResult Function(String appointmentId, String agendaId, int rating,
-            String comment, bool isAnonymous)?
+            String? displayName, String? comment, String? header)?
         reviewAppointment,
     TResult Function(String appointmentId, String agendaId, String reason)?
         appealAppointment,

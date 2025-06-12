@@ -150,6 +150,8 @@ class _StatusChip extends StatelessWidget {
         return Colors.green;
       case 'confirmed':
         return Colors.green;
+      case 'aftercare_period':
+        return Colors.green;
       default:
         return Colors.grey;
     }
@@ -179,6 +181,8 @@ class _StatusChip extends StatelessWidget {
         return l10n.reviewed;
       case 'confirmed':
         return l10n.confirmed;
+      case 'aftercare_period':
+        return l10n.aftercarePeriod;
       default:
         return l10n.unknown;
     }
