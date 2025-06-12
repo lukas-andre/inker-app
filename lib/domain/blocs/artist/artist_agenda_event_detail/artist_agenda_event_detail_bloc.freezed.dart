@@ -33,9 +33,9 @@ mixin _$ArtistAgendaEventDetailEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -62,8 +62,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -90,8 +90,8 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -113,6 +113,7 @@ mixin _$ArtistAgendaEventDetailEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -129,6 +130,7 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -145,6 +147,7 @@ mixin _$ArtistAgendaEventDetailEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -274,9 +277,9 @@ class _$StartedImpl implements _Started {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -306,8 +309,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -337,8 +340,8 @@ class _$StartedImpl implements _Started {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -366,6 +369,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -385,6 +389,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -404,6 +409,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -455,15 +461,15 @@ class __$$UpdateNotesImplCopyWithImpl<$Res>
     Object? notes = null,
   }) {
     return _then(_$UpdateNotesImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      notes: null == notes
+      null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String,
@@ -474,8 +480,7 @@ class __$$UpdateNotesImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateNotesImpl implements _UpdateNotes {
-  const _$UpdateNotesImpl(
-      {required this.agendaId, required this.eventId, required this.notes});
+  const _$UpdateNotesImpl(this.agendaId, this.eventId, this.notes);
 
   @override
   final String agendaId;
@@ -526,9 +531,9 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -558,8 +563,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -589,8 +594,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -618,6 +623,7 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -637,6 +643,7 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -656,6 +663,7 @@ class _$UpdateNotesImpl implements _UpdateNotes {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -671,9 +679,8 @@ class _$UpdateNotesImpl implements _UpdateNotes {
 
 abstract class _UpdateNotes implements ArtistAgendaEventDetailEvent {
   const factory _UpdateNotes(
-      {required final String agendaId,
-      required final String eventId,
-      required final String notes}) = _$UpdateNotesImpl;
+          final String agendaId, final String eventId, final String notes) =
+      _$UpdateNotesImpl;
 
   String get agendaId;
   @override
@@ -719,23 +726,23 @@ class __$$RescheduleEventImplCopyWithImpl<$Res>
     Object? reason = freezed,
   }) {
     return _then(_$RescheduleEventImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      newStartDate: null == newStartDate
+      null == newStartDate
           ? _value.newStartDate
           : newStartDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      newEndDate: null == newEndDate
+      null == newEndDate
           ? _value.newEndDate
           : newEndDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      reason: freezed == reason
+      freezed == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -746,12 +753,8 @@ class __$$RescheduleEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RescheduleEventImpl implements _RescheduleEvent {
-  const _$RescheduleEventImpl(
-      {required this.agendaId,
-      required this.eventId,
-      required this.newStartDate,
-      required this.newEndDate,
-      this.reason});
+  const _$RescheduleEventImpl(this.agendaId, this.eventId, this.newStartDate,
+      this.newEndDate, this.reason);
 
   @override
   final String agendaId;
@@ -812,9 +815,9 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -844,8 +847,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -876,8 +879,8 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -906,6 +909,7 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -925,6 +929,7 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -944,6 +949,7 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -959,11 +965,11 @@ class _$RescheduleEventImpl implements _RescheduleEvent {
 
 abstract class _RescheduleEvent implements ArtistAgendaEventDetailEvent {
   const factory _RescheduleEvent(
-      {required final String agendaId,
-      required final String eventId,
-      required final DateTime newStartDate,
-      required final DateTime newEndDate,
-      final String? reason}) = _$RescheduleEventImpl;
+      final String agendaId,
+      final String eventId,
+      final DateTime newStartDate,
+      final DateTime newEndDate,
+      final String? reason) = _$RescheduleEventImpl;
 
   String get agendaId;
   @override
@@ -1004,15 +1010,15 @@ class __$$CancelEventImplCopyWithImpl<$Res>
     Object? reason = null,
   }) {
     return _then(_$CancelEventImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      reason: null == reason
+      null == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1023,8 +1029,7 @@ class __$$CancelEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CancelEventImpl implements _CancelEvent {
-  const _$CancelEventImpl(
-      {required this.agendaId, required this.eventId, required this.reason});
+  const _$CancelEventImpl(this.agendaId, this.eventId, this.reason);
 
   @override
   final String agendaId;
@@ -1075,9 +1080,9 @@ class _$CancelEventImpl implements _CancelEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -1107,8 +1112,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1138,8 +1143,8 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1167,6 +1172,7 @@ class _$CancelEventImpl implements _CancelEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -1186,6 +1192,7 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -1205,6 +1212,7 @@ class _$CancelEventImpl implements _CancelEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -1220,9 +1228,8 @@ class _$CancelEventImpl implements _CancelEvent {
 
 abstract class _CancelEvent implements ArtistAgendaEventDetailEvent {
   const factory _CancelEvent(
-      {required final String agendaId,
-      required final String eventId,
-      required final String reason}) = _$CancelEventImpl;
+          final String agendaId, final String eventId, final String reason) =
+      _$CancelEventImpl;
 
   String get agendaId;
   @override
@@ -1260,11 +1267,11 @@ class __$$ConfirmEventImplCopyWithImpl<$Res>
     Object? eventId = null,
   }) {
     return _then(_$ConfirmEventImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1275,7 +1282,7 @@ class __$$ConfirmEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConfirmEventImpl implements _ConfirmEvent {
-  const _$ConfirmEventImpl({required this.agendaId, required this.eventId});
+  const _$ConfirmEventImpl(this.agendaId, this.eventId);
 
   @override
   final String agendaId;
@@ -1323,9 +1330,9 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -1355,8 +1362,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1386,8 +1393,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1415,6 +1422,7 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -1434,6 +1442,7 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -1453,6 +1462,7 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -1467,9 +1477,8 @@ class _$ConfirmEventImpl implements _ConfirmEvent {
 }
 
 abstract class _ConfirmEvent implements ArtistAgendaEventDetailEvent {
-  const factory _ConfirmEvent(
-      {required final String agendaId,
-      required final String eventId}) = _$ConfirmEventImpl;
+  const factory _ConfirmEvent(final String agendaId, final String eventId) =
+      _$ConfirmEventImpl;
 
   String get agendaId;
   @override
@@ -1507,15 +1516,15 @@ class __$$RejectEventImplCopyWithImpl<$Res>
     Object? reason = freezed,
   }) {
     return _then(_$RejectEventImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      reason: freezed == reason
+      freezed == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -1526,8 +1535,7 @@ class __$$RejectEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RejectEventImpl implements _RejectEvent {
-  const _$RejectEventImpl(
-      {required this.agendaId, required this.eventId, this.reason});
+  const _$RejectEventImpl(this.agendaId, this.eventId, this.reason);
 
   @override
   final String agendaId;
@@ -1578,9 +1586,9 @@ class _$RejectEventImpl implements _RejectEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -1610,8 +1618,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1641,8 +1649,8 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1670,6 +1678,7 @@ class _$RejectEventImpl implements _RejectEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -1689,6 +1698,7 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -1708,6 +1718,7 @@ class _$RejectEventImpl implements _RejectEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -1723,9 +1734,8 @@ class _$RejectEventImpl implements _RejectEvent {
 
 abstract class _RejectEvent implements ArtistAgendaEventDetailEvent {
   const factory _RejectEvent(
-      {required final String agendaId,
-      required final String eventId,
-      final String? reason}) = _$RejectEventImpl;
+          final String agendaId, final String eventId, final String? reason) =
+      _$RejectEventImpl;
 
   String get agendaId;
   @override
@@ -1764,15 +1774,15 @@ class __$$MarkEventAsDoneImplCopyWithImpl<$Res>
     Object? workEvidenceFiles = freezed,
   }) {
     return _then(_$MarkEventAsDoneImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      workEvidenceFiles: freezed == workEvidenceFiles
+      freezed == workEvidenceFiles
           ? _value._workEvidenceFiles
           : workEvidenceFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
@@ -1784,9 +1794,7 @@ class __$$MarkEventAsDoneImplCopyWithImpl<$Res>
 
 class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
   const _$MarkEventAsDoneImpl(
-      {required this.agendaId,
-      required this.eventId,
-      final List<String>? workEvidenceFiles})
+      this.agendaId, this.eventId, final List<String>? workEvidenceFiles)
       : _workEvidenceFiles = workEvidenceFiles;
 
   @override
@@ -1849,9 +1857,9 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -1881,8 +1889,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1912,8 +1920,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -1941,6 +1949,7 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -1960,6 +1969,7 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -1979,6 +1989,7 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -1993,10 +2004,8 @@ class _$MarkEventAsDoneImpl implements _MarkEventAsDone {
 }
 
 abstract class _MarkEventAsDone implements ArtistAgendaEventDetailEvent {
-  const factory _MarkEventAsDone(
-      {required final String agendaId,
-      required final String eventId,
-      final List<String>? workEvidenceFiles}) = _$MarkEventAsDoneImpl;
+  const factory _MarkEventAsDone(final String agendaId, final String eventId,
+      final List<String>? workEvidenceFiles) = _$MarkEventAsDoneImpl;
 
   String get agendaId;
   @override
@@ -2016,7 +2025,7 @@ abstract class _$$AddWorkEvidenceImplCopyWith<$Res>
       __$$AddWorkEvidenceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String agendaId, String eventId, List<String> imageFiles});
+  $Res call({String eventId, List<XFile> imageFiles});
 }
 
 /// @nodoc
@@ -2030,23 +2039,18 @@ class __$$AddWorkEvidenceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? agendaId = null,
     Object? eventId = null,
     Object? imageFiles = null,
   }) {
     return _then(_$AddWorkEvidenceImpl(
-      agendaId: null == agendaId
-          ? _value.agendaId
-          : agendaId // ignore: cast_nullable_to_non_nullable
-              as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      imageFiles: null == imageFiles
+      null == imageFiles
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<XFile>,
     ));
   }
 }
@@ -2054,19 +2058,14 @@ class __$$AddWorkEvidenceImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
-  const _$AddWorkEvidenceImpl(
-      {required this.agendaId,
-      required this.eventId,
-      required final List<String> imageFiles})
+  const _$AddWorkEvidenceImpl(this.eventId, final List<XFile> imageFiles)
       : _imageFiles = imageFiles;
 
   @override
-  final String agendaId;
-  @override
   final String eventId;
-  final List<String> _imageFiles;
+  final List<XFile> _imageFiles;
   @override
-  List<String> get imageFiles {
+  List<XFile> get imageFiles {
     if (_imageFiles is EqualUnmodifiableListView) return _imageFiles;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_imageFiles);
@@ -2074,7 +2073,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
 
   @override
   String toString() {
-    return 'ArtistAgendaEventDetailEvent.addWorkEvidence(agendaId: $agendaId, eventId: $eventId, imageFiles: $imageFiles)';
+    return 'ArtistAgendaEventDetailEvent.addWorkEvidence(eventId: $eventId, imageFiles: $imageFiles)';
   }
 
   @override
@@ -2082,16 +2081,14 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddWorkEvidenceImpl &&
-            (identical(other.agendaId, agendaId) ||
-                other.agendaId == agendaId) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             const DeepCollectionEquality()
                 .equals(other._imageFiles, _imageFiles));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, agendaId, eventId,
-      const DeepCollectionEquality().hash(_imageFiles));
+  int get hashCode => Object.hash(
+      runtimeType, eventId, const DeepCollectionEquality().hash(_imageFiles));
 
   @JsonKey(ignore: true)
   @override
@@ -2117,9 +2114,9 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -2129,7 +2126,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult Function(String agendaId, String eventId) startSession,
     required TResult Function(String agendaId, String eventId) finishSession,
   }) {
-    return addWorkEvidence(agendaId, eventId, imageFiles);
+    return addWorkEvidence(eventId, imageFiles);
   }
 
   @override
@@ -2149,8 +2146,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2160,7 +2157,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult? Function(String agendaId, String eventId)? startSession,
     TResult? Function(String agendaId, String eventId)? finishSession,
   }) {
-    return addWorkEvidence?.call(agendaId, eventId, imageFiles);
+    return addWorkEvidence?.call(eventId, imageFiles);
   }
 
   @override
@@ -2180,8 +2177,8 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2193,7 +2190,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult orElse(),
   }) {
     if (addWorkEvidence != null) {
-      return addWorkEvidence(agendaId, eventId, imageFiles);
+      return addWorkEvidence(eventId, imageFiles);
     }
     return orElse();
   }
@@ -2209,6 +2206,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -2228,6 +2226,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -2247,6 +2246,7 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -2262,17 +2262,255 @@ class _$AddWorkEvidenceImpl implements _AddWorkEvidence {
 
 abstract class _AddWorkEvidence implements ArtistAgendaEventDetailEvent {
   const factory _AddWorkEvidence(
-      {required final String agendaId,
-      required final String eventId,
-      required final List<String> imageFiles}) = _$AddWorkEvidenceImpl;
+          final String eventId, final List<XFile> imageFiles) =
+      _$AddWorkEvidenceImpl;
 
-  String get agendaId;
   @override
   String get eventId;
-  List<String> get imageFiles;
+  List<XFile> get imageFiles;
   @override
   @JsonKey(ignore: true)
   _$$AddWorkEvidenceImplCopyWith<_$AddWorkEvidenceImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteWorkEvidenceImplCopyWith<$Res>
+    implements $ArtistAgendaEventDetailEventCopyWith<$Res> {
+  factory _$$DeleteWorkEvidenceImplCopyWith(_$DeleteWorkEvidenceImpl value,
+          $Res Function(_$DeleteWorkEvidenceImpl) then) =
+      __$$DeleteWorkEvidenceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String eventId});
+}
+
+/// @nodoc
+class __$$DeleteWorkEvidenceImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailEventCopyWithImpl<$Res,
+        _$DeleteWorkEvidenceImpl>
+    implements _$$DeleteWorkEvidenceImplCopyWith<$Res> {
+  __$$DeleteWorkEvidenceImplCopyWithImpl(_$DeleteWorkEvidenceImpl _value,
+      $Res Function(_$DeleteWorkEvidenceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? eventId = null,
+  }) {
+    return _then(_$DeleteWorkEvidenceImpl(
+      null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteWorkEvidenceImpl implements _DeleteWorkEvidence {
+  const _$DeleteWorkEvidenceImpl(this.eventId);
+
+  @override
+  final String eventId;
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailEvent.deleteWorkEvidence(eventId: $eventId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteWorkEvidenceImpl &&
+            (identical(other.eventId, eventId) || other.eventId == eventId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, eventId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteWorkEvidenceImplCopyWith<_$DeleteWorkEvidenceImpl> get copyWith =>
+      __$$DeleteWorkEvidenceImplCopyWithImpl<_$DeleteWorkEvidenceImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String eventId) started,
+    required TResult Function(String agendaId, String eventId, String notes)
+        updateNotes,
+    required TResult Function(String agendaId, String eventId,
+            DateTime newStartDate, DateTime newEndDate, String? reason)
+        rescheduleEvent,
+    required TResult Function(String agendaId, String eventId, String reason)
+        cancelEvent,
+    required TResult Function(String agendaId, String eventId) confirmEvent,
+    required TResult Function(String agendaId, String eventId, String? reason)
+        rejectEvent,
+    required TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)
+        markEventAsDone,
+    required TResult Function(String eventId, List<XFile> imageFiles)
+        addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
+    required TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)
+        reviewEvent,
+    required TResult Function(
+            String agendaId, String eventId, String status, String? reason)
+        changeEventStatus,
+    required TResult Function(String agendaId, String eventId) startSession,
+    required TResult Function(String agendaId, String eventId) finishSession,
+  }) {
+    return deleteWorkEvidence(eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String eventId)? started,
+    TResult? Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult? Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult? Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult? Function(String agendaId, String eventId)? confirmEvent,
+    TResult? Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult? Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
+    TResult? Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult? Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult? Function(String agendaId, String eventId)? startSession,
+    TResult? Function(String agendaId, String eventId)? finishSession,
+  }) {
+    return deleteWorkEvidence?.call(eventId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String eventId)? started,
+    TResult Function(String agendaId, String eventId, String notes)?
+        updateNotes,
+    TResult Function(String agendaId, String eventId, DateTime newStartDate,
+            DateTime newEndDate, String? reason)?
+        rescheduleEvent,
+    TResult Function(String agendaId, String eventId, String reason)?
+        cancelEvent,
+    TResult Function(String agendaId, String eventId)? confirmEvent,
+    TResult Function(String agendaId, String eventId, String? reason)?
+        rejectEvent,
+    TResult Function(
+            String agendaId, String eventId, List<String>? workEvidenceFiles)?
+        markEventAsDone,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
+    TResult Function(String agendaId, String eventId, int rating,
+            String comment, bool isAnonymous)?
+        reviewEvent,
+    TResult Function(
+            String agendaId, String eventId, String status, String? reason)?
+        changeEventStatus,
+    TResult Function(String agendaId, String eventId)? startSession,
+    TResult Function(String agendaId, String eventId)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (deleteWorkEvidence != null) {
+      return deleteWorkEvidence(eventId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateNotes value) updateNotes,
+    required TResult Function(_RescheduleEvent value) rescheduleEvent,
+    required TResult Function(_CancelEvent value) cancelEvent,
+    required TResult Function(_ConfirmEvent value) confirmEvent,
+    required TResult Function(_RejectEvent value) rejectEvent,
+    required TResult Function(_MarkEventAsDone value) markEventAsDone,
+    required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
+    required TResult Function(_ReviewEvent value) reviewEvent,
+    required TResult Function(_ChangeEventStatus value) changeEventStatus,
+    required TResult Function(_StartSession value) startSession,
+    required TResult Function(_FinishSession value) finishSession,
+  }) {
+    return deleteWorkEvidence(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateNotes value)? updateNotes,
+    TResult? Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult? Function(_CancelEvent value)? cancelEvent,
+    TResult? Function(_ConfirmEvent value)? confirmEvent,
+    TResult? Function(_RejectEvent value)? rejectEvent,
+    TResult? Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
+    TResult? Function(_ReviewEvent value)? reviewEvent,
+    TResult? Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult? Function(_StartSession value)? startSession,
+    TResult? Function(_FinishSession value)? finishSession,
+  }) {
+    return deleteWorkEvidence?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_UpdateNotes value)? updateNotes,
+    TResult Function(_RescheduleEvent value)? rescheduleEvent,
+    TResult Function(_CancelEvent value)? cancelEvent,
+    TResult Function(_ConfirmEvent value)? confirmEvent,
+    TResult Function(_RejectEvent value)? rejectEvent,
+    TResult Function(_MarkEventAsDone value)? markEventAsDone,
+    TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
+    TResult Function(_ReviewEvent value)? reviewEvent,
+    TResult Function(_ChangeEventStatus value)? changeEventStatus,
+    TResult Function(_StartSession value)? startSession,
+    TResult Function(_FinishSession value)? finishSession,
+    required TResult orElse(),
+  }) {
+    if (deleteWorkEvidence != null) {
+      return deleteWorkEvidence(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteWorkEvidence implements ArtistAgendaEventDetailEvent {
+  const factory _DeleteWorkEvidence(final String eventId) =
+      _$DeleteWorkEvidenceImpl;
+
+  @override
+  String get eventId;
+  @override
+  @JsonKey(ignore: true)
+  _$$DeleteWorkEvidenceImplCopyWith<_$DeleteWorkEvidenceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2310,23 +2548,23 @@ class __$$ReviewEventImplCopyWithImpl<$Res>
     Object? isAnonymous = null,
   }) {
     return _then(_$ReviewEventImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      rating: null == rating
+      null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      comment: null == comment
+      null == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
-      isAnonymous: null == isAnonymous
+      null == isAnonymous
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -2338,11 +2576,7 @@ class __$$ReviewEventImplCopyWithImpl<$Res>
 
 class _$ReviewEventImpl implements _ReviewEvent {
   const _$ReviewEventImpl(
-      {required this.agendaId,
-      required this.eventId,
-      required this.rating,
-      required this.comment,
-      required this.isAnonymous});
+      this.agendaId, this.eventId, this.rating, this.comment, this.isAnonymous);
 
   @override
   final String agendaId;
@@ -2401,9 +2635,9 @@ class _$ReviewEventImpl implements _ReviewEvent {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -2433,8 +2667,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2464,8 +2698,8 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2493,6 +2727,7 @@ class _$ReviewEventImpl implements _ReviewEvent {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -2512,6 +2747,7 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -2531,6 +2767,7 @@ class _$ReviewEventImpl implements _ReviewEvent {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -2546,11 +2783,11 @@ class _$ReviewEventImpl implements _ReviewEvent {
 
 abstract class _ReviewEvent implements ArtistAgendaEventDetailEvent {
   const factory _ReviewEvent(
-      {required final String agendaId,
-      required final String eventId,
-      required final int rating,
-      required final String comment,
-      required final bool isAnonymous}) = _$ReviewEventImpl;
+      final String agendaId,
+      final String eventId,
+      final int rating,
+      final String comment,
+      final bool isAnonymous) = _$ReviewEventImpl;
 
   String get agendaId;
   @override
@@ -2593,19 +2830,19 @@ class __$$ChangeEventStatusImplCopyWithImpl<$Res>
     Object? reason = freezed,
   }) {
     return _then(_$ChangeEventStatusImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
+      null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      reason: freezed == reason
+      freezed == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -2617,10 +2854,7 @@ class __$$ChangeEventStatusImplCopyWithImpl<$Res>
 
 class _$ChangeEventStatusImpl implements _ChangeEventStatus {
   const _$ChangeEventStatusImpl(
-      {required this.agendaId,
-      required this.eventId,
-      required this.status,
-      this.reason});
+      this.agendaId, this.eventId, this.status, this.reason);
 
   @override
   final String agendaId;
@@ -2676,9 +2910,9 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -2708,8 +2942,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2739,8 +2973,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2768,6 +3002,7 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -2787,6 +3022,7 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -2806,6 +3042,7 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -2820,11 +3057,8 @@ class _$ChangeEventStatusImpl implements _ChangeEventStatus {
 }
 
 abstract class _ChangeEventStatus implements ArtistAgendaEventDetailEvent {
-  const factory _ChangeEventStatus(
-      {required final String agendaId,
-      required final String eventId,
-      required final String status,
-      final String? reason}) = _$ChangeEventStatusImpl;
+  const factory _ChangeEventStatus(final String agendaId, final String eventId,
+      final String status, final String? reason) = _$ChangeEventStatusImpl;
 
   String get agendaId;
   @override
@@ -2863,11 +3097,11 @@ class __$$StartSessionImplCopyWithImpl<$Res>
     Object? eventId = null,
   }) {
     return _then(_$StartSessionImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -2878,7 +3112,7 @@ class __$$StartSessionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$StartSessionImpl implements _StartSession {
-  const _$StartSessionImpl({required this.agendaId, required this.eventId});
+  const _$StartSessionImpl(this.agendaId, this.eventId);
 
   @override
   final String agendaId;
@@ -2926,9 +3160,9 @@ class _$StartSessionImpl implements _StartSession {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -2958,8 +3192,8 @@ class _$StartSessionImpl implements _StartSession {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -2989,8 +3223,8 @@ class _$StartSessionImpl implements _StartSession {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -3018,6 +3252,7 @@ class _$StartSessionImpl implements _StartSession {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -3037,6 +3272,7 @@ class _$StartSessionImpl implements _StartSession {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -3056,6 +3292,7 @@ class _$StartSessionImpl implements _StartSession {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -3070,9 +3307,8 @@ class _$StartSessionImpl implements _StartSession {
 }
 
 abstract class _StartSession implements ArtistAgendaEventDetailEvent {
-  const factory _StartSession(
-      {required final String agendaId,
-      required final String eventId}) = _$StartSessionImpl;
+  const factory _StartSession(final String agendaId, final String eventId) =
+      _$StartSessionImpl;
 
   String get agendaId;
   @override
@@ -3109,11 +3345,11 @@ class __$$FinishSessionImplCopyWithImpl<$Res>
     Object? eventId = null,
   }) {
     return _then(_$FinishSessionImpl(
-      agendaId: null == agendaId
+      null == agendaId
           ? _value.agendaId
           : agendaId // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -3124,7 +3360,7 @@ class __$$FinishSessionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FinishSessionImpl implements _FinishSession {
-  const _$FinishSessionImpl({required this.agendaId, required this.eventId});
+  const _$FinishSessionImpl(this.agendaId, this.eventId);
 
   @override
   final String agendaId;
@@ -3172,9 +3408,9 @@ class _$FinishSessionImpl implements _FinishSession {
     required TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)
         markEventAsDone,
-    required TResult Function(
-            String agendaId, String eventId, List<String> imageFiles)
+    required TResult Function(String eventId, List<XFile> imageFiles)
         addWorkEvidence,
+    required TResult Function(String eventId) deleteWorkEvidence,
     required TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)
         reviewEvent,
@@ -3204,8 +3440,8 @@ class _$FinishSessionImpl implements _FinishSession {
     TResult? Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult? Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult? Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult? Function(String eventId)? deleteWorkEvidence,
     TResult? Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -3235,8 +3471,8 @@ class _$FinishSessionImpl implements _FinishSession {
     TResult Function(
             String agendaId, String eventId, List<String>? workEvidenceFiles)?
         markEventAsDone,
-    TResult Function(String agendaId, String eventId, List<String> imageFiles)?
-        addWorkEvidence,
+    TResult Function(String eventId, List<XFile> imageFiles)? addWorkEvidence,
+    TResult Function(String eventId)? deleteWorkEvidence,
     TResult Function(String agendaId, String eventId, int rating,
             String comment, bool isAnonymous)?
         reviewEvent,
@@ -3264,6 +3500,7 @@ class _$FinishSessionImpl implements _FinishSession {
     required TResult Function(_RejectEvent value) rejectEvent,
     required TResult Function(_MarkEventAsDone value) markEventAsDone,
     required TResult Function(_AddWorkEvidence value) addWorkEvidence,
+    required TResult Function(_DeleteWorkEvidence value) deleteWorkEvidence,
     required TResult Function(_ReviewEvent value) reviewEvent,
     required TResult Function(_ChangeEventStatus value) changeEventStatus,
     required TResult Function(_StartSession value) startSession,
@@ -3283,6 +3520,7 @@ class _$FinishSessionImpl implements _FinishSession {
     TResult? Function(_RejectEvent value)? rejectEvent,
     TResult? Function(_MarkEventAsDone value)? markEventAsDone,
     TResult? Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult? Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult? Function(_ReviewEvent value)? reviewEvent,
     TResult? Function(_ChangeEventStatus value)? changeEventStatus,
     TResult? Function(_StartSession value)? startSession,
@@ -3302,6 +3540,7 @@ class _$FinishSessionImpl implements _FinishSession {
     TResult Function(_RejectEvent value)? rejectEvent,
     TResult Function(_MarkEventAsDone value)? markEventAsDone,
     TResult Function(_AddWorkEvidence value)? addWorkEvidence,
+    TResult Function(_DeleteWorkEvidence value)? deleteWorkEvidence,
     TResult Function(_ReviewEvent value)? reviewEvent,
     TResult Function(_ChangeEventStatus value)? changeEventStatus,
     TResult Function(_StartSession value)? startSession,
@@ -3316,9 +3555,8 @@ class _$FinishSessionImpl implements _FinishSession {
 }
 
 abstract class _FinishSession implements ArtistAgendaEventDetailEvent {
-  const factory _FinishSession(
-      {required final String agendaId,
-      required final String eventId}) = _$FinishSessionImpl;
+  const factory _FinishSession(final String agendaId, final String eventId) =
+      _$FinishSessionImpl;
 
   String get agendaId;
   @override
@@ -3335,6 +3573,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() actionInProgress,
     required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) =>
@@ -3343,6 +3582,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
     TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -3351,6 +3591,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? actionInProgress,
     TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3360,6 +3601,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) =>
@@ -3368,6 +3610,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) =>
@@ -3376,6 +3619,7 @@ mixin _$ArtistAgendaEventDetailState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -3444,6 +3688,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() actionInProgress,
     required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
@@ -3455,6 +3700,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
     TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3466,6 +3712,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? actionInProgress,
     TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3481,6 +3728,7 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -3492,6 +3740,7 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -3503,6 +3752,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -3558,6 +3808,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() actionInProgress,
     required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
@@ -3569,6 +3820,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
     TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3580,6 +3832,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? actionInProgress,
     TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3595,6 +3848,7 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -3606,6 +3860,7 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -3617,6 +3872,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -3630,6 +3886,127 @@ class _$LoadingImpl implements _Loading {
 
 abstract class _Loading implements ArtistAgendaEventDetailState {
   const factory _Loading() = _$LoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ActionInProgressImplCopyWith<$Res> {
+  factory _$$ActionInProgressImplCopyWith(_$ActionInProgressImpl value,
+          $Res Function(_$ActionInProgressImpl) then) =
+      __$$ActionInProgressImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ActionInProgressImplCopyWithImpl<$Res>
+    extends _$ArtistAgendaEventDetailStateCopyWithImpl<$Res,
+        _$ActionInProgressImpl>
+    implements _$$ActionInProgressImplCopyWith<$Res> {
+  __$$ActionInProgressImplCopyWithImpl(_$ActionInProgressImpl _value,
+      $Res Function(_$ActionInProgressImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ActionInProgressImpl implements _ActionInProgress {
+  const _$ActionInProgressImpl();
+
+  @override
+  String toString() {
+    return 'ArtistAgendaEventDetailState.actionInProgress()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ActionInProgressImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() actionInProgress,
+    required TResult Function(EventDetailResponse eventDetail) loaded,
+    required TResult Function(String message) error,
+  }) {
+    return actionInProgress();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
+    TResult? Function(EventDetailResponse eventDetail)? loaded,
+    TResult? Function(String message)? error,
+  }) {
+    return actionInProgress?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? actionInProgress,
+    TResult Function(EventDetailResponse eventDetail)? loaded,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (actionInProgress != null) {
+      return actionInProgress();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Error value) error,
+  }) {
+    return actionInProgress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Error value)? error,
+  }) {
+    return actionInProgress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (actionInProgress != null) {
+      return actionInProgress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ActionInProgress implements ArtistAgendaEventDetailState {
+  const factory _ActionInProgress() = _$ActionInProgressImpl;
 }
 
 /// @nodoc
@@ -3709,6 +4086,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() actionInProgress,
     required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
@@ -3720,6 +4098,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
     TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3731,6 +4110,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? actionInProgress,
     TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3746,6 +4126,7 @@ class _$LoadedImpl implements _Loaded {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -3757,6 +4138,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -3768,6 +4150,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -3854,6 +4237,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() actionInProgress,
     required TResult Function(EventDetailResponse eventDetail) loaded,
     required TResult Function(String message) error,
   }) {
@@ -3865,6 +4249,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? actionInProgress,
     TResult? Function(EventDetailResponse eventDetail)? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -3876,6 +4261,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? actionInProgress,
     TResult Function(EventDetailResponse eventDetail)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -3891,6 +4277,7 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_ActionInProgress value) actionInProgress,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -3902,6 +4289,7 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_ActionInProgress value)? actionInProgress,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -3913,6 +4301,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_ActionInProgress value)? actionInProgress,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),

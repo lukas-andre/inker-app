@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
 abstract class AgendaService {
@@ -169,8 +172,21 @@ abstract class AgendaService {
     required String agendaId,
     required String eventId,
     required int rating,
-    required String comment,
-    bool isAnonymous = false,
+    required String displayName,
+    String? comment,
+    String? header,
+  });
+
+  // Work Evidence Methods
+  Future<AgendaEvent> uploadWorkEvidence({
+    required String token,
+    required String eventId,
+    required List<File> files,
+  });
+
+  Future<void> deleteWorkEvidence({
+    required String token,
+    required String eventId,
   });
 
   // Event Chat/Messaging Methods

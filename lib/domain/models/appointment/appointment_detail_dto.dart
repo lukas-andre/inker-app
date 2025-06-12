@@ -1,9 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
+import 'package:inker_studio/domain/models/appointment/appointment.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/event/event_actions.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -40,7 +42,7 @@ class AppointmentEventDto with _$AppointmentEventDto {
     required bool notification,
     required bool done,
     required String status,
-    dynamic workEvidence,
+    WorkEvidence? workEvidence,
     String? cancelationReason,
     String? rescheduleReason,
     String? notes,

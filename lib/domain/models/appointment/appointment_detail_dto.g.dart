@@ -43,7 +43,10 @@ _$AppointmentEventDtoImpl _$$AppointmentEventDtoImplFromJson(Map json) =>
       notification: json['notification'] as bool,
       done: json['done'] as bool,
       status: json['status'] as String,
-      workEvidence: json['workEvidence'],
+      workEvidence: json['workEvidence'] == null
+          ? null
+          : WorkEvidence.fromJson(
+              Map<String, dynamic>.from(json['workEvidence'] as Map)),
       cancelationReason: json['cancelationReason'] as String?,
       rescheduleReason: json['rescheduleReason'] as String?,
       notes: json['notes'] as String?,
@@ -88,7 +91,7 @@ Map<String, dynamic> _$$AppointmentEventDtoImplToJson(
     }
   }
 
-  writeNotNull('workEvidence', instance.workEvidence);
+  writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('rescheduleReason', instance.rescheduleReason);
   writeNotNull('notes', instance.notes);

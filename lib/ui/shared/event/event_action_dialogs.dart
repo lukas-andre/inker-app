@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -484,10 +486,11 @@ class EventActionDialogs {
   static void showWorkEvidenceDialog({
     required BuildContext context,
     required String title,
-    required Function(List<String> imagePaths) onConfirm,
+    required Function(List<XFile> imageFiles) onConfirm,
     Widget? icon,
   }) {
-    final List<String> selectedImages = [];
+    final ImagePicker picker = ImagePicker();
+    List<XFile> selectedImages = [];
 
     showDialog(
       context: context,
@@ -511,143 +514,81 @@ class EventActionDialogs {
               ),
             ],
           ),
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
-            constraints: const BoxConstraints(maxHeight: 400),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (selectedImages.isEmpty)
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.white24,
-                        style: BorderStyle.solid,
-                        width: 2,
-                      ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.add_photo_alternate,
-                            size: 48,
-                            color: Colors.white54,
+                    itemCount: selectedImages.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == selectedImages.length) {
+                        return GestureDetector(
+                          onTap: () async {
+                            final List<XFile> images =
+                                await picker.pickMultiImage();
+                            if (images.isNotEmpty) {
+                              setState(() {
+                                selectedImages.addAll(images);
+                              });
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.add_a_photo,
+                              color: Colors.white70,
+                              size: 40,
+                            ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            S.of(context).addPhoto,
-                            style: TextStyleTheme.bodyText2.copyWith(
-                              color: Colors.white54,
+                        );
+                      }
+                      return Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              File(selectedImages[index].path),
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedImages.removeAt(index);
+                              });
+                            },
+                            child: const CircleAvatar(
+                              radius: 12,
+                              backgroundColor: Colors.black54,
+                              child: Icon(
+                                Icons.close,
+                                size: 16,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  )
-                else
-                  Expanded(
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                      ),
-                      itemCount: selectedImages.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == selectedImages.length) {
-                          return InkWell(
-                            onTap: () {
-                              // TODO: Implement image picker
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(S.of(context).thisFeatureWillBeAvailableSoon),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: primaryColor.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.white24,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white54,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        return Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(
-                                  image: NetworkImage(selectedImages[index]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 4,
-                              right: 4,
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    selectedImages.removeAt(index);
-                                  });
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black54,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+                      );
+                    },
                   ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // TODO: Implement image picker
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(S.of(context).thisFeatureWillBeAvailableSoon),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.photo_library),
-                  label: Text(S.of(context).gallery),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor.withOpacity(0.5),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           actions: [
@@ -672,7 +613,102 @@ class EventActionDialogs {
                 ),
               ),
               child: Text(
-                S.of(context).save,
+                S.of(context).confirm,
+                style: TextStyleTheme.button,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static void showNotesDialog({
+    required BuildContext context,
+    required String title,
+    required String hintText,
+    required String actionText,
+    required Color actionColor,
+    required Function(String) onConfirm,
+    Widget? icon,
+    String? initialValue,
+    int maxLines = 1,
+    bool required = false,
+  }) {
+    final controller = TextEditingController(text: initialValue);
+    bool isEmpty = initialValue?.isEmpty ?? true;
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          backgroundColor: explorerSecondaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Row(
+            children: [
+              if (icon != null) ...[
+                icon,
+                const SizedBox(width: 12),
+              ],
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyleTheme.headline3,
+                ),
+              ),
+            ],
+          ),
+          content: TextField(
+            controller: controller,
+            maxLines: maxLines,
+            style: TextStyleTheme.bodyText1,
+            onChanged: (value) {
+              setState(() {
+                isEmpty = value.trim().isEmpty;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: TextStyleTheme.bodyText1.copyWith(
+                color: Colors.white54,
+              ),
+              filled: true,
+              fillColor: primaryColor.withOpacity(0.3),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                S.of(dialogContext).cancel,
+                style: TextStyleTheme.button.copyWith(color: Colors.white70),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: required && isEmpty
+                  ? null
+                  : () {
+                      Navigator.pop(dialogContext);
+                      onConfirm(controller.text.trim());
+                    },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: actionColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                actionText,
                 style: TextStyleTheme.button,
               ),
             ),

@@ -7932,6 +7932,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Periodo de Cuidado`
+  String get aftercarePeriod {
+    return Intl.message(
+      'Periodo de Cuidado',
+      name: 'aftercarePeriod',
+      desc: 'Texto indicando el periodo de cuidado post-tatuaje.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

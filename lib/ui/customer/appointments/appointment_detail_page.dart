@@ -34,7 +34,7 @@ class AppointmentDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-             appBar: _buildDefaultAppBar(context),
+      appBar: _buildDefaultAppBar(context),
       body: BlocConsumer<AppointmentBloc, AppointmentState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -127,7 +127,8 @@ class AppointmentDetailPage extends StatelessWidget {
                 if (selectedAppointment?.actions.canSendMessage == true) {
                   return IconButton(
                     icon: const Icon(Icons.message),
-                    onPressed: () => _navigateToChat(context, selectedAppointment!),
+                    onPressed: () =>
+                        _navigateToChat(context, selectedAppointment!),
                     tooltip: 'Contactar Artista',
                   );
                 }
@@ -137,23 +138,25 @@ class AppointmentDetailPage extends StatelessWidget {
             );
           },
         ),
-        
+
         // Overflow menu
         BlocBuilder<AppointmentBloc, AppointmentState>(
           builder: (context, state) {
             return state.maybeWhen(
               loaded: (view, selectedAppointment) {
                 if (selectedAppointment == null) return const SizedBox.shrink();
-                
-                final config = _buildActionsConfig(context, selectedAppointment);
+
+                final config =
+                    _buildActionsConfig(context, selectedAppointment);
                 final secondaryActions = config.secondaryActions;
-                
+
                 if (secondaryActions.isEmpty) return const SizedBox.shrink();
-                
+
                 return PopupMenuButton<String>(
                   icon: const Icon(Icons.more_vert),
                   onSelected: (actionId) {
-                    final action = secondaryActions.firstWhere((a) => a.id == actionId);
+                    final action =
+                        secondaryActions.firstWhere((a) => a.id == actionId);
                     action.onPressed();
                   },
                   itemBuilder: (context) => secondaryActions
@@ -161,12 +164,15 @@ class AppointmentDetailPage extends StatelessWidget {
                             value: action.id,
                             child: Row(
                               children: [
-                                Icon(action.icon, color: action.color, size: 20),
+                                Icon(action.icon,
+                                    color: action.color, size: 20),
                                 const SizedBox(width: 12),
                                 Text(
                                   action.label,
                                   style: TextStyleTheme.bodyText1.copyWith(
-                                    color: action.isDestructive ? Colors.red : Colors.white,
+                                    color: action.isDestructive
+                                        ? Colors.red
+                                        : Colors.white,
                                   ),
                                 ),
                               ],
@@ -179,7 +185,7 @@ class AppointmentDetailPage extends StatelessWidget {
             );
           },
         ),
-        
+
         // Refresh button
         IconButton(
           icon: const Icon(Icons.refresh),
@@ -438,50 +444,62 @@ class AppointmentDetailPage extends StatelessWidget {
                         sessionService: context.read<LocalSessionService>(),
                         consentService: context.read<ConsentService>(),
                       )..add(SignedConsentEvent.loadRequiredConsentsForEvent(
-                        appointmentId, 
-                        // TODO: Get current user ID from auth service
-                        'current-user-id',
-                      )),
+                          appointmentId,
+                          // TODO: Get current user ID from auth service
+                          'current-user-id',
+                        )),
                       child: BlocBuilder<SignedConsentBloc, SignedConsentState>(
                         builder: (context, consentState) {
                           return consentState.when(
                             initial: () => const SizedBox.shrink(),
                             loading: () => Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               color: explorerSecondaryColor,
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
-                                child: Center(child: CircularProgressIndicator()),
+                                child:
+                                    Center(child: CircularProgressIndicator()),
                               ),
                             ),
-                            loaded: (eventId, userId, requiredConsents, signedConsents, hasSignedAll) {
+                            loaded: (eventId, userId, requiredConsents,
+                                signedConsents, hasSignedAll) {
                               if (requiredConsents.isEmpty) {
                                 return const SizedBox.shrink();
                               }
 
                               return Card(
-                                margin: const EdgeInsets.symmetric(horizontal: 16),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 color: explorerSecondaryColor,
                                 child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
                                           Icon(
-                                            hasSignedAll ? Icons.check_circle : Icons.pending,
-                                            color: hasSignedAll ? Colors.green : Colors.orange,
+                                            hasSignedAll
+                                                ? Icons.check_circle
+                                                : Icons.pending,
+                                            color: hasSignedAll
+                                                ? Colors.green
+                                                : Colors.orange,
                                             size: 20,
                                           ),
                                           const SizedBox(width: 8),
                                           Expanded(
                                             child: Text(
-                                              hasSignedAll 
+                                              hasSignedAll
                                                   ? 'All consent forms completed'
                                                   : 'Consent forms required',
-                                              style: TextStyleTheme.subtitle2.copyWith(
-                                                color: hasSignedAll ? Colors.green : Colors.orange,
+                                              style: TextStyleTheme.subtitle2
+                                                  .copyWith(
+                                                color: hasSignedAll
+                                                    ? Colors.green
+                                                    : Colors.orange,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -493,32 +511,41 @@ class AppointmentDetailPage extends StatelessWidget {
                                         hasSignedAll
                                             ? 'You have completed all required consent forms for this appointment.'
                                             : 'Please review and sign the required consent forms for your appointment.',
-                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.white70),
+                                        style: TextStyleTheme.bodyText2
+                                            .copyWith(color: Colors.white70),
                                       ),
                                       const SizedBox(height: 16),
-                                      
+
                                       // Progress indicator
                                       Row(
                                         children: [
                                           Expanded(
                                             child: LinearProgressIndicator(
-                                              value: requiredConsents.isEmpty 
-                                                  ? 1.0 
-                                                  : signedConsents.length / requiredConsents.length,
+                                              value: requiredConsents.isEmpty
+                                                  ? 1.0
+                                                  : signedConsents.length /
+                                                      requiredConsents.length,
                                               backgroundColor: Colors.white24,
-                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                hasSignedAll ? Colors.green : Theme.of(context).colorScheme.secondary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                hasSignedAll
+                                                    ? Colors.green
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
                                               ),
                                             ),
                                           ),
                                           const SizedBox(width: 12),
                                           Text(
                                             '${signedConsents.length}/${requiredConsents.length}',
-                                            style: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                                            style: TextStyleTheme.caption
+                                                .copyWith(
+                                                    color: Colors.white70),
                                           ),
                                         ],
                                       ),
-                                      
+
                                       if (!hasSignedAll) ...[
                                         const SizedBox(height: 16),
                                         SizedBox(
@@ -534,11 +561,17 @@ class AppointmentDetailPage extends StatelessWidget {
                                                 },
                                               );
                                             },
-                                            icon: const Icon(Icons.edit_document),
-                                            label: const Text('Complete Consent Forms'),
+                                            icon:
+                                                const Icon(Icons.edit_document),
+                                            label: const Text(
+                                                'Complete Consent Forms'),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context).colorScheme.secondary,
-                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12),
                                             ),
                                           ),
                                         ),
@@ -549,26 +582,31 @@ class AppointmentDetailPage extends StatelessWidget {
                               );
                             },
                             signingInProgress: () => Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               color: explorerSecondaryColor,
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
-                                child: Center(child: CircularProgressIndicator()),
+                                child:
+                                    Center(child: CircularProgressIndicator()),
                               ),
                             ),
                             signSuccess: (message) => Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               color: explorerSecondaryColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.check_circle, color: Colors.green),
+                                    const Icon(Icons.check_circle,
+                                        color: Colors.green),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
                                         message,
-                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.green),
+                                        style: TextStyleTheme.bodyText2
+                                            .copyWith(color: Colors.green),
                                       ),
                                     ),
                                   ],
@@ -576,7 +614,8 @@ class AppointmentDetailPage extends StatelessWidget {
                               ),
                             ),
                             error: (message) => Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               color: explorerSecondaryColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
@@ -587,7 +626,8 @@ class AppointmentDetailPage extends StatelessWidget {
                                     Expanded(
                                       child: Text(
                                         'Error loading consent forms: $message',
-                                        style: TextStyleTheme.bodyText2.copyWith(color: Colors.red),
+                                        style: TextStyleTheme.bodyText2
+                                            .copyWith(color: Colors.red),
                                       ),
                                     ),
                                   ],
@@ -819,7 +859,8 @@ class AppointmentDetailPage extends StatelessWidget {
     dialogs.EventActionDialogs.showConfirmationDialog(
       context: context,
       title: 'Solicitar Cambio de Horario',
-      content: 'Contacta al artista para coordinar un nuevo horario que funcione para ambos. El artista te ayudará a encontrar la mejor opción disponible.',
+      content:
+          'Contacta al artista para coordinar un nuevo horario que funcione para ambos. El artista te ayudará a encontrar la mejor opción disponible.',
       actionText: 'Contactar Artista',
       actionColor: Theme.of(context).colorScheme.secondary,
       icon: Icon(Icons.update, color: tertiaryColor),
@@ -842,7 +883,6 @@ class AppointmentDetailPage extends StatelessWidget {
                 agendaId: detail.event.agenda.id,
                 rating: rating,
                 comment: comment,
-                isAnonymous: isAnonymous,
               ),
             );
       },

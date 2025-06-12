@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -48,32 +49,8 @@ class Appointment with _$Appointment {
     DateTime? deletedAt,
   }) = _Appointment;
 
-  factory Appointment.fromJson(Map<String, dynamic> json) => _$AppointmentFromJson(json);
-}
-
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    required int count,
-    required List<WorkEvidenceMetadata> metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) => _$WorkEvidenceFromJson(json);
-}
-
-@freezed
-class WorkEvidenceMetadata with _$WorkEvidenceMetadata {
-  const factory WorkEvidenceMetadata({
-    required String url,
-    required int size,
-    required String type,
-    required String encoding,
-    required int position,
-    required String fieldname,
-    required String originalname,
-  }) = _WorkEvidenceMetadata;
-
-  factory WorkEvidenceMetadata.fromJson(Map<String, dynamic> json) => _$WorkEvidenceMetadataFromJson(json);
+  factory Appointment.fromJson(Map<String, dynamic> json) =>
+      _$AppointmentFromJson(json);
 }
 
 DateTime _dateTimeFromJson(String date) {
