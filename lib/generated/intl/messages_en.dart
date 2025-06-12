@@ -165,6 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "addressDetails":
             MessageLookupByLibrary.simpleMessage("Address Details"),
+        "aftercarePeriod":
+            MessageLookupByLibrary.simpleMessage("Aftercare Period"),
         "agenda": MessageLookupByLibrary.simpleMessage("Agenda"),
         "agendaSettings":
             MessageLookupByLibrary.simpleMessage("Agenda Settings"),

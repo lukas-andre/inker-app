@@ -56,37 +56,3 @@ Map<String, dynamic> _$$EventItemImplToJson(_$EventItemImpl instance) {
   writeNotNull('quotationId', instance.quotationId);
   return val;
 }
-
-_$WorkEvidenceImpl _$$WorkEvidenceImplFromJson(Map json) => _$WorkEvidenceImpl(
-      count: (json['count'] as num).toInt(),
-      metadata: (json['metadata'] as List<dynamic>)
-          .map((e) => Metadata.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$WorkEvidenceImplToJson(_$WorkEvidenceImpl instance) =>
-    <String, dynamic>{
-      'count': instance.count,
-      'metadata': instance.metadata.map((e) => e.toJson()).toList(),
-    };
-
-_$MetadataImpl _$$MetadataImplFromJson(Map json) => _$MetadataImpl(
-      url: json['url'] as String,
-      size: (json['size'] as num).toInt(),
-      type: json['type'] as String,
-      encoding: json['encoding'] as String,
-      position: (json['position'] as num).toInt(),
-      fieldname: json['fieldname'] as String,
-      originalname: json['originalname'] as String,
-    );
-
-Map<String, dynamic> _$$MetadataImplToJson(_$MetadataImpl instance) =>
-    <String, dynamic>{
-      'url': instance.url,
-      'size': instance.size,
-      'type': instance.type,
-      'encoding': instance.encoding,
-      'position': instance.position,
-      'fieldname': instance.fieldname,
-      'originalname': instance.originalname,
-    };

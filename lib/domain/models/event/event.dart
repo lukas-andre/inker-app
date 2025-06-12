@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/domain/models/agenda/agenda.dart';
 import 'package:inker_studio/domain/models/event/event_message.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -31,9 +32,9 @@ enum EventStatus {
   // Post-session states
   @JsonValue('completed')
   completed, // Existing: Session/work is finished (maps to TS AgendaEventStatus.COMPLETED).
-  @JsonValue('awaiting_photos')
-  awaitingPhotos, // Existing: Session completed, awaiting photos (maps to TS AgendaEventStatus.WAITING_FOR_PHOTOS).
-  @JsonValue('awaiting_review')
+  @JsonValue('waiting_for_photos')
+  waitingForPhotos, // Existing: Session completed, awaiting photos (maps to TS AgendaEventStatus.WAITING_FOR_PHOTOS).
+  @JsonValue('waiting_for_review')
   awaitingReview, // Existing: Session completed (photos possibly added), awaiting review (maps to TS AgendaEventStatus.WAITING_FOR_REVIEW).
   @JsonValue('reviewed')
   reviewed, // New: Review has been submitted (maps to TS AgendaEventStatus.REVIEWED).
@@ -74,10 +75,10 @@ extension EventStatusExtension on EventStatus {
         return 'scheduled';
       case EventStatus.completed:
         return 'completed';
-      case EventStatus.awaitingPhotos:
-        return 'awaiting_photos';
+      case EventStatus.waitingForPhotos:
+        return 'waiting_for_photos';
       case EventStatus.awaitingReview:
-        return 'awaiting_review';
+        return 'waiting_for_review';
       case EventStatus.reviewed:
         return 'reviewed';
       case EventStatus.aftercarePeriod:

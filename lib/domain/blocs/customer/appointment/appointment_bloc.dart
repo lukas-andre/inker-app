@@ -41,9 +41,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         rejectAppointment: (appointmentId, agendaId, reason) =>
             _rejectAppointment(emit, appointmentId, agendaId, reason),
         reviewAppointment:
-            (appointmentId, agendaId, rating, comment, isAnonymous) =>
-                _reviewAppointment(emit, appointmentId, agendaId, rating,
-                    comment, isAnonymous),
+            (appointmentId, agendaId, rating, displayName, comment, header) =>
+                _reviewAppointment(emit, appointmentId, agendaId, rating, 
+                    displayName, comment, header),
         appealAppointment: (appointmentId, agendaId, reason) =>
             _appealAppointment(emit, appointmentId, agendaId, reason),
       );
@@ -241,8 +241,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     String appointmentId,
     String agendaId,
     int rating,
-    String comment,
-    bool isAnonymous,
+    String? displayName,
+    String? comment,
+    String? header,
   ) async {
     emit(const AppointmentState.actionInProgress());
 
@@ -253,13 +254,23 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         return;
       }
 
+      if (displayName == null) {
+        final user = await _sessionService.getActiveSession();
+        if (user == null || user.user == null) {
+          emit(const AppointmentState.actionFailed('User not found.'));
+          return;
+        }
+        displayName = user.user?.fullname ?? '';
+      }
+
       await _agendaService.reviewEvent(
         token: token,
         agendaId: agendaId,
         eventId: appointmentId,
         rating: rating,
+        displayName: displayName,
         comment: comment,
-        isAnonymous: isAnonymous,
+        header: header,
       );
 
       emit(const AppointmentState.actionSuccess());

@@ -5,6 +5,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
+
 part 'get_artist_works_response.freezed.dart';
 part 'get_artist_works_response.g.dart';
 
@@ -91,33 +93,6 @@ class ReviewReactions with _$ReviewReactions {
 
   factory ReviewReactions.fromJson(Map<String, dynamic> json) =>
       _$ReviewReactionsFromJson(json);
-}
-
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    int? count,
-    List<Metadatum>? metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) =>
-      _$WorkEvidenceFromJson(json);
-}
-
-@freezed
-class Metadatum with _$Metadatum {
-  const factory Metadatum({
-    String? url,
-    int? size,
-    String? type,
-    String? encoding,
-    int? position,
-    String? fieldname,
-    String? originalname,
-  }) = _Metadatum;
-
-  factory Metadatum.fromJson(Map<String, dynamic> json) =>
-      _$MetadatumFromJson(json);
 }
 
 @freezed

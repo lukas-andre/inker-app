@@ -1,7 +1,10 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
+import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
@@ -693,17 +696,27 @@ class ApiAgendaService extends AgendaService {
     required String agendaId,
     required String eventId,
     required int rating,
-    required String comment,
-    bool isAnonymous = false,
+    required String displayName,
+    String? comment,
+    String? header,
   }) async {
+    final Map<String, dynamic> body = {
+      'rating': rating,
+      'displayName': displayName,
+    };
+    
+    if (comment != null) {
+      body['comment'] = comment;
+    }
+    
+    if (header != null) {
+      body['header'] = header;
+    }
+
     await _httpClient.post(
       path: '$_basePath/$agendaId/event/$eventId/review',
       token: token,
-      body: {
-        'rating': rating,
-        'comment': comment,
-        'isAnonymous': isAnonymous,
-      },
+      body: body,
       fromJson: (json) => null,
     );
   }
@@ -774,6 +787,43 @@ class ApiAgendaService extends AgendaService {
         'date': date,
       },
       fromJson: EventItem.fromJson,
+    );
+  }
+
+  // Work Evidence Methods
+  @override
+  Future<AgendaEvent> uploadWorkEvidence({
+    required String token,
+    required String eventId,
+    required List<File> files,
+  }) async {
+    final List<http.MultipartFile> filesToUpload = [];
+    for (final file in files) {
+      filesToUpload.add(await http.MultipartFile.fromPath(
+        'files', // API field name
+        file.path,
+        filename: file.path.split('/').last,
+      ));
+    }
+
+    return await _httpClient.multipartRequest(
+      path: '$_basePath/event/$eventId/work-evidence',
+      method: 'POST',
+      token: token,
+      files: filesToUpload,
+      fromJson: AgendaEvent.fromJson,
+    );
+  }
+
+  @override
+  Future<void> deleteWorkEvidence({
+    required String token,
+    required String eventId,
+  }) async {
+    await _httpClient.delete(
+      path: '$_basePath/event/$eventId/work-evidence',
+      token: token,
+      body: {}, // Pass an empty body as required by the HttpClientService
     );
   }
 }

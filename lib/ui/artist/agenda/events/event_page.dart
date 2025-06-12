@@ -7,13 +7,15 @@ import 'package:inker_studio/domain/models/event/event.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/agenda/events/create_event_page.dart';
+import 'package:inker_studio/ui/shared/event/work_evidence_card.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
-import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart' show WorkEvidence;
+import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart'
+    show WorkEvidence;
 import 'package:inker_studio/ui/shared/event/event_main_info_card.dart';
 import 'package:inker_studio/ui/shared/event/event_description_card.dart';
 import 'package:inker_studio/ui/shared/event/event_location_card.dart';
@@ -22,6 +24,7 @@ import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
 import 'package:inker_studio/ui/shared/event/event_actions_manager.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AgendaEventDetailPage extends StatelessWidget {
   final String eventId;
@@ -36,21 +39,26 @@ class AgendaEventDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: _buildAppBar(context),
-      body: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
+      body: BlocBuilder<ArtistAgendaEventDetailBloc,
+          ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.when(
             initial: () => const Center(child: InkerProgressIndicator()),
             loading: () => const Center(child: InkerProgressIndicator()),
+            actionInProgress: () =>
+                const Center(child: InkerProgressIndicator()),
             loaded: (data) {
               // Debug print
-              print('Event Page Debug: done=${data.event.done}, canStartSession=${data.actions.canStartSession}, status=${data.event.status.value}');
+              print(
+                  'Event Page Debug: done=${data.event.done}, canStartSession=${data.actions.canStartSession}, status=${data.event.status.value}');
               return _buildContent(context, data);
             },
             error: (message) => _buildErrorState(context, message),
           );
         },
       ),
-      bottomNavigationBar: BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
+      bottomNavigationBar: BlocBuilder<ArtistAgendaEventDetailBloc,
+          ArtistAgendaEventDetailState>(
         builder: (context, state) {
           return state.maybeWhen(
             loaded: (data) => !data.event.done || data.actions.canStartSession
@@ -94,23 +102,24 @@ class AgendaEventDetailPage extends StatelessWidget {
             );
           },
         ),
-        
+
         // Overflow menu
         BlocBuilder<ArtistAgendaEventDetailBloc, ArtistAgendaEventDetailState>(
           builder: (context, state) {
             return state.maybeWhen(
               loaded: (data) {
                 if (data.event.done) return const SizedBox.shrink();
-                
+
                 final config = _buildActionsConfig(context, data);
                 final secondaryActions = config.secondaryActions;
-                
+
                 if (secondaryActions.isEmpty) return const SizedBox.shrink();
-                
+
                 return PopupMenuButton<String>(
                   icon: const Icon(Icons.more_vert),
                   onSelected: (actionId) {
-                    final action = secondaryActions.firstWhere((a) => a.id == actionId);
+                    final action =
+                        secondaryActions.firstWhere((a) => a.id == actionId);
                     action.onPressed();
                   },
                   itemBuilder: (context) => secondaryActions
@@ -118,12 +127,15 @@ class AgendaEventDetailPage extends StatelessWidget {
                             value: action.id,
                             child: Row(
                               children: [
-                                Icon(action.icon, color: action.color, size: 20),
+                                Icon(action.icon,
+                                    color: action.color, size: 20),
                                 const SizedBox(width: 12),
                                 Text(
                                   action.label,
                                   style: TextStyleTheme.bodyText1.copyWith(
-                                    color: action.isDestructive ? Colors.red : Colors.white,
+                                    color: action.isDestructive
+                                        ? Colors.red
+                                        : Colors.white,
                                   ),
                                 ),
                               ],
@@ -136,13 +148,14 @@ class AgendaEventDetailPage extends StatelessWidget {
             );
           },
         ),
-        
+
         // Refresh button
         IconButton(
           icon: const Icon(Icons.refresh),
           onPressed: () {
-            context.read<ArtistAgendaEventDetailBloc>()
-              .add(ArtistAgendaEventDetailEvent.started(eventId));
+            context
+                .read<ArtistAgendaEventDetailBloc>()
+                .add(ArtistAgendaEventDetailEvent.started(eventId));
           },
           tooltip: 'Actualizar',
         ),
@@ -150,7 +163,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  EventActionsConfig _buildActionsConfig(BuildContext context, EventDetailResponse data) {
+  EventActionsConfig _buildActionsConfig(
+      BuildContext context, EventDetailResponse data) {
     List<EventAction> actions = [];
 
     // PRIMARY ACTIONS (Bottom - Critical state changes)
@@ -283,8 +297,9 @@ class AgendaEventDetailPage extends StatelessWidget {
       actions: actions,
       eventTitle: data.event.title,
       onRefresh: () {
-        context.read<ArtistAgendaEventDetailBloc>()
-          .add(ArtistAgendaEventDetailEvent.started(eventId));
+        context
+            .read<ArtistAgendaEventDetailBloc>()
+            .add(ArtistAgendaEventDetailEvent.started(eventId));
       },
     );
   }
@@ -321,8 +336,9 @@ class AgendaEventDetailPage extends StatelessWidget {
   Widget _buildContent(BuildContext context, EventDetailResponse data) {
     return RefreshIndicator(
       onRefresh: () async {
-        context.read<ArtistAgendaEventDetailBloc>()
-          .add(ArtistAgendaEventDetailEvent.started(eventId));
+        context
+            .read<ArtistAgendaEventDetailBloc>()
+            .add(ArtistAgendaEventDetailEvent.started(eventId));
       },
       color: Theme.of(context).colorScheme.secondary,
       child: CustomScrollView(
@@ -340,7 +356,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                     startDate: data.event.startDateTime,
                     endDate: data.event.endDateTime,
                   ),
-                  
+
                   // Cancellation/Rejection Info
                   if (_hasAdditionalInfo(data.event)) ...[
                     const SizedBox(height: 16),
@@ -348,7 +364,7 @@ class AgendaEventDetailPage extends StatelessWidget {
                   ],
 
                   const SizedBox(height: 16),
-                  
+
                   // Quotation Details using shared component
                   if (data.quotation != null) ...[
                     _buildSectionHeader(
@@ -360,13 +376,13 @@ class AgendaEventDetailPage extends StatelessWidget {
                     QuotationDetailsCard(quotation: data.quotation!),
                     const SizedBox(height: 16),
                   ],
-                  
+
                   // Description using shared component
                   EventDescriptionCard(
                     description: data.event.info ?? '',
                     notes: data.event.notes,
                   ),
-                  
+
                   // Work Evidence using shared component
                   if (data.event.workEvidence != null) ...[
                     const SizedBox(height: 16),
@@ -376,11 +392,11 @@ class AgendaEventDetailPage extends StatelessWidget {
                       title: S.of(context).workEvidence,
                       color: Theme.of(context).colorScheme.tertiary,
                     ),
-                    _buildWorkEvidenceCard(context, data.event.workEvidence!),
+                    WorkEvidenceCard(workEvidence: data.event.workEvidence!),
                   ],
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Location using shared component
                   EventLocationCard(
                     location: data.location,
@@ -391,13 +407,14 @@ class AgendaEventDetailPage extends StatelessWidget {
                       data.location.formattedAddress,
                     ),
                   ),
-                  
+
                   // Additional information section
-                  if (data.quotation != null && _hasAdditionalQuotationInfo(data.quotation!)) ...[
+                  if (data.quotation != null &&
+                      _hasAdditionalQuotationInfo(data.quotation!)) ...[
                     const SizedBox(height: 16),
                     _buildAdditionalQuotationInfo(context, data.quotation!),
                   ],
-                  
+
                   const SizedBox(height: 100),
                 ],
               ),
@@ -408,7 +425,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, {
+  Widget _buildSectionHeader(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required Color color,
@@ -440,7 +458,8 @@ class AgendaEventDetailPage extends StatelessWidget {
   }
 
   bool _hasAdditionalInfo(Event event) {
-    return event.status.value == 'canceled' || event.status.value == 'rescheduled';
+    return event.status.value == 'canceled' ||
+        event.status.value == 'rescheduled';
   }
 
   Widget _buildAdditionalInfoCard(BuildContext context, Event event) {
@@ -578,14 +597,15 @@ class AgendaEventDetailPage extends StatelessWidget {
 
   bool _hasAdditionalQuotationInfo(Quotation quotation) {
     return quotation.proposedDesigns != null ||
-           quotation.offers != null ||
-           quotation.cancelReasonDetails != null ||
-           quotation.customerRejectReason != null ||
-           quotation.artistRejectReason != null ||
-           quotation.systemCancelReason != null;
+        quotation.offers != null ||
+        quotation.cancelReasonDetails != null ||
+        quotation.customerRejectReason != null ||
+        quotation.artistRejectReason != null ||
+        quotation.systemCancelReason != null;
   }
 
-  Widget _buildAdditionalQuotationInfo(BuildContext context, Quotation quotation) {
+  Widget _buildAdditionalQuotationInfo(
+      BuildContext context, Quotation quotation) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       color: explorerSecondaryColor,
@@ -595,7 +615,8 @@ class AgendaEventDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Proposed Designs
-            if (quotation.proposedDesigns != null && quotation.proposedDesigns!.metadata.isNotEmpty) ...[
+            if (quotation.proposedDesigns != null &&
+                quotation.proposedDesigns!.metadata.isNotEmpty) ...[
               _buildInfoSection(
                 context,
                 icon: Icons.palette,
@@ -604,7 +625,7 @@ class AgendaEventDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
             ],
-            
+
             // Offers
             if (quotation.offers != null && quotation.offers!.isNotEmpty) ...[
               _buildInfoSection(
@@ -612,14 +633,14 @@ class AgendaEventDetailPage extends StatelessWidget {
                 icon: Icons.local_offer,
                 title: S.of(context).offers,
                 child: Column(
-                  children: quotation.offers!.map((offer) => 
-                    _buildOfferCard(context, offer)
-                  ).toList(),
+                  children: quotation.offers!
+                      .map((offer) => _buildOfferCard(context, offer))
+                      .toList(),
                 ),
               ),
               const SizedBox(height: 16),
             ],
-            
+
             // Cancellation/Rejection Reasons
             if (quotation.cancelReasonDetails != null) ...[
               _buildReasonCard(
@@ -630,33 +651,36 @@ class AgendaEventDetailPage extends StatelessWidget {
                 color: Colors.orange,
               ),
             ],
-            
+
             if (quotation.customerRejectReason != null) ...[
               _buildReasonCard(
                 context,
                 icon: Icons.thumb_down,
                 title: S.of(context).rejectionReason,
-                reason: _getCustomerRejectReasonText(context, quotation.customerRejectReason!),
+                reason: _getCustomerRejectReasonText(
+                    context, quotation.customerRejectReason!),
                 color: Colors.red,
               ),
             ],
-            
+
             if (quotation.artistRejectReason != null) ...[
               _buildReasonCard(
                 context,
                 icon: Icons.thumb_down,
                 title: S.of(context).rejectionReason,
-                reason: _getArtistRejectReasonText(context, quotation.artistRejectReason!),
+                reason: _getArtistRejectReasonText(
+                    context, quotation.artistRejectReason!),
                 color: Colors.red,
               ),
             ],
-            
+
             if (quotation.systemCancelReason != null) ...[
               _buildReasonCard(
                 context,
                 icon: Icons.cancel_schedule_send,
                 title: S.of(context).systemCancellationReason,
-                reason: _getSystemCancelReasonText(context, quotation.systemCancelReason!),
+                reason: _getSystemCancelReasonText(
+                    context, quotation.systemCancelReason!),
                 color: Colors.grey,
               ),
             ],
@@ -666,7 +690,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection(BuildContext context, {
+  Widget _buildInfoSection(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required Widget child,
@@ -676,7 +701,8 @@ class AgendaEventDetailPage extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 20),
+            Icon(icon,
+                color: Theme.of(context).colorScheme.secondary, size: 20),
             const SizedBox(width: 8),
             Text(
               title,
@@ -692,7 +718,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildReasonCard(BuildContext context, {
+  Widget _buildReasonCard(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required String reason,
@@ -767,8 +794,9 @@ class AgendaEventDetailPage extends StatelessWidget {
                       child: Center(
                         child: CircularProgressIndicator(
                           value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                            : null,
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
@@ -851,7 +879,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  void _openMap(BuildContext context, double latitude, double longitude, String title) async {
+  void _openMap(BuildContext context, double latitude, double longitude,
+      String title) async {
     final availableMaps = await MapLauncher.installedMaps;
     if (availableMaps.isNotEmpty) {
       await availableMaps.first.showMarker(
@@ -878,12 +907,12 @@ class AgendaEventDetailPage extends StatelessWidget {
       required: true,
       onConfirm: (reason) {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.cancelEvent(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-            reason: reason,
-          ),
-        );
+              ArtistAgendaEventDetailEvent.cancelEvent(
+                data.event.agenda.id,
+                data.event.id.toString(),
+                reason,
+              ),
+            );
       },
     );
   }
@@ -897,22 +926,24 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: const Icon(Icons.schedule, color: Colors.blue),
       onConfirm: (newStartDate, newEndDate, reason) {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.rescheduleEvent(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-            newStartDate: newStartDate,
-            newEndDate: newEndDate,
-            reason: reason,
-          ),
-        );
+              ArtistAgendaEventDetailEvent.rescheduleEvent(
+                data.event.agenda.id,
+                data.event.id.toString(),
+                newStartDate,
+                newEndDate,
+                reason,
+              ),
+            );
       },
     );
   }
 
   void _showMessageDialog(BuildContext context, EventDetailResponse data) {
-    final isArtist = context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
-    final customerName = data.artist.username ?? data.artist.username ?? S.of(context).customer;
-    
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final customerName =
+        data.artist.username ?? data.artist.username ?? S.of(context).customer;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -927,19 +958,19 @@ class AgendaEventDetailPage extends StatelessWidget {
     );
   }
 
-  void _showAddWorkEvidenceDialog(BuildContext context, EventDetailResponse data) {
+  void _showAddWorkEvidenceDialog(
+      BuildContext context, EventDetailResponse data) {
     EventActionDialogs.showWorkEvidenceDialog(
       context: context,
       title: S.of(context).workEvidence,
       icon: const Icon(Icons.add_photo_alternate, color: Colors.orange),
-      onConfirm: (imagePaths) {
+      onConfirm: (imageFiles) {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.addWorkEvidence(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-            imageFiles: imagePaths,
-          ),
-        );
+              ArtistAgendaEventDetailEvent.addWorkEvidence(
+                data.event.id.toString(),
+                imageFiles,
+              ),
+            );
       },
     );
   }
@@ -952,14 +983,14 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: const Icon(Icons.star_rate, color: Colors.amber),
       onConfirm: (rating, comment, isAnonymous) {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.reviewEvent(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-            rating: rating,
-            comment: comment,
-            isAnonymous: isAnonymous,
-          ),
-        );
+              ArtistAgendaEventDetailEvent.reviewEvent(
+                data.event.agenda.id,
+                data.event.id.toString(),
+                rating,
+                comment,
+                isAnonymous,
+              ),
+            );
       },
     );
   }
@@ -974,11 +1005,11 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: const Icon(Icons.check_circle, color: Colors.green),
       onConfirm: () {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.confirmEvent(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-          ),
-        );
+              ArtistAgendaEventDetailEvent.confirmEvent(
+                data.event.agenda.id,
+                data.event.id.toString(),
+              ),
+            );
       },
     );
   }
@@ -994,12 +1025,12 @@ class AgendaEventDetailPage extends StatelessWidget {
       maxLines: 3,
       onConfirm: (reason) {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.rejectEvent(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-            reason: reason.isEmpty ? null : reason,
-          ),
-        );
+              ArtistAgendaEventDetailEvent.rejectEvent(
+                data.event.agenda.id,
+                data.event.id.toString(),
+                reason.isEmpty ? null : reason,
+              ),
+            );
       },
     );
   }
@@ -1033,16 +1064,17 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: const Icon(Icons.play_circle_filled, color: Colors.green),
       onConfirm: () {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.startSession(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-          ),
-        );
+              ArtistAgendaEventDetailEvent.startSession(
+                data.event.agenda.id,
+                data.event.id.toString(),
+              ),
+            );
       },
     );
   }
 
-  void _showFinishSessionDialog(BuildContext context, EventDetailResponse data) {
+  void _showFinishSessionDialog(
+      BuildContext context, EventDetailResponse data) {
     EventActionDialogs.showConfirmationDialog(
       context: context,
       title: 'Finalizar Sesión',
@@ -1052,11 +1084,11 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: const Icon(Icons.stop_circle, color: Colors.red),
       onConfirm: () {
         context.read<ArtistAgendaEventDetailBloc>().add(
-          ArtistAgendaEventDetailEvent.finishSession(
-            agendaId: data.event.agenda.id,
-            eventId: data.event.id.toString(),
-          ),
-        );
+              ArtistAgendaEventDetailEvent.finishSession(
+                data.event.agenda.id,
+                data.event.id.toString(),
+              ),
+            );
       },
     );
   }
@@ -1071,7 +1103,7 @@ class AgendaEventDetailPage extends StatelessWidget {
       icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
       onConfirm: () {
         final eventDetails = _convertToEventDetails(data);
-        
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -1094,21 +1126,22 @@ class AgendaEventDetailPage extends StatelessWidget {
       },
     );
   }
-  
+
   ArtistAgendaEventDetails _convertToEventDetails(EventDetailResponse data) {
     return ArtistAgendaEventDetails(
       id: data.event.id.toString(),
       title: data.event.title,
       description: data.event.info ?? '',
       startDate: data.event.startDateTime,
-      endDate: data.event.endDateTime ,
+      endDate: data.event.endDateTime,
       location: data.location.formattedAddress,
       notes: data.event.notes,
     );
   }
 
   // Helper methods for quotation reasons
-  String _getCustomerRejectReasonText(BuildContext context, QuotationCustomerRejectReason reason) {
+  String _getCustomerRejectReasonText(
+      BuildContext context, QuotationCustomerRejectReason reason) {
     switch (reason) {
       case QuotationCustomerRejectReason.tooExpensive:
         return S.of(context).tooExpensive;
@@ -1125,7 +1158,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     }
   }
 
-  String _getArtistRejectReasonText(BuildContext context, QuotationArtistRejectReason reason) {
+  String _getArtistRejectReasonText(
+      BuildContext context, QuotationArtistRejectReason reason) {
     switch (reason) {
       case QuotationArtistRejectReason.schedulingConflict:
         return S.of(context).schedulingConflict;
@@ -1142,7 +1176,8 @@ class AgendaEventDetailPage extends StatelessWidget {
     }
   }
 
-  String _getSystemCancelReasonText(BuildContext context, QuotationSystemCancelReason reason) {
+  String _getSystemCancelReasonText(
+      BuildContext context, QuotationSystemCancelReason reason) {
     switch (reason) {
       case QuotationSystemCancelReason.notAttended:
         return S.of(context).notAttended;
@@ -1151,62 +1186,5 @@ class AgendaEventDetailPage extends StatelessWidget {
       default:
         return '-';
     }
-  }
-
-  Widget _buildWorkEvidenceCard(BuildContext context, WorkEvidence workEvidence) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (workEvidence.metadata.isEmpty) 
-              Text(
-                S.of(context).noWorkEvidence, 
-                style: TextStyleTheme.bodyText1,
-              )
-            else ...[
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                ),
-                itemCount: workEvidence.metadata.length,
-                itemBuilder: (context, index) {
-                  final imageUrl = workEvidence.metadata[index].url;
-                  return Hero(
-                    tag: 'work-evidence-$index-$imageUrl',
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () => _viewFullImage(context, imageUrl),
-                          child: Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                              color: Colors.grey[800],
-                              child: const Center(
-                                child: Icon(Icons.broken_image, color: Colors.grey, size: 24),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
   }
 }

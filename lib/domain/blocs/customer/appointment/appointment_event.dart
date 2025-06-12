@@ -26,8 +26,9 @@ class AppointmentEvent with _$AppointmentEvent {
     required String appointmentId,
     required String agendaId,
     required int rating,
-    required String comment,
-    @Default(false) bool isAnonymous,
+    String? displayName,
+    String? comment,
+    String? header,
   }) = _ReviewAppointment;
   const factory AppointmentEvent.appealAppointment({
     required String appointmentId,

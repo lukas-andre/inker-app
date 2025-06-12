@@ -3364,5 +3364,9 @@
   "confirmationPending": "Confirmación Pendiente",
   "@confirmationPending": {
     "description": "Texto indicando que la confirmación está pendiente."
+  },
+  "aftercarePeriod": "Periodo de Cuidado",
+  "@aftercarePeriod": {
+    "description": "Texto indicando el periodo de cuidado post-tatuaje."
   }
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'dart:convert';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -43,49 +44,11 @@ class EventItem with _$EventItem {
       _$EventItemFromJson(json);
 }
 
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    required int count,
-    required List<Metadata> metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) =>
-      _$WorkEvidenceFromJson(json);
-}
-
-@freezed
-class Metadata with _$Metadata {
-  const factory Metadata({
-    required String url,
-    required int size,
-    required String type,
-    required String encoding,
-    required int position,
-    required String fieldname,
-    required String originalname,
-  }) = _Metadata;
-
-  factory Metadata.fromJson(Map<String, dynamic> json) =>
-      _$MetadataFromJson(json);
-}
-
-// Helper functions for JSON serialization
 DateTime _dateTimeFromJson(String date) {
   tz.initializeTimeZones();
   final chileLocation = tz.getLocation('America/Santiago');
   return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
 }
 
-DateTime? _dateTimeFromJsonNullable(String? date) {
-  if (date == null) return null;
-  tz.initializeTimeZones();
-  // TODO: ADD TIMEZONE SELECTION.
-  final chileLocation = tz.getLocation('America/Santiago');
-  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
-}
 
 String _dateTimeToJson(DateTime date) => date.toUtc().toIso8601String();
-
-String? _dateTimeToJsonNullable(DateTime? date) =>
-    date?.toUtc().toIso8601String();

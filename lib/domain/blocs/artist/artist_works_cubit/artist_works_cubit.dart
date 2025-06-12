@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
 import 'package:inker_studio/data/api/work/dtos/work_query_params.dart';
 import 'package:inker_studio/domain/models/work/work.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';

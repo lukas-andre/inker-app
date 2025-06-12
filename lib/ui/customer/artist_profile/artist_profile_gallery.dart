@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart' show WorkEvidence;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 

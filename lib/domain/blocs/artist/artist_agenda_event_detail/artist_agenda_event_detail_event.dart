@@ -3,61 +3,38 @@ part of 'artist_agenda_event_detail_bloc.dart';
 @freezed
 class ArtistAgendaEventDetailEvent with _$ArtistAgendaEventDetailEvent {
   const factory ArtistAgendaEventDetailEvent.started(String eventId) = _Started;
-  const factory ArtistAgendaEventDetailEvent.updateNotes({
-    required String agendaId, 
-    required String eventId, 
-    required String notes
-  }) = _UpdateNotes;
-  const factory ArtistAgendaEventDetailEvent.rescheduleEvent({
-    required String agendaId,
-    required String eventId,
-    required DateTime newStartDate,
-    required DateTime newEndDate,
-    String? reason,
-  }) = _RescheduleEvent;
-  const factory ArtistAgendaEventDetailEvent.cancelEvent({
-    required String agendaId,
-    required String eventId,
-    required String reason,
-  }) = _CancelEvent;
-  const factory ArtistAgendaEventDetailEvent.confirmEvent({
-    required String agendaId,
-    required String eventId,
-  }) = _ConfirmEvent;
-  const factory ArtistAgendaEventDetailEvent.rejectEvent({
-    required String agendaId,
-    required String eventId,
-    String? reason,
-  }) = _RejectEvent;
-  const factory ArtistAgendaEventDetailEvent.markEventAsDone({
-    required String agendaId,
-    required String eventId,
-    List<String>? workEvidenceFiles,
-  }) = _MarkEventAsDone;
-  const factory ArtistAgendaEventDetailEvent.addWorkEvidence({
-    required String agendaId,
-    required String eventId,
-    required List<String> imageFiles,
-  }) = _AddWorkEvidence;
-  const factory ArtistAgendaEventDetailEvent.reviewEvent({
-    required String agendaId,
-    required String eventId,
-    required int rating,
-    required String comment,
-    required bool isAnonymous,
-  }) = _ReviewEvent;
-  const factory ArtistAgendaEventDetailEvent.changeEventStatus({
-    required String agendaId,
-    required String eventId,
-    required String status,
-    String? reason,
-  }) = _ChangeEventStatus;
-  const factory ArtistAgendaEventDetailEvent.startSession({
-    required String agendaId,
-    required String eventId,
-  }) = _StartSession;
-  const factory ArtistAgendaEventDetailEvent.finishSession({
-    required String agendaId,
-    required String eventId,
-  }) = _FinishSession;
+  const factory ArtistAgendaEventDetailEvent.updateNotes(
+      String agendaId, String eventId, String notes) = _UpdateNotes;
+  const factory ArtistAgendaEventDetailEvent.rescheduleEvent(
+      String agendaId,
+      String eventId,
+      DateTime newStartDate,
+      DateTime newEndDate,
+      String? reason) = _RescheduleEvent;
+  const factory ArtistAgendaEventDetailEvent.cancelEvent(
+      String agendaId, String eventId, String reason) = _CancelEvent;
+  const factory ArtistAgendaEventDetailEvent.confirmEvent(
+      String agendaId, String eventId) = _ConfirmEvent;
+  const factory ArtistAgendaEventDetailEvent.rejectEvent(
+      String agendaId, String eventId, String? reason) = _RejectEvent;
+  const factory ArtistAgendaEventDetailEvent.markEventAsDone(
+          String agendaId, String eventId, List<String>? workEvidenceFiles) =
+      _MarkEventAsDone;
+  const factory ArtistAgendaEventDetailEvent.addWorkEvidence(
+      String eventId, List<XFile> imageFiles) = _AddWorkEvidence;
+  const factory ArtistAgendaEventDetailEvent.deleteWorkEvidence(
+      String eventId) = _DeleteWorkEvidence;
+  const factory ArtistAgendaEventDetailEvent.reviewEvent(
+      String agendaId,
+      String eventId,
+      int rating,
+      String comment,
+      bool isAnonymous) = _ReviewEvent;
+  const factory ArtistAgendaEventDetailEvent.changeEventStatus(
+          String agendaId, String eventId, String status, String? reason) =
+      _ChangeEventStatus;
+  const factory ArtistAgendaEventDetailEvent.startSession(
+      String agendaId, String eventId) = _StartSession;
+  const factory ArtistAgendaEventDetailEvent.finishSession(
+      String agendaId, String eventId) = _FinishSession;
 }
