@@ -658,16 +658,16 @@ Review _$ReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Review {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
-  int? get eventId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
+  String? get eventId => throw _privateConstructorUsedError;
   int? get value => throw _privateConstructorUsedError;
   String? get header => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   ReviewReactions? get reviewReactions => throw _privateConstructorUsedError;
-  int? get createdBy => throw _privateConstructorUsedError;
+  String? get createdBy => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   bool? get isRated => throw _privateConstructorUsedError;
   CustomerReviewDetail? get customerReviewDetail =>
@@ -684,16 +684,16 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? artistId,
-      int? eventId,
+      String? artistId,
+      String? eventId,
       int? value,
       String? header,
       String? content,
       ReviewReactions? reviewReactions,
-      int? createdBy,
+      String? createdBy,
       String? displayName,
       bool? isRated,
       CustomerReviewDetail? customerReviewDetail});
@@ -733,7 +733,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -745,11 +745,11 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -769,7 +769,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -819,16 +819,16 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? artistId,
-      int? eventId,
+      String? artistId,
+      String? eventId,
       int? value,
       String? header,
       String? content,
       ReviewReactions? reviewReactions,
-      int? createdBy,
+      String? createdBy,
       String? displayName,
       bool? isRated,
       CustomerReviewDetail? customerReviewDetail});
@@ -868,7 +868,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -880,11 +880,11 @@ class __$$ReviewImplCopyWithImpl<$Res>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -904,7 +904,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -943,15 +943,15 @@ class _$ReviewImpl implements _Review {
       _$$ReviewImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? artistId;
+  final String? artistId;
   @override
-  final int? eventId;
+  final String? eventId;
   @override
   final int? value;
   @override
@@ -961,7 +961,7 @@ class _$ReviewImpl implements _Review {
   @override
   final ReviewReactions? reviewReactions;
   @override
-  final int? createdBy;
+  final String? createdBy;
   @override
   final String? displayName;
   @override
@@ -1035,16 +1035,16 @@ class _$ReviewImpl implements _Review {
 
 abstract class _Review implements Review {
   const factory _Review(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? artistId,
-      final int? eventId,
+      final String? artistId,
+      final String? eventId,
       final int? value,
       final String? header,
       final String? content,
       final ReviewReactions? reviewReactions,
-      final int? createdBy,
+      final String? createdBy,
       final String? displayName,
       final bool? isRated,
       final CustomerReviewDetail? customerReviewDetail}) = _$ReviewImpl;
@@ -1052,15 +1052,15 @@ abstract class _Review implements Review {
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
-  int? get eventId;
+  String? get eventId;
   @override
   int? get value;
   @override
@@ -1070,7 +1070,7 @@ abstract class _Review implements Review {
   @override
   ReviewReactions? get reviewReactions;
   @override
-  int? get createdBy;
+  String? get createdBy;
   @override
   String? get displayName;
   @override

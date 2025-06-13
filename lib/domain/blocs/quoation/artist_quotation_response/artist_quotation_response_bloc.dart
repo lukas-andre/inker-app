@@ -62,7 +62,7 @@ class ArtistQuotationResponseBloc
 
       Money? cost;
       if (event.estimatedCost != null) {
-        final amountInCents = (event.estimatedCost!).round(); // TODO: Get currency
+        final amountInCents = (event.estimatedCost!).amount; // TODO: Get currency
         cost = Money(
             amount: amountInCents,
             currency: 'CLP', // TODO: Get currency

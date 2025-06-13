@@ -8,6 +8,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_b
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -158,7 +159,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 14,
-                      unratedColor: Theme.of(context).colorScheme.tertiary,
+                      unratedColor: primaryColor,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
@@ -170,7 +171,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       DateTimeFormatter.formatForReviewElement(
                           review.createdAt!),
                       style: TextStyleTheme.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 14,
                           fontWeight: FontWeight.w200),
                     ),
@@ -309,7 +310,7 @@ class ArtistProfileDivider extends StatelessWidget {
     return Divider(
       endIndent: 16,
       indent: 16,
-      color: Theme.of(context).colorScheme.tertiary,
+      color: Theme.of(context).colorScheme.secondary,
       thickness: 1,
     );
   }

@@ -53,16 +53,16 @@ class WorkItem with _$WorkItem {
 @freezed
 class Review with _$Review {
   const factory Review({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? artistId,
-    int? eventId,
+    String? artistId,
+    String? eventId,
     int? value,
     String? header,
     String? content,
     ReviewReactions? reviewReactions,
-    int? createdBy,
+    String? createdBy,
     String? displayName,
     bool? isRated,
     CustomerReviewDetail? customerReviewDetail,

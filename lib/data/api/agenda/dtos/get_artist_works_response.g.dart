@@ -86,15 +86,15 @@ Map<String, dynamic> _$$WorkItemImplToJson(_$WorkItemImpl instance) {
 }
 
 _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      artistId: (json['artistId'] as num?)?.toInt(),
-      eventId: (json['eventId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
+      eventId: json['eventId'] as String?,
       value: (json['value'] as num?)?.toInt(),
       header: json['header'] as String?,
       content: json['content'] as String?,
@@ -102,7 +102,7 @@ _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
           ? null
           : ReviewReactions.fromJson(
               Map<String, dynamic>.from(json['reviewReactions'] as Map)),
-      createdBy: (json['createdBy'] as num?)?.toInt(),
+      createdBy: json['createdBy'] as String?,
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
       customerReviewDetail: json['customerReviewDetail'] == null

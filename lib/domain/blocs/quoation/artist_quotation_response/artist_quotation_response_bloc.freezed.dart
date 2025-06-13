@@ -23,7 +23,7 @@ mixin _$ArtistQuotationResponseEvent {
     required TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -46,7 +46,7 @@ mixin _$ArtistQuotationResponseEvent {
     TResult? Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -69,7 +69,7 @@ mixin _$ArtistQuotationResponseEvent {
     TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -222,7 +222,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
     required TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -248,7 +248,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
     TResult? Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -274,7 +274,7 @@ class _$LoadQuotationImpl implements _LoadQuotation {
     TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -354,12 +354,14 @@ abstract class _$$SubmitImplCopyWith<$Res>
   $Res call(
       {String quotationId,
       ArtistQuotationAction action,
-      double? estimatedCost,
+      Money? estimatedCost,
       DateTime? appointmentDate,
       int? appointmentDuration,
       String? additionalDetails,
       QuotationArtistRejectReason? rejectionReason,
       List<XFile>? proposedDesigns});
+
+  $MoneyCopyWith<$Res>? get estimatedCost;
 }
 
 /// @nodoc
@@ -394,7 +396,7 @@ class __$$SubmitImplCopyWithImpl<$Res>
       estimatedCost: freezed == estimatedCost
           ? _value.estimatedCost
           : estimatedCost // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as Money?,
       appointmentDate: freezed == appointmentDate
           ? _value.appointmentDate
           : appointmentDate // ignore: cast_nullable_to_non_nullable
@@ -417,6 +419,18 @@ class __$$SubmitImplCopyWithImpl<$Res>
               as List<XFile>?,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res>? get estimatedCost {
+    if (_value.estimatedCost == null) {
+      return null;
+    }
+
+    return $MoneyCopyWith<$Res>(_value.estimatedCost!, (value) {
+      return _then(_value.copyWith(estimatedCost: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -438,7 +452,7 @@ class _$SubmitImpl implements _Submit {
   @override
   final ArtistQuotationAction action;
   @override
-  final double? estimatedCost;
+  final Money? estimatedCost;
   @override
   final DateTime? appointmentDate;
   @override
@@ -509,7 +523,7 @@ class _$SubmitImpl implements _Submit {
     required TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -543,7 +557,7 @@ class _$SubmitImpl implements _Submit {
     TResult? Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -577,7 +591,7 @@ class _$SubmitImpl implements _Submit {
     TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -647,7 +661,7 @@ abstract class _Submit implements ArtistQuotationResponseEvent {
   const factory _Submit(
       {required final String quotationId,
       required final ArtistQuotationAction action,
-      final double? estimatedCost,
+      final Money? estimatedCost,
       final DateTime? appointmentDate,
       final int? appointmentDuration,
       final String? additionalDetails,
@@ -657,7 +671,7 @@ abstract class _Submit implements ArtistQuotationResponseEvent {
   @override
   String get quotationId;
   ArtistQuotationAction get action;
-  double? get estimatedCost;
+  Money? get estimatedCost;
   DateTime? get appointmentDate;
   int? get appointmentDuration;
   String? get additionalDetails;
@@ -812,7 +826,7 @@ class _$SubmitOfferImpl implements _SubmitOffer {
     required TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -839,7 +853,7 @@ class _$SubmitOfferImpl implements _SubmitOffer {
     TResult? Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,
@@ -866,7 +880,7 @@ class _$SubmitOfferImpl implements _SubmitOffer {
     TResult Function(
             String quotationId,
             ArtistQuotationAction action,
-            double? estimatedCost,
+            Money? estimatedCost,
             DateTime? appointmentDate,
             int? appointmentDuration,
             String? additionalDetails,

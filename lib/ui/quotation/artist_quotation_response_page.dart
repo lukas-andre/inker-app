@@ -235,6 +235,10 @@ class _ArtistQuotationResponseViewState
   }
 
   Widget _buildResponseForm(S l10n) {
+    final availableActions = _getAvailableActions();
+    if (availableActions.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Form(
       key: _formKey,
       child: Padding(
@@ -667,14 +671,23 @@ class _ArtistQuotationResponseViewState
     final validExtraFields = _validateAdditionalFields();
     if (_formKey.currentState!.validate() && validExtraFields) {
       _formKey.currentState!.save();
-
+      Money? money;
+      final cost = double.tryParse(_estimatedCostController.text.replaceAll(',', '').replaceAll('.', ''));
+      if (cost != null) {
+        money = Money(
+          amount: cost.toInt(),
+          currency: 'CLP',
+          scale: 0,
+        );
+      }
       _bloc.add(
         ArtistQuotationResponseEvent.submit(
           quotationId: widget.quotationId,
           action: _action,
           // TODO, ESTIMATED COST? HAY QUE ENVIAR CURRENCY O NO?
+          
           estimatedCost: _action == ArtistQuotationAction.quote
-              ? double.tryParse(_estimatedCostController.text)
+              ? money
               : null,
           appointmentDate: _appointmentStartDate,
           appointmentDuration: _durationInMinutes,
