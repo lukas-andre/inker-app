@@ -167,7 +167,7 @@ class _RatingProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(2),
         child: LinearProgressIndicator(
           value: value,
-          backgroundColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
+          backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
           valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
         ),
       ),

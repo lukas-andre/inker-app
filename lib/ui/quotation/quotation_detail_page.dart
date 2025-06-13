@@ -225,7 +225,7 @@ class _QuotationDetailContent extends StatelessWidget {
                 border: Border(
                   top: BorderSide(
                     color:
-                        Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+                        Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                     width: 1,
                   ),
                 ),
@@ -315,7 +315,7 @@ class _CounterpartHeader extends StatelessWidget {
                       Text(
                         isArtist ? l10n.customer : l10n.artist,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -328,7 +328,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           '@${info.username}',
                           style: TextStyleTheme.bodyText2.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],
@@ -782,9 +782,9 @@ class _MainQuotationInfo extends StatelessWidget {
     if (quotation.estimatedCost != null) {
       widgets.addAll([
         _InfoSection(
-          icon: Icons.attach_money,
+          icon: null,
           title: l10n.estimatedCost,
-          content: '\$${quotation.estimatedCost!.toString()}',
+          content: quotation.estimatedCost!.toString(),
           highlight: true,
         ),
         const SizedBox(height: 16),
@@ -844,14 +844,14 @@ class _MainQuotationInfo extends StatelessWidget {
 }
 
 class _InfoSection extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
   final String content;
   final bool highlight;
   final bool isWarning;
 
   const _InfoSection({
-    required this.icon,
+    this.icon,
     required this.title,
     required this.content,
     this.highlight = false,
@@ -873,13 +873,13 @@ class _InfoSection extends StatelessWidget {
         Text(
           title,
           style: TextStyleTheme.subtitle2.copyWith(
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
         const SizedBox(height: 8),
         Row(
           children: [
-            Icon(icon, color: contentColor, size: 20),
+            if (icon != null) Icon(icon, color: contentColor, size: 20),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -976,7 +976,7 @@ class _TimelineItem extends StatelessWidget {
                   width: 2,
                   height: 40,
                   color:
-                      Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.5),
                 ),
             ],
           ),
@@ -998,7 +998,7 @@ class _TimelineItem extends StatelessWidget {
                   style: TextStyleTheme.caption.copyWith(
                     color: isLast
                         ? Colors.white70
-                        : Theme.of(context).colorScheme.tertiary,
+                        : Theme.of(context).colorScheme.secondary,
                     fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
@@ -1024,7 +1024,7 @@ class _TimelineItem extends StatelessWidget {
         Text(
           '${l10n.estimatedCostChangedFrom} \$${history.previousEstimatedCost} ${l10n.to} \$${history.newEstimatedCost}',
           style: TextStyleTheme.bodyText2
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -1037,7 +1037,7 @@ class _TimelineItem extends StatelessWidget {
         Text(
           '${l10n.appointmentDateChangedFrom} ${DateFormat('yyyy-MM-dd HH:mm').format(history.previousAppointmentDate!)} ${l10n.to} ${DateFormat('yyyy-MM-dd HH:mm').format(history.newAppointmentDate!)}',
           style: TextStyleTheme.bodyText2
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -1050,7 +1050,7 @@ class _TimelineItem extends StatelessWidget {
         Text(
           stateDetails,
           style: TextStyleTheme.bodyText2
-              .copyWith(color: Theme.of(context).colorScheme.tertiary),
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
