@@ -7,7 +7,7 @@ class ArtistQuotationResponseEvent with _$ArtistQuotationResponseEvent {
   const factory ArtistQuotationResponseEvent.submit({
     required String quotationId,
     required ArtistQuotationAction action,
-    double? estimatedCost,
+    Money? estimatedCost,
     DateTime? appointmentDate,
     int? appointmentDuration,
     String? additionalDetails,
