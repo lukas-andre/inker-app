@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/domain/models/user/user_type.dart';
@@ -20,13 +19,14 @@ class CloseRegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
     RegisterArtistBloc registerArtistBloc =
         BlocProvider.of<RegisterArtistBloc>(context);
     RegisterCustomerBloc registerCustomerBloc =
         BlocProvider.of<RegisterCustomerBloc>(context);
 
     return Container(
-      padding: EdgeInsets.only(right: 22, top: Platform.isIOS ? 22 : 40),
+      padding: EdgeInsets.only(right: 22, top: platformService.isIOS ? 22 : 40),
       child: Center(
           child: IconButton(
               key: registerKeys.registrationCommon.closeButton,
@@ -80,7 +80,8 @@ class CloseRegisterButton extends StatelessWidget {
 
   Future<bool> _onCloseRegisterButtonPressed(BuildContext context) async {
     bool shouldClose = true;
-    Platform.isIOS
+    final platformService = context.read<PlatformService>();
+    platformService.isIOS
         ? await showCupertinoDialog(
             context: context,
             builder: (context) => CupertinoAlertDialog(

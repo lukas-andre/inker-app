@@ -1,6 +1,7 @@
 import java.util.Properties
 import com.android.build.api.dsl.ApplicationExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
@@ -15,6 +16,12 @@ if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { reader ->
         localProperties.load(reader)
     }
+}
+
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 val flutterRoot = localProperties.getProperty("flutter.sdk") ?: System.getenv("FLUTTER_ROOT")
@@ -39,17 +46,26 @@ configure<ApplicationExtension> {
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
+
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug") // Asegúrate de tener una configuración de firma 'release' adecuada si la necesitas.
-            // Aquí deberías configurar ProGuard/R8 para release si es necesario
-            // isMinifyEnabled = true
-            // isShrinkResources = true
-            // proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             ndk {
                 abiFilters.add("armeabi-v7a")
                 abiFilters.add("arm64-v8a")

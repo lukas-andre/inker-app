@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
@@ -50,7 +51,12 @@ import 'package:inker_studio/ui/theme/localization_cubit.dart';
 List<BlocProvider> buildBlocProviders(BuildContext context) {
   return [
     // Providers independientes (sin dependencias)
-    BlocProvider(create: (context) => GpsBloc(), lazy: false),
+    BlocProvider(
+      create: (context) => GpsBloc(
+        geolocationService: context.read<PlatformGeolocationService>(),
+      ), 
+      lazy: false
+    ),
     BlocProvider(create: (context) => LocationBloc()),
     BlocProvider(create: (context) => OnBoardingBloc()),
     BlocProvider(create: (context) => RegisterBloc()),

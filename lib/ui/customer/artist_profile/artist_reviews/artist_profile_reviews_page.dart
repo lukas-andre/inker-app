@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inker_studio/data/api/review/dtos/get_reviews_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
@@ -49,6 +48,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
       appBar: _buildAppBar(context),
       body: BlocBuilder<ArtistReviewsBloc, ArtistReviewsState>(
         builder: (context, state) {
+          final platformService = context.read<PlatformService>();
           return Column(
             children: [
               const SizedBox(height: 30),
@@ -60,7 +60,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
               state is ArtistReviewsLoading && state.reviews.isNotEmpty
                   ? const InkerProgressIndicator(radius: 20)
                   : const SizedBox(height: 40),
-              Platform.isIOS
+              platformService.isIOS
                   ? const SizedBox(height: 40)
                   : const SizedBox(
                       height: 20,
