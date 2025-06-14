@@ -10,8 +10,17 @@ void openModalBottomSheet(
     enableDrag = true,
     bool material = false}) {
   final platformService = context.read<PlatformService>();
+  
+  // Para web siempre usar Material
+  if (platformService.isWeb) {
+    showMaterialModalBottomSheet(
+        enableDrag: enableDrag, context: context, builder: (context) => page);
+    return;
+  }
+  
   if (platformService.isIOS) {
-    if (isRoot) {
+    // Solo usar CupertinoScaffold.show si estamos seguros que hay un CupertinoScaffold parent
+    if (isRoot && _hasCupertinoScaffoldParent(context)) {
       CupertinoScaffold.showCupertinoModalBottomSheet(
           enableDrag: enableDrag, context: context, builder: (context) => page);
     } else {
@@ -21,5 +30,14 @@ void openModalBottomSheet(
   } else {
     showMaterialModalBottomSheet(
         enableDrag: enableDrag, context: context, builder: (context) => page);
+  }
+}
+
+bool _hasCupertinoScaffoldParent(BuildContext context) {
+  try {
+    final scaffold = context.findAncestorWidgetOfExactType<CupertinoScaffold>();
+    return scaffold != null;
+  } catch (e) {
+    return false;
   }
 }
