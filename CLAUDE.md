@@ -91,12 +91,74 @@ After creating/modifying models or states:
 2. Run `make build` to generate code
 3. Import the generated .g.dart and .freezed.dart files
 
-## Important Files
+## Important Files and Paths
 
+### Core Configuration
 - `.env` - API URL configuration
 - `lib/constants/endpoints.dart` - All API endpoints
-- `lib/ui/shared/navigation/app_routes.dart` - Route definitions
 - `lib/main.dart` - App initialization and provider setup
+- `lib/dependencies/dependencies.dart` - Dependency injection setup
+
+### Navigation
+- `lib/ui/shared/navigation/app_routes.dart` - Route definitions
+
+### Theme and Styling
+- `lib/ui/theme/app_theme.dart` - Theme configuration (Material 2)
+- `lib/ui/views/app_view.dart` - Theme application
+- Theme colors: primaryColor, colorScheme.secondary (no tertiary)
+
+### Responsive Design
+- `lib/utils/responsive/responsive_breakpoints.dart` - Breakpoint definitions
+- `lib/utils/responsive/responsive_builder.dart` - Responsive widgets
+- `lib/utils/responsive/responsive_theme.dart` - Theme scaling
+
+### Platform Detection
+- `lib/domain/services/platform/platform_service.dart` - Web/iOS/Android detection
+
+### Shared UI Components
+- `lib/ui/shared/widgets/buttons.dart` - PrimaryButton, SecondaryButton
+- `lib/ui/shared/widgets/custom_app_bar.dart` - App bar implementation
+- `lib/ui/shared/widgets/loading_widget.dart` - Loading indicators
+- `lib/ui/shared/widgets/shimmer_widget.dart` - Skeleton loaders
+
+### Authentication Flow
+- `lib/ui/login/` - Login screens
+- `lib/ui/register/` - Registration screens
+- `lib/ui/on_boarding/` - Onboarding flow
+
+### Key Widget Patterns
+- Pages: Top-level screens (e.g., `login_page.dart`)
+- Widgets: Reusable components (e.g., `login_form.dart`)
+- Forms: Input handling with form_inputs package
+
+## Code Conventions
+
+### Event Naming in BLoCs
+- Login: `OnBoardingSignInPressed`, `OnBoardingRegisterPressed`
+- Navigation: `OnBoardingClearRedirect`
+- State updates: Use descriptive event names
+
+### Widget Naming
+- Pages: `*Page` (e.g., `LoginPage`)
+- Reusable widgets: Descriptive names (e.g., `LoginForm`, `CustomAppBar`)
+- Buttons: `PrimaryButton`, `SecondaryButton` (from shared/widgets/buttons.dart)
+
+### File Organization
+- One widget per file for pages
+- Group related widgets in subdirectories
+- Keep forms separate from pages
+
+### Common Imports to Remember
+```dart
+import 'package:inker_studio/generated/l10n.dart'; // For S.of(context)
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' show CupertinoScaffold;
+```
+
+### Notes on Existing Issues
+- Some file names have typos (e.g., `sing_in_and_register_buttons.dart` instead of `sign_in`)
+- Theme uses Material 2, not Material 3
+- Use `colorScheme.onSurface` instead of deprecated `onBackground`
+- Always check for existing shared widgets before creating new ones
 
 ## Testing Approach
 
@@ -108,6 +170,17 @@ After creating/modifying models or states:
 ## Localization
 
 - Primary locale: Spanish (Chile)
-- Translations in `lib/l10n/intl_*.arb` // NOT MODIFY THIS FILE IT'S TO EXPENSINVE
+- Translations source: `lib/l10n/intl_*.arb` (DO NOT MODIFY - auto-generated, very large files)
+- Generated localization class: `lib/generated/l10n.dart`
 - Generate translations: `make intl`
 - Access translations: `S.of(context).key`
+- Import: `import 'package:inker_studio/generated/l10n.dart';`
+
+## Architecture Refactoring
+
+Two comprehensive guides have been created for future refactoring:
+
+1. **FEATURE_BASED_REFACTORING_GUIDE.md** - Complete plan to migrate from layer-based to feature-based architecture
+2. **COMPONENT_ORGANIZATION_GUIDE.md** - Strategy for organizing shared, artist-specific, and customer-specific components
+
+These guides provide detailed migration plans, directory structures, and implementation strategies for improving the codebase organization.
