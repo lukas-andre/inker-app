@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/login/login_page.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_content_page_view.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/fixed_components.dart';
@@ -21,7 +20,8 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS ? CupertinoScaffold(body: _scaffold()) : _scaffold();
+    final platformService = context.read<PlatformService>();
+    return platformService.isIOS ? CupertinoScaffold(body: _scaffold()) : _scaffold();
   }
 
   Scaffold _scaffold() {

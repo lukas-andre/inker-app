@@ -23,6 +23,7 @@ import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
+import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
@@ -73,7 +74,12 @@ class _AppViewState extends State<AppView> {
     return MultiBlocProvider(
       providers: [
         // Providers independientes (sin dependencias)
-        BlocProvider(create: (context) => GpsBloc(), lazy: false),
+        BlocProvider(
+          create: (context) => GpsBloc(
+            geolocationService: context.read<PlatformGeolocationService>(),
+          ), 
+          lazy: false
+        ),
         BlocProvider(create: (context) => LocationBloc()),
         BlocProvider(create: (context) => OnBoardingBloc()),
         BlocProvider(create: (context) => RegisterBloc()),

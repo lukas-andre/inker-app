@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:collection';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/config/http_client_config.dart';
@@ -112,11 +112,14 @@ class GcpPlacesService implements PlacesService {
 
   GcpPlacesService()
       : _httpConfig = HttpClientConfig(basePath: ''),
-        apiKey = Platform.isIOS
-            ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
-                const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
-            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
-                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID'),
+        apiKey = kIsWeb
+            ? dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
+                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')
+            : (defaultTargetPlatform == TargetPlatform.iOS
+                ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
+                    const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
+                : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
+                    const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')),
         super();
 
   @override
