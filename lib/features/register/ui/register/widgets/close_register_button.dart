@@ -1,0 +1,149 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
+import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/auth/bloc/register/customer/register_customer_bloc.dart';
+import 'package:inker_studio/features/auth/models/user/user_type.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
+import 'package:inker_studio/features/auth/ui/login/login_page.dart';
+import 'package:inker_studio/features/auth/ui/onboarding/onboarding_page.dart';
+import 'package:inker_studio/utils/bloc_navigator.dart';
+
+class CloseRegisterButton extends StatelessWidget {
+  const CloseRegisterButton({super.key, this.index, this.toPage, this.userType});
+  final int? index;
+  final dynamic toPage;
+  final String? userType;
+
+  @override
+  Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
+    RegisterArtistBloc registerArtistBloc =
+        BlocProvider.of<RegisterArtistBloc>(context);
+    RegisterCustomerBloc registerCustomerBloc =
+        BlocProvider.of<RegisterCustomerBloc>(context);
+
+    return Container(
+      padding: EdgeInsets.only(right: 22, top: platformService.isIOS ? 22 : 40),
+      child: Center(
+          child: IconButton(
+              key: registerKeys.registrationCommon.closeButton,
+              onPressed: () async {
+                if (toPage != null) {
+                  if (toPage is LoginPage) {
+                    InkerNavigator.pushAndRemoveUntil(
+                        context, const OnBoardingPage());
+                    InkerNavigator.push(context, toPage);
+                  } else {
+                    InkerNavigator.pushAndRemoveUntil(context, toPage);
+                  }
+
+                  _clearForm(
+                      userType, registerArtistBloc, registerCustomerBloc);
+
+                  return;
+                }
+
+                if (index != null) {
+                  if (index == 0) {
+                    InkerNavigator.pop(context);
+                    _clearForm(
+                        userType, registerArtistBloc, registerCustomerBloc);
+
+                    return;
+                  }
+
+                  final shouldClose =
+                      await _onCloseRegisterButtonPressed(context);
+
+                  if (shouldClose) {
+                    for (int i = 0; i < index! + 1; i++) {
+                      InkerNavigator.pop(context);
+                      await Future.delayed(const Duration(milliseconds: 100));
+                    }
+                    _clearForm(
+                        userType, registerArtistBloc, registerCustomerBloc);
+                  }
+                } else {
+                  InkerNavigator.pop(context);
+                }
+              },
+              icon: SvgPicture.asset(
+                'assets/icons/svg/circle-xmark-solid.svg',
+                color: Colors.white,
+                height: 45,
+              ))),
+    );
+  }
+
+  Future<bool> _onCloseRegisterButtonPressed(BuildContext context) async {
+    bool shouldClose = true;
+    final platformService = context.read<PlatformService>();
+    platformService.isIOS
+        ? await showCupertinoDialog(
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+                  title: const Text('Quieres cerrar el formulario?'),
+                  content: const Text(
+                      'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      key: registerKeys.registrationCommon.dialogYesButton,
+                      isDestructiveAction: true,
+                      onPressed: () {
+                        shouldClose = true;
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Sí'),
+                    ),
+                    CupertinoDialogAction(
+                      key: registerKeys.registrationCommon.dialogNoButton,
+                      isDefaultAction: true,
+                      child: const Text('No'),
+                      onPressed: () {
+                        shouldClose = false;
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ))
+        : await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Quieres cerrar el formulario?'),
+                content: const Text(
+                    'Si cierras el formulario, sera limpiado todo lo que hayas escrito.'),
+                actions: <Widget>[
+                  TextButton(
+                    key: registerKeys.registrationCommon.dialogNoButton,
+                    child: const Text('No'),
+                    onPressed: () {
+                      shouldClose = false;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    key: registerKeys.registrationCommon.dialogYesButton,
+                    child: const Text('OK'),
+                    onPressed: () {
+                      shouldClose = true;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+
+    return shouldClose;
+  }
+
+  void _clearForm(String? userType, RegisterArtistBloc registerArtistBloc,
+      RegisterCustomerBloc registerCustomerBloc) {
+    userType == UserType.artist
+        ? registerArtistBloc.add(const RegisterArtistClearForm())
+        : registerCustomerBloc.add(const RegisterCustomerClearForm());
+  }
+}

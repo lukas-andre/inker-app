@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/auth/bloc/login/hide_password_cubit.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
+import 'package:inker_studio/utils/forms/custom_input.dart';
+import 'package:inker_studio/utils/forms/trim_text_formatter.dart';
+
+class RegisterArtistConfirmPasswordInput extends StatelessWidget {
+  RegisterArtistConfirmPasswordInput({
+    super.key,
+  });
+  final _texEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    _texEditingController.text =
+        context.read<RegisterArtistBloc>().state.form.confirmedPassword.value;
+    return BlocProvider(
+      create: (context) => HidePasswordCubit(),
+      child: BlocBuilder<RegisterArtistBloc, RegisterArtistState>(
+        buildWhen: (previous, current) =>
+            previous.form.password.value != current.form.password.value ||
+            previous.form.confirmedPassword.value !=
+                current.form.confirmedPassword.value,
+        builder: (context, state) {
+          return BlocBuilder<HidePasswordCubit, HidePasswordState>(
+            builder: (context, cubit) {
+              return CustomInput(
+                  key: registerKeys.artistRegistration.confirmPasswordInput,
+                  inputFormatters: [TrimTextFormatter()],
+                  controller: _texEditingController,
+                  obscureText: cubit is HidePasswordVisible ? false : true,
+                  onChanged: (value) {
+                    context.read<RegisterArtistBloc>().add(
+                          RegisterArtistConfirmedPasswordChanged(value),
+                        );
+                  },
+                  suffixIcon: GestureDetector(
+                    onTap: (() {
+                      context.read<HidePasswordCubit>().toggle();
+                    }),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 23),
+                      child: Icon(
+                        cubit is HidePasswordInitial
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: const Color(0xff777E91),
+                      ),
+                    ),
+                  ),
+                  valid: state.form.confirmedPassword.valid ||
+                      state.form.confirmedPassword.pure,
+                  errorMessage: state.form.confirmedPassword.valid
+                      ? null
+                      : state.form.confirmedPassword.error?.message,
+                  label: 'Confirmar contraseña');
+            },
+          );
+        },
+      ),
+    );
+  }
+}
