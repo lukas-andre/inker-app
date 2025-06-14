@@ -1,8 +1,8 @@
-import 'package:inker_studio/features/auth/data/api/dtos/login_request.dart';
-import 'package:inker_studio/features/auth/data/api/dtos/login_response.dart';
-import 'package:inker_studio/features/auth/models/session/session.dart';
-import 'package:inker_studio/features/auth/models/user/user.dart';
-import 'package:inker_studio/features/auth/services/auth_service.dart';
+import 'package:inker_studio/features/auth_shared/data/api/dtos/login_request.dart';
+import 'package:inker_studio/features/auth_shared/data/api/dtos/login_response.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart';
+import 'package:inker_studio/features/auth_shared/services/auth_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 
@@ -18,8 +18,8 @@ class LoginUseCase {
       : _authService = authService,
         _localSessionStorage = localSession;
 
-  Future<Session?> execute(
-      String identifier, String password, String loginType, String fcmToken, String deviceType) async {
+  Future<Session?> execute(String identifier, String password, String loginType,
+      String fcmToken, String deviceType) async {
     try {
       LoginResponse loginResponse = await _authService.login(LoginRequest(
           identifier: identifier,

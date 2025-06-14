@@ -2,11 +2,11 @@ import 'dart:async' show StreamSubscription;
 
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/auth/auth_status.dart';
-import 'package:inker_studio/features/auth/models/session/session.dart';
-import 'package:inker_studio/features/auth/services/auth_service.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_status.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/services/auth_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
-import 'package:inker_studio/features/auth/usecases/logout_usecase.dart';
+import 'package:inker_studio/features/auth_shared/usecases/logout_usecase.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 part 'auth_event.dart';

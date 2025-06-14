@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_custom_subtitle.dart';
+import 'package:inker_studio/features/register/ui/register/widgets/register_custom_subtitle.dart' show RegisterCustomSubTitle;
 
 class RegisterUserByTypeSubTitle extends StatelessWidget {
   const RegisterUserByTypeSubTitle({super.key});

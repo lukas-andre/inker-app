@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/custom_dots_indicator.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/onboarding_page_number_indicator.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/signin_and_register_buttons.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/onboarding_skip_button.dart';
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/custom_dots_indicator.dart' show CustomDotsIndicator;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/onboarding_page_number_indicator.dart' show OnBoardingPageNumberIndicator;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/signin_and_register_buttons.dart' show SingInAndRegisterButton;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/onboarding_skip_button.dart' show OnBoardingSkipButton;
 
 class FixedComponents extends StatelessWidget {
   const FixedComponents({super.key});

@@ -1,6 +1,6 @@
-import 'package:inker_studio/features/auth/data/firebase/google_auth_service.dart';
-import 'package:inker_studio/features/auth/models/session/session.dart';
-import 'package:inker_studio/features/auth/services/auth_service.dart';
+import 'package:inker_studio/features/auth_shared/data/firebase/google_auth_service.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/services/auth_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 

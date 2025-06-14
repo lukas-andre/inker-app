@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
-import 'package:inker_studio/features/auth/data/firebase/google_auth_service.dart';
-import 'package:inker_studio/features/auth/models/login/social_media_type.dart';
-import 'package:inker_studio/features/auth/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/data/firebase/google_auth_service.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
+import 'package:inker_studio/features/login/models/login/social_media_type.dart' show SocialMediaType;
 import 'package:inker_studio/utils/dev.dart';
 
 enum GoogleLoginFlowStatus {

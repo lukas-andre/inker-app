@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
-import 'package:inker_studio/ui/login/login_page.dart';
+import 'package:inker_studio/features/login/ui/login/login_page.dart' show LoginPage;
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/main.dart' as app;
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_last_name_input.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_name_input.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_username_input.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/register_artist_page_1.dart';
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_last_name_input.dart';
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_name_input.dart';
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_username_input.dart';
+import 'package:inker_studio/features/register/ui/register/artist/register_artist_page_1.dart';
+
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class RegisterArtistFormPage1 extends StatelessWidget {

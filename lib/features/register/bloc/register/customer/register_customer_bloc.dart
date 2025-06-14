@@ -7,11 +7,11 @@ import 'package:inker_studio/domain/errors/customer/customer_already_exists_exce
 import 'package:inker_studio/domain/errors/remote/bad_request_exception.dart';
 import 'package:inker_studio/domain/errors/remote/un_processable_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
-import 'package:inker_studio/features/auth/models/user/registered_user_info.dart';
-import 'package:inker_studio/features/auth/models/user/user_type.dart';
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart';
+import 'package:inker_studio/features/register/models/registered_user_info.dart';
 import 'package:inker_studio/utils/dev.dart';
 
 part 'register_customer_event.dart';

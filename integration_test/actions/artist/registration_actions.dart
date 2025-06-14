@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:inker_studio/test_utils/register_keys.dart';
-import 'package:inker_studio/ui/register/register_user_by_type_page.dart';
+import 'package:inker_studio/features/register/ui/register/register_user_by_type_page.dart' show RegisterUserByTypePage;
 import 'package:patrol/patrol.dart';
 import '../../utils/test_constants.dart';
 import '../../actions/auth_test_actions.dart';
