@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/quoation/offer_message/offer_message_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';

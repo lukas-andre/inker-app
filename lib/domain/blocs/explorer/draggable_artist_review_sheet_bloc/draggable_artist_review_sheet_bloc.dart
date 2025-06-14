@@ -6,7 +6,7 @@ import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
 import 'package:inker_studio/domain/models/helpers/paginator.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserType;
 import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';

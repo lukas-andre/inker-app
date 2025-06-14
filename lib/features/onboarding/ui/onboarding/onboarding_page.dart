@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' show CupertinoScaffold;
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
+import 'package:inker_studio/features/login/ui/login/login_page.dart'
+    show LoginPage;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart'
+    show CupertinoScaffold;
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
-import 'package:inker_studio/features/auth/ui/login/login_page.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/onboarding_web_view.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/onboarding_mobile_view.dart';
-import 'package:inker_studio/features/auth/ui/register/register_user_by_type_page.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show
+        OnBoardingBloc,
+        OnBoardingClearRedirect,
+        OnBoardingRedirectTo,
+        OnBoardingState;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/onboarding_mobile_view.dart'
+    show OnBoardingMobileView;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/onboarding_web_view.dart'
+    show OnBoardingWebView;
+import 'package:inker_studio/features/register/ui/register/register_user_by_type_page.dart'
+    show RegisterUserByTypePage;
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
@@ -23,10 +33,10 @@ class OnBoardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final platformService = context.read<PlatformService>();
     final isWeb = platformService.isWeb;
-    final isTabletOrDesktop = Responsive.isTablet(context) || 
-                             Responsive.isDesktop(context) || 
-                             Responsive.isDesktopLarge(context);
-    
+    final isTabletOrDesktop = Responsive.isTablet(context) ||
+        Responsive.isDesktop(context) ||
+        Responsive.isDesktopLarge(context);
+
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listenWhen: (previous, current) =>
           previous.redirectTo != current.redirectTo,

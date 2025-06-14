@@ -1,7 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show OnBoardingBloc, OnBoardingMoveToIndex, OnBoardingState;
 
 class CustomDotsIndicator extends StatelessWidget {
   const CustomDotsIndicator({super.key});
@@ -27,7 +28,8 @@ class CustomDotsIndicator extends StatelessWidget {
                       .read<OnBoardingBloc>()
                       .add(OnBoardingMoveToIndex(index.toInt()));
                 },
-                decorator: DotsDecorator(activeColor: Theme.of(context).colorScheme.error),
+                decorator: DotsDecorator(
+                    activeColor: Theme.of(context).colorScheme.error),
               ),
             ),
           ),

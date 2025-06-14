@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
-import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/customer/register_customer_bloc.dart';
-import 'package:inker_studio/features/auth/models/user/user_type.dart';
+import 'package:inker_studio/features/onboarding/ui/onboarding/onboarding_page.dart'
+    show OnBoardingPage;
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
-import 'package:inker_studio/features/auth/ui/login/login_page.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/onboarding_page.dart';
+import 'package:inker_studio/features/login/ui/login/login_page.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 
 class CloseRegisterButton extends StatelessWidget {
-  const CloseRegisterButton({super.key, this.index, this.toPage, this.userType});
+  const CloseRegisterButton(
+      {super.key, this.index, this.toPage, this.userType});
   final int? index;
   final dynamic toPage;
   final String? userType;

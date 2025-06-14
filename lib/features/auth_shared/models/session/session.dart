@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:equatable/equatable.dart';
-import 'package:inker_studio/features/auth/models/user/user.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart';
 
 class Session extends Equatable {
   static const empty = Session(

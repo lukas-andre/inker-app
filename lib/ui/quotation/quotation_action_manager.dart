@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/shared/widgets/simple_consent_dialog.dart';

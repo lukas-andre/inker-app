@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:inker_studio/features/auth/bloc/register/customer/register_customer_bloc.dart';
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/utils/forms/clear_input.dart';
 import 'package:inker_studio/utils/forms/custom_phone_number_input.dart';
 

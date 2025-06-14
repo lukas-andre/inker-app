@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/features/auth/ui/register/customer/register_customer_page_1.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_user_by_type_button.dart';
+import 'package:inker_studio/features/register/ui/register/customer/register_customer_page_1.dart' show RegisterCustomerPage1;
+import 'package:inker_studio/features/register/ui/register/widgets/register_user_by_type_button.dart' show RegisterUserByTypeButton;
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 

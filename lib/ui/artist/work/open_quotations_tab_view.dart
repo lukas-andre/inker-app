@@ -9,7 +9,7 @@ import 'package:inker_studio/ui/quotation/widgets/empty_list_indicator.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_card_view_model.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 
 class OpenQuotationsTabView extends StatefulWidget {
   const OpenQuotationsTabView({super.key});

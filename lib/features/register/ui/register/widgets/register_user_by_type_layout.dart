@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/close_register_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_artist_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_customer_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_progress_indicator.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_user_by_type_subtitle.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_user_by_type_title.dart';
+import 'package:inker_studio/features/register/ui/register/widgets/close_register_button.dart' show CloseRegisterButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_artist_button.dart' show RegisterArtistButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_customer_button.dart' show RegisterCustomerButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_progress_indicator.dart' show RegisterProgressIndicator;
+import 'package:inker_studio/features/register/ui/register/widgets/register_user_by_type_subtitle.dart' show RegisterUserByTypeSubTitle;
+import 'package:inker_studio/features/register/ui/register/widgets/register_user_by_type_title.dart' show RegisterUserByTypeTitle;
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 
 class RegisterUserByTypeLayout extends StatelessWidget {
