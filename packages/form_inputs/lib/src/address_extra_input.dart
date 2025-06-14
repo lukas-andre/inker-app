@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart' show FormzInput;
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
+import 'address_type.dart';
 
 enum AddressExtraValidationError {
   empty,

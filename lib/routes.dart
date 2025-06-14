@@ -26,7 +26,7 @@ import 'package:inker_studio/ui/customer/appointments/customer_appointments_page
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
-import 'package:inker_studio/ui/password_recovery/password_recovery_page.dart';
+import 'package:inker_studio/features/password_recovery/ui/password_recovery/password_recovery_page.dart' show PasswordRecoveryPage;
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';

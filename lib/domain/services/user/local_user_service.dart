@@ -1,4 +1,4 @@
-import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart' show User;
 
 abstract class LocalUserService {
   Future<User?> saveUser(User user);

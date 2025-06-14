@@ -5,7 +5,7 @@
 import 'dart:convert' show json;
 
 import 'package:equatable/equatable.dart' show Equatable;
-import 'package:inker_studio/features/auth/models/user/user_type.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart';
 import 'package:json_annotation/json_annotation.dart'
     show $enumDecode, JsonSerializable;
 

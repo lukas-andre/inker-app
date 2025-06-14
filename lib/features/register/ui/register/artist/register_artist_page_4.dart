@@ -3,19 +3,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/features/auth/models/user/user_type.dart';
-import 'package:inker_studio/test_utils/register_keys.dart';
-import 'package:inker_studio/features/auth/ui/login/widgets/login_background.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_address_extra_input.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_address_input.dart';
-import 'package:inker_studio/features/auth/ui/register/artist/inputs/register_artist_address_type_input.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/close_register_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_action_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_back_button.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_custom_subtitle.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_custom_title.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_progress_indicator.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart'
+    show UserType;
+import 'package:inker_studio/features/login/ui/login/widgets/login_background.dart'
+    show LoginBackground;
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_address_extra_input.dart'
+    show RegisterArtistAddressExtraInput;
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_address_input.dart'
+    show RegisterArtistAddressInput;
+import 'package:inker_studio/features/register/ui/register/artist/inputs/register_artist_address_type_input.dart'
+    show RegisterArtistAddressTypeInput;
+import 'package:inker_studio/features/register/ui/register/widgets/close_register_button.dart'
+    show CloseRegisterButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_action_button.dart'
+    show RegisterActionButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_back_button.dart'
+    show RegisterBackButton;
+import 'package:inker_studio/features/register/ui/register/widgets/register_custom_subtitle.dart'
+    show RegisterCustomSubTitle;
+import 'package:inker_studio/features/register/ui/register/widgets/register_custom_title.dart'
+    show RegisterCustomTitle;
+import 'package:inker_studio/features/register/ui/register/widgets/register_progress_indicator.dart'
+    show RegisterProgressIndicator;
+import 'package:inker_studio/test_utils/register_keys.dart' show registerKeys;
 import 'package:inker_studio/ui/verification/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';

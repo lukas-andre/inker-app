@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/account_reactivation/account_reactivation_bloc.dart';
+import 'package:inker_studio/features/account_reactivation/bloc/account_reactivation/account_reactivation_bloc.dart'
+    show AccountReactivationBloc, AccountReactivationEvent, AccountReactivationState, ReactivationStatus, VerificationMethod;
+import 'package:inker_studio/features/login/ui/login/widgets/login_background.dart'
+    show LoginBackground;
 import 'package:inker_studio/ui/account_reactivation/widgets/pin_validator_v2.dart';
-import 'package:inker_studio/features/auth/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class AccountReactivationPage extends StatelessWidget {
@@ -31,7 +33,8 @@ class AccountReactivationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFF141D3C), // Theme.of(context).colorScheme.primary
+      backgroundColor:
+          const Color(0xFF141D3C), // Theme.of(context).colorScheme.primary
       body: Stack(
         children: [
           const LoginBackground(),
@@ -260,7 +263,7 @@ class AccountReactivationView extends StatelessWidget {
   }
 
   Widget _buildSuccessContent() {
-    return  Column(
+    return Column(
       children: [
         const Icon(
           Icons.check_circle_outline,
@@ -447,12 +450,13 @@ class VerificationCodeSection extends StatefulWidget {
   const VerificationCodeSection({super.key});
 
   @override
-  State<VerificationCodeSection> createState() => _VerificationCodeSectionState();
+  State<VerificationCodeSection> createState() =>
+      _VerificationCodeSectionState();
 }
 
 class _VerificationCodeSectionState extends State<VerificationCodeSection> {
   final _pinController = TextEditingController();
-  
+
   @override
   void dispose() {
     _pinController.dispose();

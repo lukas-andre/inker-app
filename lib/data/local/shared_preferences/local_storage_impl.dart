@@ -1,4 +1,4 @@
-import 'package:inker_studio/domain/models/user/registered_user_info.dart';
+import 'package:inker_studio/features/register/models/registered_user_info.dart' show RegisteredUserInfo, createdUserFromJson, createdUserToJson;
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

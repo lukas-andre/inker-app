@@ -18,7 +18,7 @@ import 'package:inker_studio/ui/quotation/quotation_list_page.dart';
 import 'package:inker_studio/ui/shared/notification_badge.dart';
 import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/customer/customer_app/models/customer_page_nav_bar_icons.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';

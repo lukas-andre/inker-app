@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:inker_studio/features/auth/models/user/user.dart' as domain;
+import 'package:inker_studio/features/auth_shared/models/user.dart' as domain;
 import 'package:inker_studio/utils/dev.dart';
 
 class GoogleAuthServiceException implements Exception {

@@ -1,9 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_content.dart';
-import 'package:inker_studio/features/auth/ui/onboarding/widgets/signin_and_register_buttons.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show
+        OnBoardingBloc,
+        OnBoardingNextOrForward,
+        OnBoardingRegisterPressed,
+        OnBoardingSignInPressed,
+        OnBoardingState;
+import 'package:inker_studio/features/onboarding/models/onboarding_content.dart'
+    show OnBoardingContent;
+import 'package:inker_studio/features/onboarding/ui/onboarding/widgets/signin_and_register_buttons.dart'
+    show SingInAndRegisterButton;
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -19,7 +27,7 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
   late PageController _pageController;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
-  
+
   final List<OnBoardingContent> _contents = [
     OnBoardingContent.page1,
     OnBoardingContent.page2,
@@ -43,7 +51,7 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
       parent: _fadeController,
       curve: Curves.easeInOut,
     ));
-    
+
     _fadeController.forward();
   }
 
@@ -58,10 +66,10 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
     setState(() {
       _currentPage = page;
     });
-    
+
     // Actualizar el BLoC
     context.read<OnBoardingBloc>().add(OnBoardingNextOrForward(page));
-    
+
     // Reiniciar animación de fade
     _fadeController.reset();
     _fadeController.forward();
@@ -96,7 +104,8 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
     );
   }
 
-  Widget _buildPage(BuildContext context, OnBoardingContent content, int index) {
+  Widget _buildPage(
+      BuildContext context, OnBoardingContent content, int index) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -106,13 +115,14 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
     );
   }
 
-  Widget _buildBackgroundImage(BuildContext context, OnBoardingContent content) {
+  Widget _buildBackgroundImage(
+      BuildContext context, OnBoardingContent content) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    
+
     final imageHeight = _calculateImageHeight(screenHeight);
     final imageScale = imageHeight / 900;
-    
+
     return Positioned(
       bottom: _calculateBottomPosition(content, screenHeight),
       left: 0,
@@ -157,34 +167,36 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
   double _calculateImageHeight(double screenHeight) {
     final isMobileSmall = Responsive.isMobileSmall(context);
     final baseHeight = screenHeight * 0.65;
-    
+
     if (isMobileSmall) {
       return baseHeight.clamp(250, 400);
     }
     return baseHeight.clamp(400, 700);
   }
 
-  double _calculateBottomPosition(OnBoardingContent content, double screenHeight) {
+  double _calculateBottomPosition(
+      OnBoardingContent content, double screenHeight) {
     final basePosition = content.bottomPosition;
     final scaleFactor = screenHeight / 812;
-    
+
     return basePosition * scaleFactor;
   }
 
-  double _calculateLeftPosition(OnBoardingContent content, double screenWidth, double scale) {
+  double _calculateLeftPosition(
+      OnBoardingContent content, double screenWidth, double scale) {
     if (content.leftPosition == 0) {
       return (screenWidth - (content.height ?? 900) * scale * 0.6) / 2;
     }
-    
+
     final baseLeft = content.leftPosition;
     final scaledLeft = baseLeft * scale;
-    
+
     return (screenWidth / 2) + scaledLeft;
   }
 
   Widget _buildContent(BuildContext context, OnBoardingContent content) {
     final theme = Theme.of(context);
-    
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
@@ -236,7 +248,8 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
   Widget _buildTopSection(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.all(Responsive.value(context, mobile: 24).toDouble()),
+        padding:
+            EdgeInsets.all(Responsive.value(context, mobile: 24).toDouble()),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -337,7 +350,8 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
   }
 
   Widget _buildActionButtons(BuildContext context) {
-    final buttonHeight = Responsive.value(context, mobile: 48, tablet: 54).toDouble();
+    final buttonHeight =
+        Responsive.value(context, mobile: 48, tablet: 54).toDouble();
     final fontSize = Responsive.fontSize(context, 16);
 
     return Column(
@@ -349,7 +363,9 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
           height: buttonHeight,
           child: TextButton(
             onPressed: () {
-              context.read<OnBoardingBloc>().add(const OnBoardingRegisterPressed());
+              context
+                  .read<OnBoardingBloc>()
+                  .add(const OnBoardingRegisterPressed());
             },
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -372,7 +388,9 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
           height: buttonHeight,
           child: TextButton(
             onPressed: () {
-              context.read<OnBoardingBloc>().add(const OnBoardingSignInPressed());
+              context
+                  .read<OnBoardingBloc>()
+                  .add(const OnBoardingSignInPressed());
             },
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -394,7 +412,8 @@ class _OnBoardingMobileViewState extends State<OnBoardingMobileView>
   }
 
   Widget _buildNavigationButton(BuildContext context) {
-    final buttonHeight = Responsive.value(context, mobile: 48, tablet: 54).toDouble();
+    final buttonHeight =
+        Responsive.value(context, mobile: 48, tablet: 54).toDouble();
     final fontSize = Responsive.fontSize(context, 16);
 
     return SizedBox(

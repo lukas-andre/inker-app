@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/login/hide_password_cubit.dart';
+import 'package:inker_studio/features/login/bloc/login/hide_password_cubit.dart';
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/forms/custom_input.dart';
 import 'package:inker_studio/utils/forms/trim_text_formatter.dart';

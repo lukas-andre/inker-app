@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:inker_studio/data/api/http_client_service.dart';
-import 'package:inker_studio/features/auth/bloc/auth/auth_status.dart';
-import 'package:inker_studio/features/auth/models/session/session.dart';
-import 'package:inker_studio/features/auth/services/auth_service.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_status.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/services/auth_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';

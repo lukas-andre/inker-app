@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/features/auth/ui/login/form/login_form.dart';
-import 'package:inker_studio/features/auth/ui/login/widgets/login_header.dart';
-import 'package:inker_studio/features/auth/ui/login/widgets/social_button.dart';
+import 'package:inker_studio/features/login/ui/login/form/login_form.dart' show LoginForm;
+import 'package:inker_studio/features/login/ui/login/widgets/login_header.dart' show LoginHeader;
+import 'package:inker_studio/features/login/ui/login/widgets/social_button.dart' show SocialButton;
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 import 'package:inker_studio/utils/responsive/responsive_builder.dart';
 

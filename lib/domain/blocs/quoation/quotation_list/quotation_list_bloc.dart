@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/data/api/agenda/dtos/quotation_list_response.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 

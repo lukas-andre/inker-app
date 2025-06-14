@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/features/auth/ui/login/form/actions_buttons.dart';
-import 'package:inker_studio/features/auth/ui/login/form/inputs/identifier_input.dart';
-import 'package:inker_studio/features/auth/ui/login/form/inputs/password_input.dart';
+import 'package:inker_studio/features/login/ui/login/form/actions_buttons.dart' show ActionsButtons;
+import 'package:inker_studio/features/login/ui/login/form/inputs/identifier_input.dart' show IdentifierInput;
+import 'package:inker_studio/features/login/ui/login/form/inputs/password_input.dart' show PasswordInput;
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 

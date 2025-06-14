@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/login/login_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/login/hide_password_cubit.dart';
+import 'package:inker_studio/features/login/bloc/login/login_bloc.dart' show LoginBloc, LoginPasswordChanged, LoginState;
+import 'package:inker_studio/features/login/bloc/login/hide_password_cubit.dart' show HidePasswordCubit, HidePasswordInitial, HidePasswordState, HidePasswordVisible;
 import 'package:inker_studio/utils/forms/custom_input.dart';
 
 class PasswordInput extends StatelessWidget {

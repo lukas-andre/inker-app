@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/ui/on_boarding/on_boarding_page.dart';
+import 'package:inker_studio/features/onboarding/ui/onboarding/onboarding_page.dart' show OnBoardingPage;
 import 'package:inker_studio/ui/settings/settings_page.dart';
 import 'package:patrol/patrol.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';

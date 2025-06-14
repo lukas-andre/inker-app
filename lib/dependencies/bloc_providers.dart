@@ -14,7 +14,8 @@ import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.
 import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart'
+    show AuthBloc;
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
@@ -26,12 +27,16 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
-import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show OnBoardingBloc;
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart'
+    show RegisterArtistBloc;
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart'
+    show RegisterCustomerBloc;
+import 'package:inker_studio/features/register/bloc/register/register_bloc.dart'
+    show RegisterBloc;
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
@@ -52,11 +57,10 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
   return [
     // Providers independientes (sin dependencias)
     BlocProvider(
-      create: (context) => GpsBloc(
-        geolocationService: context.read<PlatformGeolocationService>(),
-      ), 
-      lazy: false
-    ),
+        create: (context) => GpsBloc(
+              geolocationService: context.read<PlatformGeolocationService>(),
+            ),
+        lazy: false),
     BlocProvider(create: (context) => LocationBloc()),
     BlocProvider(create: (context) => OnBoardingBloc()),
     BlocProvider(create: (context) => RegisterBloc()),

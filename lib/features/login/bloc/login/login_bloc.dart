@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -6,18 +5,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus;
-import 'package:inker_studio/features/auth/data/api/api_auth_service.dart';
-import 'package:inker_studio/features/auth/data/firebase/google_auth_service.dart';
-import 'package:inker_studio/features/auth/bloc/auth/auth_bloc.dart';
 import 'package:inker_studio/domain/errors/remote/http_exception.dart';
 import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
-import 'package:inker_studio/features/auth/models/login/login_type.dart';
-import 'package:inker_studio/features/auth/models/login/social_media_type.dart';
-import 'package:inker_studio/features/auth/models/user/user_type.dart';
-import 'package:inker_studio/features/auth/usecases/google_signin_usecase.dart';
-import 'package:inker_studio/features/auth/usecases/login_usecase.dart';
+
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
+import 'package:inker_studio/features/auth_shared/auth_shared_feature.dart'
+    show UserIsNotActiveException, UserType;
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart'
+    show AuthBloc, AuthNewSession;
+import 'package:inker_studio/features/auth_shared/data/api/api_auth_service.dart'
+    show InvalidCredentialsException;
+import 'package:inker_studio/features/auth_shared/data/firebase/google_auth_service.dart'
+    show GoogleAuthServiceException;
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserType;
+import 'package:inker_studio/features/auth_shared/usecases/google_signin_usecase.dart'
+    show GoogleLoginFlowStatus, GoogleSingInUseCase;
+import 'package:inker_studio/features/auth_shared/usecases/login_usecase.dart'
+    show LoginUseCase;
+import 'package:inker_studio/features/login/models/login/login_type.dart'
+    show LoginType;
+import 'package:inker_studio/features/login/models/login/social_media_type.dart'
+    show SocialMediaType;
 import 'package:inker_studio/utils/dev.dart';
 
 part 'login_event.dart';

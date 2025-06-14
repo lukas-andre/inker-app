@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart' show OnBoardingBloc, OnBoardingState;
 
 class OnBoardingPageNumberIndicator extends StatelessWidget {
   const OnBoardingPageNumberIndicator({super.key});

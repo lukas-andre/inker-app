@@ -1,10 +1,10 @@
 import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
 import 'package:inker_studio/data/api/user/dtos/create_artist_user_response.dart';
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserType, UserTypeEnum;
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:inker_studio/domain/services/user/user_service.dart';
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart' show RegisterArtistState;
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart' show RegisterCustomerState;
 import 'package:inker_studio/utils/random.dart';
 
 class DetailsNotFound implements Exception {}

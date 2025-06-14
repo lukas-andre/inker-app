@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart' show OnBoardingBloc, OnBoardingRegisterPressed, OnBoardingSignInPressed, OnBoardingState;
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 

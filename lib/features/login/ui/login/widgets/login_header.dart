@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/login/login_bloc.dart';
-import 'package:inker_studio/features/auth/ui/register/register_user_by_type_page.dart';
+import 'package:inker_studio/features/login/bloc/login/login_bloc.dart' show CreateAccountWithInkerInfoPressed, LoginBloc;
+import 'package:inker_studio/features/register/ui/register/register_user_by_type_page.dart' show RegisterUserByTypePage;
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 

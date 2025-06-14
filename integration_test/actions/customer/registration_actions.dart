@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:inker_studio/ui/register/register_user_by_type_page.dart';
+import 'package:inker_studio/features/register/ui/register/register_user_by_type_page.dart'
+    show RegisterUserByTypePage;
 import 'package:patrol/patrol.dart';
 
 import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
@@ -45,7 +46,8 @@ class CustomerRegistrationActions {
       );
 
       await $.pumpAndSettle();
-      await Future.delayed(const Duration(seconds: TestConstants.defaultWaitDelay));
+      await Future.delayed(
+          const Duration(seconds: TestConstants.defaultWaitDelay));
 
       final isOnMainPage = $(CustomerAppPage).exists;
 

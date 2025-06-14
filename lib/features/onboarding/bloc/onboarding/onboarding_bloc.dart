@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_content.dart';
+import 'package:inker_studio/features/onboarding/models/onboarding_content.dart' show OnBoardingContent;
 
 part 'onboarding_event.dart';
 part 'onboarding_state.dart';

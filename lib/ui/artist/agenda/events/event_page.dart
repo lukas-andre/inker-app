@@ -21,7 +21,7 @@ import 'package:inker_studio/ui/shared/event/event_description_card.dart';
 import 'package:inker_studio/ui/shared/event/event_location_card.dart';
 import 'package:inker_studio/ui/shared/event/quotation_details_card.dart';
 import 'package:inker_studio/ui/shared/event/event_action_dialogs.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/ui/shared/event/event_chat_page.dart';
 import 'package:inker_studio/ui/shared/event/event_actions_manager.dart';
 import 'package:image_picker/image_picker.dart';

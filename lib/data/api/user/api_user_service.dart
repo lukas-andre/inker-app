@@ -22,8 +22,8 @@ import 'package:inker_studio/domain/errors/user/user_already_exists_exception.da
 import 'package:inker_studio/domain/errors/user/user_already_verified_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_id_pipe_failed_exception.dart';
 import 'package:inker_studio/domain/errors/user/user_not_accepted_exception.dart';
-import 'package:inker_studio/domain/models/user/user.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart' show User;
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserTypeEnum;
 import 'package:inker_studio/domain/services/user/user_service.dart';
 import 'package:inker_studio/domain/models/notifications/notification_types.dart';
 

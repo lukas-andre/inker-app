@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart'; // Import MapBloc
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart'; // Import GpsBloc
 import 'package:inker_studio/domain/models/quotation/quotation.dart';

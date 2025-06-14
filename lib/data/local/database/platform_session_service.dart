@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:inker_studio/data/local/database/database_factory.dart';
 import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/domain/models/session/session_type.dart';
-import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart' show User, userFromJson, userToJson;
 import 'package:inker_studio/domain/services/database/platform_database_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 

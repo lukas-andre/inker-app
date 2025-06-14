@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/ui/account_reactivation/widgets/pin_validator_v2.dart';
-import 'package:inker_studio/features/auth/bloc/password_recovery/password_recovery_bloc.dart';
+import 'package:inker_studio/features/password_recovery/bloc/password_recovery/password_recovery_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class PasswordRecoveryPage extends StatelessWidget {

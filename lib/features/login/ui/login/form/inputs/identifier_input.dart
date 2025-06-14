@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/login/login_bloc.dart';
+import 'package:inker_studio/features/login/bloc/login/login_bloc.dart' show LoginBloc, LoginIdentifierChanged, LoginState;
 import 'package:inker_studio/utils/forms/custom_input.dart';
 import 'package:inker_studio/utils/forms/lower_case_text_formatter.dart';
 

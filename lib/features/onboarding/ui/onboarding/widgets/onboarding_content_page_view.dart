@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/onboarding/onboarding_content.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show OnBoardingBloc, OnBoardingNextOrForward, OnBoardingState;
+import 'package:inker_studio/features/onboarding/models/onboarding_content.dart'
+    show OnBoardingContent;
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 
 class OnBoardingContentPageView extends StatelessWidget {
@@ -42,7 +44,7 @@ class OnBoardingContentPageView extends StatelessWidget {
         tablet: 140,
         desktop: 165,
       );
-      
+
       final horizontalPadding = Responsive.value(
         context,
         mobile: 24,
@@ -50,10 +52,10 @@ class OnBoardingContentPageView extends StatelessWidget {
         desktop: 60,
         desktopLarge: 80,
       );
-      
+
       final titleFontSize = Responsive.fontSize(context, 32);
       final descriptionFontSize = Responsive.fontSize(context, 16);
-      
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -111,28 +113,28 @@ class OnBoardingContentPageView extends StatelessWidget {
       builder: (context, constraints) {
         final screenHeight = MediaQuery.of(context).size.height;
         final screenWidth = MediaQuery.of(context).size.width;
-        
+
         final imageHeight = Responsive.value(
           context,
           mobile: screenHeight * 0.5,
           tablet: screenHeight * 0.6,
           desktop: screenHeight * 0.7,
         ).clamp(300.0, 900.0);
-        
+
         final bottomPosition = Responsive.value(
           context,
           mobile: content.bottomPosition * 0.5,
           tablet: content.bottomPosition * 0.7,
           desktop: content.bottomPosition,
         );
-        
+
         final leftPosition = Responsive.value(
           context,
           mobile: (screenWidth - imageHeight) / 2,
           tablet: content.leftPosition * 0.8,
           desktop: content.leftPosition,
         );
-        
+
         return Positioned(
           bottom: bottomPosition,
           left: leftPosition,

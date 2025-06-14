@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/customer/register_customer_bloc.dart';
-import 'package:inker_studio/features/auth/bloc/register/register_bloc.dart';
-import 'package:inker_studio/features/auth/ui/login/widgets/login_background.dart';
-import 'package:inker_studio/features/auth/ui/register/widgets/register_user_by_type_layout.dart';
+import 'package:inker_studio/features/login/ui/login/widgets/login_background.dart'
+    show LoginBackground;
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart';
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart'
+    show RegisterCustomerBloc, RegisterCustomerClearForm;
+import 'package:inker_studio/features/register/bloc/register/register_bloc.dart'
+    show RegisterBloc, RegisterType;
+import 'package:inker_studio/features/register/ui/register/widgets/register_user_by_type_layout.dart'
+    show RegisterUserByTypeLayout;
 
 class RegisterUserByTypePage extends StatelessWidget {
   const RegisterUserByTypePage({super.key});
