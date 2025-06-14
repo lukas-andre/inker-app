@@ -59,6 +59,12 @@ class GoogleAuthService {
   }
 
   Future<firebase_auth.User?> signInWithGoogle() async {
+    // Google Sign In is not supported on web in this app
+    if (kIsWeb) {
+      dev.log('Google Sign In not supported on web', className);
+      return null;
+    }
+
     FirebaseAuth auth = FirebaseAuth.instance;
     firebase_auth.User? user;
 
@@ -98,11 +104,9 @@ class GoogleAuthService {
   }
 
   Future<void> signOut() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
     try {
       if (!kIsWeb) {
-        await googleSignIn.signOut();
+        await _googleSignIn.signOut();
       }
       await FirebaseAuth.instance.signOut();
     } catch (e) {

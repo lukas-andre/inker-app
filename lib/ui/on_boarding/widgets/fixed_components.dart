@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/custom_dots_indicator.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/on_boarding_page_number_indicator.dart';
 import 'package:inker_studio/ui/on_boarding/widgets/sing_in_and_register_buttons.dart';
@@ -10,11 +11,11 @@ class FixedComponents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final device = Device.get();
+    final platformService = context.read<PlatformService>();
 
     return SafeArea(
-      top: device.hasNotch,
-      bottom: device.hasNotch,
+      top: platformService.hasNotch,
+      bottom: platformService.hasNotch,
       child: const Column(
         children: [
           Row(

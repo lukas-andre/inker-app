@@ -21,8 +21,13 @@ import 'package:inker_studio/data/firebase/google_auth_service.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
 import 'package:inker_studio/data/gcp/gcp_places_service.dart';
 import 'package:inker_studio/data/local/shared_preferences/local_storage_impl.dart';
-import 'package:inker_studio/data/local/sqlite/sqlite_customer_service.dart';
-import 'package:inker_studio/data/local/sqlite/sqlite_session_service.dart';
+import 'package:inker_studio/data/geolocation/geolocation_factory.dart';
+import 'package:inker_studio/data/local/database/database_factory.dart';
+import 'package:inker_studio/data/local/database/platform_customer_service.dart';
+import 'package:inker_studio/data/local/database/platform_session_service.dart';
+import 'package:inker_studio/domain/services/database/platform_database_service.dart';
+import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/services/account_verification/account_verification_service.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
 import 'package:inker_studio/domain/services/analytics/analytics_service.dart';
@@ -56,7 +61,20 @@ Future<List<RepositoryProvider>> buildProviders() async {
   final remoteConfig = await RemoteConfigService.getInstance();
   final httpClient = await HttpClientService.getInstance();
   
+  // Initialize database service
+  final databaseService = DatabaseFactory.createDatabaseService();
+  await databaseService.initDB();
+  
+  // Initialize geolocation service
+  final geolocationService = GeolocationFactory.createGeolocationService();
+  
   return [
+    // Database service provider
+    RepositoryProvider<PlatformDatabaseService>(create: (_) => databaseService),
+    // Geolocation service provider
+    RepositoryProvider<PlatformGeolocationService>(create: (_) => geolocationService),
+    // Platform service provider
+    RepositoryProvider<PlatformService>(create: (_) => PlatformServiceImpl()),
     RepositoryProvider<GoogleAuthService>(create: (_) => GoogleAuthService()),
     RepositoryProvider<PlacesService>(create: (_) => GcpPlacesService()),
     RepositoryProvider<LocalStorage>(create: (_) => SharedPreferencesStorage()),
@@ -66,10 +84,10 @@ Future<List<RepositoryProvider>> buildProviders() async {
         create: (_) => ApiAccountVerificationService()),
     RepositoryProvider<UserService>(create: (_) => ApiUserService()),
     RepositoryProvider<LocalCustomerService>(
-        create: (_) => SqliteCustomerService()),
+        create: (_) => PlatformCustomerService()),
     RepositoryProvider<CustomerService>(create: (_) => ApiCustomerService()),
     RepositoryProvider<LocalSessionService>(
-        create: (_) => SqliteSessionService()),
+        create: (_) => PlatformSessionService()),
     RepositoryProvider<ArtistService>(
         create: (context) => ApiArtistService(
               sessionService: context.read(),

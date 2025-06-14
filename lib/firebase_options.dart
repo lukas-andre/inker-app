@@ -73,4 +73,5 @@ class DefaultFirebaseOptions {
     iosClientId: '552111998838-urqsaan8q1ba7gn62loaa9kh1heohcf2.apps.googleusercontent.com',
     iosBundleId: 'com.inkerapp.inker',
   );
+
 }

@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:inker_studio/domain/blocs/login/login_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/account_reactivation/account_reactivation_page.dart';
 import 'package:inker_studio/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/ui/login/widgets/login_layout.dart';
@@ -27,6 +26,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: Platform.isIOS
+      child: platformService.isIOS
           ? CupertinoScaffold(
               body: _scaffold(),
             )
@@ -45,14 +45,17 @@ class LoginPage extends StatelessWidget {
   Scaffold _scaffold() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocProvider(
-        create: (context) => LoginBloc(
-            authBloc: context.read(),
-            loginUseCase: context.read(),
-            googleSingInUseCase: context.read(),
-            createCustomerUseCase: context.read(),
-            deviceType: Platform.isIOS ? 'ios' : 'android'),
-        child: BlocListener<LoginBloc, LoginState>(
+      body: Builder(
+        builder: (context) {
+          final platformService = context.read<PlatformService>();
+          return BlocProvider(
+            create: (context) => LoginBloc(
+                authBloc: context.read(),
+                loginUseCase: context.read(),
+                googleSingInUseCase: context.read(),
+                createCustomerUseCase: context.read(),
+                deviceType: platformService.isIOS ? 'ios' : 'android'),
+            child: BlocListener<LoginBloc, LoginState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == FormzStatus.submissionFailure) {
@@ -83,6 +86,8 @@ class LoginPage extends StatelessWidget {
             ],
           ),
         ),
+          );
+        }
       ),
     );
   }

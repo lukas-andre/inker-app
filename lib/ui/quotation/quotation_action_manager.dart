@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/models/session/session.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -231,8 +231,9 @@ class QuotationActionManager {
 
   Future<void> _showCancelConfirmationDialog() async {
     bool? confirmed;
+    final platformService = context.read<PlatformService>();
 
-    if (Platform.isIOS) {
+    if (platformService.isIOS) {
       confirmed = await showCupertinoDialog<bool>(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(

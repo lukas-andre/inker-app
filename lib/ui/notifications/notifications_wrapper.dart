@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class NotificationsWrapper extends StatelessWidget {
@@ -22,12 +21,12 @@ class NotificationsWrapper extends StatelessWidget {
     required String message,
     required Map<String, dynamic> data,
   }) {
-
+    final platformService = context.read<PlatformService>();
     final state = navigatorKey?.currentState;
     if (state == null) {
       return;
     }
-    if (Platform.isIOS) {
+    if (platformService.isIOS) {
       return;
     }
 
