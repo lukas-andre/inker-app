@@ -1,0 +1,311 @@
+
+import 'package:equatable/equatable.dart' show Equatable;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_inputs/form_inputs.dart';
+import 'package:formz/formz.dart' show Formz, FormzStatus;
+import 'package:inker_studio/features/auth/data/api/api_auth_service.dart';
+import 'package:inker_studio/features/auth/data/firebase/google_auth_service.dart';
+import 'package:inker_studio/features/auth/bloc/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/errors/remote/http_exception.dart';
+import 'package:inker_studio/domain/errors/remote/remote_exception.dart';
+import 'package:inker_studio/domain/errors/user/user_already_exists_exception.dart';
+import 'package:inker_studio/features/auth/models/login/login_type.dart';
+import 'package:inker_studio/features/auth/models/login/social_media_type.dart';
+import 'package:inker_studio/features/auth/models/user/user_type.dart';
+import 'package:inker_studio/features/auth/usecases/google_signin_usecase.dart';
+import 'package:inker_studio/features/auth/usecases/login_usecase.dart';
+import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
+import 'package:inker_studio/utils/dev.dart';
+
+part 'login_event.dart';
+part 'login_state.dart';
+
+class CustomerLoginFailed implements Exception {}
+
+class CreateCustomerFailed implements Exception {}
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  static const className = 'LoginBloc';
+  final LoginUseCase _loginUseCase;
+  final GoogleSingInUseCase _googleSingInUsecase;
+  final AuthBloc _authBloc;
+  final CreateCustomerUseCase _createCustomerUseCase;
+
+  final String _deviceType;
+  late final String _fcmToken;
+
+  LoginBloc({
+    required String deviceType,
+    required LoginUseCase loginUseCase,
+    required GoogleSingInUseCase googleSingInUseCase,
+    required CreateCustomerUseCase createCustomerUseCase,
+    required AuthBloc authBloc,
+  })  : _loginUseCase = loginUseCase,
+        _authBloc = authBloc,
+        _googleSingInUsecase = googleSingInUseCase,
+        _createCustomerUseCase = createCustomerUseCase,
+        _deviceType = deviceType,
+        super(const LoginState()) {
+    on<LoginIdentifierChanged>(
+        (event, emit) => _mapUsernameChangedToState(event, emit));
+    on<LoginPasswordChanged>(
+        (event, emit) => _mapPasswordChangedToState(event, emit));
+    on<LoginSubmitted>((event, emit) => _mapLoginSubmittedToState(event, emit));
+    on<CreateAccountWithInkerInfoPressed>((event, emit) =>
+        _mapCreateAccountWithInkerInfoPressedToState(event, emit));
+    on<SignInWithGooglePressed>(
+        (event, emit) => _mapSignInWithGoogleToState(event, emit));
+    on<CreateArtistUserPressed>(
+        (event, emit) => _mapCreateArtistUserPressedToState(event, emit));
+    // TODO: MOVE TO CUSTOMER_CREATION_BLOC
+    on<CreateUserByTypeBackButtonPressed>((event, emit) =>
+        _mapCreateUserByTypeBackButtonPressedToState(event, emit));
+    // TODO: MOVE TO CUSTOMER_CREATION_BLOC
+    on<CreateCustomerWithInkerFormInfo>((event, emit) =>
+        _mapCreateCustomerWithInkerFormInfoToState(event, emit));
+    // TODO: MOVE TO CUSTOMER_CREATION_BLOC
+    on<CreateCustomerWithGoogleSignInInfo>((event, emit) =>
+        _mapCreateCustomerWithGoogleSignInInfoToState(event, emit));
+
+    on<LoginClearMessages>(
+        (event, emit) => _mapLoginErrorMessageEmittedToState(event, emit));
+
+    _initializeFcmToken();
+  }
+
+  Future<void> _initializeFcmToken() async {
+    _fcmToken = kIsWeb ? '' : await FirebaseMessaging.instance.getToken() ?? '';
+  }
+
+  void _mapUsernameChangedToState(
+    LoginIdentifierChanged event,
+    Emitter<LoginState> emit,
+  ) {
+    final username = IdentifierInput.dirty(event.identifier);
+    emit(state.copyWith(
+      identifier: username,
+      status: Formz.validate([state.password, username]),
+    ));
+  }
+
+  void _mapPasswordChangedToState(
+    LoginPasswordChanged event,
+    Emitter<LoginState> emit,
+  ) {
+    final password = PasswordInput.dirty(event.password);
+    emit(state.copyWith(
+      password: password,
+      status: Formz.validate([password, state.identifier]),
+    ));
+  }
+
+  Future<void> _mapLoginSubmittedToState(
+    LoginSubmitted event,
+    Emitter<LoginState> emit,
+  ) async {
+    dev.log(event.toString(), '_mapLoginSubmittedToState');
+    if (state.password.valid && state.identifier.valid) {
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      try {
+        // TODO: add regex to validate if is a email or a username or a phone number
+        final session = await _loginUseCase.execute(state.identifier.value,
+            state.password.value, LoginType.email, _fcmToken, _deviceType);
+
+        if (session == null) {
+          emit(state.copyWith(status: FormzStatus.submissionFailure));
+          return;
+        }
+
+        _authBloc.add(AuthNewSession(session));
+
+        emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          userStatus: UserStatus.active,
+        ));
+      } on InvalidCredentialsException catch (_) {
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.invalidCredentials,
+            errorMessage: 'Invalid username or password'));
+      } on UserIsNotActiveException catch (_) {
+        dev.log('User is not active', 'user');
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.ok,
+            userStatus: UserStatus.inactive,
+            errorMessage: 'User is not active'));
+      } on Exception catch (_) {
+        emit(state.copyWith(
+            status: FormzStatus.submissionFailure,
+            loginStatus: LoginStatus.unknownError,
+            errorMessage: 'Something went wrong'));
+      }
+    }
+  }
+
+  Future<void> _mapSignInWithGoogleToState(
+    SignInWithGooglePressed event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    try {
+      final result = await _googleSingInUsecase.execute();
+
+      switch (result.flowStatus) {
+        case GoogleLoginFlowStatus.error:
+          emit(state.copyWith(
+              status: FormzStatus.submissionFailure,
+              errorMessage: result.message));
+          break;
+        case GoogleLoginFlowStatus.partial:
+          emit(state.copyWith(
+              status: FormzStatus.submissionInProgress,
+              infoMessage: result.message,
+              googleUser: result.googleUser,
+              newUserType: NewUserType.google));
+          break;
+        case GoogleLoginFlowStatus.success:
+          final loginResult = await _loginUseCase.execute(
+              result.googleUser!.email!,
+              result.googleUser!.uid,
+              LoginType.google,
+              _fcmToken,
+              _deviceType);
+
+          if (loginResult == null) {
+            emit(state.copyWith(
+                status: FormzStatus.submissionFailure,
+                errorMessage: 'Login failed'));
+            break;
+          }
+
+          _authBloc.add(AuthNewSession(loginResult));
+          emit(
+            state.copyWith(
+              status: FormzStatus.submissionSuccess,
+              googleUser: result.googleUser,
+              newUserType: NewUserType.google,
+            ),
+          );
+          break;
+        case GoogleLoginFlowStatus.initial:
+          break;
+      }
+    } on GoogleAuthServiceException catch (error) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, errorMessage: error.message));
+    } on ResourceNotFound catch (_) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Inker service not found'));
+    } on HttpException catch (_) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Error from Inker service'));
+    } on Exception catch (error, stackTrace) {
+      dev.logError(error, stackTrace);
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Not Catched Error :o'));
+    }
+  }
+
+  _mapCreateUserByTypeBackButtonPressedToState(
+      CreateUserByTypeBackButtonPressed event, Emitter<LoginState> emit) {
+    emit(const LoginState());
+  }
+
+  _mapCreateCustomerWithInkerFormInfoToState(
+      CreateCustomerWithInkerFormInfo event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+        userTypeToCreate: UserType.customer, newUserType: NewUserType.inker));
+  }
+
+  _mapCreateCustomerWithGoogleSignInInfoToState(
+      CreateCustomerWithGoogleSignInInfo event,
+      Emitter<LoginState> emit) async {
+    try {
+      dev.inspect(state.googleUser, 'googleUser');
+      final customer = await _createCustomerUseCase.execute(
+          username: state.googleUser!.displayName!,
+          firstName: state.googleUser!.displayName!,
+          email: state.googleUser!.email!,
+          password: state.googleUser!.uid,
+          socialMediaType: SocialMediaType.google);
+
+      if (customer == null) {
+        throw CreateCustomerFailed();
+      }
+
+      final loginResult = await _loginUseCase.execute(state.googleUser!.email!,
+          state.googleUser!.uid, LoginType.google, _fcmToken, _deviceType);
+
+      if (loginResult == null) {
+        throw CustomerLoginFailed();
+      }
+
+      _authBloc.add(AuthNewSession(loginResult));
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          googleUser: state.googleUser,
+          newUserType: NewUserType.google,
+        ),
+      );
+    } on CustomerLoginFailed {
+      emit(state.copyWith(
+        status: FormzStatus.submissionFailure,
+        errorMessage: 'Login failed',
+      ));
+    } on CreateCustomerFailed {
+      emit(state.copyWith(
+        status: FormzStatus.submissionFailure,
+        errorMessage: 'Craete customer with Google sign in info failed',
+      ));
+    } on UserAlreadyExistsException {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'User ${state.googleUser!.email} already exists'));
+    } on InternalServerException {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Problems with the server'));
+    } on JsonParseException {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Invalid server response'));
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          errorMessage: 'Bad server response'));
+    }
+  }
+
+  _mapLoginErrorMessageEmittedToState(
+      LoginClearMessages event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+        errorMessage: null,
+        infoMessage: null,
+        loginStatus: LoginStatus.unknown,
+        userStatus: UserStatus.unknown));
+  }
+
+  _mapCreateAccountWithInkerInfoPressedToState(
+      CreateAccountWithInkerInfoPressed event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+      newUserType: NewUserType.inker,
+    ));
+  }
+
+  _mapCreateArtistUserPressedToState(
+      CreateArtistUserPressed event, Emitter<LoginState> emit) {
+    emit(state.copyWith(
+      newUserType: NewUserType.inker,
+      userTypeToCreate: UserType.artist,
+    ));
+  }
+}
