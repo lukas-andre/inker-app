@@ -10,6 +10,9 @@ import 'package:inker_studio/features/register/bloc/register/register_bloc.dart'
     show RegisterBloc, RegisterType;
 import 'package:inker_studio/features/register/ui/register/widgets/register_user_by_type_layout.dart'
     show RegisterUserByTypeLayout;
+import 'package:inker_studio/features/register/ui/register/web/register_user_by_type_web_layout.dart'
+    show RegisterUserByTypeWebLayout;
+import 'package:inker_studio/utils/responsive/responsive_builder.dart';
 
 class RegisterUserByTypePage extends StatelessWidget {
   const RegisterUserByTypePage({super.key});
@@ -32,12 +35,16 @@ class RegisterUserByTypePage extends StatelessWidget {
           return shouldClose;
         }
       },
-      child: const Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
-            LoginBackground(),
-            RegisterUserByTypeLayout(),
+            const LoginBackground(),
+            ResponsiveBuilder(
+              mobile: const RegisterUserByTypeLayout(),
+              tablet: const RegisterUserByTypeWebLayout(),
+              desktop: const RegisterUserByTypeWebLayout(),
+            ),
           ],
         ),
       ),

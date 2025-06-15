@@ -20,16 +20,22 @@ class ResponsiveBuilder extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final deviceType = Responsive.getDeviceType(context);
+        final screenWidth = MediaQuery.of(context).size.width;
+        print('📱 ResponsiveBuilder: screenWidth=$screenWidth, deviceType=$deviceType');
         
         switch (deviceType) {
           case DeviceType.mobileSmall:
           case DeviceType.mobile:
+            print('🔄 Using MOBILE layout');
             return mobile;
           case DeviceType.tablet:
+            print('🔄 Using TABLET layout');
             return tablet ?? mobile;
           case DeviceType.desktop:
+            print('🔄 Using DESKTOP layout');
             return desktop ?? tablet ?? mobile;
           case DeviceType.desktopLarge:
+            print('🔄 Using DESKTOP_LARGE layout');
             return desktopLarge ?? desktop ?? tablet ?? mobile;
         }
       },
