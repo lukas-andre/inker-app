@@ -27,6 +27,8 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_pr
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/features/password_recovery/ui/password_recovery/password_recovery_page.dart' show PasswordRecoveryPage;
+import 'package:inker_studio/features/register/ui/register/register_customer_responsive_page.dart';
+import 'package:inker_studio/features/register/ui/register/register_artist_responsive_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
@@ -383,6 +385,19 @@ class AppRoutes {
           builder: (context) => const ErrorPage(message: 'No quotation provided for editing.'),
         );
       }
+    }
+
+    // Registration routes
+    if (settings.name == '/register/customer') {
+      return MaterialPageRoute(
+        builder: (context) => const RegisterCustomerResponsivePage(),
+      );
+    }
+
+    if (settings.name == '/register/artist') {
+      return MaterialPageRoute(
+        builder: (context) => const RegisterArtistResponsivePage(),
+      );
     }
 
     return null;
