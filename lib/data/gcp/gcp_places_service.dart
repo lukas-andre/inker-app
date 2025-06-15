@@ -3,12 +3,11 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:inker_studio/config/http_client_config.dart';
+import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/data/gcp/dto/place_details_response.dart';
 import 'package:inker_studio/domain/services/places/places_service.dart';
 import 'package:uuid/uuid.dart';
-import 'package:http/http.dart' as http;
 
 class Place {
   String streetNumber;
@@ -103,51 +102,55 @@ class RateLimiter {
 }
 
 class GcpPlacesService implements PlacesService {
-  final HttpClientConfig _httpConfig;
-
+  static const String _basePath = 'places';
+  late final HttpClientService _httpClient;
+  
   //https://developers.google.com/maps/faq#languagesupport
   final lang = 'es-419';
   late String? apiKey;
   String sessionToken = const Uuid().v4();
 
-  GcpPlacesService()
-      : _httpConfig = HttpClientConfig(basePath: ''),
-        apiKey = kIsWeb
-            ? dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
-                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')
-            : (defaultTargetPlatform == TargetPlatform.iOS
-                ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
-                    const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
-                : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
-                    const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')),
-        super();
+  GcpPlacesService() {
+    apiKey = kIsWeb
+        ? dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
+            const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')
+        : (defaultTargetPlatform == TargetPlatform.iOS
+            ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
+                const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
+            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
+                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID'));
+    _initializeHttpClient();
+  }
+
+  Future<void> _initializeHttpClient() async {
+    _httpClient = await HttpClientService.getInstance();
+  }
 
   @override
   // https://developers.google.com/maps/documentation/places/web-service/autocomplete#maps_http_places_autocomplete_amoeba-sh
   Future<List<Prediction>> getAutoComplete(String input) async {
-    // SIEMPRE hace la petición, sin cache ni rate limit
-    final uri =
-        Uri.https('maps.googleapis.com', '/maps/api/place/autocomplete/json', {
+    final queryParams = {
       'language': lang,
-      'key': apiKey,
+      'key': apiKey!,
       'sessiontoken': sessionToken,
       'components': 'country:cl',
       'input': input,
-    });
-    final response = await http.get(uri);
+    };
 
-    if (response.statusCode == 200) {
-      final prediction = PredictionResult.fromRawJson(response.body);
-      if (prediction.status == 'OK') {
-        return prediction.predictions;
-      }
+    final response = await _httpClient.get(
+      path: '$_basePath/autocomplete',
+      queryParams: queryParams,
+      fromJson: (json) => PredictionResult.fromJson(json),
+    );
 
-      if (prediction.status == 'ZERO_RESULTS') {
-        return [];
-      }
-
-      throw Exception('Error getting auto complete results');
+    if (response.status == 'OK') {
+      return response.predictions;
     }
+
+    if (response.status == 'ZERO_RESULTS') {
+      return [];
+    }
+
     throw Exception('Error getting auto complete results');
   }
 
@@ -157,37 +160,32 @@ class GcpPlacesService implements PlacesService {
 
   @override
   Future<PlaceDetailsResult?> getPlaceDetails(String id) async {
-
-    
-
-    final uri =
-        Uri.https('maps.googleapis.com', '/maps/api/place/details/json', {
-      'key': apiKey,
+    final queryParams = {
+      'key': apiKey!,
       'language': lang,
       'fields': 'formatted_address,name,geometry,address_component',
       'sessiontoken': sessionToken,
-      'place_id': id,
-    });
+      'placeId': id,
+    };
 
-    final response = await http.get(uri);
+    final response = await _httpClient.get(
+      path: '$_basePath/details',
+      queryParams: queryParams,
+      fromJson: (json) => PlaceDetailsResponse.fromJson(json),
+    );
 
-    if (response.statusCode == 200) {
-      final details = PlaceDetailsResponse.fromRawJson(response.body);
-      if (details.status == 'OK') {
-        // Cache the result
-        return details.result;
-      }
-
-      if (details.status == 'ZERO_RESULTS') {
-        return null;
-      }
-
-      if (details.status == 'REQUEST_DENIED') {
-        throw Exception('Invalid API key');
-      }
-
-      throw Exception('Error getting auto complete results');
+    if (response.status == 'OK') {
+      return response.result;
     }
-    throw Exception('Error getting auto complete results');
+
+    if (response.status == 'ZERO_RESULTS') {
+      return null;
+    }
+
+    if (response.status == 'REQUEST_DENIED') {
+      throw Exception('Invalid API key');
+    }
+
+    throw Exception('Error getting place details');
   }
 }
