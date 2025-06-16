@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/gcp/dto/auto_complete_response.dart';
 import 'package:inker_studio/data/gcp/dto/place_details_response.dart';
@@ -46,45 +45,44 @@ class RateLimiter {
   final Queue<DateTime> _requestTimestamps = Queue();
   final Map<String, dynamic> _cache = {};
   final Duration _cacheExpiry;
-  
+
   RateLimiter({
-    this.maxRequestsPerMinute = 10, // Default rate limit of 10 requests per minute
+    this.maxRequestsPerMinute =
+        10, // Default rate limit of 10 requests per minute
     Duration? cacheExpiry,
   }) : _cacheExpiry = cacheExpiry ?? const Duration(hours: 1);
-  
+
   /// Check if we can make a new request. If not, waits until it's possible.
   Future<void> throttle() async {
     final now = DateTime.now();
-    
+
     // Remove timestamps older than 1 minute
-    while (_requestTimestamps.isNotEmpty && 
-           now.difference(_requestTimestamps.first).inMinutes >= 1) {
+    while (_requestTimestamps.isNotEmpty &&
+        now.difference(_requestTimestamps.first).inMinutes >= 1) {
       _requestTimestamps.removeFirst();
     }
-    
+
     // If we've reached the limit, wait until we can make another request
     if (_requestTimestamps.length >= maxRequestsPerMinute) {
       final oldestTimestamp = _requestTimestamps.first;
-      final waitTime = const Duration(minutes: 1) - now.difference(oldestTimestamp);
+      final waitTime =
+          const Duration(minutes: 1) - now.difference(oldestTimestamp);
       if (waitTime.inMilliseconds > 0) {
         await Future.delayed(waitTime);
       }
       // Clean outdated timestamps after waiting
       return throttle();
     }
-    
+
     // Add current timestamp to the queue
     _requestTimestamps.add(now);
   }
-  
+
   /// Store response in cache
   void cacheResponse(String key, dynamic response) {
-    _cache[key] = {
-      'data': response,
-      'timestamp': DateTime.now()
-    };
+    _cache[key] = {'data': response, 'timestamp': DateTime.now()};
   }
-  
+
   /// Get cached response if available and not expired
   dynamic getCachedResponse(String key) {
     final cachedItem = _cache[key];
@@ -104,7 +102,7 @@ class RateLimiter {
 class GcpPlacesService implements PlacesService {
   static const String _basePath = 'places';
   late final HttpClientService _httpClient;
-  
+
   //https://developers.google.com/maps/faq#languagesupport
   final lang = 'es-419';
   late String? apiKey;
@@ -112,13 +110,10 @@ class GcpPlacesService implements PlacesService {
 
   GcpPlacesService() {
     apiKey = kIsWeb
-        ? dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
-            const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')
+        ? const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID')
         : (defaultTargetPlatform == TargetPlatform.iOS
-            ? dotenv.env['GOOGLE_PLACES_KEY_IOS'] ??
-                const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
-            : dotenv.env['GOOGLE_PLACES_KEY_ANDROID'] ??
-                const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID'));
+            ? const String.fromEnvironment('GOOGLE_PLACES_KEY_IOS')
+            : const String.fromEnvironment('GOOGLE_PLACES_KEY_ANDROID'));
     _initializeHttpClient();
   }
 

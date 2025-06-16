@@ -23,7 +23,7 @@ import 'package:inker_studio/features/register/ui/register/widgets/register_cust
     show RegisterCustomTitle;
 import 'package:inker_studio/features/register/ui/register/widgets/register_progress_indicator.dart'
     show RegisterProgressIndicator;
-import 'package:inker_studio/ui/verification/verification_page.dart';
+import 'package:inker_studio/features/verification/ui/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:inker_studio/utils/snackbar/invalid_form_snackbar.dart';
