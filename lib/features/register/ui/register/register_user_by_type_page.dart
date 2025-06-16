@@ -35,15 +35,15 @@ class RegisterUserByTypePage extends StatelessWidget {
           return shouldClose;
         }
       },
-      child: Scaffold(
+      child: const Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
-            const LoginBackground(),
+            LoginBackground(),
             ResponsiveBuilder(
-              mobile: const RegisterUserByTypeLayout(),
-              tablet: const RegisterUserByTypeWebLayout(),
-              desktop: const RegisterUserByTypeWebLayout(),
+              mobile: RegisterUserByTypeLayout(),
+              tablet: RegisterUserByTypeWebLayout(),
+              desktop: RegisterUserByTypeWebLayout(),
             ),
           ],
         ),

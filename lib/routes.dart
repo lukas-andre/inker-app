@@ -29,6 +29,7 @@ import 'package:inker_studio/ui/notifications/notification_page.dart';
 import 'package:inker_studio/features/password_recovery/ui/password_recovery/password_recovery_page.dart' show PasswordRecoveryPage;
 import 'package:inker_studio/features/register/ui/register/register_customer_responsive_page.dart';
 import 'package:inker_studio/features/register/ui/register/register_artist_responsive_page.dart';
+import 'package:inker_studio/features/verification/ui/verification_page.dart';
 import 'package:inker_studio/ui/quotation/artist_quotation_response_page.dart';
 import 'package:inker_studio/ui/quotation/customer_quotation_respose_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
@@ -397,6 +398,12 @@ class AppRoutes {
     if (settings.name == '/register/artist') {
       return MaterialPageRoute(
         builder: (context) => const RegisterArtistResponsivePage(),
+      );
+    }
+
+    if (settings.name == '/verification') {
+      return MaterialPageRoute(
+        builder: (context) => const VerificationPage(),
       );
     }
 

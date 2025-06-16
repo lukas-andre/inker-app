@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/features/login/ui/login/widgets/login_background.dart';
 import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart';
 import 'package:inker_studio/features/register/ui/register/customer/inputs/register_customer_confirm_password_input.dart';
@@ -9,7 +10,9 @@ import 'package:inker_studio/features/register/ui/register/customer/inputs/regis
 import 'package:inker_studio/features/register/ui/register/customer/inputs/register_customer_password_input.dart';
 import 'package:inker_studio/features/register/ui/register/customer/inputs/register_customer_phone_number_input.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
+import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 
 class RegisterCustomerSimplePage extends StatelessWidget {
   const RegisterCustomerSimplePage({super.key});
@@ -22,13 +25,47 @@ class RegisterCustomerSimplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const LoginBackground(),
-          SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
+    final registerCustomerBloc = BlocProvider.of<RegisterCustomerBloc>(context);
+    final verificationBloc = BlocProvider.of<AccountVerificationBloc>(context);
+    
+    return BlocListener<RegisterCustomerBloc, RegisterCustomerState>(
+      listenWhen: (previous, current) =>
+          previous.registerState != current.registerState,
+      listener: (context, state) {
+        switch (state.registerState) {
+          case RegisterCustomerStatus.ok:
+            final snackBar = customSnackBar(
+                content: 'Tu usuario ha sido creado! 🥳',
+                duration: const Duration(seconds: 4));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            verificationBloc.add(const VerificationSendSMSEvent());
+            
+            // For web, navigate to verification page using named route
+            Navigator.of(context).pushNamed('/verification');
+            
+            registerCustomerBloc.add(const RegisterCustomerClearForm());
+            break;
+          case RegisterCustomerStatus.error:
+            final snackBar = customSnackBar(
+                content: state.errorMessage ?? 'Error',
+                duration: const Duration(seconds: 4));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            break;
+          case RegisterCustomerStatus.initial:
+            registerCustomerBloc.add(const RegisterCustomerClearState());
+            break;
+          case RegisterCustomerStatus.submitted:
+            // Loading state - handled by button
+            break;
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const LoginBackground(),
+            SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
                   horizontal: Responsive.value(
                     context,
@@ -89,10 +126,7 @@ class RegisterCustomerSimplePage extends StatelessWidget {
                           
                           Text(
                             'Completa todos los campos para crear tu cuenta',
-                            style: TextStyle(
-                              fontSize: Responsive.fontSize(context, 16),
-                              color: Colors.grey[600],
-                            ),
+                            style: TextStyleTheme.headline1,
                             textAlign: TextAlign.center,
                           ),
                           
@@ -115,6 +149,7 @@ class RegisterCustomerSimplePage extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 
@@ -219,8 +254,8 @@ class RegisterCustomerSimplePage extends StatelessWidget {
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Por favor completa todos los campos correctamente'),
+                SnackBar(
+                  content: Text('Por favor completa todos los campos correctamente', style: TextStyleTheme.headline2,),
                   backgroundColor: Colors.red,
                 ),
               );

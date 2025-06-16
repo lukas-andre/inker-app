@@ -1,5 +1,4 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RemoteConfigService {
   final FirebaseRemoteConfig _remoteConfig;
@@ -24,7 +23,7 @@ class RemoteConfigService {
       minimumFetchInterval: Duration.zero,
     ));
 
-    final envApiUrl = dotenv.env['INKER_API_URL'] ?? 'https://api.inkerapp.com';
+    const envApiUrl = 'https://api.inkerapp.com';
     await _remoteConfig.setDefaults({
       'INKER_API_URL': envApiUrl,
       'isConsentV1Enabled': true,
@@ -55,12 +54,6 @@ class RemoteConfigService {
     final remoteConfigUrl = _remoteConfig.getString('INKER_API_URL');
     
     if (remoteConfigUrl.isEmpty || remoteConfigUrl == '0.0.0.0') {
-      final envUrl = dotenv.env['INKER_API_URL'];
-      if (envUrl != null && envUrl.isNotEmpty) {
-        print('RemoteConfigService: Using .env URL: $envUrl');
-        return envUrl;
-      }
-      print('RemoteConfigService: Using fallback URL');
       return 'https://api.inkerapp.com';
     }
     

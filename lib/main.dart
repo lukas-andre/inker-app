@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
 import 'package:inker_studio/dependencies/dependencies.dart';
 import 'package:inker_studio/firebase_options.dart';
@@ -15,8 +14,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
-  
+
   // Initialize Firebase with proper configuration
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -43,25 +41,25 @@ Future<void> main() async {
 
   initializeDateFormatting('es_CL');
   DateTimeFormatter.initialize();
-  
+
   final providers = await buildProviders();
-  
+
   runApp(MyApp(providers: providers));
 }
 
 class MyApp extends StatelessWidget {
   final List<RepositoryProvider> providers;
-  
+
   const MyApp({super.key, required this.providers});
 
   @override
   Widget build(BuildContext context) {
     // Verify that all required providers are available
     dev.log('Providers count: ${providers.length}', 'MyApp');
-    
+
     // Just log that we're initializing the app
     dev.log('Initializing app with repository providers', 'MyApp');
-    
+
     return MultiRepositoryProvider(
       providers: providers,
       child: const AppView(),

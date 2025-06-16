@@ -27,7 +27,7 @@ import 'package:inker_studio/features/register/ui/register/widgets/register_cust
 import 'package:inker_studio/features/register/ui/register/widgets/register_progress_indicator.dart'
     show RegisterProgressIndicator;
 import 'package:inker_studio/test_utils/register_keys.dart' show registerKeys;
-import 'package:inker_studio/ui/verification/verification_page.dart';
+import 'package:inker_studio/features/verification/ui/verification_page.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/layout/row_spacer.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';

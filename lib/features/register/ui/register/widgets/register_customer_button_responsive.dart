@@ -10,7 +10,7 @@ class RegisterCustomerButtonResponsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isWeb = Responsive.isTablet(context) || Responsive.isDesktop(context);
+    final isWeb = Responsive.isTablet(context) || Responsive.isDesktop(context) || Responsive.isDesktopLarge(context);
     
     if (isWeb) {
       // For web, create a custom button that navigates using named routes
