@@ -3,6 +3,7 @@
 //     final getArtistWorksResponse = getArtistWorksResponseFromJson(jsonString);
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/work/work.dart' show Work;
 import 'dart:convert';
 
 import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';

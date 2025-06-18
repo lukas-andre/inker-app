@@ -4,8 +4,10 @@ import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_b
 import 'package:inker_studio/domain/blocs/artist/artist_works_cubit/artist_works_cubit.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page_web.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_gallery_section.dart';
 import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_header.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
@@ -20,9 +22,13 @@ class ArtistProfilePage extends StatefulWidget {
   static Route route(Artist artist) {
     return MaterialPageRoute<void>(
         settings: const RouteSettings(name: '/artist-profile'),
-        builder: (_) => ArtistProfilePage(
-              artist: artist,
-            ));
+        builder: (context) {
+          final platformService = context.read<PlatformService>();
+          if (platformService.isWeb) {
+            return ArtistProfilePageWeb(artist: artist);
+          }
+          return ArtistProfilePage(artist: artist);
+        });
   }
 
   @override

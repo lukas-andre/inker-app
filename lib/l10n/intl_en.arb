@@ -3034,5 +3034,73 @@
   "aftercarePeriod": "Aftercare Period",
   "@aftercarePeriod": {
     "description": "Text indicating aftercare period."
+  },
+  "featuredArtists": "Featured Artists",
+  "@featuredArtists": {
+    "description": "Title for featured artists section."
+  },
+  "allArtists": "All Artists",
+  "@allArtists": {
+    "description": "Title for all artists section."
+  },
+  "exploreArtists": "Explore Artists",
+  "@exploreArtists": {
+    "description": "Title for exploring artists."
+  },
+  "noArtistsFound": "No artists found",
+  "@noArtistsFound": {
+    "description": "Message when no artists are found."
+  },
+  "seeProfile": "See Profile",
+  "@seeProfile": {
+    "description": "Button text to view artist profile."
+  },
+  "mapViewComingSoon": "Map View Coming Soon",
+  "@mapViewComingSoon": {
+    "description": "Title for the map view coming soon."
+  },
+  "mapViewDescription": "Map view will be available soon to help you find artists near your location.",
+  "@mapViewDescription": {
+    "description": "Description for the map view coming soon."
+  },
+  "mapViewInfo": "Meanwhile, you can explore all available artists in the list view.",
+  "@mapViewInfo": {
+    "description": "Additional information about the map view."
+  },
+  "switchToListView": "View Artist List",
+  "@switchToListView": {
+    "description": "Text for the button to switch to list view."
+  },
+  "artistProfile": "Artist Profile",
+  "@artistProfile": {
+    "description": "Title for artist profile page."
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Share button text."
+  },
+  "about": "About",
+  "@about": {
+    "description": "Title for about the artist section."
+  },
+  "specialties": "Specialties",
+  "@specialties": {
+    "description": "Title for artist specialties."
+  },
+  "styles": "Styles",
+  "@styles": {
+    "description": "Title for artist styles."
+  },
+  "mostRecent": "Most Recent",
+  "@mostRecent": {
+    "description": "Sort by most recent option."
+  },
+  "mostPopular": "Most Popular",
+  "@mostPopular": {
+    "description": "Sort by most popular option."
+  },
+  "noStencilsFound": "No stencils found",
+  "@noStencilsFound": {
+    "description": "Message when no stencils are found."
   }
 }

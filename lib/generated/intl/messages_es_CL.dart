@@ -106,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about": MessageLookupByLibrary.simpleMessage("Acerca de"),
         "aboutMe": MessageLookupByLibrary.simpleMessage("Sobre Mí"),
         "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "acceptAppeal":
@@ -176,6 +177,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agendaSettings":
             MessageLookupByLibrary.simpleMessage("Configuración de Agenda"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
+        "allArtists":
+            MessageLookupByLibrary.simpleMessage("Todos los Artistas"),
         "allConsentsCompleted": MessageLookupByLibrary.simpleMessage(
             "Todos los formularios de consentimiento completados"),
         "allOtherStencils":
@@ -241,6 +244,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "artist": MessageLookupByLibrary.simpleMessage("Artista"),
         "artistFound": m0,
         "artistLabel": m1,
+        "artistProfile":
+            MessageLookupByLibrary.simpleMessage("Perfil del Artista"),
         "artistUpdatedOfferCost": m2,
         "artisticDisagreement":
             MessageLookupByLibrary.simpleMessage("Desacuerdo artístico"),
@@ -545,6 +550,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "exampleAmount": MessageLookupByLibrary.simpleMessage("Ej: 50000"),
         "expand": MessageLookupByLibrary.simpleMessage("Expandir"),
         "explore": MessageLookupByLibrary.simpleMessage("Explorar"),
+        "exploreArtists":
+            MessageLookupByLibrary.simpleMessage("Explorar Artistas"),
         "exploreDesignsAndArtistWorks": MessageLookupByLibrary.simpleMessage(
             "Explora diseños y trabajos de artistas"),
         "exploreInspiration":
@@ -556,6 +563,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "featured": MessageLookupByLibrary.simpleMessage("Destacada"),
         "featuredArtist":
             MessageLookupByLibrary.simpleMessage("Artista Destacado"),
+        "featuredArtists":
+            MessageLookupByLibrary.simpleMessage("Artistas Destacados"),
         "featuredStencil":
             MessageLookupByLibrary.simpleMessage("Plantilla Destacada"),
         "featuredStencils":
@@ -660,6 +669,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Administrar Ubicaciones"),
         "manageWorks":
             MessageLookupByLibrary.simpleMessage("Administrar Trabajos"),
+        "mapViewComingSoon":
+            MessageLookupByLibrary.simpleMessage("Vista de Mapa Próximamente"),
+        "mapViewDescription": MessageLookupByLibrary.simpleMessage(
+            "La vista de mapa estará disponible pronto para ayudarte a encontrar artistas cercanos a tu ubicación."),
+        "mapViewInfo": MessageLookupByLibrary.simpleMessage(
+            "Mientras tanto, puedes explorar todos los artistas disponibles en la vista de lista."),
         "march": MessageLookupByLibrary.simpleMessage("Marzo"),
         "maxDistance": m15,
         "maxTravelDistanceKm": MessageLookupByLibrary.simpleMessage(
@@ -685,6 +700,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "moreInfoAboutSizesPricesAvailability":
             MessageLookupByLibrary.simpleMessage(
                 "Más información sobre tamaños, precios y disponibilidad"),
+        "mostPopular": MessageLookupByLibrary.simpleMessage("Más Populares"),
+        "mostRecent": MessageLookupByLibrary.simpleMessage("Más Recientes"),
         "myAppointments": MessageLookupByLibrary.simpleMessage("Mis Citas"),
         "myProfile": MessageLookupByLibrary.simpleMessage("Mi Perfil"),
         "n": MessageLookupByLibrary.simpleMessage("Nuevo"),
@@ -701,6 +718,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No se encontró una sesión activa"),
         "noApplicationsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron solicitudes"),
+        "noArtistsFound":
+            MessageLookupByLibrary.simpleMessage("No se encontraron artistas"),
         "noAvailableTimeSlotsFound": MessageLookupByLibrary.simpleMessage(
             "No se encontraron horarios disponibles"),
         "noConsentRequired": MessageLookupByLibrary.simpleMessage(
@@ -780,6 +799,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No hay plantillas disponibles"),
         "noStencilsAddedYet": MessageLookupByLibrary.simpleMessage(
             "No hay stencils agregados aún"),
+        "noStencilsFound": MessageLookupByLibrary.simpleMessage(
+            "No se encontraron plantillas"),
         "noStencilsFoundWithCurrentCriteria":
             MessageLookupByLibrary.simpleMessage(
                 "No se encontraron plantillas con los criterios actuales"),
@@ -1108,6 +1129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "searching": MessageLookupByLibrary.simpleMessage("Buscando..."),
         "seeLess": MessageLookupByLibrary.simpleMessage("Ver Menos"),
         "seeMore": MessageLookupByLibrary.simpleMessage("Ver Más"),
+        "seeProfile": MessageLookupByLibrary.simpleMessage("Ver Perfil"),
         "seeReviews": MessageLookupByLibrary.simpleMessage("Ver Reseñas"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Seleccionar Fecha"),
         "selectDateTime":
@@ -1148,6 +1170,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "september": MessageLookupByLibrary.simpleMessage("Septiembre"),
         "services": MessageLookupByLibrary.simpleMessage("Servicios"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
+        "share": MessageLookupByLibrary.simpleMessage("Compartir"),
         "shareArtistProfile": MessageLookupByLibrary.simpleMessage(
             "Compartir Perfil del Artista"),
         "shortDescription":
@@ -1165,6 +1188,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Firmar Consentimientos Requeridos"),
         "signed": MessageLookupByLibrary.simpleMessage("Firmado"),
         "source": MessageLookupByLibrary.simpleMessage("Fuente"),
+        "specialties": MessageLookupByLibrary.simpleMessage("Especialidades"),
         "start": MessageLookupByLibrary.simpleMessage("Inicio"),
         "startChat": MessageLookupByLibrary.simpleMessage("Iniciar chat"),
         "startConversation": MessageLookupByLibrary.simpleMessage(
@@ -1203,6 +1227,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La plantilla será destacada en el perfil"),
         "stencils": MessageLookupByLibrary.simpleMessage("Plantillas"),
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
+        "styles": MessageLookupByLibrary.simpleMessage("Estilos"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
         "submitOffer": MessageLookupByLibrary.simpleMessage("Enviar oferta"),
         "submitOpenQuotation":
@@ -1216,6 +1241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "suggestions": MessageLookupByLibrary.simpleMessage("Sugerencias"),
         "sunday": MessageLookupByLibrary.simpleMessage("Domingo"),
         "swipe": MessageLookupByLibrary.simpleMessage("Desliza"),
+        "switchToListView":
+            MessageLookupByLibrary.simpleMessage("Ver Lista de Artistas"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
         "systemCancellationReason": MessageLookupByLibrary.simpleMessage(
             "Razón de Cancelación del Sistema"),
