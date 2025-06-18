@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
@@ -114,10 +115,12 @@ class ApiCustomerService implements CustomerService {
   Future<Customer> updateProfilePicture(
       String customerId, XFile image, String token) async {
     try {
+      final bytes = await image.readAsBytes();
       final files = [
-        await MultipartFile.fromPath(
+        MultipartFile.fromBytes(
           'file',
-          image.path,
+          bytes,
+          filename: image.name,
         ),
       ];
 

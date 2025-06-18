@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
   XFile? _selectedImage;
+  Uint8List? _imageBytes;
   bool _isFeatured = false;
   bool _isHidden = false;
   List<TagSuggestionResponseDto> _tagSuggestions = [];
@@ -65,22 +67,30 @@ class _AddStencilPageState extends State<AddStencilPage> {
     // Si estamos en modo de prueba, usar una imagen predefinida
     if (isInTestMode) {
       try {
-        // Crear un archivo temporal para la imagen de prueba
-        final directory = await getTemporaryDirectory();
-        final imagePath = '${directory.path}/test_stencil.png';
-        final File imageFile = File(imagePath);
-        
         // Copiar el asset al archivo temporal
         ByteData data = await rootBundle.load('assets/stencil_${Random().nextInt(5) + 1}.png');
-        List<int> bytes = data.buffer.asUint8List();
-        await imageFile.writeAsBytes(bytes);
+        final bytes = data.buffer.asUint8List();
         
-        // Usar la imagen temporal
-        setState(() {
-          _selectedImage = XFile(imagePath);
-        });
+        if (kIsWeb) {
+          // En web, crear un XFile desde bytes
+          setState(() {
+            _selectedImage = XFile.fromData(bytes, name: 'test_stencil.png');
+            _imageBytes = bytes;
+          });
+        } else {
+          // En móvil, crear archivo temporal
+          final directory = await getTemporaryDirectory();
+          final imagePath = '${directory.path}/test_stencil.png';
+          final File imageFile = File(imagePath);
+          await imageFile.writeAsBytes(bytes);
+          
+          setState(() {
+            _selectedImage = XFile(imagePath);
+            _imageBytes = bytes;
+          });
+        }
         
-        print('Image loaded on test mode: $imagePath');
+        print('Image loaded on test mode');
         return;
       } catch (e) {
         print('Error loading test image: $e');
@@ -92,8 +102,10 @@ class _AddStencilPageState extends State<AddStencilPage> {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
+      final bytes = await image.readAsBytes();
       setState(() {
         _selectedImage = image;
+        _imageBytes = bytes;
       });
     }
   }
@@ -289,10 +301,7 @@ class _AddStencilPageState extends State<AddStencilPage> {
           child: _selectedImage != null
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.file(
-                    File(_selectedImage!.path),
-                    fit: BoxFit.cover,
-                  ),
+                  child: _buildImageWidget(),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -621,6 +630,37 @@ class _AddStencilPageState extends State<AddStencilPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildImageWidget() {
+    if (_imageBytes != null) {
+      return Image.memory(
+        _imageBytes!,
+        fit: BoxFit.cover,
+      );
+    } else if (kIsWeb && _selectedImage != null) {
+      return Image.network(
+        _selectedImage!.path,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      );
+    } else if (_selectedImage != null) {
+      return Image.file(
+        File(_selectedImage!.path),
+        fit: BoxFit.cover,
+      );
+    }
+    return const SizedBox.shrink();
   }
 }
 

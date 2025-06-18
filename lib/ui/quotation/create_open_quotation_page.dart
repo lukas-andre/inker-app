@@ -1,5 +1,6 @@
 import 'dart:io'; // Import for File
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -802,12 +803,27 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            File(file.path),
-                            width: 80,
-                            height: 80,
-                            fit: BoxFit.cover,
-                          ),
+                          child: kIsWeb
+                            ? Image.network(
+                                file.path,
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    width: 80,
+                                    height: 80,
+                                    color: Colors.grey[800],
+                                    child: const Icon(Icons.broken_image, color: Colors.white),
+                                  );
+                                },
+                              )
+                            : Image.file(
+                                File(file.path),
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
                         ),
                       ),
                       Positioned(

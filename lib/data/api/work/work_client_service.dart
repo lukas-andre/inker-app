@@ -148,13 +148,11 @@ class WorkClientService implements WorkService {
           uri,
         );
 
-        // Add the file
-        final fileStream = http.ByteStream(imageFile.openRead());
-        final length = await imageFile.length();
-        final multipartFile = http.MultipartFile(
+        // Add the file using bytes for web compatibility
+        final bytes = await imageFile.readAsBytes();
+        final multipartFile = http.MultipartFile.fromBytes(
           'file',
-          fileStream,
-          length,
+          bytes,
           filename: imageFile.name,
         );
         request.files.add(multipartFile);
@@ -213,13 +211,11 @@ class WorkClientService implements WorkService {
           uri,
         );
 
-        // Add the file
-        final fileStream = http.ByteStream(imageFile.openRead());
-        final length = await imageFile.length();
-        final multipartFile = http.MultipartFile(
+        // Add the file using bytes for web compatibility
+        final bytes = await imageFile.readAsBytes();
+        final multipartFile = http.MultipartFile.fromBytes(
           'file',
-          fileStream,
-          length,
+          bytes,
           filename: imageFile.name,
         );
         request.files.add(multipartFile);

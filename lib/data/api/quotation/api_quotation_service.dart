@@ -85,9 +85,10 @@ class ApiQuotationService implements QuotationService {
     final List<http.MultipartFile> files = [];
     for (var i = 0; i < referenceImages.length; i++) {
       var file = referenceImages[i];
-      files.add(await http.MultipartFile.fromPath(
-        'files[]', // Changed from 'files[]' to match common practices
-        file.path,
+      final bytes = await file.readAsBytes();
+      files.add(http.MultipartFile.fromBytes(
+        'files[]',
+        bytes,
         contentType:
             MediaType('image', 'jpeg'), // Assuming jpeg, adjust if needed
         filename: file.name, // Use original filename
@@ -250,9 +251,10 @@ class ApiQuotationService implements QuotationService {
     if (proposedDesigns != null && proposedDesigns.isNotEmpty) {
       for (var i = 0; i < proposedDesigns.length; i++) {
         var file = proposedDesigns[i];
-        files.add(await http.MultipartFile.fromPath(
+        final bytes = await file.readAsBytes();
+        files.add(http.MultipartFile.fromBytes(
           'proposedDesigns', // Changed from 'proposedDesigns[]'
-          file.path,
+          bytes,
           contentType: MediaType('image', 'jpeg'), // Assuming jpeg
           filename: file.name, // Use original filename
         ));
@@ -353,9 +355,10 @@ class ApiQuotationService implements QuotationService {
     if (proposedDesigns != null && proposedDesigns.isNotEmpty) {
       for (var i = 0; i < proposedDesigns.length; i++) {
         var file = proposedDesigns[i];
-        files.add(await http.MultipartFile.fromPath(
+        final bytes = await file.readAsBytes();
+        files.add(http.MultipartFile.fromBytes(
           'proposedDesigns', // Assuming backend expects this field name
-          file.path,
+          bytes,
           contentType:
               MediaType('image', 'jpeg'), // Adjust content type if needed
           filename: file.name,
@@ -420,9 +423,10 @@ class ApiQuotationService implements QuotationService {
 
     final List<http.MultipartFile> files = [];
     if (image != null) {
-      files.add(await http.MultipartFile.fromPath(
+      final bytes = await image.readAsBytes();
+      files.add(http.MultipartFile.fromBytes(
         'image', // Field name specified in API docs
-        image.path,
+        bytes,
         contentType:
             MediaType('image', 'jpeg'), // Adjust based on actual image type
         filename: image.name,

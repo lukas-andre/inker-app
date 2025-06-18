@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
@@ -583,12 +584,27 @@ class _ArtistQuotationResponseViewState
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.file(
-            File(file.path),
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
+          child: kIsWeb
+            ? Image.network(
+                file.path,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 100,
+                    height: 100,
+                    color: Colors.grey[800],
+                    child: const Icon(Icons.broken_image, color: Colors.white),
+                  );
+                },
+              )
+            : Image.file(
+                File(file.path),
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
         ),
         Positioned(
           top: 0,

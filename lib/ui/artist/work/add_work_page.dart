@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
   final _tagController = TextEditingController();
   final _searchDebounce = _Debounce(milliseconds: 500);
   XFile? _selectedImage;
+  Uint8List? _imageBytes;
   bool _isFeatured = false;
   bool _isHidden = false;
   WorkSource _source = WorkSource.app;
@@ -71,22 +73,30 @@ class _AddWorkPageState extends State<AddWorkPage> {
     // Si estamos en modo de prueba, usar una imagen predefinida
     if (isInTestMode) {
       try {
-        // Crear un archivo temporal para la imagen de prueba
-        final directory = await getTemporaryDirectory();
-        final imagePath = '${directory.path}/test_work.png';
-        final File imageFile = File(imagePath);
-        
         // Copiar el asset al archivo temporal
         ByteData data = await rootBundle.load('assets/work_${Random().nextInt(5) + 1}.png');
-        List<int> bytes = data.buffer.asUint8List();
-        await imageFile.writeAsBytes(bytes);
+        final bytes = data.buffer.asUint8List();
         
-        // Usar la imagen temporal
-        setState(() {
-          _selectedImage = XFile(imagePath);
-        });
+        if (kIsWeb) {
+          // En web, crear un XFile desde bytes
+          setState(() {
+            _selectedImage = XFile.fromData(bytes, name: 'test_work.png');
+            _imageBytes = bytes;
+          });
+        } else {
+          // En móvil, crear archivo temporal
+          final directory = await getTemporaryDirectory();
+          final imagePath = '${directory.path}/test_work.png';
+          final File imageFile = File(imagePath);
+          await imageFile.writeAsBytes(bytes);
+          
+          setState(() {
+            _selectedImage = XFile(imagePath);
+            _imageBytes = bytes;
+          });
+        }
         
-        print('Image loaded on test mode: $imagePath');
+        print('Image loaded on test mode');
         return;
       } catch (e) {
         print('Error loading test image: $e');
@@ -104,8 +114,10 @@ class _AddWorkPageState extends State<AddWorkPage> {
     );
 
     if (image != null) {
+      final bytes = await image.readAsBytes();
       setState(() {
         _selectedImage = image;
+        _imageBytes = bytes;
       });
     }
   }
@@ -304,22 +316,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
           child: _selectedImage != null
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.file(
-                    File(_selectedImage!.path),
-                    fit: BoxFit.cover,
-                    // Implementar un placeholder animado mientras se carga la imagen
-                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                      if (wasSynchronouslyLoaded) {
-                        return child;
-                      }
-                      return AnimatedOpacity(
-                        opacity: frame == null ? 0 : 1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeOut,
-                        child: child,
-                      );
-                    },
-                  ),
+                  child: _buildImageWidget(),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -697,6 +694,59 @@ class _AddWorkPageState extends State<AddWorkPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildImageWidget() {
+    if (_imageBytes != null) {
+      return Image.memory(
+        _imageBytes!,
+        fit: BoxFit.cover,
+        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+          if (wasSynchronouslyLoaded) {
+            return child;
+          }
+          return AnimatedOpacity(
+            opacity: frame == null ? 0 : 1,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+            child: child,
+          );
+        },
+      );
+    } else if (kIsWeb && _selectedImage != null) {
+      return Image.network(
+        _selectedImage!.path,
+        fit: BoxFit.cover,
+        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+          if (wasSynchronouslyLoaded) {
+            return child;
+          }
+          return AnimatedOpacity(
+            opacity: frame == null ? 0 : 1,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+            child: child,
+          );
+        },
+      );
+    } else if (_selectedImage != null) {
+      return Image.file(
+        File(_selectedImage!.path),
+        fit: BoxFit.cover,
+        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+          if (wasSynchronouslyLoaded) {
+            return child;
+          }
+          return AnimatedOpacity(
+            opacity: frame == null ? 0 : 1,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+            child: child,
+          );
+        },
+      );
+    }
+    return const SizedBox.shrink();
   }
 }
 
