@@ -18,7 +18,7 @@ class AppTheme {
         error: redColor,
         onError: Colors.white,
         surface: primaryColor,
-        onSurface: Colors.black,
+        onSurface: Colors.white,
       ),
       datePickerTheme: DatePickerThemeData(
         backgroundColor: secondaryColor,

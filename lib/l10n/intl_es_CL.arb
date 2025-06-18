@@ -3368,5 +3368,73 @@
   "aftercarePeriod": "Periodo de Cuidado",
   "@aftercarePeriod": {
     "description": "Texto indicando el periodo de cuidado post-tatuaje."
+  },
+  "featuredArtists": "Artistas Destacados",
+  "@featuredArtists": {
+    "description": "Título para la sección de artistas destacados."
+  },
+  "allArtists": "Todos los Artistas",
+  "@allArtists": {
+    "description": "Título para la sección de todos los artistas."
+  },
+  "exploreArtists": "Explorar Artistas",
+  "@exploreArtists": {
+    "description": "Título para explorar artistas."
+  },
+  "noArtistsFound": "No se encontraron artistas",
+  "@noArtistsFound": {
+    "description": "Mensaje cuando no se encuentran artistas."
+  },
+  "seeProfile": "Ver Perfil",
+  "@seeProfile": {
+    "description": "Texto del botón para ver el perfil del artista."
+  },
+  "mapViewComingSoon": "Vista de Mapa Próximamente",
+  "@mapViewComingSoon": {
+    "description": "Título para la vista de mapa próximamente."
+  },
+  "mapViewDescription": "La vista de mapa estará disponible pronto para ayudarte a encontrar artistas cercanos a tu ubicación.",
+  "@mapViewDescription": {
+    "description": "Descripción de la vista de mapa próximamente."
+  },
+  "mapViewInfo": "Mientras tanto, puedes explorar todos los artistas disponibles en la vista de lista.",
+  "@mapViewInfo": {
+    "description": "Información adicional sobre la vista de mapa."
+  },
+  "switchToListView": "Ver Lista de Artistas",
+  "@switchToListView": {
+    "description": "Texto del botón para cambiar a vista de lista."
+  },
+  "artistProfile": "Perfil del Artista",
+  "@artistProfile": {
+    "description": "Título para la página de perfil del artista."
+  },
+  "share": "Compartir",
+  "@share": {
+    "description": "Texto del botón compartir."
+  },
+  "about": "Acerca de",
+  "@about": {
+    "description": "Título de la sección sobre el artista."
+  },
+  "specialties": "Especialidades",
+  "@specialties": {
+    "description": "Título para las especialidades del artista."
+  },
+  "styles": "Estilos",
+  "@styles": {
+    "description": "Título para los estilos del artista."
+  },
+  "mostRecent": "Más Recientes",
+  "@mostRecent": {
+    "description": "Opción de ordenamiento por más reciente."
+  },
+  "mostPopular": "Más Populares",
+  "@mostPopular": {
+    "description": "Opción de ordenamiento por más popular."
+  },
+  "noStencilsFound": "No se encontraron plantillas",
+  "@noStencilsFound": {
+    "description": "Mensaje cuando no se encuentran plantillas."
   }
 }

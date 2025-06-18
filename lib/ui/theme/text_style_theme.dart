@@ -4,7 +4,7 @@ class TextStyleTheme {
   static const TextStyle instance = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.normal,
-      color: Colors.black,
+      color: Color(0xFFF2F2F2),
       fontFamily: 'Poppins');
 
   static TextStyle copyWith(
@@ -15,7 +15,7 @@ class TextStyleTheme {
     return TextStyle(
         fontSize: fontSize ?? TextStyleTheme.instance.fontSize,
         fontWeight: fontWeight ?? TextStyleTheme.instance.fontWeight,
-        color: color ?? TextStyleTheme.instance.color,
+        color: color ?? const Color(0xFFF2F2F2),
         fontFamily: fontFamily ?? TextStyleTheme.instance.fontFamily);
   }
 
