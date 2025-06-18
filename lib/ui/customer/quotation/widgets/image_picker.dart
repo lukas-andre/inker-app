@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Uint8List;
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
-class ImagePickerWidget extends StatelessWidget {
+class ImagePickerWidget extends StatefulWidget {
   final List<XFile> images;
   final Function(XFile) onRemove;
   final VoidCallback onAdd;
@@ -19,12 +21,50 @@ class ImagePickerWidget extends StatelessWidget {
   });
 
   @override
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
+}
+
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  final Map<String, Uint8List> _imageCache = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImageBytes();
+  }
+
+  @override
+  void didUpdateWidget(covariant ImagePickerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.images != widget.images) {
+      _loadImageBytes();
+    }
+  }
+
+  Future<void> _loadImageBytes() async {
+    for (final image in widget.images) {
+      if (!_imageCache.containsKey(image.path)) {
+        try {
+          final bytes = await image.readAsBytes();
+          if (mounted) {
+            setState(() {
+              _imageCache[image.path] = bytes;
+            });
+          }
+        } catch (e) {
+          debugPrint('Error loading image bytes: $e');
+        }
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${S.of(context).referenceImages}: (${images.length}/$maxImages)',
+          '${S.of(context).referenceImages}: (${widget.images.length}/${widget.maxImages})',
           style: TextStyleTheme.copyWith(
             color: Colors.white,
             fontSize: 18,
@@ -36,8 +76,8 @@ class ImagePickerWidget extends StatelessWidget {
           spacing: 12.0,
           runSpacing: 12.0,
           children: [
-            ...images.map((image) => _buildImageTile(image)),
-            if (images.length < maxImages) _buildAddButton(context),
+            ...widget.images.map((image) => _buildImageTile(image)),
+            if (widget.images.length < widget.maxImages) _buildAddButton(context),
           ],
         ),
       ],
@@ -49,18 +89,16 @@ class ImagePickerWidget extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: Image.file(
-            File(image.path),
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
+          child: _buildImageWidget(image),
         ),
         Positioned(
           right: -12,
           top: -12,
           child: MaterialButton(
-            onPressed: () => onRemove(image),
+            onPressed: () {
+              widget.onRemove(image);
+              _imageCache.remove(image.path);
+            },
             color: Colors.red,
             textColor: Colors.white,
             padding: const EdgeInsets.all(5),
@@ -75,12 +113,12 @@ class ImagePickerWidget extends StatelessWidget {
 
   Widget _buildAddButton(BuildContext context) {
     return InkWell(
-      onTap: onAdd,
+      onTap: widget.onAdd,
       child: Container(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
         ),
@@ -91,5 +129,48 @@ class ImagePickerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildImageWidget(XFile image) {
+    final bytes = _imageCache[image.path];
+    
+    if (bytes != null) {
+      return Image.memory(
+        bytes,
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    } else if (kIsWeb) {
+      return Image.network(
+        image.path,
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(
+            width: 100,
+            height: 100,
+            color: Colors.grey[300],
+            child: Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Image.file(
+        File(image.path),
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

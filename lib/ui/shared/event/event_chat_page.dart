@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -439,19 +440,35 @@ class _EventChatPageState extends State<EventChatPage> {
                           );
                         },
                       )
-                    : Image.file(
-                        File(imageUrl),
-                        fit: BoxFit.cover,
-                        height: 200,
-                        width: double.infinity,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 100,
-                            color: Colors.grey[800],
-                            child: const Center(
-                              child: Icon(Icons.broken_image, color: Colors.white),
-                            ),
-                          );
+                    : kIsWeb
+                        ? Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            height: 200,
+                            width: double.infinity,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 100,
+                                color: Colors.grey[800],
+                                child: const Center(
+                                  child: Icon(Icons.broken_image, color: Colors.white),
+                                ),
+                              );
+                            },
+                          )
+                        : Image.file(
+                            File(imageUrl),
+                            fit: BoxFit.cover,
+                            height: 200,
+                            width: double.infinity,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 100,
+                                color: Colors.grey[800],
+                                child: const Center(
+                                  child: Icon(Icons.broken_image, color: Colors.white),
+                                ),
+                              );
                         },
                       ),
                 ),
@@ -615,13 +632,41 @@ class _EventChatPageState extends State<EventChatPage> {
                 color: Theme.of(context).colorScheme.secondary,
                 width: 2,
               ),
-              image: _selectedImage != null
-                ? DecorationImage(
-                    image: FileImage(File(_selectedImage!.path)),
-                    fit: BoxFit.cover,
-                  )
-                : null,
             ),
+            child: _selectedImage != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: kIsWeb
+                    ? Image.network(
+                        _selectedImage!.path,
+                        fit: BoxFit.cover,
+                        width: 36,
+                        height: 36,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: 36,
+                            height: 36,
+                            color: Colors.grey[800],
+                            child: const Icon(Icons.broken_image, color: Colors.white, size: 16),
+                          );
+                        },
+                      )
+                    : Image.file(
+                        File(_selectedImage!.path),
+                        fit: BoxFit.cover,
+                        width: 36,
+                        height: 36,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: 36,
+                            height: 36,
+                            color: Colors.grey[800],
+                            child: const Icon(Icons.broken_image, color: Colors.white, size: 16),
+                          );
+                        },
+                      ),
+                )
+              : const SizedBox.shrink(),
           ),
           if (!_isSending)
             Positioned(
