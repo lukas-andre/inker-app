@@ -33,6 +33,8 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   final ImagePicker _picker = ImagePicker();
   bool _isNewImageSelected = false;
   bool _hasChanges = false;
+  bool _isHovering = false;
+  bool _isDragging = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +45,22 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Center(
-              child: _buildImageContent(),
+              child: kIsWeb ? _buildWebConstrainedContent() : _buildImageContent(),
             ),
           ),
         ),
         _buildBottomButtons(),
       ],
+    );
+  }
+
+  Widget _buildWebConstrainedContent() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 600,
+        maxHeight: 400,
+      ),
+      child: _buildImageContent(),
     );
   }
 
@@ -59,16 +71,16 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
         child: _imageBytes != null
             ? Image.memory(
                 _imageBytes!,
-                fit: BoxFit.cover,
+                fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
               )
             : kIsWeb
                 ? Image.network(
                     _imageFile!.path,
-                    fit: BoxFit.cover,
+                    fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
                   )
                 : Image.file(
                     File(_imageFile!.path),
-                    fit: BoxFit.cover,
+                    fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
                   ),
       );
     } else if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
@@ -98,7 +110,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   }
 
   Widget _buildImageContainer({required Widget child, Key? key}) {
-    return Container(
+    final container = Container(
       key: key,
       width: double.infinity,
       height: double.infinity,
@@ -106,7 +118,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -114,56 +126,162 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.0),
-        child: child,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            child,
+            if (kIsWeb && _isHovering)
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 48,
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Click to change',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
+
+    if (kIsWeb) {
+      return DragTarget<List<XFile>>(
+        onAcceptWithDetails: (details) {
+          if (details.data.isNotEmpty) {
+            _handleDroppedFile(details.data.first);
+          }
+        },
+        builder: (context, candidateData, rejectedData) {
+          return MouseRegion(
+            onEnter: (_) => setState(() => _isHovering = true),
+            onExit: (_) => setState(() => _isHovering = false),
+            cursor: SystemMouseCursors.click,
+            child: container,
+          );
+        },
+      );
+    }
+
+    return container;
   }
 
   Widget _buildEmptyImageContainer() {
-    return Container(
+    final Widget content = Container(
       key: registerKeys.imageEdit.emptyImageContainer,
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
+        color: _isDragging && kIsWeb
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.8)
+            : Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
         ],
+        border: _isDragging && kIsWeb
+            ? Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 3,
+              )
+            : null,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.image_outlined,
+            _isDragging && kIsWeb ? Icons.cloud_upload : Icons.image_outlined,
             size: 56,
-            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
           ),
           const SizedBox(height: 20),
           Text(
-            S.of(context).noImageSelected,
+            _isDragging && kIsWeb
+                ? 'Drop image here'
+                : S.of(context).noImageSelected,
             style: TextStyleTheme.bodyText1.copyWith(
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.9),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.9),
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
+          if (kIsWeb && !_isDragging) ...[
+            const SizedBox(height: 8),
+            Text(
+              'or drag and drop',
+              style: TextStyleTheme.caption.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
           const SizedBox(height: 24),
-          _buildSimpleButton(
-            key: registerKeys.imageEdit.pickImageButton,
-            onPressed: _pickImage,
-            icon: Icons.add_photo_alternate_rounded,
-            label: S.of(context).chooseImage,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
+          if (!_isDragging)
+            _buildSimpleButton(
+              key: registerKeys.imageEdit.pickImageButton,
+              onPressed: _pickImage,
+              icon: Icons.add_photo_alternate_rounded,
+              label: S.of(context).chooseImage,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
         ],
       ),
     );
+
+    if (kIsWeb) {
+      return DragTarget<List<XFile>>(
+        onAcceptWithDetails: (details) {
+          setState(() {
+            _isDragging = false;
+          });
+          if (details.data.isNotEmpty) {
+            _handleDroppedFile(details.data.first);
+          }
+        },
+        onMove: (_) {
+          if (!_isDragging) {
+            setState(() {
+              _isDragging = true;
+            });
+          }
+        },
+        onLeave: (_) {
+          setState(() {
+            _isDragging = false;
+          });
+        },
+        builder: (context, candidateData, rejectedData) {
+          return content;
+        },
+      );
+    }
+
+    return content;
   }
 
   Widget _buildSimpleButton({
@@ -316,10 +434,10 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
           });
         }
 
-        print('Studio image loaded in test mode');
+        // Studio image loaded in test mode
         return;
       } catch (e) {
-        print('Error loading test studio image: $e');
+        // Error loading test studio image
       }
     }
 
@@ -354,5 +472,19 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
 
   void _saveChanges() {
     widget.onSaved(_imageFile);
+  }
+
+  Future<void> _handleDroppedFile(XFile file) async {
+    try {
+      final bytes = await file.readAsBytes();
+      setState(() {
+        _imageFile = file;
+        _imageBytes = bytes;
+        _isNewImageSelected = true;
+        _hasChanges = true;
+      });
+    } catch (e) {
+      // Handle error silently
+    }
   }
 }

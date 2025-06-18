@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class QuotationDetailsCard extends StatelessWidget {
   final Quotation quotation;
@@ -38,7 +39,7 @@ class QuotationDetailsCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.15),
+                    color: statusColor.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: statusColor),
                   ),
@@ -132,7 +133,7 @@ class QuotationDetailsCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -142,15 +143,59 @@ class QuotationDetailsCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       child: Stack(
                         children: [
-                          Image.network(
-                            quotation.tattooDesignImageUrl!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: 200,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                              color: Colors.grey[300],
-                              height: 200,
-                              child: const Center(child: Icon(Icons.broken_image, size: 48)),
+                          AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Image.network(
+                              quotation.tattooDesignImageUrl!,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                              errorBuilder: (context, error, stackTrace) => Container(
+                                color: Colors.grey[300],
+                                child: const Center(child: Icon(Icons.broken_image, size: 48)),
+                              ),
+                              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                if (wasSynchronouslyLoaded) return child;
+                                return AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  child: frame != null
+                                      ? child
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              // Shimmer effect
+                                              Positioned.fill(
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(seconds: 1),
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      begin: Alignment.topLeft,
+                                                      end: Alignment.bottomRight,
+                                                      colors: [
+                                                        Colors.grey[300]!,
+                                                        Colors.grey[200]!,
+                                                        Colors.grey[300]!,
+                                                      ],
+                                                      stops: const [0.0, 0.5, 1.0],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Icon(
+                                                  Icons.image_outlined,
+                                                  color: Colors.grey[400],
+                                                  size: 48,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                );
+                              },
                             ),
                           ),
                           // Overlay con indicador de que se puede tocar
@@ -160,7 +205,7 @@ class QuotationDetailsCard extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withValues(alpha: 0.5),
                                 borderRadius: BorderRadius.circular(16),
                               ),
                               child: const Icon(
@@ -206,72 +251,148 @@ class QuotationDetailsCard extends StatelessWidget {
   }
 
   Widget _buildImagesGrid(List<dynamic> images) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-      ),
-      itemCount: images.length,
-      itemBuilder: (context, index) {
-        final img = images[index];
-        final heroTag = 'reference_image_$index';
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final crossAxisCount = _calculateColumns(constraints.maxWidth);
+        const aspectRatio = kIsWeb ? 1.5 : 1.0;
         
-        return GestureDetector(
-          onTap: () => _openImageViewer(context, img.url, heroTag),
-          child: Hero(
-            tag: heroTag,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: aspectRatio,
+          ),
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            final img = images[index];
+            final heroTag = 'reference_image_$index';
+            
+            return _buildImageCard(context, img, heroTag);
+          },
+        );
+      },
+    );
+  }
+
+  int _calculateColumns(double width) {
+    if (width < 600) return 2;   // Mobile
+    if (width < 900) return 3;   // Tablet
+    if (width < 1200) return 4;  // Desktop
+    return 5;                     // Large desktop
+  }
+
+  Widget _buildImageCard(BuildContext context, dynamic image, String heroTag) {
+    return GestureDetector(
+      onTap: () => _openImageViewer(context, image.url, heroTag),
+      child: MouseRegion(
+        cursor: kIsWeb ? SystemMouseCursors.click : MouseCursor.defer,
+        child: Hero(
+          tag: heroTag,
+          child: Card(
+            elevation: kIsWeb ? 2 : 1,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    image.url,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(Icons.broken_image, size: 24),
+                      ),
+                    ),
+                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) return child;
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: frame != null
+                            ? child
+                            : _buildImageSkeleton(),
+                      );
+                    },
+                  ),
+                  // Hover overlay for web
+                  if (kIsWeb)
+                    Positioned.fill(
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _openImageViewer(context, image.url, heroTag),
+                          hoverColor: Colors.black.withValues(alpha: 0.05),
+                          child: Container(),
+                        ),
+                      ),
+                    ),
+                  // Fullscreen indicator
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.fullscreen,
+                        color: Colors.white,
+                        size: 16,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Stack(
-                  children: [
-                    Image.network(
-                      img.url,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        color: Colors.grey[300],
-                        child: const Center(child: Icon(Icons.broken_image, size: 24)),
-                      ),
-                    ),
-                    // Overlay sutil para indicar interactividad
-                    Positioned(
-                      top: 4,
-                      right: 4,
-                      child: Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.fullscreen,
-                          color: Colors.white,
-                          size: 12,
-                        ),
-                      ),
-                    ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageSkeleton() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Stack(
+        children: [
+          // Shimmer effect animation
+          Positioned.fill(
+            child: AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.grey[300]!,
+                    Colors.grey[200]!,
+                    Colors.grey[300]!,
                   ],
+                  stops: const [0.0, 0.5, 1.0],
                 ),
               ),
             ),
           ),
-        );
-      },
+          Center(
+            child: Icon(
+              Icons.image_outlined,
+              color: Colors.grey[400],
+              size: 32,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -447,7 +568,7 @@ class _ImageViewerPageState extends State<_ImageViewerPage>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black.withOpacity(0.5),
+        backgroundColor: Colors.black.withValues(alpha: 0.5),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.white),

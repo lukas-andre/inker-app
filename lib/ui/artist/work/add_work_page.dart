@@ -13,7 +13,8 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/image/cached_image_manager.dart';
+import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
+import 'package:inker_studio/ui/shared/widgets/drop_zone_widget.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -43,8 +44,8 @@ class _AddWorkPageState extends State<AddWorkPage> {
   bool _isFetchingTags = false;
   bool _showTagSuggestions = false;
   
-  // Gestor de caché para optimizar el manejo de imágenes
-  final _imageCache = CachedImageManager();
+  // Gestor de caché para optimizar el manejo de imágenes (removido por no usar)
+  // final _imageCache = CachedImageManager();
 
   @override
   void initState() {
@@ -96,10 +97,10 @@ class _AddWorkPageState extends State<AddWorkPage> {
           });
         }
         
-        print('Image loaded on test mode');
+        debugPrint('Image loaded on test mode');
         return;
       } catch (e) {
-        print('Error loading test image: $e');
+        debugPrint('Error loading test image: $e');
       }
     }
     
@@ -301,43 +302,136 @@ class _AddWorkPageState extends State<AddWorkPage> {
 
   Widget _buildImagePicker() {
     return Center(
-      child: GestureDetector(
-        key: registerKeys.workDetail.imagePicker,
-        onTap: _pickImage,
-        child: Container(
+      child: _selectedImage != null
+          ? _buildSelectedImagePreview()
+          : kIsWeb
+              ? _buildWebDropZone()
+              : _buildMobileImagePicker(),
+    );
+  }
+
+  Widget _buildSelectedImagePreview() {
+    return Stack(
+      children: [
+        Container(
           width: double.infinity,
           height: 200,
           decoration: BoxDecoration(
-            color:
-                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+            ),
           ),
-          child: _selectedImage != null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: _buildImageWidget(),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_photo_alternate,
-                      size: 64,
-                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.7),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      S.of(context).tapToSelectImage,
-                      style: TextStyleTheme.subtitle1.copyWith(
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                  ],
-                ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: _buildImageWidget(),
+          ),
+        ),
+        Positioned(
+          top: 8,
+          right: 8,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white, size: 20),
+              onPressed: () {
+                setState(() {
+                  _selectedImage = null;
+                  _imageBytes = null;
+                });
+              },
+              constraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 8,
+          left: 8,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.edit, color: Colors.white, size: 20),
+              onPressed: _pickImage,
+              constraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWebDropZone() {
+    return ImageDropZone(
+      key: registerKeys.workDetail.imagePicker,
+      onImagesDropped: (files) {
+        if (files.isNotEmpty) {
+          _handleSelectedImages(files);
+        }
+      },
+      multiple: false,
+      maxSizeMB: 10,
+    );
+  }
+
+  Widget _buildMobileImagePicker() {
+    return GestureDetector(
+      key: registerKeys.workDetail.imagePicker,
+      onTap: _pickImage,
+      child: Container(
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.2)
+              .toColor(),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.add_photo_alternate,
+              size: 64,
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.7),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              S.of(context).tapToSelectImage,
+              style: TextStyleTheme.subtitle1.copyWith(
+                color: Colors.grey.shade400,
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Future<void> _handleSelectedImages(List<XFile> files) async {
+    if (files.isEmpty) return;
+    
+    final selectedFile = files.first;
+    final bytes = await selectedFile.readAsBytes();
+    
+    setState(() {
+      _selectedImage = selectedFile;
+      _imageBytes = bytes;
+    });
   }
 
   Widget _buildTitleField() {
@@ -697,56 +791,67 @@ class _AddWorkPageState extends State<AddWorkPage> {
   }
 
   Widget _buildImageWidget() {
+    if (_selectedImage == null) {
+      return const SizedBox.shrink();
+    }
+
+    // Use ImageWithSkeleton for better UX with skeleton loading
     if (_imageBytes != null) {
-      return Image.memory(
-        _imageBytes!,
-        fit: BoxFit.cover,
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded) {
-            return child;
-          }
-          return AnimatedOpacity(
-            opacity: frame == null ? 0 : 1,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-            child: child,
-          );
-        },
+      // For memory images, display directly with fade-in animation
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: Image.memory(
+          _imageBytes!,
+          key: ValueKey(_selectedImage!.path),
+          fit: BoxFit.contain, // Changed from cover to contain to avoid distortion
+          width: double.infinity,
+          height: double.infinity,
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+            if (wasSynchronouslyLoaded) {
+              return child;
+            }
+            return AnimatedOpacity(
+              opacity: frame == null ? 0 : 1,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+              child: child,
+            );
+          },
+        ),
       );
-    } else if (kIsWeb && _selectedImage != null) {
-      return Image.network(
-        _selectedImage!.path,
-        fit: BoxFit.cover,
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded) {
-            return child;
-          }
-          return AnimatedOpacity(
-            opacity: frame == null ? 0 : 1,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-            child: child,
-          );
-        },
+    } else if (kIsWeb) {
+      // For web, use network image with skeleton
+      return ImageWithSkeleton(
+        imageUrl: _selectedImage!.path,
+        sourceType: ImageSourceType.network,
+        fit: BoxFit.contain, // Changed from cover to contain
+        width: double.infinity,
+        height: double.infinity,
+        borderRadius: BorderRadius.circular(12),
+        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
+        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.25)
+            .toColor(),
       );
-    } else if (_selectedImage != null) {
-      return Image.file(
-        File(_selectedImage!.path),
-        fit: BoxFit.cover,
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded) {
-            return child;
-          }
-          return AnimatedOpacity(
-            opacity: frame == null ? 0 : 1,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-            child: child,
-          );
-        },
+    } else {
+      // For mobile, use file image with skeleton
+      return ImageWithSkeleton(
+        imageUrl: _selectedImage!.path,
+        sourceType: ImageSourceType.file,
+        fit: BoxFit.contain, // Changed from cover to contain
+        width: double.infinity,
+        height: double.infinity,
+        borderRadius: BorderRadius.circular(12),
+        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
+        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.25)
+            .toColor(),
       );
     }
-    return const SizedBox.shrink();
   }
 }
 

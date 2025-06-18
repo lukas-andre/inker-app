@@ -516,88 +516,211 @@ class _ArtistOpenQuotationOfferPageViewState
           style: TextStyleTheme.caption.copyWith(color: Colors.white70),
         ),
         const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            ..._proposedDesigns.map((file) => _buildImagePreview(file)),
-            _buildAddImageButton(l10n),
-          ],
-        ),
+        // Web-optimized gallery layout
+        if (_proposedDesigns.isEmpty && kIsWeb) 
+          _buildDragDropZone(l10n)
+        else
+          _buildImageGallery(l10n),
       ],
     );
   }
 
-  Widget _buildImagePreview(XFile file) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: kIsWeb
-            ? Image.network(
-                file.path,
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.grey[800],
-                    child: const Icon(Icons.broken_image, color: Colors.white),
-                  );
-                },
-              )
-            : Image.file(
-                File(file.path),
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-              ),
-        ),
-        Positioned(
-          top: -10, // Adjust position for better visibility
-          right: -10,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5),
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.close, color: Colors.white, size: 18),
-              onPressed: () {
-                setState(() {
-                  _proposedDesigns.remove(file);
-                });
-              },
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-            ),
-          ),
-        ),
-      ],
+  Widget _buildImageGallery(S l10n) {
+    const thumbnailSize = kIsWeb ? 200.0 : 120.0;
+    
+    return SizedBox(
+      height: thumbnailSize + 20, // Extra space for padding
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: _proposedDesigns.length + 1,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          if (index == _proposedDesigns.length) {
+            return _buildAddImageButton(l10n, size: thumbnailSize);
+          }
+          return _buildImageThumbnail(index, size: thumbnailSize);
+        },
+      ),
     );
   }
 
-  Widget _buildAddImageButton(S l10n) {
+  Widget _buildDragDropZone(S l10n) {
     return InkWell(
       onTap: _pickImage,
       child: Container(
-        width: 100,
-        height: 100,
+        height: 150,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white30,
+            width: 2,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.black26,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.cloud_upload_outlined, size: 48, color: Colors.white60),
+              const SizedBox(height: 12),
+              Text(
+                'Click to upload images',
+                style: TextStyleTheme.bodyText2.copyWith(color: Colors.white60),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Drag and drop coming soon',
+                style: TextStyleTheme.caption.copyWith(color: Colors.white38),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageThumbnail(int index, {required double size}) {
+    final file = _proposedDesigns[index];
+    
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Image container with better aspect ratio handling
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.white24, width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: AspectRatio(
+                aspectRatio: 1.0,
+                child: kIsWeb
+                  ? Image.network(
+                      file.path,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[800],
+                          child: const Icon(Icons.broken_image, color: Colors.white),
+                        );
+                      },
+                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                        if (wasSynchronouslyLoaded) return child;
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: frame != null
+                              ? child
+                              : Container(
+                                  color: Colors.grey[800],
+                                  child: Stack(
+                                    children: [
+                                      // Shimmer effect
+                                      Positioned.fill(
+                                        child: AnimatedContainer(
+                                          duration: const Duration(seconds: 1),
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              colors: [
+                                                Colors.grey[800]!,
+                                                Colors.grey[700]!,
+                                                Colors.grey[800]!,
+                                              ],
+                                              stops: const [0.0, 0.5, 1.0],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const Center(
+                                        child: Icon(
+                                          Icons.image_outlined,
+                                          color: Colors.white38,
+                                          size: 32,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                        );
+                      },
+                    )
+                  : Image.file(
+                      File(file.path),
+                      fit: BoxFit.contain,
+                    ),
+              ),
+            ),
+          ),
+          // Better positioned remove button
+          Positioned(
+            top: -8,
+            right: -8,
+            child: Material(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(12),
+              elevation: 4,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    _proposedDesigns.removeAt(index);
+                  });
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAddImageButton(S l10n, {required double size}) {
+    return InkWell(
+      onTap: _pickImage,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: Colors.black38,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white24, width: 2, style: BorderStyle.solid),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add_photo_alternate_outlined,
-                size: 30, color: Colors.white),
-            const SizedBox(height: 4),
+            const Icon(
+              Icons.add_photo_alternate_outlined,
+              size: 30,
+              color: Colors.white60,
+            ),
+            const SizedBox(height: 8),
             Text(
               l10n.addDesign,
-              style: TextStyleTheme.caption,
+              style: TextStyleTheme.caption.copyWith(color: Colors.white60),
+              textAlign: TextAlign.center,
             )
           ],
         ),
