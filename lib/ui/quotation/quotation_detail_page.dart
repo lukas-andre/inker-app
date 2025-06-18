@@ -18,7 +18,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_detail/quotation_detail_bloc.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/utils/responsive/responsive_builder.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
+import 'package:photo_view/photo_view.dart';
 
 class QuotationDetailsPage extends StatelessWidget {
   final Quotation? quotation;
@@ -421,56 +425,21 @@ class _MainQuotationInfo extends StatelessWidget {
           children: [
             // Mostrar imagen generada si existe
             if (quotation.tattooDesignImageUrl != null) ...[
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (_) => _ImageViewerDialog(
-                      imageUrl: quotation.tattooDesignImageUrl!,
-                      heroTag: heroTag,
-                    ),
-                  );
-                },
-                child: Hero(
-                  tag: heroTag,
-                  child: Container(
-                    width: double.infinity,
-                    height: 220,
-                    margin: const EdgeInsets.only(bottom: 18),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.18),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                      border: Border.all(
-                          color: Theme.of(context).colorScheme.secondary,
-                          width: 2),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.network(
-                      quotation.tattooDesignImageUrl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onPrimary
-                            .withOpacity(0.2),
-                        child: Icon(Icons.broken_image,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            size: 64),
-                      ),
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const Center(
-                            child: CircularProgressIndicator(strokeWidth: 2));
-                      },
-                    ),
-                  ),
+              ResponsiveBuilder(
+                mobile: _buildMobileImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
+                ),
+                tablet: _buildTabletImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
+                ),
+                desktop: _buildDesktopImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
                 ),
               ),
             ],
@@ -841,6 +810,257 @@ class _MainQuotationInfo extends StatelessWidget {
 
     return widgets;
   }
+
+  Widget _buildMobileImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => _ImageViewerDialog(
+            imageUrl: quotation.tattooDesignImageUrl!,
+            heroTag: heroTag,
+          ),
+        );
+      },
+      child: Hero(
+        tag: heroTag,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 18),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.18),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: ImageWithSkeleton(
+              imageUrl: quotation.tattooDesignImageUrl!,
+              fit: BoxFit.contain,
+              borderRadius: BorderRadius.circular(14),
+              shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+              shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+              errorWidget: Container(
+                color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                child: Icon(
+                  Icons.broken_image,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 64,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabletImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => _ImageViewerDialog(
+            imageUrl: quotation.tattooDesignImageUrl!,
+            heroTag: heroTag,
+          ),
+        );
+      },
+      child: Hero(
+        tag: heroTag,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 18),
+          constraints: const BoxConstraints(maxHeight: 400),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.18),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: AspectRatio(
+            aspectRatio: 4 / 3,
+            child: ImageWithSkeleton(
+              imageUrl: quotation.tattooDesignImageUrl!,
+              fit: BoxFit.contain,
+              borderRadius: BorderRadius.circular(14),
+              shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+              shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+              errorWidget: Container(
+                color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                child: Icon(
+                  Icons.broken_image,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 64,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image on left
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (_) => _ImageViewerDialog(
+                    imageUrl: quotation.tattooDesignImageUrl!,
+                    heroTag: heroTag,
+                  ),
+                );
+              },
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Hero(
+                  tag: heroTag,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 600, maxHeight: 400),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.18),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 2),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: AspectRatio(
+                      aspectRatio: 4 / 3,
+                      child: Stack(
+                        children: [
+                          ImageWithSkeleton(
+                            imageUrl: quotation.tattooDesignImageUrl!,
+                            fit: BoxFit.contain,
+                            borderRadius: BorderRadius.circular(14),
+                            shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+                            shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+                            errorWidget: Container(
+                              color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                size: 64,
+                              ),
+                            ),
+                          ),
+                          // Hover overlay for web
+                          if (kIsWeb)
+                            Positioned.fill(
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.black.withValues(alpha: 0.1),
+                                  child: Center(
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: 0.0),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: const Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(Icons.zoom_in, color: Colors.transparent, size: 20),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            'Click to view',
+                                            style: TextStyle(
+                                              color: Colors.transparent,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 24),
+          // Details on right
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Tattoo Design',
+                  style: TextStyleTheme.subtitle1.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Click on the image to view in full screen',
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class _InfoSection extends StatelessWidget {
@@ -1653,54 +1873,165 @@ class _OfferListItem extends StatelessWidget {
   }
 }
 
-// --- Visualizador de imagen fullscreen (reutilizado) ---
-class _ImageViewerDialog extends StatelessWidget {
+// --- Enhanced Image Viewer with PhotoView ---
+class _ImageViewerDialog extends StatefulWidget {
   final String imageUrl;
   final String heroTag;
   const _ImageViewerDialog({required this.imageUrl, required this.heroTag});
 
   @override
+  State<_ImageViewerDialog> createState() => _ImageViewerDialogState();
+}
+
+class _ImageViewerDialogState extends State<_ImageViewerDialog> {
+  late PhotoViewController _photoViewController;
+  bool _showControls = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _photoViewController = PhotoViewController();
+  }
+
+  @override
+  void dispose() {
+    _photoViewController.dispose();
+    super.dispose();
+  }
+
+  void _toggleControls() {
+    setState(() {
+      _showControls = !_showControls;
+    });
+  }
+
+  void _resetZoom() {
+    _photoViewController.reset();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return GestureDetector(
-      onTap: () => Navigator.of(context).pop(),
-      child: Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.98),
-        body: Stack(
-          children: [
-            Center(
-              child: Hero(
-                tag: heroTag,
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    color:
-                        Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
-                    child: Icon(Icons.broken_image,
-                        color: Theme.of(context).colorScheme.tertiary,
-                        size: 64),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // PhotoView with zoom and pan capabilities
+          GestureDetector(
+            onTap: _toggleControls,
+            child: Hero(
+              tag: widget.heroTag,
+              child: PhotoView(
+                imageProvider: CachedNetworkImageProvider(widget.imageUrl),
+                controller: _photoViewController,
+                backgroundDecoration: const BoxDecoration(
+                  color: Colors.black,
+                ),
+                minScale: PhotoViewComputedScale.contained,
+                maxScale: PhotoViewComputedScale.covered * 4.0,
+                initialScale: PhotoViewComputedScale.contained,
+                heroAttributes: PhotoViewHeroAttributes(tag: widget.heroTag),
+                loadingBuilder: (context, event) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 16),
+                      if (event != null && event.expectedTotalBytes != null)
+                        Text(
+                          '${(event.cumulativeBytesLoaded / event.expectedTotalBytes! * 100).toInt()}%',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                    ],
                   ),
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const Center(
-                        child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white));
-                  },
+                ),
+                errorBuilder: (context, error, stackTrace) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.broken_image_outlined,
+                        color: Colors.white.withValues(alpha: 0.7),
+                        size: 64,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Failed to load image',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Positioned(
-              top: 32,
-              right: 24,
-              child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white, size: 32),
-                onPressed: () => Navigator.of(context).pop(),
-                tooltip: l10n.close,
+          ),
+          
+          // Top controls (close button)
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            top: _showControls ? MediaQuery.of(context).padding.top + 8 : -100,
+            right: 16,
+            child: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white, size: 28),
+                  onPressed: () => Navigator.of(context).pop(),
+                  tooltip: l10n.close,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          
+          // Bottom controls (reset zoom)
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            bottom: _showControls ? MediaQuery.of(context).padding.bottom + 16 : -100,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.7),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.refresh, color: Colors.white, size: 24),
+                        onPressed: _resetZoom,
+                        tooltip: 'Reset zoom',
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Tap to hide controls • Pinch to zoom • Drag to pan',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.8),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -12,6 +12,8 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
+import 'package:inker_studio/ui/shared/widgets/drop_zone_widget.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -63,6 +65,17 @@ class _AddStencilPageState extends State<AddStencilPage> {
     super.dispose();
   }
 
+  Future<void> _handleDroppedFiles(List<XFile> files) async {
+    if (files.isNotEmpty) {
+      final file = files.first;
+      final bytes = await file.readAsBytes();
+      setState(() {
+        _selectedImage = file;
+        _imageBytes = bytes;
+      });
+    }
+  }
+
   Future<void> _pickImage() async {
     // Si estamos en modo de prueba, usar una imagen predefinida
     if (isInTestMode) {
@@ -90,10 +103,10 @@ class _AddStencilPageState extends State<AddStencilPage> {
           });
         }
         
-        print('Image loaded on test mode');
+        debugPrint('Image loaded on test mode');
         return;
       } catch (e) {
-        print('Error loading test image: $e');
+        debugPrint('Error loading test image: $e');
       }
     }
     
@@ -285,6 +298,90 @@ class _AddStencilPageState extends State<AddStencilPage> {
   }
 
   Widget _buildImagePicker() {
+    if (_selectedImage != null) {
+      return Container(
+        key: registerKeys.addStencil.imagePicker,
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+          ),
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: _buildImageWidget(),
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white, size: 20),
+                  onPressed: () {
+                    setState(() {
+                      _selectedImage = null;
+                      _imageBytes = null;
+                    });
+                  },
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(
+                    minWidth: 36,
+                    minHeight: 36,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 8,
+              right: 8,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.white, size: 20),
+                  onPressed: _pickImage,
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(
+                    minWidth: 36,
+                    minHeight: 36,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Show drop zone for web, regular picker for mobile
+    if (kIsWeb) {
+      return DropZoneWidget(
+        key: registerKeys.addStencil.imagePicker,
+        onFilesDropped: _handleDroppedFiles,
+        multiple: false,
+        allowedExtensions: const ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        maxFileSize: 10,
+        height: 200,
+        borderRadius: BorderRadius.circular(12),
+        primaryColor: Theme.of(context).colorScheme.secondary,
+        idleText: S.of(context).tapToSelectImage,
+        hoverText: 'Release to upload image',
+        uploadingText: 'Uploading image...',
+        onTap: _pickImage,
+      );
+    }
+
+    // Mobile version - simple tap to select
     return Center(
       child: GestureDetector(
         key: registerKeys.addStencil.imagePicker,
@@ -293,33 +390,39 @@ class _AddStencilPageState extends State<AddStencilPage> {
           width: double.infinity,
           height: 200,
           decoration: BoxDecoration(
-            color:
-                HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.2)
+                .toColor(),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+            ),
           ),
-          child: _selectedImage != null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: _buildImageWidget(),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_photo_alternate,
-                      size: 64,
-                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.7),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      S.of(context).tapToSelectImage,
-                      style: TextStyleTheme.subtitle1.copyWith(
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                  ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.add_photo_alternate,
+                size: 48,
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.7),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                S.of(context).tapToSelectImage,
+                style: TextStyleTheme.subtitle1.copyWith(
+                  color: Colors.grey.shade400,
                 ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'JPG, PNG, GIF supported',
+                style: TextStyleTheme.caption.copyWith(
+                  color: Colors.grey.shade500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -633,34 +736,127 @@ class _AddStencilPageState extends State<AddStencilPage> {
   }
 
   Widget _buildImageWidget() {
+    if (_selectedImage == null) {
+      return const SizedBox.shrink();
+    }
+
     if (_imageBytes != null) {
-      return Image.memory(
-        _imageBytes!,
-        fit: BoxFit.cover,
-      );
-    } else if (kIsWeb && _selectedImage != null) {
-      return Image.network(
-        _selectedImage!.path,
-        fit: BoxFit.cover,
+      return ImageWithSkeleton(
+        imageUrl: 'data:image/png;base64,${_imageBytes!}',
+        sourceType: ImageSourceType.network,
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.contain,
+        borderRadius: BorderRadius.circular(12),
+        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.15)
+            .toColor(),
+        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.25)
+            .toColor(),
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
-          return Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes!
-                  : null,
+          return Container(
+            width: double.infinity,
+            height: 200,
+            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Loading image...',
+                    style: TextStyleTheme.caption.copyWith(
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: double.infinity,
+            height: 200,
+            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                .withLightness(0.15)
+                .toColor(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.broken_image_outlined,
+                  size: 48,
+                  color: Colors.grey.shade600,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Failed to load image',
+                  style: TextStyleTheme.caption.copyWith(
+                    color: Colors.grey.shade400,
+                  ),
+                ),
+              ],
             ),
           );
         },
       );
-    } else if (_selectedImage != null) {
-      return Image.file(
-        File(_selectedImage!.path),
-        fit: BoxFit.cover,
-      );
     }
-    return const SizedBox.shrink();
+
+    // For file-based images (mobile)
+    return ImageWithSkeleton(
+      imageUrl: _selectedImage!.path,
+      sourceType: kIsWeb ? ImageSourceType.network : ImageSourceType.file,
+      width: double.infinity,
+      height: 200,
+      fit: BoxFit.contain,
+      borderRadius: BorderRadius.circular(12),
+      shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+          .withLightness(0.15)
+          .toColor(),
+      shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+          .withLightness(0.25)
+          .toColor(),
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          width: double.infinity,
+          height: 200,
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.15)
+              .toColor(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.broken_image_outlined,
+                size: 48,
+                color: Colors.grey.shade600,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load image',
+                style: TextStyleTheme.caption.copyWith(
+                  color: Colors.grey.shade400,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
