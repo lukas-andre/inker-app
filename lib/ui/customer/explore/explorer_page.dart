@@ -4,8 +4,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
+import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view_web.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
+import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view_web.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_sheet.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
@@ -47,7 +50,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     title: Text(
                       'Explorar',
                       style: TextStyleTheme.copyWith(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -95,7 +98,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       return Center(
                         child: Text(
                           'No artist found',
-                          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                         ),
                       );
                     } else {
@@ -140,8 +143,13 @@ class ExplorerViewByType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return view == ExplorerView.list
-        ? const ExplorerListView()
-        : const ExplorerMapView();
+    final platformService = context.read<PlatformService>();
+    final isWeb = platformService.isWeb;
+
+    if (view == ExplorerView.list) {
+      return isWeb ? const ExplorerListViewWeb() : const ExplorerListView();
+    } else {
+      return isWeb ? const ExplorerMapViewWeb() : const ExplorerMapView();
+    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/utils/formatters/distance_formatter.dart';
 
 class ExplorerListView extends StatelessWidget {
   const ExplorerListView({super.key});
@@ -265,7 +266,7 @@ class _ArtistInfo extends StatelessWidget {
                       ),
                       const SizedBox(width: 2),
                       Text(
-                        '${(artist.distance! * 1000).toInt()} ${S.of(context).meters}',
+                        DistanceFormatter.formatDistanceCompact(artist.distance, artist.distanceUnit, context),
                         style: TextStyleTheme.copyWith(
                           fontSize: 12,
                           color: Colors.white.withOpacity(0.8),

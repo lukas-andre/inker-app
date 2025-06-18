@@ -7942,6 +7942,176 @@ class S {
       args: [],
     );
   }
+
+  /// `Artistas Destacados`
+  String get featuredArtists {
+    return Intl.message(
+      'Artistas Destacados',
+      name: 'featuredArtists',
+      desc: 'Título para la sección de artistas destacados.',
+      args: [],
+    );
+  }
+
+  /// `Todos los Artistas`
+  String get allArtists {
+    return Intl.message(
+      'Todos los Artistas',
+      name: 'allArtists',
+      desc: 'Título para la sección de todos los artistas.',
+      args: [],
+    );
+  }
+
+  /// `Explorar Artistas`
+  String get exploreArtists {
+    return Intl.message(
+      'Explorar Artistas',
+      name: 'exploreArtists',
+      desc: 'Título para explorar artistas.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron artistas`
+  String get noArtistsFound {
+    return Intl.message(
+      'No se encontraron artistas',
+      name: 'noArtistsFound',
+      desc: 'Mensaje cuando no se encuentran artistas.',
+      args: [],
+    );
+  }
+
+  /// `Ver Perfil`
+  String get seeProfile {
+    return Intl.message(
+      'Ver Perfil',
+      name: 'seeProfile',
+      desc: 'Texto del botón para ver el perfil del artista.',
+      args: [],
+    );
+  }
+
+  /// `Vista de Mapa Próximamente`
+  String get mapViewComingSoon {
+    return Intl.message(
+      'Vista de Mapa Próximamente',
+      name: 'mapViewComingSoon',
+      desc: 'Título para la vista de mapa próximamente.',
+      args: [],
+    );
+  }
+
+  /// `La vista de mapa estará disponible pronto para ayudarte a encontrar artistas cercanos a tu ubicación.`
+  String get mapViewDescription {
+    return Intl.message(
+      'La vista de mapa estará disponible pronto para ayudarte a encontrar artistas cercanos a tu ubicación.',
+      name: 'mapViewDescription',
+      desc: 'Descripción de la vista de mapa próximamente.',
+      args: [],
+    );
+  }
+
+  /// `Mientras tanto, puedes explorar todos los artistas disponibles en la vista de lista.`
+  String get mapViewInfo {
+    return Intl.message(
+      'Mientras tanto, puedes explorar todos los artistas disponibles en la vista de lista.',
+      name: 'mapViewInfo',
+      desc: 'Información adicional sobre la vista de mapa.',
+      args: [],
+    );
+  }
+
+  /// `Ver Lista de Artistas`
+  String get switchToListView {
+    return Intl.message(
+      'Ver Lista de Artistas',
+      name: 'switchToListView',
+      desc: 'Texto del botón para cambiar a vista de lista.',
+      args: [],
+    );
+  }
+
+  /// `Perfil del Artista`
+  String get artistProfile {
+    return Intl.message(
+      'Perfil del Artista',
+      name: 'artistProfile',
+      desc: 'Título para la página de perfil del artista.',
+      args: [],
+    );
+  }
+
+  /// `Compartir`
+  String get share {
+    return Intl.message(
+      'Compartir',
+      name: 'share',
+      desc: 'Texto del botón compartir.',
+      args: [],
+    );
+  }
+
+  /// `Acerca de`
+  String get about {
+    return Intl.message(
+      'Acerca de',
+      name: 'about',
+      desc: 'Título de la sección sobre el artista.',
+      args: [],
+    );
+  }
+
+  /// `Especialidades`
+  String get specialties {
+    return Intl.message(
+      'Especialidades',
+      name: 'specialties',
+      desc: 'Título para las especialidades del artista.',
+      args: [],
+    );
+  }
+
+  /// `Estilos`
+  String get styles {
+    return Intl.message(
+      'Estilos',
+      name: 'styles',
+      desc: 'Título para los estilos del artista.',
+      args: [],
+    );
+  }
+
+  /// `Más Recientes`
+  String get mostRecent {
+    return Intl.message(
+      'Más Recientes',
+      name: 'mostRecent',
+      desc: 'Opción de ordenamiento por más reciente.',
+      args: [],
+    );
+  }
+
+  /// `Más Populares`
+  String get mostPopular {
+    return Intl.message(
+      'Más Populares',
+      name: 'mostPopular',
+      desc: 'Opción de ordenamiento por más popular.',
+      args: [],
+    );
+  }
+
+  /// `No se encontraron plantillas`
+  String get noStencilsFound {
+    return Intl.message(
+      'No se encontraron plantillas',
+      name: 'noStencilsFound',
+      desc: 'Mensaje cuando no se encuentran plantillas.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
