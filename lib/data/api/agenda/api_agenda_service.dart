@@ -799,9 +799,10 @@ class ApiAgendaService extends AgendaService {
   }) async {
     final List<http.MultipartFile> filesToUpload = [];
     for (final file in files) {
-      filesToUpload.add(await http.MultipartFile.fromPath(
+      final bytes = await file.readAsBytes();
+      filesToUpload.add(http.MultipartFile.fromBytes(
         'files', // API field name
-        file.path,
+        bytes,
         filename: file.path.split('/').last,
       ));
     }

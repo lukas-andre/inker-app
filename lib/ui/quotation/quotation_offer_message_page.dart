@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -452,16 +453,31 @@ class _QuotationOfferMessageViewState
                               );
                             },
                           )
-                        : Image.file(
-                            File(imageToShow),
-                            fit: BoxFit.cover,
-                            height: 200,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                height: 100,
-                                color: Colors.grey[800],
-                                child: const Center(
-                                  child: Icon(Icons.broken_image,
+                        : kIsWeb
+                          ? Image.network(
+                              imageToShow,
+                              fit: BoxFit.cover,
+                              height: 200,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 100,
+                                  color: Colors.grey[800],
+                                  child: const Center(
+                                    child: Icon(Icons.broken_image, color: Colors.white),
+                                  ),
+                                );
+                              },
+                            )
+                          : Image.file(
+                              File(imageToShow),
+                              fit: BoxFit.cover,
+                              height: 200,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 100,
+                                  color: Colors.grey[800],
+                                  child: const Center(
+                                    child: Icon(Icons.broken_image,
                                       color: Colors.white),
                                 ),
                               );

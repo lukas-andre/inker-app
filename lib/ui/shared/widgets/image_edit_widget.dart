@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,6 +29,7 @@ class ImageEditWidget extends StatefulWidget {
 
 class _ImageEditWidgetState extends State<ImageEditWidget> {
   XFile? _imageFile;
+  Uint8List? _imageBytes;
   final ImagePicker _picker = ImagePicker();
   bool _isNewImageSelected = false;
   bool _hasChanges = false;
@@ -53,10 +56,20 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     if (_isNewImageSelected && _imageFile != null) {
       return _buildImageContainer(
         key: registerKeys.imageEdit.imageContent,
-        child: Image.file(
-          File(_imageFile!.path),
-          fit: BoxFit.cover,
-        ),
+        child: _imageBytes != null
+            ? Image.memory(
+                _imageBytes!,
+                fit: BoxFit.cover,
+              )
+            : kIsWeb
+                ? Image.network(
+                    _imageFile!.path,
+                    fit: BoxFit.cover,
+                  )
+                : Image.file(
+                    File(_imageFile!.path),
+                    fit: BoxFit.cover,
+                  ),
       );
     } else if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
       return _buildImageContainer(
@@ -274,25 +287,36 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     // Si estamos en modo de prueba, usar una imagen predefinida
     if (isInTestMode) {
       try {
-        // Crear un archivo temporal para la imagen de prueba
-        final directory = await getTemporaryDirectory();
-        final imagePath = '${directory.path}/test_studio.png';
-        final File imageFile = File(imagePath);
-
         // Copiar el asset al archivo temporal
         ByteData data = await rootBundle
             .load('assets/studio_${Random().nextInt(5) + 1}.png');
-        List<int> bytes = data.buffer.asUint8List();
-        await imageFile.writeAsBytes(bytes);
+        final bytes = data.buffer.asUint8List();
 
-        // Usar la imagen temporal
-        setState(() {
-          _imageFile = XFile(imagePath);
-          _isNewImageSelected = true;
-          _hasChanges = true;
-        });
+        if (kIsWeb) {
+          // En web, crear un XFile desde bytes
+          final blob = Uint8List.fromList(bytes);
+          setState(() {
+            _imageFile = XFile.fromData(blob, name: 'test_studio.png');
+            _imageBytes = blob;
+            _isNewImageSelected = true;
+            _hasChanges = true;
+          });
+        } else {
+          // En móvil, crear archivo temporal
+          final directory = await getTemporaryDirectory();
+          final imagePath = '${directory.path}/test_studio.png';
+          final File imageFile = File(imagePath);
+          await imageFile.writeAsBytes(bytes);
 
-        print('Studio image loaded in test mode: $imagePath');
+          setState(() {
+            _imageFile = XFile(imagePath);
+            _imageBytes = bytes;
+            _isNewImageSelected = true;
+            _hasChanges = true;
+          });
+        }
+
+        print('Studio image loaded in test mode');
         return;
       } catch (e) {
         print('Error loading test studio image: $e');
@@ -307,8 +331,12 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     );
 
     if (pickedFile != null) {
+      // Leer bytes para compatibilidad web
+      final bytes = await pickedFile.readAsBytes();
+      
       setState(() {
         _imageFile = pickedFile;
+        _imageBytes = bytes;
         _isNewImageSelected = true;
         _hasChanges = true;
       });
@@ -318,6 +346,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   void _removeImage() {
     setState(() {
       _imageFile = null;
+      _imageBytes = null;
       _isNewImageSelected = false;
       _hasChanges = true;
     });
