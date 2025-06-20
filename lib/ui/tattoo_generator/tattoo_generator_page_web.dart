@@ -167,40 +167,60 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final isTablet = Responsive.isTablet(context);
     final isDesktop = Responsive.isDesktop(context);
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
         title: Row(
           children: [
-            const Icon(Icons.brush, color: Colors.white),
+            Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.secondary, size: 24),
             const SizedBox(width: 8),
-            Text(s.tattooGenerator, style: TextStyleTheme.headline2),
+            Text(
+              s.tattooGenerator, 
+              style: TextStyleTheme.headline2.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: Container(
-            alignment: Alignment.center,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: isDesktop ? 600 : double.infinity,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Theme.of(context).dividerColor,
+                  width: 1,
+                ),
               ),
-              child: TabBar(
-                controller: _tabController,
-                indicatorColor: Theme.of(context).colorScheme.error,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white.withOpacity(0.7),
-                tabs: [
-                  Tab(text: s.generate),
-                  Tab(text: s.history),
-                  Tab(text: s.favorites),
-                ],
+            ),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: screenWidth >= 1400 ? 800 : (isDesktop ? 600 : double.infinity),
+                ),
+                child: TabBar(
+                  controller: _tabController,
+                  indicatorColor: Theme.of(context).colorScheme.secondary,
+                  labelColor: Theme.of(context).colorScheme.onSurface,
+                  unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                  indicatorWeight: 3,
+                  labelStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  tabs: [
+                    Tab(text: s.generate),
+                    Tab(text: s.history),
+                    Tab(text: s.favorites),
+                  ],
+                ),
               ),
             ),
           ),
@@ -228,20 +248,13 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
           );
         },
         builder: (context, state) {
-          return Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: isDesktop ? 1200 : (isTablet ? 900 : double.infinity),
-              ),
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildGenerateTab(s, state),
-                  _buildHistoryTab(s, state),
-                  _buildFavoritesTab(s, state),
-                ],
-              ),
-            ),
+          return TabBarView(
+            controller: _tabController,
+            children: [
+              _buildGenerateTab(s, state),
+              _buildHistoryTab(s, state),
+              _buildFavoritesTab(s, state),
+            ],
           );
         },
       ),
@@ -250,151 +263,273 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
 
   Widget _buildGenerateTab(S s, TattooGeneratorState state) {
     final isDesktop = Responsive.isDesktop(context);
-    final isTablet = Responsive.isTablet(context);
+    final isDesktopLarge = Responsive.isDesktopLarge(context);
+    final showDesktopLayout = isDesktop || isDesktopLarge;
     
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(isDesktop ? 32 : (isTablet ? 24 : 16)),
-      child: Column(
-        children: [
-          // Main content in a card-like container
-          Container(
-            decoration: BoxDecoration(
-              color: explorerSecondaryColor,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: EdgeInsets.all(isDesktop ? 32 : 24),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left side - Input and controls
-                Expanded(
-                  flex: isDesktop ? 5 : 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildPromptInputWeb(s),
-                      const SizedBox(height: 32),
-                      _buildStyleSelectorWeb(s),
-                      const SizedBox(height: 32),
-                      _buildGenerateButtonWeb(s),
-                    ],
+    if (!showDesktopLayout) {
+      // Mobile/Tablet layout remains similar but improved
+      return Container(
+        color: Theme.of(context).colorScheme.surface,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Theme.of(context).dividerColor,
+                    width: 1,
                   ),
                 ),
-                if (isDesktop) ...[
-                  const SizedBox(width: 48),
-                  // Right side - Preview
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      height: 500,
-                      decoration: BoxDecoration(
-                        color: primaryColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                          width: 1,
-                        ),
-                      ),
-                      child: state.maybeWhen(
-                        loading: () => const Center(child: LoadingIndicator()),
-                        loaded: (images, prompt, style, designId) =>
-                            _buildResultsViewWeb(s, images, prompt, style, designId),
-                        orElse: () => _buildEmptyStateWeb(s),
+                child: Column(
+                  children: [
+                    _buildPromptInputWeb(s),
+                    const SizedBox(height: 24),
+                    _buildStyleSelectorWeb(s),
+                    const SizedBox(height: 24),
+                    _buildGenerateButtonWeb(s),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                height: 400,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Theme.of(context).dividerColor,
+                    width: 1,
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: state.maybeWhen(
+                    loading: () => const Center(child: LoadingIndicator()),
+                    loaded: (images, prompt, style, designId) =>
+                        _buildResultsViewWeb(s, images, prompt, style, designId),
+                    orElse: () => _buildEmptyStateWeb(s),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    
+    // Desktop layout - proper web experience with sidebar
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: Row(
+        children: [
+          // Left sidebar - Style selector
+          Container(
+            width: 280,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              border: Border(
+                right: BorderSide(
+                  color: Theme.of(context).dividerColor,
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Theme.of(context).dividerColor,
+                        width: 1,
                       ),
                     ),
                   ),
-                ],
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.palette,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        s.chooseStyle,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: _buildStyleSidebarWeb(s),
+                ),
               ],
             ),
           ),
           
-          // Results for mobile/tablet
-          if (!isDesktop)
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Container(
-                height: 400,
-                decoration: BoxDecoration(
-                  color: explorerSecondaryColor,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
+          // Center content - Input and preview
+          Expanded(
+            child: Row(
+              children: [
+                // Input section
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 32),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Header
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.auto_awesome,
+                              size: 32,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Genera tu diseño',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Describe tu idea y presiona generar',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        
+                        // Prompt input
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildPromptInputWeb(s),
+                              const SizedBox(height: 24),
+                              _buildGenerateButtonWeb(s),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                child: state.maybeWhen(
-                  loading: () => const Center(child: LoadingIndicator()),
-                  loaded: (images, prompt, style, designId) =>
-                      _buildResultsViewWeb(s, images, prompt, style, designId),
-                  orElse: () => _buildEmptyStateWeb(s),
+                
+                // Divider
+                Container(
+                  width: 1,
+                  color: Theme.of(context).dividerColor,
                 ),
-              ),
+                
+                // Preview section
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    padding: const EdgeInsets.all(32),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Theme.of(context).dividerColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: state.maybeWhen(
+                          loading: () => const Center(child: LoadingIndicator()),
+                          loaded: (images, prompt, style, designId) =>
+                              _buildResultsViewWeb(s, images, prompt, style, designId),
+                          orElse: () => _buildEmptyStateWeb(s),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildPromptInputWeb(S s) {
+    final isDesktop = Responsive.isDesktop(context);
+    final isDesktopLarge = Responsive.isDesktopLarge(context);
+    final showDesktopLayout = isDesktop || isDesktopLarge;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(Icons.description,
-                  color: Theme.of(context).colorScheme.secondary, size: 24),
-            ),
-            const SizedBox(width: 12),
-            Text(
-              s.describeYourTattoo,
-              style: TextStyleTheme.headline2.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        Text(
+          s.describeYourTattoo,
+          style: TextStyle(
+            fontSize: showDesktopLayout ? 16 : 18,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         TextField(
           controller: _promptController,
-          maxLines: 4,
-          style: TextStyleTheme.bodyText1.copyWith(fontSize: 16),
+          maxLines: showDesktopLayout ? 5 : 3,
+          style: TextStyle(
+            fontSize: 14,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           textInputAction: TextInputAction.done,
           onSubmitted: (_) => FocusScope.of(context).unfocus(),
           decoration: InputDecoration(
-            fillColor: inputBackgroundColor,
+            fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
             filled: true,
             hintText: s.tattooDescriptionHint,
-            hintStyle: hintTextStyle.copyWith(fontSize: 14),
+            hintStyle: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.secondary,
                 width: 2,
               ),
             ),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            contentPadding: const EdgeInsets.all(16),
           ),
           onChanged: (value) {
             context.read<TattooGeneratorBloc>().add(
@@ -408,52 +543,41 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
 
   Widget _buildStyleSelectorWeb(S s) {
     final isDesktop = Responsive.isDesktop(context);
+    final isDesktopLarge = Responsive.isDesktopLarge(context);
+    final showDesktopLayout = isDesktop || isDesktopLarge;
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(Icons.style,
-                  color: Theme.of(context).colorScheme.secondary, size: 24),
-            ),
-            const SizedBox(width: 12),
-            Text(
-              s.chooseStyle,
-              style: TextStyleTheme.headline2.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        Text(
+          s.chooseStyle,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         // Grid layout for styles
         Container(
           constraints: BoxConstraints(
-            maxHeight: isDesktop ? 300 : 400,
+            maxHeight: showDesktopLayout ? 240 : 320,
           ),
           child: GridView.builder(
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isDesktop ? 4 : 3,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.2,
+              crossAxisCount: showDesktopLayout ? 4 : 3,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: showDesktopLayout ? 1.3 : 1.1,
             ),
             itemCount: TattooStyle.values.length,
             itemBuilder: (context, index) {
               final style = TattooStyle.values[index];
               final isSelected = style == _selectedStyle;
               
-              return GestureDetector(
+              return InkWell(
                 onTap: () {
                   setState(() {
                     _selectedStyle = style;
@@ -462,29 +586,18 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                         TattooGeneratorEvent.updateStyle(style),
                       );
                 },
+                borderRadius: BorderRadius.circular(8),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? Theme.of(context).colorScheme.secondary
-                        : primaryColor.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondary
-                                  .withOpacity(0.4),
-                              blurRadius: 8,
-                              spreadRadius: 1,
-                            )
-                          ]
-                        : null,
+                        ? Theme.of(context).colorScheme.secondaryContainer
+                        : Theme.of(context).colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: isSelected
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                          ? Theme.of(context).colorScheme.secondary
+                          : Theme.of(context).dividerColor,
                       width: isSelected ? 2 : 1,
                     ),
                   ),
@@ -493,18 +606,20 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                     children: [
                       Text(
                         _getStyleEmoji(style),
-                        style: const TextStyle(fontSize: 28),
+                        style: const TextStyle(fontSize: 20),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 4),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
                           _localizedTattooStyle(style, context),
                           textAlign: TextAlign.center,
-                          style: TextStyleTheme.bodyText2.copyWith(
-                            fontSize: 12,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: Colors.white,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            color: isSelected
+                                ? Theme.of(context).colorScheme.onSecondaryContainer
+                                : Theme.of(context).colorScheme.onSurface,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -520,24 +635,96 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
       ],
     );
   }
+  
+  Widget _buildStyleSidebarWeb(S s) {
+    return ListView.builder(
+      padding: const EdgeInsets.all(12),
+      itemCount: TattooStyle.values.length,
+      itemBuilder: (context, index) {
+        final style = TattooStyle.values[index];
+        final isSelected = style == _selectedStyle;
+        
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                _selectedStyle = style;
+              });
+              context.read<TattooGeneratorBloc>().add(
+                    TattooGeneratorEvent.updateStyle(style),
+                  );
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? Theme.of(context).colorScheme.secondaryContainer
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.transparent,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    _getStyleEmoji(style),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      _localizedTattooStyle(style, context),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        color: isSelected
+                            ? Theme.of(context).colorScheme.onSecondaryContainer
+                            : Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                  if (isSelected)
+                    Icon(
+                      Icons.check_circle,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   Widget _buildGenerateButtonWeb(S s) {
     return SizedBox(
       width: double.infinity,
-      height: 56,
+      height: 48,
       child: ElevatedButton.icon(
-        icon: const Icon(Icons.auto_awesome, size: 24),
+        icon: const Icon(Icons.auto_awesome, size: 20),
         label: Text(
           s.generateTattoo,
-          style: TextStyleTheme.button.copyWith(fontSize: 18),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.secondary,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
           ),
-          elevation: 2,
+          elevation: 0,
         ),
         onPressed: () {
           if (_promptController.text.trim().isEmpty) {
@@ -604,20 +791,20 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                         imageUrl: images[imageIndex].imageUrl,
                         fit: BoxFit.contain,
                         placeholder: (context, url) => Container(
-                          color: primaryColor.withOpacity(0.5),
+                          color: primaryColor.withValues(alpha: 0.5),
                           child: const Center(
                             child: LoadingIndicator(),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
-                          color: primaryColor.withOpacity(0.5),
+                          color: primaryColor.withValues(alpha: 0.5),
                           child: const Center(
                             child: Icon(Icons.error, color: redColor, size: 48),
                           ),
                         ),
                       ),
                     ),
-                    // Overlay with view details
+                      // Overlay with view details
                     Positioned(
                       bottom: 0,
                       left: 0,
@@ -629,7 +816,7 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Colors.black.withOpacity(0.8),
+                              Colors.black.withValues(alpha: 0.8),
                               Colors.transparent,
                             ],
                           ),
@@ -641,14 +828,15 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                               const Icon(
                                 Icons.fullscreen,
                                 color: Colors.white,
-                                size: 20,
+                                size: 18,
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 6),
                               Text(
                                 s.viewDetails,
-                                style: TextStyleTheme.bodyText1.copyWith(
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -679,7 +867,7 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                     shape: BoxShape.circle,
                     color: dotIndex == _currentResultImageIndex
                         ? Colors.white
-                        : Colors.white.withOpacity(0.4),
+                        : Colors.white.withValues(alpha: 0.4),
                   ),
                 );
               }),
@@ -691,93 +879,110 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
 
   Widget _buildEmptyStateWeb(S s) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-              shape: BoxShape.circle,
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.3),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.auto_awesome,
+                size: 48,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
-            child: Icon(Icons.brush,
-                size: 72, color: Theme.of(context).colorScheme.secondary),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            s.emptyTattooGeneratorMessage,
-            textAlign: TextAlign.center,
-            style: TextStyleTheme.headline3.copyWith(
-              color: Colors.white.withOpacity(0.9),
-              fontSize: 18,
+            const SizedBox(height: 24),
+            Text(
+              s.emptyTattooGeneratorMessage,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            '✨ 🖌️ 🎨',
-            style: TextStyle(fontSize: 36),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Text(
+              'Describe tu idea y presiona generar',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildHistoryTab(S s, TattooGeneratorState state) {
-    return state.maybeWhen(
-      historyLoading: () => const Center(child: LoadingIndicator()),
-      historyLoaded: (designs, favoritesOnly) => _buildDesignsGridViewWeb(
-        s: s,
-        designs: designs,
-        emptyMessage: s.noDesignsOnHistory,
-        onRefresh: () {
-          context
-              .read<TattooGeneratorBloc>()
-              .add(const TattooGeneratorEvent.refreshHistory());
-          return Future.delayed(const Duration(milliseconds: 1500));
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: state.maybeWhen(
+        historyLoading: () => const Center(child: LoadingIndicator()),
+        historyLoaded: (designs, favoritesOnly) => _buildDesignsGridViewWeb(
+          s: s,
+          designs: designs,
+          emptyMessage: s.noDesignsOnHistory,
+          onRefresh: () {
+            context
+                .read<TattooGeneratorBloc>()
+                .add(const TattooGeneratorEvent.refreshHistory());
+            return Future.delayed(const Duration(milliseconds: 1500));
+          },
+        ),
+        orElse: () {
+          if (_tabController.index == 1) {
+            context
+                .read<TattooGeneratorBloc>()
+                .add(const TattooGeneratorEvent.loadHistory());
+          }
+          return const Center(child: LoadingIndicator());
         },
       ),
-      orElse: () {
-        if (_tabController.index == 1) {
-          context
-              .read<TattooGeneratorBloc>()
-              .add(const TattooGeneratorEvent.loadHistory());
-        }
-        return const Center(child: LoadingIndicator());
-      },
     );
   }
 
   Widget _buildFavoritesTab(S s, TattooGeneratorState state) {
-    return state.maybeWhen(
-      historyLoading: () => const Center(child: LoadingIndicator()),
-      historyLoaded: (designs, favoritesOnly) {
-        if (!favoritesOnly && _tabController.index == 2) {
-          context
-              .read<TattooGeneratorBloc>()
-              .add(const TattooGeneratorEvent.loadFavorites());
-          return const Center(child: LoadingIndicator());
-        }
-
-        return _buildDesignsGridViewWeb(
-          designs: designs,
-          emptyMessage: s.noDesignsOnFavorites,
-          onRefresh: () {
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: state.maybeWhen(
+        historyLoading: () => const Center(child: LoadingIndicator()),
+        historyLoaded: (designs, favoritesOnly) {
+          if (!favoritesOnly && _tabController.index == 2) {
             context
                 .read<TattooGeneratorBloc>()
-                .add(const TattooGeneratorEvent.refreshFavorites());
-            return Future.delayed(const Duration(milliseconds: 1500));
-          },
-          s: s,
-        );
-      },
-      orElse: () {
-        if (_tabController.index == 2) {
-          context
-              .read<TattooGeneratorBloc>()
-              .add(const TattooGeneratorEvent.loadFavorites());
-        }
-        return const Center(child: LoadingIndicator());
-      },
+                .add(const TattooGeneratorEvent.loadFavorites());
+            return const Center(child: LoadingIndicator());
+          }
+
+          return _buildDesignsGridViewWeb(
+            designs: designs,
+            emptyMessage: s.noDesignsOnFavorites,
+            onRefresh: () {
+              context
+                  .read<TattooGeneratorBloc>()
+                  .add(const TattooGeneratorEvent.refreshFavorites());
+              return Future.delayed(const Duration(milliseconds: 1500));
+            },
+            s: s,
+          );
+        },
+        orElse: () {
+          if (_tabController.index == 2) {
+            context
+                .read<TattooGeneratorBloc>()
+                .add(const TattooGeneratorEvent.loadFavorites());
+          }
+          return const Center(child: LoadingIndicator());
+        },
+      ),
     );
   }
 
@@ -790,8 +995,8 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
     if (designs.isEmpty) {
       return RefreshIndicator(
         onRefresh: onRefresh,
-        color: Theme.of(context).colorScheme.error,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Colors.white,
         child: ListView(
           children: [
             SizedBox(
@@ -800,14 +1005,37 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.image_not_supported,
-                        size: 72, color: Colors.white.withOpacity(0.5)),
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.2),
+                      ),
+                      child: Icon(
+                        Icons.image_outlined,
+                        size: 56, 
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                     const SizedBox(height: 24),
                     Text(
                       emptyMessage,
-                      style: TextStyleTheme.headline3.copyWith(
-                        color: Colors.white.withOpacity(0.7),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
                         fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      _tabController.index == 1 
+                        ? 'Genera tatuajes para construir tu historial' 
+                        : 'Añade diseños a favoritos para verlos aquí',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -820,28 +1048,42 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
     }
 
     final isDesktop = Responsive.isDesktop(context);
+    final isDesktopLarge = Responsive.isDesktopLarge(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeDesktop = screenWidth >= 1400;
     final isTablet = Responsive.isTablet(context);
-    final crossAxisCount = isDesktop ? 3 : (isTablet ? 2 : 1);
+    final showDesktopLayout = isDesktop || isDesktopLarge;
+    final crossAxisCount = isLargeDesktop ? 5 : (showDesktopLayout ? 4 : (isTablet ? 3 : 2));
 
     return RefreshIndicator(
       onRefresh: onRefresh,
-      color: Theme.of(context).colorScheme.error,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      child: Padding(
-        padding: EdgeInsets.all(isDesktop ? 32 : (isTablet ? 24 : 16)),
-        child: GridView.builder(
-          physics: const AlwaysScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: isDesktop ? 24 : 16,
-            mainAxisSpacing: isDesktop ? 24 : 16,
-            childAspectRatio: 0.85,
+      color: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Colors.white,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: isLargeDesktop ? 1400 : (showDesktopLayout ? 1200 : double.infinity),
           ),
-          itemCount: designs.length,
-          itemBuilder: (context, index) {
-            final design = designs[index];
-            return _buildDesignCardWeb(design, s);
-          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: isLargeDesktop ? 60 : (showDesktopLayout ? 40 : 24),
+              vertical: showDesktopLayout ? 32 : 20,
+            ),
+            child: GridView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: designs.length,
+              itemBuilder: (context, index) {
+                final design = designs[index];
+                return _buildDesignCardWeb(design, s);
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -850,182 +1092,243 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
   Widget _buildDesignCardWeb(UserTattooDesignDto design, S s) {
     final pageController = PageController(viewportFraction: 1.0);
     final ValueNotifier<int> currentImageIndex = ValueNotifier<int>(0);
+    final isHovered = ValueNotifier<bool>(false);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: explorerSecondaryColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image carousel
-          Expanded(
-            child: Stack(
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => isHovered.value = true,
+      onExit: (_) => isHovered.value = false,
+      child: ValueListenableBuilder<bool>(
+        valueListenable: isHovered,
+        builder: (context, hovering, child) {
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            transform: hovering 
+                ? (Matrix4.identity()..scale(1.02))
+                : Matrix4.identity(),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: hovering 
+                    ? Theme.of(context).colorScheme.secondary 
+                    : Theme.of(context).dividerColor,
+                width: hovering ? 2 : 1,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: hovering
+                      ? Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2)
+                      : Colors.black.withValues(alpha: 0.1),
+                  blurRadius: hovering ? 12 : 4,
+                  offset: Offset(0, hovering ? 6 : 2),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PageView.builder(
-                  itemCount: design.imageUrls.length,
-                  pageSnapping: true,
-                  controller: pageController,
-                  onPageChanged: (index) {
-                    currentImageIndex.value = index;
-                  },
-                  itemBuilder: (context, imageIndex) {
-                    return GestureDetector(
-                      onTap: () {
-                        _openImmersiveViewer(design, imageIndex);
-                      },
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(16)),
-                        child: Hero(
-                          tag: 'design_${design.id}_$imageIndex',
-                          child: CachedNetworkImage(
-                            imageUrl: design.imageUrls[imageIndex],
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme.of(context).colorScheme.error),
+                // Image carousel
+                AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        itemCount: design.imageUrls.length,
+                        pageSnapping: true,
+                        controller: pageController,
+                        onPageChanged: (index) {
+                          currentImageIndex.value = index;
+                        },
+                        itemBuilder: (context, imageIndex) {
+                          return GestureDetector(
+                            onTap: () {
+                              _openImmersiveViewer(design, imageIndex);
+                            },
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                              child: Hero(
+                                tag: 'design_${design.id}_$imageIndex',
+                                child: CachedNetworkImage(
+                                  imageUrl: design.imageUrls[imageIndex],
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Container(
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                    child: const Center(
+                                      child: LoadingIndicator(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                    child: Center(
+                                      child: Icon(Icons.error,
+                                          color: Theme.of(context).colorScheme.error),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                            errorWidget: (context, url, error) => Center(
-                              child: Icon(Icons.error,
-                                  color: Theme.of(context).colorScheme.error),
+                          );
+                        },
+                      ),
+                      // Style badge
+                      Positioned(
+                        top: 12,
+                        left: 12,
+                        child: Container(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.9),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _getStyleEmoji(design.getTattooStyle()),
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                _localizedTattooStyle(
+                                    design.getTattooStyle(), context),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      // Favorite button
+                      Positioned(
+                        top: 12,
+                        right: 12,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              context.read<TattooGeneratorBloc>().add(
+                                    TattooGeneratorEvent.toggleFavorite(
+                                      designId: design.id,
+                                      isFavorite: !(design.isFavorite ?? false),
+                                    ),
+                                  );
+                            },
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.9),
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.2),
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Icon(
+                                design.isFavorite ?? false
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: design.isFavorite ?? false
+                                    ? Theme.of(context).colorScheme.error
+                                    : Theme.of(context).colorScheme.onSurface,
+                                size: 18,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-                // Style badge
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _getStyleEmoji(design.getTattooStyle()),
-                          style: const TextStyle(fontSize: 14),
+                      // Dots indicator
+                      if (design.imageUrls.length > 1)
+                        Positioned(
+                          bottom: 12,
+                          left: 0,
+                          right: 0,
+                          child: ValueListenableBuilder<int>(
+                              valueListenable: currentImageIndex,
+                              builder: (context, index, _) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: List.generate(design.imageUrls.length,
+                                      (dotIndex) {
+                                    return AnimatedContainer(
+                                      duration: const Duration(milliseconds: 200),
+                                      width: dotIndex == index ? 16 : 6,
+                                      height: 6,
+                                      margin:
+                                          const EdgeInsets.symmetric(horizontal: 2),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(3),
+                                        color: dotIndex == index
+                                            ? Colors.white
+                                            : Colors.white.withValues(alpha: 0.5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withValues(alpha: 0.3),
+                                            blurRadius: 2,
+                                            offset: const Offset(0, 1),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                                );
+                              }),
                         ),
-                        const SizedBox(width: 6),
+                    ],
+                  ),
+                ),
+                // Prompt info
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            design.userQuery,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
                         Text(
-                          _localizedTattooStyle(
-                              design.getTattooStyle(), context),
-                          style: TextStyleTheme.caption.copyWith(
-                            color: Colors.white,
-                            fontSize: 12,
+                          _formatDate(design.createdAt ?? DateTime.now(), s),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                // Favorite button
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.read<TattooGeneratorBloc>().add(
-                            TattooGeneratorEvent.toggleFavorite(
-                              designId: design.id,
-                              isFavorite: !(design.isFavorite ?? false),
-                            ),
-                          );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.8),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        design.isFavorite ?? false
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: design.isFavorite ?? false
-                            ? Theme.of(context).colorScheme.error
-                            : Colors.white,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                ),
-                // Dots indicator
-                if (design.imageUrls.length > 1)
-                  Positioned(
-                    bottom: 12,
-                    left: 0,
-                    right: 0,
-                    child: ValueListenableBuilder<int>(
-                        valueListenable: currentImageIndex,
-                        builder: (context, index, _) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(design.imageUrls.length,
-                                (dotIndex) {
-                              return Container(
-                                width: 8,
-                                height: 8,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: dotIndex == index
-                                      ? Colors.white
-                                      : Colors.white.withOpacity(0.4),
-                                ),
-                              );
-                            }),
-                          );
-                        }),
-                  ),
               ],
             ),
-          ),
-          // Prompt info
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  design.userQuery,
-                  style: TextStyleTheme.bodyText1.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  _formatDate(design.createdAt ?? DateTime.now(), s),
-                  style: TextStyleTheme.caption.copyWith(
-                    color: Colors.white.withOpacity(0.6),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
