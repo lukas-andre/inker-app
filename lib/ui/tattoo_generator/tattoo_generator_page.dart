@@ -4,24 +4,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
 import 'package:inker_studio/ui/shared/widgets/loading_indicator.dart';
+import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page_web.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_immersive_viewer_page.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
-class TattooGeneratorPage extends StatefulWidget {
+class TattooGeneratorPage extends StatelessWidget {
   const TattooGeneratorPage({super.key, this.selectForQuotation = false});
 
   final bool selectForQuotation;
 
   @override
-  State<TattooGeneratorPage> createState() => _TattooGeneratorPageState();
+  Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
+    final isWeb = platformService.isWeb;
+
+    if (isWeb) {
+      return TattooGeneratorPageWeb(selectForQuotation: selectForQuotation);
+    }
+
+    return _TattooGeneratorPageMobile(selectForQuotation: selectForQuotation);
+  }
 }
 
-class _TattooGeneratorPageState extends State<TattooGeneratorPage>
+class _TattooGeneratorPageMobile extends StatefulWidget {
+  const _TattooGeneratorPageMobile({this.selectForQuotation = false});
+
+  final bool selectForQuotation;
+
+  @override
+  State<_TattooGeneratorPageMobile> createState() => _TattooGeneratorPageMobileState();
+}
+
+class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
     with SingleTickerProviderStateMixin {
   final TextEditingController _promptController = TextEditingController();
   late TattooStyle _selectedStyle = TattooStyle.blackwork;

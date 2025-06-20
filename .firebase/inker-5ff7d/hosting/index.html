@@ -1,4 +1,6 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -13,168 +15,285 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  
+  <!-- SEO Meta Tags -->
+  <title>Inker - Tatuajes con IA | Diseños Únicos en Segundos</title>
+  <meta name="description" content="Inker es el Uber de los tatuajes con IA: conectamos a personas que quieren tatuajes únicos con artistas verificados, usando IA para diseñar el tatuaje perfecto en segundos. Primera app en LATAM que combina IA generativa + marketplace.">
+  <meta name="keywords" content="tatuajes, tatuajes con IA, diseño de tatuajes, artistas de tatuajes, tatuadores Chile, diseños únicos, marketplace tatuajes, booking tatuajes, cotización tatuajes, IA generativa, tattoo, tattoo artist, Chile, LATAM">
+  <meta name="author" content="Inker Studio">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Spanish">
+  <meta name="geo.region" content="CL">
+  <meta name="geo.country" content="Chile">
+  
+  <!-- Theme and App Configuration -->
+  <meta name="theme-color" content="#1F0966">
+  <meta name="msapplication-TileColor" content="#1F0966">
+  <meta name="application-name" content="Inker Studio">
+  
+  <!-- Viewport -->
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
   
   <!-- Google Sign In meta tag (required even if not used) -->
   <meta name="google-signin-client_id" content="dummy-client-id-not-used.apps.googleusercontent.com">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="inker_studio">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Inker Studio">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/Icon-192.png">
 
-  <title>inker_studio</title>
+  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/Icon-192.png">
   
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <!-- Open Graph Meta Tags (comentado para implementar cuando tengas imágenes) -->
+  <!--
+  <meta property="og:title" content="Inker - El Uber de los Tatuajes con IA">
+  <meta property="og:description" content="Conectamos a personas que quieren tatuajes únicos con artistas verificados, usando IA para diseñar el tatuaje perfecto en segundos.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tudominio.com">
+  <meta property="og:image" content="https://tudominio.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Inker Studio">
+  <meta property="og:locale" content="es_CL">
+  -->
   
+  <!-- Twitter Card Meta Tags (comentado para implementar cuando tengas imágenes) -->
+  <!--
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inker - El Uber de los Tatuajes con IA">
+  <meta name="twitter:description" content="Conectamos a personas que quieren tatuajes únicos con artistas verificados, usando IA para diseñar el tatuaje perfecto en segundos.">
+  <meta name="twitter:image" content="https://tudominio.com/twitter-image.jpg">
+  <meta name="twitter:site" content="@inkerstudio">
+  <meta name="twitter:creator" content="@inkerstudio">
+  -->
   
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Inker Studio",
+    "description": "Inker es el Uber de los tatuajes con IA: conectamos a personas que quieren tatuajes únicos con artistas verificados, usando IA para diseñar el tatuaje perfecto en segundos.",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web, iOS, Android",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1000"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Inker Studio"
+    }
+  }
+  </script>
   
-  
-  <style id="splash-screen-style">
+  <style>
     html {
-      height: 100%
+      height: 100%;
     }
 
     body {
       margin: 0;
       min-height: 100%;
-      background-color: #1F0966;
-          background-size: 100% 100%;
+      background: linear-gradient(135deg, #141D3C 0%, #1F223C 40%, #262639 100%);
+      background-size: 100% 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    .center {
-      margin: 0;
+    /* Loading Screen Styles */
+    .loading-container {
       position: absolute;
       top: 50%;
       left: 50%;
-      -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1000;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
-    .contain {
-      display:block;
-      width:100%; height:100%;
-      object-fit: contain;
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(116, 80, 255, 0.4);
+      animation: logoFloat 3s ease-in-out infinite;
+      position: relative;
     }
 
-    .stretch {
-      display:block;
-      width:100%; height:100%;
+    @keyframes logoFloat {
+      0%, 100% { 
+        transform: translateY(0px) scale(1);
+        filter: brightness(1);
+      }
+      50% { 
+        transform: translateY(-10px) scale(1.05);
+        filter: brightness(1.1);
+      }
     }
 
-    .cover {
-      display:block;
-      width:100%; height:100%;
-      object-fit: cover;
+    .loading-title {
+      color: #FFFFFF;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 16px 0 8px 0;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #FFFFFF 0%, #7450FF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 3s ease-in-out infinite;
     }
 
-    .bottom {
+    @keyframes titleGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2); }
+    }
+
+    .loading-subtitle {
+      color: #B39DDB;
+      font-size: 16px;
+      font-weight: 400;
+      margin: 0 0 32px 0;
+      opacity: 0.9;
+    }
+
+    .loading-progress {
+      width: 100%;
+      max-width: 280px;
+      height: 6px;
+      background: rgba(116, 80, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 0 auto 24px auto;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(116, 80, 255, 0.2);
+    }
+
+    .loading-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #7450FF, #ff076a, #7450FF);
+      background-size: 200% 100%;
+      border-radius: 8px;
+      width: 0%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: shimmer 2s infinite;
+      box-shadow: 0 0 20px rgba(116, 80, 255, 0.5);
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .loading-text {
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 8px 0;
+      opacity: 0.9;
+      min-height: 20px;
+      animation: fadeInOut 0.6s ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(5px); }
+      100% { opacity: 0.9; transform: translateY(0); }
+    }
+
+    .loading-tips {
+      color: #9575CD;
+      font-size: 13px;
+      font-weight: 400;
+      margin: 16px 0 0 0;
+      opacity: 0.8;
+      line-height: 1.4;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: tipsFade 0.5s ease-in-out;
+    }
+
+    @keyframes tipsFade {
+      0% { opacity: 0; }
+      100% { opacity: 0.8; }
+    }
+
+    .loading-dots {
+      display: inline-block;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    .loading-dots div {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+      top: 8px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #7450FF;
+      animation: loadingDots 1.2s linear infinite;
     }
 
-    .bottomLeft {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .loading-dots div:nth-child(1) { left: 2px; animation-delay: 0s; }
+    .loading-dots div:nth-child(2) { left: 8px; animation-delay: -0.4s; }
+    .loading-dots div:nth-child(3) { left: 14px; animation-delay: -0.8s; }
+
+    @keyframes loadingDots {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
     }
 
-    .bottomRight {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+    /* Responsive */
+    @media (max-width: 480px) {
+      .loading-container { padding: 16px; }
+      .loading-logo { width: 64px; height: 64px; }
+      .loading-title { font-size: 24px; }
+      .loading-subtitle { font-size: 14px; }
+      .loading-progress { max-width: 240px; }
+    }
+
+    /* Fade out animation - Slide up professional */
+    .loading-fade-out {
+      animation: slideUpFade 0.5s ease-out forwards;
+    }
+
+    @keyframes slideUpFade {
+      0% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0);
+      }
+      100% { 
+        opacity: 0; 
+        transform: translate(-50%, -70%) scale(0.8);
+        filter: blur(10px);
+      }
     }
   </style>
-  <script id="splash-screen-script">
-    function removeSplashFromWeb() {
-      document.getElementById("splash")?.remove();
-      document.getElementById("splash-branding")?.remove();
-      document.body.style.background = "transparent";
-    }
-  </script>
 </head>
 <body>
-  <picture id="splash">
-      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
-      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
-      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-  </picture>
-  
-  
-  
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
-    var serviceWorkerVersion = '"2554103042"';
-    var scriptLoaded = false;
-    function loadMainDartJs() {
-      if (scriptLoaded) {
-        return;
-      }
-      scriptLoaded = true;
-      var scriptTag = document.createElement('script');
-      scriptTag.src = 'main.dart.js';
-      scriptTag.type = 'application/javascript';
-      document.body.append(scriptTag);
-    }
-
-    if ('serviceWorker' in navigator) {
-      // Service workers are supported. Use them.
-      window.addEventListener('load', function () {
-        // Wait for registration to finish before dropping the <script> tag.
-        // Otherwise, the browser will load the script multiple times,
-        // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl)
-          .then((reg) => {
-            function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener('statechange', () => {
-                if (serviceWorker.state == 'activated') {
-                  console.log('Installed new service worker.');
-                  loadMainDartJs();
-                }
-              });
-            }
-            if (!reg.active && (reg.installing || reg.waiting)) {
-              // No active web worker and we have installed or are installing
-              // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing ?? reg.waiting);
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
-              // need to ask the service worker to update.
-              console.log('New service worker available.');
-              reg.update();
-              waitForActivation(reg.installing);
-            } else {
-              // Existing service worker is still good.
-              console.log('Loading app from service worker.');
-              loadMainDartJs();
-            }
-          });
-
-        // If service worker doesn't succeed in a reasonable amount of time,
-        // fallback to plaint <script> tag.
-        setTimeout(() => {
-          if (!scriptLoaded) {
-            console.warn(
-              'Failed to load app from service worker. Falling back to plain <script> tag.',
-            );
-            loadMainDartJs();
-          }
-        }, 4000);
-      });
-    } else {
-      // Service workers not supported. Just drop the <script> tag.
-      loadMainDartJs();
-    }
-  </script>
-
-
-</body></html>
+  <!-- Bootstrap Flutter -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
