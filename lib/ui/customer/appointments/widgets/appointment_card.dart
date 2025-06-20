@@ -26,6 +26,10 @@ class AppointmentCard extends StatelessWidget {
     // For unread appointments, show a notification dot
     final bool isUnread = appointment.readByCustomer == false;
     
+    // Get status info for styling
+    final statusInfo = _getStatusInfo(appointment.status, context);
+    final statusColor = statusInfo['color'] as Color;
+    
     // Get artist image or placeholder
     Widget artistImage;
     if (appointment.artist.profileThumbnail != null) {
@@ -61,49 +65,54 @@ class AppointmentCard extends StatelessWidget {
       artistImage = _buildAvatarPlaceholder();
     }
     
-    // Determine status styling
-    final statusInfo = _getStatusInfo(appointment.status, context);
-    
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: statusColor.withOpacity(0.3),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: isUnread 
-              ? Theme.of(context).colorScheme.secondary.withOpacity(0.15)
-              : Colors.black.withOpacity(0.05),
-            blurRadius: isUnread ? 12 : 8,
+            color: statusColor.withOpacity(0.08),
+            blurRadius: 12,
             offset: const Offset(0, 4),
           ),
+          if (isUnread)
+            BoxShadow(
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
+              blurRadius: 16,
+              offset: const Offset(0, 4),
+            ),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Material(
-          color: isPastAppointment
-            ? explorerSecondaryColor.withOpacity(0.7)
-            : explorerSecondaryColor,
+          color: _getCardBackgroundColor(appointment.status, isPastAppointment),
           child: InkWell(
             onTap: onTap,
             splashColor: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
             highlightColor: Theme.of(context).colorScheme.secondary.withOpacity(0.05),
             child: Stack(
               children: [
-                // Status indicator bar
+                // Status indicator bar with enhanced gradient
                 Positioned(
                   top: 0,
                   left: 0,
                   right: 0,
-                  height: 4,
+                  height: 5,
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          statusInfo['color'] as Color,
-                          (statusInfo['color'] as Color).withOpacity(0.7),
+                          statusColor,
+                          statusColor.withOpacity(0.7),
+                          statusColor.withOpacity(0.3),
                         ],
+                        stops: const [0.0, 0.5, 1.0],
                       ),
                     ),
                   ),
@@ -180,8 +189,12 @@ class AppointmentCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(0.3),
+                          color: statusColor.withOpacity(0.08),
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: statusColor.withOpacity(0.15),
+                            width: 1,
+                          ),
                         ),
                         child: Column(
                           children: [
@@ -275,15 +288,22 @@ class AppointmentCard extends StatelessWidget {
                             ),
                           ),
                           
-                          // Status badge
+                          // Status badge with enhanced styling
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                             decoration: BoxDecoration(
-                              color: (statusInfo['color'] as Color).withOpacity(0.2),
+                              gradient: LinearGradient(
+                                colors: [
+                                  statusColor.withOpacity(0.15),
+                                  statusColor.withOpacity(0.25),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: (statusInfo['color'] as Color).withOpacity(0.5),
-                                width: 1,
+                                color: statusColor.withOpacity(0.4),
+                                width: 1.5,
                               ),
                             ),
                             child: Row(
@@ -415,6 +435,33 @@ class AppointmentCard extends StatelessWidget {
           'icon': Icons.hourglass_empty,
           'text': S.of(context).pending,
         };
+    }
+  }
+  
+  Color _getCardBackgroundColor(AppointmentStatus status, bool isPast) {
+    final baseColor = explorerSecondaryColor;
+    if (isPast) {
+      return baseColor.withOpacity(0.7);
+    }
+    
+    // Add subtle tint based on status
+    switch (status) {
+      case AppointmentStatus.scheduled:
+      case AppointmentStatus.confirmed:
+        return Color.lerp(baseColor, const Color(0xFF4CAF50), 0.03)!;
+      case AppointmentStatus.inProgress:
+        return Color.lerp(baseColor, const Color(0xFFFF9800), 0.03)!;
+      case AppointmentStatus.completed:
+        return Color.lerp(baseColor, const Color(0xFF2196F3), 0.03)!;
+      case AppointmentStatus.canceled:
+        return Color.lerp(baseColor, redColor, 0.03)!;
+      case AppointmentStatus.pending:
+        return Color.lerp(baseColor, const Color(0xFFFF5722), 0.03)!;
+      case AppointmentStatus.waitingForPhotos:
+      case AppointmentStatus.waitingForReview:
+        return Color.lerp(baseColor, const Color(0xFF673AB7), 0.03)!;
+      default:
+        return baseColor;
     }
   }
 }
