@@ -23,10 +23,12 @@ class TattooGeneratorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final platformService = context.read<PlatformService>();
     final isWeb = platformService.isWeb;
-
+    debugPrint('isWeb: $isWeb');
     if (isWeb) {
+      debugPrint('isWeb: $isWeb');
       return TattooGeneratorPageWeb(selectForQuotation: selectForQuotation);
     }
+    debugPrint('isWeb: $isWeb');
 
     return _TattooGeneratorPageMobile(selectForQuotation: selectForQuotation);
   }
