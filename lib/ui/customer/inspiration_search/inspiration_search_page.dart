@@ -18,6 +18,8 @@ import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart
 import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
+import 'package:inker_studio/ui/customer/inspiration_search/inspiration_search_page_web.dart';
 import 'dart:async';
 import 'package:collection/collection.dart';
 
@@ -378,6 +380,14 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
 
   @override
   Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
+    
+    // Use web version for web platform
+    if (platformService.isWeb) {
+      return const InspirationSearchPageWeb();
+    }
+    
+    // Use mobile version for mobile platforms
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
