@@ -37,7 +37,6 @@ class QuotationDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
     final id = quotation?.id.toString() ?? quotationId!;
     return BlocProvider<QuotationDetailBloc>(
       create: (context) => QuotationDetailBloc(
@@ -229,7 +228,7 @@ class _QuotationDetailContent extends StatelessWidget {
                 border: Border(
                   top: BorderSide(
                     color:
-                        Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                        Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
                     width: 1,
                   ),
                 ),
@@ -582,7 +581,7 @@ class _MainQuotationInfo extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -661,14 +660,14 @@ class _MainQuotationInfo extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.error.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.lightbulb_outline,
-                  color: Theme.of(context).colorScheme.error,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -678,7 +677,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       Text(
                         l10n.customerLookingForOffers,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: Theme.of(context).colorScheme.error,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -703,9 +702,9 @@ class _MainQuotationInfo extends StatelessWidget {
                 Icons.send,
                 color: Colors.white,
               ),
-              label: Text(l10n.sendOffer, style: TextStyleTheme.bodyText1),
+              label: Text(l10n.sendOffer, style: TextStyleTheme.bodyText1.copyWith(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               onPressed: () {
@@ -846,12 +845,15 @@ class _MainQuotationInfo extends StatelessWidget {
                 width: 2),
           ),
           clipBehavior: Clip.antiAlias,
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width / (16 / 9),
+            color: Colors.black12,
             child: ImageWithSkeleton(
               imageUrl: quotation.tattooDesignImageUrl!,
               fit: BoxFit.contain,
               borderRadius: BorderRadius.circular(14),
+              alignment: Alignment.center,
               shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
               shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
               errorWidget: Container(
@@ -905,12 +907,15 @@ class _MainQuotationInfo extends StatelessWidget {
                 width: 2),
           ),
           clipBehavior: Clip.antiAlias,
-          child: AspectRatio(
-            aspectRatio: 4 / 3,
+          child: Container(
+            width: double.infinity,
+            height: 400,
+            color: Colors.black12,
             child: ImageWithSkeleton(
               imageUrl: quotation.tattooDesignImageUrl!,
               fit: BoxFit.contain,
               borderRadius: BorderRadius.circular(14),
+              alignment: Alignment.center,
               shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
               shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
               errorWidget: Container(
@@ -972,14 +977,17 @@ class _MainQuotationInfo extends StatelessWidget {
                           width: 2),
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: AspectRatio(
-                      aspectRatio: 4 / 3,
+                    child: Container(
+                      width: double.infinity,
+                      height: 400,
+                      color: Colors.black12,
                       child: Stack(
                         children: [
                           ImageWithSkeleton(
                             imageUrl: quotation.tattooDesignImageUrl!,
                             fit: BoxFit.contain,
                             borderRadius: BorderRadius.circular(14),
+                            alignment: Alignment.center,
                             shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
                             shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
                             errorWidget: Container(
@@ -997,34 +1005,46 @@ class _MainQuotationInfo extends StatelessWidget {
                               child: Material(
                                 color: Colors.transparent,
                                 child: InkWell(
-                                  onTap: () {},
-                                  hoverColor: Colors.black.withValues(alpha: 0.1),
-                                  child: Center(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withValues(alpha: 0.0),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(Icons.zoom_in, color: Colors.transparent, size: 20),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            'Click to view',
-                                            style: TextStyle(
-                                              color: Colors.transparent,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                  onTap: () => showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (_) => _ImageViewerDialog(
+                                      imageUrl: quotation.tattooDesignImageUrl!,
+                                      heroTag: heroTag,
                                     ),
                                   ),
+                                  hoverColor: Colors.black.withValues(alpha: 0.1),
+                                  child: const SizedBox(),
                                 ),
                               ),
                             ),
+                          // Zoom indicator
+                          Positioned(
+                            bottom: 16,
+                            right: 16,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.6),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.zoom_in, color: Colors.white, size: 18),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'Click to view',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1080,7 +1100,6 @@ class _InfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
     final contentColor = isWarning
         ? Colors.red
         : highlight
@@ -1196,7 +1215,7 @@ class _TimelineItem extends StatelessWidget {
                   width: 2,
                   height: 40,
                   color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                      Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
                 ),
             ],
           ),
@@ -1416,7 +1435,7 @@ class _StatusChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: _getStatusColor(context, status).withOpacity(0.2),
+        color: _getStatusColor(context, status).withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: _getStatusColor(context, status),
@@ -1478,7 +1497,6 @@ class _StencilPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
     return Container(
       decoration: BoxDecoration(
         color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
@@ -1487,7 +1505,7 @@ class _StencilPreviewWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -1544,7 +1562,7 @@ class _StencilPreviewWidget extends StatelessWidget {
                   Text(
                     stencil.description!,
                     style: TextStyleTheme.bodyText2.copyWith(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -1581,13 +1599,13 @@ class _CustomerOpenQuotationOffersSection extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             color: offersCount > 0
-                ? const Color(0xFF4CAF50).withOpacity(0.1)
-                : const Color(0xFF9E9E9E).withOpacity(0.1),
+                ? const Color(0xFF4CAF50).withValues(alpha: 0.1)
+                : const Color(0xFF9E9E9E).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: offersCount > 0
-                  ? const Color(0xFF4CAF50).withOpacity(0.3)
-                  : const Color(0xFF9E9E9E).withOpacity(0.3),
+                  ? const Color(0xFF4CAF50).withValues(alpha: 0.3)
+                  : const Color(0xFF9E9E9E).withValues(alpha: 0.3),
             ),
           ),
           child: Row(
@@ -1755,7 +1773,7 @@ class _OfferListItem extends StatelessWidget {
       color: Colors.black12,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.white.withOpacity(0.1)),
+        side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: InkWell(
         onTap: navigateToChat,
@@ -1782,7 +1800,7 @@ class _OfferListItem extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50).withOpacity(0.15),
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -1919,57 +1937,54 @@ class _ImageViewerDialogState extends State<_ImageViewerDialog> {
           // PhotoView with zoom and pan capabilities
           GestureDetector(
             onTap: _toggleControls,
-            child: Hero(
-              tag: widget.heroTag,
-              child: PhotoView(
-                imageProvider: CachedNetworkImageProvider(widget.imageUrl),
-                controller: _photoViewController,
-                backgroundDecoration: const BoxDecoration(
-                  color: Colors.black,
-                ),
-                minScale: PhotoViewComputedScale.contained,
-                maxScale: PhotoViewComputedScale.covered * 4.0,
-                initialScale: PhotoViewComputedScale.contained,
-                heroAttributes: PhotoViewHeroAttributes(tag: widget.heroTag),
-                loadingBuilder: (context, event) => Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(height: 16),
-                      if (event != null && event.expectedTotalBytes != null)
-                        Text(
-                          '${(event.cumulativeBytesLoaded / event.expectedTotalBytes! * 100).toInt()}%',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                errorBuilder: (context, error, stackTrace) => Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.broken_image_outlined,
-                        color: Colors.white.withValues(alpha: 0.7),
-                        size: 64,
-                      ),
-                      const SizedBox(height: 16),
+            child: PhotoView(
+              imageProvider: CachedNetworkImageProvider(widget.imageUrl),
+              controller: _photoViewController,
+              backgroundDecoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              minScale: PhotoViewComputedScale.contained,
+              maxScale: PhotoViewComputedScale.covered * 4.0,
+              initialScale: PhotoViewComputedScale.contained,
+              heroAttributes: PhotoViewHeroAttributes(tag: widget.heroTag),
+              loadingBuilder: (context, event) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 16),
+                    if (event != null && event.expectedTotalBytes != null)
                       Text(
-                        'Failed to load image',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.7),
-                          fontSize: 16,
+                        '${(event.cumulativeBytesLoaded / event.expectedTotalBytes! * 100).toInt()}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
                         ),
                       ),
-                    ],
-                  ),
+                  ],
+                ),
+              ),
+              errorBuilder: (context, error, stackTrace) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.broken_image_outlined,
+                      color: Colors.white.withValues(alpha: 0.7),
+                      size: 64,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Failed to load image',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
