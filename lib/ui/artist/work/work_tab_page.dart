@@ -52,9 +52,9 @@ class _WorkTabPageState extends State<WorkTabPage>
               const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           unselectedLabelStyle:
               const TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
-          tabs: [
-            Tab(text: S.of(context).openQuotations),
-            Tab(text: S.of(context).directQuotations),
+          tabs: const [
+            Tab(text: 'Oportunidades'), // TODO: Add to localization
+            Tab(text: 'Mis Propuestas'), // TODO: Add to localization
           ],
         ),
       ),

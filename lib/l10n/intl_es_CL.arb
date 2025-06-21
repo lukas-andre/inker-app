@@ -2145,7 +2145,7 @@
   "@tattooStyleIgnorantStyle": {
     "description": "Estilo de tatuaje: Ignorant Style"
   },
-  "offered": "Ofrecido",
+  "offered": "Propuesto",
   "@offered": {
     "description": "Text shown when an artist has offered a quotation."
   },
@@ -2153,23 +2153,23 @@
   "@open": {
     "description": "Text shown when a quotation is open."
   },
-  "customerLookingForOffers": "Cliente buscando ofertas",
+  "customerLookingForOffers": "Cliente busca artista",
   "@customerLookingForOffers": {
     "description": "Text indicating that a customer is looking for offers."
   },
-  "reviewDetailsAndSubmitOffer": "Revisa los detalles y envía tu oferta",
+  "reviewDetailsAndSubmitOffer": "Revisa los detalles y envía tu propuesta",
   "@reviewDetailsAndSubmitOffer": {
     "description": "Prompt to review details and submit an offer."
   },
-  "sendOffer": "Enviar Oferta",
+  "sendOffer": "Enviar Propuesta",
   "@sendOffer": {
     "description": "Button text for sending an offer."
   },
-  "offerSubmitted": "Oferta enviada",
+  "offerSubmitted": "Propuesta enviada",
   "@offerSubmitted": {
     "description": "Confirmation message that an offer has been submitted."
   },
-  "offerSubmittedWithAmount": "Tu oferta de {amount} ha sido enviada",
+  "offerSubmittedWithAmount": "Tu propuesta de {amount} ha sido enviada",
   "@offerSubmittedWithAmount": {
     "description": "Confirmation message that an offer with a specific amount has been submitted.",
     "placeholders": {
@@ -2179,7 +2179,7 @@
       }
     }
   },
-  "alreadyOffered": "Ya has ofertado",
+  "alreadyOffered": "Ya has propuesto",
   "@alreadyOffered": {
     "description": "Text shown when an artist has already submitted an offer."
   },
@@ -2193,11 +2193,11 @@
       }
     }
   },
-  "receivedOffers": "Ofertas Recibidas",
+  "receivedOffers": "Propuestas Recibidas",
   "@receivedOffers": {
     "description": "Text indicating that offers have been received."
   },
-  "offersCount": "{count, plural, =0{Sin ofertas} =1{1 oferta} other{{count} ofertas}}",
+  "offersCount": "{count, plural, =0{Sin propuestas} =1{1 propuesta} other{{count} propuestas}}",
   "@offersCount": {
     "description": "Text showing the count of offers received.",
     "placeholders": {
@@ -2207,11 +2207,11 @@
       }
     }
   },
-  "noOffersYet": "Aún no hay ofertas",
+  "noOffersYet": "Aún no hay propuestas",
   "@noOffersYet": {
     "description": "Text shown when no offers have been received yet."
   },
-  "viewOffers": "Ver Ofertas",
+  "viewOffers": "Ver Propuestas",
   "@viewOffers": {
     "description": "Button text for viewing offers."
   },
@@ -2219,9 +2219,9 @@
   "@close": {
     "description": "Button text for closing a dialog or screen."
   },
-  "quotationAcceptedSuccess": "Oferta aceptada exitosamente",
+  "quotationAcceptedSuccess": "Propuesta aceptada exitosamente",
   "@quotationAcceptedSuccess": {
-    "description": "Mensaje de éxito cuando una oferta es aceptada."
+    "description": "Mensaje de éxito cuando una propuesta es aceptada."
   },
   "retry": "Reintentar",
   "@retry": {
@@ -2235,29 +2235,29 @@
       "currency": {}
     }
   },
-  "offerSubmitted": "Oferta enviada",
+  "offerSubmitted": "Propuesta enviada",
   "@offerSubmitted": {
-    "description": "Etiqueta cuando una oferta ha sido enviada."
+    "description": "Etiqueta cuando una propuesta ha sido enviada."
   },
-  "alreadySubmittedOffer": "Ya has enviado una oferta",
+  "alreadySubmittedOffer": "Ya has enviado una propuesta",
   "@alreadySubmittedOffer": {
-    "description": "Mensaje cuando el artista ya envió una oferta."
+    "description": "Mensaje cuando el artista ya envió una propuesta."
   },
   "messageCustomer": "Mensaje al cliente",
   "@messageCustomer": {
     "description": "Botón para enviar mensaje al cliente."
   },
-  "customerLookingForOffers": "¡El cliente está buscando ofertas!",
+  "customerLookingForOffers": "¡El cliente está buscando propuestas!",
   "@customerLookingForOffers": {
-    "description": "Banner cuando el cliente busca ofertas."
+    "description": "Banner cuando el cliente busca propuestas."
   },
-  "reviewAndSubmitOffer": "Revisa los detalles y envía tu oferta para ganar este proyecto.",
+  "reviewAndSubmitOffer": "Revisa los detalles y envía tu propuesta para ganar este proyecto.",
   "@reviewAndSubmitOffer": {
-    "description": "Instrucción para revisar y enviar oferta."
+    "description": "Instrucción para revisar y enviar propuesta."
   },
-  "sendOffer": "Enviar oferta",
+  "sendOffer": "Enviar propuesta",
   "@sendOffer": {
-    "description": "Botón para enviar una oferta."
+    "description": "Botón para enviar una propuesta."
   },
   "selectedDesign": "Diseño seleccionado",
   "@selectedDesign": {
@@ -2267,33 +2267,33 @@
   "@openQuotationRequest": {
     "description": "Banner para solicitud de cotización abierta."
   },
-  "openQuotationRequestDesc": "Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.",
+  "openQuotationRequestDesc": "Este cliente está buscando propuestas. Puedes enviar tu cotización para ganar este proyecto.",
   "@openQuotationRequestDesc": {
     "description": "Descripción del banner de solicitud abierta."
   },
   "offersReceived": "Has recibido {count} {offerWord}",
   "@offersReceived": {
-    "description": "Mensaje mostrando el número de ofertas recibidas.",
+    "description": "Mensaje mostrando el número de propuestas recibidas.",
     "placeholders": {
       "count": {},
       "offerWord": {}
     }
   },
-  "noOffersReceived": "Aún no has recibido ofertas",
+  "noOffersReceived": "Aún no has recibido propuestas",
   "@noOffersReceived": {
-    "description": "Mensaje cuando no se han recibido ofertas."
+    "description": "Mensaje cuando no se han recibido propuestas."
   },
-  "reviewEachOffer": "Revisa cada oferta y chatea con los artistas",
+  "reviewEachOffer": "Revisa cada propuesta y chatea con los artistas",
   "@reviewEachOffer": {
-    "description": "Instrucción para revisar ofertas y chatear."
+    "description": "Instrucción para revisar propuestas y chatear."
   },
-  "offersAppearHere": "Las ofertas aparecerán aquí cuando las recibas",
+  "offersAppearHere": "Las propuestas aparecerán aquí cuando las recibas",
   "@offersAppearHere": {
-    "description": "Mensaje de que las ofertas aparecerán aquí."
+    "description": "Mensaje de que las propuestas aparecerán aquí."
   },
-  "offersReceivedTitle": "Ofertas recibidas",
+  "offersReceivedTitle": "Propuestas recibidas",
   "@offersReceivedTitle": {
-    "description": "Título de sección para ofertas recibidas."
+    "description": "Título de sección para propuestas recibidas."
   },
   "artistLabel": "Artista: {name}",
   "@artistLabel": {
@@ -2325,17 +2325,17 @@
   "@startChat": {
     "description": "Botón para iniciar chat."
   },
-  "acceptOffer": "Aceptar oferta",
+  "acceptOffer": "Aceptar propuesta",
   "@acceptOffer": {
-    "description": "Botón para aceptar una oferta."
+    "description": "Botón para aceptar una propuesta."
   },
   "close": "Cerrar",
   "@close": {
     "description": "Tooltip para botón de cerrar."
   },
-  "editOffer": "Editar oferta",
+  "editOffer": "Editar propuesta",
   "@editOffer": {
-    "description": "Tooltip para editar una oferta."
+    "description": "Tooltip para editar una propuesta."
   },
   "tryAgain": "Intentar de nuevo",
   "@tryAgain": {
@@ -2384,44 +2384,44 @@
   "@exampleAmount": {
     "description": "Hint para monto de ejemplo."
   },
-  "systemOfferUpdate": "El artista actualizó el costo de la oferta a {amount} CLP.",
+  "systemOfferUpdate": "El artista actualizó el costo de la propuesta a {amount} CLP.",
   "@systemOfferUpdate": {
-    "description": "Mensaje de sistema cuando el artista actualiza el costo de la oferta.",
+    "description": "Mensaje de sistema cuando el artista actualiza el costo de la propuesta.",
     "placeholders": {
       "amount": {}
     }
   },
-  "submitOffer": "Enviar oferta",
+  "submitOffer": "Enviar propuesta",
   "@submitOffer": {
-    "description": "Botón para enviar una oferta en la página de oferta de cotización abierta del artista."
+    "description": "Botón para enviar una propuesta en la página de propuesta de cotización abierta del artista."
   },
-  "submittingOffer": "Enviando oferta...",
+  "submittingOffer": "Enviando propuesta...",
   "@submittingOffer": {
-    "description": "Título mostrado mientras se envía la oferta."
+    "description": "Título mostrado mientras se envía la propuesta."
   },
-  "submittingOfferMessage": "Por favor espera mientras se envía tu oferta.",
+  "submittingOfferMessage": "Por favor espera mientras se envía tu propuesta.",
   "@submittingOfferMessage": {
-    "description": "Mensaje mostrado mientras se envía la oferta."
+    "description": "Mensaje mostrado mientras se envía la propuesta."
   },
-  "offerSubmittedTitle": "¡Oferta enviada!",
+  "offerSubmittedTitle": "¡Propuesta enviada!",
   "@offerSubmittedTitle": {
-    "description": "Título mostrado cuando la oferta se ha enviado exitosamente."
+    "description": "Título mostrado cuando la propuesta se ha enviado exitosamente."
   },
-  "offerSubmittedMessage": "Tu oferta ha sido enviada exitosamente al cliente.",
+  "offerSubmittedMessage": "Tu propuesta ha sido enviada exitosamente al cliente.",
   "@offerSubmittedMessage": {
-    "description": "Mensaje mostrado cuando la oferta se ha enviado exitosamente."
+    "description": "Mensaje mostrado cuando la propuesta se ha enviado exitosamente."
   },
-  "yourOffer": "Tu oferta",
+  "yourOffer": "Tu propuesta",
   "@yourOffer": {
-    "description": "Título de sección para el formulario de oferta del artista."
+    "description": "Título de sección para el formulario de propuesta del artista."
   },
   "proposedAppointment": "Cita propuesta",
   "@proposedAppointment": {
-    "description": "Etiqueta para el campo de cita propuesta en el formulario de oferta."
+    "description": "Etiqueta para el campo de cita propuesta en el formulario de propuesta."
   },
   "additionalDetailsOptional": "Detalles adicionales (opcional)",
   "@additionalDetailsOptional": {
-    "description": "Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional."
+    "description": "Etiqueta para el campo de detalles adicionales en el formulario de propuesta, marcado como opcional."
   },
   "proposedDesignsOptional": "Diseños propuestos (opcional)",
   "@proposedDesignsOptional": {
@@ -2429,15 +2429,15 @@
   },
   "addReferenceImagesOrSketches": "Agrega imágenes de referencia o bocetos para tu propuesta.",
   "@addReferenceImagesOrSketches": {
-    "description": "Texto de ayuda para subir imágenes de referencia o bocetos para la oferta."
+    "description": "Texto de ayuda para subir imágenes de referencia o bocetos para la propuesta."
   },
   "addDesign": "Agregar diseño",
   "@addDesign": {
-    "description": "Botón para agregar una imagen de diseño a la oferta."
+    "description": "Botón para agregar una imagen de diseño a la propuesta."
   },
   "durationMustBePositive": "La duración debe ser positiva",
   "@durationMustBePositive": {
-    "description": "Mensaje de error cuando la duración no es positiva en el formulario de oferta."
+    "description": "Mensaje de error cuando la duración no es positiva en el formulario de propuesta."
   },
   "designSavedToYourGeneratedDesigns": "Diseño guardado en tus diseños generados",
   "@designSavedToYourGeneratedDesigns": {
@@ -2455,17 +2455,17 @@
   "@kmAway": {
     "description": "Etiqueta para la distancia en kilómetros."
   },
-  "offerCost": "Costo de la oferta",
+  "offerCost": "Costo de la propuesta",
   "@offerCost": {
-    "description": "Etiqueta para el costo de la oferta."
+    "description": "Etiqueta para el costo de la propuesta."
   },
   "estimatedDuration": "Duración estimada",
   "@estimatedDuration": {
     "description": "Etiqueta para la duración estimada."
   },
-  "offerAcceptedSuccessfully": "Oferta aceptada exitosamente",
+  "offerAcceptedSuccessfully": "Propuesta aceptada exitosamente",
   "@offerAcceptedSuccessfully": {
-    "description": "Mensaje de éxito mostrado cuando una oferta ha sido aceptada."
+    "description": "Mensaje de éxito mostrado cuando una propuesta ha sido aceptada."
   },
   "statusOpen": "Abierta",
   "@statusOpen": {
@@ -2479,9 +2479,9 @@
   "@message": {
     "description": "Etiqueta para un mensaje en una conversación."
   },
-  "artistUpdatedOfferCost": "El artista actualizó el costo de la oferta a {amount} {currency}",
+  "artistUpdatedOfferCost": "El artista actualizó el costo de la propuesta a {amount} {currency}",
   "@artistUpdatedOfferCost": {
-    "description": "Mensaje mostrado cuando el artista actualiza el costo de la oferta.",
+    "description": "Mensaje mostrado cuando el artista actualiza el costo de la propuesta.",
     "placeholders": {
       "amount": {},
       "currency": {}
@@ -2721,9 +2721,9 @@
   "@noApplicationsFound": {
     "description": "Mensaje mostrado cuando no se encuentran solicitudes."
   },
-  "sentOffer": "Oferta enviada",
+  "sentOffer": "Propuesta enviada",
   "@sentOffer": {
-    "description": "Etiqueta para una oferta que ha sido enviada."
+    "description": "Etiqueta para una propuesta que ha sido enviada."
   },
   "noAvailableTimeSlotsFound": "No se encontraron horarios disponibles",
   "@noAvailableTimeSlotsFound": {
@@ -2961,9 +2961,9 @@
   "@systemCancellationReason": {
     "description": "Título para la razón de cancelación automática del sistema."
   },
-  "offers": "Ofertas",
+  "offers": "Propuestas",
   "@offers": {
-    "description": "Título para la sección de ofertas en una cotización."
+    "description": "Título para la sección de propuestas en una cotización."
   },
   "tooExpensive": "Demasiado costoso",
   "@tooExpensive": {

@@ -5172,10 +5172,10 @@ class S {
     );
   }
 
-  /// `Ofrecido`
+  /// `Propuesto`
   String get offered {
     return Intl.message(
-      'Ofrecido',
+      'Propuesto',
       name: 'offered',
       desc: 'Text shown when an artist has offered a quotation.',
       args: [],
@@ -5192,50 +5192,50 @@ class S {
     );
   }
 
-  /// `¡El cliente está buscando ofertas!`
+  /// `¡El cliente está buscando propuestas!`
   String get customerLookingForOffers {
     return Intl.message(
-      '¡El cliente está buscando ofertas!',
+      '¡El cliente está buscando propuestas!',
       name: 'customerLookingForOffers',
-      desc: 'Banner cuando el cliente busca ofertas.',
+      desc: 'Banner cuando el cliente busca propuestas.',
       args: [],
     );
   }
 
-  /// `Revisa los detalles y envía tu oferta`
+  /// `Revisa los detalles y envía tu propuesta`
   String get reviewDetailsAndSubmitOffer {
     return Intl.message(
-      'Revisa los detalles y envía tu oferta',
+      'Revisa los detalles y envía tu propuesta',
       name: 'reviewDetailsAndSubmitOffer',
       desc: 'Prompt to review details and submit an offer.',
       args: [],
     );
   }
 
-  /// `Enviar oferta`
+  /// `Enviar propuesta`
   String get sendOffer {
     return Intl.message(
-      'Enviar oferta',
+      'Enviar propuesta',
       name: 'sendOffer',
-      desc: 'Botón para enviar una oferta.',
+      desc: 'Botón para enviar una propuesta.',
       args: [],
     );
   }
 
-  /// `Oferta enviada`
+  /// `Propuesta enviada`
   String get offerSubmitted {
     return Intl.message(
-      'Oferta enviada',
+      'Propuesta enviada',
       name: 'offerSubmitted',
-      desc: 'Etiqueta cuando una oferta ha sido enviada.',
+      desc: 'Etiqueta cuando una propuesta ha sido enviada.',
       args: [],
     );
   }
 
-  /// `Tu oferta de {amount} ha sido enviada`
+  /// `Tu propuesta de {amount} ha sido enviada`
   String offerSubmittedWithAmount(String amount) {
     return Intl.message(
-      'Tu oferta de $amount ha sido enviada',
+      'Tu propuesta de $amount ha sido enviada',
       name: 'offerSubmittedWithAmount',
       desc:
           'Confirmation message that an offer with a specific amount has been submitted.',
@@ -5243,10 +5243,10 @@ class S {
     );
   }
 
-  /// `Ya has ofertado`
+  /// `Ya has propuesto`
   String get alreadyOffered {
     return Intl.message(
-      'Ya has ofertado',
+      'Ya has propuesto',
       name: 'alreadyOffered',
       desc: 'Text shown when an artist has already submitted an offer.',
       args: [],
@@ -5263,43 +5263,43 @@ class S {
     );
   }
 
-  /// `Ofertas Recibidas`
+  /// `Propuestas Recibidas`
   String get receivedOffers {
     return Intl.message(
-      'Ofertas Recibidas',
+      'Propuestas Recibidas',
       name: 'receivedOffers',
       desc: 'Text indicating that offers have been received.',
       args: [],
     );
   }
 
-  /// `{count, plural, =0{Sin ofertas} =1{1 oferta} other{{count} ofertas}}`
+  /// `{count, plural, =0{Sin propuestas} =1{1 propuesta} other{{count} propuestas}}`
   String offersCount(int count) {
     return Intl.plural(
       count,
-      zero: 'Sin ofertas',
-      one: '1 oferta',
-      other: '$count ofertas',
+      zero: 'Sin propuestas',
+      one: '1 propuesta',
+      other: '$count propuestas',
       name: 'offersCount',
       desc: 'Text showing the count of offers received.',
       args: [count],
     );
   }
 
-  /// `Aún no hay ofertas`
+  /// `Aún no hay propuestas`
   String get noOffersYet {
     return Intl.message(
-      'Aún no hay ofertas',
+      'Aún no hay propuestas',
       name: 'noOffersYet',
       desc: 'Text shown when no offers have been received yet.',
       args: [],
     );
   }
 
-  /// `Ver Ofertas`
+  /// `Ver Propuestas`
   String get viewOffers {
     return Intl.message(
-      'Ver Ofertas',
+      'Ver Propuestas',
       name: 'viewOffers',
       desc: 'Button text for viewing offers.',
       args: [],
@@ -5316,12 +5316,12 @@ class S {
     );
   }
 
-  /// `Oferta aceptada exitosamente`
+  /// `Propuesta aceptada exitosamente`
   String get quotationAcceptedSuccess {
     return Intl.message(
-      'Oferta aceptada exitosamente',
+      'Propuesta aceptada exitosamente',
       name: 'quotationAcceptedSuccess',
-      desc: 'Mensaje de éxito cuando una oferta es aceptada.',
+      desc: 'Mensaje de éxito cuando una propuesta es aceptada.',
       args: [],
     );
   }
@@ -5336,12 +5336,12 @@ class S {
     );
   }
 
-  /// `Ya has enviado una oferta`
+  /// `Ya has enviado una propuesta`
   String get alreadySubmittedOffer {
     return Intl.message(
-      'Ya has enviado una oferta',
+      'Ya has enviado una propuesta',
       name: 'alreadySubmittedOffer',
-      desc: 'Mensaje cuando el artista ya envió una oferta.',
+      desc: 'Mensaje cuando el artista ya envió una propuesta.',
       args: [],
     );
   }
@@ -5356,12 +5356,12 @@ class S {
     );
   }
 
-  /// `Revisa los detalles y envía tu oferta para ganar este proyecto.`
+  /// `Revisa los detalles y envía tu propuesta para ganar este proyecto.`
   String get reviewAndSubmitOffer {
     return Intl.message(
-      'Revisa los detalles y envía tu oferta para ganar este proyecto.',
+      'Revisa los detalles y envía tu propuesta para ganar este proyecto.',
       name: 'reviewAndSubmitOffer',
-      desc: 'Instrucción para revisar y enviar oferta.',
+      desc: 'Instrucción para revisar y enviar propuesta.',
       args: [],
     );
   }
@@ -5386,10 +5386,10 @@ class S {
     );
   }
 
-  /// `Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.`
+  /// `Este cliente está buscando propuestas. Puedes enviar tu cotización para ganar este proyecto.`
   String get openQuotationRequestDesc {
     return Intl.message(
-      'Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto.',
+      'Este cliente está buscando propuestas. Puedes enviar tu cotización para ganar este proyecto.',
       name: 'openQuotationRequestDesc',
       desc: 'Descripción del banner de solicitud abierta.',
       args: [],
@@ -5401,47 +5401,47 @@ class S {
     return Intl.message(
       'Has recibido $count $offerWord',
       name: 'offersReceived',
-      desc: 'Mensaje mostrando el número de ofertas recibidas.',
+      desc: 'Mensaje mostrando el número de propuestas recibidas.',
       args: [count, offerWord],
     );
   }
 
-  /// `Aún no has recibido ofertas`
+  /// `Aún no has recibido propuestas`
   String get noOffersReceived {
     return Intl.message(
-      'Aún no has recibido ofertas',
+      'Aún no has recibido propuestas',
       name: 'noOffersReceived',
-      desc: 'Mensaje cuando no se han recibido ofertas.',
+      desc: 'Mensaje cuando no se han recibido propuestas.',
       args: [],
     );
   }
 
-  /// `Revisa cada oferta y chatea con los artistas`
+  /// `Revisa cada propuesta y chatea con los artistas`
   String get reviewEachOffer {
     return Intl.message(
-      'Revisa cada oferta y chatea con los artistas',
+      'Revisa cada propuesta y chatea con los artistas',
       name: 'reviewEachOffer',
-      desc: 'Instrucción para revisar ofertas y chatear.',
+      desc: 'Instrucción para revisar propuestas y chatear.',
       args: [],
     );
   }
 
-  /// `Las ofertas aparecerán aquí cuando las recibas`
+  /// `Las propuestas aparecerán aquí cuando las recibas`
   String get offersAppearHere {
     return Intl.message(
-      'Las ofertas aparecerán aquí cuando las recibas',
+      'Las propuestas aparecerán aquí cuando las recibas',
       name: 'offersAppearHere',
-      desc: 'Mensaje de que las ofertas aparecerán aquí.',
+      desc: 'Mensaje de que las propuestas aparecerán aquí.',
       args: [],
     );
   }
 
-  /// `Ofertas recibidas`
+  /// `Propuestas recibidas`
   String get offersReceivedTitle {
     return Intl.message(
-      'Ofertas recibidas',
+      'Propuestas recibidas',
       name: 'offersReceivedTitle',
-      desc: 'Título de sección para ofertas recibidas.',
+      desc: 'Título de sección para propuestas recibidas.',
       args: [],
     );
   }
@@ -5496,22 +5496,22 @@ class S {
     );
   }
 
-  /// `Aceptar oferta`
+  /// `Aceptar propuesta`
   String get acceptOffer {
     return Intl.message(
-      'Aceptar oferta',
+      'Aceptar propuesta',
       name: 'acceptOffer',
-      desc: 'Botón para aceptar una oferta.',
+      desc: 'Botón para aceptar una propuesta.',
       args: [],
     );
   }
 
-  /// `Editar oferta`
+  /// `Editar propuesta`
   String get editOffer {
     return Intl.message(
-      'Editar oferta',
+      'Editar propuesta',
       name: 'editOffer',
-      desc: 'Tooltip para editar una oferta.',
+      desc: 'Tooltip para editar una propuesta.',
       args: [],
     );
   }
@@ -5606,74 +5606,74 @@ class S {
     );
   }
 
-  /// `El artista actualizó el costo de la oferta a {amount} CLP.`
+  /// `El artista actualizó el costo de la propuesta a {amount} CLP.`
   String systemOfferUpdate(Object amount) {
     return Intl.message(
-      'El artista actualizó el costo de la oferta a $amount CLP.',
+      'El artista actualizó el costo de la propuesta a $amount CLP.',
       name: 'systemOfferUpdate',
       desc:
-          'Mensaje de sistema cuando el artista actualiza el costo de la oferta.',
+          'Mensaje de sistema cuando el artista actualiza el costo de la propuesta.',
       args: [amount],
     );
   }
 
-  /// `Enviar oferta`
+  /// `Enviar propuesta`
   String get submitOffer {
     return Intl.message(
-      'Enviar oferta',
+      'Enviar propuesta',
       name: 'submitOffer',
       desc:
-          'Botón para enviar una oferta en la página de oferta de cotización abierta del artista.',
+          'Botón para enviar una propuesta en la página de propuesta de cotización abierta del artista.',
       args: [],
     );
   }
 
-  /// `Enviando oferta...`
+  /// `Enviando propuesta...`
   String get submittingOffer {
     return Intl.message(
-      'Enviando oferta...',
+      'Enviando propuesta...',
       name: 'submittingOffer',
-      desc: 'Título mostrado mientras se envía la oferta.',
+      desc: 'Título mostrado mientras se envía la propuesta.',
       args: [],
     );
   }
 
-  /// `Por favor espera mientras se envía tu oferta.`
+  /// `Por favor espera mientras se envía tu propuesta.`
   String get submittingOfferMessage {
     return Intl.message(
-      'Por favor espera mientras se envía tu oferta.',
+      'Por favor espera mientras se envía tu propuesta.',
       name: 'submittingOfferMessage',
-      desc: 'Mensaje mostrado mientras se envía la oferta.',
+      desc: 'Mensaje mostrado mientras se envía la propuesta.',
       args: [],
     );
   }
 
-  /// `¡Oferta enviada!`
+  /// `¡Propuesta enviada!`
   String get offerSubmittedTitle {
     return Intl.message(
-      '¡Oferta enviada!',
+      '¡Propuesta enviada!',
       name: 'offerSubmittedTitle',
-      desc: 'Título mostrado cuando la oferta se ha enviado exitosamente.',
+      desc: 'Título mostrado cuando la propuesta se ha enviado exitosamente.',
       args: [],
     );
   }
 
-  /// `Tu oferta ha sido enviada exitosamente al cliente.`
+  /// `Tu propuesta ha sido enviada exitosamente al cliente.`
   String get offerSubmittedMessage {
     return Intl.message(
-      'Tu oferta ha sido enviada exitosamente al cliente.',
+      'Tu propuesta ha sido enviada exitosamente al cliente.',
       name: 'offerSubmittedMessage',
-      desc: 'Mensaje mostrado cuando la oferta se ha enviado exitosamente.',
+      desc: 'Mensaje mostrado cuando la propuesta se ha enviado exitosamente.',
       args: [],
     );
   }
 
-  /// `Tu oferta`
+  /// `Tu propuesta`
   String get yourOffer {
     return Intl.message(
-      'Tu oferta',
+      'Tu propuesta',
       name: 'yourOffer',
-      desc: 'Título de sección para el formulario de oferta del artista.',
+      desc: 'Título de sección para el formulario de propuesta del artista.',
       args: [],
     );
   }
@@ -5684,7 +5684,7 @@ class S {
       'Cita propuesta',
       name: 'proposedAppointment',
       desc:
-          'Etiqueta para el campo de cita propuesta en el formulario de oferta.',
+          'Etiqueta para el campo de cita propuesta en el formulario de propuesta.',
       args: [],
     );
   }
@@ -5695,7 +5695,7 @@ class S {
       'Detalles adicionales (opcional)',
       name: 'additionalDetailsOptional',
       desc:
-          'Etiqueta para el campo de detalles adicionales en el formulario de oferta, marcado como opcional.',
+          'Etiqueta para el campo de detalles adicionales en el formulario de propuesta, marcado como opcional.',
       args: [],
     );
   }
@@ -5717,7 +5717,7 @@ class S {
       'Agrega imágenes de referencia o bocetos para tu propuesta.',
       name: 'addReferenceImagesOrSketches',
       desc:
-          'Texto de ayuda para subir imágenes de referencia o bocetos para la oferta.',
+          'Texto de ayuda para subir imágenes de referencia o bocetos para la propuesta.',
       args: [],
     );
   }
@@ -5727,7 +5727,7 @@ class S {
     return Intl.message(
       'Agregar diseño',
       name: 'addDesign',
-      desc: 'Botón para agregar una imagen de diseño a la oferta.',
+      desc: 'Botón para agregar una imagen de diseño a la propuesta.',
       args: [],
     );
   }
@@ -5738,7 +5738,7 @@ class S {
       'La duración debe ser positiva',
       name: 'durationMustBePositive',
       desc:
-          'Mensaje de error cuando la duración no es positiva en el formulario de oferta.',
+          'Mensaje de error cuando la duración no es positiva en el formulario de propuesta.',
       args: [],
     );
   }
@@ -5784,12 +5784,12 @@ class S {
     );
   }
 
-  /// `Costo de la oferta`
+  /// `Costo de la propuesta`
   String get offerCost {
     return Intl.message(
-      'Costo de la oferta',
+      'Costo de la propuesta',
       name: 'offerCost',
-      desc: 'Etiqueta para el costo de la oferta.',
+      desc: 'Etiqueta para el costo de la propuesta.',
       args: [],
     );
   }
@@ -5804,12 +5804,12 @@ class S {
     );
   }
 
-  /// `Oferta aceptada exitosamente`
+  /// `Propuesta aceptada exitosamente`
   String get offerAcceptedSuccessfully {
     return Intl.message(
-      'Oferta aceptada exitosamente',
+      'Propuesta aceptada exitosamente',
       name: 'offerAcceptedSuccessfully',
-      desc: 'Mensaje de éxito mostrado cuando una oferta ha sido aceptada.',
+      desc: 'Mensaje de éxito mostrado cuando una propuesta ha sido aceptada.',
       args: [],
     );
   }
@@ -5844,13 +5844,13 @@ class S {
     );
   }
 
-  /// `El artista actualizó el costo de la oferta a {amount} {currency}`
+  /// `El artista actualizó el costo de la propuesta a {amount} {currency}`
   String artistUpdatedOfferCost(Object amount, Object currency) {
     return Intl.message(
-      'El artista actualizó el costo de la oferta a $amount $currency',
+      'El artista actualizó el costo de la propuesta a $amount $currency',
       name: 'artistUpdatedOfferCost',
       desc:
-          'Mensaje mostrado cuando el artista actualiza el costo de la oferta.',
+          'Mensaje mostrado cuando el artista actualiza el costo de la propuesta.',
       args: [amount, currency],
     );
   }
@@ -6424,12 +6424,12 @@ class S {
     );
   }
 
-  /// `Oferta enviada`
+  /// `Propuesta enviada`
   String get sentOffer {
     return Intl.message(
-      'Oferta enviada',
+      'Propuesta enviada',
       name: 'sentOffer',
-      desc: 'Etiqueta para una oferta que ha sido enviada.',
+      desc: 'Etiqueta para una propuesta que ha sido enviada.',
       args: [],
     );
   }
@@ -6985,12 +6985,12 @@ class S {
     );
   }
 
-  /// `Ofertas`
+  /// `Propuestas`
   String get offers {
     return Intl.message(
-      'Ofertas',
+      'Propuestas',
       name: 'offers',
-      desc: 'Título para la sección de ofertas en una cotización.',
+      desc: 'Título para la sección de propuestas en una cotización.',
       args: [],
     );
   }

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
-import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
-import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/work_tab_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
@@ -29,7 +27,7 @@ class ArtistAppPage extends StatefulWidget {
 }
 
 class _ArtistAppPageState extends State<ArtistAppPage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 2;
   
   @override
   void initState() {

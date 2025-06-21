@@ -182,12 +182,72 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
 
               return RefreshIndicator(
                 onRefresh: _onRefresh,
-                child: ListView.builder(
+                child: CustomScrollView(
                   controller: _scrollController,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 80),
-                  itemCount: quotations.length + (isLoadingMore ? 1 : 0),
-                  itemBuilder: (context, index) {
+                  slivers: [
+                    // Header section with info about open quotations
+                    if (isArtist && quotations.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: Container(
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.secondary.withAlpha(51), // 0.2 * 255
+                                Theme.of(context).colorScheme.secondary.withAlpha(25), // 0.1 * 255
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.secondary.withAlpha(76), // 0.3 * 255
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.lightbulb_outline,
+                                color: Theme.of(context).colorScheme.secondary,
+                                size: 28,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${quotations.length} ${quotations.length == 1 ? "Solicitud de Tatuaje" : "Solicitudes de Tatuajes"}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Clientes buscando artistas como tú',
+                                      style: TextStyle(
+                                        color: Colors.white.withAlpha(179), // 0.7 * 255
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    // List of quotations
+                    SliverPadding(
+                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 80),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
                     if (index == quotations.length) {
                       return const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -197,11 +257,14 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
                     final quotation = quotations[index];
                     if (isArtist) {
                       final viewModel = QuotationCardViewModel.fromOpenQuotation(quotation, l10n);
-                      return QuotationCard(
-                        key: ValueKey(viewModel.id),
-                        model: viewModel,
-                        onTap: (id, type) => _navigateToDetail(id),
-                        onSendOfferTap: (id, type) => _navigateToSendOffer(id),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: QuotationCard(
+                          key: ValueKey(viewModel.id),
+                          model: viewModel,
+                          onTap: (id, type) => _navigateToDetail(id),
+                          onSendOfferTap: (id, type) => _navigateToSendOffer(id),
+                        ),
                       );
                     } else {
                       final customerViewModel = CustomerOpenQuotationCardViewModel.fromQuotation(quotation, l10n);
@@ -213,6 +276,11 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
                       );
                     }
                   },
+                          childCount: quotations.length + (isLoadingMore ? 1 : 0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
@@ -222,7 +290,7 @@ class _OpenQuotationsTabViewState extends State<OpenQuotationsTabView>
       ),
       floatingActionButton: !isArtist ? FloatingActionButton(
         onPressed: _navigateToCreateOpenQuotation,
-        backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+        backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha(204), // 0.8 * 255
         tooltip: S.of(context).createOpenQuotation,
         child: const Icon(Icons.add, color: Colors.white),
       ) : null,

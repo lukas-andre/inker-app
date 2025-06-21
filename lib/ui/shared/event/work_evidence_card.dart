@@ -59,15 +59,18 @@ class WorkEvidenceCard extends StatelessWidget {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () => _viewFullImage(context, imageUrl),
-                          child: Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Container(
-                              color: Colors.grey[800],
-                              child: const Center(
-                                child: Icon(Icons.broken_image,
-                                    color: Colors.grey, size: 24),
+                          child: Container(
+                            color: Colors.black12,
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Container(
+                                color: Colors.grey[800],
+                                child: const Center(
+                                  child: Icon(Icons.broken_image,
+                                      color: Colors.grey, size: 24),
+                                ),
                               ),
                             ),
                           ),
@@ -86,22 +89,38 @@ class WorkEvidenceCard extends StatelessWidget {
     void _viewFullImage(BuildContext context, String imageUrl) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.black.withValues(alpha: 0.5),
             elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           body: Center(
             child: Hero(
-              tag: 'image-full-$imageUrl',
+              tag: 'work-evidence-$imageUrl',
               child: InteractiveViewer(
-                child: Image.network(imageUrl),
+                minScale: 0.5,
+                maxScale: 4.0,
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
         ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
       ),
     );
   }
