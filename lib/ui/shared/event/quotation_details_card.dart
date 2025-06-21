@@ -143,12 +143,14 @@ class QuotationDetailsCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       child: Stack(
                         children: [
-                          AspectRatio(
-                            aspectRatio: 16 / 9,
+                          Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.width / (16 / 9),
+                            color: Colors.black12,
                             child: Image.network(
                               quotation.tattooDesignImageUrl!,
                               fit: BoxFit.contain,
-                              width: double.infinity,
+                              alignment: Alignment.center,
                               errorBuilder: (context, error, stackTrace) => Container(
                                 color: Colors.grey[300],
                                 child: const Center(child: Icon(Icons.broken_image, size: 48)),
@@ -296,6 +298,7 @@ class QuotationDetailsCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+            color: Colors.black12,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Stack(

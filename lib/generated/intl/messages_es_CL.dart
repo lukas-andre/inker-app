@@ -26,7 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(name) => "Artista: ${name}";
 
   static String m2(amount, currency) =>
-      "El artista actualizó el costo de la oferta a ${amount} ${currency}";
+      "El artista actualizó el costo de la propuesta a ${amount} ${currency}";
 
   static String m3(artistsFound, range) =>
       "${artistsFound} artistas encontrados en ${range}km";
@@ -81,10 +81,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(tagName) =>
       "No hay plantillas con la etiqueta \'${tagName}\'";
 
-  static String m24(amount) => "Tu oferta de ${amount} ha sido enviada";
+  static String m24(amount) => "Tu propuesta de ${amount} ha sido enviada";
 
   static String m25(count) =>
-      "${Intl.plural(count, zero: 'Sin ofertas', one: '1 oferta', other: '${count} ofertas')}";
+      "${Intl.plural(count, zero: 'Sin propuestas', one: '1 propuesta', other: '${count} propuestas')}";
 
   static String m26(count, offerWord) => "Has recibido ${count} ${offerWord}";
 
@@ -94,7 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m28(status) => "Estado: ${status}";
 
   static String m29(amount) =>
-      "El artista actualizó el costo de la oferta a ${amount} CLP.";
+      "El artista actualizó el costo de la propuesta a ${amount} CLP.";
 
   static String m30(count) =>
       "${Intl.plural(count, zero: 'No reseñas aun', one: '1 reseña', other: '${count} reseñas')}";
@@ -111,7 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "acceptAppeal":
             MessageLookupByLibrary.simpleMessage("Aceptar Apelación"),
-        "acceptOffer": MessageLookupByLibrary.simpleMessage("Aceptar oferta"),
+        "acceptOffer":
+            MessageLookupByLibrary.simpleMessage("Aceptar propuesta"),
         "acceptQuotation":
             MessageLookupByLibrary.simpleMessage("Aceptar Cotización"),
         "accepted": MessageLookupByLibrary.simpleMessage("Aceptado"),
@@ -187,9 +188,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "allStencils":
             MessageLookupByLibrary.simpleMessage("Todas las Plantillas"),
         "alreadyOffered":
-            MessageLookupByLibrary.simpleMessage("Ya has ofertado"),
-        "alreadySubmittedOffer":
-            MessageLookupByLibrary.simpleMessage("Ya has enviado una oferta"),
+            MessageLookupByLibrary.simpleMessage("Ya has propuesto"),
+        "alreadySubmittedOffer": MessageLookupByLibrary.simpleMessage(
+            "Ya has enviado una propuesta"),
         "and": MessageLookupByLibrary.simpleMessage("y"),
         "anonymous": MessageLookupByLibrary.simpleMessage("Anónimo"),
         "appeal": MessageLookupByLibrary.simpleMessage("Apelación"),
@@ -423,7 +424,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rango Personalizado"),
         "customer": MessageLookupByLibrary.simpleMessage("Cliente"),
         "customerLookingForOffers": MessageLookupByLibrary.simpleMessage(
-            "¡El cliente está buscando ofertas!"),
+            "¡El cliente está buscando propuestas!"),
         "date": MessageLookupByLibrary.simpleMessage("Fecha"),
         "day": MessageLookupByLibrary.simpleMessage("Día"),
         "daysAgo": m5,
@@ -468,7 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Estás seguro de que deseas editar este evento?"),
         "editLocation":
             MessageLookupByLibrary.simpleMessage("Editar Ubicación"),
-        "editOffer": MessageLookupByLibrary.simpleMessage("Editar oferta"),
+        "editOffer": MessageLookupByLibrary.simpleMessage("Editar propuesta"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Editar Perfil"),
         "editStencil": MessageLookupByLibrary.simpleMessage("Editar Plantilla"),
         "editWork": MessageLookupByLibrary.simpleMessage("Editar Trabajo"),
@@ -766,10 +767,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "No tienes ninguna notificación todavía."),
         "noNotificationsTitle":
             MessageLookupByLibrary.simpleMessage("No hay notificaciones"),
-        "noOffersReceived":
-            MessageLookupByLibrary.simpleMessage("Aún no has recibido ofertas"),
+        "noOffersReceived": MessageLookupByLibrary.simpleMessage(
+            "Aún no has recibido propuestas"),
         "noOffersYet":
-            MessageLookupByLibrary.simpleMessage("Aún no hay ofertas"),
+            MessageLookupByLibrary.simpleMessage("Aún no hay propuestas"),
         "noOpenQuotationsFoundBody": MessageLookupByLibrary.simpleMessage(
             "No tienes cotizaciones abiertas en este momento"),
         "noOpenQuotationsFoundTitle": MessageLookupByLibrary.simpleMessage(
@@ -845,23 +846,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "october": MessageLookupByLibrary.simpleMessage("Octubre"),
         "of5": MessageLookupByLibrary.simpleMessage("de 5"),
         "offerAcceptedSuccessfully": MessageLookupByLibrary.simpleMessage(
-            "Oferta aceptada exitosamente"),
-        "offerCost": MessageLookupByLibrary.simpleMessage("Costo de la oferta"),
+            "Propuesta aceptada exitosamente"),
+        "offerCost":
+            MessageLookupByLibrary.simpleMessage("Costo de la propuesta"),
         "offerSubmitted":
-            MessageLookupByLibrary.simpleMessage("Oferta enviada"),
+            MessageLookupByLibrary.simpleMessage("Propuesta enviada"),
         "offerSubmittedMessage": MessageLookupByLibrary.simpleMessage(
-            "Tu oferta ha sido enviada exitosamente al cliente."),
+            "Tu propuesta ha sido enviada exitosamente al cliente."),
         "offerSubmittedTitle":
-            MessageLookupByLibrary.simpleMessage("¡Oferta enviada!"),
+            MessageLookupByLibrary.simpleMessage("¡Propuesta enviada!"),
         "offerSubmittedWithAmount": m24,
-        "offered": MessageLookupByLibrary.simpleMessage("Ofrecido"),
-        "offers": MessageLookupByLibrary.simpleMessage("Ofertas"),
+        "offered": MessageLookupByLibrary.simpleMessage("Propuesto"),
+        "offers": MessageLookupByLibrary.simpleMessage("Propuestas"),
         "offersAppearHere": MessageLookupByLibrary.simpleMessage(
-            "Las ofertas aparecerán aquí cuando las recibas"),
+            "Las propuestas aparecerán aquí cuando las recibas"),
         "offersCount": m25,
         "offersReceived": m26,
         "offersReceivedTitle":
-            MessageLookupByLibrary.simpleMessage("Ofertas recibidas"),
+            MessageLookupByLibrary.simpleMessage("Propuestas recibidas"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "onlyStencilsFound": MessageLookupByLibrary.simpleMessage(
             "Solo se encontraron plantillas"),
@@ -878,7 +880,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "openQuotationRequest": MessageLookupByLibrary.simpleMessage(
             "Solicitud de Cotización Abierta"),
         "openQuotationRequestDesc": MessageLookupByLibrary.simpleMessage(
-            "Este cliente está buscando ofertas. Puedes enviar tu cotización para ganar este proyecto."),
+            "Este cliente está buscando propuestas. Puedes enviar tu cotización para ganar este proyecto."),
         "openQuotations":
             MessageLookupByLibrary.simpleMessage("Cotizaciones Abiertas"),
         "openSettings":
@@ -955,7 +957,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Permite que los clientes vean tu disponibilidad"),
         "quotation": MessageLookupByLibrary.simpleMessage("Cotización"),
         "quotationAcceptedSuccess": MessageLookupByLibrary.simpleMessage(
-            "Oferta aceptada exitosamente"),
+            "Propuesta aceptada exitosamente"),
         "quotationCancelledSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Cotización cancelada exitosamente"),
         "quotationCreatedSuccessfullyDescription":
@@ -1020,7 +1022,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rating": MessageLookupByLibrary.simpleMessage("Calificación"),
         "reason": MessageLookupByLibrary.simpleMessage("Motivo"),
         "receivedOffers":
-            MessageLookupByLibrary.simpleMessage("Ofertas Recibidas"),
+            MessageLookupByLibrary.simpleMessage("Propuestas Recibidas"),
         "receivedQuotation":
             MessageLookupByLibrary.simpleMessage("Cotización Recibida"),
         "receivedQuotations":
@@ -1086,11 +1088,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "results": MessageLookupByLibrary.simpleMessage("Resultados"),
         "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
         "reviewAndSubmitOffer": MessageLookupByLibrary.simpleMessage(
-            "Revisa los detalles y envía tu oferta para ganar este proyecto."),
+            "Revisa los detalles y envía tu propuesta para ganar este proyecto."),
         "reviewDetailsAndSubmitOffer": MessageLookupByLibrary.simpleMessage(
-            "Revisa los detalles y envía tu oferta"),
+            "Revisa los detalles y envía tu propuesta"),
         "reviewEachOffer": MessageLookupByLibrary.simpleMessage(
-            "Revisa cada oferta y chatea con los artistas"),
+            "Revisa cada propuesta y chatea con los artistas"),
         "reviewFunctionalityComingSoon": MessageLookupByLibrary.simpleMessage(
             "La funcionalidad de reseñas estará disponible pronto"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reseñada"),
@@ -1165,8 +1167,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sendMessage": MessageLookupByLibrary.simpleMessage("Enviar Mensaje"),
         "sendMessageInApp":
             MessageLookupByLibrary.simpleMessage("Enviar mensaje en la app"),
-        "sendOffer": MessageLookupByLibrary.simpleMessage("Enviar oferta"),
-        "sentOffer": MessageLookupByLibrary.simpleMessage("Oferta enviada"),
+        "sendOffer": MessageLookupByLibrary.simpleMessage("Enviar propuesta"),
+        "sentOffer": MessageLookupByLibrary.simpleMessage("Propuesta enviada"),
         "september": MessageLookupByLibrary.simpleMessage("Septiembre"),
         "services": MessageLookupByLibrary.simpleMessage("Servicios"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
@@ -1229,13 +1231,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "studioPhoto": MessageLookupByLibrary.simpleMessage("Foto del estudio"),
         "styles": MessageLookupByLibrary.simpleMessage("Estilos"),
         "submit": MessageLookupByLibrary.simpleMessage("Enviar"),
-        "submitOffer": MessageLookupByLibrary.simpleMessage("Enviar oferta"),
+        "submitOffer": MessageLookupByLibrary.simpleMessage("Enviar propuesta"),
         "submitOpenQuotation":
             MessageLookupByLibrary.simpleMessage("Enviar Cotización Abierta"),
         "submittingOffer":
-            MessageLookupByLibrary.simpleMessage("Enviando oferta..."),
+            MessageLookupByLibrary.simpleMessage("Enviando propuesta..."),
         "submittingOfferMessage": MessageLookupByLibrary.simpleMessage(
-            "Por favor espera mientras se envía tu oferta."),
+            "Por favor espera mientras se envía tu propuesta."),
         "suggestedTags":
             MessageLookupByLibrary.simpleMessage("Etiquetas sugeridas"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Sugerencias"),
@@ -1353,7 +1355,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewConsents":
             MessageLookupByLibrary.simpleMessage("Ver Consentimientos"),
         "viewDetails": MessageLookupByLibrary.simpleMessage("Ver Detalles"),
-        "viewOffers": MessageLookupByLibrary.simpleMessage("Ver Ofertas"),
+        "viewOffers": MessageLookupByLibrary.simpleMessage("Ver Propuestas"),
         "viewStencils": MessageLookupByLibrary.simpleMessage("Ver Plantillas"),
         "viewTattooDetails":
             MessageLookupByLibrary.simpleMessage("Ver Detalles"),
@@ -1393,7 +1395,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "works": MessageLookupByLibrary.simpleMessage("Trabajos"),
         "yearsAgo": m32,
         "yes": MessageLookupByLibrary.simpleMessage("Sí"),
-        "yourOffer": MessageLookupByLibrary.simpleMessage("Tu oferta"),
+        "yourOffer": MessageLookupByLibrary.simpleMessage("Tu propuesta"),
         "yourResponse": MessageLookupByLibrary.simpleMessage("Tu Respuesta"),
         "zoomIn": MessageLookupByLibrary.simpleMessage("Acercar"),
         "zoomOut": MessageLookupByLibrary.simpleMessage("Alejar")

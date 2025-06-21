@@ -53,8 +53,9 @@ class QuotationCard extends StatelessWidget {
     } else if (model.type == QuotationType.OPEN) {
       cardColor =
           model.hasOffered ? const Color(0xFF2a3a47) : const Color(0xFF2A2E47);
-      borderColor =
-          model.hasOffered ? Colors.green : Theme.of(context).colorScheme.error;
+      borderColor = model.hasOffered 
+          ? const Color(0xFF4CAF50) // Softer green
+          : Theme.of(context).colorScheme.secondary; // Use secondary color instead of error
       borderWidth = 2.0;
     } else if (model.type == QuotationType.PARTICIPATING) {
       // Use status color for border, or a default? Let's use status color.
@@ -281,10 +282,12 @@ class QuotationCard extends StatelessWidget {
         ),
       );
     } else if (model.type == QuotationType.OPEN) {
-      // Status Banner for OPEN
-      final bannerColor =
-          model.hasOffered ? Colors.green : Theme.of(context).colorScheme.error;
-      final bannerText = model.hasOffered ? l10n.offered : l10n.open;
+      // Status Banner for OPEN with better colors
+      final bannerColor = model.hasOffered 
+          ? const Color(0xFF4CAF50) 
+          : Theme.of(context).colorScheme.secondary;
+      // TODO: Update these in localization files
+      final bannerText = model.hasOffered ? 'PROPUESTA ENVIADA' : 'DISPONIBLE';
 
       return Positioned(
         top: 0,
@@ -466,16 +469,22 @@ class QuotationCard extends StatelessWidget {
   // --- Action Prompts ---
 
   Widget _buildOpenQuotationArtistPrompt(BuildContext context, S l10n) {
-    // Similar to the one in OpenQuotationListPage
+    // Enhanced design with gradient and better visual hierarchy
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-          horizontal: 12, vertical: 8), // Reduced padding
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.error.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(6),
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.secondary.withAlpha(25),
+            Theme.of(context).colorScheme.secondary.withAlpha(10),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-            color: Theme.of(context).colorScheme.error.withOpacity(0.3)),
+            color: Theme.of(context).colorScheme.secondary.withAlpha(76)),
       ),
       child: Row(
         // Use Row for compact layout
@@ -488,20 +497,20 @@ class QuotationCard extends StatelessWidget {
                 Text(
                   l10n.customerLookingForOffers,
                   style: TextStyleTheme.bodyText2.copyWith(
-                    color: Theme.of(context).colorScheme.error,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 2),
                 Text(
                   l10n.reviewDetailsAndSubmitOffer,
-                  style: TextStyleTheme.caption.copyWith(color: Colors.white70),
+                  style: TextStyleTheme.caption.copyWith(color: Colors.white60),
                 ),
               ],
             ),
           ),
           const SizedBox(width: 12),
-          OutlinedButton(
-            // Make button smaller
+          ElevatedButton.icon(
             key: Key('send_offer_${model.id}'),
             onPressed: () {
               if (onSendOfferTap != null) {
@@ -515,17 +524,17 @@ class QuotationCard extends StatelessWidget {
                 ));
               }
             },
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-              side: BorderSide(
-                  color: Theme.of(context).colorScheme.error, width: 1.0),
+            icon: const Icon(Icons.send_rounded, size: 16),
+            label: Text(l10n.sendOffer),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              textStyle:
-                  TextStyleTheme.caption.copyWith(fontWeight: FontWeight.bold),
+                  borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
-            child: Text(l10n.sendOffer),
           ),
         ],
       ),
@@ -544,9 +553,9 @@ class QuotationCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Colors.green.withOpacity(0.3)),
+        color: const Color(0xFF4CAF50).withAlpha(25),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFF4CAF50).withAlpha(76)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
