@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/models/appointment/appointment_detail_dto.dart';
+import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
@@ -380,7 +381,7 @@ class AppointmentDetailPage extends StatelessWidget {
                     endDate: appointment.endDate,
                     artist: artist,
                     onArtistTap: () =>
-                        _navigateToArtistProfile(context, artist.id),
+                        _navigateToArtistProfile(context, artist),
                   ),
 
                   // Additional Info Section (if needed)
@@ -790,11 +791,11 @@ class AppointmentDetailPage extends StatelessWidget {
   }
 
   // Navigation and utility methods
-  void _navigateToArtistProfile(BuildContext context, String artistId) {
+  void _navigateToArtistProfile(BuildContext context, Artist artist) {
     Navigator.pushNamed(
       context,
       '/artistProfile',
-      arguments: {'artistId': artistId},
+      arguments: {'artist': artist},
     );
   }
 

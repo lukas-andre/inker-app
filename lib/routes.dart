@@ -23,6 +23,7 @@ import 'package:inker_studio/ui/artist/work/work_detail_page.dart';
 import 'package:inker_studio/ui/artist/work/work_gallery_page.dart';
 import 'package:inker_studio/ui/customer/appointments/appointment_detail_page.dart';
 import 'package:inker_studio/ui/customer/appointments/customer_appointments_page.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart' show ArtistProfilePage;
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/notifications/notification_page.dart';
@@ -170,12 +171,13 @@ class AppRoutes {
     }
 
     if (settings.name == '/artistProfile') {
+      final args = settings.arguments as Map<String, dynamic>;
       return MaterialPageRoute(
         builder: (context) {
           // Aseguramos que el bloc esté disponible cuando se navega directamente a esta ruta
           return BlocProvider.value(
             value: context.read<ArtistStencilBloc>(),
-            child: const ArtistMyProfilePage(),
+            child: ArtistProfilePage(artist: args['artist']),
           );
         },
       );
