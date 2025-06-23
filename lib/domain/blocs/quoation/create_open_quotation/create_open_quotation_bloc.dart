@@ -9,6 +9,8 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart'; // Import
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart'; // Import GpsBloc
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
@@ -17,7 +19,8 @@ part 'create_open_quotation_state.dart';
 part 'create_open_quotation_bloc.freezed.dart';
 
 class CreateOpenQuotationBloc
-    extends Bloc<CreateOpenQuotationEvent, CreateOpenQuotationState> {
+    extends Bloc<CreateOpenQuotationEvent, CreateOpenQuotationState>
+    with EventBusMixin<CreateOpenQuotationEvent, CreateOpenQuotationState> {
   final QuotationService _quotationService;
   final AuthBloc _authBloc; // Inject AuthBloc to get user info and token
   final MapBloc _mapBloc; // Inject MapBloc
@@ -144,7 +147,7 @@ class CreateOpenQuotationBloc
   Future<void> close() {
     _mapSubscription?.cancel();
     _gpsSubscription?.cancel();
-    return super.close();
+    return super.close(); // This will also handle event bus cleanup from mixin
   }
 
   void _onStarted(_Started event, Emitter<CreateOpenQuotationState> emit) {
@@ -363,6 +366,14 @@ class CreateOpenQuotationBloc
         state.referenceImages,
         session.accessToken,
       );
+
+      // Fire event to notify other parts of the app
+      fireEvent(QuotationCreatedEvent(
+        quotationId: result['id'].toString(),
+        artistId: null, // Open quotations don't have a specific artist
+        customerId: session.user!.id,
+        isOpenQuotation: true,
+      ));
 
       emit(state.copyWith(
         status: CreateOpenQuotationStatus.submissionSuccess,

@@ -5,13 +5,16 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
 
 part 'artist_quotation_response_event.dart';
 part 'artist_quotation_response_state.dart';
 part 'artist_quotation_response_bloc.freezed.dart';
 
 class ArtistQuotationResponseBloc
-    extends Bloc<ArtistQuotationResponseEvent, ArtistQuotationResponseState> {
+    extends Bloc<ArtistQuotationResponseEvent, ArtistQuotationResponseState>
+    with EventBusMixin<ArtistQuotationResponseEvent, ArtistQuotationResponseState> {
   final QuotationService _quotationService;
   final LocalSessionService _sessionService;
 
@@ -80,6 +83,18 @@ class ArtistQuotationResponseBloc
         rejectionReason: event.rejectionReason,
         proposedDesigns: event.proposedDesigns,
       );
+      
+      // Fire event to notify other parts of the app
+      final session = await _sessionService.getActiveSession();
+      if (session != null && session.user != null) {
+        fireEvent(QuotationUpdatedEvent(
+          quotationId: event.quotationId,
+          status: event.action == ArtistQuotationAction.quote ? 'quoted' : 
+                 event.action == ArtistQuotationAction.reject ? 'rejected' : 'updated',
+          artistId: session.user!.id,
+        ));
+      }
+      
       emit(const ArtistQuotationResponseState.success());
       add(ArtistQuotationResponseEvent.loadQuotation(event.quotationId));
     } catch (e) {
@@ -118,6 +133,17 @@ class ArtistQuotationResponseBloc
         additionalDetails: event.additionalDetails,
         proposedDesigns: event.proposedDesigns,
       );
+      
+      // Fire event to notify other parts of the app
+      final session = await _sessionService.getActiveSession();
+      if (session != null && session.user != null) {
+        fireEvent(QuotationResponseSubmittedEvent(
+          quotationId: event.quotationId,
+          artistId: session.user!.id,
+          customerId: '', // We don't have customer ID here, but it's not critical for the event
+        ));
+      }
+      
       emit(const ArtistQuotationResponseState.success());
     } catch (e) {
       emit(ArtistQuotationResponseState.failure(
