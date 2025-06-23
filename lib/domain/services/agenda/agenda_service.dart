@@ -1,15 +1,21 @@
 import 'dart:io';
 
+import 'package:image_picker/image_picker.dart' show XFile;
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/data/api/agenda/dtos/schedule_response.dart';
+import 'package:inker_studio/domain/models/agenda/agenda.dart' as agenda_model;
 import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
 abstract class AgendaService {
   Stream<dynamic> get status;
   dynamic get statusValue;
-  Future<dynamic> getAgenda();
+  Future<agenda_model.Agenda?> getAgendaByArtistId({
+    required String token,
+    required String artistId,
+  });
   Future<GetArtistWorksResponse> getArtistWorks(
       {required String artistId,
       required int page,
@@ -195,7 +201,7 @@ abstract class AgendaService {
     required String agendaId,
     required String eventId,
     required String message,
-    String? imageFilePath,
+    XFile? image,
   });
 
   Future<List<dynamic>> getEventMessages({
@@ -210,5 +216,16 @@ abstract class AgendaService {
     required String agendaId,
     required String viewType,
     required String date,
+  });
+
+  // New unified schedule endpoint
+  Future<ScheduleResponse> getSchedule({
+    required String token,
+    required String artistId,
+    DateTime? fromDate,
+    DateTime? toDate,
+    bool includeAvailability,
+    bool includeSuggestions,
+    int? defaultDuration,
   });
 }

@@ -20,6 +20,7 @@ import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc
 import 'package:inker_studio/ui/quotation/widgets/select_generated_design_bottomsheet.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
+import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
@@ -208,6 +209,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
           context
               .read<CreateOpenQuotationBloc>()
               .add(const CreateOpenQuotationEvent.clearSuccessMessage());
+          // The event bus will handle refreshing the quotation list
           Navigator.of(context).pop();
         }
 

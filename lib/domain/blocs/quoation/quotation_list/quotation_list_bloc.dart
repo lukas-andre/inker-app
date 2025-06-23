@@ -6,12 +6,15 @@ import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart'
 import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
 
 part 'quotation_list_event.dart';
 part 'quotation_list_state.dart';
 part 'quotation_list_bloc.freezed.dart';
 
-class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
+class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState>
+    with EventBusMixin<QuotationListEvent, QuotationListState> {
   final QuotationService _quotationService;
   final LocalSessionService _sessionService;
 
@@ -52,6 +55,25 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         acceptOffer: (String quotationId, String offerId) async =>
           await _acceptOffer(emit, quotationId, offerId),
       );
+    });
+    
+    // Listen for quotation created events
+    listenToEvent<QuotationCreatedEvent>((event) async {
+      // Refresh the list when a new quotation is created
+      add(const QuotationListEvent.refreshCurrentTab());
+    });
+    
+    // Listen for quotation updated events
+    listenToEvent<QuotationUpdatedEvent>((event) async {
+      // Refresh the list when a quotation is updated
+      add(const QuotationListEvent.refreshCurrentTab());
+    });
+    
+    // Listen for refresh requested events
+    listenToEvent<RefreshRequestedEvent>((event) async {
+      if (event.dataType == RefreshDataTypes.quotations) {
+        add(const QuotationListEvent.refreshCurrentTab());
+      }
     });
   }
 
@@ -150,6 +172,13 @@ class QuotationListBloc extends Bloc<QuotationListEvent, QuotationListState> {
         final updatedQuotations = currentState.quotations
             .where((quotation) => quotation.id.toString() != quotationId)
             .toList();
+
+        // Fire event to notify other parts of the app
+        fireEvent(QuotationUpdatedEvent(
+          quotationId: quotationId,
+          status: 'canceled',
+          customerId: session.user?.id,
+        ));
 
         emit(const QuotationListState.cancelSuccess());
 

@@ -85,7 +85,8 @@ class NotificationsWrapper extends StatelessWidget {
       onTap: (_) {
         _.dismiss();
         if (data['quotationId'] != null) {
-          // Navigate to the specific quotation instead of the list
+          // Navigate to the specific quotation
+          // The NotificationsBloc will fire events to refresh relevant data automatically
           state.pushNamed(
             '/quotationDetail',
             arguments: {'quotationId': data['quotationId']},
@@ -109,7 +110,45 @@ class NotificationsWrapper extends StatelessWidget {
             color: Colors.white,
           ),
         );
-      // Puedes agregar más casos según los tipos de notificaciones
+      case 'QUOTATION_REPLIED':
+      case 'QUOTATION_ACCEPTED':
+        return const CircleAvatar(
+          backgroundColor: Colors.green,
+          radius: 20,
+          child: Icon(
+            Icons.check_circle,
+            color: Colors.white,
+          ),
+        );
+      case 'QUOTATION_REJECTED':
+      case 'QUOTATION_CANCELED':
+        return const CircleAvatar(
+          backgroundColor: Colors.red,
+          radius: 20,
+          child: Icon(
+            Icons.cancel,
+            color: Colors.white,
+          ),
+        );
+      case 'EVENT_CREATED':
+      case 'EVENT_UPDATED':
+        return const CircleAvatar(
+          backgroundColor: Colors.purple,
+          radius: 20,
+          child: Icon(
+            Icons.event,
+            color: Colors.white,
+          ),
+        );
+      case 'EVENT_CANCELED':
+        return const CircleAvatar(
+          backgroundColor: Colors.orange,
+          radius: 20,
+          child: Icon(
+            Icons.event_busy,
+            color: Colors.white,
+          ),
+        );
       default:
         return const CircleAvatar(
           backgroundColor: Colors.grey,
@@ -143,6 +182,8 @@ class NotificationsWrapper extends StatelessWidget {
             }
 
             if (pendingNavigation != null) {
+              // Navigate to the target screen
+              // The NotificationsBloc has already fired events to refresh relevant data
               Navigator.of(context).pushNamed(
                 pendingNavigation.route,
                 arguments: pendingNavigation.arguments,
