@@ -69,6 +69,7 @@ class _SettingsContent extends StatelessWidget {
         if (isArtist) _ArtistSettings(settings: settings),
         _AccountSettings(),
         _LegalSettings(),
+        _DangerZone(),
       ],
     );
   }
@@ -138,7 +139,7 @@ class _ApplicationSettings extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -167,7 +168,7 @@ class _ApplicationSettings extends StatelessWidget {
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -188,6 +189,7 @@ class _ApplicationSettings extends StatelessWidget {
   ) async {
     if (value) {
       final status = await Permission.notification.request();
+      if (!context.mounted) return;
       if (status.isGranted) {
         bloc.add(const SettingsEvent.toggleNotifications(true));
       } else {
@@ -208,6 +210,7 @@ class _ApplicationSettings extends StatelessWidget {
   ) async {
     if (value) {
       final status = await Permission.location.request();
+      if (!context.mounted) return;
       if (status.isGranted) {
         bloc.add(const SettingsEvent.toggleLocationServices(true));
       } else {
@@ -253,193 +256,17 @@ class _AccountSettings extends StatelessWidget {
           title: Text(S.of(context).logOut, style: TextStyleTheme.bodyText1),
           onTap: () => _showLogoutDialog(context),
         ),
-        ListTile(
-          key: const Key('deleteAccountButton'),
-          leading: const Icon(Icons.delete_forever, color: Colors.red),
-          title: Text(
-            S.of(context).deleteAccount,
-            style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
-          ),
-          onTap: () => _showDeleteAccountDialog(context),
-        ),
       ],
     );
   }
 
-  void _showChangePasswordDialog(BuildContext context) {
-    final currentPasswordController = TextEditingController();
-    final newPasswordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        title:
-            Text(S.of(context).changePassword, style: TextStyleTheme.headline3),
-        content: Form(
-          key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _PasswordField(
-                controller: currentPasswordController,
-                labelText: S.of(context).currentPassword,
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return S.of(context).required;
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              _PasswordField(
-                controller: newPasswordController,
-                labelText: S.of(context).newPassword,
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return S.of(context).required;
-                  }
-                  if (value!.length < 8) {
-                    return S.of(context).passwordTooShort;
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              _PasswordField(
-                controller: confirmPasswordController,
-                labelText: S.of(context).confirmNewPassword,
-                validator: (value) {
-                  if (value != newPasswordController.text) {
-                    return S.of(context).passwordsDontMatch;
-                  }
-                  return null;
-                },
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            child: Text(S.of(context).cancel),
-            onPressed: () => Navigator.pop(context),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary),
-            child: Text(S.of(context).change),
-            onPressed: () {
-              if (formKey.currentState?.validate() ?? false) {
-                // Add password change logic here
-                Navigator.pop(context);
-                _showSuccessSnackBar(
-                  context,
-                  S.of(context).passwordChangedSuccessfully,
-                );
-              }
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showDeleteAccountDialog(BuildContext context) {
-    final passwordController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
-
-    showDialog(
-      context: context,
-      builder: (context) => BlocListener<DeleteAccountBloc, DeleteAccountState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            success: () {
-              context.read<AuthBloc>().add(
-                    AuthLogoutRequested(context.read<AuthBloc>().state.session),
-                  );
-              Navigator.of(context).pop();
-            },
-            failure: (error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(error)),
-              );
-            },
-            orElse: () {},
-          );
-        },
-        child: AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: Text(
-            S.of(context).deleteAccount,
-            style: TextStyleTheme.headline3.copyWith(color: Colors.red),
-          ),
-          content: Form(
-            key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  S.of(context).deleteAccountWarning,
-                  style: TextStyleTheme.bodyText2,
-                ),
-                const SizedBox(height: 24),
-                _PasswordField(
-                  controller: passwordController,
-                  labelText: S.of(context).confirmPassword,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return S.of(context).required;
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text(S.of(context).cancel),
-              onPressed: () => Navigator.pop(context),
-            ),
-            BlocBuilder<DeleteAccountBloc, DeleteAccountState>(
-              builder: (context, state) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  onPressed: state.maybeWhen(
-                    inProgress: () => null,
-                    orElse: () {
-                      return () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          context.read<DeleteAccountBloc>().add(
-                                DeleteAccountEvent.requested(
-                                    passwordController.text),
-                              );
-                        }
-                      };
-                    },
-                  ),
-                  child: state.maybeWhen(
-                    inProgress: () =>
-                        const CircularProgressIndicator(color: Colors.white),
-                    orElse: () => Text(S.of(context).deleteAccount),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title:
             Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
         content: Text(S.of(context).areYouSureLogout,
@@ -452,7 +279,10 @@ class _AccountSettings extends StatelessWidget {
           ),
           ElevatedButton(
             key: const Key('confirmLogoutButton'),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Colors.white,
+            ),
             child: Text(S.of(context).logOut),
             onPressed: () {
               Navigator.pop(context);
@@ -579,7 +409,7 @@ void _showPermissionDeniedDialog(BuildContext context, String message) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(
         S.of(context).permissionRequired,
         style: TextStyleTheme.headline3,
@@ -595,7 +425,7 @@ void _showPermissionDeniedDialog(BuildContext context, String message) {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
           child: Text(S.of(context).openSettings),
           onPressed: () {
@@ -608,33 +438,113 @@ void _showPermissionDeniedDialog(BuildContext context, String message) {
   );
 }
 
-void _showSuccessSnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Row(
-        children: [
-          const Icon(
-            Icons.check_circle,
-            color: Colors.white,
+class _DangerZone extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _SettingsSection(
+      title: 'Danger Zone',
+      children: [
+        ListTile(
+          key: const Key('deleteAccountButton'),
+          leading: const Icon(Icons.delete_forever, color: Colors.red),
+          title: Text(
+            S.of(context).deleteAccount,
+            style: TextStyleTheme.bodyText1.copyWith(color: Colors.red),
           ),
-          const SizedBox(width: 8),
-          Text(
-            message,
-            style: TextStyleTheme.bodyText2.copyWith(
-              color: Colors.white,
+          onTap: () => _showDeleteAccountDialog(context),
+        ),
+      ],
+    );
+  }
+
+  void _showDeleteAccountDialog(BuildContext context) {
+    final passwordController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+
+    showDialog(
+      context: context,
+      builder: (context) => BlocListener<DeleteAccountBloc, DeleteAccountState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            success: () {
+              context.read<AuthBloc>().add(
+                    AuthLogoutRequested(context.read<AuthBloc>().state.session),
+                  );
+              Navigator.of(context).pop();
+            },
+            failure: (error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(error)),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        child: AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          title: Text(
+            S.of(context).deleteAccount,
+            style: TextStyleTheme.headline3.copyWith(color: Colors.red),
+          ),
+          content: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).deleteAccountWarning,
+                  style: TextStyleTheme.bodyText2,
+                ),
+                const SizedBox(height: 24),
+                _PasswordField(
+                  controller: passwordController,
+                  labelText: S.of(context).confirmPassword,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return S.of(context).required;
+                    }
+                    return null;
+                  },
+                ),
+              ],
             ),
           ),
-        ],
+          actions: [
+            TextButton(
+              child: Text(S.of(context).cancel),
+              onPressed: () => Navigator.pop(context),
+            ),
+            BlocBuilder<DeleteAccountBloc, DeleteAccountState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: state.maybeWhen(
+                    inProgress: () => null,
+                    orElse: () {
+                      return () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          context.read<DeleteAccountBloc>().add(
+                                DeleteAccountEvent.requested(
+                                    passwordController.text),
+                              );
+                        }
+                      };
+                    },
+                  ),
+                  child: state.maybeWhen(
+                    inProgress: () =>
+                        const CircularProgressIndicator(color: Colors.white),
+                    orElse: () => Text(S.of(context).deleteAccount),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-      backgroundColor: Colors.green,
-      behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      duration: const Duration(seconds: 3),
-    ),
-  );
+    );
+  }
 }
 
 class _ArtistSettings extends StatefulWidget {
