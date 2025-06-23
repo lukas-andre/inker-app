@@ -1,27 +1,31 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
+import 'package:image_picker/image_picker.dart' show XFile;
 import 'package:inker_studio/data/api/agenda/dtos/agenda_event_detail_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_agenda_events_response.dart';
 import 'package:inker_studio/data/api/agenda/dtos/get_artist_works_response.dart';
+import 'package:inker_studio/data/api/agenda/dtos/schedule_response.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/domain/models/appointment/agenda_event.dart';
 import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/models/agenda/agenda.dart' as agenda_model;
 import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 
 /// Complete implementation of AgendaService for API communication.
-/// 
+///
 /// This service implements ALL the endpoints documented in the Agenda API README:
-/// 
+///
 /// **CORE EVENT OPERATIONS:**
 /// - ✅ createEvent() -> POST /agenda/event
-/// - ✅ updateEvent() -> PUT /agenda/event/:id  
+/// - ✅ updateEvent() -> PUT /agenda/event/:id
 /// - ✅ cancelEvent() -> DELETE /agenda/:agendaId/event/:eventId
 /// - ✅ getEvent() -> GET /agenda/event/:eventId
 /// - ✅ getCustomerEventDetails() -> GET /agenda/customer/event/:eventId
 /// - ✅ getEvents() -> GET /agenda
 /// - ✅ getEventsByAgenda() -> GET /agenda/:agendaId
 /// - ✅ getArtistEvents() -> GET /agenda/artist/:artistId
-/// 
+///
 /// **EVENT ACTION OPERATIONS (Backend-Controlled):**
 /// - ✅ confirmEvent() -> POST /agenda/:agendaId/events/:eventId/confirm
 /// - ✅ rejectEvent() -> POST /agenda/:agendaId/events/:eventId/reject
@@ -30,16 +34,16 @@ import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 /// - ✅ rescheduleEvent() -> PUT /agenda/:agendaId/event/:eventId/reschedule
 /// - ✅ reviewEvent() -> POST /agenda/:agendaId/event/:eventId/review
 /// - ✅ updateEventNotes() -> PUT /agenda/:agendaId/event/:eventId/notes
-/// 
+///
 /// **EVENT MESSAGING:**
 /// - ✅ sendEventMessage() -> POST /agenda/:agendaId/event/:eventId/message
 /// - ✅ getEventMessages() -> GET /agenda/:agendaId/event/:eventId/messages
-/// 
+///
 /// **AGENDA MANAGEMENT:**
 /// - ✅ updateWorkingHours() -> PUT /agenda/:agendaId/working-hours
 /// - ✅ getAgendaSettings() -> GET /agenda/:agendaId/settings
 /// - ✅ updateAgendaSettings() -> PUT /agenda/:agendaId/settings
-/// 
+///
 /// **AVAILABILITY & TIME MANAGEMENT:**
 /// - ✅ addUnavailableTime() -> POST /agenda/:agendaId/unavailable-time
 /// - ✅ getUnavailableTime() -> GET /agenda/:agendaId/unavailable-time
@@ -47,10 +51,10 @@ import 'package:inker_studio/domain/models/event/event_detail_response.dart';
 /// - ✅ getArtistAvailability() -> GET /agenda/artists/:artistId/availability
 /// - ✅ getArtistAvailableTimeSlots() -> GET /agenda/artists/:artistId/available-slots
 /// - ✅ getQuotationAvailableSlots() -> GET /quotations/:quotationId/available-slots
-/// 
+///
 /// **WORK EVIDENCE:**
 /// - ✅ getArtistWorks() -> GET /agenda/artists/:artistId/work-evidence
-/// 
+///
 /// **NOTES:**
 /// - File uploads (work evidence, message images) are partially implemented
 /// - All endpoints support proper error handling and token authentication
@@ -562,9 +566,20 @@ class ApiAgendaService extends AgendaService {
   }
 
   @override
-  Future getAgenda() {
-    // Placeholder implementation
-    return Future.value(null);
+  Future<agenda_model.Agenda?> getAgendaByArtistId({
+    required String token,
+    required String artistId,
+  }) async {
+    try {
+      return await _httpClient.get<agenda_model.Agenda>(
+        path: '$_basePath/artists/$artistId/agenda',
+        token: token,
+        fromJson: agenda_model.Agenda.fromJson,
+      );
+    } catch (e) {
+      print('Error fetching agenda for artist $artistId: $e');
+      return null;
+    }
   }
 
   @override
@@ -574,7 +589,8 @@ class ApiAgendaService extends AgendaService {
   get statusValue => throw UnimplementedError();
 
   @override
-  Future<EventDetailResponse> getEventDetails(String eventId, String token) async {
+  Future<EventDetailResponse> getEventDetails(
+      String eventId, String token) async {
     return await _httpClient.get<EventDetailResponse>(
       path: '$_basePath/event/$eventId',
       token: token,
@@ -583,7 +599,8 @@ class ApiAgendaService extends AgendaService {
   }
 
   @override
-  Future<EventDetailResponse> getCustomerEventDetails(String eventId, String token) async {
+  Future<EventDetailResponse> getCustomerEventDetails(
+      String eventId, String token) async {
     return await _httpClient.get<EventDetailResponse>(
       path: '$_basePath/customer/event/$eventId',
       token: token,
@@ -651,7 +668,8 @@ class ApiAgendaService extends AgendaService {
       if (workEvidenceFiles != null && workEvidenceFiles.isNotEmpty) {
         // For now, we'll implement without file upload support
         // TODO: Implement multipart form data upload for files
-        print('Work evidence file upload not yet implemented. Files: $workEvidenceFiles');
+        print(
+            'Work evidence file upload not yet implemented. Files: $workEvidenceFiles');
       }
 
       await _httpClient.put(
@@ -704,11 +722,11 @@ class ApiAgendaService extends AgendaService {
       'rating': rating,
       'displayName': displayName,
     };
-    
+
     if (comment != null) {
       body['comment'] = comment;
     }
-    
+
     if (header != null) {
       body['header'] = header;
     }
@@ -728,23 +746,32 @@ class ApiAgendaService extends AgendaService {
     required String agendaId,
     required String eventId,
     required String message,
-    String? imageFilePath,
+    XFile? image,
   }) async {
     try {
-      final Map<String, dynamic> body = {
-        'message': message,
+      final Map<String, String> fields = {
+        'message': message, // The backend expects 'message' field, not 'text'
       };
 
-      if (imageFilePath != null) {
-        // For now, we'll implement without file upload support
-        // TODO: Implement multipart form data upload for image files
-        print('Image file upload not yet implemented. File: $imageFilePath');
+      final List<http.MultipartFile> files = [];
+
+      if (image != null) {
+        final bytes = await image.readAsBytes();
+        files.add(http.MultipartFile.fromBytes(
+          'image', // Field name specified in API docs
+          bytes,
+          contentType:
+              MediaType('image', 'jpeg'), // Adjust based on actual image type
+          filename: image.name,
+        ));
       }
 
-      await _httpClient.post(
+      await _httpClient.multipartRequest(
         path: '$_basePath/$agendaId/event/$eventId/message',
         token: token,
-        body: body,
+        method: 'POST',
+        fields: fields,
+        files: files,
         fromJson: (json) => null,
       );
     } catch (e) {
@@ -826,5 +853,45 @@ class ApiAgendaService extends AgendaService {
       token: token,
       body: {}, // Pass an empty body as required by the HttpClientService
     );
+  }
+
+  @override
+  Future<ScheduleResponse> getSchedule({
+    required String token,
+    required String artistId,
+    DateTime? fromDate,
+    DateTime? toDate,
+    bool includeAvailability = true,
+    bool includeSuggestions = true,
+    int? defaultDuration,
+  }) async {
+    final Map<String, String> queryParams = {};
+
+    if (fromDate != null) {
+      queryParams['fromDate'] = fromDate.toIso8601String();
+    }
+
+    if (toDate != null) {
+      queryParams['toDate'] = toDate.toIso8601String();
+    }
+
+    queryParams['includeAvailability'] = includeAvailability.toString();
+    queryParams['includeSuggestions'] = includeSuggestions.toString();
+
+    if (defaultDuration != null) {
+      queryParams['defaultDuration'] = defaultDuration.toString();
+    }
+
+    try {
+      return await _httpClient.get<ScheduleResponse>(
+        path: '$_basePath/schedule/$artistId',
+        token: token,
+        queryParams: queryParams,
+        fromJson: ScheduleResponse.fromJson,
+      );
+    } catch (e) {
+      print('Error fetching schedule: $e');
+      rethrow;
+    }
   }
 }

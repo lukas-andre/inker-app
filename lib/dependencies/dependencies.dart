@@ -55,6 +55,7 @@ import 'package:inker_studio/features/auth_shared/usecases/login_usecase.dart';
 import 'package:inker_studio/features/auth_shared/usecases/logout_usecase.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
 import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
 
 Future<List<RepositoryProvider>> buildProviders() async {
   // Initialize services that need to be created asynchronously
@@ -69,6 +70,8 @@ Future<List<RepositoryProvider>> buildProviders() async {
   final geolocationService = GeolocationFactory.createGeolocationService();
   
   return [
+    // Event bus provider - singleton instance for app-wide communication
+    RepositoryProvider<AppEventBus>(create: (_) => AppEventBus()),
     // Database service provider
     RepositoryProvider<PlatformDatabaseService>(create: (_) => databaseService),
     // Geolocation service provider

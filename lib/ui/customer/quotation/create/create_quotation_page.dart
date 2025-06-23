@@ -11,6 +11,7 @@ import 'package:inker_studio/ui/customer/quotation/widgets/image_picker.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
 
 class CreateQuotationPage extends StatefulWidget {
   final String artistId;
@@ -92,6 +93,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
             },
             quotationCreated: (id, message, created, referenceImages) {
               if (created) {
+                // The event bus will handle refreshing the quotation list
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SuccessAnimationPage(

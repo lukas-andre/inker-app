@@ -5,11 +5,14 @@ import 'package:inker_studio/domain/models/notifications/notification.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
 import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
 part 'notifications_event.dart';
 part 'notifications_state.dart';
 part 'notifications_bloc.freezed.dart';
 
-class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
+class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
+    with EventBusMixin<NotificationsEvent, NotificationsState> {
   final FcmService _fcmService;
   final NotificationsService _notificationsService;
   final LocalSessionService _sessionService;
@@ -58,7 +61,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           lastMessageAppState, notifications, isLoading, isRefreshing, 
           hasError, errorMessage, currentPage, totalPages, unreadCount) async {
         
-        // Determine navigation based on message type
+        // Determine navigation based on message type and fire corresponding events
         NavigationInfo? navigationInfo;
         if (message.data['type'] != null) {
           switch (message.data['type']) {
@@ -71,9 +74,45 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
                   route: '/agendaEventDetail',
                   arguments: int.parse(message.data['eventId'].toString()),
                 );
+                // Fire appointment event
+                if (message.data['type'] == 'EVENT_CREATED') {
+                  fireEvent(AppointmentCreatedEvent(
+                    appointmentId: message.data['eventId'].toString(),
+                    artistId: message.data['artistId'] ?? '',
+                    customerId: message.data['customerId'] ?? '',
+                    appointmentDate: DateTime.now(), // Would need actual date from message
+                  ));
+                } else if (message.data['type'] == 'EVENT_CANCELED') {
+                  fireEvent(AppointmentCancelledEvent(
+                    appointmentId: message.data['eventId'].toString(),
+                    artistId: message.data['artistId'] ?? '',
+                    customerId: message.data['customerId'] ?? '',
+                  ));
+                } else {
+                  fireEvent(AppointmentUpdatedEvent(
+                    appointmentId: message.data['eventId'].toString(),
+                    status: message.data['status'] ?? 'updated',
+                    artistId: message.data['artistId'] ?? '',
+                    customerId: message.data['customerId'] ?? '',
+                  ));
+                }
               }
               break;
             case 'QUOTATION_CREATED':
+              if (message.data['quotationId'] != null) {
+                navigationInfo = NavigationInfo(
+                  route: '/quotationDetail',
+                  arguments: {'quotationId': message.data['quotationId']},
+                );
+                // Fire quotation created event
+                fireEvent(QuotationCreatedEvent(
+                  quotationId: message.data['quotationId'].toString(),
+                  artistId: message.data['artistId'],
+                  customerId: message.data['customerId'],
+                  isOpenQuotation: message.data['isOpenQuotation'] ?? false,
+                ));
+              }
+              break;
             case 'QUOTATION_REPLIED':
             case 'QUOTATION_ACCEPTED':
             case 'QUOTATION_REJECTED':
@@ -84,10 +123,24 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
                   route: '/quotationDetail',
                   arguments: {'quotationId': message.data['quotationId']},
                 );
+                // Fire quotation updated event
+                fireEvent(QuotationUpdatedEvent(
+                  quotationId: message.data['quotationId'].toString(),
+                  status: message.data['type'].toString().toLowerCase().replaceAll('quotation_', ''),
+                  artistId: message.data['artistId'],
+                  customerId: message.data['customerId'],
+                ));
               }
               break;
           }
         }
+        
+        // Fire general notification received event
+        fireEvent(NotificationReceivedEvent(
+          notificationId: message.messageId ?? '',
+          type: message.data['type'] ?? '',
+          data: message.data,
+        ));
 
         emit(NotificationsState.loaded(
           fcmToken: fcmToken,
@@ -434,6 +487,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           notifications: updatedNotifications,
           unreadCount: newUnreadCount,
           isRefreshing: false,
+        ));
+        
+        // Fire event to notify that notifications were cleared
+        fireEvent(NotificationsClearedEvent(
+          relatedId: quotationId,
+          type: 'quotation',
         ));
         
       } catch (e) {

@@ -176,7 +176,7 @@ class _EventChatPageState extends State<EventChatPage> {
       senderId: _currentUserId ?? '',
       senderType: widget.isArtist ? QuotationRole.artist : QuotationRole.customer,
       message: messageText,
-      imageUrl: imageFile != null ? imageFile.path : null,
+      imageUrl: imageFile?.path,
       createdAt: DateTime.now(),
     );
 
@@ -197,7 +197,7 @@ class _EventChatPageState extends State<EventChatPage> {
         agendaId: widget.agendaId,
         eventId: widget.eventId,
         message: messageText,
-        imageFilePath: imageFile?.path,
+        image: imageFile,
       );
 
       // Refresh to get the actual message from server

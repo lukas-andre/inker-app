@@ -94,9 +94,19 @@ class _ScheduleAssistantWidgetState extends State<ScheduleAssistantWidget> {
     return BlocConsumer<ScheduleAssistantBloc, ScheduleAssistantState>(
       listener: (context, state) {
         state.maybeWhen(
-          loaded: (events, rangeStart, rangeEnd, selectedStart, selectedEnd) {
+          loaded: (events, quotations, availability, suggestedSlots, workingHours,
+              summary, rangeStart, rangeEnd, selectedQuotation, selectedTimeSlot,
+              showAvailabilityDensity, isCreatingEvent, selectedDuration) {
             setState(() {
-              _allEvents = events;
+              // Convert ScheduleEvent to EventDetails
+              _allEvents = events.map((e) => EventDetails(
+                id: e.id,
+                title: e.title,
+                description: e.description,
+                startDate: e.startDate,
+                endDate: e.endDate,
+                location: '', // ScheduleEvent doesn't have location
+              )).toList();
               _filterEventsForSelectedDay();
             });
           },
