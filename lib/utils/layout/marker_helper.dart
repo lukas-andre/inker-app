@@ -6,6 +6,7 @@ import 'package:flutter/material.dart'
 import 'package:google_maps_flutter/google_maps_flutter.dart'
     show BitmapDescriptor;
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/utils/constants.dart' show defaultProfileImageLink;
 import 'package:inker_studio/utils/layout/widgets_to_marker.dart'
     show WidgetToMarker;
 
@@ -24,7 +25,7 @@ class MarkerHelper {
 
   static String getArtistProfileLink(Artist artist) {
     final imageLink = artist.profileThumbnail == null
-        ? 'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg'
+        ? defaultProfileImageLink
         : artist.profileThumbnail!;
     return imageLink;
   }

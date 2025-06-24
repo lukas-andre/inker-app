@@ -1,5 +1,6 @@
 import 'package:inker_studio/data/local/sqlite/core/tables/customer_table.dart';
 import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
+import 'package:inker_studio/data/local/sqlite/core/tables/token_balance_table.dart';
 import 'package:inker_studio/domain/services/database/platform_database_service.dart';
 import 'package:inker_studio/utils/timestamp_column_helper.dart';
 import 'package:sqflite/sqflite.dart';
@@ -7,7 +8,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class WebDatabaseService implements PlatformDatabaseService {
   static const String _databaseName = 'inker_studio.db';
-  static const int _databaseVersion = 25;
+  static const int _databaseVersion = 26;
   
   Database? _database;
   
@@ -39,12 +40,16 @@ class WebDatabaseService implements PlatformDatabaseService {
     
     // Create customer table
     await db.execute(customerTable.getCreateTableQuery());
+    
+    // Create token balance table
+    await db.execute(tokenBalanceTable.getCreateTableQuery());
   }
   
   Future<void> _onUpdate(Database db, int oldVersion, int newVersion) async {
     // Drop existing tables
     await db.execute('DROP TABLE IF EXISTS ${sessionTable.getName()}');
     await db.execute('DROP TABLE IF EXISTS ${customerTable.getName()}');
+    await db.execute('DROP TABLE IF EXISTS ${tokenBalanceTable.getName()}');
     
     // Recreate tables
     await _onCreate(db, newVersion);
@@ -139,6 +144,7 @@ class WebDatabaseService implements PlatformDatabaseService {
     final db = await database;
     await db.execute('DROP TABLE IF EXISTS ${sessionTable.getName()}');
     await db.execute('DROP TABLE IF EXISTS ${customerTable.getName()}');
+    await db.execute('DROP TABLE IF EXISTS ${tokenBalanceTable.getName()}');
     await _onCreate(db, _databaseVersion);
   }
   

@@ -7,6 +7,7 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
+import 'package:inker_studio/utils/constants.dart' show defaultProfileImageLink;
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/formatters/distance_formatter.dart';
 
@@ -236,7 +237,7 @@ class _ArtistInfo extends StatelessWidget {
                 radius: 18,
                 backgroundImage: NetworkImage(
                   artist.profileThumbnail ??
-                      'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg',
+                      defaultProfileImageLink,
                 ),
               ),
             ),
