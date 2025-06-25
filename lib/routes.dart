@@ -42,6 +42,7 @@ import 'package:inker_studio/ui/settings/terms_and_conditions_page.dart';
 import 'package:inker_studio/ui/shared/edit_field_page.dart';
 import 'package:inker_studio/ui/splash/splash_page.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
+import 'package:inker_studio/ui/tokens/token_purchase_page.dart';
 import 'package:inker_studio/ui/views/error_view.dart';
 import 'package:inker_studio/ui/immersive_viewer/immersive_viewer_page.dart';
 import 'package:inker_studio/ui/quotation/edit_open_quotation_page.dart';
@@ -373,6 +374,12 @@ class AppRoutes {
           value: context.read<TattooGeneratorBloc>(),
           child: const TattooGeneratorPage(),
         ),
+      );
+    }
+
+    if (settings.name == TokenPurchasePage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => const TokenPurchasePage(),
       );
     }
 

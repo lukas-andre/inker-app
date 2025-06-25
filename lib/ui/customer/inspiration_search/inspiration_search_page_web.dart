@@ -381,6 +381,7 @@ class _InspirationSearchPageWebState extends State<InspirationSearchPageWeb>
                   create: (context) => TattooGeneratorBloc(
                     tattooGeneratorService: context.read(),
                     sessionService: context.read(),
+                    tokenCubit: context.read(),
                   ),
                   child: const TattooGeneratorPage(),
                 ),

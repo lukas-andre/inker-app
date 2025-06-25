@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/loading_indicator.dart';
+import 'package:inker_studio/ui/shared/widgets/token_balance_indicator.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_immersive_viewer_page.dart';
+import 'package:inker_studio/ui/tattoo_generator/widgets/token_onboarding_dialog.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
@@ -43,6 +46,9 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
     if (_tabController.indexIsChanging) {
       return;
     }
+
+    // Update UI to show/hide UI elements based on tab
+    setState(() {});
 
     switch (_tabController.index) {
       case 0: // Generate tab
@@ -189,6 +195,15 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
         ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 24.0),
+            child: TokenBalanceIndicator(
+              fontSize: 14,
+              showRefreshButton: true,
+            ),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: Container(
@@ -405,6 +420,34 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),
+                            ),
+                            const Spacer(),
+                            // Buy tokens button
+                            TextButton.icon(
+                              icon: Icon(
+                                Icons.token,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              label: Text(
+                                'Get Tokens',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  side: BorderSide(
+                                    color: Theme.of(context).colorScheme.secondary,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/token-purchase');
+                              },
                             ),
                           ],
                         ),
@@ -726,10 +769,41 @@ class _TattooGeneratorPageWebState extends State<TattooGeneratorPageWeb>
           ),
           elevation: 0,
         ),
-        onPressed: () {
+        onPressed: () async {
           if (_promptController.text.trim().isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(s.pleaseEnterDescription)),
+            );
+            return;
+          }
+
+          // Check token balance before generation
+          final tokenCubit = context.read<TokenCubit>();
+          final hasBalance = await tokenCubit.checkBalanceForGeneration(photosToGenerate: 2);
+          
+          if (!hasBalance) {
+            if (!mounted) return;
+            // Show insufficient tokens dialog
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Insufficient Tokens'),
+                content: const Text('You need 4 tokens to generate tattoo designs. Please purchase more tokens to continue.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(s.cancel),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      // Navigate to token purchase page
+                      Navigator.of(context).pushNamed('/token-purchase');
+                    },
+                    child: const Text('Buy Tokens'),
+                  ),
+                ],
+              ),
             );
             return;
           }
