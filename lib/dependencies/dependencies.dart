@@ -56,6 +56,10 @@ import 'package:inker_studio/features/auth_shared/usecases/logout_usecase.dart';
 import 'package:inker_studio/domain/usescases/customer/create_customer_usecase.dart';
 import 'package:inker_studio/domain/usescases/user/create_user_usecase.dart';
 import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/data/api/tokens/api_token_service.dart';
+import 'package:inker_studio/domain/services/tokens/token_service.dart';
+import 'package:inker_studio/domain/services/tokens/token_storage_service.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 
 Future<List<RepositoryProvider>> buildProviders() async {
   // Initialize services that need to be created asynchronously
@@ -161,6 +165,27 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Add the consent service
     RepositoryProvider<ConsentService>(
       create: (context) => ApiConsentService(context.read<HttpClientService>()),
+    ),
+    // Add token services
+    RepositoryProvider<ApiTokenService>(
+      create: (context) => ApiTokenServiceImpl(context.read<HttpClientService>()),
+    ),
+    RepositoryProvider<TokenStorageService>(
+      create: (context) => TokenStorageServiceImpl(context.read<PlatformDatabaseService>()),
+    ),
+    RepositoryProvider<TokenService>(
+      create: (context) => TokenServiceImpl(
+        apiTokenService: context.read<ApiTokenService>(),
+        sessionService: context.read<LocalSessionService>(),
+      ),
+    ),
+    // Add TokenCubit
+    RepositoryProvider<TokenCubit>(
+      create: (context) => TokenCubit(
+        tokenService: context.read<TokenService>(),
+        tokenStorageService: context.read<TokenStorageService>(),
+        sessionService: context.read<LocalSessionService>(),
+      ),
     ),
   ];
 }

@@ -59,6 +59,7 @@ import 'package:inker_studio/ui/theme/overlay_style.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
 import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/ui/theme/app_theme.dart';
 
 class AppView extends StatefulWidget {
@@ -99,6 +100,10 @@ class _AppViewState extends State<AppView> {
             analyticsService: context.read(),
             sessionService: context.read(),
           ),
+        ),
+        // Token management bloc
+        BlocProvider(
+          create: (context) => context.read<TokenCubit>(),
         ),
         // StencilBloc para gestionar stencils en toda la app
         BlocProvider(
@@ -265,6 +270,7 @@ class _AppViewState extends State<AppView> {
           create: (context) => TattooGeneratorBloc(
             tattooGeneratorService: context.read(),
             sessionService: context.read(),
+            tokenCubit: context.read<TokenCubit>(),
           ),
         ),
 

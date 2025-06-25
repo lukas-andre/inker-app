@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/constants/token_constants.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
@@ -13,6 +15,7 @@ part 'tattoo_generator_bloc.freezed.dart';
 class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorState> {
   final TattooGeneratorService _tattooGeneratorService;
   final LocalSessionService _sessionService;
+  final TokenCubit _tokenCubit;
   
   // Cache for previously loaded designs
   List<UserTattooDesignDto> _cachedDesigns = [];
@@ -23,8 +26,10 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
   TattooGeneratorBloc({
     required TattooGeneratorService tattooGeneratorService,
     required LocalSessionService sessionService,
+    required TokenCubit tokenCubit,
   })  : _tattooGeneratorService = tattooGeneratorService,
         _sessionService = sessionService,
+        _tokenCubit = tokenCubit,
         super(const TattooGeneratorState.initial()) {
     on<TattooGeneratorEvent>((event, emit) async {
       await event.when(
@@ -112,6 +117,10 @@ class TattooGeneratorBloc extends Bloc<TattooGeneratorEvent, TattooGeneratorStat
         style: style,
         designId: designId,
       ));
+      
+      // Consume tokens for successful generation
+      final tokensToConsume = images.length * tattooGenerationCost;
+      await _tokenCubit.consumeTokens(tokensToConsume);
       
       // After successful generation, invalidate history cache
       // so the next time user views history they'll see the new design

@@ -4,13 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/tattoo_styles.dart';
 import 'package:inker_studio/data/api/tattoo_generator/dtos/user_tattoo_design_dto.dart';
 import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
+import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/shared/widgets/buttons.dart';
 import 'package:inker_studio/ui/shared/widgets/loading_indicator.dart';
+import 'package:inker_studio/ui/shared/widgets/token_balance_indicator.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page_web.dart';
 import 'package:inker_studio/ui/tattoo_generator/tattoo_immersive_viewer_page.dart';
+import 'package:inker_studio/ui/tattoo_generator/widgets/token_onboarding_dialog.dart';
 import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
@@ -53,6 +57,9 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
 
   // Current indices for UI state
   int _currentResultImageIndex = 0;
+  
+  // Track if onboarding has been shown this session
+  static bool _hasShownOnboarding = false;
 
   @override
   void initState() {
@@ -63,12 +70,40 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
     context
         .read<TattooGeneratorBloc>()
         .add(const TattooGeneratorEvent.started());
+    
+    // Check if user has seen the onboarding
+    _checkAndShowOnboarding();
+  }
+
+  Future<void> _checkAndShowOnboarding() async {
+    // Show onboarding on first visit to tattoo generator
+    // TODO: In production, use SharedPreferences to persist this
+    // For demo purposes, we'll show it once per session
+    final hasShownThisSession = _hasShownOnboarding;
+    _hasShownOnboarding = true;
+    final shouldShowOnboarding = !hasShownThisSession;
+    
+    if (shouldShowOnboarding && mounted) {
+      // Show onboarding after a short delay
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (mounted) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const TokenOnboardingDialog(),
+          );
+        }
+      });
+    }
   }
 
   void _handleTabChange() {
     if (_tabController.indexIsChanging) {
       return;
     }
+
+    // Update UI to show/hide FAB
+    setState(() {});
 
     // Only load data if the tab is being viewed for the first time
     // The bloc will handle caching
@@ -211,6 +246,15 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: TokenBalanceIndicator(
+              fontSize: 12,
+              showRefreshButton: true,
+            ),
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Theme.of(context).colorScheme.error,
@@ -262,6 +306,20 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
           );
         },
       ),
+      floatingActionButton: _tabController.index == 0 ? Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.of(context).pushNamed('/token-purchase');
+          },
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          icon: const Icon(Icons.token, color: Colors.white),
+          label: const Text(
+            'Get Tokens',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ) : null,
     );
   }
 
@@ -871,10 +929,41 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
       width: double.infinity,
       child: PrimaryButton(
         text: s.generateTattoo,
-        onPressed: () {
+        onPressed: () async {
           if (_promptController.text.trim().isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(s.pleaseEnterDescription)),
+            );
+            return;
+          }
+
+          // Check token balance before generation
+          final tokenCubit = context.read<TokenCubit>();
+          final hasBalance = await tokenCubit.checkBalanceForGeneration(photosToGenerate: 4);
+          
+          if (!hasBalance) {
+            if (!mounted) return;
+            // Show insufficient tokens dialog
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Insufficient Tokens'),
+                content: const Text('You need 4 tokens to generate tattoo designs. Please purchase more tokens to continue.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(s.cancel),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      // Navigate to token purchase page
+                      Navigator.of(context).pushNamed('/token-purchase');
+                    },
+                    child: const Text('Buy Tokens'),
+                  ),
+                ],
+              ),
             );
             return;
           }
