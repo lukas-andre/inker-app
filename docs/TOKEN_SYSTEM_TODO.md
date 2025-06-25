@@ -44,7 +44,7 @@
 - [x] Create token storage service implementation ✅
 
 ### 🧠 Phase 4: State Management
-- [ ] Create `/lib/domain/blocs/tokens/token_state.dart`
+- [x] Create `/lib/domain/blocs/tokens/token_state.dart` ✅
   ```dart
   @freezed
   class TokenState with _$TokenState {
@@ -57,19 +57,19 @@
     const factory TokenState.error(String message) = _Error;
   }
   ```
-- [ ] Create `/lib/domain/blocs/tokens/token_cubit.dart`
-- [ ] Add TokenCubit to `/lib/dependencies/dependencies.dart`
+- [x] Create `/lib/domain/blocs/tokens/token_cubit.dart` ✅
+- [x] Add TokenCubit to `/lib/dependencies/dependencies.dart` ✅
 - [ ] Provide TokenCubit in CustomerAppPage
 
 ### 🎨 Phase 5: UI Components
-- [ ] Create `/lib/ui/shared/widgets/token_balance_indicator.dart`
+- [x] Create `/lib/ui/shared/widgets/token_balance_indicator.dart` ✅
   - Show balance with icon
   - Loading state
   - Tap to refresh
-- [ ] Add balance indicator to tattoo generator pages:
-  - Update `/lib/ui/tattoo_generator/tattoo_generator_page.dart`
-  - Update `/lib/ui/tattoo_generator/tattoo_generator_page_web.dart`
-- [ ] Add balance check before generation:
+- [x] Add balance indicator to tattoo generator pages: ✅
+  - Update `/lib/ui/tattoo_generator/tattoo_generator_page.dart` ✅
+  - Update `/lib/ui/tattoo_generator/tattoo_generator_page_web.dart` ✅
+- [x] Add balance check before generation: ✅
   ```dart
   // Check balance (1 token per photo)
   final photosToGenerate = 4; // or dynamic based on request
@@ -80,8 +80,8 @@
   ```
 
 ### 💳 Phase 6: Token Purchase Page
-- [ ] Create `/lib/ui/tokens/token_purchase_page.dart`
-- [ ] Add "Coming Soon" placeholder:
+- [x] Create `/lib/ui/tokens/token_purchase_page.dart` ✅
+- [x] Add "Coming Soon" placeholder: ✅
   ```dart
   Center(
     child: Column(
@@ -95,19 +95,26 @@
     ),
   )
   ```
-- [ ] Add route in `app_routes.dart`
-- [ ] Add navigation from tattoo generator
+- [x] Add route in `app_routes.dart` ✅
+- [x] Add navigation from tattoo generator ✅
 
 ### 🔄 Phase 7: Integration
-- [ ] Load balance in CustomerAppPage `initState()`
-- [ ] Refresh balance on app resume
-- [ ] Consume tokens after successful generation:
+- [x] Load balance in CustomerAppPage `initState()` ✅
+- [x] Refresh balance on app resume ✅ (via token balance indicator click)
+- [x] Consume tokens after successful generation: ✅
   ```dart
   // In TattooGeneratorBloc after successful generation
   context.read<TokenCubit>().consumeTokens(GENERATION_COST);
   ```
-- [ ] Show balance in generator header
-- [ ] Block generation if insufficient balance
+- [x] Show balance in generator header ✅
+- [x] Block generation if insufficient balance ✅
+
+### 🎉 Bonus Features Implemented
+- [x] Onboarding dialog explaining token system ✅
+- [x] Clickable balance indicator that navigates to token purchase ✅
+- [x] Floating Action Button for easy token purchase access ✅
+- [x] Prominent "Get Tokens" button in web version ✅
+- [x] Tooltip on balance indicator ✅
 
 ### 🧪 Phase 8: Testing
 - [ ] Unit tests for TokenCubit

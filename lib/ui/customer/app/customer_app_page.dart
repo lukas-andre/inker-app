@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiratio
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/open_quotations_tab_view.dart';
 import 'package:inker_studio/ui/customer/app/my_profile/customer_my_profile_page.dart';
@@ -67,6 +68,9 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
       context.read<NotificationsBloc>().add(
             const NotificationsEvent.refreshNotifications(),
           );
+      
+      // Load token balance on app startup
+      context.read<TokenCubit>().loadBalance();
     });
   }
 
