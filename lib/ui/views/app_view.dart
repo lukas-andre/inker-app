@@ -218,6 +218,7 @@ class _AppViewState extends State<AppView> {
         BlocProvider(
           create: (context) => ArtistMyProfileBloc(
             context.read(),
+            context.read()
           ),
         ),
 
