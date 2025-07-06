@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_status.dart';
 
 part 'artist_my_profile_event.dart';
 part 'artist_my_profile_state.dart';
@@ -11,8 +13,9 @@ part 'artist_my_profile_bloc.freezed.dart';
 
 class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
   final ArtistService _artistService;
+  final AuthBloc _authBloc;
 
-  ArtistMyProfileBloc(this._artistService)
+  ArtistMyProfileBloc(this._artistService, this._authBloc)
       : super(const ArtistProfileState.initial()) {
     on<ArtistProfileEvent>((event, emit) async {
       await event.when(
@@ -42,8 +45,14 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
     try {
       final artist = await _artistService.getArtistProfile();
       emit(ArtistProfileState.loaded(artist));
+      
     } catch (e) {
       emit(ArtistProfileState.error(e.toString()));
+      
+      // Si falla la carga del perfil, hacer logout
+      if (_authBloc.state.status == AuthStatus.authenticated) {
+        _authBloc.add(AuthLogoutRequested(_authBloc.state.session));
+      }
     }
   }
 
