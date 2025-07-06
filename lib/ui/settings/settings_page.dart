@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/features/auth_shared/auth_shared_feature.dart' show AuthLogoutRequested;
+import 'package:inker_studio/features/auth_shared/auth_shared_feature.dart' show AuthLogoutRequested, AuthState, AuthStatus;
 import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/delete_account/delete_account_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
@@ -265,33 +265,62 @@ class _AccountSettings extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title:
-            Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
-        content: Text(S.of(context).areYouSureLogout,
-            style: TextStyleTheme.bodyText1),
-        actions: [
-          TextButton(
-            key: const Key('cancelLogoutButton'),
-            child: Text(S.of(context).cancel),
-            onPressed: () => Navigator.pop(context),
-          ),
-          ElevatedButton(
-            key: const Key('confirmLogoutButton'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              foregroundColor: Colors.white,
+      builder: (context) => BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          // Si el estado cambia a unauthenticated, cerrar el diálogo y navegar
+          if (state.status == AuthStatus.unauthenticated) {
+            Navigator.pop(context); // Cerrar el diálogo
+            Navigator.of(context).pop(); // Salir de la página de settings
+          }
+        },
+        child: AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          title:
+              Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
+          content: Text(S.of(context).areYouSureLogout,
+              style: TextStyleTheme.bodyText1),
+          actions: [
+            TextButton(
+              key: const Key('cancelLogoutButton'),
+              child: Text(S.of(context).cancel),
+              onPressed: () => Navigator.pop(context),
             ),
-            child: Text(S.of(context).logOut),
-            onPressed: () {
-              Navigator.pop(context);
-              context.read<AuthBloc>().add(
-                  AuthLogoutRequested(context.read<AuthBloc>().state.session));
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, authState) {
+                return ElevatedButton(
+                  key: const Key('confirmLogoutButton'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: authState.status == AuthStatus.unknown 
+                      ? null 
+                      : () {
+                          Navigator.pop(context);
+                          try {
+                            context.read<AuthBloc>().add(
+                                AuthLogoutRequested(authState.session));
+                          } catch (e) {
+                            // Si hay un error en el logout, forzar el logout automáticamente
+                            print('Error during logout: $e');
+                            // El AuthBloc manejará el error y cambiará el estado a unauthenticated
+                          }
+                        },
+                  child: authState.status == AuthStatus.unknown
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(S.of(context).logOut),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
