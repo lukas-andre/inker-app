@@ -11,6 +11,8 @@ import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
 import 'package:inker_studio/domain/services/work/work_service.dart';
+import 'package:inker_studio/features/auth_shared/auth_shared_feature.dart' show AuthLogoutRequested;
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
@@ -98,8 +100,25 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
             loading: () => const Center(child: InkerProgressIndicator()),
             loaded: (artist) => _buildProfileContent(context, artist),
             error: (message) => Center(
-              child: Text('${S.of(context).error}: $message',
-                  style: TextStyleTheme.headline2),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${S.of(context).error}: $message',
+                      style: TextStyleTheme.headline2),
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    key: const Key('logoutButton'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    ),
+                    icon: const Icon(Icons.logout),
+                    label: Text(S.of(context).logOut),
+                    onPressed: () => _showLogoutDialog(context),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -1499,5 +1518,37 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
           break;
       }
     }
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(S.of(context).confirmLogout, style: TextStyleTheme.headline3),
+        content: Text(S.of(context).areYouSureLogout, style: TextStyleTheme.bodyText1),
+        actions: [
+          TextButton(
+            key: const Key('cancelLogoutButton'),
+            child: Text(S.of(context).cancel),
+            onPressed: () => Navigator.pop(context),
+          ),
+          ElevatedButton(
+            key: const Key('confirmLogoutButton'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Colors.white,
+            ),
+            child: Text(S.of(context).logOut),
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<AuthBloc>().add(
+                  AuthLogoutRequested(context.read<AuthBloc>().state.session));
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
