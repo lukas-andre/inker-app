@@ -44,6 +44,10 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
     emit(const ArtistProfileState.loading());
     try {
       final artist = await _artistService.getArtistProfile();
+      print('artist: $artist');
+      if (artist == null) {
+        throw Exception('Artist is null');
+      }
       emit(ArtistProfileState.loaded(artist));
       
     } catch (e) {
