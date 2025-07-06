@@ -169,6 +169,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => ArtistMyProfileBloc(
         context.read(),
+        context.read<AuthBloc>(),
       ),
     ),
     BlocProvider(
@@ -245,6 +246,7 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       create: (context) => TattooGeneratorBloc(
         tattooGeneratorService: context.read<TattooGeneratorService>(),
         sessionService: context.read<LocalSessionService>(),
+        tokenCubit: context.read(),
       ),
     ),
 
