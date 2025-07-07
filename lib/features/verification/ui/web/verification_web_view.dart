@@ -96,7 +96,7 @@ class VerificationWebView extends StatelessWidget {
                         
                         // Subtitle
                         Text(
-                          'Se ha enviado un código de verificación a tu celular',
+                          'Se ha enviado un código de verificación a tu correo electrónico',
                           style: TextStyle(
                             fontSize: Responsive.fontSize(context, 18),
                             fontWeight: FontWeight.w500,
@@ -108,7 +108,7 @@ class VerificationWebView extends StatelessWidget {
                         const SizedBox(height: 8),
                         
                         Text(
-                          'Verifica tu cuenta mediante tu número telefónico, revisa tu bandeja de mensajes.',
+                          'Verifica tu cuenta mediante tu correo electrónico, revisa tu bandeja de mensajes.',
                           style: TextStyle(
                             fontSize: Responsive.fontSize(context, 16),
                             color: Colors.grey[400],
