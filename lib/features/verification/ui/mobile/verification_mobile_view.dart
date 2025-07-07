@@ -36,7 +36,7 @@ class VerificationMobileView extends StatelessWidget {
             const Row(
               children: [
                 RegisterCustomTitle(
-                  text: 'Se ha enviado un código de verificación a tu celular',
+                  text: 'Se ha enviado un código de verificación a tu correo electrónico',
                 )
               ],
             ),
@@ -44,7 +44,7 @@ class VerificationMobileView extends StatelessWidget {
               children: [
                 RegisterCustomSubTitle(
                     text:
-                        'Verifica tu cuenta mediante tu numero telefónico, revisa tu bandeja de mensajes.'),
+                        'Verifica tu cuenta mediante tu correo electrónico, revisa tu bandeja de mensajes.'),
               ],
             ),
             Row(
