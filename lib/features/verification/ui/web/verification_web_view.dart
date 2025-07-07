@@ -156,7 +156,7 @@ class VerificationWebView extends StatelessWidget {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       bloc.add(
-                                        const VerificationSendSMSEvent(),
+                                        const VerificationSendEmailEvent(),
                                       );
                                     },
                                 ),

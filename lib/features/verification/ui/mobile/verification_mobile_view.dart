@@ -70,7 +70,7 @@ class VerificationMobileView extends StatelessWidget {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               bloc.add(
-                                const VerificationSendSMSEvent(),
+                                const VerificationSendEmailEvent(),
                               );
                             },
                         ),
