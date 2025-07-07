@@ -38,7 +38,7 @@ class RegisterCustomerSimplePage extends StatelessWidget {
                 content: 'Tu usuario ha sido creado! 🥳',
                 duration: const Duration(seconds: 4));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            verificationBloc.add(const VerificationSendSMSEvent());
+            verificationBloc.add(const VerificationSendEmailEvent());
             
             // For web, navigate to verification page using named route
             Navigator.of(context).pushNamed('/verification');

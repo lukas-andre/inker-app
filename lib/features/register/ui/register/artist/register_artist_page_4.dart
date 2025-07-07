@@ -85,7 +85,7 @@ class RegisterArtistPage4NextButton extends StatelessWidget {
                 content: 'Tu usuario ha sido creado! 🥳',
                 duration: const Duration(seconds: 4));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            verificationBloc.add(const VerificationSendSMSEvent());
+            verificationBloc.add(const VerificationSendEmailEvent());
             openModalBottomSheet(
                 context: context,
                 page: const VerificationPage(),
